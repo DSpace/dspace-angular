@@ -26,7 +26,8 @@
     "predebug": "npm run build",
     "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js",
     "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js  --config webpack.prod.config.ts",
-    "debug": "node --debug-brk dist/server/index.js"
+    "debug": "node --debug-brk dist/server/index.js",
+    "lint": "tslint \"src/**/*.ts\" || true"
   },
   "dependencies": {
     "@angular/common": "~2.1.2",
@@ -58,7 +59,7 @@
     "zone.js": "~0.6.26"
   },
   "devDependencies": {
-    "@types/morgan": "^1.7.32",
+    "@ngtools/webpack": "~1.1.7",
     "@types/body-parser": "0.0.29",
     "@types/compression": "0.0.29",
     "@types/cookie-parser": "^1.3.29",
@@ -67,13 +68,14 @@
     "@types/hammerjs": "^2.0.32",
     "@types/memory-cache": "0.0.29",
     "@types/mime": "0.0.28",
+    "@types/morgan": "^1.7.32",
     "@types/node": "^6.0.38",
     "@types/serve-static": "^1.7.27",
     "@types/webfontloader": "^1.6.27",
-    "@ngtools/webpack": "~1.1.7",
     "accepts": "^1.3.3",
     "angular2-template-loader": "^0.4.0",
     "awesome-typescript-loader": "^2.2.4",
+    "codelyzer": "^2.0.0-beta.1",
     "cookie-parser": "^1.4.3",
     "express-interceptor": "^1.2.0",
     "iltorb": "^1.0.13",
@@ -87,6 +89,7 @@
     "string-replace-loader": "^1.0.5",
     "ts-helpers": "^1.1.2",
     "ts-node": "^1.3.0",
+    "tslint": "^4.0.2",
     "typescript": "2.0.2",
     "v8-lazy-parse-webpack-plugin": "^0.3.0",
     "webpack": "2.1.0-beta.27",
