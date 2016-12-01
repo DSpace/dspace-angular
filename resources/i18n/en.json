@@ -1,0 +1,13 @@
+{
+  "title": "DSpace Universal",
+
+  "nav": {
+    "home": "Home"
+  },
+
+  "example": {
+    "with": {
+      "data": "{{greeting}}, {{recipient}}!"
+    }
+  }
+}
