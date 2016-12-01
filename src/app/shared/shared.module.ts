@@ -24,7 +24,7 @@ const COMPONENTS = [
 const PROVIDERS = [
   ModelService,
   ApiService
-]
+];
 
 @NgModule({
   imports: [

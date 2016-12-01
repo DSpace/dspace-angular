@@ -5,9 +5,6 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { CacheService  } from './cache.service';
-
-
 @Injectable()
 export class ApiService {
   constructor(public _http: Http) {
