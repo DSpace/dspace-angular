@@ -33,7 +33,7 @@ export function getResponse() {
 export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   imports: [
     // MaterialModule.forRoot() should be included first
     UniversalModule, // BrowserModule, HttpModule, and JsonpModule are included

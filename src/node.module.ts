@@ -25,7 +25,7 @@ export function getResponse() {
 export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   imports: [
     // MaterialModule.forRoot() should be included first
     UniversalModule, // BrowserModule, HttpModule, and JsonpModule are included
@@ -63,9 +63,9 @@ export class MainModule {
     universalCache[CacheService.KEY] = JSON.stringify(this.cache.dehydrate());
   }
 
- /**
-  * Clear the cache after it's rendered
-  */
+  /**
+   * Clear the cache after it's rendered
+   */
   universalAfterDehydrate = () => {
     // comment out if LRU provided at platform level to be shared between each user
     this.cache.clear();

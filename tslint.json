@@ -6,13 +6,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "dspace",
+      "ds",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "dspace",
+      "ds",
       "kebab-case"
     ],
     "use-input-property-decorator": true,
@@ -27,7 +27,7 @@
     "pipe-naming": [
       true,
       "camelCase",
-      "dspace"
+      "ds"
     ],
     "component-class-suffix": true,
     "directive-class-suffix": true,

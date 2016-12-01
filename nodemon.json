@@ -3,5 +3,5 @@
     "dist",
     "src/index.html"
   ],
-  "ext" : "js ts json html"
+  "ext": "js ts json html"
 }

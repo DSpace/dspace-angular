@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   selector: 'ds-home',
-  styleUrls: [ './home.component.css' ],
+  styleUrls: ['./home.component.css'],
   templateUrl: './home.component.html'
 })
 export class HomeComponent {

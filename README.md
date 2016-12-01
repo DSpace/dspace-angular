@@ -27,7 +27,3 @@ Currently this contains the [Angular 2 Universal Starter](https://github.com/ang
 
 ## AoT and Prod
 - `npm run build:prod:ngc` to compile the ngfactory files and build prod
-
-
-
-

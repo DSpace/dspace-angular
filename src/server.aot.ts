@@ -55,11 +55,11 @@ app.set('json spaces', 2);
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
 
-app.use(interceptor((req, res)=>({
+app.use(interceptor((req, res) => ({
   // don't compress responses with this request header
   isInterceptable: () => (!req.headers['x-no-compression']),
-  intercept: ( body, send ) => {
-    const encodings  = new Set(accepts(req).encodings());
+  intercept: (body, send) => {
+    const encodings = new Set(accepts(req).encodings());
     const bodyBuffer = new Buffer(body);
     // url specific key for response cache
     const key = '__response__' + req.originalUrl || req.url;
@@ -71,12 +71,12 @@ app.use(interceptor((req, res)=>({
         // brotli
         res.setHeader('Content-Encoding', 'br');
         output = compressSync(bodyBuffer);
-        mcache.put(key, {output, encoding: 'br'});
+        mcache.put(key, { output, encoding: 'br' });
       } else if (encodings.has('gzip')) {
         // gzip
         res.setHeader('Content-Encoding', 'gzip');
         output = gzipSync(bodyBuffer);
-        mcache.put(key, {output, encoding: 'gzip'});
+        mcache.put(key, { output, encoding: 'gzip' });
       }
     } else {
       const { output, encoding } = mcache.get(key);
@@ -87,7 +87,7 @@ app.use(interceptor((req, res)=>({
   }
 })));
 
-const accessLogStream = fs.createWriteStream(ROOT + '/morgan.log', {flags: 'a'})
+const accessLogStream = fs.createWriteStream(ROOT + '/morgan.log', { flags: 'a' })
 
 app.use(morgan('common', {
   skip: (req, res) => res.statusCode < 400,
@@ -100,8 +100,8 @@ function cacheControl(req, res, next) {
   next();
 }
 // Serve static files
-app.use('/assets', cacheControl, express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
-app.use(cacheControl, express.static(path.join(ROOT, 'dist/client'), {index: false}));
+app.use('/assets', cacheControl, express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
+app.use(cacheControl, express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
 //
 /////////////////////////
@@ -120,7 +120,7 @@ function ngApp(req, res) {
     preboot: false,
     baseUrl: '/',
     requestUrl: req.originalUrl,
-    originUrl: `http://localhost:${ app.get('port') }`
+    originUrl: `http://localhost:${app.get('port')}`
   });
 }
 
