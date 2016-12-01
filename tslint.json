@@ -6,13 +6,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "prometheus",
+      "dspace",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "prometheus",
+      "dspace",
       "kebab-case"
     ],
     "use-input-property-decorator": true,
@@ -27,7 +27,7 @@
     "pipe-naming": [
       true,
       "camelCase",
-      "prometheus"
+      "dspace"
     ],
     "component-class-suffix": true,
     "directive-class-suffix": true,
