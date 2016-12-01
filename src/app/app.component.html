@@ -1,7 +1,21 @@
-<h3>DSpace</h3>
-<nav>
-  <a routerLinkActive="router-link-active" routerLink="home">Home</a>
-</nav>
+<header>
+  <nav class="navbar navbar-dark bg-inverse">
+    <button class="navbar-toggler hidden-sm-up" type="button" (click)="toggle()" aria-controls="collapsingNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+    </button>
+    <div [ngClass]="{'clearfix': !isNavBarCollaped()}">
+      <a class="navbar-brand" routerLink="/home">
+        <!-- TODO: add logo here -->DSpace</a>
+    </div>
+    <div [ngbCollapse]="isNavBarCollaped()" class="collapse navbar-toggleable-xs" id="collapsingNav">
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
 <div class="container-fluid">
   <main>
     <router-outlet></router-outlet>

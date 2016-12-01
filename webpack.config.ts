@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var clone = require('js.clone');
 var webpackMerge = require('webpack-merge');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
 
 export var commonPlugins = [
   new webpack.ContextReplacementPlugin(
@@ -12,6 +13,12 @@ export var commonPlugins = [
       // your Angular Async Route paths relative to this root directory
     }
   ),
+
+  // Copy fonts
+  new CopyWebpackPlugin([{
+    from: path.join(__dirname, 'node_modules', 'font-awesome', 'fonts'),
+    to: path.join('assets', 'fonts')
+  }]),
 
   // Loader options
   new webpack.LoaderOptionsPlugin({
@@ -24,7 +31,7 @@ export var commonConfig = {
   devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.js', '.json'],
-    modules: [ root('node_modules') ]
+    modules: [root('node_modules')]
   },
   context: __dirname,
   output: {
@@ -34,10 +41,10 @@ export var commonConfig = {
   module: {
     rules: [
       // TypeScript
-      { test: /\.ts$/,   use: ['awesome-typescript-loader', 'angular2-template-loader'] },
+      { test: /\.ts$/, use: ['awesome-typescript-loader', 'angular2-template-loader'] },
       { test: /\.html$/, use: 'raw-loader' },
-      { test: /\.css$/,  use: 'raw-loader' },
-      { test: /\.scss$/,  use: ['raw-loader', 'sass-loader'] },
+      { test: /\.css$/, use: 'raw-loader' },
+      { test: /\.scss$/, use: ['raw-loader', 'sass-loader'] },
       { test: /\.json$/, use: 'json-loader' }
     ],
   },

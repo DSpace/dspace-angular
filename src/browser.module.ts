@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule, isBrowser, isNode, AUTO_PREBOOT } from 'angular2-universal/browser'; // for AoT we need to manually split universal packages
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppModule, AppComponent } from './app/app.module';
 import { SharedModule } from './app/shared/shared.module';
 import { CacheService } from './app/shared/cache.service';
@@ -33,9 +35,10 @@ export function getResponse() {
 export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   imports: [
-    // MaterialModule.forRoot() should be included first
+    NgbModule.forRoot(),
+
     UniversalModule, // BrowserModule, HttpModule, and JsonpModule are included
 
     FormsModule,

@@ -2,6 +2,9 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { ApiService } from './api.service';
 import { ModelService } from './model/model.service';
 
@@ -10,7 +13,8 @@ const MODULES = [
   CommonModule,
   RouterModule,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  NgbModule
 ];
 
 const PIPES = [
