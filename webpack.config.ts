@@ -14,7 +14,7 @@ export var commonPlugins = [
     }
   ),
 
-  // Copy fonts and i18n
+  // Copy fonts, images and i18n to dist/assets
   new CopyWebpackPlugin([
     {
       from: path.join(__dirname, 'node_modules', 'font-awesome', 'fonts'),

@@ -9,7 +9,7 @@
   "scripts": {
     "watch": "webpack --watch",
     "watch:dev": "npm run server & npm run watch & npm run sass:watch",
-    "clean:dist": "rimraf dist **/*.css",
+    "clean:dist": "rimraf dist src/**/*.css",
     "clean:ngc": "rimraf **/*.ngfactory.ts **/*.css.shim.ts",
     "sass": "node-sass src -o src --include-path node_modules --output-style compressed -q",
     "sass:watch": "node-sass -w src -o src --include-path node_modules --output-style compressed -q",
