@@ -8,7 +8,7 @@ import { TranslateService } from 'ng2-translate';
   encapsulation: ViewEncapsulation.Emulated,
   selector: 'ds-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnDestroy, OnInit {
 
