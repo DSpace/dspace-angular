@@ -1,9 +1,11 @@
-<h3>DSpace</h3>
+<h3>{{ 'title' | translate }}</h3>
 <nav>
-  <a routerLinkActive="router-link-active" routerLink="home">Home</a>
+  <a routerLinkActive="router-link-active" routerLink="home">{{ 'nav.home' | translate }}</a>
 </nav>
 <div class="container-fluid">
   <main>
+    <p>{{ 'example.with.data' | translate:data }}</p>
+    <p>{{ example }}</p>
     <router-outlet></router-outlet>
   </main>
 </div>
