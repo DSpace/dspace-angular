@@ -1,18 +1,24 @@
 // Colors
 
-$gray-dark:                 #373a3c !default;
-$gray:                      #55595c !default;
-$gray-light:                #818a91 !default;
-$gray-lighter:              #eceeef !default;
-$gray-lightest:             #f7f7f9 !default;
+$gray-base:                 #000 !default;
+$gray-darker:               lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:                 lighten($gray-base, 26.6%) !default; // #444
+$gray:                      lighten($gray-base, 46.6%) !default; // #777
+$gray-light:                lighten($gray-base, 73.3%) !default; // #bbb
+$gray-lighter:              lighten($gray-base, 93.5%) !default; // #eee
 
-$brand-primary:             #0275d8 !default;
-$brand-success:             #5cb85c !default;
-$brand-info:                #5bc0de !default;
-$brand-warning:             #f0ad4e !default;
-$brand-danger:              #d9534f !default;
-$brand-inverse:             $gray-dark !default;
+$brand-primary:             #2B4E72 !default;
+$brand-success:             #94BA65 !default;
+$brand-info:                #2790B0 !default;
+$brand-warning:             #EBBB54 !default;
+$brand-danger:              #CF4444 !default;
+
+$brand-inverse:             $brand-primary !default;
+
+$link-color:                $brand-info !default;
 
 // Fonts
 
 $fa-font-path: "../assets/fonts";
+
+$image-path: "../assets/images";

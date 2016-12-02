@@ -19,6 +19,10 @@ export var commonPlugins = [
     {
       from: path.join(__dirname, 'node_modules', 'font-awesome', 'fonts'),
       to: path.join('assets', 'fonts')
+    },
+    {
+      from: path.join(__dirname, 'resources', 'images'),
+      to: path.join('assets', 'images')
     }, {
       from: path.join(__dirname, 'resources', 'i18n'),
       to: path.join('assets', 'i18n')
