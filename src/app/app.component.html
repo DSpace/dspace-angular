@@ -5,19 +5,22 @@
     </button>
     <div [ngClass]="{'clearfix': !isNavBarCollaped()}">
       <a class="navbar-brand" routerLink="/home">
-        <!-- TODO: add logo here -->DSpace</a>
+        <!-- TODO: add logo here -->{{ 'title' | translate }}</a>
     </div>
     <div [ngbCollapse]="isNavBarCollaped()" class="collapse navbar-toggleable-xs" id="collapsingNav">
       <ul class="nav navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home<span class="sr-only">(current)</span></a>
+          <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fa fa-home fa-fw" aria-hidden="true"></i> {{ 'nav.home' | translate }}<span class="sr-only">(current)</span></a>
         </li>
       </ul>
     </div>
   </nav>
 </header>
+
 <div class="container-fluid">
   <main>
+    <p>{{ 'example.with.data' | translate:data }}</p>
+    <p>{{ example }}</p>
     <router-outlet></router-outlet>
   </main>
 </div>

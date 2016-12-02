@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 import { ApiService } from './api.service';
 import { ModelService } from './model/model.service';
@@ -12,6 +13,7 @@ const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
   RouterModule,
+  TranslateModule,
   FormsModule,
   ReactiveFormsModule,
   NgbModule

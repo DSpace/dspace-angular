@@ -14,11 +14,16 @@ export var commonPlugins = [
     }
   ),
 
-  // Copy fonts
-  new CopyWebpackPlugin([{
-    from: path.join(__dirname, 'node_modules', 'font-awesome', 'fonts'),
-    to: path.join('assets', 'fonts')
-  }]),
+  // Copy fonts and i18n
+  new CopyWebpackPlugin([
+    {
+      from: path.join(__dirname, 'node_modules', 'font-awesome', 'fonts'),
+      to: path.join('assets', 'fonts')
+    }, {
+      from: path.join(__dirname, 'resources', 'i18n'),
+      to: path.join('assets', 'i18n')
+    }
+  ]),
 
   // Loader options
   new webpack.LoaderOptionsPlugin({
