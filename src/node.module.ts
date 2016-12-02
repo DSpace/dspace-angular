@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
+import { Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UniversalModule, isBrowser, isNode } from 'angular2-universal/node'; // for AoT we need to manually split universal packages
+
+import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
 import { AppModule, AppComponent } from './app/app.module';
 import { SharedModule } from './app/shared/shared.module';
@@ -10,6 +13,10 @@ import { CacheService } from './app/shared/cache.service';
 // Will be merged into @angular/platform-browser in a later release
 // see https://github.com/angular/angular/pull/12322
 import { Meta } from './angular2-meta';
+
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
 
 export function getLRU() {
   return new Map();
@@ -27,7 +34,12 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
-    // MaterialModule.forRoot() should be included first
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    }),
+
     UniversalModule, // BrowserModule, HttpModule, and JsonpModule are included
 
     FormsModule,

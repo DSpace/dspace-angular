@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
+import { Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UniversalModule, isBrowser, isNode, AUTO_PREBOOT } from 'angular2-universal/browser'; // for AoT we need to manually split universal packages
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
+
+import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
 import { AppModule, AppComponent } from './app/app.module';
 import { SharedModule } from './app/shared/shared.module';
@@ -13,6 +16,10 @@ import { CacheService } from './app/shared/cache.service';
 import { Meta } from './angular2-meta';
 
 // import * as LRU from 'modern-lru';
+
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
 
 export function getLRU(lru?: any) {
   // use LRU for node
@@ -35,7 +42,12 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
-    // MaterialModule.forRoot() should be included first
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    }),
+
     UniversalModule, // BrowserModule, HttpModule, and JsonpModule are included
 
     FormsModule,
