@@ -4,16 +4,19 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   selector: 'ds-home',
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.css'],
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
+
   data: any = {};
+
   constructor() {
     this.universalInit();
   }
 
   universalInit() {
+
   }
 
 }

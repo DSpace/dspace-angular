@@ -27,7 +27,12 @@ export var commonPlugins = [
 
   // Loader options
   new webpack.LoaderOptionsPlugin({
-
+    options: {
+      tslint: {
+        emitErrors: false,
+        failOnHint: false
+      },
+    }
   }),
 
 ];
@@ -49,8 +54,13 @@ export var commonConfig = {
       { test: /\.ts$/, use: ['awesome-typescript-loader', 'angular2-template-loader'] },
       { test: /\.html$/, use: 'raw-loader' },
       { test: /\.css$/, use: 'raw-loader' },
-      { test: /\.scss$/, use: ['raw-loader', 'sass-loader'] },
-      { test: /\.json$/, use: 'json-loader' }
+      { test: /\.json$/, use: 'json-loader' },
+      {
+        enforce: 'pre',
+        test: /\.ts?$/,
+        use: 'tslint-loader',
+        exclude: /(node_modules)/,
+      }
     ],
   },
   plugins: [
