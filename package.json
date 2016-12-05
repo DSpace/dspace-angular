@@ -22,6 +22,8 @@
     "server": "nodemon dist/server/index.js",
     "debug:server": "node-nightly --inspect --debug-brk dist/server/index.js",
     "start": "npm run server",
+    "start:prod:node": "node dist/server/index.js",
+    "start:prod": "npm run build:prod:ngc:json && npm run start:prod:node",
     "debug:start": "npm run build && npm run debug:server",
     "predebug": "npm run build",
     "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js",

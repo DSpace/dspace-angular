@@ -10,6 +10,7 @@ npm-debug.log
 .idea
 *.ngfactory.ts
 *.css.shim.ts
+*.scss.shim.ts
 
 .DS_Store
 
