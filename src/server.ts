@@ -7,11 +7,11 @@ import 'ts-helpers';
 import './__workaround.node'; // temporary until 2.1.1 things are patched in Core
 
 import * as path from 'path';
+import * as morgan from 'morgan';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import * as cookieParser from 'cookie-parser';
-import * as morgan from 'morgan';
 import * as compression from 'compression';
+import * as cookieParser from 'cookie-parser';
 
 // Angular 2
 import { enableProdMode } from '@angular/core';
@@ -59,6 +59,7 @@ function cacheControl(req, res, next) {
 // Serve static files
 app.use('/assets', cacheControl, express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
 app.use('/styles', cacheControl, express.static(path.join(__dirname, 'styles'), { maxAge: 30 }));
+
 app.use(cacheControl, express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
 //
@@ -75,7 +76,8 @@ function ngApp(req, res) {
     req,
     res,
     // time: true, // use this to determine what part of your app is slow only in development
-    preboot: false,
+    async: true,
+    preboot: true,
     baseUrl: '/',
     requestUrl: req.originalUrl,
     originUrl: `http://localhost:${app.get('port')}`
