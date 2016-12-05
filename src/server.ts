@@ -57,8 +57,8 @@ function cacheControl(req, res, next) {
   next();
 }
 // Serve static files
-app.use('/assets', cacheControl, express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
-app.use(cacheControl, express.static(path.join(ROOT, 'dist/client'), {index: false}));
+app.use('/assets', cacheControl, express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
+app.use(cacheControl, express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
 //
 /////////////////////////
@@ -77,7 +77,7 @@ function ngApp(req, res) {
     preboot: false,
     baseUrl: '/',
     requestUrl: req.originalUrl,
-    originUrl: `http://localhost:${ app.get('port') }`
+    originUrl: `http://localhost:${app.get('port')}`
   });
 }
 

@@ -11,9 +11,9 @@ export class ApiService {
 
   }
 
- /**
-  * whatever domain/feature method name
-  */
+  /**
+   * whatever domain/feature method name
+   */
   get(url: string, options?: any) {
     return this._http.get(url, options)
       .map(res => res.json())
