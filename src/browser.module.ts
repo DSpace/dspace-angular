@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule, isBrowser, isNode, AUTO_PREBOOT } from 'angular2-universal/browser'; // for AoT we need to manually split universal packages
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
 import { AppModule, AppComponent } from './app/app.module';
@@ -47,6 +48,7 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
       useFactory: (createTranslateLoader),
       deps: [Http]
     }),
+    NgbModule.forRoot(),
 
     UniversalModule, // BrowserModule, HttpModule, and JsonpModule are included
 

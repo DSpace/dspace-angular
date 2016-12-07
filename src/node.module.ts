@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UniversalModule, isBrowser, isNode } from 'angular2-universal/node'; // for AoT we need to manually split universal packages
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
 import { AppModule, AppComponent } from './app/app.module';
@@ -39,6 +40,7 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
       useFactory: (createTranslateLoader),
       deps: [Http]
     }),
+    NgbModule.forRoot(),
 
     UniversalModule, // BrowserModule, HttpModule, and JsonpModule are included
 

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 import { ApiService } from './api.service';
@@ -14,7 +15,8 @@ const MODULES = [
   RouterModule,
   TranslateModule,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  NgbModule
 ];
 
 const PIPES = [

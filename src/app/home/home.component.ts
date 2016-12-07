@@ -8,12 +8,15 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
+
   data: any = {};
+
   constructor() {
     this.universalInit();
   }
 
   universalInit() {
+
   }
 
 }

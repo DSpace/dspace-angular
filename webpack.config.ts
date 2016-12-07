@@ -14,10 +14,20 @@ export var commonPlugins = [
     }
   ),
 
-  new CopyWebpackPlugin([{
-    from: path.join(__dirname, 'resources', 'i18n'),
-    to: path.join('assets', 'i18n')
-  }]),
+  // Copy fonts, images and i18n to dist/assets
+  new CopyWebpackPlugin([
+    {
+      from: path.join(__dirname, 'node_modules', 'font-awesome', 'fonts'),
+      to: path.join('assets', 'fonts')
+    },
+    {
+      from: path.join(__dirname, 'resources', 'images'),
+      to: path.join('assets', 'images')
+    }, {
+      from: path.join(__dirname, 'resources', 'i18n'),
+      to: path.join('assets', 'i18n')
+    }
+  ]),
 
   // Loader options
   new webpack.LoaderOptionsPlugin({
@@ -48,7 +58,6 @@ export var commonConfig = {
       { test: /\.ts$/, use: ['awesome-typescript-loader', 'angular2-template-loader'] },
       { test: /\.html$/, use: 'raw-loader' },
       { test: /\.css$/, use: 'raw-loader' },
-      { test: /\.scss$/, use: ['raw-loader', 'sass-loader'] },
       { test: /\.json$/, use: 'json-loader' },
       {
         enforce: 'pre',
