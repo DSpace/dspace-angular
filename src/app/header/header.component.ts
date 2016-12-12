@@ -1,5 +1,9 @@
 import { Component, OnInit, OnDestroy, HostListener } from "@angular/core";
 import { Router, NavigationEnd, Event } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { HeaderState } from "./header.reducer";
+import { HeaderActions } from "./header.actions";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'ds-header',
@@ -7,13 +11,14 @@ import { Router, NavigationEnd, Event } from "@angular/router";
   templateUrl: 'header.component.html'
 })
 export class HeaderComponent implements OnDestroy, OnInit {
-  private navCollapsed: boolean;
   private routerSubscription: any;
+  public isNavBarCollapsed: Observable<boolean>;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private actions: HeaderActions,
+    private store: Store<HeaderState>
   ) {
-    this.collapse();
   }
 
   ngOnInit(): void {
@@ -22,6 +27,8 @@ export class HeaderComponent implements OnDestroy, OnInit {
         this.collapse();
       }
     });
+    this.isNavBarCollapsed = this.store.select('headerReducer')
+      .map(({ navCollapsed }: HeaderState) => navCollapsed);
   }
 
   ngOnDestroy(): void {
@@ -36,19 +43,15 @@ export class HeaderComponent implements OnDestroy, OnInit {
   }
 
   private collapse(): void {
-    this.navCollapsed = true;
+    this.store.dispatch(this.actions.collapse());
   }
 
   private expand(): void {
-    this.navCollapsed = false;
+    this.store.dispatch(this.actions.expand());
   }
 
   public toggle(): void {
-    this.navCollapsed ? this.expand() : this.collapse();
-  }
-
-  public isNavBarCollaped(): boolean {
-    return this.navCollapsed;
+    this.store.dispatch(this.actions.toggle());
   }
 
 }
