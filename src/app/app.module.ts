@@ -5,10 +5,14 @@ import { SharedModule } from './shared/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent
+  ],
   imports: [
     SharedModule,
     HomeModule,
