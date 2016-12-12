@@ -16,7 +16,6 @@ export class HeaderComponent implements OnDestroy, OnInit {
 
   constructor(
     private router: Router,
-    private actions: HeaderActions,
     private store: Store<HeaderState>
   ) {
   }
@@ -37,21 +36,16 @@ export class HeaderComponent implements OnDestroy, OnInit {
     }
   }
 
-  @HostListener('window:resize', ['$event'])
-  private onResize(event): void {
-    this.collapse();
-  }
-
   private collapse(): void {
-    this.store.dispatch(this.actions.collapse());
+    this.store.dispatch(HeaderActions.collapse());
   }
 
   private expand(): void {
-    this.store.dispatch(this.actions.expand());
+    this.store.dispatch(HeaderActions.expand());
   }
 
   public toggle(): void {
-    this.store.dispatch(this.actions.toggle());
+    this.store.dispatch(HeaderActions.toggle());
   }
 
 }

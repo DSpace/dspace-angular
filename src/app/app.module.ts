@@ -10,9 +10,8 @@ import { HeaderComponent } from './header/header.component';
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
-import reducers from './app.reducers'
-import actions from './app.actions'
-
+import reducers from './app.reducers';
+import effects from './app.effects';
 
 @NgModule({
   declarations: [
@@ -31,6 +30,7 @@ import actions from './app.actions'
      * based application.
      */
     StoreModule.provideStore(reducers),
+
     /**
      * Store devtools instrument the store retaining past versions of state
      * and recalculating new states. This enables powerful time-travel
@@ -42,9 +42,10 @@ import actions from './app.actions'
      * See: https://github.com/zalmoxisus/redux-devtools-extension
      */
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
+
+    effects
   ],
   providers: [
-    actions
   ]
 })
 export class AppModule {
