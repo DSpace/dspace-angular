@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 
 import { StoreModule } from "@ngrx/store";
+import { RouterStoreModule } from "@ngrx/router-store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import reducers from './app.reducers';
@@ -30,6 +31,12 @@ import effects from './app.effects';
      * based application.
      */
     StoreModule.provideStore(reducers),
+
+    /**
+     * @ngrx/router-store keeps router state up-to-date in the store and uses
+     * the store as the single source of truth for the router's state.
+     */
+    RouterStoreModule.connectRouter(),
 
     /**
      * Store devtools instrument the store retaining past versions of state
