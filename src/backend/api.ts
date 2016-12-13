@@ -4,6 +4,8 @@ const { Router } = require('express');
 // Our API for demos only
 import { fakeDataBase } from './db';
 import { fakeDemoRedisCache } from './cache';
+import { COLLECTIONS } from "./collections";
+import { ITEMS } from "./items";
 
 // you would use cookies/token etc
 const USER_ID = 'f9d98cf1-1b96-464e-8755-bcc2a5c09077'; // hardcoded as an example
@@ -27,31 +29,18 @@ export function serverApi(req, res) {
 }
 
 
-// collection API
+let COLLECTION_COUNT = 2;
+let ITEM_COUNT = 2;
 
-let COUNT = 2;
-const COLLECTIONS = [
-  {
-    "id": "9e32a2e2-6b91-4236-a361-995ccdc14c60",
-    "name": "Test Collection 1",
-    "handle": "123456789/5179",
-    "type": "collection",
-    "copyrightText": "<p>© 2005-2016 JOHN DOE SOME RIGHTS RESERVED</p>",
-    "introductoryText": "<p class='lead'>An introductory text dolor sit amet, consectetur adipiscing elit. Duis laoreet lorem erat, eget auctor est ultrices quis. Nullam ac tincidunt quam. In nec nisl odio. In egestas aliquam tincidunt.</p>\r\n<p>Integer vitae diam id dolor pharetra dignissim in sed enim. Vivamus pulvinar tristique sem a iaculis. Aenean ultricies dui vel facilisis laoreet. Integer porta erat eu ultrices rhoncus. Sed condimentum malesuada ex sit amet ullamcorper. Morbi a ipsum dolor. Vivamus interdum eget lacus ut fermentum.</p>",
-    "shortDescription": "A collection for testing purposes",
-    "sidebarText": "<p>Some news sed condimentum malesuada ex sit amet ullamcorper. Morbi a ipsum dolor. Vivamus interdum eget lacus ut fermentum. Donec sed ultricies erat, nec sollicitudin mauris. Duis varius nulla quis quam vulputate, at hendrerit turpis rutrum. Integer nec facilisis sapien. Fusce fringilla malesuada lectus id pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</p>",
-  },
-  {
-    "id": "598ce822-c357-46f3-ab70-63724d02d6ad",
-    "name": "Test Collection 2",
-    "handle": "123456789/6547",
-    "type": "collection",
-    "copyrightText": "<p>© 2005-2016 JOHN DOE SOME RIGHTS RESERVED</p>",
-    "introductoryText": "<p class='lead'>Another introductory text dolor sit amet, consectetur adipiscing elit. Duis laoreet lorem erat, eget auctor est ultrices quis. Nullam ac tincidunt quam. In nec nisl odio. In egestas aliquam tincidunt.</p>\r\n<p>Integer vitae diam id dolor pharetra dignissim in sed enim. Vivamus pulvinar tristique sem a iaculis. Aenean ultricies dui vel facilisis laoreet. Integer porta erat eu ultrices rhoncus. Sed condimentum malesuada ex sit amet ullamcorper. Morbi a ipsum dolor. Vivamus interdum eget lacus ut fermentum.</p>",
-    "shortDescription": "Another collection for testing purposes",
-    "sidebarText": "<p>Some more news sed condimentum malesuada ex sit amet ullamcorper. Morbi a ipsum dolor. Vivamus interdum eget lacus ut fermentum. Donec sed ultricies erat, nec sollicitudin mauris. Duis varius nulla quis quam vulputate, at hendrerit turpis rutrum. Integer nec facilisis sapien. Fusce fringilla malesuada lectus id pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</p>",
+
+function toJSONAPIResponse(req, data) {
+  return {
+    "data": data,
+    "links": {
+      "self": req.protocol + '://' + req.get('host') + req.originalUrl
+    }
   }
-];
+}
 
 export function createMockApi() {
 
@@ -62,7 +51,7 @@ export function createMockApi() {
       console.log('GET');
       // 70ms latency
       setTimeout(function() {
-        res.json(COLLECTIONS);
+        res.json(toJSONAPIResponse(req, COLLECTIONS));
       }, 0);
 
     // })
@@ -74,7 +63,7 @@ export function createMockApi() {
     //       value: collection.value,
     //       created_at: new Date(),
     //       completed: collection.completed,
-    //       id: COUNT++
+    //       id: COLLECTION_COUNT++
     //     });
     //     return res.json(collection);
     //   }
@@ -99,8 +88,7 @@ export function createMockApi() {
   router.route('/collections/:collection_id')
     .get(function(req, res) {
       console.log('GET', util.inspect(req.collection, { colors: true }));
-
-      res.json(req.collection);
+      res.json(toJSONAPIResponse(req, req.collection));
     // })
     // .put(function(req, res) {
     //   console.log('PUT', util.inspect(req.body, { colors: true }));
@@ -117,6 +105,69 @@ export function createMockApi() {
     //   COLLECTIONS.splice(index, 1);
     //
     //   res.json(req.collection);
+    });
+
+
+  router.route('/items')
+    .get(function(req, res) {
+      console.log('GET');
+      // 70ms latency
+      setTimeout(function() {
+        res.json(toJSONAPIResponse(req, ITEMS));
+      }, 0);
+
+    // })
+    // .post(function(req, res) {
+    //   console.log('POST', util.inspect(req.body, { colors: true }));
+    //   let item = req.body;
+    //   if (item) {
+    //     ITEMS.push({
+    //       value: item.value,
+    //       created_at: new Date(),
+    //       completed: item.completed,
+    //       id: ITEM_COUNT++
+    //     });
+    //     return res.json(item);
+    //   }
+    //
+    //   return res.end();
+    });
+
+  router.param('item_id', function(req, res, next, item_id) {
+    // ensure correct prop type
+    let id = req.params.item_id;
+    try {
+      req.item_id = id;
+      req.item = ITEMS.find((item) => {
+        return item.id = id;
+      });
+      next();
+    } catch (e) {
+      next(new Error('failed to load item'));
+    }
+  });
+
+  router.route('/items/:item_id')
+    .get(function(req, res) {
+      console.log('GET', util.inspect(req.item, { colors: true }));
+
+      res.json(toJSONAPIResponse(req, req.item));
+    // })
+    // .put(function(req, res) {
+    //   console.log('PUT', util.inspect(req.body, { colors: true }));
+    //
+    //   let index = ITEMS.indexOf(req.item);
+    //   let item = ITEMS[index] = req.body;
+    //
+    //   res.json(item);
+    // })
+    // .delete(function(req, res) {
+    //   console.log('DELETE', req.item_id);
+    //
+    //   let index = ITEMS.indexOf(req.item);
+    //   ITEMS.splice(index, 1);
+    //
+    //   res.json(req.item);
     });
 
   return router;
