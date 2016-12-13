@@ -1,7 +1,7 @@
 import { headerReducer } from './header/header.reducer';
 import { hostWindowReducer } from "./shared/host-window.reducer";
 
-export default {
+export const reducers = {
   headerReducer,
   hostWindowReducer
 }

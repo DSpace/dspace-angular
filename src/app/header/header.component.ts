@@ -3,6 +3,7 @@ import { Store } from "@ngrx/store";
 import { HeaderState } from "./header.reducer";
 import { HeaderActions } from "./header.actions";
 import { Observable } from "rxjs";
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'ds-header',
@@ -19,6 +20,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isNavBarCollapsed = this.store.select('headerReducer')
+      //ensure that state is not null, can happen when using AoT compilation
+      .filter((state: HeaderState) => state !== null && state !== undefined)
+      //unwrap navCollapsed
       .map(({ navCollapsed }: HeaderState) => navCollapsed);
   }
 

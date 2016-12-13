@@ -1,6 +1,6 @@
 import { EffectsModule } from "@ngrx/effects";
 import { HeaderEffects } from "./header/header.effects";
 
-export default [
+export const effects = [
   EffectsModule.run(HeaderEffects)
 ];
