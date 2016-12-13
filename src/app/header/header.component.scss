@@ -1,0 +1,13 @@
+@import '../../styles/variables.scss';
+
+header nav.navbar {
+  border-radius: 0rem;
+}
+
+header nav.navbar .navbar-toggler {
+  float: right;
+}
+
+header nav.navbar .navbar-toggler:hover {
+  cursor: pointer;
+}
