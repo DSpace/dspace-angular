@@ -5,7 +5,6 @@ import {
   OnDestroy,
   OnInit, HostListener
 } from "@angular/core";
-import { Router } from "@angular/router";
 import { TranslateService } from "ng2-translate";
 import { HostWindowState } from "./shared/host-window.reducer";
 import { Store } from "@ngrx/store";
@@ -30,7 +29,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
   constructor(
     private translate: TranslateService,
-    private router: Router,
     private store: Store<HostWindowState>
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
