@@ -11,7 +11,7 @@ import { StoreModule } from "@ngrx/store";
 import { RouterStoreModule } from "@ngrx/router-store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
-import { reducers } from './app.reducers';
+import { rootReducer } from './app.reducers';
 import { effects } from './app.effects';
 
 @NgModule({
@@ -30,7 +30,7 @@ import { effects } from './app.effects';
      * meta-reducer. This returns all providers for an @ngrx/store
      * based application.
      */
-    StoreModule.provideStore(reducers),
+    StoreModule.provideStore(rootReducer),
 
     /**
      * @ngrx/router-store keeps router state up-to-date in the store and uses

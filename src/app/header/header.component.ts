@@ -19,9 +19,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isNavBarCollapsed = this.store.select('headerReducer')
-      //ensure that state is not null, can happen when using AoT compilation
-      .filter((state: HeaderState) => state !== null && state !== undefined)
+    this.isNavBarCollapsed = this.store.select('header')
       //unwrap navCollapsed
       .map(({ navCollapsed }: HeaderState) => navCollapsed);
   }
