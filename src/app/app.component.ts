@@ -37,13 +37,6 @@ export class AppComponent implements OnDestroy, OnInit {
     translate.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use('en');
-
-    this.onResize({
-      target: {
-        innerWidth: 800,
-        innerHeight: 600
-      }
-    });
   }
 
   ngOnInit() {
