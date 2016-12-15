@@ -13,7 +13,8 @@ Currently this contains the [Angular 2 Universal Starter](https://github.com/ang
  - [Node.js](https://nodejs.org/)
 
 ## Installation
-- `npm install`
+- `npm run global` to install global dependencies
+- `npm install` to install local dependencies
 
 ## Serve
 - `npm start` to build your client app and start a web server
