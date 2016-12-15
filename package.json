@@ -45,7 +45,10 @@
     "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js",
     "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js  --config webpack.prod.config.ts",
     "lint": "tslint \"src/**/*.ts\" || true",
-    "global": "npm install -g angular-cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer marked node-gyp"
+    "global": "npm install -g angular-cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer marked node-gyp protractor",
+    "postglobal": "npm run webdriver:update -- --standalone",
+    "webdriver:start": "webdriver-manager start",
+    "webdriver:update": "webdriver-manager update"
   },
   "dependencies": {
     "@angular/common": "2.2.4",
