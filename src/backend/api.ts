@@ -6,6 +6,7 @@ import { fakeDataBase } from './db';
 import { fakeDemoRedisCache } from './cache';
 import { COLLECTIONS } from "./collections";
 import { ITEMS } from "./items";
+import { METADATA } from "./metadata";
 
 // you would use cookies/token etc
 const USER_ID = 'f9d98cf1-1b96-464e-8755-bcc2a5c09077'; // hardcoded as an example
@@ -33,13 +34,19 @@ let COLLECTION_COUNT = 2;
 let ITEM_COUNT = 2;
 
 
-function toJSONAPIResponse(req, data) {
-  return {
+function toJSONAPIResponse(req, data, included?) {
+  let result = {
     "data": data,
     "links": {
       "self": req.protocol + '://' + req.get('host') + req.originalUrl
     }
+  };
+  if (included && Array.isArray(included) && included.length > 0) {
+    Object.assign(result, {
+      "included": included
+    });
   }
+  return result;
 }
 
 export function createMockApi() {
@@ -113,7 +120,7 @@ export function createMockApi() {
       console.log('GET');
       // 70ms latency
       setTimeout(function() {
-        res.json(toJSONAPIResponse(req, ITEMS));
+        res.json(toJSONAPIResponse(req, ITEMS, METADATA));
       }, 0);
 
     // })
@@ -150,8 +157,11 @@ export function createMockApi() {
   router.route('/items/:item_id')
     .get(function(req, res) {
       console.log('GET', util.inspect(req.item, { colors: true }));
-
-      res.json(toJSONAPIResponse(req, req.item));
+      const metadataIds: string[] = req.item.relationships.metadata.map(obj => obj.id);
+      const itemMetadata: any[] = METADATA.filter((metadatum) => {
+        return metadataIds.indexOf(metadatum.id) >= 0
+      });
+      res.json(toJSONAPIResponse(req, req.item, itemMetadata));
     // })
     // .put(function(req, res) {
     //   console.log('PUT', util.inspect(req.body, { colors: true }));
