@@ -120,7 +120,7 @@ export function createMockApi() {
       console.log('GET');
       // 70ms latency
       setTimeout(function() {
-        res.json(toJSONAPIResponse(req, ITEMS, METADATA));
+        res.json(toJSONAPIResponse(req, ITEMS));
       }, 0);
 
     // })
@@ -146,7 +146,7 @@ export function createMockApi() {
     try {
       req.item_id = id;
       req.item = ITEMS.find((item) => {
-        return item.id = id;
+        return item.id === id;
       });
       next();
     } catch (e) {
@@ -157,7 +157,7 @@ export function createMockApi() {
   router.route('/items/:item_id')
     .get(function(req, res) {
       console.log('GET', util.inspect(req.item, { colors: true }));
-      const metadataIds: string[] = req.item.relationships.metadata.map(obj => obj.id);
+      const metadataIds: string[] = req.item.relationships.metadata.data.map(obj => obj.id);
       const itemMetadata: any[] = METADATA.filter((metadatum) => {
         return metadataIds.indexOf(metadatum.id) >= 0
       });
