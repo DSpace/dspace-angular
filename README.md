@@ -20,7 +20,7 @@ cd dspace-angular
 # install the global dependencies
 npm run global
 
-# install the repo with npm
+# install the local dependencies
 npm install
 
 # start the server
