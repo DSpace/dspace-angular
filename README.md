@@ -26,7 +26,7 @@ npm install
 # start the server
 npm start
 ```
-go to [http://localhost:3000](http://localhost:3000) in your browser
+Then go to [http://localhost:3000](http://localhost:3000) in your browser
 
 ## Table of Contents
 * [Introduction to the technology](#introduction-to-the-technology)
@@ -40,6 +40,8 @@ go to [http://localhost:3000](http://localhost:3000) in your browser
 * [Collaborating](#collaborating)
 * [File Structure](#file-structure)
 * [3rd Party Library Installation](#3rd-party-library-installation)
+* [Frequently asked questions](#frequently-asked-questions)
+* [License](#license)
 
 ## Introduction to the technology
 You can find more information on the technologies used in this project (Angular 2, Typescript, Angular Universal, RxJS, etc) on the [DuraSpace wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
@@ -175,7 +177,7 @@ If you're importing a module that uses CommonJS you need to import as
 import * as _ from 'lodash';
 ```
 
-# Frequently asked questions
+## Frequently asked questions
 * Why is my service, aka provider, is not injecting a parameter correctly?
   * Please use `@Injectable()` for your service for typescript to correctly attach the metadata 
 * Where do I write my tests?
@@ -190,5 +192,5 @@ import * as _ from 'lodash';
  * install Python x86 version between 2.5 and 3.0 on windows. See [this issue](https://github.com/AngularClass/angular2-webpack-starter/issues/626)
 
 
-# License
+## License
 http://www.dspace.org/license
