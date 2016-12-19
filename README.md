@@ -34,7 +34,7 @@ Then go to [http://localhost:3000](http://localhost:3000) in your browser
 * [Installing](#installing)
 * [Running the app](#running-the-app)
 * [Running in production mode](#running-in-production-mode)
-* [Cleaning:](#cleaning)
+* [Cleaning](#cleaning)
 * [Other commands](#other-commands)
 * [Recommended Editors/IDEs](#recommended-editorsides)
 * [Collaborating](#collaborating)
@@ -73,7 +73,7 @@ npm run build:prod:ngc:json
 ```
 This will build the application and put the result in the `dist` folder
 
-## Cleaning:
+## Cleaning
 ```bash
 # clean everything, including node_modules. You'll need to run npm install again afterwards.
 npm run clean
