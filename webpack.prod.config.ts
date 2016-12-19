@@ -12,10 +12,8 @@ export const commonPlugins = [
   new V8LazyParseWebpackPlugin(),
 
   new webpack.DefinePlugin({
-    'process.env': {
-      'NODE_ENV': JSON.stringify('production'),
-      'AOT': true
-    }
+    'process.env.NODE_ENV': JSON.stringify('production'),
+    'process.env.AOT': true
   }),
 
   // Loader options

@@ -79,7 +79,7 @@ app.get('/data.json', serverApi);
 app.use('/api', createMockApi());
 
 function ngApp(req, res) {
-  res.render('index', {
+  res.render('index-aot', {
     req,
     res,
     // time: true, // use this to determine what part of your app is slow only in development
