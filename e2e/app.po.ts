@@ -5,7 +5,11 @@ export class ProtractorPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getPageTitleText() {
+    return browser.getTitle();
+  }
+
+  getFirstPText() {
+    return element(by.xpath('//p[1]')).getText();
   }
 }
