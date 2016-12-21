@@ -12,7 +12,7 @@ exports.config = {
   // Change to 'false' to run tests using a remote Selenium server
   directConnect: true,
   // Change if the website to test is not on the localhost
-  baseUrl: 'http://localhost:4200/',
+  baseUrl: 'http://localhost:3000/',
   // -----------------------------------------------------------------
   specs: [
     './e2e/**/*.e2e-spec.ts'
@@ -66,7 +66,7 @@ exports.config = {
   plugins : [{
     path: 'node_modules/protractor-istanbul-plugin'
   }],
-  
+
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
