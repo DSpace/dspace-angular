@@ -113,6 +113,7 @@ dspace-angular
 ├── app.json                * Application manifest file
 ├── nodemon.json            * Nodemon (https://nodemon.io/) configuration
 ├── package.json            * This file describes the npm package for this project, its dependencies, scripts, etc.
+├── postcss.config.json     * PostCSS (http://postcss.org/) configuration file
 ├── resources               * Folder for static resources
 │   ├── i18n                * Folder for i18n translations
 │   └── images              * Folder for images
