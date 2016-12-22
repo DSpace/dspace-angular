@@ -73,13 +73,13 @@ app.use(cacheControl, express.static(path.join(ROOT, 'dist/client'), { index: fa
 /////////////////////////
 // ** Example API
 // Notice API should be in a separate process
-import { serverApi, createTodoApi } from './backend/api';
+import { serverApi, createMockApi } from './backend/api';
 // Our API for demos only
 app.get('/data.json', serverApi);
-app.use('/api', createTodoApi());
+app.use('/api', createMockApi());
 
 function ngApp(req, res) {
-  res.render('index', {
+  res.render('index-aot', {
     req,
     res,
     // time: true, // use this to determine what part of your app is slow only in development

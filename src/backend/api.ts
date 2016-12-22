@@ -1,12 +1,15 @@
-var util = require('util');
-var { Router } = require('express');
+const util = require('util');
+const { Router } = require('express');
 
 // Our API for demos only
 import { fakeDataBase } from './db';
 import { fakeDemoRedisCache } from './cache';
+import { COLLECTIONS } from "./collections";
+import { ITEMS } from "./items";
+import { METADATA } from "./metadata";
 
 // you would use cookies/token etc
-var USER_ID = 'f9d98cf1-1b96-464e-8755-bcc2a5c09077'; // hardcoded as an example
+const USER_ID = 'f9d98cf1-1b96-464e-8755-bcc2a5c09077'; // hardcoded as an example
 
 // Our API for demos only
 export function serverApi(req, res) {
@@ -27,80 +30,155 @@ export function serverApi(req, res) {
 }
 
 
-// todo API
+let COLLECTION_COUNT = 2;
+let ITEM_COUNT = 2;
 
-var COUNT = 4;
-var TODOS = [
-  { id: 0, value: 'finish example', created_at: new Date(), completed: false },
-  { id: 1, value: 'add tests', created_at: new Date(), completed: false },
-  { id: 2, value: 'include development environment', created_at: new Date(), completed: false },
-  { id: 3, value: 'include production environment', created_at: new Date(), completed: false }
-];
 
-export function createTodoApi() {
+function toJSONAPIResponse(req, data, included?) {
+  let result = {
+    "data": data,
+    "links": {
+      "self": req.protocol + '://' + req.get('host') + req.originalUrl
+    }
+  };
+  if (included && Array.isArray(included) && included.length > 0) {
+    Object.assign(result, {
+      "included": included
+    });
+  }
+  return result;
+}
 
-  var router = Router()
+export function createMockApi() {
 
-  router.route('/todos')
+  let router = Router();
+
+  router.route('/collections')
     .get(function(req, res) {
       console.log('GET');
       // 70ms latency
       setTimeout(function() {
-        res.json(TODOS);
+        res.json(toJSONAPIResponse(req, COLLECTIONS));
       }, 0);
 
-    })
-    .post(function(req, res) {
-      console.log('POST', util.inspect(req.body, { colors: true }));
-      var todo = req.body;
-      if (todo) {
-        TODOS.push({
-          value: todo.value,
-          created_at: new Date(),
-          completed: todo.completed,
-          id: COUNT++
-        });
-        return res.json(todo);
-      }
-
-      return res.end();
+    // })
+    // .post(function(req, res) {
+    //   console.log('POST', util.inspect(req.body, { colors: true }));
+    //   let collection = req.body;
+    //   if (collection) {
+    //     COLLECTIONS.push({
+    //       value: collection.value,
+    //       created_at: new Date(),
+    //       completed: collection.completed,
+    //       id: COLLECTION_COUNT++
+    //     });
+    //     return res.json(collection);
+    //   }
+    //
+    //   return res.end();
     });
 
-  router.param('todo_id', function(req, res, next, todo_id) {
+  router.param('collection_id', function(req, res, next, collection_id) {
     // ensure correct prop type
-    var id = Number(req.params.todo_id);
+    let id = req.params.collection_id;
     try {
-      var todo = TODOS[id];
-      req.todo_id = id;
-      req.todo = TODOS[id];
+      req.collection_id = id;
+      req.collection = COLLECTIONS.find((collection) => {
+        return collection.id = id;
+      });
       next();
     } catch (e) {
-      next(new Error('failed to load todo'));
+      next(new Error('failed to load collection'));
     }
   });
 
-  router.route('/todos/:todo_id')
+  router.route('/collections/:collection_id')
     .get(function(req, res) {
-      console.log('GET', util.inspect(req.todo, { colors: true }));
+      console.log('GET', util.inspect(req.collection, { colors: true }));
+      res.json(toJSONAPIResponse(req, req.collection));
+    // })
+    // .put(function(req, res) {
+    //   console.log('PUT', util.inspect(req.body, { colors: true }));
+    //
+    //   let index = COLLECTIONS.indexOf(req.collection);
+    //   let collection = COLLECTIONS[index] = req.body;
+    //
+    //   res.json(collection);
+    // })
+    // .delete(function(req, res) {
+    //   console.log('DELETE', req.collection_id);
+    //
+    //   let index = COLLECTIONS.indexOf(req.collection);
+    //   COLLECTIONS.splice(index, 1);
+    //
+    //   res.json(req.collection);
+    });
 
-      res.json(req.todo);
-    })
-    .put(function(req, res) {
-      console.log('PUT', util.inspect(req.body, { colors: true }));
 
-      var index = TODOS.indexOf(req.todo);
-      var todo = TODOS[index] = req.body;
+  router.route('/items')
+    .get(function(req, res) {
+      console.log('GET');
+      // 70ms latency
+      setTimeout(function() {
+        res.json(toJSONAPIResponse(req, ITEMS));
+      }, 0);
 
-      res.json(todo);
-    })
-    .delete(function(req, res) {
-      console.log('DELETE', req.todo_id);
+    // })
+    // .post(function(req, res) {
+    //   console.log('POST', util.inspect(req.body, { colors: true }));
+    //   let item = req.body;
+    //   if (item) {
+    //     ITEMS.push({
+    //       value: item.value,
+    //       created_at: new Date(),
+    //       completed: item.completed,
+    //       id: ITEM_COUNT++
+    //     });
+    //     return res.json(item);
+    //   }
+    //
+    //   return res.end();
+    });
 
-      var index = TODOS.indexOf(req.todo);
-      TODOS.splice(index, 1);
+  router.param('item_id', function(req, res, next, item_id) {
+    // ensure correct prop type
+    let id = req.params.item_id;
+    try {
+      req.item_id = id;
+      req.item = ITEMS.find((item) => {
+        return item.id === id;
+      });
+      next();
+    } catch (e) {
+      next(new Error('failed to load item'));
+    }
+  });
 
-      res.json(req.todo);
+  router.route('/items/:item_id')
+    .get(function(req, res) {
+      console.log('GET', util.inspect(req.item, { colors: true }));
+      const metadataIds: string[] = req.item.relationships.metadata.data.map(obj => obj.id);
+      const itemMetadata: any[] = METADATA.filter((metadatum) => {
+        return metadataIds.indexOf(metadatum.id) >= 0
+      });
+      res.json(toJSONAPIResponse(req, req.item, itemMetadata));
+    // })
+    // .put(function(req, res) {
+    //   console.log('PUT', util.inspect(req.body, { colors: true }));
+    //
+    //   let index = ITEMS.indexOf(req.item);
+    //   let item = ITEMS[index] = req.body;
+    //
+    //   res.json(item);
+    // })
+    // .delete(function(req, res) {
+    //   console.log('DELETE', req.item_id);
+    //
+    //   let index = ITEMS.indexOf(req.item);
+    //   ITEMS.splice(index, 1);
+    //
+    //   res.json(req.item);
     });
 
   return router;
-};
+}
