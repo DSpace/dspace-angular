@@ -19,11 +19,7 @@
     "clean:scss:shim:ts": "rimraf src/**/*.scss.shim.ts",
     "clean:coverage": "rimraf coverage",
     "clean:prod": "npm run clean:ngc && npm run clean:json && npm run clean:css && npm run clean:css:ts && npm run clean:scss:ts && npm run clean:css:shim:ts && npm run clean:scss:shim:ts && npm run clean:dist",
-<<<<<<< HEAD
-    "clean": "npm run clean:log && npm run clean:dist && npm run clean:prod && npm run clean:coverage && npm run clean:node",
-=======
-    "clean": "npm run clean:log && npm run clean:prod && npm run clean:node",
->>>>>>> 8cd58f824333de235535bdec5975c3b42fe0ba29
+    "clean": "npm run clean:log && npm run clean:prod && npm run clean:coverage && npm run clean:node",
     "sass": "node-sass src -o src --include-path node_modules --output-style compressed -q",
     "sass:watch": "node-sass -w src -o src --include-path node_modules --output-style compressed -q",
     "rollup": "rollup -c rollup-server.js && rollup -c rollup-client.js",
@@ -54,8 +50,7 @@
     "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js  --config webpack.prod.config.ts",
     "docs": "typedoc --options typedoc.json ./src",
     "lint": "tslint \"src/**/*.ts\" || true",
-<<<<<<< HEAD
-    "global": "npm install -g angular-cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer marked node-gyp protractor",
+    "global": "npm install -g angular-cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer rollup marked node-gyp protractor",
     "postglobal": "npm link protractor",
     "protractor": "protractor",
     "e2e": "npm run protractor",
@@ -63,9 +58,6 @@
     "coverage": "http-server -c-1 -o ./coverage",
     "webdriver:start": "webdriver-manager start --seleniumPort 4444",
     "webdriver:update": "webdriver-manager update --standalone"
-=======
-    "global": "npm install -g angular-cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer rollup marked node-gyp"
->>>>>>> 8cd58f824333de235535bdec5975c3b42fe0ba29
   },
   "dependencies": {
     "@angular/common": "2.2.3",
@@ -128,10 +120,9 @@
     "concurrently": "3.1.0",
     "cookie-parser": "1.4.3",
     "copy-webpack-plugin": "4.0.1",
-<<<<<<< HEAD
     "css-loader": "^0.26.0",
     "html-webpack-plugin": "^2.21.0",
-    "imports-loader": "0.6.5",
+    "imports-loader": "0.7.0",
     "istanbul-instrumenter-loader": "^0.2.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~2.7.0",
@@ -147,26 +138,18 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webdriver-launcher": "^1.0.4",
     "karma-webpack": "1.8.0",
-    "node-sass": "3.13.0",
-=======
-    "imports-loader": "0.7.0",
-    "json-loader": "0.5.4",
     "node-sass": "4.0.0",
->>>>>>> 8cd58f824333de235535bdec5975c3b42fe0ba29
     "nodemon": "1.11.0",
     "protractor-istanbul-plugin": "~2.0.0",
     "raw-loader": "0.5.1",
     "reflect-metadata": "0.1.8",
     "rimraf": "2.5.4",
-<<<<<<< HEAD
-    "source-map-loader": "^0.1.5",
-=======
     "rollup": "0.37.0",
     "rollup-plugin-commonjs": "6.0.0",
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-uglify": "1.0.1",
->>>>>>> 8cd58f824333de235535bdec5975c3b42fe0ba29
+    "source-map-loader": "^0.1.5",
     "string-replace-loader": "1.0.5",
     "to-string-loader": "^1.1.4",
     "ts-helpers": "1.1.2",
