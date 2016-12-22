@@ -26,7 +26,7 @@ let de:      DebugElement;
 let el:      HTMLElement;
 
 
-describe('greeting component', () => {
+describe('App component', () => {
 
   beforeEach(() => {
     return TestBed.configureTestingModule({
