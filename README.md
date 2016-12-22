@@ -85,6 +85,52 @@ npm run clean:prod
 npm run clean:dist
 ```
 
+## Tests
+# Unit Test
+Unit tests use Karma. You can find the configuration file at the same level of this README file:
+`./karma.conf.js`
+If you are going to use a remote test enviroment you need to edit the './karma.conf.js'. Follow the instructions you will find inside it.
+To executing tests whenever any file changes you can modify the 'autoWatch' option to 'true' and 'singleRun' option to 'false'.
+keeping Karma running, it's possible to see a tests report here:
+http://localhost:9876/debug.html
+A coverage report is also available at:
+http://localhost:9876/
+after you run:
+`npm run coverage`
+
+To correctly run the tests you need to run the build once with:
+`npm run build`
+
+The default browser is Google Chrome.
+
+Place your tests at the following path:
+`./src/tests`
+
+and run:
+`npn run test`
+
+# E2E test
+E2E tests use Protractor + Selenium server + browsers. You can find the configuration file at the same level of this README file:
+`./protractor.conf.js`
+Protractor must be installed as 'global' so, make sure you have runned:
+`npm run global`
+If you are going to execute tests locally you need to run (once time only):
+`npm run webdriver:update`
+
+If you are going to use a remote test enviroment you need to edit the './protractor.conf.js'. Follow the instructions you will find inside it.
+The default browser is Google Chrome.
+
+Protractor needs a functional instance of the DSpace interface to run the E2E tests, so you need to run:
+`npm run watch:dev`
+
+or any command that bring up the DSpace interface.
+
+Place your tests at the following path:
+`./e2e`
+
+and run:
+`npm run e2e`
+
 ## Other commands
 There are many more commands in the `scripts` section of `package.json`. Most of these are executed by one of the commands mentioned above.
 A command with a name that starts with `pre` or `post` will be executed automatically before or after the script with the matching name. e.g. if you type `npm run start` the `prestart` script will run first, then the `start` script will trigger.
