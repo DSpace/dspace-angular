@@ -55,7 +55,7 @@
     "protractor": "protractor",
     "e2e": "npm run protractor",
     "test": "karma start",
-    "coverage": "http-server -c-1 -o -p 4211 ./coverage",
+    "coverage": "http-server -c-1 -o -p 9875 ./coverage",
     "webdriver:start": "webdriver-manager start --seleniumPort 4444",
     "webdriver:update": "webdriver-manager update --standalone"
   },
