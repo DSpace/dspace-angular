@@ -28,6 +28,7 @@ module.exports = function(config) {
       require('karma-phantomjs-launcher'),
       require('karma-webdriver-launcher'),
       require('karma-coverage'),
+      require('karma-mocha-reporter'),
       require('karma-remap-istanbul'),
       require('karma-sourcemap-loader'),
       require('karma-webpack')
@@ -67,6 +68,9 @@ module.exports = function(config) {
     },
 
     remapIstanbulReporter: {
+      remapOptions: {
+        basePath: './src/app'
+      },
       reports: {
         html: 'coverage'
       }
@@ -81,7 +85,7 @@ module.exports = function(config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: [ 'coverage', 'karma-remap-istanbul' ],
+    reporters: [ 'mocha', 'coverage', 'karma-remap-istanbul' ],
 
     // web server port
     port: 4212,
@@ -96,7 +100,7 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
     /*
      * start these browsers
@@ -127,7 +131,7 @@ module.exports = function(config) {
      * Continuous Integration mode
      * if true, Karma captures browsers, runs the tests and exits
      */
-    singleRun: false
+    singleRun: true
   };
 
   if (process.env.TRAVIS){
