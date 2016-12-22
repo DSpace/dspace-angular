@@ -3,13 +3,15 @@
  */
 
 module.exports = function(config) {
-  var webdriverConfig = {
-    hostname: '4science-devel1',
-    port: 4202
-  }
-
+    
   var testWebpackConfig = require('./webpack.test.config.js')({env: 'test'});
 
+  // Uncomment and change to run tests on a remote Selenium server
+  var webdriverConfig = {
+    hostname: 'localhost',
+    port: 4444
+  }
+  
   var configuration = {
 
     // base path that will be used to resolve all patterns (e.g. files, exclude)
@@ -83,8 +85,8 @@ module.exports = function(config) {
      */
     reporters: [ 'coverage', 'karma-remap-istanbul' ],
 
-    // web server port
-    port: 4212,
+    // Karma web server port
+    port: 9876,
 
     // enable / disable colors in the output (reporters and logs)
     colors: true,
@@ -104,19 +106,25 @@ module.exports = function(config) {
      */
     browsers: [
       'Chrome'
+      //'ChromeTravisCi',
+      //'SeleniumChrome',
+      //'SeleniumFirefox'
     ],
 
     customLaunchers: {
-      ChromeTravisCi: {
+      // Continuous integraation with Chrome - launcher
+      'ChromeTravisCi': {
         base: 'Chrome',
         flags: ['--no-sandbox']
       },
-      'chrome': {
+      // Remote Selenium Server with Chrome - launcher
+      'SeleniumChrome': {
         base: 'WebDriver',
         config: webdriverConfig,
         browserName: 'chrome',
       },
-      'firefox': {
+      // Remote Selenium Server with Firefox - launcher
+      'SeleniumFirefox': {
         base: 'WebDriver',
         config: webdriverConfig,
         browserName: 'firefox',
