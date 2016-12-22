@@ -3,15 +3,15 @@
  */
 
 module.exports = function(config) {
-    
+
   var testWebpackConfig = require('./webpack.test.config.js')({env: 'test'});
 
   // Uncomment and change to run tests on a remote Selenium server
   var webdriverConfig = {
     hostname: 'localhost',
     port: 4444
-  }
-  
+  };
+
   var configuration = {
 
     // base path that will be used to resolve all patterns (e.g. files, exclude)
@@ -70,9 +70,6 @@ module.exports = function(config) {
     },
 
     remapIstanbulReporter: {
-      remapOptions: {
-        basePath: './src/app'
-      },
       reports: {
         html: 'coverage'
       }
@@ -125,13 +122,13 @@ module.exports = function(config) {
       'SeleniumChrome': {
         base: 'WebDriver',
         config: webdriverConfig,
-        browserName: 'chrome',
+        browserName: 'chrome'
       },
       // Remote Selenium Server with Firefox - launcher
       'SeleniumFirefox': {
         base: 'WebDriver',
         config: webdriverConfig,
-        browserName: 'firefox',
+        browserName: 'firefox'
       }
     },
 
