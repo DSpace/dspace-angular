@@ -117,6 +117,7 @@ If you are going to execute tests locally you need to run (once time only):
 `npm run webdriver:update`.
 
 If you are going to use a remote test enviroment you need to edit the './protractor.conf.js'. Follow the instructions you will find inside it.
+
 The default browser is Google Chrome.
 
 Protractor needs a functional instance of the DSpace interface to run the E2E tests, so you need to run:
@@ -187,6 +188,7 @@ dspace-angular
 ├── tsconfig.json           * TypeScript config for development build
 ├── tslint.json             * TSLint (https://palantir.github.io/tslint/) configuration
 ├── webpack.config.ts       * Webpack (https://webpack.github.io/) config for development builds
+├── webpack.test.config.ts  * Webpack (https://webpack.github.io/) config for testing
 └── webpack.prod.config.ts  * Webpack (https://webpack.github.io/) config for production builds
 ```
 
