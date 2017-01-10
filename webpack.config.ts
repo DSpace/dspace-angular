@@ -67,6 +67,11 @@ export var commonConfig = {
       }
     ],
   },
+
+  performance: {
+    hints: false
+  },
+
   plugins: [
     // Use commonPlugins.
   ]

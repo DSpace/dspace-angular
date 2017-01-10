@@ -15,8 +15,8 @@ import { Store } from "@ngrx/store";
 
 
 // Load the implementations that should be tested
-import { AppComponent } from '../app/app.component';
-import { HeaderComponent } from '../app/header/header.component';
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
 
 import { CommonModule } from '@angular/common';
 

@@ -50,14 +50,14 @@
     "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js  --config webpack.prod.config.ts",
     "docs": "typedoc --options typedoc.json ./src",
     "lint": "tslint \"src/**/*.ts\" || true",
-    "global": "npm install -g angular-cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer rollup marked node-gyp protractor",
-    "postglobal": "npm link protractor",
-    "protractor": "protractor",
+    "global": "npm install -g angular-cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer rollup marked node-gyp",
+    "protractor": "node node_modules/protractor/bin/protractor",
     "e2e": "npm run protractor",
-    "test": "karma start",
+    "test": "karma start --single-run",
+    "test:watch": "karma start --no-single-run --auto-watch",
     "coverage": "http-server -c-1 -o -p 9875 ./coverage",
-    "webdriver:start": "webdriver-manager start --seleniumPort 4444",
-    "webdriver:update": "webdriver-manager update --standalone"
+    "webdriver:start": "node node_modules/protractor/bin/webdriver-manager start --seleniumPort 4444",
+    "webdriver:update": "node node_modules/protractor/bin/webdriver-manager update --standalone"
   },
   "dependencies": {
     "@angular/common": "2.2.3",
@@ -140,6 +140,7 @@
     "karma-webpack": "1.8.0",
     "node-sass": "4.0.0",
     "nodemon": "1.11.0",
+    "protractor": "~4.0.14",
     "protractor-istanbul-plugin": "~2.0.0",
     "raw-loader": "0.5.1",
     "reflect-metadata": "0.1.8",
@@ -159,10 +160,10 @@
     "typedoc": "0.5.1",
     "typescript": "2.0.10",
     "v8-lazy-parse-webpack-plugin": "0.3.0",
-    "webpack": "2.1.0-beta.27",
+    "webpack": "2.2.0-rc.3",
     "webpack-bundle-analyzer": "1.4.1",
     "webpack-dev-middleware": "1.9.0",
-    "webpack-dev-server": "2.1.0-beta.11",
+    "webpack-dev-server": "2.2.0-rc.0",
     "webpack-merge": "1.1.1"
   }
 }
