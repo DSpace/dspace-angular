@@ -166,10 +166,6 @@ module.exports = function (options) {
       ]
     },
 
-    performance: {
-      hints: false
-    },
-
     /**
      * Add additional plugins to the compiler.
      *
