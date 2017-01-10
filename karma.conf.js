@@ -15,7 +15,7 @@ module.exports = function(config) {
   var configuration = {
 
     // base path that will be used to resolve all patterns (e.g. files, exclude)
-    basePath: '',
+    basePath: '.',
 
     /*
      * Frameworks to use
@@ -84,7 +84,7 @@ module.exports = function(config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: [ 'mocha', 'coverage' ],
+    reporters: [ 'mocha', 'coverage', 'karma-remap-istanbul' ],
 
     // Karma web server port
     port: 9876,
