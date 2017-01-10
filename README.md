@@ -102,8 +102,7 @@ To correctly run the tests you need to run the build once with:
 
 The default browser is Google Chrome.
 
-Place your tests at the following path:
-`./src/tests`
+Place your tests in the same location of the application source code files that they test.
 
 and run:
 `npn run test`
@@ -111,8 +110,7 @@ and run:
 ### E2E test
 E2E tests use Protractor + Selenium server + browsers. You can find the configuration file at the same level of this README file:
 `./protractor.conf.js`
-Protractor must be installed as 'global' so, make sure you have runned:
-`npm run global`.
+Protractor is installed as 'local' as a dev dependency.
 If you are going to execute tests locally you need to run (once time only):
 `npm run webdriver:update`.
 
@@ -182,7 +180,6 @@ dspace-angular
 │   ├── styles              * Folder containing global styles.
 │   │   ├── main.scss       * Global scss file
 │   │   └── variables.scss  * Global sass variables file
-│   ├── tests               * Folder for unit test files
 │   └── typings.d.ts        * File that allows you to add custom typings for libraries without TypeScript support
 ├── tsconfig.aot.json       * TypeScript config for production builds
 ├── tsconfig.json           * TypeScript config for development build
