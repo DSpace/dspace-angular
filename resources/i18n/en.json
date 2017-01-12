@@ -1,13 +1,19 @@
 {
   "title": "DSpace",
-
   "nav": {
     "home": "Home"
   },
-
   "example": {
     "with": {
       "data": "{{greeting}}, {{recipient}}!"
+    }
+  },
+
+  "404": {
+    "help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+    "page-not-found": "page not found",
+    "link": {
+      "home-page": "Take me to the home page"
     }
   }
 }
