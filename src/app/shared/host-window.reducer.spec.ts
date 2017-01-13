@@ -1,0 +1,40 @@
+import * as deepFreeze from "deep-freeze";
+import { hostWindowReducer } from "./host-window.reducer";
+import { HostWindowResizeAction } from "./host-window.actions";
+
+describe('hostWindowReducer', () => {
+  let nullAction = new HostWindowResizeAction(0, 0);
+  nullAction.type = null;
+
+  it("should return the current state when no valid actions have been made", () => {
+    const state = { width: 800, height: 600 };
+    const newState = hostWindowReducer(state, nullAction);
+
+    expect(newState).toEqual(state);
+  });
+
+  it("should start with width = null and height = null", () => {
+    const initialState = hostWindowReducer(undefined, nullAction);
+
+    expect(initialState.width).toEqual(null);
+    expect(initialState.height).toEqual(null);
+  });
+
+  it("should update the width and height in the state in response to a RESIZE action", () => {
+    const state = { width: 800, height: 600 };
+    const action = new HostWindowResizeAction(1024, 768);
+    const newState = hostWindowReducer(state, action);
+
+    expect(newState.width).toEqual(1024);
+    expect(newState.height).toEqual(768);
+  });
+
+  it("should perform the RESIZE action without mutating the previous state", () => {
+    const state = { width: 800, height: 600 };
+    deepFreeze(state);
+
+    const action = new HostWindowResizeAction(1024, 768);
+    hostWindowReducer(state, action);
+  });
+
+});

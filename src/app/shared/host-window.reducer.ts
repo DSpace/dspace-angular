@@ -1,5 +1,4 @@
-import { Action } from "@ngrx/store";
-import { HostWindowActions } from "./host-window.actions";
+import { HostWindowAction, HostWindowActionTypes } from "./host-window.actions";
 
 export interface HostWindowState {
   width: number;
@@ -11,10 +10,10 @@ const initialState: HostWindowState = {
   height: null
 };
 
-export const hostWindowReducer = (state = initialState, action: Action): HostWindowState => {
+export const hostWindowReducer = (state = initialState, action: HostWindowAction): HostWindowState => {
   switch (action.type) {
 
-    case HostWindowActions.RESIZE: {
+    case HostWindowActionTypes.RESIZE: {
       return Object.assign({}, state, action.payload);
     }
 

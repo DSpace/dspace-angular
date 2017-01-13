@@ -1,9 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { HeaderState } from "./header.reducer";
-import { HeaderActions } from "./header.actions";
 import { Observable } from "rxjs";
-import 'rxjs/add/operator/filter';
+import {
+  HeaderCollapseAction,
+  HeaderExpandAction,
+  HeaderToggleAction
+} from "./header.actions";
 
 @Component({
   selector: 'ds-header',
@@ -25,15 +28,15 @@ export class HeaderComponent implements OnInit {
   }
 
   private collapse(): void {
-    this.store.dispatch(HeaderActions.collapse());
+    this.store.dispatch(new HeaderCollapseAction());
   }
 
   private expand(): void {
-    this.store.dispatch(HeaderActions.expand());
+    this.store.dispatch(new HeaderExpandAction());
   }
 
   public toggle(): void {
-    this.store.dispatch(HeaderActions.toggle());
+    this.store.dispatch(new HeaderToggleAction());
   }
 
 }

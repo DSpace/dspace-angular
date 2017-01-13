@@ -1,19 +1,25 @@
 import * as deepFreeze from "deep-freeze";
 
 import { headerReducer } from "./header.reducer";
-import { HeaderActions } from "./header.actions";
+import {
+  HeaderCollapseAction,
+  HeaderExpandAction,
+  HeaderToggleAction
+} from "./header.actions";
 
 describe("headerReducer", () => {
+  let nullAction = new HeaderCollapseAction();
+  nullAction.type = null;
 
   it("should return the current state when no valid actions have been made", () => {
     const state = { navCollapsed: false };
-    const newState = headerReducer(state, {type: 'undefined-action'});
+    const newState = headerReducer(state, nullAction);
 
     expect(newState).toEqual(state);
   });
 
   it("should start with navCollapsed = true", () => {
-    const initialState = headerReducer(undefined, {type: 'undefined-action'});
+    const initialState = headerReducer(undefined, nullAction);
 
     // The navigation starts collapsed
     expect(initialState.navCollapsed).toEqual(true);
@@ -21,7 +27,7 @@ describe("headerReducer", () => {
 
   it("should set navCollapsed to true in response to the COLLAPSE action", () => {
     const state = { navCollapsed: false };
-    const action = HeaderActions.collapse();
+    const action = new HeaderCollapseAction();
     const newState = headerReducer(state, action);
 
     expect(newState.navCollapsed).toEqual(true);
@@ -31,7 +37,7 @@ describe("headerReducer", () => {
     const state = { navCollapsed: false };
     deepFreeze(state);
 
-    const action = HeaderActions.collapse();
+    const action = new HeaderCollapseAction();
     headerReducer(state, action);
 
     //no expect required, deepFreeze will ensure an exception is thrown if the state
@@ -40,7 +46,7 @@ describe("headerReducer", () => {
 
   it("should set navCollapsed to false in response to the EXPAND action", () => {
     const state = { navCollapsed: true };
-    const action = HeaderActions.expand();
+    const action = new HeaderExpandAction();
     const newState = headerReducer(state, action);
 
     expect(newState.navCollapsed).toEqual(false);
@@ -50,13 +56,13 @@ describe("headerReducer", () => {
     const state = { navCollapsed: true };
     deepFreeze(state);
 
-    const action = HeaderActions.expand();
+    const action = new HeaderExpandAction();
     headerReducer(state, action);
   });
 
   it("should flip the value of navCollapsed in response to the TOGGLE action", () => {
     const state1 = { navCollapsed: true };
-    const action = HeaderActions.toggle();
+    const action = new HeaderToggleAction();
 
     const state2 = headerReducer(state1, action);
     const state3 = headerReducer(state2, action);
@@ -69,7 +75,7 @@ describe("headerReducer", () => {
     const state = { navCollapsed: true };
     deepFreeze(state);
 
-    const action = HeaderActions.toggle();
+    const action = new HeaderToggleAction();
     headerReducer(state, action);
   });
 
