@@ -9,6 +9,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement
 } from "@angular/core";
+import { By } from '@angular/platform-browser';
 import { TranslateModule } from "ng2-translate";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from "@ngrx/store";
@@ -28,7 +29,7 @@ let el:      HTMLElement;
 
 describe('App component', () => {
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     return TestBed.configureTestingModule({
       imports: [ CommonModule, TranslateModule.forRoot(), NgbCollapseModule.forRoot()],
       declarations: [ AppComponent, HeaderComponent ], // declare the test component
@@ -40,10 +41,18 @@ describe('App component', () => {
         }
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-    }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(AppComponent);
-      fixture.detectChanges();
-    });
+    })
+  }));
+
+  // synchronous beforeEach
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+
+    comp = fixture.componentInstance; // BannerComponent test instance
+
+    // query for the title <p> by CSS element selector
+    de = fixture.debugElement.query(By.css('p'));
+    el = de.nativeElement;
   });
 
   it('should create component', inject([AppComponent], (app: AppComponent) => {
