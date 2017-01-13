@@ -14,7 +14,6 @@ import { TranslateModule } from "ng2-translate";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from "@ngrx/store";
 
-
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -26,9 +25,9 @@ let fixture: ComponentFixture<AppComponent>;
 let de:      DebugElement;
 let el:      HTMLElement;
 
-
 describe('App component', () => {
 
+  // async beforeEach
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
       imports: [ CommonModule, TranslateModule.forRoot(), NgbCollapseModule.forRoot()],
