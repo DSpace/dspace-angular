@@ -52,7 +52,7 @@ export class AppComponent implements OnDestroy, OnInit {
   @HostListener('window:resize', ['$event'])
   private onResize(event): void {
     this.store.dispatch(
-      new HostWindowResizeAction(event.target.innerWidth, event.target.innerHeight)
+      new HostWindowResizeAction(event.target.target.innerWidth, event.target.innerHeight)
     );
   }
 

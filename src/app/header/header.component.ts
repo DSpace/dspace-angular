@@ -2,11 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { HeaderState } from "./header.reducer";
 import { Observable } from "rxjs";
-import {
-  HeaderCollapseAction,
-  HeaderExpandAction,
-  HeaderToggleAction
-} from "./header.actions";
+import { HeaderToggleAction } from "./header.actions";
 
 @Component({
   selector: 'ds-header',
@@ -25,14 +21,6 @@ export class HeaderComponent implements OnInit {
     this.isNavBarCollapsed = this.store.select('header')
       //unwrap navCollapsed
       .map(({ navCollapsed }: HeaderState) => navCollapsed);
-  }
-
-  private collapse(): void {
-    this.store.dispatch(new HeaderCollapseAction());
-  }
-
-  private expand(): void {
-    this.store.dispatch(new HeaderExpandAction());
   }
 
   public toggle(): void {
