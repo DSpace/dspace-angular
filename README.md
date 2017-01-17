@@ -105,7 +105,7 @@ The default browser is Google Chrome.
 Place your tests in the same location of the application source code files that they test.
 
 and run:
-`npn run test`
+`npm run test`
 
 ### E2E test
 E2E tests use Protractor + Selenium server + browsers. You can find the configuration file at the same level of this README file:
@@ -192,7 +192,7 @@ dspace-angular
 
 ## 3rd Party Library Installation
 
-Install your library via `npm install lib-name --save` and import it in your code. `--save` will add it to `package.json`. 
+Install your library via `npm install lib-name --save` and import it in your code. `--save` will add it to `package.json`.
 
 If the library does not include typings, you can install them using npm:
 
@@ -228,7 +228,7 @@ import * as _ from 'lodash';
 
 ## Frequently asked questions
 * Why is my service, aka provider, is not injecting a parameter correctly?
-  * Please use `@Injectable()` for your service for typescript to correctly attach the metadata 
+  * Please use `@Injectable()` for your service for typescript to correctly attach the metadata
 * Where do I write my tests?
   * You can write your tests next to your component files. e.g. for `src/app/home/home.component.ts` call it `src/app/home/home.component.spec.ts`
 * How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
