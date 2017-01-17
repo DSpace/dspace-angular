@@ -7,19 +7,26 @@ import {
   HeaderToggleAction
 } from "./header.actions";
 
-describe("headerReducer", () => {
-  let nullAction = new HeaderCollapseAction();
-  nullAction.type = null;
+class NullAction extends HeaderCollapseAction {
+  type = null;
 
+  constructor() {
+    super();
+  }
+}
+
+describe("headerReducer", () => {
   it("should return the current state when no valid actions have been made", () => {
     const state = { navCollapsed: false };
-    const newState = headerReducer(state, nullAction);
+    const action = new NullAction();
+    const newState = headerReducer(state, action);
 
     expect(newState).toEqual(state);
   });
 
   it("should start with navCollapsed = true", () => {
-    const initialState = headerReducer(undefined, nullAction);
+    const action = new NullAction();
+    const initialState = headerReducer(undefined, action);
 
     // The navigation starts collapsed
     expect(initialState.navCollapsed).toEqual(true);
@@ -33,7 +40,7 @@ describe("headerReducer", () => {
     expect(newState.navCollapsed).toEqual(true);
   });
 
-  it("should perform the COLLAPSE action without mutating the previous state", () => {
+  it("should perform the COLLAPSE action without affecting the previous state", () => {
     const state = { navCollapsed: false };
     deepFreeze(state);
 
@@ -52,7 +59,7 @@ describe("headerReducer", () => {
     expect(newState.navCollapsed).toEqual(false);
   });
 
-  it("should perform the EXPAND action without mutating the previous state", () => {
+  it("should perform the EXPAND action without affecting the previous state", () => {
     const state = { navCollapsed: true };
     deepFreeze(state);
 
@@ -71,7 +78,7 @@ describe("headerReducer", () => {
     expect(state3.navCollapsed).toEqual(true);
   });
 
-  it("should perform the TOGGLE action without mutating the previous state", () => {
+  it("should perform the TOGGLE action without affecting the previous state", () => {
     const state = { navCollapsed: true };
     deepFreeze(state);
 
