@@ -159,6 +159,7 @@ dspace-angular
 ├── karma.conf.js           * Unit Test configuration file
 ├── nodemon.json            * Nodemon (https://nodemon.io/) configuration
 ├── package.json            * This file describes the npm package for this project, its dependencies, scripts, etc.
+├── postcss.config.json     * PostCSS (http://postcss.org/) configuration file
 ├── protractor.conf.js      * E2E tests configuration file
 ├── resources               * Folder for static resources
 │   ├── i18n                * Folder for i18n translations
