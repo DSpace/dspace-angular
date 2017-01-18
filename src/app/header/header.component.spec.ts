@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 import { HeaderComponent } from "./header.component";
 import { Store, StoreModule } from "@ngrx/store";
 import { HeaderState } from "./header.reducer";
