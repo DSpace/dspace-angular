@@ -158,6 +158,7 @@ dspace-angular
 ├── e2e                     * Folder for e2e test files
 ├── karma.conf.js           * Unit Test configuration file
 ├── nodemon.json            * Nodemon (https://nodemon.io/) configuration
+├── npm-shrinkwrap.json     * Npm dependency lockfile (https://docs.npmjs.com/cli/shrinkwrap)
 ├── package.json            * This file describes the npm package for this project, its dependencies, scripts, etc.
 ├── postcss.config.json     * PostCSS (http://postcss.org/) configuration file
 ├── protractor.conf.js      * E2E tests configuration file
