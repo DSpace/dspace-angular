@@ -10,7 +10,7 @@ import {
   DebugElement
 } from "@angular/core";
 import { By } from '@angular/platform-browser';
-import { TranslateModule } from "ng2-translate";
+import { TranslateModule, TranslateLoader } from "ng2-translate";
 import { Store, StoreModule } from "@ngrx/store";
 
 // Load the implementations that should be tested
@@ -19,23 +19,27 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { HostWindowState } from "./shared/host-window.reducer";
 import { HostWindowResizeAction } from "./shared/host-window.actions";
+import { MockTranslateLoader } from "./shared/testing/mock-translate-loader";
 
-let comp:    AppComponent;
+let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
-let de:      DebugElement;
-let el:      HTMLElement;
+let de: DebugElement;
+let el: HTMLElement;
 
 describe('App component', () => {
 
   // async beforeEach
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
-      imports: [ CommonModule, StoreModule.provideStore({}), TranslateModule.forRoot() ],
-      declarations: [ AppComponent ], // declare the test component
+      imports: [CommonModule, StoreModule.provideStore({}), TranslateModule.forRoot({
+        provide: TranslateLoader,
+        useClass: MockTranslateLoader
+      })],
+      declarations: [AppComponent], // declare the test component
       providers: [
         AppComponent
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
   }));
 
