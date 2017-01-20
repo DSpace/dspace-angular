@@ -5,6 +5,12 @@
 /tsd_typings/
 npm-debug.log
 
+/config/environment.common.json
+/config/environment.prod.json
+/config/environment.dev.json
+
+/coverage
+
 /dist/
 
 .idea
