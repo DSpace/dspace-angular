@@ -61,14 +61,14 @@ If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-w
 ## Configuring
 Templates for environmental and shareable configuration files are located in `config/` folder in json format.
 
-To configure application settings:
+To make the configuration:
 * Create a new `environment.common.json` file in `config/` folder using `environment.common.default.json` as template;
 * Create a new `environment.dev.json` file in `config/` folder using `environment.default.json` as template;
 * Create a new `environment.prod.json` file in `config/` folder using `environment.default.json` as template;
 
-Note: JSON standard does not allow comments so remove them whether you are copying from templates.
+Note: JSON standard does not allow comments so you need to remove them whether you are copying from templates.
  
-To use setting parameters in your component:
+To use the configuration parameters in your component:
 ```bash
 import { GlobalConfig } from "../config";
 ```
@@ -190,7 +190,7 @@ dspace-angular
 │   ├── browser.module.ts                * The root module for the client
 │   ├── client.aot.ts                    * The bootstrap file for the client, in production
 │   ├── client.ts                        * The bootstrap file for the client, during development
-│   ├── config.ts                        * File that loads common and environment settings and makes available to app components 
+│   ├── config.ts                        * File that loads environmental and shareable settings and makes them available to app components 
 │   ├── index-aot.html                   * The index.html file, for production
 │   ├── index.html                       * The index.html file, for development
 │   ├── node.module.ts                   * The root module for the server
