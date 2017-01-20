@@ -32,7 +32,7 @@ Then go to [http://localhost:3000](http://localhost:3000) in your browser
 * [Introduction to the technology](#introduction-to-the-technology)
 * [Requirements](#requirements)
 * [Installing](#installing)
-* [Configuring](#Configuring)
+* [Configuring](#configuring)
 * [Running the app](#running-the-app)
 * [Running in production mode](#running-in-production-mode)
 * [Cleaning](#cleaning)
