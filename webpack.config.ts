@@ -67,6 +67,7 @@ export var commonConfig = {
       }
     ],
   },
+
   plugins: [
     // Use commonPlugins.
   ]

@@ -35,6 +35,7 @@ Then go to [http://localhost:3000](http://localhost:3000) in your browser
 * [Running the app](#running-the-app)
 * [Running in production mode](#running-in-production-mode)
 * [Cleaning](#cleaning)
+* [Testing](#testing)
 * [Other commands](#other-commands)
 * [Recommended Editors/IDEs](#recommended-editorsides)
 * [Collaborating](#collaborating)
@@ -85,6 +86,49 @@ npm run clean:prod
 npm run clean:dist
 ```
 
+## Testing
+### Unit Test
+Unit tests use Karma. You can find the configuration file at the same level of this README file:
+`./karma.conf.js`
+If you are going to use a remote test enviroment you need to edit the './karma.conf.js'. Follow the instructions you will find inside it.
+To executing tests whenever any file changes you can modify the 'autoWatch' option to 'true' and 'singleRun' option to 'false'.
+A coverage report is also available at:
+http://localhost:9876/
+after you run:
+`npm run coverage`.
+
+To correctly run the tests you need to run the build once with:
+`npm run build`.
+
+The default browser is Google Chrome.
+
+Place your tests in the same location of the application source code files that they test.
+
+and run:
+`npm run test`
+
+### E2E test
+E2E tests use Protractor + Selenium server + browsers. You can find the configuration file at the same level of this README file:
+`./protractor.conf.js`
+Protractor is installed as 'local' as a dev dependency.
+If you are going to execute tests locally you need to run (once time only):
+`npm run webdriver:update`.
+
+If you are going to use a remote test enviroment you need to edit the './protractor.conf.js'. Follow the instructions you will find inside it.
+
+The default browser is Google Chrome.
+
+Protractor needs a functional instance of the DSpace interface to run the E2E tests, so you need to run:
+`npm run watch:dev`
+
+or any command that bring up the DSpace interface.
+
+Place your tests at the following path:
+`./e2e`
+
+and run:
+`npm run e2e`
+
 ## Other commands
 There are many more commands in the `scripts` section of `package.json`. Most of these are executed by one of the commands mentioned above.
 A command with a name that starts with `pre` or `post` will be executed automatically before or after the script with the matching name. e.g. if you type `npm run start` the `prestart` script will run first, then the `start` script will trigger.
@@ -111,8 +155,12 @@ See [the guide on the wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+-
 dspace-angular
 ├── README.md               * This document
 ├── app.json                * Application manifest file
+├── e2e                     * Folder for e2e test files
+├── karma.conf.js           * Unit Test configuration file
 ├── nodemon.json            * Nodemon (https://nodemon.io/) configuration
 ├── package.json            * This file describes the npm package for this project, its dependencies, scripts, etc.
+├── postcss.config.json     * PostCSS (http://postcss.org/) configuration file
+├── protractor.conf.js      * E2E tests configuration file
 ├── resources               * Folder for static resources
 │   ├── i18n                * Folder for i18n translations
 │   └── images              * Folder for images
@@ -138,12 +186,13 @@ dspace-angular
 ├── tsconfig.json           * TypeScript config for development build
 ├── tslint.json             * TSLint (https://palantir.github.io/tslint/) configuration
 ├── webpack.config.ts       * Webpack (https://webpack.github.io/) config for development builds
+├── webpack.test.config.ts  * Webpack (https://webpack.github.io/) config for testing
 └── webpack.prod.config.ts  * Webpack (https://webpack.github.io/) config for production builds
 ```
 
 ## 3rd Party Library Installation
 
-Install your library via `npm install lib-name --save` and import it in your code. `--save` will add it to `package.json`. 
+Install your library via `npm install lib-name --save` and import it in your code. `--save` will add it to `package.json`.
 
 If the library does not include typings, you can install them using npm:
 
@@ -179,7 +228,7 @@ import * as _ from 'lodash';
 
 ## Frequently asked questions
 * Why is my service, aka provider, is not injecting a parameter correctly?
-  * Please use `@Injectable()` for your service for typescript to correctly attach the metadata 
+  * Please use `@Injectable()` for your service for typescript to correctly attach the metadata
 * Where do I write my tests?
   * You can write your tests next to your component files. e.g. for `src/app/home/home.component.ts` call it `src/app/home/home.component.spec.ts`
 * How do I start the app when I get `EACCES` and `EADDRINUSE` errors?
