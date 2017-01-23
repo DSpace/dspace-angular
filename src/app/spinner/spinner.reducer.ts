@@ -1,5 +1,5 @@
 import {Action} from "@ngrx/store";
-import {SpinnerActions} from "./spinner.actions";
+import {SpinnerAction, SpinnerActionTypes} from "./spinner.actions";
 
 export interface SpinnerState {
     active:boolean;
@@ -9,17 +9,17 @@ const initialState:SpinnerState = {
     active: false
 };
 
-export const spinnerReducer = (state = initialState, action:Action):SpinnerState => {
+export const spinnerReducer = (state = initialState, action:Action): SpinnerState => {
     switch (action.type) {
 
-        case SpinnerActions.SHOW:
+        case SpinnerActionTypes.SHOW:
         {
             return Object.assign({}, state, {
                 active: true
             });
         }
 
-        case SpinnerActions.HIDE:
+        case SpinnerActionTypes.HIDE:
         {
             return Object.assign({}, state, {
                 active: false

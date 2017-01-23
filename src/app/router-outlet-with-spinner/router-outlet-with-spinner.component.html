@@ -1,12 +1,8 @@
 <div class="router-outlet-with-spinner">
-    <div>
 
-        <div *ngIf="active | async">
-            <ds-spinner></ds-spinner>
-        </div>
-        <div [hidden]="active | async">
-            <router-outlet></router-outlet>
-        </div>
+    <ds-spinner></ds-spinner>
+
+    <div id="ds-content" [hidden]="active | async">
+        <router-outlet></router-outlet>
     </div>
-
 </div>
