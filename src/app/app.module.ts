@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SpinnerComponent } from "./spinner/spinner.component";
-import { RouterOutletWithSpinnerComponent } from "./router-outlet-with-spinner/router-outlet-with-spinner.component";
+import { SpinnerWrapperComponent } from "./spinner-wrapper/spinner-wrapper.component";
 import { SpinnerService } from "./spinner/spinner.service";
 
 import { StoreModule } from "@ngrx/store";
@@ -22,7 +22,7 @@ import { effects } from './app.effects';
     AppComponent,
     HeaderComponent,
     SpinnerComponent,
-    RouterOutletWithSpinnerComponent
+    SpinnerWrapperComponent
   ],
   imports: [
     SharedModule,

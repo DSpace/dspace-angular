@@ -1,9 +1,11 @@
 <ds-header></ds-header>
 
 <div class="container-fluid">
-  <main>
-    <p>{{ 'example.with.data' | translate:data }}</p>
-    <p>{{ example }}</p>
-    <ds-router-outlet-with-spinner></ds-router-outlet-with-spinner>
-  </main>
+    <main>
+        <p>{{ 'example.with.data' | translate:data }}</p>
+        <p>{{ example }}</p>
+        <ds-spinner-wrapper>
+            <router-outlet></router-outlet>
+        </ds-spinner-wrapper>
+    </main>
 </div>

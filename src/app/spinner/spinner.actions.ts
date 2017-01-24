@@ -7,13 +7,13 @@ export const SpinnerActionTypes = {
 };
 
 export class SpinnerShowAction implements Action {
-    type = SpinnerActionTypes.SHOW
+    type = SpinnerActionTypes.SHOW;
 
     constructor() {}
 }
 
 export class SpinnerHideAction implements Action {
-    type = SpinnerActionTypes.HIDE
+    type = SpinnerActionTypes.HIDE;
 
     constructor() {}
 }

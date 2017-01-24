@@ -17,11 +17,8 @@ export class HomeComponent {
       private spinner : SpinnerService
   ) {
     spinner.activate();
+    // When done loading call spinner.deactivate();
 
-    /* DELAY FOR TESTING SPINNER */
-    setTimeout(() => {
-      spinner.deactivate();
-    }, 2000);
     this.universalInit();
   }
 

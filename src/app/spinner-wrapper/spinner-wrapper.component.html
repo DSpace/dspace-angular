@@ -1,0 +1,4 @@
+<ds-spinner [hidden]="!(active | async)"></ds-spinner>
+<div id="ds-content" [hidden]="active | async">
+    <ng-content></ng-content>
+</div>
