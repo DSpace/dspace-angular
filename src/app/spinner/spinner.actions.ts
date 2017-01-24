@@ -9,13 +9,15 @@ export const SpinnerActionTypes = {
 export class SpinnerShowAction implements Action {
     type = SpinnerActionTypes.SHOW;
 
-    constructor() {}
+    constructor() {
+    }
 }
 
 export class SpinnerHideAction implements Action {
     type = SpinnerActionTypes.HIDE;
 
-    constructor() {}
+    constructor() {
+    }
 }
 
 export type SpinnerAction

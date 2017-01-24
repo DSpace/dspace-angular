@@ -6,11 +6,12 @@ $spinner-height: 4*$line-height-base;
 $spinner-width: $spinner-height;
 
 .uil-spin-css {
-                          background: none;
-                          position: relative;
+    background: none;
+    position: relative;
     width: $spinner-width px;
     height: $spinner-height px;
-                      }
+}
+
 @-webkit-keyframes uil-spin-css {
     0% {
         opacity: 1;
@@ -29,6 +30,7 @@ $spinner-width: $spinner-height;
         transform: scale(1);
     }
 }
+
 @-webkit-keyframes uil-spin-css {
     0% {
         opacity: 1;
@@ -47,6 +49,7 @@ $spinner-width: $spinner-height;
         transform: scale(1);
     }
 }
+
 @-moz-keyframes uil-spin-css {
     0% {
         opacity: 1;
@@ -65,6 +68,7 @@ $spinner-width: $spinner-height;
         transform: scale(1);
     }
 }
+
 @-ms-keyframes uil-spin-css {
     0% {
         opacity: 1;
@@ -83,6 +87,7 @@ $spinner-width: $spinner-height;
         transform: scale(1);
     }
 }
+
 @-moz-keyframes uil-spin-css {
     0% {
         opacity: 1;
@@ -101,6 +106,7 @@ $spinner-width: $spinner-height;
         transform: scale(1);
     }
 }
+
 @-webkit-keyframes uil-spin-css {
     0% {
         opacity: 1;
@@ -119,6 +125,7 @@ $spinner-width: $spinner-height;
         transform: scale(1);
     }
 }
+
 @-o-keyframes uil-spin-css {
     0% {
         opacity: 1;
@@ -137,6 +144,7 @@ $spinner-width: $spinner-height;
         transform: scale(1);
     }
 }
+
 @keyframes uil-spin-css {
     0% {
         opacity: 1;
@@ -155,6 +163,7 @@ $spinner-width: $spinner-height;
         transform: scale(1);
     }
 }
+
 .uil-spin-css > div {
     width: 24px;
     height: 24px;
@@ -162,12 +171,14 @@ $spinner-width: $spinner-height;
     margin-top: 4px;
     position: absolute;
 }
+
 .uil-spin-css > div > div {
     width: 100%;
     height: 100%;
     border-radius: 15px;
     background: $spinner-color;
 }
+
 .uil-spin-css > div:nth-of-type(1) > div {
     -ms-animation: uil-spin-css 1s linear infinite;
     -moz-animation: uil-spin-css 1s linear infinite;
@@ -180,6 +191,7 @@ $spinner-width: $spinner-height;
     -o-animation-delay: 0s;
     animation-delay: 0s;
 }
+
 .uil-spin-css > div:nth-of-type(1) {
     -ms-transform: translate(84px, 84px) rotate(45deg) translate(70px, 0);
     -moz-transform: translate(84px, 84px) rotate(45deg) translate(70px, 0);
@@ -187,6 +199,7 @@ $spinner-width: $spinner-height;
     -o-transform: translate(84px, 84px) rotate(45deg) translate(70px, 0);
     transform: translate(84px, 84px) rotate(45deg) translate(70px, 0);
 }
+
 .uil-spin-css > div:nth-of-type(2) > div {
     -ms-animation: uil-spin-css 1s linear infinite;
     -moz-animation: uil-spin-css 1s linear infinite;
@@ -199,6 +212,7 @@ $spinner-width: $spinner-height;
     -o-animation-delay: 0.12s;
     animation-delay: 0.12s;
 }
+
 .uil-spin-css > div:nth-of-type(2) {
     -ms-transform: translate(84px, 84px) rotate(90deg) translate(70px, 0);
     -moz-transform: translate(84px, 84px) rotate(90deg) translate(70px, 0);
@@ -206,6 +220,7 @@ $spinner-width: $spinner-height;
     -o-transform: translate(84px, 84px) rotate(90deg) translate(70px, 0);
     transform: translate(84px, 84px) rotate(90deg) translate(70px, 0);
 }
+
 .uil-spin-css > div:nth-of-type(3) > div {
     -ms-animation: uil-spin-css 1s linear infinite;
     -moz-animation: uil-spin-css 1s linear infinite;
@@ -218,6 +233,7 @@ $spinner-width: $spinner-height;
     -o-animation-delay: 0.25s;
     animation-delay: 0.25s;
 }
+
 .uil-spin-css > div:nth-of-type(3) {
     -ms-transform: translate(84px, 84px) rotate(135deg) translate(70px, 0);
     -moz-transform: translate(84px, 84px) rotate(135deg) translate(70px, 0);
@@ -225,6 +241,7 @@ $spinner-width: $spinner-height;
     -o-transform: translate(84px, 84px) rotate(135deg) translate(70px, 0);
     transform: translate(84px, 84px) rotate(135deg) translate(70px, 0);
 }
+
 .uil-spin-css > div:nth-of-type(4) > div {
     -ms-animation: uil-spin-css 1s linear infinite;
     -moz-animation: uil-spin-css 1s linear infinite;
@@ -237,6 +254,7 @@ $spinner-width: $spinner-height;
     -o-animation-delay: 0.37s;
     animation-delay: 0.37s;
 }
+
 .uil-spin-css > div:nth-of-type(4) {
     -ms-transform: translate(84px, 84px) rotate(180deg) translate(70px, 0);
     -moz-transform: translate(84px, 84px) rotate(180deg) translate(70px, 0);
@@ -244,6 +262,7 @@ $spinner-width: $spinner-height;
     -o-transform: translate(84px, 84px) rotate(180deg) translate(70px, 0);
     transform: translate(84px, 84px) rotate(180deg) translate(70px, 0);
 }
+
 .uil-spin-css > div:nth-of-type(5) > div {
     -ms-animation: uil-spin-css 1s linear infinite;
     -moz-animation: uil-spin-css 1s linear infinite;
@@ -256,6 +275,7 @@ $spinner-width: $spinner-height;
     -o-animation-delay: 0.5s;
     animation-delay: 0.5s;
 }
+
 .uil-spin-css > div:nth-of-type(5) {
     -ms-transform: translate(84px, 84px) rotate(225deg) translate(70px, 0);
     -moz-transform: translate(84px, 84px) rotate(225deg) translate(70px, 0);
@@ -263,6 +283,7 @@ $spinner-width: $spinner-height;
     -o-transform: translate(84px, 84px) rotate(225deg) translate(70px, 0);
     transform: translate(84px, 84px) rotate(225deg) translate(70px, 0);
 }
+
 .uil-spin-css > div:nth-of-type(6) > div {
     -ms-animation: uil-spin-css 1s linear infinite;
     -moz-animation: uil-spin-css 1s linear infinite;
@@ -275,6 +296,7 @@ $spinner-width: $spinner-height;
     -o-animation-delay: 0.62s;
     animation-delay: 0.62s;
 }
+
 .uil-spin-css > div:nth-of-type(6) {
     -ms-transform: translate(84px, 84px) rotate(270deg) translate(70px, 0);
     -moz-transform: translate(84px, 84px) rotate(270deg) translate(70px, 0);
@@ -282,6 +304,7 @@ $spinner-width: $spinner-height;
     -o-transform: translate(84px, 84px) rotate(270deg) translate(70px, 0);
     transform: translate(84px, 84px) rotate(270deg) translate(70px, 0);
 }
+
 .uil-spin-css > div:nth-of-type(7) > div {
     -ms-animation: uil-spin-css 1s linear infinite;
     -moz-animation: uil-spin-css 1s linear infinite;
@@ -294,6 +317,7 @@ $spinner-width: $spinner-height;
     -o-animation-delay: 0.75s;
     animation-delay: 0.75s;
 }
+
 .uil-spin-css > div:nth-of-type(7) {
     -ms-transform: translate(84px, 84px) rotate(315deg) translate(70px, 0);
     -moz-transform: translate(84px, 84px) rotate(315deg) translate(70px, 0);
@@ -301,6 +325,7 @@ $spinner-width: $spinner-height;
     -o-transform: translate(84px, 84px) rotate(315deg) translate(70px, 0);
     transform: translate(84px, 84px) rotate(315deg) translate(70px, 0);
 }
+
 .uil-spin-css > div:nth-of-type(8) > div {
     -ms-animation: uil-spin-css 1s linear infinite;
     -moz-animation: uil-spin-css 1s linear infinite;
@@ -313,6 +338,7 @@ $spinner-width: $spinner-height;
     -o-animation-delay: 0.87s;
     animation-delay: 0.87s;
 }
+
 .uil-spin-css > div:nth-of-type(8) {
     -ms-transform: translate(84px, 84px) rotate(360deg) translate(70px, 0);
     -moz-transform: translate(84px, 84px) rotate(360deg) translate(70px, 0);

@@ -1,29 +1,32 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
-import {SpinnerService} from "../spinner/spinner.service";
+import { SpinnerService } from "../spinner/spinner.service";
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated,
-  providers: [SpinnerService],
-  selector: 'ds-home',
-  styleUrls: ['./home.component.css'],
-  templateUrl: './home.component.html'
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.Emulated,
+    providers: [SpinnerService],
+    selector: 'ds-home',
+    styleUrls: ['./home.component.css'],
+    templateUrl: './home.component.html'
 })
 export class HomeComponent {
 
-  data: any = {};
+    data:any = {};
 
-  constructor(
-      private spinner : SpinnerService
-  ) {
-    spinner.activate();
-    // When done loading call spinner.deactivate();
+    constructor(private spinner:SpinnerService) {
+        spinner.activate();
 
-    this.universalInit();
-  }
+        /* This small delay was merely added to mimic the spinner's behaviour when a page is loading */
+        /* Please remove it and call the deactivate method when all components have been loaded instead */
+        setTimeout(() => {
+            spinner.deactivate();
+        }, 100);
 
-  universalInit() {
+        this.universalInit();
+    }
 
-  }
+    universalInit() {
+
+    }
 
 }

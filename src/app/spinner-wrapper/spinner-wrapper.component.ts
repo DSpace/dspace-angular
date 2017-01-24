@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpinnerService } from "../spinner/spinner.service";
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -9,17 +9,15 @@ import {Observable} from 'rxjs';
     templateUrl: './spinner-wrapper.component.html'
 })
 
-export class SpinnerWrapperComponent implements OnInit  {
+export class SpinnerWrapperComponent implements OnInit {
 
-    active: Observable<boolean>;
+    active:Observable<boolean>;
 
-    constructor(
-        private spinner : SpinnerService
-    ) {
+    constructor(private spinner:SpinnerService) {
 
     }
 
-    ngOnInit(): void {
+    ngOnInit():void {
         this.active = this.spinner.isActive();
     }
 

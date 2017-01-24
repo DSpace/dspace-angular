@@ -10,17 +10,17 @@ import {
 } from "@angular/core";
 import { Observable } from "rxjs";
 
-let comp: SpinnerWrapperComponent;
-let fixture: ComponentFixture<SpinnerWrapperComponent>;
-let store: Store<SpinnerState>;
+let comp:SpinnerWrapperComponent;
+let fixture:ComponentFixture<SpinnerWrapperComponent>;
+let store:Store<SpinnerState>;
 
 describe('SpinnerWrapperComponent', () => {
 
     // async beforeEach
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ StoreModule.provideStore({})],
-            declarations: [ SpinnerWrapperComponent ],
+            imports: [StoreModule.provideStore({})],
+            declarations: [SpinnerWrapperComponent],
             providers: [
                 SpinnerService
             ],
@@ -37,15 +37,14 @@ describe('SpinnerWrapperComponent', () => {
         comp = fixture.componentInstance;
 
 
-
         store = fixture.debugElement.injector.get(Store);
         spyOn(store, 'dispatch');
     });
 
 
     describe("when active in the store is true", () => {
-        let spinner: HTMLElement;
-        let content: HTMLElement;
+        let spinner:HTMLElement;
+        let content:HTMLElement;
 
         beforeEach(() => {
             spinner = fixture.debugElement.query(By.css('ds-spinner')).nativeElement;
@@ -65,8 +64,8 @@ describe('SpinnerWrapperComponent', () => {
     });
 
     describe("when active in the store is false", () => {
-        let spinner: HTMLElement;
-        let content: HTMLElement;
+        let spinner:HTMLElement;
+        let content:HTMLElement;
 
         beforeEach(() => {
             spinner = fixture.debugElement.query(By.css('ds-spinner')).nativeElement;
