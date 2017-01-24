@@ -8,12 +8,12 @@ describe('protractor PageNotFound', function() {
   });
 
   it('should contain element ds-pagenotfound when navigating to page that doesnt exist"', () => {
-    page.navigateToRandomPage();
+    page.navigateToNonExistingPage();
     expect(page.elementTagExists("ds-pagenotfound")).toEqual(true);
   });
 
-  it('should contain element ds-home when navigating to /home"', () => {
-    page.navigateToHomePage();
-    expect(page.elementTagExists("ds-home")).toEqual(true);
+  it('should not contain element ds-pagenotfound when navigating to existing page"', () => {
+    page.navigateToExistingPage();
+    expect(page.elementTagExists("ds-pagenotfound")).toEqual(false);
   });
 });
