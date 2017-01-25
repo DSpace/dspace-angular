@@ -220,6 +220,11 @@
       "resolved": "https://registry.npmjs.org/@types/jasmine/-/jasmine-2.5.41.tgz",
       "dev": true
     },
+    "@types/jsonschema": {
+      "version": "0.0.5",
+      "from": "@types/jsonschema@0.0.5",
+      "resolved": "https://registry.npmjs.org/@types/jsonschema/-/jsonschema-0.0.5.tgz"
+    },
     "@types/lodash": {
       "version": "4.14.50",
       "from": "@types/lodash@>=4.14.37 <5.0.0",
@@ -291,6 +296,11 @@
       "from": "@types/webfontloader@1.6.27",
       "resolved": "https://registry.npmjs.org/@types/webfontloader/-/webfontloader-1.6.27.tgz",
       "dev": true
+    },
+    "@types/yayson": {
+      "version": "2.0.1",
+      "from": "@types/yayson@>=2.0.1 <3.0.0",
+      "resolved": "https://registry.npmjs.org/@types/yayson/-/yayson-2.0.1.tgz"
     },
     "abbrev": {
       "version": "1.0.9",
@@ -4065,6 +4075,11 @@
       "resolved": "https://registry.npmjs.org/jsonpointer/-/jsonpointer-4.0.1.tgz",
       "dev": true
     },
+    "jsonschema": {
+      "version": "1.1.1",
+      "from": "jsonschema@>=1.1.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/jsonschema/-/jsonschema-1.1.1.tgz"
+    },
     "jsprim": {
       "version": "1.3.1",
       "from": "jsprim@>=1.2.2 <2.0.0",
@@ -5565,8 +5580,7 @@
     "q": {
       "version": "1.4.1",
       "from": "q@>=1.1.2 <2.0.0",
-      "resolved": "https://registry.npmjs.org/q/-/q-1.4.1.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/q/-/q-1.4.1.tgz"
     },
     "qjobs": {
       "version": "1.1.5",
@@ -6910,6 +6924,12 @@
       "resolved": "https://registry.npmjs.org/undefsafe/-/undefsafe-0.0.3.tgz",
       "dev": true
     },
+    "underscore": {
+      "version": "1.8.3",
+      "from": "underscore@>=1.8.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.8.3.tgz",
+      "optional": true
+    },
     "underscore.string": {
       "version": "3.0.3",
       "from": "underscore.string@>=3.0.3 <3.1.0",
@@ -7593,6 +7613,19 @@
       "from": "yauzl@2.4.1",
       "resolved": "https://registry.npmjs.org/yauzl/-/yauzl-2.4.1.tgz",
       "dev": true
+    },
+    "yayson": {
+      "version": "2.0.3",
+      "from": "yayson@>=2.0.3 <3.0.0",
+      "resolved": "https://registry.npmjs.org/yayson/-/yayson-2.0.3.tgz",
+      "dependencies": {
+        "lodash": {
+          "version": "2.4.2",
+          "from": "lodash@>=2.4.1 <3.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-2.4.2.tgz",
+          "optional": true
+        }
+      }
     },
     "yeast": {
       "version": "0.1.2",
