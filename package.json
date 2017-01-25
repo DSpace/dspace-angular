@@ -59,7 +59,8 @@
     "test:watch": "karma start --no-single-run --auto-watch",
     "coverage": "http-server -c-1 -o -p 9875 ./coverage",
     "webdriver:start": "node node_modules/protractor/bin/webdriver-manager start --seleniumPort 4444",
-    "webdriver:update": "node node_modules/protractor/bin/webdriver-manager update --standalone"
+    "webdriver:update": "node node_modules/protractor/bin/webdriver-manager update --standalone",
+    "rewrap": "npm shrinkwrap --dev"
   },
   "dependencies": {
     "@angular/common": "2.2.3",
