@@ -59,6 +59,26 @@ describe("JSONAPISerializer", () => {
       expect(model.name).toBe(doc.data.attributes.name);
     });
 
+    it("should throw an error when dealing with an invalid JSON API document", () => {
+      const serializer = new JSONAPISerializer<TestModel>();
+      const doc = COLLECTIONS[0];
+
+      expect(() => {
+        serializer.deserialize(doc);
+      }).toThrow();
+    });
+
+    it("should throw an error when dealing with a JSON API document describing an array", () => {
+      const serializer = new JSONAPISerializer<TestModel>();
+      const doc = {
+        "data": COLLECTIONS
+      };
+
+      expect(() => {
+        serializer.deserialize(doc);
+      }).toThrow();
+    });
+
   });
 
   describe("deserializeArray", () => {
@@ -75,6 +95,26 @@ describe("JSONAPISerializer", () => {
       expect(models[0].name).toBe(doc.data[0].attributes.name);
       expect(models[1].id).toBe(doc.data[1].id);
       expect(models[1].name).toBe(doc.data[1].attributes.name);
+    });
+
+    it("should throw an error when dealing with an invalid JSON API document", () => {
+      const serializer = new JSONAPISerializer<TestModel>();
+      const doc = COLLECTIONS[0];
+
+      expect(() => {
+        serializer.deserializeArray(doc);
+      }).toThrow();
+    });
+
+    it("should throw an error when dealing with a JSON API document describing a single model", () => {
+      const serializer = new JSONAPISerializer<TestModel>();
+      const doc = {
+        "data": COLLECTIONS[0]
+      };
+
+      expect(() => {
+        serializer.deserializeArray(doc);
+      }).toThrow();
     });
 
   });

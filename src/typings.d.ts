@@ -71,3 +71,10 @@ interface WebpackRequire {
 interface NodeRequire extends WebpackRequire { }
 interface NodeModule extends WebpackModule { }
 interface Global extends GlobalEnvironment { }
+
+// Allows us to import json files in typescript
+// See https://hackernoon.com/import-json-into-typescript-8d465beded79#.88tfoy2df
+declare module "*.json" {
+  const value: any;
+  export default value;
+}

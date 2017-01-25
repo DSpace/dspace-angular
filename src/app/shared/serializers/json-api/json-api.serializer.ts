@@ -1,5 +1,7 @@
 import { Serializer } from "../serializer";
 import * as Yayson from "yayson";
+import { JSONAPIValidator } from "./json-api.validator";
+
 const yayson = Yayson();
 // const Adapter = yayson.Adapter;
 const YaysonStore = yayson.Store;
@@ -40,6 +42,10 @@ export class JSONAPISerializer<T> implements Serializer<T>{
    * @returns a model of type T
    */
   deserialize(response: any): T {
+    JSONAPIValidator.validate(response);
+    if (Array.isArray(response.data)) {
+      throw new Error('Expected a single model, use deserializeArray() instead')
+    }
     let result = (new YaysonStore()).sync(response);
     return <T> result;
   }
@@ -51,6 +57,10 @@ export class JSONAPISerializer<T> implements Serializer<T>{
    * @returns an array of models of type T
    */
   deserializeArray(response: any): Array<T> {
+    JSONAPIValidator.validate(response);
+    if (!Array.isArray(response.data)) {
+      throw new Error('Expected an Array, use deserialize() instead')
+    }
     let any = (new YaysonStore()).sync(response);
     return <Array<T>> any;
   }
