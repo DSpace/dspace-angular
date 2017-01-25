@@ -46,7 +46,19 @@ export class JSONAPISerializer<T> implements Serializer<T>{
     if (Array.isArray(response.data)) {
       throw new Error('Expected a single model, use deserializeArray() instead')
     }
-    let result = (new YaysonStore()).sync(response);
+
+    let yaysonStore = new YaysonStore();
+
+    // ensures relationship objects are in the store as partial objects
+    // that way, when syncing the main model, we'll get an array of IDs
+    // instead of an array of null values
+    if (response.data && response.data.relationships) {
+      Object.keys(response.data.relationships).forEach((key) => {
+        yaysonStore.sync(response.data.relationships[key]);
+      });
+    }
+
+    let result = yaysonStore.sync(response);
     return <T> result;
   }
 
@@ -61,7 +73,19 @@ export class JSONAPISerializer<T> implements Serializer<T>{
     if (!Array.isArray(response.data)) {
       throw new Error('Expected an Array, use deserialize() instead')
     }
-    let any = (new YaysonStore()).sync(response);
+
+    let yaysonStore = new YaysonStore();
+
+    if (response.data) {
+      response.data.forEach((datum) => {
+        Object.keys(datum.relationships).forEach((key) => {
+          yaysonStore.sync(datum.relationships[key]);
+        });
+      })
+    }
+
+
+    let any = yaysonStore.sync(response);
     return <Array<T>> any;
   }
 
