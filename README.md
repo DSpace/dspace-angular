@@ -131,6 +131,7 @@ and run:
 
 ## Other commands
 There are many more commands in the `scripts` section of `package.json`. Most of these are executed by one of the commands mentioned above.
+
 A command with a name that starts with `pre` or `post` will be executed automatically before or after the script with the matching name. e.g. if you type `npm run start` the `prestart` script will run first, then the `start` script will trigger.
 
 
@@ -158,6 +159,7 @@ dspace-angular
 ├── e2e                     * Folder for e2e test files
 ├── karma.conf.js           * Unit Test configuration file
 ├── nodemon.json            * Nodemon (https://nodemon.io/) configuration
+├── npm-shrinkwrap.json     * Npm dependency lockfile (https://docs.npmjs.com/cli/shrinkwrap)
 ├── package.json            * This file describes the npm package for this project, its dependencies, scripts, etc.
 ├── postcss.config.json     * PostCSS (http://postcss.org/) configuration file
 ├── protractor.conf.js      * E2E tests configuration file
@@ -225,6 +227,13 @@ If you're importing a module that uses CommonJS you need to import as
 ```typescript
 import * as _ from 'lodash';
 ```
+
+## npm-shrinkwrap
+This project makes use of [npm-shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) to ensure that the exact same dependency versions are used every time you install it.
+
+npm-shrinkwrap creates the file `npm-shrinkwrap.json` to track those versions. That file is updated automatically every time you install a new dependency from the commandline (by using `npm install some-lib --save` or `npm install some-lib --save-dev`). 
+
+If you manually add a package or change a version in `package.json` you'll have to update npm-shrinkwrap's lock file as well. You can do so by running `npm run rewrap` 
 
 ## Frequently asked questions
 * Why is my service, aka provider, is not injecting a parameter correctly?
