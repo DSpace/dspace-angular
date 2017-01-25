@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Effect, Actions } from '@ngrx/effects'
-import { HeaderActions } from "./header.actions";
-import { HostWindowActions } from "../shared/host-window.actions";
+import { HostWindowActionTypes } from "../shared/host-window.actions";
 import { routerActions } from "@ngrx/router-store";
+import { HeaderCollapseAction } from "./header.actions";
 
 @Injectable()
 export class HeaderEffects {
@@ -12,10 +12,10 @@ export class HeaderEffects {
   ) { }
 
   @Effect() resize$ = this.actions$
-    .ofType(HostWindowActions.RESIZE)
-    .map(() => HeaderActions.collapse());
+    .ofType(HostWindowActionTypes.RESIZE)
+    .map(() => new HeaderCollapseAction());
 
   @Effect() routeChange$ = this.actions$
     .ofType(routerActions.UPDATE_LOCATION)
-    .map(() => HeaderActions.collapse());
+    .map(() => new HeaderCollapseAction());
 }
