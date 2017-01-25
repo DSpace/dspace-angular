@@ -20,7 +20,6 @@ export class JSONAPISerializer<T> implements Serializer<T>{
    * @param model The model to serialize
    * @returns A JSON API document
    */
-
   serialize(model: T): any {
     return (new Presenter()).render(model);
   }
