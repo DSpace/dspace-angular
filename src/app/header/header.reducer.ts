@@ -1,5 +1,4 @@
-import { Action } from "@ngrx/store";
-import { HeaderActions } from "./header.actions";
+import { HeaderAction, HeaderActionTypes } from "./header.actions";
 
 export interface HeaderState {
   navCollapsed: boolean;
@@ -9,23 +8,23 @@ const initialState: HeaderState = {
   navCollapsed: true
 };
 
-export const headerReducer = (state = initialState, action: Action): HeaderState => {
+export const headerReducer = (state = initialState, action: HeaderAction): HeaderState => {
   switch (action.type) {
 
-    case HeaderActions.COLLAPSE: {
+    case HeaderActionTypes.COLLAPSE: {
       return Object.assign({}, state, {
         navCollapsed: true
       });
     }
 
-    case HeaderActions.EXPAND: {
+    case HeaderActionTypes.EXPAND: {
       return Object.assign({}, state, {
         navCollapsed: false
       });
 
     }
 
-    case HeaderActions.TOGGLE: {
+    case HeaderActionTypes.TOGGLE: {
       return Object.assign({}, state, {
         navCollapsed: !state.navCollapsed
       });

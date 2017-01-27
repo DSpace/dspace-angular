@@ -8,7 +8,7 @@ import {
 import { TranslateService } from "ng2-translate";
 import { HostWindowState } from "./shared/host-window.reducer";
 import { Store } from "@ngrx/store";
-import { HostWindowActions } from "./shared/host-window.actions";
+import { HostWindowResizeAction } from "./shared/host-window.actions";
 import { GlobalConfig } from "../config";
 
 @Component({
@@ -59,7 +59,7 @@ export class AppComponent implements OnDestroy, OnInit {
   @HostListener('window:resize', ['$event'])
   private onResize(event): void {
     this.store.dispatch(
-      HostWindowActions.resize(event.target.innerWidth, event.target.innerHeight)
+      new HostWindowResizeAction(event.target.innerWidth, event.target.innerHeight)
     );
   }
 

@@ -10,36 +10,36 @@ import {
   DebugElement
 } from "@angular/core";
 import { By } from '@angular/platform-browser';
-import { TranslateModule } from "ng2-translate";
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { Store } from "@ngrx/store";
+import { TranslateModule, TranslateLoader } from "ng2-translate";
+import { Store, StoreModule } from "@ngrx/store";
 
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 
 import { CommonModule } from '@angular/common';
+import { HostWindowState } from "./shared/host-window.reducer";
+import { HostWindowResizeAction } from "./shared/host-window.actions";
+import { MockTranslateLoader } from "./shared/testing/mock-translate-loader";
 
-let comp:    AppComponent;
+let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
-let de:      DebugElement;
-let el:      HTMLElement;
+let de: DebugElement;
+let el: HTMLElement;
 
 describe('App component', () => {
 
   // async beforeEach
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
-      imports: [ CommonModule, TranslateModule.forRoot(), NgbCollapseModule.forRoot()],
-      declarations: [ AppComponent, HeaderComponent ], // declare the test component
+      imports: [CommonModule, StoreModule.provideStore({}), TranslateModule.forRoot({
+        provide: TranslateLoader,
+        useClass: MockTranslateLoader
+      })],
+      declarations: [AppComponent], // declare the test component
       providers: [
-        AppComponent,
-        {
-          provide: Store,
-          useClass: class { dispatch = jasmine.createSpy('dispatch') }
-        }
+        AppComponent
       ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
   }));
 
@@ -47,7 +47,7 @@ describe('App component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
 
-    comp = fixture.componentInstance; // BannerComponent test instance
+    comp = fixture.componentInstance; // component test instance
 
     // query for the title <p> by CSS element selector
     de = fixture.debugElement.query(By.css('p'));
@@ -58,4 +58,24 @@ describe('App component', () => {
     // Perform test using fixture and service
     expect(app).toBeTruthy();
   }));
+
+  describe("when the window is resized", () => {
+    let width: number;
+    let height: number;
+    let store: Store<HostWindowState>;
+
+    beforeEach(() => {
+      store = fixture.debugElement.injector.get(Store);
+      spyOn(store, 'dispatch');
+
+      window.dispatchEvent(new Event('resize'));
+      width = window.innerWidth;
+      height = window.innerHeight;
+    });
+
+    it("should dispatch a HostWindowResizeAction with the width and height of the window as its payload", () => {
+      expect(store.dispatch).toHaveBeenCalledWith(new HostWindowResizeAction(width, height));
+    });
+
+  });
 });
