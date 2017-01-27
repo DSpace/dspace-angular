@@ -59,7 +59,6 @@ export class AppComponent implements OnDestroy, OnInit {
 
   @HostListener('window:resize', ['$event'])
   private onResize(event): void {
-    console.log(GlobalConfig.rest.baseURL);
     this.store.dispatch(
       HostWindowActions.resize(event.target.innerWidth, event.target.innerHeight)
     );

@@ -2,33 +2,33 @@
 
 const path = require('path');
 
-let configContext = require.context("../config", false, /json$/);
+let configContext = require.context("../config", false, /js$/);
 let EnvConfig : any = {};
 let EnvConfigFile : string;
-let CommonConfig : any = {};
+let DefaultConfig : any = {};
 
 try {
-    CommonConfig = configContext('./environment.common.json');
+  DefaultConfig = configContext('./environment.default.js');
 } catch (e) {
-    throw new Error(`Cannot find file "${path.resolve('config', './environment.common.json')}"`);
+  throw new Error(`Cannot find file "${path.resolve('config', './environment.default.js')}"`);
 }
 
 switch (process.env.NODE_ENV) {
-    case 'prod':
-    case 'production':
-        EnvConfigFile = './environment.prod.json';
-        break;
-    case 'dev':
-    case 'development':
-    default:
-        EnvConfigFile = './environment.dev.json';
+  case 'prod':
+  case 'production':
+    EnvConfigFile = './environment.prod.js';
+    break;
+  case 'dev':
+  case 'development':
+  default:
+    EnvConfigFile = './environment.dev.js';
 }
 try {
-    EnvConfig = configContext(EnvConfigFile);
+  EnvConfig = configContext(EnvConfigFile);
 } catch (e) {
-    throw new Error(`Cannot find file "${path.resolve('config', EnvConfigFile)}"`);
+  EnvConfig = {};
 }
 
-const GlobalConfig = Object.assign(CommonConfig, EnvConfig);
+const GlobalConfig = Object.assign(DefaultConfig, EnvConfig);
 
 export {GlobalConfig}

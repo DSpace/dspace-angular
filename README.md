@@ -59,14 +59,11 @@ If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-w
 * `npm install` to install the local dependencies
 
 ## Configuring
-Templates for environmental and shareable configuration files are located in `config/` folder in json format.
+Default configuration file is located in `config/` folder.
 
-To make the configuration:
-* Create a new `environment.common.json` file in `config/` folder using `environment.common.default.json` as template;
-* Create a new `environment.dev.json` file in `config/` folder using `environment.default.json` as template;
-* Create a new `environment.prod.json` file in `config/` folder using `environment.default.json` as template;
-
-Note: JSON standard does not allow comments so you need to remove them whether you are copying from templates.
+To change the default configuration values, create local files that override the parameters you need to change:
+* Create a new `environment.dev.js` file in `config/` for `devel` environment;
+* Create a new `environment.prod.js` file in `config/` for `production` environment;
  
 To use the configuration parameters in your component:
 ```bash
@@ -168,45 +165,44 @@ See [the guide on the wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+-
 ## File Structure
 ```
 dspace-angular
-├── README.md                            * This document
-├── app.json                             * Application manifest file
-├── config                               * Folder for configuration files
-│   ├── environment.common.default.json  * Template for general configuration file
-│   └── environment.default.json         * Template for the dev and prod configuration files
-├── e2e                                  * Folder for e2e test files
-├── karma.conf.js                        * Unit Test configuration file
-├── nodemon.json                         * Nodemon (https://nodemon.io/) configuration
-├── package.json                         * This file describes the npm package for this project, its dependencies, scripts, etc.
-├── postcss.config.json                  * PostCSS (http://postcss.org/) configuration file
-├── protractor.conf.js                   * E2E tests configuration file
-├── resources                            * Folder for static resources
-│   ├── i18n                             * Folder for i18n translations
-│   └── images                           * Folder for images
-├── rollup-client.js                     * Rollup (http://rollupjs.org/) configuration for the client
-├── rollup-server.js                     * Rollup (http://rollupjs.org/) configuration for the server
-├── src                                  * The source of the application
-│   ├── app                              * The location of the app module, and root of the application shared by client and server
-│   ├── backend                          * Folder containing a mock of the REST API, hosted by the express server
-│   ├── browser.module.ts                * The root module for the client
-│   ├── client.aot.ts                    * The bootstrap file for the client, in production
-│   ├── client.ts                        * The bootstrap file for the client, during development
-│   ├── config.ts                        * File that loads environmental and shareable settings and makes them available to app components 
-│   ├── index-aot.html                   * The index.html file, for production
-│   ├── index.html                       * The index.html file, for development
-│   ├── node.module.ts                   * The root module for the server
-│   ├── server.aot.ts                    * The express (http://expressjs.com/) config and bootstrap file for the server, in production
-│   ├── server.routes.ts                 * The routes file for the server
-│   ├── server.ts                        * The express (http://expressjs.com/) config and bootstrap file for the server, during development
-│   ├── styles                           * Folder containing global styles.
-│   │   ├── main.scss                    * Global scss file
-│   │   └── variables.scss               * Global sass variables file
-│   └── typings.d.ts                     * File that allows you to add custom typings for libraries without TypeScript support
-├── tsconfig.aot.json                    * TypeScript config for production builds
-├── tsconfig.json                        * TypeScript config for development build
-├── tslint.json                          * TSLint (https://palantir.github.io/tslint/) configuration
-├── webpack.config.ts                    * Webpack (https://webpack.github.io/) config for development builds
-├── webpack.test.config.ts               * Webpack (https://webpack.github.io/) config for testing
-└── webpack.prod.config.ts               * Webpack (https://webpack.github.io/) config for production builds
+├── README.md                   * This document
+├── app.json                    * Application manifest file
+├── config                      * Folder for configuration files
+│   └── environment.default.js  * Default configuration files
+├── e2e                         * Folder for e2e test files
+├── karma.conf.js               * Unit Test configuration file
+├── nodemon.json                * Nodemon (https://nodemon.io/) configuration
+├── package.json                * This file describes the npm package for this project, its dependencies, scripts, etc.
+├── postcss.config.json         * PostCSS (http://postcss.org/) configuration file
+├── protractor.conf.js          * E2E tests configuration file
+├── resources                   * Folder for static resources
+│   ├── i18n                    * Folder for i18n translations
+│   └── images                  * Folder for images
+├── rollup-client.js            * Rollup (http://rollupjs.org/) configuration for the client
+├── rollup-server.js            * Rollup (http://rollupjs.org/) configuration for the server
+├── src                         * The source of the application
+│   ├── app                     * The location of the app module, and root of the application shared by client and server
+│   ├── backend                 * Folder containing a mock of the REST API, hosted by the express server
+│   ├── browser.module.ts       * The root module for the client
+│   ├── client.aot.ts           * The bootstrap file for the client, in production
+│   ├── client.ts               * The bootstrap file for the client, during development
+│   ├── config.ts               * File that loads environmental and shareable settings and makes them available to app components 
+│   ├── index-aot.html          * The index.html file, for production
+│   ├── index.html              * The index.html file, for development
+│   ├── node.module.ts          * The root module for the server
+│   ├── server.aot.ts           * The express (http://expressjs.com/) config and bootstrap file for the server, in production
+│   ├── server.routes.ts        * The routes file for the server
+│   ├── server.ts               * The express (http://expressjs.com/) config and bootstrap file for the server, during development
+│   ├── styles                  * Folder containing global styles.
+│   │   ├── main.scss           * Global scss file
+│   │   └── variables.scss      * Global sass variables file
+│   └── typings.d.ts            * File that allows you to add custom typings for libraries without TypeScript support
+├── tsconfig.aot.json           * TypeScript config for production builds
+├── tsconfig.json               * TypeScript config for development build
+├── tslint.json                 * TSLint (https://palantir.github.io/tslint/) configuration
+├── webpack.config.ts           * Webpack (https://webpack.github.io/) config for development builds
+├── webpack.test.config.ts      * Webpack (https://webpack.github.io/) config for testing
+└── webpack.prod.config.ts      * Webpack (https://webpack.github.io/) config for production builds
 ```
 
 ## 3rd Party Library Installation
