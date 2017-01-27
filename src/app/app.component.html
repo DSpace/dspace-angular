@@ -4,7 +4,6 @@
   <main>
     <p>{{ 'example.with.data' | translate:data }}</p>
     <p>{{ example }}</p>
-    <p><b>{{ title }}</b></p>
     <h2 *ngIf="!env" style="color:green">development</h2>
     <h2 *ngIf="env" style="color:red">production</h2>
     <router-outlet></router-outlet>

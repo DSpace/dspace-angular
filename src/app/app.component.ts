@@ -28,7 +28,6 @@ export class AppComponent implements OnDestroy, OnInit {
     recipient: 'World'
   };
 
-  title: string = GlobalConfig.title;
   env: string = GlobalConfig.production;
 
   styles = {
