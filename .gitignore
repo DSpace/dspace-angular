@@ -5,6 +5,11 @@
 /tsd_typings/
 npm-debug.log
 
+/config/environment.dev.js
+/config/environment.prod.js
+
+/coverage
+
 /dist/
 /coverage/
 
