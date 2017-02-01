@@ -38,7 +38,7 @@
     "server": "node dist/server/build.js",
     "server:dev": "nodemon --debug dist/server/index.js",
     "start": "npm run server",
-    "start:dev": "npm run clean:prod && npm run build && npm run server",
+    "start:dev": "npm run clean:prod && npm run build && npm run server:dev",
     "watch": "webpack -w & npm run style:watch",
     "watch:dev:server": "concurrently \"npm run server:dev\" \"npm run watch\"",
     "watch:dev": "npm run clean:prod && npm run build && npm run watch:dev:server",
