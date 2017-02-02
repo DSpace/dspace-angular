@@ -6,6 +6,9 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { SpinnerComponent } from "./spinner/spinner.component";
+import { SpinnerWrapperComponent } from "./spinner-wrapper/spinner-wrapper.component";
+import { SpinnerService } from "./spinner/spinner.service";
 
 import { StoreModule } from "@ngrx/store";
 import { RouterStoreModule } from "@ngrx/router-store";
@@ -17,7 +20,9 @@ import { effects } from './app.effects';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    SpinnerComponent,
+    SpinnerWrapperComponent
   ],
   imports: [
     SharedModule,
@@ -53,6 +58,7 @@ import { effects } from './app.effects';
     effects
   ],
   providers: [
+      SpinnerService
   ]
 })
 export class AppModule {

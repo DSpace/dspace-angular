@@ -6,6 +6,8 @@
     <p>{{ example }}</p>
     <h2 *ngIf="!env" style="color:green">development</h2>
     <h2 *ngIf="env" style="color:red">production</h2>
-    <router-outlet></router-outlet>
+      <ds-spinner-wrapper>
+          <router-outlet></router-outlet>
+      </ds-spinner-wrapper>
   </main>
 </div>
