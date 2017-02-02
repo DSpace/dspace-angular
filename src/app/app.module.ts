@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { HomeModule } from './home/home.module';
 
+
 import { SharedModule } from './shared/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 import { StoreModule } from "@ngrx/store";
 import { RouterStoreModule } from "@ngrx/router-store";
@@ -17,7 +19,8 @@ import { effects } from './app.effects';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    PageNotFoundComponent
   ],
   imports: [
     SharedModule,
