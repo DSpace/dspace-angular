@@ -1,11 +1,13 @@
 <ds-header></ds-header>
 
 <div class="container-fluid">
-    <main>
-        <p>{{ 'example.with.data' | translate:data }}</p>
-        <p>{{ example }}</p>
-        <ds-spinner-wrapper>
-            <router-outlet></router-outlet>
-        </ds-spinner-wrapper>
-    </main>
+  <main>
+    <p>{{ 'example.with.data' | translate:data }}</p>
+    <p>{{ example }}</p>
+    <h2 *ngIf="!env" style="color:green">development</h2>
+    <h2 *ngIf="env" style="color:red">production</h2>
+      <ds-spinner-wrapper>
+          <router-outlet></router-outlet>
+      </ds-spinner-wrapper>
+  </main>
 </div>

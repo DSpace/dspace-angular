@@ -32,6 +32,7 @@ Then go to [http://localhost:3000](http://localhost:3000) in your browser
 * [Introduction to the technology](#introduction-to-the-technology)
 * [Requirements](#requirements)
 * [Installing](#installing)
+* [Configuring](#configuring)
 * [Running the app](#running-the-app)
 * [Running in production mode](#running-in-production-mode)
 * [Cleaning](#cleaning)
@@ -57,6 +58,17 @@ If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-w
 * `npm run global` to install the required global dependencies
 * `npm install` to install the local dependencies
 
+## Configuring
+Default configuration file is located in `config/` folder.
+
+To change the default configuration values, create local files that override the parameters you need to change:
+* Create a new `environment.dev.js` file in `config/` for `devel` environment;
+* Create a new `environment.prod.js` file in `config/` for `production` environment;
+ 
+To use the configuration parameters in your component:
+```bash
+import { GlobalConfig } from "../config";
+```
 
 ## Running the app
 After you have installed all dependencies you can now run the app. Run `npm run watch:dev` to start a local server which will watch for changes, rebuild the code, and reload the server for you. You can visit it at `http://localhost:3000`.
@@ -131,6 +143,7 @@ and run:
 
 ## Other commands
 There are many more commands in the `scripts` section of `package.json`. Most of these are executed by one of the commands mentioned above.
+
 A command with a name that starts with `pre` or `post` will be executed automatically before or after the script with the matching name. e.g. if you type `npm run start` the `prestart` script will run first, then the `start` script will trigger.
 
 
@@ -153,41 +166,45 @@ See [the guide on the wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+-
 ## File Structure
 ```
 dspace-angular
-├── README.md               * This document
-├── app.json                * Application manifest file
-├── e2e                     * Folder for e2e test files
-├── karma.conf.js           * Unit Test configuration file
-├── nodemon.json            * Nodemon (https://nodemon.io/) configuration
-├── package.json            * This file describes the npm package for this project, its dependencies, scripts, etc.
-├── postcss.config.json     * PostCSS (http://postcss.org/) configuration file
-├── protractor.conf.js      * E2E tests configuration file
-├── resources               * Folder for static resources
-│   ├── i18n                * Folder for i18n translations
-│   └── images              * Folder for images
-├── rollup-client.js        * Rollup (http://rollupjs.org/) configuration for the client
-├── rollup-server.js        * Rollup (http://rollupjs.org/) configuration for the server
-├── src                     * The source of the application
-│   ├── app                 * The location of the app module, and root of the application shared by client and server
-│   ├── backend             * Folder containing a mock of the REST API, hosted by the express server
-│   ├── browser.module.ts   * The root module for the client
-│   ├── client.aot.ts       * The bootstrap file for the client, in production
-│   ├── client.ts           * The bootstrap file for the client, during development
-│   ├── index-aot.html      * The index.html file, for production
-│   ├── index.html          * The index.html file, for development
-│   ├── node.module.ts      * The root module for the server
-│   ├── server.aot.ts       * The express (http://expressjs.com/) config and bootstrap file for the server, in production
-│   ├── server.routes.ts    * The routes file for the server
-│   ├── server.ts           * The express (http://expressjs.com/) config and bootstrap file for the server, during development
-│   ├── styles              * Folder containing global styles.
-│   │   ├── main.scss       * Global scss file
-│   │   └── variables.scss  * Global sass variables file
-│   └── typings.d.ts        * File that allows you to add custom typings for libraries without TypeScript support
-├── tsconfig.aot.json       * TypeScript config for production builds
-├── tsconfig.json           * TypeScript config for development build
-├── tslint.json             * TSLint (https://palantir.github.io/tslint/) configuration
-├── webpack.config.ts       * Webpack (https://webpack.github.io/) config for development builds
-├── webpack.test.config.ts  * Webpack (https://webpack.github.io/) config for testing
-└── webpack.prod.config.ts  * Webpack (https://webpack.github.io/) config for production builds
+├── README.md                   * This document
+├── app.json                    * Application manifest file
+├── config                      * Folder for configuration files
+│   └── environment.default.js  * Default configuration files
+├── e2e                         * Folder for e2e test files
+├── karma.conf.js               * Unit Test configuration file
+├── nodemon.json                * Nodemon (https://nodemon.io/) configuration
+├── npm-shrinkwrap.json         * Npm dependency lockfile (https://docs.npmjs.com/cli/shrinkwrap)
+├── package.json                * This file describes the npm package for this project, its dependencies, scripts, etc.
+├── postcss.config.json         * PostCSS (http://postcss.org/) configuration file
+├── protractor.conf.js          * E2E tests configuration file
+├── resources                   * Folder for static resources
+│   ├── i18n                    * Folder for i18n translations
+│   └── images                  * Folder for images
+├── rollup-client.js            * Rollup (http://rollupjs.org/) configuration for the client
+├── rollup-server.js            * Rollup (http://rollupjs.org/) configuration for the server
+├── src                         * The source of the application
+│   ├── app                     * The location of the app module, and root of the application shared by client and server
+│   ├── backend                 * Folder containing a mock of the REST API, hosted by the express server
+│   ├── browser.module.ts       * The root module for the client
+│   ├── client.aot.ts           * The bootstrap file for the client, in production
+│   ├── client.ts               * The bootstrap file for the client, during development
+│   ├── config.ts               * File that loads environmental and shareable settings and makes them available to app components 
+│   ├── index-aot.html          * The index.html file, for production
+│   ├── index.html              * The index.html file, for development
+│   ├── node.module.ts          * The root module for the server
+│   ├── server.aot.ts           * The express (http://expressjs.com/) config and bootstrap file for the server, in production
+│   ├── server.routes.ts        * The routes file for the server
+│   ├── server.ts               * The express (http://expressjs.com/) config and bootstrap file for the server, during development
+│   ├── styles                  * Folder containing global styles.
+│   │   ├── main.scss           * Global scss file
+│   │   └── variables.scss      * Global sass variables file
+│   └── typings.d.ts            * File that allows you to add custom typings for libraries without TypeScript support
+├── tsconfig.aot.json           * TypeScript config for production builds
+├── tsconfig.json               * TypeScript config for development build
+├── tslint.json                 * TSLint (https://palantir.github.io/tslint/) configuration
+├── webpack.config.ts           * Webpack (https://webpack.github.io/) config for development builds
+├── webpack.test.config.ts      * Webpack (https://webpack.github.io/) config for testing
+└── webpack.prod.config.ts      * Webpack (https://webpack.github.io/) config for production builds
 ```
 
 ## 3rd Party Library Installation
@@ -225,6 +242,13 @@ If you're importing a module that uses CommonJS you need to import as
 ```typescript
 import * as _ from 'lodash';
 ```
+
+## npm-shrinkwrap
+This project makes use of [npm-shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap) to ensure that the exact same dependency versions are used every time you install it.
+
+npm-shrinkwrap creates the file `npm-shrinkwrap.json` to track those versions. That file is updated automatically every time you install a new dependency from the commandline (by using `npm install some-lib --save` or `npm install some-lib --save-dev`). 
+
+If you manually add a package or change a version in `package.json` you'll have to update npm-shrinkwrap's lock file as well. You can do so by running `npm run rewrap` 
 
 ## Frequently asked questions
 * Why is my service, aka provider, is not injecting a parameter correctly?
