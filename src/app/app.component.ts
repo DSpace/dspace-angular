@@ -9,6 +9,7 @@ import { TranslateService } from "ng2-translate";
 import { HostWindowState } from "./shared/host-window.reducer";
 import { Store } from "@ngrx/store";
 import { HostWindowResizeAction } from "./shared/host-window.actions";
+import { GlobalConfig } from "../config";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -25,6 +26,12 @@ export class AppComponent implements OnDestroy, OnInit {
   data: any = {
     greeting: 'Hello',
     recipient: 'World'
+  };
+
+  env: string = GlobalConfig.production;
+
+  styles = {
+    color: 'red'
   };
 
   constructor(
