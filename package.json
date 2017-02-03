@@ -83,6 +83,8 @@
     "@ngrx/router-store": "^1.2.5",
     "@ngrx/store": "^2.2.1",
     "@ngrx/store-devtools": "^3.2.2",
+    "@types/jsonschema": "0.0.5",
+    "@types/yayson": "^2.0.1",
     "angular2-express-engine": "2.1.0-rc.1",
     "angular2-platform-node": "2.1.0-rc.1",
     "angular2-universal": "2.1.0-rc.1",
@@ -95,12 +97,14 @@
     "font-awesome": "4.7.0",
     "http-server": "^0.9.0",
     "js.clone": "0.0.3",
+    "jsonschema": "^1.1.1",
     "methods": "1.1.2",
     "morgan": "1.7.0",
     "ng2-translate": "4.2.0",
     "preboot": "4.5.2",
     "rxjs": "5.0.0-beta.12",
     "webfontloader": "1.6.27",
+    "yayson": "^2.0.3",
     "zone.js": "0.6.26"
   },
   "devDependencies": {
