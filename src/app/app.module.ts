@@ -57,7 +57,6 @@ import { effects } from './app.effects';
 
     effects
   ],
-  exports: [SharedModule],
   providers: [
   ]
 })
