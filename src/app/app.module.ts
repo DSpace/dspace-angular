@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { HomeModule } from './home/home.module';
 
+import { CoreModule } from './core/core.module';
+import { HomeModule } from './home/home.module';
 
 import { SharedModule } from './shared/shared.module';
 
@@ -24,6 +25,7 @@ import { effects } from './app.effects';
   ],
   imports: [
     SharedModule,
+    CoreModule,
     HomeModule,
     AppRoutingModule,
     /**
@@ -55,6 +57,7 @@ import { effects } from './app.effects';
 
     effects
   ],
+  exports: [SharedModule],
   providers: [
   ]
 })
