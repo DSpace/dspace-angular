@@ -1,12 +1,20 @@
 import * as schema from './dspace-rest-v2.schema.json'
 import { Validator } from "jsonschema";
 
+/**
+ * Verifies a document is a valid response from
+ * a DSpace REST API v2
+ */
 export class DSpaceRESTv2Validator {
 
   constructor(private document: any) {
 
   }
 
+  /**
+   * Throws an exception if this.document isn't a valid response from
+   * a DSpace REST API v2. Succeeds otherwise.
+   */
   validate(): void {
     const validator = new Validator();
     const result = validator.validate(this.document, schema);
