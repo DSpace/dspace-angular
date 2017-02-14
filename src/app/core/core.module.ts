@@ -2,6 +2,8 @@ import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { SharedModule } from "../shared/shared.module";
 import { isNotEmpty } from "../shared/empty.util";
+import { DSpaceRESTv2Service } from "./dspace-rest-v2/dspace-rest-v2.service";
+import { CollectionDataService } from "./data-services/collection/collection-data.service";
 
 const IMPORTS = [
   CommonModule,
@@ -15,6 +17,8 @@ const EXPORTS = [
 ];
 
 const PROVIDERS = [
+  CollectionDataService,
+  DSpaceRESTv2Service
 ];
 
 @NgModule({
