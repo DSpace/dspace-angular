@@ -15,6 +15,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import { rootReducer } from './app.reducers';
 import { effects } from './app.effects';
+import { CoreModule } from "./core/core.module";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { effects } from './app.effects';
   imports: [
     SharedModule,
     HomeModule,
+    CoreModule.forRoot(),
     AppRoutingModule,
     /**
      * StoreModule.provideStore is imported once in the root module, accepting a reducer

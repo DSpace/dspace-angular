@@ -220,6 +220,12 @@
       "resolved": "https://registry.npmjs.org/@types/jasmine/-/jasmine-2.5.41.tgz",
       "dev": true
     },
+    "@types/jsonschema": {
+      "version": "0.0.5",
+      "from": "@types/jsonschema@0.0.5",
+      "resolved": "https://registry.npmjs.org/@types/jsonschema/-/jsonschema-0.0.5.tgz",
+      "dev": true
+    },
     "@types/lodash": {
       "version": "4.14.50",
       "from": "@types/lodash@>=4.14.37 <5.0.0",
@@ -950,6 +956,11 @@
       "from": "center-align@>=0.1.1 <0.2.0",
       "resolved": "https://registry.npmjs.org/center-align/-/center-align-0.1.3.tgz",
       "dev": true
+    },
+    "cerialize": {
+      "version": "0.1.13",
+      "from": "cerialize@>=0.1.13 <0.2.0",
+      "resolved": "https://registry.npmjs.org/cerialize/-/cerialize-0.1.13.tgz"
     },
     "chalk": {
       "version": "1.1.3",
@@ -3149,6 +3160,11 @@
       "from": "jsonpointer@>=4.0.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/jsonpointer/-/jsonpointer-4.0.1.tgz",
       "dev": true
+    },
+    "jsonschema": {
+      "version": "1.1.1",
+      "from": "jsonschema@>=1.1.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/jsonschema/-/jsonschema-1.1.1.tgz"
     },
     "jsprim": {
       "version": "1.3.1",

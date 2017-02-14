@@ -1,0 +1,26 @@
+import * as schema from './dspace-rest-v2.schema.json'
+import { Validator } from "jsonschema";
+
+export class DSpaceRESTv2Validator {
+
+  constructor(private document: any) {
+
+  }
+
+  validate(): void {
+    const validator = new Validator();
+    const result = validator.validate(this.document, schema);
+    if (!result.valid) {
+      if (result.errors && result.errors.length > 0) {
+        const message = result.errors
+          .map((error) => error.message)
+          .join("\n");
+        throw new Error(message);
+      }
+      else {
+        throw new Error("JSON API validation failed for an unknown reason");
+      }
+    }
+  }
+
+}
