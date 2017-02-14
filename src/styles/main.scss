@@ -8,22 +8,3 @@ html {
   position: relative;
   min-height: 100%;
 }
-
-// Sticky Footer
-
-.outer-wrapper {
-  display: flex;
-  margin: 0;
-}
-
-.inner-wrapper {
-  flex: 1 1 auto;
-  flex-flow: column nowrap;
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.main-content {
-  flex: 1 0 auto;
-}
