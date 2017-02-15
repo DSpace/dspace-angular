@@ -33,10 +33,10 @@ export class CollectionFindMultipleRequestAction implements Action {
 
 export class CollectionFindMultipleSuccessAction implements Action {
   type = CollectionFindMultipleActionTypes.FIND_MULTI_SUCCESS;
-  payload: Collection[];
+  payload: Array<string>;
 
-  constructor(collections: Collection[]) {
-    this.payload = collections;
+  constructor(collectionIDs: Array<string>) {
+    this.payload = collectionIDs;
   }
 }
 

@@ -4,7 +4,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/share';
 
-import { CacheService  } from '../cache.service';
+import { DemoCacheService  } from '../demo-cache.service';
 import { ApiService  } from '../api.service';
 
 export function hashCodeString(str: string): string {
@@ -24,7 +24,7 @@ export function hashCodeString(str: string): string {
 @Injectable()
 export class ModelService {
   // This is only one example of one Model depending on your domain
-  constructor(public _api: ApiService, public _cache: CacheService) {
+  constructor(public _api: ApiService, public _cache: DemoCacheService) {
 
   }
 

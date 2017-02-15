@@ -1,8 +1,8 @@
 import { Inject, Injectable, isDevMode } from '@angular/core';
 
 @Injectable()
-export class CacheService {
-  static KEY = 'CacheService';
+export class DemoCacheService {
+  static KEY = 'DemoCacheService';
 
   constructor( @Inject('LRU') public _cache: Map<string, any>) {
 
@@ -71,7 +71,7 @@ export class CacheService {
    */
   normalizeKey(key: string | number): string {
     if (isDevMode() && this._isInvalidValue(key)) {
-      throw new Error('Please provide a valid key to save in the CacheService');
+      throw new Error('Please provide a valid key to save in the DemoCacheService');
     }
 
     return key + '';

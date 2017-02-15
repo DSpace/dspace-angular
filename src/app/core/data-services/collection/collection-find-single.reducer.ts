@@ -5,17 +5,15 @@ import {
 } from "./collection-find-single.actions";
 
 export interface CollectionFindSingleState {
-  collection: Collection;
   isLoading: boolean;
   errorMessage: string;
-  id: string;
+  collectionID: string;
 }
 
 const initialState: CollectionFindSingleState = {
-  collection: undefined,
   isLoading: false,
   errorMessage: undefined,
-  id: undefined,
+  collectionID: undefined
 };
 
 export const findSingleReducer = (state = initialState, action: CollectionFindSingleAction): CollectionFindSingleState => {
@@ -24,17 +22,15 @@ export const findSingleReducer = (state = initialState, action: CollectionFindSi
     case CollectionFindSingleActionTypes.FIND_BY_ID_REQUEST: {
       return Object.assign({}, state, {
         isLoading: true,
-        id: action.payload,
-        collections: undefined,
         errorMessage: undefined,
+        collectionID: action.payload
       });
     }
 
     case CollectionFindSingleActionTypes.FIND_BY_ID_SUCCESS: {
       return Object.assign({}, state, {
         isLoading: false,
-        collection: action.payload,
-        errorMessage: undefined
+        errorMessage: undefined,
       });
     }
 

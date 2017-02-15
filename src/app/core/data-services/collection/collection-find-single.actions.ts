@@ -19,10 +19,10 @@ export class CollectionFindByIdRequestAction implements Action {
 
 export class CollectionFindByIdSuccessAction implements Action {
   type = CollectionFindSingleActionTypes.FIND_BY_ID_SUCCESS;
-  payload: Collection;
+  payload: string;
 
-  constructor(collection: Collection) {
-    this.payload = collection;
+  constructor(collectionID: string) {
+    this.payload = collectionID;
   }
 }
 

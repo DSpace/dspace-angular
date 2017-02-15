@@ -92,7 +92,7 @@ export function createMockApi() {
 
   router.route('/collections/:collection_id')
     .get(function(req, res) {
-      console.log('GET', util.inspect(req.collection, { colors: true }));
+      console.log('GET', util.inspect(req.collection.id, { colors: true }));
       res.json(toHALResponse(req, req.collection));
     // })
     // .put(function(req, res) {

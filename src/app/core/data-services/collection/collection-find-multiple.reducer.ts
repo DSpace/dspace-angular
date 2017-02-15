@@ -8,7 +8,7 @@ import {
 
 export interface CollectionFindMultipleState {
   scope: Collection;
-  collections: Collection[];
+  collectionsIDs: Array<String>;
   isLoading: boolean;
   errorMessage: string;
   paginationOptions: PaginationOptions;
@@ -17,7 +17,7 @@ export interface CollectionFindMultipleState {
 
 const initialState: CollectionFindMultipleState = {
   scope: undefined,
-  collections: [],
+  collectionsIDs: [],
   isLoading: false,
   errorMessage: undefined,
   paginationOptions: undefined,
@@ -30,7 +30,7 @@ export const findMultipleReducer = (state = initialState, action: CollectionFind
     case CollectionFindMultipleActionTypes.FIND_MULTI_REQUEST: {
       return Object.assign({}, state, {
         scope: action.payload.scope,
-        collections: [],
+        collectionsIDs: [],
         isLoading: true,
         errorMessage: undefined,
         paginationOptions: action.payload.paginationOptions,
@@ -41,7 +41,7 @@ export const findMultipleReducer = (state = initialState, action: CollectionFind
     case CollectionFindMultipleActionTypes.FIND_MULTI_SUCCESS: {
       return Object.assign({}, state, {
         isLoading: false,
-        collections: action.payload,
+        collectionsIDs: action.payload,
         errorMessage: undefined
       });
     }

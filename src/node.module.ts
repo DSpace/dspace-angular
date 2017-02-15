@@ -9,7 +9,7 @@ import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-tra
 
 import { AppModule, AppComponent } from './app/app.module';
 import { SharedModule } from './app/shared/shared.module';
-import { CacheService } from './app/shared/cache.service';
+import { DemoCacheService } from './app/shared/demo-cache.service';
 import { CoreModule } from "./app/core/core.module";
 
 // Will be merged into @angular/platform-browser in a later release
@@ -61,13 +61,13 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
     { provide: 'LRU', useFactory: getLRU, deps: [] },
 
-    CacheService,
+    DemoCacheService,
 
     Meta,
   ]
 })
 export class MainModule {
-  constructor(public cache: CacheService) {
+  constructor(public cache: DemoCacheService) {
 
   }
 
@@ -76,7 +76,7 @@ export class MainModule {
    * in Universal for now until it's fixed
    */
   universalDoDehydrate = (universalCache) => {
-    universalCache[CacheService.KEY] = JSON.stringify(this.cache.dehydrate());
+    universalCache[DemoCacheService.KEY] = JSON.stringify(this.cache.dehydrate());
   }
 
   /**

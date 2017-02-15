@@ -1,11 +1,12 @@
 import { autoserialize, autoserializeAs } from "cerialize";
 import { Metadatum } from "./metadatum.model"
 import { isEmpty, isNotEmpty } from "../../shared/empty.util";
+import { CacheableObject } from "../data-services/cache/cache.reducer";
 
 /**
  * An abstract model class for a DSpaceObject.
  */
-export abstract class DSpaceObject {
+export abstract class DSpaceObject implements CacheableObject {
 
     /**
      * The identifier of this DSpaceObject
@@ -63,5 +64,13 @@ export abstract class DSpaceObject {
       else {
         return undefined;
       }
+    }
+
+    get uuid(): string {
+      return this.id;
+    }
+
+    set uuid(val: string) {
+      this.id = val;
     }
 }
