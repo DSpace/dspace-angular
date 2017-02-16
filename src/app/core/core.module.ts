@@ -1,18 +1,45 @@
-import { NgModule }     from '@angular/core';
+import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from "../shared/shared.module";
+import { isNotEmpty } from "../shared/empty.util";
+import { FooterComponent } from "./footer/footer.component";
 
-import { SharedModule } from '../shared/shared.module';
+const IMPORTS = [
+  CommonModule,
+  SharedModule
+];
 
-import { FooterComponent } from './footer/footer.component';
+const DECLARATIONS = [
+  FooterComponent
+];
+
+const EXPORTS = [
+  FooterComponent
+];
+
+const PROVIDERS = [
+];
 
 @NgModule({
-  imports: [
-    CommonModule, // we use ngFor
-    SharedModule
-  ],
-  exports: [FooterComponent],
-  declarations: [FooterComponent],
-  providers: []
+  imports: [ ...IMPORTS ],
+  declarations: [...DECLARATIONS],
+  exports: [...EXPORTS],
+  providers: [...PROVIDERS]
 })
+export class CoreModule {
+  constructor (@Optional() @SkipSelf() parentModule: CoreModule) {
+    if (isNotEmpty(parentModule)) {
+      throw new Error(
+        'CoreModule is already loaded. Import it in the AppModule only');
+    }
+  }
 
-export class CoreModule { }
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        ...PROVIDERS
+      ]
+    };
+  }
+}

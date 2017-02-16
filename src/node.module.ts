@@ -10,6 +10,7 @@ import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-tra
 import { AppModule, AppComponent } from './app/app.module';
 import { SharedModule } from './app/shared/shared.module';
 import { CacheService } from './app/shared/cache.service';
+import { CoreModule } from "./app/core/core.module";
 
 // Will be merged into @angular/platform-browser in a later release
 // see https://github.com/angular/angular/pull/12322
@@ -47,7 +48,8 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     FormsModule,
     RouterModule.forRoot([], { useHash: false }),
 
-    SharedModule.forRoot(),
+    CoreModule.forRoot(),
+    SharedModule,
     AppModule,
   ],
   providers: [

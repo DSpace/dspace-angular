@@ -25,8 +25,8 @@ import { effects } from './app.effects';
   ],
   imports: [
     SharedModule,
-    CoreModule,
     HomeModule,
+    CoreModule.forRoot(),
     AppRoutingModule,
     /**
      * StoreModule.provideStore is imported once in the root module, accepting a reducer
