@@ -1,6 +1,5 @@
 import { Action } from "@ngrx/store";
 import { type } from "../../../shared/ngrx/type";
-import { Collection } from "../../shared/collection.model";
 import { PaginationOptions } from "../../shared/pagination-options.model";
 import { SortOptions } from "../../shared/sort-options.model";
 
@@ -13,18 +12,18 @@ export const CollectionFindMultipleActionTypes = {
 export class CollectionFindMultipleRequestAction implements Action {
   type = CollectionFindMultipleActionTypes.FIND_MULTI_REQUEST;
   payload: {
-    scope: Collection,
+    scopeID: string,
     paginationOptions: PaginationOptions,
     sortOptions: SortOptions
   };
 
   constructor(
-    scope?: Collection,
+    scopeID?: string,
     paginationOptions: PaginationOptions = new PaginationOptions(),
     sortOptions: SortOptions = new SortOptions()
   ) {
     this.payload = {
-      scope,
+      scopeID,
       paginationOptions,
       sortOptions
     }

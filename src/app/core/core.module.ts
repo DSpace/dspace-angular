@@ -5,6 +5,7 @@ import { isNotEmpty } from "../shared/empty.util";
 import { DSpaceRESTv2Service } from "./dspace-rest-v2/dspace-rest-v2.service";
 import { CollectionDataService } from "./data-services/collection/collection-data.service";
 import { CacheService } from "./data-services/cache/cache.service";
+import { ItemDataService } from "./data-services/item/item-data.service";
 
 const IMPORTS = [
   CommonModule,
@@ -19,6 +20,7 @@ const EXPORTS = [
 
 const PROVIDERS = [
   CollectionDataService,
+  ItemDataService,
   DSpaceRESTv2Service,
   CacheService
 ];

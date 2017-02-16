@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Actions, Effect, toPayload } from "@ngrx/effects";
+import { Actions, Effect } from "@ngrx/effects";
 import { Collection } from "../../shared/collection.model";
 import { Observable } from "rxjs";
 import {

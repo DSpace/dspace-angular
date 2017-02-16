@@ -1,35 +1,35 @@
 import { PaginationOptions } from "../../shared/pagination-options.model";
 import { SortOptions } from "../../shared/sort-options.model";
 import {
-  CollectionFindMultipleAction,
-  CollectionFindMultipleActionTypes
-} from "./collection-find-multiple.actions";
+  ItemFindMultipleAction,
+  ItemFindMultipleActionTypes
+} from "./item-find-multiple.actions";
 
-export interface CollectionFindMultipleState {
+export interface ItemFindMultipleState {
   scopeID: string;
-  collectionsIDs: Array<String>;
+  itemsIDs: Array<String>;
   isLoading: boolean;
   errorMessage: string;
   paginationOptions: PaginationOptions;
   sortOptions: SortOptions;
 }
 
-const initialState: CollectionFindMultipleState = {
+const initialState: ItemFindMultipleState = {
   scopeID: undefined,
-  collectionsIDs: [],
+  itemsIDs: [],
   isLoading: false,
   errorMessage: undefined,
   paginationOptions: undefined,
   sortOptions: undefined
 };
 
-export const findMultipleReducer = (state = initialState, action: CollectionFindMultipleAction): CollectionFindMultipleState => {
+export const findMultipleReducer = (state = initialState, action: ItemFindMultipleAction): ItemFindMultipleState => {
   switch (action.type) {
 
-    case CollectionFindMultipleActionTypes.FIND_MULTI_REQUEST: {
+    case ItemFindMultipleActionTypes.FIND_MULTI_REQUEST: {
       return Object.assign({}, state, {
         scopeID: action.payload.scopeID,
-        collectionsIDs: [],
+        itemsIDs: [],
         isLoading: true,
         errorMessage: undefined,
         paginationOptions: action.payload.paginationOptions,
@@ -37,15 +37,15 @@ export const findMultipleReducer = (state = initialState, action: CollectionFind
       });
     }
 
-    case CollectionFindMultipleActionTypes.FIND_MULTI_SUCCESS: {
+    case ItemFindMultipleActionTypes.FIND_MULTI_SUCCESS: {
       return Object.assign({}, state, {
         isLoading: false,
-        collectionsIDs: action.payload,
+        itemsIDs: action.payload,
         errorMessage: undefined
       });
     }
 
-    case CollectionFindMultipleActionTypes.FIND_MULTI_ERROR: {
+    case ItemFindMultipleActionTypes.FIND_MULTI_ERROR: {
       return Object.assign({}, state, {
         isLoading: false,
         errorMessage: action.payload
