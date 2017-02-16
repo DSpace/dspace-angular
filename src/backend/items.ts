@@ -2,14 +2,14 @@ export const ITEMS = [
   {
     "_links": {
       "self": {
-        "href": "/items/21539b1d-9ef1-4eda-9c77-49565b5bfb78"
+        "href": "/items/8871"
       },
       "collections": [
         {
-          "href": "/collections/9e32a2e2-6b91-4236-a361-995ccdc14c60"
+          "href": "/collections/5179"
         },
         {
-          "href": "/collections/598ce822-c357-46f3-ab70-63724d02d6ad"
+          "href": "/collections/6547"
         }
       ],
       "bundles": [
@@ -21,7 +21,8 @@ export const ITEMS = [
         }
       ]
     },
-    "id": "21539b1d-9ef1-4eda-9c77-49565b5bfb78",
+    "id": "8871",
+    "uuid": "21539b1d-9ef1-4eda-9c77-49565b5bfb78",
     "name": "Do Open-Access Articles Have a Greater Research Impact?",
     "handle": "123456789/8871",
     "lastModified": "2016-10-14 10:41:12.886",
@@ -93,14 +94,14 @@ export const ITEMS = [
   {
     "_links": {
       "self": {
-        "href": "/items/be8325f7-243b-49f4-8a4b-df2b793ff3b5"
+        "href": "/items/9978"
       },
       "collections": [
         {
-          "href": "/collections/9e32a2e2-6b91-4236-a361-995ccdc14c60"
+          "href": "/collections/5179"
         },
         {
-          "href": "/collections/598ce822-c357-46f3-ab70-63724d02d6ad"
+          "href": "/collections/6547"
         }
       ],
       "bundles": [
@@ -112,7 +113,8 @@ export const ITEMS = [
         }
       ]
     },
-    "id": "be8325f7-243b-49f4-8a4b-df2b793ff3b5",
+    "id": "9978",
+    "uuid": "be8325f7-243b-49f4-8a4b-df2b793ff3b5",
     "name": "Another Test Item",
     "handle": "123456789/9978",
     "lastModified": "2016-05-27 03:00:20.063",

@@ -48,19 +48,13 @@ export class CollectionDataEffects {
   @Effect() findById$ = this.actions$
     .ofType(CollectionFindSingleActionTypes.FIND_BY_ID_REQUEST)
     .switchMap(action => {
-      if (this.cache.has(action.payload)) {
-        return this.cache.get<Collection>(action.payload)
-          .map(collection => new CollectionFindByIdSuccessAction(collection.uuid));
-      }
-      else {
-        return this.restApi.get(`/collections/${action.payload}`)
-          .map((data: DSpaceRESTV2Response) => new DSpaceRESTv2Serializer(Collection).deserialize(data))
-          .do((collection: Collection) => {
-            this.cache.add(collection, GlobalConfig.cache.msToLive);
-          })
-          .map((collection: Collection) => new CollectionFindByIdSuccessAction(collection.uuid))
-          .catch((errorMsg: string) => Observable.of(new CollectionFindByIdErrorAction(errorMsg)));
-      }
+      return this.restApi.get(`/collections/${action.payload}`)
+        .map((data: DSpaceRESTV2Response) => new DSpaceRESTv2Serializer(Collection).deserialize(data))
+        .do((collection: Collection) => {
+          this.cache.add(collection, GlobalConfig.cache.msToLive);
+        })
+        .map((collection: Collection) => new CollectionFindByIdSuccessAction(collection.uuid))
+        .catch((errorMsg: string) => Observable.of(new CollectionFindByIdErrorAction(errorMsg)));
     });
 
 }

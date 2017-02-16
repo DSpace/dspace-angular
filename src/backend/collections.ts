@@ -1,13 +1,14 @@
 export const COLLECTIONS = [
   {
     "_links": {
-      "self": { "href": "/collections/9e32a2e2-6b91-4236-a361-995ccdc14c60" },
+      "self": { "href": "/collections/5179" },
       "items": [
-        { "href": "/items/21539b1d-9ef1-4eda-9c77-49565b5bfb78" },
-        { "href": "/items/be8325f7-243b-49f4-8a4b-df2b793ff3b5" }
+        { "href": "/items/8871" },
+        { "href": "/items/9978" }
       ]
     },
-    "id": "9e32a2e2-6b91-4236-a361-995ccdc14c60",
+    "id": "5179",
+    "uuid": "9e32a2e2-6b91-4236-a361-995ccdc14c60",
     "name": "A Test Collection",
     "handle": "123456789/5179",
     "metadata": [
@@ -35,13 +36,14 @@ export const COLLECTIONS = [
   },
   {
     "_links": {
-      "self": { "href": "/collections/598ce822-c357-46f3-ab70-63724d02d6ad" },
+      "self": { "href": "/collections/6547" },
       "items": [
-        { "href": "/items/21539b1d-9ef1-4eda-9c77-49565b5bfb78" },
-        { "href": "/items/be8325f7-243b-49f4-8a4b-df2b793ff3b5" }
+        { "href": "/items/8871" },
+        { "href": "/items/9978" }
       ]
     },
-    "id": "598ce822-c357-46f3-ab70-63724d02d6ad",
+    "id": "6547",
+    "uuid": "598ce822-c357-46f3-ab70-63724d02d6ad",
     "name": "Another Test Collection",
     "handle": "123456789/6547",
     "metadata": [

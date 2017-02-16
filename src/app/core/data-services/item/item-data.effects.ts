@@ -48,19 +48,13 @@ export class ItemDataEffects {
   @Effect() findById$ = this.actions$
     .ofType(ItemFindSingleActionTypes.FIND_BY_ID_REQUEST)
     .switchMap(action => {
-      if (this.cache.has(action.payload)) {
-        return this.cache.get<Item>(action.payload)
-          .map(item => new ItemFindByIdSuccessAction(item.uuid));
-      }
-      else {
-        return this.restApi.get(`/items/${action.payload}`)
-          .map((data: DSpaceRESTV2Response) => new DSpaceRESTv2Serializer(Item).deserialize(data))
-          .do((item: Item) => {
-            this.cache.add(item, GlobalConfig.cache.msToLive);
-          })
-          .map((item: Item) => new ItemFindByIdSuccessAction(item.uuid))
-          .catch((errorMsg: string) => Observable.of(new ItemFindByIdErrorAction(errorMsg)));
-      }
+      return this.restApi.get(`/items/${action.payload}`)
+        .map((data: DSpaceRESTV2Response) => new DSpaceRESTv2Serializer(Item).deserialize(data))
+        .do((item: Item) => {
+          this.cache.add(item, GlobalConfig.cache.msToLive);
+        })
+        .map((item: Item) => new ItemFindByIdSuccessAction(item.uuid))
+        .catch((errorMsg: string) => Observable.of(new ItemFindByIdErrorAction(errorMsg)));
     });
 
 }

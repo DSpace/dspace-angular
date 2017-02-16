@@ -9,10 +9,16 @@ import { CacheableObject } from "../data-services/cache/cache.reducer";
 export abstract class DSpaceObject implements CacheableObject {
 
     /**
-     * The identifier of this DSpaceObject
+     * The human-readable identifier of this DSpaceObject
      */
     @autoserialize
     id: string;
+
+    /**
+     * The universally unique identifier of this DSpaceObject
+     */
+    @autoserialize
+    uuid: string;
 
     /**
      * A string representing the kind of DSpaceObject, e.g. community, item, …
@@ -64,13 +70,5 @@ export abstract class DSpaceObject implements CacheableObject {
       else {
         return undefined;
       }
-    }
-
-    get uuid(): string {
-      return this.id;
-    }
-
-    set uuid(val: string) {
-      this.id = val;
     }
 }
