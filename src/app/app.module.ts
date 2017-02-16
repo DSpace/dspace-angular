@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { HomeModule } from './home/home.module';
 
+import { CoreModule } from './core/core.module';
+import { HomeModule } from './home/home.module';
 
 import { SharedModule } from './shared/shared.module';
 
@@ -15,7 +16,6 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import { rootReducer } from './app.reducers';
 import { effects } from './app.effects';
-import { CoreModule } from "./core/core.module";
 
 @NgModule({
   declarations: [
