@@ -155,11 +155,7 @@ export function createMockApi() {
   router.route('/items/:item_id')
     .get(function(req, res) {
       console.log('GET', util.inspect(req.item, { colors: true }));
-      const metadataIds: string[] = req.item.relationships.metadata.data.map(obj => obj.id);
-      const itemMetadata: any[] = METADATA.filter((metadatum) => {
-        return metadataIds.indexOf(metadatum.id) >= 0
-      });
-      res.json(toHALResponse(req, req.item, itemMetadata));
+      res.json(toHALResponse(req, req.item));
     // })
     // .put(function(req, res) {
     //   console.log('PUT', util.inspect(req.body, { colors: true }));
@@ -204,11 +200,7 @@ export function createMockApi() {
     router.route('/bundles/:bundle_id')
         .get(function(req, res) {
             console.log('GET', util.inspect(req.bundle, { colors: true }));
-            const metadataIds: string[] = req.bundle.relationships.metadata.data.map(obj => obj.id);
-            const bundleMetadata: any[] = METADATA.filter((metadatum) => {
-                return metadataIds.indexOf(metadatum.id) >= 0
-            });
-            res.json(toHALResponse(req, req.bundle, bundleMetadata));
+            res.json(toHALResponse(req, req.bundle));
         });
 
 
@@ -238,11 +230,7 @@ export function createMockApi() {
     router.route('/bitstreams/:bitstream_id')
         .get(function(req, res) {
             console.log('GET', util.inspect(req.bitstream, { colors: true }));
-            const metadataIds: string[] = req.bitstream.relationships.metadata.data.map(obj => obj.id);
-            const bitstreamMetadata: any[] = METADATA.filter((metadatum) => {
-                return metadataIds.indexOf(metadatum.id) >= 0
-            });
-            res.json(toHALResponse(req, req.bitstream, bitstreamMetadata));
+            res.json(toHALResponse(req, req.bitstream));
         });
 
   return router;
