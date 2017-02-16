@@ -34,8 +34,8 @@ export class ItemFindMultipleSuccessAction implements Action {
   type = ItemFindMultipleActionTypes.FIND_MULTI_SUCCESS;
   payload: Array<string>;
 
-  constructor(itemIDs: Array<string>) {
-    this.payload = itemIDs;
+  constructor(itemUUIDs: Array<string>) {
+    this.payload = itemUUIDs;
   }
 }
 

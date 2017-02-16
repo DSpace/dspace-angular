@@ -40,8 +40,8 @@ export class CollectionDataEffects {
             this.cache.add(collection, GlobalConfig.cache.msToLive);
           });
         })
-        .map((collections: Array<Collection>) => collections.map(collection => collection.id))
-        .map((ids: Array<string>) => new CollectionFindMultipleSuccessAction(ids))
+        .map((collections: Array<Collection>) => collections.map(collection => collection.uuid))
+        .map((uuids: Array<string>) => new CollectionFindMultipleSuccessAction(uuids))
         .catch((errorMsg: string) => Observable.of(new CollectionFindMultipleErrorAction(errorMsg)));
     });
 
@@ -50,7 +50,7 @@ export class CollectionDataEffects {
     .switchMap(action => {
       if (this.cache.has(action.payload)) {
         return this.cache.get<Collection>(action.payload)
-          .map(collection => new CollectionFindByIdSuccessAction(collection.id));
+          .map(collection => new CollectionFindByIdSuccessAction(collection.uuid));
       }
       else {
         return this.restApi.get(`/collections/${action.payload}`)
@@ -58,7 +58,7 @@ export class CollectionDataEffects {
           .do((collection: Collection) => {
             this.cache.add(collection, GlobalConfig.cache.msToLive);
           })
-          .map((collection: Collection) => new CollectionFindByIdSuccessAction(collection.id))
+          .map((collection: Collection) => new CollectionFindByIdSuccessAction(collection.uuid))
           .catch((errorMsg: string) => Observable.of(new CollectionFindByIdErrorAction(errorMsg)));
       }
     });

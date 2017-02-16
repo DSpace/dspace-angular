@@ -7,7 +7,7 @@ import {
 
 export interface ItemFindMultipleState {
   scopeID: string;
-  itemsIDs: Array<String>;
+  itemUUIDs: Array<String>;
   isLoading: boolean;
   errorMessage: string;
   paginationOptions: PaginationOptions;
@@ -16,7 +16,7 @@ export interface ItemFindMultipleState {
 
 const initialState: ItemFindMultipleState = {
   scopeID: undefined,
-  itemsIDs: [],
+  itemUUIDs: [],
   isLoading: false,
   errorMessage: undefined,
   paginationOptions: undefined,
@@ -29,7 +29,7 @@ export const findMultipleReducer = (state = initialState, action: ItemFindMultip
     case ItemFindMultipleActionTypes.FIND_MULTI_REQUEST: {
       return Object.assign({}, state, {
         scopeID: action.payload.scopeID,
-        itemsIDs: [],
+        itemUUIDs: [],
         isLoading: true,
         errorMessage: undefined,
         paginationOptions: action.payload.paginationOptions,
@@ -40,7 +40,7 @@ export const findMultipleReducer = (state = initialState, action: ItemFindMultip
     case ItemFindMultipleActionTypes.FIND_MULTI_SUCCESS: {
       return Object.assign({}, state, {
         isLoading: false,
-        itemsIDs: action.payload,
+        itemUUIDs: action.payload,
         errorMessage: undefined
       });
     }

@@ -18,16 +18,19 @@ export class ItemDataService {
   findAll(scopeID?: string): Observable<Item[]> {
     this.store.dispatch(new ItemFindMultipleRequestAction(scopeID));
     //get an observable of the IDs from the itemData store
-    return this.store.select<Array<string>>('core', 'itemData', 'findMultiple', 'itemsIDs')
-      .flatMap((itemIds: Array<string>) => {
+    return this.store.select<Array<string>>('core', 'itemData', 'findMultiple', 'itemUUIDs')
+      .flatMap((itemUUIDs: Array<string>) => {
         // use those IDs to fetch the actual item objects from the cache
-        return this.cache.getList<Item>(itemIds);
+        return this.cache.getList<Item>(itemUUIDs);
       });
   }
 
   findById(id: string): Observable<Item> {
     this.store.dispatch(new ItemFindByIdRequestAction(id));
-    return this.cache.get<Item>(id);
+    return this.store.select<string>('core', 'itemData', 'findSingle', 'itemUUID')
+      .flatMap((itemUUID: string) => {
+        return this.cache.get<Item>(itemUUID);
+      });
   }
 
 }

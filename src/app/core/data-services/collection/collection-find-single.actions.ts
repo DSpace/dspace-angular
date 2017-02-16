@@ -12,8 +12,8 @@ export class CollectionFindByIdRequestAction implements Action {
   type = CollectionFindSingleActionTypes.FIND_BY_ID_REQUEST;
   payload: string;
 
-  constructor(id: string) {
-    this.payload = id;
+  constructor(requestID: string) {
+    this.payload = requestID;
   }
 }
 
@@ -21,8 +21,8 @@ export class CollectionFindByIdSuccessAction implements Action {
   type = CollectionFindSingleActionTypes.FIND_BY_ID_SUCCESS;
   payload: string;
 
-  constructor(collectionID: string) {
-    this.payload = collectionID;
+  constructor(collectionUUID: string) {
+    this.payload = collectionUUID;
   }
 }
 

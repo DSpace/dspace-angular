@@ -7,13 +7,15 @@ import {
 export interface CollectionFindSingleState {
   isLoading: boolean;
   errorMessage: string;
-  collectionID: string;
+  requestedID: string;
+  collectionUUID: string;
 }
 
 const initialState: CollectionFindSingleState = {
   isLoading: false,
   errorMessage: undefined,
-  collectionID: undefined
+  requestedID: undefined,
+  collectionUUID: undefined
 };
 
 export const findSingleReducer = (state = initialState, action: CollectionFindSingleAction): CollectionFindSingleState => {
@@ -23,7 +25,7 @@ export const findSingleReducer = (state = initialState, action: CollectionFindSi
       return Object.assign({}, state, {
         isLoading: true,
         errorMessage: undefined,
-        collectionID: action.payload
+        requestedID: action.payload
       });
     }
 
@@ -31,6 +33,7 @@ export const findSingleReducer = (state = initialState, action: CollectionFindSi
       return Object.assign({}, state, {
         isLoading: false,
         errorMessage: undefined,
+        collectionUUID: action.payload
       });
     }
 

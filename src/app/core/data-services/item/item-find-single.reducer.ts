@@ -7,13 +7,15 @@ import {
 export interface ItemFindSingleState {
   isLoading: boolean;
   errorMessage: string;
-  itemID: string;
+  requestedID: string;
+  itemUUID: string;
 }
 
 const initialState: ItemFindSingleState = {
   isLoading: false,
   errorMessage: undefined,
-  itemID: undefined
+  requestedID: undefined,
+  itemUUID: undefined
 };
 
 export const findSingleReducer = (state = initialState, action: ItemFindSingleAction): ItemFindSingleState => {
@@ -23,7 +25,7 @@ export const findSingleReducer = (state = initialState, action: ItemFindSingleAc
       return Object.assign({}, state, {
         isLoading: true,
         errorMessage: undefined,
-        itemID: action.payload
+        requestedID: action.payload
       });
     }
 
@@ -31,6 +33,7 @@ export const findSingleReducer = (state = initialState, action: ItemFindSingleAc
       return Object.assign({}, state, {
         isLoading: false,
         errorMessage: undefined,
+        itemUUID: action.payload
       });
     }
 
