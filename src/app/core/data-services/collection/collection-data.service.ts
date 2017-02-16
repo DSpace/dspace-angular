@@ -19,9 +19,9 @@ export class CollectionDataService {
     this.store.dispatch(new CollectionFindMultipleRequestAction(scopeID));
     //get an observable of the IDs from the collectionData store
     return this.store.select<Array<string>>('core', 'collectionData', 'findMultiple', 'collectionUUIDs')
-      .flatMap((collectionIds: Array<string>) => {
+      .flatMap((collectionUUIDs: Array<string>) => {
         // use those IDs to fetch the actual collection objects from the cache
-        return this.cache.getList<Collection>(collectionIds);
+        return this.cache.getList<Collection>(collectionUUIDs);
       });
   }
 
