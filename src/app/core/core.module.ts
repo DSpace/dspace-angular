@@ -2,6 +2,7 @@ import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { SharedModule } from "../shared/shared.module";
 import { isNotEmpty } from "../shared/empty.util";
+import { FooterComponent } from "./footer/footer.component";
 import { DSpaceRESTv2Service } from "./dspace-rest-v2/dspace-rest-v2.service";
 import { CollectionDataService } from "./data-services/collection/collection-data.service";
 import { CacheService } from "./data-services/cache/cache.service";
@@ -9,13 +10,15 @@ import { ItemDataService } from "./data-services/item/item-data.service";
 
 const IMPORTS = [
   CommonModule,
+  SharedModule
 ];
 
 const DECLARATIONS = [
-
+  FooterComponent
 ];
 
 const EXPORTS = [
+  FooterComponent
 ];
 
 const PROVIDERS = [
@@ -41,7 +44,7 @@ export class CoreModule {
 
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: SharedModule,
+      ngModule: CoreModule,
       providers: [
         ...PROVIDERS
       ]
