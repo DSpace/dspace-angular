@@ -219,7 +219,7 @@ If the library does not include typings, you can install them using yarn:
 
 ```bash
 yarn add d3 --save
-yarn ad @types/d3 --save-dev
+yarn add @types/d3 --save-dev
 ```
 
 If the library doesn't have typings available at `@types/`, you can still use it by
