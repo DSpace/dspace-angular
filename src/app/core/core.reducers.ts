@@ -1,20 +1,14 @@
 import { combineReducers } from "@ngrx/store";
-import {
-  CollectionDataState,
-  collectionDataReducer
-} from "./data-services/collection/collection-data.reducer";
 import { CacheState, cacheReducer } from "./data-services/cache/cache.reducer";
-import { ItemDataState, itemDataReducer } from "./data-services/item/item-data.reducer";
+import { dataReducer, DataState } from "./data-services/data.reducer";
 
 export interface CoreState {
-  collectionData: CollectionDataState,
-  itemData: ItemDataState,
+  data: DataState,
   cache: CacheState
 }
 
 export const reducers = {
-  collectionData: collectionDataReducer,
-  itemData: itemDataReducer,
+  data: dataReducer,
   cache: cacheReducer
 };
 
