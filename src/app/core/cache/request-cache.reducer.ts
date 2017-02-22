@@ -1,12 +1,12 @@
 import { PaginationOptions } from "../shared/pagination-options.model";
 import { SortOptions } from "../shared/sort-options.model";
 import {
-  DataAction, DataActionTypes, DataFindAllRequestAction,
-  DataSuccessAction, DataErrorAction, DataFindByIDRequestAction
-} from "./data.actions";
+  RequestCacheAction, RequestCacheActionTypes, FindAllRequestCacheAction,
+  RequestCacheSuccessAction, RequestCacheErrorAction, FindByIDRequestCacheAction
+} from "./request-cache.actions";
 import { OpaqueToken } from "@angular/core";
 
-export interface DataRequestState {
+export interface CachedRequest {
   service: OpaqueToken
   scopeID: string;
   resourceID: string;
@@ -20,30 +20,30 @@ export interface DataRequestState {
   msToLive: number;
 }
 
-export interface DataState {
-  [key: string]: DataRequestState
+export interface RequestCacheState {
+  [key: string]: CachedRequest
 }
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState = Object.create(null);
 
-export const dataReducer = (state = initialState, action: DataAction): DataState => {
+export const requestCacheReducer = (state = initialState, action: RequestCacheAction): RequestCacheState => {
   switch (action.type) {
 
-    case DataActionTypes.FIND_ALL_REQUEST: {
-      return findAllRequest(state, <DataFindAllRequestAction> action);
+    case RequestCacheActionTypes.FIND_ALL_REQUEST: {
+      return findAllRequest(state, <FindAllRequestCacheAction> action);
     }
 
-    case DataActionTypes.FIND_BY_ID_REQUEST: {
-      return findByIDRequest(state, <DataFindByIDRequestAction> action);
+    case RequestCacheActionTypes.FIND_BY_ID_REQUEST: {
+      return findByIDRequest(state, <FindByIDRequestCacheAction> action);
     }
 
-    case DataActionTypes.SUCCESS: {
-      return success(state, <DataSuccessAction> action);
+    case RequestCacheActionTypes.SUCCESS: {
+      return success(state, <RequestCacheSuccessAction> action);
     }
 
-    case DataActionTypes.ERROR: {
-      return error(state, <DataErrorAction> action);
+    case RequestCacheActionTypes.ERROR: {
+      return error(state, <RequestCacheErrorAction> action);
     }
 
     default: {
@@ -52,7 +52,7 @@ export const dataReducer = (state = initialState, action: DataAction): DataState
   }
 };
 
-function findAllRequest(state: DataState, action: DataFindAllRequestAction): DataState {
+function findAllRequest(state: RequestCacheState, action: FindAllRequestCacheAction): RequestCacheState {
   return Object.assign({}, state, {
     [action.payload.key]: {
       service: action.payload.service,
@@ -66,7 +66,7 @@ function findAllRequest(state: DataState, action: DataFindAllRequestAction): Dat
   });
 }
 
-function findByIDRequest(state: DataState, action: DataFindByIDRequestAction): DataState {
+function findByIDRequest(state: RequestCacheState, action: FindByIDRequestCacheAction): RequestCacheState {
   return Object.assign({}, state, {
     [action.payload.key]: {
       service: action.payload.service,
@@ -78,7 +78,7 @@ function findByIDRequest(state: DataState, action: DataFindByIDRequestAction): D
   });
 }
 
-function success(state: DataState, action: DataSuccessAction): DataState {
+function success(state: RequestCacheState, action: RequestCacheSuccessAction): RequestCacheState {
   return Object.assign({}, state, {
     [action.payload.key]: Object.assign({}, state[action.payload.key], {
       isLoading: false,
@@ -88,7 +88,7 @@ function success(state: DataState, action: DataSuccessAction): DataState {
   });
 }
 
-function error(state: DataState, action: DataErrorAction): DataState {
+function error(state: RequestCacheState, action: RequestCacheErrorAction): RequestCacheState {
   return Object.assign({}, state, {
     [action.payload.key]: Object.assign({}, state[action.payload.key], {
       isLoading: false,

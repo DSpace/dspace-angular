@@ -4,15 +4,15 @@ import { type } from "../../shared/ngrx/type";
 import { PaginationOptions } from "../shared/pagination-options.model";
 import { SortOptions } from "../shared/sort-options.model";
 
-export const DataActionTypes = {
-  FIND_BY_ID_REQUEST: type('dspace/core/data/FIND_BY_ID_REQUEST'),
-  FIND_ALL_REQUEST: type('dspace/core/data/FIND_ALL_REQUEST'),
-  SUCCESS: type('dspace/core/data/SUCCESS'),
-  ERROR: type('dspace/core/data/ERROR')
+export const RequestCacheActionTypes = {
+  FIND_BY_ID_REQUEST: type('dspace/core/cache/request/FIND_BY_ID_REQUEST'),
+  FIND_ALL_REQUEST: type('dspace/core/cache/request/FIND_ALL_REQUEST'),
+  SUCCESS: type('dspace/core/cache/request/SUCCESS'),
+  ERROR: type('dspace/core/cache/request/ERROR')
 };
 
-export class DataFindAllRequestAction implements Action {
-  type = DataActionTypes.FIND_ALL_REQUEST;
+export class FindAllRequestCacheAction implements Action {
+  type = RequestCacheActionTypes.FIND_ALL_REQUEST;
   payload: {
     key: string,
     service: OpaqueToken,
@@ -38,8 +38,8 @@ export class DataFindAllRequestAction implements Action {
   }
 }
 
-export class DataFindByIDRequestAction implements Action {
-  type = DataActionTypes.FIND_BY_ID_REQUEST;
+export class FindByIDRequestCacheAction implements Action {
+  type = RequestCacheActionTypes.FIND_BY_ID_REQUEST;
   payload: {
     key: string,
     service: OpaqueToken,
@@ -59,8 +59,8 @@ export class DataFindByIDRequestAction implements Action {
   }
 }
 
-export class DataSuccessAction implements Action {
-  type = DataActionTypes.SUCCESS;
+export class RequestCacheSuccessAction implements Action {
+  type = RequestCacheActionTypes.SUCCESS;
   payload: {
     key: string,
     resourceUUIDs: Array<string>
@@ -74,8 +74,8 @@ export class DataSuccessAction implements Action {
   }
 }
 
-export class DataErrorAction implements Action {
-  type = DataActionTypes.ERROR;
+export class RequestCacheErrorAction implements Action {
+  type = RequestCacheActionTypes.ERROR;
   payload: {
     key: string,
     errorMessage: string
@@ -89,8 +89,8 @@ export class DataErrorAction implements Action {
   }
 }
 
-export type DataAction
-  = DataFindAllRequestAction
-  | DataFindByIDRequestAction
-  | DataSuccessAction
-  | DataErrorAction;
+export type RequestCacheAction
+  = FindAllRequestCacheAction
+  | FindByIDRequestCacheAction
+  | RequestCacheSuccessAction
+  | RequestCacheErrorAction;

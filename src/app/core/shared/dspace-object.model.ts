@@ -1,7 +1,7 @@
 import { autoserialize, autoserializeAs } from "cerialize";
 import { Metadatum } from "./metadatum.model"
 import { isEmpty, isNotEmpty } from "../../shared/empty.util";
-import { CacheableObject } from "../data-services/cache/cache.reducer";
+import { CacheableObject } from "../cache/object-cache.reducer";
 
 /**
  * An abstract model class for a DSpaceObject.

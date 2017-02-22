@@ -92,7 +92,7 @@ export function createMockApi() {
 
   router.route('/collections/:collection_id')
     .get(function(req, res) {
-      console.log('GET', util.inspect(req.collection.id, { colors: true }));
+      // console.log('GET', util.inspect(req.collection.id, { colors: true }));
       res.json(toHALResponse(req, req.collection));
     // })
     // .put(function(req, res) {
@@ -154,7 +154,7 @@ export function createMockApi() {
 
   router.route('/items/:item_id')
     .get(function(req, res) {
-      console.log('GET', util.inspect(req.item, { colors: true }));
+      // console.log('GET', util.inspect(req.item, { colors: true }));
       res.json(toHALResponse(req, req.item));
     // })
     // .put(function(req, res) {
@@ -199,7 +199,7 @@ export function createMockApi() {
 
     router.route('/bundles/:bundle_id')
         .get(function(req, res) {
-            console.log('GET', util.inspect(req.bundle, { colors: true }));
+            // console.log('GET', util.inspect(req.bundle, { colors: true }));
             res.json(toHALResponse(req, req.bundle));
         });
 
@@ -229,7 +229,7 @@ export function createMockApi() {
 
     router.route('/bitstreams/:bitstream_id')
         .get(function(req, res) {
-            console.log('GET', util.inspect(req.bitstream, { colors: true }));
+            // console.log('GET', util.inspect(req.bitstream, { colors: true }));
             res.json(toHALResponse(req, req.bitstream));
         });
 

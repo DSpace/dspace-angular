@@ -1,28 +1,28 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { CacheState, CacheEntry, CacheableObject } from "./cache.reducer";
-import { AddToCacheAction, RemoveFromCacheAction } from "./cache.actions";
+import { ObjectCacheState, ObjectCacheEntry, CacheableObject } from "./object-cache.reducer";
+import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from "./object-cache.actions";
 import { Observable } from "rxjs";
-import { hasNoValue } from "../../../shared/empty.util";
+import { hasNoValue } from "../../shared/empty.util";
 
 @Injectable()
-export class CacheService {
+export class ObjectCacheService {
   constructor(
-    private store: Store<CacheState>
+    private store: Store<ObjectCacheState>
   ) {}
 
   add(objectToCache: CacheableObject, msToLive: number): void {
-    this.store.dispatch(new AddToCacheAction(objectToCache, msToLive));
+    this.store.dispatch(new AddToObjectCacheAction(objectToCache, msToLive));
   }
 
   remove(uuid: string): void {
-    this.store.dispatch(new RemoveFromCacheAction(uuid));
+    this.store.dispatch(new RemoveFromObjectCacheAction(uuid));
   }
 
   get<T extends CacheableObject>(uuid: string): Observable<T> {
-    return this.store.select<CacheEntry>('core', 'cache', uuid)
+    return this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
       .filter(entry => this.isValid(entry))
-      .map((entry: CacheEntry) => <T> entry.data);
+      .map((entry: ObjectCacheEntry) => <T> entry.data);
   }
 
   getList<T extends CacheableObject>(uuids: Array<string>): Observable<Array<T>> {
@@ -34,14 +34,14 @@ export class CacheService {
   has(uuid: string): boolean {
     let result: boolean;
 
-    this.store.select<CacheEntry>('core', 'cache', uuid)
+    this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
       .take(1)
       .subscribe(entry => result = this.isValid(entry));
 
     return result;
   }
 
-  private isValid(entry: CacheEntry): boolean {
+  private isValid(entry: ObjectCacheEntry): boolean {
     if (hasNoValue(entry)) {
       return false;
     }
@@ -49,7 +49,7 @@ export class CacheService {
       const timeOutdated = entry.timeAdded + entry.msToLive;
       const isOutDated = new Date().getTime() > timeOutdated;
       if (isOutDated) {
-        this.store.dispatch(new RemoveFromCacheAction(entry.data.uuid));
+        this.store.dispatch(new RemoveFromObjectCacheAction(entry.data.uuid));
       }
       return !isOutDated;
     }
