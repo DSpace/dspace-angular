@@ -63,13 +63,15 @@ export class RequestCacheSuccessAction implements Action {
   type = RequestCacheActionTypes.SUCCESS;
   payload: {
     key: string,
-    resourceUUIDs: Array<string>
+    resourceUUIDs: Array<string>,
+    msToLive: number
   };
 
-  constructor(key: string, resourceUUIDs: Array<string>) {
+  constructor(key: string, resourceUUIDs: Array<string>, msToLive: number) {
     this.payload = {
       key,
-      resourceUUIDs
+      resourceUUIDs,
+      msToLive
     };
   }
 }

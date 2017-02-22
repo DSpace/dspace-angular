@@ -83,7 +83,9 @@ function success(state: RequestCacheState, action: RequestCacheSuccessAction): R
     [action.payload.key]: Object.assign({}, state[action.payload.key], {
       isLoading: false,
       resourceUUIDs: action.payload.resourceUUIDs,
-      errorMessage: undefined
+      errorMessage: undefined,
+      timeAdded: new Date().getTime(),
+      msToLive: action.payload.msToLive
     })
   });
 }

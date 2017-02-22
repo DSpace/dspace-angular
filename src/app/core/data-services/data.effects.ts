@@ -40,7 +40,7 @@ export abstract class DataEffects<T extends CacheableObject> {
           });
         })
         .map((ts: Array<T>) => ts.map(t => t.uuid))
-        .map((ids: Array<string>) => new RequestCacheSuccessAction(action.payload.key, ids))
+        .map((ids: Array<string>) => new RequestCacheSuccessAction(action.payload.key, ids, GlobalConfig.cache.msToLive))
         .catch((errorMsg: string) => Observable.of(new RequestCacheErrorAction(action.payload.key, errorMsg)));
     });
 
@@ -53,7 +53,7 @@ export abstract class DataEffects<T extends CacheableObject> {
         .do((t: T) => {
           this.objectCache.add(t, GlobalConfig.cache.msToLive);
         })
-        .map((t: T) => new RequestCacheSuccessAction(action.payload.key, [t.uuid]))
+        .map((t: T) => new RequestCacheSuccessAction(action.payload.key, [t.uuid], GlobalConfig.cache.msToLive))
         .catch((errorMsg: string) => Observable.of(new RequestCacheErrorAction(action.payload.key, errorMsg)));
     });
 
