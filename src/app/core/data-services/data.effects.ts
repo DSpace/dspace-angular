@@ -30,7 +30,7 @@ export abstract class DataEffects<T extends CacheableObject> {
   protected findAll = this.actions$
     .ofType(RequestCacheActionTypes.FIND_ALL_REQUEST)
     .filter((action: FindAllRequestCacheAction) => action.payload.service === this.dataService.name)
-    .switchMap((action: FindAllRequestCacheAction) => {
+    .flatMap((action: FindAllRequestCacheAction) => {
       //TODO scope, pagination, sorting -> when we know how that works in rest
       return this.restApi.get(this.getFindAllEndpoint(action))
         .map((data: DSpaceRESTV2Response) => this.getSerializer().deserializeArray(data))
@@ -47,7 +47,7 @@ export abstract class DataEffects<T extends CacheableObject> {
   protected findById = this.actions$
     .ofType(RequestCacheActionTypes.FIND_BY_ID_REQUEST)
     .filter((action: FindAllRequestCacheAction) => action.payload.service === this.dataService.name)
-    .switchMap((action: FindByIDRequestCacheAction) => {
+    .flatMap((action: FindByIDRequestCacheAction) => {
       return this.restApi.get(this.getFindByIdEndpoint(action))
         .map((data: DSpaceRESTV2Response) => this.getSerializer().deserialize(data))
         .do((t: T) => {
