@@ -53,8 +53,8 @@ Not sure where to start? watch the training videos linked in the [Introduction t
 You can find more information on the technologies used in this project (Angular 2, Typescript, Angular Universal, RxJS, etc) on the [DuraSpace wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
 
 ## Requirements
-* [Node.js](https://nodejs.org) and [yarn](https://yarnpkg.com)
-* Ensure you're running node >= `v5.x`
+* [Node.js](https://nodejs.org), [npm](https://www.npmjs.com/), and [yarn](https://yarnpkg.com)
+* Ensure you're running node >= `v5.x`, npm >= `v3.x` and yarn >= `v0.20.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
