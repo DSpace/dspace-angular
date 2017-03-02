@@ -4,6 +4,7 @@ import { ObjectCacheState, ObjectCacheEntry, CacheableObject } from "./object-ca
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from "./object-cache.actions";
 import { Observable } from "rxjs";
 import { hasNoValue } from "../../shared/empty.util";
+import { GenericConstructor } from "../shared/generic-constructor";
 
 @Injectable()
 export class ObjectCacheService {
@@ -12,22 +13,23 @@ export class ObjectCacheService {
   ) {}
 
   add(objectToCache: CacheableObject, msToLive: number): void {
-    this.store.dispatch(new AddToObjectCacheAction(objectToCache, msToLive));
+    this.store.dispatch(new AddToObjectCacheAction(objectToCache, new Date().getTime(), msToLive));
   }
 
   remove(uuid: string): void {
     this.store.dispatch(new RemoveFromObjectCacheAction(uuid));
   }
 
-  get<T extends CacheableObject>(uuid: string): Observable<T> {
+  get<T extends CacheableObject>(uuid: string, ctor: GenericConstructor<T>): Observable<T> {
     return this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
       .filter(entry => this.isValid(entry))
-      .map((entry: ObjectCacheEntry) => <T> entry.data);
+      .distinctUntilChanged()
+      .map((entry: ObjectCacheEntry) => <T> Object.assign(new ctor(), entry.data));
   }
 
-  getList<T extends CacheableObject>(uuids: Array<string>): Observable<Array<T>> {
+  getList<T extends CacheableObject>(uuids: Array<string>, ctor: GenericConstructor<T>): Observable<Array<T>> {
     return Observable.combineLatest(
-      uuids.map((id: string) => this.get<T>(id))
+      uuids.map((id: string) => this.get<T>(id, ctor))
     );
   }
 

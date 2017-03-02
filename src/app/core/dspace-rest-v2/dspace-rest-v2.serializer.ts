@@ -2,13 +2,7 @@ import { Serialize, Deserialize } from "cerialize";
 import { Serializer } from "../serializer";
 import { DSpaceRESTV2Response } from "./dspace-rest-v2-response.model";
 import { DSpaceRESTv2Validator } from "./dspace-rest-v2.validator";
-
-/**
- * ensures we can use 'typeof T' as a type
- * more details:
- * https://github.com/Microsoft/TypeScript/issues/204#issuecomment-257722306
- */
-type Constructor<T> = { new (...args: any[]): T } | ((...args: any[]) => T) | Function;
+import { GenericConstructor } from "../shared/generic-constructor";
 
 /**
  * This Serializer turns responses from v2 of DSpace's REST API
@@ -22,7 +16,7 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
    * @param modelType a class or interface to indicate
    * the kind of model this serializer should work with
    */
-  constructor(private modelType: Constructor<T>) {
+  constructor(private modelType: GenericConstructor<T>) {
   }
 
   /**

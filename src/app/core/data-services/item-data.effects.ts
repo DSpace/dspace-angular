@@ -6,7 +6,7 @@ import { DSpaceRESTv2Serializer } from "../dspace-rest-v2/dspace-rest-v2.seriali
 import { ObjectCacheService } from "../cache/object-cache.service";
 import { DSpaceRESTv2Service } from "../dspace-rest-v2/dspace-rest-v2.service";
 import { Actions, Effect } from "@ngrx/effects";
-import { FindAllRequestCacheAction, FindByIDRequestCacheAction } from "../cache/request-cache.actions";
+import { RequestCacheFindAllAction, RequestCacheFindByIDAction } from "../cache/request-cache.actions";
 import { ItemDataService } from "./item-data.service";
 
 @Injectable()
@@ -20,11 +20,11 @@ export class ItemDataEffects extends DataEffects<Item> {
     super(actions$, restApi, cache, dataService);
   }
 
-  protected getFindAllEndpoint(action: FindAllRequestCacheAction): string {
+  protected getFindAllEndpoint(action: RequestCacheFindAllAction): string {
     return '/items';
   }
 
-  protected getFindByIdEndpoint(action: FindByIDRequestCacheAction): string {
+  protected getFindByIdEndpoint(action: RequestCacheFindByIDAction): string {
     return `/items/${action.payload.resourceID}`;
   }
 

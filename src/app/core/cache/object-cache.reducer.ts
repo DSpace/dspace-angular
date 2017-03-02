@@ -1,11 +1,12 @@
 import { ObjectCacheAction, ObjectCacheActionTypes, AddToObjectCacheAction, RemoveFromObjectCacheAction } from "./object-cache.actions";
 import { hasValue } from "../../shared/empty.util";
+import { CacheEntry } from "./cache-entry";
 
 export interface CacheableObject {
   uuid: string;
 }
 
-export interface ObjectCacheEntry {
+export class ObjectCacheEntry implements CacheEntry {
   data: CacheableObject;
   timeAdded: number;
   msToLive: number;
@@ -39,7 +40,7 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
   return Object.assign({}, state, {
     [action.payload.objectToCache.uuid]: {
       data: action.payload.objectToCache,
-      timeAdded: new Date().getTime(),
+      timeAdded: action.payload.timeAdded,
       msToLive: action.payload.msToLive
     }
   });

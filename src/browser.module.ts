@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { UniversalModule, isBrowser, isNode, AUTO_PREBOOT } from 'angular2-universal/browser'; // for AoT we need to manually split universal packages
+import { UniversalModule, isBrowser, isNode } from 'angular2-universal/browser'; // for AoT we need to manually split universal packages
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -10,12 +10,18 @@ import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-tra
 
 import { AppModule, AppComponent } from './app/app.module';
 import { SharedModule } from './app/shared/shared.module';
-import { DemoCacheService } from './app/shared/demo-cache.service';
 import { CoreModule } from "./app/core/core.module";
+
+import { StoreModule, Store } from "@ngrx/store";
+import { RouterStoreModule } from "@ngrx/router-store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { rootReducer, NGRX_CACHE_KEY, AppState } from './app/app.reducers';
+import { effects } from './app/app.effects';
 
 // Will be merged into @angular/platform-browser in a later release
 // see https://github.com/angular/angular/pull/12322
 import { Meta } from './angular2-meta';
+import { RehydrateStoreAction } from "./app/store.actions";
 
 // import * as LRU from 'modern-lru';
 
@@ -38,7 +44,6 @@ export function getResponse() {
 }
 
 
-// TODO(gdi2290): refactor into Universal
 export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
 @NgModule({
@@ -60,6 +65,10 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     CoreModule.forRoot(),
     SharedModule,
     AppModule,
+    StoreModule.provideStore(rootReducer),
+    RouterStoreModule.connectRouter(),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    effects
   ],
   providers: [
     { provide: 'isBrowser', useValue: isBrowser },
@@ -70,23 +79,21 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
     { provide: 'LRU', useFactory: getLRU, deps: [] },
 
-    DemoCacheService,
-
     Meta,
 
     // { provide: AUTO_PREBOOT, useValue: false } // turn off auto preboot complete
   ]
 })
 export class MainModule {
-  constructor(public cache: DemoCacheService) {
+  constructor(public store: Store<AppState>) {
     // TODO(gdi2290): refactor into a lifecycle hook
     this.doRehydrate();
   }
 
   doRehydrate() {
     let defaultValue = {};
-    let serverCache = this._getCacheValue(DemoCacheService.KEY, defaultValue);
-    this.cache.rehydrate(serverCache);
+    let serverCache = this._getCacheValue(NGRX_CACHE_KEY, defaultValue);
+    this.store.dispatch(new RehydrateStoreAction(serverCache));
   }
 
   _getCacheValue(key: string, defaultValue: any): any {
@@ -95,7 +102,7 @@ export class MainModule {
     if (win[UNIVERSAL_KEY] && win[UNIVERSAL_KEY][key]) {
       let serverCache = defaultValue;
       try {
-        serverCache = JSON.parse(win[UNIVERSAL_KEY][key]);
+        serverCache = win[UNIVERSAL_KEY][key];
         if (typeof serverCache !== typeof defaultValue) {
           console.log('Angular Universal: The type of data from the server is different from the default value type');
           serverCache = defaultValue;

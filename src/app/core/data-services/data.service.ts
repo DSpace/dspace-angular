@@ -1,39 +1,39 @@
 import { OpaqueToken } from "@angular/core";
 import { Observable } from "rxjs";
-import { Store } from "@ngrx/store";
 import { ObjectCacheService } from "../cache/object-cache.service";
+import { RequestCacheService } from "../cache/request-cache.service";
 import { CacheableObject } from "../cache/object-cache.reducer";
-import { RequestCacheState } from "../cache/request-cache.reducer";
-import { FindAllRequestCacheAction, FindByIDRequestCacheAction } from "../cache/request-cache.actions";
 import { ParamHash } from "../shared/param-hash";
 import { isNotEmpty } from "../../shared/empty.util";
+import { GenericConstructor } from "../shared/generic-constructor";
 
 export abstract class DataService<T extends CacheableObject> {
-  abstract name: OpaqueToken;
+  abstract serviceName: OpaqueToken;
+  protected abstract objectCache: ObjectCacheService;
+  protected abstract requestCache: RequestCacheService;
 
-  constructor(
-    private store: Store<RequestCacheState>,
-    private objectCache: ObjectCacheService
-  ) { }
+  constructor(private modelType: GenericConstructor<T>) {
+
+  }
 
   findAll(scopeID?: string): Observable<Array<T>> {
-    const key = new ParamHash(this.name, 'findAll', scopeID).toString();
-    this.store.dispatch(new FindAllRequestCacheAction(key, this.name, scopeID));
-    //get an observable of the IDs from the store
-    return this.store.select<Array<string>>('core', 'cache', 'request', key, 'resourceUUIDs')
+    const key = new ParamHash(this.serviceName, 'findAll', scopeID).toString();
+    return this.requestCache.findAll(key, this.serviceName, scopeID)
+      //get an observable of the IDs from the RequestCache
+      .map(entry => entry.resourceUUIDs)
       .flatMap((resourceUUIDs: Array<string>) => {
-        // use those IDs to fetch the actual objects from the cache
-        return this.objectCache.getList<T>(resourceUUIDs);
+        // use those IDs to fetch the actual objects from the ObjectCache
+        return this.objectCache.getList<T>(resourceUUIDs, this.modelType);
       });
   }
 
   findById(id: string): Observable<T> {
-    const key = new ParamHash(this.name, 'findById', id).toString();
-    this.store.dispatch(new FindByIDRequestCacheAction(key, this.name, id));
-    return this.store.select<Array<string>>('core', 'cache', 'request', key, 'resourceUUIDs')
+    const key = new ParamHash(this.serviceName, 'findById', id).toString();
+    return this.requestCache.findById(key, this.serviceName, id)
+      .map(entry => entry.resourceUUIDs)
       .flatMap((resourceUUIDs: Array<string>) => {
         if(isNotEmpty(resourceUUIDs)) {
-          return this.objectCache.get<T>(resourceUUIDs[0]);
+          return this.objectCache.get<T>(resourceUUIDs[0], this.modelType);
         }
         else {
           return Observable.of(undefined);

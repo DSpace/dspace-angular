@@ -11,11 +11,12 @@ export class AddToObjectCacheAction implements Action {
   type = ObjectCacheActionTypes.ADD;
   payload: {
     objectToCache: CacheableObject;
+    timeAdded: number;
     msToLive: number;
   };
 
-  constructor(objectToCache: CacheableObject, msToLive: number) {
-    this.payload = { objectToCache, msToLive };
+  constructor(objectToCache: CacheableObject, timeAdded: number, msToLive: number) {
+    this.payload = { objectToCache, timeAdded, msToLive };
   }
 }
 

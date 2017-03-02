@@ -8,44 +8,44 @@ import { CacheableObject } from "../cache/object-cache.reducer";
  */
 export abstract class DSpaceObject implements CacheableObject {
 
-    /**
-     * The human-readable identifier of this DSpaceObject
-     */
-    @autoserialize
-    id: string;
+  /**
+   * The human-readable identifier of this DSpaceObject
+   */
+  @autoserialize
+  id: string;
 
-    /**
-     * The universally unique identifier of this DSpaceObject
-     */
-    @autoserialize
-    uuid: string;
+  /**
+   * The universally unique identifier of this DSpaceObject
+   */
+  @autoserialize
+  uuid: string;
 
-    /**
-     * A string representing the kind of DSpaceObject, e.g. community, item, …
-     */
-    type: string;
+  /**
+   * A string representing the kind of DSpaceObject, e.g. community, item, …
+   */
+  type: string;
 
-    /**
-     * The name for this DSpaceObject
-     */
-    @autoserialize
-    name: string;
+  /**
+   * The name for this DSpaceObject
+   */
+  @autoserialize
+  name: string;
 
-    /**
-     * An array containing all metadata of this DSpaceObject
-     */
-    @autoserializeAs(Metadatum)
-    metadata: Array<Metadatum>;
+  /**
+   * An array containing all metadata of this DSpaceObject
+   */
+  @autoserializeAs(Metadatum)
+  metadata: Array<Metadatum>;
 
-    /**
-     * An array of DSpaceObjects that are direct parents of this DSpaceObject
-     */
-    parents: Array<DSpaceObject>;
+  /**
+   * An array of DSpaceObjects that are direct parents of this DSpaceObject
+   */
+  parents: Array<DSpaceObject>;
 
-    /**
-     * The DSpaceObject that owns this DSpaceObject
-     */
-    owner: DSpaceObject;
+  /**
+   * The DSpaceObject that owns this DSpaceObject
+   */
+  owner: DSpaceObject;
 
   /**
    * Find a metadata field by key and language
@@ -58,17 +58,17 @@ export abstract class DSpaceObject implements CacheableObject {
    * @param language
    * @return string
    */
-    findMetadata(key: string, language?: string): string {
-      const metadatum = this.metadata
-        .find((metadatum: Metadatum) => {
-          return metadatum.key === key &&
-            (isEmpty(language) || metadatum.language === language)
-        });
-      if (isNotEmpty(metadatum)) {
-        return metadatum.value;
-      }
-      else {
-        return undefined;
-      }
+  findMetadata(key: string, language?: string): string {
+    const metadatum = this.metadata
+      .find((metadatum: Metadatum) => {
+        return metadatum.key === key &&
+          (isEmpty(language) || metadatum.language === language)
+      });
+    if (isNotEmpty(metadatum)) {
+      return metadatum.value;
     }
+    else {
+      return undefined;
+    }
+  }
 }

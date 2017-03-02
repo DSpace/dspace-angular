@@ -9,8 +9,13 @@ import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-tra
 
 import { AppModule, AppComponent } from './app/app.module';
 import { SharedModule } from './app/shared/shared.module';
-import { DemoCacheService } from './app/shared/demo-cache.service';
 import { CoreModule } from "./app/core/core.module";
+
+import { StoreModule, Store } from "@ngrx/store";
+import { RouterStoreModule } from "@ngrx/router-store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { rootReducer, AppState, NGRX_CACHE_KEY } from './app/app.reducers';
+import { effects } from './app/app.effects';
 
 // Will be merged into @angular/platform-browser in a later release
 // see https://github.com/angular/angular/pull/12322
@@ -30,7 +35,6 @@ export function getResponse() {
   return Zone.current.get('res') || {};
 }
 
-// TODO(gdi2290): refactor into Universal
 export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
 @NgModule({
@@ -51,6 +55,10 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     CoreModule.forRoot(),
     SharedModule,
     AppModule,
+    StoreModule.provideStore(rootReducer),
+    RouterStoreModule.connectRouter(),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    effects
   ],
   providers: [
     { provide: 'isBrowser', useValue: isBrowser },
@@ -61,13 +69,11 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
     { provide: 'LRU', useFactory: getLRU, deps: [] },
 
-    DemoCacheService,
-
     Meta,
   ]
 })
 export class MainModule {
-  constructor(public cache: DemoCacheService) {
+  constructor(public store: Store<AppState>) {
 
   }
 
@@ -76,14 +82,17 @@ export class MainModule {
    * in Universal for now until it's fixed
    */
   universalDoDehydrate = (universalCache) => {
-    universalCache[DemoCacheService.KEY] = JSON.stringify(this.cache.dehydrate());
-  }
+    this.store.take(1).subscribe(state => {
+      universalCache[NGRX_CACHE_KEY] = state;
+    });
+  };
 
   /**
    * Clear the cache after it's rendered
    */
   universalAfterDehydrate = () => {
     // comment out if LRU provided at platform level to be shared between each user
-    this.cache.clear();
+    // this.cache.clear();
+    //TODO  is this necessary in dspace's case?
   }
 }

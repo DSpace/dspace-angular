@@ -5,14 +5,15 @@ import { PaginationOptions } from "../shared/pagination-options.model";
 import { SortOptions } from "../shared/sort-options.model";
 
 export const RequestCacheActionTypes = {
-  FIND_BY_ID_REQUEST: type('dspace/core/cache/request/FIND_BY_ID_REQUEST'),
-  FIND_ALL_REQUEST: type('dspace/core/cache/request/FIND_ALL_REQUEST'),
+  FIND_BY_ID: type('dspace/core/cache/request/FIND_BY_ID'),
+  FIND_ALL: type('dspace/core/cache/request/FIND_ALL'),
   SUCCESS: type('dspace/core/cache/request/SUCCESS'),
-  ERROR: type('dspace/core/cache/request/ERROR')
+  ERROR: type('dspace/core/cache/request/ERROR'),
+  REMOVE: type('dspace/core/cache/request/REMOVE')
 };
 
-export class FindAllRequestCacheAction implements Action {
-  type = RequestCacheActionTypes.FIND_ALL_REQUEST;
+export class RequestCacheFindAllAction implements Action {
+  type = RequestCacheActionTypes.FIND_ALL;
   payload: {
     key: string,
     service: OpaqueToken,
@@ -38,8 +39,8 @@ export class FindAllRequestCacheAction implements Action {
   }
 }
 
-export class FindByIDRequestCacheAction implements Action {
-  type = RequestCacheActionTypes.FIND_BY_ID_REQUEST;
+export class RequestCacheFindByIDAction implements Action {
+  type = RequestCacheActionTypes.FIND_BY_ID;
   payload: {
     key: string,
     service: OpaqueToken,
@@ -64,13 +65,15 @@ export class RequestCacheSuccessAction implements Action {
   payload: {
     key: string,
     resourceUUIDs: Array<string>,
+    timeAdded: number,
     msToLive: number
   };
 
-  constructor(key: string, resourceUUIDs: Array<string>, msToLive: number) {
+  constructor(key: string, resourceUUIDs: Array<string>, timeAdded, msToLive: number) {
     this.payload = {
       key,
       resourceUUIDs,
+      timeAdded,
       msToLive
     };
   }
@@ -91,8 +94,18 @@ export class RequestCacheErrorAction implements Action {
   }
 }
 
+export class RequestCacheRemoveAction implements Action {
+  type = RequestCacheActionTypes.REMOVE;
+  payload: string;
+
+  constructor(key: string) {
+    this.payload = key;
+  }
+}
+
 export type RequestCacheAction
-  = FindAllRequestCacheAction
-  | FindByIDRequestCacheAction
+  = RequestCacheFindAllAction
+  | RequestCacheFindByIDAction
   | RequestCacheSuccessAction
-  | RequestCacheErrorAction;
+  | RequestCacheErrorAction
+  | RequestCacheRemoveAction;
