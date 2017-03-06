@@ -132,6 +132,10 @@ module.exports = function(config) {
       }
     },
 
+    mochaReporter: {
+      ignoreSkipped: true
+    }
+
     /*
      * Continuous Integration mode
      * if true, Karma captures browsers, runs the tests and exits

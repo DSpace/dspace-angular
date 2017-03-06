@@ -2,16 +2,30 @@ import { ObjectCacheAction, ObjectCacheActionTypes, AddToObjectCacheAction, Remo
 import { hasValue } from "../../shared/empty.util";
 import { CacheEntry } from "./cache-entry";
 
+/**
+ * An interface to represent objects that can be cached
+ *
+ * A cacheable object should have a uuid
+ */
 export interface CacheableObject {
   uuid: string;
 }
 
+/**
+ * An entry in the ObjectCache
+ */
 export class ObjectCacheEntry implements CacheEntry {
   data: CacheableObject;
   timeAdded: number;
   msToLive: number;
 }
 
+/**
+ * The ObjectCache State
+ *
+ * Consists of a map with UUIDs as keys,
+ * and ObjectCacheEntries as values
+ */
 export interface ObjectCacheState {
   [uuid: string]: ObjectCacheEntry
 }
@@ -19,6 +33,16 @@ export interface ObjectCacheState {
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState: ObjectCacheState = Object.create(null);
 
+/**
+ * The ObjectCache Reducer
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    the action to perform on the state
+ * @return ObjectCacheState
+ *    the new state
+ */
 export const objectCacheReducer = (state = initialState, action: ObjectCacheAction): ObjectCacheState => {
   switch (action.type) {
 
@@ -36,6 +60,16 @@ export const objectCacheReducer = (state = initialState, action: ObjectCacheActi
   }
 };
 
+/**
+ * Add an object to the cache
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an AddToObjectCacheAction
+ * @return ObjectCacheState
+ *    the new state, with the object added, or overwritten.
+ */
 function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheAction): ObjectCacheState {
   return Object.assign({}, state, {
     [action.payload.objectToCache.uuid]: {
@@ -46,6 +80,16 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
   });
 }
 
+/**
+ * Remove an object from the cache
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an RemoveFromObjectCacheAction
+ * @return ObjectCacheState
+ *    the new state, with the object removed if it existed.
+ */
 function removeFromObjectCache(state: ObjectCacheState, action: RemoveFromObjectCacheAction): ObjectCacheState {
   if (hasValue(state[action.payload])) {
     let newObjectCache = Object.assign({}, state);
