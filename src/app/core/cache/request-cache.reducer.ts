@@ -61,7 +61,6 @@ export const requestCacheReducer = (state = initialState, action: RequestCacheAc
 };
 
 function findAllRequest(state: RequestCacheState, action: RequestCacheFindAllAction): RequestCacheState {
-  console.log('break here', state);
   return Object.assign({}, state, {
     [action.payload.key]: {
       key: action.payload.key,
