@@ -2,7 +2,7 @@ import * as deepFreeze from "deep-freeze";
 import { objectCacheReducer } from "./object-cache.reducer";
 import {
   AddToObjectCacheAction,
-  RemoveFromObjectCacheAction
+  RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction
 } from "./object-cache.actions";
 
 class NullAction extends RemoveFromObjectCacheAction {
@@ -15,12 +15,21 @@ class NullAction extends RemoveFromObjectCacheAction {
 }
 
 describe("objectCacheReducer", () => {
-  const uuid = '1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
+  const uuid1 = '1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
+  const uuid2 = '28b04544-1766-4e82-9728-c4e93544ecd3';
   const testState = {
-    [uuid]: {
+    [uuid1]: {
       data: {
-        uuid: uuid,
+        uuid: uuid1,
         foo: "bar"
+      },
+      timeAdded: new Date().getTime(),
+      msToLive: 900000
+    },
+    [uuid2]: {
+      data: {
+        uuid: uuid2,
+        foo: "baz"
       },
       timeAdded: new Date().getTime(),
       msToLive: 900000
@@ -44,31 +53,31 @@ describe("objectCacheReducer", () => {
 
   it("should add the payload to the cache in response to an ADD action", () => {
     const state = Object.create(null);
-    const objectToCache = {uuid: uuid};
+    const objectToCache = {uuid: uuid1};
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive);
     const newState = objectCacheReducer(state, action);
 
-    expect(newState[uuid].data).toEqual(objectToCache);
-    expect(newState[uuid].timeAdded).toEqual(timeAdded);
-    expect(newState[uuid].msToLive).toEqual(msToLive);
+    expect(newState[uuid1].data).toEqual(objectToCache);
+    expect(newState[uuid1].timeAdded).toEqual(timeAdded);
+    expect(newState[uuid1].msToLive).toEqual(msToLive);
   });
 
   it("should overwrite an object in the cache in response to an ADD action if it already exists", () => {
-    const objectToCache = {uuid: uuid, foo: "baz", somethingElse: true};
+    const objectToCache = {uuid: uuid1, foo: "baz", somethingElse: true};
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive);
     const newState = objectCacheReducer(testState, action);
 
-    expect(newState[uuid].data['foo']).toBe("baz");
-    expect(newState[uuid].data['somethingElse']).toBe(true);
+    expect(newState[uuid1].data['foo']).toBe("baz");
+    expect(newState[uuid1].data['somethingElse']).toBe(true);
   });
 
   it("should perform the ADD action without affecting the previous state", () => {
     const state = Object.create(null);
-    const objectToCache = {uuid: uuid};
+    const objectToCache = {uuid: uuid1};
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive);
@@ -78,11 +87,11 @@ describe("objectCacheReducer", () => {
   });
 
   it("should remove the specified object from the cache in response to the REMOVE action", () => {
-    const action = new RemoveFromObjectCacheAction(uuid);
+    const action = new RemoveFromObjectCacheAction(uuid1);
     const newState = objectCacheReducer(testState, action);
 
-    expect(testState[uuid]).not.toBeUndefined();
-    expect(newState[uuid]).toBeUndefined();
+    expect(testState[uuid1]).not.toBeUndefined();
+    expect(newState[uuid1]).toBeUndefined();
   });
 
   it("shouldn't do anything in response to the REMOVE action for an object that isn't cached", () => {
@@ -93,7 +102,22 @@ describe("objectCacheReducer", () => {
   });
 
   it("should perform the REMOVE action without affecting the previous state", () => {
-    const action = new RemoveFromObjectCacheAction(uuid);
+    const action = new RemoveFromObjectCacheAction(uuid1);
+    //testState has already been frozen above
+    objectCacheReducer(testState, action);
+  });
+
+  it("should set the timestamp of all objects in the cache in response to a RESET_TIMESTAMPS action", () => {
+    const newTimestamp = new Date().getTime();
+    const action = new ResetObjectCacheTimestampsAction(newTimestamp);
+    const newState = objectCacheReducer(testState, action);
+    Object.keys(newState).forEach((key) => {
+      expect(newState[key].timeAdded).toEqual(newTimestamp);
+    });
+  });
+
+  it("should perform the RESET_TIMESTAMPS action without affecting the previous state", () => {
+    const action = new ResetObjectCacheTimestampsAction(new Date().getTime());
     //testState has already been frozen above
     objectCacheReducer(testState, action);
   });

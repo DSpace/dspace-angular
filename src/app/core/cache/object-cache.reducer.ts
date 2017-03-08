@@ -1,4 +1,7 @@
-import { ObjectCacheAction, ObjectCacheActionTypes, AddToObjectCacheAction, RemoveFromObjectCacheAction } from "./object-cache.actions";
+import {
+  ObjectCacheAction, ObjectCacheActionTypes, AddToObjectCacheAction,
+  RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction
+} from "./object-cache.actions";
 import { hasValue } from "../../shared/empty.util";
 import { CacheEntry } from "./cache-entry";
 
@@ -54,6 +57,10 @@ export const objectCacheReducer = (state = initialState, action: ObjectCacheActi
       return removeFromObjectCache(state, <RemoveFromObjectCacheAction>action)
     }
 
+    case ObjectCacheActionTypes.RESET_TIMESTAMPS: {
+      return resetObjectCacheTimestamps(state, <ResetObjectCacheTimestampsAction>action)
+    }
+
     default: {
       return state;
     }
@@ -100,4 +107,24 @@ function removeFromObjectCache(state: ObjectCacheState, action: RemoveFromObject
   else {
     return state;
   }
+}
+
+/**
+ * Set the timeAdded timestamp of every cached object to the specified value
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a ResetObjectCacheTimestampsAction
+ * @return ObjectCacheState
+ *    the new state, with all timeAdded timestamps set to the specified value
+ */
+function resetObjectCacheTimestamps(state: ObjectCacheState, action: ResetObjectCacheTimestampsAction): ObjectCacheState {
+  let newState = Object.create(null);
+  Object.keys(state).forEach(key => {
+    newState[key] = Object.assign({}, state[key], {
+      timeAdded: action.payload
+    });
+  });
+  return newState;
 }

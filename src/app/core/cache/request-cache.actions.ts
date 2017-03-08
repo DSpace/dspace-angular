@@ -9,7 +9,8 @@ export const RequestCacheActionTypes = {
   FIND_ALL: type('dspace/core/cache/request/FIND_ALL'),
   SUCCESS: type('dspace/core/cache/request/SUCCESS'),
   ERROR: type('dspace/core/cache/request/ERROR'),
-  REMOVE: type('dspace/core/cache/request/REMOVE')
+  REMOVE: type('dspace/core/cache/request/REMOVE'),
+  RESET_TIMESTAMPS: type('dspace/core/cache/request/RESET_TIMESTAMPS')
 };
 
 export class RequestCacheFindAllAction implements Action {
@@ -103,9 +104,19 @@ export class RequestCacheRemoveAction implements Action {
   }
 }
 
+export class ResetRequestCacheTimestampsAction implements Action {
+  type = RequestCacheActionTypes.RESET_TIMESTAMPS;
+  payload: number;
+
+  constructor(newTimestamp: number) {
+    this.payload = newTimestamp;
+  }
+}
+
 export type RequestCacheAction
   = RequestCacheFindAllAction
   | RequestCacheFindByIDAction
   | RequestCacheSuccessAction
   | RequestCacheErrorAction
-  | RequestCacheRemoveAction;
+  | RequestCacheRemoveAction
+  | ResetRequestCacheTimestampsAction;

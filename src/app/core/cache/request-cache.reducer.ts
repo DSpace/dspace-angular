@@ -3,7 +3,7 @@ import { SortOptions } from "../shared/sort-options.model";
 import {
   RequestCacheAction, RequestCacheActionTypes, RequestCacheFindAllAction,
   RequestCacheSuccessAction, RequestCacheErrorAction, RequestCacheFindByIDAction,
-  RequestCacheRemoveAction
+  RequestCacheRemoveAction, ResetRequestCacheTimestampsAction
 } from "./request-cache.actions";
 import { OpaqueToken } from "@angular/core";
 import { CacheEntry } from "./cache-entry";
@@ -52,6 +52,10 @@ export const requestCacheReducer = (state = initialState, action: RequestCacheAc
 
     case RequestCacheActionTypes.REMOVE: {
       return removeFromCache(state, <RequestCacheRemoveAction> action);
+    }
+
+    case RequestCacheActionTypes.RESET_TIMESTAMPS: {
+      return resetRequestCacheTimestamps(state, <ResetRequestCacheTimestampsAction>action)
     }
 
     default: {
@@ -121,5 +125,12 @@ function removeFromCache(state: RequestCacheState, action: RequestCacheRemoveAct
   }
 }
 
-
-
+function resetRequestCacheTimestamps(state: RequestCacheState, action: ResetRequestCacheTimestampsAction): RequestCacheState {
+  let newState = Object.create(null);
+  Object.keys(state).forEach(key => {
+    newState[key] = Object.assign({}, state[key], {
+      timeAdded: action.payload
+    });
+  });
+  return newState;
+}

@@ -4,7 +4,8 @@ import { CacheableObject } from "./object-cache.reducer";
 
 export const ObjectCacheActionTypes = {
   ADD: type('dspace/core/cache/object/ADD'),
-  REMOVE: type('dspace/core/cache/object/REMOVE')
+  REMOVE: type('dspace/core/cache/object/REMOVE'),
+  RESET_TIMESTAMPS: type('dspace/core/cache/object/RESET_TIMESTAMPS')
 };
 
 export class AddToObjectCacheAction implements Action {
@@ -29,6 +30,16 @@ export class RemoveFromObjectCacheAction implements Action {
   }
 }
 
+export class ResetObjectCacheTimestampsAction implements Action {
+  type = ObjectCacheActionTypes.RESET_TIMESTAMPS;
+  payload: number;
+
+  constructor(newTimestamp: number) {
+    this.payload = newTimestamp;
+  }
+}
+
 export type ObjectCacheAction
   = AddToObjectCacheAction
   | RemoveFromObjectCacheAction
+  | ResetObjectCacheTimestampsAction;
