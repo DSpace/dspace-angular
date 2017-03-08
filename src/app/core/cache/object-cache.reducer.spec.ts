@@ -95,9 +95,11 @@ describe("objectCacheReducer", () => {
   });
 
   it("shouldn't do anything in response to the REMOVE action for an object that isn't cached", () => {
-    const action = new RemoveFromObjectCacheAction("this isn't cached");
+    const wrongKey = "this isn't cached";
+    const action = new RemoveFromObjectCacheAction(wrongKey);
     const newState = objectCacheReducer(testState, action);
 
+    expect(testState[wrongKey]).toBeUndefined();
     expect(newState).toEqual(testState);
   });
 

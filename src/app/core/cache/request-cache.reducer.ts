@@ -9,6 +9,9 @@ import { OpaqueToken } from "@angular/core";
 import { CacheEntry } from "./cache-entry";
 import { hasValue } from "../../shared/empty.util";
 
+/**
+ * An entry in the RequestCache
+ */
 export class RequestCacheEntry implements CacheEntry {
   service: OpaqueToken;
   key: string;
@@ -24,6 +27,9 @@ export class RequestCacheEntry implements CacheEntry {
   msToLive: number;
 }
 
+/**
+ * The RequestCache State
+ */
 export interface RequestCacheState {
   [key: string]: RequestCacheEntry
 }
@@ -31,6 +37,16 @@ export interface RequestCacheState {
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState = Object.create(null);
 
+/**
+ * The RequestCache Reducer
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    the action to perform on the state
+ * @return RequestCacheState
+ *    the new state
+ */
 export const requestCacheReducer = (state = initialState, action: RequestCacheAction): RequestCacheState => {
   switch (action.type) {
 
@@ -64,6 +80,16 @@ export const requestCacheReducer = (state = initialState, action: RequestCacheAc
   }
 };
 
+/**
+ * Add a FindAll request to the cache
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a RequestCacheFindAllAction
+ * @return RequestCacheState
+ *    the new state, with the request added, or overwritten
+ */
 function findAllRequest(state: RequestCacheState, action: RequestCacheFindAllAction): RequestCacheState {
   return Object.assign({}, state, {
     [action.payload.key]: {
@@ -79,6 +105,16 @@ function findAllRequest(state: RequestCacheState, action: RequestCacheFindAllAct
   });
 }
 
+/**
+ * Add a FindByID request to the cache
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a RequestCacheFindByIDAction
+ * @return RequestCacheState
+ *    the new state, with the request added, or overwritten
+ */
 function findByIDRequest(state: RequestCacheState, action: RequestCacheFindByIDAction): RequestCacheState {
   return Object.assign({}, state, {
     [action.payload.key]: {
@@ -92,6 +128,16 @@ function findByIDRequest(state: RequestCacheState, action: RequestCacheFindByIDA
   });
 }
 
+/**
+ * Update a cached request with a successful response
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a RequestCacheSuccessAction
+ * @return RequestCacheState
+ *    the new state, with the response added to the request
+ */
 function success(state: RequestCacheState, action: RequestCacheSuccessAction): RequestCacheState {
   return Object.assign({}, state, {
     [action.payload.key]: Object.assign({}, state[action.payload.key], {
@@ -104,6 +150,16 @@ function success(state: RequestCacheState, action: RequestCacheSuccessAction): R
   });
 }
 
+/**
+ * Update a cached request with an error
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a RequestCacheSuccessAction
+ * @return RequestCacheState
+ *    the new state, with the error added to the request
+ */
 function error(state: RequestCacheState, action: RequestCacheErrorAction): RequestCacheState {
   return Object.assign({}, state, {
     [action.payload.key]: Object.assign({}, state[action.payload.key], {
@@ -113,6 +169,16 @@ function error(state: RequestCacheState, action: RequestCacheErrorAction): Reque
   });
 }
 
+/**
+ * Remove a request from the cache
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an RequestCacheRemoveAction
+ * @return RequestCacheState
+ *    the new state, with the request removed if it existed.
+ */
 function removeFromCache(state: RequestCacheState, action: RequestCacheRemoveAction): RequestCacheState {
   if (hasValue(state[action.payload])) {
     let newCache = Object.assign({}, state);
@@ -125,6 +191,16 @@ function removeFromCache(state: RequestCacheState, action: RequestCacheRemoveAct
   }
 }
 
+/**
+ * Set the timeAdded timestamp of every cached request to the specified value
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a ResetRequestCacheTimestampsAction
+ * @return RequestCacheState
+ *    the new state, with all timeAdded timestamps set to the specified value
+ */
 function resetRequestCacheTimestamps(state: RequestCacheState, action: ResetRequestCacheTimestampsAction): RequestCacheState {
   let newState = Object.create(null);
   Object.keys(state).forEach(key => {
