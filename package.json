@@ -53,7 +53,7 @@
     "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js  --config webpack.prod.config.ts",
     "docs": "typedoc --options typedoc.json ./src",
     "lint": "tslint \"src/**/*.ts\" || true",
-    "global": "npm install -g @angular/cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer rollup marked node-gyp yarn",
+    "global": "npm install -g @angular/cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer rollup marked node-gyp",
     "protractor": "node node_modules/protractor/bin/protractor",
     "e2e": "yarn run protractor",
     "test": "karma start --single-run",

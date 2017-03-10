@@ -8,7 +8,7 @@ You can find additional information on the [wiki](https://wiki.duraspace.org/dis
 If you're looking for the 2016 Angular 2 DSpace UI prototype, you can find it [here](https://github.com/DSpace-Labs/angular2-ui-prototype)
 
 ## Quick start
-**Make sure you have Node version >= 5.0 and NPM >= 3**
+**Ensure you're running [Node](https://nodejs.org) >= `v5.x`, [npm](https://www.npmjs.com/) >= `v3.x` and [yarn](https://yarnpkg.com) >= `v0.20.x`**
 
 ```bash
 # clone the repo
@@ -18,7 +18,7 @@ git clone https://github.com/DSpace/dspace-angular.git
 cd dspace-angular
 
 # install the global dependencies
-npm run global
+yarn run global
 
 # install the local dependencies
 yarn install
@@ -30,7 +30,7 @@ Then go to [http://localhost:3000](http://localhost:3000) in your browser
 
 NOTE: currently there's not much to see at that URL. We really do need your help. If you're interested in jumping in, and you've made it this far, please look at the [the project board (waffle.io)](https://waffle.io/DSpace/dspace-angular), grab a card, and get to work. Thanks!
 
-Not sure where to start? watch the training videos linked in the [Introduction to the technology](#introduction-to-the-technology) section below. 
+Not sure where to start? watch the training videos linked in the [Introduction to the technology](#introduction-to-the-technology) section below.
 
 ## Table of Contents
 * [Introduction to the technology](#introduction-to-the-technology)
@@ -68,7 +68,7 @@ Default configuration file is located in `config/` folder.
 To change the default configuration values, create local files that override the parameters you need to change:
 * Create a new `environment.dev.js` file in `config/` for `devel` environment;
 * Create a new `environment.prod.js` file in `config/` for `production` environment;
- 
+
 To use the configuration parameters in your component:
 ```bash
 import { GlobalConfig } from "../config";
@@ -191,7 +191,7 @@ dspace-angular
 │   ├── browser.module.ts       * The root module for the client
 │   ├── client.aot.ts           * The bootstrap file for the client, in production
 │   ├── client.ts               * The bootstrap file for the client, during development
-│   ├── config.ts               * File that loads environmental and shareable settings and makes them available to app components 
+│   ├── config.ts               * File that loads environmental and shareable settings and makes them available to app components
 │   ├── index-aot.html          * The index.html file, for production
 │   ├── index.html              * The index.html file, for development
 │   ├── node.module.ts          * The root module for the server
@@ -250,7 +250,7 @@ import * as _ from 'lodash';
 ## yarn lockfile
 This project makes use of yarn to ensure that the exact same dependency versions are used every time you install it.
 
-yarn creates the file [`yarn.lock`](https://yarnpkg.com/en/docs/yarn-lock) to track those versions. That file is updated automatically every time you install a new dependency from the commandline (by using `yarn add some-lib --save` or `yarn add some-lib --save-dev`). 
+yarn creates the file [`yarn.lock`](https://yarnpkg.com/en/docs/yarn-lock) to track those versions. That file is updated automatically every time you install a new dependency from the commandline (by using `yarn add some-lib --save` or `yarn add some-lib --save-dev`).
 
 If you manually add a package or change a version in `package.json` you'll have to update yarn's lock file as well. You can do so by running `yarn upgrade`
 
@@ -271,7 +271,7 @@ If you manually add a package or change a version in `package.json` you'll have 
   * first check out the yarn.lock file from the branch you're merging in to yours: e.g. `git checkout --theirs yarn.lock`
   * now run `yarn install` again. Yarn will create a new lockfile that contains both sets of changes.
   * then run `git add yarn.lock` to stage the lockfile for commit
-  * and `git commit` to conclude the merge 
+  * and `git commit` to conclude the merge
 
 
 ## License
