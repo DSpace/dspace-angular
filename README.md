@@ -127,13 +127,6 @@ and run:
 E2E tests use Protractor + Selenium server + browsers. You can find the configuration file at the same level of this README file:
 `./protractor.conf.js`
 Protractor is installed as 'local' as a dev dependency.
-If you are going to execute tests locally you need to run (once time only):
-<<<<<<< HEAD
-`yarn run webdriver:update`.
-=======
-`npm run webdriver:update`
-(for your convenience this command is now auto runned each time 'e2e' command is called).
->>>>>>> @{-1}
 
 If you are going to use a remote test enviroment you need to edit the './protractor.conf.js'. Follow the instructions you will find inside it.
 
@@ -152,7 +145,7 @@ and run:
 
 ### Continuous Integration (CI) Test
 To run all the tests (e.g.: to run tests with Continuous Integration software) you can execute:
-`npm run ci`
+`yarn run ci`
 Keep in mind that this command prerequisites are the sum of unit test and E2E tests.
 
 ## Other commands
