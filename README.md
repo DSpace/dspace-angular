@@ -28,6 +28,10 @@ npm start
 ```
 Then go to [http://localhost:3000](http://localhost:3000) in your browser
 
+NOTE: currently there's not much to see at that URL. We really do need your help. If you're interested in jumping in, and you've made it this far, please look at the [the project board (waffle.io)](https://waffle.io/DSpace/dspace-angular), grab a card, and get to work. Thanks!
+
+Not sure where to start? watch the training videos linked in the [Introduction to the technology](#introduction-to-the-technology) section below. 
+
 ## Table of Contents
 * [Introduction to the technology](#introduction-to-the-technology)
 * [Requirements](#requirements)

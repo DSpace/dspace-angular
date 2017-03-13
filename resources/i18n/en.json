@@ -1,13 +1,27 @@
 {
-  "title": "DSpace",
+  "example": {
+    "with": {
+      "data": "{{greeting}}, {{recipient}}!"
+    }
+  },
+
+  "footer": {
+    "copyright": "copyright © 2002-{{ year }}",
+    "link.dspace": "DSpace software",
+    "link.duraspace": "DuraSpace"
+  },
 
   "nav": {
     "home": "Home"
   },
 
-  "example": {
-    "with": {
-      "data": "{{greeting}}, {{recipient}}!"
+  "title": "DSpace",
+
+  "404": {
+    "help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+    "page-not-found": "page not found",
+    "link": {
+      "home-page": "Take me to the home page"
     }
   }
 }
