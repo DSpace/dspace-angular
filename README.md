@@ -128,7 +128,8 @@ E2E tests use Protractor + Selenium server + browsers. You can find the configur
 `./protractor.conf.js`
 Protractor is installed as 'local' as a dev dependency.
 If you are going to execute tests locally you need to run (once time only):
-`npm run webdriver:update`.
+`npm run webdriver:update`
+(for your convenience this command is now auto runned each time 'e2e' command is called).
 
 If you are going to use a remote test enviroment you need to edit the './protractor.conf.js'. Follow the instructions you will find inside it.
 
@@ -144,6 +145,11 @@ Place your tests at the following path:
 
 and run:
 `npm run e2e`
+
+### Continuous Integration (CI) Test
+To run all the tests (e.g.: to run tests with Continuous Integration software) you can execute:
+`npm run ci`
+Keep in mind that this command prerequisites are the sum of unit test and E2E tests.
 
 ## Other commands
 There are many more commands in the `scripts` section of `package.json`. Most of these are executed by one of the commands mentioned above.
