@@ -38,6 +38,7 @@
     "server": "node dist/server/build.js",
     "server:dev": "node dist/server/index.js",
     "server:dev:watch": "nodemon --debug dist/server/index.js",
+<<<<<<< HEAD
     "start": "yarn run server",
     "start:dev": "yarn run clean:prod && yarn run build && yarn run server:dev",
     "watch": "webpack -w & yarn run style:watch",
@@ -46,6 +47,16 @@
     "watch:prod:server": "concurrently \"yarn run server\" \"yarn run watch\"",
     "watch:prod": "yarn run build:prod:ngc:json && yarn run watch:prod:server",
     "predebug": "yarn run build",
+=======
+    "start": "npm run server",
+    "start:dev": "npm run clean:prod && npm run build && npm run server:dev",
+    "watch": "webpack -w & npm run style:watch",
+    "watch:dev:server": "npm-run-all -p server:dev:watch watch",
+    "watch:dev": "npm run clean:prod && npm run build && npm run watch:dev:server",
+    "watch:prod:server": "npm-run-all -p server watch",
+    "watch:prod": "npm run build:prod:ngc:json && npm run watch:prod:server",
+    "predebug": "npm run build",
+>>>>>>> @{-1}
     "debug": "node --debug-brk dist/server/index.js",
     "debug:server": "node-nightly --inspect --debug-brk dist/server/index.js",
     "debug:start": "yarn run build && yarn run debug:server",
@@ -53,9 +64,17 @@
     "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js  --config webpack.prod.config.ts",
     "docs": "typedoc --options typedoc.json ./src",
     "lint": "tslint \"src/**/*.ts\" || true",
+<<<<<<< HEAD
     "global": "npm install -g @angular/cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer rollup marked node-gyp",
     "protractor": "node node_modules/protractor/bin/protractor",
     "e2e": "yarn run protractor",
+=======
+    "global": "npm install -g angular-cli nodemon npm-check-updates rimraf ts-node typedoc typescript webpack webpack-bundle-size-analyzer rollup marked node-gyp",
+    "ci": "npm run lint && npm run build:prod:ngc:json && npm run test && npm-run-all -p -r server e2e",
+    "protractor": "node node_modules/protractor/bin/protractor",
+    "pree2e": "npm run webdriver:update",
+    "e2e": "npm run protractor",
+>>>>>>> @{-1}
     "test": "karma start --single-run",
     "test:watch": "karma start --no-single-run --auto-watch",
     "coverage": "http-server -c-1 -o -p 9875 ./coverage",
@@ -127,7 +146,6 @@
     "autoprefixer": "6.5.4",
     "awesome-typescript-loader": "2.2.4",
     "codelyzer": "2.0.0-beta.3",
-    "concurrently": "3.1.0",
     "cookie-parser": "1.4.3",
     "copy-webpack-plugin": "4.0.1",
     "css-loader": "^0.26.0",
@@ -151,6 +169,7 @@
     "karma-webpack": "1.8.0",
     "node-sass": "4.0.0",
     "nodemon": "1.11.0",
+    "npm-run-all": "4.0.2",
     "postcss-cli": "^2.6.0",
     "protractor": "~4.0.14",
     "protractor-istanbul-plugin": "~2.0.0",
