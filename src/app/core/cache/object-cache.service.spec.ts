@@ -72,9 +72,10 @@ describe("ObjectCacheService", () => {
     it("should not return a cached object that has exceeded its time to live", () => {
       spyOn(store, 'select').and.returnValue(Observable.of(invalidCacheEntry));
 
-      let testObj: any;
-      service.get(uuid, TestClass).take(1).subscribe(o => testObj = o);
-      expect(testObj).toBeUndefined();
+      let getObsHasFired = false;
+      const subscription = service.get(uuid, TestClass).subscribe(o => getObsHasFired = true);
+      expect(getObsHasFired).toBe(false);
+      subscription.unsubscribe();
     });
   });
 

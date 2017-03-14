@@ -51,6 +51,7 @@ export class ObjectCacheService {
    * @param type
    *    The type of the object to get
    * @return Observable<T>
+   *    An observable of the requested object
    */
   get<T extends CacheableObject>(uuid: string, type: GenericConstructor<T>): Observable<T> {
     return this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
