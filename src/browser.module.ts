@@ -22,6 +22,7 @@ import { effects } from './app/app.effects';
 // see https://github.com/angular/angular/pull/12322
 import { Meta } from './angular2-meta';
 import { RehydrateStoreAction } from "./app/store.actions";
+import { GlobalConfig } from "./config";
 
 // import * as LRU from 'modern-lru';
 
@@ -91,9 +92,11 @@ export class MainModule {
   }
 
   doRehydrate() {
-    let defaultValue = {};
-    let serverCache = this._getCacheValue(NGRX_CACHE_KEY, defaultValue);
-    this.store.dispatch(new RehydrateStoreAction(serverCache));
+    if (GlobalConfig.universal.shouldRehydrate) {
+      let defaultValue = {};
+      let serverCache = this._getCacheValue(NGRX_CACHE_KEY, defaultValue);
+      this.store.dispatch(new RehydrateStoreAction(serverCache));
+    }
   }
 
   _getCacheValue(key: string, defaultValue: any): any {

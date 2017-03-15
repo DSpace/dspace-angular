@@ -13,6 +13,10 @@ module.exports = {
   },
   "cache": {
     // how long should objects be cached for by default
-    "msToLive": 15 * 60 * 1000  //15 minutes
+    "msToLive": 15 * 60 * 1000,  //15 minutes
+  },
+  "universal": {
+    //on the client: start with the state on the server
+    "shouldRehydrate": true
   }
 };
