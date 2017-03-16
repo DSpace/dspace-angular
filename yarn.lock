@@ -5555,6 +5555,10 @@ ts-helpers@1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/ts-helpers/-/ts-helpers-1.1.2.tgz#fc69be9f1f3baed01fb1a0ef8d4cfe748814d835"
 
+ts-md5@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ts-md5/-/ts-md5-1.2.0.tgz#c30b385261bd27962f754509675f0e9578810569"
+
 ts-node@1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-1.7.2.tgz#d67bbc5c48fde16c244debbfe81b020587369a02"
