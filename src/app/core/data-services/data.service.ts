@@ -6,6 +6,7 @@ import { CacheableObject } from "../cache/object-cache.reducer";
 import { ParamHash } from "../shared/param-hash";
 import { isNotEmpty } from "../../shared/empty.util";
 import { GenericConstructor } from "../shared/generic-constructor";
+import { RemoteData } from "./remote-data";
 
 export abstract class DataService<T extends CacheableObject> {
   abstract serviceName: OpaqueToken;
@@ -16,29 +17,38 @@ export abstract class DataService<T extends CacheableObject> {
 
   }
 
-  findAll(scopeID?: string): Observable<Array<T>> {
+  findAll(scopeID?: string): RemoteData<Array<T>> {
     const key = new ParamHash(this.serviceName, 'findAll', scopeID).toString();
-    return this.requestCache.findAll(key, this.serviceName, scopeID)
-      //get an observable of the IDs from the RequestCache
-      .map(entry => entry.resourceUUIDs)
-      .flatMap((resourceUUIDs: Array<string>) => {
-        // use those IDs to fetch the actual objects from the ObjectCache
-        return this.objectCache.getList<T>(resourceUUIDs, this.modelType);
-      });
+    const requestCacheObs = this.requestCache.findAll(key, this.serviceName, scopeID);
+    return new RemoteData(
+      requestCacheObs.map(entry => entry.isLoading).distinctUntilChanged(),
+      requestCacheObs.map(entry => entry.errorMessage).distinctUntilChanged(),
+      requestCacheObs
+        .map(entry => entry.resourceUUIDs)
+        .flatMap((resourceUUIDs: Array<string>) => {
+          // use those IDs to fetch the actual objects from the ObjectCache
+          return this.objectCache.getList<T>(resourceUUIDs, this.modelType);
+        }).distinctUntilChanged()
+    );
   }
 
-  findById(id: string): Observable<T> {
+  findById(id: string): RemoteData<T> {
     const key = new ParamHash(this.serviceName, 'findById', id).toString();
-    return this.requestCache.findById(key, this.serviceName, id)
-      .map(entry => entry.resourceUUIDs)
-      .flatMap((resourceUUIDs: Array<string>) => {
-        if(isNotEmpty(resourceUUIDs)) {
-          return this.objectCache.get<T>(resourceUUIDs[0], this.modelType);
-        }
-        else {
-          return Observable.of(undefined);
-        }
-      });
+    const requestCacheObs = this.requestCache.findById(key, this.serviceName, id);
+    return new RemoteData(
+      requestCacheObs.map(entry => entry.isLoading).distinctUntilChanged(),
+      requestCacheObs.map(entry => entry.errorMessage).distinctUntilChanged(),
+      requestCacheObs
+        .map(entry => entry.resourceUUIDs)
+        .flatMap((resourceUUIDs: Array<string>) => {
+          if (isNotEmpty(resourceUUIDs)) {
+            return this.objectCache.get<T>(resourceUUIDs[0], this.modelType);
+          }
+          else {
+            return Observable.of(undefined);
+          }
+        }).distinctUntilChanged()
+    );
   }
 
 }
