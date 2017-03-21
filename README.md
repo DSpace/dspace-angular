@@ -41,6 +41,7 @@ Not sure where to start? watch the training videos linked in the [Introduction t
 * [Running in production mode](#running-in-production-mode)
 * [Cleaning](#cleaning)
 * [Testing](#testing)
+* [Documentation](#documentation)
 * [Other commands](#other-commands)
 * [Recommended Editors/IDEs](#recommended-editorsides)
 * [Collaborating](#collaborating)
@@ -148,6 +149,15 @@ To run all the tests (e.g.: to run tests with Continuous Integration software) y
 `yarn run ci`
 Keep in mind that this command prerequisites are the sum of unit test and E2E tests.
 
+##Documentation
+To build the code documentation we use [TYPEDOC](http://typedoc.org). TYPEDOC is a documentation generator for TypeScript projects.
+It extracts informations from properly formatted comments that can be written within the code files.
+Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
+
+Run:
+`yarn run docs`
+to produce the documentation that will be available in the 'doc' folder.
+
 ## Other commands
 There are many more commands in the `scripts` section of `package.json`. Most of these are executed by one of the commands mentioned above.
 
@@ -208,6 +218,7 @@ dspace-angular
 ├── tsconfig.aot.json           * TypeScript config for production builds
 ├── tsconfig.json               * TypeScript config for development build
 ├── tslint.json                 * TSLint (https://palantir.github.io/tslint/) configuration
+├── typedoc.json                * TYPEDOC configuration
 ├── yarn.lock                   * Yarn lockfile (https://yarnpkg.com/en/docs/yarn-lock)
 ├── webpack.config.ts           * Webpack (https://webpack.github.io/) config for development builds
 ├── webpack.test.config.ts      * Webpack (https://webpack.github.io/) config for testing
