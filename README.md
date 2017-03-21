@@ -150,7 +150,11 @@ To run all the tests (e.g.: to run tests with Continuous Integration software) y
 Keep in mind that this command prerequisites are the sum of unit test and E2E tests.
 
 ##Documentation
-To build the code documentation we use TYPEDOC. Run:
+To build the code documentation we use [TYPEDOC](http://typedoc.org). TYPEDOC is a documentation generator for TypeScript projects.
+It extracts informations from properly formatted comments that can be written within the code files.
+Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
+
+Run:
 `yarn run docs`
 to produce the documentation that will be available in the 'doc' folder.
 
