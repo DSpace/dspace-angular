@@ -43,11 +43,12 @@ app.engine('.html', createEngine({
   ]
 }));
 app.set('port', process.env.PORT || 3000);
+app.set('address', process.env.ADDRESS || '127.0.0.1');
 app.set('views', __dirname);
 app.set('view engine', 'html');
 app.set('json spaces', 2);
 
-app.use(cookieParser('Angular 2 Universal'));
+app.use(cookieParser('DSpace Universal'));
 app.use(bodyParser.json());
 app.use(compression());
 
@@ -79,16 +80,27 @@ app.get('/data.json', serverApi);
 app.use('/api', createMockApi());
 
 function ngApp(req, res) {
-  res.render('index-aot', {
-    req,
-    res,
-    // time: true, // use this to determine what part of your app is slow only in development
-    async: true,
-    preboot: true,
-    baseUrl: '/',
-    requestUrl: req.originalUrl,
-    originUrl: `http://localhost:${app.get('port')}`
+
+  function onHandleError(parentZoneDelegate, currentZone, targetZone, error) {
+    console.warn('Error in SSR, serving for direct CSR', error);
+    res.sendFile('index.html', { root: './src' });
+    return false;
+  }
+
+  Zone.current.fork({ name: 'CSR fallback', onHandleError }).run(() => {
+    res.render('index', {
+      req,
+      res,
+      // use this to determine what part of your app is slow only in development
+      // time: true,
+      async: true,
+      preboot: true,
+      baseUrl: '/',
+      requestUrl: req.originalUrl,
+      originUrl: `http://${app.get('address')}:${app.get('port')}`
+    });
   });
+
 }
 
 /**
@@ -110,5 +122,5 @@ app.get('*', function(req, res) {
 
 // Server
 let server = app.listen(app.get('port'), () => {
-  console.log(`Listening on: http://localhost:${server.address().port}`);
+  console.log(`Listening on: http://${server.address().address}:${server.address().port}`);
 });

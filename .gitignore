@@ -26,4 +26,6 @@ webpack.records.json
 
 morgan.log
 
+yarn-error.log
+
 *.css
