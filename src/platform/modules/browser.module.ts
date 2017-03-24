@@ -45,7 +45,6 @@ export function getResponse() {
   return {};
 }
 
-
 export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
 @NgModule({
@@ -89,17 +88,15 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
   ]
 })
 export class MainModule {
-  constructor(public store: Store<AppState>, @Inject(GLOBAL_CONFIG) private config: GlobalConfig, ) {
+  constructor(public store: Store<AppState>) {
     // TODO(gdi2290): refactor into a lifecycle hook
     this.doRehydrate();
   }
 
   doRehydrate() {
-    if (this.config.universal.shouldRehydrate) {
-      let defaultValue = {};
-      let serverCache = this._getCacheValue(NGRX_CACHE_KEY, defaultValue);
-      this.store.dispatch(new RehydrateStoreAction(serverCache));
-    }
+    let defaultValue = {};
+    let serverCache = this._getCacheValue(NGRX_CACHE_KEY, defaultValue);
+    this.store.dispatch(new RehydrateStoreAction(serverCache));
   }
 
   _getCacheValue(key: string, defaultValue: any): any {

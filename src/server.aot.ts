@@ -25,6 +25,8 @@ import { MainModuleNgFactory } from './platform/modules/node.module.ngfactory';
 // Routes
 import { routes } from './server.routes';
 
+import { config } from './config';
+
 // enable prod for faster renders
 enableProdMode();
 

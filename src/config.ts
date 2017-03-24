@@ -1,7 +1,7 @@
 // Look in ./config folder for config
 import { OpaqueToken } from '@angular/core';
 
-import path from 'path';
+import * as path from 'path';
 
 let configContext = require.context("../config", false, /js$/);
 
@@ -33,27 +33,43 @@ try {
 
 const GLOBAL_CONFIG = new OpaqueToken('config');
 
+interface ServerConfig {
+  "nameSpace": string,
+  "protocol": string,
+  "address": string,
+  "port": number,
+  "baseURL": string
+}
+
 interface GlobalConfig {
   "production": string,
-  "rest": {
-    "nameSpace": string,
-    "baseURL": string
-  },
-  "ui": {
-    "nameSpace": string,
-    "baseURL": string
-  },
+  "rest": ServerConfig,
+  "ui": ServerConfig,
   "cache": {
     "msToLive": number,
   },
   "universal": {
-    "shouldRehydrate": boolean
+    "shouldRehydrate": boolean,
+    "preboot": boolean,
+    "async": boolean
+  }
+}
+
+const config: GlobalConfig = <GlobalConfig>Object.assign(DefaultConfig, EnvConfig);
+
+function buildURL(server: ServerConfig) {
+  return [server.protocol, '://', server.address, (server.port !== 80) ? ':' + server.port : ''].join('');
+}
+
+for (let key in config) {
+  if (config[key].protocol && config[key].address && config[key].port) {
+    config[key].baseURL = buildURL(config[key]);
   }
 }
 
 const globalConfig = {
   provide: GLOBAL_CONFIG,
-  useValue: <GlobalConfig>Object.assign(DefaultConfig, EnvConfig)
+  useValue: config
 };
 
-export { GLOBAL_CONFIG, GlobalConfig, globalConfig}
+export { GLOBAL_CONFIG, GlobalConfig, globalConfig, config }
