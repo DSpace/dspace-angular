@@ -1,8 +1,10 @@
 // Look in ./config folder for config
+import { OpaqueToken } from '@angular/core';
 
-const path = require('path');
+import path from 'path';
 
 let configContext = require.context("../config", false, /js$/);
+
 let EnvConfig: any = {};
 let EnvConfigFile: string;
 let DefaultConfig: any = {};
@@ -29,6 +31,29 @@ try {
   EnvConfig = {};
 }
 
-const GlobalConfig = Object.assign(DefaultConfig, EnvConfig);
+const GLOBAL_CONFIG = new OpaqueToken('config');
 
-export {GlobalConfig}
+interface GlobalConfig {
+  "production": string,
+  "rest": {
+    "nameSpace": string,
+    "baseURL": string
+  },
+  "ui": {
+    "nameSpace": string,
+    "baseURL": string
+  },
+  "cache": {
+    "msToLive": number,
+  },
+  "universal": {
+    "shouldRehydrate": boolean
+  }
+}
+
+const globalConfig = {
+  provide: GLOBAL_CONFIG,
+  useValue: <GlobalConfig>Object.assign(DefaultConfig, EnvConfig)
+};
+
+export { GLOBAL_CONFIG, GlobalConfig, globalConfig}

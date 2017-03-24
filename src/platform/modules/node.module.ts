@@ -21,6 +21,8 @@ import { effects } from '../../app/app.effects';
 // see https://github.com/angular/angular/pull/12322
 import { Meta } from '../angular2-meta';
 
+import { globalConfig } from '../../config';
+
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
 }
@@ -70,6 +72,8 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     { provide: 'LRU', useFactory: getLRU, deps: [] },
 
     Meta,
+
+    globalConfig
   ]
 })
 export class MainModule {

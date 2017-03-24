@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Inject, NgModule } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -22,7 +22,8 @@ import { effects } from '../../app/app.effects';
 // see https://github.com/angular/angular/pull/12322
 import { Meta } from '../angular2-meta';
 import { RehydrateStoreAction } from "../../app/store.actions";
-import { GlobalConfig } from "../../config";
+
+import { GLOBAL_CONFIG, GlobalConfig, globalConfig } from '../../config';
 
 // import * as LRU from 'modern-lru';
 
@@ -82,17 +83,19 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
     Meta,
 
+    globalConfig
+
     // { provide: AUTO_PREBOOT, useValue: false } // turn off auto preboot complete
   ]
 })
 export class MainModule {
-  constructor(public store: Store<AppState>) {
+  constructor(public store: Store<AppState>, @Inject(GLOBAL_CONFIG) private config: GlobalConfig, ) {
     // TODO(gdi2290): refactor into a lifecycle hook
     this.doRehydrate();
   }
 
   doRehydrate() {
-    if (GlobalConfig.universal.shouldRehydrate) {
+    if (this.config.universal.shouldRehydrate) {
       let defaultValue = {};
       let serverCache = this._getCacheValue(NGRX_CACHE_KEY, defaultValue);
       this.store.dispatch(new RehydrateStoreAction(serverCache));
