@@ -3,9 +3,9 @@
 const path = require('path');
 
 let configContext = require.context("../config", false, /js$/);
-let EnvConfig : any = {};
-let EnvConfigFile : string;
-let DefaultConfig : any = {};
+let EnvConfig: any = {};
+let EnvConfigFile: string;
+let DefaultConfig: any = {};
 
 try {
   DefaultConfig = configContext('./environment.default.js');

@@ -7,19 +7,19 @@ import { UniversalModule, isBrowser, isNode } from 'angular2-universal/node'; //
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
-import { AppModule, AppComponent } from './app/app.module';
-import { SharedModule } from './app/shared/shared.module';
-import { CoreModule } from "./app/core/core.module";
+import { AppModule, AppComponent } from '../../app/app.module';
+import { SharedModule } from '../../app/shared/shared.module';
+import { CoreModule } from "../../app/core/core.module";
 
 import { StoreModule, Store } from "@ngrx/store";
 import { RouterStoreModule } from "@ngrx/router-store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { rootReducer, AppState, NGRX_CACHE_KEY } from './app/app.reducers';
-import { effects } from './app/app.effects';
+import { rootReducer, AppState, NGRX_CACHE_KEY } from '../../app/app.reducers';
+import { effects } from '../../app/app.effects';
 
 // Will be merged into @angular/platform-browser in a later release
 // see https://github.com/angular/angular/pull/12322
-import { Meta } from './angular2-meta';
+import { Meta } from '../angular2-meta';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');

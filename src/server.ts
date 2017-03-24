@@ -4,7 +4,7 @@
 // if you are including modules that modify Promise, such as NewRelic,, you must include them before polyfills
 import 'angular2-universal-polyfills';
 import 'ts-helpers';
-import './__workaround.node'; // temporary until 2.1.1 things are patched in Core
+import './platform/workarounds/__workaround.node'; // temporary until 2.1.1 things are patched in Core
 
 import * as path from 'path';
 import * as morgan from 'morgan';
@@ -19,7 +19,7 @@ import { enableProdMode } from '@angular/core';
 import { createEngine } from 'angular2-express-engine';
 
 // App
-import { MainModule } from './node.module';
+import { MainModule } from './platform/modules/node.module';
 
 // Routes
 import { routes } from './server.routes';
@@ -112,6 +112,6 @@ app.get('*', function(req, res) {
 });
 
 // Server
-let server = app.listen(app.get('port'), () => {
+let server = app.listen(app.get('port'), app.get('address'), () => {
   console.log(`Listening on: http://${server.address().address}:${server.address().port}`);
 });
