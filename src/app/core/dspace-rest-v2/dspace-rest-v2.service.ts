@@ -3,7 +3,7 @@ import { Http, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTURLCombiner } from "../url-combiner/rest-url-combiner";
 
-import { GLOBAL_CONFIG, GlobalConfig, globalConfig } from '../../../config';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 
 /**
  * Service to access DSpace's REST API

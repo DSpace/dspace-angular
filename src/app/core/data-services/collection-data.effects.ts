@@ -9,7 +9,7 @@ import { Actions, Effect } from "@ngrx/effects";
 import { RequestCacheFindAllAction, RequestCacheFindByIDAction } from "../cache/request-cache.actions";
 import { CollectionDataService } from "./collection-data.service";
 
-import { GLOBAL_CONFIG, GlobalConfig, globalConfig } from '../../../config';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 
 @Injectable()
 export class CollectionDataEffects extends DataEffects<Collection> {

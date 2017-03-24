@@ -21,7 +21,7 @@ import { HostWindowState } from "./shared/host-window.reducer";
 import { HostWindowResizeAction } from "./shared/host-window.actions";
 import { MockTranslateLoader } from "./shared/testing/mock-translate-loader";
 
-import { globalConfig } from '../config';
+import { GLOBAL_CONFIG, config } from '../config';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -39,8 +39,8 @@ describe('App component', () => {
       })],
       declarations: [AppComponent], // declare the test component
       providers: [
-        AppComponent,
-        globalConfig
+        { provide: GLOBAL_CONFIG, useValue: config },
+        AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })

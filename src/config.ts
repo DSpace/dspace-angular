@@ -67,9 +67,4 @@ for (let key in config) {
   }
 }
 
-const globalConfig = {
-  provide: GLOBAL_CONFIG,
-  useValue: config
-};
-
-export { GLOBAL_CONFIG, GlobalConfig, globalConfig, config }
+export { GLOBAL_CONFIG, GlobalConfig, config }

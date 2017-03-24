@@ -11,7 +11,7 @@ import { HostWindowState } from "./shared/host-window.reducer";
 import { Store } from "@ngrx/store";
 import { HostWindowResizeAction } from "./shared/host-window.actions";
 
-import { GLOBAL_CONFIG, GlobalConfig, globalConfig } from '../config';
+import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,

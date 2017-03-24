@@ -23,7 +23,7 @@ import { effects } from '../../app/app.effects';
 import { Meta } from '../angular2-meta';
 import { RehydrateStoreAction } from "../../app/store.actions";
 
-import { GLOBAL_CONFIG, GlobalConfig, globalConfig } from '../../config';
+import { GLOBAL_CONFIG, config } from '../../config';
 
 // import * as LRU from 'modern-lru';
 
@@ -72,6 +72,7 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     effects
   ],
   providers: [
+    { provide: GLOBAL_CONFIG, useValue: config },
     { provide: 'isBrowser', useValue: isBrowser },
     { provide: 'isNode', useValue: isNode },
 
@@ -80,9 +81,7 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
     { provide: 'LRU', useFactory: getLRU, deps: [] },
 
-    Meta,
-
-    globalConfig
+    Meta
 
     // { provide: AUTO_PREBOOT, useValue: false } // turn off auto preboot complete
   ]
