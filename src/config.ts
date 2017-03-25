@@ -1,48 +1,16 @@
 // Look in ./config folder for config
 import { OpaqueToken } from '@angular/core';
 
-import * as path from 'path';
-
-let configContext = require.context("../config", false, /js$/);
-
-let EnvConfig: any = {};
-let EnvConfigFile: string;
-let DefaultConfig: any = {};
-
-try {
-  DefaultConfig = configContext('./environment.default.js');
-} catch (e) {
-  throw new Error(`Cannot find file "${path.resolve('config', './environment.default.js')}"`);
-}
-
-switch (process.env.NODE_ENV) {
-  case 'prod':
-  case 'production':
-    EnvConfigFile = './environment.prod.js';
-    break;
-  case 'dev':
-  case 'development':
-  default:
-    EnvConfigFile = './environment.dev.js';
-}
-try {
-  EnvConfig = configContext(EnvConfigFile);
-} catch (e) {
-  EnvConfig = {};
-}
-
-const GLOBAL_CONFIG = new OpaqueToken('config');
-
 interface ServerConfig {
   "nameSpace": string,
   "protocol": string,
   "address": string,
   "port": number,
-  "baseURL": string
+  "baseUrl": string
 }
 
 interface GlobalConfig {
-  "production": string,
+  "production": boolean,
   "rest": ServerConfig,
   "ui": ServerConfig,
   "cache": {
@@ -55,16 +23,55 @@ interface GlobalConfig {
   }
 }
 
-const config: GlobalConfig = <GlobalConfig>Object.assign(DefaultConfig, EnvConfig);
+const GLOBAL_CONFIG = new OpaqueToken('config');
 
-function buildURL(server: ServerConfig) {
-  return [server.protocol, '://', server.address, (server.port !== 80) ? ':' + server.port : ''].join('');
+let configContext = require.context("../config", false, /js$/);
+
+let EnvConfig: GlobalConfig;
+let EnvConfigFile: string;
+
+let production: boolean = false;
+
+switch (process.env.NODE_ENV) {
+  case 'prod':
+  case 'production':
+    production = true;
+    EnvConfigFile = './environment.prod.js';    
+    break;
+  case 'dev':
+  case 'development':
+    EnvConfigFile = './environment.dev.js';
+    break;
+  case 'test':
+    EnvConfigFile = './environment.test.js';
+    break;
+  default:
+    console.warn('Environment file not specified. Using default.')
 }
 
-for (let key in config) {
-  if (config[key].protocol && config[key].address && config[key].port) {
-    config[key].baseURL = buildURL(config[key]);
+try {
+  EnvConfig = configContext('./environment.default.js');
+} catch (e) {
+  throw new Error("Cannot find file ./environment.default.js");
+}
+
+// if EnvConfigFile set try to get configs
+if(EnvConfigFile) {
+  try {
+    EnvConfig = <GlobalConfig> Object.assign(EnvConfig, configContext(EnvConfigFile));    
+  } catch (e) {
+    console.warn("Cannot find file " + EnvConfigFile);
   }
 }
 
-export { GLOBAL_CONFIG, GlobalConfig, config }
+// set base url if propery is object with protocol, address, and port. i.e. ServerConfig
+for (let key in EnvConfig) {
+  if (EnvConfig[key].protocol && EnvConfig[key].address && EnvConfig[key].port) {
+    EnvConfig[key].baseUrl = [EnvConfig[key].protocol, '://', EnvConfig[key].address, (EnvConfig[key].port !== 80) ? ':' + EnvConfig[key].port : ''].join('');
+  }
+}
+
+// set config for running in production
+EnvConfig.production = production;
+
+export { GLOBAL_CONFIG, GlobalConfig, EnvConfig }

@@ -14,13 +14,13 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 @Injectable()
 export class ItemDataEffects extends DataEffects<Item> {
   constructor(
-    @Inject(GLOBAL_CONFIG) config: GlobalConfig,
+    @Inject(GLOBAL_CONFIG) EnvConfig: GlobalConfig,
     actions$: Actions,
     restApi: DSpaceRESTv2Service,
     cache: ObjectCacheService,
     dataService: ItemDataService
   ) {
-    super(config, actions$, restApi, cache, dataService);
+    super(EnvConfig, actions$, restApi, cache, dataService);
   }
 
   protected getFindAllEndpoint(action: RequestCacheFindAllAction): string {

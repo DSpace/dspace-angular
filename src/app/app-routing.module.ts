@@ -6,7 +6,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
   imports: [
     RouterModule.forChild([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: '**', pathMatch: 'full', component: PageNotFoundComponent},
+      { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ])
   ],
 })

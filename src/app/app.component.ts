@@ -30,14 +30,8 @@ export class AppComponent implements OnDestroy, OnInit {
     recipient: 'World'
   };
 
-  env: string = this.config.production;
-
-  styles = {
-    color: 'red'
-  };
-
   constructor(
-    @Inject(GLOBAL_CONFIG) private config: GlobalConfig,
+    @Inject(GLOBAL_CONFIG) public EnvConfig: GlobalConfig,
     private translate: TranslateService,
     private store: Store<HostWindowState>
   ) {
@@ -45,8 +39,6 @@ export class AppComponent implements OnDestroy, OnInit {
     translate.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use('en');
-
-    console.log(this.config);
   }
 
   ngOnInit() {

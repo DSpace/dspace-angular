@@ -25,7 +25,7 @@ import { MainModuleNgFactory } from './platform/modules/node.module.ngfactory';
 // Routes
 import { routes } from './server.routes';
 
-import { config } from './config';
+import { EnvConfig } from './config';
 
 // enable prod for faster renders
 enableProdMode();
@@ -44,8 +44,9 @@ app.engine('.html', createEngine({
     // stateless providers only since it's shared
   ]
 }));
-app.set('port', process.env.PORT || 3000);
-app.set('address', process.env.ADDRESS || '127.0.0.1');
+
+app.set('port', process.env.PORT || EnvConfig.ui.port || 3000);
+app.set('address', process.env.ADDRESS || EnvConfig.ui.address || '127.0.0.1');
 app.set('views', __dirname);
 app.set('view engine', 'html');
 app.set('json spaces', 2);
@@ -66,13 +67,13 @@ function cacheControl(req, res, next) {
   res.header('Cache-Control', 'max-age=60');
   next();
 }
+
 // Serve static files
 app.use('/assets', cacheControl, express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
 app.use('/styles', cacheControl, express.static(path.join(__dirname, 'styles'), { maxAge: 30 }));
 
 app.use(cacheControl, express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
-//
 /////////////////////////
 // ** Example API
 // Notice API should be in a separate process
@@ -95,11 +96,11 @@ function ngApp(req, res) {
       res,
       // use this to determine what part of your app is slow only in development
       // time: true,
-      async: true,
-      preboot: true,
-      baseUrl: '/',
+      async: EnvConfig.universal.async,
+      preboot: EnvConfig.universal.preboot,
+      baseUrl: EnvConfig.ui.nameSpace,
       requestUrl: req.originalUrl,
-      originUrl: `http://${app.get('address')}:${app.get('port')}`
+      originUrl: EnvConfig.ui.baseUrl
     });
   });
 
@@ -114,7 +115,6 @@ routes.forEach(route => {
   app.get(`/${route}/*`, ngApp);
 });
 
-
 app.get('*', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var pojo = { status: 404, message: 'No Content' };
@@ -124,5 +124,5 @@ app.get('*', function(req, res) {
 
 // Server
 let server = app.listen(app.get('port'), app.get('address'), () => {
-  console.log(`Listening on: http://${server.address().address}:${server.address().port}`);
+  console.log(`Listening on: ${EnvConfig.ui.protocol}://${server.address().address}:${server.address().port}`);
 });

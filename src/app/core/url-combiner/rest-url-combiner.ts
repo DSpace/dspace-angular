@@ -9,7 +9,7 @@ import { GlobalConfig } from '../../../config';
  * TODO write tests once GlobalConfig becomes injectable
  */
 export class RESTURLCombiner extends URLCombiner {
-  constructor(config: GlobalConfig, ...parts: Array<string>) {
-    super(config.rest.baseURL, config.rest.nameSpace, ...parts);
+  constructor(EnvConfig: GlobalConfig, ...parts: Array<string>) {
+    super(EnvConfig.rest.baseUrl, EnvConfig.rest.nameSpace, ...parts);
   }
 }

@@ -1,5 +1,4 @@
 module.exports = {
-  "production": false,
   // The REST API Location.
   "rest": {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
@@ -8,7 +7,7 @@ module.exports = {
     "address": "localhost",
     "port": 3000
   },
-  // Path and Port in use for this Angular2 UI
+  // Protocol, path and port in use for this Angular2 UI
   "ui": {
     "nameSpace": "/",
     "protocol": "http",
@@ -17,11 +16,10 @@ module.exports = {
   },
   "cache": {
     // how long should objects be cached for by default
-    "msToLive": 15 * 60 * 1000, //15 minutes
+    "msToLive": 1 * 60 * 1000, // 1 minute
   },
   "universal": {
-    //on the client: start with the state on the server
-    "shouldRehydrate": true,
+    // universal settings
     "preboot": true,
     "async": true
   }

@@ -21,7 +21,7 @@ import { effects } from '../../app/app.effects';
 // see https://github.com/angular/angular/pull/12322
 import { Meta } from '../angular2-meta';
 
-import { GLOBAL_CONFIG, config } from '../../config';
+import { GLOBAL_CONFIG, EnvConfig } from '../../config';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -63,8 +63,8 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     effects
   ],
   providers: [
-    { provide: GLOBAL_CONFIG, useValue: config },
-    { provide: 'res', useFactory: getResponse },
+    { provide: GLOBAL_CONFIG, useValue: EnvConfig },
+
     { provide: 'isBrowser', useValue: isBrowser },
     { provide: 'isNode', useValue: isNode },
 

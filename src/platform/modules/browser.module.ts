@@ -23,7 +23,7 @@ import { effects } from '../../app/app.effects';
 import { Meta } from '../angular2-meta';
 import { RehydrateStoreAction } from "../../app/store.actions";
 
-import { GLOBAL_CONFIG, config } from '../../config';
+import { GLOBAL_CONFIG, EnvConfig } from '../../config';
 
 // import * as LRU from 'modern-lru';
 
@@ -72,7 +72,8 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     effects
   ],
   providers: [
-    { provide: GLOBAL_CONFIG, useValue: config },
+    { provide: GLOBAL_CONFIG, useValue: EnvConfig },
+  
     { provide: 'isBrowser', useValue: isBrowser },
     { provide: 'isNode', useValue: isNode },
 

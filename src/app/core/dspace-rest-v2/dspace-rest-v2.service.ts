@@ -10,7 +10,7 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
  */
 @Injectable()
 export class DSpaceRESTv2Service {
-  constructor(private http: Http, @Inject(GLOBAL_CONFIG) private config: GlobalConfig) {
+  constructor(private http: Http, @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
 
   }
 
@@ -25,7 +25,7 @@ export class DSpaceRESTv2Service {
    *      An Observablse<string> containing the response from the server
    */
   get(relativeURL: string, options?: RequestOptionsArgs): Observable<string> {
-    return this.http.get(new RESTURLCombiner(this.config, relativeURL).toString(), options)
+    return this.http.get(new RESTURLCombiner(this.EnvConfig, relativeURL).toString(), options)
       .map(res => res.json())
       .catch(err => {
         console.log('Error: ', err);
