@@ -64,7 +64,7 @@ app.use(morgan('common', {
 
 function cacheControl(req, res, next) {
   // instruct browser to revalidate in 60 seconds
-  res.header('Cache-Control', 'max-age=60');
+  res.header('Cache-Control', EnvConfig.cache.control || 'max-age=60');
   next();
 }
 
@@ -115,7 +115,7 @@ routes.forEach(route => {
   app.get(`/${route}/*`, ngApp);
 });
 
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   var pojo = { status: 404, message: 'No Content' };
   var json = JSON.stringify(pojo, null, 2);

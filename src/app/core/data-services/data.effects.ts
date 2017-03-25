@@ -21,7 +21,7 @@ export abstract class DataEffects<T extends CacheableObject> {
   protected abstract getSerializer(): Serializer<T>;
 
   constructor(
-    private config: GlobalConfig,
+    private EnvConfig: GlobalConfig,
     private actions$: Actions,
     private restApi: DSpaceRESTv2Service,
     private objectCache: ObjectCacheService,
@@ -41,11 +41,11 @@ export abstract class DataEffects<T extends CacheableObject> {
             if (hasNoValue(t) || hasNoValue(t.uuid)) {
               throw new Error('The server returned an invalid object');
             }
-            this.objectCache.add(t, this.config.cache.msToLive);
+            this.objectCache.add(t, this.EnvConfig.cache.msToLive);
           });
         })
         .map((ts: Array<T>) => ts.map(t => t.uuid))
-        .map((ids: Array<string>) => new RequestCacheSuccessAction(action.payload.key, ids, new Date().getTime(), this.config.cache.msToLive))
+        .map((ids: Array<string>) => new RequestCacheSuccessAction(action.payload.key, ids, new Date().getTime(), this.EnvConfig.cache.msToLive))
         .catch((error: Error) => Observable.of(new RequestCacheErrorAction(action.payload.key, error.message)));
     });
 
@@ -59,9 +59,9 @@ export abstract class DataEffects<T extends CacheableObject> {
           if (hasNoValue(t) || hasNoValue(t.uuid)) {
             throw new Error('The server returned an invalid object');
           }
-          this.objectCache.add(t, this.config.cache.msToLive);
+          this.objectCache.add(t, this.EnvConfig.cache.msToLive);
         })
-        .map((t: T) => new RequestCacheSuccessAction(action.payload.key, [t.uuid], new Date().getTime(), this.config.cache.msToLive))
+        .map((t: T) => new RequestCacheSuccessAction(action.payload.key, [t.uuid], new Date().getTime(), this.EnvConfig.cache.msToLive))
         .catch((error: Error) => Observable.of(new RequestCacheErrorAction(action.payload.key, error.message)));
     });
 

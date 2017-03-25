@@ -23,7 +23,7 @@ import { effects } from '../../app/app.effects';
 import { Meta } from '../angular2-meta';
 import { RehydrateStoreAction } from "../../app/store.actions";
 
-import { GLOBAL_CONFIG, EnvConfig } from '../../config';
+import { GLOBAL_CONFIG, GlobalConfig, EnvConfig } from '../../config';
 
 // import * as LRU from 'modern-lru';
 
@@ -73,7 +73,7 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
   ],
   providers: [
     { provide: GLOBAL_CONFIG, useValue: EnvConfig },
-  
+
     { provide: 'isBrowser', useValue: isBrowser },
     { provide: 'isNode', useValue: isNode },
 
@@ -88,7 +88,7 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
   ]
 })
 export class MainModule {
-  constructor(public store: Store<AppState>) {
+  constructor( @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig, public store: Store<AppState>) {
     // TODO(gdi2290): refactor into a lifecycle hook
     this.doRehydrate();
   }
@@ -96,7 +96,9 @@ export class MainModule {
   doRehydrate() {
     let defaultValue = {};
     let serverCache = this._getCacheValue(NGRX_CACHE_KEY, defaultValue);
-    this.store.dispatch(new RehydrateStoreAction(serverCache));
+    if (this.EnvConfig.universal.preboot) {
+      this.store.dispatch(new RehydrateStoreAction(serverCache));
+    }
   }
 
   _getCacheValue(key: string, defaultValue: any): any {

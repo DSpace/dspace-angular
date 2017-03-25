@@ -15,9 +15,9 @@ interface GlobalConfig {
   "ui": ServerConfig,
   "cache": {
     "msToLive": number,
+    "control": string
   },
   "universal": {
-    "shouldRehydrate": boolean,
     "preboot": boolean,
     "async": boolean
   }
@@ -36,7 +36,7 @@ switch (process.env.NODE_ENV) {
   case 'prod':
   case 'production':
     production = true;
-    EnvConfigFile = './environment.prod.js';    
+    EnvConfigFile = './environment.prod.js';
     break;
   case 'dev':
   case 'development':
@@ -56,9 +56,9 @@ try {
 }
 
 // if EnvConfigFile set try to get configs
-if(EnvConfigFile) {
+if (EnvConfigFile) {
   try {
-    EnvConfig = <GlobalConfig> Object.assign(EnvConfig, configContext(EnvConfigFile));    
+    EnvConfig = <GlobalConfig>Object.assign(EnvConfig, configContext(EnvConfigFile));
   } catch (e) {
     console.warn("Cannot find file " + EnvConfigFile);
   }
