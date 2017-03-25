@@ -81,7 +81,10 @@ Configuring
 
 Default configuration file is located in `config/` folder.
 
-To change the default configuration values, create local files that override the parameters you need to change:* Create a new `environment.dev.js` file in `config/` for `devel` environment;* Create a new `environment.prod.js` file in `config/` for `production` environment;
+To change the default configuration values, create local files that override the parameters you need to change:
+
+- Create a new `environment.dev.js` file in `config/` for `devel` environment;
+- Create a new `environment.prod.js` file in `config/` for `production` environment;
 
 To use the configuration parameters in your component:
 
@@ -180,13 +183,13 @@ To get the most out of TypeScript, you'll need a TypeScript-aware editor. We've 
 
 -	Free
 	-	[Visual Studio Code](https://code.visualstudio.com/)
-	-	[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
+		-	[Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome)
 	-	[Atom](https://atom.io/)
-	-	[TypeScript plugin](https://atom.io/packages/atom-typescript)
+		-	[TypeScript plugin](https://atom.io/packages/atom-typescript)
 -	Paid
 	-	[Webstorm](https://www.jetbrains.com/webstorm/download/) or [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)
 	-	[Sublime Text](http://www.sublimetext.com/3)
-	-	[Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
+		-	[Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
 
 Collaborating
 -------------
@@ -391,7 +394,7 @@ If the library doesn't have typings available at `@types/`, you can still use it
   declare module 'typeless-package';
 ```
 
-1.	Then, in the component or file that uses the library, add the following code:
+2.	Then, in the component or file that uses the library, add the following code:
 
 ```typescript
   import * as typelessPackage from 'typeless-package';
