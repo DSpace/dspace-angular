@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/DSpace/dspace-angular.svg?branch=master)](https://travis-ci.org/DSpace/dspace-angular)
+
 dspace-angular
 ==============
 
