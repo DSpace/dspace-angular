@@ -2,25 +2,25 @@
 import { OpaqueToken } from '@angular/core';
 
 interface ServerConfig {
-  "nameSpace": string,
-  "protocol": string,
-  "address": string,
-  "port": number,
-  "baseUrl": string
+  "nameSpace": string;
+  "protocol": string;
+  "address": string;
+  "port": number;
+  "baseUrl": string;
 }
 
 interface GlobalConfig {
-  "production": boolean,
-  "rest": ServerConfig,
-  "ui": ServerConfig,
+  "production": boolean;
+  "rest": ServerConfig;
+  "ui": ServerConfig;
   "cache": {
     "msToLive": number,
     "control": string
-  },
+  };
   "universal": {
     "preboot": boolean,
     "async": boolean
-  }
+  };
 }
 
 const GLOBAL_CONFIG = new OpaqueToken('config');
@@ -46,7 +46,7 @@ switch (process.env.NODE_ENV) {
     EnvConfigFile = './environment.test.js';
     break;
   default:
-    console.warn('Environment file not specified. Using default.')
+    console.warn('Environment file not specified. Using default.');
 }
 
 try {
