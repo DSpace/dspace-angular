@@ -85,8 +85,8 @@ Default configuration file is located in `config/` folder.
 
 To change the default configuration values, create local files that override the parameters you need to change:
 
-- Create a new `environment.dev.js` file in `config/` for `devel` environment;
-- Create a new `environment.prod.js` file in `config/` for `production` environment;
+-	Create a new `environment.dev.js` file in `config/` for `devel` environment;
+-	Create a new `environment.prod.js` file in `config/` for `production` environment;
 
 To use the configuration parameters in your component:
 
@@ -241,102 +241,10 @@ dspace-angular
 │   │   ├── app.module.ts                               *
 │   │   ├── app.reducers.ts                             *
 │   │   ├── core                                        *
-│   │   │   ├── cache                                   *
-│   │   │   │   ├── cache-entry.ts                      *
-│   │   │   │   ├── cache.reducers.ts                   *
-│   │   │   │   ├── object-cache.actions.ts             *
-│   │   │   │   ├── object-cache.reducer.spec.ts        *
-│   │   │   │   ├── object-cache.reducer.ts             *
-│   │   │   │   ├── object-cache.service.spec.ts        *
-│   │   │   │   ├── object-cache.service.ts             *
-│   │   │   │   ├── request-cache.actions.ts            *
-│   │   │   │   ├── request-cache.reducer.spec.ts       *
-│   │   │   │   ├── request-cache.reducer.ts            *
-│   │   │   │   ├── request-cache.service.spec.ts       *
-│   │   │   │   └── request-cache.service.ts            *
-│   │   │   ├── core.effects.ts                         *
-│   │   │   ├── core.module.ts                          *
-│   │   │   ├── core.reducers.ts                        *
-│   │   │   ├── data-services                           *
-│   │   │   │   ├── collection-data.effects.ts          *
-│   │   │   │   ├── collection-data.service.ts          *
-│   │   │   │   ├── data.effects.ts                     *
-│   │   │   │   ├── data.service.ts                     *
-│   │   │   │   ├── item-data.effects.ts                *
-│   │   │   │   ├── item-data.service.ts                *
-│   │   │   │   ├── object-cache.effects.ts             *
-│   │   │   │   ├── remote-data.ts                      *
-│   │   │   │   └── request-cache.effects.ts            *
-│   │   │   ├── dspace-rest-v2                          *
-│   │   │   │   ├── dspace-rest-v2-response.model.ts    *
-│   │   │   │   ├── dspace-rest-v2.schema.json          *
-│   │   │   │   ├── dspace-rest-v2.serializer.spec.ts   *
-│   │   │   │   ├── dspace-rest-v2.serializer.ts        *
-│   │   │   │   ├── dspace-rest-v2.service.ts           *
-│   │   │   │   └── dspace-rest-v2.validator.ts         *
-│   │   │   ├── footer                                  *
-│   │   │   │   ├── footer.component.css                *
-│   │   │   │   ├── footer.component.css.shim.ts        *
-│   │   │   │   ├── footer.component.html               *
-│   │   │   │   ├── footer.component.scss               *
-│   │   │   │   ├── footer.component.spec.ts            *
-│   │   │   │   └── footer.component.ts                 *
-│   │   │   ├── serializer.ts                           *
-│   │   │   ├── shared                                  *
-│   │   │   │   ├── bitstream.model.ts                  *
-│   │   │   │   ├── bundle.model.ts                     *
-│   │   │   │   ├── collection.model.ts                 *
-│   │   │   │   ├── dspace-object.model.ts              *
-│   │   │   │   ├── generic-constructor.ts              *
-│   │   │   │   ├── item.model.ts                       *
-│   │   │   │   ├── metadatum.model.ts                  *
-│   │   │   │   ├── pagination-options.model.ts         *
-│   │   │   │   ├── param-hash.spec.ts                  *
-│   │   │   │   ├── param-hash.ts                       *
-│   │   │   │   └── sort-options.model.ts               *
-│   │   │   └── url-combiner                            *
-│   │   │       ├── rest-url-combiner.ts                *
-│   │   │       ├── ui-url-combiner.ts                  *
-│   │   │       ├── url-combiner.spec.ts                *
-│   │   │       └── url-combiner.ts                     *
 │   │   ├── header                                      *
-│   │   │   ├── header.actions.ts                       *
-│   │   │   ├── header.component.css                    *
-│   │   │   ├── header.component.css.shim.ts            *
-│   │   │   ├── header.component.html                   *
-│   │   │   ├── header.component.scss                   *
-│   │   │   ├── header.component.spec.ts                *
-│   │   │   ├── header.component.ts                     *
-│   │   │   ├── header.effects.spec.ts                  *
-│   │   │   ├── header.effects.ts                       *
-│   │   │   ├── header.reducer.spec.ts                  *
-│   │   │   └── header.reducer.ts                       *
 │   │   ├── home                                        *
-│   │   │   ├── home-routing.module.ts                  *
-│   │   │   ├── home.component.css                      *
-│   │   │   ├── home.component.css.shim.ts              *
-│   │   │   ├── home.component.html                     *
-│   │   │   ├── home.component.scss                     *
-│   │   │   ├── home.component.ts                       *
-│   │   │   └── home.module.ts                          *
 │   │   ├── pagenotfound                                *
-│   │   │   ├── pagenotfound.component.css              *
-│   │   │   ├── pagenotfound.component.css.shim.ts      *
-│   │   │   ├── pagenotfound.component.html             *
-│   │   │   ├── pagenotfound.component.scss             *
-│   │   │   └── pagenotfound.component.ts               *
 │   │   ├── shared                                      *
-│   │   │   ├── api.service.ts                          *
-│   │   │   ├── empty.util.spec.ts                      *
-│   │   │   ├── empty.util.ts                           *
-│   │   │   ├── host-window.actions.ts                  *
-│   │   │   ├── host-window.reducer.spec.ts             *
-│   │   │   ├── host-window.reducer.ts                  *
-│   │   │   ├── ngrx                                    *
-│   │   │   │   └── type.ts                             *
-│   │   │   ├── shared.module.ts                        *
-│   │   │   └── testing                                 *
-│   │   │       └── mock-translate-loader.ts            *
 │   │   └── store.actions.ts                            *
 │   ├── backend                                         * Folder containing a mock of the REST API, hosted by the express server
 │   │   ├── api.ts                                      *
@@ -392,16 +300,16 @@ If the library doesn't have typings available at `@types/`, you can still use it
 
 1.	In `src/typings.d.ts`, add the following code:
 
-```typescript
-  declare module 'typeless-package';
-```
+	```typescript
+	  declare module 'typeless-package';
+	```
 
 2.	Then, in the component or file that uses the library, add the following code:
 
-```typescript
-  import * as typelessPackage from 'typeless-package';
-  typelessPackage.method();
-```
+	```typescript
+	  import * as typelessPackage from 'typeless-package';
+	  typelessPackage.method();
+	```
 
 Done. Note: you might need or find useful to define more typings for the library that you're trying to use.
 
