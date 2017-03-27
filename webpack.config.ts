@@ -94,7 +94,6 @@ export var clientConfig = {
   }
 };
 
-
 // Server.
 export var serverPlugins = [
 
@@ -132,9 +131,6 @@ export default [
   // Server
   webpackMerge(clone(commonConfig), serverConfig, { plugins: serverPlugins.concat(commonPlugins) })
 ];
-
-
-
 
 // Helpers
 export function includeClientPackages(packages, localModule?: string[]) {

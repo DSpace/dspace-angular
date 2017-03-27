@@ -26,8 +26,10 @@ import { routes } from './server.routes';
 
 import { EnvConfig } from './config';
 
-// enable prod for faster renders
-enableProdMode();
+if (EnvConfig.production) {
+  // enable prod for faster renders
+  enableProdMode();
+}
 
 const app = express();
 const ROOT = path.join(path.resolve(__dirname, '..'));
@@ -107,7 +109,7 @@ routes.forEach(route => {
   app.get(`/${route}/*`, ngApp);
 });
 
-app.get('*', function (req, res) {
+app.get('*', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var pojo = { status: 404, message: 'No Content' };
   var json = JSON.stringify(pojo, null, 2);
@@ -116,5 +118,5 @@ app.get('*', function (req, res) {
 
 // Server
 let server = app.listen(app.get('port'), app.get('address'), () => {
-  console.log(`Listening on: ${EnvConfig.ui.protocol}://${server.address().address}:${server.address().port}`);
+  console.log(`Listening on: ${EnvConfig.ui.ssl ? 'https://' : 'http://'}://${server.address().address}:${server.address().port}`);
 });

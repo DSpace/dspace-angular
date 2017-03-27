@@ -10,8 +10,12 @@ import { bootloader } from '@angularclass/bootloader';
 
 import { load as loadWebFont } from 'webfontloader';
 
-// enable prod for faster renders
-// enableProdMode();
+import { EnvConfig } from './config';
+
+if (EnvConfig.production) {
+  // enable prod for faster renders
+  enableProdMode();
+}
 
 import { MainModule } from './platform/modules/browser.module';
 

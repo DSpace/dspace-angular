@@ -2,10 +2,10 @@
 import { OpaqueToken } from '@angular/core';
 
 interface ServerConfig {
-  "nameSpace": string;
-  "protocol": string;
+  "ssl": boolean;
   "address": string;
   "port": number;
+  "nameSpace": string;
   "baseUrl": string;
 }
 
@@ -32,27 +32,28 @@ let EnvConfigFile: string;
 
 let production: boolean = false;
 
+// check process.env.NODE_ENV to determine which environment config to use
+// process.env.NODE_ENV is defined by webpack, else assume development
 switch (process.env.NODE_ENV) {
   case 'prod':
   case 'production':
-    production = true;
+    // webpack.prod.config.ts defines process.env.NODE_ENV = 'production'
     EnvConfigFile = './environment.prod.js';
-    break;
-  case 'dev':
-  case 'development':
-    EnvConfigFile = './environment.dev.js';
+    production = true;
     break;
   case 'test':
+    // webpack.test.config.ts defines process.env.NODE_ENV = 'test'
     EnvConfigFile = './environment.test.js';
     break;
   default:
-    console.warn('Environment file not specified. Using default.');
+    // if not using webpack.prod.config.ts or webpack.test.config.ts, it must be development
+    EnvConfigFile = './environment.dev.js';
 }
 
 try {
   EnvConfig = configContext('./environment.default.js');
 } catch (e) {
-  throw new Error("Cannot find file ./environment.default.js");
+  throw new Error("Cannot find file environment.default.js");
 }
 
 // if EnvConfigFile set try to get configs
@@ -60,18 +61,18 @@ if (EnvConfigFile) {
   try {
     EnvConfig = <GlobalConfig>Object.assign(EnvConfig, configContext(EnvConfigFile));
   } catch (e) {
-    console.warn("Cannot find file " + EnvConfigFile);
+    console.warn("Cannot find file " + EnvConfigFile.substring(2, EnvConfigFile.length), "Using default environment.");
   }
 }
 
-// set base url if propery is object with protocol, address, and port. i.e. ServerConfig
+// set base url if property is object with ssl, address, and port. i.e. ServerConfig
 for (let key in EnvConfig) {
-  if (EnvConfig[key].protocol && EnvConfig[key].address && EnvConfig[key].port) {
-    EnvConfig[key].baseUrl = [EnvConfig[key].protocol, '://', EnvConfig[key].address, (EnvConfig[key].port !== 80) ? ':' + EnvConfig[key].port : ''].join('');
+  if (EnvConfig[key].ssl !== undefined && EnvConfig[key].address && EnvConfig[key].port) {
+    EnvConfig[key].baseUrl = [EnvConfig[key].ssl ? 'https://' : 'http://', EnvConfig[key].address, (EnvConfig[key].port !== 80) ? ':' + EnvConfig[key].port : ''].join('');
   }
 }
 
-// set config for running in production
+// set config for whether running in production
 EnvConfig.production = production;
 
 export { GLOBAL_CONFIG, GlobalConfig, EnvConfig }
