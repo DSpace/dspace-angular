@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/DSpace/dspace-angular.svg?branch=master)](https://travis-ci.org/DSpace/dspace-angular)
+[![Build Status](https://travis-ci.org/DSpace/dspace-angular.svg?branch=master)](https://travis-ci.org/DSpace/dspace-angular) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
 
 dspace-angular
 ==============
