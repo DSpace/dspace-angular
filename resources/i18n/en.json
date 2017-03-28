@@ -11,6 +11,15 @@
     "link.duraspace": "DuraSpace"
   },
 
+  "item": {
+    "page": {
+      "author": "Author",
+      "abstract": "Abstract",
+      "date": "Date",
+      "uri": "URI"
+    }
+  },
+
   "nav": {
     "home": "Home"
   },

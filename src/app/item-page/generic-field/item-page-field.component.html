@@ -1,0 +1,5 @@
+<ds-item-page-field-wrapper [label]="label | translate">
+    <span *ngFor="let metadatum of data; let last=last;">
+        {{metadatum.value}}<span *ngIf="!last"><span innerHTML="{{separator}}"></span></span>
+    </span>
+</ds-item-page-field-wrapper>
