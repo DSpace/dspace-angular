@@ -1,4 +1,4 @@
-import { inheritSerialization, autoserialize } from "cerialize";
+import { inheritSerialization, autoserialize, autoserializeAs } from "cerialize";
 import { DSpaceObject } from "./dspace-object.model";
 import { Collection } from "./collection.model";
 
@@ -29,6 +29,7 @@ export class Item extends DSpaceObject {
   /**
    * An array of Collections that are direct parents of this Item
    */
+  @autoserializeAs(Collection)
   parents: Array<Collection>;
 
   /**

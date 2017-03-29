@@ -5,7 +5,7 @@ import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.comp
 
 @Component({
   selector: 'ds-item-page-uri-field',
-  templateUrl: './../item-page-specific-field.component.html'
+  templateUrl: './item-page-uri-field.component.html'
 })
 export class ItemPageUriFieldComponent extends ItemPageSpecificFieldComponent implements OnInit {
 
