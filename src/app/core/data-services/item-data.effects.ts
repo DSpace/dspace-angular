@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { DataEffects } from "./data.effects";
 import { Serializer } from "../serializer";
 import { Item } from "../shared/item.model";
@@ -9,15 +9,18 @@ import { Actions, Effect } from "@ngrx/effects";
 import { RequestCacheFindAllAction, RequestCacheFindByIDAction } from "../cache/request-cache.actions";
 import { ItemDataService } from "./item-data.service";
 
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+
 @Injectable()
 export class ItemDataEffects extends DataEffects<Item> {
   constructor(
+    @Inject(GLOBAL_CONFIG) EnvConfig: GlobalConfig,
     actions$: Actions,
     restApi: DSpaceRESTv2Service,
     cache: ObjectCacheService,
     dataService: ItemDataService
   ) {
-    super(actions$, restApi, cache, dataService);
+    super(EnvConfig, actions$, restApi, cache, dataService);
   }
 
   protected getFindAllEndpoint(action: RequestCacheFindAllAction): string {

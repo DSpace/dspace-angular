@@ -1,5 +1,6 @@
 import { URLCombiner } from "./url-combiner";
-import { GlobalConfig } from "../../../config";
+
+import { GlobalConfig } from '../../../config';
 
 /**
  * Combines a variable number of strings representing parts
@@ -7,8 +8,8 @@ import { GlobalConfig } from "../../../config";
  *
  * TODO write tests once GlobalConfig becomes injectable
  */
-export class RESTURLCombiner extends URLCombiner{
-  constructor(...parts:Array<string>) {
-    super(GlobalConfig.rest.baseURL, GlobalConfig.rest.nameSpace, ...parts);
+export class RESTURLCombiner extends URLCombiner {
+  constructor(EnvConfig: GlobalConfig, ...parts: Array<string>) {
+    super(EnvConfig.rest.baseUrl, EnvConfig.rest.nameSpace, ...parts);
   }
 }
