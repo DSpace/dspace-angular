@@ -1,3 +1,22 @@
 <div class="home">
-  Home component
+  <div *ngIf="collections">
+    <h3>Collections</h3>
+    <p *ngIf="(collections.isLoading | async)">Loading…</p>
+    <p *ngIf="(collections.hasFailed | async)">Failed: {{(remoteData.errorMessage | async)}}</p>
+    <ul *ngIf="(collections.hasSucceeded | async)">
+      <li *ngFor="let collection of (collections.payload | async)">
+        {{collection?.name}}<br>
+        <span class="text-muted">{{collection?.shortDescription}}</span>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="items">
+    <h3>Items</h3>
+    <ul>
+      <li *ngFor="let item of (items.payload | async)">
+        {{item?.name}}<br>
+        <span class="text-muted">{{item?.findMetadata('dc.description.abstract')}}</span>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -2,15 +2,12 @@ import { Injectable } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
 import { StoreActionTypes } from "../../store.actions";
 import { ResetObjectCacheTimestampsAction } from "../cache/object-cache.actions";
-import { Store } from "@ngrx/store";
-import { ObjectCacheState } from "../cache/object-cache.reducer";
 
 @Injectable()
 export class ObjectCacheEffects {
 
   constructor(
-    private actions$: Actions,
-    private store: Store<ObjectCacheState>
+    private actions$: Actions
   ) { }
 
   /**

@@ -1,8 +1,6 @@
 import { Observable } from "rxjs";
-import { hasValue } from "../../shared/empty.util";
 
 export enum RemoteDataState {
-  //TODO RequestPending will never happen: implement it in the store & DataEffects.
   RequestPending,
   ResponsePending,
   Failed,
@@ -10,12 +8,14 @@ export enum RemoteDataState {
 }
 
 /**
- * A class to represent the state of
+ * A class to represent the state of a remote resource
  */
 export class RemoteData<T> {
 
   constructor(
-    private storeLoading: Observable<boolean>,
+    private requestPending: Observable<boolean>,
+    private responsePending: Observable<boolean>,
+    private isSuccessFul: Observable<boolean>,
     public errorMessage: Observable<string>,
     public payload: Observable<T>
   ) {
@@ -23,13 +23,17 @@ export class RemoteData<T> {
 
   get state(): Observable<RemoteDataState> {
     return Observable.combineLatest(
-      this.storeLoading,
-      this.errorMessage.map(msg => hasValue(msg)),
-      (storeLoading, hasMsg) => {
-        if (storeLoading) {
+      this.requestPending,
+      this.responsePending,
+      this.isSuccessFul,
+      (requestPending, responsePending, isSuccessFul) => {
+        if (requestPending) {
+          return RemoteDataState.RequestPending
+        }
+        else if (responsePending) {
           return RemoteDataState.ResponsePending
         }
-        else if (hasMsg) {
+        else if (!isSuccessFul) {
           return RemoteDataState.Failed
         }
         else {

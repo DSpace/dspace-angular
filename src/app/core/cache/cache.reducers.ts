@@ -1,14 +1,14 @@
 import { combineReducers } from "@ngrx/store";
-import { RequestCacheState, requestCacheReducer } from "./request-cache.reducer";
+import { ResponseCacheState, responseCacheReducer } from "./response-cache.reducer";
 import { ObjectCacheState, objectCacheReducer } from "./object-cache.reducer";
 
 export interface CacheState {
-  request: RequestCacheState,
+  response: ResponseCacheState,
   object: ObjectCacheState
 }
 
 export const reducers = {
-  request: requestCacheReducer,
+  response: responseCacheReducer,
   object: objectCacheReducer
 };
 

@@ -1,6 +1,8 @@
-import { autoserialize, inheritSerialization } from "cerialize";
+import { autoserialize, inheritSerialization, autoserializeAs } from "cerialize";
 import { DSpaceObject } from "./dspace-object.model";
 import { Bitstream } from "./bitstream.model";
+import { Item } from "./item.model";
+import { RemoteData } from "../data/remote-data";
 
 @inheritSerialization(DSpaceObject)
 export class Collection extends DSpaceObject {
@@ -54,7 +56,7 @@ export class Collection extends DSpaceObject {
   /**
    * The Bitstream that represents the logo of this Collection
    */
-  logo: Bitstream;
+  logo: RemoteData<Bitstream>;
 
   /**
    * An array of Collections that are direct parents of this Collection
@@ -65,5 +67,8 @@ export class Collection extends DSpaceObject {
    * The Collection that owns this Collection
    */
   owner: Collection;
+
+  @autoserializeAs(RemoteData)
+  items: RemoteData<Item[]>;
 
 }
