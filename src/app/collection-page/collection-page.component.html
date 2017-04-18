@@ -1,0 +1,16 @@
+<div class="collection-page" *ngIf="collectionData.hasSucceeded | async">
+  <ds-collection-page-name [name]="(collectionData.payload | async)?.name"></ds-collection-page-name>
+  <ds-collection-page-logo [logo]="logoData.payload | async"></ds-collection-page-logo>
+  <ds-collection-page-introductory-text
+      [introductoryText]="(collectionData.payload | async)?.introductoryText">
+  </ds-collection-page-introductory-text>
+  <ds-collection-page-news
+      [sidebarText]="(collectionData.payload | async)?.sidebarText">
+  </ds-collection-page-news>
+  <ds-collection-page-copyright
+      [copyrightText]="(collectionData.payload | async)?.copyrightText">
+  </ds-collection-page-copyright>
+  <ds-collection-page-license
+      [license]="(collectionData.payload | async)?.license">
+  </ds-collection-page-license>
+</div>

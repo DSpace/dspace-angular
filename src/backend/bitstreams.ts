@@ -63,5 +63,18 @@ export const BITSTREAMS = [
     ],
     "format": "Text",
     "mimetype": "text/plain"
-  }
+  },
+  {
+    "_links": {
+      "self": { "href": "/bitstreams/4688" },
+    },
+    "id": "4688",
+    "uuid": "1bb1be24-c934-41e3-a0fb-ca7a71ab0e71",
+    "type": "bitstream",
+    "name": "collection-5179-logo.png",
+    "size": 299832,
+    "url": "/bitstreams/1bb1be24-c934-41e3-a0fb-ca7a71ab0e71/retrieve",
+    "format": "PNG",
+    "mimetype": "image/png"
+  },
 ];
