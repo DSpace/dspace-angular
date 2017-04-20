@@ -1,5 +1,5 @@
-import { SortOptions } from "../shared/sort-options.model";
-import { PaginationOptions } from "../shared/pagination-options.model";
+import { SortOptions } from "../cache/models/sort-options.model";
+import { PaginationOptions } from "../cache/models/pagination-options.model";
 import { GenericConstructor } from "../shared/generic-constructor";
 
 export class Request<T> {

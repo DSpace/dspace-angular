@@ -12,10 +12,11 @@ import { hasNoValue } from "../../shared/empty.util";
 import { GlobalConfig, GLOBAL_CONFIG } from "../../../config";
 import { RequestState, RequestEntry } from "./request.reducer";
 import {
-  RequestActionTypes, RequestConfigureAction, RequestExecuteAction,
+  RequestActionTypes, RequestExecuteAction,
   RequestCompleteAction
 } from "./request.actions";
 import { ResponseCacheService } from "../cache/response-cache.service";
+import { RequestService } from "./request.service";
 
 @Injectable()
 export class RequestEffects {
@@ -26,13 +27,14 @@ export class RequestEffects {
     private restApi: DSpaceRESTv2Service,
     private objectCache: ObjectCacheService,
     private responseCache: ResponseCacheService,
+    protected requestService: RequestService,
     private store: Store<RequestState>
   ) { }
 
   @Effect() execute = this.actions$
     .ofType(RequestActionTypes.EXECUTE)
     .flatMap((action: RequestExecuteAction) => {
-      return this.store.select<RequestEntry>('core', 'data', 'request', action.payload)
+      return this.requestService.get(action.payload)
         .take(1);
     })
     .flatMap((entry: RequestEntry) => {

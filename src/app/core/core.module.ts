@@ -8,6 +8,7 @@ import { ObjectCacheService } from "./cache/object-cache.service";
 import { ResponseCacheService } from "./cache/response-cache.service";
 import { CollectionDataService } from "./data/collection-data.service";
 import { ItemDataService } from "./data/item-data.service";
+import { RequestService } from "./data/request.service";
 
 const IMPORTS = [
   CommonModule,
@@ -27,7 +28,8 @@ const PROVIDERS = [
   ItemDataService,
   DSpaceRESTv2Service,
   ObjectCacheService,
-  ResponseCacheService
+  ResponseCacheService,
+  RequestService
 ];
 
 @NgModule({

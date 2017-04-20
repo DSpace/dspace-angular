@@ -55,7 +55,7 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
     if (Array.isArray(response._embedded)) {
       throw new Error('Expected a single model, use deserializeArray() instead');
     }
-    let normalized = Object.assign({}, response._embedded, this.normalizeLinks(response._links));
+    let normalized = Object.assign({}, response._embedded, this.normalizeLinks(response._embedded._links));
     return <T> Deserialize(normalized, this.modelType);
   }
 
@@ -83,7 +83,7 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
     for (let link in normalizedLinks) {
       if (Array.isArray(normalizedLinks[link])) {
         normalizedLinks[link] = normalizedLinks[link].map(linkedResource => {
-          return {'self': linkedResource.href };
+          return linkedResource.href;
         });
       }
       else {

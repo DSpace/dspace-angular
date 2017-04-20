@@ -56,7 +56,9 @@ export class ResponseCacheService {
 
     this.store.select<ResponseCacheEntry>('core', 'cache', 'response', key)
       .take(1)
-      .subscribe(entry => result = this.isValid(entry));
+      .subscribe(entry => {
+        result = this.isValid(entry);
+      });
 
     return result;
   }

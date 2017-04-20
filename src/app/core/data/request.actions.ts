@@ -1,7 +1,5 @@
 import { Action } from "@ngrx/store";
 import { type } from "../../shared/ngrx/type";
-import { PaginationOptions } from "../shared/pagination-options.model";
-import { SortOptions } from "../shared/sort-options.model";
 import { CacheableObject } from "../cache/object-cache.reducer";
 import { Request } from "./request.models";
 

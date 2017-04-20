@@ -1,16 +1,13 @@
-import { autoserialize, inheritSerialization, autoserializeAs } from "cerialize";
 import { DSpaceObject } from "./dspace-object.model";
 import { Bitstream } from "./bitstream.model";
 import { Item } from "./item.model";
 import { RemoteData } from "../data/remote-data";
 
-@inheritSerialization(DSpaceObject)
 export class Collection extends DSpaceObject {
 
   /**
    * A string representing the unique handle of this Collection
    */
-  @autoserialize
   handle: string;
 
   /**
@@ -68,7 +65,6 @@ export class Collection extends DSpaceObject {
    */
   owner: Collection;
 
-  @autoserializeAs(RemoteData)
-  items: RemoteData<Item[]>;
+  items: Array<RemoteData<Item>>;
 
 }

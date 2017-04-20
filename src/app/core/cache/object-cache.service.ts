@@ -60,6 +60,11 @@ export class ObjectCacheService {
       .map((entry: ObjectCacheEntry) => <T> Object.assign(new type(), entry.data));
   }
 
+  getBySelfLink<T extends CacheableObject>(href: string, type: GenericConstructor<T>): Observable<T> {
+    return this.store.select<string>('core', 'index', 'href', href)
+      .flatMap((uuid: string) => this.get(uuid, type))
+  }
+
   /**
    * Get an observable for an array of objects of the same type
    * with the specified UUIDs
@@ -100,6 +105,25 @@ export class ObjectCacheService {
     this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
       .take(1)
       .subscribe(entry => result = this.isValid(entry));
+
+    return result;
+  }
+
+  /**
+   * Check whether the object with the specified self link is cached
+   *
+   * @param href
+   *    The self link of the object to check
+   * @return boolean
+   *    true if the object with the specified self link is cached,
+   *    false otherwise
+   */
+  hasBySelfLink(href: string): boolean {
+    let result: boolean = false;
+
+    this.store.select<string>('core', 'index', 'href', href)
+      .take(1)
+      .subscribe((uuid: string) => result = this.has(uuid));
 
     return result;
   }

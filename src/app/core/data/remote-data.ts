@@ -11,8 +11,8 @@ export enum RemoteDataState {
  * A class to represent the state of a remote resource
  */
 export class RemoteData<T> {
-
   constructor(
+    public self: string,
     private requestPending: Observable<boolean>,
     private responsePending: Observable<boolean>,
     private isSuccessFul: Observable<boolean>,

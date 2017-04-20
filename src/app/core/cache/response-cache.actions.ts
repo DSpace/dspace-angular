@@ -6,9 +6,9 @@ import { Response } from "./response-cache.models";
  * The list of ResponseCacheAction type definitions
  */
 export const ResponseCacheActionTypes = {
-  ADD: type('dspace/core/cache/request/ADD'),
-  REMOVE: type('dspace/core/cache/request/REMOVE'),
-  RESET_TIMESTAMPS: type('dspace/core/cache/request/RESET_TIMESTAMPS')
+  ADD: type('dspace/core/cache/response/ADD'),
+  REMOVE: type('dspace/core/cache/response/REMOVE'),
+  RESET_TIMESTAMPS: type('dspace/core/cache/response/RESET_TIMESTAMPS')
 };
 
 export class ResponseCacheAddAction implements Action {
