@@ -1,6 +1,8 @@
 import { inheritSerialization, autoserialize } from "cerialize";
 import { DSpaceObject } from "./dspace-object.model";
 import { Collection } from "./collection.model";
+import { RemoteData } from "../data/remote-data";
+import { Bundle } from "./bundle.model";
 
 @inheritSerialization(DSpaceObject)
 export class Item extends DSpaceObject {
@@ -35,5 +37,7 @@ export class Item extends DSpaceObject {
    * The Collection that owns this Item
    */
   owner: Collection;
+
+  bundles: Array<RemoteData<Bundle>>
 
 }

@@ -1,4 +1,4 @@
-import { inheritSerialization } from "cerialize";
+import { autoserialize, inheritSerialization } from "cerialize";
 import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
 
 @inheritSerialization(NormalizedDSpaceObject)
@@ -6,6 +6,7 @@ export class NormalizedBundle extends NormalizedDSpaceObject {
   /**
    * The primary bitstream of this Bundle
    */
+  @autoserialize
   primaryBitstream: string;
 
   /**
@@ -18,4 +19,6 @@ export class NormalizedBundle extends NormalizedDSpaceObject {
    */
   owner: string;
 
+  @autoserialize
+  bitstreams: Array<string>;
 }

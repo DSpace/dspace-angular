@@ -11,6 +11,7 @@ import { NormalizedCollection } from "./normalized-collection.model";
 import { Request } from "../../data/request.models";
 import { ListRemoteDataBuilder, SingleRemoteDataBuilder } from "./remote-data-builder";
 import { ItemRDBuilder } from "./item-builder";
+import { NormalizedItem } from "./normalized-item.model";
 
 export class CollectionBuilder {
 
@@ -20,28 +21,26 @@ export class CollectionBuilder {
     protected requestService: RequestService,
     protected store: Store<CoreState>,
     protected href: string,
-    protected nc: NormalizedCollection
+    protected normalized: NormalizedCollection
   ) {
   }
 
   build(): Collection {
     let links: any = {};
 
-    if (hasValue(this.nc.items)) {
-      this.nc.items.forEach((href: string) => {
+    if (hasValue(this.normalized.items)) {
+      this.normalized.items.forEach((href: string) => {
         const isCached = this.objectCache.hasBySelfLink(href);
         const isPending = this.requestService.isPending(href);
 
-        console.log('href', href, 'isCached', isCached, "isPending", isPending);
-
         if (!(isCached || isPending)) {
-          const request = new Request(href, Item);
+          const request = new Request(href, NormalizedItem);
           this.store.dispatch(new RequestConfigureAction(request));
           this.store.dispatch(new RequestExecuteAction(href));
         }
       });
 
-      links.items = this.nc.items.map((href: string) => {
+      links.items = this.normalized.items.map((href: string) => {
         return new ItemRDBuilder(
           this.objectCache,
           this.responseCache,
@@ -52,7 +51,7 @@ export class CollectionBuilder {
       });
     }
 
-    return Object.assign(new Collection(), this.nc, links);
+    return Object.assign(new Collection(), this.normalized, links);
   }
 }
 

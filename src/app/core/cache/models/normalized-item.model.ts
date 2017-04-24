@@ -35,4 +35,6 @@ export class NormalizedItem extends NormalizedDSpaceObject {
    */
   owner: string;
 
+  @autoserialize
+  bundles: Array<string>;
 }
