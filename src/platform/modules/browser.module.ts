@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Inject, NgModule } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -8,21 +8,22 @@ import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
-import { AppModule, AppComponent } from './app/app.module';
-import { SharedModule } from './app/shared/shared.module';
-import { CoreModule } from "./app/core/core.module";
+import { AppModule, AppComponent } from '../../app/app.module';
+import { SharedModule } from '../../app/shared/shared.module';
+import { CoreModule } from '../../app/core/core.module';
 
 import { StoreModule, Store } from "@ngrx/store";
 import { RouterStoreModule } from "@ngrx/router-store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { rootReducer, NGRX_CACHE_KEY, AppState } from './app/app.reducers';
-import { effects } from './app/app.effects';
+import { rootReducer, NGRX_CACHE_KEY, AppState } from '../../app/app.reducers';
+import { effects } from '../../app/app.effects';
 
 // Will be merged into @angular/platform-browser in a later release
 // see https://github.com/angular/angular/pull/12322
-import { Meta } from './angular2-meta';
-import { RehydrateStoreAction } from "./app/store.actions";
-import { GlobalConfig } from "./config";
+import { Meta } from '../angular2-meta';
+import { RehydrateStoreAction } from "../../app/store.actions";
+
+import { GLOBAL_CONFIG, GlobalConfig, EnvConfig } from '../../config';
 
 // import * as LRU from 'modern-lru';
 
@@ -43,7 +44,6 @@ export function getResponse() {
   // the response object is sent as the index.html and lives on the server
   return {};
 }
-
 
 export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
@@ -72,6 +72,8 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     effects
   ],
   providers: [
+    { provide: GLOBAL_CONFIG, useValue: EnvConfig },
+
     { provide: 'isBrowser', useValue: isBrowser },
     { provide: 'isNode', useValue: isNode },
 
@@ -80,21 +82,21 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
     { provide: 'LRU', useFactory: getLRU, deps: [] },
 
-    Meta,
+    Meta
 
     // { provide: AUTO_PREBOOT, useValue: false } // turn off auto preboot complete
   ]
 })
 export class MainModule {
-  constructor(public store: Store<AppState>) {
+  constructor( @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig, public store: Store<AppState>) {
     // TODO(gdi2290): refactor into a lifecycle hook
     this.doRehydrate();
   }
 
   doRehydrate() {
-    if (GlobalConfig.universal.shouldRehydrate) {
-      let defaultValue = {};
-      let serverCache = this._getCacheValue(NGRX_CACHE_KEY, defaultValue);
+    let defaultValue = {};
+    let serverCache = this._getCacheValue(NGRX_CACHE_KEY, defaultValue);
+    if (this.EnvConfig.universal.preboot) {
       this.store.dispatch(new RehydrateStoreAction(serverCache));
     }
   }

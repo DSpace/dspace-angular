@@ -4,7 +4,7 @@
 // if you are including modules that modify Promise, such as NewRelic,, you must include them before polyfills
 import 'angular2-universal-polyfills';
 import 'ts-helpers';
-import './__workaround.node'; // temporary until 2.1.1 things are patched in Core
+import './platform/workarounds/__workaround.node'; // temporary until 2.1.1 things are patched in Core
 
 import * as path from 'path';
 import * as morgan from 'morgan';
@@ -19,13 +19,17 @@ import { enableProdMode } from '@angular/core';
 import { createEngine } from 'angular2-express-engine';
 
 // App
-import { MainModule } from './node.module';
+import { MainModule } from './platform/modules/node.module';
 
 // Routes
 import { routes } from './server.routes';
 
-// enable prod for faster renders
-enableProdMode();
+import { EnvConfig } from './config';
+
+if (EnvConfig.production) {
+  // enable prod for faster renders
+  enableProdMode();
+}
 
 const app = express();
 const ROOT = path.join(path.resolve(__dirname, '..'));
@@ -40,8 +44,9 @@ app.engine('.html', createEngine({
     // stateless providers only since it's shared
   ]
 }));
-app.set('port', process.env.PORT || 3000);
-app.set('address', process.env.ADDRESS || '127.0.0.1');
+
+app.set('port', process.env.PORT || EnvConfig.ui.port || 3000);
+app.set('address', process.env.ADDRESS || EnvConfig.ui.address || '127.0.0.1');
 app.set('views', __dirname);
 app.set('view engine', 'html');
 app.set('json spaces', 2);
@@ -54,16 +59,16 @@ app.use(morgan('dev'));
 
 function cacheControl(req, res, next) {
   // instruct browser to revalidate in 60 seconds
-  res.header('Cache-Control', 'max-age=60');
+  res.header('Cache-Control', EnvConfig.cache.control || 'max-age=60');
   next();
 }
+
 // Serve static files
 app.use('/assets', cacheControl, express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
 app.use('/styles', cacheControl, express.static(path.join(__dirname, 'styles'), { maxAge: 30 }));
 
 app.use(cacheControl, express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
-//
 /////////////////////////
 // ** Example API
 // Notice API should be in aseparate process
@@ -85,11 +90,11 @@ function ngApp(req, res) {
       req,
       res,
       // time: true, // use this to determine what part of your app is slow only in development
-      async: true,
-      preboot: true,
-      baseUrl: '/',
+      async: EnvConfig.universal.async,
+      preboot: EnvConfig.universal.preboot,
+      baseUrl: EnvConfig.ui.nameSpace,
       requestUrl: req.originalUrl,
-      originUrl: `http://${app.get('address')}:${app.get('port')}`
+      originUrl: EnvConfig.ui.baseUrl
     });
   });
 
@@ -112,6 +117,6 @@ app.get('*', function(req, res) {
 });
 
 // Server
-let server = app.listen(app.get('port'), () => {
-  console.log(`Listening on: http://${server.address().address}:${server.address().port}`);
+let server = app.listen(app.get('port'), app.get('address'), () => {
+  console.log(`[${new Date().toTimeString()}] Listening on ${EnvConfig.ui.ssl ? 'https://' : 'http://'}${server.address().address}:${server.address().port}`);
 });

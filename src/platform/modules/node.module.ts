@@ -7,19 +7,20 @@ import { UniversalModule, isBrowser, isNode } from 'angular2-universal/node'; //
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
-import { AppModule, AppComponent } from './app/app.module';
-import { SharedModule } from './app/shared/shared.module';
-import { CoreModule } from "./app/core/core.module";
+import { AppModule, AppComponent } from '../../app/app.module';
+import { SharedModule } from '../../app/shared/shared.module';
+import { CoreModule } from "../../app/core/core.module";
 
 import { StoreModule, Store } from "@ngrx/store";
 import { RouterStoreModule } from "@ngrx/router-store";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { rootReducer, AppState, NGRX_CACHE_KEY } from './app/app.reducers';
-import { effects } from './app/app.effects';
+import { rootReducer, AppState, NGRX_CACHE_KEY } from '../../app/app.reducers';
+import { effects } from '../../app/app.effects';
 
 // Will be merged into @angular/platform-browser in a later release
 // see https://github.com/angular/angular/pull/12322
-import { Meta } from './angular2-meta';
+import { Meta } from '../angular2-meta';
+
+import { GLOBAL_CONFIG, EnvConfig } from '../../config';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -57,10 +58,11 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     AppModule,
     StoreModule.provideStore(rootReducer),
     RouterStoreModule.connectRouter(),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
     effects
   ],
   providers: [
+    { provide: GLOBAL_CONFIG, useValue: EnvConfig },
+
     { provide: 'isBrowser', useValue: isBrowser },
     { provide: 'isNode', useValue: isNode },
 
@@ -69,7 +71,8 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
 
     { provide: 'LRU', useFactory: getLRU, deps: [] },
 
-    Meta,
+    Meta
+
   ]
 })
 export class MainModule {

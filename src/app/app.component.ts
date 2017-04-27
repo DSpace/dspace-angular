@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  Inject,
   ViewEncapsulation,
   OnDestroy,
   OnInit, HostListener
@@ -9,7 +10,8 @@ import { TranslateService } from "ng2-translate";
 import { HostWindowState } from "./shared/host-window.reducer";
 import { Store } from "@ngrx/store";
 import { HostWindowResizeAction } from "./shared/host-window.actions";
-import { GlobalConfig } from "../config";
+
+import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -28,13 +30,8 @@ export class AppComponent implements OnDestroy, OnInit {
     recipient: 'World'
   };
 
-  env: string = GlobalConfig.production;
-
-  styles = {
-    color: 'red'
-  };
-
   constructor(
+    @Inject(GLOBAL_CONFIG) public EnvConfig: GlobalConfig,
     private translate: TranslateService,
     private store: Store<HostWindowState>
   ) {

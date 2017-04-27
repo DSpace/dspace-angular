@@ -1,16 +1,15 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
-import { ResetRequestCacheTimestampsAction } from "../cache/request-cache.actions";
-import { Store } from "@ngrx/store";
-import { RequestCacheState } from "../cache/request-cache.reducer";
 import { ObjectCacheActionTypes } from "../cache/object-cache.actions";
+import { GlobalConfig, GLOBAL_CONFIG } from "../../../config";
+import { ResetResponseCacheTimestampsAction } from "../cache/response-cache.actions";
 
 @Injectable()
 export class RequestCacheEffects {
 
   constructor(
+    @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig,
     private actions$: Actions,
-    private store: Store<RequestCacheState>
   ) { }
 
   /**
@@ -31,6 +30,5 @@ export class RequestCacheEffects {
    */
   @Effect() fixTimestampsOnRehydrate = this.actions$
     .ofType(ObjectCacheActionTypes.RESET_TIMESTAMPS)
-    .map(() => new ResetRequestCacheTimestampsAction(new Date().getTime()));
-
+    .map(() => new ResetResponseCacheTimestampsAction(new Date().getTime()));
 }

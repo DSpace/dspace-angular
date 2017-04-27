@@ -1,7 +1,7 @@
 // the polyfills must be the first thing imported
 import 'angular2-universal-polyfills';
 import 'ts-helpers';
-import './__workaround.browser'; // temporary until 2.1.1 things are patched in Core
+import './platform/workarounds/__workaround.browser'; // temporary until 2.1.1 things are patched in Core
 
 // Angular 2
 import { enableProdMode } from '@angular/core';
@@ -10,10 +10,14 @@ import { bootloader } from '@angularclass/bootloader';
 
 import { load as loadWebFont } from 'webfontloader';
 
-// enable prod for faster renders
-// enableProdMode();
+import { EnvConfig } from './config';
 
-import { MainModule } from './browser.module';
+if (EnvConfig.production) {
+  // enable prod for faster renders
+  enableProdMode();
+}
+
+import { MainModule } from './platform/modules/browser.module';
 
 export const platformRef = platformUniversalDynamic();
 

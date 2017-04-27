@@ -6,8 +6,10 @@
       <div class="container-fluid">
         <p>{{ 'example.with.data' | translate:data }}</p>
         <p>{{ example }}</p>
-        <h2 *ngIf="!env" style="color:green">development</h2>
-        <h2 *ngIf="env" style="color:red">production</h2>
+        <h2 [ngClass]="{ 'red': EnvConfig.production, 'green': !EnvConfig.production }">
+          <span *ngIf="!EnvConfig.production">development</span>
+          <span *ngIf="EnvConfig.production">production</span>
+        </h2>
         <router-outlet></router-outlet>
       </div>
     </main>

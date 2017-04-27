@@ -1,5 +1,4 @@
 // Sticky Footer
-
 .outer-wrapper {
   display: flex;
   margin: 0;
@@ -15,4 +14,12 @@
 
 .main-content {
   flex: 1 0 auto;
+}
+
+h2.red {
+  color: red;
+}
+
+h2.green {
+  color: green;
 }

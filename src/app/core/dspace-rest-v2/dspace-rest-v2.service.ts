@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTURLCombiner } from "../url-combiner/rest-url-combiner";
+
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 
 /**
  * Service to access DSpace's REST API
  */
 @Injectable()
 export class DSpaceRESTv2Service {
-  constructor(public _http: Http) {
+  constructor(private http: Http, @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
 
   }
 
@@ -23,7 +25,7 @@ export class DSpaceRESTv2Service {
    *      An Observablse<string> containing the response from the server
    */
   get(relativeURL: string, options?: RequestOptionsArgs): Observable<string> {
-    return this._http.get(new RESTURLCombiner(relativeURL).toString(), options)
+    return this.http.get(new RESTURLCombiner(this.EnvConfig, relativeURL).toString(), options)
       .map(res => res.json())
       .catch(err => {
         console.log('Error: ', err);

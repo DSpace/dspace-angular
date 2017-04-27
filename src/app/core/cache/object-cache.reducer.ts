@@ -12,6 +12,7 @@ import { CacheEntry } from "./cache-entry";
  */
 export interface CacheableObject {
   uuid: string;
+  self?: string;
 }
 
 /**

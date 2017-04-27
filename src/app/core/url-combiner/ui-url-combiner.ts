@@ -8,7 +8,7 @@ import { GlobalConfig } from "../../../config";
  * TODO write tests once GlobalConfig becomes injectable
  */
 export class UIURLCombiner extends URLCombiner{
-  constructor(...parts:Array<string>) {
-    super(GlobalConfig.ui.baseURL, GlobalConfig.ui.nameSpace, ...parts);
+  constructor(EnvConfig: GlobalConfig, ...parts: Array<string>) {
+    super(EnvConfig.ui.baseUrl, EnvConfig.ui.nameSpace, ...parts);
   }
 }
