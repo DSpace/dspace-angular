@@ -1,38 +1,36 @@
-import { RemoteData } from "../../data/remote-data";
-import { Observable } from "rxjs/Observable";
-import { RequestEntry } from "../../data/request.reducer";
-import { ResponseCacheEntry } from "../response-cache.reducer";
-import { ErrorResponse, SuccessResponse } from "../response-cache.models";
-import { Store } from "@ngrx/store";
-import { CoreState } from "../../core.reducers";
-import { ResponseCacheService } from "../response-cache.service";
+import { Injectable } from "@angular/core";
+import { GenericConstructor } from "../../shared/generic-constructor";
+import { CacheableObject } from "../object-cache.reducer";
 import { ObjectCacheService } from "../object-cache.service";
 import { RequestService } from "../../data/request.service";
-import { CacheableObject } from "../object-cache.reducer";
-import { GenericConstructor } from "../../shared/generic-constructor";
+import { ResponseCacheService } from "../response-cache.service";
+import { Store } from "@ngrx/store";
+import { CoreState } from "../../core.reducers";
+import { RequestEntry } from "../../data/request.reducer";
 import { hasValue, isNotEmpty } from "../../../shared/empty.util";
+import { ResponseCacheEntry } from "../response-cache.reducer";
+import { ErrorResponse, SuccessResponse } from "../response-cache.models";
+import { Observable } from "rxjs/Observable";
+import { RemoteData } from "../../data/remote-data";
+import { DomainModelBuilder } from "./domain-model-builder";
 
-export interface RemoteDataBuilder<T> {
-  build(): RemoteData<T>
-}
-
-export abstract class SingleRemoteDataBuilder<TDomain, TNormalized extends CacheableObject> implements RemoteDataBuilder<TDomain> {
-
+@Injectable()
+export class RemoteDataBuildService {
   constructor(
     protected objectCache: ObjectCacheService,
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected store: Store<CoreState>,
-    protected href: string,
-    protected normalizedType: GenericConstructor<TNormalized>
   ) {
   }
 
-  protected abstract normalizedToDomain(normalized: TNormalized): TDomain;
-
-  build(): RemoteData<TDomain> {
-    const requestObs = this.store.select<RequestEntry>('core', 'data', 'request', this.href);
-    const responseCacheObs = this.responseCache.get(this.href);
+  buildSingle<TNormalized extends CacheableObject, TDomain>(
+    href: string,
+    normalizedType: GenericConstructor<TNormalized>,
+    builder: DomainModelBuilder<TNormalized, TDomain>
+  ): RemoteData<TDomain> {
+    const requestObs = this.store.select<RequestEntry>('core', 'data', 'request', href);
+    const responseCacheObs = this.responseCache.get(href);
 
     const requestPending = requestObs.map((entry: RequestEntry) => hasValue(entry) && entry.requestPending).distinctUntilChanged();
 
@@ -48,23 +46,27 @@ export abstract class SingleRemoteDataBuilder<TDomain, TNormalized extends Cache
 
     const payload =
       Observable.race(
-        this.objectCache.getBySelfLink<TNormalized>(this.href, this.normalizedType),
+        this.objectCache.getBySelfLink<TNormalized>(href, normalizedType),
         responseCacheObs
           .filter((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful)
           .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
           .flatMap((resourceUUIDs: Array<string>) => {
             if (isNotEmpty(resourceUUIDs)) {
-              return this.objectCache.get(resourceUUIDs[0], this.normalizedType);
+              return this.objectCache.get(resourceUUIDs[0], normalizedType);
             }
             else {
               return Observable.of(undefined);
             }
           })
           .distinctUntilChanged()
-    ).map((normalized: TNormalized) => this.normalizedToDomain(normalized));
+      ).map((normalized: TNormalized) => builder
+        .setHref(href)
+        .setNormalized(normalized)
+        .build()
+      );
 
     return new RemoteData(
-      this.href,
+      href,
       requestPending,
       responsePending,
       isSuccessFul,
@@ -73,25 +75,13 @@ export abstract class SingleRemoteDataBuilder<TDomain, TNormalized extends Cache
     );
   }
 
-}
-
-export abstract class ListRemoteDataBuilder<TDomain, TNormalized extends CacheableObject> implements RemoteDataBuilder<TDomain[]> {
-
-  constructor(
-    protected objectCache: ObjectCacheService,
-    protected responseCache: ResponseCacheService,
-    protected requestService: RequestService,
-    protected store: Store<CoreState>,
-    protected href: string,
-    protected normalizedType: GenericConstructor<TNormalized>
-  ) {
-  }
-
-  protected abstract normalizedToDomain(normalized: TNormalized): TDomain;
-
-  build(): RemoteData<TDomain[]> {
-    const requestObs = this.store.select<RequestEntry>('core', 'data', 'request', this.href);
-    const responseCacheObs = this.responseCache.get(this.href);
+  buildList<TNormalized extends CacheableObject, TDomain>(
+    href: string,
+    normalizedType: GenericConstructor<TNormalized>,
+    builder: DomainModelBuilder<TNormalized, TDomain>
+  ): RemoteData<TDomain[]> {
+    const requestObs = this.store.select<RequestEntry>('core', 'data', 'request', href);
+    const responseCacheObs = this.responseCache.get(href);
 
     const requestPending = requestObs.map((entry: RequestEntry) => hasValue(entry) && entry.requestPending).distinctUntilChanged();
 
@@ -109,17 +99,20 @@ export abstract class ListRemoteDataBuilder<TDomain, TNormalized extends Cacheab
       .filter((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
       .flatMap((resourceUUIDs: Array<string>) => {
-        return this.objectCache.getList(resourceUUIDs, this.normalizedType)
+        return this.objectCache.getList(resourceUUIDs, normalizedType)
           .map((normList: TNormalized[]) => {
             return normList.map((normalized: TNormalized) => {
-              return this.normalizedToDomain(normalized);
+              return builder
+                .setHref(href)
+                .setNormalized(normalized)
+                .build();
             });
           });
       })
       .distinctUntilChanged();
 
     return new RemoteData(
-      this.href,
+      href,
       requestPending,
       responsePending,
       isSuccessFul,
@@ -127,5 +120,4 @@ export abstract class ListRemoteDataBuilder<TDomain, TNormalized extends Cacheab
       payload
     );
   }
-
 }

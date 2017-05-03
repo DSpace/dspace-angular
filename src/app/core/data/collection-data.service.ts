@@ -7,39 +7,25 @@ import { Store } from "@ngrx/store";
 import { NormalizedCollection } from "../cache/models/normalized-collection.model";
 import { CoreState } from "../core.reducers";
 import { RequestService } from "./request.service";
-import { CollectionListRDBuilder, CollectionRDBuilder } from "../cache/models/collection-builder";
+import { RemoteDataBuildService } from "../cache/builders/remote-data-build.service";
+import { DomainModelBuilder } from "../cache/builders/domain-model-builder";
+import { CollectionBuilder } from "../cache/builders/collection-builder";
 
 @Injectable()
-export class CollectionDataService extends DataService<Collection, NormalizedCollection> {
+export class CollectionDataService extends DataService<NormalizedCollection, Collection> {
   protected endpoint = '/collections';
 
   constructor(
     protected objectCache: ObjectCacheService,
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>
   ) {
       super(NormalizedCollection);
   }
 
-  protected getListDataBuilder(href: string): CollectionListRDBuilder {
-    return new CollectionListRDBuilder (
-      this.objectCache,
-      this.responseCache,
-      this.requestService,
-      this.store,
-      href,
-    );
+  protected getDomainModelBuilder(): CollectionBuilder {
+    return new CollectionBuilder(this.requestService, this.rdbService);
   }
-
-  protected getSingleDataBuilder(href: string): CollectionRDBuilder {
-    return new CollectionRDBuilder (
-      this.objectCache,
-      this.responseCache,
-      this.requestService,
-      this.store,
-      href,
-    );
-  }
-
 }

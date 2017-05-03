@@ -9,6 +9,7 @@ import { ResponseCacheService } from "./cache/response-cache.service";
 import { CollectionDataService } from "./data/collection-data.service";
 import { ItemDataService } from "./data/item-data.service";
 import { RequestService } from "./data/request.service";
+import { RemoteDataBuildService } from "./cache/builders/remote-data-build.service";
 
 const IMPORTS = [
   CommonModule,
@@ -29,7 +30,8 @@ const PROVIDERS = [
   DSpaceRESTv2Service,
   ObjectCacheService,
   ResponseCacheService,
-  RequestService
+  RequestService,
+  RemoteDataBuildService
 ];
 
 @NgModule({
