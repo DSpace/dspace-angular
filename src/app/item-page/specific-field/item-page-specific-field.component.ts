@@ -1,13 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Item } from "../../core/shared/item.model";
-import { Observable } from "rxjs";
 
 @Component({
     templateUrl: './item-page-specific-field.component.html'
 })
 export class ItemPageSpecificFieldComponent implements OnInit {
 
-    @Input() item: Observable<Item>;
+    @Input() item: Item;
 
     fields : string[];
     label : string;

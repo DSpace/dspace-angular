@@ -29,16 +29,18 @@ export class CollectionBuilder {
     let links: any = {};
 
     if (hasValue(this.normalized.items)) {
-      this.normalized.items.forEach((href: string) => {
-        const isCached = this.objectCache.hasBySelfLink(href);
-        const isPending = this.requestService.isPending(href);
+      setTimeout(() => {
+        this.normalized.items.forEach((href: string) => {
+          const isCached = this.objectCache.hasBySelfLink(href);
+          const isPending = this.requestService.isPending(href);
 
-        if (!(isCached || isPending)) {
-          const request = new Request(href, NormalizedItem);
-          this.store.dispatch(new RequestConfigureAction(request));
-          this.store.dispatch(new RequestExecuteAction(href));
-        }
-      });
+          if (!(isCached || isPending)) {
+            const request = new Request(href, NormalizedItem);
+            this.store.dispatch(new RequestConfigureAction(request));
+            this.store.dispatch(new RequestExecuteAction(href));
+          }
+        });
+      }, 0);
 
       links.items = this.normalized.items.map((href: string) => {
         return new ItemRDBuilder(

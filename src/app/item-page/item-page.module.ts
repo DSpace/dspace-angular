@@ -12,6 +12,7 @@ import { ItemPageUriFieldComponent } from './specific-field/uri/item-page-uri-fi
 import { ItemPageTitleFieldComponent } from './specific-field/title/item-page-title-field.component';
 import { ItemPageSpecificFieldComponent } from './specific-field/item-page-specific-field.component';
 import { SharedModule } from './../shared/shared.module';
+import { ThumbnailComponent } from "../thumbnail/thumbnail.component";
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { SharedModule } from './../shared/shared.module';
         ItemPageUriFieldComponent,
         ItemPageTitleFieldComponent,
         ItemPageSpecificFieldComponent,
+        ThumbnailComponent,
     ],
     imports: [
         ItemPageRoutingModule,

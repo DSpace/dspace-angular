@@ -1,8 +1,9 @@
 <div class="item-page" *ngIf="item.hasSucceeded | async">
   Item page component
-  <ds-item-page-title-field [item]="item.payload"></ds-item-page-title-field>
-  <ds-item-page-date-field [item]="item.payload"></ds-item-page-date-field>
-  <ds-item-page-author-field [item]="item.payload"></ds-item-page-author-field>
-  <ds-item-page-abstract-field [item]="item.payload"></ds-item-page-abstract-field>
-  <ds-item-page-uri-field [item]="item.payload"></ds-item-page-uri-field>
+  <ds-thumbnail [thumbnail]="thumbnail | async"></ds-thumbnail>
+  <ds-item-page-title-field [item]="item.payload | async"></ds-item-page-title-field>
+  <ds-item-page-date-field [item]="item.payload | async"></ds-item-page-date-field>
+  <ds-item-page-author-field [item]="item.payload | async"></ds-item-page-author-field>
+  <ds-item-page-abstract-field [item]="item.payload | async"></ds-item-page-abstract-field>
+  <ds-item-page-uri-field [item]="item.payload | async"></ds-item-page-uri-field>
 </div>

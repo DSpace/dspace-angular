@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Item } from "../../../core/shared/item.model";
-import { Observable } from "rxjs";
 import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.component";
 
 @Component({
@@ -9,7 +8,7 @@ import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.comp
 })
 export class ItemPageAbstractFieldComponent extends ItemPageSpecificFieldComponent implements OnInit {
 
-    @Input() item: Observable<Item>;
+    @Input() item: Item;
 
     fields : string[] = [
         "dc.description.abstract"

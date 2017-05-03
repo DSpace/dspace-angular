@@ -28,16 +28,18 @@ export class ItemBuilder {
     let links: any = {};
 
     if (hasValue(this.normalized.bundles)) {
-      this.normalized.bundles.forEach((href: string) => {
-        const isCached = this.objectCache.hasBySelfLink(href);
-        const isPending = this.requestService.isPending(href);
+      setTimeout(() => {
+        this.normalized.bundles.forEach((href: string) => {
+          const isCached = this.objectCache.hasBySelfLink(href);
+          const isPending = this.requestService.isPending(href);
 
-        if (!(isCached || isPending)) {
-          const request = new Request(href, NormalizedBundle);
-          this.store.dispatch(new RequestConfigureAction(request));
-          this.store.dispatch(new RequestExecuteAction(href));
-        }
-      });
+          if (!(isCached || isPending)) {
+            const request = new Request(href, NormalizedBundle);
+            this.store.dispatch(new RequestConfigureAction(request));
+            this.store.dispatch(new RequestExecuteAction(href));
+          }
+        });
+      }, 0);
 
       links.bundles = this.normalized.bundles.map((href: string) => {
         return new BundleRDBuilder(
