@@ -2,15 +2,14 @@ import { ObjectCacheService } from "../cache/object-cache.service";
 import { ResponseCacheService } from "../cache/response-cache.service";
 import { CacheableObject } from "../cache/object-cache.reducer";
 import { hasValue } from "../../shared/empty.util";
-import { GenericConstructor } from "../shared/generic-constructor";
 import { RemoteData } from "./remote-data";
 import { FindAllRequest, FindByIDRequest, Request } from "./request.models";
 import { Store } from "@ngrx/store";
 import { RequestConfigureAction, RequestExecuteAction } from "./request.actions";
 import { CoreState } from "../core.reducers";
-import { DomainModelBuilder } from "../cache/builders/domain-model-builder";
 import { RequestService } from "./request.service";
 import { RemoteDataBuildService } from "../cache/builders/remote-data-build.service";
+import { GenericConstructor } from "../shared/generic-constructor";
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> {
   protected abstract objectCache: ObjectCacheService;
@@ -23,8 +22,6 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   constructor(private normalizedResourceType: GenericConstructor<TNormalized>) {
 
   }
-
-  protected abstract getDomainModelBuilder(): DomainModelBuilder<TNormalized, TDomain>;
 
   protected getFindAllHref(scopeID?): string {
     let result = this.endpoint;
@@ -41,7 +38,8 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       this.store.dispatch(new RequestConfigureAction(request));
       this.store.dispatch(new RequestExecuteAction(href));
     }
-    return this.rdbService.buildList(href, this.normalizedResourceType, this.getDomainModelBuilder())
+    return this.rdbService.buildList<TNormalized, TDomain>(href, this.normalizedResourceType);
+    // return this.rdbService.buildList(href);
   }
 
   protected getFindByIDHref(resourceID): string {
@@ -55,7 +53,8 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       this.store.dispatch(new RequestConfigureAction(request));
       this.store.dispatch(new RequestExecuteAction(href));
     }
-    return this.rdbService.buildSingle(href, this.normalizedResourceType, this.getDomainModelBuilder())
+    return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
+    // return this.rdbService.buildSingle(href);
   }
 
   findByHref(href: string): RemoteData<TDomain> {
@@ -64,7 +63,8 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       this.store.dispatch(new RequestConfigureAction(request));
       this.store.dispatch(new RequestExecuteAction(href));
     }
-    return this.rdbService.buildSingle(href, this.normalizedResourceType, this.getDomainModelBuilder())
+    return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
+    // return this.rdbService.buildSingle(href));
   }
 
 }

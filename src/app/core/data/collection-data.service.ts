@@ -8,8 +8,6 @@ import { NormalizedCollection } from "../cache/models/normalized-collection.mode
 import { CoreState } from "../core.reducers";
 import { RequestService } from "./request.service";
 import { RemoteDataBuildService } from "../cache/builders/remote-data-build.service";
-import { DomainModelBuilder } from "../cache/builders/domain-model-builder";
-import { CollectionBuilder } from "../cache/builders/collection-builder";
 
 @Injectable()
 export class CollectionDataService extends DataService<NormalizedCollection, Collection> {
@@ -25,7 +23,4 @@ export class CollectionDataService extends DataService<NormalizedCollection, Col
       super(NormalizedCollection);
   }
 
-  protected getDomainModelBuilder(): CollectionBuilder {
-    return new CollectionBuilder(this.requestService, this.rdbService);
-  }
 }

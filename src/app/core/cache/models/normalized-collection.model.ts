@@ -1,6 +1,10 @@
 import { autoserialize, inheritSerialization, autoserializeAs } from "cerialize";
 import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
+import { Collection } from "../../shared/collection.model";
+import { mapsTo, relationship } from "../builders/build-decorators";
+import { NormalizedItem } from "./normalized-item.model";
 
+@mapsTo(Collection)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedCollection extends NormalizedDSpaceObject {
 
@@ -26,6 +30,7 @@ export class NormalizedCollection extends NormalizedDSpaceObject {
   owner: string;
 
   @autoserialize
+  @relationship(NormalizedItem)
   items: Array<string>;
 
 }

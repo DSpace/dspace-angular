@@ -5,10 +5,10 @@ import { Request } from "./request.models";
 import { hasValue } from "../../shared/empty.util";
 import { Observable } from "rxjs/Observable";
 import { RequestConfigureAction, RequestExecuteAction } from "./request.actions";
-import { GenericConstructor } from "../shared/generic-constructor";
 import { ResponseCacheService } from "../cache/response-cache.service";
 import { ObjectCacheService } from "../cache/object-cache.service";
 import { CacheableObject } from "../cache/object-cache.reducer";
+import { GenericConstructor } from "../shared/generic-constructor";
 
 @Injectable()
 export class RequestService {

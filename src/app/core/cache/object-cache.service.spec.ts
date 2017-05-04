@@ -57,12 +57,12 @@ describe("ObjectCacheService", () => {
   });
 
   describe("get", () => {
-    it("should return an observable of the cached object with the specified UUID and type", () => {
+    it("should return an observable of the cached object with the specified UUID", () => {
       spyOn(store, 'select').and.returnValue(Observable.of(cacheEntry));
 
       let testObj: any;
       //due to the implementation of spyOn above, this subscribe will be synchronous
-      service.get(uuid, TestClass).take(1).subscribe(o => testObj = o);
+      service.get(uuid).take(1).subscribe(o => testObj = o);
       expect(testObj.uuid).toBe(uuid);
       expect(testObj.foo).toBe("bar");
       // this only works if testObj is an instance of TestClass
@@ -73,18 +73,18 @@ describe("ObjectCacheService", () => {
       spyOn(store, 'select').and.returnValue(Observable.of(invalidCacheEntry));
 
       let getObsHasFired = false;
-      const subscription = service.get(uuid, TestClass).subscribe(o => getObsHasFired = true);
+      const subscription = service.get(uuid).subscribe(o => getObsHasFired = true);
       expect(getObsHasFired).toBe(false);
       subscription.unsubscribe();
     });
   });
 
   describe("getList", () => {
-    it("should return an observable of the array of cached objects with the specified UUID and type", () => {
+    it("should return an observable of the array of cached objects with the specified UUID", () => {
       spyOn(service, 'get').and.returnValue(Observable.of(new TestClass(uuid, "bar")));
 
       let testObjs: Array<any>;
-      service.getList([uuid, uuid], TestClass).take(1).subscribe(arr => testObjs = arr);
+      service.getList([uuid, uuid]).take(1).subscribe(arr => testObjs = arr);
       expect(testObjs[0].uuid).toBe(uuid);
       expect(testObjs[0].foo).toBe("bar");
       expect(testObjs[0].test()).toBe("bar" + uuid);

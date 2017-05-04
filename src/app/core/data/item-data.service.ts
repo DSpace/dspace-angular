@@ -8,7 +8,6 @@ import { CoreState } from "../core.reducers";
 import { NormalizedItem } from "../cache/models/normalized-item.model";
 import { RequestService } from "./request.service";
 import { RemoteDataBuildService } from "../cache/builders/remote-data-build.service";
-import { ItemBuilder } from "../cache/builders/item-builder";
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -22,9 +21,5 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     protected store: Store<CoreState>
 ) {
     super(NormalizedItem);
-  }
-
-  protected getDomainModelBuilder(): ItemBuilder {
-    return new ItemBuilder(this.requestService, this.rdbService);
   }
 }
