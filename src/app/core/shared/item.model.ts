@@ -50,6 +50,16 @@ export class Item extends DSpaceObject {
         );
     }
 
+    getFiles(): Array<Observable<Bitstream>> {
+        return this.getBundle("ORIGINAL").map(bundle => bundle.bitstreams.map(bitstream => bitstream.payload.flatMap(b => b))).;
+        // const bundle: Observable<Bundle> = this.getBundle("ORIGINAL");
+        // return bundle.map(
+        //     bundle => bundle.bitstreams.flatMap(
+        //         bitstream => bitstream.payload
+        //     )
+        // );
+    }
+
     getBundle(name: String): Observable<Bundle> {
         return Observable.combineLatest(
             ...this.bundles.map(b => b.payload),

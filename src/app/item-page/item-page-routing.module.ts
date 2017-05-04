@@ -6,7 +6,7 @@ import { ItemPageComponent } from './item-page.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
-            { path: 'item/:id', pathMatch: 'full', component: ItemPageComponent },
+            { path: 'items/:id', pathMatch: 'full', component: ItemPageComponent },
         ])
     ]
 })
