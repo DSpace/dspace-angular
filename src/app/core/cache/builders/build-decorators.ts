@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { GenericConstructor } from "../../shared/generic-constructor";
 import { CacheableObject } from "../object-cache.reducer";
 
