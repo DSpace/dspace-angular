@@ -1,6 +1,9 @@
 import { inheritSerialization, autoserialize } from "cerialize";
 import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
+import { Bitstream } from "../../shared/bitstream.model";
+import { mapsTo } from "../builders/build-decorators";
 
+@mapsTo(Bitstream)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedBitstream extends NormalizedDSpaceObject {
 

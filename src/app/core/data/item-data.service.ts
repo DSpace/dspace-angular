@@ -7,38 +7,19 @@ import { Store } from "@ngrx/store";
 import { CoreState } from "../core.reducers";
 import { NormalizedItem } from "../cache/models/normalized-item.model";
 import { RequestService } from "./request.service";
-import { ItemListRDBuilder, ItemRDBuilder } from "../cache/models/item-builder";
+import { RemoteDataBuildService } from "../cache/builders/remote-data-build.service";
 
 @Injectable()
-export class ItemDataService extends DataService<Item, NormalizedItem> {
+export class ItemDataService extends DataService<NormalizedItem, Item> {
   protected endpoint = '/items';
 
   constructor(
     protected objectCache: ObjectCacheService,
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>
 ) {
     super(NormalizedItem);
-  }
-
-  protected getListDataBuilder(href: string): ItemListRDBuilder {
-    return new ItemListRDBuilder(
-      this.objectCache,
-      this.responseCache,
-      this.requestService,
-      this.store,
-      href,
-    );
-  }
-
-  protected getSingleDataBuilder(href: string): ItemRDBuilder {
-    return new ItemRDBuilder(
-      this.objectCache,
-      this.responseCache,
-      this.requestService,
-      this.store,
-      href,
-    );
   }
 }

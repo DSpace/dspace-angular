@@ -4,7 +4,6 @@ import { ObjectCacheState, ObjectCacheEntry, CacheableObject } from "./object-ca
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from "./object-cache.actions";
 import { Observable } from "rxjs";
 import { hasNoValue } from "../../shared/empty.util";
-import { GenericConstructor } from "../shared/generic-constructor";
 
 /**
  * A service to interact with the object cache
@@ -40,53 +39,34 @@ export class ObjectCacheService {
   /**
    * Get an observable of the object with the specified UUID
    *
-   * The type needs to be specified as well, in order to turn
-   * the cached plain javascript object in to an instance of
-   * a class.
-   *
-   * e.g. get('c96588c6-72d3-425d-9d47-fa896255a695', Item)
-   *
    * @param uuid
    *    The UUID of the object to get
-   * @param type
-   *    The type of the object to get
    * @return Observable<T>
    *    An observable of the requested object
    */
-  get<T extends CacheableObject>(uuid: string, type: GenericConstructor<T>): Observable<T> {
+  get<T extends CacheableObject>(uuid: string): Observable<T> {
     return this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
       .filter(entry => this.isValid(entry))
       .distinctUntilChanged()
-      .map((entry: ObjectCacheEntry) => <T> Object.assign(new type(), entry.data));
+      .map((entry: ObjectCacheEntry) => <T> entry.data);
   }
 
-  getBySelfLink<T extends CacheableObject>(href: string, type: GenericConstructor<T>): Observable<T> {
+  getBySelfLink<T extends CacheableObject>(href: string): Observable<T> {
     return this.store.select<string>('core', 'index', 'href', href)
-      .flatMap((uuid: string) => this.get(uuid, type))
+      .flatMap((uuid: string) => this.get<T>(uuid))
   }
 
   /**
-   * Get an observable for an array of objects of the same type
+   * Get an observable for an array of objects
    * with the specified UUIDs
-   *
-   * The type needs to be specified as well, in order to turn
-   * the cached plain javascript object in to an instance of
-   * a class.
-   *
-   * e.g. getList([
-   *        'c96588c6-72d3-425d-9d47-fa896255a695',
-   *        'cff860da-cf5f-4fda-b8c9-afb7ec0b2d9e'
-   *      ], Collection)
    *
    * @param uuids
    *    An array of UUIDs of the objects to get
-   * @param type
-   *    The type of the objects to get
    * @return Observable<Array<T>>
    */
-  getList<T extends CacheableObject>(uuids: Array<string>, type: GenericConstructor<T>): Observable<Array<T>> {
+  getList<T extends CacheableObject>(uuids: Array<string>): Observable<Array<T>> {
     return Observable.combineLatest(
-      uuids.map((id: string) => this.get<T>(id, type))
+      uuids.map((id: string) => this.get<T>(id))
     );
   }
 
