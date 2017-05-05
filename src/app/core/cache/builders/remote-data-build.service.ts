@@ -13,6 +13,7 @@ import { Observable } from "rxjs/Observable";
 import { RemoteData } from "../../data/remote-data";
 import { GenericConstructor } from "../../shared/generic-constructor";
 import { getMapsTo, getResourceType, getRelationships } from "./build-decorators";
+import { NormalizedDSOFactory } from "../models/normalized-dspace-object-factory";
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -45,13 +46,13 @@ export class RemoteDataBuildService {
 
     const payload =
       Observable.race(
-        this.objectCache.getBySelfLink<TNormalized>(href),
+        this.objectCache.getBySelfLink<TNormalized>(href, normalizedType),
         responseCacheObs
           .filter((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful)
           .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
           .flatMap((resourceUUIDs: Array<string>) => {
             if (isNotEmpty(resourceUUIDs)) {
-              return this.objectCache.get(resourceUUIDs[0]);
+              return this.objectCache.get(resourceUUIDs[0], normalizedType);
             }
             else {
               return Observable.of(undefined);
@@ -95,7 +96,7 @@ export class RemoteDataBuildService {
       .filter((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
       .flatMap((resourceUUIDs: Array<string>) => {
-        return this.objectCache.getList(resourceUUIDs)
+        return this.objectCache.getList(resourceUUIDs, normalizedType)
           .map((normList: TNormalized[]) => {
             return normList.map((normalized: TNormalized) => {
               return this.build<TNormalized, TDomain>(normalized);
@@ -123,32 +124,33 @@ export class RemoteDataBuildService {
     relationships.forEach((relationship: string) => {
       if (hasValue(normalized[relationship])) {
         const resourceType = getResourceType(normalized, relationship);
+        const resourceConstructor = NormalizedDSOFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
           // without the setTimeout, the actions inside requestService.configure
           // are dispatched, but sometimes don't arrive. I'm unsure why atm.
           setTimeout(() => {
             normalized[relationship].forEach((href: string) => {
-              this.requestService.configure(href, resourceType)
+              this.requestService.configure(href, resourceConstructor)
             });
           }, 0);
 
           links[relationship] = normalized[relationship].map((href: string) => {
-            return this.buildSingle(href, resourceType);
+            return this.buildSingle(href, resourceConstructor);
           });
         }
         else {
           // without the setTimeout, the actions inside requestService.configure
           // are dispatched, but sometimes don't arrive. I'm unsure why atm.
           setTimeout(() => {
-            this.requestService.configure(normalized[relationship], resourceType);
+            this.requestService.configure(normalized[relationship], resourceConstructor);
           },0);
 
-          links[relationship] = this.buildSingle(normalized[relationship], resourceType);
+          links[relationship] = this.buildSingle(normalized[relationship], resourceConstructor);
         }
       }
     });
 
-    const constructor = getMapsTo(normalized.constructor);
-    return Object.assign(new constructor(), normalized, links);
+    const domainModel = getMapsTo(normalized.constructor);
+    return Object.assign(new domainModel(), normalized, links);
   }
 }

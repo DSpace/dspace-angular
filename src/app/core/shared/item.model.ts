@@ -1,16 +1,13 @@
-import { inheritSerialization, autoserialize } from "cerialize";
 import { DSpaceObject } from "./dspace-object.model";
 import { Collection } from "./collection.model";
 import { RemoteData } from "../data/remote-data";
 import { Bundle } from "./bundle.model";
 
-@inheritSerialization(DSpaceObject)
 export class Item extends DSpaceObject {
 
   /**
    * A string representing the unique handle of this Item
    */
-  @autoserialize
   handle: string;
 
   /**

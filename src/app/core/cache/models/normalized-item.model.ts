@@ -2,7 +2,7 @@ import { inheritSerialization, autoserialize } from "cerialize";
 import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
 import { Item } from "../../shared/item.model";
 import { mapsTo, relationship } from "../builders/build-decorators";
-import { NormalizedBundle } from "./normalized-bundle.model";
+import { NormalizedDSOType } from "./normalized-dspace-object-type";
 
 @mapsTo(Item)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -40,6 +40,6 @@ export class NormalizedItem extends NormalizedDSpaceObject {
   owner: string;
 
   @autoserialize
-  @relationship(NormalizedBundle)
+  @relationship(NormalizedDSOType.NormalizedBundle)
   bundles: Array<string>;
 }
