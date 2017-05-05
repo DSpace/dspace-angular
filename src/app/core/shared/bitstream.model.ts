@@ -1,5 +1,6 @@
 import { DSpaceObject } from "./dspace-object.model";
 import { Bundle } from "./bundle.model";
+import { RemoteData } from "../data/remote-data";
 
 export class Bitstream extends DSpaceObject {
 
@@ -26,7 +27,7 @@ export class Bitstream extends DSpaceObject {
     /**
      * An array of Bundles that are direct parents of this Bitstream
      */
-    parents: Array<Bundle>;
+    parents: Array<RemoteData<Bundle>>;
 
     /**
      * The Bundle that owns this Bitstream

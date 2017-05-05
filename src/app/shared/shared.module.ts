@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 import { ApiService } from './api.service';
+import { FileSizePipe } from "./utils/file-size-pipe";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -19,6 +20,7 @@ const MODULES = [
 ];
 
 const PIPES = [
+    FileSizePipe
   // put pipes here
 ];
 

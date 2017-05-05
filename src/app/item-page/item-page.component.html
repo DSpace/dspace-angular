@@ -1,10 +1,17 @@
 <div class="item-page" *ngIf="item.hasSucceeded | async">
-  Item page component
-  <ds-thumbnail [thumbnail]="thumbnail | async"></ds-thumbnail>
-  <ds-item-page-title-field [item]="item.payload | async"></ds-item-page-title-field>
-  <ds-item-page-date-field [item]="item.payload | async"></ds-item-page-date-field>
-  <ds-item-page-author-field [item]="item.payload | async"></ds-item-page-author-field>
-  <ds-item-page-abstract-field [item]="item.payload | async"></ds-item-page-abstract-field>
-  <ds-item-page-uri-field [item]="item.payload | async"></ds-item-page-uri-field>
-  <ds-item-page-file-section [item]="item.payload | async"></ds-item-page-file-section>
+    <ds-item-page-title-field [item]="item.payload | async"></ds-item-page-title-field>
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <ds-thumbnail [thumbnail]="thumbnail | async"></ds-thumbnail>
+            <ds-item-page-file-section [item]="item.payload | async"></ds-item-page-file-section>
+            <ds-item-page-date-field [item]="item.payload | async"></ds-item-page-date-field>
+            <ds-item-page-author-field [item]="item.payload | async"></ds-item-page-author-field>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <ds-item-page-abstract-field
+                    [item]="item.payload | async"></ds-item-page-abstract-field>
+            <ds-item-page-uri-field [item]="item.payload | async"></ds-item-page-uri-field>
+            <ds-item-page-collections [item]="item.payload | async"></ds-item-page-collections>
+        </div>
+    </div>
 </div>

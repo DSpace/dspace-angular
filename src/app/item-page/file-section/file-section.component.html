@@ -1,4 +1,8 @@
-<div class="item-page-specific-field">
-    <ds-metadata-uri-values [values]="item.getBundle("ORIGINAL")" [separator]="separator" [label]="label"></ds-metadata-uri-values>
-</div>
-
+<ds-metadata-field-wrapper [label]="label | translate">
+    <div class="file-section">
+        <a *ngFor="let file of (files | async)" [href]="(file | async)?.retrieve">
+            <span>{{(file | async)?.name}}</span>
+            <span>({{((file | async)?.size) | dsFileSize }})</span>
+        </a>
+    </div>
+</ds-metadata-field-wrapper>

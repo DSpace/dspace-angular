@@ -33,8 +33,7 @@ export class Item extends DSpaceObject {
     /**
      * An array of Collections that are direct parents of this Item
      */
-    @autoserializeAs(Collection)
-    parents: Array<Collection>;
+    parents: Array<RemoteData<Collection>>;
 
     /**
      * The Collection that owns this Item
@@ -50,14 +49,8 @@ export class Item extends DSpaceObject {
         );
     }
 
-    getFiles(): Array<Observable<Bitstream>> {
-        return this.getBundle("ORIGINAL").map(bundle => bundle.bitstreams.map(bitstream => bitstream.payload.flatMap(b => b))).;
-        // const bundle: Observable<Bundle> = this.getBundle("ORIGINAL");
-        // return bundle.map(
-        //     bundle => bundle.bitstreams.flatMap(
-        //         bitstream => bitstream.payload
-        //     )
-        // );
+    getFiles(): Observable<Array<Observable<Bitstream>>> {
+        return this.getBundle("ORIGINAL").map(bundle => bundle.bitstreams.map(bitstream => bitstream.payload));
     }
 
     getBundle(name: String): Observable<Bundle> {
@@ -69,6 +62,10 @@ export class Item extends DSpaceObject {
                     return bundle.name === name
                 });
             });
+    }
+
+    getCollections(): Array<Observable<Collection>> {
+        return this.parents.map(c => c.payload.map(p => p));
     }
 
 }

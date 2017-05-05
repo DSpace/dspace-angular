@@ -10,6 +10,7 @@ export class NormalizedBitstream extends NormalizedDSpaceObject {
     /**
      * The size of this bitstream in bytes(?)
      */
+    @autoserialize
     size: number;
 
     /**

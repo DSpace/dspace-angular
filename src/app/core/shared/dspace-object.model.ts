@@ -2,6 +2,7 @@ import { autoserialize, autoserializeAs } from "cerialize";
 import { Metadatum } from "./metadatum.model"
 import { isEmpty, isNotEmpty } from "../../shared/empty.util";
 import { CacheableObject } from "../cache/object-cache.reducer";
+import { RemoteData } from "../data/remote-data";
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -43,7 +44,7 @@ export abstract class DSpaceObject implements CacheableObject {
     /**
      * An array of DSpaceObjects that are direct parents of this DSpaceObject
      */
-    parents: Array<DSpaceObject>;
+    parents: Array<RemoteData<DSpaceObject>>;
 
     /**
      * The DSpaceObject that owns this DSpaceObject

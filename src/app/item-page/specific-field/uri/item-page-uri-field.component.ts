@@ -9,6 +9,8 @@ import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.comp
 export class ItemPageUriFieldComponent extends ItemPageSpecificFieldComponent implements OnInit {
 
   @Input() item: Item;
+  separator : string;
+
 
   fields : string[] = [
     "dc.identifier.uri"

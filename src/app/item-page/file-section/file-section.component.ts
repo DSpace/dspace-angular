@@ -1,16 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Bitstream } from "../../core/shared/bitstream.model";
 import { Item } from "../../core/shared/item.model";
+import { Observable } from "rxjs";
 
 @Component({
-  selector: 'ds-metadata-field-wrapper',
-  styleUrls: ['./metadata-field-wrapper.component.css'],
-  templateUrl: './metadata-field-wrapper.component.html'
+  selector: 'ds-item-page-file-section',
+  templateUrl: './file-section.component.html'
 })
-export class MetadataFieldWrapperComponent {
+export class FileSectionComponent implements OnInit {
 
   @Input() item: Item;
-  files: Array<Bitstream>;
+  label : string = "item.page.files";
+  files: Observable<Array<Observable<Bitstream>>>;
 
   constructor() {
     this.universalInit();
@@ -18,7 +19,11 @@ export class MetadataFieldWrapperComponent {
   }
 
   universalInit() {
-    this.files = this.item.getBundle("ORIGINAL").map(bundle => bundle.bitstreams.map(bitstream => bitstream.payload));
   }
+
+  ngOnInit(): void {
+    this.files = this.item.getFiles();
+  }
+
 
 }

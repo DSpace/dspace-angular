@@ -4,7 +4,7 @@ export const ITEMS = [
       "self": {
         "href": "/items/8871"
       },
-      "collections": [
+      "parents": [
         {
           "href": "/collections/5179"
         },
@@ -96,7 +96,7 @@ export const ITEMS = [
       "self": {
         "href": "/items/9978"
       },
-      "collections": [
+      "parents": [
         {
           "href": "/collections/5179"
         },

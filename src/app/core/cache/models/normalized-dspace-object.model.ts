@@ -42,6 +42,7 @@ export abstract class NormalizedDSpaceObject implements CacheableObject {
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
    */
+  @autoserialize
   parents: Array<string>;
 
   /**
