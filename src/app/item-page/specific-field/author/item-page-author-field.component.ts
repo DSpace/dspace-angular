@@ -9,6 +9,7 @@ import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.comp
 export class ItemPageAuthorFieldComponent extends ItemPageSpecificFieldComponent implements OnInit {
 
   @Input() item: Item;
+  separator : string;
 
   fields : string[] = [
     "dc.contributor.author",
@@ -16,6 +17,5 @@ export class ItemPageAuthorFieldComponent extends ItemPageSpecificFieldComponent
     "dc.contributor"
   ];
   label : string = "item.page.author";
-  separator : string = ",";
 
 }

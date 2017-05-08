@@ -1,8 +1,9 @@
 <ds-metadata-field-wrapper [label]="label | translate">
     <div class="file-section">
-        <a *ngFor="let file of (files | async)" [href]="(file | async)?.retrieve">
+        <a *ngFor="let file of (files | async); let last=last;" [href]="(file | async)?.retrieve">
             <span>{{(file | async)?.name}}</span>
             <span>({{((file | async)?.size) | dsFileSize }})</span>
+            <span *ngIf="!last" innerHTML="{{separator}}"></span>
         </a>
     </div>
 </ds-metadata-field-wrapper>

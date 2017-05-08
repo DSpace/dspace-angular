@@ -9,7 +9,7 @@ import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.comp
 export class ItemPageDateFieldComponent extends ItemPageSpecificFieldComponent implements OnInit {
 
     @Input() item: Item;
-    separator : string;
+    separator : string = ", ";
 
     fields : string[] = [
         "dc.date.issued"

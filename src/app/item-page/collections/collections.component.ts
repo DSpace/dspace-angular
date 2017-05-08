@@ -11,6 +11,7 @@ export class CollectionsComponent implements OnInit {
 
     @Input() item: Item;
     label : string = "item.page.collections";
+    separator: string = "<br/>"
     collections: Array<Observable<Collection>>;
 
     constructor() {
@@ -23,7 +24,7 @@ export class CollectionsComponent implements OnInit {
 
     ngOnInit(): void {
         this.collections = this.item.getCollections();
-        this.collections[0].subscribe(d => console.log("TEST TEST LOREM IPSUM LALALALAL"));
+        this.collections[0].subscribe(d => console.log(d.name));
     }
 
 

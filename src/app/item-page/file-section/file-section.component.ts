@@ -11,6 +11,7 @@ export class FileSectionComponent implements OnInit {
 
   @Input() item: Item;
   label : string = "item.page.files";
+  separator: string = "<br/>"
   files: Observable<Array<Observable<Bitstream>>>;
 
   constructor() {
