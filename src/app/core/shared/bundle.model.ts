@@ -1,10 +1,8 @@
-import { inheritSerialization } from "cerialize";
 import { DSpaceObject } from "./dspace-object.model";
 import { Bitstream } from "./bitstream.model";
 import { Item } from "./item.model";
 import { RemoteData } from "../data/remote-data";
 
-@inheritSerialization(DSpaceObject)
 export class Bundle extends DSpaceObject {
   /**
    * The primary bitstream of this Bundle

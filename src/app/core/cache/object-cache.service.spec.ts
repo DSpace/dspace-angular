@@ -65,8 +65,6 @@ describe("ObjectCacheService", () => {
       service.get(uuid).take(1).subscribe(o => testObj = o);
       expect(testObj.uuid).toBe(uuid);
       expect(testObj.foo).toBe("bar");
-      // this only works if testObj is an instance of TestClass
-      expect(testObj.test()).toBe("bar" + uuid);
     });
 
     it("should not return a cached object that has exceeded its time to live", () => {
@@ -87,10 +85,8 @@ describe("ObjectCacheService", () => {
       service.getList([uuid, uuid]).take(1).subscribe(arr => testObjs = arr);
       expect(testObjs[0].uuid).toBe(uuid);
       expect(testObjs[0].foo).toBe("bar");
-      expect(testObjs[0].test()).toBe("bar" + uuid);
       expect(testObjs[1].uuid).toBe(uuid);
       expect(testObjs[1].foo).toBe("bar");
-      expect(testObjs[1].test()).toBe("bar" + uuid);
     });
   });
 
