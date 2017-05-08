@@ -24,7 +24,6 @@ export class CollectionsComponent implements OnInit {
 
     ngOnInit(): void {
         this.collections = this.item.getCollections();
-        this.collections[0].subscribe(d => console.log(d.name));
     }
 
 
