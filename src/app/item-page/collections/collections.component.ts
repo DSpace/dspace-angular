@@ -10,8 +10,11 @@ import { Item } from "../../core/shared/item.model";
 export class CollectionsComponent implements OnInit {
 
     @Input() item: Item;
+
     label : string = "item.page.collections";
+
     separator: string = "<br/>"
+
     collections: Array<Observable<Collection>>;
 
     constructor() {

@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class MetadataFieldWrapperComponent {
 
   @Input() label: string;
+
   constructor() {
     this.universalInit();
 

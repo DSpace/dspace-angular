@@ -6,9 +6,10 @@ import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.comp
     selector: 'ds-item-page-title-field',
     templateUrl: './item-page-title-field.component.html'
 })
-export class ItemPageTitleFieldComponent extends ItemPageSpecificFieldComponent implements OnInit {
+export class ItemPageTitleFieldComponent extends ItemPageSpecificFieldComponent {
 
     @Input() item: Item;
+
     separator : string;
 
     fields : string[] = [

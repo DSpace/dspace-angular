@@ -7,8 +7,12 @@ import { MetadataValuesComponent } from "../metadata-values/metadata-values.comp
   templateUrl: './metadata-uri-values.component.html'
 })
 export class MetadataUriValuesComponent extends MetadataValuesComponent {
+
   @Input() linktext: any;
+
   @Input() values: any;
+
   @Input() separator: string;
+
   @Input() label: string;
 }

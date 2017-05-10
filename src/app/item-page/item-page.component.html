@@ -2,7 +2,9 @@
     <ds-item-page-title-field [item]="item.payload | async"></ds-item-page-title-field>
     <div class="row">
         <div class="col-xs-12 col-md-4">
-            <ds-thumbnail [thumbnail]="thumbnail | async"></ds-thumbnail>
+            <ds-metadata-field-wrapper>
+                <ds-thumbnail [thumbnail]="thumbnail | async"></ds-thumbnail>
+            </ds-metadata-field-wrapper>
             <ds-item-page-file-section [item]="item.payload | async"></ds-item-page-file-section>
             <ds-item-page-date-field [item]="item.payload | async"></ds-item-page-date-field>
             <ds-item-page-author-field [item]="item.payload | async"></ds-item-page-author-field>

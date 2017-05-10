@@ -6,14 +6,16 @@ import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.comp
     selector: 'ds-item-page-date-field',
     templateUrl: './../item-page-specific-field.component.html'
 })
-export class ItemPageDateFieldComponent extends ItemPageSpecificFieldComponent implements OnInit {
+export class ItemPageDateFieldComponent extends ItemPageSpecificFieldComponent {
 
     @Input() item: Item;
+
     separator : string = ", ";
 
     fields : string[] = [
         "dc.date.issued"
     ];
+
     label : string = "item.page.date";
 
 }

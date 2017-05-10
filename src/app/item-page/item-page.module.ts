@@ -12,7 +12,6 @@ import { ItemPageUriFieldComponent } from './specific-field/uri/item-page-uri-fi
 import { ItemPageTitleFieldComponent } from './specific-field/title/item-page-title-field.component';
 import { ItemPageSpecificFieldComponent } from './specific-field/item-page-specific-field.component';
 import { SharedModule } from './../shared/shared.module';
-import { ThumbnailComponent } from "../thumbnail/thumbnail.component";
 import { FileSectionComponent } from "./file-section/file-section.component";
 import { CollectionsComponent } from "./collections/collections.component";
 
@@ -28,7 +27,6 @@ import { CollectionsComponent } from "./collections/collections.component";
         ItemPageUriFieldComponent,
         ItemPageTitleFieldComponent,
         ItemPageSpecificFieldComponent,
-        ThumbnailComponent,
         FileSectionComponent,
         CollectionsComponent
     ],

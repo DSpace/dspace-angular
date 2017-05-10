@@ -6,14 +6,16 @@ import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.comp
     selector: 'ds-item-page-abstract-field',
     templateUrl: './../item-page-specific-field.component.html'
 })
-export class ItemPageAbstractFieldComponent extends ItemPageSpecificFieldComponent implements OnInit {
+export class ItemPageAbstractFieldComponent extends ItemPageSpecificFieldComponent {
 
     @Input() item: Item;
+
     separator : string;
 
     fields : string[] = [
         "dc.description.abstract"
     ];
+
     label : string = "item.page.abstract";
 
 }

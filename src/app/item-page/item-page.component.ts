@@ -14,8 +14,11 @@ import { Bitstream } from "../core/shared/bitstream.model";
 export class ItemPageComponent implements OnInit {
 
     id: number;
+
     private sub: any;
+
     item: RemoteData<Item>;
+
     thumbnail: Observable<Bitstream>;
 
     constructor(private route: ActivatedRoute, private items: ItemDataService) {
@@ -32,8 +35,6 @@ export class ItemPageComponent implements OnInit {
             this.item = this.items.findById(params['id']);
             this.thumbnail = this.item.payload.flatMap(i => i.getThumbnail());
         });
-
-
     }
 
 

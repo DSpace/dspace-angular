@@ -8,7 +8,9 @@ import { Component, Input } from '@angular/core';
 export class MetadataValuesComponent {
 
   @Input() values: any;
+
   @Input() separator: string;
+
   @Input() label: string;
 
   constructor() {

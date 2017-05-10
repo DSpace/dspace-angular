@@ -33,4 +33,10 @@ export class Bitstream extends DSpaceObject {
      * The Bundle that owns this Bitstream
      */
     owner: Bundle;
+
+    /**
+     * The Bundle that owns this Bitstream
+     */
+    retrieve: string;
+
 }

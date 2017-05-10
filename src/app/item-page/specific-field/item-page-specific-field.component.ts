@@ -4,12 +4,14 @@ import { Item } from "../../core/shared/item.model";
 @Component({
     templateUrl: './item-page-specific-field.component.html'
 })
-export class ItemPageSpecificFieldComponent implements OnInit {
+export class ItemPageSpecificFieldComponent {
 
     @Input() item: Item;
 
     fields : string[];
+
     label : string;
+
     separator : string = "<br/>";
 
     constructor() {
@@ -19,9 +21,4 @@ export class ItemPageSpecificFieldComponent implements OnInit {
     universalInit() {
 
     }
-
-    ngOnInit(): void {
-    }
-
-
 }
