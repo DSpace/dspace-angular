@@ -5,9 +5,11 @@ import { isNotEmpty } from "../shared/empty.util";
 import { FooterComponent } from "./footer/footer.component";
 import { DSpaceRESTv2Service } from "./dspace-rest-v2/dspace-rest-v2.service";
 import { ObjectCacheService } from "./cache/object-cache.service";
-import { RequestCacheService } from "./cache/request-cache.service";
-import { CollectionDataService } from "./data-services/collection-data.service";
-import { ItemDataService } from "./data-services/item-data.service";
+import { ResponseCacheService } from "./cache/response-cache.service";
+import { CollectionDataService } from "./data/collection-data.service";
+import { ItemDataService } from "./data/item-data.service";
+import { RequestService } from "./data/request.service";
+import { RemoteDataBuildService } from "./cache/builders/remote-data-build.service";
 
 const IMPORTS = [
   CommonModule,
@@ -27,7 +29,9 @@ const PROVIDERS = [
   ItemDataService,
   DSpaceRESTv2Service,
   ObjectCacheService,
-  RequestCacheService
+  ResponseCacheService,
+  RequestService,
+  RemoteDataBuildService
 ];
 
 @NgModule({

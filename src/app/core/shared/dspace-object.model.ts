@@ -8,6 +8,9 @@ import { CacheableObject } from "../cache/object-cache.reducer";
  */
 export abstract class DSpaceObject implements CacheableObject {
 
+  @autoserialize
+  self: string;
+
   /**
    * The human-readable identifier of this DSpaceObject
    */

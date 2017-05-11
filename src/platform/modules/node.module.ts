@@ -13,7 +13,6 @@ import { CoreModule } from "../../app/core/core.module";
 
 import { StoreModule, Store } from "@ngrx/store";
 import { RouterStoreModule } from "@ngrx/router-store";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { rootReducer, AppState, NGRX_CACHE_KEY } from '../../app/app.reducers';
 import { effects } from '../../app/app.effects';
 
@@ -59,7 +58,6 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
     AppModule,
     StoreModule.provideStore(rootReducer),
     RouterStoreModule.connectRouter(),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
     effects
   ],
   providers: [

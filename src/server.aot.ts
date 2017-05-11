@@ -124,5 +124,5 @@ app.get('*', function(req, res) {
 
 // Server
 let server = app.listen(app.get('port'), app.get('address'), () => {
-  console.log(`Listening on: ${EnvConfig.ui.ssl ? 'https://' : 'http://'}://${server.address().address}:${server.address().port}`);
+  console.log(`[${new Date().toTimeString()}] Listening on ${EnvConfig.ui.ssl ? 'https://' : 'http://'}${server.address().address}:${server.address().port}`);
 });

@@ -1,12 +1,11 @@
 import { EffectsModule } from "@ngrx/effects";
-import { CollectionDataEffects } from "./data-services/collection-data.effects";
-import { ItemDataEffects } from "./data-services/item-data.effects";
-import { ObjectCacheEffects } from "./data-services/object-cache.effects";
-import { RequestCacheEffects } from "./data-services/request-cache.effects";
+import { ObjectCacheEffects } from "./data/object-cache.effects";
+import { RequestCacheEffects } from "./data/request-cache.effects";
+import { HrefIndexEffects } from "./index/href-index.effects";
+import { RequestEffects } from "./data/request.effects";
 
 export const coreEffects = [
-  EffectsModule.run(CollectionDataEffects),
-  EffectsModule.run(ItemDataEffects),
-  EffectsModule.run(RequestCacheEffects),
+  EffectsModule.run(RequestEffects),
   EffectsModule.run(ObjectCacheEffects),
+  EffectsModule.run(HrefIndexEffects),
 ];

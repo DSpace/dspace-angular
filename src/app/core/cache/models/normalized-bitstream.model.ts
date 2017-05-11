@@ -1,7 +1,11 @@
-import { DSpaceObject } from "./dspace-object.model";
-import { Bundle } from "./bundle.model";
+import { inheritSerialization } from "cerialize";
+import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
+import { Bitstream } from "../../shared/bitstream.model";
+import { mapsTo } from "../builders/build-decorators";
 
-export class Bitstream extends DSpaceObject {
+@mapsTo(Bitstream)
+@inheritSerialization(NormalizedDSpaceObject)
+export class NormalizedBitstream extends NormalizedDSpaceObject {
 
     /**
      * The size of this bitstream in bytes(?)
@@ -26,10 +30,10 @@ export class Bitstream extends DSpaceObject {
     /**
      * An array of Bundles that are direct parents of this Bitstream
      */
-    parents: Array<Bundle>;
+    parents: Array<string>;
 
     /**
      * The Bundle that owns this Bitstream
      */
-    owner: Bundle;
+    owner: string;
 }
