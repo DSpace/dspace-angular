@@ -2,5 +2,6 @@ export enum NormalizedDSOType {
   NormalizedBitstream,
   NormalizedBundle,
   NormalizedItem,
-  NormalizedCollection
+  NormalizedCollection,
+  NormalizedCommunity
 }
