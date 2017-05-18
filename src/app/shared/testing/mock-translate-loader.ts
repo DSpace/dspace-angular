@@ -1,4 +1,4 @@
-import { TranslateLoader } from "ng2-translate";
+import { TranslateLoader } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 
 export class MockTranslateLoader implements TranslateLoader {

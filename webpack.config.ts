@@ -112,7 +112,7 @@ export var serverConfig = {
     ],
   },
   externals: includeClientPackages(
-    /@angularclass|@angular|angular2-|ng2-|ng-|@ng-|angular-|@ngrx|ngrx-|@angular2|ionic|@ionic|-angular2|-ng2|-ng/
+    /@angularclass|@angular|angular2-|ng2-|ng-|@ng-|angular-|@ngrx|ngrx-|@ngx-|@angular2|ionic|@ionic|-angular2|-ng2|-ng/
   ),
   node: {
     global: true,

@@ -6,7 +6,8 @@ import { UniversalModule, isBrowser, isNode } from 'angular2-universal/browser';
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { AppModule, AppComponent } from '../../app/app.module';
 import { SharedModule } from '../../app/shared/shared.module';
@@ -27,8 +28,9 @@ import { GLOBAL_CONFIG, GlobalConfig, EnvConfig } from '../../config';
 
 // import * as LRU from 'modern-lru';
 
-export function createTranslateLoader(http: Http) {
-  return new TranslateStaticLoader(http, './assets/i18n', '.json');
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: Http) {
+  return new TranslateHttpLoader(http);
 }
 
 export function getLRU(lru?: any) {
@@ -51,9 +53,11 @@ export const UNIVERSAL_KEY = 'UNIVERSAL_CACHE';
   bootstrap: [AppComponent],
   imports: [
     TranslateModule.forRoot({
-      provide: TranslateLoader,
-      useFactory: (createTranslateLoader),
-      deps: [Http]
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [Http]
+      }
     }),
     NgbModule.forRoot(),
 

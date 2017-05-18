@@ -6,7 +6,7 @@ import {
   OnDestroy,
   OnInit, HostListener
 } from "@angular/core";
-import { TranslateService } from "ng2-translate";
+import { TranslateService } from "@ngx-translate/core";
 import { HostWindowState } from "./shared/host-window.reducer";
 import { Store } from "@ngrx/store";
 import { HostWindowResizeAction } from "./shared/host-window.actions";
