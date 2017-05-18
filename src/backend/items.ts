@@ -4,7 +4,7 @@ export const ITEMS = [
       "self": {
         "href": "/items/8871"
       },
-      "collections": [
+      "parents": [
         {
           "href": "/collections/5179"
         },
@@ -16,9 +16,9 @@ export const ITEMS = [
         {
           "href": "/bundles/2355"
         },
-        {
-          "href": "/bundles/5687"
-        }
+        // {
+        //   "href": "/bundles/5687"
+        // }
       ]
     },
     "id": "8871",
@@ -96,7 +96,7 @@ export const ITEMS = [
       "self": {
         "href": "/items/9978"
       },
-      "collections": [
+      "parents": [
         {
           "href": "/collections/5179"
         },
@@ -108,9 +108,9 @@ export const ITEMS = [
         {
           "href": "/bundles/2355"
         },
-        {
-          "href": "/bundles/5687"
-        }
+        // {
+        //   "href": "/bundles/5687"
+        // }
       ]
     },
     "id": "9978",

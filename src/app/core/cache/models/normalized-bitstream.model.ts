@@ -1,4 +1,4 @@
-import { inheritSerialization } from "cerialize";
+import { inheritSerialization, autoserialize } from "cerialize";
 import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
 import { Bitstream } from "../../shared/bitstream.model";
 import { mapsTo } from "../builders/build-decorators";
@@ -10,6 +10,7 @@ export class NormalizedBitstream extends NormalizedDSpaceObject {
     /**
      * The size of this bitstream in bytes(?)
      */
+    @autoserialize
     size: number;
 
     /**
@@ -36,4 +37,7 @@ export class NormalizedBitstream extends NormalizedDSpaceObject {
      * The Bundle that owns this Bitstream
      */
     owner: string;
+
+    @autoserialize
+    retrieve: string;
 }

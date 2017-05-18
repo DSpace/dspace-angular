@@ -12,7 +12,7 @@ export class Bundle extends DSpaceObject {
   /**
    * An array of Items that are direct parents of this Bundle
    */
-  parents: Array<Item>;
+  parents: Array<RemoteData<Item>>;
 
   /**
    * The Item that owns this Bundle

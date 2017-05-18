@@ -1,0 +1,4 @@
+<div class="thumbnail">
+   <img *ngIf="thumbnail" [src]="thumbnail.retrieve"/>
+   <img *ngIf="!thumbnail" [src]="holderSource | dsSafeUrl"/>
+</div>

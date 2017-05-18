@@ -32,6 +32,8 @@ export class NormalizedItem extends NormalizedDSpaceObject {
   /**
    * An array of Collections that are direct parents of this Item
    */
+  @autoserialize
+  @relationship(NormalizedDSOType.NormalizedCollection)
   parents: Array<string>;
 
   /**
