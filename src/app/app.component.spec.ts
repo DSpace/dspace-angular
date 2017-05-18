@@ -52,8 +52,8 @@ describe('App component', () => {
 
     comp = fixture.componentInstance; // component test instance
 
-    // query for the title <p> by CSS element selector
-    de = fixture.debugElement.query(By.css('p'));
+    // query for the <div class="outer-wrapper"> by CSS element selector
+    de = fixture.debugElement.query(By.css('div.outer-wrapper'));
     el = de.nativeElement;
   });
 
