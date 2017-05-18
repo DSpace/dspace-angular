@@ -113,6 +113,14 @@
     magic-string "^0.16.0"
     source-map "^0.5.6"
 
+"@ngx-translate/core@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-6.0.1.tgz#7c7a80077feb994fc815b67a72065af04d394efe"
+
+"@ngx-translate/http-loader@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-0.0.3.tgz#8346c8d2d6f630254601029668f17abe2afe8a9b"
+
 "@types/body-parser@0.0.33":
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-0.0.33.tgz#33ca1498fc37e51c5df0c81cae34569e7041e025"
@@ -3655,10 +3663,6 @@ nested-error-stacks@^1.0.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-1.0.2.tgz#19f619591519f096769a5ba9a86e6eeec823c3cf"
   dependencies:
     inherits "~2.0.1"
-
-ng2-translate@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/ng2-translate/-/ng2-translate-4.2.0.tgz#83bc8feca329b5fc56a636e36073241c6280c659"
 
 ngrx-store-freeze@^0.1.9:
   version "0.1.9"
