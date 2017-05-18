@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ds-home',
-  styleUrls: ['./home.component.css'],
-  templateUrl: './home.component.html'
+  selector: 'ds-home-news',
+  styleUrls: ['./home-news.component.css'],
+  templateUrl: './home-news.component.html'
 })
-export class HomeComponent implements OnInit {
+export class HomeNewsComponent implements OnInit {
   constructor() {
     this.universalInit();
   }

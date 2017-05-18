@@ -12,4 +12,8 @@ export class ProtractorPage {
   getFirstPText() {
     return element(by.xpath('//p[1]')).getText();
   }
+
+  getFirstHeaderText() {
+    return element(by.xpath('//h1[1]')).getText();
+  }
 }
