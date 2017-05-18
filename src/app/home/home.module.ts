@@ -6,7 +6,7 @@ import { CommonModule } from "@angular/common";
 import { TopLevelCommunityListComponent } from "./top-level-community-list/top-level-community-list.component";
 import { HomeNewsComponent } from "./home-news/home-news.component";
 import { RouterModule } from "@angular/router";
-import { TranslateModule } from "ng2-translate";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
