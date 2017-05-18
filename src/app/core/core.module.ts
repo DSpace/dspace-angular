@@ -10,6 +10,7 @@ import { CollectionDataService } from "./data/collection-data.service";
 import { ItemDataService } from "./data/item-data.service";
 import { RequestService } from "./data/request.service";
 import { RemoteDataBuildService } from "./cache/builders/remote-data-build.service";
+import { CommunityDataService } from "./data/community-data.service";
 
 const IMPORTS = [
   CommonModule,
@@ -25,6 +26,7 @@ const EXPORTS = [
 ];
 
 const PROVIDERS = [
+  CommunityDataService,
   CollectionDataService,
   ItemDataService,
   DSpaceRESTv2Service,

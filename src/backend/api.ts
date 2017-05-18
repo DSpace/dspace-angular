@@ -1,3 +1,4 @@
+import { COMMUNITIES } from "./communities";
 const util = require('util');
 const { Router } = require('express');
 
@@ -50,6 +51,67 @@ function toHALResponse(req, data, included?) {
 export function createMockApi() {
 
   let router = Router();
+
+  router.route('/communities')
+    .get(function(req, res) {
+      console.log('GET');
+      // 70ms latency
+      setTimeout(function() {
+        res.json(toHALResponse(req, COMMUNITIES));
+      }, 0);
+
+    // })
+    // .post(function(req, res) {
+    //   console.log('POST', util.inspect(req.body, { colors: true }));
+    //   let community = req.body;
+    //   if (community) {
+    //     COMMUNITIES.push({
+    //       value: community.value,
+    //       created_at: new Date(),
+    //       completed: community.completed,
+    //       id: COMMUNITY_COUNT++
+    //     });
+    //     return res.json(community);
+    //   }
+    //
+    //   return res.end();
+    });
+
+  router.param('community_id', function(req, res, next, community_id) {
+    // ensure correct prop type
+    let id = req.params.community_id;
+    try {
+      req.community_id = id;
+      req.community = COMMUNITIES.find((community) => {
+        return community.id === id;
+      });
+      next();
+    } catch (e) {
+      next(new Error('failed to load community'));
+    }
+  });
+
+  router.route('/communities/:community_id')
+    .get(function(req, res) {
+      // console.log('GET', util.inspect(req.community.id, { colors: true }));
+      res.json(toHALResponse(req, req.community));
+    // })
+    // .put(function(req, res) {
+    //   console.log('PUT', util.inspect(req.body, { colors: true }));
+    //
+    //   let index = COMMUNITIES.indexOf(req.community);
+    //   let community = COMMUNITIES[index] = req.body;
+    //
+    //   res.json(community);
+    // })
+    // .delete(function(req, res) {
+    //   console.log('DELETE', req.community_id);
+    //
+    //   let index = COMMUNITIES.indexOf(req.community);
+    //   COMMUNITIES.splice(index, 1);
+    //
+    //   res.json(req.community);
+    });
 
   router.route('/collections')
     .get(function(req, res) {
