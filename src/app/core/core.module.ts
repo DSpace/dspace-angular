@@ -34,6 +34,7 @@ const PROVIDERS = [
   DSpaceRESTv2Service,
   ObjectCacheService,
   PaginationOptions,
+  ResponseCacheService,
   RequestService,
   RemoteDataBuildService
 ];

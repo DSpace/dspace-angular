@@ -31,9 +31,9 @@ const PIPES = [
 ];
 
 const COMPONENTS = [
-  ThumbnailComponent
   // put shared components here
-  PaginationComponent
+  PaginationComponent,
+  ThumbnailComponent
 ];
 
 const PROVIDERS = [
