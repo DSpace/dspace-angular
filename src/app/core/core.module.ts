@@ -1,5 +1,6 @@
 import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { SharedModule } from "../shared/shared.module";
 import { isNotEmpty } from "../shared/empty.util";
 import { FooterComponent } from "./footer/footer.component";
@@ -8,6 +9,7 @@ import { ObjectCacheService } from "./cache/object-cache.service";
 import { RequestCacheService } from "./cache/request-cache.service";
 import { CollectionDataService } from "./data-services/collection-data.service";
 import { ItemDataService } from "./data-services/item-data.service";
+import { PaginationOptions } from "./shared/pagination-options.model";
 
 const IMPORTS = [
   CommonModule,
@@ -27,6 +29,7 @@ const PROVIDERS = [
   ItemDataService,
   DSpaceRESTv2Service,
   ObjectCacheService,
+  PaginationOptions,
   RequestCacheService
 ];
 

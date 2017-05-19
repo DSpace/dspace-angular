@@ -6,6 +6,7 @@ import {
 } from "./request-cache.actions";
 import deepFreeze = require("deep-freeze");
 import { OpaqueToken } from "@angular/core";
+import { PaginationOptions } from "../shared/pagination-options.model";
 
 class NullAction extends RequestCacheRemoveAction {
   type = null;
@@ -26,7 +27,19 @@ describe("requestCacheReducer", () => {
     "be8325f7-243b-49f4-8a4b-df2b793ff3b5"
   ];
   const resourceID = "9978";
-  const paginationOptions = { "resultsPerPage": 10, "currentPage": 1 };
+  const paginationOptions: PaginationOptions = {
+    "id": "test",
+    "currentPage": 1,
+    "pageSizeOptions": [5, 10, 20, 40, 60, 80, 100],
+    "disabled": false,
+    "boundaryLinks": false,
+    "directionLinks": true,
+    "ellipses": true,
+    "maxSize": 0,
+    "pageSize": 10,
+    "rotate": false,
+    "size": 'sm'
+  };
   const sortOptions = { "field": "id", "direction": 0 };
   const testState = {
     [keys[0]]: {

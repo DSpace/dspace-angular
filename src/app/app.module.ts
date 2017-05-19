@@ -20,7 +20,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
     SharedModule,
     HomeModule,
     CoreModule.forRoot(),
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [
   ]

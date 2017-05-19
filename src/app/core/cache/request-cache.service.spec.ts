@@ -4,6 +4,7 @@ import { RequestCacheState, RequestCacheEntry } from "./request-cache.reducer";
 import { OpaqueToken } from "@angular/core";
 import { RequestCacheFindAllAction, RequestCacheFindByIDAction } from "./request-cache.actions";
 import { Observable } from "rxjs";
+import { PaginationOptions } from "../shared/pagination-options.model";
 
 describe("RequestCacheService", () => {
   let service: RequestCacheService;
@@ -12,7 +13,19 @@ describe("RequestCacheService", () => {
   const keys = ["125c17f89046283c5f0640722aac9feb", "a06c3006a41caec5d635af099b0c780c"];
   const serviceTokens = [new OpaqueToken('service1'), new OpaqueToken('service2')];
   const resourceID = "9978";
-  const paginationOptions = { "resultsPerPage": 10, "currentPage": 1 };
+  const paginationOptions: PaginationOptions = {
+    "id": "test",
+    "currentPage": 1,
+    "pageSizeOptions": [5, 10, 20, 40, 60, 80, 100],
+    "disabled": false,
+    "boundaryLinks": false,
+    "directionLinks": true,
+    "ellipses": true,
+    "maxSize": 0,
+    "pageSize": 10,
+    "rotate": false,
+    "size": 'sm'
+  };
   const sortOptions = { "field": "id", "direction": 0 };
   const timestamp = new Date().getTime();
   const validCacheEntry = (key) => {

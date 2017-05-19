@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { Ng2PaginationModule } from 'ng2-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 import { ApiService } from './api.service';
+import { PaginationComponent } from "./pagination/pagination.component";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -15,6 +17,7 @@ const MODULES = [
   TranslateModule,
   FormsModule,
   ReactiveFormsModule,
+  Ng2PaginationModule,
   NgbModule
 ];
 
@@ -24,6 +27,7 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
+  PaginationComponent
 ];
 
 const PROVIDERS = [
