@@ -3,17 +3,14 @@ import {
   ChangeDetectionStrategy,
   Inject,
   ViewEncapsulation,
-  OnDestroy,
   OnInit, HostListener
 } from "@angular/core";
-import { TranslateService } from "ng2-translate";
+import { TranslateService } from "@ngx-translate/core";
 import { HostWindowState } from "./shared/host-window.reducer";
 import { Store } from "@ngrx/store";
 import { HostWindowResizeAction } from "./shared/host-window.actions";
 
-import { PaginationOptions } from './core/shared/pagination-options.model';
-
-import { GLOBAL_CONFIG, GlobalConfig } from '../config';
+import { EnvConfig, GLOBAL_CONFIG, GlobalConfig } from '../config';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -22,16 +19,7 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../config';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy, OnInit {
-  private translateSubscription: any;
-
-  collection = [];
-  example: string;
-  options: PaginationOptions = new PaginationOptions();
-  data: any = {
-    greeting: 'Hello',
-    recipient: 'World'
-  };
+export class AppComponent implements OnInit {
 
   constructor(
     @Inject(GLOBAL_CONFIG) public EnvConfig: GlobalConfig,
@@ -42,26 +30,12 @@ export class AppComponent implements OnDestroy, OnInit {
     translate.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use('en');
-    for (let i = 1; i <= 100; i++) {
-      this.collection.push(`item ${i}`);
-    }
   }
 
   ngOnInit() {
-    this.translateSubscription = this.translate.get('example.with.data', { greeting: 'Hello', recipient: 'DSpace' }).subscribe((translation: string) => {
-      this.example = translation;
-    });
-    this.onLoad();
-    this.options.id = 'app';
-    //this.options.currentPage = 1;
-    this.options.pageSize = 15;
-    this.options.size = 'sm';
-  }
-
-  ngOnDestroy() {
-    if (this.translateSubscription) {
-      this.translateSubscription.unsubscribe();
-    }
+    const env: string = EnvConfig.production ? "Production" : "Development";
+    const color: string = EnvConfig.production ? "red" : "green";
+    console.info(`Environment: %c${env}`,  `color: ${color}; font-weight: bold;`);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -71,9 +45,4 @@ export class AppComponent implements OnDestroy, OnInit {
     );
   }
 
-  private onLoad() {
-    this.store.dispatch(
-      new HostWindowResizeAction(window.innerWidth, window.innerHeight)
-    );
-  }
 }

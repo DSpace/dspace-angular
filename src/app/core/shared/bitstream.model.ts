@@ -1,8 +1,7 @@
-import { inheritSerialization } from "cerialize";
 import { DSpaceObject } from "./dspace-object.model";
 import { Bundle } from "./bundle.model";
+import { RemoteData } from "../data/remote-data";
 
-@inheritSerialization(DSpaceObject)
 export class Bitstream extends DSpaceObject {
 
     /**
@@ -28,10 +27,16 @@ export class Bitstream extends DSpaceObject {
     /**
      * An array of Bundles that are direct parents of this Bitstream
      */
-    parents: Array<Bundle>;
+    parents: Array<RemoteData<Bundle>>;
 
     /**
      * The Bundle that owns this Bitstream
      */
     owner: Bundle;
+
+    /**
+     * The Bundle that owns this Bitstream
+     */
+    retrieve: string;
+
 }

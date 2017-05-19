@@ -4,7 +4,7 @@ export const ITEMS = [
       "self": {
         "href": "/items/8871"
       },
-      "collections": [
+      "parents": [
         {
           "href": "/collections/5179"
         },
@@ -14,11 +14,11 @@ export const ITEMS = [
       ],
       "bundles": [
         {
-          "href": "/bundles/35e0606d-5e18-4f9c-aa61-74fc751cc3f9"
+          "href": "/bundles/2355"
         },
-        {
-          "href": "/bundles/a469c57a-abcf-45c3-83e4-b187ebd708fd"
-        }
+        // {
+        //   "href": "/bundles/5687"
+        // }
       ]
     },
     "id": "8871",
@@ -96,7 +96,7 @@ export const ITEMS = [
       "self": {
         "href": "/items/9978"
       },
-      "collections": [
+      "parents": [
         {
           "href": "/collections/5179"
         },
@@ -106,11 +106,11 @@ export const ITEMS = [
       ],
       "bundles": [
         {
-          "href": "/bundles/b0176baa-d52e-4c20-a8e6-d586f2c70c76"
+          "href": "/bundles/2355"
         },
-        {
-          "href": "/bundles/40b1cd3f-07ad-4ca6-9716-132671f93a15"
-        }
+        // {
+        //   "href": "/bundles/5687"
+        // }
       ]
     },
     "id": "9978",

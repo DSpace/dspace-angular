@@ -1,16 +1,11 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated,
   selector: 'ds-home',
   styleUrls: ['./home.component.css'],
   templateUrl: './home.component.html'
 })
-export class HomeComponent {
-
-  data: any = {};
-
+export class HomeComponent implements OnInit {
   constructor() {
     this.universalInit();
   }
@@ -19,4 +14,6 @@ export class HomeComponent {
 
   }
 
+  ngOnInit(): void {
+  }
 }

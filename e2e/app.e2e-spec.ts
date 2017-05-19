@@ -12,8 +12,8 @@ describe('protractor App', function() {
     expect(page.getPageTitleText()).toEqual('DSpace');
   });
 
-  it('should display title "Hello, World!"', () => {
+  it('should display header "Welcome to DSpace"', () => {
     page.navigateTo();
-    expect(page.getFirstPText()).toEqual('Hello, World!');
+    expect(page.getFirstHeaderText()).toEqual('Welcome to DSpace');
   });
 });

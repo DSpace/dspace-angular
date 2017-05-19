@@ -10,7 +10,7 @@ import {
   DebugElement
 } from "@angular/core";
 import { By } from '@angular/platform-browser';
-import { TranslateModule, TranslateLoader } from "ng2-translate";
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { Store, StoreModule } from "@ngrx/store";
 
 // Load the implementations that should be tested
@@ -30,8 +30,10 @@ describe('Footer component', () => {
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
       imports: [CommonModule, StoreModule.provideStore({}), TranslateModule.forRoot({
-        provide: TranslateLoader,
-        useClass: MockTranslateLoader
+        loader: {
+          provide: TranslateLoader,
+          useClass: MockTranslateLoader
+        }
       })],
       declarations: [FooterComponent], // declare the test component
       providers: [

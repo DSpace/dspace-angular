@@ -15,7 +15,7 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
 import { HostWindowState } from "../host-window.reducer";
-import { PaginationOptions } from '../../core/shared/pagination-options.model';
+import { PaginationOptions } from '../../core/cache/models/pagination-options.model';
 
 /**
  * The default pagination controls component.

@@ -7,7 +7,7 @@ dspace-angular
 
 This project is currently in pre-alpha.
 
-You can find additional information on the [wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+-+Angular+2+UI) or [the project board (waffle.io)](https://waffle.io/DSpace/dspace-angular).
+You can find additional information on the [wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+-+Angular+UI) or [the project board (waffle.io)](https://waffle.io/DSpace/dspace-angular).
 
 If you're looking for the 2016 Angular 2 DSpace UI prototype, you can find it [here](https://github.com/DSpace-Labs/angular2-ui-prototype)
 

@@ -24,7 +24,7 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PaginationComponent } from './pagination.component';
-import { PaginationOptions } from '../../core/shared/pagination-options.model';
+import { PaginationOptions } from '../../core/cache/models/pagination-options.model';
 import { MockTranslateLoader } from "../testing/mock-translate-loader";
 
 import { GLOBAL_CONFIG, EnvConfig } from '../../../config';

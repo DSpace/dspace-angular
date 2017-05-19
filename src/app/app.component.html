@@ -4,25 +4,6 @@
 
     <main class="main-content">
       <div class="container-fluid">
-        <p>{{ 'example.with.data' | translate:data }}</p>
-        <p>{{ example }}</p>
-        <h2 [ngClass]="{ 'red': EnvConfig.production, 'green': !EnvConfig.production }">
-          <span *ngIf="!EnvConfig.production">development</span>
-          <span *ngIf="EnvConfig.production">production</span>
-        </h2>
-
-        {{options.id}}
-        <!--ds-pagination [paginationOptions]="options"
-                       [collectionSize]="100"
-                       (pageChange)="options.currentPage = $event"
-                       (pageSizeChange)="options.pageSize = $event">
-
-          <ul>
-            <li *ngFor="let item of collection | paginate: { itemsPerPage: options.pageSize, currentPage: options.currentPage, totalItems: 100 }"> {{item}} </li>
-          </ul>
-
-        </ds-pagination-->
-
         <router-outlet></router-outlet>
       </div>
     </main>

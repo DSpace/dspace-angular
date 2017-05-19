@@ -5,10 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from 'ng2-translate/ng2-translate';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ApiService } from './api.service';
 import { PaginationComponent } from "./pagination/pagination.component";
+import { FileSizePipe } from "./utils/file-size-pipe";
+import { ThumbnailComponent } from "../thumbnail/thumbnail.component";
+import { SafeUrlPipe } from "./utils/safe-url-pipe";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -22,10 +25,13 @@ const MODULES = [
 ];
 
 const PIPES = [
+    FileSizePipe,
+    SafeUrlPipe
   // put pipes here
 ];
 
 const COMPONENTS = [
+  ThumbnailComponent
   // put shared components here
   PaginationComponent
 ];

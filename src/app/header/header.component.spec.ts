@@ -5,7 +5,7 @@ import { Store, StoreModule } from "@ngrx/store";
 import { HeaderState } from "./header.reducer";
 import Spy = jasmine.Spy;
 import { HeaderToggleAction } from "./header.actions";
-import { TranslateModule } from "ng2-translate";
+import { TranslateModule } from "@ngx-translate/core";
 import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
 import { Observable } from "rxjs";
 
