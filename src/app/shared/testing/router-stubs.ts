@@ -1,5 +1,5 @@
-import {Params} from "@angular/router";
-import {BehaviorSubject} from "rxjs";
+import { Params } from "@angular/router";
+import { BehaviorSubject } from "rxjs";
 
 export class RouterStub {
   //noinspection TypeScriptUnresolvedFunction

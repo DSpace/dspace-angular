@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import Spy = jasmine.Spy;
-import { TranslateModule, TranslateLoader } from "ng2-translate";
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Store, StoreModule } from "@ngrx/store";
 
 // Load the implementations that should be tested
@@ -128,8 +128,10 @@ describe('Pagination component', () => {
 
     TestBed.configureTestingModule({
       imports: [CommonModule, StoreModule.provideStore({}), TranslateModule.forRoot({
-        provide: TranslateLoader,
-        useClass: MockTranslateLoader
+        loader: {
+          provide: TranslateLoader,
+          useClass: MockTranslateLoader
+        }
       }), Ng2PaginationModule, NgbModule.forRoot(),
         RouterTestingModule.withRoutes([
           {path: 'home', component: TestComponent}
