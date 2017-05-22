@@ -13,6 +13,8 @@ import { isNumeric } from "rxjs/util/isNumeric";
 import 'rxjs/add/operator/switchMap';
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
+// It is necessary to use ng2-pagination
+import { DEFAULT_TEMPLATE, DEFAULT_STYLES } from 'ng2-pagination/dist/template';
 
 import { HostWindowState } from "../host-window.reducer";
 import { PaginationOptions } from '../../core/cache/models/pagination-options.model';
