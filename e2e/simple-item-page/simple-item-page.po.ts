@@ -1,7 +1,7 @@
 import { browser, element, by } from 'protractor';
 
 export class ProtractorPage {
-    ITEMPAGE : string = "/items/8766";
+    ITEMPAGE : string = "/items/8871";
 
     navigateToSimpleItemPage() {
         return browser.get(this.ITEMPAGE);

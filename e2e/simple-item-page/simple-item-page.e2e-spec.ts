@@ -1,6 +1,6 @@
 import { ProtractorPage } from './simple-item-page.po';
 
-describe('protractor Simple Item Page', function() {
+describe('protractor Simple Item Page', function () {
     let page: ProtractorPage;
 
     beforeEach(() => {
@@ -9,11 +9,19 @@ describe('protractor Simple Item Page', function() {
     });
 
     it('should contain element ds-thumbnail"', () => {
-        expect(page.elementTagExists("ds-thumbnail")).toEqual(true);
+        expect(page.elementSelectorExists("ds-thumbnail img")).toEqual(true);
     });
 
-    it('should contain element h1.item-page-title-field"', () => {
-        expect(page.elementSelectorExists("h1.selector")).toEqual(true);
+    it('should contain element an h2 title field"', () => {
+        expect(page.elementSelectorExists("h2.item-page-title-field")).toEqual(true);
+    });
+
+    it('should contain element link to its collections"', () => {
+        expect(page.elementTagExists("ds-item-page-collections")).toEqual(true);
+    });
+
+    it('should contain a file section"', () => {
+        expect(page.elementTagExists("ds-item-page-file-section")).toEqual(true);
     });
 
 });
