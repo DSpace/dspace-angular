@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Collection } from "../../core/shared/collection.model";
+import { Collection } from "../../../core/shared/collection.model";
 import { Observable } from "rxjs";
-import { Item } from "../../core/shared/item.model";
+import { Item } from "../../../core/shared/item.model";
 
 /**
  * This component renders the parent collections section of the item

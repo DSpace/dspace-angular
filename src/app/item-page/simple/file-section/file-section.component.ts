@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Bitstream } from "../../core/shared/bitstream.model";
-import { Item } from "../../core/shared/item.model";
+import { Bitstream } from "../../../core/shared/bitstream.model";
+import { Item } from "../../../core/shared/item.model";
 import { Observable } from "rxjs";
 
 /**
