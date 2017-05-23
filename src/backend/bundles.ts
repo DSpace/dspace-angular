@@ -12,6 +12,7 @@ export const BUNDLES = [
     },
     "id": "2355",
     "uuid": "35e0606d-5e18-4f9c-aa61-74fc751cc3f9",
+    "type": "bundle",
     "name": "ORIGINAL",
     "metadata": [
       { "key": "dc.title", "value": "ORIGINAL", "language": "en" }
@@ -30,6 +31,7 @@ export const BUNDLES = [
     },
     "id": "5687",
     "uuid": "a469c57a-abcf-45c3-83e4-b187ebd708fd",
+    "type": "bundle",
     "name": "THUMBNAIL",
     "metadata": [
       { "key": "dc.title", "value": "THUMBNAIL", "language": "en" }

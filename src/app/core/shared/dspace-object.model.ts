@@ -1,4 +1,3 @@
-import { autoserialize, autoserializeAs } from "cerialize";
 import { Metadatum } from "./metadatum.model"
 import { isEmpty, isNotEmpty } from "../../shared/empty.util";
 import { CacheableObject } from "../cache/object-cache.reducer";
@@ -9,19 +8,16 @@ import { RemoteData } from "../data/remote-data";
  */
 export abstract class DSpaceObject implements CacheableObject {
 
-    @autoserialize
     self: string;
 
     /**
      * The human-readable identifier of this DSpaceObject
      */
-    @autoserialize
     id: string;
 
     /**
      * The universally unique identifier of this DSpaceObject
      */
-    @autoserialize
     uuid: string;
 
     /**
@@ -32,13 +28,11 @@ export abstract class DSpaceObject implements CacheableObject {
     /**
      * The name for this DSpaceObject
      */
-    @autoserialize
     name: string;
 
     /**
      * An array containing all metadata of this DSpaceObject
      */
-    @autoserializeAs(Metadatum)
     metadata: Array<Metadatum>;
 
     /**

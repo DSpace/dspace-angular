@@ -7,6 +7,7 @@ export const BITSTREAMS = [
     },
     "id": "3678",
     "uuid": "43c57c2b-206f-4645-8c8f-5f10c84b09fa",
+    "type": "bitstream",
     "name": "do_open_access_CRL.pdf",
     "size": 636626,
     "checksum": {
@@ -28,6 +29,7 @@ export const BITSTREAMS = [
     },
     "id": "8842",
     "uuid": "1a013ecc-fb25-4689-a44f-f1383ad26632",
+    "type": "bitstream",
     "name": "do_open_access_CRL.pdf.jpg",
     "size": 41183,
     "checksum": {
