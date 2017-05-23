@@ -6,6 +6,12 @@ import { RemoteData } from "../core/data/remote-data";
 import { Observable } from "rxjs";
 import { Bitstream } from "../core/shared/bitstream.model";
 
+/**
+ * This component renders a simple item page.
+ * The route parameter 'id' is used to request the item it represents.
+ * All fields of the item that should be displayed, are defined in its template.
+ */
+
 @Component({
     selector: 'ds-item-page',
     styleUrls: ['./item-page.component.css'],
