@@ -3,7 +3,7 @@ import {
   async,
   ComponentFixture,
   inject,
-  TestBed, fakeAsync, tick, getTestBed
+  TestBed, fakeAsync, tick
 } from '@angular/core/testing';
 import {
   Component,
@@ -11,11 +11,12 @@ import {
   DebugElement
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
+import { Observable } from "rxjs";
+import { RouterTestingModule } from '@angular/router/testing';
 import Spy = jasmine.Spy;
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { Store, StoreModule } from "@ngrx/store";
+import { StoreModule } from "@ngrx/store";
 
 // Load the implementations that should be tested
 import { CommonModule } from '@angular/common';
@@ -28,8 +29,9 @@ import { PaginationOptions } from '../../core/cache/models/pagination-options.mo
 import { MockTranslateLoader } from "../testing/mock-translate-loader";
 
 import { GLOBAL_CONFIG, EnvConfig } from '../../../config';
-import { MockStore, MockAction } from "../testing/mock-store";
 import { ActivatedRouteStub, RouterStub } from "../testing/router-stubs";
+import { HostWindowService } from "../host-window.service";
+
 
 function createTestComponent<T>(html: string, type: {new (...args: any[]): T}): ComponentFixture<T> {
   TestBed.overrideComponent(type, {
@@ -112,19 +114,19 @@ describe('Pagination component', () => {
   let testFixture: ComponentFixture<TestComponent>;
   let de: DebugElement;
   let html;
-  let mockStore: any;
+  let hostWindowServiceStub: HostWindowServiceStub;
 
   let activatedRouteStub: ActivatedRouteStub;
   let routerStub: RouterStub;
 
   //Define initial state and test state
-  let _initialState = { width: 1600, height: 770, breakPoint: 'xl' };
+  let _initialState = { width: 1600, height: 770 };
 
   // async beforeEach
   beforeEach(async(() => {
     activatedRouteStub = new ActivatedRouteStub();
     routerStub = new RouterStub();
-    mockStore = new MockStore(_initialState);
+    hostWindowServiceStub = new HostWindowServiceStub(_initialState.width);
 
     TestBed.configureTestingModule({
       imports: [CommonModule, StoreModule.provideStore({}), TranslateModule.forRoot({
@@ -141,7 +143,7 @@ describe('Pagination component', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: GLOBAL_CONFIG, useValue: EnvConfig },
         { provide: Router, useValue: routerStub },
-        { provide: Store, useValue: mockStore },
+        { provide: HostWindowService, useValue: hostWindowServiceStub },
         PaginationComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -285,12 +287,12 @@ describe('Pagination component', () => {
   it('should respond to windows resize', () => {
     let paginationComponent: PaginationComponent = testFixture
       .debugElement.query(By.css('ds-pagination')).references['p'];
-    mockStore = testFixture.debugElement.injector.get(Store);
+    hostWindowServiceStub = testFixture.debugElement.injector.get(HostWindowService);
 
-    mockStore.nextState({ width: 400, height: 770, breakPoint: 'xs' });
+    hostWindowServiceStub.setWidth(400);
 
-    mockStore.select('hostWindow').subscribe((state) => {
-      paginationComponent.windowBreakPoint = state;
+    hostWindowServiceStub.isXs().subscribe((status) => {
+      paginationComponent.isXs = status;
       testFixture.detectChanges();
       expectPages(testFixture, ['-«', '+1', '2', '3', '4', '5', '-...', '10', '»']);
       de = testFixture.debugElement.query(By.css('ul.pagination'));
@@ -300,7 +302,7 @@ describe('Pagination component', () => {
 });
 
 // declare a test component
-@Component({selector: 'test-cmp', template: ''})
+@Component({selector: 'ds-test-cmp', template: ''})
 class TestComponent {
 
   collection: string[] = [];
@@ -319,5 +321,23 @@ class TestComponent {
 
   pageSizeChanged(pageSize) {
     this.paginationOptions.pageSize = pageSize;
+  }
+}
+
+// declare a stub service
+class HostWindowServiceStub {
+
+  private width: number;
+
+  constructor(width) {
+    this.setWidth(width);
+  }
+
+  setWidth(width) {
+    this.width = width;
+  }
+
+  isXs(): Observable<boolean> {
+    return Observable.of(this.width < 576);
   }
 }

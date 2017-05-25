@@ -3,13 +3,11 @@ import { HostWindowAction, HostWindowActionTypes } from "./host-window.actions";
 export interface HostWindowState {
   width: number;
   height: number;
-  breakPoint: string;
 }
 
 const initialState: HostWindowState = {
   width: null,
-  height: null,
-  breakPoint: null
+  height: null
 };
 
 export const hostWindowReducer = (state = initialState, action: HostWindowAction): HostWindowState => {

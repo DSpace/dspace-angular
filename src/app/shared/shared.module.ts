@@ -12,6 +12,8 @@ import { PaginationComponent } from "./pagination/pagination.component";
 import { FileSizePipe } from "./utils/file-size-pipe";
 import { ThumbnailComponent } from "../thumbnail/thumbnail.component";
 import { SafeUrlPipe } from "./utils/safe-url-pipe";
+import { HostWindowService } from "./host-window.service";
+import { NativeWindowFactory, NativeWindowService } from "./window.service";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -37,7 +39,9 @@ const COMPONENTS = [
 ];
 
 const PROVIDERS = [
-  ApiService
+  ApiService,
+  HostWindowService,
+  { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
 @NgModule({
@@ -52,6 +56,9 @@ const PROVIDERS = [
     ...MODULES,
     ...PIPES,
     ...COMPONENTS
+  ],
+  providers: [
+    ...PROVIDERS
   ]
 })
 export class SharedModule {

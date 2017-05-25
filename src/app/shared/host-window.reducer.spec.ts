@@ -13,34 +13,32 @@ class NullAction extends HostWindowResizeAction {
 describe('hostWindowReducer', () => {
 
   it("should return the current state when no valid actions have been made", () => {
-    const state = { width: 800, height: 600, breakPoint: 'md' };
+    const state = { width: 800, height: 600 };
     const action = new NullAction();
     const newState = hostWindowReducer(state, action);
 
     expect(newState).toEqual(state);
   });
 
-  it("should start with width = null, height = null and breakPoint = null", () => {
+  it("should start with width = null and height = null", () => {
     const action = new NullAction();
     const initialState = hostWindowReducer(undefined, action);
 
     expect(initialState.width).toEqual(null);
     expect(initialState.height).toEqual(null);
-    expect(initialState.breakPoint).toEqual(null);
   });
 
-  it("should update the width, height and breakPoint in the state in response to a RESIZE action", () => {
-    const state = { width: 800, height: 600, breakPoint: 'md' };
+  it("should update the width and height in the state in response to a RESIZE action", () => {
+    const state = { width: 800, height: 600 };
     const action = new HostWindowResizeAction(1024, 768);
     const newState = hostWindowReducer(state, action);
 
     expect(newState.width).toEqual(1024);
     expect(newState.height).toEqual(768);
-    expect(newState.breakPoint).toEqual('lg');
   });
 
   it("should perform the RESIZE action without affecting the previous state", () => {
-    const state = { width: 800, height: 600, breakPoint: 'md' };
+    const state = { width: 800, height: 600 };
     deepFreeze(state);
 
     const action = new HostWindowResizeAction(1024, 768);

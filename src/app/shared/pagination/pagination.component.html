@@ -23,10 +23,10 @@
                   [collectionSize]="collectionSize"
                   [disabled]="paginationOptions.disabled"
                   [ellipses]="paginationOptions.ellipses"
-                  [maxSize]="(windowBreakPoint.breakPoint == 'xs')?5:paginationOptions.maxSize"
+                  [maxSize]="(isXs)?5:paginationOptions.maxSize"
                   [(page)]="currentPage"
                   (pageChange)="doPageChange($event)"
                   [pageSize]="pageSize"
                   [rotate]="paginationOptions.rotate"
-                  [size]="(windowBreakPoint.breakPoint == 'xs')?'sm':paginationOptions.size"></ngb-pagination>
+                  [size]="(isXs)?'sm':paginationOptions.size"></ngb-pagination>
 </div>

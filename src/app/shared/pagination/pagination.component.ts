@@ -11,11 +11,11 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { isNumeric } from "rxjs/util/isNumeric";
 import 'rxjs/add/operator/switchMap';
-import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 // It is necessary to use ng2-pagination
 import { DEFAULT_TEMPLATE, DEFAULT_STYLES } from 'ng2-pagination/dist/template';
 
+import { HostWindowService } from "../host-window.service";
 import { HostWindowState } from "../host-window.reducer";
 import { PaginationOptions } from '../../core/cache/models/pagination-options.model';
 
@@ -70,6 +70,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
   private id: string;
 
   /**
+   * A boolean that indicate if is an extra small devices viewport.
+   */
+  public isXs: boolean;
+
+  /**
    * Number of items per page.
    */
   public pageSize: number = 10;
@@ -103,17 +108,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
   private stateSubscription: any;
 
   /**
-   * Contains current HostWindowState
-   */
-  public windowBreakPoint: HostWindowState;
-
-  /**
    * Method provided by Angular. Invoked after the constructor.
    */
   ngOnInit() {
-    this.stateSubscription = this.hostWindow.subscribe((state: HostWindowState) => {
-      this.windowBreakPoint = state;
-    });
+    this.stateSubscription = this.hostWindowService.isXs()
+      .subscribe((status: boolean) => {
+        this.isXs = status;
+      });
     this.checkConfig(this.paginationOptions);
     this.id = this.paginationOptions.id || null;
     this.currentPage = this.paginationOptions.currentPage;
@@ -150,9 +151,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<HostWindowState>
+    public hostWindowService: HostWindowService
   ){
-    this.hostWindow = this.store.select<HostWindowState>('hostWindow');
   }
 
   /**
@@ -231,8 +231,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The paginate options object.
    */
   private checkConfig(paginateOptions: any) {
-    var required = ['id', 'currentPage', 'pageSize', 'pageSizeOptions'];
-    var missing = required.filter(function (prop) { return !(prop in paginateOptions); });
+    let required = ['id', 'currentPage', 'pageSize', 'pageSizeOptions'];
+    let missing = required.filter(function (prop) { return !(prop in paginateOptions); });
     if (0 < missing.length) {
       throw new Error("Paginate: Argument is missing the following required properties: " + missing.join(', '));
     }
