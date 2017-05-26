@@ -56,7 +56,7 @@ function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
     if (classIndicator === '+') {
       expect(pages[i].classList.contains("active")).toBeTruthy();
       expect(pages[i].classList.contains("disabled")).toBeFalsy();
-      expect(normalizeText(pages[i].textContent)).toEqual(pageDef.substr(1) + ' (current)');
+      expect(normalizeText(pages[i].textContent)).toEqual(pageDef.substr(1));
     } else if (classIndicator === '-') {
       expect(pages[i].classList.contains("active")).toBeFalsy();
       expect(pages[i].classList.contains("disabled")).toBeTruthy();
@@ -178,44 +178,44 @@ describe('Pagination component', () => {
     expect(testComp.paginationOptions.id).toEqual('test');
     expect(testComp.paginationOptions.currentPage).toEqual(1);
     expect(testComp.paginationOptions.pageSize).toEqual(10);
-    expectPages(testFixture, ['-«', '+1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '»']);
+    expectPages(testFixture, ['-« Previous', '+1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '» Next']);
   });
 
   it('should render and respond to page change', () => {
     testComp.collectionSize = 30;
 
     changePage(testFixture, 3);
-    expectPages(testFixture, ['«', '1', '2', '+3', '-»']);
+    expectPages(testFixture, ['« Previous', '1', '2', '+3', '-» Next']);
 
     changePage(testFixture, 0);
-    expectPages(testFixture, ['«', '1', '+2', '3', '»']);
+    expectPages(testFixture, ['« Previous', '1', '+2', '3', '» Next']);
   });
 
   it('should render and respond to collectionSize change', () => {
 
     testComp.collectionSize = 30;
     testFixture.detectChanges();
-    expectPages(testFixture, ['-«', '+1', '2', '3', '»']);
+    expectPages(testFixture, ['-« Previous', '+1', '2', '3', '» Next']);
 
     testComp.collectionSize = 40;
     testFixture.detectChanges();
-    expectPages(testFixture, ['-«', '+1', '2', '3', '4', '»']);
+    expectPages(testFixture, ['-« Previous', '+1', '2', '3', '4', '» Next']);
   });
 
   it('should render and respond to pageSize change', () => {
 
     testComp.collectionSize = 30;
     testFixture.detectChanges();
-    expectPages(testFixture, ['-«', '+1', '2', '3', '»']);
+    expectPages(testFixture, ['-« Previous', '+1', '2', '3', '» Next']);
 
     changePageSize(testFixture, '5');
-    expectPages(testFixture, ['-«', '+1', '2', '3', '4', '5', '6', '»']);
+    expectPages(testFixture, ['-« Previous', '+1', '2', '3', '4', '5', '6', '» Next']);
 
     changePageSize(testFixture, '10');
-    expectPages(testFixture, ['-«', '+1', '2', '3', '»']);
+    expectPages(testFixture, ['-« Previous', '+1', '2', '3', '» Next']);
 
     changePageSize(testFixture, '20');
-    expectPages(testFixture, ['-«', '+1', '2', '»']);
+    expectPages(testFixture, ['-« Previous', '+1', '2', '» Next']);
   });
 
   it('should emit pageChange event with correct value', fakeAsync(() => {
@@ -267,7 +267,7 @@ describe('Pagination component', () => {
 
     testFixture.detectChanges();
 
-    expectPages(testFixture, ['«', '1', '+2', '3', '4', '5', '»']);
+    expectPages(testFixture, ['« Previous', '1', '+2', '3', '4', '5', '» Next']);
     expect(testComp.paginationOptions.currentPage).toEqual(2);
     expect(testComp.paginationOptions.pageSize).toEqual(20);
 
@@ -279,7 +279,7 @@ describe('Pagination component', () => {
 
     testFixture.detectChanges();
 
-    expectPages(testFixture, ['«', '1', '2', '+3', '-»']);
+    expectPages(testFixture, ['« Previous', '1', '2', '+3', '-» Next']);
     expect(testComp.paginationOptions.currentPage).toEqual(3);
     expect(testComp.paginationOptions.pageSize).toEqual(40);
   });
@@ -294,7 +294,7 @@ describe('Pagination component', () => {
     hostWindowServiceStub.isXs().subscribe((status) => {
       paginationComponent.isXs = status;
       testFixture.detectChanges();
-      expectPages(testFixture, ['-«', '+1', '2', '3', '4', '5', '-...', '10', '»']);
+      expectPages(testFixture, ['-« Previous', '+1', '2', '3', '4', '5', '-...', '10', '» Next']);
       de = testFixture.debugElement.query(By.css('ul.pagination'));
       expect(de.nativeElement.classList.contains("pagination-sm")).toBeTruthy();
     });

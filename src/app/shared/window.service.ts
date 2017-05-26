@@ -13,6 +13,6 @@ export class NativeWindowRef {
 }
 
 export function NativeWindowFactory() {
-  return  new NativeWindowRef();
+  return new NativeWindowRef();
 }
 
