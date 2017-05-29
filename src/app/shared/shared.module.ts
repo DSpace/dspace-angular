@@ -3,13 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { Ng2PaginationModule } from 'ng2-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ApiService } from './api.service';
+import { PaginationComponent } from "./pagination/pagination.component";
 import { FileSizePipe } from "./utils/file-size-pipe";
 import { ThumbnailComponent } from "../thumbnail/thumbnail.component";
 import { SafeUrlPipe } from "./utils/safe-url-pipe";
+import { HostWindowService } from "./host-window.service";
+import { NativeWindowFactory, NativeWindowService } from "./window.service";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -18,6 +22,7 @@ const MODULES = [
   TranslateModule,
   FormsModule,
   ReactiveFormsModule,
+  Ng2PaginationModule,
   NgbModule
 ];
 
@@ -28,12 +33,15 @@ const PIPES = [
 ];
 
 const COMPONENTS = [
-  ThumbnailComponent
   // put shared components here
+  PaginationComponent,
+  ThumbnailComponent
 ];
 
 const PROVIDERS = [
-  ApiService
+  ApiService,
+  HostWindowService,
+  { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
 @NgModule({
@@ -48,6 +56,9 @@ const PROVIDERS = [
     ...MODULES,
     ...PIPES,
     ...COMPONENTS
+  ],
+  providers: [
+    ...PROVIDERS
   ]
 })
 export class SharedModule {

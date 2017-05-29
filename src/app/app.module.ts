@@ -23,7 +23,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
     HomeModule,
     ItemPageModule,
     CoreModule.forRoot(),
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [
   ]
