@@ -1,0 +1,16 @@
+<div class="item-page" *ngIf="item.hasSucceeded | async">
+    <ds-item-page-title-field [item]="item.payload | async"></ds-item-page-title-field>
+    <table class="table table-responsive table-striped">
+        <tbody>
+            <tr *ngFor="let metadatum of (metadata | async)">
+                  <td>{{metadatum.key}}</td>
+                  <td>{{metadatum.value}}</td>
+                  <td>{{metadatum.language}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ds-item-page-full-file-section [item]="item.payload | async"></ds-item-page-full-file-section>
+
+    <ds-item-page-collections [item]="item.payload | async"></ds-item-page-collections>
+</div>

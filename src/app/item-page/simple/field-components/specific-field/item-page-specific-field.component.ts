@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Item } from "../../../core/shared/item.model";
+import { Component, Input } from '@angular/core';
+import { Item } from "../../../../core/shared/item.model";
 
 /**
  * This component can be used to represent metadata on a simple item page.

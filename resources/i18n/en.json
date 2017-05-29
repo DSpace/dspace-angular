@@ -12,6 +12,7 @@
       "date": "Date",
       "uri": "URI",
       "files": "Files",
+      "downloads": "Downloads",
       "collections": "Collections"
     }
   },

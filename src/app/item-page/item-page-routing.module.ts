@@ -8,7 +8,7 @@ import { FullItemPageComponent } from './full/full-item-page.component';
     imports: [
         RouterModule.forChild([
             { path: 'items/:id', pathMatch: 'full', component: ItemPageComponent },
-            { path: 'items/:id/full', pathMatch: 'full', component: FullItemPageComponent },
+            { path: 'items/:id/full', component: FullItemPageComponent },
         ])
     ]
 })

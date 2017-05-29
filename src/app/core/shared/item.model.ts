@@ -60,6 +60,29 @@ export class Item extends DSpaceObject {
     }
 
     /**
+     * Retrieves the thumbnail for the given original of this item
+     * @returns {Observable<Bitstream>} the primaryBitstream of the "THUMBNAIL" bundle
+     */
+    getThumbnailForOriginal(original: Observable<Bitstream>): Observable<Bitstream> { //returns obs of obs of bitstream instead...
+        const bundle: Observable<Bundle> = this.getBundle("THUMBNAIL");
+        return bundle.map(
+            bundle => {
+                if (bundle != null) {
+                    return bundle.bitstreams.find(
+                        file => {
+                            return Observable.combineLatest(
+                                original,
+                                file.payload,
+                                (original, thumbnail) => {
+                                    return (thumbnail.name.startsWith(original.name));
+                                });
+                        });
+                }
+            }
+        );
+    }
+
+    /**
      * Retrieves all files that should be displayed on the item page of this item
      * @returns {Observable<Array<Observable<Bitstream>>>} an array of all Bitstreams in the "ORIGINAL" bundle
      */

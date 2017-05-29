@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Item } from "../../core/shared/item.model";
-import { RemoteData } from "../../core/data/remote-data";
+import { Component } from '@angular/core';
 import { Observable } from "rxjs";
-import { Bitstream } from "../../core/shared/bitstream.model";
 import { ItemPageComponent } from "../simple/item-page.component";
 import { Metadatum } from "../../core/shared/metadatum.model";
+import { ItemDataService } from "../../core/data/item-data.service";
+import { ActivatedRoute } from "@angular/router";
+import { RemoteData } from "../../core/data/remote-data";
+import { Item } from "../../core/shared/item.model";
 
 /**
  * This component renders a simple item page.
@@ -19,7 +20,13 @@ import { Metadatum } from "../../core/shared/metadatum.model";
 })
 export class FullItemPageComponent extends ItemPageComponent {
 
-    metadata: Array<Metadatum>;
+    item: RemoteData<Item>;
+
+    metadata: Observable<Array<Metadatum>>;
+
+    constructor(route: ActivatedRoute, items: ItemDataService) {
+        super(route, items);
+    }
 
     universalInit() {
 
@@ -27,7 +34,7 @@ export class FullItemPageComponent extends ItemPageComponent {
 
     initialize(params) {
         super.initialize(params);
-        this.metadata = this.item.payload.flatMap(i => i.metadata);
+        this.metadata = this.item.payload.map(i => i.metadata);
     }
 
 }

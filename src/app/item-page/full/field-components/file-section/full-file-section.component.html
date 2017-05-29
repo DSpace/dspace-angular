@@ -1,0 +1,11 @@
+<ds-metadata-field-wrapper [label]="label | translate">
+    <div class="file-section row" *ngFor="let file of (files | async); let last=last;">
+        <ds-thumbnail [thumbnail]="thumbnails[(file | async)?.id] | async"></ds-thumbnail>
+        <div>{{(file | async)?.name}}</div>
+        <div>{{(file | async)?.findMetadata("dc.description")}}</div>
+        <div>{{((file | async)?.size) | dsFileSize }}</div>
+        <a [href]="(file | async)?.retrieve">
+            {{"item.page.download" | translate}}
+        </a>
+    </div>
+</ds-metadata-field-wrapper>
