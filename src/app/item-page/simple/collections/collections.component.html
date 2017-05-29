@@ -1,7 +1,7 @@
 <ds-metadata-field-wrapper [label]="label | translate">
     <div class="collections">
-        <a *ngFor="let collection of collections; let last=last;" [href]="(collection | async)?.self">
-            <span>{{(collection | async)?.name}}</span><span *ngIf="!last" [innerHTML]="separator"></span>
+        <a *ngFor="let collection of (collections | async); let last=last;" [href]="collection?.self">
+            <span>{{collection?.name}}</span><span *ngIf="!last" [innerHTML]="separator"></span>
         </a>
     </div>
 </ds-metadata-field-wrapper>

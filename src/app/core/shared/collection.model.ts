@@ -58,13 +58,13 @@ export class Collection extends DSpaceObject {
   /**
    * An array of Collections that are direct parents of this Collection
    */
-  parents: Array<RemoteData<Collection>>;
+  parents: RemoteData<Collection[]>;
 
   /**
    * The Collection that owns this Collection
    */
   owner: Collection;
 
-  items: Array<RemoteData<Item>>;
+  items: RemoteData<Item[]>;
 
 }

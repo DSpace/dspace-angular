@@ -20,7 +20,7 @@ export class CollectionsComponent implements OnInit {
 
     separator: string = "<br/>"
 
-    collections: Array<Observable<Collection>>;
+    collections: Observable<Collection[]>;
 
     constructor() {
         this.universalInit();
@@ -31,7 +31,7 @@ export class CollectionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.collections = this.item.getCollections();
+        this.collections = this.item.parents.payload;
     }
 
 

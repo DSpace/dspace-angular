@@ -20,7 +20,7 @@ export class FileSectionComponent implements OnInit {
 
   separator: string = "<br/>"
 
-  files: Observable<Array<Observable<Bitstream>>>;
+  files: Observable<Bitstream[]>;
 
   constructor() {
     this.universalInit();

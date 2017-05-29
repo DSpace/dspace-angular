@@ -38,7 +38,7 @@ export abstract class DSpaceObject implements CacheableObject {
     /**
      * An array of DSpaceObjects that are direct parents of this DSpaceObject
      */
-    parents: Array<RemoteData<DSpaceObject>>;
+    parents: RemoteData<DSpaceObject[]>;
 
     /**
      * The DSpaceObject that owns this DSpaceObject
