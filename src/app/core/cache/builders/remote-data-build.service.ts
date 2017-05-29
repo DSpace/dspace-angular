@@ -153,4 +153,45 @@ export class RemoteDataBuildService {
     const domainModel = getMapsTo(normalized.constructor);
     return Object.assign(new domainModel(), normalized, links);
   }
+
+  aggregate<T>(input: RemoteData<T>[]): RemoteData<T[]> {
+    const requestPending: Observable<boolean> = <Observable<boolean>> Observable.combineLatest(
+      ...input.map(rd => rd.isRequestPending),
+      (...pendingArray) => pendingArray.every(e => e === true)
+    ).distinctUntilChanged();
+    const responsePending: Observable<boolean> = <Observable<boolean>> Observable.combineLatest(
+      ...input.map(rd => rd.isResponsePending),
+      (...pendingArray) => pendingArray.every(e => e === true)
+    ).distinctUntilChanged();
+    const isSuccessFul: Observable<boolean> = <Observable<boolean>> Observable.combineLatest(
+      ...input.map(rd => rd.hasSucceeded),
+      (...successArray) => successArray.every(e => e === true)
+    ).distinctUntilChanged();
+    const errorMessage: Observable<string> = <Observable<string>> Observable.combineLatest(
+      ...input.map(rd => rd.errorMessage),
+      (...errors) => errors
+        .map((e, idx) => {
+          if (hasValue(e)) {
+            return `[${idx}]: ${e}`;
+          }
+        })
+        .filter(e => hasValue(e))
+        .join(", ")
+    );
+    const payload = <Observable<T[]>> Observable.combineLatest(
+      ...input.map(rd => rd.payload)
+    );
+
+    return new RemoteData(
+      // This is an aggregated object, it doesn't necessarily correspond
+      // to a single REST endpoint, so instead of a self link, use the
+      // current time in ms for a somewhat unique id
+      `${new Date().getTime()}`,
+      requestPending,
+      responsePending,
+      isSuccessFul,
+      errorMessage,
+      payload
+    );
+  }
 }
