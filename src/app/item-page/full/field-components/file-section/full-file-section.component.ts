@@ -3,6 +3,7 @@ import { Bitstream } from "../../../../core/shared/bitstream.model";
 import { Item } from "../../../../core/shared/item.model";
 import { Observable } from "rxjs";
 import { FileSectionComponent } from "../../../simple/field-components/file-section/file-section.component";
+import { hasValue } from "../../../../shared/empty.util";
 
 /**
  * This component renders the file section of the item
@@ -11,13 +12,17 @@ import { FileSectionComponent } from "../../../simple/field-components/file-sect
 
 @Component({
     selector: 'ds-item-page-full-file-section',
+    styleUrls: ['./full-file-section.component.css'],
     templateUrl: './full-file-section.component.html'
 })
-export class FullFileSectionComponent extends FileSectionComponent implements OnInit {
+export class FullFileSectionComponent extends FileSectionComponent {
 
     @Input() item: Item;
 
-    files: Observable<Array<Observable<Bitstream>>>;
+    label : string;
+
+    files: Observable<Bitstream[]>;
+
 
     thumbnails: Map<string,  Observable<Bitstream>> = new Map();
 
@@ -25,20 +30,17 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     universalInit() {
     }
 
-    ngOnInit(): void {
-        super.ngOnInit();
+    initialize(): void {
+        const originals = this.item.getFiles("ORIGINAL");
+        const licenses = this.item.getFiles("LICENSE");
+        licenses.subscribe(licenses => console.log(licenses));
+        this.files = Observable.combineLatest(originals, licenses, (originals, licenses) => [...originals, ...licenses]);
         this.files.subscribe(
             files =>
                 files.forEach(
-                    file => {
-                        file.subscribe(
-                            original => {
-                                const thumbnail : Observable<Bitstream> = this.item.getThumbnailForOriginal(file);
-                                thumbnail.subscribe(t =>
-                                    console.log("TESTTTT" , t));
-                                this.thumbnails.set(original.id, thumbnail);
-                            }
-                        );
+                    original => {
+                        const thumbnail: Observable<Bitstream> = this.item.getThumbnailForOriginal(original);
+                        this.thumbnails.set(original.id, thumbnail);
                     }
                 )
         )

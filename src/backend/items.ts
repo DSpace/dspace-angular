@@ -18,6 +18,9 @@ export const ITEMS = [
         },
         {
           "href": "/bundles/5687"
+        },
+        {
+          "href": "/bundles/8475"
         }
       ]
     },
@@ -109,9 +112,9 @@ export const ITEMS = [
         {
           "href": "/bundles/2355"
         },
-        // {
-        //   "href": "/bundles/5687"
-        // }
+        {
+          "href": "/bundles/5687"
+        }
       ]
     },
     "id": "9978",

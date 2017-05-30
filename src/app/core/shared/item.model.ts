@@ -47,50 +47,40 @@ export class Item extends DSpaceObject {
      */
     getThumbnail(): Observable<Bitstream> {
         const bundle: Observable<Bundle> = this.getBundle("THUMBNAIL");
-        return bundle.flatMap(
-            bundle => {
-                if (bundle != null) {
-                    return bundle.primaryBitstream.payload;
-                }
-                else {
-                    return Observable.of(undefined);
-                }
-            }
-        );
+        return bundle
+            .filter(bundle => hasValue(bundle))
+            .flatMap(bundle => bundle.primaryBitstream.payload)
+            .startWith(undefined);
     }
 
     /**
      * Retrieves the thumbnail for the given original of this item
      * @returns {Observable<Bitstream>} the primaryBitstream of the "THUMBNAIL" bundle
      */
-    getThumbnailForOriginal(original: Observable<Bitstream>): Observable<Bitstream> { //returns obs of obs of bitstream instead...
+    getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> { //returns obs of obs of bitstream instead...
         const bundle: Observable<Bundle> = this.getBundle("THUMBNAIL");
-        return bundle.map(
-            bundle => {
-                if (bundle != null) {
-                    return bundle.bitstreams.find(
-                        file => {
-                            return Observable.combineLatest(
-                                original,
-                                file.payload,
-                                (original, thumbnail) => {
-                                    return (thumbnail.name.startsWith(original.name));
-                                });
-                        });
-                }
-            }
-        );
+        return bundle
+            .filter(bundle => hasValue(bundle))
+            .flatMap(bundle => bundle
+                .bitstreams.payload.map(files => files
+                    .find(thumbnail => thumbnail
+                        .name.startsWith(original.name)
+                    )
+                )
+            )
+            .startWith(undefined);;
     }
 
     /**
      * Retrieves all files that should be displayed on the item page of this item
      * @returns {Observable<Array<Observable<Bitstream>>>} an array of all Bitstreams in the "ORIGINAL" bundle
      */
-    getFiles(): Observable<Bitstream[]> {
-        const bundle: Observable <Bundle> = this.getBundle("ORIGINAL");
+    getFiles(name: String = "ORIGINAL"): Observable<Bitstream[]> {
+        const bundle: Observable <Bundle> = this.getBundle(name);
         return bundle
-          .filter(bundle => hasValue(bundle))
-          .flatMap(bundle => bundle.bitstreams.payload);
+            .filter(bundle => hasValue(bundle))
+            .flatMap(bundle => bundle.bitstreams.payload)
+            .startWith([]);
     }
 
     /**
@@ -105,7 +95,8 @@ export class Item extends DSpaceObject {
                 return bundles.find((bundle: Bundle) => {
                     return bundle.name === name
                 });
-            });
+            })
+            .startWith(undefined);
     }
 
 }

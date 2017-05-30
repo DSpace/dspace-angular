@@ -12,8 +12,14 @@
       "date": "Date",
       "uri": "URI",
       "files": "Files",
-      "downloads": "Downloads",
-      "collections": "Collections"
+      "collections": "Collections",
+      "filesection": {
+        "download": "Download",
+        "name": "Name:",
+        "format": "Format:",
+        "size": "Size:",
+        "description": "Description:"
+      }
     }
   },
 

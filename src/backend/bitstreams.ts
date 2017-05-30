@@ -42,5 +42,26 @@ export const BITSTREAMS = [
     ],
     "format": "JPEG",
     "mimetype": "image/jpeg"
+  },
+  {
+    "_links": {
+      "self": { "href": "/bitstreams/8934" },
+      "bundle": { "href": "/bundles/99f78e5e-3677-43b0-aaef-cddaa1a49092" },
+      "retrieve": { "href": "/rest/bitstreams/ba7d24f2-8fc7-4b8e-b7b6-6c32be1c12a6/retrieve" }
+    },
+    "id": "8934",
+    "uuid": "ba7d24f2-8fc7-4b8e-b7b6-6c32be1c12a6",
+    "name": "license.txt",
+    "size": 41183,
+    "checksum": {
+      "value": "8ad416e8a39e645020e13e06f1427814",
+      "algorithm": "MD5"
+    },
+    "metadata": [
+      { "key": "dc.title", "value": "license.txt", "language": null },
+      { "key": "dc.description", "value": "License", "language": "en" }
+    ],
+    "format": "Text",
+    "mimetype": "text/plain"
   }
 ];

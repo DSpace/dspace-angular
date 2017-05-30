@@ -24,15 +24,17 @@ export class FileSectionComponent implements OnInit {
 
   constructor() {
     this.universalInit();
-
   }
 
   universalInit() {
   }
 
   ngOnInit(): void {
-    this.files = this.item.getFiles();
+    this.initialize();
   }
 
+  initialize(): void {
+    this.files = this.item.getFiles();
+  }
 
 }
