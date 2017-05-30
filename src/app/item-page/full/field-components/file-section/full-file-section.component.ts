@@ -33,7 +33,6 @@ export class FullFileSectionComponent extends FileSectionComponent {
     initialize(): void {
         const originals = this.item.getFiles("ORIGINAL");
         const licenses = this.item.getFiles("LICENSE");
-        licenses.subscribe(licenses => console.log(licenses));
         this.files = Observable.combineLatest(originals, licenses, (originals, licenses) => [...originals, ...licenses]);
         this.files.subscribe(
             files =>
