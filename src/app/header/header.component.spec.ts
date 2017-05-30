@@ -58,7 +58,7 @@ describe('HeaderComponent', () => {
     });
 
     it("should close the menu", () => {
-      expect(menu.classList).not.toContain('in');
+      expect(menu.classList).not.toContain('show');
     });
 
   });
@@ -73,7 +73,7 @@ describe('HeaderComponent', () => {
     });
 
     it("should open the menu", () => {
-      expect(menu.classList).toContain('in');
+      expect(menu.classList).toContain('show');
     });
 
   });

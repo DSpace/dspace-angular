@@ -22,6 +22,7 @@ import { HostWindowResizeAction } from "./shared/host-window.actions";
 import { MockTranslateLoader } from "./shared/testing/mock-translate-loader";
 
 import { GLOBAL_CONFIG, EnvConfig } from '../config';
+import { NativeWindowRef, NativeWindowService } from "./shared/window.service";
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -42,6 +43,7 @@ describe('App component', () => {
       declarations: [AppComponent], // declare the test component
       providers: [
         { provide: GLOBAL_CONFIG, useValue: EnvConfig },
+        { provide: NativeWindowService, useValue: new NativeWindowRef() },
         AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
