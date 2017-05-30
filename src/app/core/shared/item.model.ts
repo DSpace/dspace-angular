@@ -57,7 +57,7 @@ export class Item extends DSpaceObject {
      * Retrieves the thumbnail for the given original of this item
      * @returns {Observable<Bitstream>} the primaryBitstream of the "THUMBNAIL" bundle
      */
-    getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> { //returns obs of obs of bitstream instead...
+    getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> {
         const bundle: Observable<Bundle> = this.getBundle("THUMBNAIL");
         return bundle
             .filter(bundle => hasValue(bundle))
