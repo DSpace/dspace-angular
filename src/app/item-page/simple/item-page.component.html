@@ -8,6 +8,11 @@
             <ds-item-page-file-section [item]="item.payload | async"></ds-item-page-file-section>
             <ds-item-page-date-field [item]="item.payload | async"></ds-item-page-date-field>
             <ds-item-page-author-field [item]="item.payload | async"></ds-item-page-author-field>
+            <div>
+                <a [routerLink]="['/items/' + (item.payload | async)?.id + '/full']">
+                    {{"item.page.link.full" | translate}}
+                </a>
+            </div>
         </div>
         <div class="col-xs-12 col-md-6">
             <ds-item-page-abstract-field
@@ -15,5 +20,6 @@
             <ds-item-page-uri-field [item]="item.payload | async"></ds-item-page-uri-field>
             <ds-item-page-collections [item]="item.payload | async"></ds-item-page-collections>
         </div>
+
     </div>
 </div>

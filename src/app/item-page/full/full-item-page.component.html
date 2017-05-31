@@ -13,4 +13,10 @@
     <ds-item-page-full-file-section [item]="item.payload | async"></ds-item-page-full-file-section>
 
     <ds-item-page-collections [item]="item.payload | async"></ds-item-page-collections>
+
+    <div>
+        <a [routerLink]="['/items/' + (item.payload | async)?.id]">
+            {{"item.page.link.simple" | translate}}
+        </a>
+    </div>
 </div>

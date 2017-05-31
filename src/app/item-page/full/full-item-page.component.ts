@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { ItemPageComponent } from "../simple/item-page.component";
 import { Metadatum } from "../../core/shared/metadatum.model";
@@ -18,7 +18,7 @@ import { Item } from "../../core/shared/item.model";
     styleUrls: ['./full-item-page.component.css'],
     templateUrl: './full-item-page.component.html',
 })
-export class FullItemPageComponent extends ItemPageComponent {
+export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
     item: RemoteData<Item>;
 
@@ -30,6 +30,11 @@ export class FullItemPageComponent extends ItemPageComponent {
 
     universalInit() {
 
+    }
+
+    /*** AoT inheritance fix, will hopefully be resolved in the near future **/
+    ngOnInit(): void {
+        super.ngOnInit();
     }
 
     initialize(params) {

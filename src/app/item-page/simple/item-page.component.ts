@@ -45,6 +45,7 @@ export class ItemPageComponent implements OnInit {
     initialize(params) {
         this.id = +params['id'];
         this.item = this.items.findById(params['id']);
+        console.log(this.item.payload);
         this.thumbnail = this.item.payload.flatMap(i => i.getThumbnail());
     }
 
