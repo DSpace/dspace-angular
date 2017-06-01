@@ -25,6 +25,7 @@ export abstract class NormalizedDSpaceObject implements CacheableObject {
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
+  @autoserialize
   type: string;
 
   /**

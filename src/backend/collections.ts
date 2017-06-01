@@ -9,6 +9,7 @@ export const COLLECTIONS = [
     },
     "id": "5179",
     "uuid": "9e32a2e2-6b91-4236-a361-995ccdc14c60",
+    "type": "collection",
     "name": "A Test Collection",
     "handle": "123456789/5179",
     "metadata": [
@@ -44,6 +45,7 @@ export const COLLECTIONS = [
     },
     "id": "6547",
     "uuid": "598ce822-c357-46f3-ab70-63724d02d6ad",
+    "type": "collection",
     "name": "Another Test Collection",
     "handle": "123456789/6547",
     "metadata": [
