@@ -1,5 +1,12 @@
 <div class="item-page" *ngIf="item.hasSucceeded | async">
     <ds-item-page-title-field [item]="item.payload | async"></ds-item-page-title-field>
+
+    <div class="simple-view-link">
+        <a class="btn btn-secondary col-4" [routerLink]="['/items/' + (item.payload | async)?.id]">
+            {{"item.page.link.simple" | translate}}
+        </a>
+    </div>
+
     <table class="table table-responsive table-striped">
         <tbody>
             <tr *ngFor="let metadatum of (metadata | async)">
@@ -14,9 +21,5 @@
 
     <ds-item-page-collections [item]="item.payload | async"></ds-item-page-collections>
 
-    <div>
-        <a [routerLink]="['/items/' + (item.payload | async)?.id]">
-            {{"item.page.link.simple" | translate}}
-        </a>
-    </div>
+
 </div>
