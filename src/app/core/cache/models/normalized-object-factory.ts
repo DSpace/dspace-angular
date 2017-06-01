@@ -4,25 +4,25 @@ import { NormalizedBundle } from "./normalized-bundle.model";
 import { NormalizedItem } from "./normalized-item.model";
 import { NormalizedCollection } from "./normalized-collection.model";
 import { GenericConstructor } from "../../shared/generic-constructor";
-import { NormalizedDSOType } from "./normalized-dspace-object-type";
 import { NormalizedCommunity } from "./normalized-community.model";
+import { ResourceType } from "../../shared/resource-type";
 
-export class NormalizedDSOFactory {
-  public static getConstructor(type: NormalizedDSOType): GenericConstructor<NormalizedDSpaceObject> {
+export class NormalizedObjectFactory {
+  public static getConstructor(type: ResourceType): GenericConstructor<NormalizedDSpaceObject> {
     switch (type) {
-      case NormalizedDSOType.NormalizedBitstream: {
+      case ResourceType.Bitstream: {
         return NormalizedBitstream
       }
-      case NormalizedDSOType.NormalizedBundle: {
+      case ResourceType.Bundle: {
         return NormalizedBundle
       }
-      case NormalizedDSOType.NormalizedItem: {
+      case ResourceType.Item: {
         return NormalizedItem
       }
-      case NormalizedDSOType.NormalizedCollection: {
+      case ResourceType.Collection: {
         return NormalizedCollection
       }
-      case NormalizedDSOType.NormalizedCommunity: {
+      case ResourceType.Community: {
         return NormalizedCommunity
       }
       default: {

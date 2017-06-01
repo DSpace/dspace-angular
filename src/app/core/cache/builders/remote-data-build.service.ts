@@ -13,7 +13,8 @@ import { Observable } from "rxjs/Observable";
 import { RemoteData } from "../../data/remote-data";
 import { GenericConstructor } from "../../shared/generic-constructor";
 import { getMapsTo, getResourceType, getRelationships } from "./build-decorators";
-import { NormalizedDSOFactory } from "../models/normalized-dspace-object-factory";
+import { NormalizedObjectFactory } from "../models/normalized-object-factory";
+import { Request } from "../../data/request.models";
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -124,13 +125,13 @@ export class RemoteDataBuildService {
     relationships.forEach((relationship: string) => {
       if (hasValue(normalized[relationship])) {
         const resourceType = getResourceType(normalized, relationship);
-        const resourceConstructor = NormalizedDSOFactory.getConstructor(resourceType);
+        const resourceConstructor = NormalizedObjectFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
           // without the setTimeout, the actions inside requestService.configure
           // are dispatched, but sometimes don't arrive. I'm unsure why atm.
           setTimeout(() => {
             normalized[relationship].forEach((href: string) => {
-              this.requestService.configure(href, resourceConstructor)
+              this.requestService.configure(new Request(href))
             });
           }, 0);
 
@@ -142,7 +143,7 @@ export class RemoteDataBuildService {
           // without the setTimeout, the actions inside requestService.configure
           // are dispatched, but sometimes don't arrive. I'm unsure why atm.
           setTimeout(() => {
-            this.requestService.configure(normalized[relationship], resourceConstructor);
+            this.requestService.configure(new Request(normalized[relationship]));
           },0);
 
           links[relationship] = this.buildSingle(normalized[relationship], resourceConstructor);

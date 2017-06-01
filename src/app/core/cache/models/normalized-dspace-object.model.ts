@@ -1,6 +1,7 @@
 import { autoserialize, autoserializeAs } from "cerialize";
 import { CacheableObject } from "../object-cache.reducer";
 import { Metadatum } from "../../shared/metadatum.model";
+import { ResourceType } from "../../shared/resource-type";
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -26,7 +27,7 @@ export abstract class NormalizedDSpaceObject implements CacheableObject {
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
   @autoserialize
-  type: string;
+  type: ResourceType;
 
   /**
    * The name for this DSpaceObject
@@ -49,5 +50,6 @@ export abstract class NormalizedDSpaceObject implements CacheableObject {
   /**
    * The DSpaceObject that owns this DSpaceObject
    */
+  @autoserialize
   owner: string;
 }

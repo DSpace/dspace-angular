@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { GenericConstructor } from "../../shared/generic-constructor";
 import { CacheableObject } from "../object-cache.reducer";
-import { NormalizedDSOType } from "../models/normalized-dspace-object-type";
+import { ResourceType } from "../../shared/resource-type";
 
 const mapsToMetadataKey = Symbol("mapsTo");
 const relationshipKey = Symbol("relationship");
@@ -16,7 +16,7 @@ export const getMapsTo = function(target: any) {
   return Reflect.getOwnMetadata(mapsToMetadataKey, target);
 };
 
-export const relationship = function(value: NormalizedDSOType): any {
+export const relationship = function(value: ResourceType): any {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     if (!target || !propertyKey) {
       return;
