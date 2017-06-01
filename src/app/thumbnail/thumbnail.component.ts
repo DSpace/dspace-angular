@@ -1,6 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Bitstream } from "../core/shared/bitstream.model";
 
+/**
+ * This component renders a given Bitstream as a thumbnail.
+ * One input parameter of type Bitstream is expected.
+ * If no Bitstream is provided, a holderjs image will be rendered instead.
+ */
+
 @Component({
     selector: 'ds-thumbnail',
     styleUrls: ['./thumbnail.component.css'],
