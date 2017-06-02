@@ -15,7 +15,7 @@ import { hasValue } from "../../../../shared/empty.util";
     styleUrls: ['./full-file-section.component.css'],
     templateUrl: './full-file-section.component.html'
 })
-export class FullFileSectionComponent extends FileSectionComponent {
+export class FullFileSectionComponent extends FileSectionComponent implements OnInit {
 
     @Input() item: Item;
 
@@ -28,6 +28,10 @@ export class FullFileSectionComponent extends FileSectionComponent {
 
 
     universalInit() {
+    }
+
+    ngOnInit(): void {
+        super.ngOnInit();
     }
 
     initialize(): void {
