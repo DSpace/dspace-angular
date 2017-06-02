@@ -9,8 +9,12 @@ export class SuccessResponse extends Response {
 }
 
 export class ErrorResponse extends Response {
-  constructor(public errorMessage: string) {
+  errorMessage: string;
+
+  constructor(error: Error) {
     super(false);
+    console.error(error);
+    this.errorMessage = error.message;
   }
 }
 

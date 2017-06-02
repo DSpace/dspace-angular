@@ -8,7 +8,7 @@ import { DSpaceRESTv2Serializer } from "../dspace-rest-v2/dspace-rest-v2.seriali
 import { CacheableObject } from "../cache/object-cache.reducer";
 import { Observable } from "rxjs";
 import { Response, SuccessResponse, ErrorResponse } from "../cache/response-cache.models";
-import { hasNoValue } from "../../shared/empty.util";
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from "../../shared/empty.util";
 import { GlobalConfig, GLOBAL_CONFIG } from "../../../config";
 import { RequestState, RequestEntry } from "./request.reducer";
 import {
@@ -17,6 +17,12 @@ import {
 } from "./request.actions";
 import { ResponseCacheService } from "../cache/response-cache.service";
 import { RequestService } from "./request.service";
+import { NormalizedObjectFactory } from "../cache/models/normalized-object-factory";
+import { ResourceType } from "../shared/resource-type";
+
+function isObjectLevel(halObj: any) {
+  return isNotEmpty(halObj._links) && hasValue(halObj._links.self);
+}
 
 @Injectable()
 export class RequestEffects {
@@ -38,29 +44,86 @@ export class RequestEffects {
         .take(1);
     })
     .flatMap((entry: RequestEntry) => {
-      const [ifArray, ifNotArray] = this.restApi.get(entry.request.href)
-        .share() // share ensures restApi.get() doesn't get called twice when the partitions are used below
-        .partition((data: DSpaceRESTV2Response) => Array.isArray(data._embedded));
-
-      return Observable.merge(
-
-        ifArray.map((data: DSpaceRESTV2Response) => {
-          return new DSpaceRESTv2Serializer(entry.request.resourceType).deserializeArray(data);
-        }).do((cos: CacheableObject[]) => cos.forEach((t) => this.addToObjectCache(t)))
-          .map((cos: Array<CacheableObject>): Array<string> => cos.map(t => t.uuid)),
-
-        ifNotArray.map((data: DSpaceRESTV2Response) => {
-          return new DSpaceRESTv2Serializer(entry.request.resourceType).deserialize(data);
-        }).do((co: CacheableObject) => this.addToObjectCache(co))
-          .map((co: CacheableObject): Array<string> => [co.uuid])
-
-      ).map((ids: Array<string>) => new SuccessResponse(ids))
+      return this.restApi.get(entry.request.href)
+        .map((data: DSpaceRESTV2Response) => this.processEmbedded(data._embedded))
+        .map((ids: Array<string>) => new SuccessResponse(ids))
         .do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
         .map((response: Response) => new RequestCompleteAction(entry.request.href))
-        .catch((error: Error) => Observable.of(new ErrorResponse(error.message))
+        .catch((error: Error) => Observable.of(new ErrorResponse(error))
           .do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
           .map((response: Response) => new RequestCompleteAction(entry.request.href)));
     });
+
+  protected processEmbedded(_embedded: any): Array<string> {
+
+    if (isNotEmpty(_embedded)) {
+      if (isObjectLevel(_embedded)) {
+        return this.deserializeAndCache(_embedded);
+      }
+      else {
+        let uuids = [];
+        Object.keys(_embedded)
+          .filter(property => _embedded.hasOwnProperty(property))
+          .forEach(property => {
+            uuids = [...uuids, ...this.deserializeAndCache(_embedded[property])];
+          });
+        return uuids;
+      }
+    }
+  }
+
+  protected deserializeAndCache(obj): Array<string> {
+    let type: ResourceType;
+    const isArray = Array.isArray(obj);
+
+    if (isArray && isEmpty(obj)) {
+      return [];
+    }
+
+    if (isArray) {
+      type = obj[0]["type"];
+    }
+    else {
+      type = obj["type"];
+    }
+
+    if (hasValue(type)) {
+      const normObjConstructor = NormalizedObjectFactory.getConstructor(type);
+
+      if (hasValue(normObjConstructor)) {
+        const serializer = new DSpaceRESTv2Serializer(normObjConstructor);
+
+        if (isArray) {
+          obj.forEach(o => {
+            if (isNotEmpty(o._embedded)) {
+              this.processEmbedded(o._embedded);
+            }
+          });
+          const normalizedObjArr = serializer.deserializeArray(obj);
+          normalizedObjArr.forEach(t => this.addToObjectCache(t));
+          return normalizedObjArr.map(t => t.uuid);
+        }
+        else {
+          if (isNotEmpty(obj._embedded)) {
+            this.processEmbedded(obj._embedded);
+          }
+          const normalizedObj = serializer.deserialize(obj);
+          this.addToObjectCache(normalizedObj);
+          return [normalizedObj.uuid];
+        }
+
+      }
+      else {
+        //TODO move check to Validator?
+        throw new Error(`The server returned an object with an unknown a known type: ${type}`);
+      }
+
+    }
+    else {
+      //TODO move check to Validator
+      throw new Error(`The server returned an object without a type: ${JSON.stringify(obj)}`);
+    }
+  }
 
   protected addToObjectCache(co: CacheableObject): void {
     if (hasNoValue(co) || hasNoValue(co.uuid)) {

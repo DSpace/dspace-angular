@@ -5,28 +5,25 @@ import { GenericConstructor } from "../shared/generic-constructor";
 export class Request<T> {
   constructor(
     public href: string,
-    public resourceType: GenericConstructor<T>
   ) {}
 }
 
 export class FindByIDRequest<T> extends Request<T> {
   constructor(
     href: string,
-    resourceType: GenericConstructor<T>,
     public resourceID: string
   ) {
-    super(href, resourceType);
+    super(href);
   }
 }
 
 export class FindAllRequest<T> extends Request<T> {
   constructor(
     href: string,
-    resourceType: GenericConstructor<T>,
     public scopeID?: string,
     public paginationOptions?: PaginationOptions,
     public sortOptions?: SortOptions
   ) {
-    super(href, resourceType);
+    super(href);
   }
 }
