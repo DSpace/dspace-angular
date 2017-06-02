@@ -27,7 +27,7 @@ export class Bitstream extends DSpaceObject {
     /**
      * An array of Bundles that are direct parents of this Bitstream
      */
-    parents: Array<RemoteData<Bundle>>;
+    parents: RemoteData<Bundle[]>;
 
     /**
      * The Bundle that owns this Bitstream

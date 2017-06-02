@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Bitstream } from "../../core/shared/bitstream.model";
-import { Item } from "../../core/shared/item.model";
+import { Bitstream } from "../../../../core/shared/bitstream.model";
+import { Item } from "../../../../core/shared/item.model";
 import { Observable } from "rxjs";
 
 /**
@@ -18,21 +18,23 @@ export class FileSectionComponent implements OnInit {
 
   label : string = "item.page.files";
 
-  separator: string = "<br/>"
+  separator: string = "<br/>";
 
-  files: Observable<Array<Observable<Bitstream>>>;
+  files: Observable<Bitstream[]>;
 
   constructor() {
     this.universalInit();
-
   }
 
   universalInit() {
   }
 
   ngOnInit(): void {
-    this.files = this.item.getFiles();
+    this.initialize();
   }
 
+  initialize(): void {
+    this.files = this.item.getFiles();
+  }
 
 }

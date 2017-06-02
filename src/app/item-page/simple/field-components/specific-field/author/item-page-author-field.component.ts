@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Item } from "../../../core/shared/item.model";
+import { Component, Input } from '@angular/core';
+import { Item } from "../../../../../core/shared/item.model";
 import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.component";
 
 @Component({

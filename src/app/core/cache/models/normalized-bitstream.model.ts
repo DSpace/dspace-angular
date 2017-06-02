@@ -21,7 +21,13 @@ export class NormalizedBitstream extends NormalizedDSpaceObject {
     /**
      * The mime type of this Bitstream
      */
+    @autoserialize
     mimetype: string;
+
+    /**
+     * The format of this Bitstream
+     */
+    format: string;
 
     /**
      * The description of this Bitstream

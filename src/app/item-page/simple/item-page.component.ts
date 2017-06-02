@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Item } from "../core/shared/item.model";
-import { ItemDataService } from "../core/data/item-data.service";
-import { RemoteData } from "../core/data/remote-data";
+import { Item } from "../../core/shared/item.model";
+import { ItemDataService } from "../../core/data/item-data.service";
+import { RemoteData } from "../../core/data/remote-data";
 import { Observable } from "rxjs";
-import { Bitstream } from "../core/shared/bitstream.model";
+import { Bitstream } from "../../core/shared/bitstream.model";
 
 /**
  * This component renders a simple item page.
@@ -37,10 +37,15 @@ export class ItemPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id'];
-            this.item = this.items.findById(params['id']);
-            this.thumbnail = this.item.payload.flatMap(i => i.getThumbnail());
+            this.initialize(params);
         });
+    }
+
+
+    initialize(params) {
+        this.id = +params['id'];
+        this.item = this.items.findById(params['id']);
+        this.thumbnail = this.item.payload.flatMap(i => i.getThumbnail());
     }
 
 

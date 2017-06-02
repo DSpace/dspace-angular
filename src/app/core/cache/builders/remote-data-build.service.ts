@@ -135,9 +135,12 @@ export class RemoteDataBuildService {
             });
           }, 0);
 
-          links[relationship] = normalized[relationship].map((href: string) => {
-            return this.buildSingle(href, resourceConstructor);
+          let rdArr = [];
+          normalized[relationship].forEach((href: string) => {
+            rdArr.push(this.buildSingle(href, resourceConstructor));
           });
+
+          links[relationship] = this.aggregate(rdArr);
         }
         else {
           // without the setTimeout, the actions inside requestService.configure
@@ -153,5 +156,50 @@ export class RemoteDataBuildService {
 
     const domainModel = getMapsTo(normalized.constructor);
     return Object.assign(new domainModel(), normalized, links);
+  }
+
+  aggregate<T>(input: RemoteData<T>[]): RemoteData<T[]> {
+    const requestPending = Observable.combineLatest(
+      ...input.map(rd => rd.isRequestPending),
+    ).map((...pendingArray) => pendingArray.every(e => e === true))
+      .distinctUntilChanged();
+
+    const responsePending = Observable.combineLatest(
+      ...input.map(rd => rd.isResponsePending),
+    ).map((...pendingArray) => pendingArray.every(e => e === true))
+      .distinctUntilChanged();
+
+    const isSuccessFul = Observable.combineLatest(
+      ...input.map(rd => rd.hasSucceeded),
+    ).map((...successArray) => successArray.every(e => e === true))
+      .distinctUntilChanged();
+
+    const errorMessage = Observable.combineLatest(
+      ...input.map(rd => rd.errorMessage),
+    ).map((...errors) => errors
+      .map((e, idx) => {
+        if (hasValue(e)) {
+          return `[${idx}]: ${e}`;
+        }
+      })
+      .filter(e => hasValue(e))
+      .join(", ")
+    );
+
+    const payload = <Observable<T[]>> Observable.combineLatest(
+      ...input.map(rd => rd.payload)
+    );
+
+    return new RemoteData(
+      // This is an aggregated object, it doesn't necessarily correspond
+      // to a single REST endpoint, so instead of a self link, use the
+      // current time in ms for a somewhat unique id
+      `${new Date().getTime()}`,
+      requestPending,
+      responsePending,
+      isSuccessFul,
+      errorMessage,
+      payload
+    );
   }
 }

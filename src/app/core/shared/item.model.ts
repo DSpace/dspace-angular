@@ -31,14 +31,14 @@ export class Item extends DSpaceObject {
     /**
      * An array of Collections that are direct parents of this Item
      */
-    parents: Array<RemoteData<Collection>>;
+    parents: RemoteData<Collection[]>;
 
     /**
      * The Collection that owns this Item
      */
     owner: Collection;
 
-    bundles: Array<RemoteData<Bundle>>;
+    bundles: RemoteData<Bundle[]>;
 
 
     /**
@@ -47,29 +47,40 @@ export class Item extends DSpaceObject {
      */
     getThumbnail(): Observable<Bitstream> {
         const bundle: Observable<Bundle> = this.getBundle("THUMBNAIL");
-        return bundle.flatMap(
-            bundle => {
-                if (bundle != null) {
-                    return bundle.primaryBitstream.payload;
-                }
-                else {
-                    return Observable.of(undefined);
-                }
-            }
-        );
+        return bundle
+            .filter(bundle => hasValue(bundle))
+            .flatMap(bundle => bundle.primaryBitstream.payload)
+            .startWith(undefined);
+    }
+
+    /**
+     * Retrieves the thumbnail for the given original of this item
+     * @returns {Observable<Bitstream>} the primaryBitstream of the "THUMBNAIL" bundle
+     */
+    getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> {
+        const bundle: Observable<Bundle> = this.getBundle("THUMBNAIL");
+        return bundle
+            .filter(bundle => hasValue(bundle))
+            .flatMap(bundle => bundle
+                .bitstreams.payload.map(files => files
+                    .find(thumbnail => thumbnail
+                        .name.startsWith(original.name)
+                    )
+                )
+            )
+            .startWith(undefined);;
     }
 
     /**
      * Retrieves all files that should be displayed on the item page of this item
      * @returns {Observable<Array<Observable<Bitstream>>>} an array of all Bitstreams in the "ORIGINAL" bundle
      */
-    getFiles(): Observable<Array<Observable<Bitstream>>> {
-        const bundle: Observable <Bundle> = this.getBundle("ORIGINAL");
-        return bundle.map(bundle => {
-            if (hasValue(bundle) && Array.isArray(bundle.bitstreams)) {
-                return bundle.bitstreams.map(bitstream => bitstream.payload)
-            }
-        });
+    getFiles(name: String = "ORIGINAL"): Observable<Bitstream[]> {
+        const bundle: Observable <Bundle> = this.getBundle(name);
+        return bundle
+            .filter(bundle => hasValue(bundle))
+            .flatMap(bundle => bundle.bitstreams.payload)
+            .startWith([]);
     }
 
     /**
@@ -78,22 +89,14 @@ export class Item extends DSpaceObject {
      * @returns {Observable<Bundle>} the Bundle that belongs to this item with the given name
      */
     getBundle(name: String): Observable<Bundle> {
-        return Observable.combineLatest(
-            ...this.bundles.map(b => b.payload),
-            (...bundles: Array<Bundle>) => bundles)
+        return this.bundles.payload
+            .filter(bundles => hasValue(bundles))
             .map(bundles => {
                 return bundles.find((bundle: Bundle) => {
                     return bundle.name === name
                 });
-            });
-    }
-
-    /**
-     * Retrieves all direct parent collections of this item
-     * @returns {Array<Observable<Collection>>} an array of all Collections that contain this item
-     */
-    getCollections(): Array<Observable<Collection>> {
-        return this.parents.map(collection => collection.payload.map(parent => parent));
+            })
+            .startWith(undefined);
     }
 
 }
