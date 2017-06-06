@@ -18,14 +18,16 @@ cache:
   directories:
     - node_modules
 
+bundler_args: --retry 5
+
 before_install:
-  - yarn run global
+  - travis_retry yarn run global
 
 install:
-  - yarn install
+  - travis_retry yarn install
 
 before_script:
-  - yarn run build
+  - travis_wait yarn run build
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
