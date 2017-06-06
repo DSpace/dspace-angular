@@ -82,22 +82,25 @@ function ngApp(req, res) {
   function onHandleError(parentZoneDelegate, currentZone, targetZone, error) {
     console.warn('Error in SSR, serving for direct CSR');
     res.sendFile('index.html', { root: './src' });
-    return false;
   }
 
-  Zone.current.fork({ name: 'CSR fallback', onHandleError }).run(() => {
-    res.render('index', {
-      req,
-      res,
-      // time: true, // use this to determine what part of your app is slow only in development
-      async: EnvConfig.universal.async,
-      preboot: EnvConfig.universal.preboot,
-      baseUrl: EnvConfig.ui.nameSpace,
-      requestUrl: req.originalUrl,
-      originUrl: EnvConfig.ui.baseUrl
+  if (EnvConfig.universal.preboot) {
+    Zone.current.fork({ name: 'CSR fallback', onHandleError }).run(() => {
+      res.render('index', {
+        req,
+        res,
+        // time: true, // use this to determine what part of your app is slow only in development
+        async: EnvConfig.universal.async,
+        preboot: EnvConfig.universal.preboot,
+        baseUrl: EnvConfig.ui.nameSpace,
+        requestUrl: req.originalUrl,
+        originUrl: EnvConfig.ui.baseUrl
+      });
     });
-  });
-
+  }
+  else {
+    res.sendFile('index.html', { root: './src' });
+  }
 }
 
 /**

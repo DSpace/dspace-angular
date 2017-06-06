@@ -50,13 +50,13 @@ export class Community extends DSpaceObject {
   /**
    * An array of Communities that are direct parents of this Community
    */
-  parents: Array<RemoteData<DSpaceObject>>;
+  parents: RemoteData<DSpaceObject[]>;
 
   /**
    * The Community that owns this Community
    */
   owner: Community;
 
-  collections: Array<RemoteData<Collection>>;
+  collections: RemoteData<Collection[]>;
 
 }

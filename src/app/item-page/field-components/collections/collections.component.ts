@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Collection } from "../../core/shared/collection.model";
+import { Collection } from "../../../core/shared/collection.model";
 import { Observable } from "rxjs";
-import { Item } from "../../core/shared/item.model";
+import { Item } from "../../../core/shared/item.model";
 
 /**
  * This component renders the parent collections section of the item
@@ -20,7 +20,7 @@ export class CollectionsComponent implements OnInit {
 
     separator: string = "<br/>"
 
-    collections: Array<Observable<Collection>>;
+    collections: Observable<Collection[]>;
 
     constructor() {
         this.universalInit();
@@ -31,7 +31,7 @@ export class CollectionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.collections = this.item.getCollections();
+        this.collections = this.item.parents.payload;
     }
 
 
