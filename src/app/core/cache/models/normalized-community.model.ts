@@ -22,11 +22,15 @@ export class NormalizedCommunity extends NormalizedDSpaceObject {
   /**
    * An array of Communities that are direct parents of this Community
    */
+  @autoserialize
+  @relationship(ResourceType.Community)
   parents: Array<string>;
 
   /**
    * The Community that owns this Community
    */
+  @autoserialize
+  @relationship(ResourceType.Community)
   owner: string;
 
   @autoserialize

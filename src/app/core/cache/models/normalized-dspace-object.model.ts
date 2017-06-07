@@ -13,8 +13,11 @@ export abstract class NormalizedDSpaceObject implements CacheableObject {
 
   /**
    * The human-readable identifier of this DSpaceObject
+   *
+   * Currently mapped to uuid but left in to leave room
+   * for a shorter, more user friendly type of id
    */
-  @autoserialize
+  @autoserializeAs(String, 'uuid')
   id: string;
 
   /**

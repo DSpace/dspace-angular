@@ -45,6 +45,11 @@ export class RemoteDataBuildService {
       .map((entry: ResponseCacheEntry) => (<ErrorResponse> entry.response).errorMessage)
       .distinctUntilChanged();
 
+    const statusCode = responseCacheObs
+      .filter((entry: ResponseCacheEntry) => hasValue(entry))
+      .map((entry: ResponseCacheEntry) => entry.response.statusCode)
+      .distinctUntilChanged();
+
     const payload =
       Observable.race(
         this.objectCache.getBySelfLink<TNormalized>(href, normalizedType),
@@ -70,6 +75,7 @@ export class RemoteDataBuildService {
       responsePending,
       isSuccessFul,
       errorMessage,
+      statusCode,
       payload
     );
   }
@@ -93,6 +99,11 @@ export class RemoteDataBuildService {
       .map((entry: ResponseCacheEntry) => (<ErrorResponse> entry.response).errorMessage)
       .distinctUntilChanged();
 
+    const statusCode = responseCacheObs
+      .filter((entry: ResponseCacheEntry) => hasValue(entry))
+      .map((entry: ResponseCacheEntry) => entry.response.statusCode)
+      .distinctUntilChanged();
+
     const payload = responseCacheObs
       .filter((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
@@ -112,6 +123,7 @@ export class RemoteDataBuildService {
       responsePending,
       isSuccessFul,
       errorMessage,
+      statusCode,
       payload
     );
   }
@@ -186,6 +198,18 @@ export class RemoteDataBuildService {
       .join(", ")
     );
 
+    const statusCode = Observable.combineLatest(
+      ...input.map(rd => rd.statusCode),
+    ).map((...statusCodes) => statusCodes
+      .map((code, idx) => {
+        if (hasValue(code)) {
+          return `[${idx}]: ${code}`;
+        }
+      })
+      .filter(c => hasValue(c))
+      .join(", ")
+    );
+
     const payload = <Observable<T[]>> Observable.combineLatest(
       ...input.map(rd => rd.payload)
     );
@@ -199,6 +223,7 @@ export class RemoteDataBuildService {
       responsePending,
       isSuccessFul,
       errorMessage,
+      statusCode,
       payload
     );
   }

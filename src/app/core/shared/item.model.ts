@@ -1,10 +1,9 @@
 import { DSpaceObject } from "./dspace-object.model";
 import { Collection } from "./collection.model";
 import { RemoteData } from "../data/remote-data";
-import { Bundle } from "./bundle.model";
 import { Bitstream } from "./bitstream.model";
 import { Observable } from "rxjs";
-import { hasValue } from "../../shared/empty.util";
+import { isNotEmpty } from "../../shared/empty.util";
 
 export class Item extends DSpaceObject {
 
@@ -24,6 +23,11 @@ export class Item extends DSpaceObject {
     isArchived: boolean;
 
     /**
+     * A boolean representing if this Item is currently discoverable or not
+     */
+    isDiscoverable: boolean;
+
+    /**
      * A boolean representing if this Item is currently withdrawn or not
      */
     isWithdrawn: boolean;
@@ -36,9 +40,9 @@ export class Item extends DSpaceObject {
     /**
      * The Collection that owns this Item
      */
-    owner: Collection;
+    owner: RemoteData<Collection>;
 
-    bundles: RemoteData<Bundle[]>;
+    bitstreams: RemoteData<Bitstream[]>;
 
 
     /**
@@ -46,57 +50,44 @@ export class Item extends DSpaceObject {
      * @returns {Observable<Bitstream>} the primaryBitstream of the "THUMBNAIL" bundle
      */
     getThumbnail(): Observable<Bitstream> {
-        const bundle: Observable<Bundle> = this.getBundle("THUMBNAIL");
-        return bundle
-            .filter(bundle => hasValue(bundle))
-            .flatMap(bundle => bundle.primaryBitstream.payload)
-            .startWith(undefined);
+      //TODO currently this just picks the first thumbnail
+      //should be adjusted when we have a way to determine
+      //the primary thumbnail from rest
+      return this.getBitstreamsByBundleName("THUMBNAIL")
+        .filter(thumbnails => isNotEmpty(thumbnails))
+        .map(thumbnails => thumbnails[0])
     }
 
-    /**
-     * Retrieves the thumbnail for the given original of this item
-     * @returns {Observable<Bitstream>} the primaryBitstream of the "THUMBNAIL" bundle
-     */
-    getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> {
-        const bundle: Observable<Bundle> = this.getBundle("THUMBNAIL");
-        return bundle
-            .filter(bundle => hasValue(bundle))
-            .flatMap(bundle => bundle
-                .bitstreams.payload.map(files => files
-                    .find(thumbnail => thumbnail
-                        .name.startsWith(original.name)
-                    )
-                )
-            )
-            .startWith(undefined);;
+  /**
+   * Retrieves the thumbnail for the given original of this item
+   * @returns {Observable<Bitstream>} the primaryBitstream of the "THUMBNAIL" bundle
+   */
+  getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> {
+    return this.getBitstreamsByBundleName("THUMBNAIL").map(files => files
+      .find(thumbnail => thumbnail
+        .name.startsWith(original.name)
+      )
+    ).startWith(undefined);
+  }
+
+  /**
+   * Retrieves all files that should be displayed on the item page of this item
+   * @returns {Observable<Array<Observable<Bitstream>>>} an array of all Bitstreams in the "ORIGINAL" bundle
+   */
+    getFiles(): Observable<Bitstream[]> {
+      return this.getBitstreamsByBundleName("ORIGINAL");
     }
 
-    /**
-     * Retrieves all files that should be displayed on the item page of this item
-     * @returns {Observable<Array<Observable<Bitstream>>>} an array of all Bitstreams in the "ORIGINAL" bundle
-     */
-    getFiles(name: String = "ORIGINAL"): Observable<Bitstream[]> {
-        const bundle: Observable <Bundle> = this.getBundle(name);
-        return bundle
-            .filter(bundle => hasValue(bundle))
-            .flatMap(bundle => bundle.bitstreams.payload)
-            .startWith([]);
-    }
-
-    /**
-     * Retrieves the bundle of this item by its name
-     * @param name The name of the Bundle that should be returned
-     * @returns {Observable<Bundle>} the Bundle that belongs to this item with the given name
-     */
-    getBundle(name: String): Observable<Bundle> {
-        return this.bundles.payload
-            .filter(bundles => hasValue(bundles))
-            .map(bundles => {
-                return bundles.find((bundle: Bundle) => {
-                    return bundle.name === name
-                });
-            })
-            .startWith(undefined);
+  /**
+   * Retrieves bitstreams by bundle name
+   * @param bundleName The name of the Bundle that should be returned
+   * @returns {Observable<Bitstream[]>} the bitstreams with the given bundleName
+   */
+    getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
+      return this.bitstreams.payload.startWith([])
+        .map(bitstreams => bitstreams
+          .filter(bitstream => bitstream.bundleName === bundleName)
+        );
     }
 
 }

@@ -1,4 +1,4 @@
-import { inheritSerialization, autoserialize } from "cerialize";
+import { inheritSerialization, autoserialize, autoserializeAs } from "cerialize";
 import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
 import { Item } from "../../shared/item.model";
 import { mapsTo, relationship } from "../builders/build-decorators";
@@ -17,16 +17,25 @@ export class NormalizedItem extends NormalizedDSpaceObject {
   /**
    * The Date of the last modification of this Item
    */
+  @autoserialize
   lastModified: Date;
 
   /**
    * A boolean representing if this Item is currently archived or not
    */
+  @autoserializeAs(Boolean, 'inArchive')
   isArchived: boolean;
+
+  /**
+   * A boolean representing if this Item is currently discoverable or not
+   */
+  @autoserializeAs(Boolean, 'discoverable')
+  isDiscoverable: boolean;
 
   /**
    * A boolean representing if this Item is currently withdrawn or not
    */
+  @autoserializeAs(Boolean, 'withdrawn')
   isWithdrawn: boolean;
 
   /**
@@ -39,9 +48,11 @@ export class NormalizedItem extends NormalizedDSpaceObject {
   /**
    * The Collection that owns this Item
    */
+  @autoserializeAs(String, 'owningCollection')
+  @relationship(ResourceType.Collection)
   owner: string;
 
   @autoserialize
-  @relationship(ResourceType.Bundle)
-  bundles: Array<string>;
+  @relationship(ResourceType.Bitstream)
+  bitstreams: Array<string>;
 }

@@ -11,7 +11,7 @@ import { RemoteDataBuildService } from "../cache/builders/remote-data-build.serv
 
 @Injectable()
 export class CommunityDataService extends DataService<NormalizedCommunity, Community> {
-  protected endpoint = '/communities';
+  protected endpoint = '/core/communities';
 
   constructor(
     protected objectCache: ObjectCacheService,

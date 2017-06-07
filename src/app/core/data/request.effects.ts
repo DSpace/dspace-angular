@@ -1,6 +1,5 @@
 import { Injectable, Inject } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
-import { Store } from "@ngrx/store";
 import { DSpaceRESTv2Service } from "../dspace-rest-v2/dspace-rest-v2.service";
 import { ObjectCacheService } from "../cache/object-cache.service";
 import { DSpaceRESTV2Response } from "../dspace-rest-v2/dspace-rest-v2-response.model";
@@ -10,7 +9,7 @@ import { Observable } from "rxjs";
 import { Response, SuccessResponse, ErrorResponse } from "../cache/response-cache.models";
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from "../../shared/empty.util";
 import { GlobalConfig, GLOBAL_CONFIG } from "../../../config";
-import { RequestState, RequestEntry } from "./request.reducer";
+import {  RequestEntry } from "./request.reducer";
 import {
   RequestActionTypes, RequestExecuteAction,
   RequestCompleteAction
@@ -19,9 +18,14 @@ import { ResponseCacheService } from "../cache/response-cache.service";
 import { RequestService } from "./request.service";
 import { NormalizedObjectFactory } from "../cache/models/normalized-object-factory";
 import { ResourceType } from "../shared/resource-type";
+import { RequestError } from "./request.models";
 
 function isObjectLevel(halObj: any) {
   return isNotEmpty(halObj._links) && hasValue(halObj._links.self);
+}
+
+function isPaginatedResponse(halObj: any) {
+  return isNotEmpty(halObj.page) && hasValue(halObj._embedded);
 }
 
 @Injectable()
@@ -33,8 +37,7 @@ export class RequestEffects {
     private restApi: DSpaceRESTv2Service,
     private objectCache: ObjectCacheService,
     private responseCache: ResponseCacheService,
-    protected requestService: RequestService,
-    private store: Store<RequestState>
+    protected requestService: RequestService
   ) { }
 
   @Effect() execute = this.actions$
@@ -45,27 +48,31 @@ export class RequestEffects {
     })
     .flatMap((entry: RequestEntry) => {
       return this.restApi.get(entry.request.href)
-        .map((data: DSpaceRESTV2Response) => this.processEmbedded(data._embedded))
-        .map((ids: Array<string>) => new SuccessResponse(ids))
+        .map((data: DSpaceRESTV2Response) => new SuccessResponse(this.process(data.payload), data.statusCode))
         .do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
         .map((response: Response) => new RequestCompleteAction(entry.request.href))
-        .catch((error: Error) => Observable.of(new ErrorResponse(error))
+        .catch((error: RequestError) => Observable.of(new ErrorResponse(error))
           .do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
           .map((response: Response) => new RequestCompleteAction(entry.request.href)));
     });
 
-  protected processEmbedded(_embedded: any): Array<string> {
+  protected process(data: any): Array<string> {
 
-    if (isNotEmpty(_embedded)) {
-      if (isObjectLevel(_embedded)) {
-        return this.deserializeAndCache(_embedded);
+    if (isNotEmpty(data)) {
+      if (isPaginatedResponse(data)) {
+        //TODO parse page object
+        return this.process(data._embedded);
+      }
+      else if (isObjectLevel(data)) {
+        return this.deserializeAndCache(data);
       }
       else {
         let uuids = [];
-        Object.keys(_embedded)
-          .filter(property => _embedded.hasOwnProperty(property))
+        Object.keys(data)
+          .filter(property => data.hasOwnProperty(property))
+          .filter(property => hasValue(data[property]))
           .forEach(property => {
-            uuids = [...uuids, ...this.deserializeAndCache(_embedded[property])];
+            uuids = [...uuids, ...this.deserializeAndCache(data[property])];
           });
         return uuids;
       }
@@ -96,7 +103,7 @@ export class RequestEffects {
         if (isArray) {
           obj.forEach(o => {
             if (isNotEmpty(o._embedded)) {
-              this.processEmbedded(o._embedded);
+              this.process(o._embedded);
             }
           });
           const normalizedObjArr = serializer.deserializeArray(obj);
@@ -105,7 +112,7 @@ export class RequestEffects {
         }
         else {
           if (isNotEmpty(obj._embedded)) {
-            this.processEmbedded(obj._embedded);
+            this.process(obj._embedded);
           }
           const normalizedObj = serializer.deserialize(obj);
           this.addToObjectCache(normalizedObj);

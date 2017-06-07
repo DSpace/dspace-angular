@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { RESTURLCombiner } from "../url-combiner/rest-url-combiner";
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { DSpaceRESTV2Response } from "./dspace-rest-v2-response.model";
 
 /**
  * Service to access DSpace's REST API
@@ -24,9 +25,9 @@ export class DSpaceRESTv2Service {
    * @return {Observable<string>}
    *      An Observablse<string> containing the response from the server
    */
-  get(relativeURL: string, options?: RequestOptionsArgs): Observable<string> {
+  get(relativeURL: string, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
     return this.http.get(new RESTURLCombiner(this.EnvConfig, relativeURL).toString(), options)
-      .map(res => res.json())
+      .map(res => ({ payload: res.json(), statusCode: res.statusText }))
       .catch(err => {
         console.log('Error: ', err);
         return Observable.throw(err);

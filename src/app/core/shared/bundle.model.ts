@@ -17,7 +17,7 @@ export class Bundle extends DSpaceObject {
   /**
    * The Item that owns this Bundle
    */
-  owner: Item;
+  owner: RemoteData<Item>;
 
   bitstreams: RemoteData<Bitstream[]>
 

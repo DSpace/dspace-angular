@@ -11,7 +11,7 @@ import { RemoteDataBuildService } from "../cache/builders/remote-data-build.serv
 
 @Injectable()
 export class CollectionDataService extends DataService<NormalizedCollection, Collection> {
-  protected endpoint = '/collections';
+  protected endpoint = '/core/collections';
 
   constructor(
     protected objectCache: ObjectCacheService,

@@ -35,8 +35,8 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     }
 
     initialize(): void {
-        const originals = this.item.getFiles("ORIGINAL");
-        const licenses = this.item.getFiles("LICENSE");
+        const originals = this.item.getFiles();
+        const licenses = this.item.getBitstreamsByBundleName("LICENSE");
         this.files = Observable.combineLatest(originals, licenses, (originals, licenses) => [...originals, ...licenses]);
         this.files.subscribe(
             files =>

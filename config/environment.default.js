@@ -2,10 +2,10 @@ module.exports = {
   // The REST API server settings.
   "rest": {
     "ssl": false,
-    "address": "localhost",
-    "port": 3000,
+    "address": "dspace7.4science.it",
+    "port": 80,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    "nameSpace": "/api"
+    "nameSpace": "/dspace-spring-rest/api"
   },
   // Angular2 UI server settings.
   "ui": {

@@ -17,6 +17,7 @@ export class RemoteData<T> {
     private responsePending: Observable<boolean>,
     private isSuccessFul: Observable<boolean>,
     public errorMessage: Observable<string>,
+    public statusCode: Observable<string>,
     public payload: Observable<T>
   ) {
   }

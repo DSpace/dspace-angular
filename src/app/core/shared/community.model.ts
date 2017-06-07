@@ -55,7 +55,7 @@ export class Community extends DSpaceObject {
   /**
    * The Community that owns this Community
    */
-  owner: Community;
+  owner: RemoteData<Community>;
 
   collections: RemoteData<Collection[]>;
 

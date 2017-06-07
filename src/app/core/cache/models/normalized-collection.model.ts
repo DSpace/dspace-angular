@@ -20,13 +20,17 @@ export class NormalizedCollection extends NormalizedDSpaceObject {
   logo: string;
 
   /**
-   * An array of Collections that are direct parents of this Collection
+   * An array of Communities that are direct parents of this Collection
    */
+  @autoserialize
+  @relationship(ResourceType.Community)
   parents: Array<string>;
 
   /**
-   * The Collection that owns this Collection
+   * The Community that owns this Collection
    */
+  @autoserialize
+  @relationship(ResourceType.Community)
   owner: string;
 
   @autoserialize

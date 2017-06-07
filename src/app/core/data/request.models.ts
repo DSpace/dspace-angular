@@ -27,3 +27,7 @@ export class FindAllRequest<T> extends Request<T> {
     super(href);
   }
 }
+
+export class RequestError extends Error {
+  statusText: string;
+}
