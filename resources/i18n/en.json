@@ -4,6 +4,12 @@
     "link.dspace": "DSpace software",
     "link.duraspace": "DuraSpace"
   },
+  "collection": {
+    "page": {
+      "news": "News",
+      "license": "License"
+    }
+  },
   "item": {
     "page": {
       "author": "Author",

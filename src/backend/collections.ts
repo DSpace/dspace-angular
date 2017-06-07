@@ -5,7 +5,8 @@ export const COLLECTIONS = [
       "items": [
         { "href": "/items/8871" },
         { "href": "/items/9978" }
-      ]
+      ],
+      "logo": { "href": "/bitstreams/4688" }
     },
     "id": "5179",
     "uuid": "9e32a2e2-6b91-4236-a361-995ccdc14c60",
