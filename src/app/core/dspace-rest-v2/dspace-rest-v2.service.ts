@@ -18,15 +18,15 @@ export class DSpaceRESTv2Service {
   /**
    * Performs a request to the REST API with the `get` http method.
    *
-   * @param relativeURL
-   *      A URL, relative to the basepath of the rest api
+   * @param absoluteURL
+   *      A URL
    * @param options
    *      A RequestOptionsArgs object, with options for the http call.
    * @return {Observable<string>}
    *      An Observablse<string> containing the response from the server
    */
-  get(relativeURL: string, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
-    return this.http.get(new RESTURLCombiner(this.EnvConfig, relativeURL).toString(), options)
+  get(absoluteURL: string, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
+    return this.http.get(absoluteURL, options)
       .map(res => ({ payload: res.json(), statusCode: res.statusText }))
       .catch(err => {
         console.log('Error: ', err);

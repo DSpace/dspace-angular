@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { DataService } from "./data.service";
 import { Item } from "../shared/item.model";
 import { ObjectCacheService } from "../cache/object-cache.service";
@@ -8,6 +8,7 @@ import { CoreState } from "../core.reducers";
 import { NormalizedItem } from "../cache/models/normalized-item.model";
 import { RequestService } from "./request.service";
 import { RemoteDataBuildService } from "../cache/builders/remote-data-build.service";
+import { GLOBAL_CONFIG, GlobalConfig } from "../../../config";
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -18,8 +19,9 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>
+    protected store: Store<CoreState>,
+    @Inject(GLOBAL_CONFIG) EnvConfig: GlobalConfig
 ) {
-    super(NormalizedItem);
+    super(NormalizedItem, EnvConfig);
   }
 }

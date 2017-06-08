@@ -10,6 +10,9 @@ import { CoreState } from "../core.reducers";
 import { RequestService } from "./request.service";
 import { RemoteDataBuildService } from "../cache/builders/remote-data-build.service";
 import { GenericConstructor } from "../shared/generic-constructor";
+import { Inject } from "@angular/core";
+import { GLOBAL_CONFIG, GlobalConfig } from "../../../config";
+import { RESTURLCombiner } from "../url-combiner/rest-url-combiner";
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> {
   protected abstract objectCache: ObjectCacheService;
@@ -19,7 +22,10 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   protected abstract store: Store<CoreState>;
   protected abstract endpoint: string;
 
-  constructor(private normalizedResourceType: GenericConstructor<TNormalized>) {
+  constructor(
+    private normalizedResourceType: GenericConstructor<TNormalized>,
+    protected EnvConfig: GlobalConfig
+  ) {
 
   }
 
@@ -28,7 +34,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     if (hasValue(scopeID)) {
       result += `?scope=${scopeID}`
     }
-    return result;
+    return new RESTURLCombiner(this.EnvConfig, result).toString();
   }
 
   findAll(scopeID?: string): RemoteData<Array<TDomain>> {
@@ -40,7 +46,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   protected getFindByIDHref(resourceID): string {
-    return `${this.endpoint}/${resourceID}`;
+    return new RESTURLCombiner(this.EnvConfig, `${this.endpoint}/${resourceID}`).toString();
   }
 
   findById(id: string): RemoteData<TDomain> {
