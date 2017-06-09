@@ -14,6 +14,7 @@ import { ThumbnailComponent } from "../thumbnail/thumbnail.component";
 import { SafeUrlPipe } from "./utils/safe-url-pipe";
 import { HostWindowService } from "./host-window.service";
 import { NativeWindowFactory, NativeWindowService } from "./window.service";
+import { TRUNCATE_PIPES } from "ng2-truncate";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -28,7 +29,8 @@ const MODULES = [
 
 const PIPES = [
     FileSizePipe,
-    SafeUrlPipe
+    SafeUrlPipe,
+    TRUNCATE_PIPES
   // put pipes here
 ];
 

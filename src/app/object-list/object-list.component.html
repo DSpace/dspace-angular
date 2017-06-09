@@ -1,0 +1,11 @@
+<ds-pagination [paginationOptions]="config"
+               [collectionSize]="(objects.payload | async)?.length"
+               (pageChange)="config.currentPage = $event"
+               (pageSizeChange)="config.pageSize = $event">
+    <ul *ngIf="objects.hasSucceeded | async">
+        <li *ngFor="let object of (objects.payload | async) | paginate: { itemsPerPage: config.pageSize, currentPage: config.currentPage, totalItems: (objects.payload | async)?.length }">
+            <ds-object-list-element [object]="object"></ds-object-list-element>
+        </li>
+    </ul>
+
+</ds-pagination>

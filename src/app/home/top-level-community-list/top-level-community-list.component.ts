@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunityDataService } from "../../core/data/community-data.service";
 import { RemoteData } from "../../core/data/remote-data";
-import { Community } from "../../core/shared/community.model";
+import { ItemDataService } from "../../core/data/item-data.service";
+import { Item } from "../../core/shared/item.model";
+import { PaginationOptions } from "../../core/cache/models/pagination-options.model";
 
 @Component({
   selector: 'ds-top-level-community-list',
@@ -9,10 +10,11 @@ import { Community } from "../../core/shared/community.model";
   templateUrl: './top-level-community-list.component.html'
 })
 export class TopLevelCommunityListComponent implements OnInit {
-  topLevelCommunities: RemoteData<Community[]>;
+  topLevelCommunities: RemoteData<Item[]>;
+  config : PaginationOptions;
 
   constructor(
-    private cds: CommunityDataService
+    private cds: ItemDataService
   ) {
     this.universalInit();
   }
@@ -23,5 +25,8 @@ export class TopLevelCommunityListComponent implements OnInit {
 
   ngOnInit(): void {
     this.topLevelCommunities = this.cds.findAll();
+    this.config = new PaginationOptions();
+    this.config.id = "top-level-pagination"
+    this.config.pageSizeOptions = [ 5, 10, 20, 40, 60, 80, 100 ];
   }
 }

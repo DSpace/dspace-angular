@@ -1,0 +1,6 @@
+<a [routerLink]="['/collections/' + collection.id]">
+    {{collection.name}}
+</a>
+<div *ngIf="collection.findMetadata('dc.description')">
+    {{collection.findMetadata("dc.description")}}
+</div>

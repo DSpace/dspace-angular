@@ -103,6 +103,7 @@
     "methods": "1.1.2",
     "morgan": "1.7.0",
     "ng2-pagination": "^2.0.0",
+    "ng2-truncate": "1.2.0",
     "preboot": "4.5.2",
     "reflect-metadata": "^0.1.10",
     "rxjs": "5.0.0-beta.12",

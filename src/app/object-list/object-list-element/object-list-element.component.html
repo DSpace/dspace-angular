@@ -1,0 +1,5 @@
+<div [ngSwitch]="object.type">
+    <ds-item-list-element *ngSwitchCase="type.Item" [item]="object"></ds-item-list-element>
+    <ds-collection-list-element *ngSwitchCase="type.Collection" [collection]="object"></ds-collection-list-element>
+    <ds-community-list-element *ngSwitchCase="type.Community" [community]="object"></ds-community-list-element>
+</div>
