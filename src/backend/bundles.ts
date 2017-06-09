@@ -51,6 +51,7 @@ export const BUNDLES = {
       },
       "id": "8475",
       "uuid": "99f78e5e-3677-43b0-aaef-cddaa1a49092",
+      "type": "bundle",
       "name": "LICENSE",
       "metadata": [
         { "key": "dc.title", "value": "LICENSE", "language": "en" }

@@ -52,6 +52,7 @@ export const BITSTREAMS = {
       },
       "id": "8934",
       "uuid": "ba7d24f2-8fc7-4b8e-b7b6-6c32be1c12a6",
+      "type": "bitstream",
       "name": "license.txt",
       "size": 41183,
       "checksum": {
