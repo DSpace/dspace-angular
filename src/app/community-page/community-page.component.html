@@ -1,0 +1,17 @@
+<div class="community-page" *ngIf="communityData.hasSucceeded | async">
+  <ds-community-page-name [name]="(communityData.payload | async)?.name"></ds-community-page-name>
+  <ds-community-page-logo *ngIf="logoData" [logo]="logoData.payload | async"></ds-community-page-logo>
+  <ds-community-page-introductory-text
+      [introductoryText]="(communityData.payload | async)?.introductoryText">
+  </ds-community-page-introductory-text>
+  <ds-community-page-news
+      [sidebarText]="(communityData.payload | async)?.sidebarText">
+  </ds-community-page-news>
+  <ds-community-page-copyright
+      [copyrightText]="(communityData.payload | async)?.copyrightText">
+  </ds-community-page-copyright>
+  <ds-community-page-license
+      [license]="(communityData.payload | async)?.license">
+  </ds-community-page-license>
+  <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
+</div>
