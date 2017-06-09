@@ -17,9 +17,12 @@ export const ITEMS = {
           {
             "href": "/bundles/2355"
           },
-          // {
-          //   "href": "/bundles/5687"
-          // }
+          {
+            "href": "/bundles/5687"
+          },
+          {
+            "href": "/bundles/8475"
+          }
         ]
       },
       "id": "8871",
@@ -91,86 +94,7 @@ export const ITEMS = {
           "value": "(not specified)",
           "language": "en"
         }
-      ],
-      "_embedded": {
-        "parents": [
-          {
-            "_links": {
-              "self": { "href": "/collections/5179" },
-              "items": [
-                { "href": "/items/8871" },
-                { "href": "/items/9978" }
-              ]
-            },
-            "id": "5179",
-            "uuid": "9e32a2e2-6b91-4236-a361-995ccdc14c60",
-            "type": "collection",
-            "name": "A Test Collection",
-            "handle": "123456789/5179",
-          },
-          {
-            "_links": {
-              "self": { "href": "/collections/6547" },
-              "items": [
-                { "href": "/items/8871" },
-                { "href": "/items/9978" }
-              ]
-            },
-            "id": "6547",
-            "uuid": "598ce822-c357-46f3-ab70-63724d02d6ad",
-            "type": "collection",
-            "name": "Another Test Collection",
-            "handle": "123456789/6547",
-          }
-        ],
-        "bundles": [
-          {
-            "_links": {
-              "self": { "href": "/bundles/2355" },
-              "items": [
-                { "href": "/items/8871" }
-              ],
-              "bitstreams": [
-                { "href": "/bitstreams/3678" },
-              ],
-              "primaryBitstream": { "href": "/bitstreams/3678" }
-            },
-            "id": "2355",
-            "uuid": "35e0606d-5e18-4f9c-aa61-74fc751cc3f9",
-            "type": "bundle",
-            "name": "ORIGINAL",
-            "metadata": [
-              { "key": "dc.title", "value": "ORIGINAL", "language": "en" }
-            ],
-            "_embedded": {
-              "bitstreams": [
-                {
-                  "_links": {
-                    "self": { "href": "/bitstreams/3678" },
-                    "bundle": { "href": "/bundles/35e0606d-5e18-4f9c-aa61-74fc751cc3f9" },
-                    "retrieve": { "href": "/bitstreams/43c57c2b-206f-4645-8c8f-5f10c84b09fa/retrieve" }
-                  },
-                  "id": "3678",
-                  "uuid": "43c57c2b-206f-4645-8c8f-5f10c84b09fa",
-                  "type": "bitstream",
-                  "name": "do_open_access_CRL.pdf",
-                  "size": 636626,
-                  "checksum": {
-                    "value": "063dfbbbac873aa3fca479b878eccff3",
-                    "algorithm": "MD5"
-                  },
-                  "metadata": [
-                    { "key": "dc.title", "value": "do_open_access_CRL.pdf", "language": null },
-                    { "key": "dc.description", "value": "Conference Paper", "language": "en" }
-                  ],
-                  "format": "Adobe PDF",
-                  "mimetype": "application/pdf"
-                }
-              ]
-            }
-          }
-        ]
-      }
+      ]
     },
     {
       "_links": {
@@ -189,9 +113,9 @@ export const ITEMS = {
           {
             "href": "/bundles/2355"
           },
-          // {
-          //   "href": "/bundles/5687"
-          // }
+          {
+            "href": "/bundles/5687"
+          }
         ]
       },
       "id": "9978",
@@ -243,39 +167,7 @@ export const ITEMS = {
           "value": "(not specified)",
           "language": "en"
         }
-      ],
-      "_embedded": {
-        "parents": [
-          {
-            "_links": {
-              "self": { "href": "/collections/5179" },
-              "items": [
-                { "href": "/items/8871" },
-                { "href": "/items/9978" }
-              ]
-            },
-            "id": "5179",
-            "uuid": "9e32a2e2-6b91-4236-a361-995ccdc14c60",
-            "type": "collection",
-            "name": "A Test Collection",
-            "handle": "123456789/5179",
-          },
-          {
-            "_links": {
-              "self": { "href": "/collections/6547" },
-              "items": [
-                { "href": "/items/8871" },
-                { "href": "/items/9978" }
-              ]
-            },
-            "id": "6547",
-            "uuid": "598ce822-c357-46f3-ab70-63724d02d6ad",
-            "type": "collection",
-            "name": "Another Test Collection",
-            "handle": "123456789/6547",
-          }
-        ]
-      }
+      ]
     }
   ]
 };

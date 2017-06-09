@@ -37,6 +37,24 @@ export const BUNDLES = {
       "metadata": [
         { "key": "dc.title", "value": "THUMBNAIL", "language": "en" }
       ]
+    },
+    {
+      "_links": {
+        "self": { "href": "/bundles/8475" },
+        "items": [
+          { "href": "/items/8871" }
+        ],
+        "bitstreams": [
+          { "href": "/bitstreams/8934" },
+        ],
+        "primaryBitstream": { "href": "/bitstreams/8934" }
+      },
+      "id": "8475",
+      "uuid": "99f78e5e-3677-43b0-aaef-cddaa1a49092",
+      "name": "LICENSE",
+      "metadata": [
+        { "key": "dc.title", "value": "LICENSE", "language": "en" }
+      ]
     }
   ]
 };

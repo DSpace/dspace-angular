@@ -4,7 +4,12 @@
     "link.dspace": "DSpace software",
     "link.duraspace": "DuraSpace"
   },
-
+  "collection": {
+    "page": {
+      "news": "News",
+      "license": "License"
+    }
+  },
   "item": {
     "page": {
       "author": "Author",
@@ -12,24 +17,31 @@
       "date": "Date",
       "uri": "URI",
       "files": "Files",
-      "collections": "Collections"
+      "collections": "Collections",
+      "filesection": {
+        "download": "Download",
+        "name": "Name:",
+        "format": "Format:",
+        "size": "Size:",
+        "description": "Description:"
+      },
+      "link": {
+        "simple": "Simple item page",
+        "full": "Full item page"
+      }
     }
   },
-
   "nav": {
     "home": "Home"
   },
-
   "pagination": {
     "results-per-page": "Results Per Page",
     "showing": {
-      "label" : "Now showing items ",
+      "label": "Now showing items ",
       "detail": "{{ range }} of {{ total }}"
     }
   },
-
   "title": "DSpace",
-
   "404": {
     "help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
     "page-not-found": "page not found",
@@ -37,7 +49,6 @@
       "home-page": "Take me to the home page"
     }
   },
-
   "home": {
     "top-level-communities": {
       "head": "Communities in DSpace",
