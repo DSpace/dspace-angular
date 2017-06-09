@@ -1,4 +1,6 @@
 import { RequestError } from "../data/request.models";
+import { PageInfo } from "../shared/page-info.model";
+
 export class Response {
   constructor(
     public isSuccessful: boolean,
@@ -9,7 +11,8 @@ export class Response {
 export class SuccessResponse extends Response {
   constructor(
     public resourceUUIDs: Array<String>,
-    public statusCode: string
+    public statusCode: string,
+    public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
   }

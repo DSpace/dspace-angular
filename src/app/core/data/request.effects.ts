@@ -19,6 +19,7 @@ import { RequestService } from "./request.service";
 import { NormalizedObjectFactory } from "../cache/models/normalized-object-factory";
 import { ResourceType } from "../shared/resource-type";
 import { RequestError } from "./request.models";
+import { PageInfo } from "../shared/page-info.model";
 
 function isObjectLevel(halObj: any) {
   return isNotEmpty(halObj._links) && hasValue(halObj._links.self);
@@ -48,7 +49,7 @@ export class RequestEffects {
     })
     .flatMap((entry: RequestEntry) => {
       return this.restApi.get(entry.request.href)
-        .map((data: DSpaceRESTV2Response) => new SuccessResponse(this.process(data.payload), data.statusCode))
+        .map((data: DSpaceRESTV2Response) => new SuccessResponse(this.process(data.payload), data.statusCode, this.processPageInfo(data.payload.page)))
         .do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
         .map((response: Response) => new RequestCompleteAction(entry.request.href))
         .catch((error: RequestError) => Observable.of(new ErrorResponse(error))
@@ -60,7 +61,6 @@ export class RequestEffects {
 
     if (isNotEmpty(data)) {
       if (isPaginatedResponse(data)) {
-        //TODO parse page object
         return this.process(data._embedded);
       }
       else if (isObjectLevel(data)) {
@@ -138,4 +138,14 @@ export class RequestEffects {
     }
     this.objectCache.add(co, this.EnvConfig.cache.msToLive);
   }
+
+  protected processPageInfo(pageObj: any): PageInfo {
+    if (isNotEmpty(pageObj)) {
+      return new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
+    }
+    else {
+      return undefined;
+    }
+  }
+
 }

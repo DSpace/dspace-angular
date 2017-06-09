@@ -26,6 +26,7 @@ export class RemoteDataBuildService {
   ) {
   }
 
+  //TODO refactor, nearly identical to buildList, only payload differs
   buildSingle<TNormalized extends CacheableObject, TDomain>(
     href: string,
     normalizedType: GenericConstructor<TNormalized>
@@ -48,6 +49,12 @@ export class RemoteDataBuildService {
     const statusCode = responseCacheObs
       .filter((entry: ResponseCacheEntry) => hasValue(entry))
       .map((entry: ResponseCacheEntry) => entry.response.statusCode)
+      .distinctUntilChanged();
+
+    const pageInfo = responseCacheObs
+      .filter((entry: ResponseCacheEntry) => hasValue(entry)
+      && hasValue(entry.response) && hasValue(entry.response['pageInfo']))
+      .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).pageInfo)
       .distinctUntilChanged();
 
     const payload =
@@ -76,10 +83,12 @@ export class RemoteDataBuildService {
       isSuccessFul,
       errorMessage,
       statusCode,
+      pageInfo,
       payload
     );
   }
 
+  //TODO refactor, nearly identical to buildSingle, only payload differs
   buildList<TNormalized extends CacheableObject, TDomain>(
     href: string,
     normalizedType: GenericConstructor<TNormalized>
@@ -104,6 +113,12 @@ export class RemoteDataBuildService {
       .map((entry: ResponseCacheEntry) => entry.response.statusCode)
       .distinctUntilChanged();
 
+    const pageInfo = responseCacheObs
+      .filter((entry: ResponseCacheEntry) => hasValue(entry)
+          && hasValue(entry.response) && hasValue(entry.response['pageInfo']))
+      .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).pageInfo)
+      .distinctUntilChanged();
+
     const payload = responseCacheObs
       .filter((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
@@ -124,6 +139,7 @@ export class RemoteDataBuildService {
       isSuccessFul,
       errorMessage,
       statusCode,
+      pageInfo,
       payload
     );
   }
@@ -210,6 +226,8 @@ export class RemoteDataBuildService {
       .join(", ")
     );
 
+    const pageInfo = Observable.of(undefined);
+
     const payload = <Observable<T[]>> Observable.combineLatest(
       ...input.map(rd => rd.payload)
     );
@@ -224,6 +242,7 @@ export class RemoteDataBuildService {
       isSuccessFul,
       errorMessage,
       statusCode,
+      pageInfo,
       payload
     );
   }
