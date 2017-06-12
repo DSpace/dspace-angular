@@ -57,6 +57,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Current page.
    */
   public currentPage = 1;
+  
+  /**
+   * Current URL query parameters
+   */
   public currentQueryParams = {};
 
   /**
