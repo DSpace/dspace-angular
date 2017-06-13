@@ -15,6 +15,8 @@ import { SafeUrlPipe } from "./utils/safe-url-pipe";
 import { HostWindowService } from "./host-window.service";
 import { NativeWindowFactory, NativeWindowService } from "./window.service";
 import { ContentWithOptionalTitleComponent } from "./content-with-optional-title/content-with-optional-title.component";
+import { DsoNameComponent } from "./dso-name/dso-name.component";
+import { DsoLogoComponent } from "./dso-logo/dso-logo.component";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -37,7 +39,9 @@ const COMPONENTS = [
   // put shared components here
   PaginationComponent,
   ThumbnailComponent,
-  ContentWithOptionalTitleComponent
+  ContentWithOptionalTitleComponent,
+  DsoNameComponent,
+  DsoLogoComponent
 ];
 
 const PROVIDERS = [

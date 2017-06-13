@@ -1,5 +1,5 @@
 <div *ngIf="content" class="content-with-optional-title">
     <h2 *ngIf="title">{{ title | translate }}</h2>
-    <p *ngIf="hasInnerHtml" [innerHtml]="content"></p>
-    <p *ngIf="!hasInnerHtml">{{content}}</p>
+    <div *ngIf="hasInnerHtml" [innerHtml]="content"></div>
+    <div *ngIf="!hasInnerHtml">{{content}}</div>
 </div>

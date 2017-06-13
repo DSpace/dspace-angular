@@ -1,6 +1,11 @@
 <div class="collection-page" *ngIf="collectionData.hasSucceeded | async">
-  <ds-collection-page-name [name]="(collectionData.payload | async)?.name"></ds-collection-page-name>
-  <ds-collection-page-logo *ngIf="logoData" [logo]="logoData.payload | async"></ds-collection-page-logo>
+  <!-- Collection Name -->
+  <ds-dso-name [name]="(collectionData.payload | async)?.name"></ds-dso-name>
+  <!-- Collection logo -->
+  <ds-dso-logo *ngIf="logoData" 
+      [logo]="logoData.payload | async"
+      [alternateText]="'Collection Logo'">
+  </ds-dso-logo>
   <!-- Introductionary text -->
   <ds-content-with-optional-title
       [content]="(collectionData.payload | async)?.introductoryText"

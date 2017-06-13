@@ -6,8 +6,6 @@ import { TranslateModule } from "@ngx-translate/core";
 import { SharedModule } from '../shared/shared.module';
 import { CollectionPageComponent } from './collection-page.component';
 import { FieldWrapperComponent } from './field-wrapper/field-wrapper.component';
-import { CollectionPageNameComponent } from './name/collection-page-name.component';
-import { CollectionPageLogoComponent } from './logo/collection-page-logo.component';
 import { CollectionPageRoutingModule } from './collection-page-routing.module';
 
 @NgModule({
@@ -20,8 +18,6 @@ import { CollectionPageRoutingModule } from './collection-page-routing.module';
   declarations: [
     CollectionPageComponent,
     FieldWrapperComponent,
-    CollectionPageNameComponent,
-    CollectionPageLogoComponent,
   ]
 })
 export class CollectionPageModule { }

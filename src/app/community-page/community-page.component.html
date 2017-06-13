@@ -1,6 +1,11 @@
 <div class="community-page" *ngIf="communityData.hasSucceeded | async">
-  <ds-community-page-name [name]="(communityData.payload | async)?.name"></ds-community-page-name>
-  <ds-community-page-logo *ngIf="logoData" [logo]="logoData.payload | async"></ds-community-page-logo>
+  <!-- Community name -->
+  <ds-dso-name [name]="(communityData.payload | async)?.name"></ds-dso-name>
+  <!-- Community logo -->
+  <ds-dso-logo *ngIf="logoData" 
+      [logo]="logoData.payload | async"
+      [alternateText]="'Community Logo'">
+  </ds-dso-logo>
   <!-- Introductionary text -->
   <ds-content-with-optional-title 
       [content]="(communityData.payload | async)?.introductoryText"
@@ -16,11 +21,6 @@
   <ds-content-with-optional-title
       [content]="(communityData.payload | async)?.copyrightText"
       [hasInnerHtml]="true">
-  </ds-content-with-optional-title>
-  <!-- Licence -->
-  <ds-content-with-optional-title
-      [content]="(communityData.payload | async)?.license"
-      [title]="'community.page.license'">
-  </ds-content-with-optional-title>
+  </ds-content-with-optional-title>  
   <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
 </div>
