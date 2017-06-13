@@ -14,6 +14,7 @@ import { ThumbnailComponent } from "../thumbnail/thumbnail.component";
 import { SafeUrlPipe } from "./utils/safe-url-pipe";
 import { HostWindowService } from "./host-window.service";
 import { NativeWindowFactory, NativeWindowService } from "./window.service";
+import { ContentWithOptionalTitleComponent } from "./content-with-optional-title/content-with-optional-title.component";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -35,7 +36,8 @@ const PIPES = [
 const COMPONENTS = [
   // put shared components here
   PaginationComponent,
-  ThumbnailComponent
+  ThumbnailComponent,
+  ContentWithOptionalTitleComponent
 ];
 
 const PROVIDERS = [

@@ -1,0 +1,37 @@
+import { Component, Input } from '@angular/core';
+
+/**
+ * This component renders any content inside of this component.
+ * If there is a title set it will render the title. 
+ * If hasInnerHtml is true the content will be handled as html.
+ * To see how it is used see collection-page or community-page.
+ */
+
+@Component({
+  selector: 'ds-content-with-optional-title',
+  styleUrls: ['./content-with-optional-title.component.css'],
+  templateUrl: './content-with-optional-title.component.html'
+})
+export class ContentWithOptionalTitleComponent {
+
+  // Optional title
+  @Input() title: string;
+
+  // The content to render. Might be html
+  @Input() content: string;
+
+  // flag whether the content contains html syntax or not
+  @Input() hasInnerHtml: boolean;
+
+
+
+  constructor() {
+    this.universalInit();
+
+  }
+
+  universalInit() {
+
+  }
+
+}

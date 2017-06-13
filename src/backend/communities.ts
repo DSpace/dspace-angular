@@ -38,7 +38,8 @@ export const COMMUNITIES = [
       },
       "collections": [
         { "href": "/collections/5179" }
-      ]
+      ],
+      "logo": { "href": "/bitstreams/4688" }
     }
   },
   {
