@@ -6,7 +6,6 @@ import { TranslateModule } from "@ngx-translate/core";
 
 import { SharedModule } from '../shared/shared.module';
 import { CommunityPageComponent } from './community-page.component';
-import { FieldWrapperComponent } from './field-wrapper/field-wrapper.component';
 import { CommunityPageSubCollectionListComponent } from './sub-collection-list/community-page-sub-collection-list.component';
 import { CommunityPageRoutingModule } from './community-page-routing.module';
 
@@ -20,7 +19,6 @@ import { CommunityPageRoutingModule } from './community-page-routing.module';
   ],
   declarations: [
     CommunityPageComponent,
-    FieldWrapperComponent,
     CommunityPageSubCollectionListComponent,
   ]
 })

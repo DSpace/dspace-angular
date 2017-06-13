@@ -5,7 +5,6 @@ import { TranslateModule } from "@ngx-translate/core";
 
 import { SharedModule } from '../shared/shared.module';
 import { CollectionPageComponent } from './collection-page.component';
-import { FieldWrapperComponent } from './field-wrapper/field-wrapper.component';
 import { CollectionPageRoutingModule } from './collection-page-routing.module';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { CollectionPageRoutingModule } from './collection-page-routing.module';
   ],
   declarations: [
     CollectionPageComponent,
-    FieldWrapperComponent,
   ]
 })
 export class CollectionPageModule { }

@@ -1,26 +1,26 @@
 <div class="community-page" *ngIf="communityData.hasSucceeded | async">
   <!-- Community name -->
-  <ds-dso-name [name]="(communityData.payload | async)?.name"></ds-dso-name>
+  <ds-comcol-page-header [name]="(communityData.payload | async)?.name"></ds-comcol-page-header>
   <!-- Community logo -->
-  <ds-dso-logo *ngIf="logoData" 
+  <ds-comcol-page-logo *ngIf="logoData" 
       [logo]="logoData.payload | async"
       [alternateText]="'Community Logo'">
-  </ds-dso-logo>
+  </ds-comcol-page-logo>
   <!-- Introductionary text -->
-  <ds-content-with-optional-title 
+  <ds-comcol-page-content 
       [content]="(communityData.payload | async)?.introductoryText"
       [hasInnerHtml]="true">
-  </ds-content-with-optional-title>
+  </ds-comcol-page-content>
   <!-- News -->
-  <ds-content-with-optional-title 
+  <ds-comcol-page-content 
       [content]="(communityData.payload | async)?.sidebarText"
       [hasInnerHtml]="true"
       [title]="'community.page.news'">
-  </ds-content-with-optional-title >
+  </ds-comcol-page-content >
   <!-- Copyright -->
-  <ds-content-with-optional-title
+  <ds-comcol-page-content
       [content]="(communityData.payload | async)?.copyrightText"
       [hasInnerHtml]="true">
-  </ds-content-with-optional-title>  
+  </ds-comcol-page-content>  
   <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
 </div>

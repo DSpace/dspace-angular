@@ -8,11 +8,11 @@ import { Component, Input } from '@angular/core';
  */
 
 @Component({
-  selector: 'ds-content-with-optional-title',
-  styleUrls: ['./content-with-optional-title.component.css'],
-  templateUrl: './content-with-optional-title.component.html'
+  selector: 'ds-comcol-page-content',
+  styleUrls: ['./comcol-page-content.component.css'],
+  templateUrl: './comcol-page-content.component.html'
 })
-export class ContentWithOptionalTitleComponent {
+export class ComcolPageContentComponent {
 
   // Optional title
   @Input() title: string;

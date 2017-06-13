@@ -4,11 +4,11 @@ import { Bitstream } from "../../core/shared/bitstream.model";
 
 
 @Component({
-  selector: 'ds-dso-logo',
-  styleUrls: ['./dso-logo.component.css'],
-  templateUrl: './dso-logo.component.html',
+  selector: 'ds-comcol-page-logo',
+  styleUrls: ['./comcol-page-logo.component.css'],
+  templateUrl: './comcol-page-logo.component.html',
 })
-export class DsoLogoComponent {
+export class ComcolPageLogoComponent {
   @Input() logo: Bitstream;
 
   @Input() alternateText: string;
