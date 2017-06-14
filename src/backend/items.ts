@@ -94,20 +94,7 @@ export const ITEMS = {
       ],
       "_embedded": {
         "parents": [
-          {
-            "_links": {
-              "self": { "href": "/collections/5179" },
-              "items": [
-                { "href": "/items/8871" },
-                { "href": "/items/9978" }
-              ]
-            },
-            "id": "5179",
-            "uuid": "9e32a2e2-6b91-4236-a361-995ccdc14c60",
-            "type": "collection",
-            "name": "A Test Collection",
-            "handle": "123456789/5179",
-          },
+
           {
             "_links": {
               "self": { "href": "/collections/6547" },

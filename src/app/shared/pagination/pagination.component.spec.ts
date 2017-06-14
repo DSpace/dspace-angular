@@ -247,12 +247,12 @@ describe('Pagination component', () => {
 
     changePage(testFixture, 3);
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([{pageId: 'test', page: 3, pageSize: 10}]);
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10 } });
     expect(paginationComponent.currentPage).toEqual(3);
 
     changePageSize(testFixture, '20');
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([{pageId: 'test', page: 3, pageSize: 20}]);
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 20 } });
     expect(paginationComponent.pageSize).toEqual(20);
   }));
 

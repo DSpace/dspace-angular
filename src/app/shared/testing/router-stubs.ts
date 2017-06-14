@@ -4,7 +4,6 @@ import { BehaviorSubject } from "rxjs";
 export class RouterStub {
   //noinspection TypeScriptUnresolvedFunction
   navigate = jasmine.createSpy('navigate');
-  //navigate1: jasmine.createSpy('navigate');
 }
 
 export class ActivatedRouteStub {
@@ -12,6 +11,7 @@ export class ActivatedRouteStub {
   // ActivatedRoute.params is Observable
   private subject = new BehaviorSubject(this.testParams);
   params = this.subject.asObservable();
+  queryParams = this.subject.asObservable();
 
   constructor(params?: Params) {
     if (params) {
