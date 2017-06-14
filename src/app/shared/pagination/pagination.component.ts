@@ -17,7 +17,7 @@ import { DEFAULT_TEMPLATE, DEFAULT_STYLES } from 'ng2-pagination/dist/template';
 
 import { HostWindowService } from "../host-window.service";
 import { HostWindowState } from "../host-window.reducer";
-import { PaginationOptions } from '../../core/cache/models/pagination-options.model';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 
 /**
  * The default pagination controls component.
@@ -39,7 +39,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Configuration for the NgbPagination component.
    */
-  @Input() paginationOptions: PaginationOptions;
+  @Input() paginationOptions: PaginationComponentOptions;
 
   /**
    * An event fired when the page is changed.
@@ -57,6 +57,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Current page.
    */
   public currentPage = 1;
+  
+  /**
+   * Current URL query parameters
+   */
+  public currentQueryParams = {};
 
   /**
    * An observable of HostWindowState type
@@ -121,14 +126,15 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.pageSize = this.paginationOptions.pageSize;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
 
-    this.routeSubscription = this.route.params
-      .map(params => params)
-      .subscribe(params => {
-        if(this.id == params['pageId']
-           && (this.paginationOptions.currentPage != params['page']
-           || this.paginationOptions.pageSize != params['pageSize'])
+    this.routeSubscription = this.route.queryParams
+      .map(queryParams => queryParams)
+      .subscribe(queryParams => {
+        this.currentQueryParams = queryParams;
+        if(this.id == queryParams['pageId']
+           && (this.paginationOptions.currentPage != queryParams['page']
+           || this.paginationOptions.pageSize != queryParams['pageSize'])
           ) {
-          this.validateParams(params['page'], params['pageSize']);
+          this.validateParams(queryParams['page'], queryParams['pageSize']);
         }
       });
     this.setShowingDetail();
@@ -162,7 +168,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
-    this.router.navigate([{ pageId: this.id, page: page, pageSize: this.pageSize }]);
+    this.router.navigate([], { queryParams: Object.assign({}, this.currentQueryParams, { pageId: this.id, page: page, pageSize: this.pageSize }) });
     this.currentPage = page;
     this.setShowingDetail();
     this.pageChange.emit(page);
@@ -175,7 +181,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The new page size.
    */
   public setPageSize(pageSize: number) {
-    this.router.navigate([{ pageId: this.id, page: this.currentPage, pageSize: pageSize }]);
+    this.router.navigate([], { queryParams: Object.assign({}, this.currentQueryParams, { pageId: this.id, page: this.currentPage, pageSize: pageSize }) });
     this.pageSize = pageSize;
     this.setShowingDetail();
     this.pageSizeChange.emit(pageSize);
