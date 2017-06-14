@@ -1,5 +1,5 @@
 import { SortOptions } from "../cache/models/sort-options.model";
-import { PaginationOptions } from "../cache/models/pagination-options.model";
+import { PaginationComponentOptions } from "../../shared/pagination/pagination-component-options.model";
 import { GenericConstructor } from "../shared/generic-constructor";
 
 export class Request<T> {
@@ -17,12 +17,17 @@ export class FindByIDRequest<T> extends Request<T> {
   }
 }
 
+export class FindAllOptions {
+  scopeID?: string;
+  elementsPerPage?: number;
+  currentPage?: number;
+  sort?: SortOptions;
+}
+
 export class FindAllRequest<T> extends Request<T> {
   constructor(
     href: string,
-    public scopeID?: string,
-    public paginationOptions?: PaginationOptions,
-    public sortOptions?: SortOptions
+    public options?: FindAllOptions,
   ) {
     super(href);
   }

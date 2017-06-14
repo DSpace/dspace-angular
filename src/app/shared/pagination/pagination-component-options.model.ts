@@ -1,6 +1,6 @@
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
-export class PaginationOptions extends NgbPaginationConfig {
+export class PaginationComponentOptions extends NgbPaginationConfig {
   /**
    * ID for the pagination instance. Only useful if you wish to
    * have more than once instance at a time in a given component.

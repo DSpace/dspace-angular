@@ -25,7 +25,7 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PaginationComponent } from './pagination.component';
-import { PaginationOptions } from '../../core/cache/models/pagination-options.model';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 import { MockTranslateLoader } from "../testing/mock-translate-loader";
 
 import { GLOBAL_CONFIG, EnvConfig } from '../../../config';
@@ -307,7 +307,7 @@ class TestComponent {
 
   collection: string[] = [];
   collectionSize: number;
-  paginationOptions = new PaginationOptions();
+  paginationOptions = new PaginationComponentOptions();
 
   constructor() {
     this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);

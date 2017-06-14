@@ -17,7 +17,7 @@ import { DEFAULT_TEMPLATE, DEFAULT_STYLES } from 'ng2-pagination/dist/template';
 
 import { HostWindowService } from "../host-window.service";
 import { HostWindowState } from "../host-window.reducer";
-import { PaginationOptions } from '../../core/cache/models/pagination-options.model';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 
 /**
  * The default pagination controls component.
@@ -39,7 +39,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Configuration for the NgbPagination component.
    */
-  @Input() paginationOptions: PaginationOptions;
+  @Input() paginationOptions: PaginationComponentOptions;
 
   /**
    * An event fired when the page is changed.

@@ -1,9 +1,9 @@
 import { ObjectCacheService } from "../cache/object-cache.service";
 import { ResponseCacheService } from "../cache/response-cache.service";
 import { CacheableObject } from "../cache/object-cache.reducer";
-import { hasValue } from "../../shared/empty.util";
+import { hasValue, isNotEmpty } from "../../shared/empty.util";
 import { RemoteData } from "./remote-data";
-import { FindAllRequest, FindByIDRequest, Request } from "./request.models";
+import { FindAllOptions, FindAllRequest, FindByIDRequest, Request } from "./request.models";
 import { Store } from "@ngrx/store";
 import { RequestConfigureAction, RequestExecuteAction } from "./request.actions";
 import { CoreState } from "../core.reducers";
@@ -29,17 +29,35 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
 
   }
 
-  protected getFindAllHref(scopeID?): string {
+  protected getFindAllHref(options: FindAllOptions = {}): string {
     let result = this.endpoint;
-    if (hasValue(scopeID)) {
-      result += `?scope=${scopeID}`
+    let args = [];
+
+    if (hasValue(options.scopeID)) {
+      args.push(`scope=${options.scopeID}`);
+    }
+
+    if (hasValue(options.currentPage)) {
+      args.push(`page=${options.currentPage}`);
+    }
+
+    if (hasValue(options.elementsPerPage)) {
+      args.push(`size=${options.elementsPerPage}`);
+    }
+
+    if (hasValue(options.sort)) {
+      args.push(`sort=${options.sort.field},${options.sort.direction}`);
+    }
+
+    if (isNotEmpty(args)) {
+      result = `${result}?${args.join('&')}`;
     }
     return new RESTURLCombiner(this.EnvConfig, result).toString();
   }
 
-  findAll(scopeID?: string): RemoteData<Array<TDomain>> {
-    const href = this.getFindAllHref(scopeID);
-    const request = new FindAllRequest(href, scopeID);
+  findAll(options: FindAllOptions = {}): RemoteData<Array<TDomain>> {
+    const href = this.getFindAllHref(options);
+    const request = new FindAllRequest(href, options);
     this.requestService.configure(request);
     return this.rdbService.buildList<TNormalized, TDomain>(href, this.normalizedResourceType);
     // return this.rdbService.buildList(href);
