@@ -82,7 +82,7 @@ export function createMockApi() {
     let id = req.params.community_id;
     try {
       req.community_id = id;
-      req.community = COMMUNITIES.find((community) => {
+      req.community = COMMUNITIES["communities"].find((community) => {
         return community.id === id;
       });
       next();
@@ -143,7 +143,7 @@ export function createMockApi() {
     let id = req.params.collection_id;
     try {
       req.collection_id = id;
-      req.collection = COLLECTIONS.find((collection) => {
+      req.collection = COLLECTIONS["collections"].find((collection) => {
         return collection.id === id;
       });
       next();
@@ -205,7 +205,7 @@ export function createMockApi() {
     let id = req.params.item_id;
     try {
       req.item_id = id;
-      req.item = ITEMS.find((item) => {
+      req.item = ITEMS["items"].find((item) => {
         return item.id === id;
       });
       next();
@@ -250,7 +250,7 @@ export function createMockApi() {
         let id = req.params.bundle_id;
         try {
             req.bundle_id = id;
-            req.bundle = BUNDLES.find((bundle) => {
+            req.bundle = BUNDLES["bundles"].find((bundle) => {
                 return bundle.id === id;
             });
             next();
@@ -280,7 +280,7 @@ export function createMockApi() {
         let id = req.params.bitstream_id;
         try {
             req.bitstream_id = id;
-            req.bitstream = BITSTREAMS.find((bitstream) => {
+            req.bitstream = BITSTREAMS["bitstreams"].find((bitstream) => {
                 return bitstream.id === id;
             });
             next();

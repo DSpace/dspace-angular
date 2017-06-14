@@ -8,7 +8,6 @@ import { RequestConfigureAction, RequestExecuteAction } from "./request.actions"
 import { ResponseCacheService } from "../cache/response-cache.service";
 import { ObjectCacheService } from "../cache/object-cache.service";
 import { CacheableObject } from "../cache/object-cache.reducer";
-import { GenericConstructor } from "../shared/generic-constructor";
 
 @Injectable()
 export class RequestService {
@@ -35,14 +34,13 @@ export class RequestService {
     return this.store.select<RequestEntry>('core', 'data', 'request', href);
   }
 
-  configure<T extends CacheableObject>(href: string, normalizedType: GenericConstructor<T>): void {
-    const isCached = this.objectCache.hasBySelfLink(href);
-    const isPending = this.isPending(href);
+  configure<T extends CacheableObject>(request: Request<T>): void {
+    const isCached = this.objectCache.hasBySelfLink(request.href);
+    const isPending = this.isPending(request.href);
 
     if (!(isCached || isPending)) {
-      const request = new Request(href, normalizedType);
       this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(href));
+      this.store.dispatch(new RequestExecuteAction(request.href));
     }
   }
 }
