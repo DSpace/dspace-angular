@@ -8,6 +8,7 @@ import { PageInfo } from "../core/shared/page-info.model";
 import { Observable } from "rxjs";
 import { PaginationComponentOptions } from "../shared/pagination/pagination-component-options.model";
 import { EventEmitter } from "@angular/common/src/facade/async";
+import { SortOptions } from "../core/cache/models/sort-options.model";
 
 
 @Component({
@@ -21,10 +22,13 @@ export class ObjectListComponent implements OnInit {
 
     @Input() objects: RemoteData<DSpaceObject[]>;
     @Input() config : PaginationComponentOptions;
+    @Input() sortConfig : SortOptions;
     pageInfo : Observable<PageInfo>;
 
     @Output() pageChange = new EventEmitter();
     @Output() pageSizeChange = new EventEmitter();
+    @Output() sortDirectionChange = new EventEmitter();
+    @Output() sortFieldChange = new EventEmitter();
     data: any = {};
 
     constructor() {
@@ -45,4 +49,13 @@ export class ObjectListComponent implements OnInit {
     onPageSizeChange(event) {
         this.pageSizeChange.emit(event);
     }
+
+    onSortDirectionChange(event) {
+        this.sortDirectionChange.emit(event);
+    }
+
+    onSortFieldChange(event) {
+        this.sortFieldChange.emit(event);
+    }
+
 }

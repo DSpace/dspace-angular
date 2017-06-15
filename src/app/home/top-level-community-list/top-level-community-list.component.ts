@@ -13,6 +13,7 @@ import { SortOptions } from "../../core/cache/models/sort-options.model";
 export class TopLevelCommunityListComponent implements OnInit {
   topLevelCommunities: RemoteData<Item[]>;
   config : PaginationComponentOptions;
+  sortConfig : SortOptions;
 
   constructor(
     private cds: ItemDataService
@@ -29,6 +30,8 @@ export class TopLevelCommunityListComponent implements OnInit {
     this.config = new PaginationComponentOptions();
     this.config.id = "top-level-pagination"
     this.config.pageSizeOptions = [ 5, 10, 20, 40, 60, 80, 100 ];
+
+    this.sortConfig =  new SortOptions();
   }
 
   onPageChange(currentPage): void {
@@ -41,7 +44,17 @@ export class TopLevelCommunityListComponent implements OnInit {
     this.updateResults();
   }
 
+  onSortDirectionChange(sortDirection): void {
+    this.sortConfig.direction = sortDirection;
+    this.updateResults();
+  }
+
+  onSortFieldChange(field): void {
+    this.sortConfig.field = field;
+    this.updateResults();
+  }
+
   updateResults() {
-    this.topLevelCommunities = this.cds.findAll({ currentPage: this.config.currentPage, elementsPerPage: this.config.pageSize });
+    this.topLevelCommunities = this.cds.findAll({ currentPage: this.config.currentPage, elementsPerPage: this.config.pageSize, sort: this.sortConfig });
   }
 }

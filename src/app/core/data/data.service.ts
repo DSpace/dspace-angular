@@ -46,7 +46,11 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     }
 
     if (hasValue(options.sort)) {
-      args.push(`sort=${options.sort.field},${options.sort.direction}`);
+      let direction = 'asc';
+      if (options.sort.direction === 1) {
+        direction = 'desc';
+      }
+      args.push(`sort=${options.sort.field},${direction}`);
     }
 
     if (isNotEmpty(args)) {

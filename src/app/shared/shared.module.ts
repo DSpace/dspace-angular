@@ -15,6 +15,7 @@ import { SafeUrlPipe } from "./utils/safe-url-pipe";
 import { HostWindowService } from "./host-window.service";
 import { NativeWindowFactory, NativeWindowService } from "./window.service";
 import { TRUNCATE_PIPES } from "ng2-truncate";
+import { EnumKeysPipe } from "./utils/enum-keys-pipe";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -30,7 +31,8 @@ const MODULES = [
 const PIPES = [
     FileSizePipe,
     SafeUrlPipe,
-    TRUNCATE_PIPES
+    TRUNCATE_PIPES,
+    EnumKeysPipe
   // put pipes here
 ];
 
