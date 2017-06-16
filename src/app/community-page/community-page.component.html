@@ -1,0 +1,26 @@
+<div class="community-page" *ngIf="communityData.hasSucceeded | async">
+  <!-- Community name -->
+  <ds-comcol-page-header [name]="(communityData.payload | async)?.name"></ds-comcol-page-header>
+  <!-- Community logo -->
+  <ds-comcol-page-logo *ngIf="logoData" 
+      [logo]="logoData.payload | async"
+      [alternateText]="'Community Logo'">
+  </ds-comcol-page-logo>
+  <!-- Introductionary text -->
+  <ds-comcol-page-content 
+      [content]="(communityData.payload | async)?.introductoryText"
+      [hasInnerHtml]="true">
+  </ds-comcol-page-content>
+  <!-- News -->
+  <ds-comcol-page-content 
+      [content]="(communityData.payload | async)?.sidebarText"
+      [hasInnerHtml]="true"
+      [title]="'community.page.news'">
+  </ds-comcol-page-content>
+  <!-- Copyright -->
+  <ds-comcol-page-content
+      [content]="(communityData.payload | async)?.copyrightText"
+      [hasInnerHtml]="true">
+  </ds-comcol-page-content>  
+  <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
+</div>

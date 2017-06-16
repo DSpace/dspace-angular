@@ -14,6 +14,9 @@ import { ThumbnailComponent } from "../thumbnail/thumbnail.component";
 import { SafeUrlPipe } from "./utils/safe-url-pipe";
 import { HostWindowService } from "./host-window.service";
 import { NativeWindowFactory, NativeWindowService } from "./window.service";
+import { ComcolPageContentComponent } from "./comcol-page-content/comcol-page-content.component";
+import { ComcolPageHeaderComponent } from "./comcol-page-header/comcol-page-header.component";
+import { ComcolPageLogoComponent } from "./comcol-page-logo/comcol-page-logo.component";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -35,7 +38,10 @@ const PIPES = [
 const COMPONENTS = [
   // put shared components here
   PaginationComponent,
-  ThumbnailComponent
+  ThumbnailComponent,
+  ComcolPageContentComponent,
+  ComcolPageHeaderComponent,
+  ComcolPageLogoComponent
 ];
 
 const PROVIDERS = [
