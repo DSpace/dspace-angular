@@ -10,6 +10,15 @@
       "license": "License"
     }
   },
+  "community": {
+    "page": {
+      "news": "News",
+      "license": "License"
+    },
+    "sub-collection-list": {
+      "head": "Collections of this Community"
+    }
+  },
   "item": {
     "page": {
       "author": "Author",

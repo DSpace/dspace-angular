@@ -10,5 +10,5 @@
  * ];
  **/
 export const routes: string[] = [
-  'home', 'items/:id' , 'collections/:id', '**'
+  'home', 'items/:id' , 'collections/:id', 'communities/:id', '**'
 ];
