@@ -2,6 +2,7 @@ import { Metadatum } from "./metadatum.model"
 import { isEmpty, isNotEmpty } from "../../shared/empty.util";
 import { CacheableObject } from "../cache/object-cache.reducer";
 import { RemoteData } from "../data/remote-data";
+import { ResourceType } from "./resource-type";
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -23,7 +24,7 @@ export abstract class DSpaceObject implements CacheableObject {
     /**
      * A string representing the kind of DSpaceObject, e.g. community, item, …
      */
-    type: string;
+    type: ResourceType;
 
     /**
      * The name for this DSpaceObject

@@ -33,11 +33,8 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
 
   findAll(scopeID?: string): RemoteData<Array<TDomain>> {
     const href = this.getFindAllHref(scopeID);
-    if (!this.responseCache.has(href) && !this.requestService.isPending(href)) {
-      const request = new FindAllRequest(href, this.normalizedResourceType, scopeID);
-      this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(href));
-    }
+    const request = new FindAllRequest(href, scopeID);
+    this.requestService.configure(request);
     return this.rdbService.buildList<TNormalized, TDomain>(href, this.normalizedResourceType);
     // return this.rdbService.buildList(href);
   }
@@ -48,21 +45,14 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
 
   findById(id: string): RemoteData<TDomain> {
     const href = this.getFindByIDHref(id);
-    if (!this.objectCache.hasBySelfLink(href) && !this.requestService.isPending(href)) {
-      const request = new FindByIDRequest(href, this.normalizedResourceType, id);
-      this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(href));
-    }
+    const request = new FindByIDRequest(href, id);
+    this.requestService.configure(request);
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
     // return this.rdbService.buildSingle(href);
   }
 
   findByHref(href: string): RemoteData<TDomain> {
-    if (!this.objectCache.hasBySelfLink(href) && !this.requestService.isPending(href)) {
-      const request = new Request(href, this.normalizedResourceType);
-      this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(href));
-    }
+    this.requestService.configure(new Request(href));
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
     // return this.rdbService.buildSingle(href));
   }
