@@ -71,6 +71,17 @@ export class PaginationComponent implements OnDestroy, OnInit {
      */
     @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
 
+
+    /**
+     * Option for hiding the gear
+     */
+    @Input() public hideGear: boolean = false;
+
+    /**
+     * Option for hiding the pager when there is less than 2 pages
+     */
+    @Input() public hidePagerWhenSinglePage: boolean = true;
+
     /**
      * Current page.
      */
@@ -127,9 +138,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
      */
     public paginationControls;
 
-    /**
-     *
-     */
 
     /**
      * Subscriber to observable.

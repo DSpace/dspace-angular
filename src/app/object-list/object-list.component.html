@@ -1,6 +1,8 @@
 <ds-pagination [paginationOptions]="config"
                [collectionSize]="(pageInfo | async)?.totalElements"
                [sortOptions]="sortConfig"
+               [hideGear]="hideGear"
+               [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
                (pageChange)="onPageChange($event)"
                (pageSizeChange)="onPageSizeChange($event)"
                (sortDirectionChange)="onSortDirectionChange($event)"

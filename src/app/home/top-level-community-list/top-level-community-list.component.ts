@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RemoteData } from "../../core/data/remote-data";
 import { ItemDataService } from "../../core/data/item-data.service";
 import { Item } from "../../core/shared/item.model";
 import { PaginationComponentOptions } from "../../shared/pagination/pagination-component-options.model";
-import { SortOptions } from "../../core/cache/models/sort-options.model";
+import { SortOptions, SortDirection } from "../../core/cache/models/sort-options.model";
 
 @Component({
   selector: 'ds-top-level-community-list',
@@ -16,7 +16,8 @@ export class TopLevelCommunityListComponent implements OnInit {
   sortConfig : SortOptions;
 
   constructor(
-    private cds: ItemDataService
+    private cds: ItemDataService,
+    private ref: ChangeDetectorRef
   ) {
     this.universalInit();
   }
@@ -26,35 +27,37 @@ export class TopLevelCommunityListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.topLevelCommunities = this.cds.findAll();
     this.config = new PaginationComponentOptions();
-    this.config.id = "top-level-pagination"
+    this.config.id = "top-level-pagination";
     this.config.pageSizeOptions = [ 5, 10, 20, 40, 60, 80, 100 ];
-
+    this.config.pageSize = 4;
     this.sortConfig =  new SortOptions();
+
+    this.updateResults();
   }
 
-  onPageChange(currentPage): void {
+  onPageChange(currentPage: number): void {
     this.config.currentPage = currentPage;
     this.updateResults();
   }
 
-  onPageSizeChange(elementsPerPage): void {
+  onPageSizeChange(elementsPerPage: number): void {
     this.config.pageSize = elementsPerPage;
     this.updateResults();
   }
 
-  onSortDirectionChange(sortDirection): void {
-    this.sortConfig.direction = sortDirection;
+  onSortDirectionChange(sortDirection: SortDirection): void {
+    this.sortConfig = new SortOptions(this.sortConfig.field, sortDirection);
     this.updateResults();
   }
 
-  onSortFieldChange(field): void {
-    this.sortConfig.field = field;
+  onSortFieldChange(field: string): void {
+    this.sortConfig = new SortOptions(field, this.sortConfig.direction);
     this.updateResults();
   }
 
   updateResults() {
     this.topLevelCommunities = this.cds.findAll({ currentPage: this.config.currentPage, elementsPerPage: this.config.pageSize, sort: this.sortConfig });
+    this.ref.detectChanges();
   }
 }

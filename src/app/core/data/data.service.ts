@@ -37,8 +37,9 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       args.push(`scope=${options.scopeID}`);
     }
 
-    if (hasValue(options.currentPage)) {
-      args.push(`page=${options.currentPage}`);
+    if (hasValue(options.currentPage) && typeof options.currentPage === "number") {
+      /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
+      args.push(`page=${options.currentPage - 1}`);
     }
 
     if (hasValue(options.elementsPerPage)) {

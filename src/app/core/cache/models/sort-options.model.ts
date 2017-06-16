@@ -4,6 +4,8 @@ export enum SortDirection {
 }
 
 export class SortOptions {
-  field: string = "id";
-  direction: SortDirection = SortDirection.Ascending
+
+  constructor (public field: string = "name", public direction : SortDirection = SortDirection.Ascending) {
+
+  }
 }

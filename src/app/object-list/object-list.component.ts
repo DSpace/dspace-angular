@@ -8,7 +8,7 @@ import { PageInfo } from "../core/shared/page-info.model";
 import { Observable } from "rxjs";
 import { PaginationComponentOptions } from "../shared/pagination/pagination-component-options.model";
 import { EventEmitter } from "@angular/common/src/facade/async";
-import { SortOptions } from "../core/cache/models/sort-options.model";
+import { SortOptions, SortDirection } from "../core/cache/models/sort-options.model";
 
 
 @Component({
@@ -23,12 +23,33 @@ export class ObjectListComponent implements OnInit {
     @Input() objects: RemoteData<DSpaceObject[]>;
     @Input() config : PaginationComponentOptions;
     @Input() sortConfig : SortOptions;
+    @Input() hideGear : boolean = false;
+    @Input() hidePagerWhenSinglePage : boolean = true;
     pageInfo : Observable<PageInfo>;
 
-    @Output() pageChange = new EventEmitter();
-    @Output() pageSizeChange = new EventEmitter();
-    @Output() sortDirectionChange = new EventEmitter();
-    @Output() sortFieldChange = new EventEmitter();
+    /**
+     * An event fired when the page is changed.
+     * Event's payload equals to the newly selected page.
+     */
+    @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
+
+    /**
+     * An event fired when the page wsize is changed.
+     * Event's payload equals to the newly selected page size.
+     */
+    @Output() pageSizeChange: EventEmitter<number> = new EventEmitter<number>();
+
+    /**
+     * An event fired when the sort direction is changed.
+     * Event's payload equals to the newly selected sort direction.
+     */
+    @Output() sortDirectionChange: EventEmitter<SortDirection> = new EventEmitter<SortDirection>();
+
+    /**
+     * An event fired when the sort field is changed.
+     * Event's payload equals to the newly selected sort field.
+     */
+    @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
     data: any = {};
 
     constructor() {
