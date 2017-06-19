@@ -22,6 +22,7 @@ export class ObjectCacheEntry implements CacheEntry {
   data: CacheableObject;
   timeAdded: number;
   msToLive: number;
+  requestHref: string;
 }
 
 /**
@@ -83,7 +84,8 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
     [action.payload.objectToCache.uuid]: {
       data: action.payload.objectToCache,
       timeAdded: action.payload.timeAdded,
-      msToLive: action.payload.msToLive
+      msToLive: action.payload.msToLive,
+      requestHref: action.payload.requestHref
     }
   });
 }

@@ -24,7 +24,8 @@ describe("objectCacheReducer", () => {
         foo: "bar"
       },
       timeAdded: new Date().getTime(),
-      msToLive: 900000
+      msToLive: 900000,
+      requestHref: "https://rest.api/endpoint/uuid1"
     },
     [uuid2]: {
       data: {
@@ -32,7 +33,8 @@ describe("objectCacheReducer", () => {
         foo: "baz"
       },
       timeAdded: new Date().getTime(),
-      msToLive: 900000
+      msToLive: 900000,
+      requestHref: "https://rest.api/endpoint/uuid2"
     }
   };
   deepFreeze(testState);
@@ -56,7 +58,8 @@ describe("objectCacheReducer", () => {
     const objectToCache = {uuid: uuid1};
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
-    const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive);
+    const requestHref = "https://rest.api/endpoint/uuid1";
+    const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive, requestHref);
     const newState = objectCacheReducer(state, action);
 
     expect(newState[uuid1].data).toEqual(objectToCache);
@@ -68,7 +71,8 @@ describe("objectCacheReducer", () => {
     const objectToCache = {uuid: uuid1, foo: "baz", somethingElse: true};
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
-    const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive);
+    const requestHref = "https://rest.api/endpoint/uuid1";
+    const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive, requestHref);
     const newState = objectCacheReducer(testState, action);
 
     expect(newState[uuid1].data['foo']).toBe("baz");
@@ -80,7 +84,8 @@ describe("objectCacheReducer", () => {
     const objectToCache = {uuid: uuid1};
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
-    const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive);
+    const requestHref = "https://rest.api/endpoint/uuid1";
+    const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive, requestHref);
     deepFreeze(state);
 
     objectCacheReducer(state, action);
