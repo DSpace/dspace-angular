@@ -45,7 +45,7 @@ export class RequestEffects {
     })
     .flatMap((entry: RequestEntry) => {
       return this.restApi.get(entry.request.href)
-        .map((data: DSpaceRESTV2Response) => this.processEmbedded(data._embedded))
+        .map((data: DSpaceRESTV2Response) => this.processEmbedded(data._embedded, entry.request.href))
         .map((ids: Array<string>) => new SuccessResponse(ids))
         .do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
         .map((response: Response) => new RequestCompleteAction(entry.request.href))
@@ -54,25 +54,25 @@ export class RequestEffects {
           .map((response: Response) => new RequestCompleteAction(entry.request.href)));
     });
 
-  protected processEmbedded(_embedded: any): Array<string> {
+  protected processEmbedded(_embedded: any, requestHref): Array<string> {
 
     if (isNotEmpty(_embedded)) {
       if (isObjectLevel(_embedded)) {
-        return this.deserializeAndCache(_embedded);
+        return this.deserializeAndCache(_embedded, requestHref);
       }
       else {
         let uuids = [];
         Object.keys(_embedded)
           .filter(property => _embedded.hasOwnProperty(property))
           .forEach(property => {
-            uuids = [...uuids, ...this.deserializeAndCache(_embedded[property])];
+            uuids = [...uuids, ...this.deserializeAndCache(_embedded[property], requestHref)];
           });
         return uuids;
       }
     }
   }
 
-  protected deserializeAndCache(obj): Array<string> {
+  protected deserializeAndCache(obj, requestHref): Array<string> {
     let type: ResourceType;
     const isArray = Array.isArray(obj);
 
@@ -96,19 +96,19 @@ export class RequestEffects {
         if (isArray) {
           obj.forEach(o => {
             if (isNotEmpty(o._embedded)) {
-              this.processEmbedded(o._embedded);
+              this.processEmbedded(o._embedded, requestHref);
             }
           });
           const normalizedObjArr = serializer.deserializeArray(obj);
-          normalizedObjArr.forEach(t => this.addToObjectCache(t));
+          normalizedObjArr.forEach(t => this.addToObjectCache(t, requestHref));
           return normalizedObjArr.map(t => t.uuid);
         }
         else {
           if (isNotEmpty(obj._embedded)) {
-            this.processEmbedded(obj._embedded);
+            this.processEmbedded(obj._embedded, requestHref);
           }
           const normalizedObj = serializer.deserialize(obj);
-          this.addToObjectCache(normalizedObj);
+          this.addToObjectCache(normalizedObj, requestHref);
           return [normalizedObj.uuid];
         }
 
@@ -125,10 +125,10 @@ export class RequestEffects {
     }
   }
 
-  protected addToObjectCache(co: CacheableObject): void {
+  protected addToObjectCache(co: CacheableObject, requestHref: string): void {
     if (hasNoValue(co) || hasNoValue(co.uuid)) {
       throw new Error('The server returned an invalid object');
     }
-    this.objectCache.add(co, this.EnvConfig.cache.msToLive);
+    this.objectCache.add(co, this.EnvConfig.cache.msToLive, requestHref);
   }
 }
