@@ -20,6 +20,7 @@ describe("ObjectCacheService", () => {
   let store: Store<ObjectCacheState>;
 
   const uuid = '1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
+  const requestHref = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
   const timestamp = new Date().getTime();
   const msToLive = 900000;
   const objectToCache = {
@@ -44,8 +45,8 @@ describe("ObjectCacheService", () => {
   describe("add", () => {
     it("should dispatch an ADD action with the object to add, the time to live, and the current timestamp", () => {
 
-      service.add(objectToCache, msToLive);
-      expect(store.dispatch).toHaveBeenCalledWith(new AddToObjectCacheAction(objectToCache, timestamp, msToLive));
+      service.add(objectToCache, msToLive, requestHref);
+      expect(store.dispatch).toHaveBeenCalledWith(new AddToObjectCacheAction(objectToCache, timestamp, msToLive, requestHref));
     });
   });
 
