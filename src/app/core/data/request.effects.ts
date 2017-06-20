@@ -72,7 +72,16 @@ export class RequestEffects {
           .filter(property => data.hasOwnProperty(property))
           .filter(property => hasValue(data[property]))
           .forEach(property => {
-            uuids = [...uuids, ...this.deserializeAndCache(data[property], requestHref)];
+            let propertyUUIDs;
+
+            if (isPaginatedResponse(data[property])) {
+              propertyUUIDs = this.process(data[property], requestHref);
+            }
+            else {
+              propertyUUIDs = this.deserializeAndCache(data[property], requestHref);
+            }
+
+            uuids = [...uuids, ...propertyUUIDs];
           });
         return uuids;
       }
@@ -122,13 +131,15 @@ export class RequestEffects {
       }
       else {
         //TODO move check to Validator?
-        throw new Error(`The server returned an object with an unknown a known type: ${type}`);
+        // throw new Error(`The server returned an object with an unknown a known type: ${type}`);
+        return [];
       }
 
     }
     else {
       //TODO move check to Validator
-      throw new Error(`The server returned an object without a type: ${JSON.stringify(obj)}`);
+      // throw new Error(`The server returned an object without a type: ${JSON.stringify(obj)}`);
+      return [];
     }
   }
 

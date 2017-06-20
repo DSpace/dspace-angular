@@ -12,7 +12,7 @@ import { ErrorResponse, SuccessResponse } from "../response-cache.models";
 import { Observable } from "rxjs/Observable";
 import { RemoteData } from "../../data/remote-data";
 import { GenericConstructor } from "../../shared/generic-constructor";
-import { getMapsTo, getResourceType, getRelationships } from "./build-decorators";
+import { getMapsTo, getRelationMetadata, getRelationships } from "./build-decorators";
 import { NormalizedObjectFactory } from "../models/normalized-object-factory";
 import { Request } from "../../data/request.models";
 
@@ -64,10 +64,25 @@ export class RemoteDataBuildService {
       .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).pageInfo)
       .distinctUntilChanged();
 
-    const payload = this.objectCache.getBySelfLink<TNormalized>(href, normalizedType)
-      .map((normalized: TNormalized) => {
+    const payload =
+      Observable.race(
+        this.objectCache.getBySelfLink<TNormalized>(href, normalizedType),
+        responseCacheObs
+          .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
+          .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
+          .flatMap((resourceUUIDs: Array<string>) => {
+            if (isNotEmpty(resourceUUIDs)) {
+              return this.objectCache.get(resourceUUIDs[0], normalizedType);
+            }
+            else {
+              return Observable.of(undefined);
+            }
+          })
+          .distinctUntilChanged()
+      ).map((normalized: TNormalized) => {
         return this.build<TNormalized, TDomain>(normalized);
       });
+
 
     return new RemoteData(
       href,
@@ -143,7 +158,7 @@ export class RemoteDataBuildService {
 
     relationships.forEach((relationship: string) => {
       if (hasValue(normalized[relationship])) {
-        const resourceType = getResourceType(normalized, relationship);
+        const { resourceType, isList } = getRelationMetadata(normalized, relationship);
         const resourceConstructor = NormalizedObjectFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
           // without the setTimeout, the actions inside requestService.configure
@@ -168,7 +183,14 @@ export class RemoteDataBuildService {
             this.requestService.configure(new Request(normalized[relationship]));
           },0);
 
-          links[relationship] = this.buildSingle(normalized[relationship], resourceConstructor);
+          // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
+          // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
+          // but it should still be built as a list
+          if (isList) {
+            links[relationship] = this.buildList(normalized[relationship], resourceConstructor);
+          } else {
+            links[relationship] = this.buildSingle(normalized[relationship], resourceConstructor);
+          }
         }
       }
     });

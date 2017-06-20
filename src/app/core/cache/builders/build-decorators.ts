@@ -16,7 +16,7 @@ export const getMapsTo = function(target: any) {
   return Reflect.getOwnMetadata(mapsToMetadataKey, target);
 };
 
-export const relationship = function(value: ResourceType): any {
+export const relationship = function(value: ResourceType, isList: boolean = false): any {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     if (!target || !propertyKey) {
       return;
@@ -28,11 +28,11 @@ export const relationship = function(value: ResourceType): any {
     }
     relationshipMap.set(target.constructor, metaDataList);
 
-    return Reflect.metadata(relationshipKey, value).apply(this, arguments);
+    return Reflect.metadata(relationshipKey, { resourceType: value, isList }).apply(this, arguments);
   };
 };
 
-export const getResourceType = function(target: any, propertyKey: string) {
+export const getRelationMetadata = function(target: any, propertyKey: string) {
   return Reflect.getMetadata(relationshipKey, target, propertyKey);
 };
 

@@ -6,13 +6,20 @@ import { NormalizedCollection } from "./normalized-collection.model";
 import { GenericConstructor } from "../../shared/generic-constructor";
 import { NormalizedCommunity } from "./normalized-community.model";
 import { ResourceType } from "../../shared/resource-type";
+import { NormalizedObject } from "./normalized-object.model";
+import { NormalizedBitstreamFormat } from "./normalized-bitstream-format.model";
 
 export class NormalizedObjectFactory {
-  public static getConstructor(type: ResourceType): GenericConstructor<NormalizedDSpaceObject> {
+  public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
     switch (type) {
       case ResourceType.Bitstream: {
         return NormalizedBitstream
       }
+      // commented out for now, bitstreamformats aren't used in the UI yet
+      // and slow things down noticeably
+      // case ResourceType.BitstreamFormat: {
+      //   return NormalizedBitstreamFormat
+      // }
       case ResourceType.Bundle: {
         return NormalizedBundle
       }

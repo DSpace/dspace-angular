@@ -42,17 +42,17 @@ export class NormalizedItem extends NormalizedDSpaceObject {
    * An array of Collections that are direct parents of this Item
    */
   @autoserialize
-  @relationship(ResourceType.Collection)
+  @relationship(ResourceType.Collection, true)
   parents: Array<string>;
 
   /**
    * The Collection that owns this Item
    */
   @autoserializeAs(String, 'owningCollection')
-  @relationship(ResourceType.Collection)
+  @relationship(ResourceType.Collection, false)
   owner: string;
 
   @autoserialize
-  @relationship(ResourceType.Bitstream)
+  @relationship(ResourceType.Bitstream, true)
   bitstreams: Array<string>;
 }

@@ -11,7 +11,7 @@ export class NormalizedBundle extends NormalizedDSpaceObject {
    * The primary bitstream of this Bundle
    */
   @autoserialize
-  @relationship(ResourceType.Bitstream)
+  @relationship(ResourceType.Bitstream, false)
   primaryBitstream: string;
 
   /**
@@ -25,6 +25,6 @@ export class NormalizedBundle extends NormalizedDSpaceObject {
   owner: string;
 
   @autoserialize
-  @relationship(ResourceType.Bitstream)
+  @relationship(ResourceType.Bitstream, true)
   bitstreams: Array<string>;
 }
