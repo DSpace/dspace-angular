@@ -2,7 +2,7 @@ import { inheritSerialization, autoserialize } from "cerialize";
 import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
 import { Item } from "../../shared/item.model";
 import { mapsTo, relationship } from "../builders/build-decorators";
-import { NormalizedDSOType } from "./normalized-dspace-object-type";
+import { ResourceType } from "../../shared/resource-type";
 
 @mapsTo(Item)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -33,7 +33,7 @@ export class NormalizedItem extends NormalizedDSpaceObject {
    * An array of Collections that are direct parents of this Item
    */
   @autoserialize
-  @relationship(NormalizedDSOType.NormalizedCollection)
+  @relationship(ResourceType.Collection)
   parents: Array<string>;
 
   /**
@@ -42,6 +42,6 @@ export class NormalizedItem extends NormalizedDSpaceObject {
   owner: string;
 
   @autoserialize
-  @relationship(NormalizedDSOType.NormalizedBundle)
+  @relationship(ResourceType.Bundle)
   bundles: Array<string>;
 }

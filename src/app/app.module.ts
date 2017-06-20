@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { CollectionPageModule } from './collection-page/collection-page.module';
+import { CommunityPageModule } from './community-page/community-page.module';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 
@@ -24,6 +25,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
     HomeModule,
     ItemPageModule,
     CollectionPageModule,
+    CommunityPageModule,
     CoreModule.forRoot(),
     AppRoutingModule
   ],

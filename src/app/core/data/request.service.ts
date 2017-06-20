@@ -8,7 +8,9 @@ import { RequestConfigureAction, RequestExecuteAction } from "./request.actions"
 import { ResponseCacheService } from "../cache/response-cache.service";
 import { ObjectCacheService } from "../cache/object-cache.service";
 import { CacheableObject } from "../cache/object-cache.reducer";
-import { GenericConstructor } from "../shared/generic-constructor";
+import { ResponseCacheEntry } from "../cache/response-cache.reducer";
+import { request } from "http";
+import { SuccessResponse } from "../cache/response-cache.models";
 
 @Injectable()
 export class RequestService {
@@ -35,14 +37,25 @@ export class RequestService {
     return this.store.select<RequestEntry>('core', 'data', 'request', href);
   }
 
-  configure<T extends CacheableObject>(href: string, normalizedType: GenericConstructor<T>): void {
-    const isCached = this.objectCache.hasBySelfLink(href);
-    const isPending = this.isPending(href);
+  configure<T extends CacheableObject>(request: Request<T>): void {
+    let isCached = this.objectCache.hasBySelfLink(request.href);
+
+    if (!isCached && this.responseCache.has(request.href)) {
+      //if it isn't cached it may be a list endpoint, if so verify
+      //every object included in the response is still cached
+      this.responseCache.get(request.href)
+        .take(1)
+        .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
+        .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
+        .map((resourceUUIDs: Array<string>) => resourceUUIDs.every(uuid => this.objectCache.has(uuid)))
+        .subscribe(c => isCached = c);
+    }
+
+    const isPending = this.isPending(request.href);
 
     if (!(isCached || isPending)) {
-      const request = new Request(href, normalizedType);
       this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(href));
+      this.store.dispatch(new RequestExecuteAction(request.href));
     }
   }
 }

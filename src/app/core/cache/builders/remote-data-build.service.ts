@@ -13,7 +13,8 @@ import { Observable } from "rxjs/Observable";
 import { RemoteData } from "../../data/remote-data";
 import { GenericConstructor } from "../../shared/generic-constructor";
 import { getMapsTo, getResourceType, getRelationships } from "./build-decorators";
-import { NormalizedDSOFactory } from "../models/normalized-dspace-object-factory";
+import { NormalizedObjectFactory } from "../models/normalized-object-factory";
+import { Request } from "../../data/request.models";
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -29,37 +30,33 @@ export class RemoteDataBuildService {
     href: string,
     normalizedType: GenericConstructor<TNormalized>
   ): RemoteData<TDomain> {
-    const requestObs = this.store.select<RequestEntry>('core', 'data', 'request', href);
-    const responseCacheObs = this.responseCache.get(href);
+    const requestHrefObs = this.objectCache.getRequestHrefBySelfLink(href);
 
-    const requestPending = requestObs.map((entry: RequestEntry) => hasValue(entry) && entry.requestPending).distinctUntilChanged();
+    const requestObs = Observable.race(
+      this.store.select<RequestEntry>('core', 'data', 'request', href).filter(entry => hasValue(entry)),
+      requestHrefObs.flatMap(requestHref =>
+        this.store.select<RequestEntry>('core', 'data', 'request', requestHref)).filter(entry => hasValue(entry))
+    );
 
-    const responsePending = requestObs.map((entry: RequestEntry) => hasValue(entry) && entry.responsePending).distinctUntilChanged();
+    const responseCacheObs = Observable.race(
+      this.responseCache.get(href).filter(entry => hasValue(entry)),
+      requestHrefObs.flatMap(requestHref => this.responseCache.get(requestHref)).filter(entry => hasValue(entry))
+    );
+
+    const requestPending = requestObs.map((entry: RequestEntry) => entry.requestPending).distinctUntilChanged();
+
+    const responsePending = requestObs.map((entry: RequestEntry) => entry.responsePending).distinctUntilChanged();
 
     const isSuccessFul = responseCacheObs
-      .map((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful).distinctUntilChanged();
+      .map((entry: ResponseCacheEntry) => entry.response.isSuccessful).distinctUntilChanged();
 
     const errorMessage = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => hasValue(entry) && !entry.response.isSuccessful)
+      .filter((entry: ResponseCacheEntry) => !entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (<ErrorResponse> entry.response).errorMessage)
       .distinctUntilChanged();
 
-    const payload =
-      Observable.race(
-        this.objectCache.getBySelfLink<TNormalized>(href, normalizedType),
-        responseCacheObs
-          .filter((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful)
-          .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
-          .flatMap((resourceUUIDs: Array<string>) => {
-            if (isNotEmpty(resourceUUIDs)) {
-              return this.objectCache.get(resourceUUIDs[0], normalizedType);
-            }
-            else {
-              return Observable.of(undefined);
-            }
-          })
-          .distinctUntilChanged()
-      ).map((normalized: TNormalized) => {
+    const payload = this.objectCache.getBySelfLink<TNormalized>(href, normalizedType)
+      .map((normalized: TNormalized) => {
         return this.build<TNormalized, TDomain>(normalized);
       });
 
@@ -77,23 +74,24 @@ export class RemoteDataBuildService {
     href: string,
     normalizedType: GenericConstructor<TNormalized>
   ): RemoteData<TDomain[]> {
-    const requestObs = this.store.select<RequestEntry>('core', 'data', 'request', href);
-    const responseCacheObs = this.responseCache.get(href);
+    const requestObs = this.store.select<RequestEntry>('core', 'data', 'request', href)
+      .filter(entry => hasValue(entry));
+    const responseCacheObs = this.responseCache.get(href).filter(entry => hasValue(entry));
 
-    const requestPending = requestObs.map((entry: RequestEntry) => hasValue(entry) && entry.requestPending).distinctUntilChanged();
+    const requestPending = requestObs.map((entry: RequestEntry) => entry.requestPending).distinctUntilChanged();
 
-    const responsePending = requestObs.map((entry: RequestEntry) => hasValue(entry) && entry.responsePending).distinctUntilChanged();
+    const responsePending = requestObs.map((entry: RequestEntry) => entry.responsePending).distinctUntilChanged();
 
     const isSuccessFul = responseCacheObs
-      .map((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful).distinctUntilChanged();
+      .map((entry: ResponseCacheEntry) => entry.response.isSuccessful).distinctUntilChanged();
 
     const errorMessage = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => hasValue(entry) && !entry.response.isSuccessful)
+      .filter((entry: ResponseCacheEntry) => !entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (<ErrorResponse> entry.response).errorMessage)
       .distinctUntilChanged();
 
     const payload = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => hasValue(entry) && entry.response.isSuccessful)
+      .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
       .flatMap((resourceUUIDs: Array<string>) => {
         return this.objectCache.getList(resourceUUIDs, normalizedType)
@@ -124,13 +122,13 @@ export class RemoteDataBuildService {
     relationships.forEach((relationship: string) => {
       if (hasValue(normalized[relationship])) {
         const resourceType = getResourceType(normalized, relationship);
-        const resourceConstructor = NormalizedDSOFactory.getConstructor(resourceType);
+        const resourceConstructor = NormalizedObjectFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
           // without the setTimeout, the actions inside requestService.configure
           // are dispatched, but sometimes don't arrive. I'm unsure why atm.
           setTimeout(() => {
             normalized[relationship].forEach((href: string) => {
-              this.requestService.configure(href, resourceConstructor)
+              this.requestService.configure(new Request(href))
             });
           }, 0);
 
@@ -145,7 +143,7 @@ export class RemoteDataBuildService {
           // without the setTimeout, the actions inside requestService.configure
           // are dispatched, but sometimes don't arrive. I'm unsure why atm.
           setTimeout(() => {
-            this.requestService.configure(normalized[relationship], resourceConstructor);
+            this.requestService.configure(new Request(normalized[relationship]));
           },0);
 
           links[relationship] = this.buildSingle(normalized[relationship], resourceConstructor);

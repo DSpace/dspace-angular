@@ -1,86 +1,89 @@
-export const COMMUNITIES = [
-  {
-    "name": "Community 1",
-    "handle": "10673/1",
-    "id": "6631",
-    "uuid": "83cd3281-f241-48be-9234-d876f8010d14",
-    "type": "community",
-    "metadata": [
-      {
-        "key": "dc.description",
-        "value": "<p>This is the introductory text for the <em>Sample Community</em> on the DSpace Demonstration Site. It is editable by System or Community Administrators (of this Community).</p>\r\n<p><strong>DSpace Communities may contain one or more Sub-Communities or Collections (of Items).</strong></p>\r\n<p>This particular Community has its own logo (the <a href=\"http://www.duraspace.org/\">DuraSpace</a> logo).</p>",
-        "language": null
-      },
-      {
-        "key": "dc.description.abstract",
-        "value": "This is a sample top-level community",
-        "language": null
-      },
-      {
-        "key": "dc.description.tableofcontents",
-        "value": "<p>This is the <em>news section</em> for this <em>Sample Community</em>. System or Community Administrators (of this Community) can edit this News field.</p>",
-        "language": null
-      },
-      {
-        "key": "dc.rights",
-        "value": "<p><em>If this Community had special copyright text to display, it would be displayed here.</em></p>",
-        "language": null
-      },
-      {
-        "key": "dc.title",
-        "value": "Sample Community",
-        "language": null
+export const COMMUNITIES = {
+  "communities": [
+    {
+      "name": "Community 1",
+      "handle": "10673/1",
+      "id": "6631",
+      "uuid": "83cd3281-f241-48be-9234-d876f8010d14",
+      "type": "community",
+      "metadata": [
+        {
+          "key": "dc.description",
+          "value": "<p>This is the introductory text for the <em>Sample Community</em> on the DSpace Demonstration Site. It is editable by System or Community Administrators (of this Community).</p>\r\n<p><strong>DSpace Communities may contain one or more Sub-Communities or Collections (of Items).</strong></p>\r\n<p>This particular Community has its own logo (the <a href=\"http://www.duraspace.org/\">DuraSpace</a> logo).</p>",
+          "language": null
+        },
+        {
+          "key": "dc.description.abstract",
+          "value": "This is a sample top-level community",
+          "language": null
+        },
+        {
+          "key": "dc.description.tableofcontents",
+          "value": "<p>This is the <em>news section</em> for this <em>Sample Community</em>. System or Community Administrators (of this Community) can edit this News field.</p>",
+          "language": null
+        },
+        {
+          "key": "dc.rights",
+          "value": "<p><em>If this Community had special copyright text to display, it would be displayed here.</em></p>",
+          "language": null
+        },
+        {
+          "key": "dc.title",
+          "value": "Sample Community",
+          "language": null
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "/communities/6631"
+        },
+        "collections": [
+          { "href": "/collections/5179" }
+        ],
+      "logo": { "href": "/bitstreams/4688" }
       }
-    ],
-    "_links": {
-      "self": {
-        "href": "http://dspace7.4science.it/dspace-spring-rest/api/core/community/9076bd16-e69a-48d6-9e41-0238cb40d863"
-      },
-      "collections": [
-        { "href": "/collections/5179" }
-      ]
-    }
-  },
-  {
-    "name": "Community 2",
-    "handle": "10673/2",
-    "id": "2365",
-    "uuid": "80eec4c6-70bd-4beb-b3d4-5d46c6343157",
-    "type": "community",
-    "metadata": [
-      {
-        "key": "dc.description",
-        "value": "<p>This is the introductory text for the <em>Sample Community</em> on the DSpace Demonstration Site. It is editable by System or Community Administrators (of this Community).</p>\r\n<p><strong>DSpace Communities may contain one or more Sub-Communities or Collections (of Items).</strong></p>\r\n<p>This particular Community has its own logo (the <a href=\"http://www.duraspace.org/\">DuraSpace</a> logo).</p>",
-        "language": null
-      },
-      {
-        "key": "dc.description.abstract",
-        "value": "This is a sample top-level community",
-        "language": null
-      },
-      {
-        "key": "dc.description.tableofcontents",
-        "value": "<p>This is the <em>news section</em> for this <em>Sample Community</em>. System or Community Administrators (of this Community) can edit this News field.</p>",
-        "language": null
-      },
-      {
-        "key": "dc.rights",
-        "value": "<p><em>If this Community had special copyright text to display, it would be displayed here.</em></p>",
-        "language": null
-      },
-      {
-        "key": "dc.title",
-        "value": "Sample Community",
-        "language": null
+    },
+    {
+      "name": "Community 2",
+      "handle": "10673/2",
+      "id": "2365",
+      "uuid": "80eec4c6-70bd-4beb-b3d4-5d46c6343157",
+      "type": "community",
+      "metadata": [
+        {
+          "key": "dc.description",
+          "value": "<p>This is the introductory text for the <em>Sample Community</em> on the DSpace Demonstration Site. It is editable by System or Community Administrators (of this Community).</p>\r\n<p><strong>DSpace Communities may contain one or more Sub-Communities or Collections (of Items).</strong></p>\r\n<p>This particular Community has its own logo (the <a href=\"http://www.duraspace.org/\">DuraSpace</a> logo).</p>",
+          "language": null
+        },
+        {
+          "key": "dc.description.abstract",
+          "value": "This is a sample top-level community",
+          "language": null
+        },
+        {
+          "key": "dc.description.tableofcontents",
+          "value": "<p>This is the <em>news section</em> for this <em>Sample Community</em>. System or Community Administrators (of this Community) can edit this News field.</p>",
+          "language": null
+        },
+        {
+          "key": "dc.rights",
+          "value": "<p><em>If this Community had special copyright text to display, it would be displayed here.</em></p>",
+          "language": null
+        },
+        {
+          "key": "dc.title",
+          "value": "Sample Community",
+          "language": null
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "/communities/2365"
+        },
+        "collections": [
+          { "href": "/collections/6547" }
+        ]
       }
-    ],
-    "_links": {
-      "self": {
-        "href": "http://dspace7.4science.it/dspace-spring-rest/api/core/community/9076bd16-e69a-48d6-9e41-0238cb40d863"
-      },
-      "collections": [
-        { "href": "/collections/6547" }
-      ]
     }
-  }
-];
+  ]
+};

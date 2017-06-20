@@ -84,14 +84,10 @@ describe("DSpaceRESTv2Serializer", () => {
 
     it("should turn a valid document describing a single entity in to a valid model", () => {
       const serializer = new DSpaceRESTv2Serializer(TestModel);
-      const doc = {
-        "_embedded": testResponses[0],
-      };
+      const model = serializer.deserialize(testResponses[0]);
 
-      const model = serializer.deserialize(doc);
-
-      expect(model.id).toBe(doc._embedded.id);
-      expect(model.name).toBe(doc._embedded.name);
+      expect(model.id).toBe(testResponses[0].id);
+      expect(model.name).toBe(testResponses[0].name);
     });
 
     //TODO cant implement/test this yet - depends on how relationships
@@ -127,12 +123,8 @@ describe("DSpaceRESTv2Serializer", () => {
 
     it("should throw an error when dealing with a document describing an array", () => {
       const serializer = new DSpaceRESTv2Serializer(TestModel);
-      const doc = {
-        "_embedded": testResponses
-      };
-
       expect(() => {
-        serializer.deserialize(doc);
+        serializer.deserialize(testResponses);
       }).toThrow();
     });
 
