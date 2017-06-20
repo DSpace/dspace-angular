@@ -9,10 +9,10 @@ import { ResourceType } from "../../shared/resource-type";
 export class NormalizedBitstream extends NormalizedDSpaceObject {
 
   /**
-   * The size of this bitstream in bytes(?)
+   * The size of this bitstream in bytes
    */
   @autoserialize
-  size: number;
+  sizeBytes: number;
 
   /**
    * The relative path to this Bitstream's file
@@ -42,14 +42,14 @@ export class NormalizedBitstream extends NormalizedDSpaceObject {
    * An array of Bundles that are direct parents of this Bitstream
    */
   @autoserialize
-  @relationship(ResourceType.Item)
+  @relationship(ResourceType.Item, true)
   parents: Array<string>;
 
   /**
    * The Bundle that owns this Bitstream
    */
   @autoserialize
-  @relationship(ResourceType.Item)
+  @relationship(ResourceType.Item, false)
   owner: string;
 
   /**

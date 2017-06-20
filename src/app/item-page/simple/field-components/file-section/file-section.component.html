@@ -2,7 +2,7 @@
     <div class="file-section">
         <a *ngFor="let file of (files | async); let last=last;" [href]="file?.url">
             <span>{{file?.name}}</span>
-            <span>({{(file?.size) | dsFileSize }})</span>
+            <span>({{(file?.sizeBytes) | dsFileSize }})</span>
             <span *ngIf="!last" innerHTML="{{separator}}"></span>
         </a>
     </div>

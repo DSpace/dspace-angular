@@ -19,7 +19,7 @@ export class CollectionsComponent implements OnInit {
 
     label : string = "item.page.collections";
 
-    separator: string = "<br/>"
+    separator: string = "<br/>";
 
     collections: Observable<Collection[]>;
 
@@ -38,7 +38,7 @@ export class CollectionsComponent implements OnInit {
       //TODO this should use parents, but the collections
       // for an Item aren't returned by the REST API yet,
       // only the owning collection
-      this.collections = this.rdbs.aggregate([this.item.owner]).payload
+      this.collections = this.item.owner.payload.map(c => [c]);
     }
 
 

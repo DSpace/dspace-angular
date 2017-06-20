@@ -5,9 +5,9 @@ import { Item } from "./item.model";
 export class Bitstream extends DSpaceObject {
 
   /**
-   * The size of this bitstream in bytes(?)
+   * The size of this bitstream in bytes
    */
-  size: number;
+  sizeBytes: number;
 
   /**
    * The mime type of this Bitstream
