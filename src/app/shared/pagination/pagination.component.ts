@@ -342,5 +342,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
             throw new Error("Paginate: Argument is missing the following required properties: " + missing.join(', '));
         }
     }
+
+    get hasMultiplePages(): boolean {
+      return this.collectionSize > this.pageSize;
+    }
+
+    get shouldShowBottomPager(): boolean {
+      return this.hasMultiplePages || !this.hidePagerWhenSinglePage
+    }
 }
 
