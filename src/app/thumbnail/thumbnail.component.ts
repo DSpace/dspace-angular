@@ -16,7 +16,7 @@ export class ThumbnailComponent {
 
   @Input() thumbnail: Bitstream;
 
-  public source: string;
+  data: any = {}
 
   /**
    * The default 'holder.js' image
