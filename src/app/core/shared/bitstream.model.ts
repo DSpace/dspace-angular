@@ -10,11 +10,6 @@ export class Bitstream extends DSpaceObject {
   size: number;
 
   /**
-   * The relative path to this Bitstream's file
-   */
-  url: string;
-
-  /**
    * The mime type of this Bitstream
    */
   mimetype: string;
@@ -40,7 +35,7 @@ export class Bitstream extends DSpaceObject {
   owner: RemoteData<Item>;
 
   /**
-   * The Bundle that owns this Bitstream
+   * The URL to retrieve this Bitstream's file
    */
   retrieve: string;
 

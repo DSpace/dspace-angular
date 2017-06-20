@@ -49,7 +49,7 @@ export class RequestEffects {
     })
     .flatMap((entry: RequestEntry) => {
       return this.restApi.get(entry.request.href)
-        .map((data: DSpaceRESTV2Response) => new SuccessResponse(this.process(data.payload), data.statusCode, this.processPageInfo(data.payload.page)))
+        .map((data: DSpaceRESTV2Response) => new SuccessResponse(this.process(data.payload, entry.request.href), data.statusCode, this.processPageInfo(data.payload.page)))
         .do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
         .map((response: Response) => new RequestCompleteAction(entry.request.href))
         .catch((error: RequestError) => Observable.of(new ErrorResponse(error))
@@ -57,14 +57,14 @@ export class RequestEffects {
           .map((response: Response) => new RequestCompleteAction(entry.request.href)));
     });
 
-  protected process(data: any): Array<string> {
+  protected process(data: any, requestHref: string): Array<string> {
 
     if (isNotEmpty(data)) {
       if (isPaginatedResponse(data)) {
-        return this.process(data._embedded);
+        return this.process(data._embedded, requestHref);
       }
       else if (isObjectLevel(data)) {
-        return this.deserializeAndCache(data);
+        return this.deserializeAndCache(data, requestHref);
       }
       else {
         let uuids = [];
@@ -72,14 +72,14 @@ export class RequestEffects {
           .filter(property => data.hasOwnProperty(property))
           .filter(property => hasValue(data[property]))
           .forEach(property => {
-            uuids = [...uuids, ...this.deserializeAndCache(data[property])];
+            uuids = [...uuids, ...this.deserializeAndCache(data[property], requestHref)];
           });
         return uuids;
       }
     }
   }
 
-  protected deserializeAndCache(obj): Array<string> {
+  protected deserializeAndCache(obj, requestHref: string): Array<string> {
     let type: ResourceType;
     const isArray = Array.isArray(obj);
 
@@ -103,19 +103,19 @@ export class RequestEffects {
         if (isArray) {
           obj.forEach(o => {
             if (isNotEmpty(o._embedded)) {
-              this.process(o._embedded);
+              this.process(o._embedded, requestHref);
             }
           });
           const normalizedObjArr = serializer.deserializeArray(obj);
-          normalizedObjArr.forEach(t => this.addToObjectCache(t));
+          normalizedObjArr.forEach(t => this.addToObjectCache(t, requestHref));
           return normalizedObjArr.map(t => t.uuid);
         }
         else {
           if (isNotEmpty(obj._embedded)) {
-            this.process(obj._embedded);
+            this.process(obj._embedded, requestHref);
           }
           const normalizedObj = serializer.deserialize(obj);
-          this.addToObjectCache(normalizedObj);
+          this.addToObjectCache(normalizedObj, requestHref);
           return [normalizedObj.uuid];
         }
 
@@ -132,11 +132,11 @@ export class RequestEffects {
     }
   }
 
-  protected addToObjectCache(co: CacheableObject): void {
+  protected addToObjectCache(co: CacheableObject, requestHref: string): void {
     if (hasNoValue(co) || hasNoValue(co.uuid)) {
       throw new Error('The server returned an invalid object');
     }
-    this.objectCache.add(co, this.EnvConfig.cache.msToLive);
+    this.objectCache.add(co, this.EnvConfig.cache.msToLive, requestHref);
   }
 
   protected processPageInfo(pageObj: any): PageInfo {

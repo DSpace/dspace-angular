@@ -60,8 +60,8 @@ describe("DSpaceRESTv2Serializer", () => {
     it("should turn a model in to a valid document", () => {
       const serializer = new DSpaceRESTv2Serializer(TestModel);
       const doc = serializer.serialize(testModels[0]);
-      expect(testModels[0].id).toBe(doc._embedded.id);
-      expect(testModels[0].name).toBe(doc._embedded.name);
+      expect(testModels[0].id).toBe(doc.id);
+      expect(testModels[0].name).toBe(doc.name);
     });
 
   });
@@ -72,10 +72,10 @@ describe("DSpaceRESTv2Serializer", () => {
       const serializer = new DSpaceRESTv2Serializer(TestModel);
       const doc = serializer.serializeArray(testModels);
 
-      expect(testModels[0].id).toBe(doc._embedded[0].id);
-      expect(testModels[0].name).toBe(doc._embedded[0].name);
-      expect(testModels[1].id).toBe(doc._embedded[1].id);
-      expect(testModels[1].name).toBe(doc._embedded[1].name);
+      expect(testModels[0].id).toBe(doc[0].id);
+      expect(testModels[0].name).toBe(doc[0].name);
+      expect(testModels[1].id).toBe(doc[1].id);
+      expect(testModels[1].name).toBe(doc[1].name);
     });
 
   });

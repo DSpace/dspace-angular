@@ -22,9 +22,13 @@ export class ObjectCacheService {
    *    The object to add
    * @param msToLive
    *    The number of milliseconds it should be cached for
+   * @param requestHref
+   *    The href of the request that resulted in this object
+   *    This isn't necessarily the same as the object's self
+   *    link, it could have been part of a list for example
    */
-  add(objectToCache: CacheableObject, msToLive: number): void {
-    this.store.dispatch(new AddToObjectCacheAction(objectToCache, new Date().getTime(), msToLive));
+  add(objectToCache: CacheableObject, msToLive: number, requestHref: string): void {
+    this.store.dispatch(new AddToObjectCacheAction(objectToCache, new Date().getTime(), msToLive, requestHref));
   }
 
   /**
@@ -54,15 +58,30 @@ export class ObjectCacheService {
    *    An observable of the requested object
    */
   get<T extends CacheableObject>(uuid: string, type: GenericConstructor<T>): Observable<T> {
-    return this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
-      .filter(entry => this.isValid(entry))
-      .distinctUntilChanged()
+    return this.getEntry(uuid)
       .map((entry: ObjectCacheEntry) => <T> Object.assign(new type(), entry.data));
   }
 
   getBySelfLink<T extends CacheableObject>(href: string, type: GenericConstructor<T>): Observable<T> {
     return this.store.select<string>('core', 'index', 'href', href)
       .flatMap((uuid: string) => this.get(uuid, type))
+  }
+
+  private getEntry(uuid: string): Observable<ObjectCacheEntry> {
+    return this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
+      .filter(entry => this.isValid(entry))
+      .distinctUntilChanged();
+  }
+
+  getRequestHref(uuid: string): Observable<string> {
+    return this.getEntry(uuid)
+      .map((entry: ObjectCacheEntry) => entry.requestHref)
+      .distinctUntilChanged();
+  }
+
+  getRequestHrefBySelfLink(self: string): Observable<string> {
+    return this.store.select<string>('core', 'index', 'href', self)
+      .flatMap((uuid: string) => this.getRequestHref(uuid));
   }
 
   /**

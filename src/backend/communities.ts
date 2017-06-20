@@ -35,11 +35,12 @@ export const COMMUNITIES = {
       ],
       "_links": {
         "self": {
-          "href": "http://dspace7.4science.it/dspace-spring-rest/api/core/community/9076bd16-e69a-48d6-9e41-0238cb40d863"
+          "href": "/communities/6631"
         },
         "collections": [
           { "href": "/collections/5179" }
-        ]
+        ],
+      "logo": { "href": "/bitstreams/4688" }
       }
     },
     {
@@ -77,7 +78,7 @@ export const COMMUNITIES = {
       ],
       "_links": {
         "self": {
-          "href": "http://dspace7.4science.it/dspace-spring-rest/api/core/community/9076bd16-e69a-48d6-9e41-0238cb40d863"
+          "href": "/communities/2365"
         },
         "collections": [
           { "href": "/collections/6547" }

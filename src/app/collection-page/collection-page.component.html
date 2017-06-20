@@ -1,16 +1,32 @@
 <div class="collection-page" *ngIf="collectionData.hasSucceeded | async">
-  <ds-collection-page-name [name]="(collectionData.payload | async)?.name"></ds-collection-page-name>
-  <ds-collection-page-logo *ngIf="logoData" [logo]="logoData.payload | async"></ds-collection-page-logo>
-  <ds-collection-page-introductory-text
-      [introductoryText]="(collectionData.payload | async)?.introductoryText">
-  </ds-collection-page-introductory-text>
-  <ds-collection-page-news
-      [sidebarText]="(collectionData.payload | async)?.sidebarText">
-  </ds-collection-page-news>
-  <ds-collection-page-copyright
-      [copyrightText]="(collectionData.payload | async)?.copyrightText">
-  </ds-collection-page-copyright>
-  <ds-collection-page-license
-      [license]="(collectionData.payload | async)?.license">
-  </ds-collection-page-license>
+  <!-- Collection Name -->
+  <ds-comcol-page-header 
+        [name]="(collectionData.payload | async)?.name">
+  </ds-comcol-page-header>
+  <!-- Collection logo -->
+  <ds-comcol-page-logo *ngIf="logoData" 
+      [logo]="logoData.payload | async"
+      [alternateText]="'Collection Logo'">
+  </ds-comcol-page-logo>
+  <!-- Introductionary text -->
+  <ds-comcol-page-content
+      [content]="(collectionData.payload | async)?.introductoryText"
+      [hasInnerHtml]="true">
+  </ds-comcol-page-content>
+  <!-- News -->
+  <ds-comcol-page-content
+      [content]="(collectionData.payload | async)?.sidebarText"
+      [hasInnerHtml]="true"
+      [title]="'community.page.news'">
+  </ds-comcol-page-content>
+  <!-- Copyright -->
+  <ds-comcol-page-content
+      [content]="(collectionData.payload | async)?.copyrightText"
+      [hasInnerHtml]="true">
+  </ds-comcol-page-content>
+  <!-- Licence -->
+  <ds-comcol-page-content
+      [content]="(collectionData.payload | async)?.license"
+      [title]="'collection.page.license'">
+  </ds-comcol-page-content>
 </div>

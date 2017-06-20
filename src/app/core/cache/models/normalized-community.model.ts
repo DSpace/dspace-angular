@@ -17,6 +17,8 @@ export class NormalizedCommunity extends NormalizedDSpaceObject {
   /**
    * The Bitstream that represents the logo of this Community
    */
+  @autoserialize
+  @relationship(ResourceType.Bitstream)
   logo: string;
 
   /**

@@ -18,7 +18,7 @@ export class NormalizedBitstream extends NormalizedDSpaceObject {
    * The relative path to this Bitstream's file
    */
   @autoserialize
-  url: string;
+  retrieve: string;
 
   /**
    * The mime type of this Bitstream
