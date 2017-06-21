@@ -57,6 +57,7 @@ export class TopLevelCommunityListComponent implements OnInit {
   }
 
   updateResults() {
+    this.topLevelCommunities = undefined;
     this.topLevelCommunities = this.cds.findAll({ currentPage: this.config.currentPage, elementsPerPage: this.config.pageSize, sort: this.sortConfig });
     this.ref.detectChanges();
   }

@@ -305,15 +305,18 @@ export class PaginationComponent implements OnDestroy, OnInit {
     private validateParams(page: any, pageSize: any, sortDirection: any, sortField: any) {
         let filteredPageSize = this.pageSizeOptions.find(x => x == pageSize);
         if (!isNumeric(page) || !filteredPageSize) {
-            let filteredPage = isNumeric(page) ? page : this.currentPage;
-            filteredPageSize = (filteredPageSize) ? filteredPageSize : this.pageSize;
-            this.router.navigate([{
+          let filteredPage = isNumeric(page) ? page : this.currentPage;
+          filteredPageSize = (filteredPageSize) ? filteredPageSize : this.pageSize;
+          this.router.navigate([], {
+              queryParams: {
                 pageId: this.id,
                 page: filteredPage,
                 pageSize: filteredPageSize,
                 sortDirection: sortDirection,
                 sortField: sortField
-            }]);
+              }
+            }
+          );
         } else {
             // (+) converts string to a number
             this.currentPage = +page;
