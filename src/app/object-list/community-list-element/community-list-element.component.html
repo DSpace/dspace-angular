@@ -1,6 +1,6 @@
-<a [routerLink]="['/communities/' + community.id]">
+<a [routerLink]="['/communities/' + community.id]" class="lead">
     {{community.name}}
 </a>
-<div *ngIf="community.findMetadata('dc.description')">
-    {{community.findMetadata("dc.description")}}
+<div *ngIf="community.shortDescription" class="text-muted">
+    {{community.shortDescription}}
 </div>

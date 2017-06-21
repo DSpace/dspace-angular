@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RemoteData } from "../../core/data/remote-data";
-import { ItemDataService } from "../../core/data/item-data.service";
-import { Item } from "../../core/shared/item.model";
+import { CommunityDataService } from "../../core/data/community-data.service";
+import { Community } from "../../core/shared/community.model";
 import { PaginationComponentOptions } from "../../shared/pagination/pagination-component-options.model";
 import { SortOptions, SortDirection } from "../../core/cache/models/sort-options.model";
 
@@ -11,12 +11,12 @@ import { SortOptions, SortDirection } from "../../core/cache/models/sort-options
   templateUrl: './top-level-community-list.component.html'
 })
 export class TopLevelCommunityListComponent implements OnInit {
-  topLevelCommunities: RemoteData<Item[]>;
+  topLevelCommunities: RemoteData<Community[]>;
   config : PaginationComponentOptions;
   sortConfig : SortOptions;
 
   constructor(
-    private cds: ItemDataService,
+    private cds: CommunityDataService,
     private ref: ChangeDetectorRef
   ) {
     this.universalInit();
