@@ -40,7 +40,11 @@ export class Item extends DSpaceObject {
     /**
      * The Collection that owns this Item
      */
-    owner: RemoteData<Collection>;
+    owningCollection: RemoteData<Collection>;
+
+    get owner(): RemoteData<Collection> {
+      return this.owningCollection;
+    }
 
     bitstreams: RemoteData<Bitstream[]>;
 

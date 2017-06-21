@@ -48,9 +48,8 @@ export class NormalizedItem extends NormalizedDSpaceObject {
   /**
    * The Collection that owns this Item
    */
-  @autoserializeAs(String, 'owningCollection')
   @relationship(ResourceType.Collection, false)
-  owner: string;
+  owningCollection: string;
 
   @autoserialize
   @relationship(ResourceType.Bitstream, true)

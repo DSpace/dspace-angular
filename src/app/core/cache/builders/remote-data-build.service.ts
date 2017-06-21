@@ -185,7 +185,12 @@ export class RemoteDataBuildService {
             rdArr.push(this.buildSingle(href, resourceConstructor));
           });
 
-          links[relationship] = this.aggregate(rdArr);
+          if (rdArr.length === 1) {
+            links[relationship] = rdArr[0];
+          }
+          else {
+            links[relationship] = this.aggregate(rdArr);
+          }
         }
         else {
           // without the setTimeout, the actions inside requestService.configure

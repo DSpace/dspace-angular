@@ -23,7 +23,7 @@ export class DSpaceRESTv2Service {
    * @param options
    *      A RequestOptionsArgs object, with options for the http call.
    * @return {Observable<string>}
-   *      An Observablse<string> containing the response from the server
+   *      An Observable<string> containing the response from the server
    */
   get(absoluteURL: string, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
     return this.http.get(absoluteURL, options)
