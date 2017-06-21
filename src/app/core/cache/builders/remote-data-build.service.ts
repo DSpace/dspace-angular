@@ -64,9 +64,10 @@ export class RemoteDataBuildService {
       .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).pageInfo)
       .distinctUntilChanged();
 
+    //always use self link if that is cached, only if it isn't, get it via the response.
     const payload =
-      Observable.race(
-        this.objectCache.getBySelfLink<TNormalized>(href, normalizedType),
+      Observable.combineLatest(
+        this.objectCache.getBySelfLink<TNormalized>(href, normalizedType).startWith(undefined),
         responseCacheObs
           .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
           .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
@@ -79,8 +80,18 @@ export class RemoteDataBuildService {
             }
           })
           .distinctUntilChanged()
-      ).map((normalized: TNormalized) => {
-        return this.build<TNormalized, TDomain>(normalized);
+          .startWith(undefined),
+        (fromSelfLink, fromResponse) => {
+          if (hasValue(fromSelfLink)) {
+            return fromSelfLink;
+          }
+          else {
+            return fromResponse;
+          }
+        }
+      ).filter(normalized => hasValue(normalized))
+        .map((normalized: TNormalized) => {
+          return this.build<TNormalized, TDomain>(normalized);
       });
 
 
