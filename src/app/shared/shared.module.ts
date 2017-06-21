@@ -19,6 +19,11 @@ import { ComcolPageHeaderComponent } from "./comcol-page-header/comcol-page-head
 import { ComcolPageLogoComponent } from "./comcol-page-logo/comcol-page-logo.component";
 import { TRUNCATE_PIPES } from "ng2-truncate";
 import { EnumKeysPipe } from "./utils/enum-keys-pipe";
+import { ObjectListComponent } from "./object-list/object-list.component";
+import { ObjectListElementComponent } from "../object-list/object-list-element/object-list-element.component";
+import { ItemListElementComponent } from "../object-list/item-list-element/item-list-element.component";
+import { CommunityListElementComponent } from "../object-list/community-list-element/community-list-element.component";
+import { CollectionListElementComponent } from "../object-list/collection-list-element/collection-list-element.component";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -45,7 +50,12 @@ const COMPONENTS = [
   ThumbnailComponent,
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
-  ComcolPageLogoComponent
+  ComcolPageLogoComponent,
+  ObjectListComponent,
+  ObjectListElementComponent,
+  ItemListElementComponent,
+  CollectionListElementComponent,
+  CommunityListElementComponent
 ];
 
 const PROVIDERS = [

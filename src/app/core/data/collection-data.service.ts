@@ -12,7 +12,8 @@ import { GLOBAL_CONFIG, GlobalConfig } from "../../../config";
 
 @Injectable()
 export class CollectionDataService extends DataService<NormalizedCollection, Collection> {
-  protected endpoint = '/core/collections';
+  protected resourceEndpoint = '/core/collections';
+  protected browseEndpoint = '/discover/browses/dateissued/collections';
 
   constructor(
     protected objectCache: ObjectCacheService,

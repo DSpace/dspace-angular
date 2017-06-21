@@ -7,7 +7,12 @@
   "collection": {
     "page": {
       "news": "News",
-      "license": "License"
+      "license": "License",
+      "browse": {
+        "recent": {
+          "head": "Recent Submissions"
+        }
+      }
     }
   },
   "community": {

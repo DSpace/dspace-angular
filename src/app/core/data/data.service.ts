@@ -20,7 +20,8 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract store: Store<CoreState>;
-  protected abstract endpoint: string;
+  protected abstract resourceEndpoint: string;
+  protected abstract browseEndpoint: string;
 
   constructor(
     private normalizedResourceType: GenericConstructor<TNormalized>,
@@ -30,11 +31,15 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   protected getFindAllHref(options: FindAllOptions = {}): string {
-    let result = this.endpoint;
+    let result;
     let args = [];
 
     if (hasValue(options.scopeID)) {
+      result = this.browseEndpoint;
       args.push(`scope=${options.scopeID}`);
+    }
+    else {
+      result = this.resourceEndpoint;
     }
 
     if (hasValue(options.currentPage) && typeof options.currentPage === "number") {
@@ -69,7 +74,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   protected getFindByIDHref(resourceID): string {
-    return new RESTURLCombiner(this.EnvConfig, `${this.endpoint}/${resourceID}`).toString();
+    return new RESTURLCombiner(this.EnvConfig, `${this.resourceEndpoint}/${resourceID}`).toString();
   }
 
   findById(id: string): RemoteData<TDomain> {

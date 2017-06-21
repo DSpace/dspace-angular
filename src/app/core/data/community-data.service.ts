@@ -12,7 +12,8 @@ import { GLOBAL_CONFIG, GlobalConfig } from "../../../config";
 
 @Injectable()
 export class CommunityDataService extends DataService<NormalizedCommunity, Community> {
-  protected endpoint = '/core/communities';
+  protected resourceEndpoint = '/core/communities';
+  protected browseEndpoint = '/discover/browses/dateissued/communities';
 
   constructor(
     protected objectCache: ObjectCacheService,

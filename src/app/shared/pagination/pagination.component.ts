@@ -19,6 +19,7 @@ import { HostWindowService } from "../host-window.service";
 import { HostWindowState } from "../host-window.reducer";
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from "../../core/cache/models/sort-options.model";
+import { hasValue } from "../empty.util";
 
 /**
  * The default pagination controls component.
@@ -173,7 +174,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
         this.sortDirection = this.sortOptions.direction;
         this.sortField = this.sortOptions.field;
         this.routeSubscription = this.route.queryParams
-            .map(queryParams => queryParams)
+            .filter(queryParams => hasValue(queryParams))
             .subscribe(queryParams => {
                 this.currentQueryParams = queryParams;
                 if (this.id == queryParams['pageId']

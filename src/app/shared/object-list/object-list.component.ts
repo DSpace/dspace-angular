@@ -2,21 +2,21 @@ import {
     Component, Input, ViewEncapsulation, ChangeDetectionStrategy,
     OnInit, Output
 } from '@angular/core';
-import { RemoteData } from "../core/data/remote-data";
-import { DSpaceObject } from "../core/shared/dspace-object.model";
-import { PageInfo } from "../core/shared/page-info.model";
+import { RemoteData } from "../../core/data/remote-data";
+import { DSpaceObject } from "../../core/shared/dspace-object.model";
+import { PageInfo } from "../../core/shared/page-info.model";
 import { Observable } from "rxjs";
-import { PaginationComponentOptions } from "../shared/pagination/pagination-component-options.model";
+import { PaginationComponentOptions } from "../pagination/pagination-component-options.model";
 import { EventEmitter } from "@angular/common/src/facade/async";
-import { SortOptions, SortDirection } from "../core/cache/models/sort-options.model";
+import { SortOptions, SortDirection } from "../../core/cache/models/sort-options.model";
 
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'ds-object-list',
-    styleUrls: ['./object-list.component.css'],
-    templateUrl: './object-list.component.html'
+    styleUrls: ['../../object-list/object-list.component.css'],
+    templateUrl: '../../object-list/object-list.component.html'
 })
 export class ObjectListComponent implements OnInit {
 
