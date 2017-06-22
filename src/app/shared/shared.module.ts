@@ -17,13 +17,13 @@ import { NativeWindowFactory, NativeWindowService } from "./window.service";
 import { ComcolPageContentComponent } from "./comcol-page-content/comcol-page-content.component";
 import { ComcolPageHeaderComponent } from "./comcol-page-header/comcol-page-header.component";
 import { ComcolPageLogoComponent } from "./comcol-page-logo/comcol-page-logo.component";
-import { TRUNCATE_PIPES } from "ng2-truncate";
 import { EnumKeysPipe } from "./utils/enum-keys-pipe";
 import { ObjectListComponent } from "./object-list/object-list.component";
 import { ObjectListElementComponent } from "../object-list/object-list-element/object-list-element.component";
 import { ItemListElementComponent } from "../object-list/item-list-element/item-list-element.component";
 import { CommunityListElementComponent } from "../object-list/community-list-element/community-list-element.component";
 import { CollectionListElementComponent } from "../object-list/collection-list-element/collection-list-element.component";
+import { TruncatePipe } from "./utils/truncate.pipe";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -39,8 +39,8 @@ const MODULES = [
 const PIPES = [
     FileSizePipe,
     SafeUrlPipe,
-    TRUNCATE_PIPES,
-    EnumKeysPipe
+    EnumKeysPipe,
+    TruncatePipe
   // put pipes here
 ];
 

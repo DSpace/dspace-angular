@@ -10,5 +10,5 @@
     </span>
     (<span *ngIf="item.findMetadata('dc.publisher')" class="item-list-publisher">{{item.findMetadata("dc.publisher")}}, </span><span *ngIf="item.findMetadata('dc.date.issued')" class="item-list-date">{{item.findMetadata("dc.date.issued")}}</span>)
   </span>
-  <div *ngIf="item.findMetadata('dc.description.abstract')" class="item-list-abstract">{{item.findMetadata("dc.description.abstract") | words : 35 : "..."}}</div>
+  <div *ngIf="item.findMetadata('dc.description.abstract')" class="item-list-abstract">{{item.findMetadata("dc.description.abstract") | dsTruncate:[200] }}</div>
 </div>
