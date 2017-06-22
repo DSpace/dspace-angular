@@ -6,6 +6,7 @@ import { Bitstream } from "../core/shared/bitstream.model";
 import { RemoteData } from "../core/data/remote-data";
 import { CommunityDataService } from "../core/data/community-data.service";
 import { Subscription } from "rxjs/Subscription";
+import { hasValue } from "../shared/empty.util";
 
 @Component({
   selector: 'ds-community-page',
@@ -33,9 +34,11 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-     this.subs.forEach(sub => sub.unsubscribe());
+     this.subs
+       .filter(sub => hasValue(sub))
+       .forEach(sub => sub.unsubscribe());
   }
-  
+
   universalInit() {
   }
 }

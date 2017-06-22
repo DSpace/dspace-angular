@@ -1,4 +1,7 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
+  OnInit
+} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { Collection } from "../core/shared/collection.model";
@@ -11,11 +14,13 @@ import { Item } from "../core/shared/item.model";
 import { SortOptions, SortDirection } from "../core/cache/models/sort-options.model";
 import { PaginationComponentOptions } from "../shared/pagination/pagination-component-options.model";
 import { Observable } from "rxjs/Observable";
+import { hasValue } from "../shared/empty.util";
 
 @Component({
   selector: 'ds-collection-page',
   styleUrls: ['./collection-page.component.css'],
   templateUrl: './collection-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionData: RemoteData<Collection>;
@@ -45,7 +50,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
 
         this.config = new PaginationComponentOptions();
         this.config.id = "collection-browse";
-        this.config.pageSizeOptions = [ 5, 10, 20, 40, 60, 80, 100 ];
+        this.config.pageSizeOptions = [ 4 ];
         this.config.pageSize = 4;
         this.sortConfig =  new SortOptions();
 
@@ -55,7 +60,9 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach(sub => sub.unsubscribe());
+    this.subs
+      .filter(sub => hasValue(sub))
+      .forEach(sub => sub.unsubscribe());
   }
 
   universalInit() {
@@ -89,6 +96,6 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
       elementsPerPage: this.config.pageSize,
       sort: this.sortConfig
     });
-    this.ref.detectChanges();
+    // this.ref.detectChanges();
   }
 }

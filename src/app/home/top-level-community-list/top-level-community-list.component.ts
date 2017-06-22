@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { RemoteData } from "../../core/data/remote-data";
 import { CommunityDataService } from "../../core/data/community-data.service";
 import { Community } from "../../core/shared/community.model";
@@ -8,7 +8,8 @@ import { SortOptions, SortDirection } from "../../core/cache/models/sort-options
 @Component({
   selector: 'ds-top-level-community-list',
   styleUrls: ['./top-level-community-list.component.css'],
-  templateUrl: './top-level-community-list.component.html'
+  templateUrl: './top-level-community-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopLevelCommunityListComponent implements OnInit {
   topLevelCommunities: RemoteData<Community[]>;
@@ -29,7 +30,7 @@ export class TopLevelCommunityListComponent implements OnInit {
   ngOnInit(): void {
     this.config = new PaginationComponentOptions();
     this.config.id = "top-level-pagination";
-    this.config.pageSizeOptions = [ 5, 10, 20, 40, 60, 80, 100 ];
+    this.config.pageSizeOptions = [ 4 ];
     this.config.pageSize = 4;
     this.sortConfig =  new SortOptions();
 
@@ -59,6 +60,6 @@ export class TopLevelCommunityListComponent implements OnInit {
   updateResults() {
     this.topLevelCommunities = undefined;
     this.topLevelCommunities = this.cds.findAll({ currentPage: this.config.currentPage, elementsPerPage: this.config.pageSize, sort: this.sortConfig });
-    this.ref.detectChanges();
+    // this.ref.detectChanges();
   }
 }

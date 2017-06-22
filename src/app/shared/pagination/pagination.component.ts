@@ -9,6 +9,7 @@ import {
     ViewEncapsulation
 } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from "rxjs/Subscription";
 import { isNumeric } from "rxjs/util/isNumeric";
 import 'rxjs/add/operator/switchMap';
 import { Observable } from "rxjs";
@@ -139,13 +140,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
      */
     public paginationControls;
 
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  private subs: Subscription[] = [];
 
-    /**
-     * Subscriber to observable.
-     */
-    private routeSubscription: any;
-
-    /**
+  /**
      * An object that represents pagination details of the current viewed page
      */
     public showingDetail: any = {
@@ -154,18 +155,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
     };
 
     /**
-     * Subscriber to observable.
-     */
-    private stateSubscription: any;
-
-    /**
      * Method provided by Angular. Invoked after the constructor.
      */
     ngOnInit() {
-        this.stateSubscription = this.hostWindowService.isXs()
+        this.subs.push(this.hostWindowService.isXs()
             .subscribe((status: boolean) => {
                 this.isXs = status;
-            });
+            }));
         this.checkConfig(this.paginationOptions);
         this.id = this.paginationOptions.id || null;
         this.currentPage = this.paginationOptions.currentPage;
@@ -173,7 +169,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
         this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
         this.sortDirection = this.sortOptions.direction;
         this.sortField = this.sortOptions.field;
-        this.routeSubscription = this.route.queryParams
+        this.subs.push(this.route.queryParams
             .filter(queryParams => hasValue(queryParams))
             .subscribe(queryParams => {
                 this.currentQueryParams = queryParams;
@@ -185,7 +181,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
                 ) {
                     this.validateParams(queryParams['page'], queryParams['pageSize'], queryParams['sortDirection'], queryParams['sortField']);
                 }
-            });
+            }));
         this.setShowingDetail();
     }
 
@@ -193,8 +189,9 @@ export class PaginationComponent implements OnDestroy, OnInit {
      * Method provided by Angular. Invoked when the instance is destroyed.
      */
     ngOnDestroy() {
-        this.stateSubscription.unsubscribe();
-        this.routeSubscription.unsubscribe();
+      this.subs
+        .filter(sub => hasValue(sub))
+        .forEach(sub => sub.unsubscribe());
     }
 
     /**
