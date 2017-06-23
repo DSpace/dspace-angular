@@ -1,4 +1,8 @@
 export interface DSpaceRESTV2Response {
-  _embedded?: any;
-  _links?: any;
+  payload: {
+    _embedded?: any;
+    _links?: any;
+    page?: any;
+  },
+  statusCode: string
 }

@@ -25,12 +25,14 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PaginationComponent } from './pagination.component';
-import { PaginationOptions } from '../../core/cache/models/pagination-options.model';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 import { MockTranslateLoader } from "../testing/mock-translate-loader";
 
 import { GLOBAL_CONFIG, EnvConfig } from '../../../config';
 import { ActivatedRouteStub, RouterStub } from "../testing/router-stubs";
 import { HostWindowService } from "../host-window.service";
+import { EnumKeysPipe } from "../utils/enum-keys-pipe";
+import { SortOptions } from "../../core/cache/models/sort-options.model";
 
 
 function createTestComponent<T>(html: string, type: {new (...args: any[]): T}): ComponentFixture<T> {
@@ -138,7 +140,7 @@ describe('Pagination component', () => {
         RouterTestingModule.withRoutes([
           {path: 'home', component: TestComponent}
         ])],
-      declarations: [PaginationComponent, TestComponent], // declare the test component
+      declarations: [PaginationComponent, TestComponent, EnumKeysPipe], // declare the test component
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: GLOBAL_CONFIG, useValue: EnvConfig },
@@ -156,6 +158,7 @@ describe('Pagination component', () => {
     html = `
     <ds-pagination #p="paginationComponent"
                    [paginationOptions]="paginationOptions" 
+                   [sortOptions]="sortOptions"
                    [collectionSize]="collectionSize" 
                    (pageChange)="pageChanged($event)"
                    (pageSizeChange)="pageSizeChanged($event)">
@@ -247,12 +250,12 @@ describe('Pagination component', () => {
 
     changePage(testFixture, 3);
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10 } });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 0, sortField: 'name' } });
     expect(paginationComponent.currentPage).toEqual(3);
 
     changePageSize(testFixture, '20');
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 20 } });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 20, sortDirection: 0, sortField: 'name' } });
     expect(paginationComponent.pageSize).toEqual(20);
   }));
 
@@ -307,7 +310,8 @@ class TestComponent {
 
   collection: string[] = [];
   collectionSize: number;
-  paginationOptions = new PaginationOptions();
+  paginationOptions = new PaginationComponentOptions();
+  sortOptions = new SortOptions();
 
   constructor() {
     this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);

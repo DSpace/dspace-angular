@@ -7,7 +7,12 @@
   "collection": {
     "page": {
       "news": "News",
-      "license": "License"
+      "license": "License",
+      "browse": {
+        "recent": {
+          "head": "Recent Submissions"
+        }
+      }
     }
   },
   "community": {
@@ -45,6 +50,7 @@
   },
   "pagination": {
     "results-per-page": "Results Per Page",
+    "sort-direction": "Sort Options",
     "showing": {
       "label": "Now showing items ",
       "detail": "{{ range }} of {{ total }}"

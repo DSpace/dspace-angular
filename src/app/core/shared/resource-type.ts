@@ -5,6 +5,7 @@
 export enum ResourceType {
   Bundle = <any> "bundle",
   Bitstream = <any> "bitstream",
+  BitstreamFormat = <any> "bitstreamformat",
   Item = <any> "item",
   Collection = <any> "collection",
   Community = <any> "community"

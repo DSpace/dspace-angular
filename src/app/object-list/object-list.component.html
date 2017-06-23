@@ -1,0 +1,16 @@
+<ds-pagination [paginationOptions]="config"
+               [collectionSize]="(pageInfo | async)?.totalElements"
+               [sortOptions]="sortConfig"
+               [hideGear]="hideGear"
+               [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
+               (pageChange)="onPageChange($event)"
+               (pageSizeChange)="onPageSizeChange($event)"
+               (sortDirectionChange)="onSortDirectionChange($event)"
+               (sortFieldChange)="onSortDirectionChange($event)">
+    <ul *ngIf="objects.hasSucceeded | async"> <!--class="list-unstyled"-->
+        <li *ngFor="let object of (objects.payload | async) | paginate: { itemsPerPage: (pageInfo | async)?.elementsPerPage, currentPage: (pageInfo | async)?.currentPage, totalItems: (pageInfo | async)?.totalElements }">
+            <ds-object-list-element [object]="object"></ds-object-list-element>
+        </li>
+    </ul>
+
+</ds-pagination>

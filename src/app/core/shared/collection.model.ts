@@ -63,7 +63,7 @@ export class Collection extends DSpaceObject {
   /**
    * The Collection that owns this Collection
    */
-  owner: Collection;
+  owner: RemoteData<Collection>;
 
   items: RemoteData<Item[]>;
 

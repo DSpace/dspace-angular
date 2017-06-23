@@ -1,0 +1,6 @@
+<a [routerLink]="['/collections/' + collection.id]" class="lead">
+    {{collection.name}}
+</a>
+<div *ngIf="collection.shortDescription" class="text-muted">
+    {{collection.shortDescription}}
+</div>

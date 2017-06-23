@@ -12,7 +12,7 @@ import { ItemDataService } from "./data/item-data.service";
 import { RequestService } from "./data/request.service";
 import { RemoteDataBuildService } from "./cache/builders/remote-data-build.service";
 import { CommunityDataService } from "./data/community-data.service";
-import { PaginationOptions } from "./cache/models/pagination-options.model";
+import { PaginationComponentOptions } from "../shared/pagination/pagination-component-options.model";
 
 const IMPORTS = [
   CommonModule,
@@ -33,7 +33,7 @@ const PROVIDERS = [
   ItemDataService,
   DSpaceRESTv2Service,
   ObjectCacheService,
-  PaginationOptions,
+  PaginationComponentOptions,
   ResponseCacheService,
   RequestService,
   RemoteDataBuildService

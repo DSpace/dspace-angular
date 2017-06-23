@@ -18,21 +18,25 @@ export class NormalizedCollection extends NormalizedDSpaceObject {
    * The Bitstream that represents the logo of this Collection
    */
   @autoserialize
-  @relationship(ResourceType.Bitstream)
+  @relationship(ResourceType.Bitstream, false)
   logo: string;
 
   /**
-   * An array of Collections that are direct parents of this Collection
+   * An array of Communities that are direct parents of this Collection
    */
+  @autoserialize
+  @relationship(ResourceType.Community, true)
   parents: Array<string>;
 
   /**
-   * The Collection that owns this Collection
+   * The Community that owns this Collection
    */
+  @autoserialize
+  @relationship(ResourceType.Community, false)
   owner: string;
 
   @autoserialize
-  @relationship(ResourceType.Item)
+  @relationship(ResourceType.Item, true)
   items: Array<string>;
 
 }

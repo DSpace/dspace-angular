@@ -1,12 +1,10 @@
 <div *ngIf="topLevelCommunities.hasSucceeded | async">
   <h2>{{'home.top-level-communities.head' | translate}}</h2>
   <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
-  <ul>
-    <li *ngFor="let community of (topLevelCommunities.payload | async)">
-      <p>
-        <span class="lead"><a [routerLink]="['/communities', community.id]">{{community.name}}</a></span><br>
-        <span class="text-muted">{{community.shortDescription}}</span>
-      </p>
-    </li>
-  </ul>
+  <ds-object-list [config]="config" [sortConfig]="sortConfig"
+                  [objects]="topLevelCommunities" [hideGear]="true"
+                  (pageChange)="onPageChange($event)"
+                  (pageSizeChange)="onPageSizeChange($event)"
+                  (sortDirectionChange)="onSortDirectionChange($event)"
+                  (sortFieldChange)="onSortDirectionChange($event)"></ds-object-list>
 </div>

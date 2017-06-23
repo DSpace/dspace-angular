@@ -12,7 +12,7 @@ import { ErrorResponse, SuccessResponse } from "../response-cache.models";
 import { Observable } from "rxjs/Observable";
 import { RemoteData } from "../../data/remote-data";
 import { GenericConstructor } from "../../shared/generic-constructor";
-import { getMapsTo, getResourceType, getRelationships } from "./build-decorators";
+import { getMapsTo, getRelationMetadata, getRelationships } from "./build-decorators";
 import { NormalizedObjectFactory } from "../models/normalized-object-factory";
 import { Request } from "../../data/request.models";
 
@@ -55,10 +55,45 @@ export class RemoteDataBuildService {
       .map((entry: ResponseCacheEntry) => (<ErrorResponse> entry.response).errorMessage)
       .distinctUntilChanged();
 
-    const payload = this.objectCache.getBySelfLink<TNormalized>(href, normalizedType)
-      .map((normalized: TNormalized) => {
-        return this.build<TNormalized, TDomain>(normalized);
+    const statusCode = responseCacheObs
+      .map((entry: ResponseCacheEntry) => entry.response.statusCode)
+      .distinctUntilChanged();
+
+    const pageInfo = responseCacheObs
+      .filter((entry: ResponseCacheEntry) => hasValue(entry.response) && hasValue(entry.response['pageInfo']))
+      .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).pageInfo)
+      .distinctUntilChanged();
+
+    //always use self link if that is cached, only if it isn't, get it via the response.
+    const payload =
+      Observable.combineLatest(
+        this.objectCache.getBySelfLink<TNormalized>(href, normalizedType).startWith(undefined),
+        responseCacheObs
+          .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
+          .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
+          .flatMap((resourceUUIDs: Array<string>) => {
+            if (isNotEmpty(resourceUUIDs)) {
+              return this.objectCache.get(resourceUUIDs[0], normalizedType);
+            }
+            else {
+              return Observable.of(undefined);
+            }
+          })
+          .distinctUntilChanged()
+          .startWith(undefined),
+        (fromSelfLink, fromResponse) => {
+          if (hasValue(fromSelfLink)) {
+            return fromSelfLink;
+          }
+          else {
+            return fromResponse;
+          }
+        }
+      ).filter(normalized => hasValue(normalized))
+        .map((normalized: TNormalized) => {
+          return this.build<TNormalized, TDomain>(normalized);
       });
+
 
     return new RemoteData(
       href,
@@ -66,6 +101,8 @@ export class RemoteDataBuildService {
       responsePending,
       isSuccessFul,
       errorMessage,
+      statusCode,
+      pageInfo,
       payload
     );
   }
@@ -90,6 +127,15 @@ export class RemoteDataBuildService {
       .map((entry: ResponseCacheEntry) => (<ErrorResponse> entry.response).errorMessage)
       .distinctUntilChanged();
 
+    const statusCode = responseCacheObs
+      .map((entry: ResponseCacheEntry) => entry.response.statusCode)
+      .distinctUntilChanged();
+
+    const pageInfo = responseCacheObs
+      .filter((entry: ResponseCacheEntry) => hasValue(entry.response) && hasValue(entry.response['pageInfo']))
+      .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).pageInfo)
+      .distinctUntilChanged();
+
     const payload = responseCacheObs
       .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
@@ -109,6 +155,8 @@ export class RemoteDataBuildService {
       responsePending,
       isSuccessFul,
       errorMessage,
+      statusCode,
+      pageInfo,
       payload
     );
   }
@@ -121,7 +169,7 @@ export class RemoteDataBuildService {
 
     relationships.forEach((relationship: string) => {
       if (hasValue(normalized[relationship])) {
-        const resourceType = getResourceType(normalized, relationship);
+        const { resourceType, isList } = getRelationMetadata(normalized, relationship);
         const resourceConstructor = NormalizedObjectFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
           // without the setTimeout, the actions inside requestService.configure
@@ -137,7 +185,12 @@ export class RemoteDataBuildService {
             rdArr.push(this.buildSingle(href, resourceConstructor));
           });
 
-          links[relationship] = this.aggregate(rdArr);
+          if (rdArr.length === 1) {
+            links[relationship] = rdArr[0];
+          }
+          else {
+            links[relationship] = this.aggregate(rdArr);
+          }
         }
         else {
           // without the setTimeout, the actions inside requestService.configure
@@ -146,7 +199,14 @@ export class RemoteDataBuildService {
             this.requestService.configure(new Request(normalized[relationship]));
           },0);
 
-          links[relationship] = this.buildSingle(normalized[relationship], resourceConstructor);
+          // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
+          // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
+          // but it should still be built as a list
+          if (isList) {
+            links[relationship] = this.buildList(normalized[relationship], resourceConstructor);
+          } else {
+            links[relationship] = this.buildSingle(normalized[relationship], resourceConstructor);
+          }
         }
       }
     });
@@ -183,6 +243,20 @@ export class RemoteDataBuildService {
       .join(", ")
     );
 
+    const statusCode = Observable.combineLatest(
+      ...input.map(rd => rd.statusCode),
+    ).map((...statusCodes) => statusCodes
+      .map((code, idx) => {
+        if (hasValue(code)) {
+          return `[${idx}]: ${code}`;
+        }
+      })
+      .filter(c => hasValue(c))
+      .join(", ")
+    );
+
+    const pageInfo = Observable.of(undefined);
+
     const payload = <Observable<T[]>> Observable.combineLatest(
       ...input.map(rd => rd.payload)
     );
@@ -196,6 +270,8 @@ export class RemoteDataBuildService {
       responsePending,
       isSuccessFul,
       errorMessage,
+      statusCode,
+      pageInfo,
       payload
     );
   }

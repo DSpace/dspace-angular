@@ -26,10 +26,8 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
    * @param model The model to serialize
    * @returns An object to send to the backend
    */
-  serialize(model: T): DSpaceRESTV2Response {
-    return {
-      "_embedded": Serialize(model, this.modelType)
-    };
+  serialize(model: T): any {
+    return Serialize(model, this.modelType);
   }
 
   /**
@@ -38,10 +36,8 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
    * @param models The array of models to serialize
    * @returns An object to send to the backend
    */
-  serializeArray(models: Array<T>): DSpaceRESTV2Response {
-    return {
-      "_embedded": Serialize(models, this.modelType)
-    };
+  serializeArray(models: Array<T>): any {
+    return  Serialize(models, this.modelType);
   }
 
   /**

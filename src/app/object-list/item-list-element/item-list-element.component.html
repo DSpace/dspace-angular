@@ -1,0 +1,14 @@
+<a [routerLink]="['/items/' + item.id]" class="lead">
+    {{item.findMetadata("dc.title")}}
+</a>
+<div>
+  <span class="text-muted">
+    <span *ngIf="item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);" class="item-list-authors">
+        <span *ngFor="let authorMd of item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
+            <span *ngIf="!last">; </span>
+        </span>
+    </span>
+    (<span *ngIf="item.findMetadata('dc.publisher')" class="item-list-publisher">{{item.findMetadata("dc.publisher")}}, </span><span *ngIf="item.findMetadata('dc.date.issued')" class="item-list-date">{{item.findMetadata("dc.date.issued")}}</span>)
+  </span>
+  <div *ngIf="item.findMetadata('dc.description.abstract')" class="item-list-abstract">{{item.findMetadata("dc.description.abstract") | dsTruncate:[200] }}</div>
+</div>

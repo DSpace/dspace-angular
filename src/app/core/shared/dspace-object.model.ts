@@ -44,7 +44,7 @@ export abstract class DSpaceObject implements CacheableObject {
     /**
      * The DSpaceObject that owns this DSpaceObject
      */
-    owner: DSpaceObject;
+    owner: RemoteData<DSpaceObject>;
 
     /**
      * Find a metadata field by key and language

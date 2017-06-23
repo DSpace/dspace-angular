@@ -1,24 +1,36 @@
-import { autoserialize, autoserializeAs } from "cerialize";
-import { CacheableObject } from "../object-cache.reducer";
+import { autoserialize, autoserializeAs, inheritSerialization } from "cerialize";
 import { Metadatum } from "../../shared/metadatum.model";
 import { ResourceType } from "../../shared/resource-type";
+import { NormalizedObject } from "./normalized-object.model";
 
 /**
  * An abstract model class for a DSpaceObject.
  */
-export abstract class NormalizedDSpaceObject implements CacheableObject {
+export abstract class NormalizedDSpaceObject extends NormalizedObject{
 
+  /**
+   * The link to the rest endpoint where this object can be found
+   *
+   * Repeated here to make the serialization work,
+   * inheritSerialization doesn't seem to work for more than one level
+   */
   @autoserialize
   self: string;
 
   /**
    * The human-readable identifier of this DSpaceObject
+   *
+   * Currently mapped to uuid but left in to leave room
+   * for a shorter, more user friendly type of id
    */
-  @autoserialize
+  @autoserializeAs(String, 'uuid')
   id: string;
 
   /**
    * The universally unique identifier of this DSpaceObject
+   *
+   * Repeated here to make the serialization work,
+   * inheritSerialization doesn't seem to work for more than one level
    */
   @autoserialize
   uuid: string;

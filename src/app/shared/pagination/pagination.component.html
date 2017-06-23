@@ -1,4 +1,4 @@
-<div class="pagination-masked clearfix top">
+<div *ngIf="!hideGear" class="pagination-masked clearfix top">
   <div class="row">
     <div class="col pagination-info">
       <span class="align-middle hidden-xs-down">{{ 'pagination.showing.label' | translate }}</span>
@@ -9,7 +9,9 @@
         <button class="btn btn-outline-primary" id="paginationControls" (click)="$event.stopPropagation(); (paginationControls.isOpen())?paginationControls.close():paginationControls.open();"><i class="fa fa-cog" aria-hidden="true"></i></button>
         <div class="dropdown-menu dropdown-menu-right" id="paginationControlsDropdownMenu" aria-labelledby="paginationControls">
           <h6 class="dropdown-header">{{ 'pagination.results-per-page' | translate}}</h6>
-          <button class="dropdown-item" style="padding-left: 20px" *ngFor="let item of pageSizeOptions " (click)="setPageSize(item)"><i class="fa fa-check {{(item != paginationOptions.pageSize) ? 'invisible' : ''}}" aria-hidden="true"></i> {{item}} </button>
+          <button class="dropdown-item" style="padding-left: 20px" *ngFor="let item of pageSizeOptions" (click)="setPageSize(item)"><i class="fa fa-check {{(item != paginationOptions.pageSize) ? 'invisible' : ''}}" aria-hidden="true"></i> {{item}} </button>
+          <h6 class="dropdown-header">{{ 'pagination.sort-direction' | translate}}</h6>
+          <button class="dropdown-item" style="padding-left: 20px" *ngFor="let direction of (sortDirections | dsKeys)" (click)="setSortDirection(direction.key)"><i class="fa fa-check {{(direction.key != sortOptions.direction) ? 'invisible' : ''}}" aria-hidden="true"></i> {{direction.value}} </button>
         </div>
       </div>
     </div>
@@ -18,7 +20,7 @@
 
 <ng-content></ng-content>
 
-<div class="pagination justify-content-center clearfix bottom">
+<div *ngIf="shouldShowBottomPager" class="pagination justify-content-center clearfix bottom">
   <ngb-pagination [boundaryLinks]="paginationOptions.boundaryLinks"
                   [collectionSize]="collectionSize"
                   [disabled]="paginationOptions.disabled"

@@ -1,32 +1,44 @@
-<div class="collection-page" *ngIf="collectionData.hasSucceeded | async">
-  <!-- Collection Name -->
-  <ds-comcol-page-header 
-        [name]="(collectionData.payload | async)?.name">
-  </ds-comcol-page-header>
-  <!-- Collection logo -->
-  <ds-comcol-page-logo *ngIf="logoData" 
-      [logo]="logoData.payload | async"
-      [alternateText]="'Collection Logo'">
-  </ds-comcol-page-logo>
-  <!-- Introductionary text -->
-  <ds-comcol-page-content
+<div class="collection-page">
+  <div *ngIf="collectionData.hasSucceeded | async">
+    <!-- Collection Name -->
+    <ds-comcol-page-header
+      [name]="(collectionData.payload | async)?.name">
+    </ds-comcol-page-header>
+    <!-- Collection logo -->
+    <ds-comcol-page-logo *ngIf="logoData"
+                         [logo]="logoData.payload | async"
+                         [alternateText]="'Collection Logo'">
+    </ds-comcol-page-logo>
+    <!-- Introductionary text -->
+    <ds-comcol-page-content
       [content]="(collectionData.payload | async)?.introductoryText"
       [hasInnerHtml]="true">
-  </ds-comcol-page-content>
-  <!-- News -->
-  <ds-comcol-page-content
+    </ds-comcol-page-content>
+    <!-- News -->
+    <ds-comcol-page-content
       [content]="(collectionData.payload | async)?.sidebarText"
       [hasInnerHtml]="true"
       [title]="'community.page.news'">
-  </ds-comcol-page-content>
-  <!-- Copyright -->
-  <ds-comcol-page-content
+    </ds-comcol-page-content>
+    <!-- Copyright -->
+    <ds-comcol-page-content
       [content]="(collectionData.payload | async)?.copyrightText"
       [hasInnerHtml]="true">
-  </ds-comcol-page-content>
-  <!-- Licence -->
-  <ds-comcol-page-content
+    </ds-comcol-page-content>
+    <!-- Licence -->
+    <ds-comcol-page-content
       [content]="(collectionData.payload | async)?.license"
       [title]="'collection.page.license'">
-  </ds-comcol-page-content>
+    </ds-comcol-page-content>
+  </div>
+  <br>
+  <div *ngIf="itemData.hasSucceeded | async">
+    <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
+    <ds-object-list [config]="config" [sortConfig]="sortConfig"
+                    [objects]="itemData" [hideGear]="true"
+                    (pageChange)="onPageChange($event)"
+                    (pageSizeChange)="onPageSizeChange($event)"
+                    (sortDirectionChange)="onSortDirectionChange($event)"
+                    (sortFieldChange)="onSortDirectionChange($event)"></ds-object-list>
+  </div>
 </div>

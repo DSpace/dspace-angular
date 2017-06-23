@@ -1,0 +1,6 @@
+<a [routerLink]="['/communities/' + community.id]" class="lead">
+    {{community.name}}
+</a>
+<div *ngIf="community.shortDescription" class="text-muted">
+    {{community.shortDescription}}
+</div>
