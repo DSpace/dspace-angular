@@ -4,12 +4,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class ActivatedRouteStub {
 
+  private _testParams?: any;
+
   // ActivatedRoute.params is Observable
-  private subject = new BehaviorSubject(this.testParams);
+  private subject?: BehaviorSubject<any> = new BehaviorSubject(this.testParams);
+
   params = this.subject.asObservable();
   queryParams = this.subject.asObservable();
-
-  private _testParams: {};
 
   constructor(params?: Params) {
     if (params) {
