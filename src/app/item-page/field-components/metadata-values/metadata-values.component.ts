@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ds-metadata-values',
-  styleUrls: ['./metadata-values.component.css'],
+  styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html'
 })
 export class MetadataValuesComponent {

@@ -47,7 +47,7 @@ class ProcessRequestDTO {
 export class RequestEffects {
 
   constructor(
-    @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig,
+    @Inject(GLOBAL_CONFIG) private config: GlobalConfig,
     private actions$: Actions,
     private restApi: DSpaceRESTv2Service,
     private objectCache: ObjectCacheService,
@@ -67,14 +67,14 @@ export class RequestEffects {
           const processRequestDTO = this.process(data.payload, entry.request.href);
           const uuids = flattenSingleKeyObject(processRequestDTO).map(no => no.uuid);
           return new SuccessResponse(uuids, data.statusCode, this.processPageInfo(data.payload.page))
-      }).do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
+        }).do((response: Response) => this.responseCache.add(entry.request.href, response, this.config.cache.msToLive))
         .map((response: Response) => new RequestCompleteAction(entry.request.href))
         .catch((error: RequestError) => Observable.of(new ErrorResponse(error))
-          .do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
+          .do((response: Response) => this.responseCache.add(entry.request.href, response, this.config.cache.msToLive))
           .map((response: Response) => new RequestCompleteAction(entry.request.href)));
     });
 
-  protected process(data: any, requestHref: string): ProcessRequestDTO  {
+  protected process(data: any, requestHref: string): ProcessRequestDTO {
 
     if (isNotEmpty(data)) {
       if (isPaginatedResponse(data)) {
@@ -117,7 +117,7 @@ export class RequestEffects {
   }
 
   protected deserializeAndCache(obj, requestHref: string): NormalizedObject[] {
-    if(Array.isArray(obj)) {
+    if (Array.isArray(obj)) {
       let result = [];
       obj.forEach(o => result = [...result, ...this.deserializeAndCache(o, requestHref)])
       return result;
@@ -166,7 +166,7 @@ export class RequestEffects {
     if (hasNoValue(co) || hasNoValue(co.uuid)) {
       throw new Error('The server returned an invalid object');
     }
-    this.objectCache.add(co, this.EnvConfig.cache.msToLive, requestHref);
+    this.objectCache.add(co, this.config.cache.msToLive, requestHref);
   }
 
   protected processPageInfo(pageObj: any): PageInfo {

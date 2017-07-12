@@ -13,7 +13,7 @@ import { GenericConstructor } from "../shared/generic-constructor";
 export class ObjectCacheService {
   constructor(
     private store: Store<ObjectCacheState>
-  ) {}
+  ) { }
 
   /**
    * Add an object to the cache
@@ -59,7 +59,7 @@ export class ObjectCacheService {
    */
   get<T extends CacheableObject>(uuid: string, type: GenericConstructor<T>): Observable<T> {
     return this.getEntry(uuid)
-      .map((entry: ObjectCacheEntry) => <T> Object.assign(new type(), entry.data));
+      .map((entry: ObjectCacheEntry) => <T>Object.assign(new type(), entry.data));
   }
 
   getBySelfLink<T extends CacheableObject>(href: string, type: GenericConstructor<T>): Observable<T> {

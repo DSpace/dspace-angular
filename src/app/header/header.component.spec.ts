@@ -18,8 +18,8 @@ describe('HeaderComponent', () => {
   // async beforeEach
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.provideStore({}), TranslateModule.forRoot(), NgbCollapseModule.forRoot() ],
-      declarations: [ HeaderComponent ]
+      imports: [StoreModule.provideStore({}), TranslateModule.forRoot(), NgbCollapseModule.forRoot()],
+      declarations: [HeaderComponent]
     })
       .compileComponents();  // compile template and css
   }));

@@ -13,40 +13,40 @@ import { Bitstream } from "../../core/shared/bitstream.model";
  */
 
 @Component({
-    selector: 'ds-item-page',
-    styleUrls: ['./item-page.component.css'],
-    templateUrl: './item-page.component.html',
+  selector: 'ds-item-page',
+  styleUrls: ['./item-page.component.scss'],
+  templateUrl: './item-page.component.html',
 })
 export class ItemPageComponent implements OnInit {
 
-    id: number;
+  id: number;
 
-    private sub: any;
+  private sub: any;
 
-    item: RemoteData<Item>;
+  item: RemoteData<Item>;
 
-    thumbnail: Observable<Bitstream>;
+  thumbnail: Observable<Bitstream>;
 
-    constructor(private route: ActivatedRoute, private items: ItemDataService) {
-        this.universalInit();
-    }
+  constructor(private route: ActivatedRoute, private items: ItemDataService) {
+    this.universalInit();
+  }
 
-    universalInit() {
+  universalInit() {
 
-    }
+  }
 
-    ngOnInit(): void {
-        this.sub = this.route.params.subscribe(params => {
-            this.initialize(params);
-        });
-    }
+  ngOnInit(): void {
+    this.sub = this.route.params.subscribe(params => {
+      this.initialize(params);
+    });
+  }
 
 
-    initialize(params) {
-        this.id = +params['id'];
-        this.item = this.items.findById(params['id']);
-        this.thumbnail = this.item.payload.flatMap(i => i.getThumbnail());
-    }
+  initialize(params) {
+    this.id = +params['id'];
+    this.item = this.items.findById(params['id']);
+    this.thumbnail = this.item.payload.flatMap(i => i.getThumbnail());
+  }
 
 
 }

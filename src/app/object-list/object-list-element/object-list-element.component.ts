@@ -3,24 +3,24 @@ import { DSpaceObject } from "../../core/shared/dspace-object.model";
 import { ResourceType } from "../../core/shared/resource-type";
 
 @Component({
-    selector: 'ds-object-list-element',
-    styleUrls: ['./object-list-element.component.css'],
-    templateUrl: './object-list-element.component.html'
+  selector: 'ds-object-list-element',
+  styleUrls: ['./object-list-element.component.scss'],
+  templateUrl: './object-list-element.component.html'
 })
 export class ObjectListElementComponent {
 
-    public type = ResourceType;
+  public type = ResourceType;
 
-    @Input() object: DSpaceObject;
+  @Input() object: DSpaceObject;
 
-    data: any = {};
+  data: any = {};
 
-    constructor() {
-        this.universalInit();
-    }
+  constructor() {
+    this.universalInit();
+  }
 
-    universalInit() {
+  universalInit() {
 
-    }
+  }
 
 }

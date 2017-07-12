@@ -2,10 +2,10 @@ import { Observable } from "rxjs";
 import { PageInfo } from "../shared/page-info.model";
 
 export enum RemoteDataState {
-  RequestPending = <any> "RequestPending",
-  ResponsePending = <any> "ResponsePending",
-  Failed = <any> "Failed",
-  Success = <any> "Success"
+  RequestPending = <any>"RequestPending",
+  ResponsePending = <any>"ResponsePending",
+  Failed = <any>"Failed",
+  Success = <any>"Success"
 }
 
 /**

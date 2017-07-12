@@ -5,7 +5,7 @@ import { GenericConstructor } from "../shared/generic-constructor";
 export class Request<T> {
   constructor(
     public href: string,
-  ) {}
+  ) { }
 }
 
 export class FindByIDRequest<T> extends Request<T> {

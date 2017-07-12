@@ -1,14 +1,15 @@
-import { ObjectCacheState, CacheableObject } from "./object-cache.reducer";
 import { Store } from "@ngrx/store";
-import { ObjectCacheService } from "./object-cache.service";
-import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from "./object-cache.actions";
 import { Observable } from "rxjs";
+
+import { ObjectCacheService } from "./object-cache.service";
+import { ObjectCacheState, CacheableObject } from "./object-cache.reducer";
+import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from "./object-cache.actions";
 
 class TestClass implements CacheableObject {
   constructor(
     public uuid: string,
     public foo: string
-  ) {}
+  ) { }
 
   test(): string {
     return this.foo + this.uuid;
@@ -39,12 +40,13 @@ describe("ObjectCacheService", () => {
     spyOn(store, 'dispatch');
     service = new ObjectCacheService(store);
 
-    spyOn(window, 'Date').and.returnValue({ getTime: () => timestamp });
+    spyOn(Date.prototype, 'getTime').and.callFake(function() {
+      return timestamp;
+    });
   });
 
   describe("add", () => {
     it("should dispatch an ADD action with the object to add, the time to live, and the current timestamp", () => {
-
       service.add(objectToCache, msToLive, requestHref);
       expect(store.dispatch).toHaveBeenCalledWith(new AddToObjectCacheAction(objectToCache, timestamp, msToLive, requestHref));
     });
@@ -98,16 +100,19 @@ describe("ObjectCacheService", () => {
   describe("has", () => {
     it("should return true if the object with the supplied UUID is cached and still valid", () => {
       spyOn(store, 'select').and.returnValue(Observable.of(cacheEntry));
+
       expect(service.has(uuid)).toBe(true);
     });
 
     it("should return false if the object with the supplied UUID isn't cached", () => {
       spyOn(store, 'select').and.returnValue(Observable.of(undefined));
+
       expect(service.has(uuid)).toBe(false);
     });
 
     it("should return false if the object with the supplied UUID is cached but has exceeded its time to live", () => {
       spyOn(store, 'select').and.returnValue(Observable.of(invalidCacheEntry));
+
       expect(service.has(uuid)).toBe(false);
     });
   });

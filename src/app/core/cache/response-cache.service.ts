@@ -18,13 +18,13 @@ import { Response } from "./response-cache.models";
 export class ResponseCacheService {
   constructor(
     private store: Store<ResponseCacheState>
-  ) {}
+  ) { }
 
   add(key: string, response: Response, msToLive: number): Observable<ResponseCacheEntry> {
-      if (!this.has(key)) {
-        // this.store.dispatch(new ResponseCacheFindAllAction(key, service, scopeID, paginationOptions, sortOptions));
-        this.store.dispatch(new ResponseCacheAddAction(key, response, new Date().getTime(), msToLive));
-      }
+    if (!this.has(key)) {
+      // this.store.dispatch(new ResponseCacheFindAllAction(key, service, scopeID, paginationOptions, sortOptions));
+      this.store.dispatch(new ResponseCacheAddAction(key, response, new Date().getTime(), msToLive));
+    }
     return this.get(key);
   }
 

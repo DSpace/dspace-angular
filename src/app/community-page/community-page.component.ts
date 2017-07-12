@@ -10,7 +10,7 @@ import { hasValue } from "../shared/empty.util";
 
 @Component({
   selector: 'ds-community-page',
-  styleUrls: ['./community-page.component.css'],
+  styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
 })
 export class CommunityPageComponent implements OnInit, OnDestroy {
@@ -34,9 +34,9 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-     this.subs
-       .filter(sub => hasValue(sub))
-       .forEach(sub => sub.unsubscribe());
+    this.subs
+      .filter(sub => hasValue(sub))
+      .forEach(sub => sub.unsubscribe());
   }
 
   universalInit() {

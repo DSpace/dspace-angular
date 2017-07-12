@@ -22,7 +22,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
     @Inject(GLOBAL_CONFIG) EnvConfig: GlobalConfig
-) {
+  ) {
     super(NormalizedItem, EnvConfig);
   }
 }

@@ -41,11 +41,11 @@ export const responseCacheReducer = (state = initialState, action: ResponseCache
   switch (action.type) {
 
     case ResponseCacheActionTypes.ADD: {
-      return addToCache(state, <ResponseCacheAddAction> action);
+      return addToCache(state, <ResponseCacheAddAction>action);
     }
 
     case ResponseCacheActionTypes.REMOVE: {
-      return removeFromCache(state, <ResponseCacheRemoveAction> action);
+      return removeFromCache(state, <ResponseCacheRemoveAction>action);
     }
 
     case ResponseCacheActionTypes.RESET_TIMESTAMPS: {

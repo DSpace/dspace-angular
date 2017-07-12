@@ -10,36 +10,36 @@ import { RemoteDataBuildService } from "../../../core/cache/builders/remote-data
  */
 
 @Component({
-    selector: 'ds-item-page-collections',
-    templateUrl: './collections.component.html'
+  selector: 'ds-item-page-collections',
+  templateUrl: './collections.component.html'
 })
 export class CollectionsComponent implements OnInit {
 
-    @Input() item: Item;
+  @Input() item: Item;
 
-    label : string = "item.page.collections";
+  label: string = "item.page.collections";
 
-    separator: string = "<br/>";
+  separator: string = "<br/>";
 
-    collections: Observable<Collection[]>;
+  collections: Observable<Collection[]>;
 
-    constructor(
-      private rdbs: RemoteDataBuildService
-    ) {
-        this.universalInit();
+  constructor(
+    private rdbs: RemoteDataBuildService
+  ) {
+    this.universalInit();
 
-    }
+  }
 
-    universalInit() {
-    }
+  universalInit() {
+  }
 
-    ngOnInit(): void {
-      //   this.collections = this.item.parents.payload;
-      //TODO this should use parents, but the collections
-      // for an Item aren't returned by the REST API yet,
-      // only the owning collection
-      this.collections = this.item.owner.payload.map(c => [c]);
-    }
+  ngOnInit(): void {
+    //   this.collections = this.item.parents.payload;
+    //TODO this should use parents, but the collections
+    // for an Item aren't returned by the REST API yet,
+    // only the owning collection
+    this.collections = this.item.owner.payload.map(c => [c]);
+  }
 
 
 

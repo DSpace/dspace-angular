@@ -10,11 +10,13 @@ export class PaginationComponentOptions extends NgbPaginationConfig {
   /**
    * The active page.
    */
-  currentPage: number = 1;
+  currentPage = 1;
 
   /**
    * A number array that represents options for a context pagination limit.
    */
-  pageSizeOptions: Array<number> = [ 5, 10, 20, 40, 60, 80, 100 ];
+  pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
+
+  pageSize: number;
 
 }

@@ -8,21 +8,21 @@ const relationshipKey = Symbol("relationship");
 
 const relationshipMap = new Map();
 
-export const mapsTo = function(value: GenericConstructor<CacheableObject>) {
+export function mapsTo(value: GenericConstructor<CacheableObject>) {
   return Reflect.metadata(mapsToMetadataKey, value);
 };
 
-export const getMapsTo = function(target: any) {
+export function getMapsTo(target: any) {
   return Reflect.getOwnMetadata(mapsToMetadataKey, target);
 };
 
-export const relationship = function(value: ResourceType, isList: boolean = false): any {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+export function relationship(value: ResourceType, isList: boolean = false): any {
+  return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     if (!target || !propertyKey) {
       return;
     }
 
-    let metaDataList : Array<string> = relationshipMap.get(target.constructor) || [];
+    let metaDataList: Array<string> = relationshipMap.get(target.constructor) || [];
     if (metaDataList.indexOf(propertyKey) === -1) {
       metaDataList.push(propertyKey);
     }
@@ -32,10 +32,10 @@ export const relationship = function(value: ResourceType, isList: boolean = fals
   };
 };
 
-export const getRelationMetadata = function(target: any, propertyKey: string) {
+export function getRelationMetadata(target: any, propertyKey: string) {
   return Reflect.getMetadata(relationshipKey, target, propertyKey);
 };
 
-export const getRelationships = function(target: any) {
+export function getRelationships(target: any) {
   return relationshipMap.get(target);
 };

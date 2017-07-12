@@ -23,7 +23,7 @@ export class CollectionDataService extends DataService<NormalizedCollection, Col
     protected store: Store<CoreState>,
     @Inject(GLOBAL_CONFIG) EnvConfig: GlobalConfig
   ) {
-      super(NormalizedCollection, EnvConfig);
+    super(NormalizedCollection, EnvConfig);
   }
 
 }

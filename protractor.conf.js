@@ -2,7 +2,7 @@
 // https://github.com/angular/protractor/blob/master/docs/referenceConf.js
 
 /*global jasmine */
-var SpecReporter = require('jasmine-spec-reporter');
+var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 exports.config = {
   allScriptsTimeout: 11000,
@@ -28,11 +28,11 @@ exports.config = {
   // -----------------------------------------------------------------
   // Browser and Capabilities: Chrome
   // -----------------------------------------------------------------
-     capabilities: {
-       'browserName': 'chrome',
-       'version': '',
-       'platform': 'ANY'
-     },
+  capabilities: {
+    'browserName': 'chrome',
+    'version': '',
+    'platform': 'ANY'
+  },
   // -----------------------------------------------------------------
   // Browser and Capabilities: Firefox
   // -----------------------------------------------------------------
@@ -63,7 +63,7 @@ exports.config = {
   //    }
   //],
 
-  plugins : [{
+  plugins: [{
     path: 'node_modules/protractor-istanbul-plugin'
   }],
 
@@ -71,15 +71,19 @@ exports.config = {
   jasmineNodeOpts: {
     showColors: true,
     defaultTimeoutInterval: 30000,
-    print: function() {}
+    print: function () {}
   },
   useAllAngular2AppRoots: true,
-  beforeLaunch: function() {
+  beforeLaunch: function () {
     require('ts-node').register({
       project: 'e2e'
     });
   },
-  onPrepare: function() {
-    jasmine.getEnv().addReporter(new SpecReporter());
+  onPrepare: function () {
+    jasmine.getEnv().addReporter(new SpecReporter({
+      spec: {
+        displayStacktrace: true
+      }
+    }));
   }
 };

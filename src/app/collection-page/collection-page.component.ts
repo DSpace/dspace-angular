@@ -18,7 +18,7 @@ import { hasValue } from "../shared/empty.util";
 
 @Component({
   selector: 'ds-collection-page',
-  styleUrls: ['./collection-page.component.css'],
+  styleUrls: ['./collection-page.component.scss'],
   templateUrl: './collection-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -26,8 +26,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionData: RemoteData<Collection>;
   itemData: RemoteData<Item[]>;
   logoData: RemoteData<Bitstream>;
-  config : PaginationComponentOptions;
-  sortConfig : SortOptions;
+  config: PaginationComponentOptions;
+  sortConfig: SortOptions;
   private subs: Subscription[] = [];
   private collectionId: string;
 
@@ -41,7 +41,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subs.push(this.route.params.map((params: Params) => params['id'] )
+    this.subs.push(this.route.params.map((params: Params) => params['id'])
       .subscribe((id: string) => {
         this.collectionId = id;
         this.collectionData = this.collectionDataService.findById(this.collectionId);
@@ -50,9 +50,9 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
 
         this.config = new PaginationComponentOptions();
         this.config.id = "collection-browse";
-        this.config.pageSizeOptions = [ 4 ];
+        this.config.pageSizeOptions = [4];
         this.config.pageSize = 4;
-        this.sortConfig =  new SortOptions();
+        this.sortConfig = new SortOptions();
 
         this.updateResults();
       }));

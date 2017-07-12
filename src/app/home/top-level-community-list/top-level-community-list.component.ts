@@ -7,14 +7,14 @@ import { SortOptions, SortDirection } from "../../core/cache/models/sort-options
 
 @Component({
   selector: 'ds-top-level-community-list',
-  styleUrls: ['./top-level-community-list.component.css'],
+  styleUrls: ['./top-level-community-list.component.scss'],
   templateUrl: './top-level-community-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopLevelCommunityListComponent implements OnInit {
   topLevelCommunities: RemoteData<Community[]>;
-  config : PaginationComponentOptions;
-  sortConfig : SortOptions;
+  config: PaginationComponentOptions;
+  sortConfig: SortOptions;
 
   constructor(
     private cds: CommunityDataService,
@@ -30,9 +30,9 @@ export class TopLevelCommunityListComponent implements OnInit {
   ngOnInit(): void {
     this.config = new PaginationComponentOptions();
     this.config.id = "top-level-pagination";
-    this.config.pageSizeOptions = [ 4 ];
+    this.config.pageSizeOptions = [4];
     this.config.pageSize = 4;
-    this.sortConfig =  new SortOptions();
+    this.sortConfig = new SortOptions();
 
     this.updateResults();
   }

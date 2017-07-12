@@ -5,24 +5,24 @@ import { Collection } from "../../core/shared/collection.model";
 
 
 @Component({
-    selector: 'ds-community-page-sub-collection-list',
-    styleUrls: ['./community-page-sub-collection-list.component.css'],
-    templateUrl: './community-page-sub-collection-list.component.html',
+  selector: 'ds-community-page-sub-collection-list',
+  styleUrls: ['./community-page-sub-collection-list.component.scss'],
+  templateUrl: './community-page-sub-collection-list.component.html',
 })
 export class CommunityPageSubCollectionListComponent implements OnInit {
-    subCollections: RemoteData<Collection[]>;
+  subCollections: RemoteData<Collection[]>;
 
-    constructor(
-        private cds: CollectionDataService
-    ) {
-        this.universalInit();
-    }
+  constructor(
+    private cds: CollectionDataService
+  ) {
+    this.universalInit();
+  }
 
-    universalInit() {
+  universalInit() {
 
-    }
+  }
 
-    ngOnInit(): void {
-        this.subCollections = this.cds.findAll();
-    }
+  ngOnInit(): void {
+    this.subCollections = this.cds.findAll();
+  }
 }

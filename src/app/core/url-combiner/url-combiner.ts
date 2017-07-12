@@ -13,7 +13,7 @@ export class URLCombiner {
    * @param parts
    *      a variable number of strings representing parts of a URL
    */
-  constructor(...parts:Array<string>) {
+  constructor(...parts: Array<string>) {
     // can't do this in the constructor signature,
     // because of the spread operator
     this.parts = parts;

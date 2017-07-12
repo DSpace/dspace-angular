@@ -7,7 +7,7 @@ import { GlobalConfig } from "../../../config";
  *
  * TODO write tests once GlobalConfig becomes injectable
  */
-export class UIURLCombiner extends URLCombiner{
+export class UIURLCombiner extends URLCombiner {
   constructor(EnvConfig: GlobalConfig, ...parts: Array<string>) {
     super(EnvConfig.ui.baseUrl, EnvConfig.ui.nameSpace, ...parts);
   }

@@ -24,15 +24,15 @@ export const requestReducer = (state = initialState, action: RequestAction): Req
   switch (action.type) {
 
     case RequestActionTypes.CONFIGURE: {
-      return configureRequest(state, <RequestConfigureAction> action);
+      return configureRequest(state, <RequestConfigureAction>action);
     }
 
     case RequestActionTypes.EXECUTE: {
-      return executeRequest(state, <RequestExecuteAction> action);
+      return executeRequest(state, <RequestExecuteAction>action);
     }
 
     case RequestActionTypes.COMPLETE: {
-      return completeRequest(state, <RequestCompleteAction> action);
+      return completeRequest(state, <RequestCompleteAction>action);
     }
 
     default: {

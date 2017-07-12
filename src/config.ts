@@ -1,78 +1,55 @@
-// Look in ./config folder for config
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
-interface ServerConfig {
-  "ssl": boolean;
-  "address": string;
-  "port": number;
-  "nameSpace": string;
-  "baseUrl": string;
+import { ServerConfig } from './config/server-config.interface';
+import { GlobalConfig } from './config/global-config.interface';
+
+const GLOBAL_CONFIG: InjectionToken<GlobalConfig> = new InjectionToken<GlobalConfig>('config');
+
+let production = false;
+
+let ENV_CONFIG: GlobalConfig;
+
+try {
+  ENV_CONFIG = require('../config/environment.default.js') as GlobalConfig;
+} catch (e) {
+  throw new Error('Cannot find file config/environment.default.js');
 }
 
-interface GlobalConfig {
-  "production": boolean;
-  "rest": ServerConfig;
-  "ui": ServerConfig;
-  "cache": {
-    "msToLive": number,
-    "control": string
-  };
-  "universal": {
-    "preboot": boolean,
-    "async": boolean
-  };
-}
-
-const GLOBAL_CONFIG = new OpaqueToken('config');
-
-let configContext = require.context("../config", false, /js$/);
-
-let EnvConfig: GlobalConfig;
-let EnvConfigFile: string;
-
-let production: boolean = false;
-
-// check process.env.NODE_ENV to determine which environment config to use
-// process.env.NODE_ENV is defined by webpack, else assume development
 switch (process.env.NODE_ENV) {
   case 'prod':
   case 'production':
-    // webpack.prod.config.ts defines process.env.NODE_ENV = 'production'
-    EnvConfigFile = './environment.prod.js';
     production = true;
+    try {
+      ENV_CONFIG = Object.assign(ENV_CONFIG, require('../config/environment.prod.js')) as GlobalConfig;
+    } catch (e) {
+      console.warn('Cannot find file config/environment.prod.js', 'Using default environment.');
+    }
     break;
   case 'test':
-    // webpack.test.config.ts defines process.env.NODE_ENV = 'test'
-    EnvConfigFile = './environment.test.js';
+    try {
+      ENV_CONFIG = Object.assign(ENV_CONFIG, require('../config/environment.test.js')) as GlobalConfig;
+    } catch (e) {
+      console.warn('Cannot find file config/environment.test.js', 'Using default environment.');
+    }
     break;
   default:
-    // if not using webpack.prod.config.ts or webpack.test.config.ts, it must be development
-    EnvConfigFile = './environment.dev.js';
+    try {
+      ENV_CONFIG = Object.assign(ENV_CONFIG, require('../config/environment.dev.js')) as GlobalConfig;
+    } catch (e) {
+      console.warn('Cannot find file config/environment.dev.js', 'Using default environment.');
+    }
 }
 
-try {
-  EnvConfig = configContext('./environment.default.js');
-} catch (e) {
-  throw new Error("Cannot find file environment.default.js");
-}
+ENV_CONFIG.production = production;
 
-// if EnvConfigFile set try to get configs
-if (EnvConfigFile) {
-  try {
-    EnvConfig = <GlobalConfig>Object.assign(EnvConfig, configContext(EnvConfigFile));
-  } catch (e) {
-    console.warn("Cannot find file " + EnvConfigFile.substring(2, EnvConfigFile.length), "Using default environment.");
+for (const key in ENV_CONFIG) {
+  if (ENV_CONFIG[key].host) {
+    ENV_CONFIG[key].baseUrl = [
+      ENV_CONFIG[key].ssl ? 'https://' : 'http://',
+      ENV_CONFIG[key].host,
+      ENV_CONFIG[key].port ? (ENV_CONFIG[key].port !== 80 || ENV_CONFIG[key].port !== 443) ? ':' + ENV_CONFIG[key].port : '' : ''
+    ].join('');
   }
 }
 
-// set base url if property is object with ssl, address, and port. i.e. ServerConfig
-for (let key in EnvConfig) {
-  if (EnvConfig[key].ssl !== undefined && EnvConfig[key].address && EnvConfig[key].port) {
-    EnvConfig[key].baseUrl = [EnvConfig[key].ssl ? 'https://' : 'http://', EnvConfig[key].address, (EnvConfig[key].port !== 80) ? ':' + EnvConfig[key].port : ''].join('');
-  }
-}
-
-// set config for whether running in production
-EnvConfig.production = production;
-
-export { GLOBAL_CONFIG, GlobalConfig, EnvConfig }
+export { GlobalConfig, GLOBAL_CONFIG, ENV_CONFIG }

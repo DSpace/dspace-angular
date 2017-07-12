@@ -26,9 +26,9 @@ export class RequestService {
     let isPending = false;
     this.store.select<RequestEntry>('core', 'data', 'request', href)
       .take(1)
-      .subscribe((re: RequestEntry) =>  {
+      .subscribe((re: RequestEntry) => {
         isPending = (hasValue(re) && !re.completed)
-    });
+      });
 
     return isPending;
   }
@@ -46,7 +46,7 @@ export class RequestService {
       this.responseCache.get(request.href)
         .take(1)
         .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-        .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
+        .map((entry: ResponseCacheEntry) => (<SuccessResponse>entry.response).resourceUUIDs)
         .map((resourceUUIDs: Array<string>) => resourceUUIDs.every(uuid => this.objectCache.has(uuid)))
         .subscribe(c => isCached = c);
     }

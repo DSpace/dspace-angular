@@ -1,4 +1,4 @@
-import * as schema from './dspace-rest-v2.schema.json'
+import schema from './dspace-rest-v2.schema.json'
 import { Validator } from "jsonschema";
 
 /**

@@ -11,7 +11,7 @@ import { MetadataValuesComponent } from "../metadata-values/metadata-values.comp
 
 @Component({
   selector: 'ds-metadata-uri-values',
-  styleUrls: ['./metadata-uri-values.component.css'],
+  styleUrls: ['./metadata-uri-values.component.scss'],
   templateUrl: './metadata-uri-values.component.html'
 })
 export class MetadataUriValuesComponent extends MetadataValuesComponent {

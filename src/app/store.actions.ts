@@ -1,16 +1,17 @@
-import { type } from "./shared/ngrx/type";
-import { Action } from "@ngrx/store";
-import { AppState } from "./app.reducers";
+import { type } from './shared/ngrx/type';
+import { Action } from '@ngrx/store';
+import { AppState } from './app.reducer';
 
 export const StoreActionTypes = {
-  REHYDRATE: type('dspace/ngrx/rehydrate')
+  REHYDRATE: type('dspace/ngrx/REHYDRATE'),
+  REPLAY: type('dspace/ngrx/REPLAY')
 };
 
-export class RehydrateStoreAction implements Action {
-  type = StoreActionTypes.REHYDRATE;
-
-  constructor(public payload: AppState) {}
+export class StoreAction implements Action {
+  type: string;
+  payload: AppState | Action[];
+  constructor(type: string, payload: AppState | Action[]) {
+    this.type = type;
+    this.payload = payload;
+  }
 }
-
-export type StoreAction
-  = RehydrateStoreAction;

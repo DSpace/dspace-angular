@@ -55,7 +55,7 @@ describe("objectCacheReducer", () => {
 
   it("should add the payload to the cache in response to an ADD action", () => {
     const state = Object.create(null);
-    const objectToCache = {uuid: uuid1};
+    const objectToCache = { uuid: uuid1 };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const requestHref = "https://rest.api/endpoint/uuid1";
@@ -68,7 +68,7 @@ describe("objectCacheReducer", () => {
   });
 
   it("should overwrite an object in the cache in response to an ADD action if it already exists", () => {
-    const objectToCache = {uuid: uuid1, foo: "baz", somethingElse: true};
+    const objectToCache = { uuid: uuid1, foo: "baz", somethingElse: true };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const requestHref = "https://rest.api/endpoint/uuid1";
@@ -81,7 +81,7 @@ describe("objectCacheReducer", () => {
 
   it("should perform the ADD action without affecting the previous state", () => {
     const state = Object.create(null);
-    const objectToCache = {uuid: uuid1};
+    const objectToCache = { uuid: uuid1 };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const requestHref = "https://rest.api/endpoint/uuid1";

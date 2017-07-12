@@ -1,9 +1,11 @@
+import * as deepFreeze from "deep-freeze";
+
 import { responseCacheReducer, ResponseCacheState } from "./response-cache.reducer";
+
 import {
   ResponseCacheRemoveAction,
   ResetResponseCacheTimestampsAction
 } from "./response-cache.actions";
-import deepFreeze = require("deep-freeze");
 
 class NullAction extends ResponseCacheRemoveAction {
   type = null;

@@ -2,9 +2,11 @@
  * @author: @AngularClass
  */
 
-module.exports = function(config) {
+module.exports = function (config) {
 
-  var testWebpackConfig = require('./webpack.test.config.js')({env: 'test'});
+  var testWebpackConfig = require('./webpack/webpack.test.js')({
+    env: 'test'
+  });
 
   // Uncomment and change to run tests on a remote Selenium server
   var webdriverConfig = {
@@ -15,7 +17,7 @@ module.exports = function(config) {
   var configuration = {
 
     // base path that will be used to resolve all patterns (e.g. files, exclude)
-    basePath: '.',
+    basePath: '',
 
     /*
      * Frameworks to use
@@ -33,7 +35,8 @@ module.exports = function(config) {
       require('karma-mocha-reporter'),
       require('karma-remap-istanbul'),
       require('karma-sourcemap-loader'),
-      require('karma-webpack')
+      require('karma-webpack'),
+      require("istanbul-instrumenter-loader")
     ],
 
     // list of files to exclude
@@ -44,12 +47,10 @@ module.exports = function(config) {
      *
      * we are building the test environment in ./spec-bundle.js
      */
-    files: [
-      {
-        pattern: './spec-bundle.js',
-        watched: false
-      }
-    ],
+    files: [{
+      pattern: './spec-bundle.js',
+      watched: false
+    }],
 
     /*
      * preprocess matching files before serving them to the browser
@@ -63,18 +64,16 @@ module.exports = function(config) {
     webpack: testWebpackConfig,
 
     coverageReporter: {
-      reporters: [
-        {
-          type: 'in-memory'
-        }, {
-          type: 'json',
-          subdir: '.',
-          file: 'coverage-final.json'
-        }, {
-          type: 'html',
-          dir: 'coverage/'
-        }
-      ]
+      reporters: [{
+        type: 'in-memory'
+      }, {
+        type: 'json',
+        subdir: '.',
+        file: 'coverage-final.json'
+      }, {
+        type: 'html',
+        dir: 'coverage/'
+      }]
     },
 
     remapCoverageReporter: {
@@ -89,9 +88,24 @@ module.exports = function(config) {
       }
     },
 
-    // Webpack please don't spam the console when running in karma!
+    /**
+     * Webpack please don't spam the console when running in karma!
+     */
     webpackMiddleware: {
-      stats: 'errors-only'
+      /**
+       * webpack-dev-middleware configuration
+       * i.e.
+       */
+      noInfo: true,
+      /**
+       * and use stats to turn off verbose output
+       */
+      stats: {
+        /**
+         * options i.e.
+         */
+        chunks: false
+      }
     },
 
     /*
@@ -114,10 +128,10 @@ module.exports = function(config) {
      * level of logging
      * possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
      */
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_WARN,
 
     // enable / disable watching file and executing tests whenever any file changes
-    //autoWatch: true,
+    autoWatch: false,
 
     /*
      * start these browsers
@@ -125,9 +139,6 @@ module.exports = function(config) {
      */
     browsers: [
       'Chrome'
-      //'ChromeTravisCi',
-      //'SeleniumChrome',
-      //'SeleniumFirefox'
     ],
 
     customLaunchers: {
@@ -156,11 +167,6 @@ module.exports = function(config) {
 
     browserNoActivityTimeout: 30000
 
-    /*
-     * Continuous Integration mode
-     * if true, Karma captures browsers, runs the tests and exits
-     */
-    //singleRun: true
   };
 
   if (process.env.TRAVIS) {

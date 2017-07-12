@@ -6,7 +6,7 @@ import { HeaderToggleAction } from "./header.actions";
 
 @Component({
   selector: 'ds-header',
-  styleUrls: ['header.component.css'],
+  styleUrls: ['header.component.scss'],
   templateUrl: 'header.component.html'
 })
 export class HeaderComponent implements OnInit {

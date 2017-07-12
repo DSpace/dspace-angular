@@ -19,8 +19,8 @@ describe('HeaderEffects', () => {
   let headerEffects: HeaderEffects;
 
   beforeEach(inject([
-      EffectsRunner, HeaderEffects
-    ],
+    EffectsRunner, HeaderEffects
+  ],
     (_runner, _headerEffects) => {
       runner = _runner;
       headerEffects = _headerEffects;
@@ -30,7 +30,7 @@ describe('HeaderEffects', () => {
   describe('resize$', () => {
 
     it('should return a COLLAPSE action in response to a RESIZE action', () => {
-      runner.queue(new HostWindowResizeAction(800,600));
+      runner.queue(new HostWindowResizeAction(800, 600));
 
       headerEffects.resize$.subscribe(result => {
         expect(result).toEqual(new HeaderCollapseAction());

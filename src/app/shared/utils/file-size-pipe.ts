@@ -10,28 +10,32 @@ import { Pipe, PipeTransform } from '@angular/core';
  *   formats to: 1 KB
  */
 
-@Pipe({name: 'dsFileSize'})
+@Pipe({ name: 'dsFileSize' })
 export class FileSizePipe implements PipeTransform {
 
-    private units = [
-        'bytes',
-        'KiB',
-        'MiB',
-        'GiB',
-        'TiB',
-        'PiB'
-    ];
+  private units: string[] = [
+    'bytes',
+    'KiB',
+    'MiB',
+    'GiB',
+    'TiB',
+    'PiB'
+  ];
 
-    transform(bytes: number = 0, precision: number = 2 ) : string {
-        if ( isNaN( parseFloat( String(bytes) )) || ! isFinite( bytes ) ) return '?';
+  transform(bytes: number = 0, precision: number = 2): string {
+    let result: string;
+    if (isNaN(parseFloat(String(bytes))) || !isFinite(bytes)) {
+      result = '?';
+    } else {
+      let unit = 0;
 
-        let unit = 0;
+      while (bytes >= 1024) {
+        bytes /= 1024;
+        unit++;
+      }
 
-        while ( bytes >= 1024 ) {
-            bytes /= 1024;
-            unit ++;
-        }
-
-        return bytes.toFixed( + precision ) + ' ' + this.units[ unit ];
+      result = bytes.toFixed(+ precision) + ' ' + this.units[unit];
     }
+    return result;
+  }
 }

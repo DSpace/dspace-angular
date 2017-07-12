@@ -6,7 +6,7 @@ import { NormalizedObject } from "./normalized-object.model";
 /**
  * An abstract model class for a DSpaceObject.
  */
-export abstract class NormalizedDSpaceObject extends NormalizedObject{
+export abstract class NormalizedDSpaceObject extends NormalizedObject {
 
   /**
    * The link to the rest endpoint where this object can be found

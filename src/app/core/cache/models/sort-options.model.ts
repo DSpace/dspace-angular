@@ -5,7 +5,7 @@ export enum SortDirection {
 
 export class SortOptions {
 
-  constructor (public field: string = "name", public direction : SortDirection = SortDirection.Ascending) {
+  constructor(public field: string = "name", public direction: SortDirection = SortDirection.Ascending) {
 
   }
 }

@@ -37,7 +37,7 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
    * @returns An object to send to the backend
    */
   serializeArray(models: Array<T>): any {
-    return  Serialize(models, this.modelType);
+    return Serialize(models, this.modelType);
   }
 
   /**
@@ -53,7 +53,7 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
       throw new Error('Expected a single model, use deserializeArray() instead');
     }
     let normalized = Object.assign({}, response, this.normalizeLinks(response._links));
-    return <T> Deserialize(normalized, this.modelType);
+    return <T>Deserialize(normalized, this.modelType);
   }
 
   /**
@@ -69,13 +69,13 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
       throw new Error('Expected an Array, use deserialize() instead');
     }
     let normalized = response.map((resource) => {
-       return Object.assign({}, resource, this.normalizeLinks(resource._links));
+      return Object.assign({}, resource, this.normalizeLinks(resource._links));
     });
 
-    return <Array<T>> Deserialize(normalized, this.modelType);
+    return <Array<T>>Deserialize(normalized, this.modelType);
   }
 
-  private normalizeLinks(links:any): any {
+  private normalizeLinks(links: any): any {
     let normalizedLinks = links;
     for (let link in normalizedLinks) {
       if (Array.isArray(normalizedLinks[link])) {

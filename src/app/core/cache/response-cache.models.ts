@@ -5,7 +5,7 @@ export class Response {
   constructor(
     public isSuccessful: boolean,
     public statusCode: string
-  ) {}
+  ) { }
 }
 
 export class SuccessResponse extends Response {
@@ -27,4 +27,3 @@ export class ErrorResponse extends Response {
     this.errorMessage = error.message;
   }
 }
-
