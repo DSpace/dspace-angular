@@ -1,7 +1,7 @@
-import { Action } from "@ngrx/store";
-import { type } from "../../shared/ngrx/type";
-import { CacheableObject } from "../cache/object-cache.reducer";
-import { Request } from "./request.models";
+import { Action } from '@ngrx/store';
+import { type } from '../../shared/ngrx/type';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { Request } from './request.models';
 
 /**
  * The list of RequestAction type definitions
@@ -12,6 +12,7 @@ export const RequestActionTypes = {
   COMPLETE: type('dspace/core/data/request/COMPLETE')
 };
 
+/* tslint:disable:max-classes-per-file */
 export class RequestConfigureAction implements Action {
   type = RequestActionTypes.CONFIGURE;
   payload: Request<CacheableObject>;
@@ -49,6 +50,7 @@ export class RequestCompleteAction implements Action {
     this.payload = key;
   }
 }
+/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all RequestActions

@@ -15,7 +15,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 import { Actions, EffectsModule } from '@ngrx/effects';
 
 import { TranslateUniversalLoader } from '../modules/translate-universal-loader';

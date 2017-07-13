@@ -1,18 +1,18 @@
-import * as deepFreeze from "deep-freeze";
-import { hostWindowReducer } from "./host-window.reducer";
-import { HostWindowResizeAction } from "./host-window.actions";
+import * as deepFreeze from 'deep-freeze';
+import { hostWindowReducer } from './host-window.reducer';
+import { HostWindowResizeAction } from './host-window.actions';
 
 class NullAction extends HostWindowResizeAction {
   type = null;
 
   constructor() {
-    super(0,0);
+    super(0, 0);
   }
 }
 
 describe('hostWindowReducer', () => {
 
-  it("should return the current state when no valid actions have been made", () => {
+  it('should return the current state when no valid actions have been made', () => {
     const state = { width: 800, height: 600 };
     const action = new NullAction();
     const newState = hostWindowReducer(state, action);
@@ -20,7 +20,7 @@ describe('hostWindowReducer', () => {
     expect(newState).toEqual(state);
   });
 
-  it("should start with width = null and height = null", () => {
+  it('should start with width = null and height = null', () => {
     const action = new NullAction();
     const initialState = hostWindowReducer(undefined, action);
 
@@ -28,7 +28,7 @@ describe('hostWindowReducer', () => {
     expect(initialState.height).toEqual(null);
   });
 
-  it("should update the width and height in the state in response to a RESIZE action", () => {
+  it('should update the width and height in the state in response to a RESIZE action', () => {
     const state = { width: 800, height: 600 };
     const action = new HostWindowResizeAction(1024, 768);
     const newState = hostWindowReducer(state, action);
@@ -37,7 +37,7 @@ describe('hostWindowReducer', () => {
     expect(newState.height).toEqual(768);
   });
 
-  it("should perform the RESIZE action without affecting the previous state", () => {
+  it('should perform the RESIZE action without affecting the previous state', () => {
     const state = { width: 800, height: 600 };
     deepFreeze(state);
 

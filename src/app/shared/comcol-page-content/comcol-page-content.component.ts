@@ -6,7 +6,6 @@ import { Component, Input } from '@angular/core';
  * If hasInnerHtml is true the content will be handled as html.
  * To see how it is used see collection-page or community-page.
  */
-
 @Component({
   selector: 'ds-comcol-page-content',
   styleUrls: ['./comcol-page-content.component.scss'],
@@ -22,16 +21,5 @@ export class ComcolPageContentComponent {
 
   // flag whether the content contains html syntax or not
   @Input() hasInnerHtml: boolean;
-
-
-
-  constructor() {
-    this.universalInit();
-
-  }
-
-  universalInit() {
-
-  }
 
 }

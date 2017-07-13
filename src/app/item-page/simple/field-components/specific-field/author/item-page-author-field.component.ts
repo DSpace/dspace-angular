@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Item } from "../../../../../core/shared/item.model";
-import { ItemPageSpecificFieldComponent } from "../item-page-specific-field.component";
+
+import { Item } from '../../../../../core/shared/item.model';
+import { ItemPageSpecificFieldComponent } from '../item-page-specific-field.component';
 
 @Component({
   selector: 'ds-item-page-author-field',
@@ -10,14 +11,14 @@ export class ItemPageAuthorFieldComponent extends ItemPageSpecificFieldComponent
 
   @Input() item: Item;
 
-  separator : string;
+  separator: string;
 
-  fields : string[] = [
-    "dc.contributor.author",
-    "dc.creator",
-    "dc.contributor"
+  fields: string[] = [
+    'dc.contributor.author',
+    'dc.creator',
+    'dc.contributor'
   ];
 
-  label : string = "item.page.author";
+  label = 'item.page.author';
 
 }

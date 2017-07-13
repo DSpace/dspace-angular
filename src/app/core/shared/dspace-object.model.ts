@@ -1,8 +1,8 @@
-import { Metadatum } from "./metadatum.model"
-import { isEmpty, isNotEmpty } from "../../shared/empty.util";
-import { CacheableObject } from "../cache/object-cache.reducer";
-import { RemoteData } from "../data/remote-data";
-import { ResourceType } from "./resource-type";
+import { Metadatum } from './metadatum.model'
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { RemoteData } from '../data/remote-data';
+import { ResourceType } from './resource-type';
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -34,7 +34,7 @@ export abstract class DSpaceObject implements CacheableObject {
   /**
    * An array containing all metadata of this DSpaceObject
    */
-  metadata: Array<Metadatum>;
+  metadata: Metadatum[];
 
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
@@ -58,15 +58,12 @@ export abstract class DSpaceObject implements CacheableObject {
    * @return string
    */
   findMetadata(key: string, language?: string): string {
-    const metadatum = this.metadata
-      .find((metadatum: Metadatum) => {
-        return metadatum.key === key &&
-          (isEmpty(language) || metadatum.language === language)
-      });
+    const metadatum = this.metadata.find((m: Metadatum) => {
+      return m.key === key && (isEmpty(language) || m.language === language)
+    });
     if (isNotEmpty(metadatum)) {
       return metadatum.value;
-    }
-    else {
+    } else {
       return undefined;
     }
   }
@@ -81,10 +78,10 @@ export abstract class DSpaceObject implements CacheableObject {
    * @param key(s)
    * @return Array<Metadatum>
    */
-  filterMetadata(keys: string[]): Array<Metadatum> {
-    return this.metadata
-      .filter((metadatum: Metadatum) => {
-        return keys.some(key => key === metadatum.key);
-      });
+  filterMetadata(keys: string[]): Metadatum[] {
+    return this.metadata.filter((metadatum: Metadatum) => {
+      return keys.some((key) => key === metadatum.key);
+    });
   }
+
 }

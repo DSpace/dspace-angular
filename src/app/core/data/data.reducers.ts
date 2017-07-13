@@ -1,5 +1,6 @@
-import { combineReducers } from "@ngrx/store";
-import { RequestState, requestReducer } from "./request.reducer";
+import { combineReducers } from '@ngrx/store';
+
+import { RequestState, requestReducer } from './request.reducer';
 
 export interface DataState {
   request: RequestState

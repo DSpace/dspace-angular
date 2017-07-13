@@ -1,7 +1,8 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from "cerialize";
-import { Metadatum } from "../../shared/metadatum.model";
-import { ResourceType } from "../../shared/resource-type";
-import { NormalizedObject } from "./normalized-object.model";
+import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
+
+import { Metadatum } from '../../shared/metadatum.model';
+import { ResourceType } from '../../shared/resource-type';
+import { NormalizedObject } from './normalized-object.model';
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -51,17 +52,18 @@ export abstract class NormalizedDSpaceObject extends NormalizedObject {
    * An array containing all metadata of this DSpaceObject
    */
   @autoserializeAs(Metadatum)
-  metadata: Array<Metadatum>;
+  metadata: Metadatum[];
 
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
    */
   @autoserialize
-  parents: Array<string>;
+  parents: string[];
 
   /**
    * The DSpaceObject that owns this DSpaceObject
    */
   @autoserialize
   owner: string;
+
 }

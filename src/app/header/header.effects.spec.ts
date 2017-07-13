@@ -1,9 +1,10 @@
-import { TestBed, inject } from "@angular/core/testing";
+import { TestBed, inject } from '@angular/core/testing';
 import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
-import { HeaderEffects } from "./header.effects";
-import { HeaderCollapseAction } from "./header.actions";
-import { HostWindowResizeAction } from "../shared/host-window.actions";
-import { routerActions } from "@ngrx/router-store";
+import { routerActions } from '@ngrx/router-store';
+
+import { HeaderEffects } from './header.effects';
+import { HeaderCollapseAction } from './header.actions';
+import { HostWindowResizeAction } from '../shared/host-window.actions';
 
 describe('HeaderEffects', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -32,7 +33,7 @@ describe('HeaderEffects', () => {
     it('should return a COLLAPSE action in response to a RESIZE action', () => {
       runner.queue(new HostWindowResizeAction(800, 600));
 
-      headerEffects.resize$.subscribe(result => {
+      headerEffects.resize$.subscribe((result) => {
         expect(result).toEqual(new HeaderCollapseAction());
       });
     });
@@ -44,7 +45,7 @@ describe('HeaderEffects', () => {
     it('should return a COLLAPSE action in response to an UPDATE_LOCATION action', () => {
       runner.queue({ type: routerActions.UPDATE_LOCATION });
 
-      headerEffects.resize$.subscribe(result => {
+      headerEffects.resize$.subscribe((result) => {
         expect(result).toEqual(new HeaderCollapseAction());
       });
     });

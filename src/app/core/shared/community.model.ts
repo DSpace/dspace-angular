@@ -1,7 +1,7 @@
-import { DSpaceObject } from "./dspace-object.model";
-import { Bitstream } from "./bitstream.model";
-import { Collection } from "./collection.model";
-import { RemoteData } from "../data/remote-data";
+import { DSpaceObject } from './dspace-object.model';
+import { Bitstream } from './bitstream.model';
+import { Collection } from './collection.model';
+import { RemoteData } from '../data/remote-data';
 
 export class Community extends DSpaceObject {
 
@@ -15,7 +15,7 @@ export class Community extends DSpaceObject {
    * Corresponds to the metadata field dc.description
    */
   get introductoryText(): string {
-    return this.findMetadata("dc.description");
+    return this.findMetadata('dc.description');
   }
 
   /**
@@ -23,7 +23,7 @@ export class Community extends DSpaceObject {
    * Corresponds to the metadata field dc.description.abstract
    */
   get shortDescription(): string {
-    return this.findMetadata("dc.description.abstract");
+    return this.findMetadata('dc.description.abstract');
   }
 
   /**
@@ -31,7 +31,7 @@ export class Community extends DSpaceObject {
    * Corresponds to the metadata field dc.rights
    */
   get copyrightText(): string {
-    return this.findMetadata("dc.rights");
+    return this.findMetadata('dc.rights');
   }
 
   /**
@@ -39,7 +39,7 @@ export class Community extends DSpaceObject {
    * Corresponds to the metadata field dc.description.tableofcontents
    */
   get sidebarText(): string {
-    return this.findMetadata("dc.description.tableofcontents");
+    return this.findMetadata('dc.description.tableofcontents');
   }
 
   /**

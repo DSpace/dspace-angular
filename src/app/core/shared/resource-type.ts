@@ -3,10 +3,10 @@
  * https://github.com/Microsoft/TypeScript/pull/15486
  */
 export enum ResourceType {
-  Bundle = <any>"bundle",
-  Bitstream = <any>"bitstream",
-  BitstreamFormat = <any>"bitstreamformat",
-  Item = <any>"item",
-  Collection = <any>"collection",
-  Community = <any>"community"
+  Bundle = 'bundle' as any,
+  Bitstream = 'bitstream' as any,
+  BitstreamFormat = 'bitstreamformat' as any,
+  Item = 'item' as any,
+  Collection = 'collection' as any,
+  Community = 'community' as any,
 }

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Item } from "../../../../core/shared/item.model";
+
+import { Item } from '../../../../core/shared/item.model';
 
 /**
  * This component can be used to represent metadata on a simple item page.
@@ -17,24 +18,17 @@ export class ItemPageSpecificFieldComponent {
     /**
      * Fields (schema.element.qualifier) used to render their values.
      */
-    fields : string[];
+    fields: string[];
 
     /**
      * Label i18n key for the rendered metadata
      */
-    label : string;
+    label: string;
 
     /**
      * Separator string between multiple values of the metadata fields defined
      * @type {string}
      */
-    separator : string = "<br/>";
+    separator = '<br/>';
 
-    constructor() {
-        this.universalInit();
-    }
-
-    universalInit() {
-
-    }
 }

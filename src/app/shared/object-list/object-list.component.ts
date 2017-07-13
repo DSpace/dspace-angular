@@ -7,14 +7,16 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { RemoteData } from "../../core/data/remote-data";
-import { DSpaceObject } from "../../core/shared/dspace-object.model";
-import { PageInfo } from "../../core/shared/page-info.model";
-import { Observable } from "rxjs";
-import { PaginationComponentOptions } from "../pagination/pagination-component-options.model";
 
-import { SortOptions, SortDirection } from "../../core/cache/models/sort-options.model";
+import { Observable } from 'rxjs/Observable';
 
+import { RemoteData } from '../../core/data/remote-data';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+
+import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -28,8 +30,8 @@ export class ObjectListComponent implements OnInit {
   @Input() objects: RemoteData<DSpaceObject[]>;
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
-  @Input() hideGear: boolean = false;
-  @Input() hidePagerWhenSinglePage: boolean = true;
+  @Input() hideGear = false;
+  @Input() hidePagerWhenSinglePage = true;
   pageInfo: Observable<PageInfo>;
 
   /**
@@ -56,13 +58,6 @@ export class ObjectListComponent implements OnInit {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
-
-  constructor() {
-    this.universalInit();
-  }
-
-  universalInit() {
-  }
 
   ngOnInit(): void {
     this.pageInfo = this.objects.pageInfo;

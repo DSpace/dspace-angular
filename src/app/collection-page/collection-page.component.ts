@@ -4,17 +4,18 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { Collection } from "../core/shared/collection.model";
-import { Bitstream } from "../core/shared/bitstream.model";
-import { RemoteData } from "../core/data/remote-data";
-import { CollectionDataService } from "../core/data/collection-data.service";
-import { Subscription } from "rxjs/Subscription";
-import { ItemDataService } from "../core/data/item-data.service";
-import { Item } from "../core/shared/item.model";
-import { SortOptions, SortDirection } from "../core/cache/models/sort-options.model";
-import { PaginationComponentOptions } from "../shared/pagination/pagination-component-options.model";
-import { Observable } from "rxjs/Observable";
-import { hasValue } from "../shared/empty.util";
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
+import { Collection } from '../core/shared/collection.model';
+import { Bitstream } from '../core/shared/bitstream.model';
+import { RemoteData } from '../core/data/remote-data';
+import { CollectionDataService } from '../core/data/collection-data.service';
+import { ItemDataService } from '../core/data/item-data.service';
+import { Item } from '../core/shared/item.model';
+import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { hasValue } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-collection-page',
@@ -37,19 +38,18 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     private ref: ChangeDetectorRef,
     private route: ActivatedRoute
   ) {
-    this.universalInit();
+
   }
 
   ngOnInit(): void {
-    this.subs.push(this.route.params.map((params: Params) => params['id'])
+    this.subs.push(this.route.params.map((params: Params) => params.id)
       .subscribe((id: string) => {
         this.collectionId = id;
         this.collectionData = this.collectionDataService.findById(this.collectionId);
-        this.subs.push(this.collectionData.payload
-          .subscribe(collection => this.logoData = collection.logo));
+        this.subs.push(this.collectionData.payload.subscribe((collection) => this.logoData = collection.logo));
 
         this.config = new PaginationComponentOptions();
-        this.config.id = "collection-browse";
+        this.config.id = 'collection-browse';
         this.config.pageSizeOptions = [4];
         this.config.pageSize = 4;
         this.sortConfig = new SortOptions();
@@ -60,12 +60,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs
-      .filter(sub => hasValue(sub))
-      .forEach(sub => sub.unsubscribe());
-  }
-
-  universalInit() {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
   onPageChange(currentPage: number): void {

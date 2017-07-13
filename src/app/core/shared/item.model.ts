@@ -1,9 +1,10 @@
-import { DSpaceObject } from "./dspace-object.model";
-import { Collection } from "./collection.model";
-import { RemoteData } from "../data/remote-data";
-import { Bitstream } from "./bitstream.model";
-import { Observable } from "rxjs";
-import { isNotEmpty } from "../../shared/empty.util";
+import { Observable } from 'rxjs/Observable';
+
+import { DSpaceObject } from './dspace-object.model';
+import { Collection } from './collection.model';
+import { RemoteData } from '../data/remote-data';
+import { Bitstream } from './bitstream.model';
+import { isNotEmpty } from '../../shared/empty.util';
 
 export class Item extends DSpaceObject {
 
@@ -48,38 +49,36 @@ export class Item extends DSpaceObject {
 
   bitstreams: RemoteData<Bitstream[]>;
 
-
   /**
    * Retrieves the thumbnail of this item
-   * @returns {Observable<Bitstream>} the primaryBitstream of the "THUMBNAIL" bundle
+   * @returns {Observable<Bitstream>} the primaryBitstream of the 'THUMBNAIL' bundle
    */
   getThumbnail(): Observable<Bitstream> {
-    //TODO currently this just picks the first thumbnail
-    //should be adjusted when we have a way to determine
-    //the primary thumbnail from rest
-    return this.getBitstreamsByBundleName("THUMBNAIL")
-      .filter(thumbnails => isNotEmpty(thumbnails))
-      .map(thumbnails => thumbnails[0])
+    // TODO: currently this just picks the first thumbnail
+    // should be adjusted when we have a way to determine
+    // the primary thumbnail from rest
+    return this.getBitstreamsByBundleName('THUMBNAIL')
+      .filter((thumbnails) => isNotEmpty(thumbnails))
+      .map((thumbnails) => thumbnails[0])
   }
 
   /**
    * Retrieves the thumbnail for the given original of this item
-   * @returns {Observable<Bitstream>} the primaryBitstream of the "THUMBNAIL" bundle
+   * @returns {Observable<Bitstream>} the primaryBitstream of the 'THUMBNAIL' bundle
    */
   getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> {
-    return this.getBitstreamsByBundleName("THUMBNAIL").map(files => files
-      .find(thumbnail => thumbnail
-        .name.startsWith(original.name)
-      )
-    ).startWith(undefined);
+    return this.getBitstreamsByBundleName('THUMBNAIL')
+      .map((files) => {
+        return files.find((thumbnail) => thumbnail.name.startsWith(original.name))
+      }).startWith(undefined);
   }
 
   /**
    * Retrieves all files that should be displayed on the item page of this item
-   * @returns {Observable<Array<Observable<Bitstream>>>} an array of all Bitstreams in the "ORIGINAL" bundle
+   * @returns {Observable<Array<Observable<Bitstream>>>} an array of all Bitstreams in the 'ORIGINAL' bundle
    */
   getFiles(): Observable<Bitstream[]> {
-    return this.getBitstreamsByBundleName("ORIGINAL");
+    return this.getBitstreamsByBundleName('ORIGINAL');
   }
 
   /**
@@ -89,9 +88,9 @@ export class Item extends DSpaceObject {
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
     return this.bitstreams.payload.startWith([])
-      .map(bitstreams => bitstreams
-        .filter(bitstream => bitstream.bundleName === bundleName)
-      );
+      .map((bitstreams) => {
+        return bitstreams.filter((bitstream) => bitstream.bundleName === bundleName)
+      });
   }
 
 }

@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Bitstream } from "../../../../core/shared/bitstream.model";
-import { Item } from "../../../../core/shared/item.model";
-import { Observable } from "rxjs";
-import { FileSectionComponent } from "../../../simple/field-components/file-section/file-section.component";
-import { hasValue } from "../../../../shared/empty.util";
+import { Observable } from 'rxjs/Observable';
+
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { Item } from '../../../../core/shared/item.model';
+import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
+import { hasValue } from '../../../../shared/empty.util';
 
 /**
  * This component renders the file section of the item
@@ -23,12 +24,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
 
   files: Observable<Bitstream[]>;
 
-
   thumbnails: Map<string, Observable<Bitstream>> = new Map();
-
-
-  universalInit() {
-  }
 
   ngOnInit(): void {
     super.ngOnInit();
@@ -36,12 +32,12 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
 
   initialize(): void {
     const originals = this.item.getFiles();
-    const licenses = this.item.getBitstreamsByBundleName("LICENSE");
-    this.files = Observable.combineLatest(originals, licenses, (originals, licenses) => [...originals, ...licenses]);
+    const licenses = this.item.getBitstreamsByBundleName('LICENSE');
+    this.files = Observable.combineLatest(originals, licenses, (o, l) => [...o, ...l]);
     this.files.subscribe(
-      files =>
+      (files) =>
         files.forEach(
-          original => {
+          (original) => {
             const thumbnail: Observable<Bitstream> = this.item.getThumbnailForOriginal(original);
             this.thumbnails.set(original.id, thumbnail);
           }

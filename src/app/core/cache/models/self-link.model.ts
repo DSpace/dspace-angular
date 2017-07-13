@@ -1,4 +1,4 @@
-import { autoserialize } from "cerialize";
+import { autoserialize } from 'cerialize';
 
 export class SelfLink {
 
@@ -7,4 +7,5 @@ export class SelfLink {
 
   @autoserialize
   uuid: string;
+
 }

@@ -1,18 +1,15 @@
-import { Injectable, Inject } from "@angular/core";
-import { Actions, Effect } from "@ngrx/effects";
-import { ObjectCacheActionTypes } from "../cache/object-cache.actions";
-import { ResetResponseCacheTimestampsAction } from "../cache/response-cache.actions";
+import { Injectable, Inject } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
+
+import { ObjectCacheActionTypes } from '../cache/object-cache.actions';
+import { ResetResponseCacheTimestampsAction } from '../cache/response-cache.actions';
 
 @Injectable()
 export class RequestCacheEffects {
 
-  constructor(
-    private actions$: Actions,
-  ) { }
-
   /**
    * When the store is rehydrated in the browser, set all cache
-   * timestamps to "now", because the time zone of the server can
+   * timestamps to 'now', because the time zone of the server can
    * differ from the client.
    *
    * This assumes that the server cached everything a negligible
@@ -29,4 +26,7 @@ export class RequestCacheEffects {
   @Effect() fixTimestampsOnRehydrate = this.actions$
     .ofType(ObjectCacheActionTypes.RESET_TIMESTAMPS)
     .map(() => new ResetResponseCacheTimestampsAction(new Date().getTime()));
+
+  constructor(private actions$: Actions, ) { }
+
 }

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Community } from "../../core/shared/community.model";
+
+import { Community } from '../../core/shared/community.model';
 
 @Component({
   selector: 'ds-community-list-element',
@@ -11,13 +12,5 @@ export class CommunityListElementComponent {
   @Input() community: Community;
 
   data: any = {};
-
-  constructor() {
-    this.universalInit();
-  }
-
-  universalInit() {
-
-  }
 
 }

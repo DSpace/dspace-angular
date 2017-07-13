@@ -1,11 +1,13 @@
-import { combineReducers, ActionReducer } from "@ngrx/store";
-import { routerReducer, RouterState } from "@ngrx/router-store";
-import { headerReducer, HeaderState } from './header/header.reducer';
-import { hostWindowReducer, HostWindowState } from "./shared/host-window.reducer";
-import { CoreState, coreReducer } from "./core/core.reducers";
+import { combineReducers, ActionReducer } from '@ngrx/store';
+import { routerReducer, RouterState } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
-import { compose } from "@ngrx/core";
-import { StoreActionTypes } from "./store.actions";
+import { compose } from '@ngrx/core';
+
+import { headerReducer, HeaderState } from './header/header.reducer';
+import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
+import { CoreState, coreReducer } from './core/core.reducers';
+
+import { StoreActionTypes } from './store.actions';
 
 import { ENV_CONFIG } from '../config';
 

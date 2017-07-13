@@ -1,9 +1,10 @@
-import { Serialize, Deserialize } from "cerialize";
-import { Serializer } from "../serializer";
-import { DSpaceRESTV2Response } from "./dspace-rest-v2-response.model";
-import { DSpaceRESTv2Validator } from "./dspace-rest-v2.validator";
-import { GenericConstructor } from "../shared/generic-constructor";
-import { hasNoValue, hasValue } from "../../shared/empty.util";
+import { Serialize, Deserialize } from 'cerialize';
+
+import { Serializer } from '../serializer';
+import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
+import { DSpaceRESTv2Validator } from './dspace-rest-v2.validator';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { hasNoValue, hasValue } from '../../shared/empty.util';
 
 /**
  * This Serializer turns responses from v2 of DSpace's REST API
@@ -36,7 +37,7 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
    * @param models The array of models to serialize
    * @returns An object to send to the backend
    */
-  serializeArray(models: Array<T>): any {
+  serializeArray(models: T[]): any {
     return Serialize(models, this.modelType);
   }
 
@@ -52,8 +53,8 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
     if (Array.isArray(response)) {
       throw new Error('Expected a single model, use deserializeArray() instead');
     }
-    let normalized = Object.assign({}, response, this.normalizeLinks(response._links));
-    return <T>Deserialize(normalized, this.modelType);
+    const normalized = Object.assign({}, response, this.normalizeLinks(response._links));
+    return Deserialize(normalized, this.modelType) as T;
   }
 
   /**
@@ -62,28 +63,27 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
    * @param response An object returned by the backend
    * @returns an array of models of type T
    */
-  deserializeArray(response: any): Array<T> {
-    //TODO enable validation, once rest data stabilizes
+  deserializeArray(response: any): T[] {
+    // TODO: enable validation, once rest data stabilizes
     // new DSpaceRESTv2Validator(response).validate();
     if (!Array.isArray(response)) {
       throw new Error('Expected an Array, use deserialize() instead');
     }
-    let normalized = response.map((resource) => {
+    const normalized = response.map((resource) => {
       return Object.assign({}, resource, this.normalizeLinks(resource._links));
     });
 
-    return <Array<T>>Deserialize(normalized, this.modelType);
+    return Deserialize(normalized, this.modelType) as T[];
   }
 
   private normalizeLinks(links: any): any {
-    let normalizedLinks = links;
-    for (let link in normalizedLinks) {
+    const normalizedLinks = links;
+    for (const link in normalizedLinks) {
       if (Array.isArray(normalizedLinks[link])) {
-        normalizedLinks[link] = normalizedLinks[link].map(linkedResource => {
+        normalizedLinks[link] = normalizedLinks[link].map((linkedResource) => {
           return linkedResource.href;
         });
-      }
-      else {
+      } else {
         normalizedLinks[link] = normalizedLinks[link].href;
       }
     }

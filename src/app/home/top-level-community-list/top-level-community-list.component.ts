@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { RemoteData } from "../../core/data/remote-data";
-import { CommunityDataService } from "../../core/data/community-data.service";
-import { Community } from "../../core/shared/community.model";
-import { PaginationComponentOptions } from "../../shared/pagination/pagination-component-options.model";
-import { SortOptions, SortDirection } from "../../core/cache/models/sort-options.model";
+
+import { RemoteData } from '../../core/data/remote-data';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { Community } from '../../core/shared/community.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
 
 @Component({
   selector: 'ds-top-level-community-list',
@@ -20,16 +21,12 @@ export class TopLevelCommunityListComponent implements OnInit {
     private cds: CommunityDataService,
     private ref: ChangeDetectorRef
   ) {
-    this.universalInit();
-  }
-
-  universalInit() {
 
   }
 
   ngOnInit(): void {
     this.config = new PaginationComponentOptions();
-    this.config.id = "top-level-pagination";
+    this.config.id = 'top-level-pagination';
     this.config.pageSizeOptions = [4];
     this.config.pageSize = 4;
     this.sortConfig = new SortOptions();

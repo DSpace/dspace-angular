@@ -1,4 +1,5 @@
-import { autoserialize } from "cerialize";
+import { autoserialize } from 'cerialize';
+
 export class Metadatum {
 
   /**
@@ -18,4 +19,5 @@ export class Metadatum {
    */
   @autoserialize
   value: string;
+
 }

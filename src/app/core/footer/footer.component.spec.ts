@@ -5,19 +5,23 @@ import {
   inject,
   TestBed
 } from '@angular/core/testing';
+
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement
-} from "@angular/core";
+} from '@angular/core';
+
+import { CommonModule } from '@angular/common';
+
 import { By } from '@angular/platform-browser';
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { Store, StoreModule } from "@ngrx/store";
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Store, StoreModule } from '@ngrx/store';
 
 // Load the implementations that should be tested
 import { FooterComponent } from './footer.component';
 
-import { CommonModule } from '@angular/common';
-import { MockTranslateLoader } from "../../shared/testing/mock-translate-loader";
+import { MockTranslateLoader } from '../../shared/testing/mock-translate-loader';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;

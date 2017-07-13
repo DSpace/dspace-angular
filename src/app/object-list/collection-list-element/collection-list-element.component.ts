@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Collection } from "../../core/shared/collection.model";
+
+import { Collection } from '../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-collection-list-element',
@@ -11,13 +12,5 @@ export class CollectionListElementComponent {
   @Input() collection: Collection;
 
   data: any = {};
-
-  constructor() {
-    this.universalInit();
-  }
-
-  universalInit() {
-
-  }
 
 }

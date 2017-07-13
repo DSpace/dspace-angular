@@ -1,15 +1,12 @@
-import { Injectable } from "@angular/core";
-import { Store } from "@ngrx/store";
-import {
-  ResponseCacheState, ResponseCacheEntry
-} from "./response-cache.reducer";
-import { Observable } from "rxjs";
-import { hasNoValue } from "../../shared/empty.util";
-import {
-  ResponseCacheRemoveAction,
-  ResponseCacheAddAction
-} from "./response-cache.actions";
-import { Response } from "./response-cache.models";
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import { Observable } from 'rxjs/Observable';
+
+import { ResponseCacheState, ResponseCacheEntry } from './response-cache.reducer';
+import { hasNoValue } from '../../shared/empty.util';
+import { ResponseCacheRemoveAction, ResponseCacheAddAction } from './response-cache.actions';
+import { Response } from './response-cache.models';
 
 /**
  * A service to interact with the response cache
@@ -38,7 +35,7 @@ export class ResponseCacheService {
    */
   get(key: string): Observable<ResponseCacheEntry> {
     return this.store.select<ResponseCacheEntry>('core', 'cache', 'response', key)
-      .filter(entry => this.isValid(entry))
+      .filter((entry) => this.isValid(entry))
       .distinctUntilChanged()
   }
 
@@ -56,7 +53,7 @@ export class ResponseCacheService {
 
     this.store.select<ResponseCacheEntry>('core', 'cache', 'response', key)
       .take(1)
-      .subscribe(entry => {
+      .subscribe((entry) => {
         result = this.isValid(entry);
       });
 
@@ -75,8 +72,7 @@ export class ResponseCacheService {
   private isValid(entry: ResponseCacheEntry): boolean {
     if (hasNoValue(entry)) {
       return false;
-    }
-    else {
+    } else {
       const timeOutdated = entry.timeAdded + entry.msToLive;
       const isOutDated = new Date().getTime() > timeOutdated;
       if (isOutDated) {

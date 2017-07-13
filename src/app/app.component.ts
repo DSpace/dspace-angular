@@ -5,19 +5,19 @@ import {
   ViewEncapsulation,
   OnInit,
   HostListener
-} from "@angular/core";
+} from '@angular/core';
 
-import { TranslateService } from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 
 import { TransferState } from '../modules/transfer-state/transfer-state';
 
-import { HostWindowState } from "./shared/host-window.reducer";
+import { HostWindowState } from './shared/host-window.reducer';
 
-import { HostWindowResizeAction } from "./shared/host-window.actions";
+import { HostWindowResizeAction } from './shared/host-window.actions';
 
-import { NativeWindowRef, NativeWindowService } from "./shared/window.service";
+import { NativeWindowRef, NativeWindowService } from './shared/window.service';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 
@@ -54,8 +54,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const env: string = this.config.production ? "Production" : "Development";
-    const color: string = this.config.production ? "red" : "green";
+    const env: string = this.config.production ? 'Production' : 'Development';
+    const color: string = this.config.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
   }
 

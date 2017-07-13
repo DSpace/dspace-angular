@@ -9,12 +9,4 @@ export class PageNotFoundComponent {
 
   data: any = {};
 
-  constructor() {
-    this.universalInit();
-  }
-
-  universalInit() {
-
-  }
-
 }

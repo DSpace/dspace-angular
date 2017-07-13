@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { StoreModule, Store } from "@ngrx/store";
-import { RouterStoreModule } from "@ngrx/router-store";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { StoreModule, Store } from '@ngrx/store';
+import { RouterStoreModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { rootReducer, AppState } from './app.reducer';
 import { effects } from './app.effects';

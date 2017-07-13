@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CollectionDataService } from "../../core/data/collection-data.service";
-import { RemoteData } from "../../core/data/remote-data";
-import { Collection } from "../../core/shared/collection.model";
 
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-community-page-sub-collection-list',
@@ -12,13 +12,7 @@ import { Collection } from "../../core/shared/collection.model";
 export class CommunityPageSubCollectionListComponent implements OnInit {
   subCollections: RemoteData<Collection[]>;
 
-  constructor(
-    private cds: CollectionDataService
-  ) {
-    this.universalInit();
-  }
-
-  universalInit() {
+  constructor(private cds: CollectionDataService) {
 
   }
 

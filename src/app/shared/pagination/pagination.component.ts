@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/switchMap';
 
 import {
   ChangeDetectionStrategy,
@@ -303,7 +302,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page size to validate
    */
   private validateParams(page: any, pageSize: any, sortDirection: any, sortField: any) {
-    let filteredPageSize = this.pageSizeOptions.find((x) => x === pageSize);
+    // tslint:disable-next-line:triple-equals
+    let filteredPageSize = this.pageSizeOptions.find((x) => x == pageSize);
     if (!isNumeric(page) || !filteredPageSize) {
       const filteredPage = isNumeric(page) ? page : this.currentPage;
       filteredPageSize = (filteredPageSize) ? filteredPageSize : this.pageSize;

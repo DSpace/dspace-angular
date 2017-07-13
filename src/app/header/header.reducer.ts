@@ -1,4 +1,4 @@
-import { HeaderAction, HeaderActionTypes } from "./header.actions";
+import { HeaderAction, HeaderActionTypes } from './header.actions';
 
 export interface HeaderState {
   navCollapsed: boolean;

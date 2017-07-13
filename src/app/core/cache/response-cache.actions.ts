@@ -1,6 +1,7 @@
-import { Action } from "@ngrx/store";
-import { type } from "../../shared/ngrx/type";
-import { Response } from "./response-cache.models";
+import { Action } from '@ngrx/store';
+
+import { type } from '../../shared/ngrx/type';
+import { Response } from './response-cache.models';
 
 /**
  * The list of ResponseCacheAction type definitions
@@ -11,6 +12,7 @@ export const ResponseCacheActionTypes = {
   RESET_TIMESTAMPS: type('dspace/core/cache/response/RESET_TIMESTAMPS')
 };
 
+/* tslint:disable:max-classes-per-file */
 export class ResponseCacheAddAction implements Action {
   type = ResponseCacheActionTypes.ADD;
   payload: {
@@ -59,6 +61,7 @@ export class ResetResponseCacheTimestampsAction implements Action {
     this.payload = newTimestamp;
   }
 }
+/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all ResponseCacheActions

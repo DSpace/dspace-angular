@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { HeaderState } from "./header.reducer";
-import { Observable } from "rxjs";
-import { HeaderToggleAction } from "./header.actions";
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
+import { HeaderState } from './header.reducer';
+import { HeaderToggleAction } from './header.actions';
 
 @Component({
   selector: 'ds-header',
@@ -19,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isNavBarCollapsed = this.store.select('header')
-      //unwrap navCollapsed
+      // unwrap navCollapsed
       .map(({ navCollapsed }: HeaderState) => navCollapsed);
   }
 
