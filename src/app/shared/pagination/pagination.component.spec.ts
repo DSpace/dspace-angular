@@ -47,21 +47,21 @@ function createTestComponent<T>(html: string, type: { new (...args: any[]): T })
   TestBed.overrideComponent(type, {
     set: { template: html }
   });
-  let fixture = TestBed.createComponent(type);
+  const fixture = TestBed.createComponent(type);
 
   fixture.detectChanges();
   return fixture as ComponentFixture<T>;
 }
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
-  let de = fixture.debugElement.query(By.css('.pagination'));
-  let pages = de.nativeElement.querySelectorAll('li');
+  const de = fixture.debugElement.query(By.css('.pagination'));
+  const pages = de.nativeElement.querySelectorAll('li');
 
   expect(pages.length).toEqual(pagesDef.length);
 
   for (let i = 0; i < pagesDef.length; i++) {
-    let pageDef = pagesDef[i];
-    let classIndicator = pageDef.charAt(0);
+    const pageDef = pagesDef[i];
+    const classIndicator = pageDef.charAt(0);
 
     if (classIndicator === '+') {
       expect(pages[i].classList.contains('active')).toBeTruthy();
@@ -86,18 +86,16 @@ function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
 }
 
 function changePageSize(fixture: ComponentFixture<any>, pageSize: string): void {
-  let buttonEl = fixture.nativeElement.querySelector('#paginationControls');
-  let activatedRouteStub: ActivatedRouteStub;
-  let routerStub: RouterStub;
+  const buttonEl = fixture.nativeElement.querySelector('#paginationControls');
 
   buttonEl.click();
 
-  let dropdownMenu = fixture.debugElement.query(By.css('#paginationControlsDropdownMenu'));
-  let buttons = dropdownMenu.nativeElement.querySelectorAll('button');
+  const dropdownMenu = fixture.debugElement.query(By.css('#paginationControlsDropdownMenu'));
+  const buttons = dropdownMenu.nativeElement.querySelectorAll('button');
 
-  for (let i = 0; i < buttons.length; i++) {
-    if (buttons[i].textContent.trim() == pageSize) {
-      buttons[i].click();
+  for (const button of buttons) {
+    if (button.textContent.trim() === pageSize) {
+      button.click();
       fixture.detectChanges();
       break;
     }
@@ -105,8 +103,8 @@ function changePageSize(fixture: ComponentFixture<any>, pageSize: string): void 
 }
 
 function changePage(fixture: ComponentFixture<any>, idx: number): void {
-  let de = fixture.debugElement.query(By.css('.pagination'));
-  let buttons = de.nativeElement.querySelectorAll('li');
+  const de = fixture.debugElement.query(By.css('.pagination'));
+  const buttons = de.nativeElement.querySelectorAll('li');
 
   buttons[idx].querySelector('a').click();
   fixture.detectChanges();
@@ -119,8 +117,6 @@ function normalizeText(txt: string): string {
 
 describe('Pagination component', () => {
 
-  let fixture: ComponentFixture<PaginationComponent>;
-  let comp: PaginationComponent;
   let testComp: TestComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let de: DebugElement;
@@ -130,8 +126,8 @@ describe('Pagination component', () => {
   let activatedRouteStub: ActivatedRouteStub;
   let routerStub: RouterStub;
 
-  //Define initial state and test state
-  let _initialState = { width: 1600, height: 770 };
+  // Define initial state and test state
+  const _initialState = { width: 1600, height: 770 };
 
   // async beforeEach
   beforeEach(async(() => {
@@ -251,8 +247,8 @@ describe('Pagination component', () => {
   }));
 
   it('should set correct route parameters', fakeAsync(() => {
-    let paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references['p'];
-    routerStub = <any>testFixture.debugElement.injector.get(Router);
+    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
+    routerStub = testFixture.debugElement.injector.get(Router) as any;
 
     testComp.collectionSize = 60;
 
@@ -269,7 +265,7 @@ describe('Pagination component', () => {
 
   it('should get parameters from route', () => {
 
-    activatedRouteStub = <any>testFixture.debugElement.injector.get(ActivatedRoute);
+    activatedRouteStub = testFixture.debugElement.injector.get(ActivatedRoute) as any;;
     activatedRouteStub.testParams = {
       pageId: 'test',
       page: 2,
@@ -296,8 +292,8 @@ describe('Pagination component', () => {
   });
 
   it('should respond to windows resize', () => {
-    let paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references['p'];
-    hostWindowServiceStub = <any>testFixture.debugElement.injector.get(HostWindowService);
+    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
+    hostWindowServiceStub = testFixture.debugElement.injector.get(HostWindowService) as any;
 
     hostWindowServiceStub.setWidth(400);
 
