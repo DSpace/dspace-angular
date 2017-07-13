@@ -214,105 +214,102 @@ See [the guide on the wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+-
 File Structure
 --------------
 
-Descriptions coming soon...
-
 ```
 dspace-angular
-.
-├── README.md
-├── app.yaml
-├── config
-│   ├── environment.default.js
-│   ├── environment.dev.js
-│   ├── environment.prod.js
-│   └── environment.test.js
-├── e2e
-│   ├── app.e2e-spec.ts
-│   ├── app.po.ts
-│   ├── pagenotfound
-│   │   ├── pagenotfound.e2e-spec.ts
-│   │   └── pagenotfound.po.ts
-│   └── tsconfig.json
-├── karma.conf.js
-├── nodemon.json
-├── package.json
-├── postcss.config.js
-├── protractor.conf.js
-├── resources
-│   ├── data
-│   │   └── en
-│   ├── i18n
-│   │   └── en.json
-│   └── images
-│       └── dspace_logo.png
-├── rollup.config.js
-├── spec-bundle.js
-├── src
-│   ├── app
-│   │   ├── app-routing.module.ts
-│   │   ├── app.component.html
-│   │   ├── app.component.scss
-│   │   ├── app.component.spec.ts
-│   │   ├── app.component.ts
-│   │   ├── app.effects.ts
-│   │   ├── app.module.ts
-│   │   ├── app.reducer.ts
-│   │   ├── browser-app.module.ts
-│   │   ├── collection-page
-│   │   ├── community-page
-│   │   ├── core
-│   │   ├── header
-│   │   ├── home
-│   │   ├── item-page
-│   │   ├── object-list
-│   │   ├── pagenotfound
-│   │   ├── server-app.module.ts
-│   │   ├── shared
-│   │   ├── store.actions.ts
-│   │   ├── store.effects.ts
-│   │   ├── thumbnail
-│   │   └── typings.d.ts
-│   ├── backend
-│   │   ├── api.ts
-│   │   ├── cache.ts
-│   │   ├── data
-│   │   └── db.ts
-│   ├── config
-│   │   ├── cache-config.interface.ts
-│   │   ├── global-config.interface.ts
-│   │   └── server-config.interface.ts
-│   ├── config.ts
-│   ├── index.html
-│   ├── main.browser.ts
-│   ├── main.server.aot.ts
-│   ├── main.server.ts
-│   ├── modules
-│   │   ├── cookies
-│   │   ├── data-loader
-│   │   ├── transfer-http
-│   │   ├── transfer-state
-│   │   ├── transfer-store
-│   │   └── translate-universal-loader.ts
-│   ├── routes.ts
-│   ├── styles
-│   │   ├── _mixins.scss
-│   │   └── variables.scss
-│   ├── tsconfig.browser.json
-│   ├── tsconfig.server.aot.json
-│   ├── tsconfig.server.json
-│   └── tsconfig.test.json
-├── tsconfig.json
-├── tslint.json
-├── typedoc.json
-├── webpack
-│   ├── helpers.js
-│   ├── webpack.client.js
-│   ├── webpack.common.js
-│   ├── webpack.prod.js
-│   ├── webpack.server.js
-│   └── webpack.test.js
-├── webpack.config.ts
-└── yarn.lock
+├── README.md                                           * This document
+├── app.yaml                                            * Application manifest file
+├── config                                              * Folder for configuration files
+│   ├── environment.default.js                          * Default configuration files
+│   └── environment.test.js                             * Test configuration files
+├── e2e                                                 * Folder for e2e test files
+│   ├── app.e2e-spec.ts                                 *
+│   ├── app.po.ts                                       *
+│   ├── pagenotfound                                    *
+│   │   ├── pagenotfound.e2e-spec.ts                    *
+│   │   └── pagenotfound.po.ts                          *
+│   └── tsconfig.json                                   * TypeScript configuration file for e2e tests
+├── karma.conf.js                                       * Karma configuration file for Unit Test
+├── nodemon.json                                        * Nodemon (https://nodemon.io/) configuration
+├── package.json                                        * This file describes the npm package for this project, its dependencies, scripts, etc.
+├── postcss.config.js                                   * PostCSS (http://postcss.org/) configuration file
+├── protractor.conf.js                                  *
+├── resources                                           * Folder for static resources
+│   ├── data                                            * Folder for static data
+│   │   └── en                                          * Folder for i18n English data
+│   ├── i18n                                            * Folder for i18n translations
+│   │   └── en.json                                     * i18n translations for English
+│   └── images                                          * Folder for images
+│       ├── dspace-logo-old.png                         *
+│       ├── dspace-logo.png                             *
+│       └── favicon.ico                                 *
+├── rollup.config.js                                    * Rollup (http://rollupjs.org/) configuration
+├── spec-bundle.js                                      *
+├── src                                                 * The source of the application
+│   ├── app                                             *
+│   │   ├── app-routing.module.ts                       *
+│   │   ├── app.component.html                          *
+│   │   ├── app.component.scss                          *
+│   │   ├── app.component.spec.ts                       *
+│   │   ├── app.component.ts                            *
+│   │   ├── app.effects.ts                              *
+│   │   ├── app.module.ts                               *
+│   │   ├── app.reducer.ts                              *
+│   │   ├── browser-app.module.ts                       * The root module for the client
+│   │   ├── collection-page                             *
+│   │   ├── community-page                              *
+│   │   ├── core                                        *
+│   │   ├── header                                      *
+│   │   ├── home                                        *
+│   │   ├── item-page                                   *
+│   │   ├── object-list                                 *
+│   │   ├── pagenotfound                                *
+│   │   ├── server-app.module.ts                        * The root module for the server
+│   │   ├── shared                                      *
+│   │   ├── store.actions.ts                            *
+│   │   ├── store.effects.ts                            *
+│   │   ├── thumbnail                                   *
+│   │   └── typings.d.ts                                * File that allows you to add custom typings for libraries without TypeScript support
+│   ├── backend                                         * Folder containing a mock of the REST API, hosted by the express server
+│   │   ├── api.ts                                      *
+│   │   ├── cache.ts                                    *
+│   │   ├── data                                        *
+│   │   └── db.ts                                       *
+│   ├── config                                          *
+│   │   ├── cache-config.interface.ts                   *
+│   │   ├── global-config.interface.ts                  *
+│   │   └── server-config.interface.ts                  *
+│   ├── config.ts                                       * File that loads environmental and shareable settings and makes them available to app components
+│   ├── index.html                                      * The index.html file
+│   ├── main.browser.ts                                 * The bootstrap file for the client
+│   ├── main.server.aot.ts                              * The express (http://expressjs.com/) config and bootstrap file for the server, in production
+│   ├── main.server.ts                                  * The express (http://expressjs.com/) config and bootstrap file for the server, during development
+│   ├── modules                                         *
+│   │   ├── cookies                                     *
+│   │   ├── data-loader                                 *
+│   │   ├── transfer-http                               *
+│   │   ├── transfer-state                              *
+│   │   ├── transfer-store                              *
+│   │   └── translate-universal-loader.ts               *
+│   ├── routes.ts                                       * The routes file for the server
+│   ├── styles                                          * Folder containing global styles
+│   │   ├── _mixins.scss                                *
+│   │   └── variables.scss                              * Global sass variables file
+│   ├── tsconfig.browser.json                           * TypeScript config for the client build
+│   ├── tsconfig.server.aot.json                        * TypeScript config for the server build with Ahead of Time
+│   ├── tsconfig.server.json                            * TypeScript config for the server build
+│   └── tsconfig.test.json                              * TypeScript config for the test build
+├── tsconfig.json                                       * TypeScript config
+├── tslint.json                                         * TSLint (https://palantir.github.io/tslint/) configuration
+├── typedoc.json                                        * TYPEDOC configuration
+├── webpack                                             * Webpack (https://webpack.github.io/) config directory
+│   ├── helpers.js                                      *
+│   ├── webpack.client.js                               * Webpack (https://webpack.github.io/) config for client build
+│   ├── webpack.common.js                               *
+│   ├── webpack.prod.js                                 * Webpack (https://webpack.github.io/) config for production build
+│   ├── webpack.server.js                               * Webpack (https://webpack.github.io/) config for server build
+│   └── webpack.test.js                                 * Webpack (https://webpack.github.io/) config for test build
+├── webpack.config.ts                                   *
+└── yarn.lock                                           * Yarn lockfile (https://yarnpkg.com/en/docs/yarn-lock)
 ```
 
 3rd Party Library Installation
