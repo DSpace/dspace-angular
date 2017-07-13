@@ -18,9 +18,6 @@ import { isNumeric } from 'rxjs/util/isNumeric';
 
 import { Observable } from 'rxjs/Observable';
 
-// It is necessary to use ng2-pagination
-import { DEFAULT_TEMPLATE, DEFAULT_STYLES } from 'ng2-pagination/dist/template';
-
 import { HostWindowService } from '../host-window.service';
 import { HostWindowState } from '../host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';

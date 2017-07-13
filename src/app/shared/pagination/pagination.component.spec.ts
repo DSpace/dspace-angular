@@ -24,7 +24,8 @@ import { Observable } from 'rxjs/Observable';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
 
-import { Ng2PaginationModule } from 'ng2-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import Spy = jasmine.Spy;
@@ -136,16 +137,25 @@ describe('Pagination component', () => {
     hostWindowServiceStub = new HostWindowServiceStub(_initialState.width);
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.provideStore({}), TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: MockTranslateLoader
-        }
-      }), Ng2PaginationModule, NgbModule.forRoot(),
+      imports: [
+        CommonModule,
+        StoreModule.provideStore({}),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        }),
+        NgxPaginationModule,
+        NgbModule.forRoot(),
         RouterTestingModule.withRoutes([
           { path: 'home', component: TestComponent }
         ])],
-      declarations: [PaginationComponent, TestComponent, EnumKeysPipe], // declare the test component
+      declarations: [
+        PaginationComponent,
+        TestComponent,
+        EnumKeysPipe
+      ], // declare the test component
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },

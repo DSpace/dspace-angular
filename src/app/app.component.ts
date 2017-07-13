@@ -1,10 +1,12 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   Inject,
   ViewEncapsulation,
   OnInit,
   HostListener
 } from "@angular/core";
+
 import { TranslateService } from "@ngx-translate/core";
 
 import { Store } from "@ngrx/store";
@@ -21,9 +23,10 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 
 @Component({
   selector: 'ds-app',
-  encapsulation: ViewEncapsulation.None,
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { Ng2PaginationModule } from 'ng2-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -32,7 +32,7 @@ const MODULES = [
   TranslateModule,
   FormsModule,
   ReactiveFormsModule,
-  Ng2PaginationModule,
+  NgxPaginationModule,
   NgbModule
 ];
 
