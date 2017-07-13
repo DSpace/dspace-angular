@@ -26,5 +26,5 @@ module.exports = {
   // replay will transfer an array of actions to browser, actions replay automatically
   prerenderStrategy: 'rehydrate',
   // NOTE: will log all redux actions and transfers in console
-  debug: true
+  debug: false
 };
