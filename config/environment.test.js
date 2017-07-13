@@ -1,5 +1,5 @@
 module.exports = {
-  // Angular2 UI server settings.
+  // Angular Universal server settings.
   ui: {
     ssl: false,
     host: 'localhost',
@@ -16,7 +16,7 @@ module.exports = {
     nameSpace: '/dspace-spring-rest/api'
   },
   cache: {
-    // how long should objects be cached for by default
+    // NOTE: how long should objects be cached for by default
     msToLive: 15 * 60 * 1000, // 15 minute
     control: 'max-age=60' // revalidate browser
   },
