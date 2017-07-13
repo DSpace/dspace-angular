@@ -1,6 +1,14 @@
 @import '../../../styles/mixins.scss';
-
 :host {
   display: block;
   @include negate-gutters();
+}
+
+.dspace-logo-container {
+  margin: 10px 20px 0px 20px;
+}
+
+.dspace-logo-container img {
+  max-height: 110px;
+  max-width: 110px;
 }
