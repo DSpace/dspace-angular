@@ -173,14 +173,16 @@ export class PaginationComponent implements OnDestroy, OnInit {
       .filter((queryParams) => hasValue(queryParams))
       .subscribe((queryParams) => {
         this.currentQueryParams = queryParams;
-        if (this.id === queryParams.pageId
-          && (this.paginationOptions.currentPage !== queryParams.page
-            || this.paginationOptions.pageSize !== queryParams.pageSize
+        // tslint:disable:triple-equals
+        if (this.id == queryParams.pageId
+          && (this.paginationOptions.currentPage != queryParams.page
+            || this.paginationOptions.pageSize != queryParams.pageSize
             || this.sortOptions.direction !== queryParams.sortDirection
             || this.sortOptions.field !== queryParams.sortField)
         ) {
           this.validateParams(queryParams.page, queryParams.pageSize, queryParams.sortDirection, queryParams.sortField);
         }
+        // tslint:enable:triple-equals
       }));
     this.setShowingDetail();
   }
