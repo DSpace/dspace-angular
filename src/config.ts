@@ -6,7 +6,7 @@ import { GlobalConfig } from './config/global-config.interface';
 
 const GLOBAL_CONFIG: InjectionToken<GlobalConfig> = new InjectionToken<GlobalConfig>('config');
 
-let configContext = require.context("../config", false, /js$/);
+const configContext = require.context('../config', false, /js$/);
 
 let production = false;
 
