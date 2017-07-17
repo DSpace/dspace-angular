@@ -1,5 +1,3 @@
-const path = require('path');
-
 const {
   root
 } = require('./helpers');
@@ -31,7 +29,7 @@ module.exports = function (options) {
      * Do not change, leave as is or it wont work.
      * See: https://github.com/webpack/karma-webpack#source-maps
      */
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
 
     /**
      * Options affecting the resolving of modules.
@@ -50,7 +48,7 @@ module.exports = function (options) {
       /**
        * Make sure root is src
        */
-      modules: [path.resolve(__dirname, 'src'), 'node_modules']
+      modules: [root('src'), 'node_modules']
 
     },
 
@@ -112,19 +110,19 @@ module.exports = function (options) {
           use: [{
               loader: 'to-string-loader',
               options: {
-                sourceMap: 'inline'
+                sourceMap: true
               }
             },
             {
               loader: 'css-loader',
               options: {
-                sourceMap: 'inline'
+                sourceMap: true
               }
             },
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: 'inline'
+                sourceMap: true
               }
             }
           ],
@@ -141,30 +139,30 @@ module.exports = function (options) {
           use: [{
               loader: 'to-string-loader',
               options: {
-                sourceMap: 'inline'
+                sourceMap: true
               }
             }, {
               loader: 'raw-loader',
               options: {
-                sourceMap: 'inline'
+                sourceMap: true
               }
             },
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: 'inline'
+                sourceMap: true
               }
             },
             {
               loader: 'resolve-url-loader',
               options: {
-                sourceMap: 'inline'
+                sourceMap: true
               }
             },
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: 'inline'
+                sourceMap: true
               }
             }
           ],

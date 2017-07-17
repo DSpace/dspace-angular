@@ -27,16 +27,18 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
 
     plugins: [
+      require('karma-webpack'),
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-phantomjs-launcher'),
       require('karma-webdriver-launcher'),
       require('karma-coverage'),
+      require('karma-remap-coverage'),
       require('karma-mocha-reporter'),
       require('karma-remap-istanbul'),
       require('karma-sourcemap-loader'),
-      require('karma-webpack'),
-      require("istanbul-instrumenter-loader")
+      require("istanbul-instrumenter-loader"),
+      require("karma-istanbul-preprocessor")
     ],
 
     // list of files to exclude
@@ -57,34 +59,29 @@ module.exports = function (config) {
      * available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
      */
     preprocessors: {
-      './spec-bundle.js': ['coverage', 'webpack', 'sourcemap']
+      './spec-bundle.js': ['istanbul', 'webpack', 'sourcemap']
     },
 
     // Webpack Config at ./webpack.test.js
     webpack: testWebpackConfig,
 
+    // save interim raw coverage report in memory
     coverageReporter: {
-      reporters: [{
-        type: 'in-memory'
-      }, {
-        type: 'json',
-        subdir: '.',
-        file: 'coverage-final.json'
-      }, {
-        type: 'html',
-        dir: 'coverage/'
-      }]
+      type: 'in-memory'
     },
 
     remapCoverageReporter: {
-      'text-summary': null,
-      json: './coverage/coverage.json',
-      html: './coverage/html'
+      'text-summary': null, // to show summary in console
+      html: './coverage/html',
+      cobertura: './coverage/cobertura.xml'
     },
 
     remapIstanbulReporter: {
+      remapOptions: {}, //additional remap options
       reports: {
-        html: 'coverage'
+        json: 'coverage/coverage.json',
+        lcovonly: 'coverage/lcov.info',
+        html: 'coverage/html/',
       }
     },
 
@@ -114,9 +111,7 @@ module.exports = function (config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: [
-      'mocha', 'coverage', 'karma-remap-istanbul'
-    ],
+    reporters: ['mocha', 'coverage', 'remap-coverage', 'karma-remap-istanbul'],
 
     // Karma web server port
     port: 9876,
