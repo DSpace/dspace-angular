@@ -1,3 +1,5 @@
+var nodeExternals = require('webpack-node-externals');
+
 const {
   root
 } = require('./helpers');
@@ -7,5 +9,8 @@ module.exports = {
   output: {
     filename: 'server.js'
   },
-  target: 'node'
+  target: 'node',
+  externals: [nodeExternals({
+    whitelist: [/@ng/]
+  })],
 };
