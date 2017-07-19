@@ -111,6 +111,6 @@ if (ENV_CONFIG.ui.ssl) {
   }
 } else {
   app.listen(port, ENV_CONFIG.ui.host, () => {
-    console.log(`Listening at ${ENV_CONFIG.ui.baseUrl}`);
+    console.log(`[${new Date().toTimeString()}] Listening at ${ENV_CONFIG.ui.baseUrl}`);
   });
 }
