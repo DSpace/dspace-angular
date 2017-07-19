@@ -41,7 +41,7 @@ try {
 // if envConfigFile set try to get configs
 if (envConfigFile) {
   try {
-    ENV_CONFIG = configContext(envConfigFile) as GlobalConfig;
+    ENV_CONFIG = Object.assign(ENV_CONFIG, configContext(envConfigFile)) as GlobalConfig;
   } catch (e) {
     console.warn('Cannot find file ' + envConfigFile.substring(2, envConfigFile.length), 'Using default environment.');
   }
