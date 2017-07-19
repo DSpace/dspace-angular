@@ -81,12 +81,16 @@ ROUTES.forEach((route: string) => {
   });
 });
 
+function serverStarted() {
+  console.log(`[${new Date().toTimeString()}] Listening at ${ENV_CONFIG.ui.baseUrl}`);
+}
+
 function createHttpsServer(keys) {
   https.createServer({
     key: keys.serviceKey,
     cert: keys.certificate
   }, app).listen(port, ENV_CONFIG.ui.host, () => {
-    console.log(`Listening at ${ENV_CONFIG.ui.baseUrl}`);
+    serverStarted();
   });
 }
 
@@ -123,6 +127,6 @@ if (ENV_CONFIG.ui.ssl) {
   }
 } else {
   app.listen(port, ENV_CONFIG.ui.host, () => {
-    console.log(`[${new Date().toTimeString()}] Listening at ${ENV_CONFIG.ui.baseUrl}`);
+    serverStarted();
   });
 }
