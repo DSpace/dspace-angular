@@ -56,7 +56,7 @@ for (const key in ENV_CONFIG) {
     ENV_CONFIG[key].baseUrl = [
       ENV_CONFIG[key].ssl ? 'https://' : 'http://',
       ENV_CONFIG[key].host,
-      ENV_CONFIG[key].port ? (ENV_CONFIG[key].port !== 80 || ENV_CONFIG[key].port !== 443) ? ':' + ENV_CONFIG[key].port : '' : ''
+      ENV_CONFIG[key].port ? (ENV_CONFIG[key].port !== 80 && ENV_CONFIG[key].port !== 443) ? ':' + ENV_CONFIG[key].port : '' : ''
     ].join('');
   }
 }
