@@ -76,7 +76,7 @@ function ngApp(req, res) {
       });
     });
   } else {
-    console.log('Universal preboot off, service for direct CSD');
+    console.log('Universal off, serving for direct CSR');
     res.sendFile('index.csr.html', { root: './src' });
   }
 }
