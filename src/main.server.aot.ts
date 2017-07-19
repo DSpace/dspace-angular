@@ -56,7 +56,7 @@ app.set('view engine', 'html');
 app.set('views', 'src');
 
 function cacheControl(req, res, next) {
-  // instruct browser to revalidate in 60 seconds
+  // instruct browser to revalidate
   res.header('Cache-Control', ENV_CONFIG.cache.control || 'max-age=60');
   next();
 }
@@ -67,18 +67,34 @@ app.use('/', cacheControl, express.static('dist', { index: false }));
 // app.get('/data.json', serverApi);
 // app.use('/api', createMockApi());
 
+function ngApp(req, res) {
+
+  function onHandleError(parentZoneDelegate, currentZone, targetZone, error) {
+    console.warn('Error in SSR, serving for direct CSR');
+    res.sendFile('index.csr.html', { root: './src' });
+  }
+
+  if (ENV_CONFIG.universal.preboot) {
+    Zone.current.fork({ name: 'CSR fallback', onHandleError }).run(() => {
+      res.render('../dist/index', {
+        req,
+        res,
+        preboot: ENV_CONFIG.universal.preboot,
+        async: ENV_CONFIG.universal.async,
+        time: ENV_CONFIG.universal.time,
+        baseUrl: ENV_CONFIG.ui.nameSpace,
+        originUrl: ENV_CONFIG.ui.baseUrl,
+        requestUrl: req.originalUrl
+      });
+    });
+  } else {
+    console.log('Universal preboot off, service for direct CSD');
+    res.sendFile('index.csr.html', { root: './src' });
+  }
+}
+
 ROUTES.forEach((route: string) => {
-  app.get(route, (req, res) => {
-    res.cookie('ui_origin', ENV_CONFIG.ui.baseUrl, {
-      maxAge: 1000 * 60 * 15,
-      httpOnly: true,
-      signed: false
-    });
-    res.render('../dist/index', {
-      req: req,
-      res: res
-    });
-  });
+  app.get(route, ngApp);
 });
 
 function serverStarted() {

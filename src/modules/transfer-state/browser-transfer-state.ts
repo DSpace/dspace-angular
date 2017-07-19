@@ -27,7 +27,7 @@ export class BrowserTransferState extends TransferState {
     if (this.config.prerenderStrategy === 'replay') {
       if (cache.actions !== undefined) {
         if (this.config.debug) {
-          console.info('Replay:', cache.actions);
+          console.info('Replay:', (cache.actions !== undefined && cache.actions !== null) ? cache.actions : []);
         }
         this.store.dispatch(new StoreAction(StoreActionTypes.REPLAY, cache.actions));
       } else {
@@ -35,7 +35,7 @@ export class BrowserTransferState extends TransferState {
       }
     } else if (this.config.prerenderStrategy === 'rehydrate') {
       if (this.config.debug) {
-        console.info('Rehydrate:', cache.state);
+        console.info('Rehydrate:', (cache.state !== undefined && cache.state !== null) ? cache.state : []);
       }
       this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, cache.state));
     } else {

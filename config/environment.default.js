@@ -15,11 +15,19 @@ module.exports = {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/dspace-spring-rest/api'
   },
+  // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
     msToLive: 15 * 60 * 1000, // 15 minute
     control: 'max-age=60' // revalidate browser
   },
+  // Angular Universal settings
+  universal: {
+    preboot: true,
+    async: true,
+    time: false
+  },
+  // Log directory
   logDirectory: '.',
   // NOTE: rehydrate or replay
   // rehydrate will transfer prerender state to browser state, actions do not need to replay
