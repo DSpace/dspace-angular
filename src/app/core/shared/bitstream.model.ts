@@ -1,6 +1,6 @@
-import { DSpaceObject } from "./dspace-object.model";
-import { RemoteData } from "../data/remote-data";
-import { Item } from "./item.model";
+import { DSpaceObject } from './dspace-object.model';
+import { RemoteData } from '../data/remote-data';
+import { Item } from './item.model';
 
 export class Bitstream extends DSpaceObject {
 

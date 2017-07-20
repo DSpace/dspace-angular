@@ -1,8 +1,9 @@
-import { inheritSerialization, autoserialize, autoserializeAs } from "cerialize";
-import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
-import { Item } from "../../shared/item.model";
-import { mapsTo, relationship } from "../builders/build-decorators";
-import { ResourceType } from "../../shared/resource-type";
+import { inheritSerialization, autoserialize, autoserializeAs } from 'cerialize';
+
+import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
+import { Item } from '../../shared/item.model';
+import { mapsTo, relationship } from '../builders/build-decorators';
+import { ResourceType } from '../../shared/resource-type';
 
 @mapsTo(Item)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -43,7 +44,7 @@ export class NormalizedItem extends NormalizedDSpaceObject {
    */
   @autoserialize
   @relationship(ResourceType.Collection, true)
-  parents: Array<string>;
+  parents: string[];
 
   /**
    * The Collection that owns this Item
@@ -53,5 +54,6 @@ export class NormalizedItem extends NormalizedDSpaceObject {
 
   @autoserialize
   @relationship(ResourceType.Bitstream, true)
-  bitstreams: Array<string>;
+  bitstreams: string[];
+
 }

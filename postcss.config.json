@@ -1,9 +1,0 @@
-{
-  "use": ["autoprefixer"],
-  "input": "src/**/*.css",
-  "replace": true,
-  "local-plugins": true,
-  "autoprefixer": {
-    "browsers": "last 2 versions"
-  }
-}

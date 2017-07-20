@@ -1,6 +1,7 @@
-import { Action } from "@ngrx/store";
-import { type } from "../../shared/ngrx/type";
-import { CacheableObject } from "./object-cache.reducer";
+import { Action } from '@ngrx/store';
+
+import { type } from '../../shared/ngrx/type';
+import { CacheableObject } from './object-cache.reducer';
 
 /**
  * The list of ObjectCacheAction type definitions
@@ -11,6 +12,7 @@ export const ObjectCacheActionTypes = {
   RESET_TIMESTAMPS: type('dspace/core/cache/object/RESET_TIMESTAMPS')
 };
 
+/* tslint:disable:max-classes-per-file */
 /**
  * An ngrx action to add an object to the cache
  */
@@ -77,6 +79,7 @@ export class ResetObjectCacheTimestampsAction implements Action {
     this.payload = newTimestamp;
   }
 }
+/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all ObjectCacheActions

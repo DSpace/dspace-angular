@@ -1,9 +1,9 @@
 import {
   ObjectCacheAction, ObjectCacheActionTypes, AddToObjectCacheAction,
   RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction
-} from "./object-cache.actions";
-import { hasValue } from "../../shared/empty.util";
-import { CacheEntry } from "./cache-entry";
+} from './object-cache.actions';
+import { hasValue } from '../../shared/empty.util';
+import { CacheEntry } from './cache-entry';
 
 /**
  * An interface to represent objects that can be cached
@@ -52,15 +52,15 @@ export const objectCacheReducer = (state = initialState, action: ObjectCacheActi
   switch (action.type) {
 
     case ObjectCacheActionTypes.ADD: {
-      return addToObjectCache(state, <AddToObjectCacheAction>action);
+      return addToObjectCache(state, action as AddToObjectCacheAction);
     }
 
     case ObjectCacheActionTypes.REMOVE: {
-      return removeFromObjectCache(state, <RemoveFromObjectCacheAction>action)
+      return removeFromObjectCache(state, action as RemoveFromObjectCacheAction)
     }
 
     case ObjectCacheActionTypes.RESET_TIMESTAMPS: {
-      return resetObjectCacheTimestamps(state, <ResetObjectCacheTimestampsAction>action)
+      return resetObjectCacheTimestamps(state, action as ResetObjectCacheTimestampsAction)
     }
 
     default: {
@@ -102,12 +102,11 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
  */
 function removeFromObjectCache(state: ObjectCacheState, action: RemoveFromObjectCacheAction): ObjectCacheState {
   if (hasValue(state[action.payload])) {
-    let newObjectCache = Object.assign({}, state);
+    const newObjectCache = Object.assign({}, state);
     delete newObjectCache[action.payload];
 
     return newObjectCache;
-  }
-  else {
+  } else {
     return state;
   }
 }
@@ -123,8 +122,8 @@ function removeFromObjectCache(state: ObjectCacheState, action: RemoveFromObject
  *    the new state, with all timeAdded timestamps set to the specified value
  */
 function resetObjectCacheTimestamps(state: ObjectCacheState, action: ResetObjectCacheTimestampsAction): ObjectCacheState {
-  let newState = Object.create(null);
-  Object.keys(state).forEach(key => {
+  const newState = Object.create(null);
+  Object.keys(state).forEach((key) => {
     newState[key] = Object.assign({}, state[key], {
       timeAdded: action.payload
     });

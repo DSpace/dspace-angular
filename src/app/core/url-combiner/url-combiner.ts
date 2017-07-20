@@ -1,11 +1,11 @@
-import { isEmpty } from "../../shared/empty.util";
+import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Combines a variable number of strings representing parts
  * of a URL in to a single, normalized URL
  */
 export class URLCombiner {
-  private parts: Array<string>;
+  private parts: string[];
 
   /**
    * Creates a new URLCombiner
@@ -13,7 +13,7 @@ export class URLCombiner {
    * @param parts
    *      a variable number of strings representing parts of a URL
    */
-  constructor(...parts:Array<string>) {
+  constructor(...parts: string[]) {
     // can't do this in the constructor signature,
     // because of the spread operator
     this.parts = parts;
@@ -32,8 +32,7 @@ export class URLCombiner {
   toString(): string {
     if (isEmpty(this.parts)) {
       return '';
-    }
-    else {
+    } else {
       let url = this.parts.join('/');
 
       // make sure protocol is followed by two slashes

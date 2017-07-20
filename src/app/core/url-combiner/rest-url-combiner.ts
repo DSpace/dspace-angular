@@ -1,4 +1,4 @@
-import { URLCombiner } from "./url-combiner";
+import { URLCombiner } from './url-combiner';
 
 import { GlobalConfig } from '../../../config';
 
@@ -9,7 +9,7 @@ import { GlobalConfig } from '../../../config';
  * TODO write tests once GlobalConfig becomes injectable
  */
 export class RESTURLCombiner extends URLCombiner {
-  constructor(EnvConfig: GlobalConfig, ...parts: Array<string>) {
+  constructor(EnvConfig: GlobalConfig, ...parts: string[]) {
     super(EnvConfig.rest.baseUrl, EnvConfig.rest.nameSpace, ...parts);
   }
 }

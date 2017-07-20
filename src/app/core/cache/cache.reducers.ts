@@ -1,6 +1,7 @@
-import { combineReducers } from "@ngrx/store";
-import { ResponseCacheState, responseCacheReducer } from "./response-cache.reducer";
-import { ObjectCacheState, objectCacheReducer } from "./object-cache.reducer";
+import { combineReducers } from '@ngrx/store';
+
+import { ResponseCacheState, responseCacheReducer } from './response-cache.reducer';
+import { ObjectCacheState, objectCacheReducer } from './object-cache.reducer';
 
 export interface CacheState {
   response: ResponseCacheState,

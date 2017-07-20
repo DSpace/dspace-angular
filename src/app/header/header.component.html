@@ -4,8 +4,7 @@
       <span class="navbar-toggler-icon fa fa-bars fa-fw" aria-hidden="true"></span>
     </button>
     <div [ngClass]="{'clearfix': !(isNavBarCollapsed | async)}">
-      <a class="navbar-brand" routerLink="/home">
-        <!-- TODO: add logo here -->{{ 'title' | translate }}</a>
+      <a class="navbar-brand" routerLink="/home">{{ 'title' | translate }}</a>
     </div>
     <div [ngbCollapse]="(isNavBarCollapsed | async)" class="collapse navbar-collapse" id="collapsingNav">
       <ul class="navbar-nav mr-auto">

@@ -1,16 +1,17 @@
-import { RequestError } from "../data/request.models";
-import { PageInfo } from "../shared/page-info.model";
+import { RequestError } from '../data/request.models';
+import { PageInfo } from '../shared/page-info.model';
 
+/* tslint:disable:max-classes-per-file */
 export class Response {
   constructor(
     public isSuccessful: boolean,
     public statusCode: string
-  ) {}
+  ) { }
 }
 
 export class SuccessResponse extends Response {
   constructor(
-    public resourceUUIDs: Array<String>,
+    public resourceUUIDs: string[],
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {
@@ -27,4 +28,4 @@ export class ErrorResponse extends Response {
     this.errorMessage = error.message;
   }
 }
-
+/* tslint:enable:max-classes-per-file */

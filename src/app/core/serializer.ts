@@ -18,7 +18,7 @@ export interface Serializer<T> {
    * @param models The array of models to serialize
    * @returns An object to send to the backend
    */
-  serializeArray(models: Array<T>): any;
+  serializeArray(models: T[]): any;
 
   /**
    * Convert a response from the backend in to a model.
@@ -34,5 +34,5 @@ export interface Serializer<T> {
    * @param response An object returned by the backend
    * @returns an array of models of type T
    */
-  deserializeArray(response: any): Array<T>;
+  deserializeArray(response: any): T[];
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
-import { ItemPageComponent } from "../simple/item-page.component";
-import { Metadatum } from "../../core/shared/metadatum.model";
-import { ItemDataService } from "../../core/data/item-data.service";
-import { ActivatedRoute } from "@angular/router";
-import { RemoteData } from "../../core/data/remote-data";
-import { Item } from "../../core/shared/item.model";
+import { Observable } from 'rxjs/Observable';
+
+import { ItemPageComponent } from '../simple/item-page.component';
+import { Metadatum } from '../../core/shared/metadatum.model';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { ActivatedRoute } from '@angular/router';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
 
 /**
  * This component renders a simple item page.
@@ -14,32 +15,28 @@ import { Item } from "../../core/shared/item.model";
  */
 
 @Component({
-    selector: 'ds-full-item-page',
-    styleUrls: ['./full-item-page.component.css'],
-    templateUrl: './full-item-page.component.html',
+  selector: 'ds-full-item-page',
+  styleUrls: ['./full-item-page.component.scss'],
+  templateUrl: './full-item-page.component.html',
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
-    item: RemoteData<Item>;
+  item: RemoteData<Item>;
 
-    metadata: Observable<Array<Metadatum>>;
+  metadata: Observable<Metadatum[]>;
 
-    constructor(route: ActivatedRoute, items: ItemDataService) {
-        super(route, items);
-    }
+  constructor(route: ActivatedRoute, items: ItemDataService) {
+    super(route, items);
+  }
 
-    universalInit() {
+  /*** AoT inheritance fix, will hopefully be resolved in the near future **/
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
-    }
-
-    /*** AoT inheritance fix, will hopefully be resolved in the near future **/
-    ngOnInit(): void {
-        super.ngOnInit();
-    }
-
-    initialize(params) {
-        super.initialize(params);
-        this.metadata = this.item.payload.map(i => i.metadata);
-    }
+  initialize(params) {
+    super.initialize(params);
+    this.metadata = this.item.payload.map((i) => i.metadata);
+  }
 
 }

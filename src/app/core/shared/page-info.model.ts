@@ -1,4 +1,4 @@
-import { autoserialize, autoserializeAs } from "cerialize";
+import { autoserialize, autoserializeAs } from 'cerialize';
 
 /**
  * Represents the state of a paginated response
@@ -27,4 +27,5 @@ export class PageInfo {
    */
   @autoserializeAs(Number, 'number')
   currentPage: number;
+
 }

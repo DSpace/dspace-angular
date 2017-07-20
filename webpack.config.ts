@@ -1,157 +1,57 @@
-var webpack = require('webpack');
-var path = require('path');
-var clone = require('js.clone');
-var webpackMerge = require('webpack-merge');
-let CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpackMerge = require('webpack-merge');
+const commonPartial = require('./webpack/webpack.common');
+const clientPartial = require('./webpack/webpack.client');
+const serverPartial = require('./webpack/webpack.server');
+const prodPartial = require('./webpack/webpack.prod');
 
-export var commonPlugins = [
-  new webpack.ContextReplacementPlugin(
-    // The (\\|\/) piece accounts for path separators in *nix and Windows
-    /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
-    root('./src'),
-    {
-      // your Angular Async Route paths relative to this root directory
-    }
-  ),
+const {
+  AotPlugin
+} = require('@ngtools/webpack');
 
-  // Copy fonts, images and i18n to dist/assets
-  new CopyWebpackPlugin([
-    {
-      from: path.join(__dirname, 'node_modules', 'font-awesome', 'fonts'),
-      to: path.join('assets', 'fonts')
-    },
-    {
-      from: path.join(__dirname, 'resources', 'images'),
-      to: path.join('assets', 'images')
-    }, {
-      from: path.join(__dirname, 'resources', 'i18n'),
-      to: path.join('assets', 'i18n')
-    }
-  ]),
+const {
+  root
+} = require('./webpack/helpers');
 
-  // Loader options
-  new webpack.LoaderOptionsPlugin({
-    options: {
-      tslint: {
-        emitErrors: false,
-        failOnHint: false
-      },
-    }
-  }),
+module.exports = function(options, webpackOptions) {
+  options = options || {};
 
-];
-export var commonConfig = {
-  // https://webpack.github.io/docs/configuration.html#devtool
-  devtool: 'source-map',
-  resolve: {
-    extensions: ['.ts', '.js', '.json'],
-    modules: [root('node_modules')]
-  },
-  context: __dirname,
-  output: {
-    publicPath: '',
-    filename: '[name].bundle.js'
-  },
-  module: {
-    rules: [
-      // TypeScript
-      { test: /\.ts$/, use: ['awesome-typescript-loader', 'angular2-template-loader'] },
-      { test: /\.html$/, use: 'raw-loader' },
-      { test: /\.css$/, use: 'raw-loader' },
-      { test: /\.json$/, use: 'json-loader' },
-      {
-        enforce: 'pre',
-        test: /\.ts?$/,
-        use: 'tslint-loader',
-        exclude: /(node_modules)/,
-      }
-    ],
-  },
-
-  plugins: [
-    // Use commonPlugins.
-  ]
-
-};
-
-// Client.
-export var clientPlugins = [
-
-];
-export var clientConfig = {
-  target: 'web',
-  entry: './src/client',
-  output: {
-    path: root('dist/client')
-  },
-  node: {
-    global: true,
-    crypto: 'empty',
-    __dirname: true,
-    __filename: true,
-    process: true,
-    Buffer: false
+  if (options.aot) {
+    console.log(`Running build for ${options.client ? 'client' : 'server'} with AoT Compilation`)
   }
-};
 
-// Server.
-export var serverPlugins = [
+  let serverConfig = webpackMerge({}, commonPartial, serverPartial, {
+    entry: options.aot ? './src/main.server.aot.ts' : serverPartial.entry, // Temporary
+    plugins: [
+      new AotPlugin({
+        tsConfigPath: root(options.aot ? './src/tsconfig.server.aot.json' : './src/tsconfig.server.json'),
+        skipCodeGeneration: !options.aot
+      })
+    ]
+  });
 
-];
-export var serverConfig = {
-  target: 'node',
-  entry: './src/server', // use the entry file of the node server if everything is ts rather than es5
-  output: {
-    filename: 'index.js',
-    path: root('dist/server'),
-    libraryTarget: 'commonjs2'
-  },
-  module: {
-    rules: [
-      { test: /@angular(\\|\/)material/, use: "imports-loader?window=>global" }
-    ],
-  },
-  externals: includeClientPackages(
-    /@angularclass|@angular|angular2-|ng2-|ng-|@ng-|angular-|@ngrx|ngrx-|@ngx-|@angular2|ionic|@ionic|-angular2|-ng2|-ng/
-  ),
-  node: {
-    global: true,
-    crypto: true,
-    __dirname: true,
-    __filename: true,
-    process: true,
-    Buffer: true
+  let clientConfig = webpackMerge({}, commonPartial, clientPartial, {
+    plugins: [
+      new AotPlugin({
+        tsConfigPath: root('./src/tsconfig.browser.json'),
+        skipCodeGeneration: !options.aot
+      })
+    ]
+  });
+
+  if (webpackOptions.p) {
+    serverConfig = webpackMerge({}, serverConfig, prodPartial);
+    clientConfig = webpackMerge({}, clientConfig, prodPartial);
   }
-};
 
-export default [
-  // Client
-  webpackMerge(clone(commonConfig), clientConfig, { plugins: clientPlugins.concat(commonPlugins) }),
+  const configs = [];
 
-  // Server
-  webpackMerge(clone(commonConfig), serverConfig, { plugins: serverPlugins.concat(commonPlugins) })
-];
+  if (!options.aot) {
+    configs.push(clientConfig, serverConfig);
+  } else if (options.client) {
+    configs.push(clientConfig);
+  } else if (options.server) {
+    configs.push(serverConfig);
+  }
 
-// Helpers
-export function includeClientPackages(packages, localModule?: string[]) {
-  return function(context, request, cb) {
-    if (localModule instanceof RegExp && localModule.test(request)) {
-      return cb();
-    }
-    if (packages instanceof RegExp && packages.test(request)) {
-      return cb();
-    }
-    if (Array.isArray(packages) && packages.indexOf(request) !== -1) {
-      return cb();
-    }
-    if (!path.isAbsolute(request) && request.charAt(0) !== '.') {
-      return cb(null, 'commonjs ' + request);
-    }
-    return cb();
-  };
-}
-
-export function root(args) {
-  args = Array.prototype.slice.call(arguments, 0);
-  return path.join.apply(path, [__dirname].concat(args));
+  return configs;
 }

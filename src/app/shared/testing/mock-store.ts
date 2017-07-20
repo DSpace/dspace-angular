@@ -9,6 +9,7 @@ export class MockStore<T> extends BehaviorSubject<T> {
   }
 
   dispatch = (action: Action): void => {
+    console.info();
   }
 
   select = <R>(pathOrMapFn: any): Observable<T> => {
@@ -18,11 +19,5 @@ export class MockStore<T> extends BehaviorSubject<T> {
   nextState(_newState: T) {
     this.next(_newState);
   }
-
-}
-
-export class MockAction implements Action {
-  type = null;
-  payload: {};
 
 }

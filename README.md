@@ -91,13 +91,15 @@ To change the default configuration values, create local files that override the
 To use the configuration parameters in your component:
 
 ```bash
-import { GlobalConfig } from "../config";
+import { GLOBAL_CONFIG, GlobalConfig } from '../config';
+
+constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig) {}
 ```
 
 Running the app
 ---------------
 
-After you have installed all dependencies you can now run the app. Run `yarn run watch:dev` to start a local server which will watch for changes, rebuild the code, and reload the server for you. You can visit it at `http://localhost:3000`.
+After you have installed all dependencies you can now run the app. Run `yarn run watch` to start a local server which will watch for changes, rebuild the code, and reload the server for you. You can visit it at `http://localhost:3000`.
 
 Running in production mode
 --------------------------
@@ -113,7 +115,7 @@ yarn start
 If you only want to build for production, without starting, run:
 
 ```bash
-yarn run build:prod:ngc:json
+yarn run build:prod
 ```
 
 This will build the application and put the result in the `dist` folder
@@ -155,7 +157,7 @@ If you are going to use a remote test enviroment you need to edit the './protrac
 
 The default browser is Google Chrome.
 
-Protractor needs a functional instance of the DSpace interface to run the E2E tests, so you need to run:`yarn run watch:dev`
+Protractor needs a functional instance of the DSpace interface to run the E2E tests, so you need to run:`yarn run watch`
 
 or any command that bring up the DSpace interface.
 
@@ -170,6 +172,17 @@ To run all the tests (e.g.: to run tests with Continuous Integration software) y
 ##Documentation To build the code documentation we use [TYPEDOC](http://typedoc.org). TYPEDOC is a documentation generator for TypeScript projects. It extracts informations from properly formatted comments that can be written within the code files. Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
 
 Run:`yarn run docs` to produce the documentation that will be available in the 'doc' folder.
+
+Deploy
+------
+
+```bash
+# deploy production in standalone pm2 container
+yarn run deploy
+
+# remove production from standalone pm2 container
+yarn run undeploy
+```
 
 Other commands
 --------------
@@ -204,34 +217,35 @@ File Structure
 ```
 dspace-angular
 ├── README.md                                           * This document
-├── app.json                                            * Application manifest file
+├── app.yaml                                            * Application manifest file
 ├── config                                              * Folder for configuration files
-│   └── environment.default.js                          * Default configuration files
-├── dist                                                * Folder for e2e test files
-├── e2e                                                 *
+│   ├── environment.default.js                          * Default configuration files
+│   └── environment.test.js                             * Test configuration files
+├── e2e                                                 * Folder for e2e test files
 │   ├── app.e2e-spec.ts                                 *
 │   ├── app.po.ts                                       *
 │   ├── pagenotfound                                    *
 │   │   ├── pagenotfound.e2e-spec.ts                    *
 │   │   └── pagenotfound.po.ts                          *
-│   └── tsconfig.json                                   *
-├── empty.js                                            *
-├── helpers.js                                          *
-├── karma.conf.js                                       * Unit Test configuration file
+│   └── tsconfig.json                                   * TypeScript configuration file for e2e tests
+├── karma.conf.js                                       * Karma configuration file for Unit Test
 ├── nodemon.json                                        * Nodemon (https://nodemon.io/) configuration
 ├── package.json                                        * This file describes the npm package for this project, its dependencies, scripts, etc.
-├── postcss.config.json                                 * PostCSS (http://postcss.org/) configuration file
-├── protractor.conf.js                                  * E2E tests configuration file
+├── postcss.config.js                                   * PostCSS (http://postcss.org/) configuration file
+├── protractor.conf.js                                  *
 ├── resources                                           * Folder for static resources
+│   ├── data                                            * Folder for static data
+│   │   └── en                                          * Folder for i18n English data
 │   ├── i18n                                            * Folder for i18n translations
-│   │   └── en.json                                     *
+│   │   └── en.json                                     * i18n translations for English
 │   └── images                                          * Folder for images
-│       └── dspace_logo.png                             *
-├── rollup-client.js                                    * Rollup (http://rollupjs.org/) configuration for the client
-├── rollup-server.js                                    * Rollup (http://rollupjs.org/) configuration for the server
+│       ├── dspace-logo-old.png                         *
+│       ├── dspace-logo.png                             *
+│       └── favicon.ico                                 *
+├── rollup.config.js                                    * Rollup (http://rollupjs.org/) configuration
 ├── spec-bundle.js                                      *
 ├── src                                                 * The source of the application
-│   ├── app                                             * The location of the app module, and root of the application shared by client and server
+│   ├── app                                             *
 │   │   ├── app-routing.module.ts                       *
 │   │   ├── app.component.html                          *
 │   │   ├── app.component.scss                          *
@@ -239,48 +253,62 @@ dspace-angular
 │   │   ├── app.component.ts                            *
 │   │   ├── app.effects.ts                              *
 │   │   ├── app.module.ts                               *
-│   │   ├── app.reducers.ts                             *
+│   │   ├── app.reducer.ts                              *
+│   │   ├── browser-app.module.ts                       * The root module for the client
+│   │   ├── collection-page                             *
+│   │   ├── community-page                              *
 │   │   ├── core                                        *
 │   │   ├── header                                      *
 │   │   ├── home                                        *
+│   │   ├── item-page                                   *
+│   │   ├── object-list                                 *
 │   │   ├── pagenotfound                                *
+│   │   ├── server-app.module.ts                        * The root module for the server
 │   │   ├── shared                                      *
-│   │   └── store.actions.ts                            *
+│   │   ├── store.actions.ts                            *
+│   │   ├── store.effects.ts                            *
+│   │   ├── thumbnail                                   *
+│   │   └── typings.d.ts                                * File that allows you to add custom typings for libraries without TypeScript support
 │   ├── backend                                         * Folder containing a mock of the REST API, hosted by the express server
 │   │   ├── api.ts                                      *
-│   │   ├── bitstreams.ts                               *
-│   │   ├── bundles.ts                                  *
 │   │   ├── cache.ts                                    *
-│   │   ├── collections.ts                              *
-│   │   ├── db.ts                                       *
-│   │   ├── items.ts                                    *
-│   │   └── metadata.ts                                 *
-│   ├── client.aot.ts                                   * The bootstrap file for the client, in production
-│   ├── client.ts                                       * The bootstrap file for the client, during development
+│   │   ├── data                                        *
+│   │   └── db.ts                                       *
+│   ├── config                                          *
+│   │   ├── cache-config.interface.ts                   *
+│   │   ├── global-config.interface.ts                  *
+│   │   └── server-config.interface.ts                  *
 │   ├── config.ts                                       * File that loads environmental and shareable settings and makes them available to app components
 │   ├── index.html                                      * The index.html file
-│   ├── platform                                        *
-│   │   ├── angular2-meta.ts                            *
-│   │   ├── modules                                     *
-│   │   │   ├── browser.module.ts                       * The root module for the client
-│   │   │   └── node.module.ts                          * The root module for the server
-│   │   └── workarounds                                 *
-│   │       ├── __workaround.browser.ts                 *
-│   │       └── __workaround.node.ts                    *
-│   ├── server.aot.ts                                   * The express (http://expressjs.com/) config and bootstrap file for the server, in production
-│   ├── server.routes.ts                                * The routes file for the server
-│   ├── server.ts                                       * The express (http://expressjs.com/) config and bootstrap file for the server, during development
-│   ├── styles                                          * Folder containing global styles.
-│   │   ├── main.scss                                   * Global scss file
+│   ├── main.browser.ts                                 * The bootstrap file for the client
+│   ├── main.server.aot.ts                              * The express (http://expressjs.com/) config and bootstrap file for the server, in production
+│   ├── main.server.ts                                  * The express (http://expressjs.com/) config and bootstrap file for the server, during development
+│   ├── modules                                         *
+│   │   ├── cookies                                     *
+│   │   ├── data-loader                                 *
+│   │   ├── transfer-http                               *
+│   │   ├── transfer-state                              *
+│   │   ├── transfer-store                              *
+│   │   └── translate-universal-loader.ts               *
+│   ├── routes.ts                                       * The routes file for the server
+│   ├── styles                                          * Folder containing global styles
+│   │   ├── _mixins.scss                                *
 │   │   └── variables.scss                              * Global sass variables file
-│   └── typings.d.ts                                    * File that allows you to add custom typings for libraries without TypeScript support
-├── tsconfig.aot.json                                   * TypeScript config for production builds
-├── tsconfig.json                                       * TypeScript config for development build
+│   ├── tsconfig.browser.json                           * TypeScript config for the client build
+│   ├── tsconfig.server.aot.json                        * TypeScript config for the server build with Ahead of Time
+│   ├── tsconfig.server.json                            * TypeScript config for the server build
+│   └── tsconfig.test.json                              * TypeScript config for the test build
+├── tsconfig.json                                       * TypeScript config
 ├── tslint.json                                         * TSLint (https://palantir.github.io/tslint/) configuration
 ├── typedoc.json                                        * TYPEDOC configuration
-├── webpack.config.ts                                   * Webpack (https://webpack.github.io/) config for development builds
-├── webpack.prod.config.ts                              * Webpack (https://webpack.github.io/) config for production builds
-├── webpack.test.config.js                              * Webpack (https://webpack.github.io/) config for testing
+├── webpack                                             * Webpack (https://webpack.github.io/) config directory
+│   ├── helpers.js                                      *
+│   ├── webpack.client.js                               * Webpack (https://webpack.github.io/) config for client build
+│   ├── webpack.common.js                               *
+│   ├── webpack.prod.js                                 * Webpack (https://webpack.github.io/) config for production build
+│   ├── webpack.server.js                               * Webpack (https://webpack.github.io/) config for server build
+│   └── webpack.test.js                                 * Webpack (https://webpack.github.io/) config for test build
+├── webpack.config.ts                                   *
 └── yarn.lock                                           * Yarn lockfile (https://yarnpkg.com/en/docs/yarn-lock)
 ```
 

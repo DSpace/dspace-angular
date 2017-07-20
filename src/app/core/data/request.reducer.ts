@@ -1,9 +1,9 @@
-import { CacheableObject } from "../cache/object-cache.reducer";
+import { CacheableObject } from '../cache/object-cache.reducer';
 import {
   RequestActionTypes, RequestAction, RequestConfigureAction,
   RequestExecuteAction, RequestCompleteAction
-} from "./request.actions";
-import { Request } from "./request.models";
+} from './request.actions';
+import { Request } from './request.models';
 
 export class RequestEntry {
   request: Request<CacheableObject>;
@@ -11,7 +11,6 @@ export class RequestEntry {
   responsePending: boolean;
   completed: boolean;
 }
-
 
 export interface RequestState {
   [key: string]: RequestEntry
@@ -24,15 +23,15 @@ export const requestReducer = (state = initialState, action: RequestAction): Req
   switch (action.type) {
 
     case RequestActionTypes.CONFIGURE: {
-      return configureRequest(state, <RequestConfigureAction> action);
+      return configureRequest(state, action as RequestConfigureAction);
     }
 
     case RequestActionTypes.EXECUTE: {
-      return executeRequest(state, <RequestExecuteAction> action);
+      return executeRequest(state, action as RequestExecuteAction);
     }
 
     case RequestActionTypes.COMPLETE: {
-      return completeRequest(state, <RequestCompleteAction> action);
+      return completeRequest(state, action as RequestCompleteAction);
     }
 
     default: {

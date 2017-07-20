@@ -1,19 +1,19 @@
 import { ProtractorPage } from './pagenotfound.po';
 
-describe('protractor PageNotFound', function() {
+describe('protractor PageNotFound', () => {
   let page: ProtractorPage;
 
   beforeEach(() => {
     page = new ProtractorPage();
   });
 
-  it('should contain element ds-pagenotfound when navigating to page that doesnt exist"', () => {
+  it('should contain element ds-pagenotfound when navigating to page that doesnt exist', () => {
     page.navigateToNonExistingPage();
-    expect(page.elementTagExists("ds-pagenotfound")).toEqual(true);
+    expect<any>(page.elementTagExists('ds-pagenotfound')).toEqual(true);
   });
 
-  it('should not contain element ds-pagenotfound when navigating to existing page"', () => {
+  it('should not contain element ds-pagenotfound when navigating to existing page', () => {
     page.navigateToExistingPage();
-    expect(page.elementTagExists("ds-pagenotfound")).toEqual(false);
+    expect<any>(page.elementTagExists('ds-pagenotfound')).toEqual(false);
   });
 });

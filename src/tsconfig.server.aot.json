@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.server.json",
+  "angularCompilerOptions": {
+    "genDir": "aot",
+    "entryModule": "./app/server-app.module#ServerAppModule"
+  },
+  "exclude": [
+    "./main.browser.ts",
+    "./main.server.ts"
+  ]
+}

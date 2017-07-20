@@ -1,14 +1,13 @@
 @import '../../../styles/variables.scss';
 @import '../../../../node_modules/bootstrap/scss/_variables.scss';
-
 $footer-bg: $gray-lighter;
 $footer-border: 1px solid darken($footer-bg, 10%);
 $footer-padding: $spacer * 1.5;
 
 .footer {
   background-color: $footer-bg;
-  border-top:  $footer-border;
-  text-align:center;
+  border-top: $footer-border;
+  text-align: center;
   padding: $footer-padding;
 
   p {

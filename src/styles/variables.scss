@@ -1,24 +1,20 @@
-// Colors
-
-$gray-base:                 #000 !default;
-$gray-darker:               lighten($gray-base, 13.5%) !default; // #222
-$gray-dark:                 lighten($gray-base, 26.6%) !default; // #444
-$gray:                      lighten($gray-base, 46.6%) !default; // #777
-$gray-light:                lighten($gray-base, 73.3%) !default; // #bbb
-$gray-lighter:              lighten($gray-base, 93.5%) !default; // #eee
-
-$brand-primary:             #2B4E72 !default;
-$brand-success:             #94BA65 !default;
-$brand-info:                #2790B0 !default;
-$brand-warning:             #EBBB54 !default;
-$brand-danger:              #CF4444 !default;
-
-$brand-inverse:             $brand-primary !default;
-
-$link-color:                $brand-info !default;
-
-// Fonts
-
+/* Fonts */
 $fa-font-path: "../assets/fonts";
-
+/* Images */
 $image-path: "../assets/images";
+/* Colors */
+$gray-base: #000 !default;
+$gray-darker: lighten($gray-base, 13.5%) !default; // #222
+$gray-dark: lighten($gray-base, 26.6%) !default; // #444
+$gray: lighten($gray-base, 46.6%) !default; // #777
+$gray-light: lighten($gray-base, 73.3%) !default; // #bbb
+$gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
+/* Reassign color vars to semantic color scheme */
+$brand-primary: #2B4E72 !default;
+$brand-success: #94BA65 !default;
+$brand-info: #2790B0 !default;
+$brand-warning: #EBBB54 !default;
+$brand-danger: #CF4444 !default;
+$brand-inverse: $brand-primary !default;
+/* Fonts */
+$link-color: $brand-info !default;

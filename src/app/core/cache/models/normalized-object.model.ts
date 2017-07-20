@@ -1,5 +1,5 @@
-import { CacheableObject } from "../object-cache.reducer";
-import { autoserialize } from "cerialize";
+import { CacheableObject } from '../object-cache.reducer';
+import { autoserialize } from 'cerialize';
 /**
  * An abstract model class for a NormalizedObject.
  */

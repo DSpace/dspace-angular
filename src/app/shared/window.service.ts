@@ -3,7 +3,7 @@ import { OpaqueToken } from '@angular/core';
 export const NativeWindowService = new OpaqueToken('NativeWindowService');
 
 export class NativeWindowRef {
-  get nativeWindow (): any {
+  get nativeWindow(): any {
     if (typeof window !== 'undefined') {
       return window;
     } else {
@@ -15,4 +15,3 @@ export class NativeWindowRef {
 export function NativeWindowFactory() {
   return new NativeWindowRef();
 }
-

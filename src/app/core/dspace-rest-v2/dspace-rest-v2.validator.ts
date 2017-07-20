@@ -1,5 +1,6 @@
-import * as schema from './dspace-rest-v2.schema.json'
-import { Validator } from "jsonschema";
+import { Validator } from 'jsonschema';
+
+import schema from './dspace-rest-v2.schema.json'
 
 /**
  * Verifies a document is a valid response from
@@ -22,11 +23,10 @@ export class DSpaceRESTv2Validator {
       if (result.errors && result.errors.length > 0) {
         const message = result.errors
           .map((error) => error.message)
-          .join("\n");
+          .join('\n');
         throw new Error(message);
-      }
-      else {
-        throw new Error("JSON API validation failed for an unknown reason");
+      } else {
+        throw new Error('JSON API validation failed for an unknown reason');
       }
     }
   }

@@ -1,8 +1,9 @@
-import { autoserialize, inheritSerialization, autoserializeAs } from "cerialize";
-import { NormalizedDSpaceObject } from "./normalized-dspace-object.model";
-import { Collection } from "../../shared/collection.model";
-import { mapsTo, relationship } from "../builders/build-decorators";
-import { ResourceType } from "../../shared/resource-type";
+import { autoserialize, inheritSerialization, autoserializeAs } from 'cerialize';
+
+import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
+import { Collection } from '../../shared/collection.model';
+import { mapsTo, relationship } from '../builders/build-decorators';
+import { ResourceType } from '../../shared/resource-type';
 
 @mapsTo(Collection)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -26,7 +27,7 @@ export class NormalizedCollection extends NormalizedDSpaceObject {
    */
   @autoserialize
   @relationship(ResourceType.Community, true)
-  parents: Array<string>;
+  parents: string[];
 
   /**
    * The Community that owns this Collection
@@ -37,6 +38,6 @@ export class NormalizedCollection extends NormalizedDSpaceObject {
 
   @autoserialize
   @relationship(ResourceType.Item, true)
-  items: Array<string>;
+  items: string[];
 
 }

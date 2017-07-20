@@ -1,5 +1,6 @@
-import { combineReducers } from "@ngrx/store";
-import { HrefIndexState, hrefIndexReducer } from "./href-index.reducer";
+import { combineReducers } from '@ngrx/store';
+
+import { HrefIndexState, hrefIndexReducer } from './href-index.reducer';
 
 export interface IndexState {
   href: HrefIndexState

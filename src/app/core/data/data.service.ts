@@ -1,18 +1,18 @@
-import { ObjectCacheService } from "../cache/object-cache.service";
-import { ResponseCacheService } from "../cache/response-cache.service";
-import { CacheableObject } from "../cache/object-cache.reducer";
-import { hasValue, isNotEmpty } from "../../shared/empty.util";
-import { RemoteData } from "./remote-data";
-import { FindAllOptions, FindAllRequest, FindByIDRequest, Request } from "./request.models";
-import { Store } from "@ngrx/store";
-import { RequestConfigureAction, RequestExecuteAction } from "./request.actions";
-import { CoreState } from "../core.reducers";
-import { RequestService } from "./request.service";
-import { RemoteDataBuildService } from "../cache/builders/remote-data-build.service";
-import { GenericConstructor } from "../shared/generic-constructor";
-import { Inject } from "@angular/core";
-import { GLOBAL_CONFIG, GlobalConfig } from "../../../config";
-import { RESTURLCombiner } from "../url-combiner/rest-url-combiner";
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { RemoteData } from './remote-data';
+import { FindAllOptions, FindAllRequest, FindByIDRequest, Request } from './request.models';
+import { Store } from '@ngrx/store';
+import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
+import { CoreState } from '../core.reducers';
+import { RequestService } from './request.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { Inject } from '@angular/core';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> {
   protected abstract objectCache: ObjectCacheService;
@@ -32,17 +32,16 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
 
   protected getFindAllHref(options: FindAllOptions = {}): string {
     let result;
-    let args = [];
+    const args = [];
 
     if (hasValue(options.scopeID)) {
       result = this.browseEndpoint;
       args.push(`scope=${options.scopeID}`);
-    }
-    else {
+    } else {
       result = this.resourceEndpoint;
     }
 
-    if (hasValue(options.currentPage) && typeof options.currentPage === "number") {
+    if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
       args.push(`page=${options.currentPage - 1}`);
     }
@@ -65,7 +64,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     return new RESTURLCombiner(this.EnvConfig, result).toString();
   }
 
-  findAll(options: FindAllOptions = {}): RemoteData<Array<TDomain>> {
+  findAll(options: FindAllOptions = {}): RemoteData<TDomain[]> {
     const href = this.getFindAllHref(options);
     const request = new FindAllRequest(href, options);
     this.requestService.configure(request);

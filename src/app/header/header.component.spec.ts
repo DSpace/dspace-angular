@@ -1,13 +1,16 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { HeaderComponent } from "./header.component";
-import { Store, StoreModule } from "@ngrx/store";
-import { HeaderState } from "./header.reducer";
+import { Store, StoreModule } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { Observable } from 'rxjs/Observable';
+
+import { HeaderComponent } from './header.component';
+import { HeaderState } from './header.reducer';
+import { HeaderToggleAction } from './header.actions';
+
 import Spy = jasmine.Spy;
-import { HeaderToggleAction } from "./header.actions";
-import { TranslateModule } from "@ngx-translate/core";
-import { NgbCollapseModule } from "@ng-bootstrap/ng-bootstrap";
-import { Observable } from "rxjs";
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;
@@ -18,8 +21,8 @@ describe('HeaderComponent', () => {
   // async beforeEach
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.provideStore({}), TranslateModule.forRoot(), NgbCollapseModule.forRoot() ],
-      declarations: [ HeaderComponent ]
+      imports: [StoreModule.provideStore({}), TranslateModule.forRoot(), NgbCollapseModule.forRoot()],
+      declarations: [HeaderComponent]
     })
       .compileComponents();  // compile template and css
   }));
@@ -30,7 +33,6 @@ describe('HeaderComponent', () => {
 
     comp = fixture.componentInstance;
 
-
     store = fixture.debugElement.injector.get(Store);
     spyOn(store, 'dispatch');
   });
@@ -38,17 +40,17 @@ describe('HeaderComponent', () => {
   describe('when the toggle button is clicked', () => {
 
     beforeEach(() => {
-      let navbarToggler = fixture.debugElement.query(By.css('.navbar-toggler'));
+      const navbarToggler = fixture.debugElement.query(By.css('.navbar-toggler'));
       navbarToggler.triggerEventHandler('click', null);
     });
 
-    it("should dispatch a HeaderToggleAction", () => {
+    it('should dispatch a HeaderToggleAction', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new HeaderToggleAction());
     });
 
   });
 
-  describe("when navCollapsed in the store is true", () => {
+  describe('when navCollapsed in the store is true', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {
@@ -57,13 +59,13 @@ describe('HeaderComponent', () => {
       fixture.detectChanges();
     });
 
-    it("should close the menu", () => {
+    it('should close the menu', () => {
       expect(menu.classList).not.toContain('show');
     });
 
   });
 
-  describe("when navCollapsed in the store is false", () => {
+  describe('when navCollapsed in the store is false', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {
@@ -72,7 +74,7 @@ describe('HeaderComponent', () => {
       fixture.detectChanges();
     });
 
-    it("should open the menu", () => {
+    it('should open the menu', () => {
       expect(menu.classList).toContain('show');
     });
 

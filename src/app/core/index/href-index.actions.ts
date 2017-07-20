@@ -1,5 +1,6 @@
-import { Action } from "@ngrx/store";
-import { type } from "../../shared/ngrx/type";
+import { Action } from '@ngrx/store';
+
+import { type } from '../../shared/ngrx/type';
 
 /**
  * The list of HrefIndexAction type definitions
@@ -9,6 +10,7 @@ export const HrefIndexActionTypes = {
   REMOVE_UUID: type('dspace/core/index/href/REMOVE_UUID')
 };
 
+/* tslint:disable:max-classes-per-file */
 /**
  * An ngrx action to add an href to the index
  */
@@ -48,11 +50,11 @@ export class RemoveUUIDFromHrefIndexAction implements Action {
   constructor(uuid: string) {
     this.payload = uuid;
   }
+
 }
+/* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all HrefIndexActions
  */
-export type HrefIndexAction
-  = AddToHrefIndexAction
-  | RemoveUUIDFromHrefIndexAction;
+export type HrefIndexAction = AddToHrefIndexAction | RemoveUUIDFromHrefIndexAction;

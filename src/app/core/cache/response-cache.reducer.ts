@@ -2,10 +2,10 @@ import {
   ResponseCacheAction, ResponseCacheActionTypes,
   ResponseCacheRemoveAction, ResetResponseCacheTimestampsAction,
   ResponseCacheAddAction
-} from "./response-cache.actions";
-import { CacheEntry } from "./cache-entry";
-import { hasValue } from "../../shared/empty.util";
-import { Response } from "./response-cache.models";
+} from './response-cache.actions';
+import { CacheEntry } from './cache-entry';
+import { hasValue } from '../../shared/empty.util';
+import { Response } from './response-cache.models';
 
 /**
  * An entry in the ResponseCache
@@ -41,15 +41,15 @@ export const responseCacheReducer = (state = initialState, action: ResponseCache
   switch (action.type) {
 
     case ResponseCacheActionTypes.ADD: {
-      return addToCache(state, <ResponseCacheAddAction> action);
+      return addToCache(state, action as ResponseCacheAddAction);
     }
 
     case ResponseCacheActionTypes.REMOVE: {
-      return removeFromCache(state, <ResponseCacheRemoveAction> action);
+      return removeFromCache(state, action as ResponseCacheRemoveAction);
     }
 
     case ResponseCacheActionTypes.RESET_TIMESTAMPS: {
-      return resetResponseCacheTimestamps(state, <ResetResponseCacheTimestampsAction>action)
+      return resetResponseCacheTimestamps(state, action as ResetResponseCacheTimestampsAction)
     }
 
     default: {
@@ -81,12 +81,11 @@ function addToCache(state: ResponseCacheState, action: ResponseCacheAddAction): 
  */
 function removeFromCache(state: ResponseCacheState, action: ResponseCacheRemoveAction): ResponseCacheState {
   if (hasValue(state[action.payload])) {
-    let newCache = Object.assign({}, state);
+    const newCache = Object.assign({}, state);
     delete newCache[action.payload];
 
     return newCache;
-  }
-  else {
+  } else {
     return state;
   }
 }
@@ -102,8 +101,8 @@ function removeFromCache(state: ResponseCacheState, action: ResponseCacheRemoveA
  *    the new state, with all timeAdded timestamps set to the specified value
  */
 function resetResponseCacheTimestamps(state: ResponseCacheState, action: ResetResponseCacheTimestampsAction): ResponseCacheState {
-  let newState = Object.create(null);
-  Object.keys(state).forEach(key => {
+  const newState = Object.create(null);
+  Object.keys(state).forEach((key) => {
     newState[key] = Object.assign({}, state[key], {
       timeAdded: action.payload
     });

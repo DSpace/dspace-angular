@@ -1,4 +1,4 @@
-import { HostWindowAction, HostWindowActionTypes } from "./host-window.actions";
+import { HostWindowAction, HostWindowActionTypes } from './host-window.actions';
 
 export interface HostWindowState {
   width: number;

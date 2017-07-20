@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { ItemPageComponent } from './simple/item-page.component';
 import { ItemPageRoutingModule } from './item-page-routing.module';
 import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
@@ -12,10 +13,10 @@ import { ItemPageUriFieldComponent } from './simple/field-components/specific-fi
 import { ItemPageTitleFieldComponent } from './simple/field-components/specific-field/title/item-page-title-field.component';
 import { ItemPageSpecificFieldComponent } from './simple/field-components/specific-field/item-page-specific-field.component';
 import { SharedModule } from './../shared/shared.module';
-import { FileSectionComponent } from "./simple/field-components/file-section/file-section.component";
-import { CollectionsComponent } from "./field-components/collections/collections.component";
-import { FullItemPageComponent } from "./full/full-item-page.component";
-import { FullFileSectionComponent } from "./full/field-components/file-section/full-file-section.component";
+import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
+import { CollectionsComponent } from './field-components/collections/collections.component';
+import { FullItemPageComponent } from './full/full-item-page.component';
+import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
 
 @NgModule({
     declarations: [

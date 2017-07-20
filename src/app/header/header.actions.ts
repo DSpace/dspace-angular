@@ -1,7 +1,8 @@
-import { Action } from "@ngrx/store";
-import { type } from "../shared/ngrx/type";
+import { Action } from '@ngrx/store';
 
- /**
+import { type } from '../shared/ngrx/type';
+
+/**
  * For each action type in an action group, make a simple
  * enum object for all of this group's action types.
  *
@@ -15,23 +16,19 @@ export const HeaderActionTypes = {
   TOGGLE: type('dspace/header/TOGGLE')
 };
 
+/* tslint:disable:max-classes-per-file */
 export class HeaderCollapseAction implements Action {
   type = HeaderActionTypes.COLLAPSE;
-
-  constructor() {}
 }
 
 export class HeaderExpandAction implements Action {
   type = HeaderActionTypes.EXPAND;
-
-  constructor() {}
 }
 
 export class HeaderToggleAction implements Action {
   type = HeaderActionTypes.TOGGLE;
-
-  constructor() {}
 }
+/* tslint:enable:max-classes-per-file */
 
 /**
  * Export a type alias of all actions in this action group

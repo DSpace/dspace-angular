@@ -5,24 +5,33 @@ import {
   inject,
   TestBed
 } from '@angular/core/testing';
+
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement
-} from "@angular/core";
+} from '@angular/core';
+
+import { CommonModule } from '@angular/common';
+
 import { By } from '@angular/platform-browser';
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { Store, StoreModule } from "@ngrx/store";
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Store, StoreModule } from '@ngrx/store';
 
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
 
-import { CommonModule } from '@angular/common';
-import { HostWindowState } from "./shared/host-window.reducer";
-import { HostWindowResizeAction } from "./shared/host-window.actions";
-import { MockTranslateLoader } from "./shared/testing/mock-translate-loader";
+import { HostWindowState } from './shared/host-window.reducer';
+import { HostWindowResizeAction } from './shared/host-window.actions';
+import { MockTranslateLoader } from './shared/testing/mock-translate-loader';
 
-import { GLOBAL_CONFIG, EnvConfig } from '../config';
-import { NativeWindowRef, NativeWindowService } from "./shared/window.service";
+import { BrowserCookiesModule } from '../modules/cookies/browser-cookies.module';
+import { BrowserDataLoaderModule } from '../modules/data-loader/browser-data-loader.module';
+import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
+import { BrowserTransferStoreModule } from '../modules/transfer-store/browser-transfer-store.module';
+
+import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
+import { NativeWindowRef, NativeWindowService } from './shared/window.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -34,15 +43,23 @@ describe('App component', () => {
   // async beforeEach
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.provideStore({}), TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: MockTranslateLoader
-        }
-      })],
+      imports: [
+        CommonModule,
+        StoreModule.provideStore({}),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        }),
+        BrowserCookiesModule,
+        BrowserDataLoaderModule,
+        BrowserTransferStateModule,
+        BrowserTransferStoreModule
+      ],
       declarations: [AppComponent], // declare the test component
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: EnvConfig },
+        { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         AppComponent
       ],
@@ -56,7 +73,7 @@ describe('App component', () => {
 
     comp = fixture.componentInstance; // component test instance
 
-    // query for the <div class="outer-wrapper"> by CSS element selector
+    // query for the <div class='outer-wrapper'> by CSS element selector
     de = fixture.debugElement.query(By.css('div.outer-wrapper'));
     el = de.nativeElement;
   });
@@ -66,7 +83,7 @@ describe('App component', () => {
     expect(app).toBeTruthy();
   }));
 
-  describe("when the window is resized", () => {
+  describe('when the window is resized', () => {
     let width: number;
     let height: number;
     let store: Store<HostWindowState>;
@@ -80,7 +97,7 @@ describe('App component', () => {
       height = window.innerHeight;
     });
 
-    it("should dispatch a HostWindowResizeAction with the width and height of the window as its payload", () => {
+    it('should dispatch a HostWindowResizeAction with the width and height of the window as its payload', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new HostWindowResizeAction(width, height));
     });
 

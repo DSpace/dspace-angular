@@ -1,16 +1,20 @@
-import { Injectable } from "@angular/core";
-import { RequestEntry, RequestState } from "./request.reducer";
-import { Store } from "@ngrx/store";
-import { Request } from "./request.models";
-import { hasValue } from "../../shared/empty.util";
-import { Observable } from "rxjs/Observable";
-import { RequestConfigureAction, RequestExecuteAction } from "./request.actions";
-import { ResponseCacheService } from "../cache/response-cache.service";
-import { ObjectCacheService } from "../cache/object-cache.service";
-import { CacheableObject } from "../cache/object-cache.reducer";
-import { ResponseCacheEntry } from "../cache/response-cache.reducer";
-import { request } from "http";
-import { SuccessResponse } from "../cache/response-cache.models";
+import { Injectable } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+
+import { request } from 'http';
+
+import { Observable } from 'rxjs/Observable';
+
+import { RequestEntry, RequestState } from './request.reducer';
+import { Request } from './request.models';
+import { hasValue } from '../../shared/empty.util';
+import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { SuccessResponse } from '../cache/response-cache.models';
 
 @Injectable()
 export class RequestService {
@@ -26,9 +30,9 @@ export class RequestService {
     let isPending = false;
     this.store.select<RequestEntry>('core', 'data', 'request', href)
       .take(1)
-      .subscribe((re: RequestEntry) =>  {
+      .subscribe((re: RequestEntry) => {
         isPending = (hasValue(re) && !re.completed)
-    });
+      });
 
     return isPending;
   }
@@ -41,14 +45,14 @@ export class RequestService {
     let isCached = this.objectCache.hasBySelfLink(request.href);
 
     if (!isCached && this.responseCache.has(request.href)) {
-      //if it isn't cached it may be a list endpoint, if so verify
-      //every object included in the response is still cached
+      // if it isn't cached it may be a list endpoint, if so verify
+      // every object included in the response is still cached
       this.responseCache.get(request.href)
         .take(1)
         .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-        .map((entry: ResponseCacheEntry) => (<SuccessResponse> entry.response).resourceUUIDs)
-        .map((resourceUUIDs: Array<string>) => resourceUUIDs.every(uuid => this.objectCache.has(uuid)))
-        .subscribe(c => isCached = c);
+        .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceUUIDs)
+        .map((resourceUUIDs: string[]) => resourceUUIDs.every((uuid) => this.objectCache.has(uuid)))
+        .subscribe((c) => isCached = c);
     }
 
     const isPending = this.isPending(request.href);
