@@ -23,13 +23,13 @@ describe('Item', () => {
 
   beforeEach(() => {
     const thumbnail = {
-      retrieve: thumbnailPath
+      content: thumbnailPath
     };
 
     bitstreams = [{
-      retrieve: bitstream1Path
+      content: bitstream1Path
     }, {
-      retrieve: bitstream2Path
+      content: bitstream2Path
     }];
 
     remoteDataThumbnail = createRemoteDataObject(thumbnail);
@@ -73,7 +73,7 @@ describe('Item', () => {
     it('should return the thumbnail of this item', () => {
       const path: string = thumbnailPath;
       const bitstream: Observable<Bitstream> = item.getThumbnail();
-      bitstream.map((b) => expect(b.retrieve).toBe(path));
+      bitstream.map((b) => expect(b.content).toBe(path));
     });
   });
 
@@ -91,7 +91,7 @@ describe('Item', () => {
       files.subscribe(
         (array) => array.forEach(
           (file) => {
-            expect(file.retrieve).toBe(paths[index]);
+            expect(file.content).toBe(paths[index]);
             index++;
           }
         )
