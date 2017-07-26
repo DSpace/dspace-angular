@@ -1,7 +1,7 @@
 import { combineReducers, ActionReducer } from '@ngrx/store';
 import { routerReducer, RouterState } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
-import { compose } from '@ngrx/core';
+import { compose } from '@ngrx/store';
 
 import { headerReducer, HeaderState } from './header/header.reducer';
 import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';

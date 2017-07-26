@@ -80,7 +80,6 @@
     "@angularclass/bootloader": "1.0.1",
     "@angularclass/idle-preload": "1.0.4",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-alpha.28",
-    "@ngrx/core": "1.2.0",
     "@ngrx/effects": "2.0.4",
     "@ngrx/router-store": "1.2.6",
     "@ngrx/store": "2.2.3",
