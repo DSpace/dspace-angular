@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { StoreModule, Store } from '@ngrx/store';
-import { RouterStoreModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { rootReducer, AppState } from './app.reducer';
-import { effects } from './app.effects';
+import { appReducers } from './app.reducer';
+import { appEffects } from './app.effects';
 
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -26,6 +25,8 @@ import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
+import { EffectsModule } from '@ngrx/effects';
+import { appMetaReducers } from './app.metareducers';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -43,10 +44,9 @@ export function getConfig() {
     CollectionPageModule,
     CommunityPageModule,
     AppRoutingModule,
-    StoreModule.provideStore(rootReducer),
-    RouterStoreModule.connectRouter(),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    effects
+    StoreModule.forRoot(appReducers, { metaReducers: appMetaReducers }),
+    // !getConfig().production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
+    EffectsModule.forRoot(appEffects)
   ],
   providers: [
     { provide: GLOBAL_CONFIG, useFactory: (getConfig) },

@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { MemoizedSelector, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 
-import { ResponseCacheState, ResponseCacheEntry } from './response-cache.reducer';
+import { ResponseCacheEntry } from './response-cache.reducer';
 import { hasNoValue } from '../../shared/empty.util';
 import { ResponseCacheRemoveAction, ResponseCacheAddAction } from './response-cache.actions';
 import { Response } from './response-cache.models';
+import { CoreState } from '../core.reducers';
+import { keySelector } from '../shared/selectors';
+
+function entryFromKeySelector(key: string): MemoizedSelector<CoreState, ResponseCacheEntry> {
+  return keySelector<ResponseCacheEntry>('data/reponse', key);
+}
 
 /**
  * A service to interact with the response cache
@@ -14,7 +20,7 @@ import { Response } from './response-cache.models';
 @Injectable()
 export class ResponseCacheService {
   constructor(
-    private store: Store<ResponseCacheState>
+    private store: Store<CoreState>
   ) { }
 
   add(key: string, response: Response, msToLive: number): Observable<ResponseCacheEntry> {
@@ -34,7 +40,7 @@ export class ResponseCacheService {
    *    an observable of the ResponseCacheEntry with the specified key
    */
   get(key: string): Observable<ResponseCacheEntry> {
-    return this.store.select<ResponseCacheEntry>('core', 'cache', 'response', key)
+    return this.store.select(entryFromKeySelector(key))
       .filter((entry) => this.isValid(entry))
   }
 
@@ -50,8 +56,9 @@ export class ResponseCacheService {
   has(key: string): boolean {
     let result: boolean;
 
-    this.store.select<ResponseCacheEntry>('core', 'cache', 'response', key)
+    this.store.select(entryFromKeySelector(key))
       .take(1)
+      .do((entry) => console.log('ResponseCacheEntry', entry))
       .subscribe((entry) => {
         result = this.isValid(entry);
       });

@@ -25,6 +25,7 @@ import { CoreModule } from './core/core.module';
 import { AppModule } from './app.module';
 
 import { AppComponent } from './app.component';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 export function init(cache: TransferState) {
   return () => {
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: Http) {
     }),
     IdlePreloadModule.forRoot(), // forRoot ensures the providers are only created once
     RouterModule.forRoot([], { useHash: false, preloadingStrategy: IdlePreload }),
+    StoreRouterConnectingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -56,7 +58,7 @@ export function HttpLoaderFactory(http: Http) {
     BrowserDataLoaderModule,
     BrowserTransferStateModule,
     BrowserTransferStoreModule,
-    EffectsModule.run(BrowserTransferStoreEffects),
+    EffectsModule.forRoot([BrowserTransferStoreEffects]),
     BrowserAnimationsModule,
     AppModule
   ],

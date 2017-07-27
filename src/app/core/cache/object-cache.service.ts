@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { MemoizedSelector, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 
-import { ObjectCacheState, ObjectCacheEntry, CacheableObject } from './object-cache.reducer';
+import { ObjectCacheEntry, CacheableObject } from './object-cache.reducer';
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
 import { hasNoValue } from '../../shared/empty.util';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { CoreState } from '../core.reducers';
+import { keySelector } from '../shared/selectors';
+
+function objectFromUuidSelector(uuid: string): MemoizedSelector<CoreState, ObjectCacheEntry> {
+  return keySelector<ObjectCacheEntry>('data/object', uuid);
+}
+
+function uuidFromHrefSelector(href: string): MemoizedSelector<CoreState, string> {
+  return keySelector<string>('index/href', href);
+}
 
 /**
  * A service to interact with the object cache
@@ -14,7 +24,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 @Injectable()
 export class ObjectCacheService {
   constructor(
-    private store: Store<ObjectCacheState>
+    private store: Store<CoreState>
   ) { }
 
   /**
@@ -65,12 +75,12 @@ export class ObjectCacheService {
   }
 
   getBySelfLink<T extends CacheableObject>(href: string, type: GenericConstructor<T>): Observable<T> {
-    return this.store.select<string>('core', 'index', 'href', href)
+    return this.store.select(uuidFromHrefSelector(href))
       .flatMap((uuid: string) => this.get(uuid, type))
   }
 
   private getEntry(uuid: string): Observable<ObjectCacheEntry> {
-    return this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
+    return this.store.select(objectFromUuidSelector(uuid))
       .filter((entry) => this.isValid(entry))
       .distinctUntilChanged();
   }
@@ -82,7 +92,7 @@ export class ObjectCacheService {
   }
 
   getRequestHrefBySelfLink(self: string): Observable<string> {
-    return this.store.select<string>('core', 'index', 'href', self)
+    return this.store.select('index/href', self)
       .flatMap((uuid: string) => this.getRequestHref(uuid));
   }
 
@@ -123,8 +133,9 @@ export class ObjectCacheService {
   has(uuid: string): boolean {
     let result: boolean;
 
-    this.store.select<ObjectCacheEntry>('core', 'cache', 'object', uuid)
+    this.store.select(objectFromUuidSelector(uuid))
       .take(1)
+      .do((entry: ObjectCacheEntry) => console.log(entry))
       .subscribe((entry) => result = this.isValid(entry));
 
     return result;
@@ -142,7 +153,7 @@ export class ObjectCacheService {
   hasBySelfLink(href: string): boolean {
     let result = false;
 
-    this.store.select<string>('core', 'index', 'href', href)
+    this.store.select(uuidFromHrefSelector(href))
       .take(1)
       .subscribe((uuid: string) => result = this.has(uuid));
 

@@ -37,7 +37,7 @@ const initialState = Object.create(null);
  * @return ResponseCacheState
  *    the new state
  */
-export const responseCacheReducer = (state = initialState, action: ResponseCacheAction): ResponseCacheState => {
+export function responseCacheReducer(state = initialState, action: ResponseCacheAction): ResponseCacheState {
   switch (action.type) {
 
     case ResponseCacheActionTypes.ADD: {
@@ -56,7 +56,7 @@ export const responseCacheReducer = (state = initialState, action: ResponseCache
       return state;
     }
   }
-};
+}
 
 function addToCache(state: ResponseCacheState, action: ResponseCacheAddAction): ResponseCacheState {
   return Object.assign({}, state, {

@@ -1,9 +1,10 @@
 import { HostWindowState } from './host-window.reducer';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { createSelector, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { hasValue } from './empty.util';
+import { AppState } from '../app.reducer';
 
 // TODO: ideally we should get these from sass somehow
 export enum GridBreakpoint {
@@ -14,16 +15,19 @@ export enum GridBreakpoint {
   XL = 1200
 }
 
+const hostWindowStateSelector = (state: AppState) => state.hostWindow;
+const widthSelector = createSelector(hostWindowStateSelector, (hostWindow: HostWindowState) => hostWindow.width);
+
 @Injectable()
 export class HostWindowService {
 
   constructor(
-    private store: Store<HostWindowState>
+    private store: Store<AppState>
   ) {
   }
 
   private getWidthObs(): Observable<number> {
-    return this.store.select<number>('hostWindow', 'width')
+    return this.store.select(widthSelector)
       .filter((width) => hasValue(width));
   }
 

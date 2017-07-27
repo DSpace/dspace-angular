@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { CacheableObject } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
 import { RequestService } from '../../data/request.service';
 import { ResponseCacheService } from '../response-cache.service';
-import { CoreState } from '../../core.reducers';
 import { RequestEntry } from '../../data/request.reducer';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ResponseCacheEntry } from '../response-cache.reducer';
@@ -22,8 +20,7 @@ export class RemoteDataBuildService {
   constructor(
     protected objectCache: ObjectCacheService,
     protected responseCache: ResponseCacheService,
-    protected requestService: RequestService,
-    protected store: Store<CoreState>,
+    protected requestService: RequestService
   ) {
   }
 
@@ -34,9 +31,9 @@ export class RemoteDataBuildService {
     const requestHrefObs = this.objectCache.getRequestHrefBySelfLink(href);
 
     const requestObs = Observable.race(
-      this.store.select<RequestEntry>('core', 'data', 'request', href).filter((entry) => hasValue(entry)),
+      this.requestService.get(href).filter((entry) => hasValue(entry)),
       requestHrefObs.flatMap((requestHref) =>
-        this.store.select<RequestEntry>('core', 'data', 'request', requestHref)).filter((entry) => hasValue(entry))
+        this.requestService.get(requestHref)).filter((entry) => hasValue(entry))
     );
 
     const responseCacheObs = Observable.race(
@@ -111,7 +108,7 @@ export class RemoteDataBuildService {
     href: string,
     normalizedType: GenericConstructor<TNormalized>
   ): RemoteData<TDomain[]> {
-    const requestObs = this.store.select<RequestEntry>('core', 'data', 'request', href)
+    const requestObs = this.requestService.get(href)
       .filter((entry) => hasValue(entry));
     const responseCacheObs = this.responseCache.get(href).filter((entry) => hasValue(entry));
 
