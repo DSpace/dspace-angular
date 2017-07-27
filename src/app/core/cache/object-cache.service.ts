@@ -135,7 +135,6 @@ export class ObjectCacheService {
 
     this.store.select(objectFromUuidSelector(uuid))
       .take(1)
-      .do((entry: ObjectCacheEntry) => console.log(entry))
       .subscribe((entry) => result = this.isValid(entry));
 
     return result;
