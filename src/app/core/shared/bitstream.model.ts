@@ -37,6 +37,6 @@ export class Bitstream extends DSpaceObject {
   /**
    * The URL to retrieve this Bitstream's file
    */
-  retrieve: string;
+  content: string;
 
 }

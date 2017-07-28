@@ -27,10 +27,10 @@ describe('ThumbnailComponent', () => {
 
   it('should display image', () => {
     comp.thumbnail = new Bitstream();
-    comp.thumbnail.retrieve = 'test.url';
+    comp.thumbnail.content = 'test.url';
     fixture.detectChanges();
     const image: HTMLElement = de.query(By.css('img')).nativeElement;
-    expect(image.getAttribute('src')).toBe(comp.thumbnail.retrieve);
+    expect(image.getAttribute('src')).toBe(comp.thumbnail.content);
   });
 
   it('should display placeholder', () => {
