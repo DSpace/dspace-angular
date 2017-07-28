@@ -2,6 +2,7 @@
 import { CommonModule } from '@angular/common';
 
 import {
+  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement
@@ -161,6 +162,7 @@ describe('Pagination component', () => {
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: Router, useValue: routerStub },
         { provide: HostWindowService, useValue: hostWindowServiceStub },
+        ChangeDetectorRef,
         PaginationComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
