@@ -99,12 +99,12 @@ export class CollectionPageComponent implements OnChanges, OnInit, OnDestroy {
       elementsPerPage: this.config.pageSize,
       sort: this.sortConfig
     });
-    this.itemData.pageInfo.subscribe((pageInfo) => {
+    this.subs.push(this.itemData.pageInfo.subscribe((pageInfo) => {
       if (isUndefined(this.pageInfoState) || this.pageInfoState !== pageInfo) {
         this.pageInfoState = pageInfo;
         this.ref.detectChanges();
       }
-    });
+    }));
 
   }
 }
