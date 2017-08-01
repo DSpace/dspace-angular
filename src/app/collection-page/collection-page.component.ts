@@ -25,7 +25,7 @@ import { isUndefined } from 'util';
   templateUrl: './collection-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CollectionPageComponent implements OnChanges, OnInit, OnDestroy {
+export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionData: RemoteData<Collection>;
   itemData: RemoteData<Item[]>;
   logoData: RemoteData<Bitstream>;
@@ -42,10 +42,6 @@ export class CollectionPageComponent implements OnChanges, OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {
 
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
   }
 
   ngOnInit(): void {
@@ -105,6 +101,5 @@ export class CollectionPageComponent implements OnChanges, OnInit, OnDestroy {
         this.ref.detectChanges();
       }
     }));
-
   }
 }
