@@ -41,7 +41,8 @@ export class ResponseCacheService {
    */
   get(key: string): Observable<ResponseCacheEntry> {
     return this.store.select(entryFromKeySelector(key))
-      .filter((entry) => this.isValid(entry))
+      .filter((entry: ResponseCacheEntry) => this.isValid(entry))
+      .distinctUntilChanged()
   }
 
   /**
@@ -58,7 +59,7 @@ export class ResponseCacheService {
 
     this.store.select(entryFromKeySelector(key))
       .take(1)
-      .subscribe((entry) => {
+      .subscribe((entry: ResponseCacheEntry) => {
         result = this.isValid(entry);
       });
 
