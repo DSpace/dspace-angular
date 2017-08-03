@@ -1,6 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
-  OnInit
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnChanges, OnDestroy,
+  OnInit, SimpleChanges
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -16,6 +16,8 @@ import { Item } from '../core/shared/item.model';
 import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { hasValue } from '../shared/empty.util';
+import { PageInfo } from '../core/shared/page-info.model';
+import { isUndefined } from 'util';
 
 @Component({
   selector: 'ds-collection-page',
@@ -31,6 +33,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   sortConfig: SortOptions;
   private subs: Subscription[] = [];
   private collectionId: string;
+  private pageInfoState: PageInfo;
 
   constructor(
     private collectionDataService: CollectionDataService,
@@ -84,13 +87,19 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   updateResults() {
-    this.itemData = undefined;
+    this.itemData = null;
+    this.ref.markForCheck();
     this.itemData = this.itemDataService.findAll({
       scopeID: this.collectionId,
       currentPage: this.config.currentPage,
       elementsPerPage: this.config.pageSize,
       sort: this.sortConfig
     });
-    // this.ref.detectChanges();
+    this.subs.push(this.itemData.pageInfo.subscribe((pageInfo) => {
+      if (isUndefined(this.pageInfoState) || this.pageInfoState !== pageInfo) {
+        this.pageInfoState = pageInfo;
+        this.ref.detectChanges();
+      }
+    }));
   }
 }

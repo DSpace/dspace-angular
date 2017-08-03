@@ -5,7 +5,7 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   OnInit,
-  Output
+  Output, SimpleChanges, OnChanges, ChangeDetectorRef, DoCheck
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -25,7 +25,7 @@ import { SortOptions, SortDirection } from '../../core/cache/models/sort-options
   styleUrls: ['../../object-list/object-list.component.scss'],
   templateUrl: '../../object-list/object-list.component.html'
 })
-export class ObjectListComponent implements OnInit {
+export class ObjectListComponent implements OnChanges, OnInit {
 
   @Input() objects: RemoteData<DSpaceObject[]>;
   @Input() config: PaginationComponentOptions;
@@ -59,8 +59,24 @@ export class ObjectListComponent implements OnInit {
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.objects && !changes.objects.isFirstChange()) {
+      this.pageInfo = this.objects.pageInfo;
+    }
+  }
+
   ngOnInit(): void {
     this.pageInfo = this.objects.pageInfo;
+  }
+
+  /**
+   * @param route
+   *    Route is a singleton service provided by Angular.
+   * @param router
+   *    Router is a singleton service provided by Angular.
+   */
+  constructor(
+    private cdRef: ChangeDetectorRef) {
   }
 
   onPageChange(event) {

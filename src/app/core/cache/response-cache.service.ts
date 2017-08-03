@@ -36,7 +36,6 @@ export class ResponseCacheService {
   get(key: string): Observable<ResponseCacheEntry> {
     return this.store.select<ResponseCacheEntry>('core', 'cache', 'response', key)
       .filter((entry) => this.isValid(entry))
-      .distinctUntilChanged()
   }
 
   /**

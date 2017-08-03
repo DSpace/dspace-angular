@@ -1,12 +1,12 @@
-
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
-  Output,
+  Output, SimpleChanges,
   ViewEncapsulation
 } from '@angular/core'
 
@@ -22,6 +22,10 @@ import { HostWindowState } from '../host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { hasValue } from '../empty.util';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { isUndefined } from 'util';
+import { Store } from '@ngrx/store';
+import { ObjectCacheState } from '../../core/cache/object-cache.reducer';
 
 /**
  * The default pagination controls component.
@@ -33,12 +37,17 @@ import { hasValue } from '../empty.util';
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated
 })
-export class PaginationComponent implements OnDestroy, OnInit {
+export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
 
   /**
    * Number of items in collection.
    */
   @Input() collectionSize: number;
+
+  /**
+   * Page state of a Remote paginated objects.
+   */
+  @Input() pageInfoState: Observable<PageInfo> = undefined;
 
   /**
    * Configuration for the NgbPagination component.
@@ -87,7 +96,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Current page.
    */
-  public currentPage = 1;
+  public currentPage;
+
+  /**
+   * Current page in the state of a Remote paginated objects.
+   */
+  public currentPageState: number = undefined;
 
   /**
    * Current URL query parameters
@@ -113,12 +127,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Number of items per page.
    */
-  public pageSize = 10;
+  public pageSize;
 
   /**
    * Declare SortDirection enumeration to use it in the template
    */
-  public sortDirections = SortDirection
+  public sortDirections = SortDirection;
 
   /**
    * A number array that represents options for a context pagination limit.
@@ -154,6 +168,15 @@ export class PaginationComponent implements OnDestroy, OnInit {
     total: null
   };
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.pageInfoState && !changes.pageInfoState.isFirstChange()) {
+      this.subs.push(this.pageInfoState.subscribe((pageInfo) => {
+        /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
+        this.currentPageState = pageInfo.currentPage + 1;
+      }));
+    }
+  }
+
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
@@ -161,28 +184,39 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.subs.push(this.hostWindowService.isXs()
       .subscribe((status: boolean) => {
         this.isXs = status;
+        this.cdRef.markForCheck();
       }));
     this.checkConfig(this.paginationOptions);
+
+    if (this.pageInfoState) {
+       this.subs.push(this.pageInfoState.subscribe((pageInfo) => {
+         /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
+         this.currentPageState = pageInfo.currentPage + 1;
+       }));
+    }
+
     this.id = this.paginationOptions.id || null;
-    this.currentPage = this.paginationOptions.currentPage;
-    this.pageSize = this.paginationOptions.pageSize;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
-    this.sortDirection = this.sortOptions.direction;
-    this.sortField = this.sortOptions.field;
     this.subs.push(this.route.queryParams
       .filter((queryParams) => hasValue(queryParams))
       .subscribe((queryParams) => {
         this.currentQueryParams = queryParams;
-        // tslint:disable:triple-equals
-        if (this.id == queryParams.pageId
-          && (this.paginationOptions.currentPage != queryParams.page
-            || this.paginationOptions.pageSize != queryParams.pageSize
-            || this.sortOptions.direction !== queryParams.sortDirection
+        if (this.id === queryParams.pageId
+          && (this.paginationOptions.currentPage !== +queryParams.page
+            || this.paginationOptions.pageSize !== +queryParams.pageSize
+            || this.sortOptions.direction !== +queryParams.sortDirection
             || this.sortOptions.field !== queryParams.sortField)
         ) {
           this.validateParams(queryParams.page, queryParams.pageSize, queryParams.sortDirection, queryParams.sortField);
+        } else if (isUndefined(queryParams.pageId) && !isUndefined(this.currentPage)) {
+          // When moving back from a page with query params to page without them, initialize to the first page
+          this.doPageChange(1);
+        } else {
+          this.currentPage = this.paginationOptions.currentPage;
+          this.pageSize = this.paginationOptions.pageSize;
+          this.sortDirection = this.sortOptions.direction;
+          this.sortField = this.sortOptions.field;
         }
-        // tslint:enable:triple-equals
       }));
     this.setShowingDetail();
   }
@@ -203,6 +237,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    Router is a singleton service provided by Angular.
    */
   constructor(
+    private cdRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private router: Router,
     public hostWindowService: HostWindowService) {
@@ -317,18 +352,29 @@ export class PaginationComponent implements OnDestroy, OnInit {
           sortDirection: sortDirection,
           sortField: sortField
         }
-      }
-      );
+      });
     } else {
       // (+) converts string to a number
-      this.currentPage = +page;
-      this.pageSize = +pageSize;
-      this.sortDirection = +sortDirection;
-      this.sortField = sortField;
-      this.pageChange.emit(this.currentPage);
-      this.pageSizeChange.emit(this.pageSize);
-      this.sortDirectionChange.emit(this.sortDirection);
-      this.sortFieldChange.emit(this.sortField);
+      if (this.currentPage !== +page) {
+        this.currentPage = +page;
+        this.pageChange.emit(this.currentPage);
+      }
+
+      if (this.pageSize !== +pageSize) {
+        this.pageSize = +pageSize;
+        this.pageSizeChange.emit(this.pageSize);
+      }
+
+      if (this.sortDirection !== +sortDirection) {
+        this.sortDirection = +sortDirection;
+        this.sortDirectionChange.emit(this.sortDirection);
+      }
+
+      if (this.sortField !== sortField) {
+        this.sortField = sortField;
+        this.sortFieldChange.emit(this.sortField);
+      }
+      this.cdRef.detectChanges();
     }
   }
 

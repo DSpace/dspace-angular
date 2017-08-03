@@ -1,4 +1,5 @@
 <ds-pagination [paginationOptions]="config"
+               [pageInfoState]="pageInfo"
                [collectionSize]="(pageInfo | async)?.totalElements"
                [sortOptions]="sortConfig"
                [hideGear]="hideGear"
