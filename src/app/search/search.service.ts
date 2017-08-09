@@ -5,10 +5,13 @@ import { SearchResult } from './searchresult.model';
 import { ItemDataService } from '../core/data/item-data.service';
 import { PageInfo } from '../core/shared/page-info.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
+import { SearchOptions } from './search.models';
+import { hasValue } from '../shared/empty.util';
 
 @Injectable()
 export class SearchService {
 
+  totalPages : number = 5;
   idsToMock: string[] = new Array(
     'ed5d5f21-1ce4-4b06-b7c2-a7272835ade0',
     '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
@@ -25,14 +28,23 @@ export class SearchService {
   constructor(private itemDataService: ItemDataService) {
   }
 
-  search(query: string, scopeId: string): RemoteData<SearchResult<DSpaceObject>[]> {
-    const self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}&scope=${scopeId}`;
+  search(query: string, scopeId: string, searchOptions: SearchOptions): RemoteData<SearchResult<DSpaceObject>[]> {
+    let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}&scope=${scopeId}`;
+    if(hasValue(searchOptions.currentPage)){
+      self+=`&currentPage=${searchOptions.currentPage}`;
+    }
     const requestPending = Observable.of(false);
     const responsePending = Observable.of(false);
     const isSuccessFul = Observable.of(true);
     const errorMessage = Observable.of(undefined);
     const statusCode = Observable.of('200');
-    const pageInfo = Observable.of(new PageInfo());
+    let returningPageInfo = new PageInfo();
+
+    returningPageInfo.elementsPerPage = searchOptions.elementsPerPage;
+    returningPageInfo.currentPage = searchOptions.currentPage;
+    returningPageInfo.totalPages = this.totalPages;
+    returningPageInfo.totalElements= this.idsToMock.length*this.totalPages;
+    const pageInfo = Observable.of(returningPageInfo);
 
     let mockSearchResults: SearchResult<DSpaceObject>[] = [];
     let dsoObsArr = [];
