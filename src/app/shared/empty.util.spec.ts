@@ -1,4 +1,8 @@
-import { isEmpty, hasNoValue, hasValue, isNotEmpty } from './empty.util';
+import {
+  isEmpty, hasNoValue, hasValue, isNotEmpty, isNull, isNotNull,
+  isUndefined
+  isNotUndefined,
+} from './empty.util';
 
 describe('Empty Utils', () => {
   const strng = 'string';
@@ -9,6 +13,180 @@ describe('Empty Utils', () => {
   const emptyMap: Map<any, any> = new Map();
   const fullMap: Map<string, string> = new Map();
   fullMap.set('foo', 'bar');
+
+  describe('isNull', () => {
+    it('should return true for null', () => {
+      expect(isNull(null)).toBe(true);
+    });
+
+    it('should return false for undefined', () => {
+      expect(isNull(undefined)).toBe(false);
+    });
+
+    it('should return false for an empty String', () => {
+      expect(isNull('')).toBe(false);
+    });
+
+    it('should return false for true', () => {
+      expect(isNull(true)).toBe(false);
+    });
+
+    it('should return false for false', () => {
+      expect(isNull(false)).toBe(false);
+    });
+
+    it('should return false for a String', () => {
+      expect(isNull(strng)).toBe(false);
+    });
+
+    it('should return false for a Function', () => {
+      expect(isNull(fn)).toBe(false);
+    });
+
+    it('should return false for 0', () => {
+      expect(isNull(0)).toBe(false);
+    });
+
+    it('should return false for an empty Array', () => {
+      expect(isNull([])).toBe(false);
+    });
+
+    it('should return false for an empty Object', () => {
+      expect(isNull({})).toBe(false);
+    });
+
+  });
+
+  describe('isNotNull', () => {
+
+    it('should return false for null', () => {
+      expect(isNotNull(null)).toBe(false);
+    });
+
+    it('should return true for undefined', () => {
+      expect(isNotNull(undefined)).toBe(true);
+    });
+
+    it('should return true for an empty String', () => {
+      expect(isNotNull('')).toBe(true);
+    });
+
+    it('should return true for false', () => {
+      expect(isNotNull(false)).toBe(true);
+    });
+
+    it('should return true for true', () => {
+      expect(isNotNull(true)).toBe(true);
+    });
+
+    it('should return true for a String', () => {
+      expect(isNotNull(strng)).toBe(true);
+    });
+
+    it('should return true for a Function', () => {
+      expect(isNotNull(fn)).toBe(true);
+    });
+
+    it('should return true for 0', () => {
+      expect(isNotNull(0)).toBe(true);
+    });
+
+    it('should return true for an empty Array', () => {
+      expect(isNotNull([])).toBe(true);
+    });
+
+    it('should return true for an empty Object', () => {
+      expect(isNotNull({})).toBe(true);
+    });
+
+  });
+
+  describe('isUndefined', () => {
+    it('should return false for null', () => {
+      expect(isUndefined(null)).toBe(false);
+    });
+
+    it('should return true for undefined', () => {
+      expect(isUndefined(undefined)).toBe(true);
+    });
+
+    it('should return false for an empty String', () => {
+      expect(isUndefined('')).toBe(false);
+    });
+
+    it('should return false for true', () => {
+      expect(isUndefined(true)).toBe(false);
+    });
+
+    it('should return false for false', () => {
+      expect(isUndefined(false)).toBe(false);
+    });
+
+    it('should return false for a String', () => {
+      expect(isUndefined(strng)).toBe(false);
+    });
+
+    it('should return false for a Function', () => {
+      expect(isUndefined(fn)).toBe(false);
+    });
+
+    it('should return false for 0', () => {
+      expect(isUndefined(0)).toBe(false);
+    });
+
+    it('should return false for an empty Array', () => {
+      expect(isUndefined([])).toBe(false);
+    });
+
+    it('should return false for an empty Object', () => {
+      expect(isUndefined({})).toBe(false);
+    });
+
+  });
+
+  describe('isNotUndefined', () => {
+
+    it('should return true for null', () => {
+      expect(isNotUndefined(null)).toBe(true);
+    });
+
+    it('should return false for undefined', () => {
+      expect(isNotUndefined(undefined)).toBe(false);
+    });
+
+    it('should return true for an empty String', () => {
+      expect(isNotUndefined('')).toBe(true);
+    });
+
+    it('should return true for false', () => {
+      expect(isNotUndefined(false)).toBe(true);
+    });
+
+    it('should return true for true', () => {
+      expect(isNotUndefined(true)).toBe(true);
+    });
+
+    it('should return true for a String', () => {
+      expect(isNotUndefined(strng)).toBe(true);
+    });
+
+    it('should return true for a Function', () => {
+      expect(isNotUndefined(fn)).toBe(true);
+    });
+
+    it('should return true for 0', () => {
+      expect(isNotUndefined(0)).toBe(true);
+    });
+
+    it('should return true for an empty Array', () => {
+      expect(isNotUndefined([])).toBe(true);
+    });
+
+    it('should return true for an empty Object', () => {
+      expect(isNotUndefined({})).toBe(true);
+    });
+
+  });
 
   describe('hasNoValue', () => {
     it('should return true for null', () => {

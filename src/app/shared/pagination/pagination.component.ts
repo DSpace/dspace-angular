@@ -24,8 +24,6 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { hasValue } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { isUndefined } from 'util';
-import { Store } from '@ngrx/store';
-import { ObjectCacheState } from '../../core/cache/object-cache.reducer';
 
 /**
  * The default pagination controls component.

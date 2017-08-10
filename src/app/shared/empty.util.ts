@@ -1,14 +1,71 @@
 /**
+ * Returns true if the passed value is null.
+ * isNull();              // false
+ * isNull(null);          // true
+ * isNull(undefined);     // false
+ * isNull('');            // false
+ * isNull({});            // false
+ * isNull([]);            // false
+ * isNull(function() {}); // false
+ */
+export function isNull(obj?: any): boolean {
+  return obj === null;
+}
+
+/**
+ * Returns true if the passed value is not null.
+ * isNotNull();              // true
+ * isNotNull(null);          // false
+ * isNotNull(undefined);     // true
+ * isNotNull('');            // true
+ * isNotNull({});            // true
+ * isNotNull([]);            // true
+ * isNotNull(function() {}); // true
+ */
+export function isNotNull(obj?: any): boolean {
+  return obj !== null;
+}
+
+/**
+ * Returns true if the passed value is undefined.
+ * isUndefined();              // true
+ * isUndefined(null);          // false
+ * isUndefined(undefined);     // true
+ * isUndefined('');            // false
+ * isUndefined({});            // false
+ * isUndefined([]);            // false
+ * isUndefined(function() {}); // false
+ */
+export function isUndefined(obj?: any): boolean {
+  return obj === undefined;
+}
+
+/**
+ * Returns true if the passed value is not undefined.
+ * isNotUndefined();              // false
+ * isNotUndefined(null);          // true
+ * isNotUndefined(undefined);     // false
+ * isNotUndefined('');            // true
+ * isNotUndefined({});            // true
+ * isNotUndefined([]);            // true
+ * isNotUndefined(function() {}); // true
+ */
+export function isNotUndefined(obj?: any): boolean {
+  return obj !== undefined;
+}
+
+/**
  * Returns true if the passed value is null or undefined.
  * hasNoValue();              // true
  * hasNoValue(null);          // true
  * hasNoValue(undefined);     // true
  * hasNoValue('');            // false
+ * hasNoValue({});            // false
  * hasNoValue([]);            // false
  * hasNoValue(function() {}); // false
  */
 export function hasNoValue(obj?: any): boolean {
-  return obj === null || obj === undefined;
+  return isUndefined(obj) || isNull(obj);
 }
 
 /**
@@ -17,11 +74,12 @@ export function hasNoValue(obj?: any): boolean {
  * hasValue(null);          // false
  * hasValue(undefined);     // false
  * hasValue('');            // true
+ * hasValue({});            // true
  * hasValue([]);            // true
  * hasValue(function() {}); // true
  */
 export function hasValue(obj?: any): boolean {
-  return !hasNoValue(obj);
+  return isNotUndefined(obj) && isNotNull(obj);
 }
 
 /**

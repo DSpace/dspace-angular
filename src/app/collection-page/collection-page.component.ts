@@ -1,10 +1,9 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnChanges, OnDestroy,
-  OnInit, SimpleChanges
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
+  OnInit
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Collection } from '../core/shared/collection.model';
