@@ -14,9 +14,8 @@ import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
 import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { hasValue } from '../shared/empty.util';
+import { hasValue, isUndefined } from '../shared/empty.util';
 import { PageInfo } from '../core/shared/page-info.model';
-import { isUndefined } from 'util';
 
 @Component({
   selector: 'ds-collection-page',
