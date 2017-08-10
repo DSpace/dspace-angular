@@ -7,6 +7,7 @@ import { PageInfo } from '../core/shared/page-info.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { SearchOptions } from './search.models';
 import { hasValue } from '../shared/empty.util';
+import { Metadatum } from '../core/shared/metadatum.model';
 
 @Injectable()
 export class SearchService {
@@ -24,6 +25,20 @@ export class SearchService {
     '75664e4e-0000-48e5-b2b6-fbe51ad05f92',
     '848e4058-d7b2-482a-b481-e681e7c4016b',
   );
+
+  mockedHighlights: string[] = new Array(
+    'This is a <em>sample abstract</em>.',
+    'This is a sample abstract. But, to fill up some space, here\'s <em>"Hello"</em> in several different languages : ',
+    'This is a Sample HTML webpage including several <em>images</em> and styles (CSS).',
+    'This is <em>really</em> just a sample abstract. But, Í’vé thrown ïn a cõuple of spëciâl charactèrs för êxtrå fuñ!',
+    'This abstract is <em>really quite great</em>',
+    'The solution structure of the <em>bee</em> venom neurotoxin',
+    'BACKGROUND: The <em>Open Archive Initiative (OAI)</em> refers to a movement started around the \'90 s to guarantee free access to scientific information',
+    'The collision fault detection of a <em>XXY</em> stage is proposed for the first time in this paper',
+    '<em>This was blank in the actual item, no abstract</em>',
+    '<em>The QSAR DataBank (QsarDB) repository</em>',
+  );
+
 
   constructor(private itemDataService: ItemDataService) {
   }
@@ -50,7 +65,7 @@ export class SearchService {
     let dsoObsArr = [];
     this.idsToMock = this.idsToMock
 
-    this.idsToMock.forEach(id => {
+    this.idsToMock.forEach((id,index) => {
       let remoteObject: RemoteData<DSpaceObject> = this.itemDataService.findById(id);
 
       let dsoObs = remoteObject.payload.take(1);
@@ -58,8 +73,13 @@ export class SearchService {
       dsoObs.subscribe((dso: DSpaceObject) => {
         let mockResult: SearchResult<DSpaceObject> = new SearchResult();
         mockResult.result = dso;
-        // Just return the first metadatum as a "highlight"
-        mockResult.hitHiglights = dso.metadata.slice(0, 1);
+
+        // Use a mocked highlight based on the index of the loop
+        let highlight = new Metadatum();
+        highlight.key = 'dc.description.abstract';
+        highlight.value = this.mockedHighlights[index];
+        mockResult.hitHiglights = new Array(highlight);
+
         mockSearchResults.push(mockResult);
       });
     });
