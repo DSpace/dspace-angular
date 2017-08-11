@@ -21,11 +21,8 @@ import { HostWindowService } from '../host-window.service';
 import { HostWindowState } from '../host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { hasValue } from '../empty.util';
+import { hasValue, isUndefined } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { isUndefined } from 'util';
-import { Store } from '@ngrx/store';
-import { ObjectCacheState } from '../../core/cache/object-cache.reducer';
 
 /**
  * The default pagination controls component.
