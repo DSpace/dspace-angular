@@ -24,6 +24,7 @@ import { ItemListElementComponent } from '../object-list/item-list-element/item-
 import { CommunityListElementComponent } from '../object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent } from '../object-list/collection-list-element/collection-list-element.component';
 import { TruncatePipe } from './utils/truncate.pipe';
+import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -53,6 +54,7 @@ const COMPONENTS = [
   ComcolPageLogoComponent,
   ObjectListComponent,
   ObjectListElementComponent,
+  WrapperListElementComponent,
   ItemListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent

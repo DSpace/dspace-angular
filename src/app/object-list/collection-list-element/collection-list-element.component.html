@@ -1,6 +1,6 @@
-<a [routerLink]="['/collections/' + collection.id]" class="lead">
-    {{collection.name}}
+<a [routerLink]="['/collections/' + object.id]" class="lead">
+    {{object.name}}
 </a>
-<div *ngIf="collection.shortDescription" class="text-muted">
-    {{collection.shortDescription}}
+<div *ngIf="object.shortDescription" class="text-muted">
+    {{object.shortDescription}}
 </div>

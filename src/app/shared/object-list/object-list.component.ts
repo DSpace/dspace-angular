@@ -11,12 +11,12 @@ import {
 import { Observable } from 'rxjs/Observable';
 
 import { RemoteData } from '../../core/data/remote-data';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
+import { ListableObject } from '../../object-list/listable-object/listable-object.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -27,7 +27,7 @@ import { SortOptions, SortDirection } from '../../core/cache/models/sort-options
 })
 export class ObjectListComponent implements OnChanges, OnInit {
 
-  @Input() objects: RemoteData<DSpaceObject[]>;
+  @Input() objects: RemoteData<ListableObject[]>;
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
   @Input() hideGear = false;

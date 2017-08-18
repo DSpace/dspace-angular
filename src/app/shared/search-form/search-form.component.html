@@ -1,0 +1,15 @@
+<form [formGroup]="searchFormGroup">
+    <div class="input-group">
+        <input type="text" class="form-control" aria-label="Search input">
+        <div ngbDropdown  class="input-group-btn">
+            <button type="submit" class="btn btn-secondary" id="searchDropdown" ngbDropdownToggle>
+                Go
+            </button>
+            <div ngbDropdownMenu aria-labelledby="searchDropdown">
+                <a class="dropdown-item" href="#">Search DSpace</a>
+                <a class="dropdown-item" href="#">Search this collection</a>
+            </div>
+
+        </div>
+    </div>
+</form>

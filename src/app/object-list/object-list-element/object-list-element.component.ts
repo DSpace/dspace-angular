@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { ResourceType } from '../../core/shared/resource-type';
+import { Component, Inject } from '@angular/core';
+import { ListableObject } from '../listable-object/listable-object.model';
 
 @Component({
   selector: 'ds-object-list-element',
@@ -9,10 +8,6 @@ import { ResourceType } from '../../core/shared/resource-type';
 })
 export class ObjectListElementComponent {
 
-  public type = ResourceType;
-
-  @Input() object: DSpaceObject;
-
-  data: any = {};
-
+  // In the current version of Angular4, @Input is not supported by the NgComponentOutlet - instead we're using DI
+  constructor(@Inject('objectElementProvider') public object: ListableObject) { }
 }
