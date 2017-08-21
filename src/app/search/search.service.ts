@@ -9,6 +9,7 @@ import { SearchOptions } from './search.models';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { Metadatum } from '../core/shared/metadatum.model';
 import { Item } from '../core/shared/item.model';
+import { ItemSearchResult } from '../object-list/search-result-list-element/item-search-result/item-search-result.model';
 
 @Injectable()
 export class SearchService {
@@ -62,12 +63,12 @@ export class SearchService {
       elementsPerPage: returningPageInfo.elementsPerPage
     });
     const payload = itemsRD.payload.map((items: Item[]) => {
-      return items.sort(()=>{
+      return items.sort(() => {
         const values = [-1, 0, 1];
         return values[Math.floor(Math.random() * values.length)];
       })
       .map((item: Item, index: number) => {
-        const mockResult: SearchResult<DSpaceObject> = new SearchResult();
+        const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
         mockResult.dspaceObject = item;
         const highlight = new Metadatum();
         highlight.key = 'dc.description.abstract';

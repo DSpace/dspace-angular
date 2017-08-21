@@ -1,3 +1,1 @@
-export interface ListableObject {
-
-}
+export interface ListableObject {}

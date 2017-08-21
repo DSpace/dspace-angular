@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 
 import { Community } from '../../core/shared/community.model';
 import { ObjectListElementComponent } from '../object-list-element/object-list-element.component';
@@ -11,4 +11,4 @@ import { listElementFor } from '../list-element-decorator';
 })
 
 @listElementFor(Community)
-export class CommunityListElementComponent extends ObjectListElementComponent {}
+export class CommunityListElementComponent extends ObjectListElementComponent<Community> {}

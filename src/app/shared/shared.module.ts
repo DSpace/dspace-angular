@@ -25,6 +25,7 @@ import { CommunityListElementComponent } from '../object-list/community-list-ele
 import { CollectionListElementComponent } from '../object-list/collection-list-element/collection-list-element.component';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
+import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -54,10 +55,15 @@ const COMPONENTS = [
   ComcolPageLogoComponent,
   ObjectListComponent,
   ObjectListElementComponent,
-  WrapperListElementComponent,
+  WrapperListElementComponent
+];
+
+const ENTRY_COMPONENTS = [
+  // put shared entry components (components that are created dynamically) here
   ItemListElementComponent,
   CollectionListElementComponent,
-  CommunityListElementComponent
+  CommunityListElementComponent,
+  SearchResultListElementComponent
 ];
 
 const PROVIDERS = [
@@ -72,7 +78,8 @@ const PROVIDERS = [
   ],
   declarations: [
     ...PIPES,
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...ENTRY_COMPONENTS
   ],
   exports: [
     ...MODULES,
@@ -81,6 +88,9 @@ const PROVIDERS = [
   ],
   providers: [
     ...PROVIDERS
+  ],
+  entryComponents: [
+    ...ENTRY_COMPONENTS
   ]
 })
 export class SharedModule {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { Collection } from '../../core/shared/collection.model';
 import { ObjectListElementComponent } from '../object-list-element/object-list-element.component';
@@ -11,4 +11,4 @@ import { listElementFor } from '../list-element-decorator';
 })
 
 @listElementFor(Collection)
-export class CollectionListElementComponent extends ObjectListElementComponent {}
+export class CollectionListElementComponent extends ObjectListElementComponent<Collection> {}

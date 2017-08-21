@@ -1,6 +1,7 @@
 import { Component, Input, Injector, ReflectiveInjector, OnInit } from '@angular/core';
 import { ListableObject } from '../listable-object/listable-object.model';
 import { getListElementFor } from '../list-element-decorator'
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 
 @Component({
   selector: 'ds-wrapper-list-element',
@@ -15,11 +16,12 @@ export class WrapperListElementComponent implements OnInit {
 
   ngOnInit(): void {
     this.objectInjector = ReflectiveInjector.resolveAndCreate(
-      [{provide: 'objectElementProvider', useFactory: () => ({ providedObject: this.object }) }], this.injector);
+      [{provide: 'objectElementProvider', useFactory: () => (this.object) }], this.injector);
 
   }
 
-  private getListElement(): string {
-    return getListElementFor(this.object.constructor).constructor.name;
+  getListElement(): string {
+    const f: GenericConstructor<ListableObject> = this.object.constructor as GenericConstructor<ListableObject>;
+    return getListElementFor(f);
   }
 }

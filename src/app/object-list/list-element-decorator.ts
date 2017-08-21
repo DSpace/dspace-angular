@@ -1,12 +1,16 @@
 import { ListableObject } from './listable-object/listable-object.model';
 import { GenericConstructor } from '../core/shared/generic-constructor';
 
-const listElementForMetadataKey = Symbol('listElementFor');
-
-export function listElementFor(value: GenericConstructor<ListableObject>) {
-  return Reflect.metadata(listElementForMetadataKey, value);
+const listElementMap = new Map();
+export function listElementFor(listable: GenericConstructor<ListableObject>) {
+  return function decorator(objectElement: any) {
+    if (!objectElement) {
+      return;
+    }
+    listElementMap.set(listable, objectElement);
+  };
 }
 
-export function getListElementFor(target: any) {
-  return Reflect.getOwnMetadata(listElementForMetadataKey, target);
+export function getListElementFor(listable: GenericConstructor<ListableObject>) {
+  return listElementMap.get(listable);
 }

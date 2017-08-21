@@ -19,7 +19,7 @@ import { DSpaceObject } from '../core/shared/dspace-object.model';
 })
 export class SearchPageComponent implements OnInit {
     private sub;
-    private results: RemoteData<Array<SearchResult<DSpaceObject>>>;
+    results: RemoteData<Array<SearchResult<DSpaceObject>>>;
 
     constructor(
       private service: SearchService,

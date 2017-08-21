@@ -6,8 +6,9 @@ import { ListableObject } from '../listable-object/listable-object.model';
   styleUrls: ['./object-list-element.component.scss'],
   templateUrl: './object-list-element.component.html'
 })
-export class ObjectListElementComponent {
-
-  // In the current version of Angular4, @Input is not supported by the NgComponentOutlet - instead we're using DI
-  constructor(@Inject('objectElementProvider') public object: ListableObject) { }
+export class ObjectListElementComponent <T extends ListableObject> {
+  object: T;
+  public constructor(@Inject('objectElementProvider') public listable: ListableObject) {
+    this.object = listable as T;
+  }
 }

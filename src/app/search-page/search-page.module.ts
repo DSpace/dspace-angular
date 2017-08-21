@@ -9,6 +9,10 @@ import { SearchPageRoutingModule } from './search-page-routing.module';
 import { SearchPageComponent } from './search-page.component';
 import { SearchFormComponent } from '../shared/search-form/search-form.component';
 import { SearchResultsComponent } from './search-results/search-results.compontent';
+import { SearchModule } from '../search/search.module';
+import { ItemSearchResultListElementComponent } from '../object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
+import { CollectionSearchResultListElementComponent } from '../object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import { CommunitySearchResultListElementComponent } from '../object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 
 @NgModule({
   imports: [
@@ -17,11 +21,20 @@ import { SearchResultsComponent } from './search-results/search-results.componte
     TranslateModule,
     RouterModule,
     SharedModule,
+    SearchModule
   ],
   declarations: [
     SearchPageComponent,
     SearchFormComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    ItemSearchResultListElementComponent,
+    CollectionSearchResultListElementComponent,
+    CommunitySearchResultListElementComponent
+  ],
+  entryComponents: [
+    ItemSearchResultListElementComponent,
+    CollectionSearchResultListElementComponent,
+    CommunitySearchResultListElementComponent
   ]
 })
 export class SearchPageModule { }

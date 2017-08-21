@@ -1,15 +1,19 @@
-<form [formGroup]="searchFormGroup">
+<form [formGroup]="searchFormGroup" action="/search">
     <div class="input-group">
         <input type="text" class="form-control" aria-label="Search input">
-        <div ngbDropdown  class="input-group-btn">
-            <button type="submit" class="btn btn-secondary" id="searchDropdown" ngbDropdownToggle>
-                Go
-            </button>
-            <div ngbDropdownMenu aria-labelledby="searchDropdown">
-                <a class="dropdown-item" href="#">Search DSpace</a>
-                <a class="dropdown-item" href="#">Search this collection</a>
-            </div>
 
+        <div class="input-group-btn" ngbDropdown>
+            <button type="submit" class="btn btn-secondary">Search DSpace</button>
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" id="searchDropdown" ngbDropdownToggle>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right" aria-labelledby="searchDropdown">
+                <a class="dropdown-item" href="#">Search DSpace</a>
+                <a class="dropdown-item" href="#">Search this Collection</a>
+                <a class="dropdown-item" href="#">Search this Community</a>
+            </div>
         </div>
+
     </div>
 </form>

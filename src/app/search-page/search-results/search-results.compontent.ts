@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
+import { SearchResult } from '../../search/search-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 /**
@@ -14,7 +15,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 })
 
 export class SearchResultsComponent implements OnInit {
-  @Input() searchResults: RemoteData<DSpaceObject[]>;
+  @Input() searchResults: RemoteData<Array<SearchResult<DSpaceObject>>>;
 
   ngOnInit(): void {
     // onInit
