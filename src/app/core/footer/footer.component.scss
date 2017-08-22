@@ -1,6 +1,5 @@
-@import '../../../styles/variables.scss';
-@import '../../../../node_modules/bootstrap/scss/_variables.scss';
-$footer-bg: $gray-lighter;
+@import '../../../styles/main.scss';
+$footer-bg: $gray-100;
 $footer-border: 1px solid darken($footer-bg, 10%);
 $footer-padding: $spacer * 1.5;
 

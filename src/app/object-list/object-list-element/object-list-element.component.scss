@@ -1,7 +1,6 @@
-@import '../../../styles/variables.scss';
-@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../styles/main.scss';
 
 :host {
   display: block;
-  margin-bottom: $spacer-y;
+  margin-bottom: $spacer;
 }

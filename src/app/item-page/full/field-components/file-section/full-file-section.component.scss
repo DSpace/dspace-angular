@@ -1,5 +1,4 @@
-@import '../../../../../styles/variables.scss';
-@import '../../../../../../node_modules/bootstrap/scss/_variables.scss';
+@import '../../../../../styles/main.scss';
 @media screen and (min-width: map-get($grid-breakpoints, md)) {
     dt {
         text-align: right;
