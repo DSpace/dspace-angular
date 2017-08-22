@@ -104,6 +104,7 @@
     "morgan": "1.8.2",
     "ngx-pagination": "3.0.1",
     "pem": "1.9.7",
+    "popper.js": "^1.12.3",
     "reflect-metadata": "0.1.10",
     "rxjs": "5.4.2",
     "ts-md5": "1.2.0",
