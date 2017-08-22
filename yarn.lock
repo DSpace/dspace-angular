@@ -86,9 +86,9 @@
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@angularclass/idle-preload/-/idle-preload-1.0.4.tgz#41eeea532cc4998167c825f6dca62cb98f4b7028"
 
-"@ng-bootstrap/ng-bootstrap@1.0.0-alpha.28":
-  version "1.0.0-alpha.28"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0-alpha.28.tgz#30a6503bf7f94f9d3187591fb3267b59cc0cdaad"
+"@ng-bootstrap/ng-bootstrap@^1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0-beta.1.tgz#a7d5935293df22a2275bf572f2197b45136e3c52"
 
 "@ngrx/core@1.2.0":
   version "1.2.0"
@@ -4964,10 +4964,6 @@ pleeease-filters@^4.0.0:
   dependencies:
     onecolor "^3.0.4"
     postcss "^6.0.1"
-
-popper.js@^1.12.3:
-  version "1.12.3"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.12.3.tgz#e46a99c52e74e310411df505d820b61bdbe7eaee"
 
 portfinder@^1.0.13, portfinder@^1.0.9:
   version "1.0.13"
