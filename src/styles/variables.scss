@@ -27,4 +27,4 @@ $theme-colors: (
         dark: $blue
 ) !default;
 /* Fonts */
-$link-color: $cyan !default;
+$link-color: map-get($theme-colors, info) !default;
