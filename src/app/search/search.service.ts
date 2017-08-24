@@ -5,7 +5,7 @@ import { SearchResult } from './search-result.model';
 import { ItemDataService } from '../core/data/item-data.service';
 import { PageInfo } from '../core/shared/page-info.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { SearchOptions } from './search.models';
+import { SearchOptions } from './search-options.model';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { Metadatum } from '../core/shared/metadatum.model';
 import { Item } from '../core/shared/item.model';
@@ -36,19 +36,18 @@ export class SearchService {
     if (hasValue(scopeId)) {
       self += `&scope=${scopeId}`;
     }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.currentPage)) {
-      self += `&page=${searchOptions.currentPage}`;
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.currentPage)) {
+      self += `&page=${searchOptions.pagination.currentPage}`;
     }
     const requestPending = Observable.of(false);
     const responsePending = Observable.of(false);
-    const isSuccessFul = Observable.of(true);
     const errorMessage = Observable.of(undefined);
     const statusCode = Observable.of('200');
     const returningPageInfo = new PageInfo();
 
     if (isNotEmpty(searchOptions)) {
-      returningPageInfo.elementsPerPage = searchOptions.elementsPerPage;
-      returningPageInfo.currentPage = searchOptions.currentPage;
+      returningPageInfo.elementsPerPage = searchOptions.pagination.pageSize;
+      returningPageInfo.currentPage = searchOptions.pagination.currentPage;
     } else {
       returningPageInfo.elementsPerPage = 10;
       returningPageInfo.currentPage = 1;
@@ -82,7 +81,7 @@ export class SearchService {
       self,
       requestPending,
       responsePending,
-      isSuccessFul,
+      itemsRD.hasSucceeded,
       errorMessage,
       statusCode,
       pageInfo,

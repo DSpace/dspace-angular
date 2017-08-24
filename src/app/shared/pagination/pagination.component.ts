@@ -30,11 +30,12 @@ import { PageInfo } from '../../core/shared/page-info.model';
 @Component({
   exportAs: 'paginationComponent',
   selector: 'ds-pagination',
+  styleUrls: ['pagination.component.scss'],
   templateUrl: 'pagination.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated
 })
-export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
+export class PaginationComponent implements OnDestroy, OnInit {
 
   /**
    * Number of items in collection.
@@ -165,15 +166,6 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
     total: null
   };
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.pageInfoState && !changes.pageInfoState.isFirstChange()) {
-      this.subs.push(this.pageInfoState.subscribe((pageInfo) => {
-        /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
-        this.currentPageState = pageInfo.currentPage + 1;
-      }));
-    }
-  }
-
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
@@ -184,13 +176,6 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
         this.cdRef.markForCheck();
       }));
     this.checkConfig(this.paginationOptions);
-
-    if (this.pageInfoState) {
-       this.subs.push(this.pageInfoState.subscribe((pageInfo) => {
-         /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
-         this.currentPageState = pageInfo.currentPage + 1;
-       }));
-    }
 
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;

@@ -1,7 +1,6 @@
-<form [formGroup]="searchFormGroup" action="/search">
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
     <div class="input-group">
-        <input type="text" class="form-control" aria-label="Search input">
-
+        <input type="text" [ngModel]="query" name="query" class="form-control" aria-label="Search input">
         <div class="input-group-btn" ngbDropdown>
             <button type="submit" class="btn btn-secondary">Search DSpace</button>
             <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
@@ -9,11 +8,10 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right" aria-labelledby="searchDropdown">
-                <a class="dropdown-item" href="#">Search DSpace</a>
-                <a class="dropdown-item" href="#">Search this Collection</a>
-                <a class="dropdown-item" href="#">Search this Community</a>
+                <a class="dropdown-item" (click)="onSubmit(form.value)">Search DSpace</a>
+                <a class="dropdown-item" (click)="onSubmit(form.value, '7669c72a-3f2a-451f-a3b9-9210e7a4c02f')">Search OR2017 - Demonstration</a>
+                <a class="dropdown-item" (click)="onSubmit(form.value, '9076bd16-e69a-48d6-9e41-0238cb40d863')">Search Sample Community</a>
             </div>
         </div>
-
     </div>
 </form>

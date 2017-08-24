@@ -16,21 +16,18 @@ import { GenericConstructor } from '../../shared/generic-constructor';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
 import { NormalizedObjectFactory } from '../models/normalized-object-factory';
 import { Request } from '../../data/request.models';
+import { PageInfo } from '../../shared/page-info.model';
 
 @Injectable()
 export class RemoteDataBuildService {
-  constructor(
-    protected objectCache: ObjectCacheService,
-    protected responseCache: ResponseCacheService,
-    protected requestService: RequestService,
-    protected store: Store<CoreState>,
-  ) {
+  constructor(protected objectCache: ObjectCacheService,
+              protected responseCache: ResponseCacheService,
+              protected requestService: RequestService,
+              protected store: Store<CoreState>,) {
   }
 
-  buildSingle<TNormalized extends CacheableObject, TDomain>(
-    href: string,
-    normalizedType: GenericConstructor<TNormalized>
-  ): RemoteData<TDomain> {
+  buildSingle<TNormalized extends CacheableObject, TDomain>(href: string,
+                                                            normalizedType: GenericConstructor<TNormalized>): RemoteData<TDomain> {
     const requestHrefObs = this.objectCache.getRequestHrefBySelfLink(href);
 
     const requestObs = Observable.race(
@@ -64,6 +61,13 @@ export class RemoteDataBuildService {
     const pageInfo = responseCacheObs
       .filter((entry: ResponseCacheEntry) => hasValue(entry.response) && hasValue(entry.response['pageInfo']))
       .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).pageInfo)
+      .map((pInfo: PageInfo) => {
+        if (isNotEmpty(pageInfo) && pInfo.currentPage >= 0) {
+          return Object.assign({}, pInfo, {currentPage: pInfo.currentPage + 1});
+        } else {
+          return pInfo;
+        }
+      })
       .distinctUntilChanged();
     /* tslint:enable:no-string-literal */
 
@@ -107,10 +111,8 @@ export class RemoteDataBuildService {
     );
   }
 
-  buildList<TNormalized extends CacheableObject, TDomain>(
-    href: string,
-    normalizedType: GenericConstructor<TNormalized>
-  ): RemoteData<TDomain[]> {
+  buildList<TNormalized extends CacheableObject, TDomain>(href: string,
+                                                          normalizedType: GenericConstructor<TNormalized>): RemoteData<TDomain[]> {
     const requestObs = this.store.select<RequestEntry>('core', 'data', 'request', href)
       .filter((entry) => hasValue(entry));
     const responseCacheObs = this.responseCache.get(href).filter((entry) => hasValue(entry));
@@ -240,7 +242,7 @@ export class RemoteDataBuildService {
       })
       .filter((e) => hasValue(e))
       .join(', ')
-      );
+    );
 
     const statusCode = Observable.combineLatest(
       ...input.map((rd) => rd.statusCode),
@@ -252,7 +254,7 @@ export class RemoteDataBuildService {
       })
       .filter((c) => hasValue(c))
       .join(', ')
-      );
+    );
 
     const pageInfo = Observable.of(undefined);
 
