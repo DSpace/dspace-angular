@@ -17,16 +17,7 @@ import { SearchOptions } from '../../search/search-options.model';
   templateUrl: './search-results.component.html',
 })
 
-export class SearchResultsComponent implements OnInit {
+export class SearchResultsComponent {
   @Input() searchResults: RemoteData<Array<SearchResult<DSpaceObject>>>;
-
   @Input() searchConfig: SearchOptions;
-
-  ngOnInit(): void {
-    this.searchConfig = new SearchOptions();
-    this.searchConfig.pagination = new PaginationComponentOptions();
-    this.searchConfig.pagination.id = 'search-results-pagination';
-    this.searchConfig.sort = new SortOptions();
-  }
-
 }

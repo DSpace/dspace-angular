@@ -6,6 +6,7 @@ import { SearchResult } from '../search/search-result.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { SearchOptions } from '../search/search-options.model';
 
 /**
  * This component renders a simple item page.
@@ -20,11 +21,12 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
   private sub;
-  private query: string;
+  query: string;
   private scope: string;
   private page: number;
-  private results: RemoteData<Array<SearchResult<DSpaceObject>>>;
+  results: RemoteData<Array<SearchResult<DSpaceObject>>>;
   private currentParams = {};
+  searchOptions: SearchOptions;
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
@@ -40,13 +42,12 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this.scope = params.scope;
           this.page = +params.page || 1;
           const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-          pagination.id = 'results-pagination';
+          pagination.id = 'search-results-pagination';
           pagination.currentPage = this.page;
-          pagination.pageSize = +params.pageSize;
-          this.results = this.service.search(this.query, this.scope, {
-            pagination: pagination,
-            sort: new SortOptions(params.sortField, params.sortDirection)
-          });
+          pagination.pageSize = +params.pageSize || 10;
+          const sort: SortOptions =  new SortOptions(params.sortField, params.sortDirection);
+          this.searchOptions =  {pagination: pagination, sort: sort};
+          this.results = this.service.search(this.query, this.scope, this.searchOptions);
         }
       );
   }

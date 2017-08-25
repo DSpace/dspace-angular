@@ -11,11 +11,9 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
 })
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent {
   @Output() formSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Input() query: string;
-
-  ngOnInit(): void { }
 
   onSubmit(form: any, scope?: string) {
     const data: any = Object.assign({}, form, { scope: scope });

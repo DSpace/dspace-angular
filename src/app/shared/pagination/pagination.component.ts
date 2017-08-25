@@ -199,8 +199,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
           this.sortDirection = this.sortOptions.direction;
           this.sortField = this.sortOptions.field;
         }
+        this.setShowingDetail();
       }));
-    this.setShowingDetail();
   }
 
   /**
@@ -246,6 +246,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setPageSize(pageSize: number) {
     this.pageSize = pageSize;
+    this.doPageChange(1);
     this.updateRoute();
     this.setShowingDetail();
     this.pageSizeChange.emit(pageSize);
@@ -259,6 +260,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setSortDirection(sortDirection: SortDirection) {
     this.sortDirection = sortDirection;
+    this.doPageChange(1);
     this.updateRoute();
     this.setShowingDetail();
     this.sortDirectionChange.emit(sortDirection);
@@ -272,6 +274,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setSortField(field: string) {
     this.sortField = field;
+    this.doPageChange(1);
     this.updateRoute();
     this.setShowingDetail();
     this.sortFieldChange.emit(field);
@@ -298,11 +301,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
   private setShowingDetail() {
     let firstItem;
     let lastItem;
-    const lastPage = Math.round(this.collectionSize / this.pageSize);
+    const pageMax = this.pageSize  * this.currentPage;
 
     firstItem = this.pageSize * (this.currentPage - 1) + 1;
-    if (this.currentPage !== lastPage) {
-      lastItem = this.pageSize * this.currentPage;
+    if (this.collectionSize > pageMax) {
+      lastItem = pageMax;
     } else {
       lastItem = this.collectionSize;
     }
