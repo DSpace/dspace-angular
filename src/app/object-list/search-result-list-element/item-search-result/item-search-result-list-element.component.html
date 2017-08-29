@@ -1,14 +1,12 @@
-<a [routerLink]="['/items/' + dso.id]" class="lead">
-    {{dso.findMetadata("dc.title")}}
-</a>
+<a [routerLink]="['/items/' + dso.id]" class="lead" [innerHTML]="getFirstValue('dc.title')"></a>
 <div>
   <span class="text-muted">
     <span *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);" class="item-list-authors">
-        <span *ngFor="let authorMd of dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
-            <span *ngIf="!last">; </span>
+        <span *ngFor="let author of getValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
+            <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
         </span>
     </span>
-    (<span *ngIf="dso.findMetadata('dc.publisher')" class="item-list-publisher">{{dso.findMetadata("dc.publisher")}}, </span><span *ngIf="dso.findMetadata('dc.date.issued')" class="item-list-date">{{dso.findMetadata("dc.date.issued")}}</span>)
+    (<span *ngIf="dso.findMetadata('dc.publisher')" class="item-list-publisher" [innerHTML]="getFirstValue('dc.publisher')">, </span><span *ngIf="dso.findMetadata('dc.date.issued')" class="item-list-date" [innerHTML]="getFirstValue('dc.date.issued')"></span>)
   </span>
-    <div *ngIf="dso.findMetadata('dc.description.abstract')" class="item-list-abstract">{{dso.findMetadata("dc.description.abstract") | dsTruncate:[200] }}</div>
+    <div *ngIf="dso.findMetadata('dc.description.abstract')" class="item-list-abstract" [innerHTML]="getFirstValue('dc.description.abstract') | dsTruncate:[200]"></div>
 </div>
