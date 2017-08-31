@@ -1,7 +1,6 @@
 import {
   isEmpty, hasNoValue, hasValue, isNotEmpty, isNull, isNotNull,
-  isUndefined
-  isNotUndefined,
+  isUndefined, isNotUndefined
 } from './empty.util';
 
 describe('Empty Utils', () => {
