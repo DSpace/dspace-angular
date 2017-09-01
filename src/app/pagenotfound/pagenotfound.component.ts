@@ -9,8 +9,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageNotFoundComponent {
-
-  data: any = {};
   constructor(responseService: ServerResponseService) {
     responseService.setNotFound();
   }
