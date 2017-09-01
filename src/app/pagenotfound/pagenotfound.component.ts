@@ -5,7 +5,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'ds-pagenotfound',
   styleUrls: ['./pagenotfound.component.scss'],
   templateUrl: './pagenotfound.component.html',
-  providers: [ServerResponseService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageNotFoundComponent {
