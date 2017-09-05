@@ -1,8 +1,8 @@
-<form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value, scope?.id)">
     <div class="form-group input-group">
         <input type="text" [ngModel]="query" name="query" class="form-control" aria-label="Search input">
         <div class="input-group-btn" ngbDropdown>
-            <button type="submit" class="btn btn-secondary">{{ 'search.form.search_dspace' | translate }}</button>
+            <button type="submit" class="search-button btn btn-secondary">{{ scope ? scope.name : ('search.form.search_dspace' | translate) }}</button>
             <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false" id="searchDropdown" ngbDropdownToggle>
                 <span class="sr-only">Toggle Dropdown</span>

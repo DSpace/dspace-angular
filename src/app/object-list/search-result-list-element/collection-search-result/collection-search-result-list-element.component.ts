@@ -7,7 +7,7 @@ import { Collection } from '../../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-collection-search-result-list-element',
-  styleUrls: ['collection-search-result-list-element.component.scss'],
+  styleUrls: ['../search-result-list-element.component.scss', 'collection-search-result-list-element.component.scss'],
   templateUrl: 'collection-search-result-list-element.component.html'
 })
 

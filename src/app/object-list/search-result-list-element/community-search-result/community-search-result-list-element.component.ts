@@ -7,7 +7,7 @@ import { Community } from '../../../core/shared/community.model';
 
 @Component({
   selector: 'ds-community-search-result-list-element',
-  styleUrls: ['community-search-result-list-element.component.scss'],
+  styleUrls: ['../search-result-list-element.component.scss', 'community-search-result-list-element.component.scss'],
   templateUrl: 'community-search-result-list-element.component.html'
 })
 

@@ -7,6 +7,8 @@ import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search/search-options.model';
+import { CommunityDataService } from '../core/data/community-data.service';
+import { hasValue } from '../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -23,6 +25,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   private sub;
   query: string;
   private scope: string;
+  scopeObject: RemoteData<DSpaceObject>;
   private page: number;
   results: RemoteData<Array<SearchResult<DSpaceObject>>>;
   private currentParams = {};
@@ -30,7 +33,8 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
-              private router: Router,) {
+              private communityService: CommunityDataService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -48,24 +52,16 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           const sort: SortOptions =  new SortOptions(params.sortField, params.sortDirection);
           this.searchOptions =  {pagination: pagination, sort: sort};
           this.results = this.service.search(this.query, this.scope, this.searchOptions);
+          if (hasValue(this.scope)) {
+            this.scopeObject = this.communityService.findById(this.scope);
+          } else {
+            this.scopeObject = undefined;
+          }
         }
       );
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-  }
-
-  updateSearch(data: any) {
-    this.router.navigate([], {
-      queryParams: Object.assign({}, this.currentParams,
-        {
-          query: data.query,
-          scope: data.scope,
-          page: data.page || 1
-        }
-      )
-    })
-    ;
   }
 }

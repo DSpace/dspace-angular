@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 /**
  * This component renders a simple item page.
@@ -12,11 +14,31 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
   templateUrl: './search-form.component.html',
 })
 export class SearchFormComponent {
-  @Output() formSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Input() query: string;
+  @Input() scope: DSpaceObject;
 
-  onSubmit(form: any, scope?: string) {
+  // Optional existing search parameters
+  @Input() currentParams: {};
+
+  constructor(private router: Router) {
+  }
+
+  onSubmit(form: any, scope ?: string) {
     const data: any = Object.assign({}, form, { scope: scope });
-    this.formSubmit.emit(data);
+    this.updateSearch(data);
+
+  }
+
+  updateSearch(data: any) {
+    this.router.navigate(['/search'], {
+      queryParams: Object.assign({}, this.currentParams,
+        {
+          query: data.query,
+          scope: data.scope,
+          page: data.page || 1
+        }
+      )
+    })
+    ;
   }
 }

@@ -25,7 +25,6 @@ import { CommunitySearchResultListElementComponent } from '../object-list/search
   ],
   declarations: [
     SearchPageComponent,
-    SearchFormComponent,
     SearchResultsComponent,
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,

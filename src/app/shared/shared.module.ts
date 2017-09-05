@@ -26,6 +26,7 @@ import { CollectionListElementComponent } from '../object-list/collection-list-e
 import { TruncatePipe } from './utils/truncate.pipe';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
+import { SearchFormComponent } from './search-form/search-form.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -55,7 +56,8 @@ const COMPONENTS = [
   ComcolPageLogoComponent,
   ObjectListComponent,
   ObjectListElementComponent,
-  WrapperListElementComponent
+  WrapperListElementComponent,
+  SearchFormComponent
 ];
 
 const ENTRY_COMPONENTS = [
