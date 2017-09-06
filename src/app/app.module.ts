@@ -45,7 +45,7 @@ export function getConfig() {
     CommunityPageModule,
     AppRoutingModule,
     StoreModule.forRoot(appReducers, { metaReducers: appMetaReducers }),
-    // !getConfig().production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
+    StoreDevtoolsModule.instrument({ maxAge: 50 }),
     EffectsModule.forRoot(appEffects)
   ],
   providers: [

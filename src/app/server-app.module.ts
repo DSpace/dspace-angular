@@ -37,7 +37,8 @@ import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../config';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 
 export function boot(cache: TransferState, appRef: ApplicationRef, store: Store<AppState>, request: Request, config: GlobalConfig) {
   // authentication mechanism goes here
@@ -88,6 +89,10 @@ export function UniversalLoaderFactory() {
         REQUEST,
         GLOBAL_CONFIG
       ]
+    },
+    {
+      provide: RouterStateSerializer,
+      useClass: DSpaceRouterStateSerializer
     }
   ]
 })

@@ -92,7 +92,7 @@ export class ObjectCacheService {
   }
 
   getRequestHrefBySelfLink(self: string): Observable<string> {
-    return this.store.select('index/href', self)
+    return this.store.select(uuidFromHrefSelector(self))
       .flatMap((uuid: string) => this.getRequestHref(uuid));
   }
 

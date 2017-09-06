@@ -11,7 +11,7 @@ import { CoreState } from '../core.reducers';
 import { keySelector } from '../shared/selectors';
 
 function entryFromKeySelector(key: string): MemoizedSelector<CoreState, ResponseCacheEntry> {
-  return keySelector<ResponseCacheEntry>('data/reponse', key);
+  return keySelector<ResponseCacheEntry>('data/response', key);
 }
 
 /**

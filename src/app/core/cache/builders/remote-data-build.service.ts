@@ -90,7 +90,7 @@ export class RemoteDataBuildService {
       ).filter((normalized) => hasValue(normalized))
         .map((normalized: TNormalized) => {
           return this.build<TNormalized, TDomain>(normalized);
-        });
+        }).distinctUntilChanged();
 
     return new RemoteData(
       href,

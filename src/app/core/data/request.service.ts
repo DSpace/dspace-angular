@@ -4,7 +4,7 @@ import { MemoizedSelector, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 
-import { RequestEntry, RequestState } from './request.reducer';
+import { RequestEntry } from './request.reducer';
 import { Request } from './request.models';
 import { hasValue } from '../../shared/empty.util';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
