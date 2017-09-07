@@ -1,17 +1,12 @@
-<form #form="ngForm" (ngSubmit)="onSubmit(form.value, scope?.id)">
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)">
     <div class="form-group input-group">
-        <input type="text" [ngModel]="query" name="query" class="form-control" aria-label="Search input">
-        <div class="input-group-btn" ngbDropdown>
-            <button type="submit" class="search-button btn btn-secondary">{{ scope ? scope.name : ('search.form.search_dspace' | translate) }}</button>
-            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" id="searchDropdown" ngbDropdownToggle>
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right" aria-labelledby="searchDropdown">
-                <a class="dropdown-item" (click)="onSubmit(form.value)">{{ 'search.form.search_dspace' | translate }}</a>
-                <a class="dropdown-item" (click)="onSubmit(form.value, '7669c72a-3f2a-451f-a3b9-9210e7a4c02f')">{{ 'search.form.search' | translate }} OR2017 - Demonstration</a>
-                <a class="dropdown-item" (click)="onSubmit(form.value, '9076bd16-e69a-48d6-9e41-0238cb40d863')">{{ 'search.form.search' | translate }} Sample Community</a>
-            </div>
+        <input type="text" [(ngModel)]="query" name="query" class="form-control" aria-label="Search input">
+        <input type="text" [(ngModel)]="scopeId" name="scopeId" class="form-control" aria-label="Search input scopeId">
+        <select ngif="isNotEmpty(scopes)" [(ngModel)]="scopeId" name="scope" class="form-control" aria-label="Search scope" (change)="onChange()" [compareWith]="byId">
+            <option *ngFor="let scopeOption of scopes" [ngValue]="scopeOption.id" [value]="scopeOption.id">{{scopeOption?.name ? scopeOption.name : 'search.form.search_dspace' | translate}}</option>
+        </select>
+        <div class="input-group-btn">
+            <button type="submit" class="search-button btn btn-secondary">{{ ('search.form.search' | translate) }}</button>
         </div>
     </div>
 </form>

@@ -1,6 +1,8 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { isNotEmpty, isEmpty, hasNoValue } from '../empty.util';
+import { Observable } from 'rxjs';
 
 /**
  * This component renders a simple item page.
@@ -13,20 +15,26 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
 })
-export class SearchFormComponent {
+export class SearchFormComponent implements OnInit {
   @Input() query: string;
-  @Input() scope: DSpaceObject;
-
+  @Input() scope: Observable<DSpaceObject>;
+  scopeId: string;
   // Optional existing search parameters
   @Input() currentParams: {};
+  @Input() scopes: DSpaceObject[];
+
+  ngOnInit(): void {
+    this.scope.subscribe((scopeObject) => {
+      this.scopeId = scopeObject.id;
+      console.log("Initialized: ", scopeObject.id);
+    });
+  }
 
   constructor(private router: Router) {
   }
 
-  onSubmit(form: any, scope ?: string) {
-    const data: any = Object.assign({}, form, { scope: scope });
+  onSubmit(data: any) {
     this.updateSearch(data);
-
   }
 
   updateSearch(data: any) {
@@ -40,5 +48,17 @@ export class SearchFormComponent {
       )
     })
     ;
+  }
+
+  private isNotEmpty(object: any) {
+    return isNotEmpty(object);
+  }
+
+  byId(id1: string, id2: string) {
+    return id1 === id2;
+  }
+
+  onChange(): void {
+    console.log('Scope: ', this.scope);
   }
 }

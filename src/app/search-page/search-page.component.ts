@@ -9,6 +9,7 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { SearchOptions } from '../search/search-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { hasValue } from '../shared/empty.util';
+import { Community } from '../core/shared/community.model';
 
 /**
  * This component renders a simple item page.
@@ -30,11 +31,19 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   results: RemoteData<Array<SearchResult<DSpaceObject>>>;
   private currentParams = {};
   searchOptions: SearchOptions;
+  scopeList: RemoteData<Community[]>;
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
-              private communityService: CommunityDataService,
-  ) {
+              private communityService: CommunityDataService,) {
+    // Sample scope data
+    const defaultScope: Community = new Community();
+    defaultScope.id = '';
+    this.scopeList = communityService.findAll();
+    this.scopeList.payload = this.scopeList.payload.map((list) => {
+      list.unshift(defaultScope);
+      return list
+    });
   }
 
   ngOnInit(): void {
@@ -49,8 +58,8 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           pagination.id = 'search-results-pagination';
           pagination.currentPage = this.page;
           pagination.pageSize = +params.pageSize || 10;
-          const sort: SortOptions =  new SortOptions(params.sortField, params.sortDirection);
-          this.searchOptions =  {pagination: pagination, sort: sort};
+          const sort: SortOptions = new SortOptions(params.sortField, params.sortDirection);
+          this.searchOptions = { pagination: pagination, sort: sort };
           this.results = this.service.search(this.query, this.scope, this.searchOptions);
           if (hasValue(this.scope)) {
             this.scopeObject = this.communityService.findById(this.scope);
