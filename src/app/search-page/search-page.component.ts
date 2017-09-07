@@ -23,40 +23,36 @@ import { hasValue } from '../shared/empty.util';
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
   private sub;
-  query: string;
-  private scope: string;
-  scopeObject: RemoteData<DSpaceObject>;
-  private page: number;
-  results: RemoteData<Array<SearchResult<DSpaceObject>>>;
   private currentParams = {};
+  private pagination = new PaginationComponentOptions();
+  query: string;
+  scopeObject: RemoteData<DSpaceObject>;
+  results: RemoteData<Array<SearchResult<DSpaceObject>>>;
   searchOptions: SearchOptions;
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
-              private communityService: CommunityDataService,
-  ) {
+              private communityService: CommunityDataService,) {
+    this.pagination.id = 'search-results-pagination';
   }
 
   ngOnInit(): void {
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
+          // Save current parameters
           this.currentParams = params;
+          // Update scope object
+          this.scopeObject = hasValue(params.scope) ? this.communityService.findById(params.scope) : undefined;
+          // Prepare search parameters
           this.query = params.query || '';
-          this.scope = params.scope;
-          this.page = +params.page || 1;
-          const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-          pagination.id = 'search-results-pagination';
-          pagination.currentPage = this.page;
-          pagination.pageSize = +params.pageSize || 10;
-          const sort: SortOptions =  new SortOptions(params.sortField, params.sortDirection);
-          this.searchOptions =  {pagination: pagination, sort: sort};
-          this.results = this.service.search(this.query, this.scope, this.searchOptions);
-          if (hasValue(this.scope)) {
-            this.scopeObject = this.communityService.findById(this.scope);
-          } else {
-            this.scopeObject = undefined;
-          }
+          this.pagination.currentPage = +params.page || 1;
+          this.pagination.pageSize = +params.pageSize || 10;
+          const sort: SortOptions = new SortOptions(params.sortField, params.sortDirection);
+          // Create search options
+          this.searchOptions = { pagination: this.pagination, sort: sort };
+          // Resolve search results
+          this.results = this.service.search(this.query, params.scope, this.searchOptions);
         }
       );
   }

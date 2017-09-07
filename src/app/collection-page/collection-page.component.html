@@ -35,7 +35,7 @@
   <div *ngIf="itemData.hasSucceeded | async">
     <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
     <ds-object-list [config]="config" [sortConfig]="sortConfig"
-                    [objects]="itemData" [hideGear]="true"
+                    [objects]="itemData" [hideGear]="false"
                     (pageChange)="onPageChange($event)"
                     (pageSizeChange)="onPageSizeChange($event)"
                     (sortDirectionChange)="onSortDirectionChange($event)"

@@ -5,6 +5,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { Community } from '../../core/shared/community.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ds-top-level-community-list',
@@ -16,47 +17,33 @@ export class TopLevelCommunityListComponent implements OnInit {
   topLevelCommunities: RemoteData<Community[]>;
   config: PaginationComponentOptions;
   sortConfig: SortOptions;
+  private sub;
 
   constructor(
     private cds: CommunityDataService,
-    private ref: ChangeDetectorRef
+    private route: ActivatedRoute
   ) {
-
-  }
-
-  ngOnInit(): void {
     this.config = new PaginationComponentOptions();
     this.config.id = 'top-level-pagination';
     this.config.pageSizeOptions = [4];
     this.config.pageSize = 4;
     this.sortConfig = new SortOptions();
-
-    this.updateResults();
   }
 
-  onPageChange(currentPage: number): void {
-    this.config.currentPage = currentPage;
-    this.updateResults();
+  ngOnInit(): void {
+
+    this.sub = this.route
+      .queryParams
+      .subscribe((params) => {
+        this.topLevelCommunities = this.cds.findAll({
+          currentPage: params.page,
+          elementsPerPage: params.pageSize,
+          sort: { field: params.sortField, direction: params.sortDirection }
+        });
+      });
   }
 
-  onPageSizeChange(elementsPerPage: number): void {
-    this.config.pageSize = elementsPerPage;
-    this.updateResults();
-  }
-
-  onSortDirectionChange(sortDirection: SortDirection): void {
-    this.sortConfig = new SortOptions(this.sortConfig.field, sortDirection);
-    this.updateResults();
-  }
-
-  onSortFieldChange(field: string): void {
-    this.sortConfig = new SortOptions(field, this.sortConfig.direction);
-    this.updateResults();
-  }
-
-  updateResults() {
-    this.topLevelCommunities = undefined;
-    this.topLevelCommunities = this.cds.findAll({ currentPage: this.config.currentPage, elementsPerPage: this.config.pageSize, sort: this.sortConfig });
-    // this.ref.detectChanges();
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }
