@@ -46,7 +46,6 @@ export function HttpLoaderFactory(http: Http) {
     }),
     IdlePreloadModule.forRoot(), // forRoot ensures the providers are only created once
     RouterModule.forRoot([], { useHash: false, preloadingStrategy: IdlePreload }),
-    StoreRouterConnectingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -60,6 +59,7 @@ export function HttpLoaderFactory(http: Http) {
     BrowserTransferStateModule,
     BrowserTransferStoreModule,
     EffectsModule.forRoot([BrowserTransferStoreEffects]),
+    StoreRouterConnectingModule,
     BrowserAnimationsModule,
     AppModule
   ],

@@ -1,8 +1,7 @@
 import { isNotEmpty } from './shared/empty.util';
 import { StoreActionTypes } from './store.actions';
 
-// crude temporary ngrx debugger for use until
-// https://github.com/ngrx/platform/issues/97 is fixed
+// fallback ngrx debugger
 let actionCounter = 0;
 
 export function debugMetaReducer(reducer) {
@@ -26,12 +25,14 @@ export function universalMetaReducer(reducer) {
         state = Object.assign({}, state, action.payload);
         break;
       case StoreActionTypes.REPLAY:
-        break;
       default:
-
-        return reducer(state, action);
+        break;
     }
+    return reducer(state, action);
   }
 }
 
-export const appMetaReducers = [debugMetaReducer, universalMetaReducer];
+export const appMetaReducers = [
+  // debugMetaReducer,
+  universalMetaReducer,
+];
