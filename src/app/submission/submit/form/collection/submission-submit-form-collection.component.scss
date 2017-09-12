@@ -1,0 +1,12 @@
+@import '../../../../../styles/variables.scss';
+@import '../../../../../../node_modules/bootstrap/scss/_variables.scss';
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.collection-item {
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;;
+}

@@ -20,6 +20,7 @@ import { HomeModule } from './home/home.module';
 import { ItemPageModule } from './item-page/item-page.module';
 import { CollectionPageModule } from './collection-page/collection-page.module';
 import { CommunityPageModule } from './community-page/community-page.module';
+import { SubmissionModule } from './submission/submission.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -42,6 +43,7 @@ export function getConfig() {
     ItemPageModule,
     CollectionPageModule,
     CommunityPageModule,
+    SubmissionModule,
     AppRoutingModule,
     StoreModule.provideStore(rootReducer),
     RouterStoreModule.connectRouter(),

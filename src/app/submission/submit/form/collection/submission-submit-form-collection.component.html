@@ -1,0 +1,43 @@
+
+<ng-template #rt let-r="result" let-t="term">
+  <!-- ul class="list-inline">
+    <li class="list-inline-item" *ngFor="let item of r.communities" >{{ item}} <i class="fa fa-level-down" aria-hidden="true"></i></li>
+    <li class="list-inline-item">{{ r.collection}}</li>
+  </ul -->
+</ng-template>
+
+<div class="form-group">
+  <div ngbDropdown #collectionControls="ngbDropdown" class="form-group">
+    <div class="btn-group">
+      <span class="input-group-addon" id="collectionControlsMenuLabel">Collection</span>
+      <button aria-describedby="collectionControlsMenuLabel"
+              class="btn btn-outline-primary"
+              (click)="onClose($event)"
+              id="collectionControlsMenuButton"
+              ngbDropdownToggle>{{ (selectedCollection) ? selectedCollection : '' }}
+      </button>
+    </div>
+
+    <div class="dropdown-menu col" id="collectionControlsDropdownMenu" aria-labelledby="collectionControlsMenuButton">
+      <!--input class="form-control w-100 ml-2 mr-2" (click)="$event.stopPropagation();" editable="false" placeholder="Search for a community"
+             id="typeahead-template" type="text" [ngbTypeahead]="search" [(ngModel)]="model" [resultTemplate]="rt" (selectItem)="collectionControls.close();onSelect($event);"/-->
+      <div class="form-group w-100 pr-2 pl-2">
+        <input type="search"
+               class="form-control w-100"
+               (click)="$event.stopPropagation();"
+               placeholder="Search for a collection"
+               [formControl]="searchField">
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="scrollable-menu" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item collection-item" *ngFor="let listItem of listCollection" (click)="onSelect(listItem)" title="{{ listItem.collection }}">
+          <ul class="list-unstyled mb-0">
+            <li class="list-item text-truncate" *ngFor="let item of listItem.communities" >{{ item}} <i class="fa fa-level-down" aria-hidden="true"></i></li>
+            <li class="list-item text-truncate">{{ listItem.collection}}</li>
+          </ul>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

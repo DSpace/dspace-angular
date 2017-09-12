@@ -1,0 +1,36 @@
+/*:host {
+  /*display: flex;
+  flex-direction: column;
+  flex: 1 0 100%;
+  height: 100%;
+  width: 100%;
+}
+
+.main-content {
+  height: 0px !important;
+}
+
+.submission-container {
+  display: -webkit-box;
+  flex-direction: column;
+  flex: 1 0 100%;
+  height: 100%;
+}
+
+.submission-content {
+  background-color: azure;
+  flex: 1 1 auto;
+  height: 100%;
+}
+*/
+:host {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.submission-content {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+}
