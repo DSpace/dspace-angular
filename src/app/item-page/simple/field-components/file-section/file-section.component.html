@@ -1,4 +1,4 @@
-<ds-metadata-field-wrapper [label]="label | translate">
+<ds-metadata-field-wrapper *ngIf="(files | async)?.length > 0" [label]="label | translate">
     <div class="file-section">
         <a *ngFor="let file of (files | async); let last=last;" [href]="file?.content" [download]="file?.name">
             <span>{{file?.name}}</span>
