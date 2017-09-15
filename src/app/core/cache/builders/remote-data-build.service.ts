@@ -70,10 +70,10 @@ export class RemoteDataBuildService {
         this.objectCache.getBySelfLink<TNormalized>(href, normalizedType).startWith(undefined),
         responseCacheObs
           .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-          .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceUUIDs)
-          .flatMap((resourceUUIDs: string[]) => {
-            if (isNotEmpty(resourceUUIDs)) {
-              return this.objectCache.get(resourceUUIDs[0], normalizedType);
+          .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceSelfLinks)
+          .flatMap((resourceSelfLinks: string[]) => {
+            if (isNotEmpty(resourceSelfLinks)) {
+              return this.objectCache.getBySelfLink(resourceSelfLinks[0], normalizedType);
             } else {
               return Observable.of(undefined);
             }
@@ -137,7 +137,7 @@ export class RemoteDataBuildService {
 
     const payload = responseCacheObs
       .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-      .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceUUIDs)
+      .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceSelfLinks)
       .flatMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs, normalizedType)
           .map((normList: TNormalized[]) => {

@@ -57,8 +57,8 @@ export class RequestEffects {
       return this.restApi.get(entry.request.href)
         .map((data: DSpaceRESTV2Response) => {
           const processRequestDTO = this.process(data.payload, entry.request.href);
-          const uuids = flattenSingleKeyObject(processRequestDTO).map((no) => no.uuid);
-          return new SuccessResponse(uuids, data.statusCode, this.processPageInfo(data.payload.page))
+          const selfLinks = flattenSingleKeyObject(processRequestDTO).map((no) => no.self);
+          return new SuccessResponse(selfLinks, data.statusCode, this.processPageInfo(data.payload.page))
         }).do((response: Response) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
         .map((response: Response) => new RequestCompleteAction(entry.request.href))
         .catch((error: RequestError) => Observable.of(new ErrorResponse(error))
@@ -157,7 +157,7 @@ export class RequestEffects {
   }
 
   protected addToObjectCache(co: CacheableObject, requestHref: string): void {
-    if (hasNoValue(co) || hasNoValue(co.uuid)) {
+    if (hasNoValue(co) || hasNoValue(co.self)) {
       throw new Error('The server returned an invalid object');
     }
     this.objectCache.add(co, this.EnvConfig.cache.msToLive, requestHref);

@@ -3,13 +3,13 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { GenericConstructor } from '../shared/generic-constructor';
 
 /* tslint:disable:max-classes-per-file */
-export class Request<T> {
+export class Request {
   constructor(
     public href: string,
   ) { }
 }
 
-export class FindByIDRequest<T> extends Request<T> {
+export class FindByIDRequest extends Request {
   constructor(
     href: string,
     public resourceID: string
@@ -25,7 +25,7 @@ export class FindAllOptions {
   sort?: SortOptions;
 }
 
-export class FindAllRequest<T> extends Request<T> {
+export class FindAllRequest extends Request {
   constructor(
     href: string,
     public options?: FindAllOptions,

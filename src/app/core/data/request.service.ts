@@ -45,7 +45,7 @@ export class RequestService {
     return this.store.select(entryFromHrefSelector(href));
   }
 
-  configure<T extends CacheableObject>(request: Request<T>): void {
+  configure<T extends CacheableObject>(request: Request): void {
     let isCached = this.objectCache.hasBySelfLink(request.href);
 
     if (!isCached && this.responseCache.has(request.href)) {
@@ -54,8 +54,8 @@ export class RequestService {
       this.responseCache.get(request.href)
         .take(1)
         .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-        .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceUUIDs)
-        .map((resourceUUIDs: string[]) => resourceUUIDs.every((uuid) => this.objectCache.has(uuid)))
+        .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceSelfLinks)
+        .map((resourceSelfLinks: string[]) => resourceSelfLinks.every((selfLink) => this.objectCache.hasBySelfLink(selfLink)))
         .subscribe((c) => isCached = c);
     }
 

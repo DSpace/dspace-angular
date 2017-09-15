@@ -15,10 +15,10 @@ export const RequestActionTypes = {
 /* tslint:disable:max-classes-per-file */
 export class RequestConfigureAction implements Action {
   type = RequestActionTypes.CONFIGURE;
-  payload: Request<CacheableObject>;
+  payload: Request;
 
   constructor(
-    request: Request<CacheableObject>
+    request: Request
   ) {
     this.payload = request;
   }

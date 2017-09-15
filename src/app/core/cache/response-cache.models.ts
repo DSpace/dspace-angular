@@ -11,7 +11,7 @@ export class Response {
 
 export class SuccessResponse extends Response {
   constructor(
-    public resourceUUIDs: string[],
+    public resourceSelfLinks: string[],
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {

@@ -5,14 +5,13 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, Request } from './request.models';
 import { Store } from '@ngrx/store';
-import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { CoreState } from '../core.reducers';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { Inject } from '@angular/core';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { GlobalConfig } from '../../../config';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { Observable } from 'rxjs/Observable';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> {
   protected abstract objectCache: ObjectCacheService;
@@ -28,6 +27,13 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     protected EnvConfig: GlobalConfig
   ) {
 
+  }
+
+  private getEndpoint(linkName: string): Observable<string> {
+    const apiUrl = new RESTURLCombiner(this.EnvConfig, '/').toString();
+    this.requestService.configure(new Request(apiUrl));
+    // TODO fetch from store
+    return Observable.of(undefined);
   }
 
   protected getFindAllHref(options: FindAllOptions = {}): string {

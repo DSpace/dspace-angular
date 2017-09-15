@@ -6,7 +6,7 @@ import {
 import { Request } from './request.models';
 
 export class RequestEntry {
-  request: Request<CacheableObject>;
+  request: Request;
   requestPending: boolean;
   responsePending: boolean;
   completed: boolean;
