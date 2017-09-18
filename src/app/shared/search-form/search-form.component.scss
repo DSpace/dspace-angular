@@ -1,1 +1,7 @@
 @import '../../../styles/shared_imports.scss';
+
+// temporary fix for bootstrap 4 beta btn color issue
+.btn-secondary {
+  background-color: $input-bg;
+  color: $input-color;
+}

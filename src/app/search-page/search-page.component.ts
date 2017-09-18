@@ -8,7 +8,7 @@ import { SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search/search-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
-import { hasValue } from '../shared/empty.util';
+import { isNotEmpty } from '../shared/empty.util';
 import { Community } from '../core/shared/community.model';
 
 /**
@@ -29,21 +29,14 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   scopeObject: RemoteData<DSpaceObject>;
   private page: number;
   results: RemoteData<Array<SearchResult<DSpaceObject>>>;
-  private currentParams = {};
+  currentParams = {};
   searchOptions: SearchOptions;
   scopeList: RemoteData<Community[]>;
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
               private communityService: CommunityDataService,) {
-    // Sample scope data
-    const defaultScope: Community = new Community();
-    defaultScope.id = '';
     this.scopeList = communityService.findAll();
-    this.scopeList.payload = this.scopeList.payload.map((list) => {
-      list.unshift(defaultScope);
-      return list
-    });
   }
 
   ngOnInit(): void {
@@ -61,7 +54,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           const sort: SortOptions = new SortOptions(params.sortField, params.sortDirection);
           this.searchOptions = { pagination: pagination, sort: sort };
           this.results = this.service.search(this.query, this.scope, this.searchOptions);
-          if (hasValue(this.scope)) {
+          if (isNotEmpty(this.scope)) {
             this.scopeObject = this.communityService.findById(this.scope);
           } else {
             this.scopeObject = undefined;

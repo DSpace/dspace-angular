@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
-import { isNotEmpty, isEmpty, hasNoValue } from '../empty.util';
-import { Observable } from 'rxjs';
+import { isNotEmpty, hasValue, isEmpty } from '../empty.util';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * This component renders a simple item page.
@@ -17,17 +17,27 @@ import { Observable } from 'rxjs';
 })
 export class SearchFormComponent implements OnInit {
   @Input() query: string;
-  @Input() scope: Observable<DSpaceObject>;
-  scopeId: string;
+  selectedId = '';
   // Optional existing search parameters
   @Input() currentParams: {};
-  @Input() scopes: DSpaceObject[];
+  @Input() scopes: Observable<DSpaceObject[]>;
+  scopeOptions: string[] = [];
+
+  @Input()
+  set scope(dso: DSpaceObject) {
+    if (hasValue(dso)) {
+      this.selectedId = dso.id;
+    }
+  }
 
   ngOnInit(): void {
-    this.scope.subscribe((scopeObject) => {
-      this.scopeId = scopeObject.id;
-      console.log("Initialized: ", scopeObject.id);
-    });
+    this.scopes
+      .filter((scopes: DSpaceObject[]) => isEmpty(scopes))
+      .subscribe((scopes: DSpaceObject[]) => {
+          this.scopeOptions = scopes
+            .map((scope: DSpaceObject) => scope.id);
+        }
+      );
   }
 
   constructor(private router: Router) {
@@ -38,11 +48,12 @@ export class SearchFormComponent implements OnInit {
   }
 
   updateSearch(data: any) {
+
     this.router.navigate(['/search'], {
       queryParams: Object.assign({}, this.currentParams,
         {
           query: data.query,
-          scope: data.scope,
+          scope: data.scope || undefined,
           page: data.page || 1
         }
       )
@@ -50,15 +61,10 @@ export class SearchFormComponent implements OnInit {
     ;
   }
 
-  private isNotEmpty(object: any) {
-    return isNotEmpty(object);
-  }
-
   byId(id1: string, id2: string) {
+    if (isEmpty(id1) && isEmpty(id2)) {
+      return true;
+    }
     return id1 === id2;
-  }
-
-  onChange(): void {
-    console.log('Scope: ', this.scope);
   }
 }
