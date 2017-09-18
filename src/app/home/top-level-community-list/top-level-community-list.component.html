@@ -2,9 +2,5 @@
   <h2>{{'home.top-level-communities.head' | translate}}</h2>
   <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
   <ds-object-list [config]="config" [sortConfig]="sortConfig"
-                  [objects]="topLevelCommunities" [hideGear]="true"
-                  (pageChange)="onPageChange($event)"
-                  (pageSizeChange)="onPageSizeChange($event)"
-                  (sortDirectionChange)="onSortDirectionChange($event)"
-                  (sortFieldChange)="onSortDirectionChange($event)"></ds-object-list>
+                  [objects]="topLevelCommunities" [hideGear]="false" (paginationChange)="updatePage()"></ds-object-list>
 </div>

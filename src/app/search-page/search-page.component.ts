@@ -43,17 +43,21 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
+          // Save current parameters
           this.currentParams = params;
           this.query = params.query || '';
           this.scope = params.scope;
           this.page = +params.page || 1;
+          // Prepare search parameters
           const pagination: PaginationComponentOptions = new PaginationComponentOptions();
           pagination.id = 'search-results-pagination';
           pagination.currentPage = this.page;
           pagination.pageSize = +params.pageSize || 10;
           const sort: SortOptions = new SortOptions(params.sortField, params.sortDirection);
+          // Create search options
           this.searchOptions = { pagination: pagination, sort: sort };
-          this.results = this.service.search(this.query, this.scope, this.searchOptions);
+          // Resolve search results
+          this.results = this.service.search(this.query, params.scope, this.searchOptions);
           if (isNotEmpty(this.scope)) {
             this.scopeObject = this.communityService.findById(this.scope);
           } else {

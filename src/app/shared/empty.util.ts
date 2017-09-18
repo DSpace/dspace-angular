@@ -90,7 +90,7 @@ export function hasValue(obj?: any): boolean {
  * isEmpty(undefined);       // true
  * isEmpty('');              // true
  * isEmpty([]);              // true
- * isEmpty({});              // false
+ * isEmpty({});              // true
  * isEmpty('Adam Hawkins');  // false
  * isEmpty([0,1,2]);         // false
  * isEmpty('\n\t');          // false
@@ -125,6 +125,10 @@ export function isEmpty(obj?: any): boolean {
     }
   }
 
+  if (Object.keys(obj).length === 0) {
+    return true;
+  }
+
   return false;
 }
 
@@ -136,7 +140,7 @@ export function isEmpty(obj?: any): boolean {
  * isNotEmpty(undefined);       // false
  * isNotEmpty('');              // false
  * isNotEmpty([]);              // false
- * isNotEmpty({});              // true
+ * isNotEmpty({});              // false
  * isNotEmpty('Adam Hawkins');  // true
  * isNotEmpty([0,1,2]);         // true
  * isNotEmpty('\n\t');          // true
