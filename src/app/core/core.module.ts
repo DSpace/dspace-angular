@@ -14,10 +14,16 @@ import { RequestService } from './data/request.service';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { CommunityDataService } from './data/community-data.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { coreEffects } from './core.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { coreReducers } from './core.reducers';
 
 const IMPORTS = [
   CommonModule,
-  SharedModule
+  SharedModule,
+  StoreModule.forFeature('core', coreReducers, { }),
+  EffectsModule.forFeature(coreEffects)
 ];
 
 const DECLARATIONS = [

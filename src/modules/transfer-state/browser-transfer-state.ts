@@ -8,6 +8,7 @@ import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { AppState } from '../../app/app.reducer';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
+import { RouterNavigationAction } from '@ngrx/router-store';
 
 @Injectable()
 export class BrowserTransferState extends TransferState {

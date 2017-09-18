@@ -12,7 +12,7 @@ export interface HrefIndexState {
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState: HrefIndexState = Object.create(null);
 
-export const hrefIndexReducer = (state = initialState, action: HrefIndexAction): HrefIndexState => {
+export function hrefIndexReducer(state = initialState, action: HrefIndexAction): HrefIndexState {
   switch (action.type) {
 
     case HrefIndexActionTypes.ADD: {
@@ -27,7 +27,7 @@ export const hrefIndexReducer = (state = initialState, action: HrefIndexAction):
       return state;
     }
   }
-};
+}
 
 function addToHrefIndex(state: HrefIndexState, action: AddToHrefIndexAction): HrefIndexState {
   return Object.assign({}, state, {

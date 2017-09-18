@@ -1,41 +1,36 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
-import { routerActions } from '@ngrx/router-store';
-
+import { TestBed } from '@angular/core/testing';
 import { HeaderEffects } from './header.effects';
 import { HeaderCollapseAction } from './header.actions';
 import { HostWindowResizeAction } from '../shared/host-window.actions';
+import { Observable } from 'rxjs/Observable';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { cold, hot } from 'jasmine-marbles';
+import * as fromRouter from '@ngrx/router-store';
 
 describe('HeaderEffects', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [
-      EffectsTestingModule
-    ],
-    providers: [
-      HeaderEffects
-    ]
-  }));
-
-  let runner: EffectsRunner;
   let headerEffects: HeaderEffects;
+  let actions: Observable<any>;
 
-  beforeEach(inject([
-    EffectsRunner, HeaderEffects
-  ],
-    (_runner, _headerEffects) => {
-      runner = _runner;
-      headerEffects = _headerEffects;
-    }
-  ));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        HeaderEffects,
+        provideMockActions(() => actions),
+        // other providers
+      ],
+    });
+
+    headerEffects = TestBed.get(HeaderEffects);
+  });
 
   describe('resize$', () => {
 
     it('should return a COLLAPSE action in response to a RESIZE action', () => {
-      runner.queue(new HostWindowResizeAction(800, 600));
+      actions = hot('--a-', { a: new HostWindowResizeAction(800, 600) });
 
-      headerEffects.resize$.subscribe((result) => {
-        expect(result).toEqual(new HeaderCollapseAction());
-      });
+      const expected = cold('--b-', { b: new HeaderCollapseAction() });
+
+      expect(headerEffects.resize$).toBeObservable(expected);
     });
 
   });
@@ -43,11 +38,11 @@ describe('HeaderEffects', () => {
   describe('routeChange$', () => {
 
     it('should return a COLLAPSE action in response to an UPDATE_LOCATION action', () => {
-      runner.queue({ type: routerActions.UPDATE_LOCATION });
+      actions = hot('--a-', { a: { type: fromRouter.ROUTER_NAVIGATION } });
 
-      headerEffects.resize$.subscribe((result) => {
-        expect(result).toEqual(new HeaderCollapseAction());
-      });
+      const expected = cold('--b-', { b: new HeaderCollapseAction() });
+
+      expect(headerEffects.routeChange$).toBeObservable(expected);
     });
 
   });

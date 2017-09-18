@@ -45,7 +45,7 @@ describe('App component', () => {
     return TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        StoreModule.provideStore({}),
+        StoreModule.forRoot({}),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
