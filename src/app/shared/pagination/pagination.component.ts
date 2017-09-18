@@ -325,27 +325,27 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page size to validate
    */
   private validateParams(page: any, pageSize: any, sortDirection: any, sortField: any) {
+    const originalPageInfo = {
+      id: this.id,
+      page: page,
+      pageSize: pageSize,
+      sortDirection: sortDirection,
+      sortField: sortField
+    };
     // tslint:disable-next-line:triple-equals
-   const newPage = validatePage();
-   const newSize = validateSize();
+    const filteredPageInfo = {
+      id: this.id,
+      page: this.validatePage(page),
+      pageSize: this.validatePageSize(pageSize),
+      sortDirection: sortDirection,
+      sortField: sortField
+    };
 
-      this.currentPage = page
-    } else {
-      this.currentPage = this.paginationOptions.currentPage;
-    }
-
-    let filteredPageSize = this.pageSizeOptions.find((x) => x == pageSize);
-    if (!isNumeric(page) || !filteredPageSize) {
-      const filteredPage = isNumeric(page) ? page : this.currentPage;
-      filteredPageSize = (filteredPageSize) ? filteredPageSize : this.pageSize;
+    // let filteredPageSize = this.pageSizeOptions.find((x) => x === pageSize);
+    if (JSON.stringify(originalPageInfo) !== JSON.stringify(filteredPageInfo)) {
+      // filteredPageSize = (filteredPageSize) ? filteredPageSize : this.pageSize;
       this.router.navigate([], {
-        queryParams: {
-          pageId: this.id,
-          page: filteredPage,
-          pageSize: filteredPageSize,
-          sortDirection: sortDirection,
-          sortField: sortField
-        }
+        queryParams: filteredPageInfo
       });
     } else {
       let hasChanged = false;
@@ -386,6 +386,23 @@ export class PaginationComponent implements OnDestroy, OnInit {
     }
   }
 
+  private validatePage(page: any): string {
+    let result = this.currentPage
+    if (isNumeric(page)) {
+      result = page;
+    }
+    return result + '';
+  }
+
+  private validatePageSize(pageSize: any): string {
+    const filteredPageSize = this.pageSizeOptions.find((x) => x === pageSize);
+    let result = this.pageSize
+    if (filteredPageSize) {
+      result = pageSize;
+    }
+    return result + '';
+  }
+
   /**
    * Ensure options passed contains the required properties.
    *
@@ -409,4 +426,5 @@ export class PaginationComponent implements OnDestroy, OnInit {
   get shouldShowBottomPager(): boolean {
     return this.hasMultiplePages || !this.hidePagerWhenSinglePage
   }
+
 }

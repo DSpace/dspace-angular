@@ -13,16 +13,12 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './top-level-community-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopLevelCommunityListComponent implements OnInit {
+export class TopLevelCommunityListComponent {
   topLevelCommunities: RemoteData<Community[]>;
   config: PaginationComponentOptions;
   sortConfig: SortOptions;
-  private sub;
 
-  constructor(
-    private cds: CommunityDataService,
-    private route: ActivatedRoute
-  ) {
+  constructor(private cds: CommunityDataService) {
     this.config = new PaginationComponentOptions();
     this.config.id = 'top-level-pagination';
     this.config.pageSizeOptions = [4];
@@ -31,19 +27,19 @@ export class TopLevelCommunityListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.sub = this.route
-      .queryParams
-      .subscribe((params) => {
-        this.topLevelCommunities = this.cds.findAll({
-          currentPage: params.page,
-          elementsPerPage: params.pageSize,
-          sort: { field: params.sortField, direction: params.sortDirection }
-        });
-      });
+    this.updatePage({
+      page: 1,
+      pageSize: this.config.pageSize,
+      sortField: this.sortConfig.field,
+      direction: this.sortConfig.direction
+    });
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  updatePage(data) {
+    this.topLevelCommunities = this.cds.findAll({
+      currentPage: data.page,
+      elementsPerPage: data.pageSize,
+      sort: { field: data.sortField, direction: data.sortDirection }
+    });
   }
 }
