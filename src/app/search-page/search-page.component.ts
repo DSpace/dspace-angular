@@ -37,6 +37,13 @@ export class SearchPageComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private communityService: CommunityDataService,) {
     this.scopeList = communityService.findAll();
+    // Initial pagination config
+    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
+    pagination.id = 'search-results-pagination';
+    pagination.currentPage = 1;
+    pagination.pageSize = 10;
+    const sort: SortOptions = new SortOptions();
+    this.searchOptions = { pagination: pagination, sort: sort };
   }
 
   ngOnInit(): void {
@@ -47,17 +54,21 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this.currentParams = params;
           this.query = params.query || '';
           this.scope = params.scope;
-          this.page = +params.page || 1;
-          // Prepare search parameters
-          const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-          pagination.id = 'search-results-pagination';
-          pagination.currentPage = this.page;
-          pagination.pageSize = +params.pageSize || 10;
-          const sort: SortOptions = new SortOptions(params.sortField, params.sortDirection);
-          // Create search options
-          this.searchOptions = { pagination: pagination, sort: sort };
-          // Resolve search results
-          this.results = this.service.search(this.query, params.scope, this.searchOptions);
+          const page = +params.page  || this.searchOptions.pagination.currentPage;
+          const pageSize = +params.pageSize  || this.searchOptions.pagination.pageSize;
+          const sortDirection = +params.page || this.searchOptions.sort.direction;
+          const pagination = Object.assign({},
+            this.searchOptions.pagination,
+            { currentPage: page, pageSize: pageSize }
+          );
+          const sort = Object.assign({},
+            this.searchOptions.sort,
+            { direction: sortDirection, field: params.sortField }
+          );
+          this.updateSearchResults({
+            pagination: pagination,
+            sort: sort
+          });
           if (isNotEmpty(this.scope)) {
             this.scopeObject = this.communityService.findById(this.scope);
           } else {
@@ -65,6 +76,12 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           }
         }
       );
+  }
+
+  private updateSearchResults(searchOptions) {
+    // Resolve search results
+    this.results = this.service.search(this.query, this.scope, searchOptions);
+
   }
 
   ngOnDestroy() {

@@ -24,9 +24,7 @@ export class TopLevelCommunityListComponent {
     this.config.pageSizeOptions = [4];
     this.config.pageSize = 4;
     this.sortConfig = new SortOptions();
-  }
 
-  ngOnInit(): void {
     this.updatePage({
       page: 1,
       pageSize: this.config.pageSize,

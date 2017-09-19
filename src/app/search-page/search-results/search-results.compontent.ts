@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchResult } from '../../search/search-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../search/search-options.model';
 
 /**

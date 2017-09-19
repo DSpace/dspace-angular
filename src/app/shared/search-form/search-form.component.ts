@@ -31,13 +31,15 @@ export class SearchFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.scopes
-      .filter((scopes: DSpaceObject[]) => isEmpty(scopes))
-      .subscribe((scopes: DSpaceObject[]) => {
-          this.scopeOptions = scopes
-            .map((scope: DSpaceObject) => scope.id);
-        }
-      );
+    if (this.scopes) {
+      this.scopes
+        .filter((scopes: DSpaceObject[]) => isEmpty(scopes))
+        .subscribe((scopes: DSpaceObject[]) => {
+            this.scopeOptions = scopes
+              .map((scope: DSpaceObject) => scope.id);
+          }
+        );
+    }
   }
 
   constructor(private router: Router) {
@@ -59,6 +61,10 @@ export class SearchFormComponent implements OnInit {
       )
     })
     ;
+  }
+
+  private isNotEmpty(object: any) {
+    return isNotEmpty(object);
   }
 
   byId(id1: string, id2: string) {

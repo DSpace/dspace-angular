@@ -3,10 +3,9 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
-  Output, SimpleChanges,
+  Output,
   ViewEncapsulation
 } from '@angular/core'
 
@@ -21,7 +20,7 @@ import { HostWindowService } from '../host-window.service';
 import { HostWindowState } from '../host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { hasValue, isUndefined, isNotEmpty, hasNoValue } from '../empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 
 /**
@@ -110,7 +109,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Current URL query parameters
    */
-  public currentQueryParams = {};
+  public currentQueryParams: any;
 
   /**
    * An observable of HostWindowState type
@@ -186,16 +185,22 @@ export class PaginationComponent implements OnDestroy, OnInit {
     // Listen to changes
     this.subs.push(this.route.queryParams
       .subscribe((queryParams) => {
-        if (isNotEmpty(queryParams)) {
-          // No need to rewrite empty search queries - we have the initial configuration
-          this.validateParams(queryParams.page, queryParams.pageSize, queryParams.sortDirection, queryParams.sortField);
+        if (isEmpty(queryParams)) {
+          this.initializeConfig();
+        } else {
           this.currentQueryParams = queryParams;
-        } else if (hasValue(this.currentPage)) {
-          // When going back to the base /search base url - don't use the last this.currentPage value anymore
-          this.doPageChange(this.paginationOptions.currentPage);
+          const fixedProperties = this.validateParams(queryParams);
+          if (isNotEmpty(fixedProperties)) {
+            this.fixRoute(fixedProperties);
+          }
+          this.setFields();
+          this.setShowingDetail();
         }
-        this.setShowingDetail();
       }));
+  }
+
+  private fixRoute(fixedProperties) {
+    this.updateRoute(fixedProperties);
   }
 
   /**
@@ -215,6 +220,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.pageSize = this.paginationOptions.pageSize;
     this.sortDirection = this.sortOptions.direction;
     this.sortField = this.sortOptions.field;
+    this.currentQueryParams = {
+      page: this.currentPage,
+      pageSize: this.pageSize,
+      sortDirection: this.sortDirection,
+      sortField: this.sortField
+    };
     this.setShowingDetail();
   }
 
@@ -237,9 +248,49 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
+    this.updateRoute({ page: page });
+  }
+
+  /**
+   * Method to set set new page size and update route parameters
+   *
+   * @param pageSize
+   *    The new page size.
+   */
+  public doPageSizeChange(pageSize: number) {
+    this.updateRoute({ page: 1, pageSize: pageSize });
+  }
+
+  /**
+   * Method to set set new sort direction and update route parameters
+   *
+   * @param sortDirection
+   *    The new sort direction.
+   */
+  public doSortDirectionChange(sortDirection: SortDirection) {
+    this.updateRoute({ page: 1, sortDirection: sortDirection });
+  }
+
+  /**
+   * Method to set set new sort field and update route parameters
+   *
+   * @param sortField
+   *    The new sort field.
+   */
+  public doSortFieldChange(field: string) {
+    this.updateRoute({ page: 1, sortField: field });
+  }
+
+  /**
+   * Method to set set new page and update route parameters
+   *
+   * @param page
+   *    The page being navigated to.
+   */
+  public setPage(page: number) {
     this.currentPage = page;
-    this.updateRoute();
     this.pageChange.emit(page);
+    this.emitPaginationChange();
   }
 
   /**
@@ -250,9 +301,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setPageSize(pageSize: number) {
     this.pageSize = pageSize;
-    this.doPageChange(1);
-    this.updateRoute();
     this.pageSizeChange.emit(pageSize);
+    this.emitPaginationChange();
   }
 
   /**
@@ -263,9 +313,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setSortDirection(sortDirection: SortDirection) {
     this.sortDirection = sortDirection;
-    this.doPageChange(1);
-    this.updateRoute();
     this.sortDirectionChange.emit(sortDirection);
+    this.emitPaginationChange();
   }
 
   /**
@@ -276,23 +325,25 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setSortField(field: string) {
     this.sortField = field;
-    this.doPageChange(1);
-    this.updateRoute();
     this.sortFieldChange.emit(field);
+    this.emitPaginationChange();
+  }
+
+  private emitPaginationChange() {
+    this.paginationChange.emit({
+      page: this.currentPage,
+      pageSize: this.pageSize,
+      sortDirection: this.sortDirection,
+      sortField: this.sortField
+    });
   }
 
   /**
    * Method to update the route parameters
    */
-  private updateRoute() {
+  private updateRoute(params: {}) {
     this.router.navigate([], {
-      queryParams: Object.assign({}, this.currentQueryParams, {
-        pageId: this.id,
-        page: this.currentPage,
-        pageSize: this.pageSize,
-        sortDirection: this.sortDirection,
-        sortField: this.sortField
-      })
+      queryParams: Object.assign({}, this.currentQueryParams, params)
     });
   }
 
@@ -324,83 +375,58 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * @param pageSize
    *    The page size to validate
    */
-  private validateParams(page: any, pageSize: any, sortDirection: any, sortField: any) {
-    const originalPageInfo = {
-      id: this.id,
-      page: page,
-      pageSize: pageSize,
-      sortDirection: sortDirection,
-      sortField: sortField
-    };
-    // tslint:disable-next-line:triple-equals
-    const filteredPageInfo = {
-      id: this.id,
-      page: this.validatePage(page),
-      pageSize: this.validatePageSize(pageSize),
-      sortDirection: sortDirection,
-      sortField: sortField
-    };
-
-    // let filteredPageSize = this.pageSizeOptions.find((x) => x === pageSize);
-    if (JSON.stringify(originalPageInfo) !== JSON.stringify(filteredPageInfo)) {
-      // filteredPageSize = (filteredPageSize) ? filteredPageSize : this.pageSize;
-      this.router.navigate([], {
-        queryParams: filteredPageInfo
-      });
-    } else {
-      let hasChanged = false;
-      // (+) converts string to a number
-      if (this.currentPage !== +page) {
-        this.currentPage = +page;
-        this.pageChange.emit(this.currentPage);
-        hasChanged = true;
-      }
-
-      if (this.pageSize !== +pageSize) {
-        this.pageSize = +pageSize;
-        this.pageSizeChange.emit(this.pageSize);
-        hasChanged = true;
-      }
-
-      if (this.sortDirection !== +sortDirection) {
-        this.sortDirection = +sortDirection;
-        this.sortDirectionChange.emit(this.sortDirection);
-        hasChanged = true;
-      }
-
-      if (this.sortField !== sortField) {
-        this.sortField = sortField;
-        this.sortFieldChange.emit(this.sortField);
-        hasChanged = true;
-      }
-
-      if (hasChanged) {
-        this.paginationChange.emit({
-          page: page,
-          pageSize: pageSize,
-          sortDirection: sortDirection,
-          sortField: sortField
-        });
-      }
-      this.cdRef.detectChanges();
+  private validateParams(params: any): any {
+    const validPage = this.validatePage(params.page);
+    const filteredSize = this.validatePageSize(params.pageSize);
+    const fixedFields: any = {};
+    if (+params.page !== validPage) {
+      fixedFields.page = validPage;
     }
+    if (+params.pageSize !== filteredSize) {
+      fixedFields.pageSize = filteredSize;
+    }
+    return fixedFields;
   }
 
-  private validatePage(page: any): string {
-    let result = this.currentPage
+  private setFields() {
+    // (+) converts string to a number
+    const page = this.currentQueryParams.page;
+    if (this.currentPage !== +page) {
+      this.setPage(+page);
+    }
+
+    const pageSize = this.currentQueryParams.pageSize;
+    if (this.pageSize !== +pageSize) {
+      this.setPageSize(+pageSize);
+    }
+
+    const sortDirection = this.currentQueryParams.sortDirection;
+    if (this.sortDirection !== +sortDirection) {
+      this.setSortDirection(+sortDirection);
+    }
+
+    const sortField = this.currentQueryParams.sortField;
+    if (this.sortField !== sortField) {
+      this.setSortField(sortField);
+    }
+    this.cdRef.detectChanges();
+  }
+
+  private validatePage(page: any): number {
+    let result = this.currentPage;
     if (isNumeric(page)) {
-      result = page;
+      result = +page;
     }
-    return result + '';
+    return result;
   }
 
-  private validatePageSize(pageSize: any): string {
-    const filteredPageSize = this.pageSizeOptions.find((x) => x === pageSize);
-    let result = this.pageSize
+  private validatePageSize(pageSize: any): number {
+    const filteredPageSize = this.pageSizeOptions.find((x) => x === +pageSize);
+    let result = this.pageSize;
     if (filteredPageSize) {
-      result = pageSize;
+      result = +pageSize;
     }
-    return result + '';
+    return result;
   }
 
   /**

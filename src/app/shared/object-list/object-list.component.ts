@@ -52,6 +52,8 @@ export class ObjectListComponent implements OnChanges, OnInit {
    */
   @Output() sortDirectionChange: EventEmitter<SortDirection> = new EventEmitter<SortDirection>();
 
+  @Output() paginationChange: EventEmitter<SortDirection> = new EventEmitter<any>();
+
   /**
    * An event fired when the sort field is changed.
    * Event's payload equals to the newly selected sort field.
@@ -93,6 +95,10 @@ export class ObjectListComponent implements OnChanges, OnInit {
 
   onSortFieldChange(event) {
     this.sortFieldChange.emit(event);
+  }
+
+  onPaginationChange(event) {
+    this.paginationChange.emit(event);
   }
 
 }
