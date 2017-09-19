@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { ResponseCacheEntry } from './response-cache.reducer';
 import { hasNoValue } from '../../shared/empty.util';
 import { ResponseCacheRemoveAction, ResponseCacheAddAction } from './response-cache.actions';
-import { Response } from './response-cache.models';
+import { RestResponse } from './response-cache.models';
 import { CoreState } from '../core.reducers';
 import { keySelector } from '../shared/selectors';
 
@@ -23,7 +23,7 @@ export class ResponseCacheService {
     private store: Store<CoreState>
   ) { }
 
-  add(key: string, response: Response, msToLive: number): Observable<ResponseCacheEntry> {
+  add(key: string, response: RestResponse, msToLive: number): Observable<ResponseCacheEntry> {
     if (!this.has(key)) {
       // this.store.dispatch(new ResponseCacheFindAllAction(key, service, scopeID, paginationOptions, sortOptions));
       this.store.dispatch(new ResponseCacheAddAction(key, response, new Date().getTime(), msToLive));

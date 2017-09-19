@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
-import { CacheableObject } from '../cache/object-cache.reducer';
-import { Request } from './request.models';
+import { RestRequest } from './request.models';
 
 /**
  * The list of RequestAction type definitions
@@ -15,10 +14,10 @@ export const RequestActionTypes = {
 /* tslint:disable:max-classes-per-file */
 export class RequestConfigureAction implements Action {
   type = RequestActionTypes.CONFIGURE;
-  payload: Request;
+  payload: RestRequest;
 
   constructor(
-    request: Request
+    request: RestRequest
   ) {
     this.payload = request;
   }

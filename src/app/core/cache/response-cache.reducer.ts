@@ -5,14 +5,14 @@ import {
 } from './response-cache.actions';
 import { CacheEntry } from './cache-entry';
 import { hasValue } from '../../shared/empty.util';
-import { Response } from './response-cache.models';
+import { RestResponse } from './response-cache.models';
 
 /**
  * An entry in the ResponseCache
  */
 export class ResponseCacheEntry implements CacheEntry {
   key: string;
-  response: Response;
+  response: RestResponse;
   timeAdded: number;
   msToLive: number;
 }

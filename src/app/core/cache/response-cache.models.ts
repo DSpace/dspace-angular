@@ -2,14 +2,14 @@ import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
 
 /* tslint:disable:max-classes-per-file */
-export class Response {
+export class RestResponse {
   constructor(
     public isSuccessful: boolean,
     public statusCode: string
   ) { }
 }
 
-export class SuccessResponse extends Response {
+export class DSOSuccessResponse extends RestResponse {
   constructor(
     public resourceSelfLinks: string[],
     public statusCode: string,
@@ -19,7 +19,16 @@ export class SuccessResponse extends Response {
   }
 }
 
-export class ErrorResponse extends Response {
+export class RootSuccessResponse extends RestResponse {
+  constructor(
+    public endpointMap: { [linkName: string]: string },
+    public statusCode: string,
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class ErrorResponse extends RestResponse {
   errorMessage: string;
 
   constructor(error: RequestError) {

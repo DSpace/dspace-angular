@@ -1,12 +1,11 @@
-import { CacheableObject } from '../cache/object-cache.reducer';
 import {
   RequestActionTypes, RequestAction, RequestConfigureAction,
   RequestExecuteAction, RequestCompleteAction
 } from './request.actions';
-import { Request } from './request.models';
+import { RestRequest } from './request.models';
 
 export class RequestEntry {
-  request: Request;
+  request: RestRequest;
   requestPending: boolean;
   responsePending: boolean;
   completed: boolean;

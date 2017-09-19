@@ -78,7 +78,7 @@ export class SearchService {
     });
 
     return new RemoteData(
-      self,
+      Observable.of(self),
       requestPending,
       responsePending,
       isSuccessFul,

@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 import { MemoizedSelector, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
-
-import { RequestEntry } from './request.reducer';
-import { Request } from './request.models';
 import { hasValue } from '../../shared/empty.util';
-import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { DSOSuccessResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { SuccessResponse } from '../cache/response-cache.models';
+import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { keySelector } from '../shared/selectors';
+import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
+import { RestRequest } from './request.models';
+
+import { RequestEntry } from './request.reducer';
 
 function entryFromHrefSelector(href: string): MemoizedSelector<CoreState, RequestEntry> {
   return keySelector<RequestEntry>('data/request', href);
@@ -45,18 +45,25 @@ export class RequestService {
     return this.store.select(entryFromHrefSelector(href));
   }
 
-  configure<T extends CacheableObject>(request: Request): void {
+  configure<T extends CacheableObject>(request: RestRequest): void {
     let isCached = this.objectCache.hasBySelfLink(request.href);
 
     if (!isCached && this.responseCache.has(request.href)) {
-      // if it isn't cached it may be a list endpoint, if so verify
-      // every object included in the response is still cached
-      this.responseCache.get(request.href)
+      const [dsoSuccessResponse, otherSuccessResponse] = this.responseCache.get(request.href)
         .take(1)
         .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-        .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceSelfLinks)
-        .map((resourceSelfLinks: string[]) => resourceSelfLinks.every((selfLink) => this.objectCache.hasBySelfLink(selfLink)))
-        .subscribe((c) => isCached = c);
+        .map((entry: ResponseCacheEntry) => entry.response)
+        .share()
+        .partition((response: DSOSuccessResponse) => hasValue(response.resourceSelfLinks));
+
+      Observable.merge(
+        otherSuccessResponse.map(() => true),
+        dsoSuccessResponse // a DSOSuccessResponse should only be considered cached if all its resources are cached
+          .map((response: DSOSuccessResponse) => response.resourceSelfLinks)
+          .map((resourceSelfLinks: string[]) => resourceSelfLinks
+            .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
+          )
+      ).subscribe((c) => isCached = c);
     }
 
     const isPending = this.isPending(request.href);

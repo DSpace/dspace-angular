@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 
 import { DataService } from './data.service';
 import { Collection } from '../shared/collection.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { NormalizedCollection } from '../cache/models/normalized-collection.model';
 import { CoreState } from '../core.reducers';
@@ -13,11 +12,10 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 
 @Injectable()
 export class CollectionDataService extends DataService<NormalizedCollection, Collection> {
-  protected resourceEndpoint = '/core/collections';
+  protected linkName = 'collections';
   protected browseEndpoint = '/discover/browses/dateissued/collections';
 
   constructor(
-    protected objectCache: ObjectCacheService,
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
