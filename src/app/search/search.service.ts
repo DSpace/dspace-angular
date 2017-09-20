@@ -11,6 +11,20 @@ import { Metadatum } from '../core/shared/metadatum.model';
 import { Item } from '../core/shared/item.model';
 import { ItemSearchResult } from '../object-list/search-result-list-element/item-search-result/item-search-result.model';
 
+function shuffle(array: any[]) {
+  let i = 0;
+  let j = 0;
+  let temp = null;
+
+  for (i = array.length - 1; i > 0; i -= 1) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}
+
 @Injectable()
 export class SearchService {
 
@@ -53,19 +67,12 @@ export class SearchService {
       returningPageInfo.currentPage = 1;
     }
     returningPageInfo.totalPages = this.totalPages;
-    returningPageInfo.totalElements = 10 * this.totalPages;
+    returningPageInfo.totalElements = returningPageInfo.elementsPerPage * returningPageInfo.totalPages;
     const pageInfo = Observable.of(returningPageInfo);
 
-    const itemsRD = this.itemDataService.findAll({
-      scopeID: '8e0928a0-047a-4369-8883-12669f32dd64',
-      currentPage: returningPageInfo.currentPage,
-      elementsPerPage: returningPageInfo.elementsPerPage
-    });
+    const itemsRD = this.itemDataService.findAll({ elementsPerPage: 10 });
     const payload = itemsRD.payload.map((items: Item[]) => {
-      return items.sort(() => {
-        const values = [-1, 0, 1];
-        return values[Math.floor(Math.random() * values.length)];
-      })
+      return shuffle(items)
       .map((item: Item, index: number) => {
         const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
         mockResult.dspaceObject = item;

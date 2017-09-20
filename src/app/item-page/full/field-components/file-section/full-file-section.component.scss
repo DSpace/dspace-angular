@@ -1,4 +1,5 @@
-@import '../../../../../styles/shared_imports';
+@import '../../../../../styles/variables';
+@import '../../../../../styles/mixins';
 @media screen and (min-width: map-get($grid-breakpoints, md)) {
     dt {
         text-align: right;

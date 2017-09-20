@@ -64,22 +64,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
-  onPageChange(currentPage: number): void {
-    this.config.currentPage = currentPage;
-    this.updateResults();
-  }
-
-  onPageSizeChange(elementsPerPage: number): void {
-    this.config.pageSize = elementsPerPage;
-    this.updateResults();
-  }
-
-  onSortDirectionChange(sortDirection: SortDirection): void {
-    this.sortConfig = new SortOptions(this.sortConfig.field, sortDirection);
-    this.updateResults();
-  }
-
-  onSortFieldChange(field: string): void {
+  onPaginationChange(field: string): void {
     this.sortConfig = new SortOptions(field, this.sortConfig.direction);
     this.updateResults();
   }
