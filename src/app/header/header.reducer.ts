@@ -8,7 +8,7 @@ const initialState: HeaderState = {
   navCollapsed: true
 };
 
-export const headerReducer = (state = initialState, action: HeaderAction): HeaderState => {
+export function headerReducer(state = initialState, action: HeaderAction): HeaderState {
   switch (action.type) {
 
     case HeaderActionTypes.COLLAPSE: {
@@ -35,4 +35,4 @@ export const headerReducer = (state = initialState, action: HeaderAction): Heade
       return state;
     }
   }
-};
+}

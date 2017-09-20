@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-
-import { request } from 'http';
+import { MemoizedSelector, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 
-import { RequestEntry, RequestState } from './request.reducer';
+import { RequestEntry } from './request.reducer';
 import { Request } from './request.models';
 import { hasValue } from '../../shared/empty.util';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
@@ -15,6 +13,12 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { SuccessResponse } from '../cache/response-cache.models';
+import { CoreState } from '../core.reducers';
+import { keySelector } from '../shared/selectors';
+
+function entryFromHrefSelector(href: string): MemoizedSelector<CoreState, RequestEntry> {
+  return keySelector<RequestEntry>('data/request', href);
+}
 
 @Injectable()
 export class RequestService {
@@ -22,13 +26,13 @@ export class RequestService {
   constructor(
     private objectCache: ObjectCacheService,
     private responseCache: ResponseCacheService,
-    private store: Store<RequestState>
+    private store: Store<CoreState>
   ) {
   }
 
   isPending(href: string): boolean {
     let isPending = false;
-    this.store.select<RequestEntry>('core', 'data', 'request', href)
+    this.store.select(entryFromHrefSelector(href))
       .take(1)
       .subscribe((re: RequestEntry) => {
         isPending = (hasValue(re) && !re.completed)
@@ -38,7 +42,7 @@ export class RequestService {
   }
 
   get(href: string): Observable<RequestEntry> {
-    return this.store.select<RequestEntry>('core', 'data', 'request', href);
+    return this.store.select(entryFromHrefSelector(href));
   }
 
   configure<T extends CacheableObject>(request: Request<T>): void {

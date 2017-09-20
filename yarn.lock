@@ -90,25 +90,21 @@
   version "1.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0-beta.4.tgz#18ffd662a4c77305213e76f6ae47b0ffda03bb7c"
 
-"@ngrx/core@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/core/-/core-1.2.0.tgz#882b46abafa2e0e6d887cb71a1b2c2fa3e6d0dc6"
+"@ngrx/effects@^4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-4.0.5.tgz#1224763800621b7305f9b18bc17ee09b25c861d1"
 
-"@ngrx/effects@2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.4.tgz#418eee5e1032fa66de5bbf1855653bb1951f12a4"
+"@ngrx/router-store@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-4.0.4.tgz#ab59f35aae93465088384faf009e21b22edd456a"
 
-"@ngrx/router-store@1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-1.2.6.tgz#a2eb0ca515e9b367781f1030250dd64bb73c086b"
+"@ngrx/store-devtools@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-4.0.0.tgz#b79c24773217df7fd9735ad21f9cbf2533c96e04"
 
-"@ngrx/store-devtools@3.2.4":
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-3.2.4.tgz#2ce4d13bf34848a9e51ec87e3b125ed67b51e550"
-
-"@ngrx/store@2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-2.2.3.tgz#e7bd1149f1c44208f1cc4744353f0f98a0f1f57b"
+"@ngrx/store@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-4.0.3.tgz#36abacdfa19bfb8506e40de80bae06050a1e15e9"
 
 "@ngtools/webpack@1.5.1":
   version "1.5.1"
@@ -1733,10 +1729,6 @@ deep-equal@^1.0.1:
 deep-extend@~0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.2.tgz#48b699c27e334bf89f10892be432f6e4c7d34a7f"
-
-deep-freeze-strict@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/deep-freeze-strict/-/deep-freeze-strict-1.1.1.tgz#77d0583ca24a69be4bbd9ac2fae415d55523e5b0"
 
 deep-freeze@0.0.1:
   version "0.0.1"
@@ -3490,6 +3482,12 @@ jasmine-core@2.6.4, jasmine-core@~2.6.0:
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.6.4.tgz#dec926cd0a9fa287fb6db5c755fa487e74cecac5"
 
+jasmine-marbles@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/jasmine-marbles/-/jasmine-marbles-0.1.0.tgz#c9ecdc64e20b6cf55b49a10201a5be33907dadcc"
+  dependencies:
+    lodash.isequal "^4.5.0"
+
 jasmine-spec-reporter@4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/jasmine-spec-reporter/-/jasmine-spec-reporter-4.1.1.tgz#5a6d58ab5d61bea7309fbc279239511756b1b588"
@@ -3943,6 +3941,10 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+
 lodash.keys@^3.0.0:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/lodash.keys/-/lodash.keys-3.1.2.tgz#4dbc0472b156be50a0b286855d1bd0b0c656098a"
@@ -4365,12 +4367,6 @@ nested-error-stacks@^1.0.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-1.0.2.tgz#19f619591519f096769a5ba9a86e6eeec823c3cf"
   dependencies:
     inherits "~2.0.1"
-
-ngrx-store-freeze@0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/ngrx-store-freeze/-/ngrx-store-freeze-0.1.9.tgz#b20f18f21fd5efc4e1b1e05f6f279674d0f70c81"
-  dependencies:
-    deep-freeze-strict "^1.1.1"
 
 ngx-pagination@3.0.1:
   version "3.0.1"

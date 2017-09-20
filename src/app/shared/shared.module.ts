@@ -24,6 +24,7 @@ import { ItemListElementComponent } from '../object-list/item-list-element/item-
 import { CommunityListElementComponent } from '../object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent } from '../object-list/collection-list-element/collection-list-element.component';
 import { TruncatePipe } from './utils/truncate.pipe';
+import { ServerResponseService } from './server-response.service';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -61,7 +62,8 @@ const COMPONENTS = [
 const PROVIDERS = [
   ApiService,
   HostWindowService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory }
+  { provide: NativeWindowService, useFactory: NativeWindowFactory },
+  ServerResponseService
 ];
 
 @NgModule({
