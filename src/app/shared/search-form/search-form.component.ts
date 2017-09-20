@@ -63,7 +63,7 @@ export class SearchFormComponent implements OnInit {
     ;
   }
 
-  private isNotEmpty(object: any) {
+  isNotEmpty(object: any) {
     return isNotEmpty(object);
   }
 
