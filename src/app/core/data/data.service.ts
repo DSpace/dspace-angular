@@ -15,7 +15,7 @@ import { GlobalConfig } from '../../../config';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { Observable } from 'rxjs/Observable';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { RootSuccessResponse } from '../cache/response-cache.models';
+import { EndpointMap, RootSuccessResponse } from '../cache/response-cache.models';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -32,13 +32,29 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
 
   }
 
-  private getEndpoint(linkName: string): Observable<string> {
+  private getEndpointMap(): Observable<EndpointMap> {
     const request = new RootEndpointRequest(this.EnvConfig);
     this.requestService.configure(request);
     return this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .filter((response: RootSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.endpointMap))
-      .map((response: RootSuccessResponse) => response.endpointMap[linkName])
+      .map((response: RootSuccessResponse) => response.endpointMap)
+      .distinctUntilChanged();
+  }
+
+  public getEndpoint(): Observable<string> {
+    const request = new RootEndpointRequest(this.EnvConfig);
+    this.requestService.configure(request);
+    return this.getEndpointMap()
+      .map((map: EndpointMap) => map[this.linkName])
+      .distinctUntilChanged();
+  }
+
+  public isEnabledOnRestApi(): Observable<boolean> {
+   return this.getEndpointMap()
+      .map((map: EndpointMap) => isNotEmpty(map[this.linkName]))
+      .startWith(undefined)
+      .distinctUntilChanged();
   }
 
   protected getFindAllHref(endpoint, options: FindAllOptions = {}): string {
@@ -76,7 +92,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   findAll(options: FindAllOptions = {}): RemoteData<TDomain[]> {
-    const hrefObs = this.getEndpoint(this.linkName)
+    const hrefObs = this.getEndpoint()
       .map((endpoint: string) => this.getFindAllHref(endpoint, options));
 
     hrefObs
@@ -93,7 +109,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   findById(id: string): RemoteData<TDomain> {
-    const hrefObs = this.getEndpoint(this.linkName)
+    const hrefObs = this.getEndpoint()
       .map((endpoint: string) => this.getFindByIDHref(endpoint, id));
 
     hrefObs

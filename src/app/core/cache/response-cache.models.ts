@@ -19,9 +19,13 @@ export class DSOSuccessResponse extends RestResponse {
   }
 }
 
+export class EndpointMap {
+  [linkName: string]: string
+}
+
 export class RootSuccessResponse extends RestResponse {
   constructor(
-    public endpointMap: { [linkName: string]: string },
+    public endpointMap: EndpointMap,
     public statusCode: string,
   ) {
     super(true, statusCode);
