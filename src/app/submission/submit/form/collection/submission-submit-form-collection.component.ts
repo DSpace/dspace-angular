@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
@@ -54,7 +54,31 @@ export class SubmissionSubmitFormCollectionComponent implements OnInit  {
   public listCollection: any;
   public model: any;
 
-  private searchField: FormControl;
+  private scrollableBottom = false;
+  private scrollableTop = false;
+  public searchField: FormControl;
+
+  @HostListener('mousewheel', ['$event']) onMousewheel(event) {
+    if (event.wheelDelta > 0 && this.scrollableTop) {
+      event.preventDefault();
+    }
+    if (event.wheelDelta < 0 && this.scrollableBottom) {
+      event.preventDefault();
+    }
+  }
+
+  onScroll(event) {
+    if (event.target.scrollTop + event.target.clientHeight === event.target.scrollHeight) {
+      this.scrollableBottom = true;
+    } else {
+      this.scrollableBottom = false;
+    }
+    if (event.target.scrollTop === 0) {
+      this.scrollableTop = true;
+    } else {
+      this.scrollableTop = false;
+    }
+  }
 
   ngOnInit() {
     this.selectedCollection = this.currentCollection;

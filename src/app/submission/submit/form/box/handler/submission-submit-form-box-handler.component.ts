@@ -7,10 +7,14 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { BoxModel } from '../box.model';
+import { BoxDataModel } from '../box.model';
+import { BoxFactoryComponent, FactoryDataModel } from '../box.factory'
 import { BoxService } from '../box.service';
 import { SubmissionSubmitFormComponent } from '../../submission-submit-form.component';
 import { BasicInformationBoxComponent } from '../basic-information/submission-submit-form-box-basic-information.component';
+import { assign } from 'rxjs/util/assign';
+import { Subscription } from 'rxjs/Subscription';
+import { hasValue } from '../../../../../shared/empty.util';
 
 @Component({
   selector: 'ds-submission-submit-form-box-handler',
@@ -18,51 +22,40 @@ import { BasicInformationBoxComponent } from '../basic-information/submission-su
   templateUrl: './submission-submit-form-box-handler.component.html'
 })
 export class SubmissionSubmitFormBoxHandlerComponent implements OnInit {
-  @Input() boxList?: any;
-  currentAddIndex: number = -1;
-  boxes: any;
-  submitForm: SubmissionSubmitFormComponent;
+  boxList: any;
+  boxesEnabled = [];
 
-  constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private boxService: BoxService,
-    @Optional() @Host() submitForm?: SubmissionSubmitFormComponent
-  ) {
-    this.submitForm = submitForm;
-  }
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  private subs: Subscription[] = [];
+
+  constructor(private boxService: BoxService) {}
 
   ngOnInit() {
-    this.boxList = this.boxService.getAvailableBoxList();
-    this.boxes = this.boxService.getBoxes();
+    this.subs.push(this.boxService.getAvailableBoxList()
+      .subscribe((list: any) => {
+        this.boxList = list
+      }));
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.loadDefaultBox();
+      this.boxService.loadDefaultBox();
     });
   }
 
-  loadDefaultBox() {
-    this.boxService.getDeafultBoxList().forEach((box) => {
-      this.loadBox(box.idBox);
-    });
-  }
-
-  loadBox(id) {
-    const boxItem = this.boxes.get(id);
-
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(boxItem.component);
-
-    const viewContainerRef = this.submitForm.boxHost.viewContainerRef;
-
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as BoxModel).data = boxItem.data;
+  /**
+   * Method provided by Angular. Invoked when the instance is destroyed.
+   */
+  ngOnDestroy() {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 
   addBox(event) {
-    this.loadBox(event.idBox);
-    const index = this.boxList.indexOf(event);
-    this.boxList.splice(index, 1);
-    console.log(index);
+    this.boxService.addBox(event);
   }
 }

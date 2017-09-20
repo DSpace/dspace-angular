@@ -1,10 +1,12 @@
-import { Directive } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 
 @Directive({
   selector: '[dsBox]',
   exportAs: 'boxRef'
 })
 export class BoxDirective {
+  @Input() mandatory = false;
+  @Input() animation = false;
 
   panelState = false;
 
@@ -16,7 +18,11 @@ export class BoxDirective {
     return (this.panelState) ? true : false;
   }
 
+  public isOptional() {
+    return !this.mandatory;
+  }
+
   public isAnimationsActive() {
-    return false;
+    return this.animation;
   }
 }

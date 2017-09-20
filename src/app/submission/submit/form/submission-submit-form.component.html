@@ -1,19 +1,17 @@
-<div class="submission-form-container">
-  <div class="submission-container-header mb-3" >
-    <div class="row">
-      <div class="col-6">
-        <ds-submission-submit-form-collection [currentCollection]="'Collection of Sample Items'"></ds-submission-submit-form-collection>
-      </div>
-      <div class="col text-right">
-        <ds-submission-submit-form-box-handler></ds-submission-submit-form-box-handler>
-      </div>
+<div class="submission-submit-form-header mb-3" >
+  <div class="row">
+    <div class="col-6">
+      <ds-submission-submit-form-collection [currentCollection]="'Collection of Sample Items'"></ds-submission-submit-form-collection>
     </div>
+    <div class="col text-right">
+      <ds-submission-submit-form-box-handler></ds-submission-submit-form-box-handler>
+    </div>
+  </div>
 
-  </div>
-  <div class="submission-form-content" >
-    <ng-template dsBoxHost></ng-template>
-  </div>
-  <div class="submission-container-footer mt-3 mb-3" >
-    <ds-submission-submit-form-footer></ds-submission-submit-form-footer>
-  </div>
+</div>
+<div class="submission-submit-form-content" >
+  <ng-template dsBoxHost></ng-template>
+</div>
+<div class="submission-submit-form-footer mt-3 mb-3" >
+  <ds-submission-submit-form-footer></ds-submission-submit-form-footer>
 </div>

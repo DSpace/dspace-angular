@@ -1,38 +1,10 @@
-/*:host {
-  display: -webkit-box;
-  display: contents;
-  flex-direction: column;
-  flex: 1 1 auto;
-  height: 100%;
+@import '../../../../styles/_mixins.scss';
+
+.submission-submit-form-footer {
+  border-radius: $card-border-radius;
+  position: sticky;
+  bottom: 0;
+  background-color: $gray-lighter;
+  padding: 0.5rem;
 }
 
-.submission-form-content {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  min-height: 0px;
-}
-*/
-:host {
-  flex: 1 0 auto;
-  height: 0;
-}
-
-.submission-form-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
-
-.submission-form-header {
-
-}
-
-.submission-form-content {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  min-height: 0px;
-}
-
-.submission-form-footer {
-}
