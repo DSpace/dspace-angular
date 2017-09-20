@@ -27,6 +27,7 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { ServerResponseService } from './server-response.service';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -71,7 +72,8 @@ const ENTRY_COMPONENTS = [
 const PROVIDERS = [
   ApiService,
   HostWindowService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory }
+  { provide: NativeWindowService, useFactory: NativeWindowFactory },
+  ServerResponseService
 ];
 
 @NgModule({

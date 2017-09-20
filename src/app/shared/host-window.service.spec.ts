@@ -1,17 +1,18 @@
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { AppState } from '../app.reducer';
+import { HostWindowState } from './host-window.reducer';
 
 import { HostWindowService } from './host-window.service';
-import { HostWindowState } from './host-window.reducer';
 
 describe('HostWindowService', () => {
   let service: HostWindowService;
-  let store: Store<HostWindowState>;
+  let store: Store<AppState>;
 
   describe('', () => {
     beforeEach(() => {
-      const _initialState = { width: 1600, height: 770 };
-      store = new Store<HostWindowState>(undefined, undefined, Observable.of(_initialState));
+      const _initialState = { hostWindow: { width: 1600, height: 770 } };
+      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
       service = new HostWindowService(store);
     });
 
@@ -46,8 +47,8 @@ describe('HostWindowService', () => {
 
   describe('', () => {
     beforeEach(() => {
-      const _initialState = { width: 1100, height: 770 };
-      store = new Store<HostWindowState>(undefined, undefined, Observable.of(_initialState));
+      const _initialState = { hostWindow: { width: 1100, height: 770 } };
+      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
       service = new HostWindowService(store);
     });
 
@@ -82,8 +83,8 @@ describe('HostWindowService', () => {
 
   describe('', () => {
     beforeEach(() => {
-      const _initialState = { width: 800, height: 770 };
-      store = new Store<HostWindowState>(undefined, undefined, Observable.of(_initialState));
+      const _initialState = { hostWindow: { width: 800, height: 770 } };
+      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
       service = new HostWindowService(store);
     });
 
@@ -118,8 +119,8 @@ describe('HostWindowService', () => {
 
   describe('', () => {
     beforeEach(() => {
-      const _initialState = { width: 600, height: 770 };
-      store = new Store<HostWindowState>(undefined, undefined, Observable.of(_initialState));
+      const _initialState = { hostWindow: { width: 600, height: 770 } };
+      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
       service = new HostWindowService(store);
     });
 
@@ -154,8 +155,8 @@ describe('HostWindowService', () => {
 
   describe('', () => {
     beforeEach(() => {
-      const _initialState = { width: 400, height: 770 };
-      store = new Store<HostWindowState>(undefined, undefined, Observable.of(_initialState));
+      const _initialState = { hostWindow: { width: 400, height: 770 } };
+      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
       service = new HostWindowService(store);
     });
 

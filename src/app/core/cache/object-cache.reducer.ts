@@ -48,7 +48,7 @@ const initialState: ObjectCacheState = Object.create(null);
  * @return ObjectCacheState
  *    the new state
  */
-export const objectCacheReducer = (state = initialState, action: ObjectCacheAction): ObjectCacheState => {
+export function objectCacheReducer(state = initialState, action: ObjectCacheAction): ObjectCacheState {
   switch (action.type) {
 
     case ObjectCacheActionTypes.ADD: {
@@ -67,7 +67,7 @@ export const objectCacheReducer = (state = initialState, action: ObjectCacheActi
       return state;
     }
   }
-};
+}
 
 /**
  * Add an object to the cache

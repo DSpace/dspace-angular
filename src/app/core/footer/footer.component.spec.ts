@@ -33,7 +33,7 @@ describe('Footer component', () => {
   // async beforeEach
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.provideStore({}), TranslateModule.forRoot({
+      imports: [CommonModule, StoreModule.forRoot({}), TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
           useClass: MockTranslateLoader

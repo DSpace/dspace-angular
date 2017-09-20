@@ -2,8 +2,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { ObjectCacheService } from './object-cache.service';
-import { ObjectCacheState, CacheableObject } from './object-cache.reducer';
+import { CacheableObject } from './object-cache.reducer';
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
+import { CoreState } from '../core.reducers';
 
 class TestClass implements CacheableObject {
   constructor(
@@ -18,7 +19,7 @@ class TestClass implements CacheableObject {
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
-  let store: Store<ObjectCacheState>;
+  let store: Store<CoreState>;
 
   const uuid = '1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
   const requestHref = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
@@ -36,7 +37,7 @@ describe('ObjectCacheService', () => {
   const invalidCacheEntry = Object.assign({}, cacheEntry, { msToLive: -1 });
 
   beforeEach(() => {
-    store = new Store<ObjectCacheState>(undefined, undefined, undefined);
+    store = new Store<CoreState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
     service = new ObjectCacheService(store);
 

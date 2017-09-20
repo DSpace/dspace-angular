@@ -21,7 +21,7 @@ describe('HeaderComponent', () => {
   // async beforeEach
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.provideStore({}), TranslateModule.forRoot(), NgbCollapseModule.forRoot()],
+      imports: [StoreModule.forRoot({}), TranslateModule.forRoot(), NgbCollapseModule.forRoot()],
       declarations: [HeaderComponent]
     })
       .compileComponents();  // compile template and css
@@ -70,7 +70,7 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#collapsingNav')).nativeElement;
-      spyOn(store, 'select').and.returnValue(Observable.of({ navCollapsed: false }));
+      spyOn(store, 'select').and.returnValue(Observable.of(false));
       fixture.detectChanges();
     });
 

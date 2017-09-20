@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/first';
 
-import { ApplicationRef, Inject, NgModule, APP_BOOTSTRAP_LISTENER } from '@angular/core';
+import { ApplicationRef, NgModule, APP_BOOTSTRAP_LISTENER } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ServerModule } from '@angular/platform-server';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,14 +16,13 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Store } from '@ngrx/store';
-import { Actions, EffectsModule } from '@ngrx/effects';
+import { EffectsModule } from '@ngrx/effects';
 
 import { TranslateUniversalLoader } from '../modules/translate-universal-loader';
 
 import { ServerTransferStateModule } from '../modules/transfer-state/server-transfer-state.module';
 import { TransferState } from '../modules/transfer-state/transfer-state';
 
-import { TransferStoreEffects } from '../modules/transfer-store/transfer-store.effects';
 import { ServerTransferStoreEffects } from '../modules/transfer-store/server-transfer-store.effects';
 import { ServerTransferStoreModule } from '../modules/transfer-store/server-transfer-store.module';
 
@@ -32,15 +31,14 @@ import { ServerCookiesModule } from '../modules/cookies/server-cookies.module';
 import { ServerDataLoaderModule } from '../modules/data-loader/server-data-loader.module';
 
 import { AppState } from './app.reducer';
-import { effects } from './app.effects';
 
-import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
 import { AppModule } from './app.module';
 
 import { AppComponent } from './app.component';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../config';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 
 export function boot(cache: TransferState, appRef: ApplicationRef, store: Store<AppState>, request: Request, config: GlobalConfig) {
   // authentication mechanism goes here
@@ -61,6 +59,7 @@ export function UniversalLoaderFactory() {
       appId: 'ds-app-id'
     }),
     RouterModule.forRoot([], { useHash: false }),
+    StoreRouterConnectingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -74,7 +73,7 @@ export function UniversalLoaderFactory() {
     ServerDataLoaderModule,
     ServerTransferStateModule,
     ServerTransferStoreModule,
-    EffectsModule.run(ServerTransferStoreEffects),
+    EffectsModule.forRoot([ServerTransferStoreEffects]),
     NoopAnimationsModule,
     AppModule
   ],
@@ -90,6 +89,10 @@ export function UniversalLoaderFactory() {
         REQUEST,
         GLOBAL_CONFIG
       ]
+    },
+    {
+      provide: RouterStateSerializer,
+      useClass: DSpaceRouterStateSerializer
     }
   ]
 })

@@ -1,21 +1,22 @@
-import { combineReducers } from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
-import { CacheState, cacheReducer } from './cache/cache.reducers';
-import { IndexState, indexReducer } from './index/index.reducers';
-import { DataState, dataReducer } from './data/data.reducers';
+import { responseCacheReducer, ResponseCacheState } from './cache/response-cache.reducer';
+import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
+import { hrefIndexReducer, HrefIndexState } from './index/href-index.reducer';
+import { requestReducer, RequestState } from './data/request.reducer';
 
 export interface CoreState {
-  cache: CacheState,
-  index: IndexState,
-  data: DataState
+  'data/object': ObjectCacheState,
+  'data/response': ResponseCacheState,
+  'data/request': RequestState,
+  'index/href': HrefIndexState
 }
 
-export const reducers = {
-  cache: cacheReducer,
-  index: indexReducer,
-  data: dataReducer
+export const coreReducers: ActionReducerMap<CoreState> = {
+  'data/object': objectCacheReducer,
+  'data/response': responseCacheReducer,
+  'data/request': requestReducer,
+  'index/href': hrefIndexReducer
 };
 
-export function coreReducer(state: any, action: any) {
-  return combineReducers(reducers)(state, action);
-}
+export const coreSelector = createFeatureSelector<CoreState>('core');

@@ -19,7 +19,7 @@ export interface RequestState {
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState = Object.create(null);
 
-export const requestReducer = (state = initialState, action: RequestAction): RequestState => {
+export function requestReducer(state = initialState, action: RequestAction): RequestState {
   switch (action.type) {
 
     case RequestActionTypes.CONFIGURE: {
@@ -38,7 +38,7 @@ export const requestReducer = (state = initialState, action: RequestAction): Req
       return state;
     }
   }
-};
+}
 
 function configureRequest(state: RequestState, action: RequestConfigureAction): RequestState {
   return Object.assign({}, state, {
