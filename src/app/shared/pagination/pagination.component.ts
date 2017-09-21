@@ -212,6 +212,9 @@ export class PaginationComponent implements OnDestroy, OnInit {
       .forEach((sub) => sub.unsubscribe());
   }
 
+  /**
+   * Initializes all default variables
+   */
   private initializeConfig() {
     // Set initial values
     this.id = this.paginationOptions.id || null;
@@ -242,7 +245,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to set set new page and update route parameters
+   * Method to change the route to the given page
    *
    * @param page
    *    The page being navigated to.
@@ -252,40 +255,40 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to set set new page size and update route parameters
+   * Method to change the route to the given page size
    *
    * @param pageSize
-   *    The new page size.
+   *    The page size being navigated to.
    */
   public doPageSizeChange(pageSize: number) {
     this.updateRoute({ page: 1, pageSize: pageSize });
   }
 
   /**
-   * Method to set set new sort direction and update route parameters
+   * Method to change the route to the given sort direction
    *
    * @param sortDirection
-   *    The new sort direction.
+   *    The sort direction being navigated to.
    */
   public doSortDirectionChange(sortDirection: SortDirection) {
     this.updateRoute({ page: 1, sortDirection: sortDirection });
   }
 
   /**
-   * Method to set set new sort field and update route parameters
+   * Method to change the route to the given sort field
    *
    * @param sortField
-   *    The new sort field.
+   *    The sort field being navigated to.
    */
   public doSortFieldChange(field: string) {
     this.updateRoute({ page: 1, sortField: field });
   }
 
   /**
-   * Method to set set new page and update route parameters
+   * Method to set the current page and trigger page change events
    *
    * @param page
-   *    The page being navigated to.
+   *    The new page value
    */
   public setPage(page: number) {
     this.currentPage = page;
@@ -294,10 +297,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to set set new page size and update route parameters
+   * Method to set the current page size and trigger page size change events
    *
    * @param pageSize
-   *    The new page size.
+   *    The new page size value.
    */
   public setPageSize(pageSize: number) {
     this.pageSize = pageSize;
@@ -306,10 +309,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to set set new sort direction and update route parameters
+   * Method to set the current sort direction and trigger sort direction change events
    *
    * @param sortDirection
-   *    The new sort direction.
+   *    The new sort directionvalue.
    */
   public setSortDirection(sortDirection: SortDirection) {
     this.sortDirection = sortDirection;
@@ -318,7 +321,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to set set new sort field and update route parameters
+   * Method to set the current sort field and trigger sort field change events
    *
    * @param sortField
    *    The new sort field.
@@ -329,6 +332,9 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.emitPaginationChange();
   }
 
+  /**
+   * Method to emit a general pagination change event
+   */
   private emitPaginationChange() {
     this.paginationChange.emit({
       page: this.currentPage,
@@ -368,12 +374,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Validate query params
+   * Method to validate query params
    *
    * @param page
    *    The page number to validate
    * @param pageSize
    *    The page size to validate
+   * @returns valid parameters if initial parameters were invalid
    */
   private validateParams(params: any): any {
     const validPage = this.validatePage(params.page);
@@ -388,6 +395,9 @@ export class PaginationComponent implements OnDestroy, OnInit {
     return fixedFields;
   }
 
+  /**
+   * Method to update all pagination variables to the current query parameters
+   */
   private setFields() {
     // (+) converts string to a number
     const page = this.currentQueryParams.page;
@@ -412,6 +422,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.cdRef.detectChanges();
   }
 
+  /**
+   * Method to validate the current page value
+   *
+   * @param page
+   *    The page number to validate
+   * @returns returns valid page value
+   */
   private validatePage(page: any): number {
     let result = this.currentPage;
     if (isNumeric(page)) {
@@ -420,6 +437,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
     return result;
   }
 
+  /**
+   * Method to validate the current page size value
+   *
+   * @param page size
+   *    The page size to validate
+   * @returns returns valid page size value
+   */
   private validatePageSize(pageSize: any): number {
     const filteredPageSize = this.pageSizeOptions.find((x) => x === +pageSize);
     let result = this.pageSize;
@@ -430,7 +454,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Ensure options passed contains the required properties.
+   * Method to ensure options passed contains the required properties.
    *
    * @param paginateOptions
    *    The paginate options object.
@@ -445,10 +469,18 @@ export class PaginationComponent implements OnDestroy, OnInit {
     }
   }
 
+  /**
+   * Method to check whether the current pagination object has multiple pages
+   * @returns true if there are multiple pages, else returns false
+   */
   get hasMultiplePages(): boolean {
     return this.collectionSize > this.pageSize;
   }
 
+  /**
+   * Method to check whether the current pagination should show a bottom pages
+   * @returns true if a bottom pages should be shown, else returns false
+   */
   get shouldShowBottomPager(): boolean {
     return this.hasMultiplePages || !this.hidePagerWhenSinglePage
   }
