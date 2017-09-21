@@ -35,7 +35,6 @@ import { PageInfo } from '../../core/shared/page-info.model';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class PaginationComponent implements OnDestroy, OnInit {
-
   /**
    * Number of items in collection.
    */
@@ -185,7 +184,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
     // Listen to changes
     this.subs.push(this.route.queryParams
       .subscribe((queryParams) => {
-        if (isEmpty(queryParams)) {
+        if (this.isEmptyPaginationParams(queryParams)) {
           this.initializeConfig();
         } else {
           this.currentQueryParams = queryParams;
@@ -470,7 +469,22 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to check whether the current pagination object has multiple pages
+   * Method to check if none of the query params necessary for pagination are filled out.
+   *
+   * @param paginateOptions
+   *    The paginate options object.
+   */
+  private isEmptyPaginationParams(paginateOptions): boolean {
+    const properties = ['id', 'currentPage', 'pageSize', 'pageSizeOptions'];
+    const missing = properties.filter((prop) => {
+      return !(prop in paginateOptions);
+    });
+
+    return properties.length === missing.length;
+  }
+
+  /**
+   * Property to check whether the current pagination object has multiple pages
    * @returns true if there are multiple pages, else returns false
    */
   get hasMultiplePages(): boolean {
@@ -478,7 +492,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to check whether the current pagination should show a bottom pages
+   * Property to check whether the current pagination should show a bottom pages
    * @returns true if a bottom pages should be shown, else returns false
    */
   get shouldShowBottomPager(): boolean {

@@ -27,7 +27,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   query: string;
   private scope: string;
   scopeObject: RemoteData<DSpaceObject>;
-  private page: number;
   results: RemoteData<Array<SearchResult<DSpaceObject>>>;
   currentParams = {};
   searchOptions: SearchOptions;
@@ -56,7 +55,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this.scope = params.scope;
           const page = +params.page  || this.searchOptions.pagination.currentPage;
           const pageSize = +params.pageSize  || this.searchOptions.pagination.pageSize;
-          const sortDirection = +params.page || this.searchOptions.sort.direction;
+          const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
           const pagination = Object.assign({},
             this.searchOptions.pagination,
             { currentPage: page, pageSize: pageSize }
