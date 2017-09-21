@@ -21,7 +21,9 @@ export class RootResponseParsingService implements ResponseParsingService {
       for (const link of Object.keys(links)) {
         let href = links[link].href;
         // TODO temporary workaround as these endpoint paths are relative, but should be absolute
-        href = new RESTURLCombiner(this.EnvConfig, href.substring(this.EnvConfig.rest.nameSpace.length)).toString();
+        if (isNotEmpty(href) && !href.startsWith('http')) {
+          href = new RESTURLCombiner(this.EnvConfig, href.substring(this.EnvConfig.rest.nameSpace.length)).toString();
+        }
         links[link] = href;
       }
       return new RootSuccessResponse(links, data.statusCode);
