@@ -69,6 +69,7 @@ export class ObjectListComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.pageInfo = this.objects.pageInfo;
+    this.pageInfo.subscribe((info) => console.log(info));
   }
 
   /**

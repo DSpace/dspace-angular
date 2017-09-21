@@ -163,14 +163,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
   private subs: Subscription[] = [];
 
   /**
-   * An object that represents pagination details of the current viewed page
-   */
-  public showingDetail: any = {
-    range: null,
-    total: null
-  };
-
-  /**
    * Method provided by Angular. Invoked after the constructor.
    */
   ngOnInit() {
@@ -193,7 +185,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
             this.fixRoute(fixedProperties);
           }
           this.setFields();
-          this.setShowingDetail();
         }
       }));
   }
@@ -228,7 +219,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
       sortDirection: this.sortDirection,
       sortField: this.sortField
     };
-    this.setShowingDetail();
   }
 
   /**
@@ -353,23 +343,24 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to set pagination details of the current viewed page.
+   * Method to get pagination details of the current viewed page.
    */
-  private setShowingDetail() {
-    let firstItem;
-    let lastItem;
-    const pageMax = this.pageSize * this.currentPage;
+  public getShowingDetails(collectionSize: number): any {
+    let showingDetails = { range: null + ' - ' + null, total: null };
+    if (collectionSize) {
+      let firstItem;
+      let lastItem;
+      const pageMax = this.pageSize * this.currentPage;
 
-    firstItem = this.pageSize * (this.currentPage - 1) + 1;
-    if (this.collectionSize > pageMax) {
-      lastItem = pageMax;
-    } else {
-      lastItem = this.collectionSize;
+      firstItem = this.pageSize * (this.currentPage - 1) + 1;
+      if (collectionSize > pageMax) {
+        lastItem = pageMax;
+      } else {
+        lastItem = collectionSize;
+      }
+      showingDetails = { range: firstItem + ' - ' + lastItem, total: collectionSize };
     }
-    this.showingDetail = {
-      range: firstItem + ' - ' + lastItem,
-      total: this.collectionSize
-    }
+    return showingDetails;
   }
 
   /**

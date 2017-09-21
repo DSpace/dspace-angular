@@ -53,6 +53,15 @@ export class SearchService {
     if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.currentPage)) {
       self += `&page=${searchOptions.pagination.currentPage}`;
     }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.pageSize)) {
+      self += `&pageSize=${searchOptions.pagination.pageSize}`;
+    }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.direction)) {
+      self += `&sortDirection=${searchOptions.sort.direction}`;
+    }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.field)) {
+      self += `&sortField=${searchOptions.sort.field}`;
+    }
     const requestPending = Observable.of(false);
     const responsePending = Observable.of(false);
     const errorMessage = Observable.of(undefined);
@@ -66,22 +75,26 @@ export class SearchService {
       returningPageInfo.elementsPerPage = 10;
       returningPageInfo.currentPage = 1;
     }
-    returningPageInfo.totalPages = this.totalPages;
-    returningPageInfo.totalElements = returningPageInfo.elementsPerPage * returningPageInfo.totalPages;
-    const pageInfo = Observable.of(returningPageInfo);
 
-    const itemsRD = this.itemDataService.findAll({ elementsPerPage: 10 });
+    const itemsRD = this.itemDataService.findAll({
+      scopeID: scopeId,
+      currentPage: returningPageInfo.currentPage,
+      elementsPerPage: returningPageInfo.elementsPerPage
+    });
+
+    const pageInfo = itemsRD.pageInfo;
+
     const payload = itemsRD.payload.map((items: Item[]) => {
       return shuffle(items)
-      .map((item: Item, index: number) => {
-        const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
-        mockResult.dspaceObject = item;
-        const highlight = new Metadatum();
-        highlight.key = 'dc.description.abstract';
-        highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
-        mockResult.hitHighlights = new Array(highlight);
-        return mockResult;
-      });
+        .map((item: Item, index: number) => {
+          const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
+          mockResult.dspaceObject = item;
+          const highlight = new Metadatum();
+          highlight.key = 'dc.description.abstract';
+          highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
+          mockResult.hitHighlights = new Array(highlight);
+          return mockResult;
+        });
     });
 
     return new RemoteData(

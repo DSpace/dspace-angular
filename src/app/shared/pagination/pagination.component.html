@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col pagination-info">
         <span class="align-middle hidden-xs-down">{{ 'pagination.showing.label' | translate }}</span>
-        <span class="align-middle">{{ 'pagination.showing.detail' | translate:showingDetail }}</span>
+        <span class="align-middle" *ngIf="collectionSize">{{ 'pagination.showing.detail' | translate:getShowingDetails(collectionSize)}}</span>
       </div>
       <div class="col">
         <div ngbDropdown #paginationControls="ngbDropdown" class="d-inline-block float-right">
@@ -17,7 +17,7 @@
         </div>
       </div>
   </div>
-
+  </div>
   <ng-content></ng-content>
 
   <div *ngIf="shouldShowBottomPager" class="pagination justify-content-center clearfix bottom">
