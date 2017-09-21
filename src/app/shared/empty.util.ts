@@ -119,14 +119,13 @@ export function isEmpty(obj?: any): boolean {
   }
 
   if (objectType === 'object') {
+    if (Object.keys(obj).length === 0) {
+      return true;
+    }
     const length = obj.length;
     if (typeof length === 'number') {
       return !length;
     }
-  }
-
-  if (Object.keys(obj).length === 0) {
-    return true;
   }
 
   return false;

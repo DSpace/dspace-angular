@@ -26,7 +26,7 @@
                     [disabled]="paginationOptions.disabled"
                     [ellipses]="paginationOptions.ellipses"
                     [maxSize]="(isXs)?5:paginationOptions.maxSize"
-                    [(page)]="currentPage"
+                    [page]="currentPage"
                     (pageChange)="doPageChange($event)"
                     [pageSize]="pageSize"
                     [rotate]="paginationOptions.rotate"

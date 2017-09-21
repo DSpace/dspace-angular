@@ -258,22 +258,22 @@ describe('Pagination component', () => {
     expect(testComp.pageSizeChanged).toHaveBeenCalledWith(5);
   }));
 
-  // it('should set correct route parameters', fakeAsync(() => {
-  //   const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
-  //   routerStub = testFixture.debugElement.injector.get(Router) as any;
-  //
-  //   testComp.collectionSize = 60;
-  //
-  //   changePage(testFixture, 3);
-  //   tick();
-  //   expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 0, sortField: 'name' } });
-  //   expect(paginationComponent.currentPage).toEqual(3);
-  //
-  //   changePageSize(testFixture, '20');
-  //   tick();
-  //   expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 20, sortDirection: 0, sortField: 'name' } });
-  //   expect(paginationComponent.pageSize).toEqual(20);
-  // }));
+  it('should set correct route parameters', fakeAsync(() => {
+    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
+    routerStub = testFixture.debugElement.injector.get(Router) as any;
+
+    testComp.collectionSize = 60;
+
+    changePage(testFixture, 3);
+    tick();
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 0, sortField: 'name' } });
+    expect(paginationComponent.currentPage).toEqual(3);
+
+    changePageSize(testFixture, '20');
+    tick();
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 20, sortDirection: 0, sortField: 'name' } });
+    expect(paginationComponent.pageSize).toEqual(20);
+  }));
 
   it('should get parameters from route', () => {
 
