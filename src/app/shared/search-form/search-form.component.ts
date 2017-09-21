@@ -56,7 +56,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       queryParams: Object.assign({}, this.currentParams,
         {
           query: data.query,
-          scope: data.scope || undefined
+          scope: data.scope || undefined,
+          page: data.page || 1
         }
       )
     })
