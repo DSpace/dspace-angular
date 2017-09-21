@@ -11,8 +11,8 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'ds-top-level-community-list',
   styleUrls: ['./top-level-community-list.component.scss'],
   templateUrl: './top-level-community-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class TopLevelCommunityListComponent {
   topLevelCommunities: RemoteData<Community[]>;
   config: PaginationComponentOptions;
@@ -23,10 +23,11 @@ export class TopLevelCommunityListComponent {
     this.config.id = 'top-level-pagination';
     this.config.pageSizeOptions = [4];
     this.config.pageSize = 4;
+    this.config.currentPage = 1;
     this.sortConfig = new SortOptions();
 
     this.updatePage({
-      page: 1,
+      page: this.config.currentPage,
       pageSize: this.config.pageSize,
       sortField: this.sortConfig.field,
       direction: this.sortConfig.direction

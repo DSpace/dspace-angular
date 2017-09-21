@@ -14,75 +14,81 @@ import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
 import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { hasValue, isUndefined } from '../shared/empty.util';
+import { hasValue, isNotEmpty, isUndefined } from '../shared/empty.util';
 import { PageInfo } from '../core/shared/page-info.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-collection-page',
   styleUrls: ['./collection-page.component.scss'],
   templateUrl: './collection-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionData: RemoteData<Collection>;
   itemData: RemoteData<Item[]>;
   logoData: RemoteData<Bitstream>;
-  config: PaginationComponentOptions;
+  paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
   private subs: Subscription[] = [];
   private collectionId: string;
-  private pageInfoState: PageInfo;
 
-  constructor(
-    private collectionDataService: CollectionDataService,
-    private itemDataService: ItemDataService,
-    private ref: ChangeDetectorRef,
-    private route: ActivatedRoute
-  ) {
-
+  constructor(private collectionDataService: CollectionDataService,
+              private itemDataService: ItemDataService,
+              private route: ActivatedRoute) {
+    this.paginationConfig = new PaginationComponentOptions();
+    this.paginationConfig.id = 'collection-page-pagination';
+    this.paginationConfig.pageSizeOptions = [4];
+    this.paginationConfig.pageSize = 4;
+    this.paginationConfig.currentPage = 1;
+    this.sortConfig = new SortOptions();
   }
 
   ngOnInit(): void {
-    this.subs.push(this.route.params.map((params: Params) => params.id)
-      .subscribe((id: string) => {
-        this.collectionId = id;
-        this.collectionData = this.collectionDataService.findById(this.collectionId);
-        this.subs.push(this.collectionData.payload.subscribe((collection) => this.logoData = collection.logo));
+    this.subs.push(
+      Observable.combineLatest(
+        this.route.params,
+        this.route.queryParams,
+        (params, queryParams,) => {
+          return Object.assign({}, params, queryParams);
+        })
+        .subscribe((params) => {
+          this.collectionId = params.id;
+          this.collectionData = this.collectionDataService.findById(this.collectionId);
+          this.subs.push(this.collectionData.payload.subscribe((collection) => this.logoData = collection.logo));
 
-        this.config = new PaginationComponentOptions();
-        this.config.id = 'collection-browse';
-        this.config.pageSizeOptions = [4];
-        this.config.pageSize = 4;
-        this.sortConfig = new SortOptions();
+          const page = +params.page || this.paginationConfig.currentPage;
+          const pageSize = +params.pageSize || this.paginationConfig.pageSize;
+          const sortDirection = +params.page || this.sortConfig.direction;
+          const pagination = Object.assign({},
+            this.paginationConfig,
+            { currentPage: page, pageSize: pageSize }
+          );
+          const sort = Object.assign({},
+            this.sortConfig,
+            { direction: sortDirection, field: params.sortField }
+          );
+          this.updatePage({
+            pagination: pagination,
+            sort: sort
+          });
+        }));
 
-        this.updateResults();
-      }));
+  }
 
+  updatePage(searchOptions) {
+    this.itemData = this.itemDataService.findAll({
+      scopeID: this.collectionId,
+      currentPage: searchOptions.pagination.currentPage,
+      elementsPerPage: searchOptions.pagination.pageSize,
+      sort: searchOptions.sort
+    });
   }
 
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
-  onPaginationChange(field: string): void {
-    this.sortConfig = new SortOptions(field, this.sortConfig.direction);
-    this.updateResults();
-  }
-
-  updateResults() {
-    this.itemData = null;
-    this.ref.markForCheck();
-    this.itemData = this.itemDataService.findAll({
-      scopeID: this.collectionId,
-      currentPage: this.config.currentPage,
-      elementsPerPage: this.config.pageSize,
-      sort: this.sortConfig
-    });
-    this.subs.push(this.itemData.pageInfo.subscribe((pageInfo) => {
-      if (isUndefined(this.pageInfoState) || this.pageInfoState !== pageInfo) {
-        this.pageInfoState = pageInfo;
-        this.ref.detectChanges();
-      }
-    }));
+  isNotEmpty(object: any) {
+    return isNotEmpty(object);
   }
 }

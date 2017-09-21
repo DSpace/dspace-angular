@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { isNotEmpty, hasValue, isEmpty } from '../empty.util';
@@ -15,13 +15,14 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
 })
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent implements OnInit, OnDestroy {
   @Input() query: string;
   selectedId = '';
   // Optional existing search parameters
   @Input() currentParams: {};
   @Input() scopes: Observable<DSpaceObject[]>;
   scopeOptions: string[] = [];
+  sub;
 
   @Input()
   set scope(dso: DSpaceObject) {
@@ -32,6 +33,7 @@ export class SearchFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.scopes) {
+      this.sub =
       this.scopes
         .filter((scopes: DSpaceObject[]) => isEmpty(scopes))
         .subscribe((scopes: DSpaceObject[]) => {
@@ -50,7 +52,6 @@ export class SearchFormComponent implements OnInit {
   }
 
   updateSearch(data: any) {
-
     this.router.navigate(['/search'], {
       queryParams: Object.assign({}, this.currentParams,
         {
@@ -72,5 +73,11 @@ export class SearchFormComponent implements OnInit {
       return true;
     }
     return id1 === id2;
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
