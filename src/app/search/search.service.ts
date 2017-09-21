@@ -82,7 +82,10 @@ export class SearchService {
       elementsPerPage: returningPageInfo.elementsPerPage
     });
 
-    const pageInfo = itemsRD.pageInfo;
+    const pageInfo = itemsRD.pageInfo.map((info: PageInfo) => {
+      info.totalElements = info.totalElements > 20 ? 20 : info.totalElements;
+      return info;
+    });
 
     const payload = itemsRD.payload.map((items: Item[]) => {
       return shuffle(items)
