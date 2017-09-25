@@ -20,7 +20,7 @@ import { HostWindowService } from '../host-window.service';
 import { HostWindowState } from '../host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 
 /**
@@ -152,11 +152,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
   public sortField = 'id';
 
   /**
-   * Local variable, which can be used in the template to access the paginate controls ngbDropdown methods and properties
-   */
-  public paginationControls;
-
-  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -214,6 +209,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.sortDirection = this.sortOptions.direction;
     this.sortField = this.sortOptions.field;
     this.currentQueryParams = {
+      pageId: this.id,
       page: this.currentPage,
       pageSize: this.pageSize,
       sortDirection: this.sortDirection,
@@ -326,6 +322,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   private emitPaginationChange() {
     this.paginationChange.emit({
+      pageId: this.id,
       page: this.currentPage,
       pageSize: this.pageSize,
       sortDirection: this.sortDirection,
