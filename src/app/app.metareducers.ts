@@ -13,7 +13,6 @@ export function debugMetaReducer(reducer) {
       console.debug('action', action);
       console.debug('------------------------------------');
     }
-
     return reducer(state, action);
   }
 }
@@ -33,6 +32,6 @@ export function universalMetaReducer(reducer) {
 }
 
 export const appMetaReducers = [
-  // debugMetaReducer,
+  debugMetaReducer,
   universalMetaReducer,
 ];
