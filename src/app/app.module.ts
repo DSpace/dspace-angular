@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -30,6 +31,8 @@ import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
 import { EffectsModule } from '@ngrx/effects';
 import { appMetaReducers } from './app.metareducers';
 
+import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
+
 export function getConfig() {
   return ENV_CONFIG;
 }
@@ -37,20 +40,27 @@ export function getConfig() {
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     HttpModule,
     RouterModule,
     AppRoutingModule,
-    TransferHttpModule,
     CoreModule.forRoot(),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
     EffectsModule.forRoot(appEffects),
     StoreModule.forRoot(appReducers, { metaReducers: appMetaReducers }),
-    StoreDevtoolsModule.instrument({ maxAge: 50 })
+    StoreDevtoolsModule.instrument({ maxAge: 50 }),
+    StoreRouterConnectingModule,
+    TransferHttpModule,
   ],
   providers: [
-    { provide: GLOBAL_CONFIG, useFactory: (getConfig) }
+    {
+      provide: GLOBAL_CONFIG,
+      useFactory: (getConfig)
+    },
+    {
+      provide: RouterStateSerializer,
+      useClass: DSpaceRouterStateSerializer
+    }
   ],
   declarations: [
     AppComponent,

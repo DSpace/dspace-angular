@@ -23,8 +23,6 @@ import { CoreModule } from './core/core.module';
 import { AppModule } from './app.module';
 
 import { AppComponent } from './app.component';
-import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 
 export function init(cache: TransferState) {
   return () => {
@@ -57,7 +55,6 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     EffectsModule.forRoot([BrowserTransferStoreEffects]),
-    StoreRouterConnectingModule,
     AppModule
   ],
   providers: [
@@ -68,10 +65,6 @@ export function createTranslateLoader(http: HttpClient) {
       deps: [
         TransferState
       ]
-    },
-    {
-      provide: RouterStateSerializer,
-      useClass: DSpaceRouterStateSerializer
     }
   ]
 })
