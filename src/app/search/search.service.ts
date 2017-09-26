@@ -28,6 +28,7 @@ export class SearchService {
   );
 
   constructor(private itemDataService: ItemDataService) {
+
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): RemoteData<Array<SearchResult<DSpaceObject>>> {
@@ -62,19 +63,19 @@ export class SearchService {
       elementsPerPage: returningPageInfo.elementsPerPage
     });
     const payload = itemsRD.payload.map((items: Item[]) => {
-      return items.sort(()=>{
+      return items.sort(() => {
         const values = [-1, 0, 1];
         return values[Math.floor(Math.random() * values.length)];
       })
-      .map((item: Item, index: number) => {
-        const mockResult: SearchResult<DSpaceObject> = new SearchResult();
-        mockResult.dspaceObject = item;
-        const highlight = new Metadatum();
-        highlight.key = 'dc.description.abstract';
-        highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
-        mockResult.hitHighlights = new Array(highlight);
-        return mockResult;
-      });
+        .map((item: Item, index: number) => {
+          const mockResult: SearchResult<DSpaceObject> = new SearchResult();
+          mockResult.dspaceObject = item;
+          const highlight = new Metadatum();
+          highlight.key = 'dc.description.abstract';
+          highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
+          mockResult.hitHighlights = new Array(highlight);
+          return mockResult;
+        });
     });
 
     return new RemoteData(
