@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
+
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { PaginationComponent } from './pagination/pagination.component';
 import { FileSizePipe } from './utils/file-size-pipe';

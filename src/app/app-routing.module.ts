@@ -5,7 +5,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([
+    RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', loadChildren: './+home/home.module#HomeModule' },
       { path: 'communities', loadChildren: './+community-page/community-page.module#CommunityPageModule' },
@@ -15,4 +15,6 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
     ])
   ],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+}

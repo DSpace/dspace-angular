@@ -11,6 +11,9 @@ module.exports = {
   },
   target: 'node',
   externals: [nodeExternals({
-    whitelist: [/@angular/, /@ng/]
+    whitelist: [
+      /@angular/,
+      /@ng/,
+      /ngx/]
   })],
 };
