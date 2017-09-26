@@ -25,6 +25,7 @@ install:
   - travis_retry yarn install
 
 before_script:
+  - travis_wait yarn run lint
   - travis_wait yarn run build
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0

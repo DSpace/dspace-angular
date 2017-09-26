@@ -16,11 +16,6 @@ module.exports = {
   module: {
     rules: [{
         test: /\.ts$/,
-        enforce: 'pre',
-        loader: 'tslint-loader'
-      },
-      {
-        test: /\.ts$/,
         loader: '@ngtools/webpack'
       },
       {

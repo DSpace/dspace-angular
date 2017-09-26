@@ -186,7 +186,6 @@
     "ts-helpers": "1.1.2",
     "ts-node": "3.3.0",
     "tslint": "5.7.0",
-    "tslint-loader": "3.5.3",
     "typedoc": "0.8.0",
     "typescript": "2.5.2",
     "webpack": "3.6.0",

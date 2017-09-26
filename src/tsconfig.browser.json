@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.json",
   "angularCompilerOptions": {
-    "genDir": ".",
     "entryModule": "./app/browser-app.module#BrowserAppModule"
   }
 }

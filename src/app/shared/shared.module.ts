@@ -58,10 +58,6 @@ const COMPONENTS = [
   CommunityListElementComponent
 ];
 
-const PROVIDERS = [
-
-];
-
 @NgModule({
   imports: [
     ...MODULES
@@ -74,9 +70,6 @@ const PROVIDERS = [
     ...MODULES,
     ...PIPES,
     ...COMPONENTS
-  ],
-  providers: [
-    ...PROVIDERS
   ]
 })
 export class SharedModule {
