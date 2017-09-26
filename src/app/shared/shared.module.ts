@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 import { PaginationComponent } from './pagination/pagination.component';
@@ -26,12 +27,12 @@ import { TruncatePipe } from './utils/truncate.pipe';
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
-  RouterModule,
-  TranslateModule,
   FormsModule,
-  ReactiveFormsModule,
+  NgbModule,
   NgxPaginationModule,
-  NgbModule
+  ReactiveFormsModule,
+  RouterModule,
+  TranslateModule
 ];
 
 const PIPES = [

@@ -45,6 +45,10 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     IdlePreloadModule.forRoot(), // forRoot ensures the providers are only created once
     RouterModule.forRoot([], { useHash: false, preloadingStrategy: IdlePreload }),
+    BrowserCookiesModule,
+    BrowserDataLoaderModule,
+    BrowserTransferStateModule,
+    BrowserTransferStoreModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -52,10 +56,6 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    BrowserCookiesModule,
-    BrowserDataLoaderModule,
-    BrowserTransferStateModule,
-    BrowserTransferStoreModule,
     EffectsModule.forRoot([BrowserTransferStoreEffects]),
     StoreRouterConnectingModule,
     AppModule

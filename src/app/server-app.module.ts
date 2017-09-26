@@ -46,7 +46,7 @@ export function boot(cache: TransferState, appRef: ApplicationRef, store: Store<
   };
 }
 export function createTranslateLoader() {
-  return new TranslateUniversalLoader('dist/assets/i18n', '.json');
+  return new TranslateUniversalLoader('dist/assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -57,6 +57,11 @@ export function createTranslateLoader() {
     }),
     RouterModule.forRoot([], { useHash: false }),
     StoreRouterConnectingModule,
+    ServerModule,
+    ServerCookiesModule,
+    ServerDataLoaderModule,
+    ServerTransferStateModule,
+    ServerTransferStoreModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -64,11 +69,6 @@ export function createTranslateLoader() {
         deps: []
       }
     }),
-    ServerModule,
-    ServerCookiesModule,
-    ServerDataLoaderModule,
-    ServerTransferStateModule,
-    ServerTransferStoreModule,
     EffectsModule.forRoot([ServerTransferStoreEffects]),
     AppModule
   ],
