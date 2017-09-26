@@ -21,7 +21,7 @@ import { Store, StoreModule } from '@ngrx/store';
 // Load the implementations that should be tested
 import { FooterComponent } from './footer.component';
 
-import { MockTranslateLoader } from '../../shared/testing/mock-translate-loader';
+import { MockTranslateLoader } from '../shared/testing/mock-translate-loader';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
