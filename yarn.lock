@@ -213,9 +213,9 @@
   version "8.0.14"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.14.tgz#4a19dc6bb61d16c01cbadc7b30ac23518fff176b"
 
-"@types/node@8.0.31":
-  version "8.0.31"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.31.tgz#d9af61093cf4bfc9f066ca34de0175012cfb0ce9"
+"@types/node@8.0.26":
+  version "8.0.26"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.26.tgz#4d58be925306fd22b1141085535a0268b8beb189"
 
 "@types/node@^6.0.46":
   version "6.0.52"

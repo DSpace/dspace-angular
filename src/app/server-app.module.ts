@@ -48,7 +48,7 @@ export function boot(cache: TransferState, appRef: ApplicationRef, store: Store<
     });
   };
 }
-export function UniversalLoaderFactory() {
+export function createTranslateLoader() {
   return new TranslateUniversalLoader('dist/assets/i18n', '.json');
 }
 
@@ -63,7 +63,7 @@ export function UniversalLoaderFactory() {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: UniversalLoaderFactory,
+        useFactory: (createTranslateLoader),
         deps: []
       }
     }),

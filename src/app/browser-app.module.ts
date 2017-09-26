@@ -1,5 +1,6 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,8 +35,8 @@ export function init(cache: TransferState) {
   };
 }
 
-export function HttpLoaderFactory(http: Http) {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -44,13 +45,14 @@ export function HttpLoaderFactory(http: Http) {
     BrowserModule.withServerTransition({
       appId: 'ds-app-id'
     }),
+    HttpClientModule,
     IdlePreloadModule.forRoot(), // forRoot ensures the providers are only created once
     RouterModule.forRoot([], { useHash: false, preloadingStrategy: IdlePreload }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [Http]
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
       }
     }),
     NgbModule.forRoot(),
