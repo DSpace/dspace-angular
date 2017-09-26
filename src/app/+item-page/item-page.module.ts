@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { SharedModule } from './../shared/shared.module';
+
 import { ItemPageComponent } from './simple/item-page.component';
 import { ItemPageRoutingModule } from './item-page-routing.module';
 import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
@@ -12,7 +14,6 @@ import { ItemPageAbstractFieldComponent } from './simple/field-components/specif
 import { ItemPageUriFieldComponent } from './simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { ItemPageTitleFieldComponent } from './simple/field-components/specific-field/title/item-page-title-field.component';
 import { ItemPageSpecificFieldComponent } from './simple/field-components/specific-field/item-page-specific-field.component';
-import { SharedModule } from './../shared/shared.module';
 import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';

@@ -16,4 +16,6 @@ import { CollectionPageRoutingModule } from './collection-page-routing.module';
     CollectionPageComponent,
   ]
 })
-export class CollectionPageModule { }
+export class CollectionPageModule {
+
+}
