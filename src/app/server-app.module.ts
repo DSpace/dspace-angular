@@ -5,15 +5,12 @@ import { ApplicationRef, NgModule, APP_BOOTSTRAP_LISTENER } from '@angular/core'
 import { RouterModule } from '@angular/router';
 import { ServerModule } from '@angular/platform-server';
 import { BrowserModule } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Request } from 'express';
 
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Store } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -67,14 +64,12 @@ export function createTranslateLoader() {
         deps: []
       }
     }),
-    NgbModule.forRoot(),
     ServerModule,
     ServerCookiesModule,
     ServerDataLoaderModule,
     ServerTransferStateModule,
     ServerTransferStoreModule,
     EffectsModule.forRoot([ServerTransferStoreEffects]),
-    NoopAnimationsModule,
     AppModule
   ],
   providers: [

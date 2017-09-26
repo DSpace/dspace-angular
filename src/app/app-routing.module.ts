@@ -7,6 +7,10 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
   imports: [
     RouterModule.forChild([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: 'home', loadChildren: './+home/home.module#HomeModule' },
+      { path: 'communities', loadChildren: './+community-page/community-page.module#CommunityPageModule' },
+      { path: 'collections', loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
+      { path: 'items', loadChildren: './+item-page/item-page.module#ItemPageModule' },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ])
   ],

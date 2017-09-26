@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -11,11 +10,9 @@ import { CommunityPageRoutingModule } from './community-page-routing.module';
 
 @NgModule({
   imports: [
-    CommunityPageRoutingModule,
     CommonModule,
-    TranslateModule,
-    RouterModule,
     SharedModule,
+    CommunityPageRoutingModule
   ],
   declarations: [
     CommunityPageComponent,

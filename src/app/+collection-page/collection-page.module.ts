@@ -9,10 +9,9 @@ import { CollectionPageRoutingModule } from './collection-page-routing.module';
 
 @NgModule({
   imports: [
-    CollectionPageRoutingModule,
     CommonModule,
     SharedModule,
-    TranslateModule,
+    CollectionPageRoutingModule
   ],
   declarations: [
     CollectionPageComponent,

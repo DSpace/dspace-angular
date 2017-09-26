@@ -186,10 +186,10 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
     this.checkConfig(this.paginationOptions);
 
     if (this.pageInfoState) {
-       this.subs.push(this.pageInfoState.subscribe((pageInfo) => {
-         /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
-         this.currentPageState = pageInfo.currentPage + 1;
-       }));
+      this.subs.push(this.pageInfoState.subscribe((pageInfo) => {
+        /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
+        this.currentPageState = pageInfo.currentPage + 1;
+      }));
     }
 
     this.id = this.paginationOptions.id || null;

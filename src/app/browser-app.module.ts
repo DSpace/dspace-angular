@@ -3,14 +3,11 @@ import { Http } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { EffectsModule } from '@ngrx/effects';
 
@@ -36,7 +33,7 @@ export function init(cache: TransferState) {
 }
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -55,14 +52,12 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    NgbModule.forRoot(),
     BrowserCookiesModule,
     BrowserDataLoaderModule,
     BrowserTransferStateModule,
     BrowserTransferStoreModule,
     EffectsModule.forRoot([BrowserTransferStoreEffects]),
     StoreRouterConnectingModule,
-    BrowserAnimationsModule,
     AppModule
   ],
   providers: [

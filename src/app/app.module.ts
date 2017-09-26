@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { TranslateModule } from '@ngx-translate/core';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { appReducers } from './app.reducer';
 import { appEffects } from './app.effects';
@@ -15,13 +21,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
 
-import { HomeModule } from './home/home.module';
-import { ItemPageModule } from './item-page/item-page.module';
-import { CollectionPageModule } from './collection-page/collection-page.module';
-import { CommunityPageModule } from './community-page/community-page.module';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
@@ -34,27 +36,27 @@ export function getConfig() {
 
 @NgModule({
   imports: [
-    SharedModule,
+    CommonModule,
     FormsModule,
-    CoreModule.forRoot(),
     HttpModule,
-    TransferHttpModule,
-    HomeModule,
-    ItemPageModule,
-    CollectionPageModule,
-    CommunityPageModule,
+    RouterModule,
     AppRoutingModule,
+    TransferHttpModule,
+    CoreModule.forRoot(),
+    NgbModule.forRoot(),
+    TranslateModule.forRoot(),
+    EffectsModule.forRoot(appEffects),
     StoreModule.forRoot(appReducers, { metaReducers: appMetaReducers }),
-    StoreDevtoolsModule.instrument({ maxAge: 50 }),
-    EffectsModule.forRoot(appEffects)
+    StoreDevtoolsModule.instrument({ maxAge: 50 })
   ],
   providers: [
-    { provide: GLOBAL_CONFIG, useFactory: (getConfig) },
+    { provide: GLOBAL_CONFIG, useFactory: (getConfig) }
   ],
   declarations: [
     AppComponent,
     HeaderComponent,
-    PageNotFoundComponent,
+    FooterComponent,
+    PageNotFoundComponent
   ],
   exports: [AppComponent]
 })

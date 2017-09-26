@@ -6,7 +6,7 @@ import { CollectionPageComponent } from './collection-page.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'collections/:id', component: CollectionPageComponent }
+      { path: ':id', component: CollectionPageComponent, pathMatch: 'full' }
     ])
   ]
 })

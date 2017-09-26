@@ -19,27 +19,28 @@ import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
 
 @NgModule({
-    declarations: [
-        ItemPageComponent,
-        FullItemPageComponent,
-        MetadataValuesComponent,
-        MetadataUriValuesComponent,
-        MetadataFieldWrapperComponent,
-        ItemPageAuthorFieldComponent,
-        ItemPageDateFieldComponent,
-        ItemPageAbstractFieldComponent,
-        ItemPageUriFieldComponent,
-        ItemPageTitleFieldComponent,
-        ItemPageSpecificFieldComponent,
-        FileSectionComponent,
-        CollectionsComponent,
-        FullFileSectionComponent
-    ],
-    imports: [
-        ItemPageRoutingModule,
-        CommonModule,
-        SharedModule
-    ]
+  imports: [
+    CommonModule,
+    SharedModule,
+    ItemPageRoutingModule
+  ],
+  declarations: [
+    ItemPageComponent,
+    FullItemPageComponent,
+    MetadataValuesComponent,
+    MetadataUriValuesComponent,
+    MetadataFieldWrapperComponent,
+    ItemPageAuthorFieldComponent,
+    ItemPageDateFieldComponent,
+    ItemPageAbstractFieldComponent,
+    ItemPageUriFieldComponent,
+    ItemPageTitleFieldComponent,
+    ItemPageSpecificFieldComponent,
+    FileSectionComponent,
+    CollectionsComponent,
+    FullFileSectionComponent
+  ]
 })
 export class ItemPageModule {
+
 }

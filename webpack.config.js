@@ -8,10 +8,6 @@ const {
   getAotPlugin
 } = require('./webpack/webpack.aot');
 
-const {
-  root
-} = require('./webpack/helpers');
-
 module.exports = function(options, webpackOptions) {
   options = options || {};
 
