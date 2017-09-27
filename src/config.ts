@@ -13,6 +13,8 @@ let production = false;
 
 let ENV_CONFIG: GlobalConfig;
 
+let envConfigOverride: GlobalConfig;
+
 let envConfigFile: string;
 
 // check process.env.NODE_ENV to determine which environment config to use
@@ -42,18 +44,24 @@ try {
 // if envConfigFile set try to get configs
 if (envConfigFile) {
   try {
-    merge(configContext(envConfigFile) as GlobalConfig);
+    envConfigOverride = configContext(envConfigFile) as GlobalConfig;
   } catch (e) {
-    console.warn('Cannot find file ' + envConfigFile.substring(2, envConfigFile.length), 'Using default environment.');
+    console.warn('Cannot find file ' + envConfigFile.substring(2, envConfigFile.length), 'Using default environment');
+  }
+  try {
+    merge(envConfigOverride);
+  } catch (e) {
+    console.warn('Unable to merge the default environment');
   }
 }
+
+buildBaseUrls();
 
 // set config for whether running in production
 ENV_CONFIG.production = production;
 
 function merge(config: GlobalConfig): void {
   innerMerge(ENV_CONFIG, config);
-  buildBaseUrls();
 }
 
 function innerMerge(globalConfig: Config, config: Config): void {
