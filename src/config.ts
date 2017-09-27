@@ -1,6 +1,7 @@
 // Look in ./config folder for config
 import { InjectionToken } from '@angular/core';
 
+import { Config } from './config/config.interface';
 import { ServerConfig } from './config/server-config.interface';
 import { GlobalConfig } from './config/global-config.interface';
 
@@ -41,7 +42,7 @@ try {
 // if envConfigFile set try to get configs
 if (envConfigFile) {
   try {
-    ENV_CONFIG = Object.assign(ENV_CONFIG, configContext(envConfigFile)) as GlobalConfig;
+    merge(configContext(envConfigFile) as GlobalConfig);
   } catch (e) {
     console.warn('Cannot find file ' + envConfigFile.substring(2, envConfigFile.length), 'Using default environment.');
   }
@@ -50,15 +51,60 @@ if (envConfigFile) {
 // set config for whether running in production
 ENV_CONFIG.production = production;
 
-// set base url if property is object with ssl, address, and port. i.e. ServerConfig
-for (const key in ENV_CONFIG) {
-  if (ENV_CONFIG[key].host) {
-    ENV_CONFIG[key].baseUrl = [
-      ENV_CONFIG[key].ssl ? 'https://' : 'http://',
-      ENV_CONFIG[key].host,
-      ENV_CONFIG[key].port ? (ENV_CONFIG[key].port !== 80 && ENV_CONFIG[key].port !== 443) ? ':' + ENV_CONFIG[key].port : '' : ''
-    ].join('');
+function merge(config: GlobalConfig): void {
+  innerMerge(ENV_CONFIG, config);
+  buildBaseUrls();
+}
+
+function innerMerge(globalConfig: Config, config: Config): void {
+  for (const key in config) {
+    if (config.hasOwnProperty(key)) {
+      if (isObject(config[key])) {
+        innerMerge(globalConfig[key], config[key]);
+      } else {
+        if (isDefined(config[key])) {
+          globalConfig[key] = config[key];
+        }
+      }
+    }
   }
+}
+
+function buildBaseUrls(): void {
+  for (const key in ENV_CONFIG) {
+    if (ENV_CONFIG.hasOwnProperty(key) && ENV_CONFIG[key].host) {
+      ENV_CONFIG[key].baseUrl = [
+        getProtocol(ENV_CONFIG[key].ssl),
+        getHost(ENV_CONFIG[key].host),
+        getPort(ENV_CONFIG[key].port),
+        getContextPath(ENV_CONFIG[key].contextPath)
+      ].join('');
+    }
+  }
+}
+
+function getProtocol(ssl: boolean): string {
+  return ssl ? 'https://' : 'http://';
+}
+
+function getHost(host: string): string {
+  return host;
+}
+
+function getPort(port: number): string {
+  return port ? (port !== 80 && port !== 443) ? ':' + port : '' : '';
+}
+
+function getContextPath(contextPath: string): string {
+  return contextPath ? '/' + contextPath : '';
+}
+
+function isDefined(value: any): boolean {
+  return typeof value !== 'undefined' && value !== null;
+}
+
+function isObject(item: any): boolean {
+  return item && typeof item === 'object' && !Array.isArray(item);
 }
 
 export { GlobalConfig, GLOBAL_CONFIG, ENV_CONFIG }
