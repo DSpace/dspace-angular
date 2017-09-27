@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -39,7 +39,11 @@ export function getConfig() {
   return ENV_CONFIG;
 }
 
-export function getMetaReducers(config: GlobalConfig): MetaReducer<AppState>[] {
+export function getBase() {
+  return ENV_CONFIG.ui.nameSpace;
+}
+
+export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppState>> {
   return config.production ? appMetaReducers : [...appMetaReducers, storeFreeze];
 }
 
@@ -62,6 +66,10 @@ export function getMetaReducers(config: GlobalConfig): MetaReducer<AppState>[] {
     {
       provide: GLOBAL_CONFIG,
       useFactory: (getConfig)
+    },
+    {
+      provide: APP_BASE_HREF,
+      useFactory: (getBase)
     },
     {
       provide: META_REDUCERS,

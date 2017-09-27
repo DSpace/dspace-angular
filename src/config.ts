@@ -77,7 +77,7 @@ function buildBaseUrls(): void {
         getProtocol(ENV_CONFIG[key].ssl),
         getHost(ENV_CONFIG[key].host),
         getPort(ENV_CONFIG[key].port),
-        getContextPath(ENV_CONFIG[key].contextPath)
+        getNameSpace(ENV_CONFIG[key].nameSpace)
       ].join('');
     }
   }
@@ -95,8 +95,8 @@ function getPort(port: number): string {
   return port ? (port !== 80 && port !== 443) ? ':' + port : '' : '';
 }
 
-function getContextPath(contextPath: string): string {
-  return contextPath ? '/' + contextPath : '';
+function getNameSpace(nameSpace: string): string {
+  return nameSpace ? nameSpace.charAt(0) === '/' ? nameSpace : '/' + nameSpace : '';
 }
 
 function isDefined(value: any): boolean {
