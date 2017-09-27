@@ -1,5 +1,4 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { Http } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,9 +17,8 @@ import { BrowserTransferStateModule } from '../modules/transfer-state/browser-tr
 import { BrowserTransferStoreEffects } from '../modules/transfer-store/browser-transfer-store.effects';
 import { BrowserTransferStoreModule } from '../modules/transfer-store/browser-transfer-store.module';
 
-import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
 import { AppModule } from './app.module';
+import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
 

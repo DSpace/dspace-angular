@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, MetaReducer, META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -14,14 +15,12 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { appReducers, AppState } from './app.reducer';
 import { appEffects } from './app.effects';
+import { appReducers, AppState } from './app.reducer';
+import { appMetaReducers } from './app.metareducers';
 
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-
 import { AppRoutingModule } from './app-routing.module';
-
 import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
 
 import { AppComponent } from './app.component';
@@ -30,8 +29,6 @@ import { FooterComponent } from './footer/footer.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 import { GLOBAL_CONFIG, ENV_CONFIG, GlobalConfig } from '../config';
-import { EffectsModule } from '@ngrx/effects';
-import { appMetaReducers } from './app.metareducers';
 
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 
@@ -47,6 +44,12 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
   return config.production ? appMetaReducers : [...appMetaReducers, storeFreeze];
 }
 
+const DEV_MODULES: any[] = [];
+
+if (!ENV_CONFIG.production) {
+  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 50 }));
+}
+
 @NgModule({
   imports: [
     CommonModule,
@@ -58,9 +61,9 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
     TranslateModule.forRoot(),
     EffectsModule.forRoot(appEffects),
     StoreModule.forRoot(appReducers),
-    StoreDevtoolsModule.instrument({ maxAge: 50 }),
     StoreRouterConnectingModule,
     TransferHttpModule,
+    ...DEV_MODULES
   ],
   providers: [
     {
