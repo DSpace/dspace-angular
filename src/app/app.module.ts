@@ -17,7 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { appEffects } from './app.effects';
 import { appReducers, AppState } from './app.reducer';
-import { appMetaReducers } from './app.metareducers';
+import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,7 +41,11 @@ export function getBase() {
 }
 
 export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppState>> {
-  return config.production ? appMetaReducers : [...appMetaReducers, storeFreeze];
+  const metaReducers: Array<MetaReducer<AppState>> = config.production ? appMetaReducers : [...appMetaReducers, storeFreeze];
+  if (config.debug) {
+    metaReducers.concat(debugMetaReducers)
+  }
+  return metaReducers;
 }
 
 const DEV_MODULES: any[] = [];

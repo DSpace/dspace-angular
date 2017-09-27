@@ -31,7 +31,10 @@ export function universalMetaReducer(reducer) {
   }
 }
 
+export const debugMetaReducers = [
+  debugMetaReducer
+];
+
 export const appMetaReducers = [
-  debugMetaReducer,
-  universalMetaReducer,
+  universalMetaReducer
 ];
