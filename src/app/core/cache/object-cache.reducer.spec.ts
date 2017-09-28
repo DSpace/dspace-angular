@@ -54,7 +54,7 @@ describe('objectCacheReducer', () => {
     expect(initialState).toEqual(Object.create(null));
   });
 
-  it('should add the payload to the cache in response to an ADD action', () => {
+  it('should panel-add the payload to the cache in response to an ADD action', () => {
     const state = Object.create(null);
     const objectToCache = { uuid: uuid1 };
     const timeAdded = new Date().getTime();

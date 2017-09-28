@@ -1,0 +1,30 @@
+<div dsPanel #panelRef="panelRef" [mandatory]="mandatory">
+  <ngb-accordion #acc="ngbAccordion" (panelChange)="panelRef.panelChange($event)" activeIds="{{ panelId }}">
+    <ngb-panel id="{{ panelId }}" >
+      <ng-template ngbPanelTitle>
+        <span>{{ panelHeader.en }}</span>
+        <div class="d-inline-block float-right">
+          <i class="fa fa-exclamation-circle text-warning mr-3" aria-hidden="true"></i>
+          <a class="close" aria-label="Close">
+            <span *ngIf="panelRef.isOpen()" class="fa fa-angle-up fa-fw" aria-hidden="true"></span>
+            <span *ngIf="!panelRef.isOpen()" class="fa fa-angle-down fa-fw" aria-hidden="true"></span>
+          </a>
+          <a href="#" class="close mr-3" *ngIf="!panelRef.isMandatory()" (click)="removePanel($event)">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </div>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div class="card-block">
+          <ng-container
+            *ngTemplateOutlet="panelContentTemplate">
+          </ng-container>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+
+<ng-template #panelContentTemplate>
+  <ng-container dsInjectPanelTemplate [component]="panelComponent" [compileContext]="this"></ng-container>
+</ng-template>

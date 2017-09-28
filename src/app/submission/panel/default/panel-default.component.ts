@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Component, Input, ViewContainerRef } from '@angular/core';
-import { BoxModelComponent } from '../box.model';
+import { Component } from '@angular/core';
+import { PanelModelComponent } from '../panel.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'ds-submission-submit-form-box-default',
-  styleUrls: ['./submission-submit-form-box-default.component.scss'],
-  templateUrl: './submission-submit-form-box-default.component.html',
+  styleUrls: ['./panel-default.component.scss'],
+  templateUrl: './panel-default.component.html',
   /* The element here always has the state "in" when it
    * is present. We animate two transitions: From void
    * to in and from in to void, to achieve an animated
@@ -25,6 +25,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ])
   ]
 })
-export class DefaultBoxComponent extends BoxModelComponent {
+export class DefaultPanelComponent extends PanelModelComponent {
 
 }

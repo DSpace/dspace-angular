@@ -47,7 +47,7 @@ const mockCollections = [
   styleUrls: ['./submission-submit-form-collection.component.scss'],
   templateUrl: './submission-submit-form-collection.component.html'
 })
-export class SubmissionSubmitFormCollectionComponent implements OnInit  {
+export class SubmissionSubmitFormCollectionComponent implements OnInit {
   @Input() currentCollection: string;
 
   public selectedCollection: string;
@@ -110,7 +110,6 @@ export class SubmissionSubmitFormCollectionComponent implements OnInit  {
     this.selectedCollection = event.item.collection;
     this.model = null;
     this.listCollection = mockCollections;*/
-    console.log(event);
   }
 
   onClose(event) {

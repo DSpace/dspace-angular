@@ -1,7 +1,0 @@
-<div ngbDropdown #boxControls="ngbDropdown" class="d-inline-block float-right">
-  <button class="btn btn-outline-primary" id="boxControls" (click)="$event.stopPropagation(); (boxControls.isOpen())?boxControls.close():boxControls.open();">Add more <i class="fa fa-plus" aria-hidden="true"></i></button>
-  <div class="dropdown-menu dropdown-menu-right" id="paginationControlsDropdownMenu" aria-labelledby="paginationControls">
-    <button class="dropdown-item disabled" *ngIf="boxList.length == 0">No options available</button>
-    <button class="dropdown-item" *ngFor="let listItem of boxList" (click)="addBox(listItem)">{{ listItem.name }}</button>
-  </div>
-</div>

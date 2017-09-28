@@ -3,49 +3,57 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
-import { BasicInformationBoxComponent } from './submit/form/box/basic-information/submission-submit-form-box-basic-information.component';
-import { BoxDirective } from './submit/form/box/box.directive';
-import { BoxHostDirective } from './submit/form/box/box-host.directive';
-import { BoxService } from './submit/form/box/box.service';
-import { DefaultBoxComponent } from './submit/form/box/default/submission-submit-form-box-default.component';
+import { FormPanelComponent } from './panel/form/panel-form.component';
+import { PanelDirective } from './panel/panel.directive';
+import { PanelHostDirective } from './panel/panel-host.directive';
+import { PanelService } from './panel/panel.service';
+import { DefaultPanelComponent } from './panel/default/panel-default.component';
 import { SubmissionRoutingModule } from './submission-routing.module';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { SubmissionSubmitFormCollectionComponent } from './submit/form/collection/submission-submit-form-collection.component';
 import { SubmissionSubmitFormFooterComponent } from './submit/form/footer/submission-submit-form-footer.component';
 import { SubmissionSubmitFormComponent } from './submit/form/submission-submit-form.component';
-import { SubmissionSubmitFormBoxHandlerComponent } from './submit/form/box/handler/submission-submit-form-box-handler.component';
-import { BoxFactoryComponent } from './submit/form/box/box.factory';
-import { BoxContainerComponent } from './submit/form/box/box-container.component';
-import { InjectBoxTemplateDirective } from './submit/form/box/box-inject.directive';
+import { SubmissionSubmitFormPanelAddComponent } from './submit/form/panel-add/submission-submit-form-panel-add.component';
+import { PanelFactoryComponent } from './panel/panel.factory';
+import { PanelContainerComponent } from './panel/container/panel-container.component';
+import { InjectPanelTemplateDirective } from './panel/panel-inject.directive';
 import { CommonModule } from '@angular/common';
-import { BoxModelComponent } from './submit/form/box/box.model';
+import { PanelModelComponent } from './panel/panel.model';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { submissionReducers } from './submission.reducers';
+import { submissionEffects } from './submission.effects';
+import { FilesPanelComponent } from './panel/files/panel-files.component';
 
 @NgModule({
   imports: [
     CommonModule,
     CoreModule,
     SharedModule,
-    SubmissionRoutingModule
+    StoreModule.forFeature('submission', submissionReducers, { }),
+    EffectsModule.forFeature(submissionEffects),
+    SubmissionRoutingModule,
   ],
   declarations: [
-    BasicInformationBoxComponent,
-    BoxDirective,
-    BoxContainerComponent,
-    BoxHostDirective,
-    DefaultBoxComponent,
-    InjectBoxTemplateDirective,
+    DefaultPanelComponent,
+    FilesPanelComponent,
+    FormPanelComponent,
+    InjectPanelTemplateDirective,
+    PanelDirective,
+    PanelContainerComponent,
+    PanelHostDirective,
     SubmissionSubmitComponent,
-    SubmissionSubmitFormBoxHandlerComponent,
+    SubmissionSubmitFormPanelAddComponent,
     SubmissionSubmitFormCollectionComponent,
     SubmissionSubmitFormComponent,
     SubmissionSubmitFormFooterComponent
   ],
-  entryComponents: [ BoxContainerComponent, BasicInformationBoxComponent, DefaultBoxComponent ],
+  entryComponents: [ DefaultPanelComponent, FilesPanelComponent, FormPanelComponent, PanelContainerComponent ],
   exports: [
   ],
   providers: [
-    BoxFactoryComponent,
-    BoxService
+    PanelFactoryComponent,
+    PanelService
   ]
 })
 export class SubmissionModule {}

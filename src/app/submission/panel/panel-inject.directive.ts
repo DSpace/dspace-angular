@@ -3,9 +3,9 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[dsInjectBoxTemplate]'
+  selector: '[dsInjectPanelTemplate]'
 })
-export class InjectBoxTemplateDirective implements OnChanges {
+export class InjectPanelTemplateDirective implements OnChanges {
   @Input() component: Type<any>;
   @Input() compileContext: any;
 
@@ -26,7 +26,7 @@ export class InjectBoxTemplateDirective implements OnChanges {
 
   updateProperties() {
     for (const prop in this.compileContext) {
-      if (this.compileContext[prop]) {
+      if (this.compileContext.hasOwnProperty(prop)) {
         this.compRef.instance[prop] = this.compileContext[prop];
       }
     }

@@ -1,0 +1,13 @@
+<div ngbDropdown #panelControls="ngbDropdown" class="d-inline-block float-right">
+  <button
+    class="btn btn-outline-primary"
+    id="panelControls"
+    (click)="$event.stopPropagation(); (panelControls.isOpen())?panelControls.close():panelControls.open();">
+    Add more <i class="fa fa-plus" aria-hidden="true"></i>
+  </button>
+  <div class="dropdown-menu dropdown-menu-right" id="paginationControlsDropdownMenu" aria-labelledby="paginationControls">
+    <button class="dropdown-item disabled" *ngIf="panelList?.length == 0">No options available</button>
+    <button class="dropdown-item" *ngFor="let listItem of panelList" (click)="addPanel(listItem.panelId)">{{
+      listItem.panelHeader.en }}</button>
+  </div>
+</div>

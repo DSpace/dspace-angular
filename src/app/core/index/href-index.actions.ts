@@ -12,7 +12,7 @@ export const HrefIndexActionTypes = {
 
 /* tslint:disable:max-classes-per-file */
 /**
- * An ngrx action to add an href to the index
+ * An ngrx action to panel-add an href to the index
  */
 export class AddToHrefIndexAction implements Action {
   type = HrefIndexActionTypes.ADD;
@@ -25,7 +25,7 @@ export class AddToHrefIndexAction implements Action {
    * Create a new AddToHrefIndexAction
    *
    * @param href
-   *    the href to add
+   *    the href to panel-add
    * @param uuid
    *    the uuid of the resource the href links to
    */
