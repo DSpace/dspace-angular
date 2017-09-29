@@ -9,6 +9,6 @@ import { GlobalConfig } from '../../../config';
  */
 export class UIURLCombiner extends URLCombiner {
   constructor(EnvConfig: GlobalConfig, ...parts: string[]) {
-    super(EnvConfig.ui.baseUrl, EnvConfig.ui.nameSpace, ...parts);
+    super(EnvConfig.ui.baseUrl, ...parts);
   }
 }

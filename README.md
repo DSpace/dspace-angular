@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/DSpace/dspace-angular.svg?branch=master)](https://travis-ci.org/DSpace/dspace-angular) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
+[![Build Status](https://travis-ci.org/DSpace/dspace-angular.svg?branch=master)](https://travis-ci.org/DSpace/dspace-angular) [![Coverage Status](https://coveralls.io/repos/github/DSpace/dspace-angular/badge.svg?branch=master)](https://coveralls.io/github/DSpace/dspace-angular?branch=master) [![Universal Angular](https://img.shields.io/badge/universal-angular2-brightgreen.svg?style=flat)](https://github.com/angular/universal)
 
 dspace-angular
 ==============
 
-> The next UI for DSpace, based on Angular 2 Universal.
+> The next UI for DSpace, based on Angular Universal.
 
 This project is currently in pre-alpha.
 
@@ -255,12 +255,12 @@ dspace-angular
 │   │   ├── app.module.ts                               *
 │   │   ├── app.reducer.ts                              *
 │   │   ├── browser-app.module.ts                       * The root module for the client
-│   │   ├── collection-page                             *
-│   │   ├── community-page                              *
+│   │   ├── +collection-page                            * Lazily loaded route for collection module
+│   │   ├── +community-page                             * Lazily loaded route for community module
 │   │   ├── core                                        *
 │   │   ├── header                                      *
-│   │   ├── home                                        *
-│   │   ├── item-page                                   *
+│   │   ├── +home                                       * Lazily loaded route for home module
+│   │   ├── +item-page                                  * Lazily loaded route for item module
 │   │   ├── object-list                                 *
 │   │   ├── pagenotfound                                *
 │   │   ├── server-app.module.ts                        * The root module for the server
@@ -276,13 +276,15 @@ dspace-angular
 │   │   └── db.ts                                       *
 │   ├── config                                          *
 │   │   ├── cache-config.interface.ts                   *
+│   │   ├── config.interface.ts                         *
 │   │   ├── global-config.interface.ts                  *
-│   │   └── server-config.interface.ts                  *
+│   │   ├── server-config.interface.ts                  *
+│   │   └── universal-config.interface.ts               *
 │   ├── config.ts                                       * File that loads environmental and shareable settings and makes them available to app components
-│   ├── index.html                                      * The index.html file
+│   ├── index.csr.html                                  * The index file for client side rendering fallback
+│   ├── index.html                                      * The index file
 │   ├── main.browser.ts                                 * The bootstrap file for the client
-│   ├── main.server.aot.ts                              * The express (http://expressjs.com/) config and bootstrap file for the server, in production
-│   ├── main.server.ts                                  * The express (http://expressjs.com/) config and bootstrap file for the server, during development
+│   ├── main.server.ts                                  * The express (http://expressjs.com/) config and bootstrap file for the server
 │   ├── modules                                         *
 │   │   ├── cookies                                     *
 │   │   ├── data-loader                                 *
@@ -295,7 +297,6 @@ dspace-angular
 │   │   ├── _mixins.scss                                *
 │   │   └── variables.scss                              * Global sass variables file
 │   ├── tsconfig.browser.json                           * TypeScript config for the client build
-│   ├── tsconfig.server.aot.json                        * TypeScript config for the server build with Ahead of Time
 │   ├── tsconfig.server.json                            * TypeScript config for the server build
 │   └── tsconfig.test.json                              * TypeScript config for the test build
 ├── tsconfig.json                                       * TypeScript config
@@ -303,6 +304,7 @@ dspace-angular
 ├── typedoc.json                                        * TYPEDOC configuration
 ├── webpack                                             * Webpack (https://webpack.github.io/) config directory
 │   ├── helpers.js                                      *
+│   ├── webpack.aot.js                                  * Webpack (https://webpack.github.io/) config for AoT build
 │   ├── webpack.client.js                               * Webpack (https://webpack.github.io/) config for client build
 │   ├── webpack.common.js                               *
 │   ├── webpack.prod.js                                 * Webpack (https://webpack.github.io/) config for production build

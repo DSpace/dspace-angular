@@ -5,12 +5,8 @@ const serverPartial = require('./webpack/webpack.server');
 const prodPartial = require('./webpack/webpack.prod');
 
 const {
-  AotPlugin
-} = require('@ngtools/webpack');
-
-const {
-  root
-} = require('./webpack/helpers');
+  getAotPlugin
+} = require('./webpack/webpack.aot');
 
 module.exports = function(options, webpackOptions) {
   options = options || {};
@@ -20,21 +16,14 @@ module.exports = function(options, webpackOptions) {
   }
 
   let serverConfig = webpackMerge({}, commonPartial, serverPartial, {
-    entry: options.aot ? './src/main.server.aot.ts' : serverPartial.entry, // Temporary
     plugins: [
-      new AotPlugin({
-        tsConfigPath: root(options.aot ? './src/tsconfig.server.aot.json' : './src/tsconfig.server.json'),
-        skipCodeGeneration: !options.aot
-      })
+      getAotPlugin('server', !!options.aot)
     ]
   });
 
   let clientConfig = webpackMerge({}, commonPartial, clientPartial, {
     plugins: [
-      new AotPlugin({
-        tsConfigPath: root('./src/tsconfig.browser.json'),
-        skipCodeGeneration: !options.aot
-      })
+      getAotPlugin('client', !!options.aot)
     ]
   });
 

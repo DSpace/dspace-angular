@@ -1,19 +1,19 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ApiService } from './api.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { PaginationComponent } from './pagination/pagination.component';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
-import { HostWindowService } from './host-window.service';
-import { NativeWindowFactory, NativeWindowService } from './window.service';
+
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
 import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from './comcol-page-logo/comcol-page-logo.component';
@@ -27,25 +27,24 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 import { SearchFormComponent } from './search-form/search-form.component';
-import { ServerResponseService } from './server-response.service';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
-  RouterModule,
-  TranslateModule,
   FormsModule,
-  ReactiveFormsModule,
+  NgbModule,
   NgxPaginationModule,
-  NgbModule
+  ReactiveFormsModule,
+  RouterModule,
+  TranslateModule
 ];
 
 const PIPES = [
+  // put shared pipes here
   FileSizePipe,
   SafeUrlPipe,
   EnumKeysPipe,
   TruncatePipe
-  // put pipes here
 ];
 
 const COMPONENTS = [
@@ -69,13 +68,6 @@ const ENTRY_COMPONENTS = [
   SearchResultListElementComponent
 ];
 
-const PROVIDERS = [
-  ApiService,
-  HostWindowService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory },
-  ServerResponseService
-];
-
 @NgModule({
   imports: [
     ...MODULES
@@ -90,20 +82,10 @@ const PROVIDERS = [
     ...PIPES,
     ...COMPONENTS
   ],
-  providers: [
-    ...PROVIDERS
-  ],
   entryComponents: [
     ...ENTRY_COMPONENTS
   ]
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        ...PROVIDERS
-      ]
-    };
-  }
+
 }

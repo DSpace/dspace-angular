@@ -43,6 +43,7 @@ export class SearchService {
   );
 
   constructor(private itemDataService: ItemDataService) {
+
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): RemoteData<Array<SearchResult<DSpaceObject>>> {

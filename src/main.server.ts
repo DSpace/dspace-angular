@@ -12,10 +12,12 @@ import * as session from 'express-session';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 
+import { platformServer, renderModuleFactory } from '@angular/platform-server';
 import { enableProdMode } from '@angular/core';
 
-import { ServerAppModule } from './app/server-app.module';
 import { ngExpressEngine } from '@nguniversal/express-engine';
+
+import { ServerAppModule } from './app/server-app.module';
 
 import { serverApi, createMockApi } from './backend/api';
 

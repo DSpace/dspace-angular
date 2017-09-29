@@ -6,7 +6,7 @@ import { CommunityPageComponent } from './community-page.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'communities/:id', component: CommunityPageComponent }
+      { path: ':id', component: CommunityPageComponent, pathMatch: 'full' }
     ])
   ]
 })
