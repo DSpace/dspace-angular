@@ -10,12 +10,12 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { CoreState } from '../core.reducers';
 import { keySelector } from '../shared/selectors';
 
-function objectFromUuidSelector(uuid: string): MemoizedSelector<CoreState, ObjectCacheEntry> {
-  return keySelector<ObjectCacheEntry>('data/object', uuid);
+function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
+  return keySelector<string>('index/uuid', uuid);
 }
 
-function uuidFromHrefSelector(href: string): MemoizedSelector<CoreState, string> {
-  return keySelector<string>('index/href', href);
+function entryFromSelfLinkSelector(selfLink: string): MemoizedSelector<CoreState, ObjectCacheEntry> {
+  return keySelector<ObjectCacheEntry>('data/object', selfLink);
 }
 
 /**
@@ -35,7 +35,7 @@ export class ObjectCacheService {
    * @param msToLive
    *    The number of milliseconds it should be cached for
    * @param requestHref
-   *    The href of the request that resulted in this object
+   *    The selfLink of the request that resulted in this object
    *    This isn't necessarily the same as the object's self
    *    link, it could have been part of a list for example
    */
@@ -69,55 +69,55 @@ export class ObjectCacheService {
    * @return Observable<T>
    *    An observable of the requested object
    */
-  get<T extends CacheableObject>(uuid: string, type: GenericConstructor<T>): Observable<T> {
-    return this.getEntry(uuid)
+  getByUUID<T extends CacheableObject>(uuid: string, type: GenericConstructor<T>): Observable<T> {
+    return this.store.select(selfLinkFromUuidSelector(uuid))
+      .flatMap((selfLink: string) => this.getBySelfLink(selfLink, type))
+  }
+
+  getBySelfLink<T extends CacheableObject>(selfLink: string, type: GenericConstructor<T>): Observable<T> {
+    return this.getEntry(selfLink)
       .map((entry: ObjectCacheEntry) => Object.assign(new type(), entry.data) as T);
   }
 
-  getBySelfLink<T extends CacheableObject>(href: string, type: GenericConstructor<T>): Observable<T> {
-    return this.store.select(uuidFromHrefSelector(href))
-      .flatMap((uuid: string) => this.get(uuid, type))
-  }
-
-  private getEntry(uuid: string): Observable<ObjectCacheEntry> {
-    return this.store.select(objectFromUuidSelector(uuid))
+  private getEntry(selfLink: string): Observable<ObjectCacheEntry> {
+    return this.store.select(entryFromSelfLinkSelector(selfLink))
       .filter((entry) => this.isValid(entry))
       .distinctUntilChanged();
   }
 
-  getRequestHref(uuid: string): Observable<string> {
-    return this.getEntry(uuid)
+  getRequestHrefBySelfLink(selfLink: string): Observable<string> {
+    return this.getEntry(selfLink)
       .map((entry: ObjectCacheEntry) => entry.requestHref)
       .distinctUntilChanged();
   }
 
-  getRequestHrefBySelfLink(self: string): Observable<string> {
-    return this.store.select(uuidFromHrefSelector(self))
-      .flatMap((uuid: string) => this.getRequestHref(uuid));
+  getRequestHrefByUUID(uuid: string): Observable<string> {
+    return this.store.select(selfLinkFromUuidSelector(uuid))
+      .flatMap((selfLink: string) => this.getRequestHrefBySelfLink(selfLink));
   }
 
   /**
    * Get an observable for an array of objects of the same type
-   * with the specified UUIDs
+   * with the specified self links
    *
    * The type needs to be specified as well, in order to turn
    * the cached plain javascript object in to an instance of
    * a class.
    *
    * e.g. getList([
-   *        'c96588c6-72d3-425d-9d47-fa896255a695',
-   *        'cff860da-cf5f-4fda-b8c9-afb7ec0b2d9e'
+   *        'http://localhost:8080/api/core/collections/c96588c6-72d3-425d-9d47-fa896255a695',
+   *        'http://localhost:8080/api/core/collections/cff860da-cf5f-4fda-b8c9-afb7ec0b2d9e'
    *      ], Collection)
    *
-   * @param uuids
-   *    An array of UUIDs of the objects to get
+   * @param selfLinks
+   *    An array of self links of the objects to get
    * @param type
    *    The type of the objects to get
    * @return Observable<Array<T>>
    */
-  getList<T extends CacheableObject>(uuids: string[], type: GenericConstructor<T>): Observable<T[]> {
+  getList<T extends CacheableObject>(selfLinks: string[], type: GenericConstructor<T>): Observable<T[]> {
     return Observable.combineLatest(
-      uuids.map((id: string) => this.get<T>(id, type))
+      selfLinks.map((selfLink: string) => this.getBySelfLink<T>(selfLink, type))
     );
   }
 
@@ -130,12 +130,12 @@ export class ObjectCacheService {
    *    true if the object with the specified UUID is cached,
    *    false otherwise
    */
-  has(uuid: string): boolean {
+  hasByUUID(uuid: string): boolean {
     let result: boolean;
 
-    this.store.select(objectFromUuidSelector(uuid))
+    this.store.select(selfLinkFromUuidSelector(uuid))
       .take(1)
-      .subscribe((entry) => result = this.isValid(entry));
+      .subscribe((selfLink: string) => result = this.hasBySelfLink(selfLink));
 
     return result;
   }
@@ -143,18 +143,18 @@ export class ObjectCacheService {
   /**
    * Check whether the object with the specified self link is cached
    *
-   * @param href
+   * @param selfLink
    *    The self link of the object to check
    * @return boolean
    *    true if the object with the specified self link is cached,
    *    false otherwise
    */
-  hasBySelfLink(href: string): boolean {
+  hasBySelfLink(selfLink: string): boolean {
     let result = false;
 
-    this.store.select(uuidFromHrefSelector(href))
+    this.store.select(entryFromSelfLinkSelector(selfLink))
       .take(1)
-      .subscribe((uuid: string) => result = this.has(uuid));
+      .subscribe((entry: ObjectCacheEntry) => result = this.isValid(entry));
 
     return result;
   }
@@ -175,7 +175,7 @@ export class ObjectCacheService {
       const timeOutdated = entry.timeAdded + entry.msToLive;
       const isOutDated = new Date().getTime() > timeOutdated;
       if (isOutDated) {
-        this.store.dispatch(new RemoveFromObjectCacheAction(entry.data.uuid));
+        this.store.dispatch(new RemoveFromObjectCacheAction(entry.data.self));
       }
       return !isOutDated;
     }

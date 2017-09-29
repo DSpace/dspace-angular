@@ -1,15 +1,23 @@
 import { SortOptions } from '../cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { DSOResponseParsingService } from './dso-response-parsing.service';
+import { ResponseParsingService } from './parsing.service';
+import { RootResponseParsingService } from './root-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
-export class Request<T> {
+export class RestRequest {
   constructor(
     public href: string,
   ) { }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return DSOResponseParsingService;
+  }
 }
 
-export class FindByIDRequest<T> extends Request<T> {
+export class FindByIDRequest extends RestRequest {
   constructor(
     href: string,
     public resourceID: string
@@ -25,12 +33,23 @@ export class FindAllOptions {
   sort?: SortOptions;
 }
 
-export class FindAllRequest<T> extends Request<T> {
+export class FindAllRequest extends RestRequest {
   constructor(
     href: string,
     public options?: FindAllOptions,
   ) {
     super(href);
+  }
+}
+
+export class RootEndpointRequest extends RestRequest {
+  constructor(EnvConfig: GlobalConfig) {
+    const href = new RESTURLCombiner(EnvConfig, '/').toString();
+    super(href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return RootResponseParsingService;
   }
 }
 

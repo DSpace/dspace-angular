@@ -14,7 +14,7 @@ export enum RemoteDataState {
  */
 export class RemoteData<T> {
   constructor(
-    public self: string,
+    public self: Observable<string>,
     private requestPending: Observable<boolean>,
     private responsePending: Observable<boolean>,
     private isSuccessFul: Observable<boolean>,

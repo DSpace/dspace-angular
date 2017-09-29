@@ -18,6 +18,8 @@ import { coreEffects } from './core.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { coreReducers } from './core.reducers';
+import { DSOResponseParsingService } from './data/dso-response-parsing.service';
+import { RootResponseParsingService } from './data/root-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -43,7 +45,9 @@ const PROVIDERS = [
   PaginationComponentOptions,
   ResponseCacheService,
   RequestService,
-  RemoteDataBuildService
+  RemoteDataBuildService,
+  DSOResponseParsingService,
+  RootResponseParsingService
 ];
 
 @NgModule({

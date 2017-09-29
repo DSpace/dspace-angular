@@ -16,26 +16,26 @@ class NullAction extends RemoveFromObjectCacheAction {
 }
 
 describe('objectCacheReducer', () => {
-  const uuid1 = '1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
-  const uuid2 = '28b04544-1766-4e82-9728-c4e93544ecd3';
+  const selfLink1 = 'https://localhost:8080/api/core/items/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
+  const selfLink2 = 'https://localhost:8080/api/core/items/28b04544-1766-4e82-9728-c4e93544ecd3';
   const testState = {
-    [uuid1]: {
+    [selfLink1]: {
       data: {
-        uuid: uuid1,
+        self: selfLink1,
         foo: 'bar'
       },
       timeAdded: new Date().getTime(),
       msToLive: 900000,
-      requestHref: 'https://rest.api/endpoint/uuid1'
+      requestHref: selfLink1
     },
-    [uuid2]: {
+    [selfLink2]: {
       data: {
-        uuid: uuid2,
+        self: selfLink2,
         foo: 'baz'
       },
       timeAdded: new Date().getTime(),
       msToLive: 900000,
-      requestHref: 'https://rest.api/endpoint/uuid2'
+      requestHref: selfLink2
     }
   };
   deepFreeze(testState);
@@ -56,38 +56,38 @@ describe('objectCacheReducer', () => {
 
   it('should add the payload to the cache in response to an ADD action', () => {
     const state = Object.create(null);
-    const objectToCache = { uuid: uuid1 };
+    const objectToCache = { self: selfLink1 };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
-    const requestHref = 'https://rest.api/endpoint/uuid1';
+    const requestHref = 'https://rest.api/endpoint/selfLink1';
     const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive, requestHref);
     const newState = objectCacheReducer(state, action);
 
-    expect(newState[uuid1].data).toEqual(objectToCache);
-    expect(newState[uuid1].timeAdded).toEqual(timeAdded);
-    expect(newState[uuid1].msToLive).toEqual(msToLive);
+    expect(newState[selfLink1].data).toEqual(objectToCache);
+    expect(newState[selfLink1].timeAdded).toEqual(timeAdded);
+    expect(newState[selfLink1].msToLive).toEqual(msToLive);
   });
 
   it('should overwrite an object in the cache in response to an ADD action if it already exists', () => {
-    const objectToCache = { uuid: uuid1, foo: 'baz', somethingElse: true };
+    const objectToCache = { self: selfLink1, foo: 'baz', somethingElse: true };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
-    const requestHref = 'https://rest.api/endpoint/uuid1';
+    const requestHref = 'https://rest.api/endpoint/selfLink1';
     const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive, requestHref);
     const newState = objectCacheReducer(testState, action);
 
     /* tslint:disable:no-string-literal */
-    expect(newState[uuid1].data['foo']).toBe('baz');
-    expect(newState[uuid1].data['somethingElse']).toBe(true);
+    expect(newState[selfLink1].data['foo']).toBe('baz');
+    expect(newState[selfLink1].data['somethingElse']).toBe(true);
     /* tslint:enable:no-string-literal */
   });
 
   it('should perform the ADD action without affecting the previous state', () => {
     const state = Object.create(null);
-    const objectToCache = { uuid: uuid1 };
+    const objectToCache = { self: selfLink1 };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
-    const requestHref = 'https://rest.api/endpoint/uuid1';
+    const requestHref = 'https://rest.api/endpoint/selfLink1';
     const action = new AddToObjectCacheAction(objectToCache, timeAdded, msToLive, requestHref);
     deepFreeze(state);
 
@@ -95,11 +95,11 @@ describe('objectCacheReducer', () => {
   });
 
   it('should remove the specified object from the cache in response to the REMOVE action', () => {
-    const action = new RemoveFromObjectCacheAction(uuid1);
+    const action = new RemoveFromObjectCacheAction(selfLink1);
     const newState = objectCacheReducer(testState, action);
 
-    expect(testState[uuid1]).not.toBeUndefined();
-    expect(newState[uuid1]).toBeUndefined();
+    expect(testState[selfLink1]).not.toBeUndefined();
+    expect(newState[selfLink1]).toBeUndefined();
   });
 
   it("shouldn't do anything in response to the REMOVE action for an object that isn't cached", () => {
@@ -112,7 +112,7 @@ describe('objectCacheReducer', () => {
   });
 
   it('should perform the REMOVE action without affecting the previous state', () => {
-    const action = new RemoveFromObjectCacheAction(uuid1);
+    const action = new RemoveFromObjectCacheAction(selfLink1);
     // testState has already been frozen above
     objectCacheReducer(testState, action);
   });
