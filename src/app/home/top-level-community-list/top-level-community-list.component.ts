@@ -5,58 +5,40 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { Community } from '../../core/shared/community.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ds-top-level-community-list',
   styleUrls: ['./top-level-community-list.component.scss'],
   templateUrl: './top-level-community-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopLevelCommunityListComponent implements OnInit {
+
+export class TopLevelCommunityListComponent {
   topLevelCommunities: RemoteData<Community[]>;
   config: PaginationComponentOptions;
   sortConfig: SortOptions;
 
-  constructor(
-    private cds: CommunityDataService,
-    private ref: ChangeDetectorRef
-  ) {
-
-  }
-
-  ngOnInit(): void {
+  constructor(private cds: CommunityDataService) {
     this.config = new PaginationComponentOptions();
     this.config.id = 'top-level-pagination';
     this.config.pageSizeOptions = [4];
     this.config.pageSize = 4;
+    this.config.currentPage = 1;
     this.sortConfig = new SortOptions();
 
-    this.updateResults();
+    this.updatePage({
+      page: this.config.currentPage,
+      pageSize: this.config.pageSize,
+      sortField: this.sortConfig.field,
+      direction: this.sortConfig.direction
+    });
   }
 
-  onPageChange(currentPage: number): void {
-    this.config.currentPage = currentPage;
-    this.updateResults();
-  }
-
-  onPageSizeChange(elementsPerPage: number): void {
-    this.config.pageSize = elementsPerPage;
-    this.updateResults();
-  }
-
-  onSortDirectionChange(sortDirection: SortDirection): void {
-    this.sortConfig = new SortOptions(this.sortConfig.field, sortDirection);
-    this.updateResults();
-  }
-
-  onSortFieldChange(field: string): void {
-    this.sortConfig = new SortOptions(field, this.sortConfig.direction);
-    this.updateResults();
-  }
-
-  updateResults() {
-    this.topLevelCommunities = undefined;
-    this.topLevelCommunities = this.cds.findAll({ currentPage: this.config.currentPage, elementsPerPage: this.config.pageSize, sort: this.sortConfig });
-    // this.ref.detectChanges();
+  updatePage(data) {
+    this.topLevelCommunities = this.cds.findAll({
+      currentPage: data.page,
+      elementsPerPage: data.pageSize,
+      sort: { field: data.sortField, direction: data.sortDirection }
+    });
   }
 }

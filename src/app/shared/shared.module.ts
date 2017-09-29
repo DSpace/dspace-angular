@@ -24,6 +24,9 @@ import { ItemListElementComponent } from '../object-list/item-list-element/item-
 import { CommunityListElementComponent } from '../object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent } from '../object-list/collection-list-element/collection-list-element.component';
 import { TruncatePipe } from './utils/truncate.pipe';
+import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
+import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
+import { SearchFormComponent } from './search-form/search-form.component';
 import { ServerResponseService } from './server-response.service';
 
 const MODULES = [
@@ -54,9 +57,16 @@ const COMPONENTS = [
   ComcolPageLogoComponent,
   ObjectListComponent,
   ObjectListElementComponent,
+  WrapperListElementComponent,
+  SearchFormComponent
+];
+
+const ENTRY_COMPONENTS = [
+  // put shared entry components (components that are created dynamically) here
   ItemListElementComponent,
   CollectionListElementComponent,
-  CommunityListElementComponent
+  CommunityListElementComponent,
+  SearchResultListElementComponent
 ];
 
 const PROVIDERS = [
@@ -72,7 +82,8 @@ const PROVIDERS = [
   ],
   declarations: [
     ...PIPES,
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...ENTRY_COMPONENTS
   ],
   exports: [
     ...MODULES,
@@ -81,6 +92,9 @@ const PROVIDERS = [
   ],
   providers: [
     ...PROVIDERS
+  ],
+  entryComponents: [
+    ...ENTRY_COMPONENTS
   ]
 })
 export class SharedModule {

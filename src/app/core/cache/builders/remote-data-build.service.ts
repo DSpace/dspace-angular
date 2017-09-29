@@ -14,6 +14,7 @@ import { GenericConstructor } from '../../shared/generic-constructor';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
 import { NormalizedObjectFactory } from '../models/normalized-object-factory';
 import { RestRequest } from '../../data/request.models';
+import { PageInfo } from "../../shared/page-info.model";
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -68,6 +69,13 @@ export class RemoteDataBuildService {
     const pageInfo = responseCacheObs
       .filter((entry: ResponseCacheEntry) => hasValue(entry.response) && hasValue(entry.response['pageInfo']))
       .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).pageInfo)
+      .map((pInfo: PageInfo) => {
+        if (isNotEmpty(pageInfo) && pInfo.currentPage >= 0) {
+          return Object.assign({}, pInfo, {currentPage: pInfo.currentPage + 1});
+        } else {
+          return pInfo;
+        }
+      })
       .distinctUntilChanged();
     /* tslint:enable:no-string-literal */
 

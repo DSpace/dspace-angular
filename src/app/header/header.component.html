@@ -1,11 +1,11 @@
 <header>
-  <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
-    <button class="navbar-toggler navbar-toggler-right" type="button" (click)="toggle()" aria-controls="collapsingNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon fa fa-bars fa-fw" aria-hidden="true"></span>
-    </button>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div [ngClass]="{'clearfix': !(isNavBarCollapsed | async)}">
       <a class="navbar-brand" routerLink="/home">{{ 'title' | translate }}</a>
     </div>
+    <button class="navbar-toggler" type="button" (click)="toggle()" aria-controls="collapsingNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon fa fa-bars fa-fw" aria-hidden="true"></span>
+    </button>
     <div [ngbCollapse]="(isNavBarCollapsed | async)" class="collapse navbar-collapse" id="collapsingNav">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
