@@ -15,6 +15,8 @@ import { coreEffects } from './core.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { coreReducers } from './core.reducers';
+import { DSOResponseParsingService } from './data/dso-response-parsing.service';
+import { RootResponseParsingService } from './data/root-response-parsing.service';
 
 import { ApiService } from '../shared/api.service';
 
@@ -41,14 +43,16 @@ const PROVIDERS = [
   ApiService,
   CommunityDataService,
   CollectionDataService,
+  DSOResponseParsingService,
   DSpaceRESTv2Service,
   HostWindowService,
   ItemDataService,
   ObjectCacheService,
-  PaginationComponentOptions,
-  ResponseCacheService,
-  RequestService,
+  PaginationComponentOptions,  
   RemoteDataBuildService,
+  RequestService,
+  ResponseCacheService,
+  RootResponseParsingService,
   ServerResponseService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];

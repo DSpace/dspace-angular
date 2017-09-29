@@ -1,26 +1,28 @@
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from './remote-data';
-import { FindAllOptions, FindAllRequest, FindByIDRequest, Request } from './request.models';
+import {
+  FindAllOptions, FindAllRequest, FindByIDRequest, RestRequest,
+  RootEndpointRequest
+} from './request.models';
 import { Store } from '@ngrx/store';
-import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { CoreState } from '../core.reducers';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { Inject } from '@angular/core';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { GlobalConfig } from '../../../config';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { Observable } from 'rxjs/Observable';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { EndpointMap, RootSuccessResponse } from '../cache/response-cache.models';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> {
-  protected abstract objectCache: ObjectCacheService;
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract store: Store<CoreState>;
-  protected abstract resourceEndpoint: string;
+  protected abstract linkName: string;
   protected abstract browseEndpoint: string;
 
   constructor(
@@ -30,15 +32,40 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
 
   }
 
-  protected getFindAllHref(options: FindAllOptions = {}): string {
+  private getEndpointMap(): Observable<EndpointMap> {
+    const request = new RootEndpointRequest(this.EnvConfig);
+    this.requestService.configure(request);
+    return this.responseCache.get(request.href)
+      .map((entry: ResponseCacheEntry) => entry.response)
+      .filter((response: RootSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.endpointMap))
+      .map((response: RootSuccessResponse) => response.endpointMap)
+      .distinctUntilChanged();
+  }
+
+  public getEndpoint(): Observable<string> {
+    const request = new RootEndpointRequest(this.EnvConfig);
+    this.requestService.configure(request);
+    return this.getEndpointMap()
+      .map((map: EndpointMap) => map[this.linkName])
+      .distinctUntilChanged();
+  }
+
+  public isEnabledOnRestApi(): Observable<boolean> {
+   return this.getEndpointMap()
+      .map((map: EndpointMap) => isNotEmpty(map[this.linkName]))
+      .startWith(undefined)
+      .distinctUntilChanged();
+  }
+
+  protected getFindAllHref(endpoint, options: FindAllOptions = {}): string {
     let result;
     const args = [];
 
     if (hasValue(options.scopeID)) {
-      result = this.browseEndpoint;
+      result = new RESTURLCombiner(this.EnvConfig, this.browseEndpoint).toString();
       args.push(`scope=${options.scopeID}`);
     } else {
-      result = this.resourceEndpoint;
+      result = endpoint;
     }
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
@@ -61,31 +88,41 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     if (isNotEmpty(args)) {
       result = `${result}?${args.join('&')}`;
     }
-    return new RESTURLCombiner(this.EnvConfig, result).toString();
+    return result;
   }
 
   findAll(options: FindAllOptions = {}): RemoteData<TDomain[]> {
-    const href = this.getFindAllHref(options);
-    const request = new FindAllRequest(href, options);
-    this.requestService.configure(request);
-    return this.rdbService.buildList<TNormalized, TDomain>(href, this.normalizedResourceType);
-    // return this.rdbService.buildList(href);
+    const hrefObs = this.getEndpoint()
+      .map((endpoint: string) => this.getFindAllHref(endpoint, options));
+
+    hrefObs
+      .subscribe((href: string) => {
+        const request = new FindAllRequest(href, options);
+        this.requestService.configure(request);
+      });
+
+    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
   }
 
-  protected getFindByIDHref(resourceID): string {
-    return new RESTURLCombiner(this.EnvConfig, `${this.resourceEndpoint}/${resourceID}`).toString();
+  protected getFindByIDHref(endpoint, resourceID): string {
+    return `${endpoint}/${resourceID}`;
   }
 
   findById(id: string): RemoteData<TDomain> {
-    const href = this.getFindByIDHref(id);
-    const request = new FindByIDRequest(href, id);
-    this.requestService.configure(request);
-    return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
-    // return this.rdbService.buildSingle(href);
+    const hrefObs = this.getEndpoint()
+      .map((endpoint: string) => this.getFindByIDHref(endpoint, id));
+
+    hrefObs
+      .subscribe((href: string) => {
+        const request = new FindByIDRequest(href, id);
+        this.requestService.configure(request);
+      });
+
+    return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
   }
 
   findByHref(href: string): RemoteData<TDomain> {
-    this.requestService.configure(new Request(href));
+    this.requestService.configure(new RestRequest(href));
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
     // return this.rdbService.buildSingle(href));
   }

@@ -5,26 +5,26 @@ import {
   ObjectCacheActionTypes, AddToObjectCacheAction,
   RemoveFromObjectCacheAction
 } from '../cache/object-cache.actions';
-import { AddToHrefIndexAction, RemoveUUIDFromHrefIndexAction } from './href-index.actions';
+import { AddToUUIDIndexAction, RemoveHrefFromUUIDIndexAction } from './uuid-index.actions';
 import { hasValue } from '../../shared/empty.util';
 
 @Injectable()
-export class HrefIndexEffects {
+export class UUIDIndexEffects {
 
   @Effect() add$ = this.actions$
     .ofType(ObjectCacheActionTypes.ADD)
-    .filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache.self))
+    .filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache.uuid))
     .map((action: AddToObjectCacheAction) => {
-      return new AddToHrefIndexAction(
-        action.payload.objectToCache.self,
-        action.payload.objectToCache.uuid
+      return new AddToUUIDIndexAction(
+        action.payload.objectToCache.uuid,
+        action.payload.objectToCache.self
       );
     });
 
   @Effect() remove$ = this.actions$
     .ofType(ObjectCacheActionTypes.REMOVE)
     .map((action: RemoveFromObjectCacheAction) => {
-      return new RemoveUUIDFromHrefIndexAction(action.payload);
+      return new RemoveHrefFromUUIDIndexAction(action.payload);
     });
 
   constructor(private actions$: Actions) {
