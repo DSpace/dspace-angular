@@ -16,6 +16,7 @@ import { hasValue } from '../shared/empty.util';
 })
 export class CommunityPageComponent implements OnInit, OnDestroy {
   communityData: RemoteData<Community>;
+  connumityId: string;
   logoData: RemoteData<Bitstream>;
   private subs: Subscription[] = [];
 
@@ -29,6 +30,7 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.communityData = this.communityDataService.findById(params.id);
+      this.connumityId = params.id;
       this.subs.push(this.communityData.payload
         .subscribe((community) => this.logoData = community.logo));
     });

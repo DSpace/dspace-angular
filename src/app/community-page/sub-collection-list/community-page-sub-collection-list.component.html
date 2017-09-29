@@ -1,11 +1,12 @@
 <div *ngIf="subCollections.hasSucceeded | async">
   <h2>{{'community.sub-collection-list.head' | translate}}</h2>
   <ul>
-    <li *ngFor="let collection of (subCollections.payload | async)">
-      <p>
-        <span class="lead"><a [routerLink]="['/collections', collection.id]">{{collection.name}}</a></span><br>
-        <span class="text-muted">{{collection.shortDescription}}</span>
-      </p>
-    </li>
+    <ds-object-list [config]="config" [sortConfig]="sortConfig"
+                    [objects]="subCollections" [hideGear]="hideGear"
+                    [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
+                    (pageChange)="onPageChange($event)"
+                    (pageSizeChange)="onPageSizeChange($event)"
+                    (sortDirectionChange)="onSortDirectionChange($event)"
+                    (sortFieldChange)="onSortDirectionChange($event)"></ds-object-list>
   </ul>
 </div>

@@ -5,13 +5,11 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, Request } from './request.models';
 import { Store } from '@ngrx/store';
-import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { CoreState } from '../core.reducers';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { Inject } from '@angular/core';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { GlobalConfig } from '../../../config';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> {
@@ -31,14 +29,21 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   protected getFindAllHref(options: FindAllOptions = {}): string {
+    const result = this.parseOptions(options);
+    return new RESTURLCombiner(this.EnvConfig, result).toString();
+  }
+
+  protected parseOptions(options: FindAllOptions = {}, prependEndpoint = true): string {
     let result;
     const args = [];
 
-    if (hasValue(options.scopeID)) {
+    if (hasValue(options.scopeID) && prependEndpoint) {
       result = this.browseEndpoint;
       args.push(`scope=${options.scopeID}`);
-    } else {
+    } else if (prependEndpoint) {
       result = this.resourceEndpoint;
+    } else {
+      result = ''
     }
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
@@ -61,7 +66,8 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     if (isNotEmpty(args)) {
       result = `${result}?${args.join('&')}`;
     }
-    return new RESTURLCombiner(this.EnvConfig, result).toString();
+
+    return result;
   }
 
   findAll(options: FindAllOptions = {}): RemoteData<TDomain[]> {
@@ -74,6 +80,11 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
 
   protected getFindByIDHref(resourceID): string {
     return new RESTURLCombiner(this.EnvConfig, `${this.resourceEndpoint}/${resourceID}`).toString();
+  }
+
+  protected getFindEmbeddedHref(resourceID, embedded, options: FindAllOptions = {}): string {
+    const result = this.parseOptions(options, false);
+    return new RESTURLCombiner(this.EnvConfig, `${this.resourceEndpoint}/${resourceID}/${embedded}${result}`).toString();
   }
 
   findById(id: string): RemoteData<TDomain> {
@@ -90,4 +101,15 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     // return this.rdbService.buildSingle(href));
   }
 
+  findEmbedded<TEmbeddedNormalized extends CacheableObject, TEmbeddedDomain>(
+    id: string,
+    embedded: string,
+    normalizedResourceEmbeddedType: GenericConstructor<TEmbeddedNormalized>,
+    options: FindAllOptions = {}
+  ): RemoteData<TEmbeddedDomain[]> {
+    const href = this.getFindEmbeddedHref(id, embedded, options);
+    const request = new FindByIDRequest(href, id);
+    this.requestService.configure(request);
+    return this.rdbService.buildList<TEmbeddedNormalized, TEmbeddedDomain>(href, normalizedResourceEmbeddedType);
+  }
 }

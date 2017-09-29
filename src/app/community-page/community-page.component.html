@@ -22,5 +22,5 @@
       [content]="(communityData.payload | async)?.copyrightText"
       [hasInnerHtml]="true">
   </ds-comcol-page-content>
-  <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
+  <ds-community-page-sub-collection-list [communityId]="connumityId"></ds-community-page-sub-collection-list>
 </div>
