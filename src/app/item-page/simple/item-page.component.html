@@ -16,7 +16,7 @@
             <ds-item-page-uri-field [item]="item.payload | async"></ds-item-page-uri-field>
             <ds-item-page-collections [item]="item.payload | async"></ds-item-page-collections>
             <div>
-                <a class="btn btn-secondary" [routerLink]="['/items/' + (item.payload | async)?.id + '/full']">
+                <a class="btn btn-outline-primary" [routerLink]="['/items/' + (item.payload | async)?.id + '/full']">
                     {{"item.page.link.full" | translate}}
                 </a>
             </div>

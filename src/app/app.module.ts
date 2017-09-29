@@ -20,6 +20,8 @@ import { ItemPageModule } from './item-page/item-page.module';
 import { CollectionPageModule } from './collection-page/collection-page.module';
 import { CommunityPageModule } from './community-page/community-page.module';
 
+import { SearchPageModule } from './search-page/search-page.module';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
@@ -43,6 +45,7 @@ export function getConfig() {
     ItemPageModule,
     CollectionPageModule,
     CommunityPageModule,
+    SearchPageModule,
     AppRoutingModule,
     StoreModule.forRoot(appReducers, { metaReducers: appMetaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),

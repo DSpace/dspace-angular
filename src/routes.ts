@@ -3,5 +3,6 @@ export const ROUTES: string[] = [
   'items/:id',
   'collections/:id',
   'communities/:id',
+  'search',
   '**'
 ];

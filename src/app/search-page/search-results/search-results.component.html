@@ -1,0 +1,3 @@
+<h2 *ngIf="(searchResults.payload | async)?.length > 0">{{ 'search.results.title' | translate }}</h2>
+<ds-object-list [config]="searchConfig.pagination" [sortConfig]="searchConfig.sort"
+                [objects]="searchResults" [hideGear]="false"></ds-object-list>
