@@ -48,7 +48,7 @@ const PROVIDERS = [
   HostWindowService,
   ItemDataService,
   ObjectCacheService,
-  PaginationComponentOptions,  
+  PaginationComponentOptions,
   RemoteDataBuildService,
   RequestService,
   ResponseCacheService,

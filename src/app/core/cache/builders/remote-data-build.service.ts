@@ -14,7 +14,7 @@ import { GenericConstructor } from '../../shared/generic-constructor';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
 import { NormalizedObjectFactory } from '../models/normalized-object-factory';
 import { RestRequest } from '../../data/request.models';
-import { PageInfo } from "../../shared/page-info.model";
+import { PageInfo } from '../../shared/page-info.model';
 
 @Injectable()
 export class RemoteDataBuildService {
