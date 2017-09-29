@@ -87,7 +87,7 @@
     "@ngx-translate/core": "8.0.0",
     "@ngx-translate/http-loader": "2.0.0",
     "body-parser": "1.18.2",
-    "bootstrap": "4.0.0-alpha.6",
+    "bootstrap": "v4.0.0-beta",
     "cerialize": "0.1.16",
     "compression": "1.7.1",
     "cookie-parser": "1.4.3",

@@ -1,7 +1,10 @@
-@import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
 :host {
   display: block;
-  @include negate-gutters();
+  margin-right: ($grid-gutter-width / -2);
+  margin-left:  ($grid-gutter-width / -2);
+  margin-top: -$content-spacing;
+  margin-bottom: -$content-spacing;
 }
 
 .dspace-logo-container {

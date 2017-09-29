@@ -23,4 +23,6 @@ html {
 
 .main-content {
   flex: 1 0 auto;
+  margin-top: $content-spacing;
+  margin-bottom: $content-spacing;
 }

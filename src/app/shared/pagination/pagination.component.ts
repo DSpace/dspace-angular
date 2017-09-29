@@ -3,10 +3,9 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
-  Output, SimpleChanges,
+  Output,
   ViewEncapsulation
 } from '@angular/core'
 
@@ -21,7 +20,7 @@ import { HostWindowService } from '../host-window.service';
 import { HostWindowState } from '../host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { hasValue, isUndefined } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
 
 /**
@@ -30,12 +29,12 @@ import { PageInfo } from '../../core/shared/page-info.model';
 @Component({
   exportAs: 'paginationComponent',
   selector: 'ds-pagination',
+  styleUrls: ['pagination.component.scss'],
   templateUrl: 'pagination.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated
 })
-export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
-
+export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Number of items in collection.
    */
@@ -81,6 +80,12 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
+   * An event fired when the sort field is changed.
+   * Event's payload equals to the newly selected sort field.
+   */
+  @Output() paginationChange: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
    * Option for hiding the gear
    */
   @Input() public hideGear = false;
@@ -103,7 +108,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   /**
    * Current URL query parameters
    */
-  public currentQueryParams = {};
+  public currentQueryParams: any;
 
   /**
    * An observable of HostWindowState type
@@ -147,32 +152,10 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   public sortField = 'id';
 
   /**
-   * Local variable, which can be used in the template to access the paginate controls ngbDropdown methods and properties
-   */
-  public paginationControls;
-
-  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
   private subs: Subscription[] = [];
-
-  /**
-   * An object that represents pagination details of the current viewed page
-   */
-  public showingDetail: any = {
-    range: null,
-    total: null
-  };
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.pageInfoState && !changes.pageInfoState.isFirstChange()) {
-      this.subs.push(this.pageInfoState.subscribe((pageInfo) => {
-        /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
-        this.currentPageState = pageInfo.currentPage + 1;
-      }));
-    }
-  }
 
   /**
    * Method provided by Angular. Invoked after the constructor.
@@ -184,38 +167,25 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
         this.cdRef.markForCheck();
       }));
     this.checkConfig(this.paginationOptions);
-
-    if (this.pageInfoState) {
-      this.subs.push(this.pageInfoState.subscribe((pageInfo) => {
-        /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
-        this.currentPageState = pageInfo.currentPage + 1;
-      }));
-    }
-
-    this.id = this.paginationOptions.id || null;
-    this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
+    this.initializeConfig();
+    // Listen to changes
     this.subs.push(this.route.queryParams
-      .filter((queryParams) => hasValue(queryParams))
       .subscribe((queryParams) => {
-        this.currentQueryParams = queryParams;
-        if (this.id === queryParams.pageId
-          && (this.paginationOptions.currentPage !== +queryParams.page
-            || this.paginationOptions.pageSize !== +queryParams.pageSize
-            || this.sortOptions.direction !== +queryParams.sortDirection
-            || this.sortOptions.field !== queryParams.sortField)
-        ) {
-          this.validateParams(queryParams.page, queryParams.pageSize, queryParams.sortDirection, queryParams.sortField);
-        } else if (isUndefined(queryParams.pageId) && !isUndefined(this.currentPage)) {
-          // When moving back from a page with query params to page without them, initialize to the first page
-          this.doPageChange(1);
+        if (this.isEmptyPaginationParams(queryParams)) {
+          this.initializeConfig();
         } else {
-          this.currentPage = this.paginationOptions.currentPage;
-          this.pageSize = this.paginationOptions.pageSize;
-          this.sortDirection = this.sortOptions.direction;
-          this.sortField = this.sortOptions.field;
+          this.currentQueryParams = queryParams;
+          const fixedProperties = this.validateParams(queryParams);
+          if (isNotEmpty(fixedProperties)) {
+            this.fixRoute(fixedProperties);
+          }
+          this.setFields();
         }
       }));
-    this.setShowingDetail();
+  }
+
+  private fixRoute(fixedProperties) {
+    this.updateRoute(fixedProperties);
   }
 
   /**
@@ -228,155 +198,250 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   }
 
   /**
+   * Initializes all default variables
+   */
+  private initializeConfig() {
+    // Set initial values
+    this.id = this.paginationOptions.id || null;
+    this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
+    this.currentPage = this.paginationOptions.currentPage;
+    this.pageSize = this.paginationOptions.pageSize;
+    this.sortDirection = this.sortOptions.direction;
+    this.sortField = this.sortOptions.field;
+    this.currentQueryParams = {
+      pageId: this.id,
+      page: this.currentPage,
+      pageSize: this.pageSize,
+      sortDirection: this.sortDirection,
+      sortField: this.sortField
+    };
+  }
+
+  /**
    * @param route
    *    Route is a singleton service provided by Angular.
    * @param router
    *    Router is a singleton service provided by Angular.
    */
-  constructor(
-    private cdRef: ChangeDetectorRef,
-    private route: ActivatedRoute,
-    private router: Router,
-    public hostWindowService: HostWindowService) {
+  constructor(private cdRef: ChangeDetectorRef,
+              private route: ActivatedRoute,
+              private router: Router,
+              public hostWindowService: HostWindowService) {
   }
 
   /**
-   * Method to set set new page and update route parameters
+   * Method to change the route to the given page
    *
    * @param page
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
-    this.currentPage = page;
-    this.updateRoute();
-    this.setShowingDetail();
-    this.pageChange.emit(page);
+    this.updateRoute({ page: page });
   }
 
   /**
-   * Method to set set new page size and update route parameters
+   * Method to change the route to the given page size
    *
    * @param pageSize
-   *    The new page size.
+   *    The page size being navigated to.
+   */
+  public doPageSizeChange(pageSize: number) {
+    this.updateRoute({ page: 1, pageSize: pageSize });
+  }
+
+  /**
+   * Method to change the route to the given sort direction
+   *
+   * @param sortDirection
+   *    The sort direction being navigated to.
+   */
+  public doSortDirectionChange(sortDirection: SortDirection) {
+    this.updateRoute({ page: 1, sortDirection: sortDirection });
+  }
+
+  /**
+   * Method to change the route to the given sort field
+   *
+   * @param sortField
+   *    The sort field being navigated to.
+   */
+  public doSortFieldChange(field: string) {
+    this.updateRoute({ page: 1, sortField: field });
+  }
+
+  /**
+   * Method to set the current page and trigger page change events
+   *
+   * @param page
+   *    The new page value
+   */
+  public setPage(page: number) {
+    this.currentPage = page;
+    this.pageChange.emit(page);
+    this.emitPaginationChange();
+  }
+
+  /**
+   * Method to set the current page size and trigger page size change events
+   *
+   * @param pageSize
+   *    The new page size value.
    */
   public setPageSize(pageSize: number) {
     this.pageSize = pageSize;
-    this.updateRoute();
-    this.setShowingDetail();
     this.pageSizeChange.emit(pageSize);
+    this.emitPaginationChange();
   }
 
   /**
-   * Method to set set new sort direction and update route parameters
+   * Method to set the current sort direction and trigger sort direction change events
    *
    * @param sortDirection
-   *    The new sort direction.
+   *    The new sort directionvalue.
    */
   public setSortDirection(sortDirection: SortDirection) {
     this.sortDirection = sortDirection;
-    this.updateRoute();
-    this.setShowingDetail();
     this.sortDirectionChange.emit(sortDirection);
+    this.emitPaginationChange();
   }
 
   /**
-   * Method to set set new sort field and update route parameters
+   * Method to set the current sort field and trigger sort field change events
    *
    * @param sortField
    *    The new sort field.
    */
   public setSortField(field: string) {
     this.sortField = field;
-    this.updateRoute();
-    this.setShowingDetail();
     this.sortFieldChange.emit(field);
+    this.emitPaginationChange();
+  }
+
+  /**
+   * Method to emit a general pagination change event
+   */
+  private emitPaginationChange() {
+    this.paginationChange.emit({
+      pageId: this.id,
+      page: this.currentPage,
+      pageSize: this.pageSize,
+      sortDirection: this.sortDirection,
+      sortField: this.sortField
+    });
   }
 
   /**
    * Method to update the route parameters
    */
-  private updateRoute() {
+  private updateRoute(params: {}) {
     this.router.navigate([], {
-      queryParams: Object.assign({}, this.currentQueryParams, {
-        pageId: this.id,
-        page: this.currentPage,
-        pageSize: this.pageSize,
-        sortDirection: this.sortDirection,
-        sortField: this.sortField
-      })
+      queryParams: Object.assign({}, this.currentQueryParams, params)
     });
   }
 
   /**
-   * Method to set pagination details of the current viewed page.
+   * Method to get pagination details of the current viewed page.
    */
-  private setShowingDetail() {
-    let firstItem;
-    let lastItem;
-    const lastPage = Math.round(this.collectionSize / this.pageSize);
+  public getShowingDetails(collectionSize: number): any {
+    let showingDetails = { range: null + ' - ' + null, total: null };
+    if (collectionSize) {
+      let firstItem;
+      let lastItem;
+      const pageMax = this.pageSize * this.currentPage;
 
-    firstItem = this.pageSize * (this.currentPage - 1) + 1;
-    if (this.currentPage !== lastPage) {
-      lastItem = this.pageSize * this.currentPage;
-    } else {
-      lastItem = this.collectionSize;
+      firstItem = this.pageSize * (this.currentPage - 1) + 1;
+      if (collectionSize > pageMax) {
+        lastItem = pageMax;
+      } else {
+        lastItem = collectionSize;
+      }
+      showingDetails = { range: firstItem + ' - ' + lastItem, total: collectionSize };
     }
-    this.showingDetail = {
-      range: firstItem + ' - ' + lastItem,
-      total: this.collectionSize
-    }
+    return showingDetails;
   }
 
   /**
-   * Validate query params
+   * Method to validate query params
    *
    * @param page
    *    The page number to validate
    * @param pageSize
    *    The page size to validate
+   * @returns valid parameters if initial parameters were invalid
    */
-  private validateParams(page: any, pageSize: any, sortDirection: any, sortField: any) {
-    // tslint:disable-next-line:triple-equals
-    let filteredPageSize = this.pageSizeOptions.find((x) => x == pageSize);
-    if (!isNumeric(page) || !filteredPageSize) {
-      const filteredPage = isNumeric(page) ? page : this.currentPage;
-      filteredPageSize = (filteredPageSize) ? filteredPageSize : this.pageSize;
-      this.router.navigate([], {
-        queryParams: {
-          pageId: this.id,
-          page: filteredPage,
-          pageSize: filteredPageSize,
-          sortDirection: sortDirection,
-          sortField: sortField
-        }
-      });
-    } else {
-      // (+) converts string to a number
-      if (this.currentPage !== +page) {
-        this.currentPage = +page;
-        this.pageChange.emit(this.currentPage);
-      }
-
-      if (this.pageSize !== +pageSize) {
-        this.pageSize = +pageSize;
-        this.pageSizeChange.emit(this.pageSize);
-      }
-
-      if (this.sortDirection !== +sortDirection) {
-        this.sortDirection = +sortDirection;
-        this.sortDirectionChange.emit(this.sortDirection);
-      }
-
-      if (this.sortField !== sortField) {
-        this.sortField = sortField;
-        this.sortFieldChange.emit(this.sortField);
-      }
-      this.cdRef.detectChanges();
+  private validateParams(params: any): any {
+    const validPage = this.validatePage(params.page);
+    const filteredSize = this.validatePageSize(params.pageSize);
+    const fixedFields: any = {};
+    if (+params.page !== validPage) {
+      fixedFields.page = validPage;
     }
+    if (+params.pageSize !== filteredSize) {
+      fixedFields.pageSize = filteredSize;
+    }
+    return fixedFields;
   }
 
   /**
-   * Ensure options passed contains the required properties.
+   * Method to update all pagination variables to the current query parameters
+   */
+  private setFields() {
+    // (+) converts string to a number
+    const page = this.currentQueryParams.page;
+    if (this.currentPage !== +page) {
+      this.setPage(+page);
+    }
+
+    const pageSize = this.currentQueryParams.pageSize;
+    if (this.pageSize !== +pageSize) {
+      this.setPageSize(+pageSize);
+    }
+
+    const sortDirection = this.currentQueryParams.sortDirection;
+    if (this.sortDirection !== +sortDirection) {
+      this.setSortDirection(+sortDirection);
+    }
+
+    const sortField = this.currentQueryParams.sortField;
+    if (this.sortField !== sortField) {
+      this.setSortField(sortField);
+    }
+    this.cdRef.detectChanges();
+  }
+
+  /**
+   * Method to validate the current page value
+   *
+   * @param page
+   *    The page number to validate
+   * @returns returns valid page value
+   */
+  private validatePage(page: any): number {
+    let result = this.currentPage;
+    if (isNumeric(page)) {
+      result = +page;
+    }
+    return result;
+  }
+
+  /**
+   * Method to validate the current page size value
+   *
+   * @param page size
+   *    The page size to validate
+   * @returns returns valid page size value
+   */
+  private validatePageSize(pageSize: any): number {
+    const filteredPageSize = this.pageSizeOptions.find((x) => x === +pageSize);
+    let result = this.pageSize;
+    if (filteredPageSize) {
+      result = +pageSize;
+    }
+    return result;
+  }
+
+  /**
+   * Method to ensure options passed contains the required properties.
    *
    * @param paginateOptions
    *    The paginate options object.
@@ -391,11 +456,35 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
     }
   }
 
+  /**
+   * Method to check if none of the query params necessary for pagination are filled out.
+   *
+   * @param paginateOptions
+   *    The paginate options object.
+   */
+  private isEmptyPaginationParams(paginateOptions): boolean {
+    const properties = ['id', 'currentPage', 'pageSize', 'pageSizeOptions'];
+    const missing = properties.filter((prop) => {
+      return !(prop in paginateOptions);
+    });
+
+    return properties.length === missing.length;
+  }
+
+  /**
+   * Property to check whether the current pagination object has multiple pages
+   * @returns true if there are multiple pages, else returns false
+   */
   get hasMultiplePages(): boolean {
     return this.collectionSize > this.pageSize;
   }
 
+  /**
+   * Property to check whether the current pagination should show a bottom pages
+   * @returns true if a bottom pages should be shown, else returns false
+   */
   get shouldShowBottomPager(): boolean {
     return this.hasMultiplePages || !this.hidePagerWhenSinglePage
   }
+
 }
