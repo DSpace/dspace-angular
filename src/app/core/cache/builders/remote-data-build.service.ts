@@ -8,12 +8,13 @@ import { ResponseCacheService } from '../response-cache.service';
 import { RequestEntry } from '../../data/request.reducer';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ResponseCacheEntry } from '../response-cache.reducer';
-import { ErrorResponse, SuccessResponse } from '../response-cache.models';
+import { ErrorResponse, DSOSuccessResponse } from '../response-cache.models';
 import { RemoteData } from '../../data/remote-data';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
 import { NormalizedObjectFactory } from '../models/normalized-object-factory';
-import { Request } from '../../data/request.models';
+import { RestRequest } from '../../data/request.models';
+import { PageInfo } from '../../shared/page-info.model';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -25,19 +26,26 @@ export class RemoteDataBuildService {
   }
 
   buildSingle<TNormalized extends CacheableObject, TDomain>(
-    href: string,
+    hrefObs: string | Observable<string>,
     normalizedType: GenericConstructor<TNormalized>
   ): RemoteData<TDomain> {
-    const requestHrefObs = this.objectCache.getRequestHrefBySelfLink(href);
+    if (typeof hrefObs === 'string') {
+      hrefObs = Observable.of(hrefObs);
+    }
+
+    const requestHrefObs = hrefObs.flatMap((href: string) =>
+      this.objectCache.getRequestHrefBySelfLink(href));
 
     const requestObs = Observable.race(
-      this.requestService.get(href).filter((entry) => hasValue(entry)),
+      hrefObs.flatMap((href: string) => this.requestService.get(href))
+        .filter((entry) => hasValue(entry)),
       requestHrefObs.flatMap((requestHref) =>
         this.requestService.get(requestHref)).filter((entry) => hasValue(entry))
     );
 
     const responseCacheObs = Observable.race(
-      this.responseCache.get(href).filter((entry) => hasValue(entry)),
+      hrefObs.flatMap((href: string) => this.responseCache.get(href))
+        .filter((entry) => hasValue(entry)),
       requestHrefObs.flatMap((requestHref) => this.responseCache.get(requestHref)).filter((entry) => hasValue(entry))
     );
 
@@ -60,20 +68,28 @@ export class RemoteDataBuildService {
     /* tslint:disable:no-string-literal */
     const pageInfo = responseCacheObs
       .filter((entry: ResponseCacheEntry) => hasValue(entry.response) && hasValue(entry.response['pageInfo']))
-      .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).pageInfo)
+      .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).pageInfo)
+      .map((pInfo: PageInfo) => {
+        if (isNotEmpty(pageInfo) && pInfo.currentPage >= 0) {
+          return Object.assign({}, pInfo, {currentPage: pInfo.currentPage + 1});
+        } else {
+          return pInfo;
+        }
+      })
       .distinctUntilChanged();
     /* tslint:enable:no-string-literal */
 
     // always use self link if that is cached, only if it isn't, get it via the response.
     const payload =
       Observable.combineLatest(
-        this.objectCache.getBySelfLink<TNormalized>(href, normalizedType).startWith(undefined),
+        hrefObs.flatMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href, normalizedType))
+          .startWith(undefined),
         responseCacheObs
           .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-          .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceUUIDs)
-          .flatMap((resourceUUIDs: string[]) => {
-            if (isNotEmpty(resourceUUIDs)) {
-              return this.objectCache.get(resourceUUIDs[0], normalizedType);
+          .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks)
+          .flatMap((resourceSelfLinks: string[]) => {
+            if (isNotEmpty(resourceSelfLinks)) {
+              return this.objectCache.getBySelfLink(resourceSelfLinks[0], normalizedType);
             } else {
               return Observable.of(undefined);
             }
@@ -93,7 +109,7 @@ export class RemoteDataBuildService {
         }).distinctUntilChanged();
 
     return new RemoteData(
-      href,
+      hrefObs,
       requestPending,
       responsePending,
       isSuccessFul,
@@ -105,12 +121,17 @@ export class RemoteDataBuildService {
   }
 
   buildList<TNormalized extends CacheableObject, TDomain>(
-    href: string,
+    hrefObs: string | Observable<string>,
     normalizedType: GenericConstructor<TNormalized>
   ): RemoteData<TDomain[]> {
-    const requestObs = this.requestService.get(href)
+    if (typeof hrefObs === 'string') {
+      hrefObs = Observable.of(hrefObs);
+    }
+
+    const requestObs = hrefObs.flatMap((href: string) => this.requestService.get(href))
       .filter((entry) => hasValue(entry));
-    const responseCacheObs = this.responseCache.get(href).filter((entry) => hasValue(entry));
+    const responseCacheObs = hrefObs.flatMap((href: string) => this.responseCache.get(href))
+      .filter((entry) => hasValue(entry));
 
     const requestPending = requestObs.map((entry: RequestEntry) => entry.requestPending).distinctUntilChanged();
 
@@ -131,13 +152,13 @@ export class RemoteDataBuildService {
     /* tslint:disable:no-string-literal */
     const pageInfo = responseCacheObs
       .filter((entry: ResponseCacheEntry) => hasValue(entry.response) && hasValue(entry.response['pageInfo']))
-      .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).pageInfo)
+      .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).pageInfo)
       .distinctUntilChanged();
     /* tslint:enable:no-string-literal */
 
     const payload = responseCacheObs
       .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-      .map((entry: ResponseCacheEntry) => (entry.response as SuccessResponse).resourceUUIDs)
+      .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks)
       .flatMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs, normalizedType)
           .map((normList: TNormalized[]) => {
@@ -149,7 +170,7 @@ export class RemoteDataBuildService {
       .distinctUntilChanged();
 
     return new RemoteData(
-      href,
+      hrefObs,
       requestPending,
       responsePending,
       isSuccessFul,
@@ -174,7 +195,7 @@ export class RemoteDataBuildService {
           // are dispatched, but sometimes don't arrive. I'm unsure why atm.
           setTimeout(() => {
             normalized[relationship].forEach((href: string) => {
-              this.requestService.configure(new Request(href))
+              this.requestService.configure(new RestRequest(href))
             });
           }, 0);
 
@@ -192,7 +213,7 @@ export class RemoteDataBuildService {
           // without the setTimeout, the actions inside requestService.configure
           // are dispatched, but sometimes don't arrive. I'm unsure why atm.
           setTimeout(() => {
-            this.requestService.configure(new Request(normalized[relationship]));
+            this.requestService.configure(new RestRequest(normalized[relationship]));
           }, 0);
 
           // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
@@ -259,7 +280,7 @@ export class RemoteDataBuildService {
       // This is an aggregated object, it doesn't necessarily correspond
       // to a single REST endpoint, so instead of a self link, use the
       // current time in ms for a somewhat unique id
-      `${new Date().getTime()}`,
+      Observable.of(`${new Date().getTime()}`),
       requestPending,
       responsePending,
       isSuccessFul,

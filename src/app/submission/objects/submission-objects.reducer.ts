@@ -79,11 +79,13 @@ export function submissionObjectReducer(state = initialState, action: Submission
  */
 function enablePanel(state: SubmissionObjectState, action: EnablePanelAction): SubmissionObjectState {
   if (hasValue(state[action.payload.submissionId])) {
-    const newState = Object.assign({}, state);
-    newState[action.payload.submissionId].panels = Object.assign({}, newState[action.payload.submissionId].panels, {
-      [action.payload.panelId]: { panelViewIndex: action.payload.panelViewIndex}
+    return Object.assign({}, state, {
+      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+        panels: Object.assign({}, state[action.payload.submissionId].panels, {
+          [action.payload.panelId]: { panelViewIndex: action.payload.panelViewIndex}
+        })
+      })
     });
-    return newState;
   } else {
     return state;
   }

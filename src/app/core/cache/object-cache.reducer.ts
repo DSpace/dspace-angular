@@ -8,11 +8,11 @@ import { CacheEntry } from './cache-entry';
 /**
  * An interface to represent objects that can be cached
  *
- * A cacheable object should have a uuid
+ * A cacheable object should have a self link
  */
 export interface CacheableObject {
-  uuid: string;
-  self?: string;
+  uuid?: string;
+  self: string;
 }
 
 /**
@@ -28,11 +28,11 @@ export class ObjectCacheEntry implements CacheEntry {
 /**
  * The ObjectCache State
  *
- * Consists of a map with UUIDs as keys,
+ * Consists of a map with self links as keys,
  * and ObjectCacheEntries as values
  */
 export interface ObjectCacheState {
-  [uuid: string]: ObjectCacheEntry
+  [href: string]: ObjectCacheEntry
 }
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
@@ -81,7 +81,7 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
  */
 function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheAction): ObjectCacheState {
   return Object.assign({}, state, {
-    [action.payload.objectToCache.uuid]: {
+    [action.payload.objectToCache.self]: {
       data: action.payload.objectToCache,
       timeAdded: action.payload.timeAdded,
       msToLive: action.payload.msToLive,

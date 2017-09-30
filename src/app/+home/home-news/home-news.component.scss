@@ -1,0 +1,17 @@
+@import '../../../styles/variables.scss';
+:host {
+  display: block;
+  margin-right: ($grid-gutter-width / -2);
+  margin-left:  ($grid-gutter-width / -2);
+  margin-top: -$content-spacing;
+  margin-bottom: -$content-spacing;
+}
+
+.dspace-logo-container {
+  margin: 10px 20px 0px 20px;
+}
+
+.dspace-logo-container img {
+  max-height: 110px;
+  max-width: 110px;
+}

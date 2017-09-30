@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { Response } from './response-cache.models';
+import { RestResponse } from './response-cache.models';
 
 /**
  * The list of ResponseCacheAction type definitions
@@ -17,12 +17,12 @@ export class ResponseCacheAddAction implements Action {
   type = ResponseCacheActionTypes.ADD;
   payload: {
     key: string,
-    response: Response
+    response: RestResponse
     timeAdded: number;
     msToLive: number;
   };
 
-  constructor(key: string, response: Response, timeAdded: number, msToLive: number) {
+  constructor(key: string, response: RestResponse, timeAdded: number, msToLive: number) {
     this.payload = { key, response, timeAdded, msToLive };
   }
 }

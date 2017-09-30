@@ -103,7 +103,7 @@ describe('Item', () => {
 });
 
 function createRemoteDataObject(object: any) {
-  const self = '';
+  const self = Observable.of('');
   const requestPending = Observable.of(false);
   const responsePending = Observable.of(false);
   const isSuccessful = Observable.of(true);

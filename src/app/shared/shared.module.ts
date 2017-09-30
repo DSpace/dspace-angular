@@ -1,19 +1,19 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ApiService } from './api.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { PaginationComponent } from './pagination/pagination.component';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
-import { HostWindowService } from './host-window.service';
-import { NativeWindowFactory, NativeWindowService } from './window.service';
+
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
 import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from './comcol-page-logo/comcol-page-logo.component';
@@ -24,25 +24,27 @@ import { ItemListElementComponent } from '../object-list/item-list-element/item-
 import { CommunityListElementComponent } from '../object-list/community-list-element/community-list-element.component';
 import { CollectionListElementComponent } from '../object-list/collection-list-element/collection-list-element.component';
 import { TruncatePipe } from './utils/truncate.pipe';
-import { ServerResponseService } from './server-response.service';
+import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
+import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
+import { SearchFormComponent } from './search-form/search-form.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
-  RouterModule,
-  TranslateModule,
   FormsModule,
-  ReactiveFormsModule,
+  NgbModule,
   NgxPaginationModule,
-  NgbModule
+  ReactiveFormsModule,
+  RouterModule,
+  TranslateModule
 ];
 
 const PIPES = [
+  // put shared pipes here
   FileSizePipe,
   SafeUrlPipe,
   EnumKeysPipe,
   TruncatePipe
-  // put pipes here
 ];
 
 const COMPONENTS = [
@@ -54,16 +56,16 @@ const COMPONENTS = [
   ComcolPageLogoComponent,
   ObjectListComponent,
   ObjectListElementComponent,
-  ItemListElementComponent,
-  CollectionListElementComponent,
-  CommunityListElementComponent
+  WrapperListElementComponent,
+  SearchFormComponent
 ];
 
-const PROVIDERS = [
-  ApiService,
-  HostWindowService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory },
-  ServerResponseService
+const ENTRY_COMPONENTS = [
+  // put shared entry components (components that are created dynamically) here
+  ItemListElementComponent,
+  CollectionListElementComponent,
+  CommunityListElementComponent,
+  SearchResultListElementComponent
 ];
 
 @NgModule({
@@ -72,24 +74,18 @@ const PROVIDERS = [
   ],
   declarations: [
     ...PIPES,
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...ENTRY_COMPONENTS
   ],
   exports: [
     ...MODULES,
     ...PIPES,
     ...COMPONENTS
   ],
-  providers: [
-    ...PROVIDERS
+  entryComponents: [
+    ...ENTRY_COMPONENTS
   ]
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        ...PROVIDERS
-      ]
-    };
-  }
+
 }

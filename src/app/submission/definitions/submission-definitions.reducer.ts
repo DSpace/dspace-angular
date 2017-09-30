@@ -1,12 +1,8 @@
-import { Type } from '@angular/core';
-import { createSelector } from '@ngrx/store';
-
 import {
   NewPanelDefinitionAction,
   DefinitionsAction, SubmissionDefinitionActionTypes, NewDefinitionAction
 } from './submission-definitions.actions';
 import { hasValue, isUndefined } from '../../shared/empty.util';
-import { submissionSelector, SubmissionState } from '../submission.reducers';
 
 export interface PanelObject {
   header: any;
@@ -85,31 +81,18 @@ export function submissionDefinitionReducer(state = initialState, action: Defini
  *    the new state, with the panel added.
  */
 function newPanelDefinition(state: SubmissionDefinitionState, action: NewPanelDefinitionAction): SubmissionDefinitionState {
-  if (hasValue(state[action.payload.definitionId])) {
-    const newState = Object.assign({}, state);
-    newState[action.payload.definitionId].panels = Object.assign({}, newState[action.payload.definitionId].panels, {
-      [action.payload.panelId]: {
-        header: action.payload.panelObject.header,
-        mandatory: action.payload.panelObject.mandatory,
-        scope: action.payload.panelObject.scope,
-        type: action.payload.panelObject.type
-      }
-    });
-    return newState;
-  } else {
-    return Object.assign({}, state, {
-      [action.payload.definitionId]: {
+  return Object.assign({}, state, {
+    [action.payload.definitionId]: Object.assign({}, state[action.payload.definitionId], {
+      panels: Object.assign({}, state[action.payload.definitionId].panels, {
         [action.payload.panelId]: {
-          panels: {
-            header: action.payload.panelObject.header,
-            mandatory: action.payload.panelObject.mandatory,
-            scope: action.payload.panelObject.scope,
-            type: action.payload.panelObject.type
-          }
+          header: action.payload.panelObject.header,
+          mandatory: action.payload.panelObject.mandatory,
+          scope: action.payload.panelObject.scope,
+          type: action.payload.panelObject.type
         }
-      }
-    });
-  }
+      })
+    })
+  });
 }
 
 /**

@@ -223,43 +223,48 @@ describe('Pagination component', () => {
   });
 
   it('should render and respond to pageSize change', () => {
+    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
 
     testComp.collectionSize = 30;
     testFixture.detectChanges();
     expectPages(testFixture, ['-« Previous', '+1', '2', '3', '» Next']);
 
-    changePageSize(testFixture, '5');
+    paginationComponent.setPageSize(5);
+    testFixture.detectChanges();
     expectPages(testFixture, ['-« Previous', '+1', '2', '3', '4', '5', '6', '» Next']);
 
-    changePageSize(testFixture, '10');
+    paginationComponent.setPageSize(10);
+    testFixture.detectChanges();
     expectPages(testFixture, ['-« Previous', '+1', '2', '3', '» Next']);
 
-    changePageSize(testFixture, '20');
+    paginationComponent.setPageSize(20);
+    testFixture.detectChanges();
     expectPages(testFixture, ['-« Previous', '+1', '2', '» Next']);
   });
 
   it('should emit pageChange event with correct value', fakeAsync(() => {
+    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
 
     spyOn(testComp, 'pageChanged');
 
-    changePage(testFixture, 3);
+    paginationComponent.setPage(3);
     tick();
 
     expect(testComp.pageChanged).toHaveBeenCalledWith(3);
   }));
 
   it('should emit pageSizeChange event with correct value', fakeAsync(() => {
+    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
 
     spyOn(testComp, 'pageSizeChanged');
 
-    changePageSize(testFixture, '5');
+    paginationComponent.setPageSize(5);
     tick();
 
     expect(testComp.pageSizeChanged).toHaveBeenCalledWith(5);
   }));
 
-  it('should set correct route parameters', fakeAsync(() => {
-    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
+  it('should set correct page route parameters', fakeAsync(() => {
     routerStub = testFixture.debugElement.injector.get(Router) as any;
 
     testComp.collectionSize = 60;
@@ -267,11 +272,29 @@ describe('Pagination component', () => {
     changePage(testFixture, 3);
     tick();
     expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 0, sortField: 'name' } });
-    expect(paginationComponent.currentPage).toEqual(3);
+
+  }));
+
+  it('should set correct pageSize route parameters', fakeAsync(() => {
+    routerStub = testFixture.debugElement.injector.get(Router) as any;
+
+    testComp.collectionSize = 60;
 
     changePageSize(testFixture, '20');
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 20, sortDirection: 0, sortField: 'name' } });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 1, pageSize: 20, sortDirection: 0, sortField: 'name' } });
+  }));
+
+  it('should set correct values', fakeAsync(() => {
+    const paginationComponent: PaginationComponent = testFixture.debugElement.query(By.css('ds-pagination')).references.p;
+    routerStub = testFixture.debugElement.injector.get(Router) as any;
+
+    testComp.collectionSize = 60;
+
+    paginationComponent.setPage(3);
+    expect(paginationComponent.currentPage).toEqual(3);
+
+    paginationComponent.setPageSize(20);
     expect(paginationComponent.pageSize).toEqual(20);
   }));
 

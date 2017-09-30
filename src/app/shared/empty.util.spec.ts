@@ -317,7 +317,7 @@ describe('Empty Utils', () => {
     });
 
     it('should return false for an empty Object', () => {
-      expect(isEmpty({})).toBe(false);
+      expect(isEmpty({})).toBe(true);
     });
 
     it('should return true for an Object that has zero \'length\'', () => {
@@ -377,7 +377,7 @@ describe('Empty Utils', () => {
     });
 
     it('should return true for an empty Object', () => {
-      expect(isNotEmpty({})).toBe(true);
+      expect(isNotEmpty({})).toBe(false);
     });
 
     it('should return false for an Object that has zero length', () => {

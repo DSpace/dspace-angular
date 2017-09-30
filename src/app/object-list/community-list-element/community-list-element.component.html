@@ -1,6 +1,6 @@
-<a [routerLink]="['/communities/' + community.id]" class="lead">
-    {{community.name}}
+<a [routerLink]="['/communities/' + object.id]" class="lead">
+    {{object.name}}
 </a>
-<div *ngIf="community.shortDescription" class="text-muted">
-    {{community.shortDescription}}
+<div *ngIf="object.shortDescription" class="text-muted">
+    {{object.shortDescription}}
 </div>

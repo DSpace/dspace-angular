@@ -1,15 +1,14 @@
 <div>
-  <div ngbDropdown #collectionControls="ngbDropdown">
-    <div class="btn-group">
-      <span class="input-group-addon" id="collectionControlsMenuLabel">Collection</span>
-      <button aria-describedby="collectionControlsMenuLabel"
-              class="btn btn-outline-primary"
-              (click)="onClose($event)"
-              id="collectionControlsMenuButton"
-              ngbDropdownToggle>{{ (selectedCollection) ? selectedCollection : '' }}
-      </button>
-    </div>
-    <div class="dropdown-menu col" id="collectionControlsDropdownMenu" aria-labelledby="collectionControlsMenuButton">
+  <div ngbDropdown #collectionControls="ngbDropdown" class="btn-group">
+    <span class="input-group-addon" id="collectionControlsMenuLabel">Collection</span>
+    <button aria-describedby="collectionControlsMenuLabel"
+            class="btn btn-outline-primary"
+            (click)="onClose($event)"
+            id="collectionControlsMenuButton"
+            ngbDropdownToggle>{{ (selectedCollection) ? selectedCollection : '' }}
+    </button>
+
+    <div ngbDropdownMenu class="dropdown-menu" id="collectionControlsDropdownMenu" aria-labelledby="collectionControlsMenuButton">
       <div class="form-group w-100 pr-2 pl-2">
         <input type="search"
                class="form-control w-100"

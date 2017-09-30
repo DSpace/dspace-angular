@@ -4,7 +4,7 @@ import { SearchService } from './search.service';
 
 @NgModule({
   imports: [
-    CoreModule
+
   ],
   declarations: [
   ],
@@ -14,4 +14,4 @@ import { SearchService } from './search.service';
     SearchService
   ]
 })
-export class SearchModule {}
+export class SearchModule { }

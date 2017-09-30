@@ -5,15 +5,12 @@ import { ApplicationRef, NgModule, APP_BOOTSTRAP_LISTENER } from '@angular/core'
 import { RouterModule } from '@angular/router';
 import { ServerModule } from '@angular/platform-server';
 import { BrowserModule } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Request } from 'express';
 
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Store } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -37,8 +34,6 @@ import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../config';
-import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 
 export function boot(cache: TransferState, appRef: ApplicationRef, store: Store<AppState>, request: Request, config: GlobalConfig) {
   // authentication mechanism goes here
@@ -48,8 +43,9 @@ export function boot(cache: TransferState, appRef: ApplicationRef, store: Store<
     });
   };
 }
-export function UniversalLoaderFactory() {
-  return new TranslateUniversalLoader('dist/assets/i18n', '.json');
+
+export function createTranslateLoader() {
+  return new TranslateUniversalLoader('dist/assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -59,22 +55,19 @@ export function UniversalLoaderFactory() {
       appId: 'ds-app-id'
     }),
     RouterModule.forRoot([], { useHash: false }),
-    StoreRouterConnectingModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: UniversalLoaderFactory,
-        deps: []
-      }
-    }),
-    NgbModule.forRoot(),
-    ServerModule,
     ServerCookiesModule,
     ServerDataLoaderModule,
     ServerTransferStateModule,
     ServerTransferStoreModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: []
+      }
+    }),
     EffectsModule.forRoot([ServerTransferStoreEffects]),
-    NoopAnimationsModule,
+    ServerModule,
     AppModule
   ],
   providers: [
@@ -89,10 +82,6 @@ export function UniversalLoaderFactory() {
         REQUEST,
         GLOBAL_CONFIG
       ]
-    },
-    {
-      provide: RouterStateSerializer,
-      useClass: DSpaceRouterStateSerializer
     }
   ]
 })
