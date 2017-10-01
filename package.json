@@ -17,7 +17,7 @@
     "clean:doc": "rimraf doc",
     "clean:log": "rimraf *.log*",
     "clean:json": "rimraf *.records.json",
-    "clean:node": "rimraf node_modules",
+    "clean:node": "rimraf \"node_modules/!(rimraf|.bin)\"",
     "clean:prod": "yarn run clean:coverage && yarn run clean:doc && yarn run clean:dist && yarn run clean:log && yarn run clean:json",
     "clean": "yarn run clean:prod && yarn run clean:node",
     "prebuild": "yarn run clean:dist",
