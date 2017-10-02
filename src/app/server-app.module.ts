@@ -23,10 +23,6 @@ import { TransferState } from '../modules/transfer-state/transfer-state';
 import { ServerTransferStoreEffects } from '../modules/transfer-store/server-transfer-store.effects';
 import { ServerTransferStoreModule } from '../modules/transfer-store/server-transfer-store.module';
 
-import { ServerCookiesModule } from '../modules/cookies/server-cookies.module';
-
-import { ServerDataLoaderModule } from '../modules/data-loader/server-data-loader.module';
-
 import { AppState } from './app.reducer';
 
 import { AppModule } from './app.module';
@@ -54,9 +50,9 @@ export function createTranslateLoader() {
     BrowserModule.withServerTransition({
       appId: 'ds-app-id'
     }),
-    RouterModule.forRoot([], { useHash: false }),
-    ServerCookiesModule,
-    ServerDataLoaderModule,
+    RouterModule.forRoot([], {
+      useHash: false
+    }),
     ServerTransferStateModule,
     ServerTransferStoreModule,
     TranslateModule.forRoot({

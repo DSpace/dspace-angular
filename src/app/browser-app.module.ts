@@ -11,8 +11,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EffectsModule } from '@ngrx/effects';
 
 import { TransferState } from '../modules/transfer-state/transfer-state';
-import { BrowserCookiesModule } from '../modules/cookies/browser-cookies.module';
-import { BrowserDataLoaderModule } from '../modules/data-loader/browser-data-loader.module';
 import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
 import { BrowserTransferStoreEffects } from '../modules/transfer-store/browser-transfer-store.effects';
 import { BrowserTransferStoreModule } from '../modules/transfer-store/browser-transfer-store.module';
@@ -39,10 +37,13 @@ export function createTranslateLoader(http: HttpClient) {
       appId: 'ds-app-id'
     }),
     HttpClientModule,
-    IdlePreloadModule.forRoot(), // forRoot ensures the providers are only created once
-    RouterModule.forRoot([], { useHash: false, preloadingStrategy: IdlePreload }),
-    BrowserCookiesModule,
-    BrowserDataLoaderModule,
+    // forRoot ensures the providers are only created once
+    IdlePreloadModule.forRoot(),
+    RouterModule.forRoot([], {
+      useHash: false,
+      preloadingStrategy:
+      IdlePreload
+    }),
     BrowserTransferStateModule,
     BrowserTransferStoreModule,
     TranslateModule.forRoot({
