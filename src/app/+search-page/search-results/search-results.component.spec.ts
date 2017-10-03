@@ -5,16 +5,11 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchResultsComponent } from './search-results.component';
-import { Observable } from 'rxjs/Observable';
-import { RemoteData } from '../../core/data/remote-data';
-import { PageInfo } from '../../core/shared/page-info.model';
 
-fdescribe('SearchResultsComponent', () => {
+describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
   let fixture: ComponentFixture<SearchResultsComponent>;
   let heading: DebugElement;
-
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
