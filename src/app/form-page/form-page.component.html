@@ -1,0 +1,24 @@
+<div class="container-fluid">
+
+  <form [formGroup]="formGroup">
+
+    <dynamic-ng-bootstrap-form [group]="formGroup"
+                               [model]="formModel"></dynamic-ng-bootstrap-form>
+
+  </form>
+
+
+  <!--form class="form-horizontal" [formGroup]="formGroup2" >
+
+    <dynamic-form-ng-bootstrap-control *ngFor="let controlModel of formModel2"
+                                       [hasErrorMessaging]="true"
+                                       [group]="formGroup2"
+                                       [model]="controlModel"></dynamic-form-ng-bootstrap-control>
+
+  </form>
+
+  <!--button (click)="test()" type="button">Test</button>
+
+  <pre>{{formGroup2.value | json}}</pre-->
+
+</div>
