@@ -1,32 +1,48 @@
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { CommunityDataService } from '../core/data/community-data.service';
 import { SearchPageComponent } from './search-page.component';
-import { Router } from '@angular/router';
-import { SearchFormComponent } from '../shared/search-form/search-form.component';
-import { SearchResultsComponent } from './search-results/search-results.compontent';
-import { FormsModule } from '@angular/forms';
-import { ObjectListComponent } from '../shared/object-list/object-list.component';
-import { CommonModule } from '@angular/common';
-import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
-import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { PaginatePipe } from 'ngx-pagination';
-import { NgbDropdown, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../shared/utils/enum-keys-pipe';
 import { SearchService } from './search.service';
-import { ItemDataService } from '../core/data/item-data.service';
-import { ResponseCacheService } from '../core/cache/response-cache.service';
-import { StateObservable, Store } from '@ngrx/store';
+import { Community } from '../core/shared/community.model';
 
 fdescribe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
   let fixture: ComponentFixture<SearchPageComponent>;
+  const mockResults = []; // TODO
+  const searchServiceStub = {
+    search: () => mockResults
+  };
+  const queryParam = 'test query';
+  const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
+  const activatedRouteStub = {
+    queryParams: Observable.of({
+      query: queryParam,
+      scope: scopeParam
+    })
+  };
+  const mockCommunityList = [];
+  const communityDataServiceStub = {
+    findAll: () => mockCommunityList,
+    findById: () => new Community()
+  };
+
+  class RouterStub {
+    navigateByUrl(url: string) { return url; }
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule, TranslateModule.forRoot()],
-      declarations: [SearchPageComponent, SearchFormComponent, SearchResultsComponent, ObjectListComponent, WrapperListElementComponent, PaginationComponent, PaginatePipe, NgbPagination, NgbDropdown, EnumKeysPipe],
-      providers: [SearchService, ItemDataService, ResponseCacheService, Store, StateObservable],
+      // imports: [ SearchPageModule ],
+      declarations: [ SearchPageComponent ],
+      providers: [
+        { provide: SearchService, useValue: searchServiceStub },
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: CommunityDataService, useValue: communityDataServiceStub },
+        { provide: Router, useClass: RouterStub }
+      ],
+      schemas:      [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
   }));
 
@@ -36,14 +52,9 @@ fdescribe('SearchPageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should set the scope and query based on the route parameters', inject([Router], (router: Router) => {
-    // const query = 'test query';
-    // const scope = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-    // router.navigate([], {
-    //   queryParams: Object.assign({}, this.currentQueryParams, { query: query, scope: scope })
-    // });
-    // expect(this.comp.query).toBe(query);
-    // expect(this.comp.scope).toBe(scope);
+  it('should set the scope and query based on the route parameters', () => {
+    expect(comp.query).toBe(queryParam);
+    expect((comp as any).scope).toBe(scopeParam);
+  });
 
-  }));
 });
