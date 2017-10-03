@@ -49,13 +49,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
     this.searchOptions = { pagination: pagination, sort: sort };
-    this.service.getConfig().payload.subscribe((filters: SearchFilterConfig[]) => {
-      console.log(filters)
-    });
-    this.service.getFacetValuesFor('scope').payload.subscribe((values: FacetValue[]) => console.log(values));
-    this.service.getFacetValuesFor('author').payload.subscribe((values: FacetValue[]) => console.log(values));
-    this.service.getFacetValuesFor('date').payload.subscribe((values: FacetValue[]) => console.log(values));
-    this.service.getFacetValuesFor('subject').payload.subscribe((values: FacetValue[]) => console.log(values));
   }
 
   ngOnInit(): void {
