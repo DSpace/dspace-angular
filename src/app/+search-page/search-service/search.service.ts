@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-
+import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
-
-import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { Item } from '../core/shared/item.model';
-import { ItemSearchResult } from '../object-list/search-result-list-element/item-search-result/item-search-result.model';
-import { Metadatum } from '../core/shared/metadatum.model';
-import { PageInfo } from '../core/shared/page-info.model';
-import { RemoteData } from '../core/data/remote-data';
-import { SearchOptions } from './search-options.model';
-import { SearchResult } from './search-result.model';
-
-import { ItemDataService } from '../core/data/item-data.service';
-
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { SearchResult } from '../search-result.model';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { SearchOptions } from '../search-options.model';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { Metadatum } from '../../core/shared/metadatum.model';
+import { Item } from '../../core/shared/item.model';
+import { ItemSearchResult } from '../../object-list/search-result-list-element/item-search-result/item-search-result.model';
+import { SearchFilterConfig } from './search-filter-config.model';
+import { FilterType } from './filter-type.model';
+import { FacetValue } from './facet-value.model';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -45,6 +44,33 @@ export class SearchService {
     '<em>This was blank in the actual item, no abstract</em>',
     '<em>The QSAR DataBank (QsarDB) repository</em>',
   );
+
+  config: SearchFilterConfig[] = [
+    {
+      name: 'scope',
+      type: FilterType.hierarchy,
+      hasFacets: true,
+      isOpenByDefault: true
+    },
+    {
+      name: 'author',
+      type: FilterType.text,
+      hasFacets: true,
+      isOpenByDefault: false
+    },
+    {
+      name: 'date',
+      type: FilterType.range,
+      hasFacets: true,
+      isOpenByDefault: false
+    },
+    {
+      name: 'subject',
+      type: FilterType.text,
+      hasFacets: false,
+      isOpenByDefault: false
+    }
+  ];
 
   constructor(private itemDataService: ItemDataService) {
 
@@ -116,4 +142,50 @@ export class SearchService {
     )
   }
 
+  getConfig(): RemoteData<SearchFilterConfig[]> {
+    const requestPending = Observable.of(false);
+    const responsePending = Observable.of(false);
+    const isSuccessful = Observable.of(true);
+    const errorMessage = Observable.of(undefined);
+    const statusCode = Observable.of('200');
+    const returningPageInfo = Observable.of(new PageInfo());
+    return new RemoteData(
+      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/search'),
+      requestPending,
+      responsePending,
+      isSuccessful,
+      errorMessage,
+      statusCode,
+      returningPageInfo,
+      Observable.of(this.config)
+    );
+  }
+
+  getFacetValuesFor(searchFilterConfigName: string): RemoteData<FacetValue[]> {
+    const values: FacetValue[] = [];
+    for (let i = 0; i < 5; i++) {
+      const value = searchFilterConfigName + ' ' + (i + 1);
+      values.push({
+        value: value,
+        count: Math.floor(Math.random() * 20) + 20 * (5 - i), // make sure first results have the highest (random) count
+        search: 'https://dspace7.4science.it/dspace-spring-rest/api/search?query=' + searchFilterConfigName + ':' + encodeURI(value)
+      });
+    }
+    const requestPending = Observable.of(false);
+    const responsePending = Observable.of(false);
+    const isSuccessful = Observable.of(true);
+    const errorMessage = Observable.of(undefined);
+    const statusCode = Observable.of('200');
+    const returningPageInfo = Observable.of(new PageInfo());
+    return new RemoteData(
+      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/search'),
+      requestPending,
+      responsePending,
+      isSuccessful,
+      errorMessage,
+      statusCode,
+      returningPageInfo,
+      Observable.of(values)
+    );
+  }
 }

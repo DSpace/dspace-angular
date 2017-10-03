@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SearchService } from './search.service';
+import { SearchService } from './search-service/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { SearchResult } from './search-result.model';
@@ -10,6 +10,8 @@ import { SearchOptions } from './search-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { Community } from '../core/shared/community.model';
+import { SearchFilterConfig } from './search-service/search-filter-config.model';
+import { FacetValue } from './search-service/facet-value.model';
 
 /**
  * This component renders a simple item page.
@@ -47,6 +49,13 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
     this.searchOptions = { pagination: pagination, sort: sort };
+    this.service.getConfig().payload.subscribe((filters: SearchFilterConfig[]) => {
+      console.log(filters)
+    });
+    this.service.getFacetValuesFor('scope').payload.subscribe((values: FacetValue[]) => console.log(values));
+    this.service.getFacetValuesFor('author').payload.subscribe((values: FacetValue[]) => console.log(values));
+    this.service.getFacetValuesFor('date').payload.subscribe((values: FacetValue[]) => console.log(values));
+    this.service.getFacetValuesFor('subject').payload.subscribe((values: FacetValue[]) => console.log(values));
   }
 
   ngOnInit(): void {
@@ -57,8 +66,8 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this.currentParams = params;
           this.query = params.query || '';
           this.scope = params.scope;
-          const page = +params.page  || this.searchOptions.pagination.currentPage;
-          const pageSize = +params.pageSize  || this.searchOptions.pagination.pageSize;
+          const page = +params.page || this.searchOptions.pagination.currentPage;
+          const pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
           const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
           const pagination = Object.assign({},
             this.searchOptions.pagination,
