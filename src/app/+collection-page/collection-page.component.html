@@ -1,13 +1,13 @@
 <div class="collection-page">
-  <div *ngIf="collectionData.hasSucceeded | async">
+  <div *ngIf="collectionData.hasSucceeded | async; else loadingCollection">
     <!-- Collection Name -->
     <ds-comcol-page-header
       [name]="(collectionData.payload | async)?.name">
     </ds-comcol-page-header>
     <!-- Collection logo -->
     <ds-comcol-page-logo *ngIf="logoData"
-                         [logo]="logoData.payload | async"
-                         [alternateText]="'Collection Logo'">
+      [logo]="logoData.payload | async"
+      [alternateText]="'Collection Logo'">
     </ds-comcol-page-logo>
     <!-- Introductionary text -->
     <ds-comcol-page-content
@@ -31,10 +31,16 @@
       [title]="'collection.page.license'">
     </ds-comcol-page-content>
   </div>
+  <ng-template #loadingCollection><ds-loading message="Loading collection..."></ds-loading></ng-template>
   <br>
-  <div *ngIf="(itemData.hasSucceeded | async)">
+  <div *ngIf="itemData.hasSucceeded | async; else loadingItems">
     <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
-    <ds-object-list [config]="paginationConfig" [sortConfig]="sortConfig"
-                    [objects]="itemData" [hideGear]="false"></ds-object-list>
+    <ds-object-list
+      [config]="paginationConfig"
+      [sortConfig]="sortConfig"
+      [objects]="itemData"
+      [hideGear]="false">
+    </ds-object-list>
   </div>
+  <ng-template #loadingItems><ds-loading message="Loading items..."></ds-loading></ng-template>
 </div>

@@ -27,6 +27,7 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { LoadingComponent } from './loading/loading.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -57,7 +58,8 @@ const COMPONENTS = [
   ObjectListComponent,
   ObjectListElementComponent,
   WrapperListElementComponent,
-  SearchFormComponent
+  SearchFormComponent,
+  LoadingComponent
 ];
 
 const ENTRY_COMPONENTS = [

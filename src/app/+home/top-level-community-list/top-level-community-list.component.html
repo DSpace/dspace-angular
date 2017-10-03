@@ -1,6 +1,12 @@
-<div *ngIf="topLevelCommunities.hasSucceeded | async">
+<div *ngIf="topLevelCommunities.hasSucceeded | async; else loadingCollections">
   <h2>{{'home.top-level-communities.head' | translate}}</h2>
   <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
-  <ds-object-list [config]="config" [sortConfig]="sortConfig"
-                  [objects]="topLevelCommunities" [hideGear]="true" (paginationChange)="updatePage($event)"></ds-object-list>
+  <ds-object-list
+    [config]="config"
+    [sortConfig]="sortConfig"
+    [objects]="topLevelCommunities"
+    [hideGear]="true"
+    (paginationChange)="updatePage($event)">
+  </ds-object-list>
 </div>
+<ng-template #loadingCollections><ds-loading message="Loading top level communities..."></ds-loading></ng-template>
