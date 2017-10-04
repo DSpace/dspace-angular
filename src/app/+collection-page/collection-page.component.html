@@ -1,5 +1,5 @@
 <div class="collection-page">
-  <div *ngIf="collectionData.hasSucceeded | async">
+  <div *ngIf="collectionData.hasSucceeded | async" @fadeInOut>
     <!-- Collection Name -->
     <ds-comcol-page-header
       [name]="(collectionData.payload | async)?.name">
@@ -34,7 +34,7 @@
   <ds-error *ngIf="collectionData.hasFailed | async" message="Error fetching collection"></ds-error>
   <ds-loading *ngIf="collectionData.isLoading | async" message="Loading collection..."></ds-loading>
   <br>
-  <div *ngIf="itemData.hasSucceeded | async">
+  <div *ngIf="itemData.hasSucceeded | async" @fadeIn>
     <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
     <ds-object-list
       [config]="paginationConfig"

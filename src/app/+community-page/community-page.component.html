@@ -1,4 +1,4 @@
-<div class="community-page" *ngIf="communityData.hasSucceeded | async">
+<div class="community-page" *ngIf="communityData.hasSucceeded | async" @fadeInOut>
   <!-- Community name -->
   <ds-comcol-page-header [name]="(communityData.payload | async)?.name"></ds-comcol-page-header>
   <!-- Community logo -->

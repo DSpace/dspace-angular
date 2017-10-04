@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { animate, state, transition, trigger, style, keyframes } from '@angular/animations';
+
 import { Observable } from 'rxjs/Observable';
 
 import { Item } from '../../core/shared/item.model';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
+
+import { fadeInOut } from '../../shared/animations/fade';
 
 /**
  * This component renders a simple item page.
@@ -16,6 +20,7 @@ import { Bitstream } from '../../core/shared/bitstream.model';
   selector: 'ds-item-page',
   styleUrls: ['./item-page.component.scss'],
   templateUrl: './item-page.component.html',
+  animations:[fadeInOut]
 })
 export class ItemPageComponent implements OnInit {
 

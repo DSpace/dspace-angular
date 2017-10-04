@@ -23,18 +23,22 @@ import { Community } from '../core/shared/community.model';
   templateUrl: './search-page.component.html',
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
+
   private sub;
-  query: string;
   private scope: string;
+
+  query: string;
   scopeObject: RemoteData<DSpaceObject>;
   results: RemoteData<Array<SearchResult<DSpaceObject>>>;
   currentParams = {};
   searchOptions: SearchOptions;
   scopeList: RemoteData<Community[]>;
 
-  constructor(private service: SearchService,
-              private route: ActivatedRoute,
-              private communityService: CommunityDataService,) {
+  constructor(
+    private service: SearchService,
+    private route: ActivatedRoute,
+    private communityService: CommunityDataService
+  ) {
     this.scopeList = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();

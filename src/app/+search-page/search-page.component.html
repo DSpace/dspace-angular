@@ -1,4 +1,9 @@
 <div class="search-page">
-    <ds-search-form [query]="query" [scope]="scopeObject?.payload | async" [currentParams]="currentParams" [scopes]="scopeList?.payload"></ds-search-form>
+    <ds-search-form
+      [query]="query"
+      [scope]="scopeObject?.payload | async"
+      [currentParams]="currentParams"
+      [scopes]="scopeList?.payload">
+    </ds-search-form>
     <ds-search-results [searchResults]="results" [searchConfig]="searchOptions"></ds-search-results>
 </div>

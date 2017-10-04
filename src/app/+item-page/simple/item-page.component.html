@@ -1,4 +1,4 @@
-<div class="item-page" *ngIf="item.hasSucceeded | async">
+<div class="item-page" *ngIf="item.hasSucceeded | async" @fadeInOut>
   <ds-item-page-title-field [item]="item.payload | async"></ds-item-page-title-field>
   <div class="row">
     <div class="col-xs-12 col-md-4">

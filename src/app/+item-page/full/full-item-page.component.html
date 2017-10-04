@@ -1,4 +1,4 @@
-<div class="item-page" *ngIf="item.hasSucceeded | async">
+<div class="item-page" *ngIf="item.hasSucceeded | async" @fadeInOut>
   <ds-item-page-title-field [item]="item.payload | async"></ds-item-page-title-field>
   <div class="simple-view-link">
     <a class="btn btn-outline-primary col-4" [routerLink]="['/items/' + (item.payload | async)?.id]">

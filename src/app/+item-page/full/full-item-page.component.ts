@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { animate, state, transition, trigger, style, keyframes } from '@angular/animations';
+
 import { Observable } from 'rxjs/Observable';
 
 import { ItemPageComponent } from '../simple/item-page.component';
@@ -7,6 +9,8 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
+
+import { fadeInOut } from '../../shared/animations/fade';
 
 /**
  * This component renders a simple item page.
@@ -18,6 +22,7 @@ import { Item } from '../../core/shared/item.model';
   selector: 'ds-full-item-page',
   styleUrls: ['./full-item-page.component.scss'],
   templateUrl: './full-item-page.component.html',
+  animations:[fadeInOut ]
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 

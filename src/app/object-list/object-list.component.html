@@ -9,10 +9,11 @@
                (sortDirectionChange)="onSortDirectionChange($event)"
                (sortFieldChange)="onSortDirectionChange($event)"
                (paginationChange)="onPaginationChange($event)">
-    <ul *ngIf="objects.hasSucceeded | async"> <!--class="list-unstyled"-->
+    <ul *ngIf="objects.hasSucceeded | async" @fadeIn> <!--class="list-unstyled"-->
         <li *ngFor="let object of (objects.payload | async) | paginate: { itemsPerPage: (pageInfo | async)?.elementsPerPage, currentPage: (pageInfo | async)?.currentPage, totalItems: (pageInfo | async)?.totalElements }">
             <ds-wrapper-list-element [object]="object"></ds-wrapper-list-element>
         </li>
     </ul>
-
+    <ds-error *ngIf="objects.hasFailed | async" message="Error fetching list"></ds-error>
+    <ds-loading *ngIf="objects.isLoading | async" message="Loading list..."></ds-loading>
 </ds-pagination>

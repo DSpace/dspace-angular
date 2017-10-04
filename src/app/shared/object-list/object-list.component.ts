@@ -18,12 +18,15 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
 import { ListableObject } from '../../object-list/listable-object/listable-object.model';
 
+import { fadeIn } from '../../shared/animations/fade';
+
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   selector: 'ds-object-list',
   styleUrls: ['../../object-list/object-list.component.scss'],
-  templateUrl: '../../object-list/object-list.component.html'
+  templateUrl: '../../object-list/object-list.component.html',
+  animations:[fadeIn]
 })
 export class ObjectListComponent implements OnChanges, OnInit {
 
