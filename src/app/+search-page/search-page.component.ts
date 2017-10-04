@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SearchService } from '../search/search.service';
+import { SearchService } from './search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
-import { SearchResult } from '../search/search-result.model';
+import { SearchResult } from './search-result.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../search/search-options.model';
+import { SearchOptions } from './search-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { Community } from '../core/shared/community.model';

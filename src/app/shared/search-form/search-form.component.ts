@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { isNotEmpty, hasValue, isEmpty } from '../empty.util';
@@ -15,32 +15,17 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
 })
-export class SearchFormComponent implements OnInit, OnDestroy {
+export class SearchFormComponent {
   @Input() query: string;
   selectedId = '';
   // Optional existing search parameters
   @Input() currentParams: {};
   @Input() scopes: Observable<DSpaceObject[]>;
-  scopeOptions: string[] = [];
-  sub;
 
   @Input()
   set scope(dso: DSpaceObject) {
     if (hasValue(dso)) {
       this.selectedId = dso.id;
-    }
-  }
-
-  ngOnInit(): void {
-    if (this.scopes) {
-      this.sub =
-      this.scopes
-        .filter((scopes: DSpaceObject[]) => isEmpty(scopes))
-        .subscribe((scopes: DSpaceObject[]) => {
-            this.scopeOptions = scopes
-              .map((scope: DSpaceObject) => scope.id);
-          }
-        );
     }
   }
 
@@ -75,9 +60,4 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     return id1 === id2;
   }
 
-  ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
-  }
 }

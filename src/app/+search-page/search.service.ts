@@ -84,8 +84,8 @@ export class SearchService {
     });
 
     const pageInfo = itemsRD.pageInfo.map((info: PageInfo) => {
-      info.totalElements = info.totalElements > 20 ? 20 : info.totalElements;
-      return info;
+      const totalElements = info.totalElements > 20 ? 20 : info.totalElements;
+      return Object.assign({}, info, {totalElements: totalElements});
     });
 
     const payload = itemsRD.payload.map((items: Item[]) => {
