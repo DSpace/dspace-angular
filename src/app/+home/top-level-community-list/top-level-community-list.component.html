@@ -1,4 +1,3 @@
-<!-- <div *ngIf="topLevelCommunities.hasSucceeded | async; else loadingCollections"> -->
 <div *ngIf="topLevelCommunities.hasSucceeded | async">
   <h2>{{'home.top-level-communities.head' | translate}}</h2>
   <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
@@ -11,4 +10,3 @@
   </ds-object-list>
 </div>
 <ds-loading *ngIf="topLevelCommunities.isLoading | async" message="Loading top level communities..."></ds-loading>
-<!-- <ng-template #loadingCollections><ds-loading message="Loading top level communities..."></ds-loading></ng-template> -->

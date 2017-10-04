@@ -1,4 +1,4 @@
-<div class="community-page" *ngIf="communityData.hasSucceeded | async; else loadingCommunity">
+<div class="community-page" *ngIf="communityData.hasSucceeded | async">
   <!-- Community name -->
   <ds-comcol-page-header [name]="(communityData.payload | async)?.name"></ds-comcol-page-header>
   <!-- Community logo -->
@@ -24,4 +24,4 @@
   </ds-comcol-page-content>
   <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
 </div>
-<ng-template #loadingCommunity><ds-loading message="Loading community..."></ds-loading></ng-template>
+<ds-loading *ngIf="communityData.isLoading | async" message="Loading community..."></ds-loading>

@@ -1,4 +1,4 @@
-<div class="item-page" *ngIf="item.hasSucceeded | async; else loadingItem">
+<div class="item-page" *ngIf="item.hasSucceeded | async">
   <ds-item-page-title-field [item]="item.payload | async"></ds-item-page-title-field>
   <div class="row">
     <div class="col-xs-12 col-md-4">
@@ -21,4 +21,4 @@
     </div>
   </div>
 </div>
-<ng-template #loadingItem><ds-loading message="Loading item..."></ds-loading></ng-template>
+<ds-loading *ngIf="item.isLoading | async" message="Loading item..."></ds-loading>

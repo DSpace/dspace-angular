@@ -1,5 +1,5 @@
 <div class="collection-page">
-  <div *ngIf="collectionData.hasSucceeded | async; else loadingCollection">
+  <div *ngIf="collectionData.hasSucceeded | async">
     <!-- Collection Name -->
     <ds-comcol-page-header
       [name]="(collectionData.payload | async)?.name">
@@ -31,9 +31,9 @@
       [title]="'collection.page.license'">
     </ds-comcol-page-content>
   </div>
-  <ng-template #loadingCollection><ds-loading message="Loading collection..."></ds-loading></ng-template>
+  <ds-loading *ngIf="collectionData.isLoading | async" message="Loading collection..."></ds-loading>
   <br>
-  <div *ngIf="itemData.hasSucceeded | async; else loadingItems">
+  <div *ngIf="itemData.hasSucceeded | async">
     <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
     <ds-object-list
       [config]="paginationConfig"
@@ -42,5 +42,5 @@
       [hideGear]="false">
     </ds-object-list>
   </div>
-  <ng-template #loadingItems><ds-loading message="Loading items..."></ds-loading></ng-template>
+  <ds-loading *ngIf="itemData.isLoading | async" message="Loading items..."></ds-loading>
 </div>
