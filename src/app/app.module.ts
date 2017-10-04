@@ -30,7 +30,6 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { GLOBAL_CONFIG, ENV_CONFIG, GlobalConfig } from '../config';
 
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
-import { FormPageModule } from './form-page/form-page.module';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -59,7 +58,6 @@ if (!ENV_CONFIG.production) {
     CommonModule,
     HttpModule,
     RouterModule,
-    FormPageModule,
     AppRoutingModule,
     CoreModule.forRoot(),
     NgbModule.forRoot(),
