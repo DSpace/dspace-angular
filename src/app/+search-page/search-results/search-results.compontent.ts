@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
-import { SearchResult } from '../../search/search-result.model';
+import { SearchResult } from '../search-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchOptions } from '../../search/search-options.model';
+import { SearchOptions } from '../search-options.model';
 
 /**
  * This component renders a simple item page.
