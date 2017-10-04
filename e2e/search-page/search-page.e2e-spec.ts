@@ -17,7 +17,7 @@ fdescribe('protractor SearchPage', () => {
     });
   });
 
-  it('should not contain element ds-pagenotfound when navigating to existing page', () => {
+  it('should have right scope selected when navigating to page with query parameter', () => {
     const scope: promise.Promise<string> = page.getRandomScopeOption();
     scope.then((scopeString: string) => {
       page.navigateToSearchWithScopeParameter(scopeString);
