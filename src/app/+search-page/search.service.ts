@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
-import { RemoteData } from '../core/data/remote-data';
+
 import { Observable } from 'rxjs/Observable';
-import { SearchResult } from './search-result.model';
-import { ItemDataService } from '../core/data/item-data.service';
-import { PageInfo } from '../core/shared/page-info.model';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { SearchOptions } from './search-options.model';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { Metadatum } from '../core/shared/metadatum.model';
 import { Item } from '../core/shared/item.model';
 import { ItemSearchResult } from '../object-list/search-result-list-element/item-search-result/item-search-result.model';
+import { Metadatum } from '../core/shared/metadatum.model';
+import { PageInfo } from '../core/shared/page-info.model';
+import { RemoteData } from '../core/data/remote-data';
+import { SearchOptions } from './search-options.model';
+import { SearchResult } from './search-result.model';
+
+import { ItemDataService } from '../core/data/item-data.service';
+
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -63,8 +68,12 @@ export class SearchService {
     if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.field)) {
       self += `&sortField=${searchOptions.sort.field}`;
     }
-    const requestPending = Observable.of(false);
-    const responsePending = Observable.of(false);
+
+    const requestPendingSubject = new BehaviorSubject<boolean>(true);
+    const responsePendingSubject = new BehaviorSubject<boolean>(false);
+
+    const requestPending = requestPendingSubject.asObservable();
+    const responsePending = responsePendingSubject.asObservable();
     const errorMessage = Observable.of(undefined);
     const statusCode = Observable.of('200');
     const returningPageInfo = new PageInfo();
@@ -101,6 +110,11 @@ export class SearchService {
         });
     });
 
+    itemsRD.hasSucceeded.subscribe((success: boolean) => {
+      requestPendingSubject.next(!success);
+      responsePendingSubject.next(!success);
+    });
+
     return new RemoteData(
       Observable.of(self),
       requestPending,
@@ -112,4 +126,5 @@ export class SearchService {
       payload
     )
   }
+
 }

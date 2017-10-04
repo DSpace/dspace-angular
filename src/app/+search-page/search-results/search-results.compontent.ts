@@ -9,12 +9,10 @@ import { SearchOptions } from '../search-options.model';
  * The route parameter 'id' is used to request the item it represents.
  * All fields of the item that should be displayed, are defined in its template.
  */
-
 @Component({
   selector: 'ds-search-results',
   templateUrl: './search-results.component.html',
 })
-
 export class SearchResultsComponent {
   @Input() searchResults: RemoteData<Array<SearchResult<DSpaceObject>>>;
   @Input() searchConfig: SearchOptions;

@@ -14,6 +14,6 @@
             <ds-wrapper-list-element [object]="object"></ds-wrapper-list-element>
         </li>
     </ul>
-    <ds-error *ngIf="objects.hasFailed | async" message="Error fetching list"></ds-error>
-    <ds-loading *ngIf="objects.isLoading | async" message="Loading list..."></ds-loading>
+    <ds-error *ngIf="objects.hasFailed | async" message="Error fetching"></ds-error>
+    <ds-loading *ngIf="objects.isLoading | async" message="Loading..."></ds-loading>
 </ds-pagination>

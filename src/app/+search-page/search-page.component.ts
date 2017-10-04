@@ -84,7 +84,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   private updateSearchResults(searchOptions) {
     // Resolve search results
     this.results = this.service.search(this.query, this.scope, searchOptions);
-
   }
 
   ngOnDestroy() {
