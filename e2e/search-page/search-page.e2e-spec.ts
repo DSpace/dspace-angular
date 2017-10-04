@@ -1,4 +1,6 @@
 import { ProtractorPage } from './search-page.po';
+import { browser } from 'protractor';
+import { promise } from 'selenium-webdriver';
 
 fdescribe('protractor SearchPage', () => {
   let page: ProtractorPage;
@@ -16,10 +18,32 @@ fdescribe('protractor SearchPage', () => {
   });
 
   it('should not contain element ds-pagenotfound when navigating to existing page', () => {
-    const scopeString = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-    page.navigateToSearchWithScopeParameter(scopeString);
-    page.getCurrentScope().then((scope: string) => {
-      expect<string>(scope).toEqual(scopeString);
+    const scope: promise.Promise<string> = page.getRandomScopeOption();
+    scope.then((scopeString: string) => {
+      page.navigateToSearchWithScopeParameter(scopeString);
+      page.getCurrentScope().then((s: string) => {
+        expect<string>(s).toEqual(scopeString);
+      });
+    });
+  });
+
+  it('should redirect to the correct url when scope was set and submit button was triggered', () => {
+    const scope: promise.Promise<string> = page.getRandomScopeOption();
+    scope.then((scopeString: string) => {
+      page.setCurrentScope(scopeString);
+      page.submitSearchForm();
+      browser.getCurrentUrl().then((url: string) => {
+        expect(url.indexOf('scope=' + encodeURI(scopeString))).toBeGreaterThanOrEqual(0);
+      });
+    });
+  });
+
+  it('should redirect to the correct url when query was set and submit button was triggered', () => {
+    const queryString = 'Another interesting query string';
+    page.setCurrentQuery(queryString);
+    page.submitSearchForm();
+    browser.getCurrentUrl().then((url: string) => {
+      expect(url.indexOf('query=' + encodeURI(queryString))).toBeGreaterThanOrEqual(0);
     });
   });
 });

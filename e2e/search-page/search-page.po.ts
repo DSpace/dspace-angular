@@ -20,12 +20,28 @@ export class ProtractorPage {
     return element(by.tagName('select')).getAttribute('value');
   }
 
-  getCurrentQuery(): promise.Promise<string>  {
+  getCurrentQuery(): promise.Promise<string> {
     return element(by.tagName('input')).getAttribute('value');
   }
 
-  elementTagExists(tag: string) {
-    return element(by.tagName(tag)).isPresent();
+  setCurrentScope(scope: string) {
+    element(by.css('option[value="' + scope + '"]')).click();
+  }
+
+  setCurrentQuery(query: string) {
+    element(by.css('input[name="query"]')).sendKeys(query);
+  }
+
+  submitSearchForm() {
+    element(by.css('button.search-button')).click();
+  }
+
+  getRandomScopeOption(): promise.Promise<string> {
+    const options = element(by.css('select[name="scope"]')).all(by.tagName('option'));
+    return options.count().then((c: number) => {
+      const index: number = Math.floor(Math.random() * c);
+      return options.get(index).getAttribute('value');
+    });
   }
 
 }
