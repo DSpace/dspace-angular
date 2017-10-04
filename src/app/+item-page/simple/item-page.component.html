@@ -21,4 +21,5 @@
     </div>
   </div>
 </div>
+<ds-error *ngIf="item.hasFailed | async" message="Error fetching item"></ds-error>
 <ds-loading *ngIf="item.isLoading | async" message="Loading item..."></ds-loading>

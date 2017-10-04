@@ -9,4 +9,5 @@
     (paginationChange)="updatePage($event)">
   </ds-object-list>
 </div>
+<ds-error *ngIf="topLevelCommunities.hasFailed | async" message="Error fetching top level communities"></ds-error>
 <ds-loading *ngIf="topLevelCommunities.isLoading | async" message="Loading top level communities..."></ds-loading>

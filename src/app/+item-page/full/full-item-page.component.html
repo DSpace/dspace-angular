@@ -17,4 +17,5 @@
   <ds-item-page-full-file-section [item]="item.payload | async"></ds-item-page-full-file-section>
   <ds-item-page-collections [item]="item.payload | async"></ds-item-page-collections>
 </div>
+<ds-error *ngIf="item.hasFailed | async" message="Error fetching item"></ds-error>
 <ds-loading *ngIf="item.isLoading | async" message="Loading item..."></ds-loading>
