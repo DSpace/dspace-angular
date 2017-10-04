@@ -17,7 +17,7 @@ fdescribe('protractor SearchPage', () => {
     });
   });
 
-  it('should have right scope selected when navigating to page with query parameter', () => {
+  it('should have right scope selected when navigating to page with scope parameter', () => {
     const scope: promise.Promise<string> = page.getRandomScopeOption();
     scope.then((scopeString: string) => {
       page.navigateToSearchWithScopeParameter(scopeString);
