@@ -2,7 +2,7 @@ import { ProtractorPage } from './search-page.po';
 import { browser } from 'protractor';
 import { promise } from 'selenium-webdriver';
 
-fdescribe('protractor SearchPage', () => {
+describe('protractor SearchPage', () => {
   let page: ProtractorPage;
 
   beforeEach(() => {

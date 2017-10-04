@@ -76,7 +76,7 @@ describe('SearchFormComponent', () => {
 
     expect(scopeSelect.value).toBe(testCommunity.id);
   }));
-  // fit('should call updateSearch when clicking the submit button with correct parameters', fakeAsync(() => {
+  // it('should call updateSearch when clicking the submit button with correct parameters', fakeAsync(() => {
   //   comp.query = 'Test String'
   //   fixture.detectChanges();
   //   spyOn(comp, 'updateSearch').and.callThrough();
