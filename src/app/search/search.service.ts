@@ -5,10 +5,25 @@ import { SearchResult } from './search-result.model';
 import { ItemDataService } from '../core/data/item-data.service';
 import { PageInfo } from '../core/shared/page-info.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { SearchOptions } from './search.models';
+import { SearchOptions } from './search-options.model';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { Metadatum } from '../core/shared/metadatum.model';
 import { Item } from '../core/shared/item.model';
+import { ItemSearchResult } from '../object-list/search-result-list-element/item-search-result/item-search-result.model';
+
+function shuffle(array: any[]) {
+  let i = 0;
+  let j = 0;
+  let temp = null;
+
+  for (i = array.length - 1; i > 0; i -= 1) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}
 
 @Injectable()
 export class SearchService {
@@ -28,6 +43,7 @@ export class SearchService {
   );
 
   constructor(private itemDataService: ItemDataService) {
+
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): RemoteData<Array<SearchResult<DSpaceObject>>> {
@@ -35,53 +51,61 @@ export class SearchService {
     if (hasValue(scopeId)) {
       self += `&scope=${scopeId}`;
     }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.currentPage)) {
-      self += `&page=${searchOptions.currentPage}`;
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.currentPage)) {
+      self += `&page=${searchOptions.pagination.currentPage}`;
+    }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.pageSize)) {
+      self += `&pageSize=${searchOptions.pagination.pageSize}`;
+    }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.direction)) {
+      self += `&sortDirection=${searchOptions.sort.direction}`;
+    }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.field)) {
+      self += `&sortField=${searchOptions.sort.field}`;
     }
     const requestPending = Observable.of(false);
     const responsePending = Observable.of(false);
-    const isSuccessFul = Observable.of(true);
     const errorMessage = Observable.of(undefined);
     const statusCode = Observable.of('200');
     const returningPageInfo = new PageInfo();
 
     if (isNotEmpty(searchOptions)) {
-      returningPageInfo.elementsPerPage = searchOptions.elementsPerPage;
-      returningPageInfo.currentPage = searchOptions.currentPage;
+      returningPageInfo.elementsPerPage = searchOptions.pagination.pageSize;
+      returningPageInfo.currentPage = searchOptions.pagination.currentPage;
     } else {
       returningPageInfo.elementsPerPage = 10;
       returningPageInfo.currentPage = 1;
     }
-    returningPageInfo.totalPages = this.totalPages;
-    returningPageInfo.totalElements = 10 * this.totalPages;
-    const pageInfo = Observable.of(returningPageInfo);
 
     const itemsRD = this.itemDataService.findAll({
-      scopeID: '8e0928a0-047a-4369-8883-12669f32dd64',
+      scopeID: scopeId,
       currentPage: returningPageInfo.currentPage,
       elementsPerPage: returningPageInfo.elementsPerPage
     });
+
+    const pageInfo = itemsRD.pageInfo.map((info: PageInfo) => {
+      info.totalElements = info.totalElements > 20 ? 20 : info.totalElements;
+      return info;
+    });
+
     const payload = itemsRD.payload.map((items: Item[]) => {
-      return items.sort(()=>{
-        const values = [-1, 0, 1];
-        return values[Math.floor(Math.random() * values.length)];
-      })
-      .map((item: Item, index: number) => {
-        const mockResult: SearchResult<DSpaceObject> = new SearchResult();
-        mockResult.dspaceObject = item;
-        const highlight = new Metadatum();
-        highlight.key = 'dc.description.abstract';
-        highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
-        mockResult.hitHighlights = new Array(highlight);
-        return mockResult;
-      });
+      return shuffle(items)
+        .map((item: Item, index: number) => {
+          const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
+          mockResult.dspaceObject = item;
+          const highlight = new Metadatum();
+          highlight.key = 'dc.description.abstract';
+          highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
+          mockResult.hitHighlights = new Array(highlight);
+          return mockResult;
+        });
     });
 
     return new RemoteData(
       Observable.of(self),
       requestPending,
       responsePending,
-      isSuccessFul,
+      itemsRD.hasSucceeded,
       errorMessage,
       statusCode,
       pageInfo,

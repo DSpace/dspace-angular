@@ -25,8 +25,6 @@ import { HostWindowState } from './shared/host-window.reducer';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { MockTranslateLoader } from './shared/testing/mock-translate-loader';
 
-import { BrowserCookiesModule } from '../modules/cookies/browser-cookies.module';
-import { BrowserDataLoaderModule } from '../modules/data-loader/browser-data-loader.module';
 import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
 import { BrowserTransferStoreModule } from '../modules/transfer-store/browser-transfer-store.module';
 
@@ -52,8 +50,6 @@ describe('App component', () => {
             useClass: MockTranslateLoader
           }
         }),
-        BrowserCookiesModule,
-        BrowserDataLoaderModule,
         BrowserTransferStateModule,
         BrowserTransferStoreModule
       ],

@@ -1,0 +1,16 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="row">
+<div *ngIf="isNotEmpty(scopes | async)" class="col-12 col-sm-3">
+  <select [(ngModel)]="selectedId" name="scope" class="form-control" aria-label="Search scope" [compareWith]="byId">
+    <option value>{{'search.form.search_dspace' | translate}}</option>
+    <option *ngFor="let scopeOption of scopes | async" [value]="scopeOption.id">{{scopeOption?.name ? scopeOption.name : 'search.form.search_dspace' | translate}}</option>
+  </select>
+</div>
+    <div [ngClass]="{'col-sm-9': isNotEmpty(scopes | async)}" class="col-12">
+    <div class="form-group input-group">
+        <input type="text" [(ngModel)]="query" name="query" class="form-control" aria-label="Search input">
+        <span class="input-group-btn">
+            <button type="submit" class="search-button btn btn-secondary">{{ ('search.form.search' | translate) }}</button>
+        </span>
+    </div>
+    </div>
+</form>

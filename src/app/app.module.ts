@@ -1,60 +1,96 @@
 import { NgModule } from '@angular/core';
+import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
-import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule, MetaReducer, META_REDUCERS } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 
-import { appReducers } from './app.reducer';
+import { storeFreeze } from 'ngrx-store-freeze';
+
+import { TranslateModule } from '@ngx-translate/core';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { appEffects } from './app.effects';
+import { appReducers, AppState } from './app.reducer';
+import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-
 import { AppRoutingModule } from './app-routing.module';
-
-import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
-
-import { HomeModule } from './home/home.module';
-import { ItemPageModule } from './item-page/item-page.module';
-import { CollectionPageModule } from './collection-page/collection-page.module';
-import { CommunityPageModule } from './community-page/community-page.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
-import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
-import { EffectsModule } from '@ngrx/effects';
-import { appMetaReducers } from './app.metareducers';
+import { GLOBAL_CONFIG, ENV_CONFIG, GlobalConfig } from '../config';
+
+import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 
 export function getConfig() {
   return ENV_CONFIG;
 }
 
+export function getBase() {
+  return ENV_CONFIG.ui.nameSpace;
+}
+
+export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppState>> {
+  const metaReducers: Array<MetaReducer<AppState>> = config.production ? appMetaReducers : [...appMetaReducers, storeFreeze];
+  if (config.debug) {
+    metaReducers.concat(debugMetaReducers)
+  }
+  return metaReducers;
+}
+
+const DEV_MODULES: any[] = [];
+
+if (!ENV_CONFIG.production) {
+  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 50 }));
+}
+
 @NgModule({
   imports: [
-    SharedModule,
-    FormsModule,
-    CoreModule.forRoot(),
+    CommonModule,
     HttpModule,
-    TransferHttpModule,
-    HomeModule,
-    ItemPageModule,
-    CollectionPageModule,
-    CommunityPageModule,
+    RouterModule,
     AppRoutingModule,
-    StoreModule.forRoot(appReducers, { metaReducers: appMetaReducers }),
-    StoreDevtoolsModule.instrument({ maxAge: 50 }),
-    EffectsModule.forRoot(appEffects)
+    CoreModule.forRoot(),
+    NgbModule.forRoot(),
+    TranslateModule.forRoot(),
+    EffectsModule.forRoot(appEffects),
+    StoreModule.forRoot(appReducers),
+    StoreRouterConnectingModule,
+    ...DEV_MODULES
   ],
   providers: [
-    { provide: GLOBAL_CONFIG, useFactory: (getConfig) },
+    {
+      provide: GLOBAL_CONFIG,
+      useFactory: (getConfig)
+    },
+    {
+      provide: APP_BASE_HREF,
+      useFactory: (getBase)
+    },
+    {
+      provide: META_REDUCERS,
+      useFactory: getMetaReducers,
+      deps: [GLOBAL_CONFIG]
+    },
+    {
+      provide: RouterStateSerializer,
+      useClass: DSpaceRouterStateSerializer
+    }
   ],
   declarations: [
     AppComponent,
     HeaderComponent,
-    PageNotFoundComponent,
+    FooterComponent,
+    PageNotFoundComponent
   ],
   exports: [AppComponent]
 })

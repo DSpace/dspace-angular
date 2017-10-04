@@ -3,11 +3,12 @@ import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
+import { ListableObject } from '../../object-list/listable-object/listable-object.model';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
-export abstract class DSpaceObject implements CacheableObject {
+export abstract class DSpaceObject implements CacheableObject, ListableObject {
 
   self: string;
 

@@ -10,6 +10,6 @@ import { GlobalConfig } from '../../../config';
  */
 export class RESTURLCombiner extends URLCombiner {
   constructor(EnvConfig: GlobalConfig, ...parts: string[]) {
-    super(EnvConfig.rest.baseUrl, EnvConfig.rest.nameSpace, ...parts);
+    super(EnvConfig.rest.baseUrl, ...parts);
   }
 }

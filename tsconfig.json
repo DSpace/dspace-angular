@@ -1,19 +1,40 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "module": "es2015",
     "target": "es5",
-    "noImplicitAny": false,
-    "sourceMap": false,
-    "skipLibCheck": true,
-    "experimentalDecorators": true,
+    "module": "es2015",
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noEmit": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "baseUrl": ".",
+    "paths": {},
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "jasmine",
+      "node"
+    ],
     "lib": [
-      "dom",
-      "es2016"
+      "es2016",
+      "dom"
     ]
   },
-  "include": [
-    "src"
-  ]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*.spec.ts",
+    "src/**/*.e2e.ts"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": {
+    "rewriteTsconfig": false
+  }
 }
