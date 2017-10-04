@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class LoadingComponent {
 
-  @Input() message: "Loading...";
+  @Input() message: 'Loading...';
 
 }
