@@ -22,8 +22,8 @@ describe('LoadingComponent (inline template)', () => {
 
     comp = fixture.componentInstance; // LoadingComponent test instance
 
-    // query for the message <span> by CSS element selector
-    de = fixture.debugElement.query(By.css('span'));
+    // query for the message <label> by CSS element selector
+    de = fixture.debugElement.query(By.css('label'));
     el = de.nativeElement;
   });
 
