@@ -1,6 +1,6 @@
 <div class="item-page" *ngIf="item.hasSucceeded | async" @fadeInOut>
   <div *ngIf="item.payload | async; let itemPayload">
-    <ds-item-page-title-field [item]="itemPayload | async"></ds-item-page-title-field>
+    <ds-item-page-title-field [item]="itemPayload"></ds-item-page-title-field>
     <div class="simple-view-link">
       <a class="btn btn-outline-primary col-4" [routerLink]="['/items/' + itemPayload.id]">
         {{"item.page.link.simple" | translate}}
