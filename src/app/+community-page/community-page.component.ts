@@ -15,7 +15,7 @@ import { fadeInOut } from '../shared/animations/fade';
   selector: 'ds-community-page',
   styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
-  animations:[fadeInOut]
+  animations: [fadeInOut]
 })
 export class CommunityPageComponent implements OnInit, OnDestroy {
   communityData: RemoteData<Community>;

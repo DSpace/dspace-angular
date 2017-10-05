@@ -1,35 +1,37 @@
 <div class="collection-page">
   <div *ngIf="collectionData.hasSucceeded | async" @fadeInOut>
-    <!-- Collection Name -->
-    <ds-comcol-page-header
-      [name]="(collectionData.payload | async)?.name">
-    </ds-comcol-page-header>
-    <!-- Collection logo -->
-    <ds-comcol-page-logo *ngIf="logoData"
-      [logo]="logoData.payload | async"
-      [alternateText]="'Collection Logo'">
-    </ds-comcol-page-logo>
-    <!-- Introductionary text -->
-    <ds-comcol-page-content
-      [content]="(collectionData.payload | async)?.introductoryText"
-      [hasInnerHtml]="true">
-    </ds-comcol-page-content>
-    <!-- News -->
-    <ds-comcol-page-content
-      [content]="(collectionData.payload | async)?.sidebarText"
-      [hasInnerHtml]="true"
-      [title]="'community.page.news'">
-    </ds-comcol-page-content>
-    <!-- Copyright -->
-    <ds-comcol-page-content
-      [content]="(collectionData.payload | async)?.copyrightText"
-      [hasInnerHtml]="true">
-    </ds-comcol-page-content>
-    <!-- Licence -->
-    <ds-comcol-page-content
-      [content]="(collectionData.payload | async)?.license"
-      [title]="'collection.page.license'">
-    </ds-comcol-page-content>
+    <div *ngIf="collectionData.payload | async; let collectionPayload">
+      <!-- Collection Name -->
+      <ds-comcol-page-header
+        [name]="collectionPayload.name">
+      </ds-comcol-page-header>
+      <!-- Collection logo -->
+      <ds-comcol-page-logo *ngIf="logoData"
+        [logo]="logoData.payload | async"
+        [alternateText]="'Collection Logo'">
+      </ds-comcol-page-logo>
+      <!-- Introductionary text -->
+      <ds-comcol-page-content
+        [content]="collectionPayload.introductoryText"
+        [hasInnerHtml]="true">
+      </ds-comcol-page-content>
+      <!-- News -->
+      <ds-comcol-page-content
+        [content]="collectionPayload.sidebarText"
+        [hasInnerHtml]="true"
+        [title]="'community.page.news'">
+      </ds-comcol-page-content>
+      <!-- Copyright -->
+      <ds-comcol-page-content
+        [content]="collectionPayload.copyrightText"
+        [hasInnerHtml]="true">
+      </ds-comcol-page-content>
+      <!-- Licence -->
+      <ds-comcol-page-content
+        [content]="collectionPayload.license"
+        [title]="'collection.page.license'">
+      </ds-comcol-page-content>
+    </div>
   </div>
   <ds-error *ngIf="collectionData.hasFailed | async" message="Error fetching collection"></ds-error>
   <ds-loading *ngIf="collectionData.isLoading | async" message="Loading collection..."></ds-loading>

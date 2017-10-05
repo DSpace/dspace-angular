@@ -1,28 +1,30 @@
 <div class="community-page" *ngIf="communityData.hasSucceeded | async" @fadeInOut>
-  <!-- Community name -->
-  <ds-comcol-page-header [name]="(communityData.payload | async)?.name"></ds-comcol-page-header>
-  <!-- Community logo -->
-  <ds-comcol-page-logo *ngIf="logoData"
-    [logo]="logoData.payload | async"
-    [alternateText]="'Community Logo'">
-  </ds-comcol-page-logo>
-  <!-- Introductionary text -->
-  <ds-comcol-page-content
-    [content]="(communityData.payload | async)?.introductoryText"
-    [hasInnerHtml]="true">
-  </ds-comcol-page-content>
-  <!-- News -->
-  <ds-comcol-page-content
-    [content]="(communityData.payload | async)?.sidebarText"
-    [hasInnerHtml]="true"
-    [title]="'community.page.news'">
-  </ds-comcol-page-content>
-  <!-- Copyright -->
-  <ds-comcol-page-content
-    [content]="(communityData.payload | async)?.copyrightText"
-    [hasInnerHtml]="true">
-  </ds-comcol-page-content>
-  <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
+  <div *ngIf="communityData.payload | async; let communityPayload">
+    <!-- Community name -->
+    <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
+    <!-- Community logo -->
+    <ds-comcol-page-logo *ngIf="logoData"
+      [logo]="logoData.payload | async"
+      [alternateText]="'Community Logo'">
+    </ds-comcol-page-logo>
+    <!-- Introductionary text -->
+    <ds-comcol-page-content
+      [content]="communityPayload.introductoryText"
+      [hasInnerHtml]="true">
+    </ds-comcol-page-content>
+    <!-- News -->
+    <ds-comcol-page-content
+      [content]="communityPayload.sidebarText"
+      [hasInnerHtml]="true"
+      [title]="'community.page.news'">
+    </ds-comcol-page-content>
+    <!-- Copyright -->
+    <ds-comcol-page-content
+      [content]="communityPayload.copyrightText"
+      [hasInnerHtml]="true">
+    </ds-comcol-page-content>
+    <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
+  </div>
 </div>
 <ds-error *ngIf="communityData.hasFailed | async" message="Error fetching community"></ds-error>
 <ds-loading *ngIf="communityData.isLoading | async" message="Loading community..."></ds-loading>

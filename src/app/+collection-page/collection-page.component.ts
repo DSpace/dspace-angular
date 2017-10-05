@@ -27,7 +27,7 @@ import { fadeIn, fadeInOut } from '../shared/animations/fade';
   selector: 'ds-collection-page',
   styleUrls: ['./collection-page.component.scss'],
   templateUrl: './collection-page.component.html',
-  animations:[
+  animations: [
     fadeIn,
     fadeInOut
   ]

@@ -22,7 +22,7 @@ import { CommunityListElementComponent } from '../object-list/community-list-ele
 import { ErrorComponent } from './error/error.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ItemListElementComponent } from '../object-list/item-list-element/item-list-element.component';
-import { ObjectListComponent } from './object-list/object-list.component';
+import { ObjectListComponent } from '../object-list/object-list.component';
 import { ObjectListElementComponent } from '../object-list/object-list-element/object-list-element.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';

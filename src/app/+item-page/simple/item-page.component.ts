@@ -20,7 +20,7 @@ import { fadeInOut } from '../../shared/animations/fade';
   selector: 'ds-item-page',
   styleUrls: ['./item-page.component.scss'],
   templateUrl: './item-page.component.html',
-  animations:[fadeInOut]
+  animations: [fadeInOut]
 })
 export class ItemPageComponent implements OnInit {
 

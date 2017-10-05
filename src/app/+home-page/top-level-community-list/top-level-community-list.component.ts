@@ -13,7 +13,7 @@ import { fadeInOut } from '../../shared/animations/fade';
   selector: 'ds-top-level-community-list',
   styleUrls: ['./top-level-community-list.component.scss'],
   templateUrl: './top-level-community-list.component.html',
-  animations:[fadeInOut]
+  animations: [fadeInOut]
 })
 export class TopLevelCommunityListComponent {
   topLevelCommunities: RemoteData<Community[]>;
