@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { Item } from '../core/shared/item.model';
@@ -69,11 +68,6 @@ export class SearchService {
       self += `&sortField=${searchOptions.sort.field}`;
     }
 
-    const requestPendingSubject = new BehaviorSubject<boolean>(true);
-    const responsePendingSubject = new BehaviorSubject<boolean>(false);
-
-    const requestPending = requestPendingSubject.asObservable();
-    const responsePending = responsePendingSubject.asObservable();
     const errorMessage = Observable.of(undefined);
     const statusCode = Observable.of('200');
     const returningPageInfo = new PageInfo();
@@ -94,7 +88,7 @@ export class SearchService {
 
     const pageInfo = itemsRD.pageInfo.map((info: PageInfo) => {
       const totalElements = info.totalElements > 20 ? 20 : info.totalElements;
-      return Object.assign({}, info, {totalElements: totalElements});
+      return Object.assign({}, info, { totalElements: totalElements });
     });
 
     const payload = itemsRD.payload.map((items: Item[]) => {
@@ -110,15 +104,10 @@ export class SearchService {
         });
     });
 
-    itemsRD.hasSucceeded.subscribe((success: boolean) => {
-      requestPendingSubject.next(!success);
-      responsePendingSubject.next(!success);
-    });
-
     return new RemoteData(
       Observable.of(self),
-      requestPending,
-      responsePending,
+      itemsRD.isRequestPending,
+      itemsRD.isResponsePending,
       itemsRD.hasSucceeded,
       errorMessage,
       statusCode,
