@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { animate, state, transition, trigger, style, keyframes } from '@angular/animations';
 
 import { Observable } from 'rxjs/Observable';
 
