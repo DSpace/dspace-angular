@@ -97,6 +97,6 @@
     "sub-collections": "Error fetching sub-collections",
     "items": "Error fetching items",
     "item": "Error fetching item",
-    "objects": "Error fetching"
+    "objects": "Error fetching objects"
   }
 }
