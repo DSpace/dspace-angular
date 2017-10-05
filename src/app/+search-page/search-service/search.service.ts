@@ -46,30 +46,34 @@ export class SearchService {
   );
 
   config: SearchFilterConfig[] = [
-    {
+    Object.assign(new SearchFilterConfig(),
+      {
       name: 'scope',
       type: FilterType.hierarchy,
       hasFacets: true,
       isOpenByDefault: true
-    },
+    }),
+    Object.assign(new SearchFilterConfig(),
     {
       name: 'author',
       type: FilterType.text,
       hasFacets: true,
       isOpenByDefault: false
-    },
+    }),
+    Object.assign(new SearchFilterConfig(),
     {
       name: 'date',
       type: FilterType.range,
       hasFacets: true,
       isOpenByDefault: false
-    },
+    }),
+    Object.assign(new SearchFilterConfig(),
     {
       name: 'subject',
       type: FilterType.text,
       hasFacets: false,
       isOpenByDefault: false
-    }
+    })
   ];
 
   constructor(private itemDataService: ItemDataService) {
@@ -168,7 +172,7 @@ export class SearchService {
       values.push({
         value: value,
         count: Math.floor(Math.random() * 20) + 20 * (5 - i), // make sure first results have the highest (random) count
-        search: 'https://dspace7.4science.it/dspace-spring-rest/api/search?query=' + searchFilterConfigName + ':' + encodeURI(value)
+        search: 'https://dspace7.4science.it/dspace-spring-rest/api/search?f.' + searchFilterConfigName + '=' + encodeURI(value)
       });
     }
     const requestPending = Observable.of(false);

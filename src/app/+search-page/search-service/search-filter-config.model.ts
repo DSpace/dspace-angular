@@ -6,4 +6,11 @@ export class SearchFilterConfig {
   type: FilterType;
   hasFacets: boolean;
   isOpenByDefault: boolean;
+  /**
+   * Name of this configuration that can be used in a url
+   * @returns Parameter name
+   */
+  get paramName(): string {
+    return 'f.' + this.name;
+  }
 }
