@@ -26,5 +26,5 @@
     <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
   </div>
 </div>
-<ds-error *ngIf="communityData.hasFailed | async" message="Error fetching community"></ds-error>
-<ds-loading *ngIf="communityData.isLoading | async" message="Loading community..."></ds-loading>
+<ds-error *ngIf="communityData.hasFailed | async" message="{{'error.community' | translate}}"></ds-error>
+<ds-loading *ngIf="communityData.isLoading | async" message="{{'loading.community' | translate}}"></ds-loading>

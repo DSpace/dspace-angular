@@ -79,24 +79,24 @@
       "title": "Search Results"
     }
   },
-  "loader": {
+  "loading": {
     "default": "Loading...",
     "top-level-communities": "Loading top level communities...",
     "community": "Loading community...",
     "collection": "Loading collection...",
-    "sub-collection": "Loading sub-collections...",
+    "sub-collections": "Loading sub-collections...",
     "items": "Loading items...",
     "item": "Loading item...",
-    "object-list": "Loading..."
+    "objects": "Loading..."
   },
   "error": {
-    "default": "Error...",
+    "default": "Error",
     "top-level-communities": "Error fetching top level communities",
     "community": "Error fetching community",
     "collection": "Error fetching collection",
-    "sub-collection": "Error fetching sub-collections",
+    "sub-collections": "Error fetching sub-collections",
     "items": "Error fetching items",
     "item": "Error fetching item",
-    "object-list": "Error fetching"
+    "objects": "Error fetching"
   }
 }

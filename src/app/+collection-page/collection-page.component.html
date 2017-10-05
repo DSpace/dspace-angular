@@ -33,8 +33,8 @@
       </ds-comcol-page-content>
     </div>
   </div>
-  <ds-error *ngIf="collectionData.hasFailed | async" message="Error fetching collection"></ds-error>
-  <ds-loading *ngIf="collectionData.isLoading | async" message="Loading collection..."></ds-loading>
+  <ds-error *ngIf="collectionData.hasFailed | async" message="{{'error.collection' | translate}}"></ds-error>
+  <ds-loading *ngIf="collectionData.isLoading | async" message="{{'loading.collection' | translate}}"></ds-loading>
   <br>
   <div *ngIf="itemData.hasSucceeded | async" @fadeIn>
     <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
@@ -45,6 +45,6 @@
       [hideGear]="false">
     </ds-object-list>
   </div>
-  <ds-error *ngIf="itemData.hasFailed | async" message="Error fetching items"></ds-error>
-  <ds-loading *ngIf="itemData.isLoading | async" message="Loading items..."></ds-loading>
+  <ds-error *ngIf="itemData.hasFailed | async" message="{{'error.items' | translate}}"></ds-error>
+  <ds-loading *ngIf="itemData.isLoading | async" message="{{'loading.items' | translate}}"></ds-loading>
 </div>
