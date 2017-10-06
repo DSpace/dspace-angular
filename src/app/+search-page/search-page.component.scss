@@ -1,1 +1,9 @@
 @import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+#search-content {
+    margin-left: $search-sidebar-width;
+    @include media-breakpoint-down(sm) {
+        margin-left: 0;
+    }
+}

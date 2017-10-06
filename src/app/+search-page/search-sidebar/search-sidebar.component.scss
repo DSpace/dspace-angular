@@ -1,0 +1,26 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+:host {
+    display: block;
+    position: fixed;
+    background-color: red;
+    width: $search-sidebar-width;
+    padding: $spacer;
+    #filter1, #filter2 {
+        width: 100%;
+    }
+    #filter1 {
+        height: 300px;
+        background-color: yellow;
+    }
+    #filter2 {
+        height: 200px;
+        background-color: green;
+    }
+
+    @include media-breakpoint-down(sm) {
+        width: 100%;
+        display: none;
+    }
+}

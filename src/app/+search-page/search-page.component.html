@@ -1,9 +1,14 @@
 <div class="search-page">
-    <ds-search-form
-      [query]="query"
-      [scope]="scopeObject?.payload | async"
-      [currentParams]="currentParams"
-      [scopes]="scopeList?.payload">
-    </ds-search-form>
-    <ds-search-results [searchResults]="results" [searchConfig]="searchOptions"></ds-search-results>
+    <ds-search-sidebar></ds-search-sidebar>
+    <div id="search-content">
+        <ds-search-form
+                [query]="query"
+                [scope]="scopeObject?.payload | async"
+                [currentParams]="currentParams"
+                [scopes]="scopeList?.payload">
+        </ds-search-form>
+        <ds-search-view-switch [active]="true" [resultCount]="124" class="d-block d-md-none"></ds-search-view-switch>
+        <ds-search-results [searchResults]="results"
+                           [searchConfig]="searchOptions"></ds-search-results>
+    </div>
 </div>

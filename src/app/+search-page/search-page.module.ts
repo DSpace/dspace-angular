@@ -12,6 +12,8 @@ import { ItemSearchResultListElementComponent } from '../object-list/search-resu
 import { CollectionSearchResultListElementComponent } from '../object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 import { CommunitySearchResultListElementComponent } from '../object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { SearchService } from './search-service/search.service';
+import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
+import { SearchViewSwitchComponent } from './search-view-switch/search-view-switch.component';
 
 @NgModule({
   imports: [
@@ -24,6 +26,8 @@ import { SearchService } from './search-service/search.service';
   declarations: [
     SearchPageComponent,
     SearchResultsComponent,
+    SearchSidebarComponent,
+    SearchViewSwitchComponent,
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,
     CommunitySearchResultListElementComponent
