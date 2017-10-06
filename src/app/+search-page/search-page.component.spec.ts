@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { SearchPageComponent } from './search-page.component';
-import { SearchService } from './search.service';
+import { SearchService } from './search-service/search.service';
 import { Community } from '../core/shared/community.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
