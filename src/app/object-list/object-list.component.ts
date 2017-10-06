@@ -10,20 +10,23 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { PageInfo } from '../../core/shared/page-info.model';
+import { RemoteData } from '../core/data/remote-data';
+import { PageInfo } from '../core/shared/page-info.model';
 
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
-import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
-import { ListableObject } from '../../object-list/listable-object/listable-object.model';
+import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
+import { ListableObject } from '../object-list/listable-object/listable-object.model';
+
+import { fadeIn } from '../shared/animations/fade';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   selector: 'ds-object-list',
-  styleUrls: ['../../object-list/object-list.component.scss'],
-  templateUrl: '../../object-list/object-list.component.html'
+  styleUrls: ['./object-list.component.scss'],
+  templateUrl: './object-list.component.html',
+  animations: [fadeIn]
 })
 export class ObjectListComponent implements OnChanges, OnInit {
 

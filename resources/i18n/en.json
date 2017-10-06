@@ -78,5 +78,25 @@
     "results": {
       "title": "Search Results"
     }
+  },
+  "loading": {
+    "default": "Loading...",
+    "top-level-communities": "Loading top level communities...",
+    "community": "Loading community...",
+    "collection": "Loading collection...",
+    "sub-collections": "Loading sub-collections...",
+    "items": "Loading items...",
+    "item": "Loading item...",
+    "objects": "Loading..."
+  },
+  "error": {
+    "default": "Error",
+    "top-level-communities": "Error fetching top level communities",
+    "community": "Error fetching community",
+    "collection": "Error fetching collection",
+    "sub-collections": "Error fetching sub-collections",
+    "items": "Error fetching items",
+    "item": "Error fetching item",
+    "objects": "Error fetching objects"
   }
 }

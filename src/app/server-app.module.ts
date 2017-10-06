@@ -5,6 +5,7 @@ import { ApplicationRef, NgModule, APP_BOOTSTRAP_LISTENER } from '@angular/core'
 import { RouterModule } from '@angular/router';
 import { ServerModule } from '@angular/platform-server';
 import { BrowserModule } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Request } from 'express';
 
@@ -53,6 +54,7 @@ export function createTranslateLoader() {
     RouterModule.forRoot([], {
       useHash: false
     }),
+    NoopAnimationsModule,
     ServerTransferStateModule,
     ServerTransferStoreModule,
     TranslateModule.forRoot({

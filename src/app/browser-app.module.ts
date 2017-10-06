@@ -2,6 +2,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 
@@ -44,6 +45,7 @@ export function createTranslateLoader(http: HttpClient) {
       preloadingStrategy:
       IdlePreload
     }),
+    BrowserAnimationsModule,
     BrowserTransferStateModule,
     BrowserTransferStoreModule,
     TranslateModule.forRoot({
