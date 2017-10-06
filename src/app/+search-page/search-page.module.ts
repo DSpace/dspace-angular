@@ -11,7 +11,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { ItemSearchResultListElementComponent } from '../object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
 import { CollectionSearchResultListElementComponent } from '../object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 import { CommunitySearchResultListElementComponent } from '../object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
-import { SearchService } from './search.service';
+import { SearchService } from './search-service/search.service';
 
 @NgModule({
   imports: [
