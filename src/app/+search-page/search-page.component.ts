@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from './search-service/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
 import { SearchResult } from './search-result.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -10,8 +10,6 @@ import { SearchOptions } from './search-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { Community } from '../core/shared/community.model';
-import { SearchFilterConfig } from './search-service/search-filter-config.model';
-import { FacetValue } from './search-service/facet-value.model';
 
 /**
  * This component renders a simple item page.
