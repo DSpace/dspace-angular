@@ -32,9 +32,10 @@ describe('protractor SearchPage', () => {
     scope.then((scopeString: string) => {
       page.setCurrentScope(scopeString);
       page.submitSearchForm();
-      browser.sleep(10);
-      browser.getCurrentUrl().then((url: string) => {
-        expect(url.indexOf('scope=' + encodeURI(scopeString))).toBeGreaterThanOrEqual(0);
+      browser.wait(() => {
+        return browser.getCurrentUrl().then((url: string) => {
+          return url.indexOf('scope=' + encodeURI(scopeString)) !== -1;
+        });
       });
     });
   });
@@ -43,9 +44,10 @@ describe('protractor SearchPage', () => {
     const queryString = 'Another interesting query string';
     page.setCurrentQuery(queryString);
     page.submitSearchForm();
-    browser.sleep(10);
-    browser.getCurrentUrl().then((url: string) => {
-      expect(url.indexOf('query=' + encodeURI(queryString))).toBeGreaterThanOrEqual(0);
+    browser.wait(() => {
+      return browser.getCurrentUrl().then((url: string) => {
+        return url.indexOf('query=' + encodeURI(queryString)) !== -1;
+      });
     });
   });
 });
