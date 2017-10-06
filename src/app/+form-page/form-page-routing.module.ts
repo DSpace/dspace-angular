@@ -5,8 +5,8 @@ import { FormPageComponent } from './form-page.component';
 
 @NgModule({
   imports: [
-    RouterModule.forChild([
-      { path: '', component: FormPageComponent, pathMatch: 'full' }
+    RouterModule.forRoot([
+      { path: 'forms', component: FormPageComponent, pathMatch: 'full' }
     ])
   ]
 })

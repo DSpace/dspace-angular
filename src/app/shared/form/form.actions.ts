@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
+import { type } from '../ngrx/type';
 import { FormGroup } from '@angular/forms';
 
 /**
@@ -13,7 +13,8 @@ import { FormGroup } from '@angular/forms';
  */
 export const FormActionTypes = {
   FORM_INIT: type('dspace/form/FORM_INIT'),
-  FORM_CHANGE: type('dspace/form/FORM_CHANGE')
+  FORM_CHANGE: type('dspace/form/FORM_CHANGE'),
+  FORM_STATUS_CHANGE: type('dspace/form/FORM_STATUS_CHANGE')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -32,6 +33,8 @@ export class FormInitAction implements Action {
    *    the Form's ID
    * @param formObject
    *    the FormGroup Object
+   * @param valid
+   *    the Form validation status
    */
   constructor(formId: string, formData: FormGroup, valid: boolean) {
     this.payload = { formId, formData, valid };
@@ -40,6 +43,42 @@ export class FormInitAction implements Action {
 
 export class FormChangeAction implements Action {
   type = FormActionTypes.FORM_CHANGE;
+  payload: {
+    formId: string;
+    formData: FormGroup;
+  };
+
+  /**
+   * Create a new FormInitAction
+   *
+   * @param formId
+   *    the Form's ID
+   * @param formObject
+   *    the FormGroup Object
+   */
+  constructor(formId: string, formData: FormGroup) {
+    this.payload = { formId, formData };
+  }
+}
+
+export class FormStatusChangeAction implements Action {
+  type = FormActionTypes.FORM_STATUS_CHANGE;
+  payload: {
+    formId: string;
+    valid: boolean;
+  };
+
+  /**
+   * Create a new FormInitAction
+   *
+   * @param formId
+   *    the Form's ID
+   * @param valid
+   *    the Form validation status
+   */
+  constructor(formId: string, valid: boolean) {
+    this.payload = { formId, valid };
+  }
 }
 
 /* tslint:enable:max-classes-per-file */
@@ -51,3 +90,4 @@ export class FormChangeAction implements Action {
 export type FormAction
   = FormInitAction
   | FormChangeAction
+  | FormStatusChangeAction

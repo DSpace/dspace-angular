@@ -1,0 +1,12 @@
+<div class="container-fluid">
+
+  <span>{{ isValid() }}</span>
+
+  <form #formRef="ngForm" [formGroup]="formGroup">
+
+    <dynamic-ng-bootstrap-form [group]="formGroup"
+                               [model]="formModel"></dynamic-ng-bootstrap-form>
+
+  </form>
+
+</div>

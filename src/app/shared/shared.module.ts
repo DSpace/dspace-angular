@@ -27,10 +27,15 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { FormComponent } from './form/form.component';
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { FormModule } from './form/form.module';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
+  FormModule,
   FormsModule,
   NgbModule,
   NgxPaginationModule,

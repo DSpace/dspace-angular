@@ -24,6 +24,7 @@ import { HostWindowService } from '../shared/host-window.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
 
 import { ServerResponseService } from '../shared/server-response.service';
+import { FormService } from '../shared/form/form.service';
 
 const IMPORTS = [
   CommonModule,
@@ -45,6 +46,7 @@ const PROVIDERS = [
   CollectionDataService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
+  FormService,
   HostWindowService,
   ItemDataService,
   ObjectCacheService,
