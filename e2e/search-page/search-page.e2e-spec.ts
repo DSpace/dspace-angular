@@ -32,6 +32,7 @@ describe('protractor SearchPage', () => {
     scope.then((scopeString: string) => {
       page.setCurrentScope(scopeString);
       page.submitSearchForm();
+      browser.sleep(10);
       browser.getCurrentUrl().then((url: string) => {
         expect(url.indexOf('scope=' + encodeURI(scopeString))).toBeGreaterThanOrEqual(0);
       });
@@ -42,6 +43,7 @@ describe('protractor SearchPage', () => {
     const queryString = 'Another interesting query string';
     page.setCurrentQuery(queryString);
     page.submitSearchForm();
+    browser.sleep(10);
     browser.getCurrentUrl().then((url: string) => {
       expect(url.indexOf('query=' + encodeURI(queryString))).toBeGreaterThanOrEqual(0);
     });
