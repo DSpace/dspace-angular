@@ -39,8 +39,8 @@ export class ProtractorPage {
   getRandomScopeOption(): promise.Promise<string> {
     const options = element(by.css('select[name="scope"]')).all(by.tagName('option'));
     return options.count().then((c: number) => {
-      const index: number = Math.floor(Math.random() * c);
-      return options.get(index).getAttribute('value');
+      const index: number = Math.floor(Math.random() * (c - 1));
+      return options.get(index + 1).getAttribute('value');
     });
   }
 
