@@ -1,0 +1,48 @@
+<ng-container *ngIf="readMode==true">
+<div class="float-right w-15">
+  <h3 class="text-right">
+    <a href="#" (click)="$event.preventDefault();switchMode(false);" title="Edit metadata"><i class="fa fa-pencil-square-o text-warning mr-3"></i></a>
+    <a href="#" (click)="$event.preventDefault();openModal(content);" title="Delete bitstream"><i class="fa fa-trash text-danger"></i></a>
+  </h3>
+</div>
+<div class="clearfix"></div>
+<div>
+  <h5>{{bitstream.title}}</h5>
+  {{bitstream.description | dsTruncate:[150]}}
+  <span class="clearfix"></span>
+  <ds-policies [policies]="bitstream.policies"></ds-policies>
+</div>
+</ng-container>
+
+<ng-container *ngIf="readMode==false">
+<div class="float-right w-15">
+  <h3 class="text-right">
+    <a href="#" (click)="$event.preventDefault();editBitstream();" title="Save metadata"><i class="fa fa-floppy-o text-success mr-3"></i></a>
+    <a href="#" (click)="$event.preventDefault();switchMode(true);" title="Cancel"><i class="fa fa-ban text-warning mr-3"></i></a>
+    <a href="#" (click)="$event.preventDefault();openModal(content);" title="Delete bitstream"><i class="fa fa-trash text-danger"></i></a>
+  </h3>
+</div>
+<div class="clearfix"></div>
+<div>
+  <input type="text" value="{{bitstream.title}}">
+  <textarea>{{bitstream.description}}</textarea>
+  <span class="clearfix"></span>
+  <ds-policies [policies]="bitstream.policies"></ds-policies>
+</div>
+</ng-container>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">Delete file</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>This operation can't be undone. Are you sure?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="c('ok')">Yes, I'm sure</button>
+  </div>
+</ng-template>

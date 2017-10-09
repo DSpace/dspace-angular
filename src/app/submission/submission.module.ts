@@ -24,6 +24,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { submissionReducers } from './submission.reducers';
 import { submissionEffects } from './submission.effects';
 import { FilesPanelComponent } from './panel/files/panel-files.component';
+import { FilesEditComponent } from './panel/files/files-edit/files-edit.component';
+import { PoliciesComponent } from './panel/files/policies/policies.component';
+import { BitstreamService } from './panel/bitstream/bitstream.service';
+import { SubmissionService } from './submission.service';
 
 @NgModule({
   imports: [
@@ -36,12 +40,14 @@ import { FilesPanelComponent } from './panel/files/panel-files.component';
   ],
   declarations: [
     DefaultPanelComponent,
+    FilesEditComponent,
     FilesPanelComponent,
     FormPanelComponent,
     InjectPanelTemplateDirective,
     PanelDirective,
     PanelContainerComponent,
     PanelHostDirective,
+    PoliciesComponent,
     SubmissionSubmitComponent,
     SubmissionSubmitFormPanelAddComponent,
     SubmissionSubmitFormCollectionComponent,
@@ -52,8 +58,10 @@ import { FilesPanelComponent } from './panel/files/panel-files.component';
   exports: [
   ],
   providers: [
+    BitstreamService,
     PanelFactoryComponent,
-    PanelService
+    PanelService,
+    SubmissionService
   ]
 })
 export class SubmissionModule {}

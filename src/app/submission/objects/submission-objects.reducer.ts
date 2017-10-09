@@ -1,8 +1,9 @@
 import { hasValue } from '../../shared/empty.util';
 
 import {
-  DisablePanelAction,
-  EnablePanelAction,
+  DeleteBitstreamAction,
+  DisablePanelAction, EditBitstreamAction,
+  EnablePanelAction, NewBitstreamAction,
   NewSubmissionFormAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes
@@ -18,12 +19,51 @@ export interface SubmissionPanelEntry {
 }
 
 export interface SubmissionDataEntry {
-  data: object;
+  collection: Collection
+}
+
+export interface Collection {
+  id: string;
+  name: string;
+  policiesMessageType: number;
+  policies: SubmissionPoliciesObject;
+}
+
+export interface SubmissionBitstreamEntry {
+  [uuid: string]: SubmissionBitstreamObject
+}
+
+export interface SubmissionBitstreamObject {
+  name: string;
+  title: string;
+  description: string;
+  size: number;
+  hash: string;
+  thumbnail: string;
+  policies: SubmissionPoliciesObject;
+}
+
+export interface SubmissionPoliciesObject {
+  [index: number]: {
+    type: string;
+    name: string;
+    date: string;
+    availableGroups: SubmissionPoliciesGroupObject;
+  }
+}
+
+export interface SubmissionPoliciesGroupObject {
+  [index: number]: {
+    id: string;
+    name: string;
+    selected: boolean;
+  }
 }
 
 export interface SubmissionObjectEntry {
   panels: SubmissionPanelEntry;
   data: SubmissionDataEntry;
+  bitstreams: SubmissionBitstreamEntry;
 }
 
 /**
@@ -40,6 +80,8 @@ const initialState: SubmissionObjectState = Object.create(null);
 
 export function submissionObjectReducer(state = initialState, action: SubmissionObjectAction): SubmissionObjectState {
   switch (action.type) {
+
+    // Panel actions
 
     case SubmissionObjectActionTypes.NEW: {
       return newSubmission(state, action as NewSubmissionFormAction);
@@ -61,11 +103,27 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return state;
     }
 
+    // Bitstram actions
+
+    case SubmissionObjectActionTypes.NEW_BITSTREAM: {
+      return newBitstream(state, action as NewBitstreamAction);
+    }
+
+    case SubmissionObjectActionTypes.EDIT_BITSTREAM: {
+      return editBitstream(state, action as EditBitstreamAction);
+    }
+
+    case SubmissionObjectActionTypes.DELETE_BITSTREAM: {
+      return deleteBitstream(state, action as DeleteBitstreamAction);
+    }
+
     default: {
       return state;
     }
   }
 }
+
+// ------ Panel functions ------ //
 
 /**
  * Set a panel enabled.
@@ -83,7 +141,8 @@ function enablePanel(state: SubmissionObjectState, action: EnablePanelAction): S
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         panels: Object.assign({}, state[action.payload.submissionId].panels, {
           [action.payload.panelId]: { panelViewIndex: action.payload.panelViewIndex}
-        })
+        }),
+        bitstreams:  Object.assign({}, state[action.payload.submissionId].bitstreams)
       })
     });
   } else {
@@ -124,7 +183,103 @@ function disablePanel(state: SubmissionObjectState, action: DisablePanelAction):
 function newSubmission(state: SubmissionObjectState, action: NewSubmissionFormAction): SubmissionObjectState {
   if (!hasValue(state[action.payload.submissionId])) {
     const newState = Object.assign({}, state);
-    newState[action.payload.submissionId] = Object.create(null);
+    // newState[action.payload.submissionId] = Object.create(null);
+    newState[action.payload.submissionId] = {
+      panels: Object.create(null),
+      data: Object.create(null),
+      bitstreams: Object.create(null)
+    };
+    return newState;
+  } else {
+    return state;
+  }
+}
+
+// ------ Bitstream functions ------ //
+
+/**
+ * Set a new bitstream.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a NewBitstreamAction action
+ * @return SubmissionObjectState
+ *    the new state, with the new bitstream.
+ */
+function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction): SubmissionObjectState {
+  if (!hasValue(state[action.payload.submissionId].bitstreams[action.payload.bitstreamId])) {
+    const newState = Object.assign({}, state);
+    const newData  = [];
+    newData[action.payload.bitstreamId] = action.payload.data;
+    newState[action.payload.submissionId] = {
+      panels: state[action.payload.submissionId].panels,
+      data: state[action.payload.submissionId].data,
+      bitstreams: Object.assign(
+        {},
+        state[action.payload.submissionId].bitstreams,
+        newData
+      )
+    };
+    return newState;
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Edit a bitstream.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a EditBitstreamAction action
+ * @return SubmissionObjectState
+ *    the new state, with the edited bitstream.
+ */
+function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId].bitstreams[action.payload.bitstreamId])) {
+    return Object.assign({}, state, {
+      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+        panels: state[action.payload.submissionId].panels,
+        data: state[action.payload.submissionId].data,
+        bitstreams: Object.assign({},
+                                  state[action.payload.submissionId].bitstreams,
+                                  {
+                                            [action.payload.bitstreamId]: action.payload.data
+                                          }
+        ),
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Delete a bitstream.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a DeleteBitstreamAction action
+ * @return SubmissionObjectState
+ *    the new state, with the bitstream removed.
+ */
+function deleteBitstream(state: SubmissionObjectState, action: DeleteBitstreamAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId].bitstreams[action.payload.bitstreamId])) {
+    const newState = Object.assign({}, state);
+    const newBitstreams  = {};
+    for (const key in newState[action.payload.submissionId].bitstreams) {
+      if (key !== action.payload.bitstreamId) {
+        newBitstreams[key] = newState[action.payload.submissionId].bitstreams[key];
+      }
+    }
+    newState[action.payload.submissionId] = {
+      panels: state[action.payload.submissionId].panels,
+      data: state[action.payload.submissionId].data,
+      bitstreams: newBitstreams
+    };
     return newState;
   } else {
     return state;

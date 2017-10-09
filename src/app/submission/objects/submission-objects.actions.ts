@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
+import { SubmissionBitstreamObject } from './submission-objects.reducer';
 
 /**
  * For each action type in an action group, make a simple
@@ -11,14 +12,23 @@ import { type } from '../../shared/ngrx/type';
  * action types in the application are unique.
  */
 export const SubmissionObjectActionTypes = {
+  // Panel actions
   NEW: type('dspace/submission/NEW'),
   ENABLE_PANEL: type('dspace/submission/ENABLE_PANEL'),
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
-  DISABLE_PANEL: type('dspace/submission/DISABLE_PANEL')
+  DISABLE_PANEL: type('dspace/submission/DISABLE_PANEL'),
+
+  // Bitstream actions
+  NEW_BITSTREAM: type('dspace/submission/NEW_BITSTREAM'),
+  EDIT_BITSTREAM: type('dspace/submission/EDIT_BITSTREAM'),
+  DELETE_BITSTREAM: type('dspace/submission/DELETE_BITSTREAM'),
 };
 
 /* tslint:disable:max-classes-per-file */
+
+// Panel actions
+
 export class EnablePanelAction implements Action {
   type = SubmissionObjectActionTypes.ENABLE_PANEL;
   payload: {
@@ -106,6 +116,74 @@ export class NewSubmissionFormAction implements Action {
   }
 }
 
+// Bitstream actions
+
+export class NewBitstreamAction implements Action {
+  type = SubmissionObjectActionTypes.NEW_BITSTREAM;
+  payload: {
+    submissionId: string;
+    bitstreamId: string;
+    data: SubmissionBitstreamObject;
+  };
+
+  /**
+   * Create a new bitstream
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param bitstreamId
+   *    the bitstream's ID
+   * @param data
+   *    the metadata of the new bitstream
+   */
+  constructor(submissionId: string, bitstreamId: string, data: SubmissionBitstreamObject) {
+    this.payload = { submissionId, bitstreamId, data };
+  }
+}
+
+export class EditBitstreamAction implements Action {
+  type = SubmissionObjectActionTypes.EDIT_BITSTREAM;
+  payload: {
+    submissionId: string;
+    bitstreamId: string;
+    data: SubmissionBitstreamObject;
+  };
+
+  /**
+   * Edit a bitstream
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param bitstreamId
+   *    the bitstream's ID
+   * @param data
+   *    the metadata of the new bitstream
+   */
+  constructor(submissionId: string, bitstreamId: string, data: SubmissionBitstreamObject) {
+    this.payload = { submissionId, bitstreamId, data};
+  }
+}
+
+export class DeleteBitstreamAction implements Action {
+  type = SubmissionObjectActionTypes.DELETE_BITSTREAM;
+  payload: {
+    submissionId: string;
+    bitstreamId: string;
+  };
+
+  /**
+   * Delete a bitstream
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param bitstreamId
+   *    the bitstream's ID
+   */
+  constructor(submissionId: string, bitstreamId: string) {
+    this.payload = { submissionId, bitstreamId};
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -117,3 +195,6 @@ export type SubmissionObjectAction
   | EnablePanelAction
   | InitSubmissionFormAction
   | CompleteInitSubmissionFormAction
+  | NewBitstreamAction
+  | EditBitstreamAction
+  | DeleteBitstreamAction
