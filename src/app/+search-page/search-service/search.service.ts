@@ -13,6 +13,8 @@ import { ItemSearchResult } from '../../object-list/search-result-list-element/i
 import { SearchFilterConfig } from './search-filter-config.model';
 import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
+import { ViewMode } from '../../+search-page/search-options.model';
+import { Router, NavigationExtras } from '@angular/router';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -76,7 +78,9 @@ export class SearchService {
     })
   ];
 
-  constructor(private itemDataService: ItemDataService) {
+  constructor(
+    private itemDataService: ItemDataService,
+    private router: Router) {
 
   }
 
@@ -191,5 +195,14 @@ export class SearchService {
       returningPageInfo,
       Observable.of(values)
     );
+  }
+
+  setViewMode(viewMode: ViewMode) {
+    const navigationExtras: NavigationExtras = {
+      queryParams: {view: viewMode},
+      queryParamsHandling: 'merge'
+    };
+
+    this.router.navigate(['/search'], navigationExtras);
   }
 }
