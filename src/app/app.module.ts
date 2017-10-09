@@ -21,7 +21,6 @@ import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
-import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
 
 import { SubmissionModule } from './submission/submission.module';
 
@@ -69,7 +68,6 @@ if (!ENV_CONFIG.production) {
     EffectsModule.forRoot(appEffects),
     StoreModule.forRoot(appReducers),
     StoreRouterConnectingModule,
-    TransferHttpModule,
     ...DEV_MODULES
   ],
   providers: [

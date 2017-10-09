@@ -49,12 +49,20 @@ export class RemoteDataBuildService {
       requestHrefObs.flatMap((requestHref) => this.responseCache.get(requestHref)).filter((entry) => hasValue(entry))
     );
 
-    const requestPending = requestObs.map((entry: RequestEntry) => entry.requestPending).distinctUntilChanged();
+    const requestPending = requestObs
+      .map((entry: RequestEntry) => entry.requestPending)
+      .startWith(true)
+      .distinctUntilChanged();
 
-    const responsePending = requestObs.map((entry: RequestEntry) => entry.responsePending).distinctUntilChanged();
+    const responsePending = requestObs
+      .map((entry: RequestEntry) => entry.responsePending)
+      .startWith(false)
+      .distinctUntilChanged();
 
     const isSuccessFul = responseCacheObs
-      .map((entry: ResponseCacheEntry) => entry.response.isSuccessful).distinctUntilChanged();
+      .map((entry: ResponseCacheEntry) => entry.response.isSuccessful)
+      .startWith(false)
+      .distinctUntilChanged();
 
     const errorMessage = responseCacheObs
       .filter((entry: ResponseCacheEntry) => !entry.response.isSuccessful)
@@ -133,12 +141,20 @@ export class RemoteDataBuildService {
     const responseCacheObs = hrefObs.flatMap((href: string) => this.responseCache.get(href))
       .filter((entry) => hasValue(entry));
 
-    const requestPending = requestObs.map((entry: RequestEntry) => entry.requestPending).distinctUntilChanged();
+    const requestPending = requestObs
+      .map((entry: RequestEntry) => entry.requestPending)
+      .startWith(true)
+      .distinctUntilChanged();
 
-    const responsePending = requestObs.map((entry: RequestEntry) => entry.responsePending).distinctUntilChanged();
+    const responsePending = requestObs
+      .map((entry: RequestEntry) => entry.responsePending)
+      .startWith(false)
+      .distinctUntilChanged();
 
     const isSuccessFul = responseCacheObs
-      .map((entry: ResponseCacheEntry) => entry.response.isSuccessful).distinctUntilChanged();
+      .map((entry: ResponseCacheEntry) => entry.response.isSuccessful)
+      .startWith(false)
+      .distinctUntilChanged();
 
     const errorMessage = responseCacheObs
       .filter((entry: ResponseCacheEntry) => !entry.response.isSuccessful)

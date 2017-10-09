@@ -92,9 +92,6 @@ module.exports = {
       from: join(__dirname, '..', 'resources', 'images'),
       to: join('assets', 'images')
     }, {
-      from: join(__dirname, '..', 'resources', 'data'),
-      to: join('assets', 'data')
-    }, {
       from: join(__dirname, '..', 'resources', 'i18n'),
       to: join('assets', 'i18n')
     }])
