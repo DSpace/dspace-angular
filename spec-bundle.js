@@ -38,11 +38,11 @@ testing.TestBed.initTestEnvironment(
   browser.platformBrowserDynamicTesting()
 );
 
-
 var tests = require.context('./src', true, /\.spec\.ts$/);
 
 tests.keys().forEach(tests);
 
-const components = require.context('./src/app', true, /\.module\.ts$/);
+// includes all modules into test coverage
+const modules = require.context('./src/app', true, /\.module\.ts$/);
 
-components.keys().forEach(components);
+modules.keys().forEach(modules);
