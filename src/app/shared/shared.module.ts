@@ -9,6 +9,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { FileUploadModule } from 'ng2-file-upload';
+
 import { PaginationComponent } from './pagination/pagination.component';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
@@ -32,6 +34,7 @@ import { UploadFilesComponent } from './upload-files/upload-files.component';
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
+  FileUploadModule,
   FormsModule,
   NgbModule,
   NgxPaginationModule,
