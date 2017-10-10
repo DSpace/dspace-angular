@@ -5,8 +5,10 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core'
-import { UploadFilesComponentOptions } from './upload-files-component-options.model';
+
 import { FileUploader } from 'ng2-file-upload';
+
+import { UploadFilesComponentOptions } from './upload-files-component-options.model';
 
 @Component({
   selector: 'ds-upload-files',
