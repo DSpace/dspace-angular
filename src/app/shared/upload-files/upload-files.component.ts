@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewEncapsulation
 } from '@angular/core'
 
@@ -24,8 +26,9 @@ export class UploadFilesComponent implements OnInit {
    * Configuration for the ng2-file-upload component.
    */
   @Input() uploadFilesOptions: UploadFilesComponentOptions;
+  @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();
 
-  public uploader:FileUploader = new FileUploader({url: 'https://evening-anchorage-3159.herokuapp.com/api/',
+  public uploader:FileUploader = new FileUploader({url: 'http://ng-file-upload-php-demo.dev01.4science.it/server.php',
                                                    removeAfterUpload: true,
                                                    autoUpload: true});
   public hasBaseDropZoneOver = false;
@@ -36,6 +39,17 @@ export class UploadFilesComponent implements OnInit {
   ngOnInit() {
     // this.checkConfig(this.uploadFilesOptions);
     // this.uploader = new FileUploader({url: this.uploadFilesOptions.url});
+  }
+
+  // Maybe to remove: needed to avoid CORS issue with our temp upload server
+  ngAfterViewInit() {
+    this.uploader.onAfterAddingFile = ((item) => {
+      item.withCredentials = false;
+    });
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      const responsePath = JSON.parse(response);
+      this.onCompleteItem.emit(responsePath);
+    };
   }
 
   /**
