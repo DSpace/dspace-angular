@@ -7,8 +7,20 @@
 </div>
 <div class="clearfix"></div>
 <div>
-  <h5>{{bitstream.title}}</h5>
-  {{bitstream.description | dsTruncate:[150]}}
+  <h5>
+    <ng-container *ngIf="bitstream.title.length > 0">
+      {{bitstream.title}}
+    </ng-container>
+    <ng-container *ngIf="bitstream.title.length < 1">
+      <span class="text-muted">No title</span>
+    </ng-container>
+  </h5>
+  <ng-container *ngIf="bitstream.description.length > 0">
+    {{bitstream.description | dsTruncate:[150]}}
+  </ng-container>
+  <ng-container *ngIf="bitstream.description.length < 1">
+    <span class="text-muted">No description</span>
+  </ng-container>
   <span class="clearfix"></span>
   <ds-policies [policies]="bitstream.policies"></ds-policies>
 </div>

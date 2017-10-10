@@ -38,7 +38,7 @@ export class FilesPanelComponent extends PanelModelComponent {
 
   ngOnInit() {
     // ToRemove
-    this.bitstreamService.setNewBitstream(
+    /*this.bitstreamService.setNewBitstream(
       this.submissionId,
       '10b6a835-ef81-4cff-8acb-020314145b92',
       {
@@ -119,7 +119,7 @@ export class FilesPanelComponent extends PanelModelComponent {
           }
         ]
       }
-    );
+    );*/
     // END
     this.subscriptions.push(
       this.bitstreamService

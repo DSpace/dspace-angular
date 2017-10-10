@@ -13,23 +13,30 @@
     </div>
   </div>
 </div>
-<ng-container *ngFor="let bitstreamKey of bitstreamsKeys">
-  <div class="row">
-    <div class="col-md-2">
-      <ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].thumbnail | async"></ds-thumbnail>
-    </div>
-    <div class="col-md-10">
-      <div class="float-left w-75">
-        <h3>{{bitstreamsList[bitstreamKey].name}} <span class="text-muted">({{bitstreamsList[bitstreamKey].size | dsFileSize}})</span></h3>
-      </div>
-      <ds-submission-submit-form-box-files-edit [submissionId]="submissionId" [bitstreamId]="bitstreamKey"></ds-submission-submit-form-box-files-edit>
-    </div>
-  </div>
+<ng-container *ngIf="bitstreamsKeys.length == 0">
   <div class="row">
     <div class="col-md-12">
-      <hr/>
+      <h3 class="text-center"><span class="text-muted">No file uploaded yet.</span></h3>
     </div>
   </div>
 </ng-container>
-
-
+<ng-container *ngIf="bitstreamsKeys.length > 0">
+  <ng-container *ngFor="let bitstreamKey of bitstreamsKeys">
+    <div class="row">
+      <div class="col-md-2">
+        <ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].thumbnail | async"></ds-thumbnail>
+      </div>
+      <div class="col-md-10">
+        <div class="float-left w-75">
+          <h3>{{bitstreamsList[bitstreamKey].name}} <span class="text-muted">({{bitstreamsList[bitstreamKey].size | dsFileSize}})</span></h3>
+        </div>
+        <ds-submission-submit-form-box-files-edit [submissionId]="submissionId" [bitstreamId]="bitstreamKey"></ds-submission-submit-form-box-files-edit>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <hr/>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
