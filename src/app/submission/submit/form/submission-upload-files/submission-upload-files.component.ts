@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { BitstreamService } from '../../../panel/bitstream/bitstream.service';
+import { UploadFilesComponentOptions } from '../../../../shared/upload-files/upload-files-component-options.model';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -9,14 +10,21 @@ export class SubmissionUploadFilesComponent {
 
   @Input() submissionId;
 
-  protected subscriptions = [];
+  public uploadFilesOptions:UploadFilesComponentOptions;
 
-  constructor(private bitstreamService: BitstreamService) {}
+  constructor(private bitstreamService: BitstreamService) {
+    this.uploadFilesOptions = {
+      url: 'http://ng-file-upload-php-demo.dev01.4science.it/server.php',
+      authToken: null,
+      disableMultipart: false,
+      itemAlias: null
+    }
+  }
 
   public onCompleteItem(itemData) {
     this.bitstreamService.setNewBitstream(
       this.submissionId,
-      itemData.md5,
+      itemData.uuid,
       {
         name: itemData.originalName,
         title: '',
@@ -35,16 +43,4 @@ export class SubmissionUploadFilesComponent {
       }
     );
   }
-  /*ngOnInit() {
-
-  }
-
-  **
-   * Method provided by Angular. Invoked when the instance is destroyed.
-   *
-  ngOnDestroy() {
-    this.subscriptions
-      .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe());
-  }*/
 }
