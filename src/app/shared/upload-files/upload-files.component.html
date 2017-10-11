@@ -6,7 +6,7 @@
          [uploader]="uploader"
          class="well ds-my-drop-zone text-muted">
       <p [hidden]="uploader?.queue?.length != 0">
-        <span>Drag & Drop your files here or </span>
+        <span><i class="fa fa-cloud-upload" aria-hidden="true"></i> Drag & Drop your files here or </span>
         <label class="ds-my-drop-zone-upload-button">
           <input type="file" ng2FileSelect [uploader]="uploader" multiple  />
           browse

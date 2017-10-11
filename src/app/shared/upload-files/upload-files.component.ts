@@ -25,24 +25,30 @@ export class UploadFilesComponent implements OnInit {
   /**
    * Configuration for the ng2-file-upload component.
    */
-  @Input() uploadFilesOptions: UploadFilesComponentOptions;
+  @Input()  uploadFilesOptions: UploadFilesComponentOptions;
+
   @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();
 
-  public uploader:FileUploader = new FileUploader({url: 'http://ng-file-upload-php-demo.dev01.4science.it/server.php',
-                                                   removeAfterUpload: true,
-                                                   autoUpload: true});
+  public uploader:FileUploader;
   public hasBaseDropZoneOver = false;
 
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
   ngOnInit() {
-    // this.checkConfig(this.uploadFilesOptions);
-    // this.uploader = new FileUploader({url: this.uploadFilesOptions.url});
+    this.checkConfig(this.uploadFilesOptions);
+    this.uploader = new FileUploader({
+      url: this.uploadFilesOptions.url,
+      authToken: this.uploadFilesOptions.authToken,
+      disableMultipart: this.uploadFilesOptions.disableMultipart,
+      itemAlias: this.uploadFilesOptions.itemAlias,
+      removeAfterUpload: true,
+      autoUpload: true
+    });
   }
 
-  // Maybe to remove: needed to avoid CORS issue with our temp upload server
   ngAfterViewInit() {
+    // Maybe to remove: needed to avoid CORS issue with our temp upload server
     this.uploader.onAfterAddingFile = ((item) => {
       item.withCredentials = false;
     });
@@ -65,8 +71,8 @@ export class UploadFilesComponent implements OnInit {
    * @param fileUploadOptions
    *    The upload-files options object.
    */
-  private checkConfig(fileUploadOptions: any) {
-    const required = ['url'];
+  private checkConfig(fileUploadOptions:any) {
+    const required = ['url', 'authToken', 'disableMultipart', 'itemAlias'];
     const missing = required.filter((prop) => {
       return !(prop in fileUploadOptions);
     });

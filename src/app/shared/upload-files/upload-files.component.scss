@@ -1,9 +1,7 @@
 @import '../../../styles/_variables.scss';
 
 .ds-my-drop-zone {
-  background-color: $gray-200;
-  border: 1px dashed $gray-600;
-  border-radius: 10px;
+  border: 2px dashed $gray-600;
   margin-bottom: 1rem;
   margin-top: 1rem;
 }
@@ -13,7 +11,7 @@
 } /* Default class applied to drop zones on over */
 
 .ds-my-drop-zone p {
-  padding-left: 5px;
+  text-align: center;
   margin: 0;
 }
 
