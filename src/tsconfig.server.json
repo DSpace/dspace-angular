@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.json",
   "angularCompilerOptions": {
-    "entryModule": "./app/server-app.module#ServerAppModule"
+    "entryModule": "./modules/app/server-app.module#ServerAppModule"
   }
 }

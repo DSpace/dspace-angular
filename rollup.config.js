@@ -3,10 +3,12 @@ import commonjs from 'rollup-plugin-commonjs';
 import uglify from 'rollup-plugin-uglify'
 
 export default {
-  entry: 'dist/client.js',
-  dest: 'dist/client.js',
+  input: 'dist/client.js',
+  output: {
+   file: 'dist/client.js',
+   format: 'iife',
+  },
   sourceMap: false,
-  format: 'iife',
   plugins: [
     nodeResolve({
       jsnext: true,

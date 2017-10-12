@@ -1,29 +1,35 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
+  OnChanges,
   OnInit,
-  Output, SimpleChanges, OnChanges, ChangeDetectorRef, DoCheck
+  Output,
+  SimpleChanges,
+  ViewEncapsulation
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { PageInfo } from '../../core/shared/page-info.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { RemoteData } from '../core/data/remote-data';
+import { PageInfo } from '../core/shared/page-info.model';
+import { ListableObject } from '../object-list/listable-object/listable-object.model';
 
-import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
-import { ListableObject } from '../../object-list/listable-object/listable-object.model';
+import { fadeIn } from '../shared/animations/fade';
+
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   selector: 'ds-object-list',
-  styleUrls: ['../../object-list/object-list.component.scss'],
-  templateUrl: '../../object-list/object-list.component.html'
+  styleUrls: ['./object-list.component.scss'],
+  templateUrl: './object-list.component.html',
+  animations: [fadeIn]
 })
 export class ObjectListComponent implements OnChanges, OnInit {
 

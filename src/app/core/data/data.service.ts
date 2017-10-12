@@ -18,7 +18,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract store: Store<CoreState>;
   protected abstract linkName: string;
-  protected abstract EnvConfig: GlobalConfig
+  protected abstract EnvConfig: GlobalConfig;
 
   constructor(
     private normalizedResourceType: GenericConstructor<TNormalized>,

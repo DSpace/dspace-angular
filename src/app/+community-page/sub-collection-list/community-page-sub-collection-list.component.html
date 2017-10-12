@@ -1,4 +1,4 @@
-<div *ngIf="subCollections.hasSucceeded | async">
+<div *ngIf="subCollections.hasSucceeded | async" @fadeIn>
   <h2>{{'community.sub-collection-list.head' | translate}}</h2>
   <ul>
     <li *ngFor="let collection of (subCollections.payload | async)">
@@ -9,3 +9,5 @@
     </li>
   </ul>
 </div>
+<ds-error *ngIf="subCollections.hasFailed | async" message="{{'error.sub-collections' | translate}}"></ds-error>
+<ds-loading *ngIf="subCollections.isLoading | async" message="{{'loading.sub-collections' | translate}}"></ds-loading>

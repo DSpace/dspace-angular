@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import { RemoteData } from '../core/data/remote-data';
+import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
-import { SearchResult } from './search-result.model';
-import { ItemDataService } from '../core/data/item-data.service';
-import { PageInfo } from '../core/shared/page-info.model';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { SearchOptions } from './search-options.model';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { Metadatum } from '../core/shared/metadatum.model';
-import { Item } from '../core/shared/item.model';
-import { ItemSearchResult } from '../object-list/search-result-list-element/item-search-result/item-search-result.model';
+import { SearchResult } from '../search-result.model';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { SearchOptions } from '../search-options.model';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { Metadatum } from '../../core/shared/metadatum.model';
+import { Item } from '../../core/shared/item.model';
+import { ItemSearchResult } from '../../object-list/search-result-list-element/item-search-result/item-search-result.model';
+import { SearchFilterConfig } from './search-filter-config.model';
+import { FilterType } from './filter-type.model';
+import { FacetValue } from './facet-value.model';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -42,6 +45,37 @@ export class SearchService {
     '<em>The QSAR DataBank (QsarDB) repository</em>',
   );
 
+  config: SearchFilterConfig[] = [
+    Object.assign(new SearchFilterConfig(),
+      {
+      name: 'scope',
+      type: FilterType.hierarchy,
+      hasFacets: true,
+      isOpenByDefault: true
+    }),
+    Object.assign(new SearchFilterConfig(),
+    {
+      name: 'author',
+      type: FilterType.text,
+      hasFacets: true,
+      isOpenByDefault: false
+    }),
+    Object.assign(new SearchFilterConfig(),
+    {
+      name: 'date',
+      type: FilterType.range,
+      hasFacets: true,
+      isOpenByDefault: false
+    }),
+    Object.assign(new SearchFilterConfig(),
+    {
+      name: 'subject',
+      type: FilterType.text,
+      hasFacets: false,
+      isOpenByDefault: false
+    })
+  ];
+
   constructor(private itemDataService: ItemDataService) {
 
   }
@@ -63,8 +97,7 @@ export class SearchService {
     if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.field)) {
       self += `&sortField=${searchOptions.sort.field}`;
     }
-    const requestPending = Observable.of(false);
-    const responsePending = Observable.of(false);
+
     const errorMessage = Observable.of(undefined);
     const statusCode = Observable.of('200');
     const returningPageInfo = new PageInfo();
@@ -84,8 +117,8 @@ export class SearchService {
     });
 
     const pageInfo = itemsRD.pageInfo.map((info: PageInfo) => {
-      info.totalElements = info.totalElements > 20 ? 20 : info.totalElements;
-      return info;
+      const totalElements = info.totalElements > 20 ? 20 : info.totalElements;
+      return Object.assign({}, info, { totalElements: totalElements });
     });
 
     const payload = itemsRD.payload.map((items: Item[]) => {
@@ -103,13 +136,60 @@ export class SearchService {
 
     return new RemoteData(
       Observable.of(self),
-      requestPending,
-      responsePending,
+      itemsRD.isRequestPending,
+      itemsRD.isResponsePending,
       itemsRD.hasSucceeded,
       errorMessage,
       statusCode,
       pageInfo,
       payload
     )
+  }
+
+  getConfig(): RemoteData<SearchFilterConfig[]> {
+    const requestPending = Observable.of(false);
+    const responsePending = Observable.of(false);
+    const isSuccessful = Observable.of(true);
+    const errorMessage = Observable.of(undefined);
+    const statusCode = Observable.of('200');
+    const returningPageInfo = Observable.of(new PageInfo());
+    return new RemoteData(
+      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/search'),
+      requestPending,
+      responsePending,
+      isSuccessful,
+      errorMessage,
+      statusCode,
+      returningPageInfo,
+      Observable.of(this.config)
+    );
+  }
+
+  getFacetValuesFor(searchFilterConfigName: string): RemoteData<FacetValue[]> {
+    const values: FacetValue[] = [];
+    for (let i = 0; i < 5; i++) {
+      const value = searchFilterConfigName + ' ' + (i + 1);
+      values.push({
+        value: value,
+        count: Math.floor(Math.random() * 20) + 20 * (5 - i), // make sure first results have the highest (random) count
+        search: 'https://dspace7.4science.it/dspace-spring-rest/api/search?f.' + searchFilterConfigName + '=' + encodeURI(value)
+      });
+    }
+    const requestPending = Observable.of(false);
+    const responsePending = Observable.of(false);
+    const isSuccessful = Observable.of(true);
+    const errorMessage = Observable.of(undefined);
+    const statusCode = Observable.of('200');
+    const returningPageInfo = Observable.of(new PageInfo());
+    return new RemoteData(
+      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/search'),
+      requestPending,
+      responsePending,
+      isSuccessful,
+      errorMessage,
+      statusCode,
+      returningPageInfo,
+      Observable.of(values)
+    );
   }
 }

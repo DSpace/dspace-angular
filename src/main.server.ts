@@ -8,18 +8,14 @@ import * as https from 'https';
 import * as morgan from 'morgan';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import * as session from 'express-session';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 
-import { platformServer, renderModuleFactory } from '@angular/platform-server';
 import { enableProdMode } from '@angular/core';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 
-import { ServerAppModule } from './app/server-app.module';
-
-import { serverApi, createMockApi } from './backend/api';
+import { ServerAppModule } from './modules/app/server-app.module';
 
 import { ROUTES } from './routes';
 import { ENV_CONFIG } from './config';

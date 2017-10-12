@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SearchService } from '../search/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { SearchService } from './search-service/search.service';
+import { ActivatedRoute } from '@angular/router';
 import { RemoteData } from '../core/data/remote-data';
-import { SearchResult } from '../search/search-result.model';
+import { SearchResult } from './search-result.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../search/search-options.model';
+import { SearchOptions } from './search-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { Community } from '../core/shared/community.model';
@@ -21,20 +21,25 @@ import { Community } from '../core/shared/community.model';
   selector: 'ds-search-page',
   styleUrls: ['./search-page.component.scss'],
   templateUrl: './search-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
+
   private sub;
-  query: string;
   private scope: string;
+
+  query: string;
   scopeObject: RemoteData<DSpaceObject>;
   results: RemoteData<Array<SearchResult<DSpaceObject>>>;
   currentParams = {};
   searchOptions: SearchOptions;
   scopeList: RemoteData<Community[]>;
 
-  constructor(private service: SearchService,
-              private route: ActivatedRoute,
-              private communityService: CommunityDataService,) {
+  constructor(
+    private service: SearchService,
+    private route: ActivatedRoute,
+    private communityService: CommunityDataService
+  ) {
     this.scopeList = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
@@ -53,8 +58,8 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this.currentParams = params;
           this.query = params.query || '';
           this.scope = params.scope;
-          const page = +params.page  || this.searchOptions.pagination.currentPage;
-          const pageSize = +params.pageSize  || this.searchOptions.pagination.pageSize;
+          const page = +params.page || this.searchOptions.pagination.currentPage;
+          const pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
           const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
           const pagination = Object.assign({},
             this.searchOptions.pagination,
@@ -80,7 +85,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   private updateSearchResults(searchOptions) {
     // Resolve search results
     this.results = this.service.search(this.query, this.scope, searchOptions);
-
   }
 
   ngOnDestroy() {

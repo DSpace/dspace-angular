@@ -1,24 +1,24 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-
-import { HomeComponent } from './home.component';
-import { HomeRoutingModule } from './home-routing.module';
-import { TopLevelCommunityListComponent } from './top-level-community-list/top-level-community-list.component';
 import { HomeNewsComponent } from './home-news/home-news.component';
+import { HomePageRoutingModule } from './home-page-routing.module';
+
+import { HomePageComponent } from './home-page.component';
+import { TopLevelCommunityListComponent } from './top-level-community-list/top-level-community-list.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    HomeRoutingModule
+    HomePageRoutingModule
   ],
   declarations: [
-    HomeComponent,
+    HomePageComponent,
     TopLevelCommunityListComponent,
     HomeNewsComponent
   ]
 })
-export class HomeModule {
+export class HomePageModule {
 
 }
