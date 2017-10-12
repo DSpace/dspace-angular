@@ -22,6 +22,7 @@ import { Observable } from 'rxjs/Observable';
   selector: 'ds-collection-page',
   styleUrls: ['./collection-page.component.scss'],
   templateUrl: './collection-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionData: RemoteData<Collection>;
@@ -37,8 +38,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
-    this.paginationConfig.pageSizeOptions = [4];
-    this.paginationConfig.pageSize = 4;
+    this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
     this.sortConfig = new SortOptions();
   }

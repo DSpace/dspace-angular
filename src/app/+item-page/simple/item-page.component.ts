@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
@@ -16,6 +16,7 @@ import { Bitstream } from '../../core/shared/bitstream.model';
   selector: 'ds-item-page',
   styleUrls: ['./item-page.component.scss'],
   templateUrl: './item-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemPageComponent implements OnInit {
 

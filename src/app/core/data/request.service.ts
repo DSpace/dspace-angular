@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { hasValue } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOSuccessResponse } from '../cache/response-cache.models';
+import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
@@ -47,16 +47,20 @@ export class RequestService {
 
   configure<T extends CacheableObject>(request: RestRequest): void {
     let isCached = this.objectCache.hasBySelfLink(request.href);
-
+    // console.log('request.href', request.href);
     if (!isCached && this.responseCache.has(request.href)) {
-      const [dsoSuccessResponse, otherSuccessResponse] = this.responseCache.get(request.href)
+      const [successResponse, errorResponse] = this.responseCache.get(request.href)
         .take(1)
-        .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
         .map((entry: ResponseCacheEntry) => entry.response)
+        .share()
+        .partition((response: RestResponse) => response.isSuccessful);
+
+      const [dsoSuccessResponse, otherSuccessResponse] = successResponse
         .share()
         .partition((response: DSOSuccessResponse) => hasValue(response.resourceSelfLinks));
 
       Observable.merge(
+        errorResponse.map(() => true), // TODO add a configurable number of retries in case of an error.
         otherSuccessResponse.map(() => true),
         dsoSuccessResponse // a DSOSuccessResponse should only be considered cached if all its resources are cached
           .map((response: DSOSuccessResponse) => response.resourceSelfLinks)

@@ -24,6 +24,8 @@ import { HostWindowService } from '../shared/host-window.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
 
 import { ServerResponseService } from '../shared/server-response.service';
+import { BrowseService } from './browse/browse.service';
+import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -54,6 +56,8 @@ const PROVIDERS = [
   ResponseCacheService,
   RootResponseParsingService,
   ServerResponseService,
+  BrowseResponseParsingService,
+  BrowseService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

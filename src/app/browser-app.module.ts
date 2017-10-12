@@ -40,6 +40,7 @@ export function createTranslateLoader(http: HttpClient) {
     // forRoot ensures the providers are only created once
     IdlePreloadModule.forRoot(),
     RouterModule.forRoot([], {
+      // enableTracing: true,
       useHash: false,
       preloadingStrategy:
       IdlePreload

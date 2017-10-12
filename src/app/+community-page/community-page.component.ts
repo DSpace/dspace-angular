@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -13,6 +13,7 @@ import { hasValue } from '../shared/empty.util';
   selector: 'ds-community-page',
   styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommunityPageComponent implements OnInit, OnDestroy {
   communityData: RemoteData<Community>;
