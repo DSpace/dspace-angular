@@ -1,0 +1,26 @@
+<ng-template #rt let-r="result" let-t="term">
+  {{ r.display}}
+</ng-template>
+
+<input class="form-control"
+       [class.is-invalid]="showErrorMessages"
+       [dynamicId]="bindId && model.id"
+       [inputFormatter]="formatter"
+       [name]="model.name"
+       [(ngModel)]="model.value"
+       [ngbTypeahead]="search"
+       [placeholder]="model.label"
+       [resultTemplate]="rt"
+       [type]="model.inputType"
+       (selectItem)="onSelectItem($event)">
+<span id="labeltype" *ngIf="searching" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></span>
+<div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+<!--div class="form-group">
+  <label for="typeahead-http">Search for a wiki page:</label>
+  <input id="typeahead-http" type="text" class="form-control" [class.is-invalid]="searchFailed" [(ngModel)]="model.value" [ngbTypeahead]="search" placeholder="Wikipedia search" />
+  <span *ngIf="searching">searching...</span>
+  <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+</div-->
+
+<hr>
+<pre>Model: {{ model.value | json }}</pre>

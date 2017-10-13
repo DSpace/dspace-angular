@@ -8,7 +8,6 @@ import {
   DynamicFormArrayModel,
   DynamicFormGroupModel, DynamicFormControlModel, DynamicDatePickerModel, DynamicTimePickerModel
 } from '@ng-dynamic-forms/core';
-import { Observable } from 'rxjs/Observable';
 
 export const MY_DYNAMIC_FORM_MODEL: DynamicFormControlModel[] = [
 
@@ -461,17 +460,49 @@ export const MY_DYNAMIC_FORM_MODEL: DynamicFormControlModel[] = [
 
 export const MY_DYNAMIC_FORM_MODEL2 = [
 
-  new DynamicInputModel({
+  new DynamicInputModel(
+    {
+      id: 'dc_title',
+      label: 'Title',
+      placeholder: 'Title',
+      validators: {
+        required: null
+      },
+      errorMessages: {
+        required: 'You must enter a main title for this item.'
+      }
+    }
+  ),
 
-    id: 'exampleInput',
-    label: 'Example Input',
-    maxLength: 42,
-    placeholder: 'example input'
-  }),
+  new DynamicInputModel(
+    {
+      id: 'dc_title_alternative',
+      label: 'Other Titles',
+      placeholder: 'Other Titles',
+    }
+  ),
 
-  new DynamicCheckboxModel({
+  new DynamicInputModel(
+    {
+      id: 'dc_publisher',
+      label: 'Publisher',
+      placeholder: 'Publisher',
+    }
+  ),
 
-    id: 'exampleCheckbox',
-    label: 'I do agree'
-  })
+  new DynamicInputModel(
+    {
+      id: 'dc_identifier_citation',
+      label: 'Citation',
+      placeholder: 'Citation',
+    }
+  ),
+
+  new DynamicInputModel(
+    {
+      id: 'dc_identifier_issn',
+      label: 'Identifiers',
+      placeholder: 'Identifiers',
+    }
+  ),
 ];

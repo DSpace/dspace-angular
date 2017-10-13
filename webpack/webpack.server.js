@@ -14,6 +14,7 @@ module.exports = {
     whitelist: [
       /@angular/,
       /@ng/,
+      /angular2-text-mask/,
       /ngx/]
   })],
 };
