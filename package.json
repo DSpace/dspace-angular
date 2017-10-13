@@ -122,7 +122,7 @@
     "@types/jasmine": "2.6.0",
     "@types/memory-cache": "0.0.31",
     "@types/mime": "2.0.0",
-    "@types/node": "8.0.26",
+    "@types/node": "8.0.34",
     "@types/serve-static": "1.7.32",
     "@types/source-map": "0.5.1",
     "@types/webfontloader": "1.6.29",
