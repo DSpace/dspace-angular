@@ -27,11 +27,6 @@ export abstract class HALEndpointService {
 
   public getEndpoint(): Observable<string> {
     return this.getEndpointMap()
-      .do((map: EndpointMap) => {
-      if (!this.linkName) {
-        console.log('map', this)
-      }
-    })
       .map((map: EndpointMap) => map[this.linkName])
       .distinctUntilChanged();
   }
