@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { Location, CommonModule } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { By, Meta } from '@angular/platform-browser';
+import { By, Meta, MetaDefinition } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { Store, StoreModule } from '@ngrx/store';
@@ -23,6 +23,7 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 import { NormalizedItem } from '../cache/models/normalized-item.model';
+import { Item } from '../../core/shared/item.model';
 
 import { MockRouter } from '../../shared/mocks/mock-router';
 import { MockNormalizedItem } from '../../shared/mocks/mock-normalized-item';
@@ -72,7 +73,8 @@ describe('MetadataService', () => {
         CommonModule,
         StoreModule.forRoot({}),
         RouterTestingModule.withRoutes([
-          { path: 'items/:id', component: DummyItemComponent, pathMatch: 'full', data: { type: NormalizedItem } }
+          { path: 'items/:id', component: DummyItemComponent, pathMatch: 'full', data: { type: NormalizedItem } },
+          { path: 'other', component: DummyItemComponent, pathMatch: 'full' }
         ])
       ],
       declarations: [
@@ -104,11 +106,63 @@ describe('MetadataService', () => {
     spyOn(objectCacheService, 'getByUUID').and.returnValue(Observable.create((observer) => {
       observer.next(MockNormalizedItem);
     }));
-    spyOn(remoteDataBuildService, 'build').and.returnValue(MockItem);
   });
 
-  it('upon navigation should call meta tag setters', () => {
+  it('items page should set meta tags', fakeAsync(() => {
+    spyOn(remoteDataBuildService, 'build').and.returnValue(MockItem);
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
-  });
+    tick();
+    const tagStore: Map<string, MetaDefinition[]> = metadataService.getTagStore();
+    expect(tagStore.get('citation_title').length).toEqual(1);
+    expect(tagStore.get('citation_title')[0].content).toEqual('Test PowerPoint Document');
+  }));
+
+  it('items page should set meta tags as published Thesis', fakeAsync(() => {
+    spyOn(remoteDataBuildService, 'build').and.returnValue(mockPublisher(mockType(MockItem, 'Thesis')));
+    router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+    tick();
+    const tagStore: Map<string, MetaDefinition[]> = metadataService.getTagStore();
+    expect(tagStore.get('citation_dissertation_name').length).toEqual(1);
+    expect(tagStore.get('citation_dissertation_name')[0].content).toEqual('Test PowerPoint Document');
+    expect(tagStore.get('citation_dissertation_institution').length).toEqual(1);
+    expect(tagStore.get('citation_dissertation_institution')[0].content).toEqual('Mock Publisher');
+  }));
+
+  it('items page should set meta tags as published Technical Report', fakeAsync(() => {
+    spyOn(remoteDataBuildService, 'build').and.returnValue(mockPublisher(mockType(MockItem, 'Technical Report')));
+    router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+    tick();
+    const tagStore: Map<string, MetaDefinition[]> = metadataService.getTagStore();
+    expect(tagStore.get('citation_technical_report_institution').length).toEqual(1);
+    expect(tagStore.get('citation_technical_report_institution')[0].content).toEqual('Mock Publisher');
+  }));
+
+  it('other navigation should clear meta tags', fakeAsync(() => {
+    router.navigate(['/other']);
+    tick();
+    const tagStore: Map<string, MetaDefinition[]> = metadataService.getTagStore();
+    expect(tagStore.size).toEqual(0);
+  }));
+
+  const mockType = (mockItem: Item, type: string): Item => {
+    const typedMockItem = Object.assign({}, mockItem) as Item;
+    for (const metadatum of typedMockItem.metadata) {
+      if (metadatum.key === 'dc.type') {
+        metadatum.value = type;
+        break;
+      }
+    }
+    return typedMockItem;
+  }
+
+  const mockPublisher = (mockItem: Item): Item => {
+    const publishedMockItem = Object.assign({}, mockItem) as Item;
+    publishedMockItem.metadata.push({
+      key: 'dc.publisher',
+      language: 'en_US',
+      value: 'Mock Publisher'
+    });
+    return publishedMockItem;
+  }
 
 });

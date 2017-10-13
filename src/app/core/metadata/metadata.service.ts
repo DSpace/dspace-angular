@@ -55,19 +55,23 @@ export class MetadataService {
         route = this.getCurrentRoute(route);
         return { params: route.params, data: route.data };
       }).subscribe((routeInfo: any) => {
-        if (routeInfo.params.value.id && routeInfo.data.value.type) {
-          this.objectCacheService.getByUUID(routeInfo.params.value.id, routeInfo.data.value.type)
-            .first().subscribe((normalizedObject: CacheableObject) => {
-              const dspaceObject = this.remoteDataBuildService.build(normalizedObject) as DSpaceObject;
-              if (!this.initialized) {
-                this.initialize(dspaceObject);
-              }
-              this.currentObject.next(dspaceObject);
-            });
-        } else {
-          this.clearMetaTags();
-        }
+        this.processRouteChange(routeInfo);
       });
+  }
+
+  private processRouteChange(routeInfo: any): void {
+    if (routeInfo.params.value.id && routeInfo.data.value.type) {
+      this.objectCacheService.getByUUID(routeInfo.params.value.id, routeInfo.data.value.type)
+        .first().subscribe((normalizedObject: CacheableObject) => {
+          const dspaceObject = this.remoteDataBuildService.build(normalizedObject) as DSpaceObject;
+          if (!this.initialized) {
+            this.initialize(dspaceObject);
+          }
+          this.currentObject.next(dspaceObject);
+        });
+    } else {
+      this.clearMetaTags();
+    }
   }
 
   private initialize(dspaceObject: DSpaceObject): void {
@@ -246,7 +250,7 @@ export class MetadataService {
     let isDissertation = false;
     for (const metadatum of this.currentObject.value.metadata) {
       if (metadatum.key === 'dc.type') {
-        isDissertation = metadatum.value === 'Thesis';
+        isDissertation = metadatum.value.toLowerCase() === 'thesis';
         break;
       }
     }
@@ -263,7 +267,7 @@ export class MetadataService {
     let isTechReport = false;
     for (const metadatum of this.currentObject.value.metadata) {
       if (metadatum.key === 'dc.type') {
-        isTechReport = metadatum.value === 'Technical Report';
+        isTechReport = metadatum.value.toLowerCase() === 'technical report';
         break;
       }
     }
@@ -344,11 +348,15 @@ export class MetadataService {
     this.tagStore.set(key, tags);
   }
 
-  private clearMetaTags() {
+  public clearMetaTags() {
     this.tagStore.forEach((tags: MetaDefinition[], property: string) => {
       this.meta.removeTag("property='" + property + "'");
     });
     this.tagStore.clear();
+  }
+
+  public getTagStore(): Map<string, MetaDefinition[]> {
+    return this.tagStore;
   }
 
 }
