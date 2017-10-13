@@ -40,15 +40,17 @@ export class MetadataService {
     private meta: Meta,
     @Inject(GLOBAL_CONFIG) private envConfig: GlobalConfig
   ) {
+    // TODO:
     this.meta.addTags([
-      { property: 'og:title', content: 'DSpace Angular Universal' }
+      { property: 'og:title', content: 'DSpace Angular Universal' },
+      { property: 'og:description', content: 'The modern front-end for DSpace 7.' }
     ]);
     this.initialized = false;
     this.tagStore = new Map<string, MetaDefinition[]>();
   }
 
   public listenForRouteChange(): void {
-    const subscription = this.router.events
+    this.router.events
       .filter((event) => event instanceof NavigationEnd)
       .map(() => this.router.routerState.root)
       .map((route: ActivatedRoute) => {
@@ -60,6 +62,7 @@ export class MetadataService {
   }
 
   private processRouteChange(routeInfo: any): void {
+    this.clearMetaTags();
     if (routeInfo.params.value.id && routeInfo.data.value.type) {
       this.objectCacheService.getByUUID(routeInfo.params.value.id, routeInfo.data.value.type)
         .first().subscribe((normalizedObject: CacheableObject) => {
@@ -70,13 +73,18 @@ export class MetadataService {
           this.currentObject.next(dspaceObject);
         });
     } else {
-      this.clearMetaTags();
+      if (routeInfo.data.value.title) {
+        this.addMetaTag('title', routeInfo.data.value.title);
+      }
+      if (routeInfo.data.value.description) {
+        this.addMetaTag('description', routeInfo.data.value.description);
+      }
     }
   }
 
   private initialize(dspaceObject: DSpaceObject): void {
     this.currentObject = new BehaviorSubject<DSpaceObject>(dspaceObject);
-    const subscription = this.currentObject.asObservable().distinctUntilKeyChanged('uuid').subscribe(() => {
+    this.currentObject.asObservable().distinctUntilKeyChanged('uuid').subscribe(() => {
       this.setMetaTags();
     });
     this.initialized = true;
@@ -91,7 +99,8 @@ export class MetadataService {
 
   private setMetaTags(): void {
 
-    this.clearMetaTags();
+    this.setTitleTag();
+    this.setDescriptionTag();
 
     this.setCitationTitleTag();
     this.setCitationAuthorTags();
@@ -129,6 +138,23 @@ export class MetadataService {
     // this.setCitationPatentCountryTag();
     // this.setCitationPatentNumberTag();
 
+  }
+
+  /**
+   * Add <meta name="title" ... >  to the <head>
+   */
+  private setTitleTag(): void {
+    const value = this.getMetaTagValue('dc.title');
+    this.addMetaTag('title', value);
+  }
+
+  /**
+   * Add <meta name="description" ... >  to the <head>
+   */
+  private setDescriptionTag(): void {
+    // TODO: truncate abstract
+    const value = this.getMetaTagValue('dc.description.abstract');
+    this.addMetaTag('desciption', value);
   }
 
   /**
@@ -175,7 +201,7 @@ export class MetadataService {
    * Add <meta name="citation_language" ... >  to the <head>
    */
   private setCitationLanguageTag(): void {
-    const value = this.getMetaTagValue('dc.language.iso');
+    const value = this.getFirstMetaTagValue(['dc.language', 'dc.language.iso']);
     this.addMetaTag('citation_language', value);
   }
 
@@ -229,12 +255,13 @@ export class MetadataService {
       const item = this.currentObject.value as Item;
       // NOTE: Observable resolves many times with same data
       // taking only two, fist one is empty array
-      const subscription = item.getFiles().take(2).subscribe((bitstreams: Bitstream[]) => {
+      item.getFiles().take(2).subscribe((bitstreams: Bitstream[]) => {
         for (const bitstream of bitstreams) {
-          if (bitstream.mimetype === 'application/pdf') {
-            this.addMetaTag('citation_abstract_html_url', bitstream.content);
-            break;
-          }
+          bitstream.format.payload.take(1).subscribe((format) => {
+            if (format.mimetype === 'application/pdf') {
+              this.addMetaTag('citation_pdf_url', bitstream.content);
+            }
+          });
         }
       });
     }

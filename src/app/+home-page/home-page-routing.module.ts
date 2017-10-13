@@ -6,7 +6,7 @@ import { HomePageComponent } from './home-page.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: '', component: HomePageComponent, pathMatch: 'full' }
+      { path: '', component: HomePageComponent, pathMatch: 'full', data: { title: 'DSpace Angular :: Home' } }
     ])
   ]
 })

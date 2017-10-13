@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, async, fakeAsync, inject, tick } from '@angu
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { Location, CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, DebugElement, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By, Meta, MetaDefinition } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -58,6 +58,10 @@ describe('MetadataService', () => {
   let router: Router;
   let fixture: ComponentFixture<TestComponent>;
 
+  let tagStore: Map<string, MetaDefinition[]>;
+
+  let envConfig: GlobalConfig;
+
   beforeEach(() => {
 
     store = new Store<CoreState>(undefined, undefined, undefined);
@@ -74,7 +78,7 @@ describe('MetadataService', () => {
         StoreModule.forRoot({}),
         RouterTestingModule.withRoutes([
           { path: 'items/:id', component: DummyItemComponent, pathMatch: 'full', data: { type: NormalizedItem } },
-          { path: 'other', component: DummyItemComponent, pathMatch: 'full' }
+          { path: 'other', component: DummyItemComponent, pathMatch: 'full', data: { title: 'Dummy Title', description: 'This is a dummy component for testing!' } }
         ])
       ],
       declarations: [
@@ -95,11 +99,14 @@ describe('MetadataService', () => {
     meta = TestBed.get(Meta);
     metadataService = TestBed.get(MetadataService);
 
+    envConfig = TestBed.get(GLOBAL_CONFIG);
+
     router = TestBed.get(Router);
     location = TestBed.get(Location);
 
     fixture = TestBed.createComponent(TestComponent);
-    fixture.detectChanges();
+
+    tagStore = metadataService.getTagStore();
   });
 
   beforeEach(() => {
@@ -112,40 +119,45 @@ describe('MetadataService', () => {
     spyOn(remoteDataBuildService, 'build').and.returnValue(MockItem);
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
-    const tagStore: Map<string, MetaDefinition[]> = metadataService.getTagStore();
-    expect(tagStore.get('citation_title').length).toEqual(1);
     expect(tagStore.get('citation_title')[0].content).toEqual('Test PowerPoint Document');
+    expect(tagStore.get('citation_author')[0].content).toEqual('Doe, Jane');
+    expect(tagStore.get('citation_date')[0].content).toEqual('1650-06-26T19:58:25Z');
+    expect(tagStore.get('citation_issn')[0].content).toEqual('123456789');
+    expect(tagStore.get('citation_language')[0].content).toEqual('en');
+    expect(tagStore.get('citation_keywords')[0].content).toEqual('keyword1; keyword2; keyword3');
   }));
 
   it('items page should set meta tags as published Thesis', fakeAsync(() => {
     spyOn(remoteDataBuildService, 'build').and.returnValue(mockPublisher(mockType(MockItem, 'Thesis')));
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
-    const tagStore: Map<string, MetaDefinition[]> = metadataService.getTagStore();
-    expect(tagStore.get('citation_dissertation_name').length).toEqual(1);
     expect(tagStore.get('citation_dissertation_name')[0].content).toEqual('Test PowerPoint Document');
-    expect(tagStore.get('citation_dissertation_institution').length).toEqual(1);
     expect(tagStore.get('citation_dissertation_institution')[0].content).toEqual('Mock Publisher');
+    expect(tagStore.get('citation_abstract_html_url')[0].content).toEqual([envConfig.ui.baseUrl, router.url].join(''));
+    expect(tagStore.get('citation_pdf_url')[0].content).toEqual('https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content');
   }));
 
   it('items page should set meta tags as published Technical Report', fakeAsync(() => {
     spyOn(remoteDataBuildService, 'build').and.returnValue(mockPublisher(mockType(MockItem, 'Technical Report')));
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
-    const tagStore: Map<string, MetaDefinition[]> = metadataService.getTagStore();
-    expect(tagStore.get('citation_technical_report_institution').length).toEqual(1);
     expect(tagStore.get('citation_technical_report_institution')[0].content).toEqual('Mock Publisher');
   }));
 
-  it('other navigation should clear meta tags', fakeAsync(() => {
+  it('other navigation should title and description', fakeAsync(() => {
+    spyOn(remoteDataBuildService, 'build').and.returnValue(MockItem);
+    router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+    tick();
+    expect(tagStore.size).toBeGreaterThan(0)
     router.navigate(['/other']);
     tick();
-    const tagStore: Map<string, MetaDefinition[]> = metadataService.getTagStore();
-    expect(tagStore.size).toEqual(0);
+    expect(tagStore.size).toEqual(2);
+    expect(tagStore.get('title')[0].content).toEqual('Dummy Title');
+    expect(tagStore.get('description')[0].content).toEqual('This is a dummy component for testing!');
   }));
 
   const mockType = (mockItem: Item, type: string): Item => {
-    const typedMockItem = Object.assign({}, mockItem) as Item;
+    const typedMockItem = Object.assign(new Item(), mockItem) as Item;
     for (const metadatum of typedMockItem.metadata) {
       if (metadatum.key === 'dc.type') {
         metadatum.value = type;
@@ -156,7 +168,7 @@ describe('MetadataService', () => {
   }
 
   const mockPublisher = (mockItem: Item): Item => {
-    const publishedMockItem = Object.assign({}, mockItem) as Item;
+    const publishedMockItem = Object.assign(new Item(), mockItem) as Item;
     publishedMockItem.metadata.push({
       key: 'dc.publisher',
       language: 'en_US',
