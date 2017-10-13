@@ -9,7 +9,10 @@ import {
   Params,
   Router
 } from '@angular/router';
-import { Meta, MetaDefinition } from '@angular/platform-browser';
+
+import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
+
+import { TranslateService } from '@ngx-translate/core';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -37,7 +40,9 @@ export class MetadataService {
     private router: Router,
     private objectCacheService: ObjectCacheService,
     private remoteDataBuildService: RemoteDataBuildService,
+    private translate: TranslateService,
     private meta: Meta,
+    private title: Title,
     @Inject(GLOBAL_CONFIG) private envConfig: GlobalConfig
   ) {
     // TODO: determine what open graph meta tags are needed and whether
@@ -63,7 +68,6 @@ export class MetadataService {
   }
 
   private processRouteChange(routeInfo: any): void {
-    this.clearMetaTags();
     if (routeInfo.params.value.id && routeInfo.data.value.type) {
       this.objectCacheService.getByUUID(routeInfo.params.value.id, routeInfo.data.value.type)
         .first().subscribe((normalizedObject: CacheableObject) => {
@@ -74,11 +78,17 @@ export class MetadataService {
           this.currentObject.next(dspaceObject);
         });
     } else {
+      this.clearMetaTags();
       if (routeInfo.data.value.title) {
-        this.addMetaTag('title', routeInfo.data.value.title);
+        this.translate.get(routeInfo.data.value.title).take(1).subscribe((translatedTitle: string) => {
+          this.addMetaTag('title', translatedTitle);
+          this.title.setTitle(translatedTitle);
+        });
       }
       if (routeInfo.data.value.description) {
-        this.addMetaTag('description', routeInfo.data.value.description);
+        this.translate.get(routeInfo.data.value.description).take(1).subscribe((translatedDescription: string) => {
+          this.addMetaTag('description', translatedDescription);
+        });
       }
     }
   }
@@ -99,6 +109,8 @@ export class MetadataService {
   }
 
   private setMetaTags(): void {
+
+    this.clearMetaTags();
 
     this.setTitleTag();
     this.setDescriptionTag();
@@ -147,6 +159,7 @@ export class MetadataService {
   private setTitleTag(): void {
     const value = this.getMetaTagValue('dc.title');
     this.addMetaTag('title', value);
+    this.title.setTitle(value);
   }
 
   /**

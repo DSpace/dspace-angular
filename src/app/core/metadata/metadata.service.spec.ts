@@ -3,8 +3,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { Location, CommonModule } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { By, Meta, MetaDefinition } from '@angular/platform-browser';
+import { By, Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { Store, StoreModule } from '@ngrx/store';
 
@@ -22,12 +24,13 @@ import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
-import { NormalizedItem } from '../cache/models/normalized-item.model';
 import { Item } from '../../core/shared/item.model';
+import { NormalizedItem } from '../cache/models/normalized-item.model';
 
-import { MockRouter } from '../../shared/mocks/mock-router';
-import { MockNormalizedItem } from '../../shared/mocks/mock-normalized-item';
 import { MockItem } from '../../shared/mocks/mock-item';
+import { MockNormalizedItem } from '../../shared/mocks/mock-normalized-item';
+import { MockRouter } from '../../shared/mocks/mock-router';
+import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -46,6 +49,8 @@ describe('MetadataService', () => {
   let metadataService: MetadataService;
 
   let meta: Meta;
+
+  let title: Title;
 
   let store: Store<CoreState>;
 
@@ -76,6 +81,12 @@ describe('MetadataService', () => {
       imports: [
         CommonModule,
         StoreModule.forRoot({}),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        }),
         RouterTestingModule.withRoutes([
           { path: 'items/:id', component: DummyItemComponent, pathMatch: 'full', data: { type: NormalizedItem } },
           { path: 'other', component: DummyItemComponent, pathMatch: 'full', data: { title: 'Dummy Title', description: 'This is a dummy component for testing!' } }
@@ -92,11 +103,13 @@ describe('MetadataService', () => {
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         Meta,
+        Title,
         MetadataService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
     meta = TestBed.get(Meta);
+    title = TestBed.get(Title);
     metadataService = TestBed.get(MetadataService);
 
     envConfig = TestBed.get(GLOBAL_CONFIG);
@@ -119,6 +132,7 @@ describe('MetadataService', () => {
     spyOn(remoteDataBuildService, 'build').and.returnValue(MockItem);
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
+    expect(title.getTitle()).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_title')[0].content).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_author')[0].content).toEqual('Doe, Jane');
     expect(tagStore.get('citation_date')[0].content).toEqual('1650-06-26T19:58:25Z');
@@ -152,6 +166,7 @@ describe('MetadataService', () => {
     router.navigate(['/other']);
     tick();
     expect(tagStore.size).toEqual(2);
+    expect(title.getTitle()).toEqual('Dummy Title');
     expect(tagStore.get('title')[0].content).toEqual('Dummy Title');
     expect(tagStore.get('description')[0].content).toEqual('This is a dummy component for testing!');
   }));

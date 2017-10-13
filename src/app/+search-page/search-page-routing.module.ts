@@ -6,7 +6,7 @@ import { SearchPageComponent } from './search-page.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: '', component: SearchPageComponent, data: { title: 'DSpace Angular :: Search' } }
+      { path: '', component: SearchPageComponent, data: { title: 'search.title' } }
     ])
   ]
 })
