@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, async, fakeAsync, inject, tick } from '@angu
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { Location, CommonModule } from '@angular/common';
-import { Component, DebugElement, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By, Meta, MetaDefinition } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
