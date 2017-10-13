@@ -17,13 +17,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
+import { RemoteData } from '../data/remote-data';
 import { Bitstream } from '../shared/bitstream.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import { Metadatum } from '../shared/metadatum.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 
@@ -38,8 +37,6 @@ export class MetadataService {
 
   constructor(
     private router: Router,
-    private objectCacheService: ObjectCacheService,
-    private remoteDataBuildService: RemoteDataBuildService,
     private translate: TranslateService,
     private meta: Meta,
     private title: Title,
@@ -67,29 +64,29 @@ export class MetadataService {
       });
   }
 
+  public processRemoteData(remoteData: RemoteData<CacheableObject>): void {
+    remoteData.payload.take(1).subscribe((dspaceObject: DSpaceObject) => {
+      if (!this.initialized) {
+        this.initialize(dspaceObject);
+      }
+      this.currentObject.next(dspaceObject);
+    });
+  }
+
   private processRouteChange(routeInfo: any): void {
-    if (routeInfo.params.value.id && routeInfo.data.value.type) {
-      this.objectCacheService.getByUUID(routeInfo.params.value.id, routeInfo.data.value.type)
-        .first().subscribe((normalizedObject: CacheableObject) => {
-          const dspaceObject = this.remoteDataBuildService.build(normalizedObject) as DSpaceObject;
-          if (!this.initialized) {
-            this.initialize(dspaceObject);
-          }
-          this.currentObject.next(dspaceObject);
-        });
-    } else {
+    if (routeInfo.params.value.id === undefined) {
       this.clearMetaTags();
-      if (routeInfo.data.value.title) {
-        this.translate.get(routeInfo.data.value.title).take(1).subscribe((translatedTitle: string) => {
-          this.addMetaTag('title', translatedTitle);
-          this.title.setTitle(translatedTitle);
-        });
-      }
-      if (routeInfo.data.value.description) {
-        this.translate.get(routeInfo.data.value.description).take(1).subscribe((translatedDescription: string) => {
-          this.addMetaTag('description', translatedDescription);
-        });
-      }
+    }
+    if (routeInfo.data.value.title) {
+      this.translate.get(routeInfo.data.value.title).take(1).subscribe((translatedTitle: string) => {
+        this.addMetaTag('title', translatedTitle);
+        this.title.setTitle(translatedTitle);
+      });
+    }
+    if (routeInfo.data.value.description) {
+      this.translate.get(routeInfo.data.value.description).take(1).subscribe((translatedDescription: string) => {
+        this.addMetaTag('description', translatedDescription);
+      });
     }
   }
 
