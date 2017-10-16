@@ -7,12 +7,14 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute } from '@angular/router';
 
+import { fadeInOut } from '../../shared/animations/fade';
+
 @Component({
   selector: 'ds-top-level-community-list',
   styleUrls: ['./top-level-community-list.component.scss'],
   templateUrl: './top-level-community-list.component.html',
+  animations: [fadeInOut]
 })
-
 export class TopLevelCommunityListComponent {
   topLevelCommunities: RemoteData<Community[]>;
   config: PaginationComponentOptions;

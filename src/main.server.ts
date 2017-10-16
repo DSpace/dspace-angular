@@ -17,7 +17,7 @@ import { enableProdMode } from '@angular/core';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 
-import { ServerAppModule } from './app/server-app.module';
+import { ServerAppModule } from './modules/app/server-app.module';
 
 import { serverApi, createMockApi } from './backend/api';
 
