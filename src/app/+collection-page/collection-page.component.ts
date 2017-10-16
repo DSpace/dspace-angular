@@ -1,5 +1,8 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -18,10 +21,16 @@ import { hasValue, isNotEmpty, isUndefined } from '../shared/empty.util';
 import { PageInfo } from '../core/shared/page-info.model';
 import { Observable } from 'rxjs/Observable';
 
+import { fadeIn, fadeInOut } from '../shared/animations/fade';
+
 @Component({
   selector: 'ds-collection-page',
   styleUrls: ['./collection-page.component.scss'],
   templateUrl: './collection-page.component.html',
+  animations: [
+    fadeIn,
+    fadeInOut
+  ]
 })
 export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionData: RemoteData<Collection>;

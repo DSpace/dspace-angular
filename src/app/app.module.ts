@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';

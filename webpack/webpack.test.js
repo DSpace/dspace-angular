@@ -5,9 +5,10 @@ const {
 /**
  * Webpack Plugins
  */
-const ProvidePlugin = require('webpack/lib/ProvidePlugin');
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 
 /**
  * Webpack Constants
@@ -75,8 +76,9 @@ module.exports = function (options) {
           loader: 'source-map-loader',
           exclude: [
             // these packages have problems with their sourcemaps
-            root('node_modules/rxjs'),
-            root('node_modules/@angular')
+            root('node_modules/@angular'),
+            root('node_modules/@nguniversal'),
+            root('node_modules/rxjs')
           ]
         },
 
@@ -220,6 +222,11 @@ module.exports = function (options) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
+
+      new ContextReplacementPlugin(
+        /angular(\\|\/)core(\\|\/)@angular/,
+        root('./src'), {}
+      ),
 
       /**
        * Plugin: DefinePlugin

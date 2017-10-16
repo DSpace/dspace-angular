@@ -7,7 +7,7 @@ import { bootloader } from '@angularclass/bootloader';
 
 import { load as loadWebFont } from 'webfontloader';
 
-import { BrowserAppModule } from './app/browser-app.module';
+import { BrowserAppModule } from './modules/app/browser-app.module';
 
 import { ENV_CONFIG } from './config';
 

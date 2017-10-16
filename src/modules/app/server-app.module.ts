@@ -5,6 +5,7 @@ import { ApplicationRef, NgModule, APP_BOOTSTRAP_LISTENER } from '@angular/core'
 import { RouterModule } from '@angular/router';
 import { ServerModule } from '@angular/platform-server';
 import { BrowserModule } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Request } from 'express';
 
@@ -15,21 +16,21 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { TranslateUniversalLoader } from '../modules/translate-universal-loader';
+import { TranslateUniversalLoader } from '../translate-universal-loader';
 
-import { ServerTransferStateModule } from '../modules/transfer-state/server-transfer-state.module';
-import { TransferState } from '../modules/transfer-state/transfer-state';
+import { ServerTransferStateModule } from '../transfer-state/server-transfer-state.module';
+import { TransferState } from '../transfer-state/transfer-state';
 
-import { ServerTransferStoreEffects } from '../modules/transfer-store/server-transfer-store.effects';
-import { ServerTransferStoreModule } from '../modules/transfer-store/server-transfer-store.module';
+import { ServerTransferStoreEffects } from '../transfer-store/server-transfer-store.effects';
+import { ServerTransferStoreModule } from '../transfer-store/server-transfer-store.module';
 
-import { AppState } from './app.reducer';
+import { AppState } from '../../app/app.reducer';
 
-import { AppModule } from './app.module';
+import { AppModule } from '../../app/app.module';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from '../../app/app.component';
 
-import { GLOBAL_CONFIG, GlobalConfig } from '../config';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
 
 export function boot(cache: TransferState, appRef: ApplicationRef, store: Store<AppState>, request: Request, config: GlobalConfig) {
   // authentication mechanism goes here
@@ -53,6 +54,7 @@ export function createTranslateLoader() {
     RouterModule.forRoot([], {
       useHash: false
     }),
+    NoopAnimationsModule,
     ServerTransferStateModule,
     ServerTransferStoreModule,
     TranslateModule.forRoot({

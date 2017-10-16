@@ -27,18 +27,18 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
 
     plugins: [
-      require('karma-webpack'),
-      require('karma-jasmine'),
+      require("istanbul-instrumenter-loader"),
       require('karma-chrome-launcher'),
-      require('karma-phantomjs-launcher'),
-      require('karma-webdriver-launcher'),
       require('karma-coverage'),
-      require('karma-remap-coverage'),
+      require("karma-istanbul-preprocessor"),
+      require('karma-jasmine'),
       require('karma-mocha-reporter'),
+      require('karma-phantomjs-launcher'),
+      require('karma-remap-coverage'),
       require('karma-remap-istanbul'),
       require('karma-sourcemap-loader'),
-      require("istanbul-instrumenter-loader"),
-      require("karma-istanbul-preprocessor")
+      require('karma-webdriver-launcher'),
+      require('karma-webpack')
     ],
 
     // list of files to exclude
@@ -59,7 +59,11 @@ module.exports = function (config) {
      * available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
      */
     preprocessors: {
-      './spec-bundle.js': ['istanbul', 'webpack', 'sourcemap']
+      './spec-bundle.js': [
+        'istanbul',
+        'webpack',
+        'sourcemap'
+      ]
     },
 
     // Webpack Config at ./webpack.test.js
@@ -79,9 +83,9 @@ module.exports = function (config) {
     remapIstanbulReporter: {
       remapOptions: {}, //additional remap options
       reports: {
-        json: 'coverage/coverage.json',
-        lcovonly: 'coverage/lcov.info',
-        html: 'coverage/html/',
+        json: './coverage/coverage.json',
+        lcovonly: './coverage/lcov.info',
+        html: './coverage/html/',
       }
     },
 
@@ -111,7 +115,12 @@ module.exports = function (config) {
      * possible values: 'dots', 'progress'
      * available reporters: https://npmjs.org/browse/keyword/karma-reporter
      */
-    reporters: ['mocha', 'coverage', 'remap-coverage', 'karma-remap-istanbul'],
+    reporters: [
+      'mocha',
+      'coverage',
+      'remap-coverage',
+      'karma-remap-istanbul'
+    ],
 
     // Karma web server port
     port: 9876,
