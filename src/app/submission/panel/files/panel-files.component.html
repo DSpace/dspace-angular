@@ -1,6 +1,42 @@
-Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
-craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-labore sustainable VHS.
+<div *ngIf="collectionPolicies.length > 0 && collectionName && collectionPoliciesMessageType" class="row">
+  <div class="col-md-12">
+    <div class="alert alert-warning" role="alert">
+      <ng-container *ngIf="collectionPoliciesMessageType === 1">
+      Uploaded files in the "{{collectionName}}" collection will be accessible according to the following policies:
+      </ng-container>
+      <ng-container *ngIf="collectionPoliciesMessageType === 2">
+        Please note that uploaded files in the "{{collectionName}}" collection will be accessible,
+        in addition to what is explicity decided for the single file, with the following policies:
+      </ng-container>
+      <span class="clearfix"></span>
+      <ds-policies [policies]="collectionPolicies"></ds-policies>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="bitstreamsKeys.length == 0">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center"><span class="text-muted">No file uploaded yet.</span></h3>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="bitstreamsKeys.length > 0">
+  <ng-container *ngFor="let bitstreamKey of bitstreamsKeys">
+    <div class="row">
+      <div class="col-md-2">
+        <ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].thumbnail | async"></ds-thumbnail>
+      </div>
+      <div class="col-md-10">
+        <div class="float-left w-75">
+          <h3>{{bitstreamsList[bitstreamKey].name}} <span class="text-muted">({{bitstreamsList[bitstreamKey].size | dsFileSize}})</span></h3>
+        </div>
+        <ds-submission-submit-form-box-files-edit [submissionId]="submissionId" [bitstreamId]="bitstreamKey"></ds-submission-submit-form-box-files-edit>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <hr/>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

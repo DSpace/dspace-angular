@@ -119,7 +119,9 @@ export class PanelService {
         if (!isUndefined(panelList)) {
           Object.keys(panelList).forEach((panelId) => {
             if (!isUndefined(submissionState[submissionId])
-              && !isUndefined(submissionState[submissionId].panels) && !submissionState[submissionId].panels.hasOwnProperty(panelId)) {
+              && !isUndefined(submissionState[submissionId].panels)
+              && Object.keys(submissionState[submissionId].panels).length !== 0
+              && !submissionState[submissionId].panels.hasOwnProperty(panelId)) {
               availablePanels.push({panelId: panelId, panelHeader: panelList[panelId].header});
             }
           });

@@ -3,6 +3,10 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Store } from '@ngrx/store';
+import { SubmissionState } from '../submission.reducers';
+import { BitstreamService } from './bitstream/bitstream.service';
+import {SubmissionService} from "../submission.service";
 
 export interface PanelDataModel {
   panelId: string;
@@ -20,5 +24,7 @@ export class PanelModelComponent implements PanelDataModel {
   @Input() panelHeader: string;
   @Input() mandatory: boolean;
   @Input() submissionId: string;
-
+  @Input() submissionState: Store<SubmissionState>;
+  @Input() bitstreamService: BitstreamService;
+  @Input() submissionService: SubmissionService;
 }

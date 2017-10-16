@@ -2,7 +2,10 @@ import { createSelector, MemoizedSelector, Selector } from '@ngrx/store';
 
 import { hasValue } from '../shared/empty.util';
 import { submissionSelector, SubmissionState } from './submission.reducers';
-import { SubmissionPanelEntry, SubmissionObjectEntry } from './objects/submission-objects.reducer';
+import {
+  SubmissionPanelEntry, SubmissionObjectEntry,
+  SubmissionBitstreamEntry
+} from './objects/submission-objects.reducer';
 import { PanelObjectEntry, SubmissionDefinitionEntry } from './definitions/submission-definitions.reducer';
 
 // @TODO: Merge with keySelector function present in 'src/app/core/shared/selectors.ts'
@@ -22,6 +25,11 @@ export function submissionObjectFromIdSelector(submissionId: string): MemoizedSe
 
 export function submissionDefinitionFromIdSelector(definitionId: string): MemoizedSelector<SubmissionState, SubmissionDefinitionEntry> {
   return keySelector<SubmissionState, SubmissionDefinitionEntry>(submissionSelector, 'definitions', definitionId);
+}
+
+export function submissionBitstreamFromUuidSelector(submissionId: string, uuid: string): MemoizedSelector<SubmissionState, any> {
+  const submissionIdSelector  = submissionObjectFromIdSelector(submissionId);
+  return keySelector<SubmissionState, any>(submissionIdSelector, 'bitstreams', uuid);
 }
 
 export function panelDefinitionFromIdSelector(definitionId: string, panelId: string): MemoizedSelector<SubmissionState, any> {
