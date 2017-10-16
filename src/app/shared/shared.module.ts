@@ -9,6 +9,9 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { FileUploadModule } from 'ng2-file-upload';
+
+
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
@@ -28,11 +31,13 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { UploadFilesComponent } from './upload-files/upload-files.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
+  FileUploadModule,
   FormsModule,
   NgbModule,
   NgxPaginationModule,
@@ -61,6 +66,7 @@ const COMPONENTS = [
   PaginationComponent,
   SearchFormComponent,
   ThumbnailComponent,
+  UploadFilesComponent,
   WrapperListElementComponent
 ];
 

@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-12">
+    <div ng2FileDrop
+         [ngClass]="{'ds-nv-file-over': hasBaseDropZoneOver}"
+         (fileOver)="fileOverBase($event)"
+         [uploader]="uploader"
+         class="well ds-my-drop-zone text-muted">
+      <p [hidden]="uploader?.queue?.length != 0">
+        <span><i class="fa fa-cloud-upload" aria-hidden="true"></i> Drag & Drop your files here or </span>
+        <label class="ds-my-drop-zone-upload-button">
+          <input type="file" ng2FileSelect [uploader]="uploader" multiple  />
+          browse
+        </label>
+      </p>
+      <div *ngIf="hasBaseDropZoneOver || uploader?.queue?.length != 0">
+        <div class="ds-my-drop-zone-upload-item">
+          <div class="upload-item-top">
+            <span class="filename">Queue length: {{ uploader?.queue?.length }} | {{ uploader?.queue[0]?.file.name }}</span>
+            <div class="btn-group btn-group-sm ds-my-drop-zone-float-right" role="group">
+              <button type="button" class="btn btn-danger" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </div>
+            <span class="ds-my-drop-zone-float-right ds-my-drop-zone-progress-data">{{ uploader.progress }}%</span>
+          </div>
+          <div class="ds-my-drop-zone-progress">
+            <div class="progress-bar"
+                 role="progressbar"
+                 style="height: 5px; width: 0;"
+                 [ngStyle]="{ 'width': uploader.progress + '%' }"
+                 [class.bg-success]="uploader.progress === 100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
