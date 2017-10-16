@@ -14,7 +14,7 @@ import { SearchFilterConfig } from './search-filter-config.model';
 import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -80,6 +80,7 @@ export class SearchService {
 
   constructor(
     private itemDataService: ItemDataService,
+    private route: ActivatedRoute,
     private router: Router) {
 
   }
@@ -195,6 +196,16 @@ export class SearchService {
       returningPageInfo,
       Observable.of(values)
     );
+  }
+
+  getViewMode(): Observable<ViewMode> {
+    return this.route.queryParams.map((params) => {
+      if (isNotEmpty(params.view) && hasValue(params.view)) {
+        return params.view;
+      } else {
+        return ViewMode.List;
+      }
+    });
   }
 
   setViewMode(viewMode: ViewMode) {
