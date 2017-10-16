@@ -10,4 +10,6 @@ import { CommunityPageComponent } from './community-page.component';
     ])
   ]
 })
-export class CommunityPageRoutingModule { }
+export class CommunityPageRoutingModule {
+
+}
