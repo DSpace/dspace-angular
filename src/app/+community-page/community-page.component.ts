@@ -9,10 +9,13 @@ import { RemoteData } from '../core/data/remote-data';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { hasValue } from '../shared/empty.util';
 
+import { fadeInOut } from '../shared/animations/fade';
+
 @Component({
   selector: 'ds-community-page',
   styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
+  animations: [fadeInOut]
 })
 export class CommunityPageComponent implements OnInit, OnDestroy {
   communityData: RemoteData<Community>;

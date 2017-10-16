@@ -13,5 +13,4 @@ export interface AppState {
 export const appReducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
   hostWindow: hostWindowReducer,
-  header: headerReducer,
 };
