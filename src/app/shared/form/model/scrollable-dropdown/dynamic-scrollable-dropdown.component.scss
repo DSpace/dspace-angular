@@ -1,0 +1,25 @@
+@import '../../form.component.scss';
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.collection-item {
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;
+}
+
+.scrollable-dropdown-loading {
+  background-color: $gray-100;
+  height: 2rem !important;
+  position: sticky;
+  bottom: 0;
+}
+
+.scrollable-dropdown-menu {
+  box-shadow: $btn-focus-box-shadow;
+  left: 0 !important;
+  margin-bottom: 1rem;
+  outline: 0;
+}

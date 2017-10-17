@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
@@ -34,11 +36,13 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { FormModule } from './form/form.module';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 
+
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
   FormModule,
   FormsModule,
+  InfiniteScrollModule,
   NgbModule,
   NgxPaginationModule,
   ReactiveFormsModule,

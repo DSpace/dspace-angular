@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  ClsConfig, DynamicCheckboxModel, DynamicCheckboxModelConfig,
+  ClsConfig, DynamicCheckboxModel, DynamicCheckboxModelConfig, DynamicCheckControlModel,
   DynamicDatePickerModel, DynamicDatePickerModelConfig, DynamicEditorModel, DynamicEditorModelConfig,
   DynamicFileUploadModel, DynamicFileUploadModelConfig,
   DynamicFormControlModel,
@@ -17,6 +17,12 @@ import {
 import AUTHORITY from '../../../backend/data/authority.json';
 import { DynamicTypeaheadModel, DynamicTypeaheadModelConfig } from './model/typeahead/dynamic-typeahead.model';
 import { Observable } from 'rxjs/Observable';
+import {
+  DynamicScrollableDropdownModel,
+  DynamicScrollableDropdownModelConfig
+} from './model/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { isUndefined } from '../empty.util';
 
 export const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -30,7 +36,7 @@ export const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkans
 @Injectable()
 export class FormService extends DynamicFormService {
 
-  fromConfiguration(json: string | any[]): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | any[]): DynamicFormControlModel[] | never {
 
     const raw = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
     const group: DynamicFormControlModel[] = [];
@@ -39,9 +45,9 @@ export class FormService extends DynamicFormService {
         // selectableMetadata > 1 può essere attaccato a più campi : onebox, twobox
       switch (fieldData.input.type) {
         case 'date':
-          const inputDateModel: DynamicDatePickerModel = Object.create(null);
-          this.getCommonProperties<DynamicDatePickerModel>(inputDateModel, fieldData);
-          inputDateModel.toggleIcon = 'fa fa-calendar';
+          const inputDateModelConfig: DynamicDatePickerModelConfig = this.getModelConfig(fieldData);
+
+          inputDateModelConfig.toggleIcon = 'fa fa-calendar';
           cls = {
             element: {
               container: 'p-0',
@@ -52,8 +58,8 @@ export class FormService extends DynamicFormService {
             }
           };
           const datePickerGroup: DynamicFormGroupModel = Object.create(null);
-          datePickerGroup.id = inputDateModel.id + '_group';
-          datePickerGroup.group = [new DynamicDatePickerModel(inputDateModel, cls)];
+          datePickerGroup.id = inputDateModelConfig.id + '_group';
+          datePickerGroup.group = [new DynamicDatePickerModel(inputDateModelConfig, cls)];
           cls = {
             element: {
               control: 'form-row'
@@ -63,14 +69,30 @@ export class FormService extends DynamicFormService {
           break;
 
         case 'dropdown':
-          // se l'authority ha scrollable true -> select (aggiungere search paginato)
+          // se l'authority ha scrollable true -> select (aggiungere retrieveOptions paginato)
           // select, eccezione se non scrollable
-          const dropdownSelectModel: DynamicSelectModelConfig<any> = Object.create(null);
-          this.getCommonProperties<DynamicSelectModelConfig<any>>(dropdownSelectModel, fieldData);
-          group.push(new DynamicSelectModel(dropdownSelectModel));
+          const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.getModelConfig(fieldData);
+          dropdownModelConfig.retrieveOptions = this.getPagedAuthority;
+          cls = {
+            element: {
+              control: 'col'
+            },
+            grid: {
+              host: 'col'
+            }
+          };
+          const dropdownGroup: DynamicFormGroupModel = Object.create(null);
+          dropdownGroup.id = dropdownModelConfig.id + '_group';
+          dropdownGroup.group = [new DynamicScrollableDropdownModel(dropdownModelConfig, cls)];
+          cls = {
+            element: {
+              control: 'form-row'
+            }
+          };
+          group.push(new DynamicFormGroupModel(dropdownGroup, cls));
           break;
         case 'lookup':
-            // se l'authority ha scrollable false search true -> pulsante di ricerca (authority lenta) [num. char = -1]
+            // se l'authority ha scrollable false retrieveOptions true -> pulsante di ricerca (authority lenta) [num. char = -1]
             break;
         case 'onebox':
           // se l'authority ha scrollable false -> autocomplete [num caratteri minimo > 0]
@@ -81,13 +103,12 @@ export class FormService extends DynamicFormService {
               .slice(0, fieldData.selectableMetadata[0].metadata.split('.').length - 1)
               .join('.');
 
-            const inputSelectGroup: DynamicFormGroupModelConfig = Object.create(null);
+            const inputSelectGroup: DynamicFormGroupModel = Object.create(null);
             inputSelectGroup.id = newId.replace(/\./g, '_') + '_group';
             inputSelectGroup.group = [];
             inputSelectGroup.legend = fieldData.label;
-            const selectModel: DynamicSelectModelConfig<any> = Object.create(null);
-            this.getCommonProperties<DynamicSelectModelConfig<any>>(selectModel, fieldData,  newId + '.metadata');
 
+            const selectModelConfig: DynamicSelectModelConfig<any> = this.getModelConfig(fieldData,  newId + '.metadata');
             cls = {
               element: {
                 control: 'input-group-addon ds-form-input-addon',
@@ -96,10 +117,10 @@ export class FormService extends DynamicFormService {
                 host: 'col-sm-4 pr-0'
               }
             };
-            inputSelectGroup.group.push(new DynamicSelectModel(selectModel, cls));
+            inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, cls));
 
-            const inputModel: DynamicInputModel = Object.create(null);
-            this.getCommonProperties<DynamicInputModel>(inputModel, fieldData, newId + '.value', true, true);
+            fieldData.selectableMetadata = [];
+            const inputModelConfig: DynamicInputModelConfig = this.getModelConfig(fieldData, newId + '.value', true, true);;
             cls = {
               element: {
                 control: 'ds-form-input-value',
@@ -108,7 +129,8 @@ export class FormService extends DynamicFormService {
                 host: 'col-sm-8 pl-0'
               }
             };
-            inputSelectGroup.group.push(new DynamicInputModel(inputModel, cls));
+
+            inputSelectGroup.group.push(new DynamicInputModel(inputModelConfig, cls));
             cls = {
               element: {
                 control: 'form-row',
@@ -117,21 +139,26 @@ export class FormService extends DynamicFormService {
             group.push(new DynamicFormGroupModel(inputSelectGroup, cls));
           } else if (fieldData.selectableMetadata[0].authority) {
             /* const selectModelConfig: DynamicSelectModelConfig<any> = Object.create(null);
-            this.getCommonProperties(selectModelConfig, fieldData);*/
-            const typeaheadModelConfig: DynamicTypeaheadModelConfig = Object.create(null);
-            this.getCommonProperties<DynamicTypeaheadModelConfig>(typeaheadModelConfig, fieldData);
+            this.getModelConfig(selectModelConfig, fieldData);*/
+            const typeaheadModelConfig: DynamicTypeaheadModelConfig = this.getModelConfig(fieldData);
             typeaheadModelConfig.search = this.search;
             typeaheadModelConfig.value = '';
             typeaheadModelConfig.minChars = 3;
             group.push(new DynamicTypeaheadModel(typeaheadModelConfig));
           } else {
-            const inputModel: DynamicInputModelConfig = Object.create(null);
-            this.getCommonProperties<DynamicInputModelConfig>(inputModel, fieldData);
-            group.push(new DynamicInputModel(inputModel));
+            const inputModelConfig: DynamicInputModelConfig = this.getModelConfig(fieldData);
+            group.push(new DynamicInputModel(inputModelConfig));
           }
           break;
         case 'list':
-          // repeatable -> check box altrimenti radio
+          if (fieldData.repeatable ) {
+            const checkboxModelConfig: DynamicCheckboxModelConfig = this.getModelConfig(fieldData);
+            group.push(new DynamicCheckboxModel(checkboxModelConfig));
+            // repeatable -> check box altrimenti radio
+          } else {
+            const radioModelConfig: DynamicRadioGroupModelConfig<any> = this.getModelConfig(fieldData);
+            group.push(new DynamicRadioGroupModel(radioModelConfig));
+          }
           // se non scrollable eccezione
           // verificare numero elementi
           break;
@@ -144,8 +171,7 @@ export class FormService extends DynamicFormService {
           break;
 
         case 'textarea':
-          const inputTextModel: DynamicTextAreaModelConfig = Object.create(null);
-          this.getCommonProperties<DynamicTextAreaModelConfig>(inputTextModel, fieldData);
+          const inputTextModel: DynamicTextAreaModelConfig = this.getModelConfig(fieldData);
           cls = {
             element: {
               label: 'col-form-label'
@@ -166,85 +192,85 @@ export class FormService extends DynamicFormService {
     return group;
   }
 
-  protected getCommonProperties<T>(
-    inputModel: any,
+  protected getModelConfig(
     configData: any,
     id?: string,
     label = true,
-    labelEmpty = false): FormInputModelType {
+    labelEmpty = false) {
+
+    const controlModel = Object.create(null);
+
     // Sets input ID and name
     const inputId = id ? id : configData.selectableMetadata[0].metadata;
-    inputModel.id = (inputId).replace(/\./g, '_');
-    inputModel.name = inputId;
+    controlModel.id = (inputId).replace(/\./g, '_');
+    controlModel.name = inputId;
 
-    // if (typeof inputModel === DynamicSelectModelConfig) {
-      // Checks if field has an autorithy and sets options available
-    if (configData.selectableMetadata.length === 1 && configData.selectableMetadata[0].authority) {
-      inputModel.options = [];
+    // Checks if field has an autorithy and sets options available
+    if (configData.input.type !== 'dropdown' && configData.selectableMetadata.length === 1 && configData.selectableMetadata[0].authority) {
+      controlModel.options = [];
       this.getAuthority().forEach((option, key) => {
         if (key === 0) {
-          inputModel.value = (option.id) ? option.id : option.value
+          controlModel.value = (option.id) ? option.id : option.value
         }
-        ;
-        inputModel.options.push({label: option.display, value: (option.id) ? option.id : option.value})
+        controlModel.options.push({label: option.display, value: (option.id) ? option.id : option.value})
       });
     }
 
     // Checks if field has multiple values and sets options available
     if (configData.selectableMetadata.length > 1) {
-      inputModel.options = [];
+      controlModel.options = [];
       configData.selectableMetadata.forEach((option, key) => {
         if (key === 0) {
-          inputModel.value = option.metadata
+          controlModel.value = option.metadata
         }
-        ;
-        inputModel.options.push({label: option.label, value: option.metadata})
+        controlModel.options.push({label: option.label, value: option.metadata})
       });
     }
     // }
 
     if (label) {
-      inputModel.label = (labelEmpty) ? '&nbsp;' : configData.label;
+      controlModel.label = (labelEmpty) ? '&nbsp;' : configData.label;
     }
 
     // if (inputModel instanceof DynamicInputControlModel) {
-    inputModel.placeholder = configData.label
+    controlModel.placeholder = configData.label
     // }
 
     if (configData.mandatory) {
-      inputModel.validators = Object.assign({}, inputModel.validators, {required: null});
-      inputModel.errorMessages = Object.assign({}, inputModel.errorMessages, {required: configData.mandatoryMessage})
+      controlModel.required = true;
+      controlModel.validators = Object.assign({}, controlModel.validators, {required: null});
+      controlModel.errorMessages = Object.assign({}, controlModel.errorMessages, {required: configData.mandatoryMessage})
     }
     if (configData.value) {
-      inputModel.value = configData.value;
+      controlModel.value = configData.value;
     }
-    return inputModel;
+
+    return controlModel;
   }
 
   protected getAuthority(): any[] {
+    console.log(AUTHORITY._embedded.authorityEntryResources.length);
     return AUTHORITY._embedded.authorityEntryResources;
+  }
+
+  protected getPagedAuthority(pageInfo: PageInfo): Observable<any> {
+    if (isUndefined(pageInfo)) {
+      pageInfo = new PageInfo();
+      pageInfo.currentPage = 1;
+      pageInfo.totalElements = 50;
+      pageInfo.elementsPerPage = 10;
+      pageInfo.totalPages = 5;
+    }
+    const begin = (pageInfo.currentPage === 1) ? 0 : ((pageInfo.elementsPerPage * (pageInfo.currentPage - 1)) + 1);
+    const end = pageInfo.elementsPerPage * pageInfo.currentPage;
+    return Observable.of({
+      list: AUTHORITY._embedded.authorityEntryResources.slice(begin, end),
+      pageInfo: pageInfo
+    }).delay(2000);
   }
 
   search = (text: string) =>
     Observable.of(this.getAuthority()
-      .filter((item) => item.value.toLowerCase().indexOf(text.toLowerCase()) > -1));
+      .filter((item) => item.value.toLowerCase().indexOf(text.toLowerCase()) > -1)).delay(2000);
 
 }
-
-/**
- * Export a type alias of all actions in this action group
- * so that reducers can easily compose action types
- */
-export type FormInputModelType
-  = DynamicInputControlModelConfig<any>
-  | DynamicCheckboxModelConfig
-  | DynamicDatePickerModelConfig
-  | DynamicEditorModelConfig
-  | DynamicFileUploadModelConfig
-  | DynamicInputModelConfig
-  | DynamicRadioGroupModelConfig<any>
-  | DynamicRatingModelConfig
-  | DynamicSelectModelConfig<any>
-  | DynamicSliderModelConfig
-  | DynamicSwitchModelConfig
-  | DynamicTimePickerModelConfig

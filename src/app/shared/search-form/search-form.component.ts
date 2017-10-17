@@ -18,7 +18,7 @@ import { Observable } from 'rxjs/Observable';
 export class SearchFormComponent {
   @Input() query: string;
   selectedId = '';
-  // Optional existing search parameters
+  // Optional existing retrieveOptions parameters
   @Input() currentParams: {};
   @Input() scopes: Observable<DSpaceObject[]>;
 
@@ -37,7 +37,7 @@ export class SearchFormComponent {
   }
 
   updateSearch(data: any) {
-    this.router.navigate(['/search'], {
+    this.router.navigate(['/retrieveOptions'], {
       queryParams: Object.assign({}, this.currentParams,
         {
           query: data.query,

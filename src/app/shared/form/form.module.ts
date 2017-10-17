@@ -5,8 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormsCoreModule, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { TextMaskModule } from 'angular2-text-mask';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { FormComponent } from './form.component';
 import {
@@ -16,11 +17,13 @@ import {
   DsDynamicFormComponent
 } from './ds-ui-ng-bootstrap/ds-dynamic-form.component';
 import { DsDynamicTypeaheadComponent } from './model/typeahead/dynamic-typeahead.component';
+import { DsDynamicScrollableDropdownComponent } from './model/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
+    InfiniteScrollModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
     NgbDatepickerModule.forRoot(),
@@ -33,12 +36,14 @@ import { DsDynamicTypeaheadComponent } from './model/typeahead/dynamic-typeahead
   declarations: [
     DsDynamicFormComponent,
     DsDynamicFormControlComponent,
+    DsDynamicScrollableDropdownComponent,
     DsDynamicTypeaheadComponent,
     FormComponent,
   ],
   exports: [
     DsDynamicFormComponent,
     DsDynamicFormControlComponent,
+    DsDynamicScrollableDropdownComponent,
     DsDynamicTypeaheadComponent,
     FormComponent
   ],

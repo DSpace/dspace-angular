@@ -30,7 +30,7 @@ export class DsDynamicTypeaheadComponent {
    */
   @Output() selectItem = new EventEmitter<any>();
 
-  searching = true;
+  searching = false;
   searchFailed = false;
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   value: any;
@@ -57,13 +57,13 @@ export class DsDynamicTypeaheadComponent {
       .do(() => this.searching = false)
       .merge(this.hideSearchingWhenUnsubscribed);
 
-  onSelectItem(event: NgbTypeaheadSelectItemEvent) {
-    console.log(this.group);
-    if (event.item.id) {
-      this.group.controls[this.model.id].setValue(event.item.id);
-    } else if (event.item.value) {
-      this.group.controls[this.model.id].setValue(event.item.value);
+  onInput(event) {
+    if (event.data) {
+      this.group.markAsDirty();
     }
-    console.log(this.group);
+  }
+
+  onSelectItem(event: NgbTypeaheadSelectItemEvent) {
+    this.group.controls[this.model.id].setValue(event.item);
   }
 }

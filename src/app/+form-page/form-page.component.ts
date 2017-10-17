@@ -19,7 +19,7 @@ export class FormPageComponent implements OnInit {
   constructor(private formService: FormService) {}
 
   ngOnInit() {
-    this.formModel = this.formService.fromConfiguration(this.definition);
+    this.formModel = this.formService.modelFromConfiguration(this.definition);
     // this.formModel = MY_DYNAMIC_FORM_MODEL;
   }
 }
@@ -30,7 +30,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {
-  DynamicTypeaheadModel,
+  DynamicScrollableDropdownModel,
   DynamicTypeaheadModelConfig
 } from '../shared/form/model/typeahead/dynamic-typeahead.model';
 
@@ -50,7 +50,7 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
 export class FormPageComponent {
   config: DynamicTypeaheadModelConfig = {
     id: 'test',
-    /*search: (text: string) => {
+    /*retrieveOptions: (text: string) => {
       let returnValue: any;
       setTimeout(() => {
         returnValue = Observable.of(
@@ -58,11 +58,11 @@ export class FormPageComponent {
       }, 2000);
       return returnValue;
     },
-    search: (text: string) =>
+    retrieveOptions: (text: string) =>
       Observable.of(
         states.filter((v) => v.toLowerCase().indexOf(text.toLowerCase()) > -1))
   }
-  public model: DynamicTypeaheadModel = new DynamicTypeaheadModel(this.config);
+  public model: DynamicScrollableDropdownModel = new DynamicScrollableDropdownModel(this.config);
   public value;
 
 }*/

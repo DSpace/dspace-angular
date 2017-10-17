@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 import { promise } from 'selenium-webdriver';
 
 export class ProtractorPage {
-  SEARCH = '/search';
+  SEARCH = '/retrieveOptions';
 
   navigateToSearch() {
     return browser.get(this.SEARCH);
@@ -33,7 +33,7 @@ export class ProtractorPage {
   }
 
   submitSearchForm() {
-    element(by.css('button.search-button')).click();
+    element(by.css('button.retrieveOptions-button')).click();
   }
 
   getRandomScopeOption(): promise.Promise<string> {

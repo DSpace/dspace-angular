@@ -1,6 +1,24 @@
-#labeltype {
-  color: #666;
-  top: 2px;
-  right: 5px;
-  position: absolute;
+@import "../../../../../styles/_variables.scss";
+
+/* enable absolute positioning */
+.spinner-addon {
+  position: relative;
 }
+
+/* style fa-spin */
+.spinner-addon .fa-spin {
+  color: map-get($theme-colors, primary);
+  position: absolute;
+  margin-top: 3px;
+  padding: 0;
+  pointer-events: none;
+}
+
+/* align fa-spin */
+.left-addon .fa-spin  { left:  0px;}
+.right-addon .fa-spin { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+

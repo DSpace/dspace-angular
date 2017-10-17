@@ -4,7 +4,7 @@
 
     <label *ngIf="type !== 3 && model.label"
            [attr.for]="model.id"
-           [innerHTML]="model.label"
+           [innerHTML]="model.required? model.label + ' *' : model.label"
            [ngClass]="[model.cls.element.label, model.cls.grid.label]"></label>
 
 
@@ -222,6 +222,14 @@
             </ng-container>
 
 
+            <ng-container *ngSwitchCase="13">
+                <ng-container *ngTemplateOutlet="scrollableDropdownTemplate;
+                                                 context:{bindId: bindId, model: model, showErrorMessages: showErrorMessages}">
+
+                </ng-container>
+            </ng-container>
+
+
             <small *ngIf="hasHint" class="text-muted" [innerHTML]="model.hint"
                    [ngClass]="model.cls.element.hint"></small>
 
@@ -291,6 +299,14 @@
                                   [model]="model"
                                   [showErrorMessages]="showErrorMessages"
                                   (selectItem)="onValueChange($event)"></ds-dynamic-typeahead>
+        </ng-template>
+
+        <ng-template #scrollableDropdownTemplate let-bindId="bindId" let-model="model" let-showErrorMessages="showErrorMessages">
+          <ds-dynamic-scrollable-dropdown [bindId]="bindId"
+                                [group]="group"
+                                [model]="model"
+                                [showErrorMessages]="showErrorMessages"
+                                (selectItem)="onValueChange($event)"></ds-dynamic-scrollable-dropdown>
         </ng-template>
 
     </div>

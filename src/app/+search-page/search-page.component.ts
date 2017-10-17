@@ -42,7 +42,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     this.scopeList = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'search-results-pagination';
+    pagination.id = 'retrieveOptions-results-pagination';
     pagination.currentPage = 1;
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
@@ -82,7 +82,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   }
 
   private updateSearchResults(searchOptions) {
-    // Resolve search results
+    // Resolve retrieveOptions results
     this.results = this.service.search(this.query, this.scope, searchOptions);
   }
 

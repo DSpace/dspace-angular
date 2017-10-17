@@ -4603,6 +4603,10 @@ ngrx-store-freeze@0.2.0:
   dependencies:
     deep-freeze-strict "^1.1.1"
 
+ngx-infinite-scroll@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-0.5.2.tgz#f31aefc5e78e6b352e68f286f16c4dead180d43c"
+
 ngx-pagination@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/ngx-pagination/-/ngx-pagination-3.0.1.tgz#5a8000e40c0424d9c41c9d6d592562e1547abf24"
