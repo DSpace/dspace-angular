@@ -53,10 +53,12 @@ export class BrowseService extends HALEndpointService {
         .map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
           .find((def: BrowseDefinition) => {
             const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
-            return matchingKeys.length > 0
+            return isNotEmpty(matchingKeys);
           })
-        ).map((def: BrowseDefinition) => def._links[linkName])
-      );
+        ).filter((def: BrowseDefinition) => isNotEmpty(def) && isNotEmpty(def._links))
+        .map((def: BrowseDefinition) => def._links[linkName])
+      ).startWith(undefined)
+      .distinctUntilChanged();
   }
 
 }
