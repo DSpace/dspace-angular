@@ -12,6 +12,8 @@ import { Bitstream } from '../core/shared/bitstream.model';
 import { Collection } from '../core/shared/collection.model';
 import { Item } from '../core/shared/item.model';
 
+import { MetadataService } from '../core/metadata/metadata.service';
+
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
@@ -35,9 +37,12 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
   private collectionId: string;
 
-  constructor(private collectionDataService: CollectionDataService,
-              private itemDataService: ItemDataService,
-              private route: ActivatedRoute) {
+  constructor(
+    private collectionDataService: CollectionDataService,
+    private itemDataService: ItemDataService,
+    private metadata: MetadataService,
+    private route: ActivatedRoute
+  ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
     this.paginationConfig.pageSize = 5;
@@ -50,12 +55,13 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
       Observable.combineLatest(
         this.route.params,
         this.route.queryParams,
-        (params, queryParams,) => {
+        (params, queryParams, ) => {
           return Object.assign({}, params, queryParams);
         })
         .subscribe((params) => {
           this.collectionId = params.id;
           this.collectionData = this.collectionDataService.findById(this.collectionId);
+          this.metadata.processRemoteData(this.collectionData);
           this.subs.push(this.collectionData.payload.subscribe((collection) => this.logoData = collection.logo));
 
           const page = +params.page || this.paginationConfig.currentPage;

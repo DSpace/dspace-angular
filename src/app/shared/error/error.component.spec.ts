@@ -4,7 +4,7 @@ import { DebugElement } from '@angular/core';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 
-import { MockTranslateLoader } from '../testing/mock-translate-loader';
+import { MockTranslateLoader } from '../mocks/mock-translate-loader';
 
 import { ErrorComponent } from './error.component';
 
@@ -25,8 +25,8 @@ describe('ErrorComponent (inline template)', () => {
           }
         }),
       ],
-      declarations: [ ErrorComponent ], // declare the test component
-      providers: [ TranslateService ]
+      declarations: [ErrorComponent], // declare the test component
+      providers: [TranslateService]
     }).compileComponents();  // compile template and css
   }));
 

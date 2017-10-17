@@ -8,6 +8,8 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 
 import { Item } from '../../core/shared/item.model';
 
+import { MetadataService } from '../../core/metadata/metadata.service';
+
 import { fadeInOut } from '../../shared/animations/fade';
 
 /**
@@ -32,7 +34,11 @@ export class ItemPageComponent implements OnInit {
 
   thumbnail: Observable<Bitstream>;
 
-  constructor(private route: ActivatedRoute, private items: ItemDataService) {
+  constructor(
+    private route: ActivatedRoute,
+    private items: ItemDataService,
+    private metadataService: MetadataService
+  ) {
 
   }
 
@@ -45,6 +51,7 @@ export class ItemPageComponent implements OnInit {
   initialize(params) {
     this.id = +params.id;
     this.item = this.items.findById(params.id);
+    this.metadataService.processRemoteData(this.item);
     this.thumbnail = this.item.payload.flatMap((i) => i.getThumbnail());
   }
 

@@ -10,4 +10,6 @@ import { CollectionPageComponent } from './collection-page.component';
     ])
   ]
 })
-export class CollectionPageRoutingModule { }
+export class CollectionPageRoutingModule {
+
+}
