@@ -1,20 +1,45 @@
-import { CollectionDataService } from './collection-data.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
-import { GlobalConfig } from '../../../config';
-import { CommunityDataService } from './community-data.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { FindByIDRequest } from './request.models';
-import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { TestScheduler } from 'rxjs/Rx';
+import { GlobalConfig } from '../../../config';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { NormalizedCommunity } from '../cache/models/normalized-community.model';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { CoreState } from '../core.reducers';
+import { ComColDataService } from './comcol-data.service';
+import { CommunityDataService } from './community-data.service';
+import { FindByIDRequest } from './request.models';
+import { RequestService } from './request.service';
 
-describe('CollectionDataService', () => {
+const LINK_NAME = 'test';
+
+/* tslint:disable:max-classes-per-file */
+class NormalizedTestObject implements CacheableObject {
+  self: string;
+}
+
+class TestService extends ComColDataService<NormalizedTestObject, any> {
+  protected linkName = LINK_NAME;
+
+  constructor(
+    protected responseCache: ResponseCacheService,
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected store: Store<CoreState>,
+    protected EnvConfig: GlobalConfig,
+    protected cds: CommunityDataService,
+    protected objectCache: ObjectCacheService
+  ) {
+    super(NormalizedTestObject);
+  }
+}
+/* tslint:enable:max-classes-per-file */
+
+describe('ComColDataService', () => {
   let scheduler: TestScheduler;
-  let service: CollectionDataService;
+  let service: TestService;
   let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let cds: CommunityDataService;
@@ -27,7 +52,7 @@ describe('CollectionDataService', () => {
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const communitiesEndpoint = 'https://rest.api/core/communities';
   const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
-  const scopedCollectionsEndpoint = `${communityEndpoint}/collections`;
+  const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
 
   function initMockCommunityDataService(): CommunityDataService {
     return jasmine.createSpyObj('responseCache', {
@@ -53,15 +78,15 @@ describe('CollectionDataService', () => {
       getByUUID: cold('d-', {
         d: {
           _links: {
-            collections: scopedCollectionsEndpoint
+            [LINK_NAME]: scopedEndpoint
           }
         }
       })
     });
   }
 
-  function initTestCollectionDataService(): CollectionDataService {
-    return new CollectionDataService(
+  function initTestService(): TestService {
+    return new TestService(
       responseCache,
       requestService,
       rdbService,
@@ -77,12 +102,12 @@ describe('CollectionDataService', () => {
       scheduler = getTestScheduler();
     });
 
-    it('should configure a new FindByIDRequest for the scope Community', (done) => {
+    it('should configure a new FindByIDRequest for the scope Community', (done: DoneFn) => {
       cds = initMockCommunityDataService();
       requestService = initMockRequestService();
       objectCache = initMockObjectCacheService();
       responseCache = initMockResponceCacheService(true);
-      service = initTestCollectionDataService();
+      service = initTestService();
 
       const expected = new FindByIDRequest(communityEndpoint, scopeID);
 
@@ -101,7 +126,7 @@ describe('CollectionDataService', () => {
         requestService = initMockRequestService();
         objectCache = initMockObjectCacheService();
         responseCache = initMockResponceCacheService(true);
-        service = initTestCollectionDataService();
+        service = initTestService();
       });
 
       it('should fetch the scope Community from the cache', () => {
@@ -110,9 +135,9 @@ describe('CollectionDataService', () => {
         expect(objectCache.getByUUID).toHaveBeenCalledWith(scopeID, NormalizedCommunity);
       });
 
-      it('should return the endpoint to fetch collections within the given scope', () => {
+      it('should return the endpoint to fetch resources within the given scope', () => {
         const result = service.getScopedEndpoint(scopeID);
-        const expected = cold('--e-', { e: scopedCollectionsEndpoint });
+        const expected = cold('--e-', { e: scopedEndpoint });
 
         expect(result).toBeObservable(expected);
       });
@@ -124,7 +149,7 @@ describe('CollectionDataService', () => {
         requestService = initMockRequestService();
         objectCache = initMockObjectCacheService();
         responseCache = initMockResponceCacheService(false);
-        service = initTestCollectionDataService();
+        service = initTestService();
       });
 
       it('should throw an error', () => {

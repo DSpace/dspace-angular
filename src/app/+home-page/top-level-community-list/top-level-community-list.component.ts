@@ -41,7 +41,5 @@ export class TopLevelCommunityListComponent {
       elementsPerPage: data.pageSize,
       sort: { field: data.sortField, direction: data.sortDirection }
     });
-    this.cds.getScopedEndpoint('7669c72a-3f2a-451f-a3b9-9210e7a4c02f')
-      .subscribe((c) => console.log('communities', c))
   }
 }

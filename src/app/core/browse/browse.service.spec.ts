@@ -142,7 +142,7 @@ describe('BrowseService', () => {
         expect(result).toBeObservable(expected);
       });
 
-      it('should configure a new BrowseEndpointRequest', (done) => {
+      it('should configure a new BrowseEndpointRequest', (done: DoneFn) => {
         const metadatumKey = 'dc.date.issued';
         const linkName = 'items';
         const expected = new BrowseEndpointRequest(browsesEndpointURL);

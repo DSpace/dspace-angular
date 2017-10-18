@@ -21,7 +21,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   protected abstract EnvConfig: GlobalConfig;
 
   constructor(
-    private normalizedResourceType: GenericConstructor<TNormalized>,
+    protected normalizedResourceType: GenericConstructor<TNormalized>,
   ) {
     super();
   }
