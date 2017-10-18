@@ -30,6 +30,7 @@ import { Item } from '../../core/shared/item.model';
 
 import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
+import { BrowseService } from '../browse/browse.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -111,6 +112,7 @@ describe('MetadataService', () => {
         Meta,
         Title,
         ItemDataService,
+        BrowseService,
         MetadataService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

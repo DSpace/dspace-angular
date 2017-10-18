@@ -2,11 +2,13 @@ import { BrowseService } from './browse.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { GlobalConfig } from '../../../config';
-import { hot, cold } from 'jasmine-marbles';
+import { hot, cold, getTestScheduler } from 'jasmine-marbles';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEndpointRequest } from '../data/request.models';
+import { TestScheduler } from 'rxjs/Rx';
 
-fdescribe('BrowseService', () => {
+describe('BrowseService', () => {
+  let scheduler: TestScheduler;
   let service: BrowseService;
   let responseCache: ResponseCacheService;
   let requestService: RequestService;
@@ -71,6 +73,8 @@ fdescribe('BrowseService', () => {
   ];
 
   beforeEach(() => {
+    scheduler = getTestScheduler();
+
     responseCache = jasmine.createSpyObj('responseCache', {
       get: cold('b-', {
         b: {
@@ -141,16 +145,13 @@ fdescribe('BrowseService', () => {
       it('should configure a new BrowseEndpointRequest', (done) => {
         const metadatumKey = 'dc.date.issued';
         const linkName = 'items';
-        const expectedURL = browseDefinitions[0]._links[linkName];
-        const expectedReq = new BrowseEndpointRequest(browsesEndpointURL);
+        const expected = new BrowseEndpointRequest(browsesEndpointURL);
 
-        const result = service.getBrowseURLFor(metadatumKey, linkName);
-        const expectedObs = cold('c-d-', { c: undefined, d: expectedURL });
-
-        expect(result).toBeObservable(expectedObs);
+        scheduler.schedule(() => service.getBrowseURLFor(metadatumKey, linkName).subscribe());
+        scheduler.flush();
 
         setTimeout(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(expectedReq);
+          expect(requestService.configure).toHaveBeenCalledWith(expected);
           done();
         }, 0);
 
