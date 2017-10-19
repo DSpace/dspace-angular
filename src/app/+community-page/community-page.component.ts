@@ -9,6 +9,8 @@ import { RemoteData } from '../core/data/remote-data';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { hasValue } from '../shared/empty.util';
 
+import { MetadataService } from '../core/metadata/metadata.service';
+
 import { fadeInOut } from '../shared/animations/fade';
 
 @Component({
@@ -24,6 +26,7 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private communityDataService: CommunityDataService,
+    private metadata: MetadataService,
     private route: ActivatedRoute
   ) {
 
@@ -32,15 +35,13 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.communityData = this.communityDataService.findById(params.id);
-      this.subs.push(this.communityData.payload
-        .subscribe((community) => this.logoData = community.logo));
+      this.metadata.processRemoteData(this.communityData);
+      this.subs.push(this.communityData.payload.subscribe((community) => this.logoData = community.logo));
     });
   }
 
   ngOnDestroy(): void {
-    this.subs
-      .filter((sub) => hasValue(sub))
-      .forEach((sub) => sub.unsubscribe());
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
 }

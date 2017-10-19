@@ -22,15 +22,10 @@ export class NormalizedBitstream extends NormalizedDSpaceObject {
   content: string;
 
   /**
-   * The mime type of this Bitstream
-   */
-  @autoserialize
-  mimetype: string;
-
-  /**
    * The format of this Bitstream
    */
   @autoserialize
+  @relationship(ResourceType.BitstreamFormat, false)
   format: string;
 
   /**
