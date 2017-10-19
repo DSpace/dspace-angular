@@ -1,4 +1,4 @@
-@import '../../form.component.scss';
+@import '../../../form.component';
 
 .scrollable-menu {
   height: auto;
@@ -11,15 +11,15 @@
 }
 
 .scrollable-dropdown-loading {
-  background-color: $gray-100;
+  background-color: map-get($theme-colors, primary);
+  color: white;
   height: 2rem !important;
+  line-height: 2rem;
   position: sticky;
   bottom: 0;
 }
 
 .scrollable-dropdown-menu {
-  box-shadow: $btn-focus-box-shadow;
   left: 0 !important;
   margin-bottom: 1rem;
-  outline: 0;
 }

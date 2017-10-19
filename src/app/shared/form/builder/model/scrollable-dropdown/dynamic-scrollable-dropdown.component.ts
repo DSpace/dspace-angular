@@ -1,11 +1,8 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, Input, OnInit } from '@angular/core';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { Jsonp, URLSearchParams } from '@angular/http';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { isNull, isUndefined } from '../../../empty.util';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { isNull, isUndefined } from '../../../../empty.util';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -23,7 +20,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
   public optionsList: any;
 
   ngOnInit() {
-    this.model.retrieveOptions(this.pageInfo)
+    this.model.retrieve(this.pageInfo)
       .subscribe((object) => {
         this.optionsList = object.list;
         this.pageInfo = object.pageInfo;
@@ -31,7 +28,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
   }
 
   public formatItemForInput(item: any): string {
-    if (isUndefined(item) || isNull(item)) { return '' };
+    if (isUndefined(item) || isNull(item)) { return '' }
     return (typeof item === 'string') ? item : this.inputFormatter(item);
   }
 
@@ -41,7 +38,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
       this.loading = true;
       this.pageInfo.currentPage++;
-      this.model.retrieveOptions(this.pageInfo)
+      this.model.retrieve(this.pageInfo)
         .map((object) => {
           this.optionsList = this.optionsList.concat(object.list);
           this.pageInfo = object.pageInfo;

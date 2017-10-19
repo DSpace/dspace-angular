@@ -12,12 +12,14 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { FormComponent } from './form.component';
 import {
   DsDynamicFormControlComponent
-} from './ds-ui-ng-bootstrap/ds-dynamic-form-control.component';
+} from './builder/ds-dynamic-form-ui/ds-dynamic-form-control.component';
 import {
   DsDynamicFormComponent
-} from './ds-ui-ng-bootstrap/ds-dynamic-form.component';
-import { DsDynamicTypeaheadComponent } from './model/typeahead/dynamic-typeahead.component';
-import { DsDynamicScrollableDropdownComponent } from './model/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+} from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
+import { DsDynamicTypeaheadComponent } from './builder/model/typeahead/dynamic-typeahead.component';
+import { DsDynamicScrollableDropdownComponent } from './builder/model/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { FormService } from './form.service';
+import { FormBuilderService } from './builder/form-builder.service';
 
 @NgModule({
   imports: [
@@ -51,6 +53,8 @@ import { DsDynamicScrollableDropdownComponent } from './model/scrollable-dropdow
     BaseRequestOptions,
     DynamicFormService,
     DynamicFormValidationService,
+    FormService,
+    FormBuilderService
   ]
 })
 export class FormModule {}

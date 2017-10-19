@@ -1,4 +1,4 @@
-@import "../../../../../styles/_variables.scss";
+@import "../../../../../../styles/variables";
 
 /* enable absolute positioning */
 .spinner-addon {
@@ -22,3 +22,14 @@
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
 
+:host /deep/ .dropdown-menu {
+  width: 100% !important;
+}
+
+:host /deep/ .dropdown-item.active,
+:host /deep/ .dropdown-item:active,
+:host /deep/ .dropdown-item:focus,
+:host /deep/ .dropdown-item:hover {
+  color: $dropdown-link-hover-color !important;
+  background-color: $dropdown-link-hover-bg !important;
+}

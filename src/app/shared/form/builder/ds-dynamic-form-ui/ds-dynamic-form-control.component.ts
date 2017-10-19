@@ -52,7 +52,7 @@ export const enum NGBootstrapFormControlType {
 
 @Component({
     selector: 'ds-dynamic-form-control',
-    styleUrls: ['../form.component.scss'],
+    styleUrls: ['../../form.component.scss'],
     templateUrl: './ds-dynamic-form-control.component.html'
 })
 export class DsDynamicFormControlComponent extends DynamicFormControlComponent implements OnChanges {
