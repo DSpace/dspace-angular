@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { animate, state, transition, trigger, style, keyframes } from '@angular/animations';
+import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
 import { ItemPageComponent } from '../simple/item-page.component';
 import { Metadatum } from '../../core/shared/metadatum.model';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { ActivatedRoute } from '@angular/router';
+
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
+
+import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 
@@ -30,8 +32,8 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
   metadata: Observable<Metadatum[]>;
 
-  constructor(route: ActivatedRoute, items: ItemDataService) {
-    super(route, items);
+  constructor(route: ActivatedRoute, items: ItemDataService, metadataService: MetadataService) {
+    super(route, items, metadataService);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/

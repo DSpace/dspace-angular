@@ -4,7 +4,7 @@ import { DebugElement } from '@angular/core';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 
-import { MockTranslateLoader } from '../testing/mock-translate-loader';
+import { MockTranslateLoader } from '../mocks/mock-translate-loader';
 
 import { LoadingComponent } from './loading.component';
 
@@ -25,8 +25,8 @@ describe('LoadingComponent (inline template)', () => {
           }
         }),
       ],
-      declarations: [ LoadingComponent ], // declare the test component
-      providers: [ TranslateService ]
+      declarations: [LoadingComponent], // declare the test component
+      providers: [TranslateService]
     }).compileComponents();  // compile template and css
   }));
 

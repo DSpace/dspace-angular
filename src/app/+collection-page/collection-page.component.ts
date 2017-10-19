@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
+import { PageInfo } from '../core/shared/page-info.model';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Collection } from '../core/shared/collection.model';
@@ -18,8 +20,8 @@ import { Item } from '../core/shared/item.model';
 import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { hasValue, isNotEmpty, isUndefined } from '../shared/empty.util';
-import { PageInfo } from '../core/shared/page-info.model';
-import { Observable } from 'rxjs/Observable';
+
+import { MetadataService } from '../core/metadata/metadata.service';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 
@@ -41,9 +43,12 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
   private collectionId: string;
 
-  constructor(private collectionDataService: CollectionDataService,
-              private itemDataService: ItemDataService,
-              private route: ActivatedRoute) {
+  constructor(
+    private collectionDataService: CollectionDataService,
+    private itemDataService: ItemDataService,
+    private metadata: MetadataService,
+    private route: ActivatedRoute
+  ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
     this.paginationConfig.pageSizeOptions = [4];
@@ -57,12 +62,13 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
       Observable.combineLatest(
         this.route.params,
         this.route.queryParams,
-        (params, queryParams,) => {
+        (params, queryParams, ) => {
           return Object.assign({}, params, queryParams);
         })
         .subscribe((params) => {
           this.collectionId = params.id;
           this.collectionData = this.collectionDataService.findById(this.collectionId);
+          this.metadata.processRemoteData(this.collectionData);
           this.subs.push(this.collectionData.payload.subscribe((collection) => this.logoData = collection.logo));
 
           const page = +params.page || this.paginationConfig.currentPage;
