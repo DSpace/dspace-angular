@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -31,14 +33,21 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { FormComponent } from './form/form.component';
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { FormModule } from './form/form.module';
 import { UploadFilesComponent } from './upload-files/upload-files.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
+
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
   FileUploadModule,
+  FormModule,
   FormsModule,
+  InfiniteScrollModule,
   NgbModule,
   NgxPaginationModule,
   ReactiveFormsModule,

@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
       { path: 'collections', loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
       { path: 'items', loadChildren: './+item-page/item-page.module#ItemPageModule' },
       { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
+      // { path: 'forms', loadChildren: './+form-page/form-page.module#FormPageModule' },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ])
   ],

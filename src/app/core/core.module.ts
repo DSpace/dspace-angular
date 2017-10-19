@@ -19,6 +19,8 @@ import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
+import { FormBuilderService } from '../shared/form/builder/form-builder.service';
+import { FormService } from '../shared/form/form.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ItemDataService } from './data/item-data.service';
 import { MetadataService } from './metadata/metadata.service';
@@ -51,6 +53,8 @@ const PROVIDERS = [
   CollectionDataService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
+  FormBuilderService,
+  FormService,
   HostWindowService,
   ItemDataService,
   MetadataService,

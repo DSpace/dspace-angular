@@ -1,0 +1,9 @@
+<ds-dynamic-form-control *ngFor="let controlModel of model; trackBy: trackByFn"
+                         [group]="group"
+                         [hasErrorMessaging]="controlModel.hasErrorMessages"
+                         [model]="controlModel"
+                         [ngClass]="[controlModel.cls.element.host, controlModel.cls.grid.host]"
+                         [templates]="templates"
+                         (blur)="onEvent($event, 1)"
+                         (change)="onEvent($event, 2)"
+                         (focus)="onEvent($event, 3)"></ds-dynamic-form-control>

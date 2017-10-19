@@ -1,0 +1,426 @@
+{
+  "_embedded": {
+    "authorityEntryResources": [
+      {
+        "id": "1479-9995",
+        "display": "Advances in Gastrointestinal Cancers",
+        "value": "Advances in Gastrointestinal Cancers",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": null,
+        "display": "Aiaa Flight Testing Conference",
+        "value": "Aiaa Flight Testing Conference",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0193-1857",
+        "display": "AJP - Gastrointestinal and Liver Physiology",
+        "value": "AJP - Gastrointestinal and Liver Physiology",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1050-9690",
+        "display": "Annual Symposium Proceedings- Society of Flight Test Engineers",
+        "value": "Annual Symposium Proceedings- Society of Flight Test Engineers",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "2155-9848",
+        "display": "Arthropod Management Tests",
+        "value": "Arthropod Management Tests",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0734-7510",
+        "display": "Autotestcon -IEEE-",
+        "value": "Autotestcon -IEEE-",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": null,
+        "display": "Bibliothek der gesammten deutschen National-Literatur von der ältesten bis auf die neuere Zeit",
+        "value": "Bibliothek der gesammten deutschen National-Literatur von der ältesten bis auf die neuere Zeit",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1125-3819",
+        "display": "Bruniana e Campanelliana, Ricerche filosofiche e materiali storico - testuali",
+        "value": "Bruniana e Campanelliana, Ricerche filosofiche e materiali storico - testuali",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0003-0635",
+        "display": "Bulletin - American Protestant Hospital Association",
+        "value": "Bulletin - American Protestant Hospital Association",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": null,
+        "display": "Bulletin de la Societe de l'histoire du protestantisme francais (1852)",
+        "value": "Bulletin de la Societe de l'histoire du protestantisme francais (1852)",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1051-7472",
+        "display": "Bulletin of gastrointestinal endoscopy",
+        "value": "Bulletin of gastrointestinal endoscopy",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "2090-6528",
+        "display": "Case Reports in Gastrointestinal Medicine",
+        "value": "Case Reports in Gastrointestinal Medicine",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "2214-6571",
+        "display": "Case Studies in Nondestructive Testing and Evaluation",
+        "value": "Case Studies in Nondestructive Testing and Evaluation",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1070-7212",
+        "display": "Clinical Update -American Society for Gastrointestinal Endoscopy-",
+        "value": "Clinical Update -American Society for Gastrointestinal Endoscopy-",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1466-531X",
+        "display": "Current Issues in Intestinal Microbiology",
+        "value": "Current Issues in Intestinal Microbiology",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1061-8309",
+        "display": "Defektoskopiya / Russian Journal of Nondestructive Testing",
+        "value": "Defektoskopiya / Russian Journal of Nondestructive Testing",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1864-0184",
+        "display": "Dlg Test Landwirtschaft",
+        "value": "Dlg Test Landwirtschaft",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1942-7603",
+        "display": "Drug Testing and Analysis",
+        "value": "Drug Testing and Analysis",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": null,
+        "display": "Edorium Journal of Gastrointestinal Surgery",
+        "value": "Edorium Journal of Gastrointestinal Surgery",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": null,
+        "display": "Electronic Production and Test",
+        "value": "Electronic Production and Test",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1068-7432",
+        "display": "Environmental Testing and Analysis",
+        "value": "Environmental Testing and Analysis",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1084-5984",
+        "display": "Food Testing and Analysis",
+        "value": "Food Testing and Analysis",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0302-0665",
+        "display": "Frontiers of gastrointestinal research",
+        "value": "Frontiers of gastrointestinal research",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1009-8143",
+        "display": "Fujian Analysis and Testing",
+        "value": "Fujian Analysis and Testing",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1973-5049",
+        "display": "Galenos, Rivista di filologia dei testi medici antichi",
+        "value": "Galenos, Rivista di filologia dei testi medici antichi",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1934-7820",
+        "display": "Gastrointestinal cancer research : GCR",
+        "value": "Gastrointestinal cancer research : GCR",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1179-9919",
+        "display": "Gastrointestinal Cancer: Targets and Therapy",
+        "value": "Gastrointestinal Cancer: Targets and Therapy",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0016-5107",
+        "display": "Gastrointestinal Endoscopy",
+        "value": "Gastrointestinal Endoscopy",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1052-5157",
+        "display": "Gastrointestinal Endoscopy Clinics of North America",
+        "value": "Gastrointestinal Endoscopy Clinics of North America",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1479-5248",
+        "display": "Gastrointestinal Nursing",
+        "value": "Gastrointestinal Nursing",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1475-956X",
+        "display": "Gastrointestinal Oncology",
+        "value": "Gastrointestinal Oncology",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0364-2356",
+        "display": "Gastrointestinal radiology",
+        "value": "Gastrointestinal radiology",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "2296-3774",
+        "display": "Gastrointestinal Tumors",
+        "value": "Gastrointestinal Tumors",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1090-6576",
+        "display": "Genetic Testing",
+        "value": "Genetic Testing",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1945-0265",
+        "display": "Genetic Testing and Molecular Biomarkers",
+        "value": "Genetic Testing and Molecular Biomarkers",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0149-6115",
+        "display": "Geotechnical Testing Journal",
+        "value": "Geotechnical Testing Journal",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1215-8372",
+        "display": "Hegesztestechnika",
+        "value": "Hegesztestechnika",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0018-2486",
+        "display": "Historical magazine of the Protestant Episcopal Church",
+        "value": "Historical magazine of the Protestant Episcopal Church",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "2168-2356",
+        "display": "IEEE Design and Test",
+        "value": "IEEE Design and Test",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0740-7475",
+        "display": "IEEE Design and Test of Computers",
+        "value": "IEEE Design and Test of Computers",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1530-5058",
+        "display": "International Journal of Testing",
+        "value": "International Journal of Testing",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "2296-9403",
+        "display": "Inflammatory Intestinal Diseases",
+        "value": "Inflammatory Intestinal Diseases",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1354-2575",
+        "display": "Insight - Non-Destructive Testing & Condition Monitoring",
+        "value": "Insight - Non-Destructive Testing & Condition Monitoring",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1537-3649",
+        "display": "International Journal of Gastrointestinal Cancer",
+        "value": "International Journal of Gastrointestinal Cancer",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1745-6436",
+        "display": "International Journal of Vehicle Systems Modelling and Testing",
+        "value": "International Journal of Vehicle Systems Modelling and Testing",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0890-1740",
+        "display": "International Symposium for Testing and Failure Analysis",
+        "value": "International Symposium for Testing and Failure Analysis",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1089-3539",
+        "display": "International Test Conference",
+        "value": "International Test Conference",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "1598-9100",
+        "display": "Intestinal Research",
+        "value": "Intestinal Research",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0142-064X",
+        "display": "Journal for the Study of the New Testament",
+        "value": "Journal for the Study of the New Testament",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      },
+      {
+        "id": "0143-5108",
+        "display": "Journal for the Study of the New Testament Supplement Series",
+        "value": "Journal for the Study of the New Testament Supplement Series",
+        "count": 0,
+        "otherInformation": null,
+        "parent": null
+      }
+    ]
+  },
+  "_links": {
+    "first": {
+      "href": "http://localhost:8080/dspace-spring-rest/api/integration/authoritieses/SRJournalTitle/entries?page=0&size=20"
+    },
+    "self": {
+      "href": "http://localhost:8080/dspace-spring-rest/api/integration/authoritieses/SRJournalTitle/entries"
+    },
+    "next": {
+      "href": "http://localhost:8080/dspace-spring-rest/api/integration/authoritieses/SRJournalTitle/entries?page=1&size=20"
+    },
+    "last": {
+      "href": "http://localhost:8080/dspace-spring-rest/api/integration/authoritieses/SRJournalTitle/entries?page=2&size=20"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 50,
+    "totalPages": 3,
+    "number": 0
+  }
+}

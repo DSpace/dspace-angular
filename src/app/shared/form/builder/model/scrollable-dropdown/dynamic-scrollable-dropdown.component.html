@@ -1,0 +1,35 @@
+<div ngbDropdown #sdRef="ngbDropdown" class="input-group w-100">
+  <input class="form-control"
+         [dynamicId]="bindId && model.id"
+         [ngClass]="model.cls.element.control"
+         [value]="formatItemForInput(model.value)"
+         (click)="$event.stopPropagation(); sdRef.open();">
+    <button aria-describedby="collectionControlsMenuLabel"
+            class="ds-form-input-btn  btn btn-outline-primary"
+            id="scrollableDropdownMenuButton"
+            ngbDropdownToggle ></button>
+
+  <div ngbDropdownMenu
+       class="dropdown-menu scrollable-dropdown-menu w-100"
+       aria-haspopup="true"
+       aria-expanded="false"
+       aria-labelledby="scrollableDropdownMenuButton">
+    <div class="scrollable-menu"
+         aria-labelledby="scrollableDropdownMenuButton"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         (scrolled)="onScroll()"
+         [scrollWindow]="false">
+
+      <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">No results found</button>
+      <button class="dropdown-item collection-item" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry)" title="{{ listEntry.display }}">
+        {{listEntry.value}}
+      </button>
+      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>Loading...</p></div>
+    </div>
+
+  </div>
+</div>
+
+
