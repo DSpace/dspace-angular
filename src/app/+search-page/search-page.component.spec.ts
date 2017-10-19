@@ -63,7 +63,7 @@ describe('SearchPageComponent', () => {
     expect((comp as any).scope).toBe(scopeParam);
   });
 
-  describe('when update retrieveOptions results is called', () => {
+  describe('when update search results is called', () => {
     let pagination;
     let sort;
     beforeEach(() => {
@@ -84,7 +84,7 @@ describe('SearchPageComponent', () => {
       );
     });
 
-    it('should call the retrieveOptions function of the retrieveOptions service with the right parameters', () => {
+    it('should call the search function of the search service with the right parameters', () => {
       spyOn(searchServiceObject, 'search').and.callThrough();
 
       (comp as any).updateSearchResults({

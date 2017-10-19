@@ -154,7 +154,7 @@ export class SearchService {
     const statusCode = Observable.of('200');
     const returningPageInfo = Observable.of(new PageInfo());
     return new RemoteData(
-      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/retrieveOptions'),
+      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/search'),
       requestPending,
       responsePending,
       isSuccessful,
@@ -172,7 +172,7 @@ export class SearchService {
       values.push({
         value: value,
         count: Math.floor(Math.random() * 20) + 20 * (5 - i), // make sure first results have the highest (random) count
-        search: 'https://dspace7.4science.it/dspace-spring-rest/api/retrieveOptions?f.' + searchFilterConfigName + '=' + encodeURI(value)
+        search: 'https://dspace7.4science.it/dspace-spring-rest/api/search?f.' + searchFilterConfigName + '=' + encodeURI(value)
       });
     }
     const requestPending = Observable.of(false);
@@ -182,7 +182,7 @@ export class SearchService {
     const statusCode = Observable.of('200');
     const returningPageInfo = Observable.of(new PageInfo());
     return new RemoteData(
-      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/retrieveOptions'),
+      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/search'),
       requestPending,
       responsePending,
       isSuccessful,

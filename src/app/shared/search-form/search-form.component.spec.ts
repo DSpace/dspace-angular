@@ -82,7 +82,7 @@ describe('SearchFormComponent', () => {
   //   spyOn(comp, 'updateSearch').and.callThrough();
   //   fixture.detectChanges();
   //
-  //   const submit = de.query(By.css('button.retrieveOptions-button')).nativeElement;
+  //   const submit = de.query(By.css('button.search-button')).nativeElement;
   //   const scope = '123456';
   //   const query = 'test';
   //   const select = de.query(By.css('select')).nativeElement;
