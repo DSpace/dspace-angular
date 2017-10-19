@@ -40,8 +40,13 @@ export class FormBuilderService extends DynamicFormService {
 
     const raw = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
     const group: DynamicFormControlModel[] = [];
+    let fields: any = [];
     let cls: ClsConfig;
-    raw.fields.forEach((fieldData: any) => {
+
+    raw.pages.forEach((page: any) => {
+      fields = fields.concat(page.fields);
+    });
+    fields.forEach((fieldData: any) => {
         // selectableMetadata > 1 può essere attaccato a più campi : onebox, twobox
       switch (fieldData.input.type) {
         case 'date':
