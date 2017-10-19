@@ -104,7 +104,7 @@ describe('SearchPageComponent', () => {
       (comp as any).updateSearchResults({});
 
       expect(comp.results as any).toBe(mockResults);
-      });
+    });
 
   });
 });

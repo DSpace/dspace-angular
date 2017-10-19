@@ -34,10 +34,10 @@ import Spy = jasmine.Spy;
 import { PaginationComponent } from './pagination.component';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 
-import { MockTranslateLoader } from '../testing/mock-translate-loader';
-import { HostWindowServiceStub } from '../testing/host-window-service-stub';
-import { ActivatedRouteStub } from '../testing/active-router-stub';
-import { RouterStub } from '../testing/router-stub';
+import { MockTranslateLoader } from '../mocks/mock-translate-loader';
+import { MockHostWindowService } from '../mocks/mock-host-window-service';
+import { MockActivatedRoute } from '../mocks/mock-active-router';
+import { MockRouter } from '../mocks/mock-router';
 
 import { HostWindowService } from '../host-window.service';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
@@ -45,7 +45,7 @@ import { SortOptions } from '../../core/cache/models/sort-options.model';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../../../config';
 
-function createTestComponent<T>(html: string, type: { new (...args: any[]): T }): ComponentFixture<T> {
+function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
   TestBed.overrideComponent(type, {
     set: { template: html }
   });
@@ -123,19 +123,19 @@ describe('Pagination component', () => {
   let testFixture: ComponentFixture<TestComponent>;
   let de: DebugElement;
   let html;
-  let hostWindowServiceStub: HostWindowServiceStub;
+  let hostWindowServiceStub: MockHostWindowService;
 
-  let activatedRouteStub: ActivatedRouteStub;
-  let routerStub: RouterStub;
+  let activatedRouteStub: MockActivatedRoute;
+  let routerStub: MockRouter;
 
   // Define initial state and test state
   const _initialState = { width: 1600, height: 770 };
 
   // async beforeEach
   beforeEach(async(() => {
-    activatedRouteStub = new ActivatedRouteStub();
-    routerStub = new RouterStub();
-    hostWindowServiceStub = new HostWindowServiceStub(_initialState.width);
+    activatedRouteStub = new MockActivatedRoute();
+    routerStub = new MockRouter();
+    hostWindowServiceStub = new MockHostWindowService(_initialState.width);
 
     TestBed.configureTestingModule({
       imports: [

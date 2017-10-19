@@ -15,11 +15,9 @@ export class NormalizedObjectFactory {
       case ResourceType.Bitstream: {
         return NormalizedBitstream
       }
-      // commented out for now, bitstreamformats aren't used in the UI yet
-      // and slow things down noticeably
-      // case ResourceType.BitstreamFormat: {
-      //   return NormalizedBitstreamFormat
-      // }
+      case ResourceType.BitstreamFormat: {
+        return NormalizedBitstreamFormat
+      }
       case ResourceType.Bundle: {
         return NormalizedBundle
       }

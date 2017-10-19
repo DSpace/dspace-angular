@@ -1,26 +1,34 @@
-import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core';
+import {
+  NgModule,
+  Optional,
+  SkipSelf,
+  ModuleWithProviders
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { isNotEmpty } from '../shared/empty.util';
-import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
-import { ObjectCacheService } from './cache/object-cache.service';
-import { ResponseCacheService } from './cache/response-cache.service';
-import { CollectionDataService } from './data/collection-data.service';
-import { ItemDataService } from './data/item-data.service';
-import { RequestService } from './data/request.service';
-import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
-import { CommunityDataService } from './data/community-data.service';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { coreEffects } from './core.effects';
-import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
-import { DSOResponseParsingService } from './data/dso-response-parsing.service';
-import { RootResponseParsingService } from './data/root-response-parsing.service';
+
+import { isNotEmpty } from '../shared/empty.util';
 
 import { ApiService } from '../shared/api.service';
-
+import { CollectionDataService } from './data/collection-data.service';
+import { CommunityDataService } from './data/community-data.service';
+import { DSOResponseParsingService } from './data/dso-response-parsing.service';
+import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
 import { HostWindowService } from '../shared/host-window.service';
+import { ItemDataService } from './data/item-data.service';
+import { MetadataService } from './metadata/metadata.service';
+import { ObjectCacheService } from './cache/object-cache.service';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
+import { RequestService } from './data/request.service';
+import { ResponseCacheService } from './cache/response-cache.service';
+import { RootResponseParsingService } from './data/root-response-parsing.service';
+import { ServerResponseService } from '../shared/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
 
 import { ServerResponseService } from '../shared/server-response.service';
@@ -49,6 +57,7 @@ const PROVIDERS = [
   FormBuilderService,
   HostWindowService,
   ItemDataService,
+  MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
   RemoteDataBuildService,
