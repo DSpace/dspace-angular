@@ -36,6 +36,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     } else {
       return this.bs.getBrowseURLFor('dc.date.issued', this.linkName)
         .filter((href: string) => isNotEmpty(href))
+        .map((href: string) => new URLCombiner(href, `?scope=${scopeID}`).toString())
         .distinctUntilChanged();
     }
   }
