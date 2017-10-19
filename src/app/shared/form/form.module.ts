@@ -52,9 +52,7 @@ import { FormBuilderService } from './builder/form-builder.service';
   providers: [
     BaseRequestOptions,
     DynamicFormService,
-    DynamicFormValidationService,
-    FormService,
-    FormBuilderService
+    DynamicFormValidationService
   ]
 })
 export class FormModule {}
