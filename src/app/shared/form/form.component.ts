@@ -19,7 +19,7 @@ import { FormService } from './form.service';
  * The default form component.
  */
 @Component({
-  exportAs: 'paginationComponent',
+  exportAs: 'formComponent',
   selector: 'ds-form',
   styleUrls: ['form.component.scss'],
   templateUrl: 'form.component.html',
@@ -105,6 +105,13 @@ export class FormComponent implements OnDestroy, OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+  }
+
+  /**
+   * Method to retrieve the form's unique ID
+   */
+  public getFormUniqueId(): string {
+    return this.formUniqueId;
   }
 
   /**
