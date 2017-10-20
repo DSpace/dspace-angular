@@ -1,2 +1,3 @@
 $content-spacing: $spacer * 1.5;
-$search-sidebar-width: 300px;
+
+$button-height: $input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2);

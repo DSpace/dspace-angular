@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 /**
  * This component renders a simple item page.
@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
 })
 
 export class SearchSidebarComponent {
+  @Input() resultCount;
+  @Output() toggleSidebar = new EventEmitter<boolean>();
   constructor() {
-    console.log('test');
   }
 }

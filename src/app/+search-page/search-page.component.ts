@@ -33,6 +33,8 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   currentParams = {};
   searchOptions: SearchOptions;
   scopeList: RemoteData<Community[]>;
+  isSidebarActive = false;
+  isListView = true;
 
   constructor(
     private service: SearchService,
@@ -88,5 +90,13 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  setSidebarActive(show: boolean) {
+    this.isSidebarActive = show;
+  }
+
+  setListView(isList: boolean) {
+    this.isListView = isList;
   }
 }

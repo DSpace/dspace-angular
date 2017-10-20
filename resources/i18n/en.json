@@ -77,6 +77,11 @@
     },
     "results": {
       "title": "Search Results"
+    },
+    "sidebar": {
+      "close": "Back to results",
+      "open": "Search Tools",
+      "results": "results"
     }
   },
   "loading": {

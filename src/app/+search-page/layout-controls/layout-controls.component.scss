@@ -1,0 +1,15 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+:host {
+    display: inline-block;
+    button {
+        border: none;
+        background-color: white;
+        padding: 0;
+        color: map-get($theme-colors, primary);
+        i {
+            font-size: $button-height;
+        }
+    }
+}

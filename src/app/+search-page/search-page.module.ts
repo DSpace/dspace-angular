@@ -13,7 +13,7 @@ import { CollectionSearchResultListElementComponent } from '../object-list/searc
 import { CommunitySearchResultListElementComponent } from '../object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
-import { SearchViewSwitchComponent } from './search-view-switch/search-view-switch.component';
+import { LayoutControlsComponent } from './layout-controls/layout-controls.component';
 
 @NgModule({
   imports: [
@@ -27,10 +27,10 @@ import { SearchViewSwitchComponent } from './search-view-switch/search-view-swit
     SearchPageComponent,
     SearchResultsComponent,
     SearchSidebarComponent,
-    SearchViewSwitchComponent,
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent
+    CommunitySearchResultListElementComponent,
+    LayoutControlsComponent
   ],
   providers: [
     SearchService
