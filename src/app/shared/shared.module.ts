@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -30,24 +30,32 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { FormComponent } from './form/form.component';
+import { DsDynamicTypeaheadComponent } from './form/builder/model/typeahead/dynamic-typeahead.component';
+import { DsDynamicScrollableDropdownComponent } from './form/builder/model/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DsDynamicFormControlComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control.component';
+import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { FormModule } from './form/form.module';
-import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
-
+import { TextMaskModule } from 'angular2-text-mask';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
-  FormModule,
+  DynamicFormsCoreModule,
+  DynamicFormsNGBootstrapUIModule,
   FormsModule,
   InfiniteScrollModule,
   NgbModule,
+  NgbDatepickerModule,
+  NgbTimepickerModule,
+  NgbTypeaheadModule,
   NgxPaginationModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule
+  TranslateModule,
+  TextMaskModule,
 ];
 
 const PIPES = [
@@ -63,7 +71,12 @@ const COMPONENTS = [
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
+  DsDynamicFormComponent,
+  DsDynamicFormControlComponent,
+  DsDynamicScrollableDropdownComponent,
+  DsDynamicTypeaheadComponent,
   ErrorComponent,
+  FormComponent,
   LoadingComponent,
   ObjectListComponent,
   ObjectListElementComponent,

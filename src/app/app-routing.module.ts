@@ -14,7 +14,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
       { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
       // { path: 'forms', loadChildren: './+form-page/form-page.module#FormPageModule' },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
-    ])
+    ],{ enableTracing: true })
   ],
 })
 export class AppRoutingModule {

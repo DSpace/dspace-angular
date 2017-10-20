@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { NG_VALIDATORS } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
@@ -12,6 +12,17 @@ import { customValidator } from './app.validators';
 
 @NgModule({
   imports: [
+    CommonModule,
+    SharedModule,
+    FormPageRoutingModule
+  ],
+  declarations: [
+    FormPageComponent,
+  ]
+})
+/*@NgModule({
+  imports: [
+    CommonModule,
     SharedModule,
     FormPageRoutingModule,
   ],
@@ -30,5 +41,5 @@ import { customValidator } from './app.validators';
       multi: true
     },
   ]
-})
+})*/
 export class FormPageModule {}

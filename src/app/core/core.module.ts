@@ -32,6 +32,7 @@ import { ResponseCacheService } from './cache/response-cache.service';
 import { RootResponseParsingService } from './data/root-response-parsing.service';
 import { ServerResponseService } from '../shared/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
+import { DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 const IMPORTS = [
   CommonModule,
@@ -53,6 +54,8 @@ const PROVIDERS = [
   CollectionDataService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
+  DynamicFormService,
+  DynamicFormValidationService,
   FormBuilderService,
   FormService,
   HostWindowService,
