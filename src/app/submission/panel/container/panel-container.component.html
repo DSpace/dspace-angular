@@ -23,6 +23,8 @@
   </ngb-accordion>
 </div>
 
-<ng-template #panelContentTemplate>
-  <ng-container dsInjectPanelTemplate [component]="panelComponent" [compileContext]="this"></ng-container>
-</ng-template>
+<ng-container [ngSwitch]="panelComponentType">
+  <ng-template *ngSwitchCase="1" #panelContentTemplate>
+    <ng-container [component]="panelComponent" [compileContext]="this"></ng-container>
+  </ng-template>
+

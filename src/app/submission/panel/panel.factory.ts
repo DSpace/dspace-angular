@@ -78,7 +78,7 @@ export class PanelFactoryComponent {
     for (const inputName of Object.keys(inputs)) {
       (containerRef.instance as PanelDataModel)[inputName] = inputs[inputName];
     }
-    containerRef.instance.panelComponent = this.typeToComponentMapping.get(factoryData.type).component;
+    containerRef.instance.panelComponentType = factoryData.type;
 
     // We insert the component into the dom container
     panelsHost.insert(containerRef.hostView);

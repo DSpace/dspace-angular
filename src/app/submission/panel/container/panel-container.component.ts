@@ -10,7 +10,7 @@ export class PanelContainerComponent {
   @Input() panelHeader: any;
   @Input() mandatory: boolean;
   @Input() submissionId: string;
-  panelComponent: Type<any>;
+  panelComponentType: string;
 
   @ViewChild('panelRef') panelRef: PanelDirective;
 
