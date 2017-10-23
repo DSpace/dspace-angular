@@ -5,10 +5,11 @@ import {
 import { hasValue, isUndefined } from '../../shared/empty.util';
 
 export interface PanelObject {
+  id: string,
   header: any;
   mandatory: boolean;
   scope: any;
-  type: string;
+  sectionType: string;
 }
 
 /**
@@ -88,7 +89,7 @@ function newPanelDefinition(state: SubmissionDefinitionState, action: NewPanelDe
           header: action.payload.panelObject.header,
           mandatory: action.payload.panelObject.mandatory,
           scope: action.payload.panelObject.scope,
-          type: action.payload.panelObject.type
+          sectionType: action.payload.panelObject.sectionType
         }
       })
     })

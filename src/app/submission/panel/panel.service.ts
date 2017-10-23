@@ -17,68 +17,8 @@ import {
   submissionPanelFromIdSelector
 } from '../selectors';
 
-export const SUBMISSION_DEFINITIONS = [
-  {
-    name: 'traditional',
-    panels: [
-      {
-        header: {en: 'First page'},
-        mandatory: true,
-        type: 'inputform',
-        scope: null
-      },
-      {
-        header: {en: 'Second page'},
-        mandatory: true,
-        type: 'inputform',
-        scope: null
-      },
-      {
-        header: {en: 'Files and access condition'},
-        mandatory: true,
-        type: 'uploadWithEmbargo',
-        scope: null
-      },
-      {
-        header: {en: 'Deposit license'},
-        mandatory: true,
-        type: 'license',
-        scope: null
-      },
-      {
-        header: {en: 'Creative Commons'},
-        mandatory: false,
-        type: 'cclicense',
-        scope: null
-      },
-    ],
-    isDefault: true
-  },
-  {
-    name: 'custom',
-    panels: [
-      {
-        header: {en: 'First page'},
-        mandatory: true,
-        type: 'inputform',
-        scope: null
-      },
-      {
-        header: {en: 'Files and access condition'},
-        mandatory: true,
-        type: 'uploadWithEmbargo',
-        scope: null
-      },
-      {
-        header: {en: 'Creative Commons'},
-        mandatory: false,
-        type: 'cclicense',
-        scope: null
-      },
-    ],
-    isDefault: false
-  }
-];
+import SUBMISSION_DEFINITIONS from '../../../backend/data/submission-definitions.json';
+import SUBMISSION_DEFINITION_SECTIONS from '../../../backend/data/submission-definition-sections.json';
 
 @Injectable()
 export class PanelService {
@@ -96,14 +36,21 @@ export class PanelService {
       .distinctUntilChanged();
   }
 
-  retrievePanels() {
-    SUBMISSION_DEFINITIONS
+  retrieveDefinitions() {
+    // @TODO retrieve by rest
+    SUBMISSION_DEFINITIONS._embedded.submissionDefinitions
       .map((definition) => {
         this.store.dispatch(new NewDefinitionAction(definition.name, definition.isDefault));
-        definition.panels.forEach((panelData, panelId) => {
-          this.store.dispatch(new NewPanelDefinitionAction(definition.name, definition.name + '_' + panelId, panelData as PanelObject));
-        });
+        this.retrieveDefinitionSections(definition.name);
       });
+  }
+
+  retrieveDefinitionSections(definitionId) {
+    // @TODO retrieve by rest
+    SUBMISSION_DEFINITION_SECTIONS._embedded
+      .submissionSections.forEach((sectionData, panelId) => {
+        this.store.dispatch(new NewPanelDefinitionAction(definitionId, sectionData.id, sectionData as PanelObject));
+    });
   }
 
   getAvailablePanelList(submissionId, definitionId): Observable<any> {

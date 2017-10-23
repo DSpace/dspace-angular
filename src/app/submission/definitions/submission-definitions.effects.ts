@@ -17,7 +17,7 @@ export class SubmissionDefinitionEffects {
   @Effect() retrieve$ = this.actions$
     .ofType(SubmissionDefinitionActionTypes.RETRIEVE_DEFINITIONS)
     .do(() => {
-      this.panelService.retrievePanels();
+      this.panelService.retrieveDefinitions();
     })
     .map(() => new CompleteInitAction());
 

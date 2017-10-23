@@ -6,9 +6,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Store } from '@ngrx/store';
 import { SubmissionState } from '../submission.reducers';
 import { BitstreamService } from './bitstream/bitstream.service';
-import {SubmissionService} from "../submission.service";
+import { SubmissionService } from '../submission.service';
 
-export interface PanelDataModel {
+export interface PanelDataObject {
+  config: string;
   panelId: string;
   panelHeader: string;
   mandatory: boolean;
@@ -16,15 +17,13 @@ export interface PanelDataModel {
   [propName: string]: any;
 }
 
+export interface PanelDataModel {
+  sectionData: PanelDataObject
+}
+
 /**
  * An abstract model class for a submission edit form panel.
  */
 export class PanelModelComponent implements PanelDataModel {
-  @Input() panelId: string;
-  @Input() panelHeader: string;
-  @Input() mandatory: boolean;
-  @Input() submissionId: string;
-  @Input() submissionState: Store<SubmissionState>;
-  @Input() bitstreamService: BitstreamService;
-  @Input() submissionService: SubmissionService;
+  @Input() sectionData: PanelDataObject;
 }

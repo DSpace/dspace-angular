@@ -1,0 +1,83 @@
+{
+  "_embedded": {
+    "submissionSections": [
+      {
+        "id": "traditionalone",
+        "header": "submit.progressbar.describe.stepone",
+        "mandatory": true,
+        "sectionType": "submission-form",
+        "type": "submission-section",
+        "_links": {
+          "self": {
+            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/traditionalpageone"
+          },
+          "config": {
+            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-forms/traditionalpageone"
+          }
+        }
+      },
+      {
+        "id": "traditionaltwo",
+        "header": "submit.progressbar.describe.steptwo",
+        "mandatory": true,
+        "sectionType": "submission-form",
+        "type": "submission-section",
+        "_links": {
+          "self": {
+            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/traditionalpagetwo"
+          },
+          "config": {
+            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-forms/traditionalpagetwo"
+          }
+        }
+      },
+      {
+        "id": "traditionalthree",
+        "header": "submit.progressbar.upload",
+        "mandatory": true,
+        "sectionType": "upload",
+        "type": "submission-section",
+        "_links": {
+          "self": {
+            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/upload"
+          }
+        }
+      },
+      {
+        "id": "traditionalfour",
+        "header": "submit.progressbar.license",
+        "mandatory": true,
+        "sectionType": "license",
+        "type": "submission-section",
+        "_links": {
+          "self": {
+            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/license"
+          }
+        }
+      },
+      {
+        "id": "traditionalfive",
+        "header": "submit.progressbar.cclicense",
+        "mandatory": false,
+        "sectionType": "cclicense",
+        "type": "submission-section",
+        "_links": {
+          "self": {
+            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/cclicense"
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-definitions/traditional/submission-section"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 4,
+    "totalPages": 1,
+    "number": 0
+  }
+}

@@ -23,6 +23,7 @@ export class SubmissionSubmitFormComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.store.dispatch(new InitDefinitionsAction());
+    // @TODO retrieve submission ID by rest
     this.submissionId = 'Submission1';
     this.getDefaultSubmissionDefinition()
       .subscribe((definitionId) => {

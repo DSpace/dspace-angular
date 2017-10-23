@@ -3,7 +3,7 @@ import { PanelModelComponent } from '../panel.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
-  selector: 'ds-submission-submit-form-box-basic',
+  selector: 'ds-submission-section-form',
   styleUrls: ['./panel-form.component.scss'],
   templateUrl: './panel-form.component.html',
   /* The element here always has the state "in" when it

@@ -1,15 +1,13 @@
 import { Component, Input, Type, ViewChild, } from '@angular/core';
 
 import { PanelDirective } from '../panel.directive';
+import { PanelDataObject } from '../panel.model';
 
 @Component({
   templateUrl: './panel-container.component.html'
 })
 export class PanelContainerComponent {
-  @Input() panelId: string;
-  @Input() panelHeader: any;
-  @Input() mandatory: boolean;
-  @Input() submissionId: string;
+  @Input() sectionData: PanelDataObject;
   panelComponentType: string;
 
   @ViewChild('panelRef') panelRef: PanelDirective;
@@ -17,6 +15,6 @@ export class PanelContainerComponent {
   public removePanel(event) {
     event.preventDefault();
     event.stopPropagation();
-    this.panelRef.removePanel(this.submissionId, this.panelId);
+    this.panelRef.removePanel(this.sectionData.submissionId, this.sectionData.panelId);
   }
 }

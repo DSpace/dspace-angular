@@ -6,7 +6,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { PanelContainerComponent } from './container/panel-container.component';
-import { PanelDataModel } from './panel.model';
+import { PanelDataModel, PanelDataObject } from './panel.model';
 import { PanelObject } from '../definitions/submission-definitions.reducer';
 import { FormPanelComponent } from './form/panel-form.component';
 import { FilesPanelComponent } from './files/panel-files.component';
@@ -23,12 +23,7 @@ export interface FactoryDataModel {
 
 @Injectable()
 export class PanelFactoryComponent {
-  typeToComponentMapping = new Map([
-    ['submission-form', {component: FormPanelComponent}],
-    ['upload', {component: FilesPanelComponent}],
-    ['license', {component: DefaultPanelComponent}],
-    ['cclicense', {component: DefaultPanelComponent}]
-  ]);
+  typeToComponentMapping = [ 'submission-form', 'upload', 'license', 'cclicense' ];
   currentComponent = null;
 
   constructor(private resolver: ComponentFactoryResolver,
@@ -42,23 +37,26 @@ export class PanelFactoryComponent {
     if (!factoryData) {
       return;
     }
-    if (!this.typeToComponentMapping.has(factoryData.type)) {
-      throw  Error(`Panel '${factoryData.type}' is not available. Please checks form configuration file.`);
+    if (!this.typeToComponentMapping.includes(factoryData.sectionType)) {
+      throw  Error(`Panel '${factoryData.sectionType}' is not available. Please checks form configuration file.`);
     }
 
-    const inputs: PanelDataModel = Object.create(null);
+    const inputs: PanelDataObject = Object.create(null);
     inputs.panelId = panelId;
     inputs.panelHeader = factoryData.header;
     inputs.mandatory = factoryData.mandatory;
     inputs.submissionId = submissionId;
-    inputs.submissionState = this.submissionState;
+    inputs.config = '';
+    /*inputs.submissionState = this.submissionState;
     inputs.bitstreamService = this.bitstreamService;
-    inputs.submissionService = this.submissionService;
+    inputs.submissionService = this.submissionService;*/
 
     // Inputs need to be in the following format to be resolved properly
-    const inputProviders = Object.keys(inputs).map((inputName) => {
+    /*const inputProviders = Object.keys(inputs).map((inputName) => {
       return {provide: inputName, useValue: inputs[inputName]};
-    });
+    });*/
+    const inputProviders = [{provide: 'sectionData', useValue: inputs}];
+
     // const inputProviders = {provide: 'store', useClass: Store<SubmissionState>};
     // inputProviders.push({provide: 'store', useFactory: Store<SubmissionState>})
 
@@ -75,10 +73,11 @@ export class PanelFactoryComponent {
     // We create the component using the factory and the injector
     const containerRef = containerFactory.create(injector);
 
-    for (const inputName of Object.keys(inputs)) {
+    /*for (const inputName of Object.keys(inputs)) {
       (containerRef.instance as PanelDataModel)[inputName] = inputs[inputName];
-    }
-    containerRef.instance.panelComponentType = factoryData.type;
+    }*/
+    containerRef.instance.sectionData = inputs;
+    containerRef.instance.panelComponentType = factoryData.sectionType;
 
     // We insert the component into the dom container
     panelsHost.insert(containerRef.hostView);

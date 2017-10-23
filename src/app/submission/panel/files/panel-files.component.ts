@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { PanelModelComponent } from '../panel.model';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { hasValue } from '../../../shared/empty.util';
+import { BitstreamService } from '../bitstream/bitstream.service';
+import { SubmissionService } from '../../submission.service';
 
 @Component({
-  selector: 'ds-submission-submit-form-box-files',
+  selector: 'ds-submission-section-files',
   styleUrls: ['./panel-files.component.scss'],
   templateUrl: './panel-files.component.html',
   /* The element here always has the state "in" when it
@@ -35,6 +37,10 @@ export class FilesPanelComponent extends PanelModelComponent {
   public collectionPoliciesMessageType;
 
   protected subscriptions = [];
+
+  constructor(private bitstreamService: BitstreamService, private submissionService: SubmissionService) {
+    super();
+  }
 
   ngOnInit() {
     // ToRemove
@@ -123,7 +129,7 @@ export class FilesPanelComponent extends PanelModelComponent {
     // END
     this.subscriptions.push(
       this.bitstreamService
-        .getBitstreamList(this.submissionId)
+        .getBitstreamList(this.sectionData.submissionId)
         .subscribe((bitstreamList) => {
                                              this.bitstreamsList = bitstreamList;
                                              this.bitstreamsKeys = Object.keys(bitstreamList);
@@ -132,7 +138,7 @@ export class FilesPanelComponent extends PanelModelComponent {
     );
     this.subscriptions.push(
       this.submissionService
-        .getCollectionPolicies(this.submissionId)
+        .getCollectionPolicies(this.sectionData.submissionId)
         .subscribe((policies) => {
                                          this.collectionPolicies = policies;
                                        }
@@ -140,7 +146,7 @@ export class FilesPanelComponent extends PanelModelComponent {
     );
     this.subscriptions.push(
       this.submissionService
-        .getCollectionName(this.submissionId)
+        .getCollectionName(this.sectionData.submissionId)
         .subscribe((collectionName) => {
             this.collectionName = collectionName;
           }
@@ -148,7 +154,7 @@ export class FilesPanelComponent extends PanelModelComponent {
     );
     this.subscriptions.push(
       this.submissionService
-        .getCollectionPoliciesMessageType(this.submissionId)
+        .getCollectionPoliciesMessageType(this.sectionData.submissionId)
         .subscribe((collectionPoliciesMessageType) => {
             this.collectionPoliciesMessageType = collectionPoliciesMessageType;
           }

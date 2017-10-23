@@ -1,8 +1,8 @@
 <div dsPanel #panelRef="panelRef" [mandatory]="mandatory">
-  <ngb-accordion #acc="ngbAccordion" (panelChange)="panelRef.panelChange($event)" activeIds="{{ panelId }}">
-    <ngb-panel id="{{ panelId }}" >
+  <ngb-accordion #acc="ngbAccordion" (panelChange)="panelRef.panelChange($event)" activeIds="{{ sectionData.panelId }}">
+    <ngb-panel id="{{ sectionData.panelId }}" >
       <ng-template ngbPanelTitle>
-        <span>{{ panelHeader.en }}</span>
+        <span>{{ sectionData.panelHeader }}</span>
         <div class="d-inline-block float-right">
           <i class="fa fa-exclamation-circle text-warning mr-3" aria-hidden="true"></i>
           <a class="close" aria-label="Close">
@@ -23,8 +23,10 @@
   </ngb-accordion>
 </div>
 
-<ng-container [ngSwitch]="panelComponentType">
-  <ng-template *ngSwitchCase="1" #panelContentTemplate>
-    <ng-container [component]="panelComponent" [compileContext]="this"></ng-container>
-  </ng-template>
-
+<ng-template #panelContentTemplate>
+  <ng-container [ngSwitch]="panelComponentType">
+    <ng-container *ngSwitchCase="'submission-form'">
+      <ds-submission-section-form [sectionData]="sectionData"></ds-submission-section-form>
+    </ng-container>
+  </ng-container>
+</ng-template>
