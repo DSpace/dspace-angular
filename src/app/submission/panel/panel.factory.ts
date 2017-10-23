@@ -24,8 +24,8 @@ export interface FactoryDataModel {
 @Injectable()
 export class PanelFactoryComponent {
   typeToComponentMapping = new Map([
-    ['inputform', {component: FormPanelComponent}],
-    ['uploadWithEmbargo', {component: FilesPanelComponent}],
+    ['submission-form', {component: FormPanelComponent}],
+    ['upload', {component: FilesPanelComponent}],
     ['license', {component: DefaultPanelComponent}],
     ['cclicense', {component: DefaultPanelComponent}]
   ]);
