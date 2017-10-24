@@ -8,6 +8,7 @@ export interface PanelObject {
   id: string,
   header: any;
   mandatory: boolean;
+  checkable: boolean;
   scope: any;
   sectionType: string;
 }
@@ -89,7 +90,9 @@ function newPanelDefinition(state: SubmissionDefinitionState, action: NewPanelDe
           header: action.payload.panelObject.header,
           mandatory: action.payload.panelObject.mandatory,
           scope: action.payload.panelObject.scope,
-          sectionType: action.payload.panelObject.sectionType
+          sectionType: action.payload.panelObject.sectionType,
+          checkable: action.payload.panelObject.checkable,
+          // config: action.payload.panelObject._links.config.href
         }
       })
     })

@@ -102,5 +102,17 @@
     "items": "Error fetching items",
     "item": "Error fetching item",
     "objects": "Error fetching objects"
+  },
+  "submission": {
+    "section": {
+      "submit.progressbar.describe.stepone": "Describe",
+      "submit.progressbar.describe.steptwo": "Describe",
+      "submit.progressbar.upload": "Upload files",
+      "submit.progressbar.license": "Deposit license",
+      "submit.progressbar.cclicense": "Creative commons license",
+      "form": {
+
+      }
+    }
   }
 }

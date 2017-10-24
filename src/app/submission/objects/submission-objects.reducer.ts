@@ -4,7 +4,7 @@ import {
   DeleteBitstreamAction,
   DisablePanelAction, EditBitstreamAction,
   EnablePanelAction, NewBitstreamAction,
-  NewSubmissionFormAction,
+  NewSubmissionFormAction, PanelStatusChangeAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes
 } from './submission-objects.actions';
@@ -103,6 +103,9 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return state;
     }
 
+    case SubmissionObjectActionTypes.PANEL_STATUS_CHANGE: {
+      return setIsValid(state, action as PanelStatusChangeAction);
+    }
     // Bitstram actions
 
     case SubmissionObjectActionTypes.NEW_BITSTREAM: {
@@ -140,7 +143,7 @@ function enablePanel(state: SubmissionObjectState, action: EnablePanelAction): S
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         panels: Object.assign({}, state[action.payload.submissionId].panels, {
-          [action.payload.panelId]: { panelViewIndex: action.payload.panelViewIndex}
+          [action.payload.panelId]: { panelViewIndex: action.payload.panelViewIndex, isValid: false }
         }),
         bitstreams:  Object.assign({}, state[action.payload.submissionId].bitstreams)
       })
@@ -190,6 +193,41 @@ function newSubmission(state: SubmissionObjectState, action: NewSubmissionFormAc
       bitstreams: Object.create(null)
     };
     return newState;
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set the panel validity.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an NewSubmissionFormAction
+ * @return SubmissionObjectState
+ *    the new state, with the panel new validity status.
+ */
+function setIsValid(state: SubmissionObjectState, action: PanelStatusChangeAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId].panels[action.payload.panelId])) {
+    return Object.assign({}, state, {
+      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+        panels: Object.assign({},
+                               state[action.payload.submissionId].panels,
+                               Object.assign({},
+                                              state[action.payload.submissionId].panels[action.payload.panelId],
+                                              Object.assign({},
+                                                {
+                                                  panelViewIndex: state[action.payload.submissionId].panels[action.payload.panelId].panelViewIndex,
+                                                  isValid: action.payload.status
+                                                }
+                                              )
+                               )
+        ),
+        data: state[action.payload.submissionId].data,
+        bitstreams: state[action.payload.submissionId].data
+      })
+    });
   } else {
     return state;
   }

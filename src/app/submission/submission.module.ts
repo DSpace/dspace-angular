@@ -18,7 +18,6 @@ import { PanelFactoryComponent } from './panel/panel.factory';
 import { PanelContainerComponent } from './panel/container/panel-container.component';
 import { InjectPanelTemplateDirective } from './panel/panel-inject.directive';
 import { CommonModule } from '@angular/common';
-// import { PanelModelComponent } from './panel/panel.model';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { submissionReducers } from './submission.reducers';

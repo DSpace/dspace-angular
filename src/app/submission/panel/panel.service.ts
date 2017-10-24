@@ -48,7 +48,7 @@ export class PanelService {
   retrieveDefinitionSections(definitionId) {
     // @TODO retrieve by rest
     SUBMISSION_DEFINITION_SECTIONS._embedded
-      .submissionSections.forEach((sectionData, panelId) => {
+      .submissionSections.forEach((sectionData) => {
         this.store.dispatch(new NewPanelDefinitionAction(definitionId, sectionData.id, sectionData as PanelObject));
     });
   }

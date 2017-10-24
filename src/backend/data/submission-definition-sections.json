@@ -5,6 +5,7 @@
         "id": "traditionalone",
         "header": "submit.progressbar.describe.stepone",
         "mandatory": true,
+        "checkable": true,
         "sectionType": "submission-form",
         "type": "submission-section",
         "_links": {
@@ -20,6 +21,7 @@
         "id": "traditionaltwo",
         "header": "submit.progressbar.describe.steptwo",
         "mandatory": true,
+        "checkable": true,
         "sectionType": "submission-form",
         "type": "submission-section",
         "_links": {
@@ -35,6 +37,7 @@
         "id": "traditionalthree",
         "header": "submit.progressbar.upload",
         "mandatory": true,
+        "checkable": false,
         "sectionType": "upload",
         "type": "submission-section",
         "_links": {
@@ -47,6 +50,7 @@
         "id": "traditionalfour",
         "header": "submit.progressbar.license",
         "mandatory": true,
+        "checkable": true,
         "sectionType": "license",
         "type": "submission-section",
         "_links": {
@@ -59,6 +63,7 @@
         "id": "traditionalfive",
         "header": "submit.progressbar.cclicense",
         "mandatory": false,
+        "checkable": true,
         "sectionType": "cclicense",
         "type": "submission-section",
         "_links": {

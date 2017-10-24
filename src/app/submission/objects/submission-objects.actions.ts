@@ -18,6 +18,7 @@ export const SubmissionObjectActionTypes = {
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
   DISABLE_PANEL: type('dspace/submission/DISABLE_PANEL'),
+  PANEL_STATUS_CHANGE: type('dspace/submission/PANEL_STATUS_CHANGE'),
 
   // Bitstream actions
   NEW_BITSTREAM: type('dspace/submission/NEW_BITSTREAM'),
@@ -116,6 +117,29 @@ export class NewSubmissionFormAction implements Action {
   }
 }
 
+export class PanelStatusChangeAction implements Action {
+  type = SubmissionObjectActionTypes.PANEL_STATUS_CHANGE;
+  payload: {
+    submissionId: string;
+    panelId: string;
+    status: boolean
+  };
+
+  /**
+   * Change the panel validity status
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param panelId
+   *    the panel's ID to change
+   * @param status
+   *    the panel validity status (true if is valid)
+   */
+  constructor(submissionId: string, panelId: string, status: boolean) {
+    this.payload = { submissionId, panelId, status };
+  }
+}
+
 // Bitstream actions
 
 export class NewBitstreamAction implements Action {
@@ -195,6 +219,7 @@ export type SubmissionObjectAction
   | EnablePanelAction
   | InitSubmissionFormAction
   | CompleteInitSubmissionFormAction
+  | PanelStatusChangeAction
   | NewBitstreamAction
   | EditBitstreamAction
   | DeleteBitstreamAction

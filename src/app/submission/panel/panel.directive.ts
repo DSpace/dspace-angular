@@ -7,6 +7,7 @@ import { PanelService } from './panel.service';
 })
 export class PanelDirective {
   @Input() mandatory = true;
+  @Input() checkable = true;
 
   animation = !this.mandatory;
   panelState = this.mandatory;
@@ -19,6 +20,10 @@ export class PanelDirective {
 
   public isOpen() {
     return (this.panelState) ? true : false;
+  }
+
+  public isCheckable() {
+    return this.checkable;
   }
 
   public isMandatory() {

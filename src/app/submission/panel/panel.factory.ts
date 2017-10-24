@@ -6,15 +6,12 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import { PanelContainerComponent } from './container/panel-container.component';
-import { PanelDataModel, PanelDataObject } from './panel.model';
+import { PanelDataModel } from './panel.model';
+import { PanelDataObject } from './panel-data.model';
 import { PanelObject } from '../definitions/submission-definitions.reducer';
-import { FormPanelComponent } from './form/panel-form.component';
-import { FilesPanelComponent } from './files/panel-files.component';
-import { DefaultPanelComponent } from './default/panel-default.component';
-import { Store } from '@ngrx/store';
-import { SubmissionState } from '../submission.reducers';
-import { BitstreamService } from './bitstream/bitstream.service';
-import { SubmissionService } from '../submission.service';
+import { PanelService } from './panel.service';
+import {Store} from "@ngrx/store";
+import {SubmissionState} from "../submission.reducers";
 
 export interface FactoryDataModel {
   component: Type<any>;
@@ -26,10 +23,8 @@ export class PanelFactoryComponent {
   typeToComponentMapping = [ 'submission-form', 'upload', 'license', 'cclicense' ];
   currentComponent = null;
 
-  constructor(private resolver: ComponentFactoryResolver,
-              private submissionState: Store<SubmissionState>,
-              private bitstreamService: BitstreamService,
-              private submissionService: SubmissionService) {}
+  constructor(private resolver: ComponentFactoryResolver,  private store: Store<SubmissionState> ) {}
+           //   private panelService: PanelService) {}
 
   // component: Class for the component you want to create
   // inputs: An object with key/value pairs mapped to input name/input value
@@ -46,7 +41,8 @@ export class PanelFactoryComponent {
     inputs.panelHeader = factoryData.header;
     inputs.mandatory = factoryData.mandatory;
     inputs.submissionId = submissionId;
-    inputs.config = '';
+    inputs.checkable = factoryData.checkable;
+    // inputs.config = factoryData.config;
     /*inputs.submissionState = this.submissionState;
     inputs.bitstreamService = this.bitstreamService;
     inputs.submissionService = this.submissionService;*/
@@ -55,7 +51,11 @@ export class PanelFactoryComponent {
     /*const inputProviders = Object.keys(inputs).map((inputName) => {
       return {provide: inputName, useValue: inputs[inputName]};
     });*/
-    const inputProviders = [{provide: 'sectionData', useValue: inputs}];
+    const inputProviders = [
+                            {provide: 'sectionData',  useValue: inputs},
+                            {provide: 'store', useValue: this.store }
+                           // {provide: 'panelService', useValue: this.panelService}
+                           ];
 
     // const inputProviders = {provide: 'store', useClass: Store<SubmissionState>};
     // inputProviders.push({provide: 'store', useFactory: Store<SubmissionState>})
@@ -78,6 +78,8 @@ export class PanelFactoryComponent {
     }*/
     containerRef.instance.sectionData = inputs;
     containerRef.instance.panelComponentType = factoryData.sectionType;
+
+    containerRef.instance.store = this.store;
 
     // We insert the component into the dom container
     panelsHost.insert(containerRef.hostView);

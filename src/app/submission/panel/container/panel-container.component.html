@@ -1,10 +1,10 @@
-<div dsPanel #panelRef="panelRef" [mandatory]="mandatory">
+<div dsPanel #panelRef="panelRef" [mandatory]="sectionData.mandatory" [checkable]="sectionData.checkable">
   <ngb-accordion #acc="ngbAccordion" (panelChange)="panelRef.panelChange($event)" activeIds="{{ sectionData.panelId }}">
-    <ngb-panel id="{{ sectionData.panelId }}" >
+    <ngb-panel id="{{ sectionData.panelId }}">
       <ng-template ngbPanelTitle>
-        <span>{{ sectionData.panelHeader }}</span>
+        <span>{{ 'submission.section.'+sectionData.panelHeader | translate }}</span>
         <div class="d-inline-block float-right">
-          <i class="fa fa-exclamation-circle text-warning mr-3" aria-hidden="true"></i>
+          <i *ngIf="panelRef.isCheckable()" class="fa mr-3" [ngClass]="{'fa-exclamation-circle': !isValid, 'text-warning': !isValid, 'fa-check-circle': isValid, 'text-success': isValid}" aria-hidden="true"></i>
           <a class="close" aria-label="Close">
             <span *ngIf="panelRef.isOpen()" class="fa fa-angle-up fa-fw" aria-hidden="true"></span>
             <span *ngIf="!panelRef.isOpen()" class="fa fa-angle-down fa-fw" aria-hidden="true"></span>
@@ -25,8 +25,9 @@
 
 <ng-template #panelContentTemplate>
   <ng-container [ngSwitch]="panelComponentType">
-    <ng-container *ngSwitchCase="'submission-form'">
-      <ds-submission-section-form [sectionData]="sectionData"></ds-submission-section-form>
-    </ng-container>
+      <ds-submission-section-form *ngSwitchCase="'submission-form'" [sectionData]="sectionData"></ds-submission-section-form>
+      <ds-submission-section-files *ngSwitchCase="'upload'" [sectionData]="sectionData"></ds-submission-section-files>
+      <ds-submission-section-default *ngSwitchCase="'license'" [sectionData]="sectionData"></ds-submission-section-default>
+      <ds-submission-section-default *ngSwitchCase="'cclicense'" [sectionData]="sectionData"></ds-submission-section-default>
   </ng-container>
 </ng-template>
