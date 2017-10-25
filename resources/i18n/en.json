@@ -89,7 +89,7 @@
     "community": "Loading community...",
     "collection": "Loading collection...",
     "sub-collections": "Loading sub-collections...",
-    "items": "Loading items...",
+    "recent-submissions": "Loading recent submissions...",
     "item": "Loading item...",
     "objects": "Loading...",
     "search-results": "Loading search results..."
@@ -100,7 +100,7 @@
     "community": "Error fetching community",
     "collection": "Error fetching collection",
     "sub-collections": "Error fetching sub-collections",
-    "items": "Error fetching items",
+    "recent-submissions": "Error fetching recent submissions",
     "item": "Error fetching item",
     "objects": "Error fetching objects",
     "search-results": "Error fetching search results"
