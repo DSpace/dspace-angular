@@ -77,7 +77,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           if (isNotEmpty(this.scope)) {
             this.scopeObject = this.communityService.findById(this.scope);
           } else {
-            this.scopeObject = undefined;
+            this.scopeObject = Observable.of(undefined);
           }
         }
       );
