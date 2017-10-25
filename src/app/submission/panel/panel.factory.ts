@@ -40,7 +40,7 @@ export class PanelFactoryComponent {
     inputs.panelHeader = factoryData.header;
     inputs.mandatory = factoryData.mandatory;
     inputs.submissionId = submissionId;
-    inputs.checkable = factoryData.checkable;
+    inputs.config = factoryData._links.config;
 
     // Inputs need to be in the following format to be resolved properly
     const inputProviders = [{provide: 'sectionData',  useValue: inputs}];

@@ -36,8 +36,9 @@
 </div>
 <div class="clearfix"></div>
 <div>
-  <input type="text" value="{{bitstream.title}}">
-  <textarea>{{bitstream.description}}</textarea>
+  <!-- input type="text" value="{{bitstream.title}}">
+  <textarea>{{bitstream.description}}</textarea -->
+  <ds-form [formId]="formId" [formModel]="formModel"></ds-form>
   <span class="clearfix"></span>
   <ds-policies [policies]="bitstream.policies"></ds-policies>
 </div>

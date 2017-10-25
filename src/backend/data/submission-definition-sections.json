@@ -2,74 +2,50 @@
   "_embedded": {
     "submissionSections": [
       {
-        "id": "traditionalone",
         "header": "submit.progressbar.describe.stepone",
         "mandatory": true,
-        "checkable": true,
         "sectionType": "submission-form",
         "type": "submission-section",
         "_links": {
-          "self": {
-            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/traditionalpageone"
-          },
-          "config": {
-            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-forms/traditionalpageone"
-          }
+          "self": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/traditionalpageone",
+          "config": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-forms/traditionalpageone"
         }
       },
       {
-        "id": "traditionaltwo",
         "header": "submit.progressbar.describe.steptwo",
         "mandatory": true,
-        "checkable": true,
         "sectionType": "submission-form",
         "type": "submission-section",
         "_links": {
-          "self": {
-            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/traditionalpagetwo"
-          },
-          "config": {
-            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-forms/traditionalpagetwo"
-          }
+          "self": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/traditionalpagetwo",
+          "config": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-forms/traditionalpagetwo"
         }
       },
       {
-        "id": "traditionalthree",
         "header": "submit.progressbar.upload",
         "mandatory": true,
-        "checkable": false,
         "sectionType": "upload",
         "type": "submission-section",
         "_links": {
-          "self": {
-            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/upload"
-          }
+          "self": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/upload"
         }
       },
       {
-        "id": "traditionalfour",
         "header": "submit.progressbar.license",
         "mandatory": true,
-        "checkable": true,
         "sectionType": "license",
         "type": "submission-section",
         "_links": {
-          "self": {
-            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/license"
-          }
+          "self": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/license"
         }
       },
       {
-        "id": "traditionalfive",
         "header": "submit.progressbar.cclicense",
         "mandatory": false,
-        "checkable": true,
         "sectionType": "cclicense",
         "type": "submission-section",
         "_links": {
-          "self": {
-            "href": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/cclicense"
-          }
+          "self": "http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-sections/cclicense"
         }
       }
     ]

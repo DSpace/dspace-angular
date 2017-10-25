@@ -2,8 +2,10 @@ import { Component, Input } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { SubmissionState } from '../../../submission.reducers';
-import {BitstreamService} from '../../bitstream/bitstream.service';
+import { BitstreamService } from '../../bitstream/bitstream.service';
 import { hasValue } from '../../../../shared/empty.util';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-submission-submit-form-box-files-edit',
@@ -15,7 +17,9 @@ export class FilesEditComponent {
   @Input() bitstreamId;
   @Input() submissionId;
   public bitstream;
+  public formId;
   public readMode = true;
+  public formModel: DynamicFormControlModel[];
 
   protected subscriptions = [];
 
@@ -32,6 +36,9 @@ export class FilesEditComponent {
                                         }
         )
     );
+    this.formId = (this.submissionId+this.bitstreamId).hash();
+    //this.formModel = model;
+   // modello direttamente passato in html
   }
 
   public switchMode(mode:boolean) {

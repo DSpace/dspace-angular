@@ -6,6 +6,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { formObjectFromIdSelector } from './selectors';
 
+import MY_DEFINITION_FORM_JSON from '../../../backend/data/form1-definition.json';
+import MY_DEFINITION_FORM_JSON2 from '../../../backend/data/form2-definition.json';
+
 @Injectable()
 export class FormService {
 
@@ -42,5 +45,18 @@ export class FormService {
         this.validateAllFormFields(control);
       }
     });
+  }
+
+  /**
+   * Method to retrieve the form configuration
+   */
+  public getFormConfiguration(formId: string) {
+    let selected = null;
+    if (formId === 'http://dspace7.dev01.4science.it:8080/dspace-spring-rest/api/config/submission-forms/traditionalpageone') {
+      selected = MY_DEFINITION_FORM_JSON;
+    } else {
+      selected = MY_DEFINITION_FORM_JSON2;
+    }
+    return selected;
   }
 }

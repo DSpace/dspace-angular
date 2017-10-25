@@ -4,9 +4,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { FormComponent } from '../../../shared/form/form.component';
-
-import MY_DEFINITION_FORM_JSON from '../../../../backend/data/form1-definition.json';
-import MY_DEFINITION_FORM_JSON2 from '../../../../backend/data/form2-definition.json';
 import { SubmissionState } from '../../submission.reducers';
 import { Store } from '@ngrx/store';
 import { FormService } from '../../../shared/form/form.service';
@@ -50,15 +47,8 @@ export class FormPanelComponent extends PanelModelComponent {
   }
 
   ngOnInit() {
-    this.formId  = this.sectionData.panelId;
-    let selected = null;
-    if (this.formId === 'traditionalone') {
-      selected = MY_DEFINITION_FORM_JSON;
-    } else {
-      selected = MY_DEFINITION_FORM_JSON2;
-    }
+    const selected = this.formService.getFormConfiguration(this.sectionData.config);
     this.formModel = this.formBuilderService.modelFromConfiguration(selected);
-    // console.log(this.sectionData);
   }
 
   ngAfterViewInit() {

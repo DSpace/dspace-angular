@@ -7,8 +7,6 @@ import { PanelService } from './panel.service';
 })
 export class PanelDirective implements OnInit {
   @Input() mandatory = true;
-  @Input() checkable = true;
-
   @Input() submissionId;
   @Input() panelId;
 
@@ -33,10 +31,6 @@ export class PanelDirective implements OnInit {
 
   public isOpen() {
     return (this.panelState) ? true : false;
-  }
-
-  public isCheckable() {
-    return this.checkable;
   }
 
   public isMandatory() {

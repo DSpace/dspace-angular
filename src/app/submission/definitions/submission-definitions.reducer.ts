@@ -5,12 +5,15 @@ import {
 import { hasValue, isUndefined } from '../../shared/empty.util';
 
 export interface PanelObject {
-  id: string,
   header: any;
   mandatory: boolean;
-  checkable: boolean;
-  scope: any;
   sectionType: string;
+  type: string;
+  _links: {
+    self: string;
+    config: string;
+    [name: string]: string;
+  }
 }
 
 /**
@@ -85,16 +88,12 @@ export function submissionDefinitionReducer(state = initialState, action: Defini
 function newPanelDefinition(state: SubmissionDefinitionState, action: NewPanelDefinitionAction): SubmissionDefinitionState {
   return Object.assign({}, state, {
     [action.payload.definitionId]: Object.assign({}, state[action.payload.definitionId], {
-      panels: Object.assign({}, state[action.payload.definitionId].panels, {
-        [action.payload.panelId]: {
-          header: action.payload.panelObject.header,
-          mandatory: action.payload.panelObject.mandatory,
-          scope: action.payload.panelObject.scope,
-          sectionType: action.payload.panelObject.sectionType,
-          checkable: action.payload.panelObject.checkable,
-          // config: action.payload.panelObject._links.config.href
-        }
-      })
+      panels: Object.assign({},
+                             state[action.payload.definitionId].panels,
+                            {
+                                      [action.payload.panelId]: action.payload.panelObject
+                                    }
+                           )
     })
   });
 }
