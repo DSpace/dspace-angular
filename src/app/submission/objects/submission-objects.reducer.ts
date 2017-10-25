@@ -215,13 +215,12 @@ function setIsValid(state: SubmissionObjectState, action: PanelStatusChangeActio
         panels: Object.assign({},
                                state[action.payload.submissionId].panels,
                                Object.assign({},
-                                              state[action.payload.submissionId].panels[action.payload.panelId],
-                                              Object.assign({},
-                                                {
-                                                  panelViewIndex: state[action.payload.submissionId].panels[action.payload.panelId].panelViewIndex,
-                                                  isValid: action.payload.status
-                                                }
-                                              )
+                                             {
+                                               [action.payload.panelId]: {
+                                                                           panelViewIndex: state[action.payload.submissionId].panels[action.payload.panelId].panelViewIndex,
+                                                                           isValid: action.payload.status
+                                                                         }
+                                             }
                                )
         ),
         data: state[action.payload.submissionId].data,

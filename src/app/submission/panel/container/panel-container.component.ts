@@ -16,35 +16,14 @@ import {SubmissionState} from "../../submission.reducers";
 export class PanelContainerComponent {
   @Input() sectionData: PanelDataObject;
   panelComponentType: string;
-  isValid = false;
   // private panelService: PanelService;
   @Input() store: Store<SubmissionState>;
 
   @ViewChild('panelRef') panelRef: PanelDirective;
 
-  ngOnInit() {
-    /*this.panelService.getPanelState(this.sectionData.submissionId, this.sectionData.panelId).subscribe(
-      (state) => {
-        this.isValid = state.isValid;
-      }
-    );*/
-    this.getPanelState(this.sectionData.submissionId, this.sectionData.panelId)
-      .subscribe((state) => {
-        if (state && state.isValid) {
-          this.isValid = state.isValid;
-        }
-      });
-  }
-
   public removePanel(event) {
     event.preventDefault();
     event.stopPropagation();
     this.panelRef.removePanel(this.sectionData.submissionId, this.sectionData.panelId);
-  }
-
-  getPanelState(submissionId, panelId): Observable<SubmissionPanelObject> {
-    return this.store.select(submissionPanelFromIdSelector(submissionId, panelId))
-      .map((panel: SubmissionPanelObject) => panel)
-      .distinctUntilChanged();
   }
 }

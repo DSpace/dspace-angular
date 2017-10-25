@@ -1,10 +1,11 @@
-<div dsPanel #panelRef="panelRef" [mandatory]="sectionData.mandatory" [checkable]="sectionData.checkable">
+<div dsPanel #panelRef="panelRef" [mandatory]="sectionData.mandatory" [checkable]="sectionData.checkable" [submissionId]="sectionData.submissionId" [panelId]="sectionData.panelId">
   <ngb-accordion #acc="ngbAccordion" (panelChange)="panelRef.panelChange($event)" activeIds="{{ sectionData.panelId }}">
     <ngb-panel id="{{ sectionData.panelId }}">
       <ng-template ngbPanelTitle>
         <span>{{ 'submission.section.'+sectionData.panelHeader | translate }}</span>
         <div class="d-inline-block float-right">
-          <i *ngIf="panelRef.isCheckable()" class="fa mr-3" [ngClass]="{'fa-exclamation-circle': !isValid, 'text-warning': !isValid, 'fa-check-circle': isValid, 'text-success': isValid}" aria-hidden="true"></i>
+          <i *ngIf="panelRef.isCheckable() && !panelRef.isValid" class="fa fa-exclamation-circle text-warning mr-3" aria-hidden="true"></i>
+          <i *ngIf="panelRef.isCheckable() && panelRef.isValid" class="fa fa-check-circle text-success mr-3" aria-hidden="true"></i>
           <a class="close" aria-label="Close">
             <span *ngIf="panelRef.isOpen()" class="fa fa-angle-up fa-fw" aria-hidden="true"></span>
             <span *ngIf="!panelRef.isOpen()" class="fa fa-angle-down fa-fw" aria-hidden="true"></span>

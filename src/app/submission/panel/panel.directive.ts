@@ -9,10 +9,23 @@ export class PanelDirective {
   @Input() mandatory = true;
   @Input() checkable = true;
 
-  animation = !this.mandatory;
+  @Input() submissionId;
+  @Input() panelId;
+
+  isValid    = false;
+  animation  = !this.mandatory;
   panelState = this.mandatory;
 
   constructor(private panelService: PanelService) {}
+
+  ngAfterViewInit() {
+    this.panelService.getPanelState(this.submissionId, this.panelId)
+      .subscribe((state) => {
+        if (state) {
+          this.isValid = state.isValid;
+        }
+      });
+  }
 
   public panelChange(event) {
     this.panelState = event.nextState;
