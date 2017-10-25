@@ -72,30 +72,42 @@ describe('BrowseService', () => {
     })
   ];
 
-  beforeEach(() => {
-    scheduler = getTestScheduler();
-
-    responseCache = jasmine.createSpyObj('responseCache', {
+  function initMockResponseCacheService(isSuccessful: boolean) {
+    return jasmine.createSpyObj('responseCache', {
       get: cold('b-', {
         b: {
-          response: { browseDefinitions }
+          response: {
+            isSuccessful,
+            browseDefinitions,
+          }
         }
       })
     });
+  }
 
-    requestService = jasmine.createSpyObj('requestService', ['configure']);
+  function initMockRequestService() {
+    return jasmine.createSpyObj('requestService', ['configure']);
+  }
 
-    service = new BrowseService(
+  function initTestService() {
+    return new BrowseService(
       responseCache,
       requestService,
       envConfig
     );
+  }
+
+  beforeEach(() => {
+    scheduler = getTestScheduler();
   });
 
   describe('getBrowseURLFor', () => {
 
-    describe('when getEndpoint fires', () => {
+    describe('if getEndpoint fires', () => {
       beforeEach(() => {
+        responseCache = initMockResponseCacheService(true);
+        requestService = initMockRequestService();
+        service = initTestService();
         spyOn(service, 'getEndpoint').and
           .returnValue(hot('--a-', { a: browsesEndpointURL }));
       });
@@ -122,27 +134,27 @@ describe('BrowseService', () => {
         expect(result).toBeObservable(expected);
       });
 
-      it('should return undefined when the key doesn\'t match', () => {
+      it('should throw an error when the key doesn\'t match', () => {
         const metadatumKey = 'dc.title'; // isn't in the definitions
         const linkName = 'items';
 
         const result = service.getBrowseURLFor(metadatumKey, linkName);
-        const expected = cold('c---', { c: undefined });
+        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkName} on ${metadatumKey} isn't configured`));
 
         expect(result).toBeObservable(expected);
       });
 
-      it('should return undefined when the link doesn\'t match', () => {
+      it('should throw an error when the link doesn\'t match', () => {
         const metadatumKey = 'dc.date.issued';
         const linkName = 'collections'; // isn't in the definitions
 
         const result = service.getBrowseURLFor(metadatumKey, linkName);
-        const expected = cold('c---', { c: undefined });
+        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkName} on ${metadatumKey} isn't configured`));
 
         expect(result).toBeObservable(expected);
       });
 
-      it('should configure a new BrowseEndpointRequest', (done: DoneFn) => {
+      it('should configure a new BrowseEndpointRequest', () => {
         const metadatumKey = 'dc.date.issued';
         const linkName = 'items';
         const expected = new BrowseEndpointRequest(browsesEndpointURL);
@@ -150,17 +162,17 @@ describe('BrowseService', () => {
         scheduler.schedule(() => service.getBrowseURLFor(metadatumKey, linkName).subscribe());
         scheduler.flush();
 
-        setTimeout(() => {
-          expect(requestService.configure).toHaveBeenCalledWith(expected);
-          done();
-        }, 0);
+        expect(requestService.configure).toHaveBeenCalledWith(expected);
 
       });
 
     });
 
-    describe('when getEndpoint doesn\'t fire', () => {
-      it('should return undefined as long as getEndpoint hasn\'t fired', () => {
+    describe('if getEndpoint doesn\'t fire', () => {
+      it('should return undefined', () => {
+        responseCache = initMockResponseCacheService(true);
+        requestService = initMockRequestService();
+        service = initTestService();
         spyOn(service, 'getEndpoint').and
           .returnValue(hot('----'));
 
@@ -169,6 +181,23 @@ describe('BrowseService', () => {
 
         const result = service.getBrowseURLFor(metadatumKey, linkName);
         const expected = cold('b---', { b: undefined });
+        expect(result).toBeObservable(expected);
+      });
+    });
+
+    describe('if the browses endpoint can\'t be retrieved', () => {
+      it('should throw an error', () => {
+        responseCache = initMockResponseCacheService(false);
+        requestService = initMockRequestService();
+        service = initTestService();
+        spyOn(service, 'getEndpoint').and
+          .returnValue(hot('--a-', { a: browsesEndpointURL }));
+
+        const metadatumKey = 'dc.date.issued';
+        const linkName = 'items';
+
+        const result = service.getBrowseURLFor(metadatumKey, linkName);
+        const expected = cold('c-#-', { c: undefined }, new Error(`Couldn't retrieve the browses endpoint`));
         expect(result).toBeObservable(expected);
       });
     });

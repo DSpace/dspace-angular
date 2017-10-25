@@ -1,15 +1,16 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { SearchService } from './search-service/search.service';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RemoteData } from '../core/data/remote-data';
-import { SearchResult } from './search-result.model';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
+import { Observable } from 'rxjs/Observable';
 import { SortOptions } from '../core/cache/models/sort-options.model';
+import { CommunityDataService } from '../core/data/community-data.service';
+import { RemoteData } from '../core/data/remote-data';
+import { Community } from '../core/shared/community.model';
+import { DSpaceObject } from '../core/shared/dspace-object.model';
+import { isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from './search-options.model';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { isNotEmpty } from '../shared/empty.util';
-import { Community } from '../core/shared/community.model';
+import { SearchResult } from './search-result.model';
+import { SearchService } from './search-service/search.service';
 
 /**
  * This component renders a simple item page.
@@ -21,7 +22,7 @@ import { Community } from '../core/shared/community.model';
   selector: 'ds-search-page',
   styleUrls: ['./search-page.component.scss'],
   templateUrl: './search-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
 
@@ -29,11 +30,11 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   private scope: string;
 
   query: string;
-  scopeObject: RemoteData<DSpaceObject>;
-  results: RemoteData<Array<SearchResult<DSpaceObject>>>;
+  scopeObject: Observable<RemoteData<DSpaceObject>>;
+  results: Observable<RemoteData<Array<SearchResult<DSpaceObject>>>>;
   currentParams = {};
   searchOptions: SearchOptions;
-  scopeList: RemoteData<Community[]>;
+  scopeList: Observable<RemoteData<Community[]>>;
 
   constructor(
     private service: SearchService,

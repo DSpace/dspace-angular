@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -13,6 +13,7 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -24,11 +25,12 @@ import { fadeInOut } from '../../shared/animations/fade';
   selector: 'ds-full-item-page',
   styleUrls: ['./full-item-page.component.scss'],
   templateUrl: './full-item-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
-  item: RemoteData<Item>;
+  item: Observable<RemoteData<Item>>;
 
   metadata: Observable<Metadatum[]>;
 
@@ -43,7 +45,10 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
   initialize(params) {
     super.initialize(params);
-    this.metadata = this.item.payload.map((i) => i.metadata);
+    this.metadata = this.item
+      .map((rd: RemoteData<Item>) => rd.payload)
+      .filter((item: Item) => hasValue(item))
+      .map((item: Item) => item.metadata);
   }
 
 }

@@ -9,7 +9,7 @@ import { Community } from '../core/shared/community.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 
-describe('SearchPageComponent', () => {
+fdescribe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
   let fixture: ComponentFixture<SearchPageComponent>;
   let searchServiceObject: SearchService;
@@ -27,8 +27,8 @@ describe('SearchPageComponent', () => {
   };
   const mockCommunityList = [];
   const communityDataServiceStub = {
-    findAll: () => mockCommunityList,
-    findById: () => new Community()
+    findAll: () => Observable.of(mockCommunityList),
+    findById: () => Observable.of(new Community())
   };
 
   class RouterStub {

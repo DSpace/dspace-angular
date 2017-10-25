@@ -22,6 +22,7 @@ function entryFromHrefSelector(href: string): MemoizedSelector<CoreState, Reques
 
 @Injectable()
 export class RequestService {
+  private requestsOnTheirWayToTheStore: string[] = [];
 
   constructor(
     private objectCache: ObjectCacheService,
@@ -31,6 +32,12 @@ export class RequestService {
   }
 
   isPending(href: string): boolean {
+    // first check requests that haven't made it to the store yet
+    if (this.requestsOnTheirWayToTheStore.includes(href)) {
+      return true;
+    }
+
+    // then check the store
     let isPending = false;
     this.store.select(entryFromHrefSelector(href))
       .take(1)
@@ -75,6 +82,24 @@ export class RequestService {
     if (!(isCached || isPending)) {
       this.store.dispatch(new RequestConfigureAction(request));
       this.store.dispatch(new RequestExecuteAction(request.href));
+      this.trackRequestsOnTheirWayToTheStore(request.href);
     }
+  }
+
+  /**
+   * ngrx action dispatches are asynchronous. But this.isPending needs to return true as soon as the
+   * configure method for a request has been executed, otherwise certain requests will happen multiple times.
+   *
+   * This method will store the href of every request that gets configured in a local variable, and
+   * remove it as soon as it can be found in the store.
+   */
+  private trackRequestsOnTheirWayToTheStore(href: string) {
+    this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, href];
+    this.store.select(entryFromHrefSelector(href))
+      .filter((re: RequestEntry) => hasValue(re))
+      .take(1)
+      .subscribe((re: RequestEntry) => {
+        this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== href)
+      });
   }
 }

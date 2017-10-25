@@ -1,15 +1,15 @@
 import { Inject, Injectable } from '@angular/core';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { RequestService } from '../data/request.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../config';
-import { BrowseEndpointRequest, RestRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { BrowseSuccessResponse } from '../cache/response-cache.models';
-import { isNotEmpty } from '../../shared/empty.util';
-import { BrowseDefinition } from '../shared/browse-definition.model';
 import { Observable } from 'rxjs/Observable';
+import { GLOBAL_CONFIG } from '../../../config';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { BrowseSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { BrowseEndpointRequest, RestRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { BrowseDefinition } from '../shared/browse-definition.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
 export class BrowseService extends HALEndpointService {
@@ -41,23 +41,32 @@ export class BrowseService extends HALEndpointService {
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new BrowseEndpointRequest(endpointURL))
-      .do((request: RestRequest) => {
-        setTimeout(() => {
-          this.requestService.configure(request);
-        }, 0);
-      })
-      .flatMap((request: RestRequest) => this.responseCache.get(request.href)
-        .map((entry: ResponseCacheEntry) => entry.response)
-        .filter((response: BrowseSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.browseDefinitions))
-        .map((response: BrowseSuccessResponse) => response.browseDefinitions)
-        .map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-          .find((def: BrowseDefinition) => {
-            const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
-            return isNotEmpty(matchingKeys);
+      .do((request: RestRequest) => this.requestService.configure(request))
+      .flatMap((request: RestRequest) => {
+        const [successResponse, errorResponse] = this.responseCache.get(request.href)
+          .map((entry: ResponseCacheEntry) => entry.response)
+          .partition((response: RestResponse) => response.isSuccessful);
+
+        return Observable.merge(
+          errorResponse.flatMap((response: ErrorResponse) =>
+            Observable.throw(new Error(`Couldn't retrieve the browses endpoint`))),
+          successResponse
+            .filter((response: BrowseSuccessResponse) => isNotEmpty(response.browseDefinitions))
+            .map((response: BrowseSuccessResponse) => response.browseDefinitions)
+            .map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
+              .find((def: BrowseDefinition) => {
+                const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
+                return isNotEmpty(matchingKeys);
+              })
+            ).map((def: BrowseDefinition) => {
+            if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkName])) {
+              throw new Error(`A browse endpoint for ${linkName} on ${metadatumKey} isn't configured`);
+            } else {
+              return def._links[linkName];
+            }
           })
-        ).filter((def: BrowseDefinition) => isNotEmpty(def) && isNotEmpty(def._links))
-        .map((def: BrowseDefinition) => def._links[linkName])
-      ).startWith(undefined)
+        );
+      }).startWith(undefined)
       .distinctUntilChanged();
   }
 

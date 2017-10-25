@@ -4,7 +4,7 @@ import {
   Inject,
   ViewEncapsulation,
   OnInit,
-  HostListener
+  HostListener, SimpleChanges, OnChanges
 } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -26,7 +26,7 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../config';
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -70,5 +70,10 @@ export class AppComponent implements OnInit {
       new HostWindowResizeAction(event.target.innerWidth, event.target.innerHeight)
     );
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('AppComponent: onchanges called', changes);
+  }
+
 
 }

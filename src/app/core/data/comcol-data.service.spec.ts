@@ -53,6 +53,7 @@ describe('ComColDataService', () => {
   const communitiesEndpoint = 'https://rest.api/core/communities';
   const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
+  const serviceEndpoint = `https://rest.api/core/${LINK_NAME}`;
 
   function initMockCommunityDataService(): CommunityDataService {
     return jasmine.createSpyObj('responseCache', {
@@ -102,7 +103,7 @@ describe('ComColDataService', () => {
       scheduler = getTestScheduler();
     });
 
-    it('should configure a new FindByIDRequest for the scope Community', (done: DoneFn) => {
+    it('should configure a new FindByIDRequest for the scope Community', () => {
       cds = initMockCommunityDataService();
       requestService = initMockRequestService();
       objectCache = initMockObjectCacheService();
@@ -114,10 +115,7 @@ describe('ComColDataService', () => {
       scheduler.schedule(() => service.getScopedEndpoint(scopeID).subscribe());
       scheduler.flush();
 
-      setTimeout(() => {
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
-        done();
-      }, 0);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
     describe('if the scope Community can be found', () => {
@@ -159,5 +157,25 @@ describe('ComColDataService', () => {
         expect(result).toBeObservable(expected);
       });
     });
+
+    describe('if the scope is not specified', () => {
+      beforeEach(() => {
+        cds = initMockCommunityDataService();
+        requestService = initMockRequestService();
+        objectCache = initMockObjectCacheService();
+        responseCache = initMockResponceCacheService(true);
+        service = initTestService();
+      });
+
+      it('should return this.getEndpoint()', () => {
+        spyOn(service, 'getEndpoint').and.returnValue(cold('--e-', { e: serviceEndpoint }))
+
+        const result = service.getScopedEndpoint(undefined);
+        const expected = cold('--f-', { f: serviceEndpoint });
+
+        expect(result).toBeObservable(expected);
+      });
+    });
+
   });
 });

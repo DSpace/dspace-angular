@@ -1,5 +1,5 @@
-<div class="item-page" *ngIf="item.hasSucceeded | async" @fadeInOut>
-  <div *ngIf="item.payload | async; let itemPayload">
+<div class="item-page" *ngIf="(item | async)?.hasSucceeded" @fadeInOut>
+  <div *ngIf="(item | async)?.payload; let itemPayload">
     <ds-item-page-title-field [item]="itemPayload"></ds-item-page-title-field>
     <div class="simple-view-link">
       <a class="btn btn-outline-primary col-4" [routerLink]="['/items/' + itemPayload.id]">
@@ -19,5 +19,5 @@
     <ds-item-page-collections [item]="itemPayload"></ds-item-page-collections>
   </div>
 </div>
-<ds-error *ngIf="item.hasFailed | async" message="{{'error.item' | translate}}"></ds-error>
-<ds-loading *ngIf="item.isLoading | async" message="{{'loading.item' | translate}}"></ds-loading>
+<ds-error *ngIf="(item | async)?.hasFailed" message="{{'error.item' | translate}}"></ds-error>
+<ds-loading *ngIf="(item | async)?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>

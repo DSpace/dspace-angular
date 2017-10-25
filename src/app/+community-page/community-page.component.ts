@@ -12,6 +12,7 @@ import { MetadataService } from '../core/metadata/metadata.service';
 
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-community-page',
@@ -21,8 +22,8 @@ import { hasValue } from '../shared/empty.util';
   animations: [fadeInOut]
 })
 export class CommunityPageComponent implements OnInit, OnDestroy {
-  communityData: RemoteData<Community>;
-  logoData: RemoteData<Bitstream>;
+  communityData: Observable<RemoteData<Community>>;
+  logoData: Observable<RemoteData<Bitstream>>;
   private subs: Subscription[] = [];
 
   constructor(
@@ -37,7 +38,10 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params: Params) => {
       this.communityData = this.communityDataService.findById(params.id);
       this.metadata.processRemoteData(this.communityData);
-      this.subs.push(this.communityData.payload.subscribe((community) => this.logoData = community.logo));
+      this.subs.push(this.communityData
+        .map((rd: RemoteData<Community>) => rd.payload)
+        .filter((community: Community) => hasValue(community))
+        .subscribe((community: Community) => this.logoData = community.logo));
     });
   }
 

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 
@@ -16,7 +17,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
   animations: [fadeInOut]
 })
 export class TopLevelCommunityListComponent {
-  topLevelCommunities: RemoteData<Community[]>;
+  topLevelCommunities: Observable<RemoteData<Community[]>>;
   config: PaginationComponentOptions;
   sortConfig: SortOptions;
 

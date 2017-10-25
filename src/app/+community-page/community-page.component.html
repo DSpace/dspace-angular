@@ -1,10 +1,10 @@
-<div class="community-page" *ngIf="communityData.hasSucceeded | async" @fadeInOut>
-  <div *ngIf="communityData.payload | async; let communityPayload">
+<div class="community-page" *ngIf="(communityData | async)?.hasSucceeded" @fadeInOut>
+  <div *ngIf="(communityData | async)?.payload; let communityPayload">
     <!-- Community name -->
     <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
     <!-- Community logo -->
     <ds-comcol-page-logo *ngIf="logoData"
-      [logo]="logoData.payload | async"
+      [logo]="(logoData | async)?.payload"
       [alternateText]="'Community Logo'">
     </ds-comcol-page-logo>
     <!-- Introductionary text -->
@@ -26,5 +26,5 @@
     <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
   </div>
 </div>
-<ds-error *ngIf="communityData.hasFailed | async" message="{{'error.community' | translate}}"></ds-error>
-<ds-loading *ngIf="communityData.isLoading | async" message="{{'loading.community' | translate}}"></ds-loading>
+<ds-error *ngIf="(communityData | async)?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
+<ds-loading *ngIf="(communityData | async)?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>

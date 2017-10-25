@@ -1,13 +1,13 @@
-<div *ngIf="topLevelCommunities.hasSucceeded | async" @fadeInOut>
+<div *ngIf="(topLevelCommunities | async)?.hasSucceeded" @fadeInOut>
   <h2>{{'home.top-level-communities.head' | translate}}</h2>
   <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
   <ds-object-list
     [config]="config"
     [sortConfig]="sortConfig"
-    [objects]="topLevelCommunities"
+    [objects]="topLevelCommunities | async"
     [hideGear]="true"
     (paginationChange)="updatePage($event)">
   </ds-object-list>
 </div>
-<ds-error *ngIf="topLevelCommunities.hasFailed | async" message="{{'error.top-level-communites' | translate}}"></ds-error>
-<ds-loading *ngIf="topLevelCommunities.isLoading | async" message="{{'loading.top-level-communities' | translate}}"></ds-loading>
+<ds-error *ngIf="(topLevelCommunities | async)?.hasFailed" message="{{'error.top-level-communites' | translate}}"></ds-error>
+<ds-loading *ngIf="(topLevelCommunities | async)?.isLoading" message="{{'loading.top-level-communities' | translate}}"></ds-loading>

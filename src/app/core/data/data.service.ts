@@ -11,6 +11,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, RestRequest } from './request.models';
 import { RequestService } from './request.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> extends HALEndpointService {
   protected abstract responseCache: ResponseCacheService;
@@ -29,11 +30,12 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   public abstract getScopedEndpoint(scope: string): Observable<string>
 
   protected getFindAllHref(endpoint, options: FindAllOptions = {}): Observable<string> {
-    let result;
+    let result: Observable<string>;
     const args = [];
 
     if (hasValue(options.scopeID)) {
-      result = this.getScopedEndpoint(options.scopeID);
+      result = this.getScopedEndpoint(options.scopeID).distinctUntilChanged();
+      // result.take(1).subscribe((r) => console.log('result', r));
     } else {
       result = Observable.of(endpoint);
     }
@@ -56,22 +58,22 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     }
 
     if (isNotEmpty(args)) {
-      return result.map((href: string) => `${href}?${args.join('&')}`);
+      return result.map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString());
     } else {
       return result;
     }
   }
 
-  findAll(options: FindAllOptions = {}): RemoteData<TDomain[]> {
-    const hrefObs = this.getEndpoint()
+  findAll(options: FindAllOptions = {}): Observable<RemoteData<TDomain[]>> {
+    const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
       .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
 
     hrefObs
+      .filter((href: string) => hasValue(href))
+      .take(1)
       .subscribe((href: string) => {
         const request = new FindAllRequest(href, options);
-        setTimeout(() => {
-          this.requestService.configure(request);
-        }, 0);
+        this.requestService.configure(request);
       });
 
     return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
@@ -81,27 +83,24 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     return `${endpoint}/${resourceID}`;
   }
 
-  findById(id: string): RemoteData<TDomain> {
+  findById(id: string): Observable<RemoteData<TDomain>> {
     const hrefObs = this.getEndpoint()
       .map((endpoint: string) => this.getFindByIDHref(endpoint, id));
 
     hrefObs
+      .filter((href: string) => hasValue(href))
+      .take(1)
       .subscribe((href: string) => {
         const request = new FindByIDRequest(href, id);
-        setTimeout(() => {
-          this.requestService.configure(request);
-        }, 0);
+        this.requestService.configure(request);
       });
 
     return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
   }
 
-  findByHref(href: string): RemoteData<TDomain> {
-    setTimeout(() => {
-      this.requestService.configure(new RestRequest(href));
-    }, 0);
+  findByHref(href: string): Observable<RemoteData<TDomain>> {
+    this.requestService.configure(new RestRequest(href));
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
-    // return this.rdbService.buildSingle(href));
   }
 
 }

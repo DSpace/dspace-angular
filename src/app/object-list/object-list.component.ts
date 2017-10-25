@@ -1,17 +1,11 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
 
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 
@@ -20,6 +14,7 @@ import { PageInfo } from '../core/shared/page-info.model';
 import { ListableObject } from '../object-list/listable-object/listable-object.model';
 
 import { fadeIn } from '../shared/animations/fade';
+import { hasValue } from '../shared/empty.util';
 
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
@@ -31,14 +26,35 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
   templateUrl: './object-list.component.html',
   animations: [fadeIn]
 })
-export class ObjectListComponent implements OnChanges, OnInit {
+export class ObjectListComponent {
 
-  @Input() objects: RemoteData<ListableObject[]>;
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
-  pageInfo: Observable<PageInfo>;
+  private _objects: RemoteData<ListableObject[]>;
+  pageInfo: PageInfo;
+  @Input() set objects(objects: RemoteData<ListableObject[]>) {
+    this._objects = objects;
+    if (hasValue(objects)) {
+      this.pageInfo = objects.pageInfo;
+    }
+  }
+  get objects() {
+    return this._objects;
+  }
+
+  /**
+   * An event fired when the page is changed.
+   * Event's payload equals to the newly selected page.
+   */
+  @Output() change: EventEmitter<{
+    pagination: PaginationComponentOptions,
+    sort: SortOptions
+  }> = new EventEmitter<{
+    pagination: PaginationComponentOptions,
+    sort: SortOptions
+  }>();
 
   /**
    * An event fired when the page is changed.
@@ -66,26 +82,6 @@ export class ObjectListComponent implements OnChanges, OnInit {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.objects && !changes.objects.isFirstChange()) {
-      this.pageInfo = this.objects.pageInfo;
-    }
-  }
-
-  ngOnInit(): void {
-    this.pageInfo = this.objects.pageInfo;
-  }
-
-  /**
-   * @param route
-   *    Route is a singleton service provided by Angular.
-   * @param router
-   *    Router is a singleton service provided by Angular.
-   */
-  constructor(
-    private cdRef: ChangeDetectorRef) {
-  }
 
   onPageChange(event) {
     this.pageChange.emit(event);

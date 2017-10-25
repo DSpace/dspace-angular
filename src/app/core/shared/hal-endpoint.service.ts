@@ -15,10 +15,9 @@ export abstract class HALEndpointService {
 
   protected getEndpointMap(): Observable<EndpointMap> {
     const request = new RootEndpointRequest(this.EnvConfig);
-    setTimeout(() => {
-      this.requestService.configure(request);
-    }, 0);
+    this.requestService.configure(request);
     return this.responseCache.get(request.href)
+      // .do((entry: ResponseCacheEntry) => console.log('entry.response', entry.response))
       .map((entry: ResponseCacheEntry) => entry.response)
       .filter((response: RootSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.endpointMap))
       .map((response: RootSuccessResponse) => response.endpointMap)

@@ -11,6 +11,7 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -30,7 +31,7 @@ export class ItemPageComponent implements OnInit {
 
   private sub: any;
 
-  item: RemoteData<Item>;
+  item: Observable<RemoteData<Item>>;
 
   thumbnail: Observable<Bitstream>;
 
@@ -52,7 +53,10 @@ export class ItemPageComponent implements OnInit {
     this.id = +params.id;
     this.item = this.items.findById(params.id);
     this.metadataService.processRemoteData(this.item);
-    this.thumbnail = this.item.payload.flatMap((i) => i.getThumbnail());
+    this.thumbnail = this.item
+      .map((rd: RemoteData<Item>) => rd.payload)
+      .filter((item: Item) => hasValue(item))
+      .flatMap((item: Item) => item.getThumbnail());
   }
 
 }
