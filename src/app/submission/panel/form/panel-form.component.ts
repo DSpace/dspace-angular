@@ -63,8 +63,8 @@ export class FormPanelComponent extends PanelModelComponent {
 
   ngAfterViewInit() {
     this.formService.isValid(this.formRef.getFormUniqueId())
-      .subscribe((state) => {
-        this.store.dispatch(new PanelStatusChangeAction(this.sectionData.submissionId, this.sectionData.panelId, state));
+      .subscribe((formState) => {
+        this.store.dispatch(new PanelStatusChangeAction(this.sectionData.submissionId, this.sectionData.panelId, formState));
       });
   }
 }

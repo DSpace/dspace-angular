@@ -90,6 +90,12 @@ export class PanelService {
       .distinctUntilChanged();
   }
 
+  isPanelValid(submissionId, panelId): Observable<boolean> {
+    return this.store.select(submissionPanelFromIdSelector(submissionId, panelId))
+      .map((panel: SubmissionPanelObject) => panel.isValid)
+      .distinctUntilChanged();
+  }
+
   loadDefaultPanels(submissionId, definitionId) {
     this.store.select(submissionDefinitionFromIdSelector(definitionId))
       .map((state) => {

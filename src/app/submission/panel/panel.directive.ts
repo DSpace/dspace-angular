@@ -1,29 +1,29 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, OnInit } from '@angular/core';
 import { PanelService } from './panel.service';
 
 @Directive({
   selector: '[dsPanel]',
   exportAs: 'panelRef'
 })
-export class PanelDirective {
+export class PanelDirective implements OnInit {
   @Input() mandatory = true;
   @Input() checkable = true;
 
   @Input() submissionId;
   @Input() panelId;
 
-  isValid    = false;
+  valid: boolean;
   animation  = !this.mandatory;
   panelState = this.mandatory;
 
   constructor(private panelService: PanelService) {}
 
-  ngAfterViewInit() {
-    this.panelService.getPanelState(this.submissionId, this.panelId)
-      .subscribe((state) => {
-        if (state) {
-          this.isValid = state.isValid;
-        }
+  ngOnInit() {
+    this.panelService.isPanelValid(this.submissionId, this.panelId)
+      // Avoid 'ExpressionChangedAfterItHasBeenCheckedError' using debounceTime
+      .debounceTime(1)
+      .subscribe((valid) => {
+          this.valid = valid;
       });
   }
 
@@ -45,6 +45,10 @@ export class PanelDirective {
 
   public isAnimationsActive() {
     return this.animation;
+  }
+
+  public isValid() {
+    return this.valid;
   }
 
   public removePanel(submissionId, panelId) {

@@ -23,8 +23,7 @@ export class PanelFactoryComponent {
   typeToComponentMapping = [ 'submission-form', 'upload', 'license', 'cclicense' ];
   currentComponent = null;
 
-  constructor(private resolver: ComponentFactoryResolver,  private store: Store<SubmissionState> ) {}
-           //   private panelService: PanelService) {}
+  constructor(private resolver: ComponentFactoryResolver) {}
 
   // component: Class for the component you want to create
   // inputs: An object with key/value pairs mapped to input name/input value
@@ -42,27 +41,10 @@ export class PanelFactoryComponent {
     inputs.mandatory = factoryData.mandatory;
     inputs.submissionId = submissionId;
     inputs.checkable = factoryData.checkable;
-    // inputs.config = factoryData.config;
-    /*inputs.submissionState = this.submissionState;
-    inputs.bitstreamService = this.bitstreamService;
-    inputs.submissionService = this.submissionService;*/
 
     // Inputs need to be in the following format to be resolved properly
-    /*const inputProviders = Object.keys(inputs).map((inputName) => {
-      return {provide: inputName, useValue: inputs[inputName]};
-    });*/
-    const inputProviders = [
-                            {provide: 'sectionData',  useValue: inputs},
-                            {provide: 'store', useValue: this.store }
-                           // {provide: 'panelService', useValue: this.panelService}
-                           ];
-
-    // const inputProviders = {provide: 'store', useClass: Store<SubmissionState>};
-    // inputProviders.push({provide: 'store', useFactory: Store<SubmissionState>})
-
-    // const inputProviders = {provide: 'inputs', useExisting: inputs};
+    const inputProviders = [{provide: 'sectionData',  useValue: inputs}];
     const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
-    // const resolvedInputs = ReflectiveInjector.resolveAndCreate(inputProviders);
 
     // We create an injector out of the data we want to pass down and this components injector
     const injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, panelsHost.parentInjector);
@@ -73,13 +55,8 @@ export class PanelFactoryComponent {
     // We create the component using the factory and the injector
     const containerRef = containerFactory.create(injector);
 
-    /*for (const inputName of Object.keys(inputs)) {
-      (containerRef.instance as PanelDataModel)[inputName] = inputs[inputName];
-    }*/
     containerRef.instance.sectionData = inputs;
     containerRef.instance.panelComponentType = factoryData.sectionType;
-
-    containerRef.instance.store = this.store;
 
     // We insert the component into the dom container
     panelsHost.insert(containerRef.hostView);

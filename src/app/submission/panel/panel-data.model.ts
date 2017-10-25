@@ -1,4 +1,3 @@
-
 export class PanelDataObject {
   config: string;
   panelId: string;

@@ -32,6 +32,7 @@ export class SubmissionSubmitFormComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    // Avoid 'ExpressionChangedAfterItHasBeenCheckedError' using setTimeout
     setTimeout(() => {
       this.store.dispatch(new NewSubmissionFormAction(this.submissionId, this.definitionId));
     });
