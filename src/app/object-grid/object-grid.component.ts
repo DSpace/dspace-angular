@@ -1,59 +1,39 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
+  Component, EventEmitter,
   Input,
-  Output,
-  ViewEncapsulation
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  OnInit,
+  Output, SimpleChanges, OnChanges, ChangeDetectorRef, DoCheck
 } from '@angular/core';
-
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { Observable } from 'rxjs/Observable';
 
 import { RemoteData } from '../core/data/remote-data';
 import { PageInfo } from '../core/shared/page-info.model';
-import { fadeIn } from '../shared/animations/fade';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { hasValue } from '../shared/empty.util';
 
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+
+import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
+import { fadeIn } from '../shared/animations/fade';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-list',
-  styleUrls: ['./object-list.component.scss'],
-  templateUrl: './object-list.component.html',
+  selector: 'ds-object-grid',
+  styleUrls: [ './object-grid.component.scss' ],
+  templateUrl: './object-grid.component.html',
   animations: [fadeIn]
 })
-export class ObjectListComponent {
 
+export class ObjectGridComponent implements OnChanges, OnInit  {
+
+  @Input() objects: RemoteData<ListableObject[]>;
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
-  private _objects: RemoteData<ListableObject[]>;
-  pageInfo: PageInfo;
-  @Input() set objects(objects: RemoteData<ListableObject[]>) {
-    this._objects = objects;
-    if (hasValue(objects)) {
-      this.pageInfo = objects.pageInfo;
-    }
-  }
-  get objects() {
-    return this._objects;
-  }
-
-  /**
-   * An event fired when the page is changed.
-   * Event's payload equals to the newly selected page.
-   */
-  @Output() change: EventEmitter<{
-    pagination: PaginationComponentOptions,
-    sort: SortOptions
-  }> = new EventEmitter<{
-    pagination: PaginationComponentOptions,
-    sort: SortOptions
-  }>();
+  pageInfo: Observable<PageInfo>;
 
   /**
    * An event fired when the page is changed.
@@ -82,25 +62,25 @@ export class ObjectListComponent {
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
 
-
-  onPageChange(event) {
-    this.pageChange.emit(event);
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.objects && !changes.objects.isFirstChange()) {
+      this.pageInfo = this.objects.pageInfo;
+    }
   }
 
-  onPageSizeChange(event) {
-    this.pageSizeChange.emit(event);
+  ngOnInit(): void {
+    this.pageInfo = this.objects.pageInfo;
+    this.config.pageSize = 4;
   }
 
-  onSortDirectionChange(event) {
-    this.sortDirectionChange.emit(event);
+  /**
+   * @param route
+   *    Route is a singleton service provided by Angular.
+   * @param router
+   *    Router is a singleton service provided by Angular.
+   */
+  constructor(private cdRef: ChangeDetectorRef) {
   }
 
-  onSortFieldChange(event) {
-    this.sortFieldChange.emit(event);
-  }
-
-  onPaginationChange(event) {
-    this.paginationChange.emit(event);
-  }
 
 }

@@ -1,22 +1,22 @@
 import { Component, Inject } from '@angular/core';
 
-import { ObjectListElementComponent } from '../object-list-element/object-list-element.component';
 import { SearchResult } from '../../+search-page/search-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Metadatum } from '../../core/shared/metadatum.model';
 import { isEmpty, hasNoValue } from '../../shared/empty.util';
+import { ObjectGridElementComponent } from '../object-grid-element/object-grid-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 
 @Component({
-  selector: 'ds-search-result-list-element',
+  selector: 'ds-search-result-grid-element',
   template: ``
 })
 
-export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends ObjectListElementComponent<T> {
+export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends ObjectGridElementComponent<T> {
   dso: K;
 
-  public constructor(@Inject('objectElementProvider') public listable: ListableObject) {
-    super(listable);
+  public constructor(@Inject('objectElementProvider') public gridable: ListableObject) {
+    super(gridable);
     this.dso = this.object.dspaceObject;
   }
 
