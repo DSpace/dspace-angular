@@ -1,5 +1,5 @@
-import { ListableObject } from './listable-object/listable-object.model';
 import { GenericConstructor } from '../core/shared/generic-constructor';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 const listElementMap = new Map();
 export function listElementFor(listable: GenericConstructor<ListableObject>) {

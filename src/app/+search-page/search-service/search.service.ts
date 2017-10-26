@@ -9,10 +9,10 @@ import { SearchOptions } from '../search-options.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Metadatum } from '../../core/shared/metadatum.model';
 import { Item } from '../../core/shared/item.model';
-import { ItemSearchResult } from '../../object-list/search-result-list-element/item-search-result/item-search-result.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
+import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 
 function shuffle(array: any[]) {
   let i = 0;

@@ -1,0 +1,27 @@
+<div class="card">
+  <a [routerLink]="['/items/' + dso.id]" class="card-img-top">
+    <ds-thumbnail [thumbnail]="dso.getThumbnail()">
+    </ds-thumbnail>
+  </a>
+  <div class="card-block">
+    <h4 class="card-title">{{dso.findMetadata('dc.title')}}</h4>
+
+    <p *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);"
+       class="item-authors card-text">
+        <span
+          *ngFor="let authorMd of dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
+            <span *ngIf="!last">; </span>
+        </span>
+    </p>
+    (<span *ngIf="dso.findMetadata('dc.publisher')"
+           class="item-list-publisher">{{dso.findMetadata("dc.publisher")}}, </span><span
+    *ngIf="dso.findMetadata('dc.date.issued')" class="item-list-date">{{dso.findMetadata("dc.date.issued")}}</span>)
+
+    <p *ngIf="dso.findMetadata('dc.description.abstract')" class="item-abstract card-text">
+      {{dso.findMetadata("dc.description.abstract") | dsTruncate:[200] }}</p>
+
+  </div>
+  <a [routerLink]="['/items/' + dso.id]" class="lead btn btn-primary viewButton">View</a>
+
+</div>
+

@@ -1,0 +1,36 @@
+.card-title{
+  line-height: 1em;
+  height:3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1em;
+  margin-bottom:10px;
+}
+.card-text.item-authors {
+  height: 1em;
+}
+.card-text.item-abstract {
+  height: 5em;
+
+}
+.viewButton{
+  display:block;
+}
+
+.card{
+  padding:10px;
+  margin-bottom: 15px;
+}
+
+.card-img-top ::ng-deep  img
+{
+  height: 120px;
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}

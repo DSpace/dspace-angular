@@ -1,12 +1,8 @@
-import {
-  Component,
-  EventEmitter,
+import { Component, EventEmitter,
   Input,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
   OnInit,
-  Output, SimpleChanges, OnChanges, ChangeDetectorRef, DoCheck
-} from '@angular/core';
+  Output, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -15,26 +11,19 @@ import { PageInfo } from '../core/shared/page-info.model';
 
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
-import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
+import {  SortDirection } from '../core/cache/models/sort-options.model';
 
-import { fadeIn } from '../shared/animations/fade';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-
+import { ListableObject } from './shared/listable-object.model';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-list',
-  styleUrls: ['./object-list.component.scss'],
-  templateUrl: './object-list.component.html',
-  animations: [fadeIn]
+  selector: 'ds-viewable-collection',
+  styleUrls: ['./object-collection.component.scss'],
+  templateUrl: './object-collection.component.html',
 })
-export class ObjectListComponent implements OnChanges, OnInit {
+export class ObjectCollectionComponent implements OnChanges, OnInit {
 
   @Input() objects: RemoteData<ListableObject[]>;
-  @Input() config: PaginationComponentOptions;
-  @Input() sortConfig: SortOptions;
-  @Input() hideGear = false;
-  @Input() hidePagerWhenSinglePage = true;
+  @Input() config?: PaginationComponentOptions;
   pageInfo: Observable<PageInfo>;
 
   /**
@@ -63,6 +52,7 @@ export class ObjectListComponent implements OnChanges, OnInit {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
+  defaultViewMode: string ='list';
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.objects && !changes.objects.isFirstChange()) {
@@ -80,8 +70,44 @@ export class ObjectListComponent implements OnChanges, OnInit {
    * @param router
    *    Router is a singleton service provided by Angular.
    */
-  constructor(
-    private cdRef: ChangeDetectorRef) {
+  constructor(private cdRef: ChangeDetectorRef, private route: ActivatedRoute,
+              private router: Router) {
+  }
+
+  getViewMode(): string {
+    // TODO Update to accommodate view switcher
+
+    this.route.queryParams.map((params) => {
+      if (isNotEmpty(params.view) && hasValue(params.view)) {
+        return params.view;
+      } else {
+        return this.defaultViewMode;
+      }
+    });
+    return this.defaultViewMode;
+  }
+
+  setViewMode(viewMode: string) {
+    this.defaultViewMode = viewMode;
+  }
+  onPageChange(event) {
+    this.pageChange.emit(event);
+  }
+
+  onPageSizeChange(event) {
+    this.pageSizeChange.emit(event);
+  }
+
+  onSortDirectionChange(event) {
+    this.sortDirectionChange.emit(event);
+  }
+
+  onSortFieldChange(event) {
+    this.sortFieldChange.emit(event);
+  }
+
+  onPaginationChange(event) {
+    this.paginationChange.emit(event);
   }
 
 }

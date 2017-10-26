@@ -1,0 +1,13 @@
+<ds-object-list [config]="config"
+                [sortConfig]="sortConfig"
+                [objects]="objects"
+                *ngIf="getViewMode()=='list'">
+</ds-object-list>
+
+<ds-object-grid [config]="config"
+                [sortConfig]="sortConfig"
+                [objects]="objects"
+                *ngIf="getViewMode()=='grid'">
+</ds-object-grid>
+
+

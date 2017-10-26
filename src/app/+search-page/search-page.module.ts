@@ -11,7 +11,10 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { ItemSearchResultListElementComponent } from '../object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
 import { CollectionSearchResultListElementComponent } from '../object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 import { CommunitySearchResultListElementComponent } from '../object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
+import { ItemSearchResultGridElementComponent } from '../object-grid/search-result-grid-element/item-search-result/item-search-result-grid-element.component';
+import { CommunitySearchResultGridElementComponent } from '../object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component'
 import { SearchService } from './search-service/search.service';
+import { CollectionSearchResultGridElementComponent } from '../object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 
 @NgModule({
   imports: [
@@ -26,7 +29,10 @@ import { SearchService } from './search-service/search.service';
     SearchResultsComponent,
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent
+    CommunitySearchResultListElementComponent,
+    ItemSearchResultGridElementComponent,
+    CollectionSearchResultGridElementComponent,
+    CommunitySearchResultGridElementComponent,
   ],
   providers: [
     SearchService
@@ -34,7 +40,11 @@ import { SearchService } from './search-service/search.service';
   entryComponents: [
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent
+    CommunitySearchResultListElementComponent,
+    ItemSearchResultGridElementComponent,
+    CollectionSearchResultGridElementComponent,
+    CommunitySearchResultGridElementComponent,
   ]
 })
-export class SearchPageModule { }
+export class SearchPageModule {
+}

@@ -1,13 +1,11 @@
 import {
-  Component,
-  EventEmitter,
+  Component, EventEmitter,
   Input,
   ViewEncapsulation,
   ChangeDetectionStrategy,
   OnInit,
   Output, SimpleChanges, OnChanges, ChangeDetectorRef, DoCheck
 } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
 
 import { RemoteData } from '../core/data/remote-data';
@@ -16,19 +14,19 @@ import { PageInfo } from '../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
 import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
-
 import { fadeIn } from '../shared/animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-list',
-  styleUrls: ['./object-list.component.scss'],
-  templateUrl: './object-list.component.html',
+  selector: 'ds-object-grid',
+  styleUrls: [ './object-grid.component.scss' ],
+  templateUrl: './object-grid.component.html',
   animations: [fadeIn]
 })
-export class ObjectListComponent implements OnChanges, OnInit {
+
+export class ObjectGridComponent implements OnChanges, OnInit  {
 
   @Input() objects: RemoteData<ListableObject[]>;
   @Input() config: PaginationComponentOptions;
@@ -72,6 +70,7 @@ export class ObjectListComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.pageInfo = this.objects.pageInfo;
+    this.config.pageSize = 4;
   }
 
   /**
@@ -80,8 +79,8 @@ export class ObjectListComponent implements OnChanges, OnInit {
    * @param router
    *    Router is a singleton service provided by Angular.
    */
-  constructor(
-    private cdRef: ChangeDetectorRef) {
+  constructor(private cdRef: ChangeDetectorRef) {
   }
+
 
 }
