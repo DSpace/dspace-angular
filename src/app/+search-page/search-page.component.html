@@ -1,11 +1,12 @@
 <div class="container">
   <div class="search-page">
-      <ds-search-form
-        [query]="query"
-        [scope]="scopeObject?.payload | async"
-        [currentParams]="currentParams"
-        [scopes]="scopeList?.payload">
-      </ds-search-form>
-      <ds-search-results [searchResults]="results" [searchConfig]="searchOptions"></ds-search-results>
+    <ds-search-form
+      [query]="query"
+      [scope]="scopeObject?.payload | async"
+      [currentParams]="currentParams"
+      [scopes]="scopeList?.payload">
+    </ds-search-form>
+    <ds-view-mode-switch></ds-view-mode-switch>
+    <ds-search-results [searchResults]="results" [searchConfig]="searchOptions"></ds-search-results>
   </div>
 </div>
