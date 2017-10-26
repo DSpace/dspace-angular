@@ -29,6 +29,7 @@ import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
+import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -61,7 +62,8 @@ const COMPONENTS = [
   PaginationComponent,
   SearchFormComponent,
   ThumbnailComponent,
-  WrapperListElementComponent
+  WrapperListElementComponent,
+  ViewModeSwitchComponent
 ];
 
 const ENTRY_COMPONENTS = [

@@ -35,7 +35,6 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
 
     if (hasValue(options.scopeID)) {
       result = this.getScopedEndpoint(options.scopeID).distinctUntilChanged();
-      // result.take(1).subscribe((r) => console.log('result', r));
     } else {
       result = Observable.of(endpoint);
     }

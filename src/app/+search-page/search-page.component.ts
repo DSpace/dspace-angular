@@ -8,6 +8,7 @@ import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-switch.component';
 import { SearchOptions } from './search-options.model';
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
