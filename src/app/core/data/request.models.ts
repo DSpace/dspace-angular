@@ -5,6 +5,7 @@ import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RootResponseParsingService } from './root-response-parsing.service';
+import { ConfigResponseParsingService } from './config-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 export class RestRequest {
@@ -50,6 +51,16 @@ export class RootEndpointRequest extends RestRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return RootResponseParsingService;
+  }
+}
+
+export class ConfigRequest extends RestRequest {
+  constructor(href: string) {
+    super(href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return ConfigResponseParsingService;
   }
 }
 
