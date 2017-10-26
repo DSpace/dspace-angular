@@ -1,14 +1,14 @@
 import { Component, Input, Injector, ReflectiveInjector, OnInit } from '@angular/core';
-import { getListElementFor } from '../list-element-decorator'
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { getGridElementFor } from '../grid-element-decorator';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 
 @Component({
-  selector: 'ds-wrapper-list-element',
-  styleUrls: ['./wrapper-list-element.component.scss'],
-  templateUrl: './wrapper-list-element.component.html'
+  selector: 'ds-wrapper-grid-element',
+  styleUrls: ['./wrapper-grid-element.component.scss'],
+  templateUrl: './wrapper-grid-element.component.html'
 })
-export class WrapperListElementComponent implements OnInit {
+export class WrapperGridElementComponent implements OnInit {
   @Input() object: ListableObject;
   objectInjector: Injector;
 
@@ -20,8 +20,8 @@ export class WrapperListElementComponent implements OnInit {
 
   }
 
-  getListElement(): string {
+  getGridElement(): string {
     const f: GenericConstructor<ListableObject> = this.object.constructor as GenericConstructor<ListableObject>;
-    return getListElementFor(f);
+    return getGridElementFor(f);
   }
 }

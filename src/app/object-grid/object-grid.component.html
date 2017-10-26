@@ -1,0 +1,23 @@
+<ds-pagination
+  [paginationOptions]="config"
+  [pageInfoState]="pageInfo"
+  [collectionSize]="(pageInfo | async)?.totalElements"
+  [sortOptions]="sortConfig"
+  [hideGear]="hideGear"
+  [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
+  (pageChange)="onPageChange($event)"
+  (pageSizeChange)="onPageSizeChange($event)"
+  (sortDirectionChange)="onSortDirectionChange($event)"
+  (sortFieldChange)="onSortDirectionChange($event)"
+  (paginationChange)="onPaginationChange($event)">
+  <ul *ngIf="objects.hasSucceeded | async" @fadeIn>
+    <div class="row">
+        <div class="col-lg-3 col-xs-12 col-sm-6"
+          *ngFor="let object of (objects.payload | async) | paginate: { itemsPerPage: (pageInfo | async)?.elementsPerPage, currentPage: (pageInfo | async)?.currentPage, totalItems: (pageInfo | async)?.totalElements }">
+          <ds-wrapper-grid-element [object]="object"></ds-wrapper-grid-element>
+      </div>
+    </div>
+  </ul>
+  <ds-error *ngIf="objects.hasFailed | async" message="{{'error.objects' | translate}}"></ds-error>
+  <ds-loading *ngIf="objects.isLoading | async" message="{{'loading.objects' | translate}}"></ds-loading>
+</ds-pagination>
