@@ -1,4 +1,3 @@
-// ... test imports
 import {
   async,
   ComponentFixture,
@@ -23,13 +22,17 @@ import { AppComponent } from './app.component';
 
 import { HostWindowState } from './shared/host-window.reducer';
 import { HostWindowResizeAction } from './shared/host-window.actions';
-import { MockTranslateLoader } from './shared/testing/mock-translate-loader';
 
 import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
 import { BrowserTransferStoreModule } from '../modules/transfer-store/browser-transfer-store.module';
 
+import { MetadataService } from './core/metadata/metadata.service';
+
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
 import { NativeWindowRef, NativeWindowService } from './shared/window.service';
+
+import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
+import { MockMetadataService } from './shared/mocks/mock-metadata-service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -57,6 +60,7 @@ describe('App component', () => {
       providers: [
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
+        { provide: MetadataService, useValue: new MockMetadataService() },
         AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

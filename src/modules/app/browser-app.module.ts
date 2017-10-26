@@ -11,15 +11,15 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { EffectsModule } from '@ngrx/effects';
 
-import { TransferState } from '../modules/transfer-state/transfer-state';
-import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
-import { BrowserTransferStoreEffects } from '../modules/transfer-store/browser-transfer-store.effects';
-import { BrowserTransferStoreModule } from '../modules/transfer-store/browser-transfer-store.module';
+import { TransferState } from '../transfer-state/transfer-state';
+import { BrowserTransferStateModule } from '../transfer-state/browser-transfer-state.module';
+import { BrowserTransferStoreEffects } from '../transfer-store/browser-transfer-store.effects';
+import { BrowserTransferStoreModule } from '../transfer-store/browser-transfer-store.module';
 
-import { AppModule } from './app.module';
-import { CoreModule } from './core/core.module';
+import { AppModule } from '../../app/app.module';
+import { CoreModule } from '../../app/core/core.module';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from '../../app/app.component';
 
 export function init(cache: TransferState) {
   return () => {

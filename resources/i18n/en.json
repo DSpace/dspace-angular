@@ -65,12 +65,16 @@
     }
   },
   "home": {
+    "title": "DSpace Angular :: Home",
+    "description": "",
     "top-level-communities": {
       "head": "Communities in DSpace",
       "help": "Select a community to browse its collections."
     }
   },
   "search": {
+    "title": "DSpace Angular :: Search",
+    "description": "",
     "form": {
       "search": "Search",
       "search_dspace": "Search DSpace"
@@ -82,6 +86,10 @@
       "close": "Back to results",
       "open": "Search Tools",
       "results": "results"
+    },
+    "view-switch": {
+      "show-list": "Show as list",
+      "show-grid": "Show as grid"
     }
   },
   "loading": {

@@ -225,8 +225,7 @@ module.exports = function (options) {
 
       new ContextReplacementPlugin(
         /angular(\\|\/)core(\\|\/)@angular/,
-        root('./src'),
-        {}
+        root('./src'), {}
       ),
 
       /**

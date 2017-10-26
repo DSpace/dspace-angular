@@ -3,7 +3,10 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from './remote-data';
 import {
-  FindAllOptions, FindAllRequest, FindByIDRequest, RestRequest,
+  FindAllOptions,
+  FindAllRequest,
+  FindByIDRequest,
+  RestRequest,
   RootEndpointRequest
 } from './request.models';
 import { Store } from '@ngrx/store';
@@ -51,7 +54,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   public isEnabledOnRestApi(): Observable<boolean> {
-   return this.getEndpointMap()
+    return this.getEndpointMap()
       .map((map: EndpointMap) => isNotEmpty(map[this.linkName]))
       .startWith(undefined)
       .distinctUntilChanged();

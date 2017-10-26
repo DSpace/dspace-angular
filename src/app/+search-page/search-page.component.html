@@ -3,6 +3,8 @@
         <ds-layout-controls class="col-md-3 d-none d-md-block sidebar-md-fixed"
                             [isList]="isListView"
                             (toggleList)="setListView($event)"></ds-layout-controls>
+
+        <ds-view-mode-switch></ds-view-mode-switch>
         <ds-search-form id="search-form" class="col-12 col-md-9 ml-md-auto"
                         [query]="query"
                         [scope]="scopeObject?.payload | async"
@@ -17,6 +19,8 @@
                                (toggleSidebar)="setSidebarActive($event)"></ds-search-sidebar>
             <div id="search-content" class="col-12 col-md-9 ml-md-auto">
                 <div class="d-block d-md-none search-controls clearfix">
+
+                    <ds-view-mode-switch></ds-view-mode-switch>
                     <ds-layout-controls [isList]="isListView"
                                         (toggleList)="setListView($event)"></ds-layout-controls>
                     <button (click)="setSidebarActive(true)" aria-controls="#search-body"

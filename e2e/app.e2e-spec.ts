@@ -7,9 +7,9 @@ describe('protractor App', () => {
     page = new ProtractorPage();
   });
 
-  it('should display title "DSpace"', () => {
+  it('should display translated title "DSpace Angular :: Home"', () => {
     page.navigateTo();
-    expect<any>(page.getPageTitleText()).toEqual('DSpace');
+    expect<any>(page.getPageTitleText()).toEqual('DSpace Angular :: Home');
   });
 
   it('should display header "Welcome to DSpace"', () => {
