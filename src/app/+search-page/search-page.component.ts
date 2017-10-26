@@ -45,6 +45,15 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     pagination.id = 'search-results-pagination';
     pagination.currentPage = 1;
     pagination.pageSize = 10;
+
+    // TODO Update to accommodate view switcher
+    this.route.queryParams.map((params) => {
+      if (isNotEmpty(params.view) && params.view == 'grid') {
+        pagination.pageSize = 12;
+      }
+    });
+
+
     const sort: SortOptions = new SortOptions();
     this.searchOptions = { pagination: pagination, sort: sort };
   }

@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { ListableObject } from '../listable-object/listable-object.model';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
 
 @Component({
   selector: 'ds-object-list-element',

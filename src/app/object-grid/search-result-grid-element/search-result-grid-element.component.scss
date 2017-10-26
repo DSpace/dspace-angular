@@ -1,0 +1,8 @@
+ @import '../../../styles/variables.scss';
+ @import '../grid-card-styling.scss';
+:host {
+    /deep/ em {
+        font-weight: bold;
+        font-style: normal;
+    }
+}

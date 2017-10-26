@@ -1,0 +1,6 @@
+@import '../../../styles/variables.scss';
+@import '../grid-card-styling.scss';
+:host {
+  display: block;
+  margin-bottom: $spacer;
+}
