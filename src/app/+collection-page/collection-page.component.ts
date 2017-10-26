@@ -30,7 +30,7 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 })
 export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionData: Observable<RemoteData<Collection>>;
-  itemData: RemoteData<Item[]>;
+  itemData: Observable<RemoteData<Item[]>>;
   logoData: Observable<RemoteData<Bitstream>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
@@ -87,14 +87,12 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   updatePage(searchOptions) {
-    this.subs.push(this.itemDataService.findAll({
+    this.itemData = this.itemDataService.findAll({
       scopeID: this.collectionId,
       currentPage: searchOptions.pagination.currentPage,
       elementsPerPage: searchOptions.pagination.pageSize,
       sort: searchOptions.sort
-    }).subscribe((rd: RemoteData<Item[]>) => {
-      this.itemData = rd;
-    }));
+    });
   }
 
   ngOnDestroy(): void {

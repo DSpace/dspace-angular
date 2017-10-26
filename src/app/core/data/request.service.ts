@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { MemoizedSelector, Store } from '@ngrx/store';
+import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 import { hasValue } from '../../shared/empty.util';
@@ -9,16 +9,23 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { CoreState } from '../core.reducers';
+import { coreSelector, CoreState } from '../core.reducers';
 import { keySelector } from '../shared/selectors';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { RestRequest } from './request.models';
 
-import { RequestEntry } from './request.reducer';
+import { RequestEntry, RequestState } from './request.reducer';
 
 function entryFromHrefSelector(href: string): MemoizedSelector<CoreState, RequestEntry> {
   return keySelector<RequestEntry>('data/request', href);
 }
+
+export function requestStateSelector(): MemoizedSelector<CoreState, RequestState> {
+  return createSelector(coreSelector, (state: CoreState) => {
+    return state['data/request'] as RequestState;
+  });
+}
+
 
 @Injectable()
 export class RequestService {
@@ -54,7 +61,6 @@ export class RequestService {
 
   configure<T extends CacheableObject>(request: RestRequest): void {
     let isCached = this.objectCache.hasBySelfLink(request.href);
-    // console.log('request.href', request.href);
     if (!isCached && this.responseCache.has(request.href)) {
       const [successResponse, errorResponse] = this.responseCache.get(request.href)
         .take(1)

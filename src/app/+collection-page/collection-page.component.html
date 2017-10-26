@@ -36,16 +36,16 @@
   <ds-error *ngIf="(collectionData | async)?.hasFailed" message="{{'error.collection' | translate}}"></ds-error>
   <ds-loading *ngIf="(collectionData | async)?.isLoading" message="{{'loading.collection' | translate}}"></ds-loading>
   <br>
-  <div *ngIf="itemData?.hasSucceeded" @fadeIn>
+  <div *ngIf="(itemData | async)?.hasSucceeded" @fadeIn>
     <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
     <ds-object-list
       [config]="paginationConfig"
       [sortConfig]="sortConfig"
-      [objects]="itemData"
+      [objects]="(itemData | async)"
       [hideGear]="false"
       (paginationChange)="onPaginationChange($event)">
     </ds-object-list>
   </div>
-  <ds-error *ngIf="itemData?.hasFailed" message="{{'error.recent-submissions' | translate}}"></ds-error>
-  <ds-loading *ngIf="!itemData || itemData.isLoading" message="{{'loading.recent-submissions' | translate}}"></ds-loading>
+  <ds-error *ngIf="(itemData | async)?.hasFailed" message="{{'error.recent-submissions' | translate}}"></ds-error>
+  <ds-loading *ngIf="!(itemData | async) || (itemData | async).isLoading" message="{{'loading.recent-submissions' | translate}}"></ds-loading>
 </div>

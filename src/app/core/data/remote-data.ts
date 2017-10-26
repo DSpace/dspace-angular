@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-
 import { PageInfo } from '../shared/page-info.model';
+import { hasValue } from '../../shared/empty.util';
 
 export enum RemoteDataState {
   RequestPending = 'RequestPending',
@@ -26,13 +25,13 @@ export class RemoteData<T> {
   }
 
   get state(): RemoteDataState {
-    if (this.isSuccessFul === true) {
+    if (this.isSuccessFul === true && hasValue(this.payload)) {
       return RemoteDataState.Success
     } else if (this.isSuccessFul === false) {
       return RemoteDataState.Failed
     } else if (this.requestPending === true) {
       return RemoteDataState.RequestPending
-    } else if (this.responsePending === true || this.isSuccessFul === undefined) {
+    } else {
       return RemoteDataState.ResponsePending
     }
   }
