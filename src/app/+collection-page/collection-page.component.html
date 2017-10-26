@@ -47,5 +47,5 @@
     </ds-object-list>
   </div>
   <ds-error *ngIf="(itemData | async)?.hasFailed" message="{{'error.recent-submissions' | translate}}"></ds-error>
-  <ds-loading *ngIf="!(itemData | async) || (itemData | async).isLoading" message="{{'loading.recent-submissions' | translate}}"></ds-loading>
+  <ds-loading *ngIf="!itemData || (itemData | async).isLoading" message="{{'loading.recent-submissions' | translate}}"></ds-loading>
 </div>
