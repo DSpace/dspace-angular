@@ -13,7 +13,7 @@
 
 
                 <dt class="col-md-4">{{"item.page.filesection.format" | translate}}</dt>
-                <dd class="col-md-8">{{(file.format.)}}</dd>
+                <dd class="col-md-8">{{(file.format | async)?.payload?.description}}</dd>
 
 
                 <dt class="col-md-4">{{"item.page.filesection.description" | translate}}</dt>
