@@ -1,30 +1,32 @@
-<div class="community-page" *ngIf="(communityData | async)?.hasSucceeded" @fadeInOut>
-  <div *ngIf="(communityData | async)?.payload; let communityPayload">
-    <!-- Community name -->
-    <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
-    <!-- Community logo -->
-    <ds-comcol-page-logo *ngIf="logoData"
-      [logo]="(logoData | async)?.payload"
-      [alternateText]="'Community Logo'">
-    </ds-comcol-page-logo>
-    <!-- Introductionary text -->
-    <ds-comcol-page-content
-      [content]="communityPayload.introductoryText"
-      [hasInnerHtml]="true">
-    </ds-comcol-page-content>
-    <!-- News -->
-    <ds-comcol-page-content
-      [content]="communityPayload.sidebarText"
-      [hasInnerHtml]="true"
-      [title]="'community.page.news'">
-    </ds-comcol-page-content>
-    <!-- Copyright -->
-    <ds-comcol-page-content
-      [content]="communityPayload.copyrightText"
-      [hasInnerHtml]="true">
-    </ds-comcol-page-content>
-    <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
+<ng-container *ngVar="(communityRDObs | async) as communityRD">
+  <div class="community-page" *ngIf="communityRD?.hasSucceeded" @fadeInOut>
+    <div *ngIf="communityRD?.payload; let communityPayload">
+      <!-- Community name -->
+      <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
+      <!-- Community logo -->
+      <ds-comcol-page-logo *ngIf="logoRDObs"
+                           [logo]="(logoRDObs | async)?.payload"
+                           [alternateText]="'Community Logo'">
+      </ds-comcol-page-logo>
+      <!-- Introductionary text -->
+      <ds-comcol-page-content
+        [content]="communityPayload.introductoryText"
+        [hasInnerHtml]="true">
+      </ds-comcol-page-content>
+      <!-- News -->
+      <ds-comcol-page-content
+        [content]="communityPayload.sidebarText"
+        [hasInnerHtml]="true"
+        [title]="'community.page.news'">
+      </ds-comcol-page-content>
+      <!-- Copyright -->
+      <ds-comcol-page-content
+        [content]="communityPayload.copyrightText"
+        [hasInnerHtml]="true">
+      </ds-comcol-page-content>
+      <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
+    </div>
   </div>
-</div>
-<ds-error *ngIf="(communityData | async)?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
-<ds-loading *ngIf="(communityData | async)?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>
+  <ds-error *ngIf="communityRD?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
+  <ds-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>
+</ng-container>

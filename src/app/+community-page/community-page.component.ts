@@ -22,8 +22,8 @@ import { Observable } from 'rxjs/Observable';
   animations: [fadeInOut]
 })
 export class CommunityPageComponent implements OnInit, OnDestroy {
-  communityData: Observable<RemoteData<Community>>;
-  logoData: Observable<RemoteData<Bitstream>>;
+  communityRDObs: Observable<RemoteData<Community>>;
+  logoRDObs: Observable<RemoteData<Bitstream>>;
   private subs: Subscription[] = [];
 
   constructor(
@@ -36,12 +36,12 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.communityData = this.communityDataService.findById(params.id);
-      this.metadata.processRemoteData(this.communityData);
-      this.subs.push(this.communityData
+      this.communityRDObs = this.communityDataService.findById(params.id);
+      this.metadata.processRemoteData(this.communityRDObs);
+      this.subs.push(this.communityRDObs
         .map((rd: RemoteData<Community>) => rd.payload)
         .filter((community: Community) => hasValue(community))
-        .subscribe((community: Community) => this.logoData = community.logo));
+        .subscribe((community: Community) => this.logoRDObs = community.logo));
     });
   }
 

@@ -29,9 +29,9 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
   ]
 })
 export class CollectionPageComponent implements OnInit, OnDestroy {
-  collectionData: Observable<RemoteData<Collection>>;
-  itemData: Observable<RemoteData<Item[]>>;
-  logoData: Observable<RemoteData<Bitstream>>;
+  collectionRDObs: Observable<RemoteData<Collection>>;
+  itemRDObs: Observable<RemoteData<Item[]>>;
+  logoRDObs: Observable<RemoteData<Bitstream>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
   private subs: Subscription[] = [];
@@ -60,12 +60,12 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
         })
         .subscribe((params) => {
           this.collectionId = params.id;
-          this.collectionData = this.collectionDataService.findById(this.collectionId);
-          this.metadata.processRemoteData(this.collectionData);
-          this.subs.push(this.collectionData
+          this.collectionRDObs = this.collectionDataService.findById(this.collectionId);
+          this.metadata.processRemoteData(this.collectionRDObs);
+          this.subs.push(this.collectionRDObs
             .map((rd: RemoteData<Collection>) => rd.payload)
             .filter((collection: Collection) => hasValue(collection))
-            .subscribe((collection: Collection) => this.logoData = collection.logo));
+            .subscribe((collection: Collection) => this.logoRDObs = collection.logo));
 
           const page = +params.page || this.paginationConfig.currentPage;
           const pageSize = +params.pageSize || this.paginationConfig.pageSize;
@@ -87,7 +87,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   updatePage(searchOptions) {
-    this.itemData = this.itemDataService.findAll({
+    this.itemRDObs = this.itemDataService.findAll({
       scopeID: this.collectionId,
       currentPage: searchOptions.pagination.currentPage,
       elementsPerPage: searchOptions.pagination.pageSize,

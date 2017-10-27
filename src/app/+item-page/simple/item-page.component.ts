@@ -31,9 +31,9 @@ export class ItemPageComponent implements OnInit {
 
   private sub: any;
 
-  item: Observable<RemoteData<Item>>;
+  itemRDObs: Observable<RemoteData<Item>>;
 
-  thumbnail: Observable<Bitstream>;
+  thumbnailObs: Observable<Bitstream>;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,9 +51,9 @@ export class ItemPageComponent implements OnInit {
 
   initialize(params) {
     this.id = +params.id;
-    this.item = this.items.findById(params.id);
-    this.metadataService.processRemoteData(this.item);
-    this.thumbnail = this.item
+    this.itemRDObs = this.items.findById(params.id);
+    this.metadataService.processRemoteData(this.itemRDObs);
+    this.thumbnailObs = this.itemRDObs
       .map((rd: RemoteData<Item>) => rd.payload)
       .filter((item: Item) => hasValue(item))
       .flatMap((item: Item) => item.getThumbnail());

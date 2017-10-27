@@ -14,13 +14,13 @@ import { Observable } from 'rxjs/Observable';
   animations:[fadeIn]
 })
 export class CommunityPageSubCollectionListComponent implements OnInit {
-  subCollections: Observable<RemoteData<Collection[]>>;
+  subCollectionsRDObs: Observable<RemoteData<Collection[]>>;
 
   constructor(private cds: CollectionDataService) {
 
   }
 
   ngOnInit(): void {
-    this.subCollections = this.cds.findAll();
+    this.subCollectionsRDObs = this.cds.findAll();
   }
 }

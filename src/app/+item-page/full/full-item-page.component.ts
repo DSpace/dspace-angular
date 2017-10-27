@@ -30,9 +30,9 @@ import { hasValue } from '../../shared/empty.util';
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
-  item: Observable<RemoteData<Item>>;
+  itemRDObs: Observable<RemoteData<Item>>;
 
-  metadata: Observable<Metadatum[]>;
+  metadataObs: Observable<Metadatum[]>;
 
   constructor(route: ActivatedRoute, items: ItemDataService, metadataService: MetadataService) {
     super(route, items, metadataService);
@@ -45,7 +45,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
   initialize(params) {
     super.initialize(params);
-    this.metadata = this.item
+    this.metadataObs = this.itemRDObs
       .map((rd: RemoteData<Item>) => rd.payload)
       .filter((item: Item) => hasValue(item))
       .map((item: Item) => item.metadata);

@@ -1,5 +1,5 @@
 <ds-metadata-field-wrapper [label]="label | translate">
-    <div class="file-section row" *ngFor="let file of (files | async); let last=last;">
+    <div class="file-section row" *ngFor="let file of (bitstreamsObs | async); let last=last;">
         <div class="col-3">
             <ds-thumbnail [thumbnail]="thumbnails.get(file.id) | async"></ds-thumbnail>
         </div>
@@ -13,7 +13,7 @@
 
 
                 <dt class="col-md-4">{{"item.page.filesection.format" | translate}}</dt>
-                <dd class="col-md-8">{{(file.mimetype)}}</dd>
+                <dd class="col-md-8">{{(file.format.)}}</dd>
 
 
                 <dt class="col-md-4">{{"item.page.filesection.description" | translate}}</dt>

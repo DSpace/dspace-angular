@@ -17,7 +17,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
   animations: [fadeInOut]
 })
 export class TopLevelCommunityListComponent {
-  topLevelCommunities: Observable<RemoteData<Community[]>>;
+  communitiesRDObs: Observable<RemoteData<Community[]>>;
   config: PaginationComponentOptions;
   sortConfig: SortOptions;
 
@@ -37,7 +37,7 @@ export class TopLevelCommunityListComponent {
   }
 
   updatePage(data) {
-    this.topLevelCommunities = this.cds.findAll({
+    this.communitiesRDObs = this.cds.findAll({
       currentPage: data.page,
       elementsPerPage: data.pageSize,
       sort: { field: data.sortField, direction: data.sortDirection }

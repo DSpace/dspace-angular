@@ -31,18 +31,18 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   private scope: string;
 
   query: string;
-  scopeObject: Observable<RemoteData<DSpaceObject>>;
-  results: Observable<RemoteData<Array<SearchResult<DSpaceObject>>>>;
+  scopeObjectRDObs: Observable<RemoteData<DSpaceObject>>;
+  resultsRDObs: Observable<RemoteData<Array<SearchResult<DSpaceObject>>>>;
   currentParams = {};
   searchOptions: SearchOptions;
-  scopeList: Observable<RemoteData<Community[]>>;
+  scopeListRDObs: Observable<RemoteData<Community[]>>;
 
   constructor(
     private service: SearchService,
     private route: ActivatedRoute,
     private communityService: CommunityDataService
   ) {
-    this.scopeList = communityService.findAll();
+    this.scopeListRDObs = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
     pagination.id = 'search-results-pagination';
@@ -76,9 +76,9 @@ export class SearchPageComponent implements OnInit, OnDestroy {
             sort: sort
           });
           if (isNotEmpty(this.scope)) {
-            this.scopeObject = this.communityService.findById(this.scope);
+            this.scopeObjectRDObs = this.communityService.findById(this.scope);
           } else {
-            this.scopeObject = Observable.of(undefined);
+            this.scopeObjectRDObs = Observable.of(undefined);
           }
         }
       );
@@ -86,7 +86,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   private updateSearchResults(searchOptions) {
     // Resolve search results
-    this.results = this.service.search(this.query, this.scope, searchOptions);
+    this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions);
   }
 
   ngOnDestroy() {

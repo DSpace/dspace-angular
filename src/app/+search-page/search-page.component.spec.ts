@@ -103,7 +103,7 @@ describe('SearchPageComponent', () => {
 
       (comp as any).updateSearchResults({});
 
-      expect(comp.results as any).toBe(mockResults);
+      expect(comp.resultsRDObs as any).toBe(mockResults);
     });
 
   });
