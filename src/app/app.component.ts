@@ -62,12 +62,17 @@ export class AppComponent implements OnInit {
     const env: string = this.config.production ? 'Production' : 'Development';
     const color: string = this.config.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
+    this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
   }
 
   @HostListener('window:resize', ['$event'])
   private onResize(event): void {
+    this.dispatchWindowSize(event.target.innerWidth, event.target.innerHeight);
+  }
+
+  private dispatchWindowSize(width, height): void {
     this.store.dispatch(
-      new HostWindowResizeAction(event.target.innerWidth, event.target.innerHeight)
+      new HostWindowResizeAction(width, height)
     );
   }
 

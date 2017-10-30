@@ -16,4 +16,8 @@ export class MockHostWindowService {
   isXs(): Observable<boolean> {
     return Observable.of(this.width < 576);
   }
+
+  isSm(): Observable<boolean> {
+    return Observable.of(this.width < 768);
+  }
 }

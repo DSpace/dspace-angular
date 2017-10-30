@@ -1,4 +1,5 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -8,8 +9,11 @@ import { SearchService } from './search-service/search.service';
 import { Community } from '../core/shared/community.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { SearchPageModule } from './search-page.module';
+import { Store } from '@ngrx/store';
 
-describe('SearchPageComponent', () => {
+fdescribe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
   let fixture: ComponentFixture<SearchPageComponent>;
   let searchServiceObject: SearchService;
@@ -39,14 +43,15 @@ describe('SearchPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      // imports: [ SearchPageModule ],
-      declarations: [SearchPageComponent],
+      imports: [ SearchPageModule ],
+      // declarations: [SearchPageComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
-        { provide: Router, useClass: RouterStub }
-      ],
+        { provide: Router, useClass: RouterStub },
+        { provide: Store, useClass: {} }
+  ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

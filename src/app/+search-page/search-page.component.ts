@@ -6,11 +6,20 @@ import { SearchResult } from './search-result.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-switch.component';
 import { SearchOptions } from './search-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { Community } from '../core/shared/community.model';
+import { createSelector, Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import { Observable } from 'rxjs/Observable';
+import { SearchSidebarState } from './search-sidebar/search-sidebar.reducer';
+import { SearchSidebarToggleAction } from './search-sidebar/search-sidebar.actions';
+import { slideInOut } from '../shared/animations/slide';
+import { HostWindowService } from '../shared/host-window.service';
+
+const sidebarStateSelector = (state: AppState) => state.searchSidebar;
+const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SearchSidebarState) => sidebar.sidebarCollapsed);
 
 /**
  * This component renders a simple item page.
@@ -22,6 +31,7 @@ import { Community } from '../core/shared/community.model';
   selector: 'ds-search-page',
   styleUrls: ['./search-page.component.scss'],
   templateUrl: './search-page.component.html',
+  animations: [slideInOut]
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
 
@@ -34,14 +44,14 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   currentParams = {};
   searchOptions: SearchOptions;
   scopeList: RemoteData<Community[]>;
-  isSidebarActive = false;
-  isListView = true;
+  isSidebarCollapsed: Observable<boolean>;
+  isMobileView: Observable<boolean>;
 
-  constructor(
-    private service: SearchService,
-    private route: ActivatedRoute,
-    private communityService: CommunityDataService
-  ) {
+  constructor(private service: SearchService,
+              private route: ActivatedRoute,
+              private communityService: CommunityDataService,
+              private store: Store<AppState>,
+              private hostWindowService: HostWindowService) {
     this.scopeList = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
@@ -50,9 +60,14 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
     this.searchOptions = { pagination: pagination, sort: sort };
+    this.isMobileView = Observable.combineLatest(
+      this.hostWindowService.isXs(),
+      this.hostWindowService.isSm(),
+      (isXs, isSm) => isXs || isSm);
   }
 
   ngOnInit(): void {
+    this.isSidebarCollapsed = this.store.select(sidebarCollapsedSelector);
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
@@ -93,11 +108,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  setSidebarActive(show: boolean) {
-    this.isSidebarActive = show;
-  }
-
-  setListView(isList: boolean) {
-    this.isListView = isList;
+  public toggle(): void {
+    this.store.dispatch(new SearchSidebarToggleAction());
   }
 }

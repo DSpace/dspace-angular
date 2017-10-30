@@ -19,8 +19,6 @@ import { LayoutControlsComponent } from './layout-controls/layout-controls.compo
   imports: [
     SearchPageRoutingModule,
     CommonModule,
-    TranslateModule,
-    RouterModule,
     SharedModule
   ],
   declarations: [
