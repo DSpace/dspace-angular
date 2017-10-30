@@ -1,4 +1,4 @@
-<ng-container *ngVar="(communityRDObs | async) as communityRD">
+<div class="container" *ngVar="(communityRDObs | async) as communityRD">
   <div class="community-page" *ngIf="communityRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="communityRD?.payload; let communityPayload">
       <!-- Community name -->
@@ -29,4 +29,4 @@
   </div>
   <ds-error *ngIf="communityRD?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
   <ds-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>
-</ng-container>
+</div>

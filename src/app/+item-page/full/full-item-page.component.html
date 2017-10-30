@@ -1,4 +1,4 @@
-<ng-container *ngVar="(itemRDObs | async) as itemRD">
+<div class="container" *ngVar="(itemRDObs | async) as itemRD">
   <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="itemRD?.payload as item">
       <ds-item-page-title-field [item]="item"></ds-item-page-title-field>
@@ -22,4 +22,4 @@
   </div>
   <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>
   <ds-loading *ngIf="itemRD?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
-</ng-container>
+</div>
