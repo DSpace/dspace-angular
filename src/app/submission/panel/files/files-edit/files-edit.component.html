@@ -1,4 +1,4 @@
-<ng-container *ngIf="readMode==true">
+<div [hidden]="!readMode">
 <div class="float-right w-15">
   <h3 class="text-right">
     <a href="#" (click)="$event.preventDefault();switchMode(false);" title="Edit metadata"><i class="fa fa-pencil-square text-normal mr-3"></i></a>
@@ -24,9 +24,9 @@
   <span class="clearfix"></span>
   <ds-policies [policies]="bitstream.policies"></ds-policies>
 </div>
-</ng-container>
+</div>
 
-<ng-container *ngIf="readMode==false">
+<div [hidden]="readMode">
 <div class="float-right w-15">
   <h3 class="text-right">
     <a href="#" (click)="$event.preventDefault();editBitstream();" title="Save metadata"><i class="fa fa-floppy-o text-success mr-3"></i></a>
@@ -36,13 +36,11 @@
 </div>
 <div class="clearfix"></div>
 <div>
-  <!-- input type="text" value="{{bitstream.title}}">
-  <textarea>{{bitstream.description}}</textarea -->
-  <ds-form [formId]="formId" [formModel]="formModel"></ds-form>
+  <ds-form #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false"></ds-form>
   <span class="clearfix"></span>
   <ds-policies [policies]="bitstream.policies"></ds-policies>
 </div>
-</ng-container>
+</div>
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
