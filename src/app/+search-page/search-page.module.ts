@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
-import { TranslateModule } from '@ngx-translate/core';
-
 import { SharedModule } from '../shared/shared.module';
 import { SearchPageRoutingModule } from './search-page-routing.module';
 import { SearchPageComponent } from './search-page.component';
@@ -13,7 +9,6 @@ import { CollectionSearchResultListElementComponent } from '../object-list/searc
 import { CommunitySearchResultListElementComponent } from '../object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
-import { LayoutControlsComponent } from './layout-controls/layout-controls.component';
 
 @NgModule({
   imports: [
@@ -27,8 +22,7 @@ import { LayoutControlsComponent } from './layout-controls/layout-controls.compo
     SearchSidebarComponent,
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent,
-    LayoutControlsComponent
+    CommunitySearchResultListElementComponent
   ],
   providers: [
     SearchService

@@ -5,8 +5,6 @@ import {
   SearchSidebarCollapseAction, SearchSidebarExpandAction,
   SearchSidebarToggleAction
 } from './search-sidebar.actions';
-import { async, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
 
 class NullAction extends SearchSidebarCollapseAction {
   type = null;

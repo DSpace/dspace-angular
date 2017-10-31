@@ -1,22 +1,36 @@
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
+import { Community } from '../core/shared/community.model';
+import { HostWindowService } from '../shared/host-window.service';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchPageComponent } from './search-page.component';
 import { SearchService } from './search-service/search.service';
-import { Community } from '../core/shared/community.model';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SearchPageModule } from './search-page.module';
-import { Store } from '@ngrx/store';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import {
+  SearchSidebarCollapseAction,
+  SearchSidebarExpandAction
+} from './search-sidebar/search-sidebar.actions';
+import { By } from '@angular/platform-browser';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
-fdescribe('SearchPageComponent', () => {
+describe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
   let fixture: ComponentFixture<SearchPageComponent>;
   let searchServiceObject: SearchService;
+  const store: Store<SearchPageComponent> = jasmine.createSpyObj('store', {
+    /* tslint:disable:no-empty */
+    dispatch: {},
+    /* tslint:enable:no-empty */
+    select: Observable.of(true)
+  });
   const mockResults = ['test', 'data'];
   const searchServiceStub = {
     search: () => mockResults
@@ -43,15 +57,25 @@ fdescribe('SearchPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ SearchPageModule ],
-      // declarations: [SearchPageComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule.forRoot()],
+      declarations: [SearchPageComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
+        {
+          provide: CommunityDataService,
+          useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])
+        },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: CommunityDataService, useValue: communityDataServiceStub },
-        { provide: Router, useClass: RouterStub },
-        { provide: Store, useClass: {} }
-  ],
+        {
+          provide: Store, useValue: store
+        },
+        {
+          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+          isXs: Observable.of(true),
+          isSm: Observable.of(false)
+        })
+        }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -109,6 +133,62 @@ fdescribe('SearchPageComponent', () => {
       (comp as any).updateSearchResults({});
 
       expect(comp.results as any).toBe(mockResults);
+    });
+
+  });
+
+  describe('when the closeSidebar event is emitted clicked in mobile view', () => {
+
+    beforeEach(() => {
+      const closeSidebarButton = fixture.debugElement.query(By.css('#search-sidebar-xs'));
+      closeSidebarButton.triggerEventHandler('toggleSidebar', null);
+    });
+
+    it('should dispatch a SearchSidebarCollapseAction', () => {
+      expect(store.dispatch).toHaveBeenCalledWith(new SearchSidebarCollapseAction());
+    });
+
+  });
+
+  describe('when the open sidebar button is clicked in mobile view', () => {
+
+    beforeEach(() => {
+      const openSidebarButton = fixture.debugElement.query(By.css('.open-sidebar'));
+      openSidebarButton.triggerEventHandler('click', null);
+    });
+
+    it('should dispatch a SearchSidebarExpandAction', () => {
+      expect(store.dispatch).toHaveBeenCalledWith(new SearchSidebarExpandAction());
+    });
+
+  });
+
+  describe('when sidebarCollapsed in the store is true in mobile view', () => {
+    let menu: HTMLElement;
+
+    beforeEach(() => {
+      menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
+      comp.isSidebarCollapsed = Observable.of(true);
+      fixture.detectChanges();
+    });
+
+    it('should close the sidebar', () => {
+      expect(menu.classList).not.toContain('show');
+    });
+
+  });
+
+  describe('when sidebarCollapsed in the store is false in mobile view', () => {
+    let menu: HTMLElement;
+
+    beforeEach(() => {
+      menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
+      comp.isSidebarCollapsed = Observable.of(false);
+      fixture.detectChanges();
+    });
+
+    it('should open the menu', () => {
+      expect(menu.classList).toContain('show');
     });
 
   });

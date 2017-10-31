@@ -14,7 +14,9 @@ import { createSelector, Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { Observable } from 'rxjs/Observable';
 import { SearchSidebarState } from './search-sidebar/search-sidebar.reducer';
-import { SearchSidebarToggleAction } from './search-sidebar/search-sidebar.actions';
+import {
+  SearchSidebarCollapseAction, SearchSidebarExpandAction,
+} from './search-sidebar/search-sidebar.actions';
 import { slideInOut } from '../shared/animations/slide';
 import { HostWindowService } from '../shared/host-window.service';
 
@@ -60,14 +62,22 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
     this.searchOptions = { pagination: pagination, sort: sort };
+  }
+
+  ngOnInit(): void {
     this.isMobileView = Observable.combineLatest(
       this.hostWindowService.isXs(),
       this.hostWindowService.isSm(),
       (isXs, isSm) => isXs || isSm);
-  }
 
-  ngOnInit(): void {
-    this.isSidebarCollapsed = this.store.select(sidebarCollapsedSelector);
+    /*
+      Sidebar should always be 'collapsed' when not in mobile view
+     */
+    this.isSidebarCollapsed = Observable.combineLatest(
+      this.isMobileView,
+      this.store.select(sidebarCollapsedSelector),
+      (mobile, store) => mobile ? store : true);
+
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
@@ -108,7 +118,11 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  public toggle(): void {
-    this.store.dispatch(new SearchSidebarToggleAction());
+  public closeSidebar(): void {
+    this.store.dispatch(new SearchSidebarCollapseAction());
+  }
+
+  public openSidebar(): void {
+    this.store.dispatch(new SearchSidebarExpandAction());
   }
 }
