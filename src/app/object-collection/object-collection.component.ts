@@ -28,7 +28,7 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   @Input() config?: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
   pageInfo: Observable<PageInfo>;
-
+  private sub;
   /**
    * An event fired when the page is changed.
    * Event's payload equals to the newly selected page.
@@ -67,6 +67,14 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.pageInfo = this.objects.pageInfo;
+
+    this.sub = this.route
+      .queryParams
+      .subscribe((params) => {
+        if(isNotEmpty(params.view)){
+          this.currentMode = params.view;
+        }
+      });
   }
 
   /**

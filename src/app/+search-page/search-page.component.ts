@@ -57,14 +57,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     pagination.currentPage = 1;
     pagination.pageSize = 10;
 
-    // TODO Update to accommodate view switcher
-    this.route.queryParams.map((params) => {
-      if (isNotEmpty(params.view) && params.view == ViewMode.Grid) {
-        pagination.pageSize = 12;
-      }
-    });
-
-
     const sort: SortOptions = new SortOptions();
     this.sortConfig=sort;
     this.searchOptions = this.service.searchOptions;
@@ -80,6 +72,8 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this.scope = params.scope;
           const page = +params.page || this.searchOptions.pagination.currentPage;
           const pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
+
+
           const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
           const pagination = Object.assign({},
             this.searchOptions.pagination,

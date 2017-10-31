@@ -70,7 +70,6 @@ export class ObjectGridComponent implements OnChanges, OnInit  {
 
   ngOnInit(): void {
     this.pageInfo = this.objects.pageInfo;
-    this.config.pageSize = 4;
   }
 
   /**
