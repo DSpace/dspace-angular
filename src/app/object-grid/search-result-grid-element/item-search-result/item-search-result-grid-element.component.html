@@ -20,8 +20,8 @@
     <p *ngIf="dso.findMetadata('dc.description.abstract')" class="item-abstract card-text">
       {{dso.findMetadata("dc.description.abstract") | dsTruncate:[200] }}</p>
 
+    <a [routerLink]="['/items/' + dso.id]" class="lead btn btn-primary viewButton">View</a>
   </div>
-  <a [routerLink]="['/items/' + dso.id]" class="lead btn btn-primary viewButton">View</a>
 
 </div>
 

@@ -82,5 +82,24 @@ export class ObjectGridComponent implements OnChanges, OnInit  {
   constructor(private cdRef: ChangeDetectorRef) {
   }
 
+  onPageChange(event) {
+    this.pageChange.emit(event);
+  }
+
+  onPageSizeChange(event) {
+    this.pageSizeChange.emit(event);
+  }
+
+  onSortDirectionChange(event) {
+    this.sortDirectionChange.emit(event);
+  }
+
+  onSortFieldChange(event) {
+    this.sortFieldChange.emit(event);
+  }
+
+  onPaginationChange(event) {
+    this.paginationChange.emit(event);
+  }
 
 }

@@ -6,7 +6,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { isNotEmpty } from '../shared/empty.util';
-import { SearchOptions } from './search-options.model';
+import { SearchOptions,ViewMode } from './search-options.model';
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { pushInOut } from '../shared/animations/push';
@@ -36,6 +36,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   resultsRDObs: Observable<RemoteData<Array<SearchResult<DSpaceObject>>>>;
   currentParams = {};
   searchOptions: SearchOptions;
+  sortConfig: SortOptions;
   scopeListRDObs: Observable<RemoteData<Community[]>>;
   isMobileView: Observable<boolean>;
 
@@ -58,15 +59,15 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
     // TODO Update to accommodate view switcher
     this.route.queryParams.map((params) => {
-      if (isNotEmpty(params.view) && params.view == 'grid') {
+      if (isNotEmpty(params.view) && params.view == ViewMode.Grid) {
         pagination.pageSize = 12;
       }
     });
 
 
     const sort: SortOptions = new SortOptions();
+    this.sortConfig=sort;
     this.searchOptions = this.service.searchOptions;
-
   }
 
   ngOnInit(): void {

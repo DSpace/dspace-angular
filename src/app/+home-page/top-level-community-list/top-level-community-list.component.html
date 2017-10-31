@@ -4,8 +4,8 @@
   <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
   <ds-viewable-collection
     [config]="config"
+    [sortConfig]="sortConfig"
     [objects]="communitiesRD"
-
     (paginationChange)="updatePage($event)">
   </ds-viewable-collection>
 </div>

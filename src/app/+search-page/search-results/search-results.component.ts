@@ -3,6 +3,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { SearchOptions } from '../search-options.model';
+import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { SearchResult } from '../search-result.model';
 
 /**
@@ -21,4 +22,5 @@ import { SearchResult } from '../search-result.model';
 export class SearchResultsComponent {
   @Input() searchResults: RemoteData<Array<SearchResult<DSpaceObject>>>;
   @Input() searchConfig: SearchOptions;
+  @Input() sortConfig: SortOptions;
 }

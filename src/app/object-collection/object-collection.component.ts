@@ -11,10 +11,12 @@ import { PageInfo } from '../core/shared/page-info.model';
 
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
-import {  SortDirection } from '../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 
 import { ListableObject } from './shared/listable-object.model';
+import { ViewMode } from '../+search-page/search-options.model';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
+
 @Component({
   selector: 'ds-viewable-collection',
   styleUrls: ['./object-collection.component.scss'],
@@ -24,6 +26,7 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
 
   @Input() objects: RemoteData<ListableObject[]>;
   @Input() config?: PaginationComponentOptions;
+  @Input() sortConfig: SortOptions;
   pageInfo: Observable<PageInfo>;
 
   /**
@@ -52,13 +55,15 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
-  defaultViewMode: string ='list';
+  currentMode: ViewMode = ViewMode.List;
+  viewModeEnum = ViewMode;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.objects && !changes.objects.isFirstChange()) {
       this.pageInfo = this.objects.pageInfo;
     }
   }
+
 
   ngOnInit(): void {
     this.pageInfo = this.objects.pageInfo;
@@ -74,22 +79,15 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
               private router: Router) {
   }
 
-  getViewMode(): string {
-    // TODO Update to accommodate view switcher
-
+  getViewMode(): ViewMode {
     this.route.queryParams.map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
-        return params.view;
-      } else {
-        return this.defaultViewMode;
+        this.currentMode= params.view;
       }
     });
-    return this.defaultViewMode;
+    return this.currentMode;
   }
 
-  setViewMode(viewMode: string) {
-    this.defaultViewMode = viewMode;
-  }
   onPageChange(event) {
     this.pageChange.emit(event);
   }
