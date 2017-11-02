@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
-import { listElementFor } from '../../list-element-decorator';
+import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { CommunitySearchResult } from './community-search-result.model';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 import { Community } from '../../../core/shared/community.model';
+import { ViewMode } from '../../../+search-page/search-options.model';
 
 @Component({
   selector: 'ds-community-search-result-list-element',
@@ -11,7 +12,7 @@ import { Community } from '../../../core/shared/community.model';
   templateUrl: 'community-search-result-list-element.component.html'
 })
 
-@listElementFor(CommunitySearchResult)
+@renderElementsFor(CommunitySearchResult, ViewMode.List)
 export class CommunitySearchResultListElementComponent extends SearchResultListElementComponent<CommunitySearchResult, Community> {
 
 }

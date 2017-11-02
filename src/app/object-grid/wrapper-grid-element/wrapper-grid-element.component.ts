@@ -1,7 +1,8 @@
 import { Component, Input, Injector, ReflectiveInjector, OnInit } from '@angular/core';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { getGridElementFor } from '../grid-element-decorator';
+import { rendersDSOType } from '../../object-collection/shared/dso-element-decorator';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ViewMode } from '../../+search-page/search-options.model';
 
 @Component({
   selector: 'ds-wrapper-grid-element',
@@ -22,6 +23,6 @@ export class WrapperGridElementComponent implements OnInit {
 
   getGridElement(): string {
     const f: GenericConstructor<ListableObject> = this.object.constructor as GenericConstructor<ListableObject>;
-    return getGridElementFor(f);
+    return rendersDSOType(f, ViewMode.Grid);
   }
 }

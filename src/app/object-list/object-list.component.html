@@ -12,7 +12,7 @@
   (paginationChange)="onPaginationChange($event)">
   <ul *ngIf="objects?.hasSucceeded"> <!--class="list-unstyled"-->
       <li *ngFor="let object of objects?.payload">
-          <ds-wrapper-list-element [object]="object"></ds-wrapper-list-element>
+        <ds-wrapper-list-element [object]="object"></ds-wrapper-list-element>
       </li>
   </ul>
 </ds-pagination>
