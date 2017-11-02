@@ -71,18 +71,27 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this.query = params.query || '';
           this.scope = params.scope;
           const page = +params.page || this.searchOptions.pagination.currentPage;
-          const pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
+          let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
+          let pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
+
+          if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
+            pageSize = 12;
+            pageSizeOptions = [12, 24, 36, 48 , 50, 62, 74, 84];
+            // pageSize = 9;
+            // pageSizeOptions = [9, 18, 27, 36 , 45, 54, 63, 72];
+          }
 
 
           const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
           const pagination = Object.assign({},
             this.searchOptions.pagination,
-            { currentPage: page, pageSize: pageSize }
+            { currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
           );
           const sort = Object.assign({},
             this.searchOptions.sort,
             { direction: sortDirection, field: params.sortField }
           );
+
           this.updateSearchResults({
             pagination: pagination,
             sort: sort
@@ -98,6 +107,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   private updateSearchResults(searchOptions) {
     this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions);
+    this.searchOptions = searchOptions;
   }
 
   ngOnDestroy() {
