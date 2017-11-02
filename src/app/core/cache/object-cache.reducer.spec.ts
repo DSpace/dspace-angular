@@ -2,18 +2,10 @@ import * as deepFreeze from 'deep-freeze';
 
 import { objectCacheReducer } from './object-cache.reducer';
 import {
-  AddToObjectCacheAction,
+  AddToObjectCacheAction, ObjectCacheAction,
   RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction
 } from './object-cache.actions';
-
-class NullAction extends RemoveFromObjectCacheAction {
-  type = null;
-  payload = null;
-
-  constructor() {
-    super(null);
-  }
-}
+import { MockAction } from '../../shared/testing/mock-action';
 
 describe('objectCacheReducer', () => {
   const selfLink1 = 'https://localhost:8080/api/core/items/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
@@ -41,14 +33,14 @@ describe('objectCacheReducer', () => {
   deepFreeze(testState);
 
   it('should return the current state when no valid actions have been made', () => {
-    const action = new NullAction();
+    const action = new MockAction() as ObjectCacheAction;
     const newState = objectCacheReducer(testState, action);
 
     expect(newState).toEqual(testState);
   });
 
   it('should start with an empty cache', () => {
-    const action = new NullAction();
+    const action = new MockAction() as ObjectCacheAction;
     const initialState = objectCacheReducer(undefined, action);
 
     expect(initialState).toEqual(Object.create(null));
