@@ -10,10 +10,10 @@ import { PanelService } from './panel/panel.service';
 import { DefaultPanelComponent } from './panel/default/panel-default.component';
 import { SubmissionRoutingModule } from './submission-routing.module';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
-import { SubmissionSubmitFormCollectionComponent } from './submit/form/collection/submission-submit-form-collection.component';
-import { SubmissionSubmitFormFooterComponent } from './submit/form/footer/submission-submit-form-footer.component';
-import { SubmissionSubmitFormComponent } from './submit/form/submission-submit-form.component';
-import { SubmissionSubmitFormPanelAddComponent } from './submit/form/panel-add/submission-submit-form-panel-add.component';
+import { SubmissionSubmitFormCollectionComponent } from './form/collection/submission-submit-form-collection.component';
+import { SubmissionSubmitFormFooterComponent } from './form/footer/submission-submit-form-footer.component';
+import { SubmissionSubmitFormComponent } from './form/submission-submit-form.component';
+import { SubmissionSubmitFormPanelAddComponent } from './form/panel-add/submission-submit-form-panel-add.component';
 import { PanelFactoryComponent } from './panel/panel.factory';
 import { PanelContainerComponent } from './panel/container/panel-container.component';
 import { InjectPanelTemplateDirective } from './panel/panel-inject.directive';
@@ -27,7 +27,7 @@ import { FilesEditComponent } from './panel/files/files-edit/files-edit.componen
 import { PoliciesComponent } from './panel/files/policies/policies.component';
 import { BitstreamService } from './panel/bitstream/bitstream.service';
 import { SubmissionService } from './submission.service';
-import { SubmissionUploadFilesComponent } from './submit/form/submission-upload-files/submission-upload-files.component';
+import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 
 @NgModule({
   imports: [

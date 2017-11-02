@@ -12,7 +12,8 @@ export class SubmissionObjectEffects {
 
   @Effect() new$ = this.actions$
     .ofType(SubmissionObjectActionTypes.NEW)
-    .map((action: NewSubmissionFormAction) => new InitSubmissionFormAction(action.payload.submissionId, action.payload.definitionId));
+    .map((action: NewSubmissionFormAction) =>
+      new InitSubmissionFormAction(action.payload.collectionId, action.payload.definitionId, action.payload.submissionId));
 
   @Effect() initForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)

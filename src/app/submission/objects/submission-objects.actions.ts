@@ -76,20 +76,23 @@ export class DisablePanelAction implements Action {
 export class InitSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.INIT_SUBMISSION_FORM;
   payload: {
-    submissionId: string;
+    collectionId: string;
     definitionId: string;
+    submissionId: string;
   };
 
   /**
    * Create a new InitSubmissionFormAction
    *
-   * @param submissionId
-   *    the submission's ID
+   * @param collectionId
+   *    the collection's Id where to deposit
    * @param definitionId
    *    the definition's ID to use
+   * @param submissionId
+   *    the submission's ID
    */
-  constructor(submissionId: string, definitionId: string) {
-    this.payload = { submissionId, definitionId };
+  constructor(collectionId: string, definitionId: string, submissionId: string) {
+    this.payload = { collectionId, definitionId, submissionId };
   }
 }
 
@@ -100,20 +103,23 @@ export class CompleteInitSubmissionFormAction implements Action {
 export class NewSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.NEW;
   payload: {
-    submissionId: string;
+    collectionId: string;
     definitionId: string;
+    submissionId: string;
   };
 
   /**
    * Create a new NewSubmissionFormAction
    *
-   * @param submissionId
-   *    the submission's ID
+   * @param collectionId
+   *    the collection's Id where to deposit
    * @param definitionId
    *    the definition's ID to use
+   * @param submissionId
+   *    the submission's ID
    */
-  constructor(submissionId: string, definitionId: string) {
-    this.payload = { submissionId, definitionId };
+  constructor(collectionId: string, definitionId: string, submissionId: string) {
+    this.payload = { collectionId, definitionId, submissionId };
   }
 }
 

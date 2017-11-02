@@ -10,6 +10,6 @@ export class SubmissionDefinitionsModel extends ConfigObject {
   isDefault: boolean;
 
   @autoserialize
-  sections: RemoteData<SubmissionSectionModel[]>;
+  sections: string;
 
 }

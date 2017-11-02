@@ -2,8 +2,8 @@ import {
   AfterViewInit,
   Component,
   ComponentFactoryResolver, forwardRef, Host, Inject,
-  Input,
-  OnDestroy, OnInit, Optional,
+  Input, OnChanges,
+  OnDestroy, OnInit, Optional, SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
@@ -11,23 +11,23 @@ import { assign } from 'rxjs/util/assign';
 import { Subscription } from 'rxjs/Subscription';
 import { createSelector, Store } from '@ngrx/store';
 
-import { PanelDataModel } from '../../../panel/panel.model';
-import { PanelFactoryComponent, FactoryDataModel } from '../../../panel/panel.factory'
-import { PanelService } from '../../../panel/panel.service';
+import { PanelDataModel } from '../../panel/panel.model';
+import { PanelFactoryComponent, FactoryDataModel } from '../../panel/panel.factory'
+import { PanelService } from '../../panel/panel.service';
 import { SubmissionSubmitFormComponent } from '../submission-submit-form.component';
-import { FormPanelComponent } from '../../../panel/form/panel-form.component';
-import { hasValue } from '../../../../shared/empty.util';
-import { submissionSelector, SubmissionState } from '../../../submission.reducers';
-import { SubmissionDefinitionState } from '../../../definitions/submission-definitions.reducer';
-import { AppState } from '../../../../app.reducer';
-import { HostWindowState } from '../../../../shared/host-window.reducer';
+import { FormPanelComponent } from '../../panel/form/panel-form.component';
+import { hasValue } from '../../../shared/empty.util';
+import { submissionSelector, SubmissionState } from '../../submission.reducers';
+import { SubmissionDefinitionState } from '../../definitions/submission-definitions.reducer';
+import { AppState } from '../../../app.reducer';
+import { HostWindowState } from '../../../shared/host-window.reducer';
 
 @Component({
   selector: 'ds-submission-submit-form-box-handler',
   styleUrls: ['./submission-submit-form-panel-add.component.scss'],
   templateUrl: './submission-submit-form-panel-add.component.html'
 })
-export class SubmissionSubmitFormPanelAddComponent implements OnInit {
+export class SubmissionSubmitFormPanelAddComponent implements OnChanges {
   @Input() submissionId: string;
   @Input() definitionId: string;
   panelList: any[] = [];
@@ -40,11 +40,13 @@ export class SubmissionSubmitFormPanelAddComponent implements OnInit {
 
   constructor(private panelService: PanelService, private store: Store<SubmissionState>) {}
 
-  ngOnInit() {
-    this.subs.push(this.panelService.getAvailablePanelList(this.submissionId, this.definitionId)
-      .subscribe((panelList) => {
-        this.panelList = panelList;
-      }));
+  ngOnChanges(changes: SimpleChanges) {
+    if (hasValue(changes.definitionId.currentValue)) {
+      this.subs.push(this.panelService.getAvailablePanelList(this.submissionId, this.definitionId)
+        .subscribe((panelList) => {
+          this.panelList = panelList;
+        }));
+    }
   }
 
   /**

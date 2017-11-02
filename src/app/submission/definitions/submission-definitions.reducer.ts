@@ -3,6 +3,7 @@ import {
   DefinitionsAction, SubmissionDefinitionActionTypes, NewDefinitionAction
 } from './submission-definitions.actions';
 import { hasValue, isUndefined } from '../../shared/empty.util';
+import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 
 export interface PanelObject {
   header: any;
@@ -23,7 +24,7 @@ export interface PanelObject {
  * and PanelObjects as values
  */
 export interface PanelObjectEntry {
-  [panelId: string]: PanelObject;
+  [panelId: string]: SubmissionSectionModel;
 }
 
 /**
@@ -57,15 +58,11 @@ export function submissionDefinitionReducer(state = initialState, action: Defini
       return newDefinition(state, action as NewDefinitionAction);
     }
 
-    case SubmissionDefinitionActionTypes.INIT_DEFINITIONS: {
+    case SubmissionDefinitionActionTypes.INIT_DEFAULT_DEFINITION: {
       return state;
     }
 
-    case SubmissionDefinitionActionTypes.COMPLETE_INIT_DEFINITIONS: {
-      return state;
-    }
-
-    case SubmissionDefinitionActionTypes.RETRIEVE_DEFINITIONS: {
+    case SubmissionDefinitionActionTypes.COMPLETE_INIT_DEFAULT_DEFINITION: {
       return state;
     }
 
@@ -86,16 +83,20 @@ export function submissionDefinitionReducer(state = initialState, action: Defini
  *    the new state, with the panel added.
  */
 function newPanelDefinition(state: SubmissionDefinitionState, action: NewPanelDefinitionAction): SubmissionDefinitionState {
-  return Object.assign({}, state, {
-    [action.payload.definitionId]: Object.assign({}, state[action.payload.definitionId], {
-      panels: Object.assign({},
-                             state[action.payload.definitionId].panels,
-                            {
-                                      [action.payload.panelId]: action.payload.panelObject
-                                    }
-                           )
-    })
-  });
+  if (hasValue(state[action.payload.definitionId])) {
+    return Object.assign({}, state, {
+      [action.payload.definitionId]: Object.assign({}, state[action.payload.definitionId], {
+        panels: Object.assign({},
+          state[action.payload.definitionId].panels,
+          {
+            [action.payload.panelId]: action.payload.panelObject
+          }
+        )
+      })
+    });
+  } else {
+    return state;
+  }
 }
 
 /**
@@ -109,11 +110,11 @@ function newPanelDefinition(state: SubmissionDefinitionState, action: NewPanelDe
  *    the new state, with the panel added.
  */
 function newDefinition(state: SubmissionDefinitionState, action: NewDefinitionAction): SubmissionDefinitionState {
-  if (!hasValue(state[action.payload.definitionId])) {
+  if (!hasValue(state[action.payload.definition.name])) {
     const newState = Object.assign({}, state);
-    newState[action.payload.definitionId] = Object.assign({}, {
+    newState[action.payload.definition.name] = Object.assign({}, {
       panels: Object.create(null),
-      isDefault: action.payload.isDefault
+      isDefault: action.payload.definition.isDefault
     });
     return newState;
   } else {

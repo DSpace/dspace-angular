@@ -21,7 +21,7 @@ export class ConfigResponseParsingService implements ResponseParsingService {
 
       } else {
         const serializer = new DSpaceRESTv2Serializer(ConfigObjectFactory.getConstructor(data.payload.type));
-        configDefinition = serializer.deserialize(data.payload);
+        configDefinition = serializer.deserializeArray([data.payload]);
       }
       return new ConfigSuccessResponse(configDefinition, data.statusCode);
     } else {

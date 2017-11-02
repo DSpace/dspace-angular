@@ -19,10 +19,10 @@ export interface SubmissionPanelEntry {
 }
 
 export interface SubmissionDataEntry {
-  collection: Collection
+  collection: SubmissionCollectionObject
 }
 
-export interface Collection {
+export interface SubmissionCollectionObject {
   id: string;
   name: string;
   policiesMessageType: number;

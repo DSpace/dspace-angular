@@ -5,7 +5,7 @@
             class="btn btn-outline-primary"
             (click)="onClose($event)"
             id="collectionControlsMenuButton"
-            ngbDropdownToggle>{{ (selectedCollection) ? selectedCollection : '' }}
+            ngbDropdownToggle>{{ (selectedCollectionName) ? selectedCollectionName : '' }}
     </button>
 
     <div ngbDropdownMenu class="dropdown-menu" id="collectionControlsDropdownMenu" aria-labelledby="collectionControlsMenuButton">
@@ -18,11 +18,11 @@
       </div>
       <div class="dropdown-divider"></div>
       <div class="scrollable-menu" aria-labelledby="dropdownMenuButton" (scroll)="onScroll($event)">
-        <button class="dropdown-item disabled" *ngIf="listCollection.length == 0">No results found</button>
-        <button class="dropdown-item collection-item" *ngFor="let listItem of listCollection" (click)="onSelect(listItem)" title="{{ listItem.collection }}">
+        <button class="dropdown-item disabled" *ngIf="searchListCollection.length == 0">No results found</button>
+        <button class="dropdown-item collection-item" *ngFor="let listItem of searchListCollection" (click)="onSelect(listItem)" title="{{ listItem.collection.name }}">
           <ul class="list-unstyled mb-0">
-            <li class="list-item text-truncate" *ngFor="let item of listItem.communities" >{{ item}} <i class="fa fa-level-down" aria-hidden="true"></i></li>
-            <li class="list-item text-truncate">{{ listItem.collection}}</li>
+            <li class="list-item text-truncate" *ngFor="let item of listItem.communities" >{{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i></li>
+            <li class="list-item text-truncate">{{ listItem.collection.name}}</li>
           </ul>
         </button>
       </div>

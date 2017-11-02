@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { BitstreamService } from '../../../panel/bitstream/bitstream.service';
-import { UploadFilesComponentOptions } from '../../../../shared/upload-files/upload-files-component-options.model';
+import { BitstreamService } from '../../panel/bitstream/bitstream.service';
+import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload-files-component-options.model';
 
 @Component({
   selector: 'ds-submission-upload-files',

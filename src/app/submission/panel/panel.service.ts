@@ -7,24 +7,27 @@ import { PanelFactoryComponent } from './panel.factory';
 import { submissionSelector, SubmissionState } from '../submission.reducers';
 
 import { isUndefined } from '../../shared/empty.util';
-import { NewPanelDefinitionAction, NewDefinitionAction } from '../definitions/submission-definitions.actions';
+
 import { PanelObject } from '../definitions/submission-definitions.reducer';
 import { DisablePanelAction, EnablePanelAction } from '../objects/submission-objects.actions';
-import { SubmissionPanelObject } from '../objects/submission-objects.reducer';
+import { SubmissionObjectEntry, SubmissionPanelObject } from '../objects/submission-objects.reducer';
 import {
   panelDefinitionFromIdSelector,
-  submissionDefinitionFromIdSelector,
+  submissionDefinitionFromIdSelector, submissionObjectFromIdSelector,
   submissionPanelFromIdSelector
 } from '../selectors';
 
-import SUBMISSION_DEFINITIONS from '../../../backend/data/submission-definitions.json';
-import SUBMISSION_DEFINITION_SECTIONS from '../../../backend/data/submission-definition-sections.json';
+import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
+import { SubmissionSectionsConfigService } from '../../core/config/submission-sections-config.service';
 
 @Injectable()
 export class PanelService {
   private _viewContainerRef: ViewContainerRef;
 
-  constructor(private panelFactory: PanelFactoryComponent, private store: Store<SubmissionState>) {}
+  constructor(private definitionsConfigService: SubmissionDefinitionsConfigService,
+              private sectionsConfigService: SubmissionSectionsConfigService,
+              private panelFactory: PanelFactoryComponent,
+              private store: Store<SubmissionState>) {}
 
   initViewContainer(viewContainerRef: ViewContainerRef) {
     this._viewContainerRef = viewContainerRef;
@@ -32,28 +35,35 @@ export class PanelService {
 
   private getDefinitionPanels(definitionId: string) {
     return this.store.select(submissionDefinitionFromIdSelector(definitionId))
+      .filter((state) => !isUndefined(state))
       .map((state) => state.panels)
       .distinctUntilChanged();
   }
 
-  retrieveDefinitions() {
-    // @TODO retrieve by rest
-    SUBMISSION_DEFINITIONS._embedded.submissionDefinitions
-      .map((definition) => {
-        this.store.dispatch(new NewDefinitionAction(definition.name, definition.isDefault));
-        this.retrieveDefinitionSections(definition.name);
-      });
-  }
-
-  retrieveDefinitionSections(definitionId) {
-    // @TODO retrieve by rest
-    SUBMISSION_DEFINITION_SECTIONS._embedded
-      .submissionSections.forEach((sectionData) => {
-        this.store.dispatch(new NewPanelDefinitionAction(definitionId, sectionData._links.self, sectionData as PanelObject));
-    });
-  }
-
   getAvailablePanelList(submissionId, definitionId): Observable<any> {
+    const submissionObjectsSelector = createSelector(submissionSelector, (state: SubmissionState) => state.objects);
+    return this.store.select(submissionDefinitionFromIdSelector(definitionId))
+      .flatMap((definition) => {
+        let availablePanels: any[] = [];
+        return this.store.select(submissionObjectsSelector)
+          .map((submissionState) => {
+            if (!isUndefined(definition)) {
+              availablePanels = [];
+              Object.keys(definition.panels).forEach((panelId) => {
+                if (!isUndefined(submissionState[submissionId])
+                  && !isUndefined(submissionState[submissionId].panels)
+                  && Object.keys(submissionState[submissionId].panels).length !== 0
+                  && !submissionState[submissionId].panels.hasOwnProperty(panelId)) {
+                  availablePanels.push({panelId: panelId, panelHeader: definition.panels[panelId].header});
+                }
+              });
+            }
+            return availablePanels;
+          })
+      })
+  }
+
+  /*getAvailablePanelList(submissionId, definitionId): Observable<any> {
     let panelList: any;
     this.getDefinitionPanels(definitionId)
       .subscribe((panels) => {
@@ -76,7 +86,7 @@ export class PanelService {
         return availablePanels;
       })
       .distinctUntilChanged();
-  }
+  }*/
 
   getPanelDefinition(definitionId, panelId): Observable<PanelObject> {
     return this.store.select(panelDefinitionFromIdSelector(definitionId, panelId))
@@ -96,8 +106,18 @@ export class PanelService {
       .distinctUntilChanged();
   }
 
+  isPanelLoaded(submissionId, panelId): Observable<boolean> {
+    return this.store.select(submissionObjectFromIdSelector(submissionId))
+      .map((submissionState: SubmissionObjectEntry) => {
+        return !isUndefined(submissionState.panels[panelId])
+      })
+      .distinctUntilChanged();
+  }
+
   loadDefaultPanels(submissionId, definitionId) {
     this.store.select(submissionDefinitionFromIdSelector(definitionId))
+      .distinctUntilChanged()
+      .filter((state) => !isUndefined(state.panels))
       .map((state) => {
         Object.keys(state.panels)
           .filter((panelId) => state.panels[panelId].mandatory)
@@ -105,19 +125,23 @@ export class PanelService {
             this.loadPanel(submissionId, definitionId, panelId);
           })
       })
-      .distinctUntilChanged()
       .subscribe();
   }
 
   private loadPanel(submissionId: string, definitionId: string, panelId: string) {
-    let panelObject: PanelObject = Object.create(null);
-    this.getPanelDefinition(definitionId, panelId)
-      .subscribe((panel: PanelObject) => {
-        panelObject = panel;
-      });
-    const componentRef = this.panelFactory.get(submissionId, panelId, panelObject, this._viewContainerRef);
-    const viewIndex = this._viewContainerRef.indexOf(componentRef.hostView);
-    this.store.dispatch(new EnablePanelAction(submissionId, panelId, viewIndex));
+    this.isPanelLoaded(submissionId, panelId)
+      .subscribe((loaded) => {
+        if (!loaded) {
+          let panelObject: PanelObject = Object.create(null);
+          this.getPanelDefinition(definitionId, panelId)
+            .subscribe((panel: PanelObject) => {
+              panelObject = panel;
+            });
+          const componentRef = this.panelFactory.get(submissionId, panelId, panelObject, this._viewContainerRef);
+          const viewIndex = this._viewContainerRef.indexOf(componentRef.hostView);
+          this.store.dispatch(new EnablePanelAction(submissionId, panelId, viewIndex));
+        }
+      })
   }
 
   addPanel(submissionId, definitionId, panelId) {
