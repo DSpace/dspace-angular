@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { SubmissionState } from '../../submission.reducers';
 import { DeleteBitstreamAction, EditBitstreamAction, NewBitstreamAction } from '../../objects/submission-objects.actions';
 import { submissionBitstreamFromUuidSelector, submissionObjectFromIdSelector } from '../../selectors';
+import {isUndefined} from "../../../shared/empty.util";
 
 @Injectable()
 export class BitstreamService {
@@ -20,6 +21,7 @@ export class BitstreamService {
 
   public getBitstream(submissionId, bitstreamId): Observable<any> {
     return this.store.select(submissionBitstreamFromUuidSelector(submissionId, bitstreamId))
+      .filter((state) => !isUndefined(state))
       .map((state) => {
         return state;
       })
