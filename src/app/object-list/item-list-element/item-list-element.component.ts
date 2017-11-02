@@ -2,7 +2,8 @@ import { Component, Input, Inject } from '@angular/core';
 
 import { Item } from '../../core/shared/item.model';
 import { ObjectListElementComponent } from '../object-list-element/object-list-element.component';
-import { listElementFor } from '../list-element-decorator';
+import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
+import { ViewMode } from '../../+search-page/search-options.model';
 
 @Component({
   selector: 'ds-item-list-element',
@@ -10,5 +11,5 @@ import { listElementFor } from '../list-element-decorator';
   templateUrl: './item-list-element.component.html'
 })
 
-@listElementFor(Item)
+@renderElementsFor(Item, ViewMode.List)
 export class ItemListElementComponent extends ObjectListElementComponent<Item> {}

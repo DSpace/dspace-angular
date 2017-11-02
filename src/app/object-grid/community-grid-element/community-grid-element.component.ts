@@ -2,7 +2,8 @@ import { Component, Input, Inject } from '@angular/core';
 
 import { Community } from '../../core/shared/community.model';
 import { ObjectGridElementComponent } from '../object-grid-element/object-grid-element.component';
-import { gridElementFor} from '../grid-element-decorator';
+import { renderElementsFor} from '../../object-collection/shared/dso-element-decorator';
+import { ViewMode } from '../../+search-page/search-options.model';
 
 @Component({
   selector: 'ds-community-grid-element',
@@ -10,5 +11,5 @@ import { gridElementFor} from '../grid-element-decorator';
   templateUrl: './community-grid-element.component.html'
 })
 
-@gridElementFor(Community)
+@renderElementsFor(Community, ViewMode.Grid)
 export class CommunityGridElementComponent extends ObjectGridElementComponent<Community> {}

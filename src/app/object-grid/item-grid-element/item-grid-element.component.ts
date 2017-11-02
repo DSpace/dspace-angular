@@ -1,8 +1,9 @@
 import { Component, Input, Inject } from '@angular/core';
 
 import { Item } from '../../core/shared/item.model';
-import { gridElementFor } from '../grid-element-decorator';
+import { renderElementsFor} from '../../object-collection/shared/dso-element-decorator';
 import { ObjectGridElementComponent } from '../object-grid-element/object-grid-element.component';
+import { ViewMode } from '../../+search-page/search-options.model';
 
 @Component({
   selector: 'ds-item-grid-element',
@@ -10,5 +11,5 @@ import { ObjectGridElementComponent } from '../object-grid-element/object-grid-e
   templateUrl: './item-grid-element.component.html'
 })
 
-@gridElementFor(Item)
+@renderElementsFor(Item, ViewMode.Grid)
 export class ItemGridElementComponent extends ObjectGridElementComponent<Item> {}

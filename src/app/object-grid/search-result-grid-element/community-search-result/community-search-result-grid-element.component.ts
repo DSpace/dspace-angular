@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 
 import { CommunitySearchResult } from './community-search-result.model';
 import { Community } from '../../../core/shared/community.model';
-import { gridElementFor } from '../../grid-element-decorator';
+import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
+import { ViewMode } from '../../../+search-page/search-options.model';
 
 @Component({
   selector: 'ds-community-search-result-grid-element',
@@ -11,7 +12,7 @@ import { SearchResultGridElementComponent } from '../search-result-grid-element.
   templateUrl: 'community-search-result-grid-element.component.html'
 })
 
-@gridElementFor(CommunitySearchResult)
+@renderElementsFor(CommunitySearchResult, ViewMode.Grid)
 export class CommunitySearchResultGridElementComponent extends SearchResultGridElementComponent<CommunitySearchResult, Community> {
 
 }

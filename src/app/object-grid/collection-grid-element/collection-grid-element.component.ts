@@ -2,7 +2,9 @@ import { Component, Inject } from '@angular/core';
 
 import { Collection } from '../../core/shared/collection.model';
 import { ObjectGridElementComponent } from '../object-grid-element/object-grid-element.component';
-import { gridElementFor } from '../grid-element-decorator';
+import { renderElementsFor} from '../../object-collection/shared/dso-element-decorator';
+import { ViewMode } from '../../+search-page/search-options.model';
+
 
 @Component({
   selector: 'ds-collection-grid-element',
@@ -10,5 +12,5 @@ import { gridElementFor } from '../grid-element-decorator';
   templateUrl: './collection-grid-element.component.html'
 })
 
-@gridElementFor(Collection)
+@renderElementsFor(Collection, ViewMode.Grid)
 export class CollectionGridElementComponent extends ObjectGridElementComponent<Collection> {}
