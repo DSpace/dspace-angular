@@ -69,7 +69,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
       this.sidebarService.isCollapsed,
       (mobile, store) => mobile ? store : true);
 
-    this.sidebarService.isCollapsed.subscribe((b) => console.log(b));
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
@@ -115,7 +114,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   }
 
   public openSidebar(): void {
-    debugger;
     this.sidebarService.expand();
   }
 }
