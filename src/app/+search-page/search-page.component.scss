@@ -7,7 +7,7 @@
 
 #search-content, #search-form {
     display: block;
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(xs) {
         margin-left: 0;
     }
 }
@@ -20,7 +20,7 @@
     &.row-offcanvas {
         width: 100%;
     }
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(xs) {
         position: relative;
 
         &.row-offcanvas {
@@ -43,8 +43,8 @@
     }
 }
 
-.sidebar-md-fixed {
-    @include media-breakpoint-up(md) {
+.sidebar-sm-fixed {
+    @include media-breakpoint-up(sm) {
         position: absolute;
         margin-top: -$content-spacing;
         padding-top: $content-spacing;
