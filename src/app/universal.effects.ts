@@ -13,7 +13,7 @@ import {
 @Injectable()
 export class UniversalEffects {
 
-  @Effect() replay = this.actions
+  @Effect() replay$ = this.actions
     .ofType(UniversalActionTypes.REPLAY)
     .map((replayAction: UniversalReplayAction) => replayAction.payload)
     .map((actions: Action[]) => [...actions, new UniversalReplayCompleteAction()])
