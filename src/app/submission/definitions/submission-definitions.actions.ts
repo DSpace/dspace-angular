@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { PanelObject } from './submission-definitions.reducer';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 
@@ -15,7 +14,7 @@ import { SubmissionDefinitionsModel } from '../../core/shared/config/config-subm
  */
 export const SubmissionDefinitionActionTypes = {
   NEW_DEFINITION: type('dspace/submission/definition/NEW_DEFINITION'),
-  NEW_PANEL_DEFINITION: type('dspace/submission/definition/NEW_PANEL_DEFINITION'),
+  NEW_SECTION_DEFINITION: type('dspace/submission/definition/NEW_SECTION_DEFINITION'),
   INIT_DEFAULT_DEFINITION: type('dspace/submission/definition/INIT_DEFAULT_DEFINITION'),
   COMPLETE_INIT_DEFAULT_DEFINITION: type('dspace/submission/definition/COMPLETE_INIT_DEFAULT_DEFINITION'),
 };
@@ -82,26 +81,26 @@ export class NewDefinitionAction implements Action {
   }
 }
 
-export class NewPanelDefinitionAction implements Action {
-  type = SubmissionDefinitionActionTypes.NEW_PANEL_DEFINITION;
+export class NewSectionDefinitionAction implements Action {
+  type = SubmissionDefinitionActionTypes.NEW_SECTION_DEFINITION;
   payload: {
     definitionId: string;
-    panelId: string;
-    panelObject: SubmissionSectionModel;
+    sectionId: string;
+    sectionObject: SubmissionSectionModel;
   };
 
   /**
-   * Create a new NewPanelDefinitionAction
+   * Create a new NewSectionDefinitionAction
    *
    * @param definitionId
-   *    the definition's ID where to panel-add panel
-   * @param panelId
-   *    the panel's ID to panel-add
-   * @param panelObject
-   *    the panel's properties
+   *    the definition's ID where to add section's definition
+   * @param sectionId
+   *    the section's ID to add
+   * @param sectionObject
+   *    the section's properties
    */
-  constructor(definitionId: string, panelId: string, panelObject: SubmissionSectionModel) {
-    this.payload = { definitionId, panelId: panelId, panelObject: panelObject};
+  constructor(definitionId: string, sectionId: string, sectionObject: SubmissionSectionModel) {
+    this.payload = { definitionId, sectionId, sectionObject};
   }
 }
 
@@ -115,4 +114,4 @@ export type DefinitionsAction
   = InitDefaultDefinitionAction
   | CompleteInitAction
   | NewDefinitionAction
-  | NewPanelDefinitionAction
+  | NewSectionDefinitionAction

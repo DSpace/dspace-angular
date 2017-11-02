@@ -12,13 +12,13 @@ import { SubmissionBitstreamObject } from './submission-objects.reducer';
  * action types in the application are unique.
  */
 export const SubmissionObjectActionTypes = {
-  // Panel actions
+  // Section actions
   NEW: type('dspace/submission/NEW'),
-  ENABLE_PANEL: type('dspace/submission/ENABLE_PANEL'),
+  ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
-  DISABLE_PANEL: type('dspace/submission/DISABLE_PANEL'),
-  PANEL_STATUS_CHANGE: type('dspace/submission/PANEL_STATUS_CHANGE'),
+  DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
+  SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
 
   // Bitstream actions
   NEW_BITSTREAM: type('dspace/submission/NEW_BITSTREAM'),
@@ -28,48 +28,48 @@ export const SubmissionObjectActionTypes = {
 
 /* tslint:disable:max-classes-per-file */
 
-// Panel actions
+// Section actions
 
-export class EnablePanelAction implements Action {
-  type = SubmissionObjectActionTypes.ENABLE_PANEL;
+export class EnableSectionAction implements Action {
+  type = SubmissionObjectActionTypes.ENABLE_SECTION;
   payload: {
     submissionId: string;
-    panelId: string;
-    panelViewIndex: number;
+    sectionId: string;
+    sectionViewIndex: number;
   };
 
   /**
-   * Create a new EnablePanelAction
+   * Create a new EnableSectionAction
    *
    * @param submissionId
    *    the submission's ID to remove
-   * @param panelId
-   *    the panel's ID to panel-add
-   * @param panelViewIndex
-   *    the panel's index in the view container
+   * @param sectionId
+   *    the section's ID to add
+   * @param sectionViewIndex
+   *    the section's index in the view container
    */
-  constructor(submissionId: string, panelId: string, panelViewIndex: number) {
-    this.payload = { submissionId, panelId, panelViewIndex };
+  constructor(submissionId: string, sectionId: string, sectionViewIndex: number) {
+    this.payload = { submissionId, sectionId, sectionViewIndex };
   }
 }
 
-export class DisablePanelAction implements Action {
-  type = SubmissionObjectActionTypes.DISABLE_PANEL;
+export class DisableSectionAction implements Action {
+  type = SubmissionObjectActionTypes.DISABLE_SECTION;
   payload: {
     submissionId: string;
-    panelId: string;
+    sectionId: string;
   };
 
   /**
-   * Create a new DisablePanelAction
+   * Create a new DisableSectionAction
    *
    * @param submissionId
    *    the submission's ID to remove
-   * @param panelId
-   *    the panel's ID to remove
+   * @param sectionId
+   *    the section's ID to remove
    */
-  constructor(submissionId: string, panelId: string) {
-    this.payload = { submissionId, panelId };
+  constructor(submissionId: string, sectionId: string) {
+    this.payload = { submissionId, sectionId };
   }
 }
 
@@ -123,26 +123,26 @@ export class NewSubmissionFormAction implements Action {
   }
 }
 
-export class PanelStatusChangeAction implements Action {
-  type = SubmissionObjectActionTypes.PANEL_STATUS_CHANGE;
+export class SectionStatusChangeAction implements Action {
+  type = SubmissionObjectActionTypes.SECTION_STATUS_CHANGE;
   payload: {
     submissionId: string;
-    panelId: string;
+    sectionId: string;
     status: boolean
   };
 
   /**
-   * Change the panel validity status
+   * Change the section validity status
    *
    * @param submissionId
    *    the submission's ID
-   * @param panelId
-   *    the panel's ID to change
+   * @param sectionId
+   *    the section's ID to change
    * @param status
-   *    the panel validity status (true if is valid)
+   *    the section validity status (true if is valid)
    */
-  constructor(submissionId: string, panelId: string, status: boolean) {
-    this.payload = { submissionId, panelId, status };
+  constructor(submissionId: string, sectionId: string, status: boolean) {
+    this.payload = { submissionId, sectionId, status };
   }
 }
 
@@ -221,11 +221,11 @@ export class DeleteBitstreamAction implements Action {
  * so that reducers can easily compose action types
  */
 export type SubmissionObjectAction
-  = DisablePanelAction
-  | EnablePanelAction
+  = DisableSectionAction
+  | EnableSectionAction
   | InitSubmissionFormAction
   | CompleteInitSubmissionFormAction
-  | PanelStatusChangeAction
+  | SectionStatusChangeAction
   | NewBitstreamAction
   | EditBitstreamAction
   | DeleteBitstreamAction

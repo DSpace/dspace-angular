@@ -1,37 +1,25 @@
 import {
-  NewPanelDefinitionAction,
+  NewSectionDefinitionAction,
   DefinitionsAction, SubmissionDefinitionActionTypes, NewDefinitionAction
 } from './submission-definitions.actions';
-import { hasValue, isUndefined } from '../../shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 
-export interface PanelObject {
-  header: any;
-  mandatory: boolean;
-  sectionType: string;
-  type: string;
-  _links: {
-    self: string;
-    config: string;
-    [name: string]: string;
-  }
-}
-
 /**
- * The Panel Object Entry
+ * The Section Object Entry
  *
- * Consists of a map with Panel's ID as key,
- * and PanelObjects as values
+ * Consists of a map with Section's ID as key,
+ * and SubmissionSectionModel as values
  */
-export interface PanelObjectEntry {
-  [panelId: string]: SubmissionSectionModel;
+export interface SectionObjectEntry {
+  [sectionId: string]: SubmissionSectionModel;
 }
 
 /**
  * The Definition Entry
  */
 export interface SubmissionDefinitionEntry {
-  panels: PanelObjectEntry;
+  sections: SectionObjectEntry;
   isDefault: boolean;
 }
 
@@ -50,8 +38,8 @@ const initialState: SubmissionDefinitionState = Object.create(null);
 export function submissionDefinitionReducer(state = initialState, action: DefinitionsAction): SubmissionDefinitionState {
   switch (action.type) {
 
-    case SubmissionDefinitionActionTypes.NEW_PANEL_DEFINITION: {
-      return newPanelDefinition(state, action as NewPanelDefinitionAction);
+    case SubmissionDefinitionActionTypes.NEW_SECTION_DEFINITION: {
+      return newSectionDefinition(state, action as NewSectionDefinitionAction);
     }
 
     case SubmissionDefinitionActionTypes.NEW_DEFINITION: {
@@ -73,23 +61,23 @@ export function submissionDefinitionReducer(state = initialState, action: Defini
 }
 
 /**
- * Add a panel to panel list.
+ * Add a section to section list.
  *
  * @param state
  *    the current state
  * @param action
  *    an BoxAddAction
  * @return SubmissionDefinitionState
- *    the new state, with the panel added.
+ *    the new state, with the section added.
  */
-function newPanelDefinition(state: SubmissionDefinitionState, action: NewPanelDefinitionAction): SubmissionDefinitionState {
+function newSectionDefinition(state: SubmissionDefinitionState, action: NewSectionDefinitionAction): SubmissionDefinitionState {
   if (hasValue(state[action.payload.definitionId])) {
     return Object.assign({}, state, {
       [action.payload.definitionId]: Object.assign({}, state[action.payload.definitionId], {
-        panels: Object.assign({},
-          state[action.payload.definitionId].panels,
+        sections: Object.assign({},
+          state[action.payload.definitionId].sections,
           {
-            [action.payload.panelId]: action.payload.panelObject
+            [action.payload.sectionId]: action.payload.sectionObject
           }
         )
       })
@@ -107,13 +95,13 @@ function newPanelDefinition(state: SubmissionDefinitionState, action: NewPanelDe
  * @param action
  *    an BoxAddAction
  * @return SubmissionDefinitionState
- *    the new state, with the panel added.
+ *    the new state, with the section added.
  */
 function newDefinition(state: SubmissionDefinitionState, action: NewDefinitionAction): SubmissionDefinitionState {
   if (!hasValue(state[action.payload.definition.name])) {
     const newState = Object.assign({}, state);
     newState[action.payload.definition.name] = Object.assign({}, {
-      panels: Object.create(null),
+      sections: Object.create(null),
       isDefault: action.payload.definition.isDefault
     });
     return newState;

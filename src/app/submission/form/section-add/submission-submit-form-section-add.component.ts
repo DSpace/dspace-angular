@@ -11,11 +11,11 @@ import { assign } from 'rxjs/util/assign';
 import { Subscription } from 'rxjs/Subscription';
 import { createSelector, Store } from '@ngrx/store';
 
-import { PanelDataModel } from '../../panel/panel.model';
-import { PanelFactoryComponent, FactoryDataModel } from '../../panel/panel.factory'
-import { PanelService } from '../../panel/panel.service';
+import { SectionDataModel } from '../../section/section.model';
+import { SectionFactoryComponent, FactoryDataModel } from '../../section/section.factory'
+import { SectionService } from '../../section/section.service';
 import { SubmissionSubmitFormComponent } from '../submission-submit-form.component';
-import { FormPanelComponent } from '../../panel/form/panel-form.component';
+import { FormSectionComponent } from '../../section/form/section-form.component';
 import { hasValue } from '../../../shared/empty.util';
 import { submissionSelector, SubmissionState } from '../../submission.reducers';
 import { SubmissionDefinitionState } from '../../definitions/submission-definitions.reducer';
@@ -24,13 +24,13 @@ import { HostWindowState } from '../../../shared/host-window.reducer';
 
 @Component({
   selector: 'ds-submission-submit-form-box-handler',
-  styleUrls: ['./submission-submit-form-panel-add.component.scss'],
-  templateUrl: './submission-submit-form-panel-add.component.html'
+  styleUrls: ['./submission-submit-form-section-add.component.scss'],
+  templateUrl: './submission-submit-form-section-add.component.html'
 })
-export class SubmissionSubmitFormPanelAddComponent implements OnChanges {
+export class SubmissionSubmitFormSectionAddComponent implements OnChanges {
   @Input() submissionId: string;
   @Input() definitionId: string;
-  panelList: any[] = [];
+  sectionList: any[] = [];
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -38,13 +38,13 @@ export class SubmissionSubmitFormPanelAddComponent implements OnChanges {
    */
   private subs: Subscription[] = [];
 
-  constructor(private panelService: PanelService, private store: Store<SubmissionState>) {}
+  constructor(private sectionService: SectionService, private store: Store<SubmissionState>) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.definitionId.currentValue)) {
-      this.subs.push(this.panelService.getAvailablePanelList(this.submissionId, this.definitionId)
-        .subscribe((panelList) => {
-          this.panelList = panelList;
+      this.subs.push(this.sectionService.getAvailableSectionList(this.submissionId, this.definitionId)
+        .subscribe((sectionList) => {
+          this.sectionList = sectionList;
         }));
     }
   }
@@ -58,7 +58,7 @@ export class SubmissionSubmitFormPanelAddComponent implements OnChanges {
       .forEach((sub) => sub.unsubscribe());
   }
 
-  addPanel(panelId) {
-    this.panelService.addPanel(this.submissionId, this.definitionId, panelId);
+  addSection(sectionId) {
+    this.sectionService.addSection(this.submissionId, this.definitionId, sectionId);
   }
 }

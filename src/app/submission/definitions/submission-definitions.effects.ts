@@ -7,7 +7,7 @@ import {
   CompleteInitAction,
   InitDefaultDefinitionAction,
   NewDefinitionAction,
-  NewPanelDefinitionAction,
+  NewSectionDefinitionAction,
   SubmissionDefinitionActionTypes
 } from './submission-definitions.actions'
 import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
@@ -31,7 +31,7 @@ export class SubmissionDefinitionEffects {
               const mappedActions = [];
               mappedActions.push(new NewDefinitionAction(definition));
               sections.forEach((section) => {
-                mappedActions.push(new NewPanelDefinitionAction(definition.name, section._links.self, section as SubmissionSectionModel))
+                mappedActions.push(new NewSectionDefinitionAction(definition.name, section._links.self.substr(section._links.self.lastIndexOf('/') + 1), section as SubmissionSectionModel))
               });
               return {action: action, definition: definition, mappedActions: mappedActions};
             })

@@ -3,10 +3,10 @@ import { createSelector, MemoizedSelector, Selector } from '@ngrx/store';
 import { hasValue } from '../shared/empty.util';
 import { submissionSelector, SubmissionState } from './submission.reducers';
 import {
-  SubmissionPanelEntry, SubmissionObjectEntry,
+  SubmissionSectionEntry, SubmissionObjectEntry,
   SubmissionBitstreamEntry
 } from './objects/submission-objects.reducer';
-import { PanelObjectEntry, SubmissionDefinitionEntry } from './definitions/submission-definitions.reducer';
+import { SectionObjectEntry, SubmissionDefinitionEntry } from './definitions/submission-definitions.reducer';
 
 // @TODO: Merge with keySelector function present in 'src/app/core/shared/selectors.ts'
 export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: string, key: string): MemoizedSelector<T, V> {
@@ -32,12 +32,12 @@ export function submissionBitstreamFromUuidSelector(submissionId: string, uuid: 
   return keySelector<SubmissionState, any>(submissionIdSelector, 'bitstreams', uuid);
 }
 
-export function panelDefinitionFromIdSelector(definitionId: string, panelId: string): MemoizedSelector<SubmissionState, any> {
+export function sectionDefinitionFromIdSelector(definitionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
   const definitionIdSelector  = submissionDefinitionFromIdSelector(definitionId);
-  return keySelector<SubmissionState, SubmissionObjectEntry>(definitionIdSelector, 'panels', panelId);
+  return keySelector<SubmissionState, SubmissionObjectEntry>(definitionIdSelector, 'sections', sectionId);
 }
 
-export function submissionPanelFromIdSelector(submissionId: string, panelId: string): MemoizedSelector<SubmissionState, any> {
+export function submissionSectionFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
   const submissionIdSelector  = submissionObjectFromIdSelector(submissionId);
-  return keySelector<SubmissionState, SubmissionObjectEntry>(submissionIdSelector, 'panels', panelId);
+  return keySelector<SubmissionState, SubmissionObjectEntry>(submissionIdSelector, 'sections', sectionId);
 }

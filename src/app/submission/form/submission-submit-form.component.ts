@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
 
-import { PanelHostDirective } from '../panel/panel-host.directive';
+import { SectionHostDirective } from '../section/section-host.directive';
 import { submissionSelector, SubmissionState } from '../submission.reducers';
 import { NewSubmissionFormAction } from '../objects/submission-objects.actions';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
@@ -18,7 +18,7 @@ export class SubmissionSubmitFormComponent implements OnInit {
   submissionId: string;
   definitionId: string;
 
-  @ViewChild(PanelHostDirective) public panelsHost: PanelHostDirective;
+  @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 
   constructor(private store:Store<SubmissionState>) {}
 

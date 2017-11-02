@@ -2,20 +2,21 @@ import { hasValue } from '../../shared/empty.util';
 
 import {
   DeleteBitstreamAction,
-  DisablePanelAction, EditBitstreamAction,
-  EnablePanelAction, NewBitstreamAction,
-  NewSubmissionFormAction, PanelStatusChangeAction,
+  DisableSectionAction, EditBitstreamAction,
+  EnableSectionAction, NewBitstreamAction,
+  NewSubmissionFormAction, SectionStatusChangeAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes
 } from './submission-objects.actions';
+import { deleteProperty } from '../../shared/object.util';
 
-export interface SubmissionPanelObject {
-  panelViewIndex: number;
+export interface SubmissionSectionObject {
+  sectionViewIndex: number;
   isValid: boolean;
 }
 
-export interface SubmissionPanelEntry {
-  [panelId: string]: SubmissionPanelObject;
+export interface SubmissionSectionEntry {
+  [sectionId: string]: SubmissionSectionObject;
 }
 
 export interface SubmissionDataEntry {
@@ -61,7 +62,7 @@ export interface SubmissionPoliciesGroupObject {
 }
 
 export interface SubmissionObjectEntry {
-  panels: SubmissionPanelEntry;
+  sections: SubmissionSectionEntry;
   data: SubmissionDataEntry;
   bitstreams: SubmissionBitstreamEntry;
 }
@@ -81,18 +82,18 @@ const initialState: SubmissionObjectState = Object.create(null);
 export function submissionObjectReducer(state = initialState, action: SubmissionObjectAction): SubmissionObjectState {
   switch (action.type) {
 
-    // Panel actions
+    // Section actions
 
     case SubmissionObjectActionTypes.NEW: {
       return newSubmission(state, action as NewSubmissionFormAction);
     }
 
-    case SubmissionObjectActionTypes.ENABLE_PANEL: {
-      return enablePanel(state, action as EnablePanelAction);
+    case SubmissionObjectActionTypes.ENABLE_SECTION: {
+      return enableSection(state, action as EnableSectionAction);
     }
 
-    case SubmissionObjectActionTypes.DISABLE_PANEL: {
-      return disablePanel(state, action as DisablePanelAction);
+    case SubmissionObjectActionTypes.DISABLE_SECTION: {
+      return disableSection(state, action as DisableSectionAction);
     }
 
     case SubmissionObjectActionTypes.INIT_SUBMISSION_FORM: {
@@ -103,8 +104,8 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return state;
     }
 
-    case SubmissionObjectActionTypes.PANEL_STATUS_CHANGE: {
-      return setIsValid(state, action as PanelStatusChangeAction);
+    case SubmissionObjectActionTypes.SECTION_STATUS_CHANGE: {
+      return setIsValid(state, action as SectionStatusChangeAction);
     }
     // Bitstram actions
 
@@ -126,24 +127,24 @@ export function submissionObjectReducer(state = initialState, action: Submission
   }
 }
 
-// ------ Panel functions ------ //
+// ------ Section functions ------ //
 
 /**
- * Set a panel enabled.
+ * Set a section enabled.
  *
  * @param state
  *    the current state
  * @param action
- *    an EnablePanelAction
+ *    an EnableSectionAction
  * @return SubmissionObjectState
- *    the new state, with the panel removed.
+ *    the new state, with the section removed.
  */
-function enablePanel(state: SubmissionObjectState, action: EnablePanelAction): SubmissionObjectState {
+function enableSection(state: SubmissionObjectState, action: EnableSectionAction): SubmissionObjectState {
   if (hasValue(state[action.payload.submissionId])) {
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
-        panels: Object.assign({}, state[action.payload.submissionId].panels, {
-          [action.payload.panelId]: { panelViewIndex: action.payload.panelViewIndex, isValid: false }
+        sections: Object.assign({}, state[action.payload.submissionId].sections, {
+          [action.payload.sectionId]: { sectionViewIndex: action.payload.sectionViewIndex, isValid: false }
         }),
         bitstreams:  Object.assign({}, state[action.payload.submissionId].bitstreams)
       })
@@ -154,41 +155,45 @@ function enablePanel(state: SubmissionObjectState, action: EnablePanelAction): S
 }
 
 /**
- * Set a panel disabled.
+ * Set a section disabled.
  *
  * @param state
  *    the current state
  * @param action
- *    an DisablePanelAction
+ *    an DisableSectionAction
  * @return SubmissionObjectState
- *    the new state, with the panel removed.
+ *    the new state, with the section removed.
  */
-function disablePanel(state: SubmissionObjectState, action: DisablePanelAction): SubmissionObjectState {
-  if (hasValue(state[action.payload.submissionId].panels[action.payload.panelId])) {
-    const newState = Object.assign({}, state);
-    delete newState[action.payload.submissionId].panels[action.payload.panelId];
-    return newState;
+function disableSection(state: SubmissionObjectState, action: DisableSectionAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId])) {
+    return Object.assign({}, state, {
+      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+        sections: deleteProperty(state[action.payload.submissionId].sections, action.payload.sectionId),
+        data: Object.assign({}, state[action.payload.submissionId].data),
+        bitstreams:  Object.assign({}, state[action.payload.submissionId].bitstreams)
+      })
+    });
   } else {
     return state;
   }
 }
 
 /**
- * Set a panel enabled.
+ * Set a section enabled.
  *
  * @param state
  *    the current state
  * @param action
  *    an NewSubmissionFormAction
  * @return SubmissionObjectState
- *    the new state, with the panel removed.
+ *    the new state, with the section removed.
  */
 function newSubmission(state: SubmissionObjectState, action: NewSubmissionFormAction): SubmissionObjectState {
   if (!hasValue(state[action.payload.submissionId])) {
     const newState = Object.assign({}, state);
     // newState[action.payload.submissionId] = Object.create(null);
     newState[action.payload.submissionId] = {
-      panels: Object.create(null),
+      sections: Object.create(null),
       data: Object.create(null),
       bitstreams: Object.create(null)
     };
@@ -199,25 +204,25 @@ function newSubmission(state: SubmissionObjectState, action: NewSubmissionFormAc
 }
 
 /**
- * Set the panel validity.
+ * Set the section validity.
  *
  * @param state
  *    the current state
  * @param action
  *    an NewSubmissionFormAction
  * @return SubmissionObjectState
- *    the new state, with the panel new validity status.
+ *    the new state, with the section new validity status.
  */
-function setIsValid(state: SubmissionObjectState, action: PanelStatusChangeAction): SubmissionObjectState {
-  if (hasValue(state[action.payload.submissionId].panels[action.payload.panelId])) {
+function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId])) {
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
-        panels: Object.assign({},
-                               state[action.payload.submissionId].panels,
+        sections: Object.assign({},
+                               state[action.payload.submissionId].sections,
                                Object.assign({},
                                              {
-                                               [action.payload.panelId]: {
-                                                                           panelViewIndex: state[action.payload.submissionId].panels[action.payload.panelId].panelViewIndex,
+                                               [action.payload.sectionId]: {
+                                                                           sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
                                                                            isValid: action.payload.status
                                                                          }
                                              }
@@ -250,7 +255,7 @@ function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction):
     const newData  = [];
     newData[action.payload.bitstreamId] = action.payload.data;
     newState[action.payload.submissionId] = {
-      panels: state[action.payload.submissionId].panels,
+      sections: state[action.payload.submissionId].sections,
       data: state[action.payload.submissionId].data,
       bitstreams: Object.assign(
         {},
@@ -278,7 +283,7 @@ function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction
   if (hasValue(state[action.payload.submissionId].bitstreams[action.payload.bitstreamId])) {
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
-        panels: state[action.payload.submissionId].panels,
+        sections: state[action.payload.submissionId].sections,
         data: state[action.payload.submissionId].data,
         bitstreams: Object.assign({},
                                   state[action.payload.submissionId].bitstreams,
@@ -313,7 +318,7 @@ function deleteBitstream(state: SubmissionObjectState, action: DeleteBitstreamAc
       }
     }
     newState[action.payload.submissionId] = {
-      panels: state[action.payload.submissionId].panels,
+      sections: state[action.payload.submissionId].sections,
       data: state[action.payload.submissionId].data,
       bitstreams: newBitstreams
     };

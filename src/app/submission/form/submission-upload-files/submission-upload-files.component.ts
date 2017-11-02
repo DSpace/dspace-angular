@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { BitstreamService } from '../../panel/bitstream/bitstream.service';
+import { BitstreamService } from '../../section/bitstream/bitstream.service';
 import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload-files-component-options.model';
 
 @Component({

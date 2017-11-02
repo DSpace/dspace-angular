@@ -65,7 +65,6 @@ export class FilesEditComponent {
     this.switchMode(true);
     this.formService.isValid(this.formRef.formUniqueId).map(
       (isValid) => {
-        console.log(isValid);
         if (isValid) {
           this.formService.getFormData(this.formRef.formUniqueId).map(
             (metadata) => {

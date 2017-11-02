@@ -22,31 +22,19 @@ import {
   DynamicScrollableDropdownModelConfig
 } from './model/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { isUndefined } from '../../empty.util';
-
-export const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
-  'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
-  'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-  'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
-  'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-  'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-  'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+import { isNotUndefined, isUndefined } from '../../empty.util';
+import { deleteProperty } from '../../object.util';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
 
-  modelFromConfiguration(json: string | any[]): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | any): DynamicFormControlModel[] | never {
 
     const raw = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
     const group: DynamicFormControlModel[] = [];
-    let fields: any = [];
     let cls: ClsConfig;
 
-    raw.pages.forEach((page: any) => {
-      fields = fields.concat(page.fields);
-    });
-    fields.forEach((fieldData: any) => {
+    raw.fields.forEach((fieldData: any) => {
         // selectableMetadata > 1 può essere attaccato a più campi : onebox, twobox
       switch (fieldData.input.type) {
         case 'date':
@@ -124,8 +112,8 @@ export class FormBuilderService extends DynamicFormService {
             };
             inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, cls));
 
-            fieldData.selectableMetadata = [];
-            const inputModelConfig: DynamicInputModelConfig = this.getModelConfig(fieldData, newId + '.value', true, true);;
+            fieldData = deleteProperty(fieldData, 'selectableMetadata');
+            const inputModelConfig: DynamicInputModelConfig = this.getModelConfig(fieldData, newId + '.value', true, true);
             cls = {
               element: {
                 control: 'ds-form-input-value',
@@ -211,7 +199,7 @@ export class FormBuilderService extends DynamicFormService {
     controlModel.name = inputId;
 
     // Checks if field has an autorithy and sets options available
-    if (configData.input.type !== 'dropdown' && configData.selectableMetadata.length === 1 && configData.selectableMetadata[0].authority) {
+    if (configData.input.type !== 'dropdown' && isNotUndefined(configData.selectableMetadata) && configData.selectableMetadata.length === 1 && configData.selectableMetadata[0].authority) {
       controlModel.options = [];
       this.getAuthority().forEach((option, key) => {
         if (key === 0) {
@@ -222,7 +210,7 @@ export class FormBuilderService extends DynamicFormService {
     }
 
     // Checks if field has multiple values and sets options available
-    if (configData.selectableMetadata.length > 1) {
+    if (isNotUndefined(configData.selectableMetadata) && configData.selectableMetadata.length > 1) {
       controlModel.options = [];
       configData.selectableMetadata.forEach((option, key) => {
         if (key === 0) {
@@ -238,7 +226,7 @@ export class FormBuilderService extends DynamicFormService {
     }
 
     // if (inputModel instanceof DynamicInputControlModel) {
-    controlModel.placeholder = configData.label
+    controlModel.placeholder = configData.label;
     // }
 
     if (configData.mandatory) {

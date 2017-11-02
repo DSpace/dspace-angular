@@ -5,7 +5,7 @@ import {
   NewSubmissionFormAction, InitSubmissionFormAction, SubmissionObjectActionTypes,
   CompleteInitSubmissionFormAction
 } from './submission-objects.actions';
-import { PanelService } from '../panel/panel.service';
+import { SectionService } from '../section/section.service';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -18,9 +18,9 @@ export class SubmissionObjectEffects {
   @Effect() initForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)
     .do((action: InitSubmissionFormAction) => {
-      this.panelService.loadDefaultPanels(action.payload.submissionId, action.payload.definitionId);
+      this.sectionService.loadDefaultSections(action.payload.submissionId, action.payload.definitionId);
     })
     .map(() => new CompleteInitSubmissionFormAction());
 
-  constructor(private actions$: Actions, private panelService: PanelService) {}
+  constructor(private actions$: Actions, private sectionService: SectionService) {}
 }
