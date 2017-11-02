@@ -1,6 +1,9 @@
+@import '../../styles/custom_variables';
+
 .card-title{
-  line-height: 1em;
-  height:3em;
+  line-height: $line-height-base;
+  height:$headings-line-height;
+  font-size:$headings-font-size;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -8,29 +11,35 @@
 .card-text {
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1em;
-  margin-bottom:10px;
+  line-height: $line-height-base;
+  margin-bottom:$card-block-margin-base*2;
 }
 .card-text.item-authors {
-  height: 1em;
+  height: $line-height-base;
 }
 .card-text.item-abstract {
-  height: 5em;
-
+  height: $content-line-height;
 }
+
 .viewButton{
-  display:block;
+  display:table;
+  margin:auto;
+  width: $card-button-width;
 }
 
 .card{
-  padding:10px;
-  margin-bottom: 15px;
+  margin-bottom: $card-block-margin-base *3;
+  height: 98%;
 }
 
 .card-img-top ::ng-deep  img
 {
-  height: 120px;
+  height: $card-thumbnail-height;
   width: 100%;
   object-fit: cover;
-  margin-bottom: 10px;
 }
+
+.card-block{
+  margin: $card-block-margin-base;
+}
+

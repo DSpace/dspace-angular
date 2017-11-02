@@ -40,6 +40,7 @@ import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { SearchResultGridElementComponent } from '../object-grid/search-result-grid-element/search-result-grid-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
+import { GridThumbnailComponent } from '../object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
 
 const MODULES = [
@@ -78,6 +79,7 @@ const COMPONENTS = [
   PaginationComponent,
   SearchFormComponent,
   ThumbnailComponent,
+  GridThumbnailComponent,
   WrapperListElementComponent,
   ViewModeSwitchComponent
 ];
