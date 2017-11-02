@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 
-import { StoreActionTypes } from '../../store.actions';
+import { UniversalActionTypes } from '../../universal.actions';
 import { ResetObjectCacheTimestampsAction } from '../cache/object-cache.actions';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class ObjectCacheEffects {
    * time ago, and will likely need to be revisited later
    */
   @Effect() fixTimestampsOnRehydrate = this.actions$
-    .ofType(StoreActionTypes.REHYDRATE)
+    .ofType(UniversalActionTypes.REHYDRATE)
     .map(() => new ResetObjectCacheTimestampsAction(new Date().getTime()));
 
   constructor(private actions$: Actions) { }

@@ -265,8 +265,8 @@ dspace-angular
 │   │   ├── pagenotfound                                *
 │   │   ├── server-app.module.ts                        * The root module for the server
 │   │   ├── shared                                      *
-│   │   ├── store.actions.ts                            *
-│   │   ├── store.effects.ts                            *
+│   │   ├── universal.actions.ts                            *
+│   │   ├── universal.effects.ts                            *
 │   │   ├── thumbnail                                   *
 │   │   └── typings.d.ts                                * File that allows you to add custom typings for libraries without TypeScript support
 │   ├── backend                                         * Folder containing a mock of the REST API, hosted by the express server

@@ -1,5 +1,5 @@
 import { isNotEmpty } from './shared/empty.util';
-import { StoreActionTypes } from './store.actions';
+import { UniversalActionTypes } from './universal.actions';
 
 // fallback ngrx debugger
 let actionCounter = 0;
@@ -20,10 +20,11 @@ export function debugMetaReducer(reducer) {
 export function universalMetaReducer(reducer) {
   return (state, action) => {
     switch (action.type) {
-      case StoreActionTypes.REHYDRATE:
+      case UniversalActionTypes.REHYDRATE:
         state = Object.assign({}, state, action.payload);
         break;
-      case StoreActionTypes.REPLAY:
+      case UniversalActionTypes.REPLAY:
+      case UniversalActionTypes.REPLAY_COMPLETE:
       default:
         break;
     }

@@ -31,6 +31,7 @@ import { AppModule } from '../../app/app.module';
 import { AppComponent } from '../../app/app.component';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
+import { appEffects } from '../../app/app.effects';
 
 export function boot(cache: TransferState, appRef: ApplicationRef, store: Store<AppState>, request: Request, config: GlobalConfig) {
   // authentication mechanism goes here
@@ -64,7 +65,7 @@ export function createTranslateLoader() {
         deps: []
       }
     }),
-    EffectsModule.forRoot([ServerTransferStoreEffects]),
+    EffectsModule.forRoot([...appEffects, ServerTransferStoreEffects]),
     ServerModule,
     AppModule
   ],
