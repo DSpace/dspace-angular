@@ -4,17 +4,29 @@ import { createSelector, Store } from '@ngrx/store';
 import { SearchSidebarCollapseAction, SearchSidebarExpandAction } from './search-sidebar.actions';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from '../../app.reducer';
+import { HostWindowService } from '../../shared/host-window.service';
 
 const sidebarStateSelector = (state: AppState) => state.searchSidebar;
 const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SearchSidebarState) => sidebar.sidebarCollapsed);
 
 @Injectable()
 export class SearchSidebarService {
-  constructor(private store: Store<AppState>) {
+  private isMobileView: Observable<boolean>;
+  private isCollapsdeInStored: Observable<boolean>;
+
+  constructor(private store: Store<AppState>, private windowService: HostWindowService) {
+    this.isMobileView = Observable.combineLatest(
+      this.windowService.isXs(),
+      this.windowService.isSm(),
+      (isXs, isSm) => isXs || isSm);
+    this.isCollapsdeInStored = this.store.select(sidebarCollapsedSelector);
   }
 
   get isCollapsed(): Observable<boolean> {
-    return this.store.select(sidebarCollapsedSelector);
+    return Observable.combineLatest(
+      this.isMobileView,
+      this.isCollapsdeInStored,
+      (mobile, store) => mobile ? store : true);
   }
 
   public collapse(): void {

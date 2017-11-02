@@ -40,6 +40,12 @@ describe('SearchPageComponent', () => {
       scope: scopeParam
     })
   };
+  const sidebarService = {
+    isCollapsed: Observable.of(true),
+    collapse: () => this.isCollapsed = Observable.of(true),
+    expand: () => this.isCollapsed = Observable.of(false)
+  }
+
   const mockCommunityList = [];
   const communityDataServiceStub = {
     findAll: () => mockCommunityList,
@@ -75,11 +81,7 @@ describe('SearchPageComponent', () => {
         },
         {
           provide: SearchSidebarService,
-          useValue: {
-            isCollapsed: Observable.of(true),
-            collapse: () => this.isCollapsed = Observable.of(true),
-            expand: () => this.isCollapsed = Observable.of(false)
-          }
+          useValue: sidebarService
         },
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -176,12 +178,12 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
-      comp.isSidebarCollapsed = Observable.of(true);
+      comp.isSidebarCollapsed = () => Observable.of(true);
       fixture.detectChanges();
     });
 
     it('should close the sidebar', () => {
-      expect(menu.classList).not.toContain('show');
+      expect(menu.classList).not.toContain('active');
     });
 
   });
@@ -191,12 +193,13 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
-      comp.isSidebarCollapsed = Observable.of(false);
+      comp.isSidebarCollapsed = () => Observable.of(false);
       fixture.detectChanges();
     });
 
     it('should open the menu', () => {
-      expect(menu.classList).toContain('show');
+      sidebarService.isCollapsed.subscribe((a) => {console.log(a)})
+      expect(menu.classList).toContain('active');
     });
 
   });

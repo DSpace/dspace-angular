@@ -4,6 +4,7 @@ import { AppState } from '../../app.reducer';
 import { async, inject, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { SearchSidebarCollapseAction, SearchSidebarExpandAction } from './search-sidebar.actions';
+import { HostWindowService } from '../../shared/host-window.service';
 
 describe('SearchSidebarService', () => {
   let service: SearchSidebarService;
@@ -13,19 +14,27 @@ describe('SearchSidebarService', () => {
     /* tslint:enable:no-empty */
     select: Observable.of(true)
   });
+  const windowService = jasmine.createSpyObj('hostWindowService',
+    {
+      isXs: Observable.of(true),
+      isSm: Observable.of(false)
+    });
   beforeEach(async(() => {
     TestBed.configureTestingModule({
 
       providers: [
         {
           provide: Store, useValue: store
-        }
+        },
+        {
+          provide: HostWindowService, useValue: windowService
+        },
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    service = new SearchSidebarService(store);
+    service = new SearchSidebarService(store, windowService);
   }) ;
 
   describe('when the collapse method is triggered', () => {

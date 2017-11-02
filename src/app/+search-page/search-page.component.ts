@@ -39,13 +39,16 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   searchOptions: SearchOptions;
   scopeList: RemoteData<Community[]>;
   isMobileView: Observable<boolean>;
-  isSidebarCollapsed:  Observable<boolean>;
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
               private communityService: CommunityDataService,
-              private hostWindowService: HostWindowService,
-              private sidebarService: SearchSidebarService) {
+              private sidebarService: SearchSidebarService,
+              private windowService: HostWindowService) {
+    this.isMobileView = Observable.combineLatest(
+      this.windowService.isXs(),
+      this.windowService.isSm(),
+      (isXs, isSm) => isXs || isSm);
     this.scopeList = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
@@ -57,18 +60,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isMobileView = Observable.combineLatest(
-      this.hostWindowService.isXs(),
-      this.hostWindowService.isSm(),
-      (isXs, isSm) => isXs || isSm);
-    /*
-      Sidebar should always be 'collapsed' when not in mobile view
-     */
-    this.isSidebarCollapsed = Observable.combineLatest(
-      this.isMobileView,
-      this.sidebarService.isCollapsed,
-      (mobile, store) => mobile ? store : true);
-
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
@@ -115,5 +106,9 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   public openSidebar(): void {
     this.sidebarService.expand();
+  }
+
+  public isSidebarCollapsed(): Observable<boolean> {
+    return this.sidebarService.isCollapsed;
   }
 }
