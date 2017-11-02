@@ -8,10 +8,6 @@ import { SearchSidebarCollapseAction } from './search-sidebar.actions';
 @Injectable()
 export class SearchSidebarEffects {
 
-  @Effect() resize$ = this.actions$
-    .ofType(HostWindowActionTypes.RESIZE)
-    .map(() => new SearchSidebarCollapseAction());
-
   @Effect() routeChange$ = this.actions$
     .ofType(fromRouter.ROUTER_NAVIGATION)
     .map(() => new SearchSidebarCollapseAction());

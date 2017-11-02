@@ -14,12 +14,9 @@ import { SearchPageComponent } from './search-page.component';
 import { SearchService } from './search-service/search.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import {
-  SearchSidebarCollapseAction,
-  SearchSidebarExpandAction
-} from './search-sidebar/search-sidebar.actions';
 import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 
 describe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
@@ -70,11 +67,20 @@ describe('SearchPageComponent', () => {
           provide: Store, useValue: store
         },
         {
-          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
-          isXs: Observable.of(true),
-          isSm: Observable.of(false)
-        })
-        }
+          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
+          {
+            isXs: Observable.of(true),
+            isSm: Observable.of(false)
+          })
+        },
+        {
+          provide: SearchSidebarService,
+          useValue: {
+            isCollapsed: Observable.of(true),
+            collapse: () => this.isCollapsed = Observable.of(true),
+            expand: () => this.isCollapsed = Observable.of(false)
+          }
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -140,12 +146,13 @@ describe('SearchPageComponent', () => {
   describe('when the closeSidebar event is emitted clicked in mobile view', () => {
 
     beforeEach(() => {
+      spyOn(comp, 'closeSidebar');
       const closeSidebarButton = fixture.debugElement.query(By.css('#search-sidebar-xs'));
       closeSidebarButton.triggerEventHandler('toggleSidebar', null);
     });
 
-    it('should dispatch a SearchSidebarCollapseAction', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchSidebarCollapseAction());
+    it('should trigger the closeSidebar function', () => {
+      expect(comp.closeSidebar).toHaveBeenCalled();
     });
 
   });
@@ -153,17 +160,18 @@ describe('SearchPageComponent', () => {
   describe('when the open sidebar button is clicked in mobile view', () => {
 
     beforeEach(() => {
+      spyOn(comp, 'openSidebar');
       const openSidebarButton = fixture.debugElement.query(By.css('.open-sidebar'));
       openSidebarButton.triggerEventHandler('click', null);
     });
 
-    it('should dispatch a SearchSidebarExpandAction', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchSidebarExpandAction());
+    it('should trigger the openSidebar function', () => {
+      expect(comp.openSidebar).toHaveBeenCalled();
     });
 
   });
 
-  describe('when sidebarCollapsed in the store is true in mobile view', () => {
+  describe('when sidebarCollapsed is true in mobile view', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {
@@ -178,7 +186,7 @@ describe('SearchPageComponent', () => {
 
   });
 
-  describe('when sidebarCollapsed in the store is false in mobile view', () => {
+  describe('when sidebarCollapsed is false in mobile view', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {

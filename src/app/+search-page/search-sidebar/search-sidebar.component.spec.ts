@@ -1,17 +1,10 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchSidebarComponent } from './search-sidebar.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { SearchSidebarState } from './search-sidebar.reducer';
 import { By } from '@angular/platform-browser';
-import {
-  SearchSidebarCollapseAction, SearchSidebarExpandAction,
-} from './search-sidebar.actions';
-import { Observable } from 'rxjs/Observable';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { HostWindowService } from '../../shared/host-window.service';
 
 describe('SearchSidebarComponent', () => {
   let comp: SearchSidebarComponent;

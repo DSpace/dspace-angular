@@ -10,18 +10,10 @@ import { SearchOptions } from './search-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { Community } from '../core/shared/community.model';
-import { createSelector, Store } from '@ngrx/store';
-import { AppState } from '../app.reducer';
 import { Observable } from 'rxjs/Observable';
-import { SearchSidebarState } from './search-sidebar/search-sidebar.reducer';
-import {
-  SearchSidebarCollapseAction, SearchSidebarExpandAction,
-} from './search-sidebar/search-sidebar.actions';
 import { slideInOut } from '../shared/animations/slide';
 import { HostWindowService } from '../shared/host-window.service';
-
-const sidebarStateSelector = (state: AppState) => state.searchSidebar;
-const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SearchSidebarState) => sidebar.sidebarCollapsed);
+import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 
 /**
  * This component renders a simple item page.
@@ -46,14 +38,14 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   currentParams = {};
   searchOptions: SearchOptions;
   scopeList: RemoteData<Community[]>;
-  isSidebarCollapsed: Observable<boolean>;
   isMobileView: Observable<boolean>;
+  isSidebarCollapsed:  Observable<boolean>;
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
               private communityService: CommunityDataService,
-              private store: Store<AppState>,
-              private hostWindowService: HostWindowService) {
+              private hostWindowService: HostWindowService,
+              private sidebarService: SearchSidebarService) {
     this.scopeList = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
@@ -69,15 +61,15 @@ export class SearchPageComponent implements OnInit, OnDestroy {
       this.hostWindowService.isXs(),
       this.hostWindowService.isSm(),
       (isXs, isSm) => isXs || isSm);
-
     /*
       Sidebar should always be 'collapsed' when not in mobile view
      */
     this.isSidebarCollapsed = Observable.combineLatest(
       this.isMobileView,
-      this.store.select(sidebarCollapsedSelector),
+      this.sidebarService.isCollapsed,
       (mobile, store) => mobile ? store : true);
 
+    this.sidebarService.isCollapsed.subscribe((b) => console.log(b));
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
@@ -119,10 +111,11 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   }
 
   public closeSidebar(): void {
-    this.store.dispatch(new SearchSidebarCollapseAction());
+    this.sidebarService.collapse()
   }
 
   public openSidebar(): void {
-    this.store.dispatch(new SearchSidebarExpandAction());
+    debugger;
+    this.sidebarService.expand();
   }
 }

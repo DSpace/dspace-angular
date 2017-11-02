@@ -9,12 +9,20 @@ import { CollectionSearchResultListElementComponent } from '../object-list/searc
 import { CommunitySearchResultListElementComponent } from '../object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
+import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { SearchSidebarEffects } from './search-sidebar/search-sidebar.effects';
+import { EffectsModule } from '@ngrx/effects';
+
+const effects = [
+  SearchSidebarEffects
+];
 
 @NgModule({
   imports: [
     SearchPageRoutingModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    EffectsModule.forFeature(effects),
   ],
   declarations: [
     SearchPageComponent,
@@ -25,7 +33,8 @@ import { SearchSidebarComponent } from './search-sidebar/search-sidebar.componen
     CommunitySearchResultListElementComponent
   ],
   providers: [
-    SearchService
+    SearchService,
+    SearchSidebarService
   ],
   entryComponents: [
     ItemSearchResultListElementComponent,
