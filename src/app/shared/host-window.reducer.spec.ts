@@ -1,27 +1,20 @@
 import * as deepFreeze from 'deep-freeze';
 import { hostWindowReducer } from './host-window.reducer';
-import { HostWindowResizeAction } from './host-window.actions';
-
-class NullAction extends HostWindowResizeAction {
-  type = null;
-
-  constructor() {
-    super(0, 0);
-  }
-}
+import { HostWindowAction, HostWindowResizeAction } from './host-window.actions';
+import { MockAction } from './testing/mock-action';
 
 describe('hostWindowReducer', () => {
 
   it('should return the current state when no valid actions have been made', () => {
     const state = { width: 800, height: 600 };
-    const action = new NullAction();
+    const action = new MockAction() as HostWindowAction;
     const newState = hostWindowReducer(state, action);
 
     expect(newState).toEqual(state);
   });
 
   it('should start with width = null and height = null', () => {
-    const action = new NullAction();
+    const action = new MockAction() as HostWindowAction;
     const initialState = hostWindowReducer(undefined, action);
 
     expect(initialState.width).toEqual(null);

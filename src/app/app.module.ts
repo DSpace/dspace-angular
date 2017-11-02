@@ -29,6 +29,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { GLOBAL_CONFIG, ENV_CONFIG, GlobalConfig } from '../config';
 
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
+import { UniversalService } from './universal.service';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -49,7 +50,7 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
 const DEV_MODULES: any[] = [];
 
 if (!ENV_CONFIG.production) {
-  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 50 }));
+  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 100 }));
 }
 
 @NgModule({
@@ -61,7 +62,6 @@ if (!ENV_CONFIG.production) {
     CoreModule.forRoot(),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
-    EffectsModule.forRoot(appEffects),
     StoreModule.forRoot(appReducers),
     StoreRouterConnectingModule,
     ...DEV_MODULES
@@ -83,7 +83,8 @@ if (!ENV_CONFIG.production) {
     {
       provide: RouterStateSerializer,
       useClass: DSpaceRouterStateSerializer
-    }
+    },
+    UniversalService
   ],
   declarations: [
     AppComponent,

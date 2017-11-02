@@ -1,8 +1,8 @@
 
 import { HeaderEffects } from './header/header.effects';
-import { StoreEffects } from './store.effects';
+import { UniversalEffects } from './universal.effects';
 
 export const appEffects = [
-  StoreEffects,
+  UniversalEffects,
   HeaderEffects
 ];

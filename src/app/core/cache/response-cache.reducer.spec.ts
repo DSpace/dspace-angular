@@ -7,15 +7,6 @@ import {
   ResetResponseCacheTimestampsAction
 } from './response-cache.actions';
 
-class NullAction extends ResponseCacheRemoveAction {
-  type = null;
-  payload = null;
-
-  constructor() {
-    super(null);
-  }
-}
-
 // describe('responseCacheReducer', () => {
 //   const keys = ['125c17f89046283c5f0640722aac9feb', 'a06c3006a41caec5d635af099b0c780c'];
 //   const services = [new OpaqueToken('service1'), new OpaqueToken('service2')];
@@ -60,14 +51,14 @@ class NullAction extends ResponseCacheRemoveAction {
 //
 //
 //   it('should return the current state when no valid actions have been made', () => {
-//     const action = new NullAction();
+//     const action = new MockAction() as ResponseCacheAction;
 //     const newState = responseCacheReducer(testState, action);
 //
 //     expect(newState).toEqual(testState);
 //   });
 //
 //   it('should start with an empty cache', () => {
-//     const action = new NullAction();
+//     const action = new MockAction() as ResponseCacheAction;
 //     const initialState = responseCacheReducer(undefined, action);
 //
 //     expect(initialState).toEqual(Object.create(null));

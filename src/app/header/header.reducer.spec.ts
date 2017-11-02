@@ -2,30 +2,24 @@ import * as deepFreeze from 'deep-freeze';
 
 import { headerReducer } from './header.reducer';
 import {
+  HeaderAction,
   HeaderCollapseAction,
   HeaderExpandAction,
   HeaderToggleAction
 } from './header.actions';
-
-class NullAction extends HeaderCollapseAction {
-  type = null;
-
-  constructor() {
-    super();
-  }
-}
+import { MockAction } from '../shared/testing/mock-action';
 
 describe('headerReducer', () => {
   it('should return the current state when no valid actions have been made', () => {
     const state = { navCollapsed: false };
-    const action = new NullAction();
+    const action = new MockAction() as HeaderAction;
     const newState = headerReducer(state, action);
 
     expect(newState).toEqual(state);
   });
 
   it('should start with navCollapsed = true', () => {
-    const action = new NullAction();
+    const action = new MockAction() as HeaderAction;
     const initialState = headerReducer(undefined, action);
 
     // The navigation starts collapsed

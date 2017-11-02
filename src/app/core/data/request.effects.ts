@@ -13,12 +13,14 @@ import { RequestActionTypes, RequestCompleteAction, RequestExecuteAction } from 
 import { RequestError } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
+import { UniversalService } from '../../universal.service';
 
 @Injectable()
 export class RequestEffects {
 
   @Effect() execute = this.actions$
     .ofType(RequestActionTypes.EXECUTE)
+    .filter(() => !this.universalService.isReplaying)
     .flatMap((action: RequestExecuteAction) => {
       return this.requestService.get(action.payload)
         .take(1);
@@ -40,7 +42,8 @@ export class RequestEffects {
     private restApi: DSpaceRESTv2Service,
     private injector: Injector,
     private responseCache: ResponseCacheService,
-    protected requestService: RequestService
+    protected requestService: RequestService,
+    private universalService: UniversalService
   ) { }
 
 }

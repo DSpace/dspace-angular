@@ -20,6 +20,7 @@ import { AppModule } from '../../app/app.module';
 import { CoreModule } from '../../app/core/core.module';
 
 import { AppComponent } from '../../app/app.component';
+import { appEffects } from '../../app/app.effects';
 
 export function init(cache: TransferState) {
   return () => {
@@ -55,7 +56,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    EffectsModule.forRoot([BrowserTransferStoreEffects]),
+    EffectsModule.forRoot([...appEffects, BrowserTransferStoreEffects]),
     AppModule
   ],
   providers: [
