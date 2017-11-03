@@ -2,24 +2,24 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ThumbnailComponent } from './thumbnail.component';
+import { GridThumbnailComponent } from './grid-thumbnail.component';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { SafeUrlPipe } from '../../shared/utils/safe-url-pipe';
 
 describe('ThumbnailComponent', () => {
-  let comp: ThumbnailComponent;
-  let fixture: ComponentFixture<ThumbnailComponent>;
+  let comp: GridThumbnailComponent;
+  let fixture: ComponentFixture<GridThumbnailComponent>;
   let de: DebugElement;
   let el: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ThumbnailComponent, SafeUrlPipe]
+      declarations: [GridThumbnailComponent, SafeUrlPipe]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ThumbnailComponent);
+    fixture = TestBed.createComponent(GridThumbnailComponent);
     comp = fixture.componentInstance; // BannerComponent test instance
     de = fixture.debugElement.query(By.css('div.thumbnail'));
     el = de.nativeElement;
