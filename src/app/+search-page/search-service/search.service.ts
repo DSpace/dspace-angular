@@ -14,7 +14,7 @@ import { SearchFilterConfig } from './search-filter-config.model';
 import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute, Params } from '@angular/router';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -50,38 +50,37 @@ export class SearchService {
   config: SearchFilterConfig[] = [
     Object.assign(new SearchFilterConfig(),
       {
-      name: 'scope',
-      type: FilterType.hierarchy,
-      hasFacets: true,
-      isOpenByDefault: true
-    }),
+        name: 'scope',
+        type: FilterType.hierarchy,
+        hasFacets: true,
+        isOpenByDefault: true
+      }),
     Object.assign(new SearchFilterConfig(),
-    {
-      name: 'author',
-      type: FilterType.text,
-      hasFacets: true,
-      isOpenByDefault: false
-    }),
+      {
+        name: 'author',
+        type: FilterType.text,
+        hasFacets: true,
+        isOpenByDefault: false
+      }),
     Object.assign(new SearchFilterConfig(),
-    {
-      name: 'date',
-      type: FilterType.range,
-      hasFacets: true,
-      isOpenByDefault: false
-    }),
+      {
+        name: 'date',
+        type: FilterType.range,
+        hasFacets: true,
+        isOpenByDefault: false
+      }),
     Object.assign(new SearchFilterConfig(),
-    {
-      name: 'subject',
-      type: FilterType.text,
-      hasFacets: false,
-      isOpenByDefault: false
-    })
+      {
+        name: 'subject',
+        type: FilterType.text,
+        hasFacets: false,
+        isOpenByDefault: false
+      })
   ];
 
-  constructor(
-    private itemDataService: ItemDataService,
-    private route: ActivatedRoute,
-    private router: Router) {
+  constructor(private itemDataService: ItemDataService,
+              private route: ActivatedRoute,
+              private router: Router) {
 
   }
 
@@ -210,10 +209,21 @@ export class SearchService {
 
   setViewMode(viewMode: ViewMode) {
     const navigationExtras: NavigationExtras = {
-      queryParams: {view: viewMode},
+      queryParams: { view: viewMode },
       queryParamsHandling: 'merge'
     };
 
     this.router.navigate(['/search'], navigationExtras);
+  }
+
+  getClearFiltersLink(): Observable<string> {
+    const url = '/search?';
+    return this.route.queryParamMap
+      .map((map) => { return url.concat(map.keys
+        .filter((key) => this.config
+          .findIndex((conf: SearchFilterConfig) => conf.paramName === key) < 0)
+        .map((key) => { return key + '=' + map.get(key) })
+        .join('&'))})
+      .first();
   }
 }

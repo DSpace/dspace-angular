@@ -1,0 +1,7 @@
+<h2>{{"search.filters.head" | translate}}</h2>
+<div>
+    <div *ngFor="let filter of filters">
+
+    </div>
+</div>
+<a class="btn btn-primary" [href]="getClearFiltersLink() | async" role="button">{{"search.filters.reset" | translate}}</a>

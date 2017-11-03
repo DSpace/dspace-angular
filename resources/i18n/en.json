@@ -80,7 +80,7 @@
       "search_dspace": "Search DSpace"
     },
     "results": {
-      "title": "Search Results"
+      "head": "Search Results"
     },
     "sidebar": {
       "close": "Back to results",
@@ -90,6 +90,10 @@
     "view-switch": {
       "show-list": "Show as list",
       "show-grid": "Show as grid"
+    },
+    "filters": {
+      "head": "Filters",
+      "reset": "Reset filters"
     }
   },
   "loading": {

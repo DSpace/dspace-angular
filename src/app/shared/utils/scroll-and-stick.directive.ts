@@ -1,7 +1,7 @@
-
 import { NativeWindowRef, NativeWindowService } from '../window.service';
 import { Observable } from 'rxjs/Observable';
-import { AfterViewInit, Directive, ElementRef, Inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Directive({
   selector: '[dsStick]'
@@ -10,8 +10,10 @@ export class ScrollAndStickDirective implements AfterViewInit {
 
   private initialY: number;
 
-  constructor(private _element: ElementRef, @Inject(NativeWindowService) private _window: NativeWindowRef) {
-    this.subscribeForScrollEvent();
+  constructor(private _element: ElementRef, @Inject(NativeWindowService) private _window: NativeWindowRef, @Inject(PLATFORM_ID) private platformId) {
+    if (isPlatformBrowser(platformId)) {
+      this.subscribeForScrollEvent();
+    }
   }
 
   ngAfterViewInit(): void {

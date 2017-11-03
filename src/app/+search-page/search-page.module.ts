@@ -12,6 +12,7 @@ import { SearchSidebarComponent } from './search-sidebar/search-sidebar.componen
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchSidebarEffects } from './search-sidebar/search-sidebar.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { SidebarFiltersComponent } from './search-filters/search-filters.component';
 
 const effects = [
   SearchSidebarEffects
@@ -30,7 +31,8 @@ const effects = [
     SearchSidebarComponent,
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent
+    CommunitySearchResultListElementComponent,
+    SidebarFiltersComponent
   ],
   providers: [
     SearchService,
