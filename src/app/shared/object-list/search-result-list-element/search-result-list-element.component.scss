@@ -1,0 +1,7 @@
+@import '../../../../styles/variables';
+:host {
+    ::ng-deep em {
+        font-weight: bold;
+        font-style: normal;
+    }
+}
