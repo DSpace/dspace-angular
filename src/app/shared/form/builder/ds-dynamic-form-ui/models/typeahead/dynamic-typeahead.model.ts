@@ -1,4 +1,7 @@
-import { ClsConfig, DynamicInputModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
+import {
+  AUTOCOMPLETE_OFF, ClsConfig, DynamicInputModel, DynamicInputModelConfig,
+  serializable
+} from '@ng-dynamic-forms/core';
 import { Observable } from 'rxjs/Observable';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD = 'TYPEAHEAD';
@@ -18,6 +21,7 @@ export class DynamicTypeaheadModel extends DynamicInputModel {
 
     super(config, cls);
 
+    this.autoComplete = AUTOCOMPLETE_OFF;
     this.minChars = config.minChars;
     this.search = config.search;
   }
