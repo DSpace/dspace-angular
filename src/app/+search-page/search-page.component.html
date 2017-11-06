@@ -1,4 +1,5 @@
-<div class="search-page">
+<div class="container">
+  <div class="search-page">
     <ds-search-form
       [query]="query"
       [scope]="scopeObject?.payload | async"
@@ -7,4 +8,5 @@
     </ds-search-form>
     <ds-view-mode-switch></ds-view-mode-switch>
     <ds-search-results [searchResults]="results" [searchConfig]="searchOptions"></ds-search-results>
+  </div>
 </div>

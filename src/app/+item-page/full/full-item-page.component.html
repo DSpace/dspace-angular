@@ -1,23 +1,25 @@
-<div class="item-page" *ngIf="item.hasSucceeded | async" @fadeInOut>
-  <div *ngIf="item.payload | async; let itemPayload">
-    <ds-item-page-title-field [item]="itemPayload"></ds-item-page-title-field>
-    <div class="simple-view-link">
-      <a class="btn btn-outline-primary col-4" [routerLink]="['/items/' + itemPayload.id]">
-        {{"item.page.link.simple" | translate}}
-      </a>
+<div class="container">
+  <div class="item-page" *ngIf="item.hasSucceeded | async" @fadeInOut>
+    <div *ngIf="item.payload | async; let itemPayload">
+      <ds-item-page-title-field [item]="itemPayload"></ds-item-page-title-field>
+      <div class="simple-view-link">
+        <a class="btn btn-outline-primary col-4" [routerLink]="['/items/' + itemPayload.id]">
+          {{"item.page.link.simple" | translate}}
+        </a>
+      </div>
+      <table class="table table-responsive table-striped">
+        <tbody>
+          <tr *ngFor="let metadatum of (metadata | async)">
+            <td>{{metadatum.key}}</td>
+            <td>{{metadatum.value}}</td>
+            <td>{{metadatum.language}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ds-item-page-full-file-section [item]="itemPayload"></ds-item-page-full-file-section>
+      <ds-item-page-collections [item]="itemPayload"></ds-item-page-collections>
     </div>
-    <table class="table table-responsive table-striped">
-      <tbody>
-        <tr *ngFor="let metadatum of (metadata | async)">
-          <td>{{metadatum.key}}</td>
-          <td>{{metadatum.value}}</td>
-          <td>{{metadatum.language}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <ds-item-page-full-file-section [item]="itemPayload"></ds-item-page-full-file-section>
-    <ds-item-page-collections [item]="itemPayload"></ds-item-page-collections>
   </div>
+  <ds-error *ngIf="item.hasFailed | async" message="{{'error.item' | translate}}"></ds-error>
+  <ds-loading *ngIf="item.isLoading | async" message="{{'loading.item' | translate}}"></ds-loading>
 </div>
-<ds-error *ngIf="item.hasFailed | async" message="{{'error.item' | translate}}"></ds-error>
-<ds-loading *ngIf="item.isLoading | async" message="{{'loading.item' | translate}}"></ds-loading>
