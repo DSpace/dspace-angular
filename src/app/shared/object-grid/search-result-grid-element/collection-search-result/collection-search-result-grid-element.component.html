@@ -1,2 +1,12 @@
-<a [routerLink]="['/collections/' + dso.id]" class="lead" [innerHTML]="getFirstValue('dc.title')"></a>
-<div *ngIf="dso.shortDescription" class="text-muted" [innerHTML]="getFirstValue('dc.description.abstract')"></div>
+<div class="card">
+  <a [routerLink]="['/collections/' + dso.id]"class="card-img-top">
+    <ds-comcol-page-logo [logo]="dso.logo">
+    </ds-comcol-page-logo>
+  </a>
+  <div class="card-block">
+    <h4 class="card-title">{{dso.name}}</h4>
+    <p *ngIf="dso.shortDescription" class="card-text">{{dso.shortDescription}}</p>
+    <a [routerLink]="['/collections/' + dso.id]" class="lead btn btn-primary viewButton">View</a>
+
+  </div>
+</div>
