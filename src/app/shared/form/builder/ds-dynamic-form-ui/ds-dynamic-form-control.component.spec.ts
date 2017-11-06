@@ -24,9 +24,9 @@ import {
     DynamicTimePickerModel
 } from '@ng-dynamic-forms/core';
 import { DsDynamicFormControlComponent, NGBootstrapFormControlType } from './ds-dynamic-form-control.component';
-import { DynamicTypeaheadModel } from '../model/typeahead/dynamic-typeahead.model';
+import { DynamicTypeaheadModel } from './models/typeahead/dynamic-typeahead.model';
 import { Observable } from 'rxjs/Observable';
-import { DynamicScrollableDropdownModel } from '../model/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
 describe('DsDynamicFormComponent test suite', () => {
 
