@@ -1,9 +1,11 @@
-<div ngbDropdown #sdRef="ngbDropdown" class="input-group w-100">
+<div #sdRef="ngbDropdown" ngbDropdown class="input-group w-100">
   <input class="form-control"
+         [attr.autoComplete]="model.autoComplete"
          [dynamicId]="bindId && model.id"
          [ngClass]="model.cls.element.control"
          [value]="formatItemForInput(model.value)"
-         (click)="$event.stopPropagation(); sdRef.open();">
+         (click)="$event.stopPropagation(); sdRef.open();"
+         (keypress)="$event.preventDefault()" >
     <button aria-describedby="collectionControlsMenuLabel"
             class="ds-form-input-btn  btn btn-outline-primary"
             id="scrollableDropdownMenuButton"
