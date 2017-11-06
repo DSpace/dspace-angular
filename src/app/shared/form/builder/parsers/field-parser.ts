@@ -18,6 +18,8 @@ export abstract class FieldParser {
 
   constructor(protected configData: FormFieldModel) { }
 
+  public abstract parse(): any;
+
   protected initModel(id?: string, label = true, labelEmpty = false) {
 
     const controlModel = Object.create(null);
@@ -26,26 +28,6 @@ export abstract class FieldParser {
     const inputId = id ? id : this.configData.selectableMetadata[0].metadata;
     controlModel.id = (inputId).replace(/\./g, '_');
     controlModel.name = inputId;
-
-    // Checks if field has an autorithy and sets options available
-    /*if (this.configData.input.type !== 'dropdown'
-        && isNotUndefined(this.configData.selectableMetadata)
-        && this.configData.selectableMetadata.length === 1
-        && this.configData.selectableMetadata[0].authority) {
-      controlModel.options = [];
-      this.authorityOptions.name = this.configData.selectableMetadata[0].authority;
-      this.authorityOptions.metadata = this.configData.selectableMetadata[0].metadata;
-
-      this.getAuthority(this.authorityOptions)
-        .subscribe((entries) => {
-          entries.forEach((option, key) => {
-            if (key === 0) {
-              controlModel.value = (option.id) ? option.id : option.value
-            }
-            controlModel.options.push({label: option.display, value: (option.id) ? option.id : option.value})
-          });
-        })
-    }*/
 
     // Checks if field has multiple values and sets options available
     if (isNotUndefined(this.configData.selectableMetadata) && this.configData.selectableMetadata.length > 1) {
@@ -57,15 +39,12 @@ export abstract class FieldParser {
         controlModel.options.push({label: option.label, value: option.metadata})
       });
     }
-    // }
 
     if (label) {
       controlModel.label = (labelEmpty) ? '&nbsp;' : this.configData.label;
     }
 
-    // if (inputModel instanceof DynamicInputControlModel) {
     controlModel.placeholder = this.configData.label;
-    // }
 
     if (this.configData.mandatory) {
       controlModel.required = true;
@@ -82,6 +61,14 @@ export abstract class FieldParser {
     return controlModel;
   }
 
-  public abstract parse(): any;
 
+
+  public getAuthorityOptionsObj(uuid, name, metadata): AuthorityOptions {
+    const authorityOptions: AuthorityOptions = new AuthorityOptions(uuid);
+
+    authorityOptions.name = name;
+    authorityOptions.metadata = metadata;
+
+    return authorityOptions;
+  }
 }
