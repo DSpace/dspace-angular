@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
-import { Observable } from 'rxjs/Observable';
+import { RemoteData } from '../../core/data/remote-data';
+import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 
 /**
  * This component renders a simple item page.
@@ -15,10 +16,16 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class SidebarFiltersComponent {
-  @Input() filters;
-  constructor(private searchService: SearchService) {}
+  filters: RemoteData<SearchFilterConfig[]>;
+  constructor(private searchService: SearchService) {
+    this.filters = searchService.getConfig();
+  }
 
-  getClearFiltersLink(): Observable<string> {
-    return this.searchService.getClearFiltersLink();
+  getClearFiltersQueryParams(): any {
+    return this.searchService.getClearFiltersQueryParams();
+  }
+
+  getSearchLink() {
+    return this.searchService.getSearchLink();
   }
 }

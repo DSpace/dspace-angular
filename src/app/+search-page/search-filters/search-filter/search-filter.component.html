@@ -1,0 +1,4 @@
+<div>
+    <div (click)="toggle()" class="filter-name">{{filter.name}} <span class="fa float-right" [ngClass]="isCollapsed ? 'fa-plus' : 'fa-minus'"></span></div>
+    <ds-search-facet-filter [filterConfig]="filter" [filterValues]="filterValues.payload | async"></ds-search-facet-filter>
+</div>

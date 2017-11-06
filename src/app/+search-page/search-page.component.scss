@@ -5,12 +5,6 @@
     position: relative;
 }
 
-#search-content, #search-form {
-    display: block;
-    @include media-breakpoint-down(xs) {
-        margin-left: 0;
-    }
-}
 
 /deep/ .search-controls {
     margin-bottom: $spacer;
@@ -43,15 +37,15 @@
     }
 }
 
-.sidebar-sm-fixed {
+.sidebar-sm-sticky{
     @include media-breakpoint-up(sm) {
-        position: absolute;
-        margin-top: -$content-spacing;
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
+        z-index: $zindex-sticky;
         padding-top: $content-spacing;
-        &.stick {
-            top: 0;
-            margin-top: 0px;
-            position: fixed;
-        }
+        margin-top: -$content-spacing;
+        align-self: flex-start;
+        display: block;
     }
 }

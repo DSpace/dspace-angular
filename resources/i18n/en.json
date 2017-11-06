@@ -93,7 +93,19 @@
     },
     "filters": {
       "head": "Filters",
-      "reset": "Reset filters"
+      "reset": "Reset filters",
+      "facet-filter": {
+        "show-more": "Show more",
+        "author": {
+          "placeholder": "Author name"
+        },
+        "scope": {
+          "placeholder": "Scope filter"
+        },
+        "subject": {
+          "placeholder": "Subject"
+        }
+      }
     }
   },
   "loading": {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { SearchResult } from '../search-result.model';
@@ -31,7 +31,7 @@ function shuffle(array: any[]) {
 }
 
 @Injectable()
-export class SearchService {
+export class SearchService implements OnDestroy {
 
   totalPages = 5;
   mockedHighlights: string[] = new Array(
@@ -46,6 +46,8 @@ export class SearchService {
     '<em>This was blank in the actual item, no abstract</em>',
     '<em>The QSAR DataBank (QsarDB) repository</em>',
   );
+  private sub;
+  searchLink = '/search';
 
   config: SearchFilterConfig[] = [
     Object.assign(new SearchFilterConfig(),
@@ -170,13 +172,16 @@ export class SearchService {
   }
 
   getFacetValuesFor(searchFilterConfigName: string): RemoteData<FacetValue[]> {
+
+    const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
+
     const values: FacetValue[] = [];
     for (let i = 0; i < 5; i++) {
       const value = searchFilterConfigName + ' ' + (i + 1);
       values.push({
         value: value,
         count: Math.floor(Math.random() * 20) + 20 * (5 - i), // make sure first results have the highest (random) count
-        search: 'https://dspace7.4science.it/dspace-spring-rest/api/search?f.' + searchFilterConfigName + '=' + encodeURI(value)
+        search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
       });
     }
     const requestPending = Observable.of(false);
@@ -213,17 +218,36 @@ export class SearchService {
       queryParamsHandling: 'merge'
     };
 
-    this.router.navigate(['/search'], navigationExtras);
+    this.router.navigate([this.searchLink], navigationExtras);
   }
 
-  getClearFiltersLink(): Observable<string> {
-    const url = '/search?';
-    return this.route.queryParamMap
-      .map((map) => { return url.concat(map.keys
-        .filter((key) => this.config
-          .findIndex((conf: SearchFilterConfig) => conf.paramName === key) < 0)
-        .map((key) => { return key + '=' + map.get(key) })
-        .join('&'))})
-      .first();
+  getClearFiltersQueryParams(): any {
+    const params = {};
+    this.sub = this.route.queryParamMap
+      .subscribe((map) => {
+        map.keys
+          .filter((key) => this.config
+            .findIndex((conf: SearchFilterConfig) => conf.paramName === key) < 0)
+          .forEach((key) => {
+            params[key] = map.get(key);
+          })
+      });
+    return params;
   }
+
+  isFilterActive(filterName: string, filterValue: string): boolean {
+    const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === filterName);
+    return isNotEmpty(this.router.url.match(filterConfig.paramName + '=' + encodeURI(filterValue) + '(&(.*))?$'));
+  }
+
+  getSearchLink() {
+    return this.searchLink;
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub !== undefined) {
+      this.sub.unsubscribe();
+    }
+  }
+
 }

@@ -30,7 +30,6 @@ import { SearchResultListElementComponent } from '../object-list/search-result-l
 import { SearchFormComponent } from './search-form/search-form.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
-import { ScrollAndStickDirective } from './utils/scroll-and-stick.directive';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -68,7 +67,6 @@ const COMPONENTS = [
 ];
 
 const DIRECTIVES = [
-  ScrollAndStickDirective,
 ];
 
 const ENTRY_COMPONENTS = [

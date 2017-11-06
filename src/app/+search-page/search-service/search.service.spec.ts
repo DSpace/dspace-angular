@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { SearchService } from './search.service';
 import { ItemDataService } from './../../core/data/item-data.service';

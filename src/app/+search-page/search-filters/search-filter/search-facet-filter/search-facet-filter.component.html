@@ -1,0 +1,8 @@
+<a *ngFor="let value of filterValues" class="d-block" [routerLink]="[getSearchLink()]" [queryParams]="getQueryParams(value) | async">
+    <input type="checkbox" [checked]="isChecked(value)"/>
+    <span class="filter-value">{{value.value}}</span>
+    <span class="filter-value-count float-right">({{value.count}})</span>
+</a>
+<a href="">{{"search.filters.facet-filter.show-more" | translate}}</a>
+
+<input type="text" [placeholder]="'search.filters.facet-filter.' + filterConfig.name + '.placeholder'| translate"/>
