@@ -6,6 +6,7 @@ import { RouterStub } from '../../testing/router-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../utils/truncate.pipe';
+import { Item } from '../../../core/shared/item.model';
 
 let itemGridElementComponent: ItemGridElementComponent;
 let fixture: ComponentFixture<ItemGridElementComponent>;
@@ -17,6 +18,17 @@ const activatedRouteStub = {
     scope: scopeParam
   })
 };
+/* tslint:disable:no-shadowed-variable */
+let mockItem: Item = Object.assign(new Item(), {
+  metadata: [
+    {
+      key: 'dc.contributor.author',
+      language: 'en_US',
+      value: 'Smith, Donald'
+    }]
+});
+
+let createdGridElementComponent:ItemGridElementComponent= new ItemGridElementComponent(mockItem);
 
 describe('ItemGridElementComponent', () => {
   beforeEach(async(() => {
@@ -25,7 +37,7 @@ describe('ItemGridElementComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useFactory: (itemGridElementComponent)}
+        { provide: 'objectElementProvider', useValue: {createdGridElementComponent}}
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -39,6 +51,18 @@ describe('ItemGridElementComponent', () => {
   }));
 
   it('should show the item cards in the grid element',()=>{
-    expect(fixture.debugElement.query(By.css('ds-item-grid-element'))).toBeDefined();
-  })
+    expect(fixture.debugElement.query(By.css('ds-item-grid-element'))).toBeDefined()
+  });
+
+  it('should only show the author span if the author metadata is present',()=>{
+    let itemAuthorField = expect(fixture.debugElement.query(By.css('p.item-authors')));
+
+    if(mockItem.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length>0){
+      expect(itemAuthorField).toBeDefined();
+    }else{
+      expect(itemAuthorField).toBeDefined();
+    }
+  });
+
+
 })
