@@ -1,4 +1,4 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize } from 'cerialize';
 
 export abstract class ConfigObject {
 

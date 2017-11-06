@@ -30,8 +30,8 @@ import {
     DynamicDatePickerModel
 } from '@ng-dynamic-forms/core';
 
-import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from '../model/typeahead/dynamic-typeahead.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from '../model/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
 export const enum NGBootstrapFormControlType {
 

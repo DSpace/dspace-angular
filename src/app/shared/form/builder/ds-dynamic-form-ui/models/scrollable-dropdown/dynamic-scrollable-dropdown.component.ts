@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
+import {
+  DynamicScrollableDropdownModel,
+  DynamicScrollableDropdownResponseModel
+} from './dynamic-scrollable-dropdown.model';
 import { FormGroup } from '@angular/forms';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { isNull, isUndefined } from '../../../../empty.util';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { isNull, isUndefined } from '../../../../../empty.util';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -21,7 +24,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
 
   ngOnInit() {
     this.model.retrieve(this.pageInfo)
-      .subscribe((object) => {
+      .subscribe((object: DynamicScrollableDropdownResponseModel) => {
         this.optionsList = object.list;
         this.pageInfo = object.pageInfo;
       })
