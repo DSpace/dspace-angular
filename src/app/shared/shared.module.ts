@@ -31,6 +31,7 @@ import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchResultListElementComponent } from '../object-list/search-result-list-element/search-result-list-element.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
+import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/model/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/model/scrollable-dropdown/dynamic-scrollable-dropdown.component';
@@ -83,7 +84,8 @@ const COMPONENTS = [
   PaginationComponent,
   SearchFormComponent,
   ThumbnailComponent,
-  WrapperListElementComponent
+  WrapperListElementComponent,
+  ViewModeSwitchComponent
 ];
 
 const ENTRY_COMPONENTS = [

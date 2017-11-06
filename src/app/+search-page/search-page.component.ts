@@ -6,6 +6,7 @@ import { SearchResult } from './search-result.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-switch.component';
 import { SearchOptions } from './search-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { isNotEmpty } from '../shared/empty.util';
