@@ -1,9 +1,14 @@
 import { TestBed, async, inject, ComponentFixture } from '@angular/core/testing';
 import { DebugElement, SimpleChange } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { NgbDatepickerModule, NgbButtonsModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from '@angular/forms';
+import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  NgbDatepickerModule, NgbButtonsModule, NgbTimepickerModule,
+  NgbTypeaheadModule, NgbModule
+} from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
 import { TextMaskModule } from 'angular2-text-mask';
+
 import {
     DynamicFormsCoreModule,
     DynamicFormService,
@@ -25,8 +30,13 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DsDynamicFormControlComponent, NGBootstrapFormControlType } from './ds-dynamic-form-control.component';
 import { DynamicTypeaheadModel } from './models/typeahead/dynamic-typeahead.model';
-import { Observable } from 'rxjs/Observable';
 import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahead.component';
+import { DsDynamicFormComponent } from './ds-dynamic-form.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
 describe('DsDynamicFormComponent test suite', () => {
 
@@ -46,7 +56,7 @@ describe('DsDynamicFormComponent test suite', () => {
             new DynamicTextAreaModel({id: 'textarea'}),
             new DynamicTimePickerModel({id: 'timepicker'}),
             new DynamicTypeaheadModel({id: 'typeahead', search: (text) => Observable.of([]), minChars: 3}),
-            new DynamicScrollableDropdownModel({id: 'scrollableDropdown', retrieve: (text) => Observable.of([]), maxOptions: 10})
+            new DynamicScrollableDropdownModel({id: 'scrollableDropdown', retrieve: (text) => Observable.of({list: [], pageInfo: new PageInfo()}), maxOptions: 10})
         ];
     const testModel = formModel[7] as DynamicInputModel;
     let formGroup: FormGroup;
@@ -60,14 +70,26 @@ describe('DsDynamicFormComponent test suite', () => {
         TestBed.configureTestingModule({
 
             imports: [
+                BrowserModule,
+                DynamicFormsCoreModule,
+                DynamicFormsNGBootstrapUIModule,
+                FormsModule,
                 ReactiveFormsModule,
                 NgbButtonsModule,
+                NgbModule.forRoot(),
                 NgbDatepickerModule.forRoot(),
                 NgbTimepickerModule.forRoot(),
+                NgbTypeaheadModule.forRoot(),
                 TextMaskModule,
-                DynamicFormsCoreModule.forRoot()
+                DynamicFormsCoreModule.forRoot(),
+                InfiniteScrollModule
             ],
-            declarations: [DsDynamicFormControlComponent]
+            declarations: [
+              DsDynamicScrollableDropdownComponent,
+              DsDynamicTypeaheadComponent,
+              DsDynamicFormComponent,
+              DsDynamicFormControlComponent
+            ]
 
         }).compileComponents().then(() => {
 

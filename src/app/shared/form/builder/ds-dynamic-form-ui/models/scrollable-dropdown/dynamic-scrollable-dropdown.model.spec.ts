@@ -1,23 +1,31 @@
 import { AUTOCOMPLETE_OFF, DYNAMIC_FORM_CONTROL_INPUT_TYPE_TEXT } from '@ng-dynamic-forms/core';
 import { Observable } from 'rxjs/Observable';
 
-import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD, DynamicTypeaheadModel } from './dynamic-typeahead.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN,
+  DynamicScrollableDropdownModel, DynamicScrollableDropdownResponseModel
+} from './dynamic-scrollable-dropdown.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
-describe('DynamicTypeaheadModel test suite', () => {
+describe('DynamicScrollableDropdownModel test suite', () => {
 
   let model: any;
-  const search = (text: string) => Observable.of(['One', 'Two', 'Three']);
+  const retrieve = (pageInfo: PageInfo): Observable<DynamicScrollableDropdownResponseModel> =>
+    Observable.of({
+      list: ['One', 'Two', 'Three'],
+      pageInfo: new PageInfo()
+    });
   const config = {
     id: 'input',
-    minChars: 3,
-    search: search
+    maxOptions: 10,
+    retrieve: retrieve
   };
 
-  beforeEach(() => model = new DynamicTypeaheadModel(config));
+  beforeEach(() => model = new DynamicScrollableDropdownModel(config));
 
   it('tests if correct default type property is set', () => {
 
-    expect(model.type).toEqual(DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD);
+    expect(model.type).toEqual(DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN);
   });
 
   it('tests if correct default input type property is set', () => {
@@ -75,7 +83,7 @@ describe('DynamicTypeaheadModel test suite', () => {
 
   it('tests if correct minChars property is set', () => {
 
-    expect(model.minChars).toEqual(3);
+    expect(model.maxOptions).toEqual(10);
   });
 
   it('tests if correct default min property is set', () => {
@@ -118,9 +126,9 @@ describe('DynamicTypeaheadModel test suite', () => {
     expect(model.suffix).toBeNull();
   });
 
-  it('tests if correct search function is set', () => {
+  it('tests if correct retrieve function is set', () => {
 
-    expect(model.search).toBe(search);
+    expect(model.retrieve).toBe(retrieve);
   });
 
   it('should serialize correctly', () => {
@@ -130,6 +138,6 @@ describe('DynamicTypeaheadModel test suite', () => {
     expect(json.id).toEqual(model.id);
     expect(json.disabled).toEqual(model.disabled);
     expect(json.value).toBe(model.value);
-    expect(json.type).toEqual(DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD);
+    expect(json.type).toEqual(DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN);
   });
 });
