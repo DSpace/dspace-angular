@@ -18,6 +18,18 @@ const activatedRouteStub = {
     scope: scopeParam
   })
 };
+
+let mockCommunity: Community = Object.assign(new Community(), {
+  metadata: [
+    {
+      key: 'dc.description.abstract',
+      language: 'en_US',
+      value: 'Short description'
+    }]
+});
+
+let createdGridElementComponent:CommunityGridElementComponent= new CommunityGridElementComponent(mockCommunity);
+
 describe('CommunityGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,7 +37,7 @@ describe('CommunityGridElementComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useFactory: (communityGridElementComponent)}
+        { provide: 'objectElementProvider', useValue: (createdGridElementComponent)}
       ],
 
     schemas: [ NO_ERRORS_SCHEMA ]
@@ -41,4 +53,14 @@ describe('CommunityGridElementComponent', () => {
   it('should show the community cards in the grid element',()=>{
     expect(fixture.debugElement.query(By.css('ds-community-grid-element'))).toBeDefined();
   })
+
+  it('should only show the description if "short description" metadata is present',()=>{
+    let descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
+
+    if(mockCommunity.shortDescription.length>0){
+      expect(descriptionText).toBeDefined();
+    }else{
+      expect(descriptionText).not.toBeDefined();
+    }
+  });
 });

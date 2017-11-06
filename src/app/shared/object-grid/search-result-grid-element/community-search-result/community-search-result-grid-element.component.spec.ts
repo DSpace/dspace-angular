@@ -1,14 +1,16 @@
-import { CollectionGridElementComponent } from './collection-grid-element.component';
+import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../testing/router-stub';
+import { RouterStub } from '../../../testing/router-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Collection } from '../../../core/shared/collection.model';
+import { TruncatePipe } from '../../../utils/truncate.pipe';
+import { Community } from '../../../../core/shared/community.model';
 
-let collectionGridElementComponent: CollectionGridElementComponent;
-let fixture: ComponentFixture<CollectionGridElementComponent>;
+
+let communitySearchResultGridElementComponent: CommunitySearchResultGridElementComponent;
+let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 const activatedRouteStub = {
@@ -17,24 +19,27 @@ const activatedRouteStub = {
     scope: scopeParam
   })
 };
-let mockCollection: Collection = Object.assign(new Collection(), {
+let mockCommunity: Community = Object.assign(new Community(), {
   metadata: [
     {
       key: 'dc.description.abstract',
       language: 'en_US',
       value: 'Short description'
-    }]
-});
-let createdGridElementComponent:CollectionGridElementComponent= new CollectionGridElementComponent(mockCollection);
+    } ]
 
-describe('CollectionGridElementComponent', () => {
+});
+
+let createdGridElementComponent: CommunitySearchResultGridElementComponent = new CommunitySearchResultGridElementComponent(mockCommunity);
+
+
+describe('CommunitySearchResultGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CollectionGridElementComponent ],
+      declarations: [ CommunitySearchResultGridElementComponent, TruncatePipe ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useValue: (createdGridElementComponent)}
+        { provide: 'objectElementProvider', useValue: (createdGridElementComponent) }
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -42,20 +47,21 @@ describe('CollectionGridElementComponent', () => {
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(CollectionGridElementComponent);
+    fixture = TestBed.createComponent(CommunitySearchResultGridElementComponent);
   }));
 
-  it('should show the collection cards in the grid element',()=>{
-    expect(fixture.debugElement.query(By.css('ds-collection-grid-element'))).toBeDefined();
+  it('should show the item result cards in the grid element', () => {
+    expect(fixture.debugElement.query(By.css('ds-community-search-result-grid-element'))).toBeDefined();
   });
+
 
   it('should only show the description if "short description" metadata is present',()=>{
     let descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
 
-    if(mockCollection.shortDescription.length>0){
+    if(mockCommunity.shortDescription.length>0){
       expect(descriptionText).toBeDefined();
     }else{
       expect(descriptionText).not.toBeDefined();
     }
   });
-})
+});
