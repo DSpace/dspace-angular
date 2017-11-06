@@ -18,7 +18,7 @@ import { RequestService } from '../../../../core/data/request.service';
 export class DropdownFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
-              protected authorityOptions: AuthorityOptions,
+              protected authorityUuid: string,
               protected formsConfigService: SubmissionFormsConfigService) {
     super(configData);
   }
@@ -27,9 +27,12 @@ export class DropdownFieldParser extends FieldParser {
     const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.initModel();
     let cls: ClsConfig;
 
-    this.authorityOptions.name = this.configData.selectableMetadata[0].authority;
-    this.authorityOptions.metadata = this.configData.selectableMetadata[0].metadata;
-    dropdownModelConfig.retrieve = this.getPagedAuthority;
+    dropdownModelConfig.retrieve = this.getPagedAuthorityFn(
+      this.getAuthorityOptionsObj(
+        this.authorityUuid,
+        this.configData.selectableMetadata[0].authority,
+        this.configData.selectableMetadata[0].metadata)
+    );
     cls = {
       element: {
         control: 'col'
@@ -49,40 +52,33 @@ export class DropdownFieldParser extends FieldParser {
     return new DynamicFormGroupModel(dropdownGroup, cls);
   }
 
+  // @TODO To refactor when service for retrieving authority will be available
   protected getAuthority(authorityOptions: AuthorityOptions, pageInfo?: PageInfo): Observable<any[]> {
     const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
     const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`
     return this.formsConfigService.getConfigByHref(href)
   }
 
-  getPagedAuthority = (pageInfo: PageInfo): Observable<DynamicScrollableDropdownResponseModel> => {
-    return this.getAuthority(this.authorityOptions, pageInfo)
-      .map((authorities: any) => {
-        if (isUndefined(pageInfo)) {
-          pageInfo = new PageInfo();
-          pageInfo.currentPage = 1;
-          pageInfo.totalElements = authorities.length;
-          pageInfo.elementsPerPage = 10;
-          pageInfo.totalPages = Math.ceil(authorities.length / 10);
-          authorities = authorities.slice(0,10);
-        }
-        return {
-          list: authorities,
-          pageInfo: pageInfo
-        }
-      })
-    /*if (isUndefined(pageInfo)) {
-      pageInfo = new PageInfo();
-      pageInfo.currentPage = 1;
-      pageInfo.totalElements = 50;
-      pageInfo.elementsPerPage = 10;
-      pageInfo.totalPages = 5;
+  protected getPagedAuthorityFn(authorityOptions: AuthorityOptions) {
+    return (pageInfo: PageInfo): Observable<DynamicScrollableDropdownResponseModel> => {
+      return this.getAuthority(authorityOptions, pageInfo)
+        .map((authorities: any) => {
+          // @TODO Pagination for authority is not working, to refactor when it will be fixed
+          if (isUndefined(pageInfo)) {
+            pageInfo = new PageInfo();
+            pageInfo.currentPage = 1;
+            pageInfo.totalElements = authorities.length;
+            pageInfo.elementsPerPage = 10;
+            pageInfo.totalPages = Math.ceil(authorities.length / 10);
+          }
+          const begin = (pageInfo.currentPage === 1) ? 0 : ((pageInfo.elementsPerPage * (pageInfo.currentPage - 1)) + 1);
+          const end = pageInfo.elementsPerPage * pageInfo.currentPage;
+          authorities = authorities.slice(begin, end);
+          return {
+            list: authorities,
+            pageInfo: pageInfo
+          }
+        })
     }
-    const begin = (pageInfo.currentPage === 1) ? 0 : ((pageInfo.elementsPerPage * (pageInfo.currentPage - 1)) + 1);
-    const end = pageInfo.elementsPerPage * pageInfo.currentPage;
-    return Observable.of({
-      list: AUTHORITY._embedded.authorityEntryResources.slice(begin, end),
-      pageInfo: pageInfo
-    }).delay(2000);*/
   }
 }

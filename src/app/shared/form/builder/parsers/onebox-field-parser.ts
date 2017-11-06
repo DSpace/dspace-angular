@@ -25,7 +25,7 @@ import { GlobalConfig } from '../../../../../config/global-config.interface';
 export class OneboxFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
-              protected authorityOptions: AuthorityOptions,
+              protected authorityUuid: string,
               protected formsConfigService: SubmissionFormsConfigService) {
     super(configData);
   }
@@ -75,9 +75,11 @@ export class OneboxFieldParser extends FieldParser {
       return new DynamicFormGroupModel(inputSelectGroup, cls);
     } else if (this.configData.selectableMetadata[0].authority) {
       const typeaheadModelConfig: DynamicTypeaheadModelConfig = this.initModel();
-      this.authorityOptions.name = this.configData.selectableMetadata[0].authority;
-      this.authorityOptions.metadata = this.configData.selectableMetadata[0].metadata;
-      typeaheadModelConfig.search = this.search;
+      typeaheadModelConfig.search = this.getSearchFn(
+        this.getAuthorityOptionsObj(
+          this.authorityUuid,
+          this.configData.selectableMetadata[0].authority,
+          this.configData.selectableMetadata[0].metadata));
       typeaheadModelConfig.value = '';
       typeaheadModelConfig.minChars = 3;
       return new DynamicTypeaheadModel(typeaheadModelConfig);
@@ -93,8 +95,10 @@ export class OneboxFieldParser extends FieldParser {
     return this.formsConfigService.getConfigByHref(href)
   }
 
-  search = (query: string): Observable<any> => {
-    this.authorityOptions.query = query;
-    return this.getAuthority(this.authorityOptions);
-  };
+  protected getSearchFn(authorityOptions: AuthorityOptions) {
+    return (query: string): Observable<any> => {
+      authorityOptions.query = query;
+      return this.getAuthority(authorityOptions);
+    };
+  }
 }

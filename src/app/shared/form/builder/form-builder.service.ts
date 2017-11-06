@@ -40,7 +40,7 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'dropdown':
-          group.push(new DropdownFieldParser(fieldData, this.authorityOptions, this.formsConfigService).parse());
+          group.push(new DropdownFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse());
           break;
 
         case 'lookup':
@@ -48,7 +48,7 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'onebox':
-          group.push(new OneboxFieldParser(fieldData, this.authorityOptions, this.formsConfigService).parse());
+          group.push(new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse());
           break;
 
         case 'list':
