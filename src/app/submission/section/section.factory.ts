@@ -25,7 +25,7 @@ export class SectionFactoryComponent {
 
   // component: Class for the component you want to create
   // inputs: An object with key/value pairs mapped to input name/input value
-  public get(submissionId: string, sectionId: string, factoryData: SubmissionSectionModel, sectionsHost: ViewContainerRef) {
+  public get(collectionId: string, submissionId: string, sectionId: string, factoryData: SubmissionSectionModel, sectionsHost: ViewContainerRef) {
     if (!factoryData) {
       return;
     }
@@ -34,6 +34,7 @@ export class SectionFactoryComponent {
     }
 
     const inputs: SectionDataObject = Object.create(null);
+    inputs.collectionId = collectionId;
     inputs.id = sectionId;
     inputs.header = factoryData.header;
     inputs.mandatory = factoryData.mandatory;

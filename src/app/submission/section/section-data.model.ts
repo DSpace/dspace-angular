@@ -1,4 +1,5 @@
 export class SectionDataObject {
+  collectionId: string;
   config: string;
   header: string;
   id: string;

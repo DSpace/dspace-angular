@@ -28,6 +28,7 @@ import { HostWindowState } from '../../../shared/host-window.reducer';
   templateUrl: './submission-submit-form-section-add.component.html'
 })
 export class SubmissionSubmitFormSectionAddComponent implements OnChanges {
+  @Input() collectionId: string;
   @Input() submissionId: string;
   @Input() definitionId: string;
   sectionList: any[] = [];
@@ -59,6 +60,6 @@ export class SubmissionSubmitFormSectionAddComponent implements OnChanges {
   }
 
   addSection(sectionId) {
-    this.sectionService.addSection(this.submissionId, this.definitionId, sectionId);
+    this.sectionService.addSection(this.collectionId, this.submissionId, this.definitionId, sectionId);
   }
 }

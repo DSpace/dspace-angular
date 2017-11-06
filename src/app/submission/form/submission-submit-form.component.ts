@@ -14,7 +14,7 @@ import { isEmpty, isUndefined } from '../../shared/empty.util';
 })
 
 export class SubmissionSubmitFormComponent implements OnInit {
-  collectionId = '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb'
+  collectionId = '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb';
   submissionId: string;
   definitionId: string;
 
@@ -44,4 +44,9 @@ export class SubmissionSubmitFormComponent implements OnInit {
       })
       .distinctUntilChanged();
   }
+
+  onCollectionChange(collectionId) {
+    this.collectionId = collectionId;
+  }
+
 }

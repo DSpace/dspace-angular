@@ -39,8 +39,9 @@ export class FormSectionComponent extends SectionModelComponent {
     this.formConfigService.getConfigByHref(this.sectionData.config)
       .flatMap((config: SubmissionFormsModel[]) => config)
       .subscribe((config) => {
+        console.log(config);
+        this.formBuilderService.setAuthorityUuid(this.sectionData.collectionId);
         this.formModel = this.formBuilderService.modelFromConfiguration(config);
-
       });
   }
 

@@ -18,7 +18,7 @@ export class SubmissionObjectEffects {
   @Effect() initForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)
     .do((action: InitSubmissionFormAction) => {
-      this.sectionService.loadDefaultSections(action.payload.submissionId, action.payload.definitionId);
+      this.sectionService.loadDefaultSections(action.payload.collectionId, action.payload.submissionId, action.payload.definitionId);
     })
     .map(() => new CompleteInitSubmissionFormAction());
 

@@ -92,7 +92,7 @@ export class SectionService {
       .distinctUntilChanged();
   }
 
-  public loadDefaultSections(submissionId, definitionId) {
+  public loadDefaultSections(collectionId: string, submissionId: string, definitionId: string) {
     this.store.select(submissionDefinitionFromIdSelector(definitionId))
       .distinctUntilChanged()
       .filter((state) => !isUndefined(state.sections))
@@ -100,24 +100,24 @@ export class SectionService {
         Object.keys(state.sections)
           .filter((sectionId) => state.sections[sectionId].mandatory)
           .map((sectionId) => {
-            this.loadSection(submissionId, definitionId, sectionId);
+            this.loadSection(collectionId, submissionId, definitionId, sectionId);
           })
       })
   }
 
-  private loadSection(submissionId: string, definitionId: string, sectionId: string) {
+  private loadSection(collectionId: string, submissionId: string, definitionId: string, sectionId: string) {
     let sectionObject: SubmissionSectionModel = Object.create(null);
     this.getSectionDefinition(definitionId, sectionId)
       .subscribe((sectionObj: SubmissionSectionModel) => {
         sectionObject = sectionObj;
       });
-    const componentRef = this.sectionFactory.get(submissionId, sectionId, sectionObject, this.viewContainerRef);
+    const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, sectionObject, this.viewContainerRef);
     const viewIndex = this.viewContainerRef.indexOf(componentRef.hostView);
     this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex));
   }
 
-  public addSection(submissionId, definitionId, sectionId) {
-    this.loadSection(submissionId, definitionId, sectionId);
+  public addSection(collectionId, submissionId, definitionId, sectionId) {
+    this.loadSection(collectionId, submissionId, definitionId, sectionId);
   }
 
   public removeSection(submissionId, sectionId) {

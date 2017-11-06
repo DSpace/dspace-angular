@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -15,6 +15,12 @@ import { hasValue } from '../../../shared/empty.util';
 })
 export class SubmissionSubmitFormCollectionComponent implements OnInit {
   @Input() currentCollectionId: string;
+
+  /**
+   * An event fired when a different collection is selected.
+   * Event's payload equals to new collection uuid.
+   */
+  @Output() collectionChange: EventEmitter<string> = new EventEmitter<string>();
 
   public listCollection = [];
   public model: any;
@@ -100,10 +106,7 @@ export class SubmissionSubmitFormCollectionComponent implements OnInit {
     this.selectedCollectionId = event.collection.id;
     this.selectedCollectionName = event.collection.name;
     this.searchListCollection = this.listCollection;
-    /*event.preventDefault();
-    this.selectedCollectionId = event.item.collection;
-    this.model = null;
-    this.listCollection = mockCollections;*/
+    this.collectionChange.emit(this.selectedCollectionId);
   }
 
   onClose(event) {
