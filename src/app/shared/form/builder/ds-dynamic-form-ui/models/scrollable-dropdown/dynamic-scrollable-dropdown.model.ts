@@ -1,4 +1,7 @@
-import { ClsConfig, DynamicInputModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
+import {
+  AUTOCOMPLETE_OFF, ClsConfig, DynamicInputModel, DynamicInputModelConfig,
+  serializable
+} from '@ng-dynamic-forms/core';
 import { Observable } from 'rxjs/Observable';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
@@ -24,6 +27,7 @@ export class DynamicScrollableDropdownModel extends DynamicInputModel {
 
     super(config, cls);
 
+    this.autoComplete = AUTOCOMPLETE_OFF;
     this.maxOptions = config.maxOptions;
     this.retrieve = config.retrieve;
   }
