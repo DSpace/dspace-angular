@@ -24,6 +24,9 @@
 
 :host /deep/ .dropdown-menu {
   width: 100% !important;
+  max-height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 :host /deep/ .dropdown-item.active,
