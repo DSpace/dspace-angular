@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
-import { SearchResult } from '../search-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { SearchOptions } from '../search-options.model';
+import { SearchResult } from '../search-result.model';
 
 /**
  * This component renders a simple item page.
@@ -12,6 +13,10 @@ import { SearchOptions } from '../search-options.model';
 @Component({
   selector: 'ds-search-results',
   templateUrl: './search-results.component.html',
+  animations: [
+    fadeIn,
+    fadeInOut
+  ]
 })
 export class SearchResultsComponent {
   @Input() searchResults: RemoteData<Array<SearchResult<DSpaceObject>>>;

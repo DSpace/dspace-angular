@@ -1,10 +1,12 @@
-<div class="search-page">
+<div class="container">
+  <div class="search-page">
     <ds-search-form
       [query]="query"
-      [scope]="scopeObject?.payload | async"
+      [scope]="(scopeObjectRDObs | async)?.payload"
       [currentParams]="currentParams"
-      [scopes]="scopeList?.payload">
+      [scopes]="(scopeListRDObs | async)?.payload">
     </ds-search-form>
     <ds-view-mode-switch></ds-view-mode-switch>
-    <ds-search-results [searchResults]="results" [searchConfig]="searchOptions"></ds-search-results>
+    <ds-search-results [searchResults]="resultsRDObs | async" [searchConfig]="searchOptions"></ds-search-results>
+  </div>
 </div>

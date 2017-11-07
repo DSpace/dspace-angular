@@ -2,6 +2,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { RemoteData } from '../data/remote-data';
 import { Item } from './item.model';
 import { BitstreamFormat } from './bitstream-format.model';
+import { Observable } from 'rxjs/Observable';
 
 export class Bitstream extends DSpaceObject {
 
@@ -23,17 +24,17 @@ export class Bitstream extends DSpaceObject {
   /**
    * An array of Bitstream Format of this Bitstream
    */
-  format: RemoteData<BitstreamFormat>;
+  format: Observable<RemoteData<BitstreamFormat>>;
 
   /**
    * An array of Items that are direct parents of this Bitstream
    */
-  parents: RemoteData<Item[]>;
+  parents: Observable<RemoteData<Item[]>>;
 
   /**
    * The Bundle that owns this Bitstream
    */
-  owner: RemoteData<Item>;
+  owner: Observable<RemoteData<Item>>;
 
   /**
    * The URL to retrieve this Bitstream's file

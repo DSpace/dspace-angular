@@ -4,6 +4,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../object-list/listable-object/listable-object.model';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -40,12 +41,12 @@ export abstract class DSpaceObject implements CacheableObject, ListableObject {
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
    */
-  parents: RemoteData<DSpaceObject[]>;
+  parents: Observable<RemoteData<DSpaceObject[]>>;
 
   /**
    * The DSpaceObject that owns this DSpaceObject
    */
-  owner: RemoteData<DSpaceObject>;
+  owner: Observable<RemoteData<DSpaceObject>>;
 
   /**
    * Find a metadata field by key and language

@@ -1,5 +1,6 @@
 import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
+import { BrowseDefinition } from '../shared/browse-definition.model';
 import { ConfigObject } from '../shared/config/config.model';
 
 /* tslint:disable:max-classes-per-file */
@@ -28,6 +29,15 @@ export class RootSuccessResponse extends RestResponse {
   constructor(
     public endpointMap: EndpointMap,
     public statusCode: string,
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class BrowseSuccessResponse extends RestResponse {
+  constructor(
+    public browseDefinitions: BrowseDefinition[],
+    public statusCode: string
   ) {
     super(true, statusCode);
   }

@@ -28,7 +28,7 @@ export class RemoteDataBuildService {
   buildSingle<TNormalized extends CacheableObject, TDomain>(
     hrefObs: string | Observable<string>,
     normalizedType: GenericConstructor<TNormalized>
-  ): RemoteData<TDomain> {
+  ): Observable<RemoteData<TDomain>> {
     if (typeof hrefObs === 'string') {
       hrefObs = Observable.of(hrefObs);
     }
@@ -49,46 +49,8 @@ export class RemoteDataBuildService {
       requestHrefObs.flatMap((requestHref) => this.responseCache.get(requestHref)).filter((entry) => hasValue(entry))
     );
 
-    const requestPending = requestObs
-      .map((entry: RequestEntry) => entry.requestPending)
-      .startWith(true)
-      .distinctUntilChanged();
-
-    const responsePending = requestObs
-      .map((entry: RequestEntry) => entry.responsePending)
-      .startWith(false)
-      .distinctUntilChanged();
-
-    const isSuccessFul = responseCacheObs
-      .map((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-      .startWith(false)
-      .distinctUntilChanged();
-
-    const errorMessage = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => !entry.response.isSuccessful)
-      .map((entry: ResponseCacheEntry) => (entry.response as ErrorResponse).errorMessage)
-      .distinctUntilChanged();
-
-    const statusCode = responseCacheObs
-      .map((entry: ResponseCacheEntry) => entry.response.statusCode)
-      .distinctUntilChanged();
-
-    /* tslint:disable:no-string-literal */
-    const pageInfo = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => hasValue(entry.response) && hasValue(entry.response['pageInfo']))
-      .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).pageInfo)
-      .map((pInfo: PageInfo) => {
-        if (isNotEmpty(pageInfo) && pInfo.currentPage >= 0) {
-          return Object.assign({}, pInfo, {currentPage: pInfo.currentPage + 1});
-        } else {
-          return pInfo;
-        }
-      })
-      .distinctUntilChanged();
-    /* tslint:enable:no-string-literal */
-
     // always use self link if that is cached, only if it isn't, get it via the response.
-    const payload =
+    const payloadObs =
       Observable.combineLatest(
         hrefObs.flatMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href, normalizedType))
           .startWith(undefined),
@@ -114,24 +76,53 @@ export class RemoteDataBuildService {
       ).filter((normalized) => hasValue(normalized))
         .map((normalized: TNormalized) => {
           return this.build<TNormalized, TDomain>(normalized);
-        }).distinctUntilChanged();
+        })
+        .startWith(undefined)
+        .distinctUntilChanged();
+    return this.toRemoteDataObservable(hrefObs, requestObs, responseCacheObs, payloadObs);
+  }
 
-    return new RemoteData(
-      hrefObs,
-      requestPending,
-      responsePending,
-      isSuccessFul,
-      errorMessage,
-      statusCode,
-      pageInfo,
-      payload
-    );
+  private toRemoteDataObservable<T>(hrefObs: Observable<string>, requestObs: Observable<RequestEntry>, responseCacheObs: Observable<ResponseCacheEntry>, payloadObs: Observable<T>) {
+    return Observable.combineLatest(hrefObs, requestObs, responseCacheObs.startWith(undefined), payloadObs,
+      (href: string, reqEntry: RequestEntry, resEntry: ResponseCacheEntry, payload: T) => {
+        const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
+        const responsePending = hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
+        let isSuccessFul: boolean;
+        let errorMessage: string;
+        let statusCode: string;
+        let pageInfo: PageInfo;
+        if (hasValue(resEntry) && hasValue(resEntry.response)) {
+          isSuccessFul = resEntry.response.isSuccessful;
+          errorMessage = isSuccessFul === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
+          statusCode = resEntry.response.statusCode;
+
+          if (hasValue((resEntry.response as DSOSuccessResponse).pageInfo)) {
+            const resPageInfo = (resEntry.response as DSOSuccessResponse).pageInfo;
+            if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
+              pageInfo = Object.assign({}, resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
+            } else {
+              pageInfo = resPageInfo;
+            }
+          }
+        }
+
+        return new RemoteData(
+          href,
+          requestPending,
+          responsePending,
+          isSuccessFul,
+          errorMessage,
+          statusCode,
+          pageInfo,
+          payload
+        );
+      });
   }
 
   buildList<TNormalized extends CacheableObject, TDomain>(
     hrefObs: string | Observable<string>,
     normalizedType: GenericConstructor<TNormalized>
-  ): RemoteData<TDomain[]> {
+  ): Observable<RemoteData<TDomain[]>> {
     if (typeof hrefObs === 'string') {
       hrefObs = Observable.of(hrefObs);
     }
@@ -141,38 +132,7 @@ export class RemoteDataBuildService {
     const responseCacheObs = hrefObs.flatMap((href: string) => this.responseCache.get(href))
       .filter((entry) => hasValue(entry));
 
-    const requestPending = requestObs
-      .map((entry: RequestEntry) => entry.requestPending)
-      .startWith(true)
-      .distinctUntilChanged();
-
-    const responsePending = requestObs
-      .map((entry: RequestEntry) => entry.responsePending)
-      .startWith(false)
-      .distinctUntilChanged();
-
-    const isSuccessFul = responseCacheObs
-      .map((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-      .startWith(false)
-      .distinctUntilChanged();
-
-    const errorMessage = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => !entry.response.isSuccessful)
-      .map((entry: ResponseCacheEntry) => (entry.response as ErrorResponse).errorMessage)
-      .distinctUntilChanged();
-
-    const statusCode = responseCacheObs
-      .map((entry: ResponseCacheEntry) => entry.response.statusCode)
-      .distinctUntilChanged();
-
-    /* tslint:disable:no-string-literal */
-    const pageInfo = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => hasValue(entry.response) && hasValue(entry.response['pageInfo']))
-      .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).pageInfo)
-      .distinctUntilChanged();
-    /* tslint:enable:no-string-literal */
-
-    const payload = responseCacheObs
+    const payloadObs = responseCacheObs
       .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks)
       .flatMap((resourceUUIDs: string[]) => {
@@ -183,18 +143,10 @@ export class RemoteDataBuildService {
             });
           });
       })
+      .startWith([])
       .distinctUntilChanged();
 
-    return new RemoteData(
-      hrefObs,
-      requestPending,
-      responsePending,
-      isSuccessFul,
-      errorMessage,
-      statusCode,
-      pageInfo,
-      payload
-    );
+    return this.toRemoteDataObservable(hrefObs, requestObs, responseCacheObs, payloadObs);
   }
 
   build<TNormalized extends CacheableObject, TDomain>(normalized: TNormalized): TDomain {
@@ -207,13 +159,9 @@ export class RemoteDataBuildService {
         const { resourceType, isList } = getRelationMetadata(normalized, relationship);
         const resourceConstructor = NormalizedObjectFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
-          // without the setTimeout, the actions inside requestService.configure
-          // are dispatched, but sometimes don't arrive. I'm unsure why atm.
-          setTimeout(() => {
-            normalized[relationship].forEach((href: string) => {
-              this.requestService.configure(new RestRequest(href))
-            });
-          }, 0);
+          normalized[relationship].forEach((href: string) => {
+            this.requestService.configure(new RestRequest(href))
+          });
 
           const rdArr = [];
           normalized[relationship].forEach((href: string) => {
@@ -226,11 +174,7 @@ export class RemoteDataBuildService {
             links[relationship] = rdArr[0];
           }
         } else {
-          // without the setTimeout, the actions inside requestService.configure
-          // are dispatched, but sometimes don't arrive. I'm unsure why atm.
-          setTimeout(() => {
-            this.requestService.configure(new RestRequest(normalized[relationship]));
-          }, 0);
+          this.requestService.configure(new RestRequest(normalized[relationship]));
 
           // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
           // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
@@ -248,63 +192,55 @@ export class RemoteDataBuildService {
     return Object.assign(new domainModel(), normalized, links);
   }
 
-  aggregate<T>(input: Array<RemoteData<T>>): RemoteData<T[]> {
-    const requestPending = Observable.combineLatest(
-      ...input.map((rd) => rd.isRequestPending),
-    ).map((...pendingArray) => pendingArray.every((e) => e === true))
-      .distinctUntilChanged();
+  aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {
+    return Observable.combineLatest(
+      ...input,
+      (...arr: Array<RemoteData<T>>) => {
+        const requestPending: boolean = arr
+          .map((d: RemoteData<T>) => d.isRequestPending)
+          .every((b: boolean) => b === true);
 
-    const responsePending = Observable.combineLatest(
-      ...input.map((rd) => rd.isResponsePending),
-    ).map((...pendingArray) => pendingArray.every((e) => e === true))
-      .distinctUntilChanged();
+        const responsePending: boolean = arr
+          .map((d: RemoteData<T>) => d.isResponsePending)
+          .every((b: boolean) => b === true);
 
-    const isSuccessFul = Observable.combineLatest(
-      ...input.map((rd) => rd.hasSucceeded),
-    ).map((...successArray) => successArray.every((e) => e === true))
-      .distinctUntilChanged();
+        const isSuccessFul: boolean = arr
+          .map((d: RemoteData<T>) => d.hasSucceeded)
+          .every((b: boolean) => b === true);
 
-    const errorMessage = Observable.combineLatest(
-      ...input.map((rd) => rd.errorMessage),
-    ).map((...errors) => errors
-      .map((e, idx) => {
-        if (hasValue(e)) {
-          return `[${idx}]: ${e}`;
-        }
+        const errorMessage: string = arr
+          .map((d: RemoteData<T>) => d.errorMessage)
+          .map((e: string, idx: number) => {
+            if (hasValue(e)) {
+              return `[${idx}]: ${e}`;
+            }
+          }).filter((e: string) => hasValue(e))
+          .join(', ');
+
+        const statusCode: string = arr
+          .map((d: RemoteData<T>) => d.statusCode)
+          .map((c: string, idx: number) => {
+            if (hasValue(c)) {
+              return `[${idx}]: ${c}`;
+            }
+          }).filter((c: string) => hasValue(c))
+          .join(', ');
+
+        const pageInfo = undefined;
+
+        const payload: T[] = arr.map((d: RemoteData<T>) => d.payload);
+
+        return new RemoteData(
+          `dspace-angular://aggregated/object/${new Date().getTime()}`,
+          requestPending,
+          responsePending,
+          isSuccessFul,
+          errorMessage,
+          statusCode,
+          pageInfo,
+          payload
+        );
       })
-      .filter((e) => hasValue(e))
-      .join(', ')
-      );
-
-    const statusCode = Observable.combineLatest(
-      ...input.map((rd) => rd.statusCode),
-    ).map((...statusCodes) => statusCodes
-      .map((code, idx) => {
-        if (hasValue(code)) {
-          return `[${idx}]: ${code}`;
-        }
-      })
-      .filter((c) => hasValue(c))
-      .join(', ')
-      );
-
-    const pageInfo = Observable.of(undefined);
-
-    const payload = Observable.combineLatest(...input.map((rd) => rd.payload)) as Observable<T[]>;
-
-    return new RemoteData(
-      // This is an aggregated object, it doesn't necessarily correspond
-      // to a single REST endpoint, so instead of a self link, use the
-      // current time in ms for a somewhat unique id
-      Observable.of(`${new Date().getTime()}`),
-      requestPending,
-      responsePending,
-      isSuccessFul,
-      errorMessage,
-      statusCode,
-      pageInfo,
-      payload
-    );
   }
 
 }

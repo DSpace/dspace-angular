@@ -30,6 +30,8 @@ import { ResponseCacheService } from './cache/response-cache.service';
 import { RootResponseParsingService } from './data/root-response-parsing.service';
 import { ServerResponseService } from '../shared/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
+import { BrowseService } from './browse/browse.service';
+import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { ConfigResponseParsingService } from './data/config-response-parsing.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
@@ -65,6 +67,8 @@ const PROVIDERS = [
   ResponseCacheService,
   RootResponseParsingService,
   ServerResponseService,
+  BrowseResponseParsingService,
+  BrowseService,
   ConfigResponseParsingService,
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
