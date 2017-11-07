@@ -1,12 +1,12 @@
-<div class="container">
-  <div class="community-page" *ngIf="communityData.hasSucceeded | async" @fadeInOut>
-    <div *ngIf="communityData.payload | async; let communityPayload">
+<div class="container" *ngVar="(communityRDObs | async) as communityRD">
+  <div class="community-page" *ngIf="communityRD?.hasSucceeded" @fadeInOut>
+    <div *ngIf="communityRD?.payload; let communityPayload">
       <!-- Community name -->
       <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
       <!-- Community logo -->
-      <ds-comcol-page-logo *ngIf="logoData"
-        [logo]="logoData.payload | async"
-        [alternateText]="'Community Logo'">
+      <ds-comcol-page-logo *ngIf="logoRDObs"
+                           [logo]="(logoRDObs | async)?.payload"
+                           [alternateText]="'Community Logo'">
       </ds-comcol-page-logo>
       <!-- Introductionary text -->
       <ds-comcol-page-content
@@ -27,6 +27,6 @@
       <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
     </div>
   </div>
-  <ds-error *ngIf="communityData.hasFailed | async" message="{{'error.community' | translate}}"></ds-error>
-  <ds-loading *ngIf="communityData.isLoading | async" message="{{'loading.community' | translate}}"></ds-loading>
+  <ds-error *ngIf="communityRD?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
+  <ds-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>
 </div>

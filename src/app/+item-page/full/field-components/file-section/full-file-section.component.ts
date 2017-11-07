@@ -22,7 +22,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
 
   label: string;
 
-  files: Observable<Bitstream[]>;
+  bitstreamsObs: Observable<Bitstream[]>;
 
   thumbnails: Map<string, Observable<Bitstream>> = new Map();
 
@@ -33,8 +33,8 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   initialize(): void {
     const originals = this.item.getFiles();
     const licenses = this.item.getBitstreamsByBundleName('LICENSE');
-    this.files = Observable.combineLatest(originals, licenses, (o, l) => [...o, ...l]);
-    this.files.subscribe(
+    this.bitstreamsObs = Observable.combineLatest(originals, licenses, (o, l) => [...o, ...l]);
+    this.bitstreamsObs.subscribe(
       (files) =>
         files.forEach(
           (original) => {

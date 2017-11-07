@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { RemoteData } from '../../../core/data/remote-data';
 
 /**
  * This component renders the parent collections section of the item
@@ -34,7 +35,7 @@ export class CollectionsComponent implements OnInit {
     // TODO: this should use parents, but the collections
     // for an Item aren't returned by the REST API yet,
     // only the owning collection
-    this.collections = this.item.owner.payload.map((c) => [c]);
+    this.collections = this.item.owner.map((rd: RemoteData<Collection>) => [rd.payload]);
   }
 
 }

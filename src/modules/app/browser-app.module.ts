@@ -1,25 +1,24 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { EffectsModule } from '@ngrx/effects';
 
-import { TransferState } from '../transfer-state/transfer-state';
-import { BrowserTransferStateModule } from '../transfer-state/browser-transfer-state.module';
-import { BrowserTransferStoreEffects } from '../transfer-store/browser-transfer-store.effects';
-import { BrowserTransferStoreModule } from '../transfer-store/browser-transfer-store.module';
-
-import { AppModule } from '../../app/app.module';
-import { CoreModule } from '../../app/core/core.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from '../../app/app.component';
+
+import { AppModule } from '../../app/app.module';
+import { BrowserTransferStateModule } from '../transfer-state/browser-transfer-state.module';
+
+import { TransferState } from '../transfer-state/transfer-state';
+import { BrowserTransferStoreEffects } from '../transfer-store/browser-transfer-store.effects';
+import { BrowserTransferStoreModule } from '../transfer-store/browser-transfer-store.module';
 
 export function init(cache: TransferState) {
   return () => {
@@ -41,6 +40,7 @@ export function createTranslateLoader(http: HttpClient) {
     // forRoot ensures the providers are only created once
     IdlePreloadModule.forRoot(),
     RouterModule.forRoot([], {
+      // enableTracing: true,
       useHash: false,
       preloadingStrategy:
       IdlePreload
