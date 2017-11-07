@@ -14,15 +14,17 @@ export class ConfigResponseParsingService implements ResponseParsingService {
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links)) {
       let configDefinition;
+      let payload;
+      let type;
       if (isNotEmpty(data.payload._embedded) && Array.isArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]])) {
-        const type = Object.keys(data.payload._embedded)[0];
-        const serializer = new DSpaceRESTv2Serializer(ConfigObjectFactory.getConstructor(type));
-        configDefinition = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
-
+        type = Object.keys(data.payload._embedded)[0];
+        payload = data.payload._embedded[Object.keys(data.payload._embedded)[0]];
       } else {
-        const serializer = new DSpaceRESTv2Serializer(ConfigObjectFactory.getConstructor(data.payload.type));
-        configDefinition = serializer.deserialize(data.payload);
+        type = data.payload.type;
+        payload = [data.payload];
       }
+      const serializer = new DSpaceRESTv2Serializer(ConfigObjectFactory.getConstructor(type));
+      configDefinition = serializer.deserializeArray(payload);
       return new ConfigSuccessResponse(configDefinition, data.statusCode);
     } else {
       return new ErrorResponse(
