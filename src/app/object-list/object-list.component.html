@@ -11,7 +11,7 @@
   (sortFieldChange)="onSortDirectionChange($event)"
   (paginationChange)="onPaginationChange($event)">
   <ul *ngIf="objects?.hasSucceeded"> <!--class="list-unstyled"-->
-      <li *ngFor="let object of objects?.payload | paginate: { itemsPerPage: pageInfo?.elementsPerPage, currentPage: pageInfo?.currentPage, totalItems: pageInfo?.totalElements }">
+      <li *ngFor="let object of objects?.payload">
           <ds-wrapper-list-element [object]="object"></ds-wrapper-list-element>
       </li>
   </ul>
