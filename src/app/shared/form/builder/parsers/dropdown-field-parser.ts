@@ -1,4 +1,4 @@
-import { CONFIG_SERVICE, FieldParser } from './field-parser';
+import { FieldParser } from './field-parser';
 import { ClsConfig, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
 import {
   DynamicScrollableDropdownModel,
@@ -8,12 +8,8 @@ import { FormFieldModel } from '../models/form-field.model';
 import { AuthorityOptions } from '../models/authority-options.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { Observable } from 'rxjs/Observable';
-import { ConfigObject } from '../../../../core/shared/config/config.model';
-import { Inject, Injector, ReflectiveInjector } from '@angular/core';
 import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
 import { hasValue, isUndefined } from '../../../empty.util';
-import { ResponseCacheService } from '../../../../core/cache/response-cache.service';
-import { RequestService } from '../../../../core/data/request.service';
 
 export class DropdownFieldParser extends FieldParser {
 

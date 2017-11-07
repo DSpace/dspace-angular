@@ -1,18 +1,6 @@
-import { ClsConfig } from '@ng-dynamic-forms/core';
-import { hasValue, isNotUndefined, isUndefined } from '../../../empty.util';
+import { isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
-
-import AUTHORITY from '../../../../../backend/data/authority.json';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { Observable } from 'rxjs/Observable';
 import { AuthorityOptions } from '../models/authority-options.model';
-import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
-import { DynamicScrollableDropdownResponseModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { Inject, InjectionToken, ReflectiveInjector } from '@angular/core';
-import { ResponseCacheService } from '../../../../core/cache/response-cache.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { StateObservable, Store } from '@ngrx/store';
-export const CONFIG_SERVICE: InjectionToken<SubmissionFormsConfigService> = new InjectionToken<SubmissionFormsConfigService>('formConfigService');
 
 export abstract class FieldParser {
 
@@ -61,8 +49,6 @@ export abstract class FieldParser {
     return controlModel;
   }
 
-
-
   public getAuthorityOptionsObj(uuid, name, metadata): AuthorityOptions {
     const authorityOptions: AuthorityOptions = new AuthorityOptions(uuid);
 
@@ -71,4 +57,5 @@ export abstract class FieldParser {
 
     return authorityOptions;
   }
+
 }
