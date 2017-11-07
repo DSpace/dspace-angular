@@ -1,11 +1,9 @@
 import { FieldParser } from './field-parser';
 import {
-  ClsConfig, DynamicCheckboxModel, DynamicCheckboxModelConfig, DynamicDatePickerModel, DynamicDatePickerModelConfig,
-  DynamicFormGroupModel, DynamicRadioGroupModel, DynamicRadioGroupModelConfig, DynamicTextAreaModel,
-  DynamicTextAreaModelConfig
+  DynamicCheckboxModel, DynamicCheckboxModelConfig,
+  DynamicRadioGroupModel, DynamicRadioGroupModelConfig
 } from '@ng-dynamic-forms/core';
 import { FormFieldModel } from '../models/form-field.model';
-import { AuthorityOptions } from '../models/authority-options.model';
 
 export class ListFieldParser extends FieldParser {
 

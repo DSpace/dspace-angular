@@ -13,14 +13,9 @@ import { DynamicTypeaheadModel, DynamicTypeaheadModelConfig } from '../ds-dynami
 import { FormFieldModel } from '../models/form-field.model';
 import { AuthorityOptions } from '../models/authority-options.model';
 import { Observable } from 'rxjs/Observable';
-import { Inject, Injector, ReflectiveInjector } from '@angular/core';
 import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
-import { CONFIG_SERVICE } from './field-parser'
 import { hasValue } from '../../../empty.util';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { ResponseCacheService } from '../../../../core/cache/response-cache.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { GlobalConfig } from '../../../../../config/global-config.interface';
 
 export class OneboxFieldParser extends FieldParser {
 
@@ -89,6 +84,7 @@ export class OneboxFieldParser extends FieldParser {
     }
   }
 
+  // @TODO To refactor when service for retrieving authority will be available
   protected getAuthority(authorityOptions: AuthorityOptions, pageInfo?: PageInfo): Observable<any[]> {
     const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
     const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`

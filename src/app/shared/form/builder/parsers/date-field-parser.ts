@@ -4,7 +4,6 @@ import {
   DynamicFormGroupModel
 } from '@ng-dynamic-forms/core';
 import { FormFieldModel } from '../models/form-field.model';
-import { AuthorityOptions } from '../models/authority-options.model';
 
 export class DateFieldParser extends FieldParser {
 
