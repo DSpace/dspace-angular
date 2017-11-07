@@ -15,6 +15,7 @@
   </div>
 </div>
 <div class="submission-submit-form-content" >
+  <ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
   <ng-template dsSectionsHost></ng-template>
 </div>
 <div class="submission-submit-form-footer mt-3 mb-3" >

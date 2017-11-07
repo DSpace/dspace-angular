@@ -17,6 +17,7 @@ export class SubmissionSubmitFormComponent implements OnInit {
   collectionId = '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb';
   submissionId: string;
   definitionId: string;
+  isLoading = true;
 
   @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 
@@ -28,7 +29,8 @@ export class SubmissionSubmitFormComponent implements OnInit {
     this.store.dispatch(new InitDefaultDefinitionAction(this.collectionId, this.submissionId));
     this.getDefaultSubmissionDefinition()
       .subscribe((definitionId) => {
-         this.definitionId = definitionId;
+        this.definitionId = definitionId;
+        this.isLoading = false;
       });
   }
 

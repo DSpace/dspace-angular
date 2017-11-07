@@ -22,6 +22,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   public formId;
   public formModel: DynamicFormControlModel[];
+  public isLoading = true;
 
   @ViewChildren('formRef') private forms: QueryList<FormComponent>;
 
@@ -39,7 +40,7 @@ export class FormSectionComponent extends SectionModelComponent {
     this.formConfigService.getConfigByHref(this.sectionData.config)
       .flatMap((config: SubmissionFormsModel[]) => config)
       .subscribe((config) => {
-        console.log(config);
+        this.formId = this.sectionData.id;
         this.formBuilderService.setAuthorityUuid(this.sectionData.collectionId);
         this.formModel = this.formBuilderService.modelFromConfiguration(config);
       });
@@ -50,7 +51,9 @@ export class FormSectionComponent extends SectionModelComponent {
       this.formRef = comps.first;
       if (hasValue(this.formRef)) {
         this.formService.isValid(this.formRef.getFormUniqueId())
+          .debounceTime(1)
           .subscribe((formState) => {
+            this.isLoading = false;
             this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, formState));
           });
       }
