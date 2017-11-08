@@ -13,7 +13,7 @@
             <div class="row">
                 <div id="search-body"
                      class="row-offcanvas row-offcanvas-left"
-                     [@slideInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
+                     [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
                     <ds-search-sidebar *ngIf="(isMobileView | async)" class="col-12"
                                        id="search-sidebar-xs"
                                        resultCount="{{(results.pageInfo | async)?.totalElements}}"

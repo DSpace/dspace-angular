@@ -96,14 +96,18 @@
       "reset": "Reset filters",
       "facet-filter": {
         "show-more": "Show more",
+        "show-less": "Show less",
         "author": {
-          "placeholder": "Author name"
+          "placeholder": "Author name",
+          "head": "Author"
         },
         "scope": {
-          "placeholder": "Scope filter"
+          "placeholder": "Scope filter",
+          "head": "Scope"
         },
         "subject": {
-          "placeholder": "Subject"
+          "placeholder": "Subject",
+          "head": "Subject"
         }
       }
     }

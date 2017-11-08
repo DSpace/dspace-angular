@@ -11,7 +11,7 @@ import { CommunityDataService } from '../core/data/community-data.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { Community } from '../core/shared/community.model';
 import { Observable } from 'rxjs/Observable';
-import { slideInOut } from '../shared/animations/slide';
+import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 
@@ -25,7 +25,7 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
   selector: 'ds-search-page',
   styleUrls: ['./search-page.component.scss'],
   templateUrl: './search-page.component.html',
-  animations: [slideInOut]
+  animations: [pushInOut]
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
 

@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { SearchService } from '../../../search-service/search.service';
-import { ActivatedRoute } from '@angular/router';
+import { Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { SearchFilterService } from '../search-filter.service';
 
 /**
  * This component renders a simple item page.
@@ -17,25 +18,48 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './search-facet-filter.component.html',
 })
 
-export class SidebarFacetFilterComponent {
+export class SidebarFacetFilterComponent implements OnInit {
   @Input() filterValues: FacetValue[];
   @Input() filterConfig: SearchFilterConfig;
+  currentPage: Observable<number>;
 
-  constructor(private searchService: SearchService, private route: ActivatedRoute) {
+  constructor(private filterService: SearchFilterService) {
+  }
+
+  ngOnInit(): void {
+    this.currentPage = this.filterService.getPage(this.filterConfig.name);
   }
 
   isChecked(value: FacetValue) {
-    return this.searchService.isFilterActive(this.filterConfig.name, value.value);
+    return this.filterService.isFilterActive(this.filterConfig.name, value.value);
   }
 
   getSearchLink() {
-    return this.searchService.getSearchLink();
+    return this.filterService.searchLink;
   }
 
-  getQueryParams(value: FacetValue): Observable<any> {
-    const params = {};
-    params[this.filterConfig.paramName] = value.value;
-    return this.route.queryParams.map((p) => Object.assign({}, p, params))
+  getQueryParams(value: FacetValue): Params {
+    return this.filterService.switchFilterInURL(this.filterConfig, value.value);
   }
 
+  get facetCount(): Observable<number> {
+    const resultCount = this.filterValues.length;
+    return this.currentPage.map((page: number) => {
+      const max = page * this.filterConfig.pageSize;
+      return max > resultCount ? resultCount : max;
+    });
+  }
+
+  showMore() {
+    this.filterService.increasePage(this.filterConfig.name);
+  }
+
+  showLess() {
+    this.filterService.decreasePage(this.filterConfig.name);
+  }
+
+  getCurrentPage(): Observable<number> {
+    return this.filterService.getPage(this.filterConfig.name);
+
+  }
 }

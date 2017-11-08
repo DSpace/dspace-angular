@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects'
 import * as fromRouter from '@ngrx/router-store';
 
-import { HostWindowActionTypes } from '../../shared/host-window.actions';
 import { SearchSidebarCollapseAction } from './search-sidebar.actions';
 
 @Injectable()

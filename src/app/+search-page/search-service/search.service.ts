@@ -235,11 +235,6 @@ export class SearchService implements OnDestroy {
     return params;
   }
 
-  isFilterActive(filterName: string, filterValue: string): boolean {
-    const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === filterName);
-    return isNotEmpty(this.router.url.match(filterConfig.paramName + '=' + encodeURI(filterValue) + '(&(.*))?$'));
-  }
-
   getSearchLink() {
     return this.searchLink;
   }
@@ -249,5 +244,4 @@ export class SearchService implements OnDestroy {
       this.sub.unsubscribe();
     }
   }
-
 }

@@ -15,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SidebarFiltersComponent } from './search-filters/search-filters.component';
 import { SidebarFilterComponent } from './search-filters/search-filter/search-filter.component';
 import { SidebarFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
+import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 
 const effects = [
   SearchSidebarEffects
@@ -40,7 +41,8 @@ const effects = [
   ],
   providers: [
     SearchService,
-    SearchSidebarService
+    SearchSidebarService,
+    SearchFilterService
   ],
   entryComponents: [
     ItemSearchResultListElementComponent,
