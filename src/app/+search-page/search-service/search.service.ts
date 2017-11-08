@@ -85,7 +85,7 @@ export class SearchService {
 
   }
 
-  search(query: string, scopeId?: string, searchOptions?: SearchOptions): RemoteData<Array<SearchResult<DSpaceObject>>> {
+  search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
     let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}`;
     if (hasValue(scopeId)) {
       self += `&scope=${scopeId}`;
@@ -103,8 +103,8 @@ export class SearchService {
       self += `&sortField=${searchOptions.sort.field}`;
     }
 
-    const errorMessage = Observable.of(undefined);
-    const statusCode = Observable.of('200');
+    const errorMessage = undefined;
+    const statusCode = '200';
     const returningPageInfo = new PageInfo();
 
     if (isNotEmpty(searchOptions)) {
@@ -115,19 +115,20 @@ export class SearchService {
       returningPageInfo.currentPage = 1;
     }
 
-    const itemsRD = this.itemDataService.findAll({
+    const itemsObs = this.itemDataService.findAll({
       scopeID: scopeId,
       currentPage: returningPageInfo.currentPage,
       elementsPerPage: returningPageInfo.elementsPerPage
     });
 
-    const pageInfo = itemsRD.pageInfo.map((info: PageInfo) => {
-      const totalElements = info.totalElements > 20 ? 20 : info.totalElements;
-      return Object.assign({}, info, { totalElements: totalElements });
-    });
+    return itemsObs
+      .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded)
+      .map((rd: RemoteData<Item[]>) => {
 
-    const payload = itemsRD.payload.map((items: Item[]) => {
-      return shuffle(items)
+      const totalElements = rd.pageInfo.totalElements > 20 ? 20 : rd.pageInfo.totalElements;
+      const pageInfo = Object.assign({}, rd.pageInfo, { totalElements: totalElements });
+
+      const payload = shuffle(rd.payload)
         .map((item: Item, index: number) => {
           const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
           mockResult.dspaceObject = item;
@@ -137,40 +138,49 @@ export class SearchService {
           mockResult.hitHighlights = new Array(highlight);
           return mockResult;
         });
-    });
 
-    return new RemoteData(
-      Observable.of(self),
-      itemsRD.isRequestPending,
-      itemsRD.isResponsePending,
-      itemsRD.hasSucceeded,
-      errorMessage,
-      statusCode,
-      pageInfo,
-      payload
-    )
+      return new RemoteData(
+        self,
+        rd.isRequestPending,
+        rd.isResponsePending,
+        rd.hasSucceeded,
+        errorMessage,
+        statusCode,
+        pageInfo,
+        payload
+      )
+    }).startWith(new RemoteData(
+        '',
+        true,
+        false,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      ));
   }
 
-  getConfig(): RemoteData<SearchFilterConfig[]> {
-    const requestPending = Observable.of(false);
-    const responsePending = Observable.of(false);
-    const isSuccessful = Observable.of(true);
-    const errorMessage = Observable.of(undefined);
-    const statusCode = Observable.of('200');
-    const returningPageInfo = Observable.of(new PageInfo());
-    return new RemoteData(
-      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/search'),
+  getConfig(): Observable<RemoteData<SearchFilterConfig[]>> {
+    const requestPending = false;
+    const responsePending = false;
+    const isSuccessful = true;
+    const errorMessage = undefined;
+    const statusCode = '200';
+    const returningPageInfo = new PageInfo();
+    return Observable.of(new RemoteData(
+      'https://dspace7.4science.it/dspace-spring-rest/api/search',
       requestPending,
       responsePending,
       isSuccessful,
       errorMessage,
       statusCode,
       returningPageInfo,
-      Observable.of(this.config)
-    );
+      this.config
+    ));
   }
 
-  getFacetValuesFor(searchFilterConfigName: string): RemoteData<FacetValue[]> {
+  getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
     const values: FacetValue[] = [];
     for (let i = 0; i < 5; i++) {
       const value = searchFilterConfigName + ' ' + (i + 1);
@@ -180,22 +190,22 @@ export class SearchService {
         search: 'https://dspace7.4science.it/dspace-spring-rest/api/search?f.' + searchFilterConfigName + '=' + encodeURI(value)
       });
     }
-    const requestPending = Observable.of(false);
-    const responsePending = Observable.of(false);
-    const isSuccessful = Observable.of(true);
-    const errorMessage = Observable.of(undefined);
-    const statusCode = Observable.of('200');
-    const returningPageInfo = Observable.of(new PageInfo());
-    return new RemoteData(
-      Observable.of('https://dspace7.4science.it/dspace-spring-rest/api/search'),
+    const requestPending = false;
+    const responsePending = false;
+    const isSuccessful = true;
+    const errorMessage = undefined;
+    const statusCode = '200';
+    const returningPageInfo = new PageInfo();
+    return Observable.of(new RemoteData(
+      'https://dspace7.4science.it/dspace-spring-rest/api/search',
       requestPending,
       responsePending,
       isSuccessful,
       errorMessage,
       statusCode,
       returningPageInfo,
-      Observable.of(values)
-    );
+      values
+    ));
   }
 
   getViewMode(): Observable<ViewMode> {

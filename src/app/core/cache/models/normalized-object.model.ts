@@ -17,4 +17,8 @@ export abstract class NormalizedObject implements CacheableObject {
   @autoserialize
   uuid: string;
 
+  @autoserialize
+  _links: {
+    [name: string]: string
+  }
 }

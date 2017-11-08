@@ -2,6 +2,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { Bitstream } from './bitstream.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
+import { Observable } from 'rxjs/Observable';
 
 export class Community extends DSpaceObject {
 
@@ -45,18 +46,18 @@ export class Community extends DSpaceObject {
   /**
    * The Bitstream that represents the logo of this Community
    */
-  logo: RemoteData<Bitstream>;
+  logo: Observable<RemoteData<Bitstream>>;
 
   /**
    * An array of Communities that are direct parents of this Community
    */
-  parents: RemoteData<DSpaceObject[]>;
+  parents: Observable<RemoteData<DSpaceObject[]>>;
 
   /**
    * The Community that owns this Community
    */
-  owner: RemoteData<Community>;
+  owner: Observable<RemoteData<Community>>;
 
-  collections: RemoteData<Collection[]>;
+  collections: Observable<RemoteData<Collection[]>>;
 
 }

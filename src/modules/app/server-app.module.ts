@@ -36,8 +36,16 @@ export function boot(cache: TransferState, appRef: ApplicationRef, store: Store<
   // authentication mechanism goes here
   return () => {
     appRef.isStable.filter((stable: boolean) => stable).first().subscribe(() => {
-      cache.inject();
-    });
+      // isStable == true doesn't guarantee that all dispatched actions have been
+      // processed yet. So in those cases the store snapshot wouldn't be complete
+      // and a rehydrate would leave the app in a broken state
+      //
+      // This setTimeout without delay schedules the cache.inject() to happen ASAP
+      // after everything that's already scheduled, and it solves that problem.
+      setTimeout(() => {
+        cache.inject();
+      }, 0);
+      });
   };
 }
 

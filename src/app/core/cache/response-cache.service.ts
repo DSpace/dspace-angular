@@ -4,7 +4,7 @@ import { MemoizedSelector, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { ResponseCacheEntry } from './response-cache.reducer';
-import { hasNoValue } from '../../shared/empty.util';
+import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { ResponseCacheRemoveAction, ResponseCacheAddAction } from './response-cache.actions';
 import { RestResponse } from './response-cache.models';
 import { CoreState } from '../core.reducers';

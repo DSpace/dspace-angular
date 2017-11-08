@@ -34,6 +34,7 @@ import { SearchResultListElementComponent } from '../object-list/search-result-l
 import { SearchFormComponent } from './search-form/search-form.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
+import { VarDirective } from './utils/var.directive';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
@@ -102,6 +103,10 @@ const ENTRY_COMPONENTS = [
   SearchResultListElementComponent
 ];
 
+const DIRECTIVES = [
+  VarDirective
+];
+
 @NgModule({
   imports: [
     ...MODULES
@@ -109,12 +114,14 @@ const ENTRY_COMPONENTS = [
   declarations: [
     ...PIPES,
     ...COMPONENTS,
+    ...DIRECTIVES,
     ...ENTRY_COMPONENTS
   ],
   exports: [
     ...MODULES,
     ...PIPES,
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...DIRECTIVES
   ],
   entryComponents: [
     ...ENTRY_COMPONENTS

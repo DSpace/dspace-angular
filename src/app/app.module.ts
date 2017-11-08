@@ -42,10 +42,7 @@ export function getBase() {
 
 export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppState>> {
   const metaReducers: Array<MetaReducer<AppState>> = config.production ? appMetaReducers : [...appMetaReducers, storeFreeze];
-  if (config.debug) {
-    metaReducers.concat(debugMetaReducers)
-  }
-  return metaReducers;
+  return config.debug ? [...metaReducers, ...debugMetaReducers] : metaReducers;
 }
 
 const DEV_MODULES: any[] = [];
