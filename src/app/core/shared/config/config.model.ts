@@ -12,4 +12,10 @@ export abstract class ConfigObject {
   public _links: {
     [name: string]: string
   }
+
+  /**
+   * The link to the rest endpoint where this config object can be found
+   */
+  @autoserialize
+  self: string;
 }

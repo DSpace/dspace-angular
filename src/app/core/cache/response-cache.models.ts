@@ -56,7 +56,8 @@ export class ErrorResponse extends RestResponse {
 export class ConfigSuccessResponse extends RestResponse {
   constructor(
     public configDefinition: ConfigObject[],
-    public statusCode: string
+    public statusCode: string,
+    public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
   }
