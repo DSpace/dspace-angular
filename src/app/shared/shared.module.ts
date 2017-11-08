@@ -67,9 +67,6 @@ const COMPONENTS = [
   ViewModeSwitchComponent
 ];
 
-const DIRECTIVES = [
-];
-
 const ENTRY_COMPONENTS = [
   // put shared entry components (components that are created dynamically) here
   CollectionListElementComponent,
