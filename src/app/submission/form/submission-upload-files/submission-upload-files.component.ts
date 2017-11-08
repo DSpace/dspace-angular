@@ -9,16 +9,9 @@ import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload
 export class SubmissionUploadFilesComponent {
 
   @Input() submissionId;
-
-  public uploadFilesOptions:UploadFilesComponentOptions;
+  @Input() uploadFilesOptions:UploadFilesComponentOptions;
 
   constructor(private bitstreamService: BitstreamService) {
-    this.uploadFilesOptions = {
-      url: 'http://ng-file-upload-php-demo.dev01.4science.it/server.php',
-      authToken: null,
-      disableMultipart: false,
-      itemAlias: null
-    }
   }
 
   public onCompleteItem(itemData) {
@@ -27,8 +20,7 @@ export class SubmissionUploadFilesComponent {
       itemData.uuid,
       {
         name: itemData.originalName,
-        title: '',
-        description: '',
+        formID: '',
         size: itemData.size,
         hash: itemData.md5,
         thumbnail: null,

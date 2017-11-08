@@ -6,6 +6,7 @@ import { submissionSelector, SubmissionState } from '../submission.reducers';
 import { NewSubmissionFormAction } from '../objects/submission-objects.actions';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
 import { isEmpty, isUndefined } from '../../shared/empty.util';
+import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -19,6 +20,12 @@ export class SubmissionSubmitFormComponent implements OnInit {
   submissionId: string;
   definitionId: string;
   isLoading = true;
+  uploadFilesOptions: UploadFilesComponentOptions = {
+    url: 'http://ng-file-upload-php-demo.dev01.4science.it/server.php',
+    authToken: null,
+    disableMultipart: false,
+    itemAlias: null
+  }
 
   @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 
