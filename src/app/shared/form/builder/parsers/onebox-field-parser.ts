@@ -16,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
 import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
 import { hasValue } from '../../../empty.util';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ConfigData } from '../../../../core/config/config-data';
 
 export class OneboxFieldParser extends FieldParser {
 
@@ -89,6 +90,7 @@ export class OneboxFieldParser extends FieldParser {
     const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
     const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`
     return this.formsConfigService.getConfigByHref(href)
+      .map((config) => config.payload)
   }
 
   protected getSearchFn(authorityOptions: AuthorityOptions) {

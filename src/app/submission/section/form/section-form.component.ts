@@ -12,6 +12,7 @@ import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { hasValue } from '../../../shared/empty.util';
+import { ConfigData } from '../../../core/config/config-data';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -38,7 +39,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   ngOnInit() {
     this.formConfigService.getConfigByHref(this.sectionData.config)
-      .flatMap((config: SubmissionFormsModel[]) => config)
+      .flatMap((config: ConfigData) => config.payload)
       .subscribe((config) => {
         this.formId = this.sectionData.id;
         this.formBuilderService.setAuthorityUuid(this.sectionData.collectionId);

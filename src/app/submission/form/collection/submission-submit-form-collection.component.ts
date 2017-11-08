@@ -7,6 +7,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { Community } from '../../../core/shared/community.model';
 import { hasValue } from '../../../shared/empty.util';
+import { RemoteData } from '../../../core/data/remote-data';
 
 @Component({
   selector: 'ds-submission-submit-form-collection',
@@ -53,14 +54,14 @@ export class SubmissionSubmitFormCollectionComponent implements OnInit {
     this.selectedCollectionId = this.currentCollectionId;
     // @TODO replace with search/top browse endpoint
     // @TODO implement community/subcommunity hierarchy
-    this.subs.push(this.communityDataService.findAll().payload
-      .subscribe((communities: Community[]) => {
+    this.subs.push(this.communityDataService.findAll()
+      .subscribe((communities: RemoteData<Community[]>) => {
         const collectionsList = [];
-        communities.forEach((communityData) => {
-          this.subs.push(communityData.collections.payload
-            .subscribe((collections: Collection[]) => {
+        communities.payload.forEach((communityData) => {
+          this.subs.push(communityData.collections
+            .subscribe((collections: RemoteData<Collection[]>) => {
               // @TODO checks why collections are subscribed twice
-              collections.forEach((collectionData: Collection) => {
+              collections.payload.forEach((collectionData: Collection) => {
                 if (collectionData.id === this.selectedCollectionId) {
                   this.selectedCollectionName = collectionData.name;
                 }

@@ -15,6 +15,7 @@ import { SubmissionSectionsConfigService } from '../../core/config/submission-se
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import { InitSubmissionFormAction, NewSubmissionFormAction } from '../objects/submission-objects.actions';
+import { ConfigData } from '../../core/config/config-data';
 
 @Injectable()
 export class SubmissionDefinitionEffects {
@@ -23,21 +24,18 @@ export class SubmissionDefinitionEffects {
     .ofType(SubmissionDefinitionActionTypes.INIT_DEFAULT_DEFINITION)
     .switchMap((action: InitDefaultDefinitionAction) => {
       return this.definitionsConfigService.getConfigBySearch({scopeID: action.payload.collectionId})
-        .flatMap((definitions: SubmissionDefinitionsModel[]) => definitions)
+        .flatMap((definitions: ConfigData) => definitions.payload)
         .filter((definition: SubmissionDefinitionsModel) => definition.isDefault)
         .map((definition: SubmissionDefinitionsModel) => {
-          return this.sectionsConfigService.getConfigByHref(definition.sections)
-            .map((sections) => {
-              const mappedActions = [];
-              mappedActions.push(new NewDefinitionAction(definition));
-              sections.forEach((section) => {
-                mappedActions.push(new NewSectionDefinitionAction(definition.name, section._links.self.substr(section._links.self.lastIndexOf('/') + 1), section as SubmissionSectionModel))
-              });
-              return {action: action, definition: definition, mappedActions: mappedActions};
-            })
+          const mappedActions = [];
+          mappedActions.push(new NewDefinitionAction(definition));
+          definition.sections.forEach((section) => {
+            mappedActions.push(new NewSectionDefinitionAction(definition.name, section._links.self.substr(section._links.self.lastIndexOf('/') + 1), section as SubmissionSectionModel))
+          });
+          return {action: action, definition: definition, mappedActions: mappedActions};
         })
     })
-    .flatMap((result) => result)
+    // .flatMap((result) => result)
     .mergeMap((result) => {
       return Observable.from(
         result.mappedActions.concat(

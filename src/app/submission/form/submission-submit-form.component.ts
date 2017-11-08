@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
 
 import { SectionHostDirective } from '../section/section-host.directive';
@@ -10,7 +10,8 @@ import { isEmpty, isUndefined } from '../../shared/empty.util';
 @Component({
   selector: 'ds-submission-submit-form',
   styleUrls: ['./submission-submit-form.component.scss'],
-  templateUrl: './submission-submit-form.component.html'
+  templateUrl: './submission-submit-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class SubmissionSubmitFormComponent implements OnInit {
