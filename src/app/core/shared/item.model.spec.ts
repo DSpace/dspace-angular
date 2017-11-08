@@ -103,23 +103,15 @@ describe('Item', () => {
 });
 
 function createRemoteDataObject(object: any) {
-  const self = Observable.of('');
-  const requestPending = Observable.of(false);
-  const responsePending = Observable.of(false);
-  const isSuccessful = Observable.of(true);
-  const errorMessage = Observable.of(undefined);
-  const statusCode = Observable.of('200');
-  const pageInfo = Observable.of(new PageInfo());
-  const payload = Observable.of(object);
-  return new RemoteData(
-    self,
-    requestPending,
-    responsePending,
-    isSuccessful,
-    errorMessage,
-    statusCode,
-    pageInfo,
-    payload
-  );
+  return Observable.of(new RemoteData(
+    '',
+    false,
+    false,
+    true,
+    undefined,
+    '200',
+    new PageInfo(),
+    object
+  ));
 
 }

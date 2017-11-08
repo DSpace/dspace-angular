@@ -9,141 +9,87 @@ export const MockItem: Item = Object.assign(new Item(), {
   isArchived: true,
   isDiscoverable: true,
   isWithdrawn: false,
-  bitstreams: {
-    self: {
-      _isScalar: true,
-      value: '1507836003548',
-      scheduler: null
-    },
-    requestPending: Observable.create((observer) => {
-      observer.next(false);
-    }),
-    responsePending: Observable.create((observer) => {
-      observer.next(false);
-    }),
-    isSuccessFul: Observable.create((observer) => {
-      observer.next(true);
-    }),
-    errorMessage: Observable.create((observer) => {
-      observer.next('');
-    }),
-    statusCode: Observable.create((observer) => {
-      observer.next(202);
-    }),
-    pageInfo: Observable.create((observer) => {
-      observer.next({});
-    }),
-    payload: Observable.create((observer) => {
-      observer.next([
-        {
-          sizeBytes: 10201,
-          content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-          format: {
-            self: {
-              _isScalar: true,
-              value: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10',
-              scheduler: null
-            },
-            requestPending: Observable.create((observer) => {
-              observer.next(false);
-            }),
-            responsePending: Observable.create((observer) => {
-              observer.next(false);
-            }),
-            isSuccessFul: Observable.create((observer) => {
-              observer.next(true);
-            }),
-            errorMessage: Observable.create((observer) => {
-              observer.next('');
-            }),
-            statusCode: Observable.create((observer) => {
-              observer.next(202);
-            }),
-            pageInfo: Observable.create((observer) => {
-              observer.next({});
-            }),
-            payload: Observable.create((observer) => {
-              observer.next({
-                shortDescription: 'Microsoft Word XML',
-                description: 'Microsoft Word XML',
-                mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                supportLevel: 0,
-                internal: false,
-                extensions: null,
-                self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
-              });
-            })
-          },
-          bundleName: 'ORIGINAL',
-          self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
-          id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
-          uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
-          type: 'bitstream',
-          name: 'test_word.docx',
-          metadata: [
-            {
-              key: 'dc.title',
-              language: null,
-              value: 'test_word.docx'
-            }
-          ]
-        },
-        {
-          sizeBytes: 31302,
-          content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content',
-          format: {
-            self: {
-              _isScalar: true,
-              value: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4',
-              scheduler: null
-            },
-            requestPending: Observable.create((observer) => {
-              observer.next(false);
-            }),
-            responsePending: Observable.create((observer) => {
-              observer.next(false);
-            }),
-            isSuccessFul: Observable.create((observer) => {
-              observer.next(true);
-            }),
-            errorMessage: Observable.create((observer) => {
-              observer.next('');
-            }),
-            statusCode: Observable.create((observer) => {
-              observer.next(202);
-            }),
-            pageInfo: Observable.create((observer) => {
-              observer.next({});
-            }),
-            payload: Observable.create((observer) => {
-              observer.next({
-                shortDescription: 'Adobe PDF',
-                description: 'Adobe Portable Document Format',
-                mimetype: 'application/pdf',
-                supportLevel: 0,
-                internal: false,
-                extensions: null,
-                self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
-              });
-            })
-          },
-          bundleName: 'ORIGINAL',
-          self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28',
-          id: '99b00f3c-1cc6-4689-8158-91965bee6b28',
-          uuid: '99b00f3c-1cc6-4689-8158-91965bee6b28',
-          type: 'bitstream',
-          name: 'test_pdf.pdf',
-          metadata: [
-            {
-              key: 'dc.title',
-              language: null,
-              value: 'test_pdf.pdf'
-            }
-          ]
-        }
-      ]);
-    })
-  },
+  bitstreams: Observable.of({
+    self: 'dspace-angular://aggregated/object/1507836003548',
+    requestPending: false,
+    responsePending: false,
+    isSuccessFul: true,
+    errorMessage: '',
+    statusCode: '202',
+    pageInfo: {},
+    payload: [
+      {
+        sizeBytes: 10201,
+        content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
+        format: Observable.of({
+          self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10',
+          requestPending: false,
+          responsePending: false,
+          isSuccessFul: true,
+          errorMessage: '',
+          statusCode: '202',
+          pageInfo: {},
+          payload: {
+            shortDescription: 'Microsoft Word XML',
+            description: 'Microsoft Word XML',
+            mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            supportLevel: 0,
+            internal: false,
+            extensions: null,
+            self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
+          }
+        }),
+        bundleName: 'ORIGINAL',
+        self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
+        id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
+        uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
+        type: 'bitstream',
+        name: 'test_word.docx',
+        metadata: [
+          {
+            key: 'dc.title',
+            language: null,
+            value: 'test_word.docx'
+          }
+        ]
+      },
+      {
+        sizeBytes: 31302,
+        content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content',
+        format: Observable.of({
+          self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4',
+          requestPending: false,
+          responsePending: false,
+          isSuccessFul: true,
+          errorMessage: '',
+          statusCode: '202',
+          pageInfo: {},
+          payload: {
+            shortDescription: 'Adobe PDF',
+            description: 'Adobe Portable Document Format',
+            mimetype: 'application/pdf',
+            supportLevel: 0,
+            internal: false,
+            extensions: null,
+            self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
+          }
+        }),
+        bundleName: 'ORIGINAL',
+        self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28',
+        id: '99b00f3c-1cc6-4689-8158-91965bee6b28',
+        uuid: '99b00f3c-1cc6-4689-8158-91965bee6b28',
+        type: 'bitstream',
+        name: 'test_pdf.pdf',
+        metadata: [
+          {
+            key: 'dc.title',
+            language: null,
+            value: 'test_pdf.pdf'
+          }
+        ]
+      }
+    ]
+  }),
   self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   id: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   uuid: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
@@ -241,33 +187,15 @@ export const MockItem: Item = Object.assign(new Item(), {
       value: 'text'
     }
   ],
-  owningCollection: {
-    self: {
-      _isScalar: true,
-      value: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
-      scheduler: null
-    },
-    requestPending: Observable.create((observer) => {
-      observer.next(false);
-    }),
-    responsePending: Observable.create((observer) => {
-      observer.next(false);
-    }),
-    isSuccessFul: Observable.create((observer) => {
-      observer.next(true);
-    }),
-    errorMessage: Observable.create((observer) => {
-      observer.next('');
-    }),
-    statusCode: Observable.create((observer) => {
-      observer.next(202);
-    }),
-    pageInfo: Observable.create((observer) => {
-      observer.next({});
-    }),
-    payload: Observable.create((observer) => {
-      observer.next([]);
-    })
-  }
-})
+  owningCollection: Observable.of({
+      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
+      requestPending: false,
+      responsePending: false,
+      isSuccessFul: true,
+      errorMessage: '',
+      statusCode: '202',
+      pageInfo: {},
+      payload: []
+    }
+  )});
 /* tslint:enable:no-shadowed-variable */

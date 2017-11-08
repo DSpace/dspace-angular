@@ -1,7 +1,11 @@
-<h2 *ngIf="(searchResults.payload | async)?.length > 0">{{ 'search.results.head' | translate }}</h2>
-<ds-object-list
-  [config]="searchConfig.pagination"
-  [sortConfig]="searchConfig.sort"
-  [objects]="searchResults"
-  [hideGear]="false">
-</ds-object-list>
+<div *ngIf="searchResults?.hasSucceeded" @fadeIn>
+  <h2 *ngIf="searchResults?.payload?.length > 0">{{ 'search.results.head' | translate }}</h2>
+  <ds-object-list
+    [config]="searchConfig.pagination"
+    [sortConfig]="searchConfig.sort"
+    [objects]="searchResults"
+    [hideGear]="false">
+  </ds-object-list>
+</div>
+<ds-loading *ngIf="searchResults?.isLoading" message="{{'loading.search-results' | translate}}"></ds-loading>
+<ds-error *ngIf="searchResults?.hasFailed" message="{{'error.search-results' | translate}}"></ds-error>

@@ -25,6 +25,8 @@ import { Item } from '../shared/item.model';
 import { Metadatum } from '../shared/metadatum.model';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { hasValue } from '../../shared/empty.util';
 
 @Injectable()
 export class MetadataService {
@@ -64,13 +66,16 @@ export class MetadataService {
       });
   }
 
-  public processRemoteData(remoteData: RemoteData<CacheableObject>): void {
-    remoteData.payload.take(1).subscribe((dspaceObject: DSpaceObject) => {
-      if (!this.initialized) {
-        this.initialize(dspaceObject);
-      }
-      this.currentObject.next(dspaceObject);
-    });
+  public processRemoteData(remoteData: Observable<RemoteData<CacheableObject>>): void {
+    remoteData.map((rd: RemoteData<CacheableObject>) => rd.payload)
+      .filter((co: CacheableObject) => hasValue(co))
+      .take(1)
+      .subscribe((dspaceObject: DSpaceObject) => {
+        if (!this.initialized) {
+          this.initialize(dspaceObject);
+        }
+        this.currentObject.next(dspaceObject);
+      });
   }
 
   private processRouteChange(routeInfo: any): void {
@@ -268,11 +273,14 @@ export class MetadataService {
       // taking only two, fist one is empty array
       item.getFiles().take(2).subscribe((bitstreams: Bitstream[]) => {
         for (const bitstream of bitstreams) {
-          bitstream.format.payload.take(1).subscribe((format) => {
-            if (format.mimetype === 'application/pdf') {
-              this.addMetaTag('citation_pdf_url', bitstream.content);
-            }
-          });
+          bitstream.format.take(1)
+            .map((rd: RemoteData<BitstreamFormat>) => rd.payload)
+            .filter((format: BitstreamFormat) => hasValue(format))
+            .subscribe((format: BitstreamFormat) => {
+              if (format.mimetype === 'application/pdf') {
+                this.addMetaTag('citation_pdf_url', bitstream.content);
+              }
+            });
         }
       });
     }

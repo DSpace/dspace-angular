@@ -20,7 +20,7 @@ export class SearchFormComponent {
   selectedId = '';
   // Optional existing search parameters
   @Input() currentParams: {};
-  @Input() scopes: Observable<DSpaceObject[]>;
+  @Input() scopes: DSpaceObject[];
 
   @Input()
   set scope(dso: DSpaceObject) {

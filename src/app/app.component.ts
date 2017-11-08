@@ -1,29 +1,29 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  HostListener,
   Inject,
-  ViewEncapsulation,
   OnInit,
-  HostListener
+  ViewEncapsulation
 } from '@angular/core';
-
-import { TranslateService } from '@ngx-translate/core';
 
 import { Store } from '@ngrx/store';
 
-import { TransferState } from '../modules/transfer-state/transfer-state';
-import { HostWindowState } from './shared/host-window.reducer';
-import { HostWindowResizeAction } from './shared/host-window.actions';
-import { NativeWindowRef, NativeWindowService } from './shared/window.service';
-import { MetadataService } from './core/metadata/metadata.service';
+import { TranslateService } from '@ngx-translate/core';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../config';
+
+import { TransferState } from '../modules/transfer-state/transfer-state';
+import { MetadataService } from './core/metadata/metadata.service';
+import { HostWindowResizeAction } from './shared/host-window.actions';
+import { HostWindowState } from './shared/host-window.reducer';
+import { NativeWindowRef, NativeWindowService } from './shared/window.service';
 
 @Component({
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {

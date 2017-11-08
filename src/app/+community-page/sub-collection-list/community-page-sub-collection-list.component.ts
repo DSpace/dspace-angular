@@ -5,6 +5,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
 
 import { fadeIn } from '../../shared/animations/fade';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-community-page-sub-collection-list',
@@ -13,13 +14,13 @@ import { fadeIn } from '../../shared/animations/fade';
   animations:[fadeIn]
 })
 export class CommunityPageSubCollectionListComponent implements OnInit {
-  subCollections: RemoteData<Collection[]>;
+  subCollectionsRDObs: Observable<RemoteData<Collection[]>>;
 
   constructor(private cds: CollectionDataService) {
 
   }
 
   ngOnInit(): void {
-    this.subCollections = this.cds.findAll();
+    this.subCollectionsRDObs = this.cds.findAll();
   }
 }
