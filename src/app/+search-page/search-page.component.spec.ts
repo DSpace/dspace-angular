@@ -28,8 +28,14 @@ describe('SearchPageComponent', () => {
     /* tslint:enable:no-empty */
     select: Observable.of(true)
   });
+  const pagination: PaginationComponentOptions = new PaginationComponentOptions();
+  pagination.id = 'search-results-pagination';
+  pagination.currentPage = 1;
+  pagination.pageSize = 10;
+  const sort: SortOptions = new SortOptions();
   const mockResults = Observable.of(['test', 'data']);
   const searchServiceStub = {
+    searchOptions:{ pagination: pagination, sort: sort },
     search: () => mockResults
   };
   const queryParam = 'test query';

@@ -1,5 +1,5 @@
 <h3>{{ 'search.sidebar.settings.title' | translate}}</h3>
-<div *ngIf="[searchOptions].sort">
+<div *ngIf="[searchOptions].sort" class="result-order-settings">
   <h4>{{ 'search.sidebar.settings.sort-by' | translate}}</h4>
     <div class="form-group">
       <select class="form-control" (change)="reloadOrder($event)">
@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div *ngIf="searchOptions.pagination.pageSize">
+<div *ngIf="searchOptions.pagination.pageSize" class="page-size-settings">
   <h4>{{ 'search.sidebar.settings.rpp' | translate}}</h4>
 
     <div class="form-group">

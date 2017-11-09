@@ -17,7 +17,7 @@ import { ViewMode } from '../../+search-page/search-options.model';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { RouteService } from '../../shared/route.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortOptions } from 'src/app/core/cache/models/sort-options.model';
+import { SortOptions } from '../../core/cache/models/sort-options.model';
 
 function shuffle(array: any[]) {
   let i = 0;
