@@ -99,9 +99,9 @@ export class RemoteDataBuildService {
           if (hasValue((resEntry.response as DSOSuccessResponse).pageInfo)) {
             const resPageInfo = (resEntry.response as DSOSuccessResponse).pageInfo;
             if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
-              pageInfo = Object.assign({}, resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
+              pageInfo = Object.assign(new PageInfo(), resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
             } else {
-              pageInfo = resPageInfo;
+              pageInfo = Object.assign(new PageInfo(), resPageInfo);
             }
           }
         }
@@ -143,7 +143,6 @@ export class RemoteDataBuildService {
             });
           });
       })
-      .startWith([])
       .distinctUntilChanged();
 
     return this.toRemoteDataObservable(hrefObs, requestObs, responseCacheObs, payloadObs);

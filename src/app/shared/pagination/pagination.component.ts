@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -11,17 +11,17 @@ import {
 
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Subscription } from 'rxjs/Subscription';
-import { isNumeric } from 'rxjs/util/isNumeric';
-
 import { Observable } from 'rxjs/Observable';
 
-import { HostWindowService } from '../host-window.service';
-import { HostWindowState } from '../host-window.reducer';
-import { PaginationComponentOptions } from './pagination-component-options.model';
+import { Subscription } from 'rxjs/Subscription';
+import { isNumeric } from 'rxjs/util/isNumeric';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { hasValue, isNotEmpty } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { hasValue, isNotEmpty } from '../empty.util';
+import { HostWindowState } from '../host-window.reducer';
+
+import { HostWindowService } from '../host-window.service';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 
 /**
  * The default pagination controls component.
@@ -35,6 +35,11 @@ import { PageInfo } from '../../core/shared/page-info.model';
   encapsulation: ViewEncapsulation.Emulated
 })
 export class PaginationComponent implements OnDestroy, OnInit {
+  /**
+   * Tracks when the component is initializing
+   */
+  private isInitializing: boolean;
+
   /**
    * Number of items in collection.
    */
@@ -161,12 +166,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Method provided by Angular. Invoked after the constructor.
    */
   ngOnInit() {
+    this.isInitializing = true;
     this.subs.push(this.hostWindowService.isXs()
       .subscribe((status: boolean) => {
         this.isXs = status;
-        this.cdRef.markForCheck();
       }));
-    this.checkConfig(this.paginationOptions);
     this.initializeConfig();
     // Listen to changes
     this.subs.push(this.route.queryParams
@@ -181,6 +185,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
           }
           this.setFields();
         }
+        this.isInitializing = false;
       }));
   }
 
@@ -202,10 +207,15 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   private initializeConfig() {
     // Set initial values
-    this.id = this.paginationOptions.id || null;
-    this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
-    this.currentPage = this.paginationOptions.currentPage;
-    this.pageSize = this.paginationOptions.pageSize;
+    const merged = Object.assign({}, {
+      currentPage: 1,
+      pageSizeOptions: [5, 10, 20, 40, 60, 80, 100],
+      pageSize: 10
+    }, this.paginationOptions);
+    this.id = merged.id;
+    this.pageSizeOptions = merged.pageSizeOptions;
+    this.currentPage = merged.currentPage;
+    this.pageSize = merged.pageSize;
     this.sortDirection = this.sortOptions.direction;
     this.sortField = this.sortOptions.field;
     this.currentQueryParams = {
@@ -223,8 +233,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * @param router
    *    Router is a singleton service provided by Angular.
    */
-  constructor(private cdRef: ChangeDetectorRef,
-              private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               private router: Router,
               public hostWindowService: HostWindowService) {
   }
@@ -277,8 +286,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setPage(page: number) {
     this.currentPage = page;
-    this.pageChange.emit(page);
-    this.emitPaginationChange();
+    if (!this.isInitializing) {
+      this.pageChange.emit(page);
+      this.emitPaginationChange();
+    }
   }
 
   /**
@@ -289,8 +300,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setPageSize(pageSize: number) {
     this.pageSize = pageSize;
-    this.pageSizeChange.emit(pageSize);
-    this.emitPaginationChange();
+    if (!this.isInitializing) {
+      this.pageSizeChange.emit(pageSize);
+      this.emitPaginationChange();
+    }
   }
 
   /**
@@ -301,8 +314,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setSortDirection(sortDirection: SortDirection) {
     this.sortDirection = sortDirection;
-    this.sortDirectionChange.emit(sortDirection);
-    this.emitPaginationChange();
+    if (!this.isInitializing) {
+      this.sortDirectionChange.emit(sortDirection);
+      this.emitPaginationChange();
+    }
   }
 
   /**
@@ -313,8 +328,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   public setSortField(field: string) {
     this.sortField = field;
-    this.sortFieldChange.emit(field);
-    this.emitPaginationChange();
+    if (!this.isInitializing) {
+      this.sortFieldChange.emit(field);
+      this.emitPaginationChange();
+    }
   }
 
   /**
@@ -398,15 +415,14 @@ export class PaginationComponent implements OnDestroy, OnInit {
     }
 
     const sortDirection = this.currentQueryParams.sortDirection;
-    if (this.sortDirection !== +sortDirection) {
-      this.setSortDirection(+sortDirection);
+    if (this.sortDirection !== sortDirection) {
+      this.setSortDirection(sortDirection);
     }
 
     const sortField = this.currentQueryParams.sortField;
     if (this.sortField !== sortField) {
       this.setSortField(sortField);
     }
-    this.cdRef.detectChanges();
   }
 
   /**
@@ -438,22 +454,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
       result = +pageSize;
     }
     return result;
-  }
-
-  /**
-   * Method to ensure options passed contains the required properties.
-   *
-   * @param paginateOptions
-   *    The paginate options object.
-   */
-  private checkConfig(paginateOptions: any) {
-    const required = ['id', 'currentPage', 'pageSize', 'pageSizeOptions'];
-    const missing = required.filter((prop) => {
-      return !(prop in paginateOptions);
-    });
-    if (0 < missing.length) {
-      throw new Error('Paginate: Argument is missing the following required properties: ' + missing.join(', '));
-    }
   }
 
   /**
