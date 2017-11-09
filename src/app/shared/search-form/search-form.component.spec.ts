@@ -8,6 +8,7 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
@@ -30,7 +31,7 @@ describe('SearchFormComponent', () => {
   });
 
   it('should display scopes when available with default and all scopes', () => {
-    comp.scopes = Observable.of(objects);
+    comp.scopes = objects;
     fixture.detectChanges();
     const select: HTMLElement = de.query(By.css('select')).nativeElement;
     expect(select).toBeDefined();
@@ -64,7 +65,7 @@ describe('SearchFormComponent', () => {
   }));
 
   it('should select correct scope option in scope select', fakeAsync(() => {
-    comp.scopes = Observable.of(objects);
+    comp.scopes = objects;
     fixture.detectChanges();
 
     const testCommunity = objects[1];
@@ -100,7 +101,7 @@ describe('SearchFormComponent', () => {
   // }));
 });
 
-export const objects = [
+export const objects: DSpaceObject[] = [
   Object.assign(new Community(), {
     handle: '10673/11',
     logo: {

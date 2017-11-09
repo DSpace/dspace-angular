@@ -1,4 +1,4 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, protractor } from 'protractor';
 import { promise } from 'selenium-webdriver';
 
 export class ProtractorPage {
@@ -17,7 +17,9 @@ export class ProtractorPage {
   }
 
   getCurrentScope(): promise.Promise<string> {
-    return element(by.tagName('select')).getAttribute('value');
+    const scopeSelect = element(by.tagName('select'));
+    browser.wait(protractor.ExpectedConditions.presenceOf(scopeSelect), 10000);
+    return scopeSelect.getAttribute('value');
   }
 
   getCurrentQuery(): promise.Promise<string> {

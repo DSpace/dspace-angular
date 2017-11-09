@@ -1,4 +1,4 @@
-import { animate, state, transition, trigger, style, keyframes } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 const fadeEnter =  transition(':enter', [
   style({ opacity: 0 }),

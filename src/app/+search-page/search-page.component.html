@@ -6,9 +6,9 @@
         <div id="search-header" class="row">
             <ds-search-form id="search-form" class="col-12 col-sm-9 ml-sm-auto"
                             [query]="query"
-                            [scope]="scopeObject?.payload | async"
+                            [scope]="(scopeObjectRDObs | async)?.payload"
                             [currentParams]="currentParams"
-                            [scopes]="scopeList?.payload">
+                            [scopes]="(scopeListRDObs | async)?.payload">
             </ds-search-form>
         </div>
         <div class="row">
@@ -28,11 +28,10 @@
                             | translate}}
                         </button>
                     </div>
-                    <ds-search-results [searchResults]="results"
+                    <ds-search-results [searchResults]="resultsRDObs | async"
                                        [searchConfig]="searchOptions"></ds-search-results>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

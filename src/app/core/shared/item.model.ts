@@ -4,7 +4,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 
 export class Item extends DSpaceObject {
 
@@ -36,18 +36,18 @@ export class Item extends DSpaceObject {
   /**
    * An array of Collections that are direct parents of this Item
    */
-  parents: RemoteData<Collection[]>;
+  parents: Observable<RemoteData<Collection[]>>;
 
   /**
    * The Collection that owns this Item
    */
-  owningCollection: RemoteData<Collection>;
+  owningCollection: Observable<RemoteData<Collection>>;
 
-  get owner(): RemoteData<Collection> {
+  get owner(): Observable<RemoteData<Collection>> {
     return this.owningCollection;
   }
 
-  bitstreams: RemoteData<Bitstream[]>;
+  bitstreams: Observable<RemoteData<Bitstream[]>>;
 
   /**
    * Retrieves the thumbnail of this item
@@ -87,9 +87,14 @@ export class Item extends DSpaceObject {
    * @returns {Observable<Bitstream[]>} the bitstreams with the given bundleName
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
-    return this.bitstreams.payload.startWith([])
+    return this.bitstreams
+      .map((rd: RemoteData<Bitstream[]>) => rd.payload)
+      .filter((bitstreams: Bitstream[]) => hasValue(bitstreams))
+      .startWith([])
       .map((bitstreams) => {
-        return bitstreams.filter((bitstream) => bitstream.bundleName === bundleName)
+        return bitstreams
+          .filter((bitstream) => hasValue(bitstream))
+          .filter((bitstream) => bitstream.bundleName === bundleName)
       });
   }
 

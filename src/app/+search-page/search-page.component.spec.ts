@@ -28,7 +28,7 @@ describe('SearchPageComponent', () => {
     /* tslint:enable:no-empty */
     select: Observable.of(true)
   });
-  const mockResults = ['test', 'data'];
+  const mockResults = Observable.of(['test', 'data']);
   const searchServiceStub = {
     search: () => mockResults
   };
@@ -48,8 +48,8 @@ describe('SearchPageComponent', () => {
 
   const mockCommunityList = [];
   const communityDataServiceStub = {
-    findAll: () => mockCommunityList,
-    findById: () => new Community()
+    findAll: () => Observable.of(mockCommunityList),
+    findById: () => Observable.of(new Community())
   };
 
   class RouterStub {
@@ -140,7 +140,7 @@ describe('SearchPageComponent', () => {
 
       (comp as any).updateSearchResults({});
 
-      expect(comp.results as any).toBe(mockResults);
+      expect(comp.resultsRDObs as any).toBe(mockResults);
     });
 
   });

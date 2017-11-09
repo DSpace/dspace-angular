@@ -1,43 +1,37 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-
-import { PageInfo } from '../core/shared/page-info.model';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
-import { Collection } from '../core/shared/collection.model';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { RemoteData } from '../core/data/remote-data';
+import { Subscription } from 'rxjs/Subscription';
+import { SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { ItemDataService } from '../core/data/item-data.service';
-import { Item } from '../core/shared/item.model';
-import { SortOptions, SortDirection } from '../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { hasValue, isNotEmpty, isUndefined } from '../shared/empty.util';
+import { RemoteData } from '../core/data/remote-data';
 
 import { MetadataService } from '../core/metadata/metadata.service';
+import { Bitstream } from '../core/shared/bitstream.model';
+
+import { Collection } from '../core/shared/collection.model';
+import { Item } from '../core/shared/item.model';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-collection-page',
   styleUrls: ['./collection-page.component.scss'],
   templateUrl: './collection-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
     fadeInOut
   ]
 })
 export class CollectionPageComponent implements OnInit, OnDestroy {
-  collectionData: RemoteData<Collection>;
-  itemData: RemoteData<Item[]>;
-  logoData: RemoteData<Bitstream>;
+  collectionRDObs: Observable<RemoteData<Collection>>;
+  itemRDObs: Observable<RemoteData<Item[]>>;
+  logoRDObs: Observable<RemoteData<Bitstream>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
   private subs: Subscription[] = [];
@@ -51,8 +45,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
-    this.paginationConfig.pageSizeOptions = [4];
-    this.paginationConfig.pageSize = 4;
+    this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
     this.sortConfig = new SortOptions();
   }
@@ -67,9 +60,12 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
         })
         .subscribe((params) => {
           this.collectionId = params.id;
-          this.collectionData = this.collectionDataService.findById(this.collectionId);
-          this.metadata.processRemoteData(this.collectionData);
-          this.subs.push(this.collectionData.payload.subscribe((collection) => this.logoData = collection.logo));
+          this.collectionRDObs = this.collectionDataService.findById(this.collectionId);
+          this.metadata.processRemoteData(this.collectionRDObs);
+          this.subs.push(this.collectionRDObs
+            .map((rd: RemoteData<Collection>) => rd.payload)
+            .filter((collection: Collection) => hasValue(collection))
+            .subscribe((collection: Collection) => this.logoRDObs = collection.logo));
 
           const page = +params.page || this.paginationConfig.currentPage;
           const pageSize = +params.pageSize || this.paginationConfig.pageSize;
@@ -91,7 +87,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   updatePage(searchOptions) {
-    this.itemData = this.itemDataService.findAll({
+    this.itemRDObs = this.itemDataService.findAll({
       scopeID: this.collectionId,
       currentPage: searchOptions.pagination.currentPage,
       elementsPerPage: searchOptions.pagination.pageSize,
@@ -105,5 +101,18 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
 
   isNotEmpty(object: any) {
     return isNotEmpty(object);
+  }
+
+  onPaginationChange(event) {
+    this.updatePage({
+      pagination: {
+        currentPage: event.page,
+        pageSize: event.pageSize
+      },
+      sort: {
+        field: event.sortField,
+        direction: event.sortDirection
+      }
+    })
   }
 }

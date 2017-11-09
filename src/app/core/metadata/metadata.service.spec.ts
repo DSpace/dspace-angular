@@ -30,6 +30,8 @@ import { Item } from '../../core/shared/item.model';
 
 import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
+import { BrowseService } from '../browse/browse.service';
+import { PageInfo } from '../shared/page-info.model';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -111,6 +113,7 @@ describe('MetadataService', () => {
         Meta,
         Title,
         ItemDataService,
+        BrowseService,
         MetadataService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -173,33 +176,17 @@ describe('MetadataService', () => {
     expect(tagStore.get('description')[0].content).toEqual('This is a dummy item component for testing!');
   }));
 
-  const mockRemoteData = (mockItem: Item): RemoteData<Item> => {
-    return new RemoteData<Item>(
-      Observable.create((observer) => {
-        observer.next('');
-      }),
-      Observable.create((observer) => {
-        observer.next(false);
-      }),
-      Observable.create((observer) => {
-        observer.next(false);
-      }),
-      Observable.create((observer) => {
-        observer.next(true);
-      }),
-      Observable.create((observer) => {
-        observer.next('');
-      }),
-      Observable.create((observer) => {
-        observer.next(200);
-      }),
-      Observable.create((observer) => {
-        observer.next({});
-      }),
-      Observable.create((observer) => {
-        observer.next(MockItem);
-      })
-    );
+  const mockRemoteData = (mockItem: Item): Observable<RemoteData<Item>> => {
+    return Observable.of(new RemoteData<Item>(
+      '',
+      false,
+      false,
+      true,
+      '',
+      '200',
+      {} as PageInfo,
+      MockItem
+    ));
   }
 
   const mockType = (mockItem: Item, type: string): Item => {

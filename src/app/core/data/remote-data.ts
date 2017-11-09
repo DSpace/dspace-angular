@@ -1,12 +1,11 @@
-import { Observable } from 'rxjs/Observable';
-
 import { PageInfo } from '../shared/page-info.model';
+import { hasValue } from '../../shared/empty.util';
 
 export enum RemoteDataState {
-  RequestPending = 'RequestPending' as any,
-  ResponsePending = 'ResponsePending' as any,
-  Failed = 'Failed' as any,
-  Success = 'Success' as any
+  RequestPending = 'RequestPending',
+  ResponsePending = 'ResponsePending',
+  Failed = 'Failed',
+  Success = 'Success'
 }
 
 /**
@@ -14,57 +13,48 @@ export enum RemoteDataState {
  */
 export class RemoteData<T> {
   constructor(
-    public self: Observable<string>,
-    private requestPending: Observable<boolean>,
-    private responsePending: Observable<boolean>,
-    private isSuccessFul: Observable<boolean>,
-    public errorMessage: Observable<string>,
-    public statusCode: Observable<string>,
-    public pageInfo: Observable<PageInfo>,
-    public payload: Observable<T>
+    public self: string,
+    private requestPending: boolean,
+    private responsePending: boolean,
+    private isSuccessFul: boolean,
+    public errorMessage: string,
+    public statusCode: string,
+    public pageInfo: PageInfo,
+    public payload: T
   ) {
   }
 
-  get state(): Observable<RemoteDataState> {
-    return Observable.combineLatest(
-      this.requestPending,
-      this.responsePending,
-      this.isSuccessFul,
-      (requestPending, responsePending, isSuccessFul) => {
-        if (requestPending) {
-          return RemoteDataState.RequestPending
-        } else if (responsePending) {
-          return RemoteDataState.ResponsePending
-        } else if (!isSuccessFul) {
-          return RemoteDataState.Failed
-        } else {
-          return RemoteDataState.Success
-        }
-      }
-    ).distinctUntilChanged();
+  get state(): RemoteDataState {
+    if (this.isSuccessFul === true && hasValue(this.payload)) {
+      return RemoteDataState.Success
+    } else if (this.isSuccessFul === false) {
+      return RemoteDataState.Failed
+    } else if (this.requestPending === true) {
+      return RemoteDataState.RequestPending
+    } else {
+      return RemoteDataState.ResponsePending
+    }
   }
 
-  get isRequestPending(): Observable<boolean> {
-    return this.state.map((state) => state === RemoteDataState.RequestPending).distinctUntilChanged();
+  get isRequestPending(): boolean {
+    return this.state === RemoteDataState.RequestPending;
   }
 
-  get isResponsePending(): Observable<boolean> {
-    return this.state.map((state) => state === RemoteDataState.ResponsePending).distinctUntilChanged();
+  get isResponsePending(): boolean {
+    return this.state === RemoteDataState.ResponsePending;
   }
 
-  get isLoading(): Observable<boolean> {
-    return this.state.map((state) => {
-      return state === RemoteDataState.RequestPending
-        || state === RemoteDataState.ResponsePending
-    }).distinctUntilChanged();
+  get isLoading(): boolean {
+    return this.state === RemoteDataState.RequestPending
+      || this.state === RemoteDataState.ResponsePending;
   }
 
-  get hasFailed(): Observable<boolean> {
-    return this.state.map((state) => state === RemoteDataState.Failed).distinctUntilChanged();
+  get hasFailed(): boolean {
+    return this.state === RemoteDataState.Failed;
   }
 
-  get hasSucceeded(): Observable<boolean> {
-    return this.state.map((state) => state === RemoteDataState.Success).distinctUntilChanged();
+  get hasSucceeded(): boolean {
+    return this.state === RemoteDataState.Success;
   }
 
 }
