@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -85,6 +85,8 @@ describe('SearchPageComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(SearchPageComponent, {
+      set: {  changeDetection: ChangeDetectionStrategy.Default  }
     }).compileComponents();
   }));
 
@@ -197,10 +199,10 @@ describe('SearchPageComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should open the menu', () => {
+    it('should open the menu', async(() => {
       sidebarService.isCollapsed.subscribe((a) => {console.log(a)})
       expect(menu.classList).toContain('active');
-    });
+    }));
 
   });
 });

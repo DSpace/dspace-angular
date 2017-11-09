@@ -68,9 +68,6 @@ const COMPONENTS = [
   ViewModeSwitchComponent
 ];
 
-const DIRECTIVES = [
-  ScrollAndStickDirective,
-];
 
 const ENTRY_COMPONENTS = [
   // put shared entry components (components that are created dynamically) here
@@ -81,7 +78,8 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DIRECTIVES = [
-  VarDirective
+  VarDirective,
+  ScrollAndStickDirective,
 ];
 
 @NgModule({
