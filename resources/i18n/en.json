@@ -85,7 +85,15 @@
     "sidebar": {
       "close": "Back to results",
       "open": "Search Tools",
-      "results": "results"
+      "results": "results",
+      "filters":{
+        "title":"Filters"
+      },
+      "settings":{
+        "title":"Settings",
+        "sort-by":"Sort By",
+        "rpp":"Results per page"
+      }
     },
     "view-switch": {
       "show-list": "Show as list",

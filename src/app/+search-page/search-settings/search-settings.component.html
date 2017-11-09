@@ -1,0 +1,25 @@
+<h3>{{ 'search.sidebar.settings.title' | translate}}</h3>
+<div *ngIf="[searchOptions].sort">
+  <h4>{{ 'search.sidebar.settings.sort-by' | translate}}</h4>
+    <div class="form-group">
+      <select class="form-control" (change)="reloadOrder($event)">
+        <option *ngFor="let direction of (sortDirections | dsKeys); let currentElementIndex = index" [value]="currentElementIndex"
+                [selected]="direction === searchOptions.sort? 'selected': null">
+          {{direction.value}}
+        </option>
+      </select>
+    </div>
+</div>
+
+<div *ngIf="searchOptions.pagination.pageSize">
+  <h4>{{ 'search.sidebar.settings.rpp' | translate}}</h4>
+
+    <div class="form-group">
+      <select class="form-control" (change)="reloadRPP($event)">
+        <option *ngFor="let item of searchOptions.pagination.pageSizeOptions" [value]="item"
+                [selected]="item === searchOptions.pagination.pageSize ? 'selected': null">
+          {{item}}
+        </option>
+      </select>
+    </div>
+</div>

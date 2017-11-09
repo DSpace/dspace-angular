@@ -14,8 +14,10 @@ import { SearchFilterConfig } from './search-filter-config.model';
 import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { Router, NavigationExtras, ActivatedRoute, Params } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { RouteService } from '../../shared/route.service';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortOptions } from 'src/app/core/cache/models/sort-options.model';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -80,15 +82,25 @@ export class SearchService implements OnDestroy {
         isOpenByDefault: false
       })
   ];
+  // searchOptions: BehaviorSubject<SearchOptions>;
+  searchOptions: SearchOptions;
 
   constructor(private itemDataService: ItemDataService,
               private routeService: RouteService,
               private route: ActivatedRoute,
               private router: Router) {
 
+    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
+    pagination.id = 'search-results-pagination';
+    pagination.currentPage = 1;
+    pagination.pageSize = 10;
+    const sort: SortOptions = new SortOptions();
+    this.searchOptions = { pagination: pagination, sort: sort };
+    // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
+    this.searchOptions = this.searchOptions;
     let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}`;
     if (hasValue(scopeId)) {
       self += `&scope=${scopeId}`;

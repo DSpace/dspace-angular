@@ -1,15 +1,19 @@
 <div class="container">
     <div class="search-page row">
-        <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-sm-sticky"
+      <div class="col-3">
+        <ds-search-sidebar *ngIf="!(isMobileView | async)" class="sidebar-sm-sticky"
                            id="search-sidebar"
                            [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"></ds-search-sidebar>
-        <div class="col-12 col-sm-9">
+        </div>
+        <div class="col-9">
+          <div id="search-header" class="row">
             <ds-search-form id="search-form"
                             [query]="query"
                             [scope]="(scopeObjectRDObs | async)?.payload"
                             [currentParams]="currentParams"
                             [scopes]="(scopeListRDObs | async)?.payload">
             </ds-search-form>
+        </div>
             <div class="row">
                 <div id="search-body"
                      class="row-offcanvas row-offcanvas-left"
@@ -36,5 +40,6 @@
             </div>
         </div>
     </div>
+  </div>
 </div>
 
