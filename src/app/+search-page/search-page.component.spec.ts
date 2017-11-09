@@ -199,10 +199,10 @@ describe('SearchPageComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should open the menu', async(() => {
+    it('should open the menu', () => {
       sidebarService.isCollapsed.subscribe((a) => {console.log(a)})
       expect(menu.classList).toContain('active');
-    }));
+    });
 
   });
 });
