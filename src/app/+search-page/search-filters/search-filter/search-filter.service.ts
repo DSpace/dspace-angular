@@ -10,7 +10,7 @@ import {
   SearchFilterToggleAction
 } from './search-filter.actions';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -21,55 +21,49 @@ import { SearchService } from '../../search-service/search.service';
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 @Injectable()
-export class SearchFilterService implements OnDestroy {
-  private sub;
+export class SearchFilterService {
 
   constructor(private store: Store<SearchFiltersState>,
               private route: ActivatedRoute,
-              private router: Router,
               private searchService: SearchService) {
+    this.route.queryParams.subscribe((params) => {
+      console.log(params);
+    })
   }
 
-  isFilterActive(filterName: string, filterValue: string): boolean {
-    let filterConfig: SearchFilterConfig;
-    this.sub = this.searchService.getConfig().payload
-      .subscribe((configuration) => filterConfig = configuration
-        .find((config: SearchFilterConfig) => config.name === filterName));
-    return isNotEmpty(this.route.snapshot.queryParams[filterConfig.paramName]) && [...this.route.snapshot.queryParams[filterConfig.paramName]].indexOf(filterValue, 0) > -1;
+  isFilterActive(paramName: string, filterValue: string): Observable<boolean> {
+    return this.route.queryParamMap.map((map) => map.getAll(paramName).indexOf(filterValue) > -1 );
   }
 
-  switchFilterInURL(filterConfig: SearchFilterConfig, value: string) {
-    console.log(this.route.snapshot.queryParams);
-    if (this.isFilterActive(filterConfig.name, value)) {
-      return this.removeQueryParameter(filterConfig.paramName, value);
-    } else {
-      return this.addQueryParameter(filterConfig.paramName, value);
-    }
-  }
-
-  addQueryParameter(paramName: string, value: string): Params {
-    const currentParams = this.route.snapshot.queryParams;
-    const newParam = {};
-    if ((currentParams[paramName])) {
-      newParam[paramName] = [...currentParams[paramName], value];
-    } else {
-      newParam[paramName] = [value];
-    }
-    return Object.assign({}, currentParams, newParam);
-  }
-
-  removeQueryParameter(paramName: string, value: string): Params {
-    const currentParams = this.route.snapshot.queryParams;
-    const newParam = {};
-    let currentFilterParams = [...currentParams[paramName]];
-    if (isNotEmpty(currentFilterParams)) {
-      const index = currentFilterParams.indexOf(value, 0);
-      if (index > -1) {
-        currentFilterParams = currentFilterParams.splice(index, 1);
+  getFilterValueURL(filterConfig: SearchFilterConfig, value: string): Observable<Params> {
+    return this.isFilterActive(filterConfig.paramName, value).flatMap((isActive) => {
+      if (isActive) {
+        return this.removeQueryParameter(filterConfig.paramName, value);
+      } else {
+        return this.addQueryParameter(filterConfig.paramName, value);
       }
-      newParam[paramName] = currentFilterParams;
-    }
-    return Object.assign({}, currentParams, newParam);
+    })
+  }
+
+  addQueryParameter(paramName: string, value: string): Observable<Params> {
+    return this.route.queryParams.map((currentParams) => {
+      const newParam = {};
+      newParam[paramName] = [...convertToParamMap(currentParams).getAll(paramName), value];
+      return Object.assign({}, currentParams, newParam);
+    });
+  }
+
+  removeQueryParameter(paramName: string, value: string): Observable<Params> {
+    return this.route.queryParams.map((currentParams) => {
+      const newParam = {};
+      const currentFilterParams = convertToParamMap(currentParams).getAll(paramName);
+      if (isNotEmpty(currentFilterParams)) {
+        newParam[paramName] = currentFilterParams.filter((param) => (param !== value));
+      }
+      console.log(Object.assign({}, currentParams, newParam));
+      return Object.assign({}, currentParams, newParam);
+    });
+
   }
 
   get searchLink() {
@@ -112,12 +106,6 @@ export class SearchFilterService implements OnDestroy {
 
   public increasePage(filterName: string): void {
     this.store.dispatch(new SearchFilterIncreasePageAction(filterName));
-  }
-
-  ngOnDestroy(): void {
-    if (this.sub !== undefined) {
-      this.sub.unsubscribe();
-    }
   }
 }
 

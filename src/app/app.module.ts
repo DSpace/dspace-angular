@@ -46,7 +46,7 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
 const DEV_MODULES: any[] = [];
 
 if (!ENV_CONFIG.production) {
-  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 50 }));
+  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 500 }));
 }
 
 @NgModule({

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * This component renders a simple item page.
@@ -16,7 +17,7 @@ import { SearchFilterConfig } from '../search-service/search-filter-config.model
 })
 
 export class SidebarFiltersComponent {
-  filters: RemoteData<SearchFilterConfig[]>;
+  filters: Observable<RemoteData<SearchFilterConfig[]>>;
   constructor(private searchService: SearchService) {
     this.filters = searchService.getConfig();
   }

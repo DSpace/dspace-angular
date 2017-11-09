@@ -1,7 +1,7 @@
 <a *ngFor="let value of filterValues; let i=index" class="d-block" [routerLink]="[getSearchLink()]"
-   [queryParams]="getQueryParams(value)">
+   [queryParams]="getQueryParams(value) | async">
     <ng-template [ngIf]="i < (facetCount | async)">
-        <input type="checkbox" [checked]="isChecked(value)"/>
+        <input type="checkbox" [checked]="isChecked(value) | async"/>
         <span class="filter-value">{{value.value}}</span>
         <span class="filter-value-count float-right">({{value.count}})</span>
     </ng-template>

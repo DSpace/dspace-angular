@@ -2,7 +2,7 @@
     <div class="search-page row">
         <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-sm-sticky"
                            id="search-sidebar"
-                           resultCount="{{(results.pageInfo | async)?.totalElements}}"></ds-search-sidebar>
+                           resultCount="{{(results | async)?.pageInfo.totalElements}}"></ds-search-sidebar>
         <div class="col-12 col-sm-9">
             <ds-search-form id="search-form"
                             [query]="query"
@@ -16,9 +16,14 @@
                      [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
                     <ds-search-sidebar *ngIf="(isMobileView | async)" class="col-12"
                                        id="search-sidebar-xs"
-                                       resultCount="{{(results.pageInfo | async)?.totalElements}}"
+                                       resultCount="{{(results | async)?.pageInfo.totalElements}}"
                                        (toggleSidebar)="closeSidebar()"
-                                       [ngClass]="{'active': !(isSidebarCollapsed() | async)}"></ds-search-sidebar>
+                                       [ngClass]="{'active': !(isSidebarCollapsed() | async)}">
+                    </ds-search-sidebar>
+
+                    <ng-template [ngIf]="(isSidebarCollapsed() | async)">Not Active - Sidebar is collapsed</ng-template>
+                    <ng-template [ngIf]="!(isSidebarCollapsed() | async)">Active- Sidebar is not collapsed</ng-template>
+
                     <div id="search-content" class="col-12">
                         <div class="d-block d-sm-none search-controls clearfix">
                             <ds-view-mode-switch></ds-view-mode-switch>

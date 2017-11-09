@@ -19,7 +19,8 @@ export class SearchSidebarService {
     this.isCollapsdeInStored = this.store.select(sidebarCollapsedSelector);
   }
 
-  get isCollapsed(): Observable<boolean> {
+  isCollapsed(): Observable<boolean> {
+    console.log('NEEN');
     return Observable.combineLatest(
       this.isMobileView,
       this.isCollapsdeInStored,

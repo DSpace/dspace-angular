@@ -30,16 +30,16 @@ export class SidebarFacetFilterComponent implements OnInit {
     this.currentPage = this.filterService.getPage(this.filterConfig.name);
   }
 
-  isChecked(value: FacetValue) {
-    return this.filterService.isFilterActive(this.filterConfig.name, value.value);
+  isChecked(value: FacetValue): Observable<boolean> {
+    return this.filterService.isFilterActive(this.filterConfig.paramName, value.value);
   }
 
   getSearchLink() {
     return this.filterService.searchLink;
   }
 
-  getQueryParams(value: FacetValue): Params {
-    return this.filterService.switchFilterInURL(this.filterConfig, value.value);
+  getQueryParams(value: FacetValue): Observable<Params> {
+    return this.filterService.getFilterValueURL(this.filterConfig, value.value);
   }
 
   get facetCount(): Observable<number> {

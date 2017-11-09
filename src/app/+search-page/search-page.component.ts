@@ -107,6 +107,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   }
 
   public isSidebarCollapsed(): Observable<boolean> {
-    return this.sidebarService.isCollapsed;
+    return this.sidebarService.isCollapsed();
   }
 }

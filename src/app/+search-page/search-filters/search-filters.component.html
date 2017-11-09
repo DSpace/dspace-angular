@@ -1,6 +1,6 @@
 <h2>{{"search.filters.head" | translate}}</h2>
-<div *ngIf="filters.hasSucceeded | async">
-    <div *ngFor="let filter of (filters.payload | async)">
+<div *ngIf="(filters | async).hasSucceeded">
+    <div *ngFor="let filter of (filters | async).payload">
         <ds-search-filter [filter]="filter"></ds-search-filter>
     </div>
 </div>

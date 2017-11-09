@@ -22,7 +22,7 @@ import { slide } from '../../../shared/animations/slide';
 
 export class SidebarFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
-  filterValues: RemoteData<FacetValue[]>;
+  filterValues: Observable<RemoteData<FacetValue[]>>;
 
   constructor(private searchService: SearchService, private filterService: SearchFilterService) {
   }

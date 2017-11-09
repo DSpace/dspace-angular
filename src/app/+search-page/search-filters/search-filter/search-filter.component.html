@@ -3,6 +3,6 @@
                                                                       [ngClass]="(isCollapsed() | async) ? 'fa-plus' : 'fa-minus'"></span></div>
     <div [@slide]="(isCollapsed() | async) ? 'collapsed' : 'expanded'" class="search-filter-wrapper">
         <ds-search-facet-filter [filterConfig]="filter"
-                                [filterValues]="filterValues.payload | async"></ds-search-facet-filter>
+                                [filterValues]="(filterValues | async)?.payload"></ds-search-facet-filter>
     </div>
 </div>
