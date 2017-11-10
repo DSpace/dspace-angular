@@ -96,7 +96,6 @@ export class OneboxFieldParser extends FieldParser {
     const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
     const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`
     return this.formsConfigService.getConfigByHref(href)
-      .map((config) => config.payload)
   }
 
   protected getSearchFn(authorityOptions: AuthorityOptions) {
