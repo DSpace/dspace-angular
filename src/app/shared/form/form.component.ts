@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormArray, FormGroup, FormGroupDirective } from '@angular/forms';
 
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { DynamicFormArrayModel, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
 import * as _ from 'lodash';
@@ -149,6 +149,18 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   reset() {
     this.formRef.reset();
+  }
+
+  removeItem(context: DynamicFormArrayModel, index: number) {
+    this.formRef.control.markAsDirty();
+    const formArrayControl = this.formGroup.get(context.id) as FormArray;
+    this.formBuilderService.removeFormArrayGroup(index, formArrayControl, context);
+  }
+
+  insertItem(context: DynamicFormArrayModel, index: number) {
+    this.formRef.control.markAsDirty();
+    const formArrayControl = this.formGroup.get(context.id) as FormArray;
+    this.formBuilderService.insertFormArrayGroup(index, formArrayControl, context);
   }
 
 }

@@ -20,7 +20,7 @@ export class DropdownFieldParser extends FieldParser {
     super(configData);
   }
 
-  public parse(): any {
+  public modelFactory(): any {
     const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.initModel();
     let cls: ClsConfig;
 

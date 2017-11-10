@@ -35,6 +35,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { VarDirective } from './utils/var.directive';
+import { ScrollAndStickDirective } from './utils/scroll-and-stick.directive';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
@@ -95,6 +96,7 @@ const COMPONENTS = [
   ViewModeSwitchComponent
 ];
 
+
 const ENTRY_COMPONENTS = [
   // put shared entry components (components that are created dynamically) here
   CollectionListElementComponent,
@@ -104,7 +106,8 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DIRECTIVES = [
-  VarDirective
+  VarDirective,
+  ScrollAndStickDirective,
 ];
 
 @NgModule({
@@ -115,7 +118,8 @@ const DIRECTIVES = [
     ...PIPES,
     ...COMPONENTS,
     ...DIRECTIVES,
-    ...ENTRY_COMPONENTS
+    ...ENTRY_COMPONENTS,
+    ...DIRECTIVES
   ],
   exports: [
     ...MODULES,

@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { DynamicTypeaheadModel, DynamicTypeaheadModelConfig } from './dynamic-typeahead.model';
+import {
+  DynamicTypeaheadModel, DynamicTypeaheadModelConfig,
+  DynamicTypeaheadResponseModel
+} from './dynamic-typeahead.model';
 import { Jsonp, URLSearchParams } from '@angular/http';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
@@ -35,16 +38,17 @@ export class DsDynamicTypeaheadComponent {
       .do(() => this.searching = true)
       .switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return Observable.of([]);
+          return Observable.of({list: []});
         } else {
           return this.model.search(term)
             .do(() => this.searchFailed = false)
             .catch(() => {
               this.searchFailed = true;
-              return Observable.of([]);
+              return Observable.of({list: []});
             })
         }
       })
+      .map((results: DynamicTypeaheadResponseModel) => results.list)
       .do(() => this.searching = false)
       .merge(this.hideSearchingWhenUnsubscribed);
 

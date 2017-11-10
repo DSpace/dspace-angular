@@ -8,10 +8,12 @@ import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-switch.component';
 import { SearchOptions } from './search-options.model';
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
+import { slideInOut } from '../shared/animations/slide';
+import { HostWindowService } from '../shared/host-window.service';
+import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 
 /**
  * This component renders a simple item page.
@@ -24,6 +26,7 @@ import { SearchService } from './search-service/search.service';
   styleUrls: ['./search-page.component.scss'],
   templateUrl: './search-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [slideInOut]
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
 
@@ -36,12 +39,14 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   currentParams = {};
   searchOptions: SearchOptions;
   scopeListRDObs: Observable<RemoteData<Community[]>>;
+  isMobileView: Observable<boolean>;
 
-  constructor(
-    private service: SearchService,
-    private route: ActivatedRoute,
-    private communityService: CommunityDataService
-  ) {
+  constructor(private service: SearchService,
+              private route: ActivatedRoute,
+              private communityService: CommunityDataService,
+              private sidebarService: SearchSidebarService,
+              private windowService: HostWindowService) {
+    this.isMobileView = this.windowService.isXs();
     this.scopeListRDObs = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
@@ -91,5 +96,17 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  public closeSidebar(): void {
+    this.sidebarService.collapse()
+  }
+
+  public openSidebar(): void {
+    this.sidebarService.expand();
+  }
+
+  public isSidebarCollapsed(): Observable<boolean> {
+    return this.sidebarService.isCollapsed;
   }
 }
