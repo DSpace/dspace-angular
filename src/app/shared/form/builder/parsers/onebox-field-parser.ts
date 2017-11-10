@@ -100,6 +100,7 @@ export class OneboxFieldParser extends FieldParser {
 
   protected getSearchFn(authorityOptions: AuthorityOptions) {
     return (text: string): Observable<DynamicTypeaheadResponseModel> => {
+      authorityOptions.query = text;
       return this.getAuthority(authorityOptions)
         .map((authorities: ConfigData) => {
           // @TODO Pagination for authority is not working, to refactor when it will be fixed
