@@ -39,7 +39,7 @@ export class Collection extends DSpaceObject {
    * The license of this Collection
    * Corresponds to the metadata field dc.rights.license
    */
-  get license(): string {
+  get dcLicense(): string {
     return this.findMetadata('dc.rights.license');
   }
 
@@ -52,9 +52,19 @@ export class Collection extends DSpaceObject {
   }
 
   /**
+   * The deposit license of this Collection
+   */
+  license: Observable<RemoteData<Item[]>>;
+
+  /**
    * The Bitstream that represents the logo of this Collection
    */
   logo: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * The default bitstreams policies of this Collection
+   */
+  defaultBitstreamsPolicies: Observable<RemoteData<Item[]>>;
 
   /**
    * An array of Collections that are direct parents of this Collection
