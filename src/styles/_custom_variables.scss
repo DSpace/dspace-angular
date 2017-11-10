@@ -1,1 +1,3 @@
 $content-spacing: $spacer * 1.5;
+
+$button-height: $input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2);

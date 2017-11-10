@@ -1,1 +1,57 @@
 @import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+#search-body {
+    position: relative;
+}
+
+#search-content, #search-form {
+    display: block;
+    @include media-breakpoint-down(xs) {
+        margin-left: 0;
+    }
+}
+
+/deep/ .search-controls {
+    margin-bottom: $spacer;
+}
+
+#search-body {
+    &.row-offcanvas {
+        width: 100%;
+    }
+    @include media-breakpoint-down(xs) {
+        position: relative;
+
+        &.row-offcanvas {
+            position: relative;
+        }
+
+        &.row-offcanvas-right #search-sidebar-xs {
+            right: -100%;
+        }
+
+        &.row-offcanvas-left #search-sidebar-xs {
+            left: -100%;
+        }
+
+        #search-sidebar-xs {
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+    }
+}
+
+.sidebar-sm-fixed {
+    @include media-breakpoint-up(sm) {
+        position: absolute;
+        margin-top: -$content-spacing;
+        padding-top: $content-spacing;
+        &.stick {
+            top: 0;
+            margin-top: 0px;
+            position: fixed;
+        }
+    }
+}
