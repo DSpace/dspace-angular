@@ -11,7 +11,7 @@ export class ListFieldParser extends FieldParser {
     super(configData);
   }
 
-  public parse(): any {
+  public modelFactory(): any {
     if (this.configData.repeatable ) {
       const checkboxModelConfig: DynamicCheckboxModelConfig = this.initModel();
       return new DynamicCheckboxModel(checkboxModelConfig);

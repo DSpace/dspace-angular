@@ -9,7 +9,7 @@ export class LookupFieldParser extends FieldParser {
     super(configData);
   }
 
-  public parse(): any {
+  public modelFactory(): any {
     return null;
   }
 }

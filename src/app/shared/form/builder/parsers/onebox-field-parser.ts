@@ -1,5 +1,5 @@
 import {
-  ClsConfig,
+  ClsConfig, DynamicFormArrayModel,
   DynamicFormGroupModel,
   DynamicInputModel,
   DynamicInputModelConfig,
@@ -9,13 +9,17 @@ import {
 
 import { FieldParser } from './field-parser';
 import { deleteProperty } from '../../../object.util';
-import { DynamicTypeaheadModel, DynamicTypeaheadModelConfig } from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import {
+  DynamicTypeaheadModel, DynamicTypeaheadModelConfig,
+  DynamicTypeaheadResponseModel
+} from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { AuthorityOptions } from '../models/authority-options.model';
 import { Observable } from 'rxjs/Observable';
 import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
-import { hasValue } from '../../../empty.util';
+import { hasValue, isUndefined } from '../../../empty.util';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ConfigData } from '../../../../core/config/config-data';
 
 export class OneboxFieldParser extends FieldParser {
 
@@ -25,10 +29,11 @@ export class OneboxFieldParser extends FieldParser {
     super(configData);
   }
 
-  public parse(): any {
-    let cls: ClsConfig;
-
+  public modelFactory(): any {
     if (this.configData.selectableMetadata.length > 1) {
+      let clsGroup: ClsConfig;
+      let clsSelect: ClsConfig;
+      let clsInput: ClsConfig;
       const newId = this.configData.selectableMetadata[0].metadata
         .split('.')
         .slice(0, this.configData.selectableMetadata[0].metadata.split('.').length - 1)
@@ -40,7 +45,8 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.legend = this.configData.label;
 
       const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(  newId + '.metadata');
-      cls = {
+      this.setOptions(selectModelConfig);
+      clsSelect = {
         element: {
           control: 'input-group-addon ds-form-input-addon',
         },
@@ -48,11 +54,11 @@ export class OneboxFieldParser extends FieldParser {
           host: 'col-sm-4 pr-0'
         }
       };
-      inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, cls));
+      const sel = new DynamicSelectModel(selectModelConfig, clsSelect);
+      inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
-      this.configData = deleteProperty(this.configData, 'selectableMetadata') as FormFieldModel;
       const inputModelConfig: DynamicInputModelConfig = this.initModel(newId + '.value', true, true);
-      cls = {
+      clsInput = {
         element: {
           control: 'ds-form-input-value',
         },
@@ -60,14 +66,15 @@ export class OneboxFieldParser extends FieldParser {
           host: 'col-sm-8 pl-0'
         }
       };
+      const inp = new DynamicInputModel(inputModelConfig, clsInput);
+      inputSelectGroup.group.push(new DynamicInputModel(inputModelConfig, clsInput));
 
-      inputSelectGroup.group.push(new DynamicInputModel(inputModelConfig, cls));
-      cls = {
+      clsGroup = {
         element: {
           control: 'form-row',
         }
       };
-      return new DynamicFormGroupModel(inputSelectGroup, cls);
+      return new DynamicFormGroupModel(inputSelectGroup, clsGroup);
     } else if (this.configData.selectableMetadata[0].authority) {
       const typeaheadModelConfig: DynamicTypeaheadModelConfig = this.initModel();
       typeaheadModelConfig.search = this.getSearchFn(
@@ -85,16 +92,23 @@ export class OneboxFieldParser extends FieldParser {
   }
 
   // @TODO To refactor when service for retrieving authority will be available
-  protected getAuthority(authorityOptions: AuthorityOptions, pageInfo?: PageInfo): Observable<any[]> {
+  protected getAuthority(authorityOptions: AuthorityOptions, pageInfo?: PageInfo): Observable<ConfigData> {
     const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
     const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`
     return this.formsConfigService.getConfigByHref(href)
   }
 
   protected getSearchFn(authorityOptions: AuthorityOptions) {
-    return (query: string): Observable<any> => {
-      authorityOptions.query = query;
-      return this.getAuthority(authorityOptions);
-    };
+    return (text: string): Observable<DynamicTypeaheadResponseModel> => {
+      return this.getAuthority(authorityOptions)
+        .map((authorities: ConfigData) => {
+          // @TODO Pagination for authority is not working, to refactor when it will be fixed
+          console.log(authorities);
+          return {
+            list: authorities.payload,
+            pageInfo: authorities.pageInfo
+          }
+        })
+    }
   }
 }

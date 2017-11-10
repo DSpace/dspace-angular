@@ -11,7 +11,7 @@ export class DateFieldParser extends FieldParser {
     super(configData);
   }
 
-  public parse(): any {
+  public modelFactory(): any {
     const inputDateModelConfig: DynamicDatePickerModelConfig = this.initModel();
     let cls: ClsConfig;
 

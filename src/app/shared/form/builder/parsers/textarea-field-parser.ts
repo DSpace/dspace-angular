@@ -10,7 +10,7 @@ export class TextareaFieldParser extends FieldParser {
     super(configData);
   }
 
-  public parse(): any {
+  public modelFactory(): any {
     const inputTextModel: DynamicTextAreaModelConfig = this.initModel();
     let cls: ClsConfig;
 

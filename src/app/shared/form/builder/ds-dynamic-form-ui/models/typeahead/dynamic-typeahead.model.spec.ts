@@ -1,12 +1,20 @@
 import { AUTOCOMPLETE_OFF, DYNAMIC_FORM_CONTROL_INPUT_TYPE_TEXT } from '@ng-dynamic-forms/core';
 import { Observable } from 'rxjs/Observable';
 
-import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD, DynamicTypeaheadModel } from './dynamic-typeahead.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD, DynamicTypeaheadModel,
+  DynamicTypeaheadResponseModel
+} from './dynamic-typeahead.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 describe('DynamicTypeaheadModel test suite', () => {
 
   let model: any;
-  const search = (text: string) => Observable.of(['One', 'Two', 'Three']);
+  const search = (text: string): Observable<DynamicTypeaheadResponseModel> =>
+    Observable.of({
+      list: ['One', 'Two', 'Three'],
+      pageInfo: new PageInfo()
+    });
   const config = {
     id: 'input',
     minChars: 3,

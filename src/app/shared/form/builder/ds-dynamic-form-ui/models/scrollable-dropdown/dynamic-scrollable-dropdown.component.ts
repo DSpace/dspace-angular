@@ -42,13 +42,12 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
       this.loading = true;
       this.pageInfo.currentPage++;
       this.model.retrieve(this.pageInfo)
-        .map((object) => {
+        .do(() => this.loading = false)
+        .subscribe((object) => {
           this.optionsList = this.optionsList.concat(object.list);
           this.pageInfo = object.pageInfo;
 
         })
-        .do(() => this.loading = false)
-        .subscribe();
     }
   }
 

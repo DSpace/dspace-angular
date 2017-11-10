@@ -8,7 +8,7 @@ export class NameFieldParser extends FieldParser {
     super(configData);
   }
 
-  public parse(): any {
+  public modelFactory(): any {
     return null;
   }
 }

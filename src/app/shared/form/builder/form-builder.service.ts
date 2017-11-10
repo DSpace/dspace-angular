@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  DynamicFormArrayModel,
   DynamicFormControlModel, DynamicFormService, DynamicFormValidationService,
   Utils
 } from '@ng-dynamic-forms/core';
@@ -48,6 +49,17 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'onebox':
+          /*if (fieldData.repeatable ) {
+            group.push(new DynamicFormArrayModel({
+              id: 'cippa' + '_array',
+              initialCount: 1,
+              groupFactory: () => {
+                return [new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse()];
+              }
+            }))
+          } else {
+            group.push(new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse());
+          }*/
           group.push(new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse());
           break;
 
