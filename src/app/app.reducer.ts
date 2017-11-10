@@ -21,6 +21,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
   hostWindow: hostWindowReducer,
   header: headerReducer,
-  forms: formReducer
+  forms: formReducer,
   searchSidebar: sidebarReducer,
 };
