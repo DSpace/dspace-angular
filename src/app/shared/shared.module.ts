@@ -31,6 +31,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { VarDirective } from './utils/var.directive';
+import { ScrollAndStickDirective } from './utils/scroll-and-stick.directive';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -67,6 +68,7 @@ const COMPONENTS = [
   ViewModeSwitchComponent
 ];
 
+
 const ENTRY_COMPONENTS = [
   // put shared entry components (components that are created dynamically) here
   CollectionListElementComponent,
@@ -76,7 +78,8 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DIRECTIVES = [
-  VarDirective
+  VarDirective,
+  ScrollAndStickDirective,
 ];
 
 @NgModule({
@@ -87,7 +90,8 @@ const DIRECTIVES = [
     ...PIPES,
     ...COMPONENTS,
     ...DIRECTIVES,
-    ...ENTRY_COMPONENTS
+    ...ENTRY_COMPONENTS,
+    ...DIRECTIVES
   ],
   exports: [
     ...MODULES,

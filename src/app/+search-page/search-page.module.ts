@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
-import { TranslateModule } from '@ngx-translate/core';
-
 import { SharedModule } from '../shared/shared.module';
 import { SearchPageRoutingModule } from './search-page-routing.module';
 import { SearchPageComponent } from './search-page.component';
@@ -12,24 +8,33 @@ import { ItemSearchResultListElementComponent } from '../object-list/search-resu
 import { CollectionSearchResultListElementComponent } from '../object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 import { CommunitySearchResultListElementComponent } from '../object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { SearchService } from './search-service/search.service';
+import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
+import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { SearchSidebarEffects } from './search-sidebar/search-sidebar.effects';
+import { EffectsModule } from '@ngrx/effects';
+
+const effects = [
+  SearchSidebarEffects
+];
 
 @NgModule({
   imports: [
     SearchPageRoutingModule,
     CommonModule,
-    TranslateModule,
-    RouterModule,
-    SharedModule
+    SharedModule,
+    EffectsModule.forFeature(effects),
   ],
   declarations: [
     SearchPageComponent,
     SearchResultsComponent,
+    SearchSidebarComponent,
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,
     CommunitySearchResultListElementComponent
   ],
   providers: [
-    SearchService
+    SearchService,
+    SearchSidebarService
   ],
   entryComponents: [
     ItemSearchResultListElementComponent,

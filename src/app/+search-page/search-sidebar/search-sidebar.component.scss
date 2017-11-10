@@ -1,0 +1,8 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+:host {
+    .results {
+        line-height: $button-height;
+    }
+}

@@ -82,6 +82,11 @@
     "results": {
       "title": "Search Results"
     },
+    "sidebar": {
+      "close": "Back to results",
+      "open": "Search Tools",
+      "results": "results"
+    },
     "view-switch": {
       "show-list": "Show as list",
       "show-grid": "Show as grid"
