@@ -20,14 +20,14 @@ export class FileSectionComponent implements OnInit {
 
   separator = '<br/>';
 
-  files: Observable<Bitstream[]>;
+  bitstreamsObs: Observable<Bitstream[]>;
 
   ngOnInit(): void {
     this.initialize();
   }
 
   initialize(): void {
-    this.files = this.item.getFiles();
+    this.bitstreamsObs = this.item.getFiles();
   }
 
 }

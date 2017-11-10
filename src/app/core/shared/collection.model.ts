@@ -2,6 +2,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { Bitstream } from './bitstream.model';
 import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
+import { Observable } from 'rxjs/Observable';
 
 export class Collection extends DSpaceObject {
 
@@ -53,18 +54,18 @@ export class Collection extends DSpaceObject {
   /**
    * The Bitstream that represents the logo of this Collection
    */
-  logo: RemoteData<Bitstream>;
+  logo: Observable<RemoteData<Bitstream>>;
 
   /**
    * An array of Collections that are direct parents of this Collection
    */
-  parents: RemoteData<Collection[]>;
+  parents: Observable<RemoteData<Collection[]>>;
 
   /**
    * The Collection that owns this Collection
    */
-  owner: RemoteData<Collection>;
+  owner: Observable<RemoteData<Collection>>;
 
-  items: RemoteData<Item[]>;
+  items: Observable<RemoteData<Item[]>>;
 
 }

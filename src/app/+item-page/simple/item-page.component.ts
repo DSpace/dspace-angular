@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
-
-import { Item } from '../../core/shared/item.model';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 
+import { Item } from '../../core/shared/item.model';
+
 import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -21,6 +22,7 @@ import { fadeInOut } from '../../shared/animations/fade';
   selector: 'ds-item-page',
   styleUrls: ['./item-page.component.scss'],
   templateUrl: './item-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })
 export class ItemPageComponent implements OnInit {
@@ -29,9 +31,9 @@ export class ItemPageComponent implements OnInit {
 
   private sub: any;
 
-  item: RemoteData<Item>;
+  itemRDObs: Observable<RemoteData<Item>>;
 
-  thumbnail: Observable<Bitstream>;
+  thumbnailObs: Observable<Bitstream>;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,9 +51,12 @@ export class ItemPageComponent implements OnInit {
 
   initialize(params) {
     this.id = +params.id;
-    this.item = this.items.findById(params.id);
-    this.metadataService.processRemoteData(this.item);
-    this.thumbnail = this.item.payload.flatMap((i) => i.getThumbnail());
+    this.itemRDObs = this.items.findById(params.id);
+    this.metadataService.processRemoteData(this.itemRDObs);
+    this.thumbnailObs = this.itemRDObs
+      .map((rd: RemoteData<Item>) => rd.payload)
+      .filter((item: Item) => hasValue(item))
+      .flatMap((item: Item) => item.getThumbnail());
   }
 
 }

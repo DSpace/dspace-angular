@@ -136,7 +136,7 @@
     "angular2-template-loader": "0.6.2",
     "autoprefixer": "7.1.5",
     "awesome-typescript-loader": "3.2.3",
-    "caniuse-lite": "1.0.30000697",
+    "caniuse-lite": "1.0.30000746",
     "codelyzer": "3.2.1",
     "compression-webpack-plugin": "1.0.1",
     "copy-webpack-plugin": "4.1.1",

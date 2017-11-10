@@ -10,7 +10,6 @@ import { HeaderComponent } from './header.component';
 import { HeaderState } from './header.reducer';
 import { HeaderToggleAction } from './header.actions';
 
-import Spy = jasmine.Spy;
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;

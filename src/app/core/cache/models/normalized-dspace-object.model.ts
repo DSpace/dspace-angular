@@ -66,4 +66,14 @@ export abstract class NormalizedDSpaceObject extends NormalizedObject {
   @autoserialize
   owner: string;
 
+  /**
+   * The links to all related resources returned by the rest api.
+   *
+   * Repeated here to make the serialization work,
+   * inheritSerialization doesn't seem to work for more than one level
+   */
+  @autoserialize
+  _links: {
+    [name: string]: string
+  }
 }

@@ -32,6 +32,8 @@ import { ResponseCacheService } from './cache/response-cache.service';
 import { RootResponseParsingService } from './data/root-response-parsing.service';
 import { ServerResponseService } from '../shared/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
+import { BrowseService } from './browse/browse.service';
+import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 import { DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 const IMPORTS = [
@@ -68,6 +70,8 @@ const PROVIDERS = [
   ResponseCacheService,
   RootResponseParsingService,
   ServerResponseService,
+  BrowseResponseParsingService,
+  BrowseService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
