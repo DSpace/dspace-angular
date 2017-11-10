@@ -3,8 +3,11 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { SubmissionState } from '../../submission.reducers';
 import { DeleteBitstreamAction, EditBitstreamAction, NewBitstreamAction } from '../../objects/submission-objects.actions';
-import { submissionBitstreamFromUuidSelector, submissionObjectFromIdSelector } from '../../selectors';
-import {isUndefined} from "../../../shared/empty.util";
+import {
+  submissionBitstreamFromUuidSelector,
+  submissionBitstreamsFromIdSelector
+} from '../../selectors';
+import { isUndefined } from '../../../shared/empty.util';
 
 @Injectable()
 export class BitstreamService {
@@ -12,9 +15,9 @@ export class BitstreamService {
   constructor(private store: Store<SubmissionState>) {}
 
   public getBitstreamList(submissionId): Observable<any> {
-    return this.store.select(submissionObjectFromIdSelector(submissionId))
+    return this.store.select(submissionBitstreamsFromIdSelector(submissionId))
       .map((state) => {
-        return state.bitstreams;
+        return state;
       })
       .distinctUntilChanged();
   }

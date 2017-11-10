@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-
+import { Store } from '@ngrx/store';
 import { SectionModelComponent } from '../section.model';
 import { hasValue } from '../../../shared/empty.util';
 import { BitstreamService } from '../bitstream/bitstream.service';
 import { SubmissionService } from '../../submission.service';
+import { SectionStatusChangeAction } from '../../objects/submission-objects.actions';
+import { SubmissionState } from '../../submission.reducers';
 
 @Component({
   selector: 'ds-submission-section-files',
@@ -20,7 +22,9 @@ export class FilesSectionComponent extends SectionModelComponent {
 
   protected subs = [];
 
-  constructor(private bitstreamService: BitstreamService, private submissionService: SubmissionService) {
+  constructor(private bitstreamService: BitstreamService,
+              private submissionService: SubmissionService,
+              private store:Store<SubmissionState>) {
     super();
   }
 
@@ -29,9 +33,16 @@ export class FilesSectionComponent extends SectionModelComponent {
       this.bitstreamService
         .getBitstreamList(this.sectionData.submissionId)
         .subscribe((bitstreamList) => {
-                                             this.bitstreamsList = bitstreamList;
-                                             this.bitstreamsKeys = Object.keys(bitstreamList);
-                                            }
+            let sectionStatus = false;
+            this.bitstreamsList = bitstreamList;
+            this.bitstreamsKeys = Object.keys(bitstreamList);
+            if (this.bitstreamsKeys.length > 0) {
+              sectionStatus = true;
+            }
+            this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId,
+                                                              this.sectionData.id,
+                                                              sectionStatus));
+          }
         ),
       this.submissionService
         .getCollectionPolicies(this.sectionData.submissionId)

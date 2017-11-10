@@ -2,7 +2,7 @@ import {
   DynamicInputModel,
   DynamicTextAreaModel,
   DynamicFormGroupModel,
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicSelectModel, DynamicDatePickerModel,
 } from '@ng-dynamic-forms/core';
 
 export const BITSTREAM_FORM_MODEL: DynamicFormControlModel[] = [
@@ -45,7 +45,7 @@ export const BITSTREAM_FORM_MODEL: DynamicFormControlModel[] = [
               host: 'col-md-12'
             }
           }
-        )
+        ),
       ]
     },
     {
@@ -55,3 +55,68 @@ export const BITSTREAM_FORM_MODEL: DynamicFormControlModel[] = [
     }
   )
 ];
+
+export const BITSTREAM_FORM_POLICIES_GROUP: DynamicFormGroupModel =
+  new DynamicFormGroupModel(
+    {
+      id: 'files-policies',
+      group: [
+
+        new DynamicSelectModel(
+          {
+            id: 'policies',
+            label: 'Access policies',
+            options: [ ]
+          },
+          {
+            element: {
+              container: 'p-0',
+              label: 'col-form-label'
+            },
+            grid: {
+              host: 'col-md-12'
+            }
+          }
+        ),
+
+        new DynamicDatePickerModel(
+          {
+            id: 'policy-date',
+            inline: false,
+            label: 'Until'
+          },
+          {
+            element: {
+              container: 'p-0',
+              label: 'col-form-label'
+            },
+            grid: {
+              host: 'col-md-6'
+            }
+          }
+        ),
+
+        new DynamicSelectModel(
+          {
+            id: 'policy-group',
+            label: 'Group',
+            options: [ ]
+          },
+          {
+            element: {
+              container: 'p-0',
+              label: 'col-form-label'
+            },
+            grid: {
+              host: 'col-md-6'
+            }
+          }
+        )
+      ]
+    },
+    {
+      element: {
+        control: 'form-row'
+      }
+    }
+  );

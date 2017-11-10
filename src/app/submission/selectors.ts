@@ -19,12 +19,27 @@ export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: 
   });
 }
 
+export function subStateSelector<T, V>(parentSelector: Selector<any, any>, subState: string): MemoizedSelector<T, V> {
+  return createSelector(parentSelector, (state: T) => {
+    if (hasValue(state[subState])) {
+      return state[subState];
+    } else {
+      return undefined;
+    }
+  });
+}
+
 export function submissionObjectFromIdSelector(submissionId: string): MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
   return keySelector<SubmissionState, SubmissionObjectEntry>(submissionSelector, 'objects', submissionId);
 }
 
 export function submissionDefinitionFromIdSelector(definitionId: string): MemoizedSelector<SubmissionState, SubmissionDefinitionEntry> {
   return keySelector<SubmissionState, SubmissionDefinitionEntry>(submissionSelector, 'definitions', definitionId);
+}
+
+export function submissionBitstreamsFromIdSelector(submissionId: string): MemoizedSelector<SubmissionState, any> {
+  const submissionIdSelector = submissionObjectFromIdSelector(submissionId);
+  return subStateSelector<SubmissionState, SubmissionObjectEntry>(submissionIdSelector, 'bitstreams');
 }
 
 export function submissionBitstreamFromUuidSelector(submissionId: string, uuid: string): MemoizedSelector<SubmissionState, any> {

@@ -1,14 +1,13 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Store } from '@ngrx/store';
-import { SubmissionState } from '../../../submission.reducers';
 import { BitstreamService } from '../../bitstream/bitstream.service';
 import { hasValue } from '../../../../shared/empty.util';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
-import { BITSTREAM_FORM_MODEL } from './files-edit.model';
+import {
+  DynamicFormControlModel, DynamicFormGroupModel
+} from '@ng-dynamic-forms/core';
+import {BITSTREAM_FORM_MODEL, BITSTREAM_FORM_POLICIES_GROUP} from './files-edit.model';
 import { FormComponent } from '../../../../shared/form/form.component';
-import {FormService} from "../../../../shared/form/form.service";
+import { FormService } from '../../../../shared/form/form.service';
 
 @Component({
   selector: 'ds-submission-submit-form-box-files-edit',
@@ -16,6 +15,8 @@ import {FormService} from "../../../../shared/form/form.service";
 })
 export class FilesEditComponent {
 
+  // The 'ViewChild' maps the variable only after the view init. And be sure to do not put the
+  // ref inside an *ngIf or the output will be null until that part of HTML will be rendered.
   @ViewChild('formRef') formRef: FormComponent;
 
   @Input() bitstreamId;
@@ -23,37 +24,83 @@ export class FilesEditComponent {
   public bitstream;
   public formId;
   public readMode = true;
+  public initialized = false;
   public formModel: DynamicFormControlModel[];
+  public formPoliciesGroup: DynamicFormGroupModel;
 
   protected subscriptions = [];
 
   constructor(private modalService: NgbModal,
               private bitstreamService: BitstreamService,
-              private formService: FormService,
-              protected submissionState: Store<SubmissionState>) {
-    this.formModel = BITSTREAM_FORM_MODEL;
-  }
+              private formService: FormService) { }
 
   ngOnInit() {
     this.subscriptions.push(
       this.bitstreamService
         .getBitstream(this.submissionId, this.bitstreamId)
+        .take(1)
         .subscribe((bitstream) => {
                                           this.bitstream = bitstream;
+                                          this.formModel = BITSTREAM_FORM_MODEL;
+                                          this.formPoliciesGroup = BITSTREAM_FORM_POLICIES_GROUP;
+                                          this.formId = 'form_' + this.bitstreamId;
+                                          this.setFormPoliciesModel();
                                         }
         )
     );
-    this.formId = 'form_' + this.bitstreamId;
   }
 
-  ngAfterViewInit() {
-    // The 'ViewChild' map the variable only after the view init. And be sure to do not put the
-    // ref inside an *ngIf or the output will be null until that part of HTML will be rendered.
-    // this.formRef.formGroup.controls['files-data'].controls['title'].setValue(this.bitstream.title);
-    // this.formRef.formGroup.controls['files-data'].controls['description'].setValue(this.bitstream.description);
+  public setFormInitialMetadata() {
+    if (!this.initialized) {
+      this.initialized = true;
+      // Alternative mode to assign:
+      // this.formRef.formGroup.controls['files-data'].controls.title.setValue(...);
+      // Cannot put the following lines into 'ngOnInit' because 'this.formRef' is available only after the view init.
+      // Cannot put the following lines into 'ngAfterViewInit' because of 'ExpressionChangedAfterItHasBeenCheckedError'.
+      this.formRef.formGroup.get('files-data').get('title').setValue(this.bitstream.title);
+      this.formRef.formGroup.get('files-data').get('description').setValue(this.bitstream.description);
+    }
+  }
+
+  public setFormPoliciesModel() {
+    const tmp = [
+      {
+        type: 'openaccess'
+      },
+      {
+        type: 'administrator'
+      },
+      {
+        type: 'embargo',
+        selectGroupUuid: '1faf7c51-2a14-4826-b0b1-f1c1d2d82dd7',
+        hasDate: true,
+        maxEndDate: '2018-06-24T00:40:54.970+0000'
+      },
+      {
+        type: 'lease',
+        selectGroupUuid: '38ecd5ae-af12-4144-a276-81532e1679f8',
+        hasDate: true,
+        maxEndDate: '2017-12-24T00:40:54.970+0000'
+      }
+    ];
+
+    /*const formPolicies = this.formService.for    findById()
+
+    for (let i = 0; i < tmp.length; i++) {
+      formPolicies.options.push(
+        {
+          label: tmp[i].type,
+          value: tmp[i].type
+        }
+      );
+    };
+
+    this.formModel[0].group.push(formPolicies);*/
+
   }
 
   public switchMode(mode:boolean) {
+    this.setFormInitialMetadata();
     this.readMode = mode;
   }
 
@@ -63,27 +110,33 @@ export class FilesEditComponent {
 
   public editBitstream() {
     this.switchMode(true);
-    this.formService.isValid(this.formRef.formUniqueId).map(
-      (isValid) => {
-        if (isValid) {
-          this.formService.getFormData(this.formRef.formUniqueId).map(
-            (metadata) => {
-              console.log(metadata);
-              /*const data = Object.assign(
-                {},
-                this.bitstream,
-                {
-                  title: metadata.title,
-                  description: metadata.description
+    this.subscriptions.push(
+      this.formService.isValid(this.formRef.formUniqueId)
+        .take(1)
+        .subscribe((isValid) => {
+          if (isValid) {
+            this.subscriptions.push(
+              this.formService.getFormData(this.formRef.formUniqueId)
+                .take(1)
+                .subscribe((metadata) => {
+                  console.log(metadata);
+                  const data = Object.assign(
+                    {},
+                    this.bitstream,
+                    {
+                      title: metadata['files-data'].title,
+                      description: metadata['files-data'].description
+                    }
+                  );
+                  this.bitstreamService.editBitstream(this.submissionId, this.bitstreamId, data);
                 }
-              );
-              this.bitstreamService.editBitstream(this.submissionId, this.bitstreamId, data);*/
-            }
-          );
-        } else {
-          this.formService.validateAllFormFields(this.formRef.formRef.control);
+              )
+            );
+          } else {
+            this.formService.validateAllFormFields(this.formRef.formRef.control);
+          }
         }
-      }
+      )
     );
   }
 
