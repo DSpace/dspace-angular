@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { RemoteData } from '../core/data/remote-data';
@@ -10,7 +11,6 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { SearchOptions } from './search-options.model';
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
-import { Observable } from 'rxjs/Observable';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
