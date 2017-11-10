@@ -229,7 +229,7 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
                                )
         ),
         data: state[action.payload.submissionId].data,
-        bitstreams: state[action.payload.submissionId].data
+        bitstreams: state[action.payload.submissionId].bitstreams
       })
     });
   } else {

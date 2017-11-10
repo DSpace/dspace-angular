@@ -2,7 +2,10 @@
      [mandatory]="sectionData.mandatory"
      [submissionId]="sectionData.submissionId"
      [sectionId]="sectionData.id">
-  <ngb-accordion #acc="ngbAccordion" (panelChange)="sectionRef.sectionChange($event)" activeIds="{{ sectionData.id }}">
+  <ngb-accordion #acc="ngbAccordion"
+                 (panelChange)="sectionRef.sectionChange($event)"
+                 activeIds="{{ sectionData.id }}"
+                 [destroyOnHide]="false">
     <ngb-panel id="{{ sectionData.id }}">
       <ng-template ngbPanelTitle>
         <span>{{ 'submission.section.'+sectionData.header | translate }}</span>
