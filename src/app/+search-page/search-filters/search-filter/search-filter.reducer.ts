@@ -59,16 +59,17 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
 
     }
 
-    case SearchFilterActionTypes.DECREASE_PAGE: {
+    case SearchFilterActionTypes.DECREMENT_PAGE: {
+      const page = state[action.filterName].page - 1;
       return Object.assign({}, state, {
         [action.filterName]: {
           filterCollapsed: state[action.filterName].filterCollapsed,
-          page: state[action.filterName].page - 1
+          page: (page >= 1 ? page : 1)
         }
       });
     }
 
-    case SearchFilterActionTypes.INCREASE_PAGE: {
+    case SearchFilterActionTypes.INCREMENT_PAGE: {
       return Object.assign({}, state, {
         [action.filterName]: {
           filterCollapsed: state[action.filterName].filterCollapsed,

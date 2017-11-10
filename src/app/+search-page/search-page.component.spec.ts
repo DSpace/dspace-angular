@@ -1,6 +1,6 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,7 +18,7 @@ import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 
-fdescribe('SearchPageComponent', () => {
+describe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
   let fixture: ComponentFixture<SearchPageComponent>;
   let searchServiceObject: SearchService;
@@ -41,11 +41,10 @@ fdescribe('SearchPageComponent', () => {
     })
   };
   const sidebarService = {
-    collapsed: Observable.of(true),
-    collapse: () => {this.collapsed = Observable.of(true)},
-    expand: () => {console.log('expand'); this.collapsed = Observable.of(false)},
-    isCollapsed: () => {if (this.collapse) {this.collapsed.subscribe(a => console.log(a))};return this.collapsed},
-  };
+    isCollapsed: Observable.of(true),
+    collapse: () => this.isCollapsed = Observable.of(true),
+    expand: () => this.isCollapsed = Observable.of(false)
+  }
 
   const mockCommunityList = [];
   const communityDataServiceStub = {
@@ -86,6 +85,8 @@ fdescribe('SearchPageComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(SearchPageComponent, {
+      set: {  changeDetection: ChangeDetectionStrategy.Default  }
     }).compileComponents();
   }));
 
@@ -179,12 +180,11 @@ fdescribe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
-      sidebarService.collapse();
+      comp.isSidebarCollapsed = () => Observable.of(true);
+      fixture.detectChanges();
     });
 
     it('should close the sidebar', () => {
-      sidebarService.isCollapsed().subscribe((v) => console.log('after closing, is collapsed is...: ', v));
-      console.log(menu.classList);
       expect(menu.classList).not.toContain('active');
     });
 
@@ -195,13 +195,11 @@ fdescribe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
-      sidebarService.expand();
+      comp.isSidebarCollapsed = () => Observable.of(false);
+      fixture.detectChanges();
     });
 
     it('should open the menu', () => {
-      sidebarService.isCollapsed().subscribe((v) => console.log('after opening, is collapsed is...: ', v));
-      console.log(menu.classList);
-    debugger;
       expect(menu.classList).toContain('active');
     });
 

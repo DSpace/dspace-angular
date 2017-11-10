@@ -10,7 +10,7 @@ export class RouteService {
   }
 
   hasQueryParam(paramName: string): Observable<boolean> {
-    return this.route.queryParamMap.map((map) => map.has(paramName));
+    return this.route.queryParamMap.map((map) => {return map.has(paramName);});
   }
 
   hasQueryParamWithValue(paramName: string, paramValue: string): Observable<boolean> {
