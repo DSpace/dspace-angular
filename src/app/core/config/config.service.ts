@@ -12,7 +12,6 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ConfigData } from './config-data';
 
-@Injectable()
 export abstract class ConfigService extends HALEndpointService {
   protected request: ConfigRequest;
   protected abstract responseCache: ResponseCacheService;
@@ -77,11 +76,7 @@ export abstract class ConfigService extends HALEndpointService {
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new ConfigRequest(endpointURL))
-      .do((request: RestRequest) => {
-        setTimeout(() => {
-          this.requestService.configure(request);
-        }, 0);
-      })
+      .do((request: RestRequest) => this.requestService.configure(request))
       .flatMap((request: RestRequest) => this.getConfig(request))
       .distinctUntilChanged();
   }
@@ -99,11 +94,7 @@ export abstract class ConfigService extends HALEndpointService {
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new ConfigRequest(endpointURL))
-      .do((request: RestRequest) => {
-        setTimeout(() => {
-          this.requestService.configure(request);
-        }, 0);
-      })
+      .do((request: RestRequest) => this.requestService.configure(request))
       .flatMap((request: RestRequest) => this.getConfig(request))
       .distinctUntilChanged();
   }
@@ -114,11 +105,7 @@ export abstract class ConfigService extends HALEndpointService {
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new ConfigRequest(endpointURL))
-      .do((request: RestRequest) => {
-        setTimeout(() => {
-          this.requestService.configure(request);
-        }, 0);
-      })
+      .do((request: RestRequest) => this.requestService.configure(request))
       .flatMap((request: RestRequest) => this.getConfig(request))
       .distinctUntilChanged();
   }
