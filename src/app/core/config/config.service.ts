@@ -28,7 +28,7 @@ export abstract class ConfigService extends HALEndpointService {
       errorResponse.flatMap((response: ErrorResponse) =>
         Observable.throw(new Error(`Couldn't retrieve the config`))),
       successResponse
-      .filter((response: ConfigSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.configDefinition))
+      .filter((response: ConfigSuccessResponse) => isNotEmpty(response))
       .map((response: ConfigSuccessResponse) => new ConfigData(response.pageInfo, response.configDefinition))
       .distinctUntilChanged());
   }
