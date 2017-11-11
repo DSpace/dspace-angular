@@ -83,6 +83,38 @@ export function hasValue(obj?: any): boolean {
 }
 
 /**
+ * Returns true if the passed value is null or undefined.
+ * hasUndefinedValue();                 // false
+ * hasUndefinedValue(null);             // false
+ * hasUndefinedValue(undefined);        // false
+ * hasUndefinedValue('');               // true
+ * hasUndefinedValue({undefined, obj}); // true
+ * hasUndefinedValue([undefined, val]); // true
+ */
+export function hasUndefinedValue(obj?: any): boolean {
+  let result = false;
+
+  if (isUndefined(obj) || isNull(obj)) {
+    return false;
+  }
+
+  const objectType = typeof obj;
+
+  if (objectType === 'object') {
+    if (Object.keys(obj).length === 0) {
+      return false;
+    }
+    Object.entries(obj).forEach(([key, value]) => {
+      if (isUndefined(value)) {
+        result = true
+      }
+    })
+  }
+
+  return result;
+}
+
+/**
  * Verifies that a value is `null` or an empty string, empty array,
  * or empty function.
  * isEmpty();                // true

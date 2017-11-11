@@ -6,7 +6,7 @@ import { isNullOrUndefined } from 'util';
 import { Collection } from '../../../core/shared/collection.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { Community } from '../../../core/shared/community.model';
-import { hasValue } from '../../../shared/empty.util';
+import { hasUndefinedValue, hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 
 @Component({
@@ -55,6 +55,36 @@ export class SubmissionSubmitFormCollectionComponent implements OnInit {
     // @TODO replace with search/top browse endpoint
     // @TODO implement community/subcommunity hierarchy
     this.subs.push(this.communityDataService.findAll()
+      .filter((communities: RemoteData<Community[]>) => isNotEmpty(communities.payload))
+      .first()
+      .switchMap((communities: RemoteData<Community[]>) => communities.payload)
+      .subscribe((communityData: Community) => {
+        this.subs.push( communityData.collections
+          .filter((collections: RemoteData<Collection[]>) => isNotEmpty(collections.payload) && !hasUndefinedValue(collections.payload))
+          .first()
+          .switchMap((collections: RemoteData<Collection[]>) => collections.payload)
+          .subscribe((collectionData: Collection) => {
+            if (collectionData.id === this.selectedCollectionId) {
+              this.selectedCollectionName = collectionData.name;
+            }
+            const collectionEntry = {
+              communities: [{id: communityData.id, name: communityData.name}],
+              collection: {id: collectionData.id, name: collectionData.name}
+            };
+            this.listCollection.push(collectionEntry);
+            this.searchListCollection.push(collectionEntry);
+          }))
+        }));
+      // .filter((collections: Collection[]) => isNotEmpty(collections.payload))
+      // .switchMap((collections: RemoteData<Collection[]>) => collections.payload)
+
+      /*.flatMap((communityData: Community) => communityData.collections)
+      .flatMap((collections: RemoteData<Collection[]>) => collections.payload)
+      .filter((collectionData: Collection) => isNotEmpty(collectionData))
+      .subscribe((collectionData) => {
+        console.log(collectionData);
+      }));
+    /*this.subs.push(this.communityDataService.findAll()
       .subscribe((communities: RemoteData<Community[]>) => {
         const collectionsList = [];
         communities.payload.forEach((communityData) => {
@@ -77,7 +107,7 @@ export class SubmissionSubmitFormCollectionComponent implements OnInit {
         });
         this.listCollection = collectionsList;
         this.searchListCollection = collectionsList;
-      }));
+      }));*/
 
     this.searchField = new FormControl();
     this.searchField.valueChanges

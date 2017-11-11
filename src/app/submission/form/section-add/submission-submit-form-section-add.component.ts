@@ -16,7 +16,7 @@ import { SectionFactoryComponent, FactoryDataModel } from '../../section/section
 import { SectionService } from '../../section/section.service';
 import { SubmissionSubmitFormComponent } from '../submission-submit-form.component';
 import { FormSectionComponent } from '../../section/form/section-form.component';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue, isNotUndefined } from '../../../shared/empty.util';
 import { submissionSelector, SubmissionState } from '../../submission.reducers';
 import { SubmissionDefinitionState } from '../../definitions/submission-definitions.reducer';
 import { AppState } from '../../../app.reducer';
@@ -42,7 +42,7 @@ export class SubmissionSubmitFormSectionAddComponent implements OnChanges {
   constructor(private sectionService: SectionService, private store: Store<SubmissionState>) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (hasValue(changes.definitionId.currentValue)) {
+    if (isNotUndefined(changes.definitionId) && hasValue(changes.definitionId.currentValue)) {
       this.subs.push(this.sectionService.getAvailableSectionList(this.submissionId, this.definitionId)
         .subscribe((sectionList) => {
           this.sectionList = sectionList;
