@@ -16,7 +16,7 @@ export abstract class DSpaceObject implements CacheableObject, ListableObject {
   /**
    * The human-readable identifier of this DSpaceObject
    */
-  id: string;
+  id: any;
 
   /**
    * The universally unique identifier of this DSpaceObject
@@ -26,7 +26,7 @@ export abstract class DSpaceObject implements CacheableObject, ListableObject {
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  type: ResourceType;
+  type: any;
 
   /**
    * The name for this DSpaceObject

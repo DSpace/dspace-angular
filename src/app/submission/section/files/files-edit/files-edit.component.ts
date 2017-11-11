@@ -63,39 +63,6 @@ export class FilesEditComponent {
   }
 
   public setFormPoliciesModel() {
-    const tmp = [
-      {
-        type: 'openaccess'
-      },
-      {
-        type: 'administrator'
-      },
-      {
-        type: 'embargo',
-        selectGroupUuid: '1faf7c51-2a14-4826-b0b1-f1c1d2d82dd7',
-        hasDate: true,
-        maxEndDate: '2018-06-24T00:40:54.970+0000'
-      },
-      {
-        type: 'lease',
-        selectGroupUuid: '38ecd5ae-af12-4144-a276-81532e1679f8',
-        hasDate: true,
-        maxEndDate: '2017-12-24T00:40:54.970+0000'
-      }
-    ];
-
-    /*const formPolicies = this.formService.for    findById()
-
-    for (let i = 0; i < tmp.length; i++) {
-      formPolicies.options.push(
-        {
-          label: tmp[i].type,
-          value: tmp[i].type
-        }
-      );
-    };
-
-    this.formModel[0].group.push(formPolicies);*/
 
   }
 

@@ -6,6 +6,7 @@ import { BitstreamService } from '../bitstream/bitstream.service';
 import { SubmissionService } from '../../submission.service';
 import { SectionStatusChangeAction } from '../../objects/submission-objects.actions';
 import { SubmissionState } from '../../submission.reducers';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
 
 @Component({
   selector: 'ds-submission-section-files',
@@ -24,12 +25,18 @@ export class FilesSectionComponent extends SectionModelComponent {
 
   constructor(private bitstreamService: BitstreamService,
               private submissionService: SubmissionService,
+              private collectionDataService: CollectionDataService,
               private store:Store<SubmissionState>) {
     super();
   }
 
   ngOnInit() {
     this.subs.push(
+    //  this.collectionDataService.findById(this.sectionData.collectionId)
+    this.collectionDataService.findByHref('https://dspace7.dev01.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultBitstreamsPolicies')
+        .subscribe((collectionData) => {
+        console.log(collectionData);
+        }),
       this.bitstreamService
         .getBitstreamList(this.sectionData.submissionId)
         .subscribe((bitstreamList) => {

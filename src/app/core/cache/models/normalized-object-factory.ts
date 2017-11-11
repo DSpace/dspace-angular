@@ -8,6 +8,8 @@ import { NormalizedCommunity } from './normalized-community.model';
 import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from './normalized-object.model';
 import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
+import { NormalizedDefaultBitstreamsPolicies } from './normalized-default-bitstreams-policies.model';
+import { NormalizedLicense } from './normalized-license.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
@@ -29,6 +31,12 @@ export class NormalizedObjectFactory {
       }
       case ResourceType.Community: {
         return NormalizedCommunity
+      }
+      case ResourceType.DefaultBitstreamPolicies: {
+        return NormalizedDefaultBitstreamsPolicies
+      }
+      case ResourceType.License: {
+        return NormalizedLicense
       }
       default: {
         return undefined;

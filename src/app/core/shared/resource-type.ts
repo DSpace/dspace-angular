@@ -9,4 +9,6 @@ export enum ResourceType {
   Item = 'item',
   Collection = 'collection',
   Community = 'community',
+  DefaultBitstreamPolicies = 'accessConditionResources',
+  License = 'license',
 }
