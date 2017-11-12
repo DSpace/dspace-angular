@@ -26,7 +26,6 @@ export function requestStateSelector(): MemoizedSelector<CoreState, RequestState
   });
 }
 
-
 @Injectable()
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];

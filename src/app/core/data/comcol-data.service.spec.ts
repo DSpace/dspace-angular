@@ -66,7 +66,7 @@ describe('ComColDataService', () => {
     return jasmine.createSpyObj('requestService', ['configure']);
   }
 
-  function initMockResponceCacheService(isSuccessful: boolean): ResponseCacheService {
+  function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
     return jasmine.createSpyObj('responseCache', {
       get: cold('c-', {
         c: { response: { isSuccessful } }
@@ -107,7 +107,7 @@ describe('ComColDataService', () => {
       cds = initMockCommunityDataService();
       requestService = initMockRequestService();
       objectCache = initMockObjectCacheService();
-      responseCache = initMockResponceCacheService(true);
+      responseCache = initMockResponseCacheService(true);
       service = initTestService();
 
       const expected = new FindByIDRequest(communityEndpoint, scopeID);
@@ -123,7 +123,7 @@ describe('ComColDataService', () => {
         cds = initMockCommunityDataService();
         requestService = initMockRequestService();
         objectCache = initMockObjectCacheService();
-        responseCache = initMockResponceCacheService(true);
+        responseCache = initMockResponseCacheService(true);
         service = initTestService();
       });
 
@@ -146,7 +146,7 @@ describe('ComColDataService', () => {
         cds = initMockCommunityDataService();
         requestService = initMockRequestService();
         objectCache = initMockObjectCacheService();
-        responseCache = initMockResponceCacheService(false);
+        responseCache = initMockResponseCacheService(false);
         service = initTestService();
       });
 
@@ -163,12 +163,12 @@ describe('ComColDataService', () => {
         cds = initMockCommunityDataService();
         requestService = initMockRequestService();
         objectCache = initMockObjectCacheService();
-        responseCache = initMockResponceCacheService(true);
+        responseCache = initMockResponseCacheService(true);
         service = initTestService();
       });
 
       it('should return this.getEndpoint()', () => {
-        spyOn(service, 'getEndpoint').and.returnValue(cold('--e-', { e: serviceEndpoint }))
+        spyOn(service, 'getEndpoint').and.returnValue(cold('--e-', { e: serviceEndpoint }));
 
         const result = service.getScopedEndpoint(undefined);
         const expected = cold('--f-', { f: serviceEndpoint });
