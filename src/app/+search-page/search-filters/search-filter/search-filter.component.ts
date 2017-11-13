@@ -6,6 +6,7 @@ import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
+import { RouteService } from '../../../shared/route.service';
 
 /**
  * This component renders a simple item page.
@@ -17,7 +18,7 @@ import { slide } from '../../../shared/animations/slide';
   selector: 'ds-search-filter',
   styleUrls: ['./search-filter.component.scss'],
   templateUrl: './search-filter.component.html',
-  animations: [slide]
+  animations: [slide],
 })
 
 export class SidebarFilterComponent implements OnInit {
@@ -50,5 +51,9 @@ export class SidebarFilterComponent implements OnInit {
 
   initialExpand() {
     this.filterService.initialExpand(this.filter.name);
+  }
+
+  getSelectedValues(): Observable<string[]> {
+    return this.filterService.getSelectedValuesForFilter(this.filter);
   }
 }

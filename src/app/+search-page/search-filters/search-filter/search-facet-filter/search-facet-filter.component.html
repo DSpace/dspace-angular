@@ -1,15 +1,32 @@
-<a *ngFor="let value of filterValues; let i=index" class="d-block" [routerLink]="[getSearchLink()]"
-   [queryParams]="getQueryParams(value) | async">
-    <ng-template [ngIf]="i < (facetCount | async)">
-        <input type="checkbox" [checked]="isChecked(value) | async"/>
-        <span class="filter-value">{{value.value}}</span>
-        <span class="filter-value-count float-right">({{value.count}})</span>
-    </ng-template>
-</a>
-<a *ngIf="filterValues.length > (facetCount | async)" (click)="showMore()">{{"search.filters.facet-filter.show-more"
-    | translate}}</a>
-<a *ngIf="(currentPage | async) > 1" (click)="showLess()">{{"search.filters.facet-filter.show-less" |
-    translate}}</a>
-
-<input type="text"
-       [placeholder]="'search.filters.facet-filter.' + filterConfig.name + '.placeholder'| translate"/>
+<div>
+    <div class="filters">
+        <a *ngFor="let value of selectedValues" class="d-block"
+           [routerLink]="[getSearchLink()]"
+           [queryParams]="getQueryParamsWithout(value) | async">
+            <input type="checkbox" [checked]="true"/>
+            <span class="filter-value">{{value}}</span>
+        </a>
+        <a *ngFor="let value of filterValues; let i=index" class="d-block"
+           [routerLink]="[getSearchLink()]"
+           [queryParams]="getQueryParamsWith(value.value) | async">
+            <ng-template [ngIf]="i < (facetCount | async)">
+                <input type="checkbox" [checked]="false"/>
+                <span class="filter-value">{{value.value}}</span>
+                <span class="filter-value-count float-right">({{value.count}})</span>
+            </ng-template>
+        </a>
+        <div class="clearfix toggle-more-filters">
+            <a class="float-left" *ngIf="filterValues.length > (facetCount | async)"
+               (click)="showMore()">{{"search.filters.filter.show-more"
+                | translate}}</a>
+            <a class="float-right" *ngIf="(currentPage | async) > 1" (click)="showLess()">{{"search.filters.filter.show-less"
+                | translate}}</a>
+        </div>
+    </div>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter">
+        <input type="text" [(ngModel)]="filter" name="filter" class="form-control"
+               aria-label="New filter input"
+               [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"/>
+        <input type="submit" class="d-none"/>
+    </form>
+</div>

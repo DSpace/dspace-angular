@@ -1,4 +1,4 @@
-import { animate, state, transition, trigger, style } from '@angular/animations';
+import { animate, state, transition, trigger, style, stagger, query } from '@angular/animations';
 
 export const slide = trigger('slide', [
 
@@ -6,5 +6,5 @@ export const slide = trigger('slide', [
 
   state('collapsed', style({ height: 0 })),
 
-  transition('expanded <=> collapsed', animate(250)),
+  transition('expanded <=> collapsed', animate(250))
 ]);

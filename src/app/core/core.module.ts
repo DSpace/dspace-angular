@@ -32,6 +32,7 @@ import { ServerResponseService } from '../shared/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
 import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
+import { RouteService } from '../shared/route.service';
 
 const IMPORTS = [
   CommonModule,
@@ -65,6 +66,7 @@ const PROVIDERS = [
   ServerResponseService,
   BrowseResponseParsingService,
   BrowseService,
+  RouteService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, convertToParamMap, Params, } from '@angular/router';
 import { isNotEmpty } from './empty.util';
@@ -7,6 +7,14 @@ import { isNotEmpty } from './empty.util';
 export class RouteService {
 
   constructor(private route: ActivatedRoute) {
+  }
+
+  getQueryParameterValues(paramName: string): Observable<string[]> {
+    return this.route.queryParamMap.map((map) => map.getAll(paramName));
+  }
+
+  getQueryParameterValue(paramName: string): Observable<string> {
+    return this.route.queryParamMap.map((map) => map.get(paramName));
   }
 
   hasQueryParam(paramName: string): Observable<boolean> {

@@ -90,7 +90,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   }
 
   private updateSearchResults(searchOptions) {
-    // Resolve search results
     this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions);
   }
 

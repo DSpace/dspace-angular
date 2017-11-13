@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';

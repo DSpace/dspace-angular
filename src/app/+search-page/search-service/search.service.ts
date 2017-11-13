@@ -15,6 +15,7 @@ import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { Router, NavigationExtras, ActivatedRoute, Params } from '@angular/router';
+import { RouteService } from '../../shared/route.service';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -81,6 +82,7 @@ export class SearchService implements OnDestroy {
   ];
 
   constructor(private itemDataService: ItemDataService,
+              private routeService: RouteService,
               private route: ActivatedRoute,
               private router: Router) {
 
@@ -126,31 +128,31 @@ export class SearchService implements OnDestroy {
       .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded)
       .map((rd: RemoteData<Item[]>) => {
 
-      const totalElements = rd.pageInfo.totalElements > 20 ? 20 : rd.pageInfo.totalElements;
-      const pageInfo = Object.assign({}, rd.pageInfo, { totalElements: totalElements });
+        const totalElements = rd.pageInfo.totalElements > 20 ? 20 : rd.pageInfo.totalElements;
+        const pageInfo = Object.assign({}, rd.pageInfo, { totalElements: totalElements });
 
-      const payload = shuffle(rd.payload)
-        .map((item: Item, index: number) => {
-          const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
-          mockResult.dspaceObject = item;
-          const highlight = new Metadatum();
-          highlight.key = 'dc.description.abstract';
-          highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
-          mockResult.hitHighlights = new Array(highlight);
-          return mockResult;
-        });
+        const payload = shuffle(rd.payload)
+          .map((item: Item, index: number) => {
+            const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
+            mockResult.dspaceObject = item;
+            const highlight = new Metadatum();
+            highlight.key = 'dc.description.abstract';
+            highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
+            mockResult.hitHighlights = new Array(highlight);
+            return mockResult;
+          });
 
-      return new RemoteData(
-        self,
-        rd.isRequestPending,
-        rd.isResponsePending,
-        rd.hasSucceeded,
-        errorMessage,
-        statusCode,
-        pageInfo,
-        payload
-      )
-    }).startWith(new RemoteData(
+        return new RemoteData(
+          self,
+          rd.isRequestPending,
+          rd.isResponsePending,
+          rd.hasSucceeded,
+          errorMessage,
+          statusCode,
+          pageInfo,
+          payload
+        )
+      }).startWith(new RemoteData(
         '',
         true,
         false,
@@ -182,39 +184,43 @@ export class SearchService implements OnDestroy {
   }
 
   getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
-
     const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
-    const values: FacetValue[] = [];
-    for (let i = 0; i < 5; i++) {
-      const value = searchFilterConfigName + ' ' + (i + 1);
-      values.push({
-        value: value,
-        count: Math.floor(Math.random() * 20) + 20 * (5 - i), // make sure first results have the highest (random) count
-        search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
-      });
-    }
-    const requestPending = false;
-    const responsePending = false;
-    const isSuccessful = true;
-    const errorMessage = undefined;
-    const statusCode = '200';
-    const returningPageInfo = new PageInfo();
-    return Observable.of(new RemoteData(
-      'https://dspace7.4science.it/dspace-spring-rest/api/search',
-      requestPending,
-      responsePending,
-      isSuccessful,
-      errorMessage,
-      statusCode,
-      returningPageInfo,
-      values
-    ));
+    return this.routeService.getQueryParameterValues(filterConfig.paramName).map((selectedValues: string[]) => {
+        const values: FacetValue[] = [];
+        for (let i = 0; i < 5; i++) {
+          const value = searchFilterConfigName + ' ' + (i + 1);
+          if (!selectedValues.includes(value)) {
+            values.push({
+              value: value,
+              count: Math.floor(Math.random() * 20) + 20 * (5 - i), // make sure first results have the highest (random) count
+              search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
+            });
+          }
+        }
+        const requestPending = false;
+        const responsePending = false;
+        const isSuccessful = true;
+        const errorMessage = undefined;
+        const statusCode = '200';
+        const returningPageInfo = new PageInfo();
+        return new RemoteData(
+          'https://dspace7.4science.it/dspace-spring-rest/api/search',
+          requestPending,
+          responsePending,
+          isSuccessful,
+          errorMessage,
+          statusCode,
+          returningPageInfo,
+          values
+        )
+      }
+    )
   }
 
   getViewMode(): Observable<ViewMode> {
-    return this.route.queryParams.map((params) => {
-      if (isNotEmpty(params.view) && hasValue(params.view)) {
-        return params.view;
+    return this.routeService.getQueryParameterValue('view').map((value) => {
+      if (hasValue(value)) {
+        return value as ViewMode;
       } else {
         return ViewMode.List;
       }

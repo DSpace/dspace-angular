@@ -11,7 +11,6 @@ import {
   SearchFilterToggleAction
 } from './search-filter.actions';
 import { hasValue, } from '../../../shared/empty.util';
-import { Params } from '@angular/router';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchService } from '../../search-service/search.service';
 import { RouteService } from '../../../shared/route.service';
@@ -30,14 +29,16 @@ export class SearchFilterService {
     return this.routeService.hasQueryParamWithValue(paramName, filterValue);
   }
 
-  getFilterValueURL(filterConfig: SearchFilterConfig, value: string): Observable<Params> {
-    return this.isFilterActive(filterConfig.paramName, value).flatMap((isActive) => {
-      if (isActive) {
-        return this.routeService.removeQueryParameterValue(filterConfig.paramName, value);
-      } else {
-        return this.routeService.addQueryParameterValue(filterConfig.paramName, value);
-      }
-    })
+  getQueryParamsWithout(filterConfig: SearchFilterConfig, value: string) {
+    return this.routeService.removeQueryParameterValue(filterConfig.paramName, value);
+  }
+
+  getQueryParamsWith(filterConfig: SearchFilterConfig, value: string) {
+    return this.routeService.addQueryParameterValue(filterConfig.paramName, value);
+  }
+
+  getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
+    return this.routeService.getQueryParameterValues(filterConfig.paramName);
   }
 
   get searchLink() {

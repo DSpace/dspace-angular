@@ -94,9 +94,9 @@
     "filters": {
       "head": "Filters",
       "reset": "Reset filters",
-      "facet-filter": {
+      "filter": {
         "show-more": "Show more",
-        "show-less": "Show less",
+        "show-less": "Collapse",
         "author": {
           "placeholder": "Author name",
           "head": "Author"
@@ -108,6 +108,10 @@
         "subject": {
           "placeholder": "Subject",
           "head": "Subject"
+        },
+        "date": {
+          "placeholder": "Date",
+          "head": "Date"
         }
       }
     }

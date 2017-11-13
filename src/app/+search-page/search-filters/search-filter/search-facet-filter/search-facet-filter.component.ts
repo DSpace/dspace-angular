@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
-import { SearchService } from '../../../search-service/search.service';
-import { Params } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SearchFilterService } from '../search-filter.service';
+import { isNotEmpty } from '../../../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -21,9 +21,11 @@ import { SearchFilterService } from '../search-filter.service';
 export class SidebarFacetFilterComponent implements OnInit {
   @Input() filterValues: FacetValue[];
   @Input() filterConfig: SearchFilterConfig;
+  @Input() selectedValues: string[];
   currentPage: Observable<number>;
+  filter: string;
 
-  constructor(private filterService: SearchFilterService) {
+  constructor(private filterService: SearchFilterService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -38,8 +40,12 @@ export class SidebarFacetFilterComponent implements OnInit {
     return this.filterService.searchLink;
   }
 
-  getQueryParams(value: FacetValue): Observable<Params> {
-    return this.filterService.getFilterValueURL(this.filterConfig, value.value);
+  getQueryParamsWith(value: string): Observable<Params> {
+    return this.filterService.getQueryParamsWith(this.filterConfig, value);
+  }
+
+  getQueryParamsWithout(value: string): Observable<Params> {
+    return this.filterService.getQueryParamsWithout(this.filterConfig, value);
   }
 
   get facetCount(): Observable<number> {
@@ -60,6 +66,16 @@ export class SidebarFacetFilterComponent implements OnInit {
 
   getCurrentPage(): Observable<number> {
     return this.filterService.getPage(this.filterConfig.name);
+  }
 
+  onSubmit(data: any) {
+    if (isNotEmpty(data.filter)) {
+      this.getQueryParamsWith(data.filter).first().subscribe((a) => {
+          this.router.navigate([this.getSearchLink()], { queryParams: a }
+          );
+        }
+      );
+      this.filter = '';
+    }
   }
 }
