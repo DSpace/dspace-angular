@@ -11,7 +11,6 @@ import { SearchSidebarService } from '../search-sidebar/search-sidebar.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { By } from '@angular/platform-browser';
-import Any = jasmine.Any;
 
 describe('SearchSettingsComponent', () => {
 
@@ -72,35 +71,33 @@ describe('SearchSettingsComponent', () => {
     spyOn(comp, 'reloadOrder');
     spyOn(searchServiceObject, 'search').and.callThrough();
 
-
   });
 
   it('it should show the order settings with the respective selectable options', () => {
-    let orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
+    const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
     expect(orderSetting).toBeDefined();
-    let childElements = orderSetting.query(By.css('.form-control')).children;
+    const childElements = orderSetting.query(By.css('.form-control')).children;
     expect(childElements.length).toEqual(2);
 
   });
 
   it('it should show the size settings with the respective selectable options', () => {
-    let pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
+    const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
     expect(pageSizeSetting).toBeDefined();
-    let childElements = pageSizeSetting.query(By.css('.form-control')).children;
+    const childElements = pageSizeSetting.query(By.css('.form-control')).children;
     expect(childElements.length).toEqual(7);
   });
 
   it('should have the proper order value selected by default', () => {
-    let orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
-    let childElementToBeSelected = orderSetting.query(By.css('.form-control option[value="0"][selected="selected"]'))
+    const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
+    const childElementToBeSelected = orderSetting.query(By.css('.form-control option[value="0"][selected="selected"]'))
     expect(childElementToBeSelected).toBeDefined();
   });
 
   it('should have the proper rpp value selected by default', () => {
-    let pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-    let childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'))
+    const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
+    const childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'))
     expect(childElementToBeSelected).toBeDefined();
   });
-
 
 });

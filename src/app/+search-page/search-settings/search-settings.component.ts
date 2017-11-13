@@ -9,7 +9,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./search-settings.component.scss'],
   templateUrl: './search-settings.component.html',
 })
-export class SearchSettingsComponent implements OnInit{
+export class SearchSettingsComponent implements OnInit {
 
   @Input() searchOptions: SearchOptions;
   /**
@@ -30,8 +30,7 @@ export class SearchSettingsComponent implements OnInit{
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
-              private router: Router){
-
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -48,32 +47,24 @@ export class SearchSettingsComponent implements OnInit{
         this.direction = +params.sortDirection || this.searchOptions.sort.direction;
       });
   }
-  reloadRPP(event:Event) {
-    let value = (<HTMLInputElement>event.target).value;
-    this.searchOptions.sort.direction;
+
+  reloadRPP(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
     const navigationExtras: NavigationExtras = {
-      queryParams: {
-        query:this.query,
-        pageSize:value,
-        scope: this.scope,
-        page:this.page,
-        sortDirection:this.direction
-      }
+      queryParams: Object.assign({}, this.currentParams, {
+        pageSize: value
+      })
     };
-    this.router.navigate(['/search'], navigationExtras);
+    this.router.navigate([ '/search' ], navigationExtras);
   }
 
-  reloadOrder(event:Event) {
-    let value = (<HTMLInputElement>event.target).value;
+  reloadOrder(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
     const navigationExtras: NavigationExtras = {
-      queryParams: {
-        query:this.query,
-        pageSize:this.pageSize,
-        scope: this.scope,
-        page:this.page,
-        sortDirection:value
-      }
+      queryParams: Object.assign({}, this.currentParams, {
+        sortDirection: value
+      })
     };
-    this.router.navigate(['/search'], navigationExtras);
+    this.router.navigate([ '/search' ], navigationExtras);
   }
 }
