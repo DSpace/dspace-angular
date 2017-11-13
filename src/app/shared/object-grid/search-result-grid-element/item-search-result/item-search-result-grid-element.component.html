@@ -1,10 +1,10 @@
 <div class="card">
-  <a [routerLink]="['/items/' + dso.id]" class="card-img-top">
+  <a [routerLink]="['/items/' + dso.id]" class="card-img-top full-width">
     <ds-grid-thumbnail [thumbnail]="dso.getThumbnail()">
     </ds-grid-thumbnail>
   </a>
-  <div class="card-block">
-    <p class="card-title" [innerHTML]="dso.findMetadata('dc.title')"></p>
+  <div class="card-body">
+    <h4 class="card-title" [innerHTML]="dso.findMetadata('dc.title')"></h4>
 
     <p *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])"
        class="item-authors card-text text-muted">
@@ -25,7 +25,9 @@
     <p class="item-abstract card-text" [innerHTML]="getFirstValue('dc.description.abstract') | dsTruncate:[200]">
     </p>
 
-    <a [routerLink]="['/items/' + dso.id]" class="lead btn btn-primary viewButton">View</a>
+    <div class="text-center">
+      <a [routerLink]="['/items/' + dso.id]" class="lead btn btn-primary viewButton">View</a>
+    </div>
   </div>
 
 </div>

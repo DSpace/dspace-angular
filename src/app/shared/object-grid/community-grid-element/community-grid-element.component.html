@@ -4,9 +4,11 @@
     <ds-comcol-page-logo [logo]="object.logo">
     </ds-comcol-page-logo>
   </a>
-  <div class="card-block">
+  <div class="card-body">
     <h4 class="card-title">{{object.name}}</h4>
     <p *ngIf="object.shortDescription" class="card-text">{{object.shortDescription}}</p>
-    <a [routerLink]="['/communities/' + object.id]" class="lead btn btn-primary viewButton">View</a>
+    <div class="text-center">
+      <a [routerLink]="['/communities/' + object.id]" class="lead btn btn-primary viewButton">View</a>
+    </div>
   </div>
 </div>
