@@ -10,8 +10,8 @@
   (sortDirectionChange)="onSortDirectionChange($event)"
   (sortFieldChange)="onSortDirectionChange($event)"
   (paginationChange)="onPaginationChange($event)">
-    <div class="row" *ngIf="objects.hasSucceeded | async" @fadeIn>
-        <div class="col-lg-4 col-sm-4 col-xs-12 "
+    <div class="row " *ngIf="objects.hasSucceeded | async" @fadeIn>
+        <div class="col-lg-4 col-sm-6 col-xs-12 "
           *ngFor="let object of (objects.payload | async) | paginate: { itemsPerPage: (pageInfo | async)?.elementsPerPage, currentPage: (pageInfo | async)?.currentPage, totalItems: (pageInfo | async)?.totalElements }">
           <ds-wrapper-grid-element [object]="object"></ds-wrapper-grid-element>
       </div>

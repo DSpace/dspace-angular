@@ -4,9 +4,11 @@
     <ds-comcol-page-logo [logo]="dso.logo">
     </ds-comcol-page-logo>
   </a>
-  <div class="card-block">
+  <div class="card-body">
     <h4 class="card-title">{{dso.name}}</h4>
     <p *ngIf="dso.shortDescription" class="card-text">{{dso.shortDescription}}</p>
-    <a [routerLink]="['/communities/' + dso.id]" class="lead btn btn-primary viewButton">View</a>
+    <div class="text-center">
+      <a [routerLink]="['/communities/' + dso.id]" class="lead btn btn-primary viewButton">View</a>
+    </div>
   </div>
 </div>
