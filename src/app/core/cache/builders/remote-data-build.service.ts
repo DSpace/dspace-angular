@@ -13,7 +13,7 @@ import { RemoteData } from '../../data/remote-data';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
 import { NormalizedObjectFactory } from '../models/normalized-object-factory';
-import { RestRequest } from '../../data/request.models';
+import { HttpGetRequest, RestRequest } from '../../data/request.models';
 import { PageInfo } from '../../shared/page-info.model';
 
 @Injectable()
@@ -160,7 +160,7 @@ export class RemoteDataBuildService {
         const resourceConstructor = NormalizedObjectFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
           normalized[relationship].forEach((href: string) => {
-            this.requestService.configure(new RestRequest(href))
+            this.requestService.configure(new HttpGetRequest(href))
           });
 
           const rdArr = [];
@@ -174,7 +174,7 @@ export class RemoteDataBuildService {
             links[relationship] = rdArr[0];
           }
         } else {
-          this.requestService.configure(new RestRequest(normalized[relationship]));
+          this.requestService.configure(new HttpGetRequest(normalized[relationship]));
 
           // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
           // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),

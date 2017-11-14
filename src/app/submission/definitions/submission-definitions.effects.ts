@@ -11,10 +11,9 @@ import {
   SubmissionDefinitionActionTypes
 } from './submission-definitions.actions'
 import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
-import { SubmissionSectionsConfigService } from '../../core/config/submission-sections-config.service';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
-import { InitSubmissionFormAction, NewSubmissionFormAction } from '../objects/submission-objects.actions';
+import { InitSubmissionFormAction } from '../objects/submission-objects.actions';
 import { ConfigData } from '../../core/config/config-data';
 
 @Injectable()
@@ -49,13 +48,12 @@ export class SubmissionDefinitionEffects {
   @Effect() complete$ = this.actions$
     .ofType(SubmissionDefinitionActionTypes.COMPLETE_INIT_DEFAULT_DEFINITION)
     .map((action: CompleteInitAction) =>
-      new NewSubmissionFormAction(
+      new InitSubmissionFormAction(
         action.payload.collectionId,
         action.payload.definitionId,
         action.payload.submissionId)
     )
 
   constructor(private actions$: Actions,
-              private definitionsConfigService: SubmissionDefinitionsConfigService,
-              private sectionsConfigService: SubmissionSectionsConfigService) {}
+              private definitionsConfigService: SubmissionDefinitionsConfigService) {}
 }

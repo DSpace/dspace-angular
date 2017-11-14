@@ -104,7 +104,6 @@ export class NewSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.NEW;
   payload: {
     collectionId: string;
-    definitionId: string;
     submissionId: string;
   };
 
@@ -113,13 +112,11 @@ export class NewSubmissionFormAction implements Action {
    *
    * @param collectionId
    *    the collection's Id where to deposit
-   * @param definitionId
-   *    the definition's ID to use
    * @param submissionId
    *    the submission's ID
    */
-  constructor(collectionId: string, definitionId: string, submissionId: string) {
-    this.payload = { collectionId, definitionId, submissionId };
+  constructor(collectionId: string, submissionId: string) {
+    this.payload = { collectionId, submissionId };
   }
 }
 

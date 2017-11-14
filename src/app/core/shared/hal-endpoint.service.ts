@@ -23,9 +23,10 @@ export abstract class HALEndpointService {
       .distinctUntilChanged();
   }
 
-  public getEndpoint(): Observable<string> {
+  public getEndpoint(linkName?: string): Observable<string> {
+    const mapLinkName = isNotEmpty(linkName) ? linkName : this.linkName;
     return this.getEndpointMap()
-      .map((map: EndpointMap) => map[this.linkName])
+      .map((map: EndpointMap) => map[mapLinkName])
       .distinctUntilChanged();
   }
 

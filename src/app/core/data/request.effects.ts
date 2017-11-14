@@ -10,9 +10,10 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 
 import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { RequestActionTypes, RequestCompleteAction, RequestExecuteAction } from './request.actions';
-import { RequestError } from './request.models';
+import { RequestError, RestRequest, RequestType } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
+import { NormalizedBitstream } from '../cache/models/normalized-bitstream.model';
 
 @Injectable()
 export class RequestEffects {
@@ -20,11 +21,11 @@ export class RequestEffects {
   @Effect() execute = this.actions$
     .ofType(RequestActionTypes.EXECUTE)
     .flatMap((action: RequestExecuteAction) => {
-      return this.requestService.get(action.payload)
+      return this.requestService.get(action.payload.href)
         .take(1);
     })
     .flatMap((entry: RequestEntry) => {
-      return this.restApi.get(entry.request.href)
+      return this.makeHttpRequest(entry.request)
         .map((data: DSpaceRESTV2Response) =>
           this.injector.get(entry.request.getResponseParser()).parse(entry.request, data))
         .do((response: RestResponse) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
@@ -42,6 +43,20 @@ export class RequestEffects {
     private responseCache: ResponseCacheService,
     protected requestService: RequestService
   ) { }
+
+  private makeHttpRequest(request: RestRequest): Observable<DSpaceRESTV2Response> {
+    switch (request.requestType) {
+      case RequestType.GET: {
+        return this.restApi.get(request.href)
+      }
+      case RequestType.POST: {
+        return this.restApi.post(request.href, request.body)
+      }
+      case RequestType.PATCH: {
+        return this.restApi.get(request.href, request.body)
+      }
+    }
+  }
 
 }
 /* tslint:enable:max-classes-per-file */

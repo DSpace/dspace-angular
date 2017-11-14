@@ -8,6 +8,13 @@ import { DefaultBitstreamsPolicies } from '../../shared/default-bitstreams-polic
 export class NormalizedDefaultBitstreamsPolicies extends NormalizedDSpaceObject {
 
   /**
+   * The identifier of the access condition
+   *
+   */
+  @autoserialize
+  id: any;
+
+  /**
    * The group uuid bound to the access condition
    */
   @autoserialize

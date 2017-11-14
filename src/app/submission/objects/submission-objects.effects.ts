@@ -6,6 +6,7 @@ import {
   CompleteInitSubmissionFormAction
 } from './submission-objects.actions';
 import { SectionService } from '../section/section.service';
+import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -13,7 +14,7 @@ export class SubmissionObjectEffects {
   @Effect() new$ = this.actions$
     .ofType(SubmissionObjectActionTypes.NEW)
     .map((action: NewSubmissionFormAction) =>
-      new InitSubmissionFormAction(action.payload.collectionId, action.payload.definitionId, action.payload.submissionId));
+      new InitDefaultDefinitionAction(action.payload.collectionId, action.payload.submissionId));
 
   @Effect() initForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)

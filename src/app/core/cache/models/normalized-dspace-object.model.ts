@@ -25,7 +25,7 @@ export abstract class NormalizedDSpaceObject extends NormalizedObject {
    * for a shorter, more user friendly type of id
    */
   @autoserializeAs(String, 'uuid')
-  id: any;
+  id: string;
 
   /**
    * The universally unique identifier of this DSpaceObject
@@ -40,7 +40,7 @@ export abstract class NormalizedDSpaceObject extends NormalizedObject {
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
   @autoserialize
-  type: any;
+  type: ResourceType;
 
   /**
    * The name for this DSpaceObject

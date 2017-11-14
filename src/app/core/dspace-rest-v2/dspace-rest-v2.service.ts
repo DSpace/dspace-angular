@@ -36,4 +36,45 @@ export class DSpaceRESTv2Service {
       });
   }
 
+  /**
+   * Performs a request to the REST API with the `post` http method.
+   *
+   * @param absoluteURL
+   *      A URL
+   * @param body
+   *      The request body
+   * @param options
+   *      A RequestOptionsArgs object, with options for the http call.
+   * @return {Observable<string>}
+   *      An Observable<string> containing the response from the server
+   */
+  post(absoluteURL: string, body: any, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
+    return this.http.post(absoluteURL, body,options)
+      .map((res) => ({ payload: res.json(), statusCode: res.statusText }))
+      .catch((err) => {
+        console.log('Error: ', err);
+        return Observable.throw(err);
+      });
+  }
+
+  /**
+   * Performs a request to the REST API with the `patch` http method.
+   *
+   * @param absoluteURL
+   *      A URL
+   * @param body
+   *      The request body
+   * @param options
+   *      A RequestOptionsArgs object, with options for the http call.
+   * @return {Observable<string>}
+   *      An Observable<string> containing the response from the server
+   */
+  patch(absoluteURL: string, body: any, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
+    return this.http.patch(absoluteURL, body,options)
+      .map((res) => ({ payload: res.json(), statusCode: res.statusText }))
+      .catch((err) => {
+        console.log('Error: ', err);
+        return Observable.throw(err);
+      });
+  }
 }

@@ -40,6 +40,7 @@ import { SubmissionDefinitionsConfigService } from './config/submission-definiti
 import { ConfigResponseParsingService } from './data/config-response-parsing.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
+import { SubmitDataResponseParsingService } from './data/submit-data-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -81,6 +82,7 @@ const PROVIDERS = [
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
+  SubmitDataResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
