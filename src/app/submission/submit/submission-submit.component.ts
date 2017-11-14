@@ -23,13 +23,8 @@ export class SubmissionSubmitComponent implements OnInit {
     this.restService.postToEndpoint('workspaceitems', {})
       .map((workspaceitems: NormalizedWorkspaceItem) => workspaceitems[0])
       .subscribe((workspaceitems: NormalizedWorkspaceItem) => {
-        console.log('d', workspaceitems)
         this.collectionId = workspaceitems.collection[0].id;
         this.submissionId = workspaceitems.id;
     });
-    // this.cds.findById('5ad50035-ca22-4a4d-84ca-d5132f34f588')
-    // this.cds.findByHref('https://dspace7.dev01.4science.it/dspace-spring-rest/api/core/collections/5ad50035-ca22-4a4d-84ca-d5132f34f588/license')
-    /*this.cds.findByHref('https://dspace7.dev01.4science.it/dspace-spring-rest/api/core/collections/5ad50035-ca22-4a4d-84ca-d5132f34f588/defaultBitstreamsPolicies')
-      .subscribe((c) => console.log('c', c))*/
   }
 }
