@@ -32,8 +32,8 @@ export class FilesSectionComponent extends SectionModelComponent {
 
   ngOnInit() {
     this.subs.push(
-    //  this.collectionDataService.findById(this.sectionData.collectionId)
-    this.collectionDataService.findByHref('https://dspace7.dev01.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultBitstreamsPolicies')
+      //  this.collectionDataService.findById(this.sectionData.collectionId)
+      this.collectionDataService.findByHref('https://dspace7.dev01.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultBitstreamsPolicies')
         .subscribe((collectionData) => {
         console.log(collectionData);
         }),
