@@ -8,8 +8,9 @@ import { SectionHostDirective } from '../section/section-host.directive';
 import { submissionSelector, SubmissionState } from '../submission.reducers';
 import { NewSubmissionFormAction } from '../objects/submission-objects.actions';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
-import { hasValue, isEmpty, isUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
+import { SubmissionRestService } from '../submission-rest.service';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -25,7 +26,7 @@ export class SubmissionSubmitFormComponent implements OnChanges, OnInit {
   definitionId: string;
   isLoading = true;
   uploadFilesOptions: UploadFilesComponentOptions = {
-    url: 'http://ng-file-upload-php-demo.dev01.4science.it/server.php',
+    url: '',
     authToken: null,
     disableMultipart: false,
     itemAlias: null
@@ -33,14 +34,20 @@ export class SubmissionSubmitFormComponent implements OnChanges, OnInit {
 
   @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 
-  constructor(private store:Store<SubmissionState>) {}
+  constructor(private store:Store<SubmissionState>, private submissionRestService: SubmissionRestService) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.collectionId)
       && hasValue(changes.collectionId.currentValue)
       && hasValue(changes.submissionId)
       && hasValue(changes.submissionId.currentValue)) {
-      this.store.dispatch(new NewSubmissionFormAction(this.collectionId, this.submissionId));
+      this.submissionRestService.getEndpoint('workspaceitems')
+        .filter((href: string) => isNotEmpty(href))
+        .distinctUntilChanged()
+        .subscribe((endpointURL) => {
+          this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
+          this.store.dispatch(new NewSubmissionFormAction(this.collectionId, this.submissionId));
+        });
     }
   }
 
