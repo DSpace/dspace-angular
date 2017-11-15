@@ -48,6 +48,10 @@ export abstract class DSpaceObject implements CacheableObject, ListableObject {
    */
   owner: Observable<RemoteData<DSpaceObject>>;
 
+  _links: {
+    [name: string]: string
+  }
+
   /**
    * Find a metadata field by key and language
    *

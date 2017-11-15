@@ -10,12 +10,14 @@ import {
   SubmissionObjectActionTypes
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
+import { PatchOperationModel } from '../../core/shared/patch-request.model';
 
 export interface SubmissionSectionObject {
   sectionViewIndex: number;
-  isValid: boolean;
-  isLoading: boolean;
   data: SubmissionDataEntry;
+  isLoading: boolean;
+  isValid: boolean;
+  patchOperations: PatchOperationModel[];
 }
 
 export interface SubmissionSectionEntry {
@@ -171,8 +173,9 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
         sections: Object.assign({}, state[action.payload.submissionId].sections, {
           [action.payload.sectionId]: {
             sectionViewIndex: action.payload.sectionViewIndex,
+            data: Object.create(null),
             isValid: false,
-            data: Object.create(null)
+            patchOperations: Object.create([])
           }
         }),
         isLoading: state[action.payload.submissionId].isLoading,
@@ -245,14 +248,14 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: Object.assign({}, state[action.payload.submissionId].sections,
-           Object.assign({}, {
-             [action.payload.sectionId]: {
-               sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
-                 isValid: action.payload.status,
-                 data: state[action.payload.submissionId].sections[action.payload.sectionId].data,
-               }
-             }
-           )
+          Object.assign({}, {
+            [action.payload.sectionId]: {
+              sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
+              isValid: action.payload.status,
+              data: state[action.payload.submissionId].sections[action.payload.sectionId].data,
+              patchOperations: state[action.payload.submissionId].sections[action.payload.sectionId].patchOperations
+            }
+          })
         ),
         isLoading: state[action.payload.submissionId].isLoading,
       })
@@ -286,12 +289,13 @@ function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction):
           Object.assign({}, {
               [action.payload.sectionId]: {
                 sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
-                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
                 data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
-                    bitstreams: Object.assign({},
-                      state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams,
-                      newData)
-                })
+                  bitstreams: Object.assign({},
+                    state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams,
+                    newData)
+                }),
+                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
+                patchOperations: state[action.payload.submissionId].sections[action.payload.sectionId].patchOperations
               }
             }
           )
@@ -320,10 +324,11 @@ function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction):
           Object.assign({}, {
               [action.payload.sectionId]: {
                 sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
-                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
                 data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
                   bitstreams: newData
-                })
+                }),
+                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
+                patchOperations: state[action.payload.submissionId].sections[action.payload.sectionId].patchOperations
               }
             }
           )
@@ -352,13 +357,14 @@ function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction
           Object.assign({}, {
               [action.payload.sectionId]: {
                 sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
-                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
                 data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
                   bitstreams: Object.assign({},
                     state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams, {
                       [action.payload.bitstreamId]: action.payload.data
                     })
-                })
+                }),
+                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
+                patchOperations: state[action.payload.submissionId].sections[action.payload.sectionId].patchOperations
               }
             }
           )

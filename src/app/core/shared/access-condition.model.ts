@@ -1,6 +1,6 @@
 import { DSpaceObject } from './dspace-object.model';
 
-export class DefaultBitstreamsPolicies extends DSpaceObject {
+export class AccessCondition extends DSpaceObject {
 
   /**
    * The identifier of the access condition

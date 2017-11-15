@@ -19,6 +19,8 @@ export const SubmissionObjectActionTypes = {
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
+  NEW_PATCH_OPERATION: type('dspace/submission/NEW_PATCH_OPERATION'),
+  FLUSH_PATCH_OPERATIONS: type('dspace/submission/FLUSH_PATCH_OPERATIONS'),
 
   // Bitstream actions
   NEW_BITSTREAM: type('dspace/submission/NEW_BITSTREAM'),

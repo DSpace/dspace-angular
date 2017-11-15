@@ -3,6 +3,8 @@ import { Bitstream } from './bitstream.model';
 import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs/Observable';
+import { License } from './license.model';
+import { AccessCondition } from './access-condition.model';
 
 export class Collection extends DSpaceObject {
 
@@ -54,7 +56,7 @@ export class Collection extends DSpaceObject {
   /**
    * The deposit license of this Collection
    */
-  license: Observable<RemoteData<Item[]>>;
+  license: Observable<RemoteData<License>>;
 
   /**
    * The Bitstream that represents the logo of this Collection
@@ -62,9 +64,9 @@ export class Collection extends DSpaceObject {
   logo: Observable<RemoteData<Bitstream>>;
 
   /**
-   * The default bitstreams policies of this Collection
+   * The default access conditions of this Collection
    */
-  defaultBitstreamsPolicies: Observable<RemoteData<Item[]>>;
+  defaultAccessConditions: Observable<RemoteData<AccessCondition[]>>;
 
   /**
    * An array of Collections that are direct parents of this Collection

@@ -52,7 +52,7 @@ export class SubmissionDefinitionEffects {
         action.payload.collectionId,
         action.payload.definitionId,
         action.payload.submissionId)
-    )
+    );
 
   constructor(private actions$: Actions,
               private definitionsConfigService: SubmissionDefinitionsConfigService) {}

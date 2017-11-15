@@ -1,5 +1,4 @@
-
-import { ConfigType } from '../core/shared/config/config-type';
+import { AccessCondition } from '../core/shared/access-condition.model';
 import { SubmissionDefinitionsModel } from '../core/shared/config/config-submission-definitions.model';
 import { SubmissionFormsModel } from '../core/shared/config/config-submission-forms.model';
 import { SubmissionSectionModel } from '../core/shared/config/config-submission-section.model';
@@ -10,12 +9,10 @@ import { NormalizedBitstreamFormat } from '../core/cache/models/normalized-bitst
 import { NormalizedBundle } from '../core/cache/models/normalized-bundle.model';
 import { NormalizedCollection } from '../core/cache/models/normalized-collection.model';
 import { NormalizedCommunity } from '../core/cache/models/normalized-community.model';
-import { NormalizedDefaultBitstreamsPolicies } from '../core/cache/models/normalized-default-bitstreams-policies.model';
 import { NormalizedItem } from '../core/cache/models/normalized-item.model';
 import { NormalizedLicense } from '../core/cache/models/normalized-license.model';
 import { NormalizedWorkspaceItem } from '../core/cache/models/normalized-workspaceitem.model';
 import { NormalizedObject } from '../core/cache/models/normalized-object.model';
-import { ResourceType } from '../core/shared/resource-type';
 import { ConfigObject } from '../core/shared/config/config.model';
 import { SubmissionResourceType } from './submission-resource-type';
 
@@ -40,8 +37,8 @@ export class NormalizedSubmissionObjectFactory {
       case SubmissionResourceType.Community: {
         return NormalizedCommunity
       }
-      case SubmissionResourceType.DefaultBitstreamPolicies: {
-        return NormalizedDefaultBitstreamsPolicies
+      case SubmissionResourceType.AccessCondition: {
+        return AccessCondition
       }
       case SubmissionResourceType.License: {
         return NormalizedLicense

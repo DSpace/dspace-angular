@@ -1,4 +1,4 @@
-import { autoserialize, inheritSerialization, autoserializeAs } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
 
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Collection } from '../../shared/collection.model';
@@ -14,6 +14,13 @@ export class NormalizedCollection extends NormalizedDSpaceObject {
    */
   @autoserialize
   handle: string;
+
+  /**
+   * The Bitstream that represents the logo of this Collection
+   */
+  @autoserialize
+  @relationship(ResourceType.License, false)
+  license: string;
 
   /**
    * The Bitstream that represents the logo of this Collection
