@@ -43,7 +43,7 @@ export function submissionSectionBitstreamsFromIdSelector(submissionId: string, 
 }
 
 export function submissionBitstreamFromUuidSelector(submissionId: string, sectionId: string, uuid: string): MemoizedSelector<SubmissionState, any> {
-  const bitstreamsSelector  = submissionSectionBitstreamsFromIdSelector(submissionId, sectionId);
+  const bitstreamsSelector  = submissionSectionDataFromIdSelector(submissionId, sectionId);
   return keySelector<SubmissionState, any>(bitstreamsSelector, 'bitstreams', uuid);
 }
 
