@@ -27,6 +27,7 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   @Input() objects: RemoteData<ListableObject[]>;
   @Input() config?: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
+  @Input() hideGear = false;
   pageInfo: Observable<PageInfo>;
   private sub;
   /**
@@ -60,13 +61,13 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.objects && !changes.objects.isFirstChange()) {
-      this.pageInfo = this.objects.pageInfo;
+      // this.pageInfo = this.objects.pageInfo;
     }
   }
 
 
   ngOnInit(): void {
-    this.pageInfo = this.objects.pageInfo;
+    // this.pageInfo = this.objects.pageInfo;
 
     this.sub = this.route
       .queryParams

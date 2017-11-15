@@ -64,12 +64,12 @@ export class ObjectGridComponent implements OnChanges, OnInit  {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.objects && !changes.objects.isFirstChange()) {
-      this.pageInfo = this.objects.pageInfo;
+      // this.pageInfo = this.objects.pageInfo;
     }
   }
 
   ngOnInit(): void {
-    this.pageInfo = this.objects.pageInfo;
+    // this.pageInfo = this.objects.pageInfo;
   }
 
   /**

@@ -17,6 +17,10 @@ ds-wrapper-grid-element ::ng-deep {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .item-authors{
+    line-height: $line-height-base;
+    height: ($line-height-base*1.5)+em;
+  }
   div.card {
     margin-bottom: 20px;
   }

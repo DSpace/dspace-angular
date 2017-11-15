@@ -12,7 +12,7 @@ import { Item } from '../../core/shared/item.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
-import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
+import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
