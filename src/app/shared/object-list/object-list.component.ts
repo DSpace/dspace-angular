@@ -7,8 +7,6 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-
 import { RemoteData } from '../../core/data/remote-data';
 import { PageInfo } from '../../core/shared/page-info.model';
 
@@ -18,9 +16,8 @@ import { SortOptions, SortDirection } from '../../core/cache/models/sort-options
 
 import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { hasValue } from '../shared/empty.util';
+import { hasValue } from '../empty.util';
 
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -86,28 +83,6 @@ export class ObjectListComponent {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
-
-
-  onPageChange(event) {
-    this.pageChange.emit(event);
-  }
-
-  onPageSizeChange(event) {
-    this.pageSizeChange.emit(event);
-  }
-
-  onSortDirectionChange(event) {
-    this.sortDirectionChange.emit(event);
-  }
-
-  onSortFieldChange(event) {
-    this.sortFieldChange.emit(event);
-  }
-
-  onPaginationChange(event) {
-    this.paginationChange.emit(event);
-  }
-
   onPageChange(event) {
     this.pageChange.emit(event);
   }
