@@ -16,7 +16,7 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 export class FilesSectionComponent extends SectionModelComponent {
 
   public bitstreamsKeys = [];
-  public bitstreamsList = [];
+  public bitstreamsList;
   public collectionPolicies = [];
   public collectionName;
   public collectionPoliciesMessageType;

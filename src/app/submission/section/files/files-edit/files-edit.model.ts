@@ -83,7 +83,23 @@ export const BITSTREAM_FORM_POLICIES_GROUP: DynamicFormGroupModel =
           {
             id: 'policy-date',
             inline: false,
-            label: 'Until'
+            label: 'Until',
+            relation: [
+              {
+                action: 'ENABLE',
+                connective: 'OR',
+                when: [
+                  {
+                    id: 'policies',
+                    value: 'embargo'
+                  },
+                  {
+                    id: 'policies',
+                    value: 'lease'
+                  },
+                ]
+              }
+            ]
           },
           {
             element: {
@@ -100,7 +116,23 @@ export const BITSTREAM_FORM_POLICIES_GROUP: DynamicFormGroupModel =
           {
             id: 'policy-group',
             label: 'Group',
-            options: [ ]
+            options: [ ],
+            relation: [
+              {
+                action: 'ENABLE',
+                connective: 'OR',
+                when: [
+                  {
+                    id: 'policies',
+                    value: 'embargo'
+                  },
+                  {
+                    id: 'policies',
+                    value: 'lease'
+                  },
+                ]
+              }
+            ]
           },
           {
             element: {
