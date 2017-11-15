@@ -3,14 +3,12 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core'
-
 import { FileUploader } from 'ng2-file-upload';
-
 import { UploadFilesComponentOptions } from './upload-files-component-options.model';
+import { isNotEmpty } from '../empty.util';
 
 @Component({
   selector: 'ds-upload-files',
@@ -20,7 +18,7 @@ import { UploadFilesComponentOptions } from './upload-files-component-options.mo
   encapsulation: ViewEncapsulation.Emulated
 })
 
-export class UploadFilesComponent implements OnInit {
+export class UploadFilesComponent {
 
   /**
    * Configuration for the ng2-file-upload component.
@@ -74,7 +72,7 @@ export class UploadFilesComponent implements OnInit {
   private checkConfig(fileUploadOptions:any) {
     const required = ['url', 'authToken', 'disableMultipart', 'itemAlias'];
     const missing = required.filter((prop) => {
-      return !(prop in fileUploadOptions);
+      return !((prop in fileUploadOptions) && fileUploadOptions[prop] !== '');
     });
     if (0 < missing.length) {
       throw new Error('UploadFiles: Argument is missing the following required properties: ' + missing.join(', '));

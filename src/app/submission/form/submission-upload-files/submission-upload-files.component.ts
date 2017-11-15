@@ -26,19 +26,18 @@ export class SubmissionUploadFilesComponent {
       this.sectionService.isSectionLoaded(this.submissionId, this.sectionId)
         .subscribe((isSectionLoaded) => {
           if (!isSectionLoaded) {
-            // Matteo - remove comment after Digi change the FORM init process
-            // this.sectionService.addSection(this.collectionId, this.submissionId, this.definitionId, this.sectionId)
+            this.sectionService.addSection(this.collectionId, this.submissionId, this.definitionId, this.sectionId)
           }
           this.bitstreamService.setNewBitstream(
             this.submissionId,
             this.sectionId,
             itemData.uuid,
             {
-              name: itemData.originalName,
+              name: itemData.metadata[0].value,
               title: '',
               description: '',
-              size: itemData.size,
-              hash: itemData.md5,
+              size: itemData.sizeBytes,
+              hash: itemData.checkSum.value,
               thumbnail: null,
               policies: [
                 {
