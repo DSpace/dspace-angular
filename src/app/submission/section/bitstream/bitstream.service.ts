@@ -5,7 +5,7 @@ import { SubmissionState } from '../../submission.reducers';
 import { DeleteBitstreamAction, EditBitstreamAction, NewBitstreamAction } from '../../objects/submission-objects.actions';
 import {
   submissionBitstreamFromUuidSelector,
-  submissionBitstreamsFromIdSelector
+  submissionSectionBitstreamsFromIdSelector
 } from '../../selectors';
 import { isUndefined } from '../../../shared/empty.util';
 
@@ -14,51 +14,45 @@ export class BitstreamService {
 
   constructor(private store: Store<SubmissionState>) {}
 
-  public getBitstreamList(submissionId): Observable<any> {
-    return this.store.select(submissionBitstreamsFromIdSelector(submissionId))
-      .map((state) => {
-        return state;
-      })
+  public getBitstreamList(submissionId, sectionId): Observable<any> {
+    return this.store.select(submissionSectionBitstreamsFromIdSelector(submissionId, sectionId))
+      .map((state) => state)
       .distinctUntilChanged();
   }
 
-  public getBitstream(submissionId, bitstreamId): Observable<any> {
-    return this.store.select(submissionBitstreamFromUuidSelector(submissionId, bitstreamId))
+  public getBitstream(submissionId, sectionId, bitstreamId): Observable<any> {
+    return this.store.select(submissionBitstreamFromUuidSelector(submissionId, sectionId, bitstreamId))
       .filter((state) => !isUndefined(state))
-      .map((state) => {
-        return state;
-      })
+      .map((state) => state)
       .distinctUntilChanged();
   }
 
-  public getDefaultPolicies(submissionId, bitstreamId): Observable<any> {
-    return this.store.select(submissionBitstreamFromUuidSelector(submissionId, bitstreamId))
-      .map((state) => {
-        return state;
-      })
+  public getDefaultPolicies(submissionId, sectionId, bitstreamId): Observable<any> {
+    return this.store.select(submissionBitstreamFromUuidSelector(submissionId, sectionId, bitstreamId))
+      .map((state) => state)
       .distinctUntilChanged();
   }
 
-  public setNewBitstream(submissionId, bitstreamId, data) {
+  public setNewBitstream(submissionId, sectionId, bitstreamId, data) {
     this.store.dispatch(
       new NewBitstreamAction(
-        submissionId, bitstreamId, data
+        submissionId, sectionId, bitstreamId, data
       )
     );
   }
 
-  public editBitstream(submissionId, bitstreamId, data) {
+  public editBitstream(submissionId, sectionId, bitstreamId, data) {
     this.store.dispatch(
       new EditBitstreamAction(
-        submissionId, bitstreamId, data
+        submissionId, sectionId, bitstreamId, data
       )
     );
   }
 
-  public deleteBitstream(submissionId, bitstreamId) {
+  public deleteBitstream(submissionId, sectionId, bitstreamId) {
     this.store.dispatch(
       new DeleteBitstreamAction(
-        submissionId, bitstreamId
+        submissionId, sectionId, bitstreamId
       )
     );
   }

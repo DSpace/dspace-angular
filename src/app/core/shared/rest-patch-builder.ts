@@ -1,25 +1,26 @@
+import { PatchOperationModel, PatchOperationType } from './patch-request.model';
 
-export class RestPatchBuilder {
+export class RequestPatchBodyBuilder {
 
-  protected patchBody = [];
+  private _body: PatchOperationModel[] = [];
 
   add(path, value) {
-    this.makePatchEntry('add', path, value);
+    this.makePatchEntry(PatchOperationType.add, path, value);
   }
 
   replace(path, value) {
-    this.makePatchEntry('replace', path, value);
+    this.makePatchEntry(PatchOperationType.replace, path, value);
   }
 
   remove(path, value) {
-    this.makePatchEntry('remove', path, value);
+    this.makePatchEntry(PatchOperationType.remove, path, value);
   }
 
   protected makePatchEntry(operation, path, value) {
-    this.patchBody.push({ op: operation, path: path, value: value });
+    this.body.push({ op: operation, path: path, value: value });
   }
 
-  getPatchBody() {
-    return this.patchBody;
+  get body(): PatchOperationModel[] {
+    return this._body;
   }
 }

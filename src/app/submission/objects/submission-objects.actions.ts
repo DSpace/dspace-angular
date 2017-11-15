@@ -98,6 +98,19 @@ export class InitSubmissionFormAction implements Action {
 
 export class CompleteInitSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.COMPLETE_INIT_SUBMISSION_FORM;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new CompleteInitSubmissionFormAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
 }
 
 export class NewSubmissionFormAction implements Action {
@@ -149,6 +162,7 @@ export class NewBitstreamAction implements Action {
   type = SubmissionObjectActionTypes.NEW_BITSTREAM;
   payload: {
     submissionId: string;
+    sectionId: string;
     bitstreamId: string;
     data: SubmissionBitstreamObject;
   };
@@ -158,13 +172,15 @@ export class NewBitstreamAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
+   * @param sectionId
+   *    the section's ID
    * @param bitstreamId
    *    the bitstream's ID
    * @param data
    *    the metadata of the new bitstream
    */
-  constructor(submissionId: string, bitstreamId: string, data: SubmissionBitstreamObject) {
-    this.payload = { submissionId, bitstreamId, data };
+  constructor(submissionId: string, sectionId: string, bitstreamId: string, data: SubmissionBitstreamObject) {
+    this.payload = { submissionId, sectionId, bitstreamId, data };
   }
 }
 
@@ -172,6 +188,7 @@ export class EditBitstreamAction implements Action {
   type = SubmissionObjectActionTypes.EDIT_BITSTREAM;
   payload: {
     submissionId: string;
+    sectionId: string;
     bitstreamId: string;
     data: SubmissionBitstreamObject;
   };
@@ -181,13 +198,15 @@ export class EditBitstreamAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
+   * @param sectionId
+   *    the section's ID
    * @param bitstreamId
    *    the bitstream's ID
    * @param data
    *    the metadata of the new bitstream
    */
-  constructor(submissionId: string, bitstreamId: string, data: SubmissionBitstreamObject) {
-    this.payload = { submissionId, bitstreamId, data};
+  constructor(submissionId: string, sectionId: string, bitstreamId: string, data: SubmissionBitstreamObject) {
+    this.payload = { submissionId, sectionId, bitstreamId, data};
   }
 }
 
@@ -195,6 +214,7 @@ export class DeleteBitstreamAction implements Action {
   type = SubmissionObjectActionTypes.DELETE_BITSTREAM;
   payload: {
     submissionId: string;
+    sectionId: string;
     bitstreamId: string;
   };
 
@@ -203,11 +223,13 @@ export class DeleteBitstreamAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
+   * @param sectionId
+   *    the section's ID
    * @param bitstreamId
    *    the bitstream's ID
    */
-  constructor(submissionId: string, bitstreamId: string) {
-    this.payload = { submissionId, bitstreamId};
+  constructor(submissionId: string, sectionId: string, bitstreamId: string) {
+    this.payload = { submissionId, sectionId, bitstreamId};
   }
 }
 

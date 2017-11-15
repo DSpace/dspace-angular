@@ -20,6 +20,7 @@ export class FilesEditComponent {
   @ViewChild('formRef') formRef: FormComponent;
 
   @Input() bitstreamId;
+  @Input() sectionId;
   @Input() submissionId;
   public bitstream;
   public formId;
@@ -37,7 +38,7 @@ export class FilesEditComponent {
   ngOnInit() {
     this.subscriptions.push(
       this.bitstreamService
-        .getBitstream(this.submissionId, this.bitstreamId)
+        .getBitstream(this.submissionId, this.sectionId, this.bitstreamId)
         .take(1)
         .subscribe((bitstream) => {
                                           this.bitstream = bitstream;
@@ -72,7 +73,7 @@ export class FilesEditComponent {
   }
 
   public deleteBitstream() {
-    this.bitstreamService.deleteBitstream(this.submissionId, this.bitstreamId);
+    this.bitstreamService.deleteBitstream(this.submissionId, this.sectionId, this.bitstreamId);
   }
 
   public editBitstream() {
@@ -95,7 +96,7 @@ export class FilesEditComponent {
                       description: metadata['files-data'].description
                     }
                   );
-                  this.bitstreamService.editBitstream(this.submissionId, this.bitstreamId, data);
+                  this.bitstreamService.editBitstream(this.submissionId, this.sectionId, this.bitstreamId, data);
                 }
               )
             );

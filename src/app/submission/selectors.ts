@@ -4,7 +4,7 @@ import { hasValue } from '../shared/empty.util';
 import { submissionSelector, SubmissionState } from './submission.reducers';
 import {
   SubmissionSectionEntry, SubmissionObjectEntry,
-  SubmissionBitstreamEntry
+  SubmissionBitstreamEntry, SubmissionSectionObject
 } from './objects/submission-objects.reducer';
 import { SectionObjectEntry, SubmissionDefinitionEntry } from './definitions/submission-definitions.reducer';
 
@@ -37,14 +37,14 @@ export function submissionDefinitionFromIdSelector(definitionId: string): Memoiz
   return keySelector<SubmissionState, SubmissionDefinitionEntry>(submissionSelector, 'definitions', definitionId);
 }
 
-export function submissionBitstreamsFromIdSelector(submissionId: string): MemoizedSelector<SubmissionState, any> {
-  const submissionIdSelector = submissionObjectFromIdSelector(submissionId);
-  return subStateSelector<SubmissionState, SubmissionObjectEntry>(submissionIdSelector, 'bitstreams');
+export function submissionSectionBitstreamsFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
+  const sectionDataSelector = submissionSectionDataFromIdSelector(submissionId, sectionId);
+  return subStateSelector<SubmissionState, SubmissionObjectEntry>(sectionDataSelector, 'bitstreams');
 }
 
-export function submissionBitstreamFromUuidSelector(submissionId: string, uuid: string): MemoizedSelector<SubmissionState, any> {
-  const submissionIdSelector  = submissionObjectFromIdSelector(submissionId);
-  return keySelector<SubmissionState, any>(submissionIdSelector, 'bitstreams', uuid);
+export function submissionBitstreamFromUuidSelector(submissionId: string, sectionId: string, uuid: string): MemoizedSelector<SubmissionState, any> {
+  const bitstreamsSelector  = submissionSectionBitstreamsFromIdSelector(submissionId, sectionId);
+  return keySelector<SubmissionState, any>(bitstreamsSelector, 'bitstreams', uuid);
 }
 
 export function sectionDefinitionFromIdSelector(definitionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
@@ -55,4 +55,9 @@ export function sectionDefinitionFromIdSelector(definitionId: string, sectionId:
 export function submissionSectionFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
   const submissionIdSelector  = submissionObjectFromIdSelector(submissionId);
   return keySelector<SubmissionState, SubmissionObjectEntry>(submissionIdSelector, 'sections', sectionId);
+}
+
+export function submissionSectionDataFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
+  const submissionIdSelector  = submissionSectionFromIdSelector(submissionId, sectionId);
+  return subStateSelector<SubmissionState, SubmissionSectionObject>(submissionIdSelector, 'data');
 }

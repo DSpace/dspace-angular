@@ -8,7 +8,7 @@ import { submissionObjectFromIdSelector } from './selectors';
 export class SubmissionService {
 
   constructor(private store: Store<SubmissionState>) {}
-
+/*
   public getCollectionPolicies(submissionId): Observable<any> {
     return this.store.select(submissionObjectFromIdSelector(submissionId))
       .map((state) => {
@@ -43,5 +43,5 @@ export class SubmissionService {
          }
       })
       .distinctUntilChanged();
-  }
+  }*/
 }

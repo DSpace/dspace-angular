@@ -1,4 +1,4 @@
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotUndefined } from '../../shared/empty.util';
 
 import {
   DeleteBitstreamAction,
@@ -13,6 +13,8 @@ import { deleteProperty } from '../../shared/object.util';
 export interface SubmissionSectionObject {
   sectionViewIndex: number;
   isValid: boolean;
+  isLoading: boolean;
+  data: SubmissionDataEntry;
 }
 
 export interface SubmissionSectionEntry {
@@ -20,7 +22,7 @@ export interface SubmissionSectionEntry {
 }
 
 export interface SubmissionDataEntry {
-  collection: SubmissionCollectionObject
+  bitstreams: SubmissionBitstreamEntry;
 }
 
 export interface SubmissionCollectionObject {
@@ -63,8 +65,7 @@ export interface SubmissionPoliciesGroupObject {
 
 export interface SubmissionObjectEntry {
   sections: SubmissionSectionEntry;
-  data: SubmissionDataEntry;
-  bitstreams: SubmissionBitstreamEntry;
+  isLoading: boolean;
 }
 
 /**
@@ -144,9 +145,13 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: Object.assign({}, state[action.payload.submissionId].sections, {
-          [action.payload.sectionId]: { sectionViewIndex: action.payload.sectionViewIndex, isValid: false }
+          [action.payload.sectionId]: {
+            sectionViewIndex: action.payload.sectionViewIndex,
+            isValid: false,
+            data: Object.create(null)
+          }
         }),
-        bitstreams:  Object.assign({}, state[action.payload.submissionId].bitstreams)
+        isLoading: state[action.payload.submissionId].isLoading,
       })
     });
   } else {
@@ -169,8 +174,7 @@ function disableSection(state: SubmissionObjectState, action: DisableSectionActi
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: deleteProperty(state[action.payload.submissionId].sections, action.payload.sectionId),
-        data: Object.assign({}, state[action.payload.submissionId].data),
-        bitstreams:  Object.assign({}, state[action.payload.submissionId].bitstreams)
+        isLoading: state[action.payload.submissionId].isLoading,
       })
     });
   } else {
@@ -194,8 +198,7 @@ function newSubmission(state: SubmissionObjectState, action: NewSubmissionFormAc
     // newState[action.payload.submissionId] = Object.create(null);
     newState[action.payload.submissionId] = {
       sections: Object.create(null),
-      data: Object.create(null),
-      bitstreams: Object.create(null)
+      isLoading: true
     };
     return newState;
   } else {
@@ -217,19 +220,17 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
   if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId])) {
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
-        sections: Object.assign({},
-                               state[action.payload.submissionId].sections,
-                               Object.assign({},
-                                             {
-                                               [action.payload.sectionId]: {
-                                                                           sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
-                                                                           isValid: action.payload.status
-                                                                         }
-                                             }
-                               )
+        sections: Object.assign({}, state[action.payload.submissionId].sections,
+           Object.assign({}, {
+             [action.payload.sectionId]: {
+               sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
+                 isValid: action.payload.status,
+                 data: state[action.payload.submissionId].sections[action.payload.sectionId].data,
+               }
+             }
+           )
         ),
-        data: state[action.payload.submissionId].data,
-        bitstreams: state[action.payload.submissionId].bitstreams
+        isLoading: state[action.payload.submissionId].isLoading,
       })
     });
   } else {
@@ -250,11 +251,32 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
  *    the new state, with the new bitstream.
  */
 function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction): SubmissionObjectState {
-  if (!hasValue(state[action.payload.submissionId].bitstreams[action.payload.bitstreamId])) {
+  if (isNotUndefined(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams)
+    && !hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams[action.payload.bitstreamId])) {
     const newState = Object.assign({}, state);
     const newData  = [];
     newData[action.payload.bitstreamId] = action.payload.data;
-    newState[action.payload.submissionId] = {
+    return Object.assign({}, state, {
+      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+        sections: Object.assign({}, state[action.payload.submissionId].sections,
+          Object.assign({}, {
+              [action.payload.sectionId]: {
+                sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
+                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
+                data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
+                    bitstreams: Object.assign({},
+                      state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams,
+                      newData)
+                })
+              }
+            }
+          )
+        ),
+        isLoading: state[action.payload.submissionId].isLoading,
+      })
+    });
+
+    /*newState[action.payload.submissionId] = {
       sections: state[action.payload.submissionId].sections,
       data: state[action.payload.submissionId].data,
       bitstreams: Object.assign(
@@ -263,9 +285,28 @@ function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction):
         newData
       )
     };
-    return newState;
+    return newState;*/
   } else {
-    return state;
+    const newState = Object.assign({}, state);
+    const newData  = [];
+    newData[action.payload.bitstreamId] = action.payload.data;
+    return Object.assign({}, state, {
+      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+        sections: Object.assign({}, state[action.payload.submissionId].sections,
+          Object.assign({}, {
+              [action.payload.sectionId]: {
+                sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
+                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
+                data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
+                  bitstreams: newData
+                })
+              }
+            }
+          )
+        ),
+        isLoading: state[action.payload.submissionId].isLoading,
+      })
+    });
   }
 }
 
@@ -280,8 +321,28 @@ function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction):
  *    the new state, with the edited bitstream.
  */
 function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction): SubmissionObjectState {
-  if (hasValue(state[action.payload.submissionId].bitstreams[action.payload.bitstreamId])) {
+  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams[action.payload.bitstreamId])) {
     return Object.assign({}, state, {
+      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+        sections: Object.assign({}, state[action.payload.submissionId].sections,
+          Object.assign({}, {
+              [action.payload.sectionId]: {
+                sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
+                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
+                data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
+                  bitstreams: Object.assign({},
+                    state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams, {
+                      [action.payload.bitstreamId]: action.payload.data
+                    })
+                })
+              }
+            }
+          )
+        ),
+        isLoading: state[action.payload.submissionId].isLoading,
+      })
+    });
+    /*return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: state[action.payload.submissionId].sections,
         data: state[action.payload.submissionId].data,
@@ -292,7 +353,7 @@ function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction
                                           }
         ),
       })
-    });
+    });*/
   } else {
     return state;
   }
@@ -309,8 +370,27 @@ function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction
  *    the new state, with the bitstream removed.
  */
 function deleteBitstream(state: SubmissionObjectState, action: DeleteBitstreamAction): SubmissionObjectState {
-  if (hasValue(state[action.payload.submissionId].bitstreams[action.payload.bitstreamId])) {
+  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams[action.payload.bitstreamId])) {
     const newState = Object.assign({}, state);
+    return Object.assign({}, state, {
+      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+        sections: Object.assign({}, state[action.payload.submissionId].sections,
+          Object.assign({}, {
+              [action.payload.sectionId]: {
+                sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
+                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
+                data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
+                  bitstreams: deleteProperty(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams, action.payload.bitstreamId)
+                })
+              }
+            }
+          )
+        ),
+        isLoading: state[action.payload.submissionId].isLoading,
+      })
+    });
+    /*
+    deleteProperty(state[action.payload.submissionId].sections, action.payload.sectionId)
     const newBitstreams  = {};
     for (const key in newState[action.payload.submissionId].bitstreams) {
       if (key !== action.payload.bitstreamId) {
@@ -322,7 +402,7 @@ function deleteBitstream(state: SubmissionObjectState, action: DeleteBitstreamAc
       data: state[action.payload.submissionId].data,
       bitstreams: newBitstreams
     };
-    return newState;
+    return newState;*/
   } else {
     return state;
   }

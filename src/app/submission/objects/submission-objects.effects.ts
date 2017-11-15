@@ -21,7 +21,7 @@ export class SubmissionObjectEffects {
     .do((action: InitSubmissionFormAction) => {
       this.sectionService.loadDefaultSections(action.payload.collectionId, action.payload.submissionId, action.payload.definitionId);
     })
-    .map(() => new CompleteInitSubmissionFormAction());
+    .map((action: InitSubmissionFormAction) => new CompleteInitSubmissionFormAction(action.payload.submissionId));
 
   constructor(private actions$: Actions, private sectionService: SectionService) {}
 }

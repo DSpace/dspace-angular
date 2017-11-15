@@ -31,6 +31,7 @@ export class SubmissionUploadFilesComponent {
           }
           this.bitstreamService.setNewBitstream(
             this.submissionId,
+            this.sectionId,
             itemData.uuid,
             {
               name: itemData.originalName,
