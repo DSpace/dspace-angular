@@ -7,10 +7,11 @@ import { createSelector, Store } from '@ngrx/store';
 import { SectionHostDirective } from '../section/section-host.directive';
 import { submissionSelector, SubmissionState } from '../submission.reducers';
 import { NewSubmissionFormAction } from '../objects/submission-objects.actions';
-import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
 import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
+import { submissionObjectFromIdSelector } from '../selectors';
+import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -24,7 +25,7 @@ export class SubmissionSubmitFormComponent implements OnChanges, OnInit {
   @Input() submissionId: string;
 
   definitionId: string;
-  isLoading = true;
+  loading = true;
   uploadFilesOptions: UploadFilesComponentOptions = {
     url: '',
     authToken: null,
@@ -52,11 +53,19 @@ export class SubmissionSubmitFormComponent implements OnChanges, OnInit {
   }
 
   ngOnInit() {
+    this.isLoading();
     this.getDefaultSubmissionDefinition()
       .subscribe((definitionId) => {
         this.definitionId = definitionId;
-        this.isLoading = false;
+        this.loading = false;
       });
+  }
+
+  isLoading() {
+    this.store.select(submissionObjectFromIdSelector(this.submissionId))
+      .subscribe((state: SubmissionObjectEntry) => {
+        this.loading = isUndefined(state) ? true : state.isLoading
+      })
   }
 
   getDefaultSubmissionDefinition() {

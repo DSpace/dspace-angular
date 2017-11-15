@@ -1,6 +1,7 @@
 import { hasValue, isNotUndefined } from '../../shared/empty.util';
 
 import {
+  CompleteInitSubmissionFormAction,
   DeleteBitstreamAction,
   DisableSectionAction, EditBitstreamAction,
   EnableSectionAction, NewBitstreamAction,
@@ -102,7 +103,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.COMPLETE_INIT_SUBMISSION_FORM: {
-      return state;
+      return completeInit(state, action as CompleteInitSubmissionFormAction);
     }
 
     case SubmissionObjectActionTypes.SECTION_STATUS_CHANGE: {
@@ -125,6 +126,29 @@ export function submissionObjectReducer(state = initialState, action: Submission
     default: {
       return state;
     }
+  }
+}
+
+/**
+ * Set a section enabled.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an EnableSectionAction
+ * @return SubmissionObjectState
+ *    the new state, with the section removed.
+ */
+function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissionFormAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId])) {
+    return Object.assign({}, state, {
+      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+        sections: state[action.payload.submissionId].sections,
+        isLoading: false,
+      })
+    });
+  } else {
+    return state;
   }
 }
 
