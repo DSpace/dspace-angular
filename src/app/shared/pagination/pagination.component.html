@@ -1,12 +1,12 @@
 <div *ngIf="currentPageState == undefined || currentPageState == currentPage">
-  <div *ngIf="!hideGear" class="pagination-masked clearfix top">
+  <div  class="pagination-masked clearfix top">
     <div class="row">
       <div class="col pagination-info">
         <span class="align-middle hidden-xs-down">{{ 'pagination.showing.label' | translate }}</span>
         <span class="align-middle" *ngIf="collectionSize">{{ 'pagination.showing.detail' | translate:getShowingDetails(collectionSize)}}</span>
       </div>
       <div class="col">
-        <div ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
+        <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
           <button class="btn btn-outline-primary" id="paginationControls" ngbDropdownToggle><i class="fa fa-cog" aria-hidden="true"></i></button>
           <div id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" ngbDropdownMenu>
             <h6 class="dropdown-header">{{ 'pagination.results-per-page' | translate}}</h6>
