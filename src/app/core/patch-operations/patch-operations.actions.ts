@@ -17,11 +17,58 @@ export const JsonPatchOperationsActionTypes = {
   NEW_JSON_PATCH_MOVE_OPERATION: type('dspace/core/patch/NEW_JSON_PATCH_MOVE_OPERATION'),
   NEW_JSON_PATCH_REMOVE_OPERATION: type('dspace/core/patch/NEW_JSON_PATCH_REMOVE_OPERATION'),
   NEW_JSON_PATCH_REPLACE_OPERATION: type('dspace/core/patch/NEW_JSON_PATCH_REPLACE_OPERATION'),
-  FLUSH_PATCH_OPERATIONS: type('dspace/core/patch/FLUSH_PATCH_OPERATIONS'),
+  COMMIT_JSON_PATCH_OPERATIONS: type('dspace/core/patch/COMMIT_JSON_PATCH_OPERATIONS'),
+  FLUSH_JSON_PATCH_OPERATIONS: type('dspace/core/patch/FLUSH_JSON_PATCH_OPERATIONS'),
 };
 
 /* tslint:disable:max-classes-per-file */
 
+/**
+ * An ngrx action to set the commit timestamp
+ */
+export class CommitPatchOperationsAction implements Action {
+  type = JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS;
+  payload: {
+    namespace: string;
+    commitTime: number;
+  };
+
+  /**
+   * Create a new CommitPatchOperationsAction
+   *
+   * @param namespace
+   *    the submission's ID
+   * @param commitTime
+   *    the commit timestamp
+   */
+  constructor(namespace: string, commitTime: number) {
+    this.payload = { namespace, commitTime };
+  }
+}
+
+/**
+ * An ngrx action to flush list of the JSON Patch operations
+ */
+export class FlushPatchOperationsAction implements Action {
+  type = JsonPatchOperationsActionTypes.FLUSH_JSON_PATCH_OPERATIONS;
+  payload: {
+    namespace: string;
+  };
+
+  /**
+   * Create a new FlushPatchOperationsAction
+   *
+   * @param namespace
+   *    the submission's ID
+   */
+  constructor(namespace: string) {
+    this.payload = { namespace };
+  }
+}
+
+/**
+ * An ngrx action to Add new HTTP/PATCH ADD operations to state
+ */
 export class NewPatchAddOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_ADD_OPERATION;
   payload: {
@@ -31,7 +78,7 @@ export class NewPatchAddOperationAction implements Action {
   };
 
   /**
-   * Add new HTTP/PATCH ADD operations to state
+   * Create a new NewPatchAddOperationAction
    *
    * @param namespace
    *    the namespace where to add operation
@@ -45,6 +92,9 @@ export class NewPatchAddOperationAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to add new JSON Patch COPY operation to state
+ */
 export class NewPatchCopyOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_COPY_OPERATION;
   payload: {
@@ -54,7 +104,7 @@ export class NewPatchCopyOperationAction implements Action {
   };
 
   /**
-   * Add new JSON Patch COPY operation to state
+   * Create a new NewPatchCopyOperationAction
    *
    * @param namespace
    *    the namespace where to add operation
@@ -68,6 +118,9 @@ export class NewPatchCopyOperationAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to Add new JSON Patch MOVE operation to state
+ */
 export class NewPatchMoveOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_MOVE_OPERATION;
   payload: {
@@ -77,7 +130,7 @@ export class NewPatchMoveOperationAction implements Action {
   };
 
   /**
-   * Add new JSON Patch MOVE operation to state
+   * Create a new NewPatchMoveOperationAction
    *
    * @param namespace
    *    the namespace where to add operation
@@ -91,6 +144,9 @@ export class NewPatchMoveOperationAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to Add new JSON Patch REMOVE operation to state
+ */
 export class NewPatchRemoveOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REMOVE_OPERATION;
   payload: {
@@ -99,7 +155,7 @@ export class NewPatchRemoveOperationAction implements Action {
   };
 
   /**
-   * Add new JSON Patch REMOVE operation to state
+   * Create a new NewPatchRemoveOperationAction
    *
    * @param namespace
    *    the namespace where to add operation
@@ -111,6 +167,9 @@ export class NewPatchRemoveOperationAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to add new JSON Patch REPLACE operation to state
+ */
 export class NewPatchReplaceOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REPLACE_OPERATION;
   payload: {
@@ -120,7 +179,7 @@ export class NewPatchReplaceOperationAction implements Action {
   };
 
   /**
-   * Add new JSON Patch REPLACE operation to state
+   * Create a new NewPatchReplaceOperationAction
    *
    * @param namespace
    *    the namespace where to add operation
@@ -134,23 +193,6 @@ export class NewPatchReplaceOperationAction implements Action {
   }
 }
 
-export class FlushPatchOperationsAction implements Action {
-  type = JsonPatchOperationsActionTypes.FLUSH_PATCH_OPERATIONS;
-  payload: {
-    namespace: string;
-  };
-
-  /**
-   * Flush list of the JSON Patch operations
-   *
-   * @param namespace
-   *    the submission's ID
-   */
-  constructor(namespace: string) {
-    this.payload = { namespace };
-  }
-}
-
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -158,9 +200,10 @@ export class FlushPatchOperationsAction implements Action {
  * so that reducers can easily compose action types
  */
 export type PatchOperationsActions
-  = NewPatchAddOperationAction
+  = CommitPatchOperationsAction
+  | FlushPatchOperationsAction
+  | NewPatchAddOperationAction
   | NewPatchCopyOperationAction
   | NewPatchMoveOperationAction
   | NewPatchRemoveOperationAction
   | NewPatchReplaceOperationAction
-  | FlushPatchOperationsAction

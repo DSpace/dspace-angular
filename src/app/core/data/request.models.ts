@@ -9,7 +9,7 @@ import { ResponseParsingService } from './parsing.service';
 import { RootResponseParsingService } from './root-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
-import { SubmitDataResponseParsingService } from './submit-data-response-parsing.service';
+import { PatchOperationModel } from '../shared/patch-request.model';
 
 export enum RequestType {
   GET = 'GET',
@@ -50,20 +50,20 @@ export class HttpPostRequest extends RestRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmitDataResponseParsingService;
+    return ConfigResponseParsingService;
   }
 }
 
 export class HttpPatchRequest extends RestRequest {
   constructor(
     href: string,
-    body: any,
+    body: PatchOperationModel[],
   ) {
     super(RequestType.PATCH, href, body);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmitDataResponseParsingService;
+    return ConfigResponseParsingService;
   }
 }
 
