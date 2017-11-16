@@ -33,7 +33,7 @@ export class SidebarFacetFilterComponent implements OnInit {
   }
 
   isChecked(value: FacetValue): Observable<boolean> {
-    return this.filterService.isFilterActive(this.filterConfig.paramName, value.value);
+    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, value.value);
   }
 
   getSearchLink() {
@@ -68,14 +68,19 @@ export class SidebarFacetFilterComponent implements OnInit {
     return this.filterService.getPage(this.filterConfig.name);
   }
 
+  getCurrentUrl() {
+    return this.router.url;
+  }
+
   onSubmit(data: any) {
-    if (isNotEmpty(data.filter)) {
-      this.getQueryParamsWith(data.filter).first().subscribe((a) => {
-          this.router.navigate([this.getSearchLink()], { queryParams: a }
+    if (isNotEmpty(data)) {
+      const sub = this.getQueryParamsWith(data[this.filterConfig.paramName]).first().subscribe((params) => {
+          this.router.navigate([this.getSearchLink()], { queryParams: params }
           );
         }
       );
       this.filter = '';
+      sub.unsubscribe();
     }
   }
 }

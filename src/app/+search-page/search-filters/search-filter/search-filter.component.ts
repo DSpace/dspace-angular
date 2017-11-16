@@ -7,6 +7,7 @@ import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
 import { RouteService } from '../../../shared/route.service';
+import { first } from 'rxjs/operator/first';
 
 /**
  * This component renders a simple item page.
@@ -30,11 +31,14 @@ export class SidebarFilterComponent implements OnInit {
 
   ngOnInit() {
     this.filterValues = this.searchService.getFacetValuesFor(this.filter.name);
-    if (this.filter.isOpenByDefault) {
-      this.initialExpand();
-    } else {
-      this.initialCollapse();
-    }
+    const sub = this.filterService.isFilterActive(this.filter.paramName).first().subscribe((isActive) => {
+      if (this.filter.isOpenByDefault || isActive) {
+        this.initialExpand();
+      } else {
+        this.initialCollapse();
+      }
+    });
+    sub.unsubscribe();
   }
 
   toggle() {

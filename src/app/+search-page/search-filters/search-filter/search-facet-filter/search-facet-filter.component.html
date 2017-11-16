@@ -23,8 +23,8 @@
                 | translate}}</a>
         </div>
     </div>
-    <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter">
-        <input type="text" [(ngModel)]="filter" name="filter" class="form-control"
+    <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter" [action]="getCurrentUrl()">
+        <input type="text" [(ngModel)]="filter" [name]="filterConfig.paramName" class="form-control"
                aria-label="New filter input"
                [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"/>
         <input type="submit" class="d-none"/>

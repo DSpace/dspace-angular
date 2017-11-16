@@ -25,8 +25,12 @@ export class SearchFilterService {
               private searchService: SearchService) {
   }
 
-  isFilterActive(paramName: string, filterValue: string): Observable<boolean> {
+  isFilterActiveWithValue(paramName: string, filterValue: string): Observable<boolean> {
     return this.routeService.hasQueryParamWithValue(paramName, filterValue);
+  }
+
+  isFilterActive(paramName: string): Observable<boolean> {
+    return this.routeService.hasQueryParam(paramName);
   }
 
   getQueryParamsWithout(filterConfig: SearchFilterConfig, value: string) {
@@ -47,12 +51,24 @@ export class SearchFilterService {
 
   isCollapsed(filterName: string): Observable<boolean> {
     return this.store.select(filterByNameSelector(filterName))
-      .map((object: SearchFilterState) => object.filterCollapsed);
+      .map((object: SearchFilterState) => {
+        if (object) {
+          return object.filterCollapsed;
+        } else {
+          return false;
+        }
+      });
   }
 
   getPage(filterName: string): Observable<number> {
     return this.store.select(filterByNameSelector(filterName))
-      .map((object: SearchFilterState) => object.page);
+      .map((object: SearchFilterState) => {
+        if (object) {
+          return object.page;
+        } else {
+          return 1;
+        }
+      });
   }
 
   public collapse(filterName: string): void {
