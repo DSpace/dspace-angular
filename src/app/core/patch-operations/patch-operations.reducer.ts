@@ -176,7 +176,8 @@ function buildOperationsList(body: JsonPatchOperationObject[], actionType, targe
           }
         }
         // Remove the ADD duplication
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, actionType, targetPath));
+        // The ADD operation can't be deduplicated
+        // body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.add, targetPath));
       }
       if (doAdd) {
         body.push(makeOperationEntry({op: PatchOperationType.add, path: targetPath, value: value}));
@@ -196,7 +197,7 @@ function buildOperationsList(body: JsonPatchOperationObject[], actionType, targe
           doReplace = false;
         }
         // Replace the REPLACE duplication
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, actionType, targetPath));
+        body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.replace, targetPath));
       }
       if (doReplace) {
         body.push(makeOperationEntry({op: PatchOperationType.replace, path: targetPath, value: value}));
@@ -215,7 +216,7 @@ function buildOperationsList(body: JsonPatchOperationObject[], actionType, targe
         // Remove the REPLACE duplication
         body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.replace, targetPath));
         // Remove the REMOVE duplication
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, actionType, targetPath));
+        body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.remove, targetPath));
       }
       if (doRemove) {
         body.push(makeOperationEntry({op: PatchOperationType.remove, path: targetPath}));
