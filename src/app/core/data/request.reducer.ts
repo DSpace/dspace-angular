@@ -52,7 +52,7 @@ function configureRequest(state: RequestState, action: RequestConfigureAction): 
 
 function executeRequest(state: RequestState, action: RequestExecuteAction): RequestState {
   return Object.assign({}, state, {
-    [action.payload]: Object.assign({}, state[action.payload], {
+    [action.payload.href]: Object.assign({}, state[action.payload.href], {
       requestPending: false,
       responsePending: true
     })

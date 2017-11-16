@@ -26,7 +26,6 @@ export function requestStateSelector(): MemoizedSelector<CoreState, RequestState
   });
 }
 
-
 @Injectable()
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];
@@ -87,7 +86,7 @@ export class RequestService {
 
     if (!(isCached || isPending)) {
       this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(request.href));
+      this.store.dispatch(new RequestExecuteAction(request));
       this.trackRequestsOnTheirWayToTheStore(request.href);
     }
   }

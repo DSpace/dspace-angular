@@ -1,6 +1,10 @@
 import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
 import { BrowseDefinition } from '../shared/browse-definition.model';
+import { ConfigObject } from '../shared/config/config.model';
+import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
+import { NormalizedDSpaceObject } from './models/normalized-dspace-object.model';
+import { NormalizedObject } from './models/normalized-object.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -49,6 +53,26 @@ export class ErrorResponse extends RestResponse {
     super(false, error.statusText);
     console.error(error);
     this.errorMessage = error.message;
+  }
+}
+
+export class ConfigSuccessResponse extends RestResponse {
+  constructor(
+    public configDefinition: ConfigObject[],
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class SubmitDataSuccessResponse extends RestResponse {
+  constructor(
+    public dataDefinition: Array<NormalizedObject|ConfigObject>,
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
   }
 }
 /* tslint:enable:max-classes-per-file */

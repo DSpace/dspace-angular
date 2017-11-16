@@ -9,7 +9,7 @@ import { CoreState } from '../core.reducers';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteData } from './remote-data';
-import { FindAllOptions, FindAllRequest, FindByIDRequest, RestRequest } from './request.models';
+import { FindAllOptions, FindAllRequest, FindByIDRequest, HttpGetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 
@@ -98,7 +98,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   findByHref(href: string): Observable<RemoteData<TDomain>> {
-    this.requestService.configure(new RestRequest(href));
+    this.requestService.configure(new HttpGetRequest(href));
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 

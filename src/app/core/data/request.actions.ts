@@ -25,10 +25,12 @@ export class RequestConfigureAction implements Action {
 
 export class RequestExecuteAction implements Action {
   type = RequestActionTypes.EXECUTE;
-  payload: string;
+  payload: RestRequest;
 
-  constructor(key: string) {
-    this.payload = key
+  constructor(
+    request: RestRequest
+  ) {
+    this.payload = request;
   }
 }
 
