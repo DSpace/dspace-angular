@@ -8,4 +8,8 @@
     ds-view-mode-switch {
         margin-bottom: $spacer;
     }
+    .sidebar-content > *:not(:last-child) {
+        margin-bottom: 4*$spacer;
+        display: block;
+    }
 }

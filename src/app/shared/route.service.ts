@@ -25,7 +25,6 @@ export class RouteService {
     return this.route.queryParamMap.map((map) => map.getAll(paramName).indexOf(paramValue) > -1);
   }
 
-
   addQueryParameterValue(paramName: string, paramValue: string): Observable<Params> {
     return this.route.queryParams.map((currentParams) => {
       const newParam = {};
