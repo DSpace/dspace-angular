@@ -17,7 +17,6 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './object-list/community-list-element/community-list-element.component';
 import { ItemListElementComponent } from './object-list/item-list-element/item-list-element.component';
-import { ObjectListElementComponent } from './object-list/object-list-element/object-list-element.component';
 import { SearchResultListElementComponent } from './object-list/search-result-list-element/search-result-list-element.component';
 import { WrapperListElementComponent } from './object-list/wrapper-list-element/wrapper-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
@@ -25,7 +24,7 @@ import { ObjectListComponent } from './object-list/object-list.component';
 import { CollectionGridElementComponent} from './object-grid/collection-grid-element/collection-grid-element.component'
 import { CommunityGridElementComponent} from './object-grid/community-grid-element/community-grid-element.component'
 import { ItemGridElementComponent} from './object-grid/item-grid-element/item-grid-element.component'
-import { ObjectGridElementComponent} from './object-grid/object-grid-element/object-grid-element.component'
+import { AbstractListableElementComponent} from './object-collection/shared/object-collection-element/abstract-listable-element.component'
 import { WrapperGridElementComponent} from './object-grid/wrapper-grid-element/wrapper-grid-element.component'
 import { ObjectGridComponent } from './object-grid/object-grid.component';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
@@ -70,10 +69,9 @@ const COMPONENTS = [
   ErrorComponent,
   LoadingComponent,
   ObjectListComponent,
-  ObjectListElementComponent,
+  AbstractListableElementComponent,
   WrapperListElementComponent,
   ObjectGridComponent,
-  ObjectGridElementComponent,
   WrapperGridElementComponent,
   ObjectCollectionComponent,
   PaginationComponent,

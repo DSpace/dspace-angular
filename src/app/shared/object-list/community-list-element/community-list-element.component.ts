@@ -1,7 +1,7 @@
 import { Component, Input, Inject } from '@angular/core';
 
 import { Community } from '../../../core/shared/community.model';
-import { ObjectListElementComponent } from '../object-list-element/object-list-element.component';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
 import { ViewMode } from '../../../+search-page/search-options.model';
 
@@ -12,4 +12,4 @@ import { ViewMode } from '../../../+search-page/search-options.model';
 })
 
 @renderElementsFor(Community, ViewMode.List)
-export class CommunityListElementComponent extends ObjectListElementComponent<Community> {}
+export class CommunityListElementComponent extends AbstractListableElementComponent<Community> {}

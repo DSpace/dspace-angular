@@ -1,7 +1,7 @@
 import { Component, Input, Inject } from '@angular/core';
 
 import { Community } from '../../../core/shared/community.model';
-import { ObjectGridElementComponent } from '../object-grid-element/object-grid-element.component';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { renderElementsFor} from '../../object-collection/shared/dso-element-decorator';
 import { ViewMode } from '../../../+search-page/search-options.model';
 
@@ -12,4 +12,4 @@ import { ViewMode } from '../../../+search-page/search-options.model';
 })
 
 @renderElementsFor(Community, ViewMode.Grid)
-export class CommunityGridElementComponent extends ObjectGridElementComponent<Community> {}
+export class CommunityGridElementComponent extends AbstractListableElementComponent<Community> {}

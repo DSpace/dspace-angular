@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 
 import { Collection } from '../../../core/shared/collection.model';
-import { ObjectListElementComponent } from '../object-list-element/object-list-element.component';
 import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
 import { ViewMode } from '../../../+search-page/search-options.model';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @Component({
   selector: 'ds-collection-list-element',
@@ -12,4 +12,4 @@ import { ViewMode } from '../../../+search-page/search-options.model';
 })
 
 @renderElementsFor(Collection, ViewMode.List)
-export class CollectionListElementComponent extends ObjectListElementComponent<Collection> {}
+export class CollectionListElementComponent extends AbstractListableElementComponent<Collection> {}

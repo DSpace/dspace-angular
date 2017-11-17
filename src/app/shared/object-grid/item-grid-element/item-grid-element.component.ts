@@ -2,7 +2,7 @@ import { Component, Input, Inject } from '@angular/core';
 
 import { Item } from '../../../core/shared/item.model';
 import { renderElementsFor} from '../../object-collection/shared/dso-element-decorator';
-import { ObjectGridElementComponent } from '../object-grid-element/object-grid-element.component';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ViewMode } from '../../../+search-page/search-options.model';
 
 @Component({
@@ -12,4 +12,4 @@ import { ViewMode } from '../../../+search-page/search-options.model';
 })
 
 @renderElementsFor(Item, ViewMode.Grid)
-export class ItemGridElementComponent extends ObjectGridElementComponent<Item> {}
+export class ItemGridElementComponent extends AbstractListableElementComponent<Item> {}
