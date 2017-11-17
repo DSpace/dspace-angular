@@ -1,18 +1,18 @@
 import { Component, Inject } from '@angular/core';
 
-import { ObjectListElementComponent } from '../object-list-element/object-list-element.component';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { isEmpty, hasNoValue } from '../../empty.util';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @Component({
   selector: 'ds-search-result-list-element',
   template: ``
 })
 
-export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends ObjectListElementComponent<T> {
+export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
 
   public constructor(@Inject('objectElementProvider') public listable: ListableObject) {

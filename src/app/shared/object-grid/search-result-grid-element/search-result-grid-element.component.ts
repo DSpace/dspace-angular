@@ -4,7 +4,7 @@ import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { isEmpty, hasNoValue } from '../../empty.util';
-import { ObjectGridElementComponent } from '../object-grid-element/object-grid-element.component';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 
 @Component({
@@ -12,7 +12,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
   template: ``
 })
 
-export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends ObjectGridElementComponent<T> {
+export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
 
   public constructor(@Inject('objectElementProvider') public gridable: ListableObject) {
