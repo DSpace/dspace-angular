@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { PatchOperationModel } from '../../core/shared/patch-request.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -31,17 +30,20 @@ export const JsonPatchOperationsActionTypes = {
 export class CommitPatchOperationsAction implements Action {
   type = JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS;
   payload: {
-    namespace: string;
+    resourceType: string;
+    resourceId: string;
   };
 
   /**
    * Create a new CommitPatchOperationsAction
    *
-   * @param namespace
-   *    the submission's ID
+   * @param resourceType
+   *    the resource's type
+   * @param resourceId
+   *    the resource's ID
    */
-  constructor(namespace: string) {
-    this.payload = { namespace };
+  constructor(resourceType: string, resourceId: string) {
+    this.payload = { resourceType, resourceId };
   }
 }
 
@@ -51,17 +53,20 @@ export class CommitPatchOperationsAction implements Action {
 export class RollbacktPatchOperationsAction implements Action {
   type = JsonPatchOperationsActionTypes.ROLLBACK_JSON_PATCH_OPERATIONS;
   payload: {
-    namespace: string;
+    resourceType: string;
+    resourceId: string;
   };
 
   /**
    * Create a new CommitPatchOperationsAction
    *
-   * @param namespace
-   *    the submission's ID
+   * @param resourceType
+   *    the resource's type
+   * @param resourceId
+   *    the resource's ID
    */
-  constructor(namespace: string) {
-    this.payload = { namespace };
+  constructor(resourceType: string, resourceId: string) {
+    this.payload = { resourceType, resourceId };
   }
 }
 
@@ -71,20 +76,23 @@ export class RollbacktPatchOperationsAction implements Action {
 export class StartTransactionPatchOperationsAction implements Action {
   type = JsonPatchOperationsActionTypes.START_TRANSACTION_JSON_PATCH_OPERATIONS;
   payload: {
-    namespace: string;
+    resourceType: string;
+    resourceId: string;
     startTime: number;
   };
 
   /**
    * Create a new CommitPatchOperationsAction
    *
-   * @param namespace
-   *    the submission's ID
+   * @param resourceType
+   *    the resource's type
+   * @param resourceId
+   *    the resource's ID
    * @param startTime
    *    the start timestamp
    */
-  constructor(namespace: string, startTime: number) {
-    this.payload = { namespace, startTime };
+  constructor(resourceType: string, resourceId: string, startTime: number) {
+    this.payload = { resourceType, resourceId, startTime };
   }
 }
 
@@ -94,17 +102,20 @@ export class StartTransactionPatchOperationsAction implements Action {
 export class FlushPatchOperationsAction implements Action {
   type = JsonPatchOperationsActionTypes.FLUSH_JSON_PATCH_OPERATIONS;
   payload: {
-    namespace: string;
+    resourceType: string;
+    resourceId: string;
   };
 
   /**
    * Create a new FlushPatchOperationsAction
    *
-   * @param namespace
-   *    the submission's ID
+   * @param resourceType
+   *    the resource's type
+   * @param resourceId
+   *    the resource's ID
    */
-  constructor(namespace: string) {
-    this.payload = { namespace };
+  constructor(resourceType: string, resourceId: string) {
+    this.payload = { resourceType, resourceId };
   }
 }
 
@@ -114,7 +125,8 @@ export class FlushPatchOperationsAction implements Action {
 export class NewPatchAddOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_ADD_OPERATION;
   payload: {
-    namespace: string;
+    resourceType: string;
+    resourceId: string;
     path: string;
     value: any
   };
@@ -122,15 +134,17 @@ export class NewPatchAddOperationAction implements Action {
   /**
    * Create a new NewPatchAddOperationAction
    *
-   * @param namespace
-   *    the namespace where to add operation
+   * @param resourceType
+   *    the resource's type where to add operation
+   * @param resourceId
+   *    the resource's ID
    * @param path
    *    the path of the operation
    * @param value
    *    the operation's payload
    */
-  constructor(namespace: string, path: string, value: any) {
-    this.payload = { namespace, path, value };
+  constructor(resourceType: string, resourceId: string, path: string, value: any) {
+    this.payload = { resourceType, resourceId, path, value };
   }
 }
 
@@ -140,7 +154,8 @@ export class NewPatchAddOperationAction implements Action {
 export class NewPatchCopyOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_COPY_OPERATION;
   payload: {
-    namespace: string;
+    resourceType: string;
+    resourceId: string;
     from: string;
     path: string;
   };
@@ -148,15 +163,17 @@ export class NewPatchCopyOperationAction implements Action {
   /**
    * Create a new NewPatchCopyOperationAction
    *
-   * @param namespace
-   *    the namespace where to add operation
+   * @param resourceType
+   *    the resource's type
+   * @param resourceId
+   *    the resource's ID
    * @param from
    *    the path to copy the value from
    * @param path
    *    the path where to copy the value
    */
-  constructor(namespace: string, from: string, path: string) {
-    this.payload = { namespace, from, path };
+  constructor(resourceType: string, resourceId: string, from: string, path: string) {
+    this.payload = { resourceType, resourceId, from, path };
   }
 }
 
@@ -166,7 +183,8 @@ export class NewPatchCopyOperationAction implements Action {
 export class NewPatchMoveOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_MOVE_OPERATION;
   payload: {
-    namespace: string;
+    resourceType: string;
+    resourceId: string;
     from: string;
     path: string;
   };
@@ -174,15 +192,17 @@ export class NewPatchMoveOperationAction implements Action {
   /**
    * Create a new NewPatchMoveOperationAction
    *
-   * @param namespace
-   *    the namespace where to add operation
+   * @param resourceType
+   *    the resource's type
+   * @param resourceId
+   *    the resource's ID
    * @param from
    *    the path to move the value from
    * @param path
    *    the path where to move the value
    */
-  constructor(namespace: string, from: string, path: string) {
-    this.payload = { namespace, from, path };
+  constructor(resourceType: string, resourceId: string, from: string, path: string) {
+    this.payload = { resourceType, resourceId, from, path };
   }
 }
 
@@ -192,20 +212,23 @@ export class NewPatchMoveOperationAction implements Action {
 export class NewPatchRemoveOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REMOVE_OPERATION;
   payload: {
-    namespace: string;
+    resourceType: string;
+    resourceId: string;
     path: string;
   };
 
   /**
    * Create a new NewPatchRemoveOperationAction
    *
-   * @param namespace
-   *    the namespace where to add operation
+   * @param resourceType
+   *    the resource's type
+   * @param resourceId
+   *    the resource's ID
    * @param path
    *    the path of the operation
    */
-  constructor(namespace: string, path: string) {
-    this.payload = { namespace, path };
+  constructor(resourceType: string, resourceId: string, path: string) {
+    this.payload = { resourceType, resourceId, path };
   }
 }
 
@@ -215,7 +238,8 @@ export class NewPatchRemoveOperationAction implements Action {
 export class NewPatchReplaceOperationAction implements Action {
   type = JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REPLACE_OPERATION;
   payload: {
-    namespace: string;
+    resourceType: string;
+    resourceId: string;
     path: string;
     value: any
   };
@@ -223,15 +247,17 @@ export class NewPatchReplaceOperationAction implements Action {
   /**
    * Create a new NewPatchReplaceOperationAction
    *
-   * @param namespace
-   *    the namespace where to add operation
+   * @param resourceType
+   *    the resource's type
+   * @param resourceId
+   *    the resource's ID
    * @param path
    *    the path of the operation
    * @param value
    *    the operation's payload
    */
-  constructor(namespace: string, path: string, value: any) {
-    this.payload = { namespace, path, value };
+  constructor(resourceType: string, resourceId: string, path: string, value: any) {
+    this.payload = { resourceType, resourceId, path, value };
   }
 }
 

@@ -4,7 +4,7 @@ import { responseCacheReducer, ResponseCacheState } from './cache/response-cache
 import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
 import { uuidIndexReducer, UUIDIndexState } from './index/uuid-index.reducer';
 import { requestReducer, RequestState } from './data/request.reducer';
-import { jsonPatchOperationsReducer, JsonPatchOperationsState } from './patch-operations/json-patch-operations.reducer';
+import { jsonPatchOperationsReducer, JsonPatchOperationsState } from './json-patch/json-patch-operations.reducer';
 
 export interface CoreState {
   'data/object': ObjectCacheState,

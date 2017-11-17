@@ -12,7 +12,7 @@ export class JsonPatchOperationsEffects {
   @Effect() commit$ = this.actions$
     .ofType(JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS)
     .map((action: CommitPatchOperationsAction) => {
-      return new FlushPatchOperationsAction(action.payload.namespace);
+      return new FlushPatchOperationsAction(action.payload.resourceType, action.payload.resourceId);
     });
 
   constructor(private actions$: Actions) {}

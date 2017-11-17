@@ -7,7 +7,7 @@ import { ConfigObject } from '../shared/config/config.model';
 export class RestResponse {
   constructor(
     public isSuccessful: boolean,
-    public statusCode: string
+    public statusCode: string,
   ) { }
 }
 
@@ -56,6 +56,16 @@ export class ErrorResponse extends RestResponse {
 export class ConfigSuccessResponse extends RestResponse {
   constructor(
     public configDefinition: ConfigObject[],
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class PostPatchSuccessResponse extends RestResponse {
+  constructor(
+    public body: any[],
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {

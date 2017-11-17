@@ -1,4 +1,4 @@
-export enum PatchOperationType {
+export enum JsonPatchOperationType {
   test = 'test',
   remove = 'remove',
   add = 'add',
@@ -7,8 +7,8 @@ export enum PatchOperationType {
   copy = 'copy',
 }
 
-export class PatchOperationModel {
-  op: PatchOperationType;
+export class JsonPatchOperationModel {
+  op: JsonPatchOperationType;
   path: string;
   value: any;
 }

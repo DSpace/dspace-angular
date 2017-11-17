@@ -9,7 +9,7 @@ import { ResponseParsingService } from './parsing.service';
 import { RootResponseParsingService } from './root-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
-import { PatchOperationModel } from '../shared/patch-request.model';
+import { JsonPatchOperationModel } from '../json-patch/json-patch.model';
 
 export enum RequestType {
   GET = 'GET',
@@ -57,7 +57,7 @@ export class HttpPostRequest extends RestRequest {
 export class HttpPatchRequest extends RestRequest {
   constructor(
     href: string,
-    body: PatchOperationModel[],
+    body: any,
   ) {
     super(RequestType.PATCH, href, body);
   }

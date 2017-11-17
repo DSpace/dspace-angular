@@ -1,4 +1,4 @@
-import { hasValue, isNotEmpty, isNull, isUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNull } from '../../shared/empty.util';
 
 import {
   FlushPatchOperationsAction,
@@ -6,10 +6,10 @@ import {
   NewPatchMoveOperationAction, NewPatchRemoveOperationAction, NewPatchReplaceOperationAction,
   CommitPatchOperationsAction, StartTransactionPatchOperationsAction, RollbacktPatchOperationsAction
 } from './json-patch-operations.actions';
-import { PatchOperationModel, PatchOperationType } from '../shared/patch-request.model';
+import { JsonPatchOperationModel, JsonPatchOperationType } from './json-patch.model';
 
 export interface JsonPatchOperationObject {
-  operation: PatchOperationModel;
+  operation: JsonPatchOperationModel;
   timeAdded: number;
 }
 
@@ -19,14 +19,17 @@ export interface JsonPatchOperationsEntry {
   commitPending: boolean;
 }
 
+export interface JsonPatchOperationsResourceEntry {
+  [resourceId: string]: JsonPatchOperationsEntry;
+}
 /**
  * The JSON patch operations State
  *
  * Consists of a map with a namespace as key,
- * and an array of PatchOperationModel as values
+ * and an array of JsonPatchOperationModel as values
  */
 export interface JsonPatchOperationsState {
-  [namespace: string]: JsonPatchOperationsEntry;
+  [resourceType: string]: JsonPatchOperationsResourceEntry;
 }
 
 const initialState: JsonPatchOperationsState = Object.create(null);
@@ -87,12 +90,16 @@ export function jsonPatchOperationsReducer(state = initialState, action: PatchOp
  *    the new state.
  */
 function startTransactionPatchOperations(state: JsonPatchOperationsState, action: StartTransactionPatchOperationsAction): JsonPatchOperationsState {
-  if (hasValue(state[action.payload.namespace]) && isNull(state[action.payload.namespace].transactionStartTime)) {
+  if (hasValue(state[action.payload.resourceType])
+    && hasValue(state[action.payload.resourceType][action.payload.resourceId])
+    && isNull(state[action.payload.resourceType][action.payload.resourceId].transactionStartTime)) {
     return Object.assign({}, state, {
-      [action.payload.namespace]: Object.assign({}, state[action.payload.namespace], {
-        body: state[action.payload.namespace].body,
-        transactionStartTime: action.payload.startTime,
-        commitPending: true
+      [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType], {
+        [action.payload.resourceId]: {
+          body: state[action.payload.resourceType][action.payload.resourceId].body,
+          transactionStartTime: action.payload.startTime,
+          commitPending: true
+        }
       })
     });
   } else {
@@ -111,14 +118,18 @@ function startTransactionPatchOperations(state: JsonPatchOperationsState, action
  *    the new state, with the section new validity status.
  */
 function commitOperations(state: JsonPatchOperationsState, action: CommitPatchOperationsAction): JsonPatchOperationsState {
-  if (hasValue(state[action.payload.namespace]) && state[action.payload.namespace].commitPending) {
-    return Object.assign({}, state, {
-      [action.payload.namespace]: Object.assign({}, state[action.payload.namespace], {
-        body: state[action.payload.namespace].body,
-        transactionStartTime: state[action.payload.namespace].transactionStartTime,
-        commitPending: false
-      })
-    });
+  if (hasValue(state[action.payload.resourceType])
+    && hasValue(state[action.payload.resourceType][action.payload.resourceId])
+    && state[action.payload.resourceType][action.payload.resourceId].commitPending) {
+      return Object.assign({}, state, {
+        [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType], {
+          [action.payload.resourceId]: {
+            body: state[action.payload.resourceType][action.payload.resourceId].body,
+            transactionStartTime: state[action.payload.resourceType][action.payload.resourceId].transactionStartTime,
+            commitPending: false
+          }
+        })
+      });
   } else {
     return state;
   }
@@ -135,14 +146,18 @@ function commitOperations(state: JsonPatchOperationsState, action: CommitPatchOp
  *    the new state.
  */
 function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPatchOperationsAction): JsonPatchOperationsState {
-  if (hasValue(state[action.payload.namespace]) && state[action.payload.namespace].commitPending) {
-    return Object.assign({}, state, {
-      [action.payload.namespace]: Object.assign({}, state[action.payload.namespace], {
-        body: state[action.payload.namespace].body,
-        transactionStartTime: null,
-        commitPending: false
-      })
-    });
+  if (hasValue(state[action.payload.resourceType])
+    && hasValue(state[action.payload.resourceType][action.payload.resourceId])
+    && state[action.payload.resourceType][action.payload.resourceId].commitPending) {
+      return Object.assign({}, state, {
+        [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType], {
+          [action.payload.resourceId]: {
+            body: state[action.payload.resourceType][action.payload.resourceId].body,
+            transactionStartTime: null,
+            commitPending: false
+          }
+        })
+      });
   } else {
     return state;
   }
@@ -161,25 +176,39 @@ function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPa
 function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperationsState {
   const newState = Object.assign({}, state);
   const newBody = buildOperationsList(
-    (hasValue(newState[action.payload.namespace]) && isNotEmpty(newState[action.payload.namespace].body))
-      ? newState[action.payload.namespace].body : Array.of(),
+    (hasValue(newState[action.payload.resourceType]) && hasValue(newState[action.payload.resourceType][action.payload.resourceId]) && isNotEmpty(newState[action.payload.resourceType][action.payload.resourceId].body))
+      ? newState[action.payload.resourceType][action.payload.resourceId].body : Array.of(),
     action.type,
     action.payload.path,
     hasValue(action.payload.value) ? action.payload.value : null);
-  if (hasValue(state[action.payload.namespace])) {
+  if (hasValue(newState[action.payload.resourceType]) && hasValue(state[action.payload.resourceType][action.payload.resourceId])) {
     return Object.assign({}, state, {
-      [action.payload.namespace]: Object.assign({}, state[action.payload.namespace], {
-        body: newBody,
-        transactionStartTime: state[action.payload.namespace].transactionStartTime,
-        commitPending: state[action.payload.namespace].commitPending
+      [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType], {
+        [action.payload.resourceId]: {
+          body: newBody,
+          transactionStartTime: state[action.payload.resourceType][action.payload.resourceId].transactionStartTime,
+          commitPending: state[action.payload.resourceType][action.payload.resourceId].commitPending
+        }
+      })
+    });
+  } else if (hasValue(newState[action.payload.resourceType])) {
+    return Object.assign({}, state, {
+      [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType],{
+        [action.payload.resourceId]: {
+          body: newBody,
+          transactionStartTime: null,
+          commitPending: false
+        }
       })
     });
   } else {
     return Object.assign({}, state, {
-      [action.payload.namespace]: Object.assign({}, {
-        body: newBody,
-        transactionStartTime: null,
-        commitPending: false
+      [action.payload.resourceType]: Object.assign({}, {
+        [action.payload.resourceId]: {
+          body: newBody,
+          transactionStartTime: null,
+          commitPending: false
+        }
       })
     });
   }
@@ -196,13 +225,17 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
  *    the new state, with the section new validity status.
  */
 function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOperationsAction): JsonPatchOperationsState {
-  if (hasValue(state[action.payload.namespace]) && hasValue(state[action.payload.namespace].transactionStartTime)
-    && !(state[action.payload.namespace].commitPending)) {
+  if (hasValue(state[action.payload.resourceType])
+    && hasValue(state[action.payload.resourceType][action.payload.resourceId])
+    && hasValue(state[action.payload.resourceType][action.payload.resourceId].transactionStartTime)
+    && !(state[action.payload.resourceType][action.payload.resourceId].commitPending)) {
     return Object.assign({}, state, {
-      [action.payload.namespace]: Object.assign({}, {
-        body: state[action.payload.namespace].body.filter((entry) => entry.timeAdded > state[action.payload.namespace].transactionStartTime),
-        transactionStartTime: null,
-        commitPending: state[action.payload.namespace].commitPending
+      [action.payload.resourceType]: Object.assign({}, {
+        [action.payload.resourceId]: {
+          body: state[action.payload.resourceType][action.payload.resourceId].body.filter((entry) => entry.timeAdded > state[action.payload.resourceType][action.payload.resourceId].transactionStartTime),
+          transactionStartTime: null,
+          commitPending: state[action.payload.resourceType][action.payload.resourceId].commitPending
+        }
       })
     });
   } else {
@@ -218,53 +251,53 @@ function buildOperationsList(body: JsonPatchOperationObject[], actionType, targe
         let previousTotal = body.length;
         // Remove the REMOVE duplication
         const oriBody = body;
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.remove, targetPath));
+        body = body.filter((element) => patchBodyFilterOperations(element.operation, JsonPatchOperationType.remove, targetPath));
         if (previousTotal !== body.length) {
           const removes = oriBody.filter((element) => patchBodyFilterOperations(element.operation,
-            PatchOperationType.remove,
+            JsonPatchOperationType.remove,
             targetPath,
             true));
           const removeValue = removes[(removes.length - 1)].operation.value;
           // The ADD became a REPLACE
-          body.push(makeOperationEntry({op: PatchOperationType.replace, path: targetPath, value: removeValue}));
+          body.push(makeOperationEntry({op: JsonPatchOperationType.replace, path: targetPath, value: removeValue}));
           doAdd = false;
         }
         if (doAdd) {
           previousTotal = body.length;
           // Remove the REPLACE duplication
-          body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.replace, targetPath));
+          body = body.filter((element) => patchBodyFilterOperations(element.operation, JsonPatchOperationType.replace, targetPath));
           if (previousTotal !== body.length) {
             // The ADD became a REPLACE
-            body.push(makeOperationEntry({op: PatchOperationType.replace, path: targetPath, value: value}));
+            body.push(makeOperationEntry({op: JsonPatchOperationType.replace, path: targetPath, value: value}));
             doAdd = false;
           }
         }
         // Remove the ADD duplication
         // The ADD operation can't be deduplicated
-        // body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.add, targetPath));
+        // body = body.filter((element) => patchBodyFilterOperations(element.operation, JsonPatchOperationType.add, targetPath));
       }
       if (doAdd) {
-        body.push(makeOperationEntry({op: PatchOperationType.add, path: targetPath, value: value}));
+        body.push(makeOperationEntry({op: JsonPatchOperationType.add, path: targetPath, value: value}));
       }
       break;
     case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REPLACE_OPERATION:
       let doReplace = true;
       if (body.length > 0) {
         // Remove the REMOVE duplication
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.remove, targetPath));
+        body = body.filter((element) => patchBodyFilterOperations(element.operation, JsonPatchOperationType.remove, targetPath));
         const previousTotal = body.length;
         // Remove the ADD duplication
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.add, targetPath));
+        body = body.filter((element) => patchBodyFilterOperations(element.operation, JsonPatchOperationType.add, targetPath));
         if (previousTotal !== body.length) {
           // Replace the removed ADD
-          body.push(makeOperationEntry({op: PatchOperationType.add, path: targetPath, value: value}));
+          body.push(makeOperationEntry({op: JsonPatchOperationType.add, path: targetPath, value: value}));
           doReplace = false;
         }
         // Replace the REPLACE duplication
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.replace, targetPath));
+        body = body.filter((element) => patchBodyFilterOperations(element.operation, JsonPatchOperationType.replace, targetPath));
       }
       if (doReplace) {
-        body.push(makeOperationEntry({op: PatchOperationType.replace, path: targetPath, value: value}));
+        body.push(makeOperationEntry({op: JsonPatchOperationType.replace, path: targetPath, value: value}));
       }
       break;
     case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REMOVE_OPERATION:
@@ -272,18 +305,18 @@ function buildOperationsList(body: JsonPatchOperationObject[], actionType, targe
       if (body.length > 0) {
         const previousTotal = body.length;
         // Remove the ADD duplication
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.add, targetPath));
+        body = body.filter((element) => patchBodyFilterOperations(element.operation, JsonPatchOperationType.add, targetPath));
         if (previousTotal !== body.length) {
           // The REMOVE is cancelled
           doRemove = false;
         }
         // Remove the REPLACE duplication
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.replace, targetPath));
+        body = body.filter((element) => patchBodyFilterOperations(element.operation, JsonPatchOperationType.replace, targetPath));
         // Remove the REMOVE duplication
-        body = body.filter((element) => patchBodyFilterOperations(element.operation, PatchOperationType.remove, targetPath));
+        body = body.filter((element) => patchBodyFilterOperations(element.operation, JsonPatchOperationType.remove, targetPath));
       }
       if (doRemove) {
-        body.push(makeOperationEntry({op: PatchOperationType.remove, path: targetPath}));
+        body.push(makeOperationEntry({op: JsonPatchOperationType.remove, path: targetPath}));
       }
       break;
   }
