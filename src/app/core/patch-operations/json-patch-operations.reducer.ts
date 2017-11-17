@@ -1,11 +1,11 @@
-import { hasValue, isNotEmpty, isUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNull, isUndefined } from '../../shared/empty.util';
 
 import {
   FlushPatchOperationsAction,
   PatchOperationsActions, JsonPatchOperationsActionTypes, NewPatchAddOperationAction, NewPatchCopyOperationAction,
   NewPatchMoveOperationAction, NewPatchRemoveOperationAction, NewPatchReplaceOperationAction,
   CommitPatchOperationsAction, StartTransactionPatchOperationsAction, RollbacktPatchOperationsAction
-} from './patch-operations.actions';
+} from './json-patch-operations.actions';
 import { PatchOperationModel, PatchOperationType } from '../shared/patch-request.model';
 
 export interface JsonPatchOperationObject {
@@ -35,7 +35,7 @@ export function jsonPatchOperationsReducer(state = initialState, action: PatchOp
   switch (action.type) {
 
     case JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS: {
-      return endTransactionOperations(state, action as CommitPatchOperationsAction);
+      return commitOperations(state, action as CommitPatchOperationsAction);
     }
 
     case JsonPatchOperationsActionTypes.FLUSH_JSON_PATCH_OPERATIONS: {
@@ -63,7 +63,7 @@ export function jsonPatchOperationsReducer(state = initialState, action: PatchOp
     }
 
     case JsonPatchOperationsActionTypes.ROLLBACK_JSON_PATCH_OPERATIONS: {
-      return endTransactionOperations(state, action as RollbacktPatchOperationsAction);
+      return rollbackOperations(state, action as RollbacktPatchOperationsAction);
     }
 
     case JsonPatchOperationsActionTypes.START_TRANSACTION_JSON_PATCH_OPERATIONS: {
@@ -87,7 +87,7 @@ export function jsonPatchOperationsReducer(state = initialState, action: PatchOp
  *    the new state.
  */
 function startTransactionPatchOperations(state: JsonPatchOperationsState, action: StartTransactionPatchOperationsAction): JsonPatchOperationsState {
-  if (hasValue(state[action.payload.namespace]) && isUndefined(hasValue(state[action.payload.namespace].transactionStartTime))) {
+  if (hasValue(state[action.payload.namespace]) && isNull(state[action.payload.namespace].transactionStartTime)) {
     return Object.assign({}, state, {
       [action.payload.namespace]: Object.assign({}, state[action.payload.namespace], {
         body: state[action.payload.namespace].body,
@@ -101,7 +101,7 @@ function startTransactionPatchOperations(state: JsonPatchOperationsState, action
 }
 
 /**
- * Set the section validity.
+ * Set commit pending state.
  *
  * @param state
  *    the current state
@@ -110,7 +110,31 @@ function startTransactionPatchOperations(state: JsonPatchOperationsState, action
  * @return JsonPatchOperationsState
  *    the new state, with the section new validity status.
  */
-function endTransactionOperations(state: JsonPatchOperationsState, action: CommitPatchOperationsAction|RollbacktPatchOperationsAction): JsonPatchOperationsState {
+function commitOperations(state: JsonPatchOperationsState, action: CommitPatchOperationsAction): JsonPatchOperationsState {
+  if (hasValue(state[action.payload.namespace]) && state[action.payload.namespace].commitPending) {
+    return Object.assign({}, state, {
+      [action.payload.namespace]: Object.assign({}, state[action.payload.namespace], {
+        body: state[action.payload.namespace].body,
+        transactionStartTime: state[action.payload.namespace].transactionStartTime,
+        commitPending: false
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set commit pending state.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an RollbacktPatchOperationsAction
+ * @return JsonPatchOperationsState
+ *    the new state.
+ */
+function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPatchOperationsAction): JsonPatchOperationsState {
   if (hasValue(state[action.payload.namespace]) && state[action.payload.namespace].commitPending) {
     return Object.assign({}, state, {
       [action.payload.namespace]: Object.assign({}, state[action.payload.namespace], {
@@ -154,8 +178,8 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
     return Object.assign({}, state, {
       [action.payload.namespace]: Object.assign({}, {
         body: newBody,
-        transactionStartTime: state[action.payload.namespace].transactionStartTime,
-        commitPending: state[action.payload.namespace].commitPending
+        transactionStartTime: null,
+        commitPending: false
       })
     });
   }

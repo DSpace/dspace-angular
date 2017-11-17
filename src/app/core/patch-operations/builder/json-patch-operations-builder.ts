@@ -5,7 +5,7 @@ import { isNotEmpty } from '../../../shared/empty.util';
 import {
   NewPatchAddOperationAction, NewPatchRemoveOperationAction,
   NewPatchReplaceOperationAction
-} from '../patch-operations.actions';
+} from '../json-patch-operations.actions';
 
 export class JsonPatchOperationsBuilder {
 
