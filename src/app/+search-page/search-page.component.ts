@@ -46,7 +46,11 @@ export class SearchPageComponent implements OnInit, OnDestroy {
               private communityService: CommunityDataService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService) {
-    this.isMobileView = this.windowService.isXs();
+    this.isMobileView =  Observable.combineLatest(
+      this.windowService.isXs(),
+      this.windowService.isSm(),
+      ((isXs, isSm) => isXs || isSm)
+    );
     this.scopeListRDObs = communityService.findAll();
     // Initial pagination config
     this.searchOptions = this.service.searchOptions;

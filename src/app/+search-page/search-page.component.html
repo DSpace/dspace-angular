@@ -1,9 +1,9 @@
 <div class="container">
   <div class="search-page row">
-        <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-sm-sticky"
+        <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-md-sticky"
                          id="search-sidebar"
                          [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"></ds-search-sidebar>
-        <div class="col-12 col-sm-9">
+        <div class="col-12 col-md-9">
         <ds-search-form id="search-form"
                         [query]="query"
                         [scope]="(scopeObjectRDObs | async)?.payload"
@@ -15,13 +15,13 @@
              class="row-offcanvas row-offcanvas-left"
              [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
           <ds-search-sidebar *ngIf="(isMobileView | async)" class="col-12"
-                             id="search-sidebar-xs"
+                             id="search-sidebar-sm"
                              [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"
                              (toggleSidebar)="closeSidebar()"
                              [ngClass]="{'active': !(isSidebarCollapsed() | async)}">
           </ds-search-sidebar>
           <div id="search-content" class="col-12">
-            <div class="d-block d-sm-none search-controls clearfix">
+            <div class="d-block d-md-none search-controls clearfix">
               <ds-view-mode-switch></ds-view-mode-switch>
               <button (click)="openSidebar()" aria-controls="#search-body"
                       class="btn btn-outline-primary float-right open-sidebar"><i

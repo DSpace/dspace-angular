@@ -6,13 +6,15 @@
             <input type="checkbox" [checked]="true"/>
             <span class="filter-value">{{value}}</span>
         </a>
-        <a *ngFor="let value of filterValues; let i=index" class="d-block row"
+        <a *ngFor="let value of filterValues; let i=index" class="d-block clearfix"
            [routerLink]="[getSearchLink()]"
            [queryParams]="getQueryParamsWith(value.value) | async">
             <ng-template [ngIf]="i < (facetCount | async)">
-                <span class="col-10"><input type="checkbox" [checked]="false"/>
-                <span class="filter-value">{{value.value}}</span></span>
-                <span class="col-2 filter-value-count">({{value.count}})</span>
+                    <input type="checkbox" [checked]="false"/>
+                    <span class="filter-value">{{value.value}}</span>
+                <span class="float-right filter-value-count">
+                    <span class="badge badge-secondary badge-pill">{{value.count}}</span>
+                </span>
             </ng-template>
         </a>
         <div class="clearfix toggle-more-filters">
@@ -23,7 +25,8 @@
                 | translate}}</a>
         </div>
     </div>
-    <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter" [action]="getCurrentUrl()">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter"
+          [action]="getCurrentUrl()">
         <input type="text" [(ngModel)]="filter" [name]="filterConfig.paramName" class="form-control"
                aria-label="New filter input"
                [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"/>

@@ -157,7 +157,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       spyOn(comp, 'closeSidebar');
-      const closeSidebarButton = fixture.debugElement.query(By.css('#search-sidebar-xs'));
+      const closeSidebarButton = fixture.debugElement.query(By.css('#search-sidebar-sm'));
       closeSidebarButton.triggerEventHandler('toggleSidebar', null);
     });
 
@@ -185,7 +185,7 @@ describe('SearchPageComponent', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
+      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
       comp.isSidebarCollapsed = () => Observable.of(true);
       fixture.detectChanges();
     });
@@ -200,7 +200,7 @@ describe('SearchPageComponent', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
+      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
       comp.isSidebarCollapsed = () => Observable.of(false);
       fixture.detectChanges();
     });

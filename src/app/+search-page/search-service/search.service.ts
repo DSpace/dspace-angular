@@ -199,12 +199,13 @@ export class SearchService implements OnDestroy {
     const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
     return this.routeService.getQueryParameterValues(filterConfig.paramName).map((selectedValues: string[]) => {
         const values: FacetValue[] = [];
-        for (let i = 0; i < 5; i++) {
+        const totalFilters = 13;
+        for (let i = 0; i < totalFilters; i++) {
           const value = searchFilterConfigName + ' ' + (i + 1);
           if (!selectedValues.includes(value)) {
             values.push({
               value: value,
-              count: Math.floor(Math.random() * 20) + 20 * (5 - i), // make sure first results have the highest (random) count
+              count: Math.floor(Math.random() * 20) + 20 * (totalFilters - i), // make sure first results have the highest (random) count
               search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
             });
           }
