@@ -10,6 +10,7 @@ import { RootResponseParsingService } from './root-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { SubmitDataResponseParsingService } from './submit-data-response-parsing.service';
+import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 
 export enum RequestType {
   GET = 'GET',
@@ -120,6 +121,16 @@ export class ConfigRequest extends HttpGetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return ConfigResponseParsingService;
+  }
+}
+
+export class EpersonRequest extends HttpGetRequest {
+  constructor(href: string) {
+    super(href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return EpersonResponseParsingService;
   }
 }
 
