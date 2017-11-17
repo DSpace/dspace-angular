@@ -231,9 +231,9 @@ export class SearchService implements OnDestroy {
   }
 
   getViewMode(): Observable<ViewMode> {
-    return this.routeService.getQueryParameterValue('view').map((value) => {
-      if (hasValue(value)) {
-        return value as ViewMode;
+    return this.route.queryParams.map((params) => {
+      if (isNotEmpty(params.view) && hasValue(params.view)) {
+        return params.view;
       } else {
         return ViewMode.List;
       }

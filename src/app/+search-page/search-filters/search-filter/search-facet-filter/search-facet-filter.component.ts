@@ -18,7 +18,7 @@ import { isNotEmpty } from '../../../../shared/empty.util';
   templateUrl: './search-facet-filter.component.html',
 })
 
-export class SidebarFacetFilterComponent implements OnInit {
+export class SearchFacetFilterComponent implements OnInit {
   @Input() filterValues: FacetValue[];
   @Input() filterConfig: SearchFilterConfig;
   @Input() selectedValues: string[];

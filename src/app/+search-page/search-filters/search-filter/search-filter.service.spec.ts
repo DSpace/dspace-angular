@@ -1,4 +1,3 @@
-import { async, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { SearchFilterService } from './search-filter.service';
 import { Store } from '@ngrx/store';
@@ -22,7 +21,7 @@ describe('SearchFilterService', () => {
     select: Observable.of(true)
   });
   const routeService = new RouteService(null);
-  const searchService = new SearchService(null, null, null)
+  const searchService = new SearchService(null, null, null, null)
 
   beforeEach(() => {
     service = new SearchFilterService(store, routeService, searchService);

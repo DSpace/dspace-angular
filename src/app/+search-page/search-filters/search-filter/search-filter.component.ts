@@ -22,7 +22,7 @@ import { first } from 'rxjs/operator/first';
   animations: [slide],
 })
 
-export class SidebarFilterComponent implements OnInit {
+export class SearchFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
   filterValues: Observable<RemoteData<FacetValue[]>>;
 

@@ -16,7 +16,7 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './search-filters.component.html',
 })
 
-export class SidebarFiltersComponent {
+export class SearchFiltersComponent {
   filters: Observable<RemoteData<SearchFilterConfig[]>>;
   constructor(private searchService: SearchService) {
     this.filters = searchService.getConfig();

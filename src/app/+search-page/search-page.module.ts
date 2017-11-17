@@ -13,9 +13,9 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchSidebarEffects } from './search-sidebar/search-sidebar.effects';
 import { SearchSettingsComponent } from './search-settings/search-settings.component';
 import { EffectsModule } from '@ngrx/effects';
-import { SidebarFiltersComponent } from './search-filters/search-filters.component';
-import { SidebarFilterComponent } from './search-filters/search-filter/search-filter.component';
-import { SidebarFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
+import { SearchFiltersComponent } from './search-filters/search-filters.component';
+import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
+import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 
 const effects = [
@@ -37,9 +37,9 @@ const effects = [
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,
     CommunitySearchResultListElementComponent,
-    SidebarFiltersComponent,
-    SidebarFilterComponent,
-    SidebarFacetFilterComponent
+    SearchFiltersComponent,
+    SearchFilterComponent,
+    SearchFacetFilterComponent
   ],
   providers: [
     SearchService,

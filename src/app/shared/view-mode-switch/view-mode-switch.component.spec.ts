@@ -1,4 +1,3 @@
-import { DebugElement } from '@angular/core';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -6,12 +5,12 @@ import { MockTranslateLoader } from '../mocks/mock-translate-loader';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { ItemDataService } from './../../core/data/item-data.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 import { ViewMode } from '../../+search-page/search-options.model';
+import { RouteService } from '../route.service';
 
 @Component({ template: '' })
 class DummyComponent { }
@@ -42,6 +41,7 @@ describe('ViewModeSwitchComponent', () => {
       ],
       providers: [
         { provide: ItemDataService, useValue: {} },
+        { provide: RouteService, useValue: {} },
         SearchService
       ],
     }).compileComponents();
