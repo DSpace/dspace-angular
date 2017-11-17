@@ -9,6 +9,7 @@ import { ResponseParsingService } from './parsing.service';
 import { RootResponseParsingService } from './root-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
+import { JsonPatchOperationModel } from '../json-patch/json-patch.model';
 import { SubmitDataResponseParsingService } from './submit-data-response-parsing.service';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 

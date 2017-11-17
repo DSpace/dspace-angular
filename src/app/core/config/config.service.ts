@@ -28,13 +28,13 @@ export abstract class ConfigService extends HALEndpointService {
       errorResponse.flatMap((response: ErrorResponse) =>
         Observable.throw(new Error(`Couldn't retrieve the config`))),
       successResponse
-      .filter((response: ConfigSuccessResponse) => isNotEmpty(response))
-      .map((response: ConfigSuccessResponse) => new ConfigData(response.pageInfo, response.configDefinition))
-      .distinctUntilChanged());
+        .filter((response: ConfigSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.configDefinition))
+        .map((response: ConfigSuccessResponse) => new ConfigData(response.pageInfo, response.configDefinition))
+        .distinctUntilChanged());
   }
 
-  protected getConfigByIDHref(endpoint, resourceID): string {
-    return `${endpoint}/${resourceID}`;
+  protected getConfigByNameHref(endpoint, resourceName): string {
+    return `${endpoint}/${resourceName}`;
   }
 
   protected getConfigSearchHref(endpoint, options: FindAllOptions = {}): string {
@@ -90,7 +90,7 @@ export abstract class ConfigService extends HALEndpointService {
 
   public getConfigByName(name: string): Observable<ConfigData> {
     return this.getEndpoint()
-      .map((endpoint: string) => this.getConfigByIDHref(endpoint, name))
+      .map((endpoint: string) => this.getConfigByNameHref(endpoint, name))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new ConfigRequest(endpointURL))

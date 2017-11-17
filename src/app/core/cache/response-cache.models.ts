@@ -11,7 +11,7 @@ import { EpersonModel } from '../eperson/models/eperson.model';
 export class RestResponse {
   constructor(
     public isSuccessful: boolean,
-    public statusCode: string
+    public statusCode: string,
   ) { }
 }
 
@@ -66,6 +66,17 @@ export class ConfigSuccessResponse extends RestResponse {
     super(true, statusCode);
   }
 }
+
+export class PostPatchSuccessResponse extends RestResponse {
+  constructor(
+    public body: any[],
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
+
 
 export class SubmitDataSuccessResponse extends RestResponse {
   constructor(
