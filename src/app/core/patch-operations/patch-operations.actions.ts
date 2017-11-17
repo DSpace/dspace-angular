@@ -18,19 +18,20 @@ export const JsonPatchOperationsActionTypes = {
   NEW_JSON_PATCH_REMOVE_OPERATION: type('dspace/core/patch/NEW_JSON_PATCH_REMOVE_OPERATION'),
   NEW_JSON_PATCH_REPLACE_OPERATION: type('dspace/core/patch/NEW_JSON_PATCH_REPLACE_OPERATION'),
   COMMIT_JSON_PATCH_OPERATIONS: type('dspace/core/patch/COMMIT_JSON_PATCH_OPERATIONS'),
+  ROLLBACK_JSON_PATCH_OPERATIONS: type('dspace/core/patch/ROLLBACK_JSON_PATCH_OPERATIONS'),
   FLUSH_JSON_PATCH_OPERATIONS: type('dspace/core/patch/FLUSH_JSON_PATCH_OPERATIONS'),
+  START_TRANSACTION_JSON_PATCH_OPERATIONS: type('dspace/core/patch/START_TRANSACTION_JSON_PATCH_OPERATIONS'),
 };
 
 /* tslint:disable:max-classes-per-file */
 
 /**
- * An ngrx action to set the commit timestamp
+ * An ngrx action to commit the current transaction
  */
 export class CommitPatchOperationsAction implements Action {
   type = JsonPatchOperationsActionTypes.COMMIT_JSON_PATCH_OPERATIONS;
   payload: {
     namespace: string;
-    commitTime: number;
   };
 
   /**
@@ -38,11 +39,52 @@ export class CommitPatchOperationsAction implements Action {
    *
    * @param namespace
    *    the submission's ID
-   * @param commitTime
-   *    the commit timestamp
    */
-  constructor(namespace: string, commitTime: number) {
-    this.payload = { namespace, commitTime };
+  constructor(namespace: string) {
+    this.payload = { namespace };
+  }
+}
+
+/**
+ * An ngrx action to rollback the current transaction
+ */
+export class RollbacktPatchOperationsAction implements Action {
+  type = JsonPatchOperationsActionTypes.ROLLBACK_JSON_PATCH_OPERATIONS;
+  payload: {
+    namespace: string;
+  };
+
+  /**
+   * Create a new CommitPatchOperationsAction
+   *
+   * @param namespace
+   *    the submission's ID
+   */
+  constructor(namespace: string) {
+    this.payload = { namespace };
+  }
+}
+
+/**
+ * An ngrx action to initiate a transaction block
+ */
+export class StartTransactionPatchOperationsAction implements Action {
+  type = JsonPatchOperationsActionTypes.START_TRANSACTION_JSON_PATCH_OPERATIONS;
+  payload: {
+    namespace: string;
+    startTime: number;
+  };
+
+  /**
+   * Create a new CommitPatchOperationsAction
+   *
+   * @param namespace
+   *    the submission's ID
+   * @param startTime
+   *    the start timestamp
+   */
+  constructor(namespace: string, startTime: number) {
+    this.payload = { namespace, startTime };
   }
 }
 
@@ -207,3 +249,5 @@ export type PatchOperationsActions
   | NewPatchMoveOperationAction
   | NewPatchRemoveOperationAction
   | NewPatchReplaceOperationAction
+  | RollbacktPatchOperationsAction
+  | StartTransactionPatchOperationsAction
