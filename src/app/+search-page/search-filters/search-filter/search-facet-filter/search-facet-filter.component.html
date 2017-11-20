@@ -21,7 +21,7 @@
             <a class="float-left" *ngIf="filterValues.length > (facetCount | async)"
                (click)="showMore()">{{"search.filters.filter.show-more"
                 | translate}}</a>
-            <a class="float-right" *ngIf="(currentPage | async) > 1" (click)="showLess()">{{"search.filters.filter.show-less"
+            <a class="float-right" *ngIf="(currentPage | async) > 1" (click)="showFirstPageOnly()">{{"search.filters.filter.show-less"
                 | translate}}</a>
         </div>
     </div>

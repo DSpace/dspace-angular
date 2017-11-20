@@ -4,7 +4,7 @@ import {
   SearchFilterInitialCollapseAction,
   SearchFilterInitialExpandAction,
   SearchFilterToggleAction,
-  SearchFilterDecrementPageAction
+  SearchFilterDecrementPageAction, SearchFilterResetPageAction
 } from './search-filter.actions';
 import { filterReducer } from './search-filter.reducer';
 
@@ -151,6 +151,14 @@ describe('filterReducer', () => {
     const state = {};
     state[filterName1] = { filterCollapsed: true, page: 1 };
     const action = new SearchFilterDecrementPageAction(filterName1);
+    const newState = filterReducer(state, action);
+    expect(newState[filterName1].page).toEqual(1);
+  });
+
+  it('should reset the page to 1 for the specified filter in response to the RESET_PAGE action', () => {
+    const state = {};
+    state[filterName1] = { filterCollapsed: true, page: 20 };
+    const action = new SearchFilterResetPageAction(filterName1);
     const newState = filterReducer(state, action);
     expect(newState[filterName1].page).toEqual(1);
   });

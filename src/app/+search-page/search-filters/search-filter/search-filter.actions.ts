@@ -17,7 +17,8 @@ export const SearchFilterActionTypes = {
   INITIAL_EXPAND: type('dspace/search-filter/INITIAL_EXPAND'),
   TOGGLE: type('dspace/search-filter/TOGGLE'),
   DECREMENT_PAGE: type('dspace/search-filter/DECREMENT_PAGE'),
-  INCREMENT_PAGE: type('dspace/search-filter/INCREMENT_PAGE')
+  INCREMENT_PAGE: type('dspace/search-filter/INCREMENT_PAGE'),
+  RESET_PAGE: type('dspace/search-filter/RESET_PAGE')
 };
 
 export class SearchFilterAction implements Action {
@@ -54,5 +55,9 @@ export class SearchFilterDecrementPageAction extends SearchFilterAction {
 
 export class SearchFilterIncrementPageAction extends SearchFilterAction {
   type = SearchFilterActionTypes.INCREMENT_PAGE;
+}
+
+export class SearchFilterResetPageAction extends SearchFilterAction {
+  type = SearchFilterActionTypes.RESET_PAGE;
 }
 /* tslint:enable:max-classes-per-file */

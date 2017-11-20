@@ -78,6 +78,15 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
       });
 
     }
+    case SearchFilterActionTypes.RESET_PAGE: {
+      return Object.assign({}, state, {
+        [action.filterName]: {
+          filterCollapsed: state[action.filterName].filterCollapsed,
+          page: 1
+        }
+      });
+
+    }
 
     case SearchFilterActionTypes.TOGGLE: {
       return Object.assign({}, state, {

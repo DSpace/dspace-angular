@@ -4,7 +4,8 @@ import { Store } from '@ngrx/store';
 import {
   SearchFilterCollapseAction, SearchFilterDecrementPageAction, SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
-  SearchFilterInitialCollapseAction, SearchFilterInitialExpandAction, SearchFilterToggleAction
+  SearchFilterInitialCollapseAction, SearchFilterInitialExpandAction, SearchFilterResetPageAction,
+  SearchFilterToggleAction
 } from './search-filter.actions';
 import { SearchFiltersState } from './search-filter.reducer';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
@@ -95,7 +96,7 @@ describe('SearchFilterService', () => {
 
   describe('when the decreasePage method is triggered', () => {
     beforeEach(() => {
-      service.decreasePage(mockFilterConfig.name);
+      service.decrementPage(mockFilterConfig.name);
     });
 
     it('SearchFilterDecrementPageAction should be dispatched to the store', () => {
@@ -106,11 +107,22 @@ describe('SearchFilterService', () => {
 
   describe('when the increasePage method is triggered', () => {
     beforeEach(() => {
-      service.increasePage(mockFilterConfig.name);
+      service.incrementPage(mockFilterConfig.name);
     });
 
     it('SearchFilterCollapseAction should be dispatched to the store', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterIncrementPageAction(mockFilterConfig.name));
+    });
+
+  });
+
+  describe('when the resetPage method is triggered', () => {
+    beforeEach(() => {
+      service.resetPage(mockFilterConfig.name);
+    });
+
+    it('SearchFilterDecrementPageAction should be dispatched to the store', () => {
+      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterResetPageAction(mockFilterConfig.name));
     });
 
   });

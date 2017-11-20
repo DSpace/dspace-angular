@@ -7,7 +7,7 @@ import {
   SearchFilterDecrementPageAction, SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
   SearchFilterInitialCollapseAction,
-  SearchFilterInitialExpandAction,
+  SearchFilterInitialExpandAction, SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
 import { hasValue, } from '../../../shared/empty.util';
@@ -91,12 +91,16 @@ export class SearchFilterService {
     this.store.dispatch(new SearchFilterInitialExpandAction(filterName));
   }
 
-  public decreasePage(filterName: string): void {
+  public decrementPage(filterName: string): void {
     this.store.dispatch(new SearchFilterDecrementPageAction(filterName));
   }
 
-  public increasePage(filterName: string): void {
+  public incrementPage(filterName: string): void {
     this.store.dispatch(new SearchFilterIncrementPageAction(filterName));
+  }
+
+  public resetPage(filterName: string): void {
+    this.store.dispatch(new SearchFilterResetPageAction(filterName));
   }
 }
 

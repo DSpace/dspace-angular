@@ -57,11 +57,11 @@ export class SearchFacetFilterComponent implements OnInit {
   }
 
   showMore() {
-    this.filterService.increasePage(this.filterConfig.name);
+    this.filterService.incrementPage(this.filterConfig.name);
   }
 
-  showLess() {
-    this.filterService.decreasePage(this.filterConfig.name);
+  showFirstPageOnly() {
+    this.filterService.resetPage(this.filterConfig.name);
   }
 
   getCurrentPage(): Observable<number> {

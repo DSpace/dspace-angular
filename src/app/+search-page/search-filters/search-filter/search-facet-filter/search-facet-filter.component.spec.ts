@@ -55,8 +55,10 @@ describe('SearchFacetFilterComponent', () => {
             getQueryParamsWithout: (paramName: string, filterValue: string) => '',
             getPage: (paramName: string) => page,
             /* tslint:disable:no-empty */
-            increasePage: (filterName: string) => {},
-            decreasePage: (filterName: string) => {},
+            incrementPage: (filterName: string) => {
+            },
+            resetPage: (filterName: string) => {
+            },
             /* tslint:enable:no-empty */
             searchLink: '/search',
           }
@@ -156,12 +158,23 @@ describe('SearchFacetFilterComponent', () => {
 
   describe('when the showMore method is called', () => {
     beforeEach(() => {
-      spyOn(filterService, 'increasePage');
+      spyOn(filterService, 'incrementPage');
       comp.showMore();
     });
 
-    it('should call increasePage on the filterService with the correct filter parameter name', () => {
-      expect(filterService.increasePage).toHaveBeenCalledWith(mockFilterConfig.name)
+    it('should call incrementPage on the filterService with the correct filter parameter name', () => {
+      expect(filterService.incrementPage).toHaveBeenCalledWith(mockFilterConfig.name)
+    });
+  });
+
+  describe('when the showFirstPageOnly method is called', () => {
+    beforeEach(() => {
+      spyOn(filterService, 'resetPage');
+      comp.showFirstPageOnly();
+    });
+
+    it('should call resetPage on the filterService with the correct filter parameter name', () => {
+      expect(filterService.resetPage).toHaveBeenCalledWith(mockFilterConfig.name)
     });
   });
 
