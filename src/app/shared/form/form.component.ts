@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormGroup, FormGroupDirective } from '@angular/forms';
 
-import { DynamicFormArrayModel, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { DynamicFormArrayModel, DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
 import * as _ from 'lodash';
@@ -39,6 +39,10 @@ export class FormComponent implements OnDestroy, OnInit {
    * An array of DynamicFormControlModel type
    */
   @Input() formModel: DynamicFormControlModel[];
+
+  @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output() focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
 
   /**
    * An event fired when form is valid and submitted .
@@ -130,6 +134,18 @@ export class FormComponent implements OnDestroy, OnInit {
           this.formRef.control.setValue(stateFormData);
         }
     }));
+  }
+
+  onBlur(event) {
+    this.blur.emit(event);
+  }
+
+  onFocus(event) {
+    this.focus.emit(event);
+  }
+
+  onChange(event) {
+    this.change.emit(event);
   }
 
   /**

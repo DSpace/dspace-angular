@@ -28,6 +28,7 @@ export class DateFieldParser extends FieldParser {
     const datePickerGroup: DynamicFormGroupModel = Object.create(null);
     datePickerGroup.id = inputDateModelConfig.id + '_group';
     datePickerGroup.group = [new DynamicDatePickerModel(inputDateModelConfig, cls)];
+    datePickerGroup.group[0].name = this.fieldId;
     cls = {
       element: {
         control: 'form-row'

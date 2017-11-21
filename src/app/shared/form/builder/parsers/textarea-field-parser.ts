@@ -19,6 +19,8 @@ export class TextareaFieldParser extends FieldParser {
         label: 'col-form-label'
       }
     };
-    return new DynamicTextAreaModel(inputTextModel, cls);
+    const textareaModel = new DynamicTextAreaModel(inputTextModel, cls);
+    textareaModel.name = this.fieldId;
+    return textareaModel;
   }
 }

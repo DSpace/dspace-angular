@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-  DynamicFormArrayModel,
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  DynamicFormArrayModel, DynamicFormControlEvent,
   DynamicFormControlModel, DynamicFormService, DynamicFormValidationService,
   Utils
 } from '@ng-dynamic-forms/core';
@@ -17,6 +19,11 @@ import { LookupFieldParser } from './parsers/lookup-field-parser';
 import { AuthorityOptions } from './models/authority-options.model';
 import { FormBuilder } from '@angular/forms';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
+import { isNotNull, isNull } from '../../empty.util';
+import {
+  COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
+  DynamicComboboxModel
+} from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -29,6 +36,7 @@ export class FormBuilderService extends DynamicFormService {
               ) {
     super(formBuilder, validationService);
   }
+
   modelFromConfiguration(json: string | any): DynamicFormControlModel[] | never {
 
     const raw = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
@@ -49,17 +57,6 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'onebox':
-          /*if (fieldData.repeatable ) {
-            group.push(new DynamicFormArrayModel({
-              id: 'cippa' + '_array',
-              initialCount: 1,
-              groupFactory: () => {
-                return [new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse()];
-              }
-            }))
-          } else {
-            group.push(new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse());
-          }*/
           group.push(new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse());
           break;
 
@@ -93,5 +90,37 @@ export class FormBuilderService extends DynamicFormService {
 
   setAuthorityUuid(uuid: string) {
     this.authorityOptions = new AuthorityOptions(uuid);
+  }
+
+  getFieldPathFromChangeEvent(event: DynamicFormControlEvent) {
+    let fieldIndex = '';
+    let fieldId;
+    if (isNull(event.context)) {
+      if (isNotNull(event.model.parent)) {
+        if ((event.model.parent as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP) {
+          if (isNotNull((event.model.parent as any).parent)) {
+            if (isNotNull((event.model.parent as any).parent.context)) {
+              if ((event.model.parent as any).parent.context.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY) {
+                fieldIndex = '/' + (event.model.parent as any).parent.index;
+              }
+            }
+          }
+        }
+      }
+    } else {
+      fieldIndex = '/' + event.context.index;
+    }
+    if (event.model.parent instanceof DynamicComboboxModel) {
+      if (event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX)) {
+        const metadataId = event.model.id.replace(COMBOBOX_VALUE_SUFFIX, COMBOBOX_METADATA_SUFFIX);
+        const metadataControl = event.group.get(metadataId);
+        fieldId = event.group.get(metadataId).value
+      } else {
+        fieldId = event.control.value;
+      }
+    } else {
+      fieldId = event.model.name;
+    }
+    return fieldId + fieldIndex;
   }
 }

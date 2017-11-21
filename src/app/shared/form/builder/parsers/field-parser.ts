@@ -7,6 +7,8 @@ import * as _ from 'lodash';
 
 export abstract class FieldParser {
 
+  protected fieldId: string;
+
   constructor(protected configData: FormFieldModel) { }
 
   public abstract modelFactory(): any;
@@ -37,10 +39,14 @@ export abstract class FieldParser {
 
     const controlModel = Object.create(null);
 
-    // Sets input ID and name
-    const inputId = id ? id : this.configData.selectableMetadata[0].metadata;
-    controlModel.id = (inputId).replace(/\./g, '_');
-    controlModel.name = inputId;
+    // Sets input ID
+    this.fieldId = id ? id : this.configData.selectableMetadata[0].metadata;
+
+    // Sets input name (with the original field's id value)
+    controlModel.name = this.fieldId;
+
+    // input ID doesn't allow dots, so replace them
+    controlModel.id = (this.fieldId).replace(/\./g, '_');
 
     if (label) {
       controlModel.label = (labelEmpty) ? '&nbsp;' : this.configData.label;

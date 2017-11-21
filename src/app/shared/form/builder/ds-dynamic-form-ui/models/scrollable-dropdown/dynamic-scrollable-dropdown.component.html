@@ -1,11 +1,15 @@
 <div #sdRef="ngbDropdown" ngbDropdown class="input-group w-100">
   <input class="form-control"
          [attr.autoComplete]="model.autoComplete"
+         [class.is-invalid]="showErrorMessages"
          [dynamicId]="bindId && model.id"
-         [ngClass]="model.cls.element.control"
+         [name]="model.name"
+         [type]="model.inputType"
          [value]="formatItemForInput(model.value)"
+         (blur)="onBlurEvent($event)"
          (click)="$event.stopPropagation(); sdRef.open();"
-         (keypress)="$event.preventDefault()" >
+         (focus)="onFocusEvent($event)"
+         (keypress)="$event.preventDefault()">
     <button aria-describedby="collectionControlsMenuLabel"
             class="ds-form-input-btn  btn btn-outline-primary"
             id="scrollableDropdownMenuButton"

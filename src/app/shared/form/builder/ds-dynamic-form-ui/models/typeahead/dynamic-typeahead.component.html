@@ -9,11 +9,13 @@
          [dynamicId]="bindId && model.id"
          [inputFormatter]="formatter"
          [name]="model.name"
-         [(ngModel)]="model.value"
          [ngbTypeahead]="search"
          [placeholder]="model.label"
          [resultTemplate]="rt"
          [type]="model.inputType"
+         (blur)="onBlurEvent($event)"
+         (focus)="onFocusEvent($event)"
+         (change)="$event.stopPropagation()"
          (input)="onInput($event)"
          (selectItem)="onSelectItem($event)">
 

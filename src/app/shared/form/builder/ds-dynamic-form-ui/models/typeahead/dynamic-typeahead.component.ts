@@ -19,10 +19,9 @@ export class DsDynamicTypeaheadComponent {
   @Input() model: DynamicTypeaheadModel;
   @Input() showErrorMessages = false;
 
-  /**
-   * An event emitted when a match is selected. Event payload is of type NgbTypeaheadSelectItemEvent.
-   */
-  @Output() selectItem = new EventEmitter<any>();
+  @Output() blur: EventEmitter<any> = new EventEmitter<any>();
+  @Output() change: EventEmitter<any> = new EventEmitter<any>();
+  @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   searching = false;
   searchFailed = false;
@@ -58,7 +57,16 @@ export class DsDynamicTypeaheadComponent {
     }
   }
 
+  onBlurEvent(event: Event) {
+    this.blur.emit(event);
+  }
+
+  onFocusEvent($event) {
+    this.focus.emit(event);
+  }
+
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
     this.group.controls[this.model.id].setValue(event.item);
+    this.change.emit(event.item);
   }
 }

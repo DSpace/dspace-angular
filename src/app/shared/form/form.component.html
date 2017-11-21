@@ -3,7 +3,10 @@
   <form #formRef="ngForm" [formGroup]="formGroup">
 
     <ds-dynamic-form [group]="formGroup"
-                     [model]="formModel">
+                     [model]="formModel"
+                     (blur)="onBlur($event)"
+                     (change)="onChange($event)"
+                     (focus)="onFocus($event)">
 
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
         <div class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">

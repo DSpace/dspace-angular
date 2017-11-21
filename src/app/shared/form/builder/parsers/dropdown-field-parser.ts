@@ -41,6 +41,7 @@ export class DropdownFieldParser extends FieldParser {
     const dropdownGroup: DynamicFormGroupModel = Object.create(null);
     dropdownGroup.id = dropdownModelConfig.id + '_group';
     dropdownGroup.group = [new DynamicScrollableDropdownModel(dropdownModelConfig, cls)];
+    dropdownGroup.group[0].name = this.fieldId;
     cls = {
       element: {
         control: 'form-row'

@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownResponseModel
 } from './dynamic-scrollable-dropdown.model';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { isNull, isUndefined } from '../../../../../empty.util';
+import { DynamicFormControlEvent } from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -17,6 +18,10 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
   @Input() group: FormGroup;
   @Input() model: DynamicScrollableDropdownModel;
   @Input() showErrorMessages = false;
+
+  @Output() blur: EventEmitter<any> = new EventEmitter<any>();
+  @Output() change: EventEmitter<any> = new EventEmitter<any>();
+  @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public loading = false;
   public pageInfo: PageInfo;
@@ -51,8 +56,19 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
     }
   }
 
+  onBlurEvent(event: Event) {
+    console.log('blur');
+    this.blur.emit(event);
+  }
+
+  onFocusEvent($event) {
+    console.log('focus');
+    this.focus.emit(event);
+  }
+
   onSelect(event) {
     this.group.markAsDirty();
-    this.group.controls[this.model.id].setValue(event);
+    this.group.get(this.model.id).setValue(event);
+    this.change.emit(event);
   }
 }

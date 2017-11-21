@@ -108,7 +108,10 @@
                        [formControlName]="model.id"
                        [name]="model.name"
                        [ngClass]="model.cls.element.control"
-                       [placeholder]="model.placeholder">
+                       [placeholder]="model.placeholder"
+                       (blur)="onBlurEvent($event)"
+                       (select)="onValueChange($event)"
+                       (focus)="onFocusEvent($event)">
 
                 <div class="input-group-addon" (click)="datepicker.toggle()">
                   <i class="{{model.toggleIcon}}" aria-hidden="true"></i>
@@ -298,7 +301,9 @@
                                   [group]="group"
                                   [model]="model"
                                   [showErrorMessages]="showErrorMessages"
-                                  (selectItem)="onValueChange($event)"></ds-dynamic-typeahead>
+                                  (blur)="onBlurEvent($event)"
+                                  (change)="onValueChange($event)"
+                                  (focus)="onFocusEvent($event)"></ds-dynamic-typeahead>
         </ng-template>
 
         <ng-template #scrollableDropdownTemplate let-bindId="bindId" let-model="model" let-showErrorMessages="showErrorMessages">
@@ -306,7 +311,9 @@
                                 [group]="group"
                                 [model]="model"
                                 [showErrorMessages]="showErrorMessages"
-                                (selectItem)="onValueChange($event)"></ds-dynamic-scrollable-dropdown>
+                                (blur)="onBlurEvent($event)"
+                                (change)="onValueChange($event)"
+                                (focus)="onFocusEvent($event)"></ds-dynamic-scrollable-dropdown>
         </ng-template>
 
     </div>

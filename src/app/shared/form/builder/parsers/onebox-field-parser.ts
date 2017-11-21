@@ -1,5 +1,5 @@
 import {
-  ClsConfig, DynamicFormArrayModel,
+  ClsConfig,
   DynamicFormGroupModel,
   DynamicInputModel,
   DynamicInputModelConfig,
@@ -20,6 +20,10 @@ import { SubmissionFormsConfigService } from '../../../../core/config/submission
 import { hasValue, isUndefined } from '../../../empty.util';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { ConfigData } from '../../../../core/config/config-data';
+import {
+  COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
+  DynamicComboboxModel
+} from '../ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 
 export class OneboxFieldParser extends FieldParser {
 
@@ -44,7 +48,7 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.group = [];
       inputSelectGroup.legend = this.configData.label;
 
-      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(  newId + '.metadata');
+      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(  newId + COMBOBOX_METADATA_SUFFIX);
       this.setOptions(selectModelConfig);
       clsSelect = {
         element: {
@@ -57,7 +61,7 @@ export class OneboxFieldParser extends FieldParser {
       const sel = new DynamicSelectModel(selectModelConfig, clsSelect);
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
-      const inputModelConfig: DynamicInputModelConfig = this.initModel(newId + '.value', true, true);
+      const inputModelConfig: DynamicInputModelConfig = this.initModel(newId + COMBOBOX_VALUE_SUFFIX, true, true);
       clsInput = {
         element: {
           control: 'ds-form-input-value',
@@ -74,7 +78,7 @@ export class OneboxFieldParser extends FieldParser {
           control: 'form-row',
         }
       };
-      return new DynamicFormGroupModel(inputSelectGroup, clsGroup);
+      return new DynamicComboboxModel(inputSelectGroup, clsGroup);
     } else if (this.configData.selectableMetadata[0].authority) {
       const typeaheadModelConfig: DynamicTypeaheadModelConfig = this.initModel();
       typeaheadModelConfig.search = this.getSearchFn(
@@ -84,10 +88,14 @@ export class OneboxFieldParser extends FieldParser {
           this.configData.selectableMetadata[0].metadata));
       typeaheadModelConfig.value = '';
       typeaheadModelConfig.minChars = 3;
-      return new DynamicTypeaheadModel(typeaheadModelConfig);
+      const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
+      typeaheadModel.name = this.fieldId;
+      return typeaheadModel;
     } else {
       const inputModelConfig: DynamicInputModelConfig = this.initModel();
-      return new DynamicInputModel(inputModelConfig);
+      const inputModel = new DynamicInputModel(inputModelConfig);
+      inputModel.name = this.fieldId;
+      return inputModel;
     }
   }
 
