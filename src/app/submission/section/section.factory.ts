@@ -19,7 +19,7 @@ export interface FactoryDataModel {
 @Injectable()
 export class SectionFactoryComponent {
   // @TODO retrieve from app configuration
-  typeToComponentMapping = [ 'submission-form', 'upload', 'license', 'cclicense' ];
+  typeToComponentMapping = [ 'submission-form', 'upload', 'license', 'cclicense', 'collection' ];
 
   constructor(private resolver: ComponentFactoryResolver) {}
 
