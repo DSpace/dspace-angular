@@ -1,6 +1,6 @@
 import { DSpaceObject } from './dspace-object.model';
 
-export class AccessCondition extends DSpaceObject {
+export class ResourcePolicies extends DSpaceObject {
 
   /**
    * The identifier of the access condition
@@ -10,7 +10,7 @@ export class AccessCondition extends DSpaceObject {
   /**
    * The group uuid bound to the access condition
    */
-  groupUuid: string;
+  groupUUID: string;
 
   /**
    * The end date of the access condition

@@ -2,7 +2,7 @@ import {
   DynamicInputModel,
   DynamicTextAreaModel,
   DynamicFormGroupModel,
-  DynamicFormControlModel, DynamicSelectModel, DynamicDatePickerModel,
+  DynamicFormControlModel,
 } from '@ng-dynamic-forms/core';
 
 export const BITSTREAM_FORM_MODEL: DynamicFormControlModel[] = [
@@ -56,99 +56,140 @@ export const BITSTREAM_FORM_MODEL: DynamicFormControlModel[] = [
   )
 ];
 
-export const BITSTREAM_FORM_POLICIES_GROUP: DynamicFormGroupModel =
-  new DynamicFormGroupModel(
-    {
-      id: 'files-policies',
-      group: [
+export const BITSTREAM_FORM_POLICIES_ARRAY_DATA = {
+  data: {
+    id: 'files-policies',
+    initialCount: 1,
+    groupFactory: null,
+  },
+  element: {
+    grid: {
+      group: 'dsgridgroup form-row'
+    }
+  }
+};
 
-        new DynamicSelectModel(
+export const BITSTREAM_FORM_POLICIES_SELECT_DATA = {
+  data: {
+    id: 'policies',
+    label: 'Access policies',
+    options: []
+  },
+  element: {
+    element: {
+      container: 'p-0',
+      label: 'col-form-label'
+    },
+    grid: {
+      host: 'col-md-10'
+    }
+  }
+};
+
+export const BITSTREAM_FORM_POLICIES_START_DATE_DATA = {
+  data: {
+    id: 'policy-start-date',
+    label: 'From',
+    placeholder: 'from',
+    inline: false,
+    toggleIcon: 'fa fa-calendar',
+    relation: [
+      {
+        action: 'ENABLE',
+        connective: 'OR',
+        when: [
           {
             id: 'policies',
-            label: 'Access policies',
-            options: [ ]
+            value: 'embargo'
           },
           {
-            element: {
-              container: 'p-0',
-              label: 'col-form-label'
-            },
-            grid: {
-              host: 'col-md-12'
-            }
-          }
-        ),
-
-        new DynamicDatePickerModel(
-          {
-            id: 'policy-date',
-            inline: false,
-            label: 'Until',
-            relation: [
-              {
-                action: 'ENABLE',
-                connective: 'OR',
-                when: [
-                  {
-                    id: 'policies',
-                    value: 'embargo'
-                  },
-                  {
-                    id: 'policies',
-                    value: 'lease'
-                  },
-                ]
-              }
-            ]
+            id: 'policies',
+            value: 'lease'
           },
-          {
-            element: {
-              container: 'p-0',
-              label: 'col-form-label'
-            },
-            grid: {
-              host: 'col-md-6'
-            }
-          }
-        ),
-
-        new DynamicSelectModel(
-          {
-            id: 'policy-group',
-            label: 'Group',
-            options: [ ],
-            relation: [
-              {
-                action: 'ENABLE',
-                connective: 'OR',
-                when: [
-                  {
-                    id: 'policies',
-                    value: 'embargo'
-                  },
-                  {
-                    id: 'policies',
-                    value: 'lease'
-                  },
-                ]
-              }
-            ]
-          },
-          {
-            element: {
-              container: 'p-0',
-              label: 'col-form-label'
-            },
-            grid: {
-              host: 'col-md-6'
-            }
-          }
-        )
-      ]
-    },
-    {
-      element: {
-        control: 'form-row'
+        ]
       }
+    ]
+  },
+  element: {
+    element: {
+      container: 'p-0',
+      label: 'col-form-label'
+    },
+    grid: {
+      host: 'col-md-4'
     }
-  );
+  }
+};
+
+export const BITSTREAM_FORM_POLICIES_END_DATE_DATA = {
+  data: {
+    id: 'policy-end-date',
+    label: 'Until',
+    placeholder: 'until',
+    inline: false,
+    toggleIcon: 'fa fa-calendar',
+    relation: [
+      {
+        action: 'ENABLE',
+        connective: 'OR',
+        when: [
+          {
+            id: 'policies',
+            value: 'embargo'
+          },
+          {
+            id: 'policies',
+            value: 'lease'
+          },
+        ]
+      }
+    ]
+  },
+  element: {
+    element: {
+      container: 'p-0',
+      label: 'col-form-label'
+    },
+    grid: {
+      host: 'col-md-4'
+    }
+  }
+};
+
+export const BITSTREAM_FORM_POLICIES_GROUPS_DATA = {
+  data: {
+    id: 'policy-group',
+    label: 'Group',
+    options: [
+      {
+        label: 'Anonymous',
+        value: '11cc35e5-a11d-4b64-b5b9-0052a5d15509'
+      }
+    ],
+    relation: [
+      {
+        action: 'ENABLE',
+        connective: 'OR',
+        when: [
+          {
+            id: 'policies',
+            value: 'embargo'
+          },
+          {
+            id: 'policies',
+            value: 'lease'
+          },
+        ]
+      }
+    ]
+  },
+  element: {
+    element: {
+      container: 'p-0',
+      label: 'col-form-label'
+    },
+    grid: {
+      host: 'col-md-8'
+    }
+  }
+};

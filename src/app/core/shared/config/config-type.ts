@@ -11,5 +11,7 @@ export enum ConfigType {
   SubmissionForms = 'submissionforms',
   SubmissionSections = 'submissionsections',
   SubmissionSection = 'submissionsection',
+  SubmissionUploads = 'submissionuploads',
+  SubmissionUpload = 'submissionupload',
   Authority = 'authority'
 }

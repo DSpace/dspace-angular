@@ -21,6 +21,7 @@ import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
 import { FormService } from '../shared/form/form.service';
+import { GroupEpersonService } from './eperson/group-eperson.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ItemDataService } from './data/item-data.service';
 import { MetadataService } from './metadata/metadata.service';
@@ -41,6 +42,7 @@ import { ConfigResponseParsingService } from './data/config-response-parsing.ser
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
 import { SubmitDataResponseParsingService } from './data/submit-data-response-parsing.service';
+import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -66,6 +68,8 @@ const PROVIDERS = [
   DynamicFormValidationService,
   FormBuilderService,
   FormService,
+  EpersonResponseParsingService,
+  GroupEpersonService,
   HostWindowService,
   ItemDataService,
   MetadataService,

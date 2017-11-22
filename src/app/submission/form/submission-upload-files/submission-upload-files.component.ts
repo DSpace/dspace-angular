@@ -33,7 +33,7 @@ export class SubmissionUploadFilesComponent {
             this.sectionId,
             itemData.uuid,
             {
-              name: itemData.metadata[0].value,
+              name: itemData.metadata['dc.title'][0].value,
               title: '',
               description: '',
               size: itemData.sizeBytes,

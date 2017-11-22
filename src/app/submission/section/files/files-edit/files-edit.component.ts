@@ -1,13 +1,22 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BitstreamService } from '../../bitstream/bitstream.service';
-import { hasValue } from '../../../../shared/empty.util';
+import {hasValue, isUndefined} from '../../../../shared/empty.util';
 import {
-  DynamicFormControlModel, DynamicFormGroupModel
+  DynamicDatePickerModel, DynamicFormArrayModel,
+  DynamicFormControlModel, DynamicInputModel, DynamicSelectModel
 } from '@ng-dynamic-forms/core';
-import {BITSTREAM_FORM_MODEL, BITSTREAM_FORM_POLICIES_GROUP} from './files-edit.model';
+import {
+  BITSTREAM_FORM_MODEL, BITSTREAM_FORM_POLICIES_ARRAY_DATA, BITSTREAM_FORM_POLICIES_END_DATE_DATA,
+  BITSTREAM_FORM_POLICIES_GROUPS_DATA,
+  BITSTREAM_FORM_POLICIES_SELECT_DATA, BITSTREAM_FORM_POLICIES_START_DATE_DATA
+} from './files-edit.model';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { FormService } from '../../../../shared/form/form.service';
+import { SubmissionUploadsConfigService } from '../../../../core/config/submission-uploads-config.service';
+import { SubmissionUploadsModel } from '../../../../core/shared/config/config-submission-uploads.model';
+import { GroupEpersonService } from '../../../../core/eperson/group-eperson.service';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 
 @Component({
   selector: 'ds-submission-submit-form-box-files-edit',
@@ -22,18 +31,23 @@ export class FilesEditComponent {
   @Input() bitstreamId;
   @Input() sectionId;
   @Input() submissionId;
+  @Input() config;
   public bitstream;
   public formId;
   public readMode = true;
   public initialized = false;
   public formModel: DynamicFormControlModel[];
-  public formPoliciesGroup: DynamicFormGroupModel;
+  public accessConditionOptions;
+  public accessConditionGroups = {};
 
   protected subscriptions = [];
 
   constructor(private modalService: NgbModal,
               private bitstreamService: BitstreamService,
-              private formService: FormService) { }
+              private uploadsConfigService: SubmissionUploadsConfigService,
+              private groupEpersonService: GroupEpersonService,
+              private formService: FormService,
+              private formBuilderService: FormBuilderService) { }
 
   ngOnInit() {
     this.subscriptions.push(
@@ -41,12 +55,68 @@ export class FilesEditComponent {
         .getBitstream(this.submissionId, this.sectionId, this.bitstreamId)
         .take(1)
         .subscribe((bitstream) => {
-                                          this.bitstream = bitstream;
-                                          this.formModel = BITSTREAM_FORM_MODEL;
-                                          this.formPoliciesGroup = BITSTREAM_FORM_POLICIES_GROUP;
-                                          this.formId = 'form_' + this.bitstreamId;
-                                          this.setFormPoliciesModel();
-                                        }
+            this.bitstream = bitstream;
+            const formModel                 = BITSTREAM_FORM_MODEL;
+            const formPoliciesArrayData     = BITSTREAM_FORM_POLICIES_ARRAY_DATA;
+            const formPoliciesSelectData    = BITSTREAM_FORM_POLICIES_SELECT_DATA;
+            const formPoliciesStartDateData = BITSTREAM_FORM_POLICIES_START_DATE_DATA;
+            const formPoliciesEndDateData   = BITSTREAM_FORM_POLICIES_END_DATE_DATA;
+            const formPoliciesGroupsData    = BITSTREAM_FORM_POLICIES_GROUPS_DATA;
+            this.formId = 'form_' + this.bitstreamId;
+            this.subscriptions.push(
+              this.uploadsConfigService.getConfigByHref(this.config)
+                .flatMap((config) => config.payload)
+                .take(1)
+                .subscribe((config:SubmissionUploadsModel) => {
+                    this.accessConditionOptions = config.accessConditionOptions;
+                    if (config.accessConditionOptions.length > 0) {
+                      for (const accessPolicy of config.accessConditionOptions) {
+                        formPoliciesSelectData.data.options.push(
+                          {
+                            label: accessPolicy.name,
+                            value: accessPolicy.name
+                          }
+                        );
+                        if (!isUndefined(accessPolicy.groupUUID)) {
+                          this.subscriptions.push(
+                            this.groupEpersonService.getDataByUuid(accessPolicy.groupUUID)
+                              .take(1)
+                              .flatMap((group) => group.payload)
+                              .subscribe((group) => {
+                                  if (group.groups.length > 0 && isUndefined(this.accessConditionGroups[group.uuid])) {
+                                    let groupArrayData;
+                                    for (const groupData of group.groups) {
+                                      groupArrayData = { name: groupData.name, uuid: groupData.uuid };
+                                    }
+                                    this.accessConditionGroups[group.uuid] = groupArrayData;
+                                  } else {
+                                    this.accessConditionGroups[group.uuid] = { name: group.name, uuid: group.uuid };
+                                  }
+                                }
+                              )
+                          );
+                        }
+                      }
+                      formPoliciesArrayData.data.groupFactory = () => {
+                        const select    = new DynamicSelectModel(formPoliciesSelectData.data, formPoliciesSelectData.element);
+                        const startDate = new DynamicDatePickerModel(formPoliciesStartDateData.data, formPoliciesStartDateData.element);
+                        const endDate   = new DynamicDatePickerModel(formPoliciesEndDateData.data, formPoliciesEndDateData.element);
+                        const groups    = new DynamicSelectModel(formPoliciesGroupsData.data, formPoliciesGroupsData.element);
+                        /*select.cls.element.host    = select.cls.element.host.concat(' col');
+                        groups.cls.element.host    = groups.cls.element.host.concat(' col');
+                        startDate.cls.element.host = startDate.cls.element.host.concat(' col');
+                        endDate.cls.element.host   = endDate.cls.element.host.concat(' col');*/
+                        return [select, startDate, endDate, groups];
+                      };
+                      formModel.push(
+                        new DynamicFormArrayModel(formPoliciesArrayData.data, formPoliciesArrayData.element)
+                      );
+                    }
+                    this.formModel = formModel;
+                  }
+                )
+            );
+          }
         )
     );
   }
@@ -63,13 +133,22 @@ export class FilesEditComponent {
     }
   }
 
-  public setFormPoliciesModel() {
-
-  }
-
   public switchMode(mode:boolean) {
     this.setFormInitialMetadata();
     this.readMode = mode;
+  }
+
+  public formChange(event) {
+    if (event.model.id === 'policies') {
+      const additionalFieldData = this.accessConditionOptions.filter((element) => element.name === event.control.value);
+      if (!isUndefined(additionalFieldData[0].selectGroupUUID)) {
+        /*const a = this.accessConditionGroups[additionalFieldData[0].selectGroupUUID];
+        const groupModel = this.formBuilderService.findById('files-policies.0.policy-group', this.formModel) as DynamicInputModel;
+        const c = this.formRef.formGroup.get('files-policies');
+        const j = c.get('0.policy-group');
+        const b = groupModel.valueUpdates;*/
+      }
+    }
   }
 
   public deleteBitstream() {

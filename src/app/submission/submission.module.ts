@@ -29,6 +29,7 @@ import { BitstreamService } from './section/bitstream/bitstream.service';
 import { SubmissionService } from './submission.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 import { SubmissionRestService } from './submission-rest.service';
+import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
 
 @NgModule({
   imports: [
@@ -64,7 +65,8 @@ import { SubmissionRestService } from './submission-rest.service';
     SectionFactoryComponent,
     SectionService,
     SubmissionService,
-    SubmissionRestService
+    SubmissionRestService,
+    SubmissionUploadsConfigService
   ]
 })
 export class SubmissionModule {}
