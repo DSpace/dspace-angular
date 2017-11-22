@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -6,7 +6,7 @@ import { isNullOrUndefined } from 'util';
 import { Collection } from '../../../core/shared/collection.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { Community } from '../../../core/shared/community.model';
-import { hasUndefinedValue, hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
+import { hasUndefinedValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 
 @Component({
@@ -14,7 +14,7 @@ import { RemoteData } from '../../../core/data/remote-data';
   styleUrls: ['./submission-submit-form-collection.component.scss'],
   templateUrl: './submission-submit-form-collection.component.html'
 })
-export class SubmissionSubmitFormCollectionComponent implements OnInit {
+export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnInit {
   @Input() currentCollectionId: string;
 
   /**
@@ -50,65 +50,39 @@ export class SubmissionSubmitFormCollectionComponent implements OnInit {
     this.scrollableTop = (event.target.scrollTop === 0);
   }
 
-  ngOnInit() {
-    this.selectedCollectionId = this.currentCollectionId;
-    // @TODO replace with search/top browse endpoint
-    // @TODO implement community/subcommunity hierarchy
-    this.subs.push(this.communityDataService.findAll()
-      .filter((communities: RemoteData<Community[]>) => isNotEmpty(communities.payload))
-      .first()
-      .switchMap((communities: RemoteData<Community[]>) => communities.payload)
-      .subscribe((communityData: Community) => {
-        this.subs.push( communityData.collections
-          .filter((collections: RemoteData<Collection[]>) => isNotEmpty(collections.payload) && !hasUndefinedValue(collections.payload))
-          .first()
-          .switchMap((collections: RemoteData<Collection[]>) => collections.payload)
-          .subscribe((collectionData: Collection) => {
-            if (collectionData.id === this.selectedCollectionId) {
-              this.selectedCollectionName = collectionData.name;
-            }
-            const collectionEntry = {
-              communities: [{id: communityData.id, name: communityData.name}],
-              collection: {id: collectionData.id, name: collectionData.name}
-            };
-            this.listCollection.push(collectionEntry);
-            this.searchListCollection.push(collectionEntry);
-          }))
+  ngOnChanges(changes: SimpleChanges) {
+    if (hasValue(changes.currentCollectionId)
+      && hasValue(changes.currentCollectionId.currentValue)) {
+      this.selectedCollectionId = this.currentCollectionId;
+      // @TODO replace with search/top browse endpoint
+      // @TODO implement community/subcommunity hierarchy
+      this.subs.push(this.communityDataService.findAll()
+        .filter((communities: RemoteData<Community[]>) => isNotEmpty(communities.payload))
+        .first()
+        .switchMap((communities: RemoteData<Community[]>) => communities.payload)
+        .subscribe((communityData: Community) => {
+          this.subs.push( communityData.collections
+            .filter((collections: RemoteData<Collection[]>) => isNotEmpty(collections.payload) && !hasUndefinedValue(collections.payload))
+            .first()
+            .switchMap((collections: RemoteData<Collection[]>) => collections.payload)
+            .subscribe((collectionData: Collection) => {
+              if (collectionData.id === this.selectedCollectionId) {
+                this.selectedCollectionName = collectionData.name;
+              }
+              const collectionEntry = {
+                communities: [{id: communityData.id, name: communityData.name}],
+                collection: {id: collectionData.id, name: collectionData.name}
+              };
+              this.listCollection.push(collectionEntry);
+              this.searchListCollection.push(collectionEntry);
+            }))
         }));
-      // .filter((collections: Collection[]) => isNotEmpty(collections.payload))
-      // .switchMap((collections: RemoteData<Collection[]>) => collections.payload)
 
-      /*.flatMap((communityData: Community) => communityData.collections)
-      .flatMap((collections: RemoteData<Collection[]>) => collections.payload)
-      .filter((collectionData: Collection) => isNotEmpty(collectionData))
-      .subscribe((collectionData) => {
-        console.log(collectionData);
-      }));
-    /*this.subs.push(this.communityDataService.findAll()
-      .subscribe((communities: RemoteData<Community[]>) => {
-        const collectionsList = [];
-        communities.payload.forEach((communityData) => {
-          this.subs.push(communityData.collections
-            .subscribe((collections: RemoteData<Collection[]>) => {
-              // @TODO checks why collections are subscribed twice
-              collections.payload.forEach((collectionData: Collection) => {
-                if (collectionData.id === this.selectedCollectionId) {
-                  this.selectedCollectionName = collectionData.name;
-                }
-                const collectionEntry = {
-                  communities: [{id: communityData.id, name: communityData.name}],
-                  collection: {id: collectionData.id, name: collectionData.name}
-                };
-                if (!collectionsList.some((obj) => collectionEntry.collection.id === obj.collection.id)) {
-                  collectionsList.push(collectionEntry);
-                }
-              })
-            }));
-        });
-        this.listCollection = collectionsList;
-        this.searchListCollection = collectionsList;
-      }));*/
 
+    }
+  }
+
+  ngOnInit() {
     this.searchField = new FormControl();
     this.searchField.valueChanges
       .debounceTime(200)
