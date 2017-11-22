@@ -29,6 +29,9 @@ export class NormalizedWorkspaceItem extends NormalizedDSpaceObject {
   @autoserializeAs(NormalizedItem)
   item: NormalizedItem[];
 
+  @autoserialize
+  sections: any;
+
   @autoserializeAs(ConfigType.SubmissionDefinition)
   submissionDefinition: ConfigType.SubmissionDefinition;
 
