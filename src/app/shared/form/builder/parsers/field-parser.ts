@@ -14,7 +14,7 @@ export abstract class FieldParser {
   public abstract modelFactory(): any;
 
   public parse() {
-    if (this.configData.repeatable) {
+    if (this.configData.repeatable && this.configData.input.type !== 'list') {
       return new DynamicFormArrayModel(
         {
           id : _.uniqueId() + '_array',

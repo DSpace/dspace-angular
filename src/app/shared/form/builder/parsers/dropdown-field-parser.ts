@@ -11,12 +11,15 @@ import { Observable } from 'rxjs/Observable';
 import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
 import { hasValue, isUndefined } from '../../../empty.util';
 import { ConfigData } from '../../../../core/config/config-data';
+import { GlobalConfig } from '../../../../../config/global-config.interface';
+import { RESTURLCombiner } from '../../../../core/url-combiner/rest-url-combiner';
 
 export class DropdownFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
               protected authorityUuid: string,
-              protected formsConfigService: SubmissionFormsConfigService) {
+              protected formsConfigService: SubmissionFormsConfigService,
+              protected EnvConfig: GlobalConfig) {
     super(configData);
   }
 
@@ -53,7 +56,7 @@ export class DropdownFieldParser extends FieldParser {
   // @TODO To refactor when service for retrieving authority will be available
   protected getAuthority(authorityOptions: AuthorityOptions, pageInfo?: PageInfo): Observable<ConfigData> {
     const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
-    const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`
+    const href = new RESTURLCombiner(this.EnvConfig, `/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`).toString();
     return this.formsConfigService.getConfigByHref(href)
   }
 

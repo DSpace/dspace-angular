@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
@@ -25,6 +25,8 @@ import {
   DynamicComboboxModel
 } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { ConfigAuthorityModel } from '../../../core/shared/config/config-authority.model';
+import { GLOBAL_CONFIG } from '../../../../config';
+import { GlobalConfig } from '../../../../config/global-config.interface';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -34,6 +36,7 @@ export class FormBuilderService extends DynamicFormService {
   constructor(private formsConfigService: SubmissionFormsConfigService,
               formBuilder: FormBuilder,
               validationService: DynamicFormValidationService,
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig
               ) {
     super(formBuilder, validationService);
   }
@@ -50,7 +53,7 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'dropdown':
-          group.push(new DropdownFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse());
+          group.push(new DropdownFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
           break;
 
         case 'lookup':
@@ -58,11 +61,11 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'onebox':
-          group.push(new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService).parse());
+          group.push(new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
           break;
 
         case 'list':
-          group.push(new ListFieldParser(fieldData).parse());
+          group.push(new ListFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
           break;
 
         case 'name':

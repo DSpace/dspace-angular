@@ -24,12 +24,15 @@ import {
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from '../ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
+import { GlobalConfig } from '../../../../../config/global-config.interface';
+import { RESTURLCombiner } from '../../../../core/url-combiner/rest-url-combiner';
 
 export class OneboxFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
               protected authorityUuid: string,
-              protected formsConfigService: SubmissionFormsConfigService) {
+              protected formsConfigService: SubmissionFormsConfigService,
+              protected EnvConfig: GlobalConfig) {
     super(configData);
   }
 
@@ -102,7 +105,8 @@ export class OneboxFieldParser extends FieldParser {
   // @TODO To refactor when service for retrieving authority will be available
   protected getAuthority(authorityOptions: AuthorityOptions, pageInfo?: PageInfo): Observable<ConfigData> {
     const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
-    const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`
+    const href = new RESTURLCombiner(this.EnvConfig, `/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`).toString();
+    // const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`
     return this.formsConfigService.getConfigByHref(href)
   }
 

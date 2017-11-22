@@ -77,26 +77,30 @@
             </div>
 
 
-            <div *ngSwitchCase="4" class="btn-group" data-toggle="buttons"
+            <div *ngSwitchCase="4"
                  [dynamicId]="bindId && model.id"
                  [formGroupName]="model.id"
                  [ngClass]="model.cls.element.control">
 
-                <label *ngFor="let controlModel of model.group" ngbButtonLabel
-                       [ngClass]="controlModel.cls.element.control">
+                <div *ngFor="let controlModel of model.group" class="ml-4 form-check" [class.disabled]="model.disabled">
+                    <label class="form-check-label"
+                           [ngClass]="controlModel.cls.element.control">
 
-                    <input type="checkbox" ngbButton
-                           [attr.tabindex]="controlModel.tabIndex"
-                           [checked]="controlModel.checked"
-                           [dynamicId]="bindId && controlModel.id"
-                           [formControlName]="controlModel.id"
-                           [name]="controlModel.name"
-                           [required]="controlModel.required"
-                           [value]="controlModel.value"
-                           (blur)="onBlurEvent($event)"
-                           (change)="onValueChange($event)"
-                           (focus)="onFocusEvent($event)"/><span [ngClass]="controlModel.cls.element.label"
-                                                                 [innerHTML]="controlModel.label"></span></label>
+                        <input type="checkbox" class="form-check-input"
+                               [attr.tabindex]="controlModel.tabIndex"
+                               [checked]="controlModel.checked"
+                               [dynamicId]="bindId && controlModel.id"
+                               [formControlName]="controlModel.id"
+                               [name]="controlModel.name"
+                               [required]="controlModel.required"
+                               [value]="controlModel.value"
+                               (blur)="onBlurEvent($event)"
+                               (change)="onValueChange($event)"
+                               (focus)="onFocusEvent($event)"/><span [ngClass]="controlModel.cls.element.label"
+                                                                     [innerHTML]="controlModel.label"></span></label>
+                    <br>
+                </div>
+
             </div>
 
 
