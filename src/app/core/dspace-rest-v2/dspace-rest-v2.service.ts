@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
-import { Http, RequestOptionsArgs } from '@angular/http';
+import { Http, RequestOptionsArgs, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { HttpHeaders } from '@angular/common/http';
 
 /**
  * Service to access DSpace's REST API
@@ -70,7 +71,9 @@ export class DSpaceRESTv2Service {
    *      An Observable<string> containing the response from the server
    */
   patch(absoluteURL: string, body: any, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
-    return this.http.patch(absoluteURL, body,options)
+    options = {};
+    options.headers = new Headers({'Content-Type': 'application/json; charset=UTF-8'});
+    return this.http.patch(absoluteURL, body, options)
       .map((res) => ({ payload: res.json(), statusCode: res.statusText }))
       .catch((err) => {
         console.log('Error: ', err);

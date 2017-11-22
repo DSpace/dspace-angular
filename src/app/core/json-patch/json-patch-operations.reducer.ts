@@ -1,4 +1,4 @@
-import { hasValue, isNotEmpty, isNull } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined, isNull } from '../../shared/empty.util';
 
 import {
   FlushPatchOperationsAction,
@@ -15,12 +15,12 @@ export interface JsonPatchOperationObject {
 
 export interface JsonPatchOperationsEntry {
   body: JsonPatchOperationObject[];
-  transactionStartTime: number;
-  commitPending: boolean;
 }
 
 export interface JsonPatchOperationsResourceEntry {
-  [resourceId: string]: JsonPatchOperationsEntry;
+  children: {[resourceId: string]: JsonPatchOperationsEntry};
+  transactionStartTime: number;
+  commitPending: boolean;
 }
 /**
  * The JSON patch operations State
@@ -91,15 +91,12 @@ export function jsonPatchOperationsReducer(state = initialState, action: PatchOp
  */
 function startTransactionPatchOperations(state: JsonPatchOperationsState, action: StartTransactionPatchOperationsAction): JsonPatchOperationsState {
   if (hasValue(state[action.payload.resourceType])
-    && hasValue(state[action.payload.resourceType][action.payload.resourceId])
-    && isNull(state[action.payload.resourceType][action.payload.resourceId].transactionStartTime)) {
+    && isNull(state[action.payload.resourceType].transactionStartTime)) {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType], {
-        [action.payload.resourceId]: {
-          body: state[action.payload.resourceType][action.payload.resourceId].body,
+          children: state[action.payload.resourceType].children,
           transactionStartTime: action.payload.startTime,
           commitPending: true
-        }
       })
     });
   } else {
@@ -119,15 +116,12 @@ function startTransactionPatchOperations(state: JsonPatchOperationsState, action
  */
 function commitOperations(state: JsonPatchOperationsState, action: CommitPatchOperationsAction): JsonPatchOperationsState {
   if (hasValue(state[action.payload.resourceType])
-    && hasValue(state[action.payload.resourceType][action.payload.resourceId])
-    && state[action.payload.resourceType][action.payload.resourceId].commitPending) {
+    && state[action.payload.resourceType].commitPending) {
       return Object.assign({}, state, {
         [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType], {
-          [action.payload.resourceId]: {
-            body: state[action.payload.resourceType][action.payload.resourceId].body,
-            transactionStartTime: state[action.payload.resourceType][action.payload.resourceId].transactionStartTime,
+            children: state[action.payload.resourceType].children,
+            transactionStartTime: state[action.payload.resourceType].transactionStartTime,
             commitPending: false
-          }
         })
       });
   } else {
@@ -147,15 +141,12 @@ function commitOperations(state: JsonPatchOperationsState, action: CommitPatchOp
  */
 function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPatchOperationsAction): JsonPatchOperationsState {
   if (hasValue(state[action.payload.resourceType])
-    && hasValue(state[action.payload.resourceType][action.payload.resourceId])
-    && state[action.payload.resourceType][action.payload.resourceId].commitPending) {
+    && state[action.payload.resourceType].commitPending) {
       return Object.assign({}, state, {
         [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType], {
-          [action.payload.resourceId]: {
-            body: state[action.payload.resourceType][action.payload.resourceId].body,
+            children: state[action.payload.resourceType].children,
             transactionStartTime: null,
             commitPending: false
-          }
         })
       });
   } else {
@@ -176,22 +167,28 @@ function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPa
 function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperationsState {
   const newState = Object.assign({}, state);
   const newBody = buildOperationsList(
-    (hasValue(newState[action.payload.resourceType]) && hasValue(newState[action.payload.resourceType][action.payload.resourceId]) && isNotEmpty(newState[action.payload.resourceType][action.payload.resourceId].body))
-      ? newState[action.payload.resourceType][action.payload.resourceId].body : Array.of(),
+    (hasValue(newState[action.payload.resourceType])
+        && hasValue(newState[action.payload.resourceType].children)
+        && hasValue(newState[action.payload.resourceType].children[action.payload.resourceId])
+        && isNotEmpty(newState[action.payload.resourceType].children[action.payload.resourceId].body))
+          ? newState[action.payload.resourceType].children[action.payload.resourceId].body : Array.of(),
     action.type,
     action.payload.path,
     hasValue(action.payload.value) ? action.payload.value : null);
-  if (hasValue(newState[action.payload.resourceType]) && hasValue(state[action.payload.resourceType][action.payload.resourceId])) {
+
+  if (hasValue(newState[action.payload.resourceType])
+    && hasValue(newState[action.payload.resourceType].children)) {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType], {
-        [action.payload.resourceId]: {
-          body: newBody,
-          transactionStartTime: state[action.payload.resourceType][action.payload.resourceId].transactionStartTime,
-          commitPending: state[action.payload.resourceType][action.payload.resourceId].commitPending
-        }
+        children: Object.assign({}, state[action.payload.resourceType].children, {
+          [action.payload.resourceId]: {
+            body: newBody,
+          }}),
+        transactionStartTime: state[action.payload.resourceType].transactionStartTime,
+        commitPending: state[action.payload.resourceType].commitPending
       })
     });
-  } else if (hasValue(newState[action.payload.resourceType])) {
+  /*} else if (hasValue(newState[action.payload.resourceType])) {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType],{
         [action.payload.resourceId]: {
@@ -200,15 +197,17 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
           commitPending: false
         }
       })
-    });
+    });*/
   } else {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, {
-        [action.payload.resourceId]: {
-          body: newBody,
-          transactionStartTime: null,
-          commitPending: false
-        }
+        children: {
+          [action.payload.resourceId]: {
+            body: newBody,
+          }
+        },
+        transactionStartTime: null,
+        commitPending: false
       })
     });
   }
@@ -225,17 +224,39 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
  *    the new state, with the section new validity status.
  */
 function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOperationsAction): JsonPatchOperationsState {
-  if (hasValue(state[action.payload.resourceType])
-    && hasValue(state[action.payload.resourceType][action.payload.resourceId])
-    && hasValue(state[action.payload.resourceType][action.payload.resourceId].transactionStartTime)
-    && !(state[action.payload.resourceType][action.payload.resourceId].commitPending)) {
+  if (hasValue(state[action.payload.resourceType])) {
+    let newChildren;
+    if (isNotUndefined(action.payload.resourceId)) {
+      // flush only specified child's operations
+      if (hasValue(state[action.payload.resourceType].children)
+        && hasValue(state[action.payload.resourceType].children[action.payload.resourceId])) {
+        newChildren = Object.assign({}, state[action.payload.resourceType].children, {
+          [action.payload.resourceId]: {
+            body: state[action.payload.resourceType].children[action.payload.resourceId].body
+              .filter((entry) => entry.timeAdded > state[action.payload.resourceType].transactionStartTime)
+          }
+        });
+      } else {
+        newChildren = state[action.payload.resourceType].children;
+      }
+    } else {
+      // flush all children's operations
+      newChildren = state[action.payload.resourceType].children;
+      Object.keys(newChildren)
+        .forEach((resourceId) => {
+          newChildren = Object.assign({}, newChildren, {
+            [resourceId]: {
+              body: newChildren[resourceId].body
+                .filter((entry) => entry.timeAdded > state[action.payload.resourceType].transactionStartTime)
+            }
+          });
+        })
+    }
     return Object.assign({}, state, {
-      [action.payload.resourceType]: Object.assign({}, {
-        [action.payload.resourceId]: {
-          body: state[action.payload.resourceType][action.payload.resourceId].body.filter((entry) => entry.timeAdded > state[action.payload.resourceType][action.payload.resourceId].transactionStartTime),
-          transactionStartTime: null,
-          commitPending: state[action.payload.resourceType][action.payload.resourceId].commitPending
-        }
+      [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType], {
+        children: newChildren,
+        transactionStartTime: null,
+        commitPending: state[action.payload.resourceType].commitPending
       })
     });
   } else {

@@ -53,7 +53,7 @@ export class RequestEffects {
         return this.restApi.post(request.href, request.body)
       }
       case RequestType.PATCH: {
-        return this.restApi.get(request.href, request.body)
+        return this.restApi.patch(request.href, request.body)
       }
     }
   }

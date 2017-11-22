@@ -37,7 +37,7 @@ export class SubmitDataResponseParsingService extends BaseResponseParsingService
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && data.statusCode === '201') {
+    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && (data.statusCode === '201' || data.statusCode === '200' || data.statusCode === 'OK')) {
       const dataDefinition = this.process<NormalizedObject|ConfigObject,SubmissionResourceType>(data.payload, request.href);
       return new SubmitDataSuccessResponse(dataDefinition[Object.keys(dataDefinition)[0]], data.statusCode, this.processPageInfo(data.payload.page));
     } else {

@@ -69,14 +69,13 @@ export class ConfigSuccessResponse extends RestResponse {
 
 export class PostPatchSuccessResponse extends RestResponse {
   constructor(
-    public body: any[],
+    public dataDefinition: any[],
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
   }
 }
-
 
 export class SubmitDataSuccessResponse extends RestResponse {
   constructor(

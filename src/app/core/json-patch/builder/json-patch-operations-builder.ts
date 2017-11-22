@@ -31,15 +31,42 @@ export class JsonPatchOperationsBuilder {
   }
 
   add(key, value, id?) {
-    this.store.dispatch(new NewPatchAddOperationAction(this.pathPrefixElements.resourceType, this.pathPrefixElements.resourceId, this.makePath(key, id), value));
+    this.store.dispatch(
+      new NewPatchAddOperationAction(
+        this.pathPrefixElements.resourceType,
+        this.pathPrefixElements.resourceId,
+        this.makePath(key, id), this.prepareValue(value)));
   }
 
   replace(key, value, id?) {
-    this.store.dispatch(new NewPatchReplaceOperationAction(this.pathPrefixElements.resourceType, this.pathPrefixElements.resourceId, this.makePath(key, id), value));
+    this.store.dispatch(
+      new NewPatchReplaceOperationAction(
+        this.pathPrefixElements.resourceType,
+        this.pathPrefixElements.resourceId,
+        this.makePath(key, id),
+        this.prepareValue(value)));
   }
 
   remove(key, id?) {
-    this.store.dispatch(new NewPatchRemoveOperationAction(this.pathPrefixElements.resourceType, this.pathPrefixElements.resourceId, this.makePath(key, id)));
+    this.store.dispatch(
+      new NewPatchRemoveOperationAction(
+        this.pathPrefixElements.resourceType,
+        this.pathPrefixElements.resourceId,
+        this.makePath(key, id)));
+  }
+
+  protected prepareValue(value: any) {
+    const operationValue = []
+    if (Array.isArray(value)) {
+      value.forEach((entry) => {
+        operationValue.push({value: entry})
+      })
+    } else if ((typeof value === 'object') && value.hasOwnProperty('value')) {
+      operationValue.push(value);
+    } else {
+      operationValue.push({value: value});
+    }
+    return operationValue;
   }
 
 }

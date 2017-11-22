@@ -15,6 +15,7 @@ import { RequestConfigureAction, RequestExecuteAction } from './request.actions'
 import { RestRequest } from './request.models';
 
 import { RequestEntry, RequestState } from './request.reducer';
+import { ResponseCacheRemoveAction } from '../cache/response-cache.actions';
 
 function entryFromHrefSelector(href: string): MemoizedSelector<CoreState, RequestEntry> {
   return keySelector<RequestEntry>('data/request', href);
@@ -85,6 +86,19 @@ export class RequestService {
     const isPending = this.isPending(request.href);
 
     if (!(isCached || isPending)) {
+      this.store.dispatch(new RequestConfigureAction(request));
+      this.store.dispatch(new RequestExecuteAction(request));
+      this.trackRequestsOnTheirWayToTheStore(request.href);
+    }
+  }
+
+  configureSubmit<T extends CacheableObject>(request: RestRequest): void {
+    if (this.responseCache.has(request.href)) {
+      this.store.dispatch(new ResponseCacheRemoveAction(request.href));
+    }
+    const isPending = this.isPending(request.href);
+
+    if (!isPending) {
       this.store.dispatch(new RequestConfigureAction(request));
       this.store.dispatch(new RequestExecuteAction(request));
       this.trackRequestsOnTheirWayToTheStore(request.href);
