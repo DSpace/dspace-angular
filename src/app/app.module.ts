@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, MetaReducer, META_REDUCERS } from '@ngrx/store';
@@ -53,7 +52,6 @@ if (!ENV_CONFIG.production) {
   imports: [
     CommonModule,
     HttpModule,
-    RouterModule,
     AppRoutingModule,
     CoreModule.forRoot(),
     NgbModule.forRoot(),
