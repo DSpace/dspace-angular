@@ -118,6 +118,13 @@
     "section": {
       "submit.progressbar.describe.stepone": "Describe",
       "submit.progressbar.describe.steptwo": "Describe",
+      "submit.progressbar.describe.basicinformation": "Basic Information",
+      "submit.progressbar.describe.additionalfields": "Additional Fields",
+      "submit.progressbar.describe.documenttype": "Document Type",
+      "submit.progressbar.describe.typearticle": "Type",
+      "submit.progressbar.describe.creators": "Creators",
+      "submit.progressbar.describe.titleinformation": "Title Information",
+      "submit.progressbar.describe.reference": "Reference",
       "submit.progressbar.upload": "Upload files",
       "submit.progressbar.license": "Deposit license",
       "submit.progressbar.cclicense": "Creative commons license",
