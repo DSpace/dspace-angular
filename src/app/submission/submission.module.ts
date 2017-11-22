@@ -30,6 +30,7 @@ import { SubmissionService } from './submission.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 import { SubmissionRestService } from './submission-rest.service';
 import { LicenseSectionComponent } from './section/license/section-license.component';
+import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { LicenseSectionComponent } from './section/license/section-license.compo
     SectionFactoryComponent,
     SectionService,
     SubmissionService,
-    SubmissionRestService
+    SubmissionRestService,
+    SubmissionUploadsConfigService
   ]
 })
 export class SubmissionModule {}

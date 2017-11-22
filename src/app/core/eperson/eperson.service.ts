@@ -40,7 +40,7 @@ export abstract class EpersonService extends HALEndpointService {
     return this.getEperson(request);
   }
 
-  public getDataByUUID(uuid: string): Observable<EpersonData> {
+  public getDataByUuid(uuid: string): Observable<EpersonData> {
     return this.getEndpoint()
       .map((endpoint: string) => this.getDataByIDHref(endpoint, uuid))
       .filter((href: string) => isNotEmpty(href))

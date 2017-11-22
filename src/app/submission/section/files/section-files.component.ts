@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SectionModelComponent } from '../section.model';
-import { hasValue, isNotUndefined } from '../../../shared/empty.util';
+import {hasValue, isNotEmpty, isNotUndefined} from '../../../shared/empty.util';
 import { BitstreamService } from '../bitstream/bitstream.service';
 import { SectionStatusChangeAction } from '../../objects/submission-objects.actions';
 import { SubmissionState } from '../../submission.reducers';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { CoreState } from '../../../core/core.reducers';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { GroupEpersonService } from '../../../core/eperson/group-eperson.service';
+import {ResourcePolicies} from "../../../core/shared/resource-policies.model";
+import {RemoteData} from "../../../core/data/remote-data";
 
 @Component({
   selector: 'ds-submission-section-files',
@@ -20,13 +23,15 @@ export class FilesSectionComponent extends SectionModelComponent {
   public bitstreamsList;
   public collectionPolicies = [];
   public collectionName;
-  public collectionPoliciesMessageType;
+  // To be defined somewhere
+  public collectionPoliciesMessageType = 2;
 
   protected operationsBuilder: JsonPatchOperationsBuilder;
   protected subs = [];
 
   constructor(private bitstreamService: BitstreamService,
               private collectionDataService: CollectionDataService,
+              private groupService: GroupEpersonService,
               protected operationsState: Store<CoreState>,
               private store:Store<SubmissionState>) {
     super();
@@ -38,34 +43,30 @@ export class FilesSectionComponent extends SectionModelComponent {
         .filter((collectionData) => isNotUndefined((collectionData.payload)))
         .subscribe((collectionData) => {
             console.log(collectionData);
-            this.collectionName = collectionData.payload.name
-            // collectionData.accessConditions.
-          /*
-          [
-      {
-        "policyType": lease,
-        "groupUUID": "11cc35e5-a11d-4b64-b5b9-0052a5d15509",
-        "endDate": null,
-        "type": "accessCondition"
-      }
-    ]
-           */
+            this.collectionName = collectionData.payload.name;
+            // collectionData.payload.defaultAccessConditions
+              // .filter((defaultAccessConditions:RemoteData<ResourcePolicies[]>) => isNotEmpty(defaultAccessConditions))
+            //  .subscribe((payload) => {
+             //    const a = 5;
+             //   }
+            //  );
           }
         ),
       this.bitstreamService
-        .getBitstreamList(this.sectionData.submissionId, this.sectionData.id)
-        .subscribe((bitstreamList) => {
-            let sectionStatus = false;
-            this.bitstreamsList = bitstreamList;
-            if (isNotUndefined(this.bitstreamsList) && Object.keys(bitstreamList).length > 0) {
-              this.bitstreamsKeys = Object.keys(bitstreamList);
-              sectionStatus = true;
-            }
-            this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId,
-                                                              this.sectionData.id,
-                                                              sectionStatus));
+      .getBitstreamList(this.sectionData.submissionId, this.sectionData.id)
+      .subscribe((bitstreamList) => {
+          let sectionStatus = false;
+          this.bitstreamsList = bitstreamList;
+          this.bitstreamsKeys = [];
+          if (isNotUndefined(this.bitstreamsList) && Object.keys(bitstreamList).length > 0) {
+            this.bitstreamsKeys = Object.keys(bitstreamList);
+            sectionStatus = true;
           }
-        )
+          this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId,
+            this.sectionData.id,
+            sectionStatus));
+        }
+      )
     );
   }
 

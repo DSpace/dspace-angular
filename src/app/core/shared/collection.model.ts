@@ -4,7 +4,7 @@ import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { License } from './license.model';
-import { AccessCondition } from './access-condition.model';
+import { ResourcePolicies } from './resource-policies.model';
 
 export class Collection extends DSpaceObject {
 
@@ -66,7 +66,7 @@ export class Collection extends DSpaceObject {
   /**
    * The default access conditions of this Collection
    */
-  defaultAccessConditions: Observable<RemoteData<AccessCondition[]>>;
+  defaultAccessConditions: Observable<RemoteData<ResourcePolicies[]>>;
 
   /**
    * An array of Collections that are direct parents of this Collection

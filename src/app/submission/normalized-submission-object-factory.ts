@@ -1,4 +1,4 @@
-import { AccessCondition } from '../core/shared/access-condition.model';
+import { ResourcePolicies } from '../core/shared/resource-policies.model';
 import { SubmissionDefinitionsModel } from '../core/shared/config/config-submission-definitions.model';
 import { SubmissionFormsModel } from '../core/shared/config/config-submission-forms.model';
 import { SubmissionSectionModel } from '../core/shared/config/config-submission-section.model';
@@ -37,8 +37,8 @@ export class NormalizedSubmissionObjectFactory {
       case SubmissionResourceType.Community: {
         return NormalizedCommunity
       }
-      case SubmissionResourceType.AccessCondition: {
-        return AccessCondition
+      case SubmissionResourceType.ResourcePolicies: {
+        return ResourcePolicies
       }
       case SubmissionResourceType.License: {
         return NormalizedLicense
