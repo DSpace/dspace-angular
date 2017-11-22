@@ -1,2 +1,8 @@
 <ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
-<ds-form *ngIf="formModel" #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false"></ds-form>
+<ds-form *ngIf="formModel" #formRef="formComponent"
+         [formId]="formId"
+         [formModel]="formModel"
+         [displaySubmit]="false"
+         (blur)="onBlur($event)"
+         (change)="onChange($event)"
+         (focus)="onFocus($event)"></ds-form>

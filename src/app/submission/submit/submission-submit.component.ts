@@ -12,7 +12,7 @@ import { SubmissionState } from '../submission.reducers';
 })
 
 export class SubmissionSubmitComponent implements OnInit {
-  public collectionId = '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb';
+  public collectionId: string;
   public submissionId: string;
 
   constructor(private store:Store<SubmissionState>,

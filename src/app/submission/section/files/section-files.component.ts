@@ -6,6 +6,8 @@ import { BitstreamService } from '../bitstream/bitstream.service';
 import { SectionStatusChangeAction } from '../../objects/submission-objects.actions';
 import { SubmissionState } from '../../submission.reducers';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { CoreState } from '../../../core/core.reducers';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 
 @Component({
   selector: 'ds-submission-section-files',
@@ -20,10 +22,12 @@ export class FilesSectionComponent extends SectionModelComponent {
   public collectionName;
   public collectionPoliciesMessageType;
 
+  protected operationsBuilder: JsonPatchOperationsBuilder;
   protected subs = [];
 
   constructor(private bitstreamService: BitstreamService,
               private collectionDataService: CollectionDataService,
+              protected operationsState: Store<CoreState>,
               private store:Store<SubmissionState>) {
     super();
   }

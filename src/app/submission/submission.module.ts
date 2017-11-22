@@ -29,6 +29,7 @@ import { BitstreamService } from './section/bitstream/bitstream.service';
 import { SubmissionService } from './submission.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 import { SubmissionRestService } from './submission-rest.service';
+import { LicenseSectionComponent } from './section/license/section-license.component';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { SubmissionRestService } from './submission-rest.service';
     FilesSectionComponent,
     FormSectionComponent,
     InjectPanelTemplateDirective,
+    LicenseSectionComponent,
     SectionDirective,
     SectionContainerComponent,
     SectionHostDirective,
@@ -56,7 +58,7 @@ import { SubmissionRestService } from './submission-rest.service';
     SubmissionSubmitFormFooterComponent,
     SubmissionUploadFilesComponent
   ],
-  entryComponents: [ DefaultSectionComponent, FilesSectionComponent, FormSectionComponent, SectionContainerComponent ],
+  entryComponents: [ DefaultSectionComponent, FilesSectionComponent, FormSectionComponent, LicenseSectionComponent, SectionContainerComponent ],
   exports: [
   ],
   providers: [

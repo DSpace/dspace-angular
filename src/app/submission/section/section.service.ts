@@ -6,7 +6,7 @@ import { createSelector, Store } from '@ngrx/store';
 import { SectionFactoryComponent } from './section.factory';
 import { submissionSelector, SubmissionState } from '../submission.reducers';
 
-import { hasValue, isUndefined } from '../../shared/empty.util';
+import { hasValue, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { DisableSectionAction, EnableSectionAction } from '../objects/submission-objects.actions';
 import { SubmissionObjectEntry, SubmissionSectionObject } from '../objects/submission-objects.reducer';
 import {
@@ -54,7 +54,8 @@ export class SectionService {
                 if (!isUndefined(submissionState[submissionId])
                   && !isUndefined(submissionState[submissionId].sections)
                   && Object.keys(submissionState[submissionId].sections).length !== 0
-                  && !submissionState[submissionId].sections.hasOwnProperty(sectionId)) {
+                  && !submissionState[submissionId].sections.hasOwnProperty(sectionId)
+                  && !this.isSectionHidden(definition.sections[sectionId])) {
                   availableSections.push({id: sectionId, header: definition.sections[sectionId].header} as SectionDataObject);
                 }
               });
@@ -99,10 +100,18 @@ export class SectionService {
       .subscribe((state) => {
         Object.keys(state.sections)
           .filter((sectionId) => state.sections[sectionId].mandatory)
+          .filter((sectionId) => !this.isSectionHidden(state.sections[sectionId]))
           .map((sectionId) => {
             this.loadSection(collectionId, submissionId, definitionId, sectionId);
           })
       })
+  }
+
+  protected isSectionHidden(sectionData: SubmissionSectionModel) {
+    return (isNotUndefined(sectionData.visibility)
+      && sectionData.visibility.main === 'HIDDEN'
+      && sectionData.visibility.other === 'HIDDEN');
+
   }
 
   private loadSection(collectionId: string, submissionId: string, definitionId: string, sectionId: string) {

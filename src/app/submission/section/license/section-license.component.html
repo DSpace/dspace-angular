@@ -3,5 +3,5 @@
 <ds-form *ngIf="formModel" #formRef="formComponent"
          [formId]="formId"
          [formModel]="formModel"
-         [displaySubmit]="false"
+         [displaySubmit]="displaySubmit"
          (change)="onChange($event)"></ds-form>

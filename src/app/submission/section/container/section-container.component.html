@@ -34,7 +34,7 @@
   <ng-container [ngSwitch]="sectionComponentType">
       <ds-submission-section-form *ngSwitchCase="'submission-form'" [sectionData]="sectionData"></ds-submission-section-form>
       <ds-submission-section-files *ngSwitchCase="'upload'" [sectionData]="sectionData"></ds-submission-section-files>
-      <ds-submission-section-default *ngSwitchCase="'license'" [sectionData]="sectionData"></ds-submission-section-default>
+      <ds-submission-section-license *ngSwitchCase="'license'" [sectionData]="sectionData"></ds-submission-section-license>
       <ds-submission-section-default *ngSwitchCase="'cclicense'" [sectionData]="sectionData"></ds-submission-section-default>
       <ds-submission-section-default *ngSwitchCase="'collection'" [sectionData]="sectionData"></ds-submission-section-default>
   </ng-container>

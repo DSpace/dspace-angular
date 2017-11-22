@@ -14,15 +14,19 @@ import { isNotEmpty } from '../shared/empty.util';
 import { ConfigRequest, HttpPostRequest, RestRequest } from '../core/data/request.models';
 import { SubmitDataResponseDefinitionObject } from '../core/shared/submit-data-response-definition.model';
 import { GLOBAL_CONFIG } from '../../config';
+import { PostPatchRestService } from '../core/json-patch/json-patch.service';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../core/core.reducers';
 
 @Injectable()
-export class SubmissionRestService extends HALEndpointService {
-  protected linkName: string;
+export class SubmissionRestService extends PostPatchRestService<SubmitDataResponseDefinitionObject> {
+  protected linkName = 'workspaceitems';
 
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
+    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+    protected store: Store<CoreState>) {
     super();
   }
 
@@ -32,38 +36,11 @@ export class SubmissionRestService extends HALEndpointService {
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't retrieve the config`))),
+        Observable.throw(new Error(`Couldn't retrieve the data`))),
       successResponse
         .filter((response: SubmitDataSuccessResponse) => isNotEmpty(response))
         .map((response: SubmitDataSuccessResponse) => response.dataDefinition)
         .distinctUntilChanged());
-  }
-
-  protected submitData(request: RestRequest): Observable<SubmitDataResponseDefinitionObject> {
-    const [successResponse, errorResponse] =  this.responseCache.get(request.href)
-      .map((entry: ResponseCacheEntry) => entry.response)
-      .partition((response: RestResponse) => response.isSuccessful);
-    return Observable.merge(
-      errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't retrieve the config`))),
-      successResponse
-      .filter((response: SubmitDataSuccessResponse) => isNotEmpty(response))
-      .map((response: SubmitDataSuccessResponse) => response.dataDefinition)
-      .distinctUntilChanged());
-  }
-
-  protected getEndpointByIDHref(endpoint, resourceID): string {
-    return `${endpoint}/${resourceID}`;
-  }
-
-  public postToEndpoint(linkName: string, body: any) {
-    return this.getEndpoint(linkName)
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new HttpPostRequest(endpointURL, body))
-      .do((request: HttpPostRequest) => this.requestService.configure(request))
-      .flatMap((request: HttpPostRequest) => this.submitData(request))
-      .distinctUntilChanged();
   }
 
   public getDataByHref(href: string): Observable<any> {

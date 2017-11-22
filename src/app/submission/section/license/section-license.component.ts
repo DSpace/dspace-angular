@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { SectionModelComponent } from '../section.model';
 import { CoreState } from '../../../core/core.reducers';
 import { Store } from '@ngrx/store';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { Subscription } from 'rxjs/Subscription';
-import { isNotUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotUndefined } from '../../../shared/empty.util';
 import { License } from '../../../core/shared/license.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
@@ -14,6 +14,9 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { SECTION_LICENSE_FORM_MODEL } from './section-license.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { dateToGMTString } from '../../../shared/date.util';
+import { SectionStatusChangeAction } from '../../objects/submission-objects.actions';
+import { FormService } from '../../../shared/form/form.service';
+import { SubmissionState } from '../../submission.reducers';
 
 @Component({
   selector: 'ds-submission-section-license',
@@ -24,16 +27,17 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
 
   public formId;
   public formModel: DynamicFormControlModel[];
+  public displaySubmit = false;
   public licenseText: string;
 
   protected operationsBuilder: JsonPatchOperationsBuilder;
   protected subs: Subscription[] = [];
 
-  @ViewChild('formRef') private formRef: FormComponent;
-
   constructor(protected collectionDataService: CollectionDataService,
               protected formBuilderService: FormBuilderService,
-              protected operationsState: Store<CoreState>) {
+              protected formService: FormService,
+              protected operationsState: Store<CoreState>,
+              protected store:Store<SubmissionState>) {
     super();
   }
 
@@ -53,16 +57,27 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
     );
   }
 
+  /*ngAfterViewInit() {
+    this.forms.changes.subscribe((comps: QueryList <FormComponent>) => {
+      this.formRef = comps.first;
+      if (hasValue(this.formRef)) {
+        this.formService.isValid(this.formRef.getFormUniqueId())
+          .debounceTime(1)
+          .subscribe((formState) => {
+            // this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, formState));
+          });
+      }
+    });
+  }*/
+
   onChange(event: DynamicFormControlEvent) {
     const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+    this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, value));
     if (value) {
       this.operationsBuilder.replace(path, dateToGMTString(new Date()))
     } else {
       this.operationsBuilder.remove(path);
     }
-    console.log(path, value);
-    console.log(dateToGMTString(new Date()));
-
   }
 }

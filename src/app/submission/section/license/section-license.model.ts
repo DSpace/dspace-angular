@@ -5,7 +5,14 @@ export const SECTION_LICENSE_FORM_MODEL: DynamicFormControlModel[] = [
   new DynamicCheckboxModel(
     {
       id: 'acceptanceDate',
-      label: 'I confirm the information given above'
+      label: 'I confirm the license above',
+      required: true,
+      validators: {
+        required: null
+      },
+      errorMessages: {
+        required: 'You must accept the license'
+      }
     }
   )
 ];

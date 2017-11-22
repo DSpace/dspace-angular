@@ -1,7 +1,7 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -13,6 +13,8 @@ import { SubmissionFormsConfigService } from '../../../core/config/submission-fo
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { hasValue } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
+import { CoreState } from '../../../core/core.reducers';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -25,6 +27,8 @@ export class FormSectionComponent extends SectionModelComponent {
   public formModel: DynamicFormControlModel[];
   public isLoading = true;
 
+  protected operationsBuilder: JsonPatchOperationsBuilder;
+
   @ViewChildren('formRef') private forms: QueryList<FormComponent>;
 
   public formRef: FormComponent;
@@ -32,12 +36,13 @@ export class FormSectionComponent extends SectionModelComponent {
   constructor(private formBuilderService: FormBuilderService,
               private formService: FormService,
               private formConfigService: SubmissionFormsConfigService,
-              private store:Store<SubmissionState>
-              ) {
+              protected operationsState: Store<CoreState>,
+              private store:Store<SubmissionState>) {
     super();
   }
 
   ngOnInit() {
+    this.operationsBuilder = new JsonPatchOperationsBuilder(this.operationsState, 'sections', this.sectionData.id);
     this.formConfigService.getConfigByHref(this.sectionData.config)
       .flatMap((config: ConfigData) => config.payload)
       .subscribe((config) => {
@@ -60,4 +65,14 @@ export class FormSectionComponent extends SectionModelComponent {
       }
     });
   }
+
+  onBlur(event) {}
+
+  onChange(event: DynamicFormControlEvent) {
+    this.operationsBuilder.replace(
+      this.formBuilderService.getFieldPathFromChangeEvent(event),
+      this.formBuilderService.getFieldValueFromChangeEvent(event));
+  }
+
+  onFocus(event) {}
 }
