@@ -24,6 +24,7 @@ import {
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
+import { ConfigAuthorityModel } from '../../../core/shared/config/config-authority.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -113,7 +114,6 @@ export class FormBuilderService extends DynamicFormService {
     if (event.model.parent instanceof DynamicComboboxModel) {
       if (event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX)) {
         const metadataId = event.model.id.replace(COMBOBOX_VALUE_SUFFIX, COMBOBOX_METADATA_SUFFIX);
-        const metadataControl = event.group.get(metadataId);
         fieldId = event.group.get(metadataId).value
       } else {
         fieldId = event.control.value;
@@ -122,5 +122,26 @@ export class FormBuilderService extends DynamicFormService {
       fieldId = event.model.name;
     }
     return fieldId + fieldIndex;
+  }
+
+  getFieldValueFromChangeEvent(event: DynamicFormControlEvent) {
+    let fieldValue;
+    if (event.model.parent instanceof DynamicComboboxModel) {
+      if (event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX)) {
+        const valueId = event.model.id.replace(COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX);
+        fieldValue = event.group.get(valueId).value
+      } else {
+        fieldValue = event.control.value;
+      }
+    } else if (event.$event instanceof ConfigAuthorityModel) {
+      if (isNotNull(event.$event.id)) {
+        fieldValue = { value: event.$event.value, id: event.$event.id, confidence: 600 }
+      } else {
+        fieldValue = { value: event.$event.value }
+      }
+    } else {
+      fieldValue = event.control.value;
+    }
+    return fieldValue;
   }
 }
