@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { SearchResult } from '../search-result.model';
@@ -15,6 +15,9 @@ import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { RouteService } from '../../shared/route.service';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortOptions } from '../../core/cache/models/sort-options.model';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -31,7 +34,7 @@ function shuffle(array: any[]) {
 }
 
 @Injectable()
-export class SearchService {
+export class SearchService implements OnDestroy {
 
   totalPages = 5;
   mockedHighlights: string[] = new Array(
@@ -46,46 +49,58 @@ export class SearchService {
     '<em>This was blank in the actual item, no abstract</em>',
     '<em>The QSAR DataBank (QsarDB) repository</em>',
   );
+  private sub;
+  searchLink = '/search';
 
   config: SearchFilterConfig[] = [
     Object.assign(new SearchFilterConfig(),
       {
-      name: 'scope',
-      type: FilterType.hierarchy,
-      hasFacets: true,
-      isOpenByDefault: true
-    }),
+        name: 'scope',
+        type: FilterType.hierarchy,
+        hasFacets: true,
+        isOpenByDefault: true
+      }),
     Object.assign(new SearchFilterConfig(),
-    {
-      name: 'author',
-      type: FilterType.text,
-      hasFacets: true,
-      isOpenByDefault: false
-    }),
+      {
+        name: 'author',
+        type: FilterType.text,
+        hasFacets: true,
+        isOpenByDefault: false
+      }),
     Object.assign(new SearchFilterConfig(),
-    {
-      name: 'date',
-      type: FilterType.range,
-      hasFacets: true,
-      isOpenByDefault: false
-    }),
+      {
+        name: 'date',
+        type: FilterType.range,
+        hasFacets: true,
+        isOpenByDefault: false
+      }),
     Object.assign(new SearchFilterConfig(),
-    {
-      name: 'subject',
-      type: FilterType.text,
-      hasFacets: false,
-      isOpenByDefault: false
-    })
+      {
+        name: 'subject',
+        type: FilterType.text,
+        hasFacets: false,
+        isOpenByDefault: false
+      })
   ];
+  // searchOptions: BehaviorSubject<SearchOptions>;
+  searchOptions: SearchOptions;
 
-  constructor(
-    private itemDataService: ItemDataService,
-    private route: ActivatedRoute,
-    private router: Router) {
+  constructor(private itemDataService: ItemDataService,
+              private routeService: RouteService,
+              private route: ActivatedRoute,
+              private router: Router) {
 
+    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
+    pagination.id = 'search-results-pagination';
+    pagination.currentPage = 1;
+    pagination.pageSize = 10;
+    const sort: SortOptions = new SortOptions();
+    this.searchOptions = { pagination: pagination, sort: sort };
+    // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
+    this.searchOptions = this.searchOptions;
     let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}`;
     if (hasValue(scopeId)) {
       self += `&scope=${scopeId}`;
@@ -125,31 +140,31 @@ export class SearchService {
       .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded)
       .map((rd: RemoteData<Item[]>) => {
 
-      const totalElements = rd.pageInfo.totalElements > 20 ? 20 : rd.pageInfo.totalElements;
-      const pageInfo = Object.assign({}, rd.pageInfo, { totalElements: totalElements });
+        const totalElements = rd.pageInfo.totalElements > 20 ? 20 : rd.pageInfo.totalElements;
+        const pageInfo = Object.assign({}, rd.pageInfo, { totalElements: totalElements });
 
-      const payload = shuffle(rd.payload)
-        .map((item: Item, index: number) => {
-          const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
-          mockResult.dspaceObject = item;
-          const highlight = new Metadatum();
-          highlight.key = 'dc.description.abstract';
-          highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
-          mockResult.hitHighlights = new Array(highlight);
-          return mockResult;
-        });
+        const payload = shuffle(rd.payload)
+          .map((item: Item, index: number) => {
+            const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
+            mockResult.dspaceObject = item;
+            const highlight = new Metadatum();
+            highlight.key = 'dc.description.abstract';
+            highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
+            mockResult.hitHighlights = new Array(highlight);
+            return mockResult;
+          });
 
-      return new RemoteData(
-        self,
-        rd.isRequestPending,
-        rd.isResponsePending,
-        rd.hasSucceeded,
-        errorMessage,
-        statusCode,
-        pageInfo,
-        payload
-      )
-    }).startWith(new RemoteData(
+        return new RemoteData(
+          self,
+          rd.isRequestPending,
+          rd.isResponsePending,
+          rd.hasSucceeded,
+          errorMessage,
+          statusCode,
+          pageInfo,
+          payload
+        )
+      }).startWith(new RemoteData(
         '',
         true,
         false,
@@ -181,31 +196,38 @@ export class SearchService {
   }
 
   getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
-    const values: FacetValue[] = [];
-    for (let i = 0; i < 5; i++) {
-      const value = searchFilterConfigName + ' ' + (i + 1);
-      values.push({
-        value: value,
-        count: Math.floor(Math.random() * 20) + 20 * (5 - i), // make sure first results have the highest (random) count
-        search: 'https://dspace7.4science.it/dspace-spring-rest/api/search?f.' + searchFilterConfigName + '=' + encodeURI(value)
-      });
-    }
-    const requestPending = false;
-    const responsePending = false;
-    const isSuccessful = true;
-    const errorMessage = undefined;
-    const statusCode = '200';
-    const returningPageInfo = new PageInfo();
-    return Observable.of(new RemoteData(
-      'https://dspace7.4science.it/dspace-spring-rest/api/search',
-      requestPending,
-      responsePending,
-      isSuccessful,
-      errorMessage,
-      statusCode,
-      returningPageInfo,
-      values
-    ));
+    const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
+    return this.routeService.getQueryParameterValues(filterConfig.paramName).map((selectedValues: string[]) => {
+        const values: FacetValue[] = [];
+        const totalFilters = 13;
+        for (let i = 0; i < totalFilters; i++) {
+          const value = searchFilterConfigName + ' ' + (i + 1);
+          if (!selectedValues.includes(value)) {
+            values.push({
+              value: value,
+              count: Math.floor(Math.random() * 20) + 20 * (totalFilters - i), // make sure first results have the highest (random) count
+              search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
+            });
+          }
+        }
+        const requestPending = false;
+        const responsePending = false;
+        const isSuccessful = true;
+        const errorMessage = undefined;
+        const statusCode = '200';
+        const returningPageInfo = new PageInfo();
+        return new RemoteData(
+          'https://dspace7.4science.it/dspace-spring-rest/api/search',
+          requestPending,
+          responsePending,
+          isSuccessful,
+          errorMessage,
+          statusCode,
+          returningPageInfo,
+          values
+        )
+      }
+    )
   }
 
   getViewMode(): Observable<ViewMode> {
@@ -220,10 +242,34 @@ export class SearchService {
 
   setViewMode(viewMode: ViewMode) {
     const navigationExtras: NavigationExtras = {
-      queryParams: {view: viewMode},
+      queryParams: { view: viewMode },
       queryParamsHandling: 'merge'
     };
 
-    this.router.navigate(['/search'], navigationExtras);
+    this.router.navigate([this.searchLink], navigationExtras);
+  }
+
+  getClearFiltersQueryParams(): any {
+    const params = {};
+    this.sub = this.route.queryParamMap
+      .subscribe((map) => {
+        map.keys
+          .filter((key) => this.config
+            .findIndex((conf: SearchFilterConfig) => conf.paramName === key) < 0)
+          .forEach((key) => {
+            params[key] = map.get(key);
+          })
+      });
+    return params;
+  }
+
+  getSearchLink() {
+    return this.searchLink;
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub !== undefined) {
+      this.sub.unsubscribe();
+    }
   }
 }

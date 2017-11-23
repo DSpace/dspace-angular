@@ -17,13 +17,13 @@ export class ProtractorPage {
   }
 
   getCurrentScope(): promise.Promise<string> {
-    const scopeSelect = element(by.tagName('select'));
+    const scopeSelect = element(by.css('#search-form select'));
     browser.wait(protractor.ExpectedConditions.presenceOf(scopeSelect), 10000);
     return scopeSelect.getAttribute('value');
   }
 
   getCurrentQuery(): promise.Promise<string> {
-    return element(by.tagName('input')).getAttribute('value');
+    return element(by.css('#search-form input')).getAttribute('value');
   }
 
   setCurrentScope(scope: string) {

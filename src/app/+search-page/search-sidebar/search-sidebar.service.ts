@@ -15,7 +15,12 @@ export class SearchSidebarService {
   private isCollapsdeInStored: Observable<boolean>;
 
   constructor(private store: Store<AppState>, private windowService: HostWindowService) {
-    this.isMobileView = this.windowService.isXs();
+    this.isMobileView =
+      Observable.combineLatest(
+        this.windowService.isXs(),
+        this.windowService.isSm(),
+        ((isXs, isSm) => isXs || isSm)
+      );
     this.isCollapsdeInStored = this.store.select(sidebarCollapsedSelector);
   }
 
