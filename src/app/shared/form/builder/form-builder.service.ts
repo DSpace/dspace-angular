@@ -142,6 +142,14 @@ export class FormBuilderService extends DynamicFormService {
       } else {
         fieldValue = { value: event.$event.value }
       }
+    }else if ((typeof event.control.value === 'object')) {
+      fieldValue = [];
+      Object.keys(event.control.value)
+        .forEach((key) => {
+          if (event.control.value[key]) {
+            fieldValue.push({ value: key })
+          }
+        })
     } else {
       fieldValue = event.control.value;
     }

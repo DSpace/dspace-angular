@@ -75,7 +75,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
     this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, value));
     if (value) {
-      this.operationsBuilder.replace(path, dateToGMTString(new Date()))
+      this.operationsBuilder.replace(path, dateToGMTString(new Date()), true);
     } else {
       this.operationsBuilder.remove(path);
     }

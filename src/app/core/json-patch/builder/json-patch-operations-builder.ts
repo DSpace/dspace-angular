@@ -30,21 +30,21 @@ export class JsonPatchOperationsBuilder {
     return pathPrefix + key;
   }
 
-  add(key, value, id?) {
+  add(key, value, plain = false, id?) {
     this.store.dispatch(
       new NewPatchAddOperationAction(
         this.pathPrefixElements.resourceType,
         this.pathPrefixElements.resourceId,
-        this.makePath(key, id), this.prepareValue(value)));
+        this.makePath(key, id), this.prepareValue(value, plain)));
   }
 
-  replace(key, value, id?) {
+  replace(key, value, plain = false, id?) {
     this.store.dispatch(
       new NewPatchReplaceOperationAction(
         this.pathPrefixElements.resourceType,
         this.pathPrefixElements.resourceId,
         this.makePath(key, id),
-        this.prepareValue(value)));
+        this.prepareValue(value, plain)));
   }
 
   remove(key, id?) {
@@ -55,16 +55,25 @@ export class JsonPatchOperationsBuilder {
         this.makePath(key, id)));
   }
 
-  protected prepareValue(value: any) {
-    const operationValue = []
-    if (Array.isArray(value)) {
-      value.forEach((entry) => {
-        operationValue.push({value: entry})
-      })
-    } else if ((typeof value === 'object') && value.hasOwnProperty('value')) {
-      operationValue.push(value);
+  protected prepareValue(value: any, plain) {
+    let operationValue: any;
+    if (plain) {
+      operationValue = value
     } else {
-      operationValue.push({value: value});
+      operationValue = [];
+      if (Array.isArray(value)) {
+        value.forEach((entry) => {
+          if ((typeof entry === 'object') && entry.hasOwnProperty('value')) {
+            operationValue.push(entry);
+          } else {
+            operationValue.push({value: entry});
+          }
+        })
+      } else if ((typeof value === 'object') && value.hasOwnProperty('value')) {
+        operationValue.push(value);
+      } else {
+        operationValue.push({value: value});
+      }
     }
     return operationValue;
   }
