@@ -30,7 +30,7 @@
         <div class="float-left w-75">
           <h3>{{bitstreamsList[bitstreamKey].name}} <span class="text-muted">({{bitstreamsList[bitstreamKey].size | dsFileSize}})</span></h3>
         </div>
-        <ds-submission-submit-form-box-files-edit [sectionId]="sectionData.id" [submissionId]="sectionData.submissionId" [bitstreamId]="bitstreamKey" [config]="sectionData.config"></ds-submission-submit-form-box-files-edit>
+        <ds-submission-submit-form-box-files-edit [sectionId]="sectionData.id" [submissionId]="sectionData.submissionId" [bitstreamId]="bitstreamKey" [config]="sectionData.config" [bitstreamIndex]="bitstreamsKeys.indexOf(bitstreamKey)"></ds-submission-submit-form-box-files-edit>
       </div>
     </div>
     <div class="row">

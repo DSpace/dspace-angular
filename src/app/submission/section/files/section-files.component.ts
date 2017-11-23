@@ -20,6 +20,7 @@ import {RemoteData} from "../../../core/data/remote-data";
 export class FilesSectionComponent extends SectionModelComponent {
 
   public bitstreamsKeys = [];
+  public bitstreamsIndexes = [];
   public bitstreamsList;
   public collectionPolicies = [];
   public collectionName;
@@ -58,6 +59,7 @@ export class FilesSectionComponent extends SectionModelComponent {
           let sectionStatus = false;
           this.bitstreamsList = bitstreamList;
           this.bitstreamsKeys = [];
+          this.bitstreamsIndexes = [];
           if (isNotUndefined(this.bitstreamsList) && Object.keys(bitstreamList).length > 0) {
             this.bitstreamsKeys = Object.keys(bitstreamList);
             sectionStatus = true;

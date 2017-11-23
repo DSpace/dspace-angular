@@ -63,7 +63,7 @@ export class JsonPatchOperationsBuilder {
       operationValue = [];
       if (Array.isArray(value)) {
         value.forEach((entry) => {
-          if ((typeof entry === 'object') && entry.hasOwnProperty('value')) {
+          if ((typeof entry === 'object')) {
             operationValue.push(entry);
           } else {
             operationValue.push({value: entry});

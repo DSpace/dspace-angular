@@ -17,6 +17,10 @@ import { SubmissionUploadsConfigService } from '../../../../core/config/submissi
 import { SubmissionUploadsModel } from '../../../../core/shared/config/config-submission-uploads.model';
 import { GroupEpersonService } from '../../../../core/eperson/group-eperson.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { CoreState } from '../../../../core/core.reducers';
+import { Store } from '@ngrx/store';
+import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionRestService } from '../../../submission-rest.service';
 
 @Component({
   selector: 'ds-submission-submit-form-box-files-edit',
@@ -29,6 +33,7 @@ export class FilesEditComponent {
   @ViewChild('formRef') formRef: FormComponent;
 
   @Input() bitstreamId;
+  @Input() bitstreamIndex;
   @Input() sectionId;
   @Input() submissionId;
   @Input() config;
@@ -40,6 +45,7 @@ export class FilesEditComponent {
   public accessConditionOptions;
   public accessConditionGroups = {};
 
+  protected operationsBuilder: JsonPatchOperationsBuilder;
   protected subscriptions = [];
 
   constructor(private modalService: NgbModal,
@@ -47,21 +53,24 @@ export class FilesEditComponent {
               private uploadsConfigService: SubmissionUploadsConfigService,
               private groupEpersonService: GroupEpersonService,
               private formService: FormService,
-              private formBuilderService: FormBuilderService) { }
+              private formBuilderService: FormBuilderService,
+              protected operationsState: Store<CoreState>,
+              private restService: SubmissionRestService) { }
 
   ngOnInit() {
+    this.operationsBuilder = new JsonPatchOperationsBuilder(this.operationsState, 'sections', this.sectionId);
     this.subscriptions.push(
       this.bitstreamService
         .getBitstream(this.submissionId, this.sectionId, this.bitstreamId)
         .take(1)
         .subscribe((bitstream) => {
             this.bitstream = bitstream;
-            const formModel                 = BITSTREAM_FORM_MODEL;
-            const formPoliciesArrayData     = BITSTREAM_FORM_POLICIES_ARRAY_DATA;
-            const formPoliciesSelectData    = BITSTREAM_FORM_POLICIES_SELECT_DATA;
-            const formPoliciesStartDateData = BITSTREAM_FORM_POLICIES_START_DATE_DATA;
-            const formPoliciesEndDateData   = BITSTREAM_FORM_POLICIES_END_DATE_DATA;
-            const formPoliciesGroupsData    = BITSTREAM_FORM_POLICIES_GROUPS_DATA;
+            const formModel                 = Object.create(BITSTREAM_FORM_MODEL);
+            const formPoliciesArrayData     = Object.create(BITSTREAM_FORM_POLICIES_ARRAY_DATA);
+            const formPoliciesSelectData    = Object.create(BITSTREAM_FORM_POLICIES_SELECT_DATA);
+            const formPoliciesStartDateData = Object.create(BITSTREAM_FORM_POLICIES_START_DATE_DATA);
+            const formPoliciesEndDateData   = Object.create(BITSTREAM_FORM_POLICIES_END_DATE_DATA);
+            const formPoliciesGroupsData    = Object.create(BITSTREAM_FORM_POLICIES_GROUPS_DATA);
             this.formId = 'form_' + this.bitstreamId;
             this.subscriptions.push(
               this.uploadsConfigService.getConfigByHref(this.config)
@@ -70,6 +79,7 @@ export class FilesEditComponent {
                 .subscribe((config:SubmissionUploadsModel) => {
                     this.accessConditionOptions = config.accessConditionOptions;
                     if (config.accessConditionOptions.length > 0) {
+                      formPoliciesSelectData.data.options = [];
                       for (const accessPolicy of config.accessConditionOptions) {
                         formPoliciesSelectData.data.options.push(
                           {
@@ -97,6 +107,7 @@ export class FilesEditComponent {
                           );
                         }
                       }
+                      // formModel = BITSTREAM_FORM_MODEL;
                       formPoliciesArrayData.data.groupFactory = () => {
                         const select    = new DynamicSelectModel(formPoliciesSelectData.data, formPoliciesSelectData.element);
                         const startDate = new DynamicDatePickerModel(formPoliciesStartDateData.data, formPoliciesStartDateData.element);
@@ -153,6 +164,9 @@ export class FilesEditComponent {
 
   public deleteBitstream() {
     this.bitstreamService.deleteBitstream(this.submissionId, this.sectionId, this.bitstreamId);
+    this.operationsBuilder.remove(this.bitstreamIndex);
+    this.restService.jsonPatchByResourceID(this.submissionId, 'sections',this.sectionId)
+      .subscribe();
   }
 
   public editBitstream() {
@@ -175,6 +189,18 @@ export class FilesEditComponent {
                       description: metadata['files-data'].description
                     }
                   );
+                  const titlePath = `${this.bitstreamIndex}/metadata/dc.title`;
+                  const descriptionPath = `${this.bitstreamIndex}/metadata/dc.description`;
+                  const accessConditionPath = `${this.bitstreamIndex}/accessConditions`;
+                  const accessCondition = [
+                    { name: metadata['files-policies'][0].policies,
+                      groupUUID: '3522e898-fe96-45ea-8538-65f1cf9128a8',
+                      endDate: null }];
+                  this.operationsBuilder.replace(titlePath, metadata['files-data'].title);
+                  this.operationsBuilder.replace(descriptionPath, metadata['files-data'].description);
+                  this.operationsBuilder.add(accessConditionPath, accessCondition);
+                  this.restService.jsonPatchByResourceID(this.submissionId, 'sections',this.sectionId)
+                    .subscribe();
                   this.bitstreamService.editBitstream(this.submissionId, this.sectionId, this.bitstreamId, data);
                 }
               )
