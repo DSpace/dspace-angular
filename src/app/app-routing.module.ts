@@ -15,6 +15,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ])
   ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
 
