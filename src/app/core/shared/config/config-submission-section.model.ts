@@ -13,4 +13,10 @@ export class SubmissionSectionModel extends ConfigObject {
   @autoserialize
   sectionType: string;
 
+  @autoserialize
+  visibility: {
+    main: any,
+    other: any
+  }
+
 }
