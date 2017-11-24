@@ -1,4 +1,4 @@
-<div *ngIf="searchResults?.hasSucceeded" @fadeIn>
+<div *ngIf="searchResults?.hasSucceeded && !searchResults?.isLoading" @fadeIn>
   <h2 *ngIf="searchResults?.payload ?.length > 0">{{ 'search.results.head' | translate }}</h2>
 <ds-object-list
   [config]="searchConfig.pagination"

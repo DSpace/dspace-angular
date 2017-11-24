@@ -82,3 +82,13 @@ declare module '*.json' {
 }
 
 declare module 'reflect-metadata';
+
+interface IShaveOptions {
+  classname?: string,
+  character?: string
+}
+
+declare module 'shave' {
+  export default function shave(selector: string | Node, maxHeight: number, options?: IShaveOptions): void;
+
+}

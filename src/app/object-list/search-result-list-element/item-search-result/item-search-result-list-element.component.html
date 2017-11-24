@@ -8,5 +8,7 @@
     </span>
     (<span *ngIf="dso.findMetadata('dc.publisher')" class="item-list-publisher" [innerHTML]="getFirstValue('dc.publisher')">, </span><span *ngIf="dso.findMetadata('dc.date.issued')" class="item-list-date" [innerHTML]="getFirstValue('dc.date.issued')"></span>)
   </span>
-    <div *ngIf="dso.findMetadata('dc.description.abstract')" class="item-list-abstract" [innerHTML]="getFirstValue('dc.description.abstract') | dsTruncate:[200]"></div>
+    <div *ngIf="dso.findMetadata('dc.description.abstract')" class="item-list-abstract">
+        <ds-truncatable [lines]="lines" [innerHTML]="getFirstValue('dc.description.abstract')" ></ds-truncatable>
+    </div>
 </div>

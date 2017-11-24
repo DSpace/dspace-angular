@@ -31,6 +31,8 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { VarDirective } from './utils/var.directive';
+import { TruncatableComponent } from './truncatable/truncatable.component';
+import { ShaveDirective } from './utils/shave.directive';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -64,7 +66,8 @@ const COMPONENTS = [
   SearchFormComponent,
   ThumbnailComponent,
   WrapperListElementComponent,
-  ViewModeSwitchComponent
+  ViewModeSwitchComponent,
+  TruncatableComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -76,7 +79,8 @@ const ENTRY_COMPONENTS = [
 ];
 
 const DIRECTIVES = [
-  VarDirective
+  VarDirective,
+  ShaveDirective
 ];
 
 @NgModule({
