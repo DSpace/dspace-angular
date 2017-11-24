@@ -28,8 +28,14 @@ describe('SearchPageComponent', () => {
     /* tslint:enable:no-empty */
     select: Observable.of(true)
   });
+  const pagination: PaginationComponentOptions = new PaginationComponentOptions();
+  pagination.id = 'search-results-pagination';
+  pagination.currentPage = 1;
+  pagination.pageSize = 10;
+  const sort: SortOptions = new SortOptions();
   const mockResults = Observable.of(['test', 'data']);
   const searchServiceStub = {
+    searchOptions:{ pagination: pagination, sort: sort },
     search: () => mockResults
   };
   const queryParam = 'test query';
@@ -151,7 +157,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       spyOn(comp, 'closeSidebar');
-      const closeSidebarButton = fixture.debugElement.query(By.css('#search-sidebar-xs'));
+      const closeSidebarButton = fixture.debugElement.query(By.css('#search-sidebar-sm'));
       closeSidebarButton.triggerEventHandler('toggleSidebar', null);
     });
 
@@ -179,7 +185,7 @@ describe('SearchPageComponent', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
+      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
       comp.isSidebarCollapsed = () => Observable.of(true);
       fixture.detectChanges();
     });
@@ -194,7 +200,7 @@ describe('SearchPageComponent', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-xs')).nativeElement;
+      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
       comp.isSidebarCollapsed = () => Observable.of(false);
       fixture.detectChanges();
     });

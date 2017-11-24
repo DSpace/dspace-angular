@@ -7,12 +7,17 @@ import {
   SearchSidebarState,
   sidebarReducer
 } from './+search-page/search-sidebar/search-sidebar.reducer';
+import {
+  filterReducer,
+  SearchFiltersState
+} from './+search-page/search-filters/search-filter/search-filter.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
   hostWindow: HostWindowState;
   header: HeaderState;
   searchSidebar: SearchSidebarState;
+  searchFilter: SearchFiltersState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -20,4 +25,5 @@ export const appReducers: ActionReducerMap<AppState> = {
   hostWindow: hostWindowReducer,
   header: headerReducer,
   searchSidebar: sidebarReducer,
+  searchFilter: filterReducer
 };

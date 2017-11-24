@@ -1,16 +1,10 @@
-import { animate, state, transition, trigger, style } from '@angular/animations';
+import { animate, state, transition, trigger, style, stagger, query } from '@angular/animations';
 
-export const slideInOut = trigger('slideInOut', [
+export const slide = trigger('slide', [
 
-  /*
-  state('expanded', style({ right: '100%' }));
+  state('expanded', style({ height: '*' })),
 
-  state('collapsed', style({ right: 0 }));
-*/
+  state('collapsed', style({ height: 0 })),
 
-  state('expanded', style({ left: '100%' })),
-
-  state('collapsed', style({ left: 0 })),
-
-  transition('expanded <=> collapsed', animate(250)),
+  transition('expanded <=> collapsed', animate(250))
 ]);

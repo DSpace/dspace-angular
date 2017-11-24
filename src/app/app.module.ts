@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, MetaReducer, META_REDUCERS } from '@ngrx/store';
@@ -46,14 +45,13 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
 const DEV_MODULES: any[] = [];
 
 if (!ENV_CONFIG.production) {
-  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 50 }));
+  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 500 }));
 }
 
 @NgModule({
   imports: [
     CommonModule,
     HttpModule,
-    RouterModule,
     AppRoutingModule,
     CoreModule.forRoot(),
     NgbModule.forRoot(),

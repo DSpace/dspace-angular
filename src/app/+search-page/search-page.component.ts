@@ -1,17 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { isNotEmpty } from '../shared/empty.util';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from './search-options.model';
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
-import { slideInOut } from '../shared/animations/slide';
+import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 
@@ -26,7 +24,7 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
   styleUrls: ['./search-page.component.scss'],
   templateUrl: './search-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [slideInOut]
+  animations: [pushInOut]
 })
 export class SearchPageComponent implements OnInit, OnDestroy {
 
@@ -46,15 +44,14 @@ export class SearchPageComponent implements OnInit, OnDestroy {
               private communityService: CommunityDataService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService) {
-    this.isMobileView = this.windowService.isXs();
+    this.isMobileView =  Observable.combineLatest(
+      this.windowService.isXs(),
+      this.windowService.isSm(),
+      ((isXs, isSm) => isXs || isSm)
+    );
     this.scopeListRDObs = communityService.findAll();
     // Initial pagination config
-    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'search-results-pagination';
-    pagination.currentPage = 1;
-    pagination.pageSize = 10;
-    const sort: SortOptions = new SortOptions();
-    this.searchOptions = { pagination: pagination, sort: sort };
+    this.searchOptions = this.service.searchOptions;
   }
 
   ngOnInit(): void {
@@ -90,7 +87,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   }
 
   private updateSearchResults(searchOptions) {
-    // Resolve search results
     this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions);
   }
 

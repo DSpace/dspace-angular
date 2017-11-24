@@ -1,0 +1,105 @@
+import { SearchFilterAction, SearchFilterActionTypes } from './search-filter.actions';
+import { isEmpty } from '../../../shared/empty.util';
+
+export interface SearchFilterState {
+  filterCollapsed: boolean,
+  page: number
+}
+
+export interface SearchFiltersState {
+  [name: string]: SearchFilterState
+}
+
+const initialState: SearchFiltersState = Object.create(null);
+
+export function filterReducer(state = initialState, action: SearchFilterAction): SearchFiltersState {
+
+  switch (action.type) {
+
+    case SearchFilterActionTypes.INITIAL_COLLAPSE: {
+      if (isEmpty(state) || isEmpty(state[action.filterName])) {
+        return Object.assign({}, state, {
+          [action.filterName]: {
+            filterCollapsed: true,
+            page: 1
+          }
+        });
+      }
+      return state;
+    }
+
+    case SearchFilterActionTypes.INITIAL_EXPAND: {
+      if (isEmpty(state) || isEmpty(state[action.filterName])) {
+        return Object.assign({}, state, {
+          [action.filterName]: {
+            filterCollapsed: false,
+            page: 1
+          }
+        });
+      }
+      return state;
+    }
+
+    case SearchFilterActionTypes.COLLAPSE: {
+      return Object.assign({}, state, {
+        [action.filterName]: {
+          filterCollapsed: true,
+          page: state[action.filterName].page
+        }
+      });
+    }
+
+    case SearchFilterActionTypes.EXPAND: {
+      return Object.assign({}, state, {
+        [action.filterName]: {
+          filterCollapsed: false,
+          page: state[action.filterName].page
+        }
+      });
+
+    }
+
+    case SearchFilterActionTypes.DECREMENT_PAGE: {
+      const page = state[action.filterName].page - 1;
+      return Object.assign({}, state, {
+        [action.filterName]: {
+          filterCollapsed: state[action.filterName].filterCollapsed,
+          page: (page >= 1 ? page : 1)
+        }
+      });
+    }
+
+    case SearchFilterActionTypes.INCREMENT_PAGE: {
+      return Object.assign({}, state, {
+        [action.filterName]: {
+          filterCollapsed: state[action.filterName].filterCollapsed,
+          page: state[action.filterName].page + 1
+        }
+      });
+
+    }
+    case SearchFilterActionTypes.RESET_PAGE: {
+      return Object.assign({}, state, {
+        [action.filterName]: {
+          filterCollapsed: state[action.filterName].filterCollapsed,
+          page: 1
+        }
+      });
+
+    }
+
+    case SearchFilterActionTypes.TOGGLE: {
+      return Object.assign({}, state, {
+        [action.filterName]: {
+          filterCollapsed: !state[action.filterName].filterCollapsed,
+          page: state[action.filterName].page
+        }
+      });
+
+    }
+
+    default: {
+      return state;
+    }
+  }
+}
