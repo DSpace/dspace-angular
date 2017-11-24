@@ -1,4 +1,3 @@
-import { ResourcePolicies } from '../core/shared/resource-policies.model';
 import { SubmissionDefinitionsModel } from '../core/shared/config/config-submission-definitions.model';
 import { SubmissionFormsModel } from '../core/shared/config/config-submission-forms.model';
 import { SubmissionSectionModel } from '../core/shared/config/config-submission-section.model';
@@ -15,6 +14,7 @@ import { NormalizedWorkspaceItem } from '../core/cache/models/normalized-workspa
 import { NormalizedObject } from '../core/cache/models/normalized-object.model';
 import { ConfigObject } from '../core/shared/config/config.model';
 import { SubmissionResourceType } from './submission-resource-type';
+import { NormalizedResourcePolicy } from '../core/cache/models/normalized-resource-policy.model';
 
 export class NormalizedSubmissionObjectFactory {
   public static getConstructor(type: SubmissionResourceType): GenericConstructor<NormalizedObject|ConfigObject> {
@@ -37,8 +37,8 @@ export class NormalizedSubmissionObjectFactory {
       case SubmissionResourceType.Community: {
         return NormalizedCommunity
       }
-      case SubmissionResourceType.ResourcePolicies: {
-        return ResourcePolicies
+      case SubmissionResourceType.ResourcePolicy: {
+        return NormalizedResourcePolicy
       }
       case SubmissionResourceType.License: {
         return NormalizedLicense

@@ -110,6 +110,8 @@
                        [class.is-invalid]="showErrorMessages"
                        [dynamicId]="bindId && model.id"
                        [formControlName]="model.id"
+                       [minDate]="model.minDate"
+                       [maxDate]="model.maxDate"
                        [name]="model.name"
                        [ngClass]="model.cls.element.control"
                        [placeholder]="model.placeholder"

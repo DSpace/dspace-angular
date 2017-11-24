@@ -9,13 +9,11 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { CoreState } from '../../../core/core.reducers';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { GroupEpersonService } from '../../../core/eperson/group-eperson.service';
-import {ResourcePolicies} from "../../../core/shared/resource-policies.model";
-import {RemoteData} from "../../../core/data/remote-data";
 
 @Component({
   selector: 'ds-submission-section-files',
-  styleUrls: ['./section-files.component.scss'],
-  templateUrl: './section-files.component.html',
+  styleUrls: ['./section-upload.component.scss'],
+  templateUrl: './section-upload.component.html',
 })
 export class FilesSectionComponent extends SectionModelComponent {
 
@@ -46,7 +44,7 @@ export class FilesSectionComponent extends SectionModelComponent {
             console.log(collectionData);
             this.collectionName = collectionData.payload.name;
             // collectionData.payload.defaultAccessConditions
-              // .filter((defaultAccessConditions:RemoteData<ResourcePolicies[]>) => isNotEmpty(defaultAccessConditions))
+              // .filter((defaultAccessConditions:RemoteData<AccessCondition[]>) => isNotEmpty(defaultAccessConditions))
             //  .subscribe((payload) => {
              //    const a = 5;
              //   }

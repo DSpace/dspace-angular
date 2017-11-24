@@ -24,7 +24,7 @@
   <ng-container *ngFor="let bitstreamKey of bitstreamsKeys">
     <div class="row">
       <div class="col-md-2">
-        <ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].thumbnail | async"></ds-thumbnail>
+        <ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].url | async"></ds-thumbnail>
       </div>
       <div class="col-md-10">
         <div class="float-left w-75">

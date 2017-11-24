@@ -34,19 +34,14 @@ export class SubmissionUploadFilesComponent {
             itemData.uuid,
             {
               name: itemData.metadata['dc.title'][0].value,
-              title: '',
-              description: '',
-              size: itemData.sizeBytes,
-              hash: itemData.checkSum.value,
-              thumbnail: null,
-              policies: [
-                {
-                  type: 1,
-                  name: 'Open access',
-                  date: null,
-                  availableGroups: []
-                }
-              ]
+              metadata: [],
+              sizeBytes: itemData.sizeBytes,
+              checkSum: {
+                checkSumAlgorithm: itemData.checkSum.checkSumAlgorithm,
+                value: itemData.checkSum.value,
+              },
+              url: null,
+              accessConditions: []
             }
           )
         })

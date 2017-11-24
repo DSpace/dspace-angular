@@ -1,9 +1,9 @@
 import { mapsTo } from '../builders/build-decorators';
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
-import { ResourcePolicies } from '../../shared/resource-policies.model';
+import { ResourcePolicy } from '../../shared/resource-policy.model';
 
-@mapsTo(ResourcePolicies)
+@mapsTo(ResourcePolicy)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedResourcePolicy extends NormalizedDSpaceObject {
 

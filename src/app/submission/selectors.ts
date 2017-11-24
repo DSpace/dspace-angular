@@ -4,7 +4,7 @@ import { hasValue } from '../shared/empty.util';
 import { submissionSelector, SubmissionState } from './submission.reducers';
 import {
   SubmissionSectionEntry, SubmissionObjectEntry,
-  SubmissionBitstreamEntry, SubmissionSectionObject
+  SubmissionUploadFileEntry, SubmissionSectionObject
 } from './objects/submission-objects.reducer';
 import { SectionObjectEntry, SubmissionDefinitionEntry } from './definitions/submission-definitions.reducer';
 
@@ -37,14 +37,14 @@ export function submissionDefinitionFromIdSelector(definitionId: string): Memoiz
   return keySelector<SubmissionState, SubmissionDefinitionEntry>(submissionSelector, 'definitions', definitionId);
 }
 
-export function submissionSectionBitstreamsFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
+export function submissionUploadedFilesFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
   const sectionDataSelector = submissionSectionDataFromIdSelector(submissionId, sectionId);
-  return subStateSelector<SubmissionState, SubmissionObjectEntry>(sectionDataSelector, 'bitstreams');
+  return subStateSelector<SubmissionState, SubmissionObjectEntry>(sectionDataSelector, 'files');
 }
 
-export function submissionBitstreamFromUuidSelector(submissionId: string, sectionId: string, uuid: string): MemoizedSelector<SubmissionState, any> {
-  const bitstreamsSelector  = submissionSectionDataFromIdSelector(submissionId, sectionId);
-  return keySelector<SubmissionState, any>(bitstreamsSelector, 'bitstreams', uuid);
+export function submissionUploadedFileFromUuidSelector(submissionId: string, sectionId: string, uuid: string): MemoizedSelector<SubmissionState, any> {
+  const filesSelector  = submissionSectionDataFromIdSelector(submissionId, sectionId);
+  return keySelector<SubmissionState, any>(filesSelector, 'files', uuid);
 }
 
 export function sectionDefinitionFromIdSelector(definitionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {

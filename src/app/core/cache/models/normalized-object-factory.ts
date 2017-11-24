@@ -8,7 +8,7 @@ import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from './normalized-object.model';
 import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { NormalizedLicense } from './normalized-license.model';
-import { NormalizedResourcePolicy } from './normalized-resource-policies.model';
+import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {

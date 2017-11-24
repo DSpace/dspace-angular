@@ -9,7 +9,7 @@ export enum SubmissionResourceType {
   Item = 'item',
   Collection = 'collection',
   Community = 'community',
-  ResourcePolicies = 'resourcePolicies',
+  ResourcePolicy = 'resourcePolicies',
   License = 'license',
   WorkspaceItem = 'workspaceitem',
   SubmissionDefinitions = 'submissiondefinitions',

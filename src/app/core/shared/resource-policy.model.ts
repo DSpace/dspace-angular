@@ -1,6 +1,6 @@
 import { DSpaceObject } from './dspace-object.model';
 
-export class ResourcePolicies extends DSpaceObject {
+export class ResourcePolicy extends DSpaceObject {
 
   /**
    * The identifier of the access condition

@@ -10,14 +10,13 @@ import {
   SubmissionObjectActionTypes
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
-import { PatchOperationModel } from '../../core/shared/patch-request.model';
+import { SubmissionUploadFileObject } from '../models/submission-upload-file.model';
 
 export interface SubmissionSectionObject {
   sectionViewIndex: number;
   data: SubmissionDataEntry;
   isLoading: boolean;
   isValid: boolean;
-  patchOperations: PatchOperationModel[];
 }
 
 export interface SubmissionSectionEntry {
@@ -25,7 +24,7 @@ export interface SubmissionSectionEntry {
 }
 
 export interface SubmissionDataEntry {
-  bitstreams: SubmissionBitstreamEntry;
+  files: SubmissionUploadFileEntry;
 }
 
 export interface SubmissionCollectionObject {
@@ -35,8 +34,8 @@ export interface SubmissionCollectionObject {
   policies: SubmissionPoliciesObject;
 }
 
-export interface SubmissionBitstreamEntry {
-  [uuid: string]: SubmissionBitstreamObject
+export interface SubmissionUploadFileEntry {
+  [uuid: string]: SubmissionUploadFileObject
 }
 
 export interface SubmissionBitstreamObject {
@@ -114,15 +113,15 @@ export function submissionObjectReducer(state = initialState, action: Submission
     // Bitstram actions
 
     case SubmissionObjectActionTypes.NEW_BITSTREAM: {
-      return newBitstream(state, action as NewBitstreamAction);
+      return newFile(state, action as NewBitstreamAction);
     }
 
     case SubmissionObjectActionTypes.EDIT_BITSTREAM: {
-      return editBitstream(state, action as EditBitstreamAction);
+      return editFileData(state, action as EditBitstreamAction);
     }
 
     case SubmissionObjectActionTypes.DELETE_BITSTREAM: {
-      return deleteBitstream(state, action as DeleteBitstreamAction);
+      return deleteFile(state, action as DeleteBitstreamAction);
     }
 
     default: {
@@ -174,8 +173,7 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
           [action.payload.sectionId]: {
             sectionViewIndex: action.payload.sectionViewIndex,
             data: Object.create(null),
-            isValid: false,
-            patchOperations: Object.create([])
+            isValid: false
           }
         }),
         isLoading: state[action.payload.submissionId].isLoading,
@@ -251,9 +249,8 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
           Object.assign({}, {
             [action.payload.sectionId]: {
               sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
-              isValid: action.payload.status,
               data: state[action.payload.submissionId].sections[action.payload.sectionId].data,
-              patchOperations: state[action.payload.submissionId].sections[action.payload.sectionId].patchOperations
+              isValid: action.payload.status,
             }
           })
         ),
@@ -277,9 +274,9 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
  * @return SubmissionObjectState
  *    the new state, with the new bitstream.
  */
-function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction): SubmissionObjectState {
-  if (isNotUndefined(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams)
-    && !hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams[action.payload.bitstreamId])) {
+function newFile(state: SubmissionObjectState, action: NewBitstreamAction): SubmissionObjectState {
+  if (isNotUndefined(state[action.payload.submissionId].sections[action.payload.sectionId].data.files)
+    && !hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files[action.payload.bitstreamId])) {
     const newState = Object.assign({}, state);
     const newData  = [];
     newData[action.payload.bitstreamId] = action.payload.data;
@@ -290,12 +287,11 @@ function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction):
               [action.payload.sectionId]: {
                 sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
                 data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
-                  bitstreams: Object.assign({},
-                    state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams,
+                  files: Object.assign({},
+                    state[action.payload.submissionId].sections[action.payload.sectionId].data.files,
                     newData)
                 }),
-                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
-                patchOperations: state[action.payload.submissionId].sections[action.payload.sectionId].patchOperations
+                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid
               }
             }
           )
@@ -303,17 +299,6 @@ function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction):
         isLoading: state[action.payload.submissionId].isLoading,
       })
     });
-
-    /*newState[action.payload.submissionId] = {
-      sections: state[action.payload.submissionId].sections,
-      data: state[action.payload.submissionId].data,
-      bitstreams: Object.assign(
-        {},
-        state[action.payload.submissionId].bitstreams,
-        newData
-      )
-    };
-    return newState;*/
   } else {
     const newState = Object.assign({}, state);
     const newData  = [];
@@ -322,16 +307,14 @@ function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction):
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: Object.assign({}, state[action.payload.submissionId].sections,
           Object.assign({}, {
-              [action.payload.sectionId]: {
-                sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
-                data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
-                  bitstreams: newData
-                }),
-                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
-                patchOperations: state[action.payload.submissionId].sections[action.payload.sectionId].patchOperations
-              }
+            [action.payload.sectionId]: {
+              sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
+              data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
+                files: newData
+              }),
+              isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid
             }
-          )
+          })
         ),
         isLoading: state[action.payload.submissionId].isLoading,
       })
@@ -349,8 +332,8 @@ function newBitstream(state: SubmissionObjectState, action: NewBitstreamAction):
  * @return SubmissionObjectState
  *    the new state, with the edited bitstream.
  */
-function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction): SubmissionObjectState {
-  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams[action.payload.bitstreamId])) {
+function editFileData(state: SubmissionObjectState, action: EditBitstreamAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files[action.payload.bitstreamId])) {
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: Object.assign({}, state[action.payload.submissionId].sections,
@@ -358,13 +341,12 @@ function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction
               [action.payload.sectionId]: {
                 sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
                 data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
-                  bitstreams: Object.assign({},
-                    state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams, {
+                  files: Object.assign({},
+                    state[action.payload.submissionId].sections[action.payload.sectionId].data.files, {
                       [action.payload.bitstreamId]: action.payload.data
                     })
                 }),
-                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
-                patchOperations: state[action.payload.submissionId].sections[action.payload.sectionId].patchOperations
+                isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid
               }
             }
           )
@@ -372,18 +354,6 @@ function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction
         isLoading: state[action.payload.submissionId].isLoading,
       })
     });
-    /*return Object.assign({}, state, {
-      [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
-        sections: state[action.payload.submissionId].sections,
-        data: state[action.payload.submissionId].data,
-        bitstreams: Object.assign({},
-                                  state[action.payload.submissionId].bitstreams,
-                                  {
-                                            [action.payload.bitstreamId]: action.payload.data
-                                          }
-        ),
-      })
-    });*/
   } else {
     return state;
   }
@@ -399,8 +369,8 @@ function editBitstream(state: SubmissionObjectState, action: EditBitstreamAction
  * @return SubmissionObjectState
  *    the new state, with the bitstream removed.
  */
-function deleteBitstream(state: SubmissionObjectState, action: DeleteBitstreamAction): SubmissionObjectState {
-  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams[action.payload.bitstreamId])) {
+function deleteFile(state: SubmissionObjectState, action: DeleteBitstreamAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files[action.payload.bitstreamId])) {
     const newState = Object.assign({}, state);
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
@@ -410,7 +380,7 @@ function deleteBitstream(state: SubmissionObjectState, action: DeleteBitstreamAc
                 sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
                 isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
                 data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
-                  bitstreams: deleteProperty(state[action.payload.submissionId].sections[action.payload.sectionId].data.bitstreams, action.payload.bitstreamId)
+                  files: deleteProperty(state[action.payload.submissionId].sections[action.payload.sectionId].data.files, action.payload.bitstreamId)
                 })
               }
             }
@@ -419,20 +389,6 @@ function deleteBitstream(state: SubmissionObjectState, action: DeleteBitstreamAc
         isLoading: state[action.payload.submissionId].isLoading,
       })
     });
-    /*
-    deleteProperty(state[action.payload.submissionId].sections, action.payload.sectionId)
-    const newBitstreams  = {};
-    for (const key in newState[action.payload.submissionId].bitstreams) {
-      if (key !== action.payload.bitstreamId) {
-        newBitstreams[key] = newState[action.payload.submissionId].bitstreams[key];
-      }
-    }
-    newState[action.payload.submissionId] = {
-      sections: state[action.payload.submissionId].sections,
-      data: state[action.payload.submissionId].data,
-      bitstreams: newBitstreams
-    };
-    return newState;*/
   } else {
     return state;
   }

@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
 import { SubmissionBitstreamObject } from './submission-objects.reducer';
+import { SubmissionUploadFileObject } from '../models/submission-upload-file.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -166,7 +167,7 @@ export class NewBitstreamAction implements Action {
     submissionId: string;
     sectionId: string;
     bitstreamId: string;
-    data: SubmissionBitstreamObject;
+    data: SubmissionUploadFileObject;
   };
 
   /**
@@ -181,7 +182,7 @@ export class NewBitstreamAction implements Action {
    * @param data
    *    the metadata of the new bitstream
    */
-  constructor(submissionId: string, sectionId: string, bitstreamId: string, data: SubmissionBitstreamObject) {
+  constructor(submissionId: string, sectionId: string, bitstreamId: string, data: SubmissionUploadFileObject) {
     this.payload = { submissionId, sectionId, bitstreamId, data };
   }
 }
