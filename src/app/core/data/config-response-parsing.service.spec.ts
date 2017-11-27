@@ -48,6 +48,10 @@ describe('ConfigResponseParsingService', () => {
                 id:'traditionalpageone',header:'submit.progressbar.describe.stepone',
                 mandatory:true,
                 sectionType:'submission-form',
+                visibility:{
+                  main:null,
+                  other:'READONLY'
+                },
                 type:'submissionsection',
                 _links:{
                   self:{
@@ -62,6 +66,10 @@ describe('ConfigResponseParsingService', () => {
                 header:'submit.progressbar.describe.steptwo',
                 mandatory:true,
                 sectionType:'submission-form',
+                visibility:{
+                  main:null,
+                  other:'READONLY'
+                },
                 type:'submissionsection',
                 _links:{
                   self:{
@@ -76,6 +84,10 @@ describe('ConfigResponseParsingService', () => {
                 header:'submit.progressbar.upload',
                 mandatory:false,
                 sectionType:'upload',
+                visibility:{
+                  main:null,
+                  other:'READONLY'
+                },
                 type:'submissionsection',
                 _links:{
                   self:{
@@ -158,6 +170,10 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.describe.stepone',
             mandatory: true,
             sectionType: 'submission-form',
+            visibility:{
+              main:null,
+              other:'READONLY'
+            },
             type: 'submissionsection',
             _links: {}
           }),
@@ -165,6 +181,10 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.describe.steptwo',
             mandatory: true,
             sectionType: 'submission-form',
+            visibility:{
+              main:null,
+              other:'READONLY'
+            },
             type: 'submissionsection',
             _links: {}
           }),
@@ -172,6 +192,10 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.upload',
             mandatory: false,
             sectionType: 'upload',
+            visibility:{
+              main:null,
+              other:'READONLY'
+            },
             type: 'submissionsection',
             _links: {}
           }),
@@ -179,6 +203,10 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.license',
             mandatory: true,
             sectionType: 'license',
+            visibility:{
+              main:null,
+              other:'READONLY'
+            },
             type: 'submissionsection',
             _links: {}
           })
