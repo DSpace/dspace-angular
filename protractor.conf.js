@@ -31,7 +31,10 @@ exports.config = {
   capabilities: {
     'browserName': 'chrome',
     'version': '',
-    'platform': 'ANY'
+    'platform': 'ANY',
+    'chromeOptions': {
+      'args': [ '--headless', '--disable-gpu' ]
+    }
   },
   // -----------------------------------------------------------------
   // Browser and Capabilities: Firefox
