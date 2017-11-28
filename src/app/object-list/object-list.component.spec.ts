@@ -3,7 +3,7 @@ import { ObjectListComponent } from './object-list.component';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-fdescribe('ObjectListComponent', () => {
+describe('ObjectListComponent', () => {
   let comp: ObjectListComponent;
   let fixture: ComponentFixture<ObjectListComponent>;
   const testEvent = {test: 'test'}
