@@ -33,6 +33,11 @@ export function submissionObjectFromIdSelector(submissionId: string): MemoizedSe
   return keySelector<SubmissionState, SubmissionObjectEntry>(submissionSelector, 'objects', submissionId);
 }
 
+export function submissionObjectSectionsFromIdSelector(submissionId: string): MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
+  const submissionObjectSelector = submissionObjectFromIdSelector(submissionId);
+  return subStateSelector<SubmissionState, SubmissionObjectEntry>(submissionObjectSelector, 'sections');
+}
+
 export function submissionDefinitionFromIdSelector(definitionId: string): MemoizedSelector<SubmissionState, SubmissionDefinitionEntry> {
   return keySelector<SubmissionState, SubmissionDefinitionEntry>(submissionSelector, 'definitions', definitionId);
 }

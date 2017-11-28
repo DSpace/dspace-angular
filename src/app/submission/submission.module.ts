@@ -25,7 +25,7 @@ import { submissionEffects } from './submission.effects';
 import { FilesSectionComponent } from './section/upload/section-upload.component';
 import { FilesEditComponent } from './section/upload/files-edit/files-edit.component';
 import { PoliciesComponent } from './section/upload/policies/policies.component';
-import { BitstreamService } from './section/bitstream/bitstream.service';
+import { SectionUploadService } from './section/upload/section-upload.service';
 import { SubmissionService } from './submission.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
 import { SubmissionRestService } from './submission-rest.service';
@@ -63,7 +63,7 @@ import { SubmissionUploadsConfigService } from '../core/config/submission-upload
   exports: [
   ],
   providers: [
-    BitstreamService,
+    SectionUploadService,
     SectionFactoryComponent,
     SectionService,
     SubmissionService,

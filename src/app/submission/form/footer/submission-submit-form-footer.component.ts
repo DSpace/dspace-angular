@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SubmissionRestService } from '../../submission-rest.service';
+import { SubmissionService } from '../../submission.service';
 
 @Component({
   selector: 'ds-submission-submit-form-footer',
@@ -7,20 +8,33 @@ import { SubmissionRestService } from '../../submission-rest.service';
   templateUrl: './submission-submit-form-footer.component.html'
 })
 
-export class SubmissionSubmitFormFooterComponent {
+export class SubmissionSubmitFormFooterComponent implements OnInit {
 
   @Input() submissionId;
 
-  constructor(private restService: SubmissionRestService) {}
+  public submissionValid = false;
 
+  constructor(private restService: SubmissionRestService, private submissionService: SubmissionService) {}
+
+  ngOnInit() {
+    this.submissionService.getSectionsState(this.submissionId)
+      .subscribe((state) => {
+        console.log(state);
+        this.submissionValid = state;
+      });
+  }
   onDeposit() {
+  }
+
+  getSectionsState() {
+    return this.submissionService.getSectionsState(this.submissionId);
+  }
+
+  onSave() {
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
       .subscribe((r) => {
         console.log('r', r);
       });
-  }
-
-  onSave() {
     /*this.restService.jsonPatchByResourceID(this.submissionId, 'sections', 'traditionalpagetwo')
       .subscribe((r) => {
         console.log('r', r);

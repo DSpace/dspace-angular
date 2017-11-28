@@ -6,7 +6,7 @@ import {
   DynamicFormArrayModelConfig,
   DynamicInputModel,
   DynamicSelectModelConfig,
-  DynamicTextAreaModel,
+  DynamicTextAreaModel, DynamicInputModelConfig,
 } from '@ng-dynamic-forms/core';
 
 export const BITSTREAM_METADATA_FORM_MODEL: DynamicFormControlModel[] = [
@@ -72,7 +72,7 @@ export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS: ClsConfig = {
 };
 
 export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG: DynamicSelectModelConfig<any> = {
-  id: 'type',
+  id: 'name',
   label: 'Access condition type',
   options: []
 };
@@ -98,11 +98,11 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
       connective: 'OR',
       when: [
         {
-          id: 'type',
+          id: 'name',
           value: 'embargo'
         },
         {
-          id: 'type',
+          id: 'name',
           value: 'lease'
         },
       ]
@@ -131,11 +131,11 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
       connective: 'OR',
       when: [
         {
-          id: 'type',
+          id: 'name',
           value: 'embargo'
         },
         {
-          id: 'type',
+          id: 'name',
           value: 'lease'
         },
       ]
@@ -152,6 +152,12 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CLS: ClsConfig = {
   }
 };
 
+export const BITSTREAM_FORM_ACCESS_CONDITION_HIDDEN_GROUP_CONFIG: DynamicInputModelConfig = {
+  id: 'hiddenGroupUUID',
+  inputType: 'hidden',
+  value: null
+}
+
 export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelConfig<any> = {
   id: 'groupUUID',
   label: 'Group',
@@ -162,11 +168,11 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelCo
       connective: 'OR',
       when: [
         {
-          id: 'type',
+          id: 'name',
           value: 'embargo'
         },
         {
-          id: 'type',
+          id: 'name',
           value: 'lease'
         },
       ]

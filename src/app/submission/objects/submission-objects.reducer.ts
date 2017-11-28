@@ -2,9 +2,9 @@ import { hasValue, isNotUndefined } from '../../shared/empty.util';
 
 import {
   CompleteInitSubmissionFormAction,
-  DeleteBitstreamAction,
-  DisableSectionAction, EditBitstreamAction,
-  EnableSectionAction, NewBitstreamAction,
+  DeleteUploadedFileAction,
+  DisableSectionAction, EditFileDataAction,
+  EnableSectionAction, NewUploadedFileAction,
   NewSubmissionFormAction, SectionStatusChangeAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes
@@ -31,38 +31,32 @@ export interface SubmissionCollectionObject {
   id: string;
   name: string;
   policiesMessageType: number;
-  policies: SubmissionPoliciesObject;
+  policies: SubmissionPolicyEntry;
 }
 
 export interface SubmissionUploadFileEntry {
   [uuid: string]: SubmissionUploadFileObject
 }
 
-export interface SubmissionBitstreamObject {
+export interface SubmissionPolicyEntry {
+  [index: number]: SubmissionPolicyObject
+}
+
+export interface SubmissionPolicyObject {
+  type: string;
   name: string;
-  title: string;
-  description: string;
-  size: number;
-  hash: string;
-  thumbnail: string;
-  policies: SubmissionPoliciesObject;
+  date: string;
+  availableGroups: SubmissionPolicyGroupEntry;
 }
 
-export interface SubmissionPoliciesObject {
-  [index: number]: {
-    type: string;
-    name: string;
-    date: string;
-    availableGroups: SubmissionPoliciesGroupObject;
-  }
+export interface SubmissionPolicyGroupEntry {
+  [index: number]: SubmissionPolicyGroupObject
 }
 
-export interface SubmissionPoliciesGroupObject {
-  [index: number]: {
-    id: string;
-    name: string;
-    selected: boolean;
-  }
+export interface SubmissionPolicyGroupObject {
+  id: string;
+  name: string;
+  selected: boolean;
 }
 
 export interface SubmissionObjectEntry {
@@ -112,16 +106,16 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
     // Bitstram actions
 
-    case SubmissionObjectActionTypes.NEW_BITSTREAM: {
-      return newFile(state, action as NewBitstreamAction);
+    case SubmissionObjectActionTypes.NEW_FILE: {
+      return newFile(state, action as NewUploadedFileAction);
     }
 
-    case SubmissionObjectActionTypes.EDIT_BITSTREAM: {
-      return editFileData(state, action as EditBitstreamAction);
+    case SubmissionObjectActionTypes.EDIT_FILE_DATA: {
+      return editFileData(state, action as EditFileDataAction);
     }
 
-    case SubmissionObjectActionTypes.DELETE_BITSTREAM: {
-      return deleteFile(state, action as DeleteBitstreamAction);
+    case SubmissionObjectActionTypes.DELETE_FILE: {
+      return deleteFile(state, action as DeleteUploadedFileAction);
     }
 
     default: {
@@ -262,7 +256,7 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
   }
 }
 
-// ------ Bitstream functions ------ //
+// ------ Upload file functions ------ //
 
 /**
  * Set a new bitstream.
@@ -270,16 +264,15 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
  * @param state
  *    the current state
  * @param action
- *    a NewBitstreamAction action
+ *    a NewUploadedFileAction action
  * @return SubmissionObjectState
  *    the new state, with the new bitstream.
  */
-function newFile(state: SubmissionObjectState, action: NewBitstreamAction): SubmissionObjectState {
+function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): SubmissionObjectState {
   if (isNotUndefined(state[action.payload.submissionId].sections[action.payload.sectionId].data.files)
-    && !hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files[action.payload.bitstreamId])) {
-    const newState = Object.assign({}, state);
+    && !hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files[action.payload.fileId])) {
     const newData  = [];
-    newData[action.payload.bitstreamId] = action.payload.data;
+    newData[action.payload.fileId] = action.payload.data;
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: Object.assign({}, state[action.payload.submissionId].sections,
@@ -300,9 +293,8 @@ function newFile(state: SubmissionObjectState, action: NewBitstreamAction): Subm
       })
     });
   } else {
-    const newState = Object.assign({}, state);
     const newData  = [];
-    newData[action.payload.bitstreamId] = action.payload.data;
+    newData[action.payload.fileId] = action.payload.data;
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: Object.assign({}, state[action.payload.submissionId].sections,
@@ -328,12 +320,12 @@ function newFile(state: SubmissionObjectState, action: NewBitstreamAction): Subm
  * @param state
  *    the current state
  * @param action
- *    a EditBitstreamAction action
+ *    a EditFileDataAction action
  * @return SubmissionObjectState
  *    the new state, with the edited bitstream.
  */
-function editFileData(state: SubmissionObjectState, action: EditBitstreamAction): SubmissionObjectState {
-  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files[action.payload.bitstreamId])) {
+function editFileData(state: SubmissionObjectState, action: EditFileDataAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files[action.payload.fileId])) {
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: Object.assign({}, state[action.payload.submissionId].sections,
@@ -343,7 +335,7 @@ function editFileData(state: SubmissionObjectState, action: EditBitstreamAction)
                 data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
                   files: Object.assign({},
                     state[action.payload.submissionId].sections[action.payload.sectionId].data.files, {
-                      [action.payload.bitstreamId]: action.payload.data
+                      [action.payload.fileId]: action.payload.data
                     })
                 }),
                 isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid
@@ -365,13 +357,12 @@ function editFileData(state: SubmissionObjectState, action: EditBitstreamAction)
  * @param state
  *    the current state
  * @param action
- *    a DeleteBitstreamAction action
+ *    a DeleteUploadedFileAction action
  * @return SubmissionObjectState
  *    the new state, with the bitstream removed.
  */
-function deleteFile(state: SubmissionObjectState, action: DeleteBitstreamAction): SubmissionObjectState {
-  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files[action.payload.bitstreamId])) {
-    const newState = Object.assign({}, state);
+function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileAction): SubmissionObjectState {
+  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files[action.payload.fileId])) {
     return Object.assign({}, state, {
       [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
         sections: Object.assign({}, state[action.payload.submissionId].sections,
@@ -380,7 +371,7 @@ function deleteFile(state: SubmissionObjectState, action: DeleteBitstreamAction)
                 sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
                 isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
                 data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
-                  files: deleteProperty(state[action.payload.submissionId].sections[action.payload.sectionId].data.files, action.payload.bitstreamId)
+                  files: deleteProperty(state[action.payload.submissionId].sections[action.payload.sectionId].data.files, action.payload.fileId)
                 })
               }
             }

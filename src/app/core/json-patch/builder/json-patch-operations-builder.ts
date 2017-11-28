@@ -1,58 +1,41 @@
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
-import { isNotEmpty } from '../../../shared/empty.util';
 import {
   NewPatchAddOperationAction, NewPatchRemoveOperationAction,
   NewPatchReplaceOperationAction
 } from '../json-patch-operations.actions';
+import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class JsonPatchOperationsBuilder {
 
-  protected pathPrefixElements: {
-    resourceType: string;
-    resourceId: string;
-  };
-
-  constructor(private store: Store<CoreState>, resourceType, resourceId) {
-    this.pathPrefixElements = {
-      resourceType: resourceType,
-      resourceId: resourceId
-    };
+  constructor(private store: Store<CoreState>) {
   }
 
-  protected makePath(key, id?) {
-    let pathPrefix;
-    if (isNotEmpty(id)) {
-      pathPrefix = '/' + this.pathPrefixElements.resourceType + '/' + id + '/';
-    } else {
-      pathPrefix = '/' + this.pathPrefixElements.resourceType + '/' + this.pathPrefixElements.resourceId + '/';
-    }
-    return pathPrefix + key;
-  }
-
-  add(key, value, plain = false, id?) {
+  add(path: JsonPatchOperationPathObject, value, plain = false) {
     this.store.dispatch(
       new NewPatchAddOperationAction(
-        this.pathPrefixElements.resourceType,
-        this.pathPrefixElements.resourceId,
-        this.makePath(key, id), this.prepareValue(value, plain)));
+        path.rootElement,
+        path.subRootElement,
+        path.path, this.prepareValue(value, plain)));
   }
 
-  replace(key, value, plain = false, id?) {
+  replace(path: JsonPatchOperationPathObject, value, plain = false) {
     this.store.dispatch(
       new NewPatchReplaceOperationAction(
-        this.pathPrefixElements.resourceType,
-        this.pathPrefixElements.resourceId,
-        this.makePath(key, id),
+        path.rootElement,
+        path.subRootElement,
+        path.path,
         this.prepareValue(value, plain)));
   }
 
-  remove(key, id?) {
+  remove(path: JsonPatchOperationPathObject) {
     this.store.dispatch(
       new NewPatchRemoveOperationAction(
-        this.pathPrefixElements.resourceType,
-        this.pathPrefixElements.resourceId,
-        this.makePath(key, id)));
+        path.rootElement,
+        path.subRootElement,
+        path.path));
   }
 
   protected prepareValue(value: any, plain) {

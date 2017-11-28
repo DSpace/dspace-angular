@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { SubmissionBitstreamObject } from './submission-objects.reducer';
 import { SubmissionUploadFileObject } from '../models/submission-upload-file.model';
 
 /**
@@ -13,7 +12,7 @@ import { SubmissionUploadFileObject } from '../models/submission-upload-file.mod
  * action types in the application are unique.
  */
 export const SubmissionObjectActionTypes = {
-  // Section actions
+  // Section types
   NEW: type('dspace/submission/NEW'),
   ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
@@ -23,10 +22,10 @@ export const SubmissionObjectActionTypes = {
   NEW_PATCH_OPERATION: type('dspace/submission/NEW_PATCH_OPERATION'),
   FLUSH_PATCH_OPERATIONS: type('dspace/submission/FLUSH_PATCH_OPERATIONS'),
 
-  // Bitstream actions
-  NEW_BITSTREAM: type('dspace/submission/NEW_BITSTREAM'),
-  EDIT_BITSTREAM: type('dspace/submission/EDIT_BITSTREAM'),
-  DELETE_BITSTREAM: type('dspace/submission/DELETE_BITSTREAM'),
+  // Upload file types
+  NEW_FILE: type('dspace/submission/NEW_FILE'),
+  EDIT_FILE_DATA: type('dspace/submission/EDIT_FILE_DATA'),
+  DELETE_FILE: type('dspace/submission/DELETE_FILE'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -159,80 +158,80 @@ export class SectionStatusChangeAction implements Action {
   }
 }
 
-// Bitstream actions
+// Upload file actions
 
-export class NewBitstreamAction implements Action {
-  type = SubmissionObjectActionTypes.NEW_BITSTREAM;
+export class NewUploadedFileAction implements Action {
+  type = SubmissionObjectActionTypes.NEW_FILE;
   payload: {
     submissionId: string;
     sectionId: string;
-    bitstreamId: string;
+    fileId: string;
     data: SubmissionUploadFileObject;
   };
 
   /**
-   * Create a new bitstream
+   * Add a new uploaded file
    *
    * @param submissionId
    *    the submission's ID
    * @param sectionId
    *    the section's ID
-   * @param bitstreamId
-   *    the bitstream's ID
+   * @param fileId
+   *    the file's ID
    * @param data
    *    the metadata of the new bitstream
    */
-  constructor(submissionId: string, sectionId: string, bitstreamId: string, data: SubmissionUploadFileObject) {
-    this.payload = { submissionId, sectionId, bitstreamId, data };
+  constructor(submissionId: string, sectionId: string, fileId: string, data: SubmissionUploadFileObject) {
+    this.payload = { submissionId, sectionId, fileId: fileId, data };
   }
 }
 
-export class EditBitstreamAction implements Action {
-  type = SubmissionObjectActionTypes.EDIT_BITSTREAM;
+export class EditFileDataAction implements Action {
+  type = SubmissionObjectActionTypes.EDIT_FILE_DATA;
   payload: {
     submissionId: string;
     sectionId: string;
-    bitstreamId: string;
-    data: SubmissionBitstreamObject;
+    fileId: string;
+    data: SubmissionUploadFileObject;
   };
 
   /**
-   * Edit a bitstream
+   * Edit a file data
    *
    * @param submissionId
    *    the submission's ID
    * @param sectionId
    *    the section's ID
-   * @param bitstreamId
-   *    the bitstream's ID
+   * @param fileId
+   *    the file's ID
    * @param data
    *    the metadata of the new bitstream
    */
-  constructor(submissionId: string, sectionId: string, bitstreamId: string, data: SubmissionBitstreamObject) {
-    this.payload = { submissionId, sectionId, bitstreamId, data};
+  constructor(submissionId: string, sectionId: string, fileId: string, data: SubmissionUploadFileObject) {
+    this.payload = { submissionId, sectionId, fileId: fileId, data};
   }
 }
 
-export class DeleteBitstreamAction implements Action {
-  type = SubmissionObjectActionTypes.DELETE_BITSTREAM;
+export class DeleteUploadedFileAction implements Action {
+  type = SubmissionObjectActionTypes.DELETE_FILE;
   payload: {
     submissionId: string;
     sectionId: string;
-    bitstreamId: string;
+    fileId: string;
   };
 
   /**
-   * Delete a bitstream
+   * Delete a uploaded file
    *
    * @param submissionId
    *    the submission's ID
    * @param sectionId
    *    the section's ID
-   * @param bitstreamId
-   *    the bitstream's ID
+   * @param fileId
+   *    the file's ID
    */
-  constructor(submissionId: string, sectionId: string, bitstreamId: string) {
-    this.payload = { submissionId, sectionId, bitstreamId};
+  constructor(submissionId: string, sectionId: string, fileId: string) {
+    this.payload = { submissionId, sectionId, fileId: fileId};
   }
 }
 
@@ -248,6 +247,6 @@ export type SubmissionObjectAction
   | InitSubmissionFormAction
   | CompleteInitSubmissionFormAction
   | SectionStatusChangeAction
-  | NewBitstreamAction
-  | EditBitstreamAction
-  | DeleteBitstreamAction
+  | NewUploadedFileAction
+  | EditFileDataAction
+  | DeleteUploadedFileAction

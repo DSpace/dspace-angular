@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BitstreamService } from '../../bitstream/bitstream.service';
+import { SectionUploadService } from '../section-upload.service';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../../shared/empty.util';
 import {
   DynamicDateControlModel,
@@ -11,7 +11,7 @@ import {
   BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS,
   BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CLS,
   BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CLS,
-  BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG,
+  BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_HIDDEN_GROUP_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CLS,
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CLS,
@@ -24,10 +24,9 @@ import { SubmissionUploadsConfigService } from '../../../../core/config/submissi
 import { SubmissionUploadsModel } from '../../../../core/shared/config/config-submission-uploads.model';
 import { GroupEpersonService } from '../../../../core/eperson/group-eperson.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { CoreState } from '../../../../core/core.reducers';
-import { Store } from '@ngrx/store';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionRestService } from '../../../submission-rest.service';
+import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 
 @Component({
   selector: 'ds-submission-submit-form-box-files-edit',
@@ -39,40 +38,40 @@ export class FilesEditComponent {
   // ref inside an *ngIf or the output will be null until that part of HTML will be rendered.
   @ViewChild('formRef') formRef: FormComponent;
 
-  @Input() bitstreamId;
-  @Input() bitstreamIndex;
+  @Input() fileId;
+  @Input() fileIndex;
   @Input() sectionId;
   @Input() submissionId;
   @Input() config;
-  public bitstream;
+  public fileData;
   public formId;
   public readMode = true;
   public initialized = false;
   public formModel: DynamicFormControlModel[];
-  public accessConditionOptions;
+  public accessConditionTypeOptions;
   public accessConditionGroups = {};
 
-  protected operationsBuilder: JsonPatchOperationsBuilder;
+  protected pathCombiner: JsonPatchOperationPathCombiner;
   protected subscriptions = [];
 
-  constructor(private modalService: NgbModal,
-              private bitstreamService: BitstreamService,
-              private uploadsConfigService: SubmissionUploadsConfigService,
-              private groupEpersonService: GroupEpersonService,
+  constructor(private groupEpersonService: GroupEpersonService,
               private formService: FormService,
               private formBuilderService: FormBuilderService,
-              protected operationsState: Store<CoreState>,
-              private restService: SubmissionRestService) { }
+              private modalService: NgbModal,
+              private operationsBuilder: JsonPatchOperationsBuilder,
+              private restService: SubmissionRestService,
+              private uploadService: SectionUploadService,
+              private uploadsConfigService: SubmissionUploadsConfigService,) { }
 
   ngOnInit() {
-    this.operationsBuilder = new JsonPatchOperationsBuilder(this.operationsState, 'sections', this.sectionId);
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, this.fileIndex);
     this.subscriptions.push(
-      this.bitstreamService
-        .getBitstream(this.submissionId, this.sectionId, this.bitstreamId)
+      this.uploadService
+        .getFileData(this.submissionId, this.sectionId, this.fileId)
         .take(1)
         .subscribe((bitstream) => {
-            this.bitstream = bitstream;
-            this.formId = 'form_' + this.bitstreamId;
+            this.fileData = bitstream;
+            this.formId = 'form_' + this.fileId;
             this.subscriptions.push(
               this.uploadsConfigService.getConfigByHref(this.config)
                 .flatMap((config) => config.payload)
@@ -92,7 +91,7 @@ export class FilesEditComponent {
     const accessConditionTypeModel = Object.create(BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG);
     const accessConditionsArrayConfig = Object.create(BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG);
     const accessConditionTypeOptions = [];
-    this.accessConditionOptions = config.accessConditionOptions;
+    this.accessConditionTypeOptions = config.accessConditionOptions;
 
     if (config.accessConditionOptions.length > 0) {
       for (const accessPolicy of config.accessConditionOptions) {
@@ -128,8 +127,9 @@ export class FilesEditComponent {
         const type = new DynamicSelectModel(accessConditionTypeModel, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CLS);
         const startDate = new DynamicDatePickerModel(BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CLS);
         const endDate = new DynamicDatePickerModel(BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CLS);
-        const groups    = new DynamicSelectModel(BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CLS);
-        return [type, startDate, endDate, groups];
+        const group = new DynamicInputModel(BITSTREAM_FORM_ACCESS_CONDITION_HIDDEN_GROUP_CONFIG);
+        const groups = new DynamicSelectModel(BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CLS);
+        return [type, startDate, endDate, group, groups];
       };
       formModel.push(
         new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS)
@@ -145,8 +145,8 @@ export class FilesEditComponent {
       // this.formRef.formGroup.controls['files-data'].controls.title.setValue(...);
       // Cannot put the following lines into 'ngOnInit' because 'this.formRef' is available only after the view init.
       // Cannot put the following lines into 'ngAfterViewInit' because of 'ExpressionChangedAfterItHasBeenCheckedError'.
-      this.formRef.formGroup.get('metadata').get('dc_title').setValue(this.bitstream.title);
-      this.formRef.formGroup.get('metadata').get('dc_description').setValue(this.bitstream.description);
+      this.formRef.formGroup.get('metadata').get('dc_title').setValue(this.fileData.title);
+      this.formRef.formGroup.get('metadata').get('dc_description').setValue(this.fileData.description);
     }
   }
 
@@ -156,10 +156,11 @@ export class FilesEditComponent {
   }
 
   public onChange(event: DynamicFormControlEvent) {
-    if (event.model.id === 'type') {
-      const additionalFieldData = this.accessConditionOptions.filter((element) => element.name === event.control.value);
+    if (event.model.id === 'name') {
+      const additionalFieldData = this.accessConditionTypeOptions.filter((element) => element.name === event.control.value);
       if (isNotEmpty(additionalFieldData)) {
         if (isNotUndefined(additionalFieldData[0].groupUUID)) {
+          const hiddenGroupControl = event.group.get('hiddenGroupUUID');
           const groupModel = this.formBuilderService.findById(
             'groupUUID',
             (event.model.parent as DynamicFormArrayGroupModel).group) as DynamicSelectModel<any>;
@@ -171,7 +172,7 @@ export class FilesEditComponent {
             }
           ];
           if (event.control.value !== 'lease' && event.control.value !== 'embargo') {
-            groupModel.value = this.accessConditionGroups[additionalFieldData[0].groupUUID].uuid;
+            hiddenGroupControl.setValue(this.accessConditionGroups[additionalFieldData[0].groupUUID].uuid);
           }
         }
         if (event.control.value === 'lease' || event.control.value === 'embargo') {
@@ -190,13 +191,21 @@ export class FilesEditComponent {
         }
       }
     }
+    const path = this.formBuilderService.getPath(event.model);
+
+    const segmentpath = this.pathCombiner.getPath(this.formBuilderService.getPath(event.model));
+//     const segmentpath = this.formBuilderService.getPathSegment(event.model);
+    console.log('p', path, 's', segmentpath);
   }
 
   public deleteBitstream() {
-    this.bitstreamService.deleteBitstream(this.submissionId, this.sectionId, this.bitstreamId);
-    this.operationsBuilder.remove(this.bitstreamIndex);
-    this.restService.jsonPatchByResourceID(this.submissionId, 'sections',this.sectionId)
-      .subscribe();
+    this.uploadService.deleteBitstream(this.submissionId, this.sectionId, this.fileId);
+    this.operationsBuilder.remove(this.pathCombiner.getPath());
+    this.restService.jsonPatchByResourceID(
+      this.submissionId,
+      this.pathCombiner.rootElement,
+      this.pathCombiner.subRootElement)
+        .subscribe();
   }
 
   public editBitstream() {
@@ -209,37 +218,35 @@ export class FilesEditComponent {
         .take(1)
         .subscribe((isValid) => {
           if (isValid) {
-            this.subscriptions.push(
-              this.formService.getFormData(this.formRef.formUniqueId)
-                .take(1)
-                .subscribe((formData: any) => {
-                  console.log(formData.metadata);
-                  // metadata.get('metadata.dc_title');
-                  const metadatum = [];
-                  Object.keys((formData.metadata))
-                    .forEach((key) => {
-                      metadatum.push({key: key, value: formData.metadata[key]})
-                    });
+            const formData = this.formRef.formGroup.value;
+            const metadatum = [];
+            Object.keys((formData.metadata))
+              .forEach((key) => {
+                metadatum.push({key: key, value: formData.metadata[key]})
+              });
 
-                  const fileData = Object.assign({}, this.bitstream, {
-                    metadata: metadatum,
-                    accessConditions: formData.accessConditions
-                  });
-                  const titlePath = `${this.bitstreamIndex}/metadata/dc.title`;
-                  const descriptionPath = `${this.bitstreamIndex}/metadata/dc.description`;
-                  const accessConditionPath = `${this.bitstreamIndex}/accessConditions`;
-                  /*const accessCondition = [
-                    { name: formData['files-policies'][0].policies,
-                      groupUUID: '3522e898-fe96-45ea-8538-65f1cf9128a8',
-                      endDate: null }];*/
-                  this.operationsBuilder.replace(titlePath, formData.metadata.dc_title);
-                  this.operationsBuilder.replace(descriptionPath, formData.metadata.dc_description);
-                  this.operationsBuilder.add(accessConditionPath, formData.accessConditions);
-                  this.restService.jsonPatchByResourceID(this.submissionId, 'sections',this.sectionId)
-                    .subscribe();
-                  this.bitstreamService.editBitstream(this.submissionId, this.sectionId, this.bitstreamId, fileData);
-                })
-            );
+            const fileData = Object.assign({}, this.fileData, {
+              metadata: metadatum,
+              accessConditions: formData.accessConditions
+            });
+            const titlePath = `metadata/dc.title`;
+            const descriptionPath = `metadata/dc.description`;
+            const accessConditionPath = `accessConditions`;
+            /*const accessCondition = [
+              { name: formData['files-policies'][0].policies,
+                groupUUID: '3522e898-fe96-45ea-8538-65f1cf9128a8',
+                endDate: null }];*/
+            this.operationsBuilder.replace(this.pathCombiner.getPath(titlePath), formData.metadata.dc_title);
+            this.operationsBuilder.replace(this.pathCombiner.getPath(descriptionPath), formData.metadata.dc_description);
+            this.operationsBuilder.add(this.pathCombiner.getPath(accessConditionPath), formData.accessConditions);
+            this.restService.jsonPatchByResourceID(
+              this.submissionId,
+              this.pathCombiner.rootElement,
+              this.pathCombiner.subRootElement)
+              .subscribe();
+            this.uploadService.editBitstream(this.submissionId, this.sectionId, this.fileId, fileData);
+
+
           } else {
             this.formService.validateAllFormFields(this.formRef.formRef.control);
           }

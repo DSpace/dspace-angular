@@ -43,6 +43,7 @@ import { SubmissionFormsConfigService } from './config/submission-forms-config.s
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
 import { SubmitDataResponseParsingService } from './data/submit-data-response-parsing.service';
 import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
+import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 
 const IMPORTS = [
   CommonModule,
@@ -87,6 +88,7 @@ const PROVIDERS = [
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
   SubmitDataResponseParsingService,
+  JsonPatchOperationsBuilder,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

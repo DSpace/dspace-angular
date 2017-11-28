@@ -15,6 +15,7 @@ import { hasValue } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { CoreState } from '../../../core/core.reducers';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -26,23 +27,22 @@ export class FormSectionComponent extends SectionModelComponent {
   public formId;
   public formModel: DynamicFormControlModel[];
   public isLoading = true;
+  public formRef: FormComponent;
 
-  protected operationsBuilder: JsonPatchOperationsBuilder;
+  protected pathCombiner: JsonPatchOperationPathCombiner;
 
   @ViewChildren('formRef') private forms: QueryList<FormComponent>;
 
-  public formRef: FormComponent;
-
-  constructor(private formBuilderService: FormBuilderService,
-              private formService: FormService,
-              private formConfigService: SubmissionFormsConfigService,
-              protected operationsState: Store<CoreState>,
-              private store:Store<SubmissionState>) {
+  constructor(protected formBuilderService: FormBuilderService,
+              protected formService: FormService,
+              protected formConfigService: SubmissionFormsConfigService,
+              protected operationsBuilder: JsonPatchOperationsBuilder,
+              protected store: Store<SubmissionState>) {
     super();
   }
 
   ngOnInit() {
-    this.operationsBuilder = new JsonPatchOperationsBuilder(this.operationsState, 'sections', this.sectionData.id);
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.formConfigService.getConfigByHref(this.sectionData.config)
       .flatMap((config: ConfigData) => config.payload)
       .subscribe((config) => {
@@ -70,7 +70,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   onChange(event: DynamicFormControlEvent) {
     this.operationsBuilder.replace(
-      this.formBuilderService.getFieldPathFromChangeEvent(event),
+      this.pathCombiner.getPath(this.formBuilderService.getFieldPathFromChangeEvent(event)),
       this.formBuilderService.getFieldValueFromChangeEvent(event));
   }
 

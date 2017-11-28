@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SectionService } from '../../section/section.service';
-import { BitstreamService } from '../../section/bitstream/bitstream.service';
+import { SectionUploadService } from '../../section/upload/section-upload.service';
 import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload-files-component-options.model';
 import { hasValue } from '../../../shared/empty.util';
 
@@ -18,7 +18,7 @@ export class SubmissionUploadFilesComponent {
 
   private subscriptions = [];
 
-  constructor(private bitstreamService: BitstreamService,
+  constructor(private bitstreamService: SectionUploadService,
               private sectionService: SectionService) { }
 
   public onCompleteItem(itemData) {

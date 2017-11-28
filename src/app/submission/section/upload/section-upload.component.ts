@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SectionModelComponent } from '../section.model';
 import {hasValue, isNotEmpty, isNotUndefined} from '../../../shared/empty.util';
-import { BitstreamService } from '../bitstream/bitstream.service';
+import { SectionUploadService } from './section-upload.service';
 import { SectionStatusChangeAction } from '../../objects/submission-objects.actions';
 import { SubmissionState } from '../../submission.reducers';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -25,13 +25,11 @@ export class FilesSectionComponent extends SectionModelComponent {
   // To be defined somewhere
   public collectionPoliciesMessageType = 2;
 
-  protected operationsBuilder: JsonPatchOperationsBuilder;
   protected subs = [];
 
-  constructor(private bitstreamService: BitstreamService,
+  constructor(private bitstreamService: SectionUploadService,
               private collectionDataService: CollectionDataService,
               private groupService: GroupEpersonService,
-              protected operationsState: Store<CoreState>,
               private store:Store<SubmissionState>) {
     super();
   }
@@ -52,7 +50,7 @@ export class FilesSectionComponent extends SectionModelComponent {
           }
         ),
       this.bitstreamService
-      .getBitstreamList(this.sectionData.submissionId, this.sectionData.id)
+      .getUploadedFileList(this.sectionData.submissionId, this.sectionData.id)
       .subscribe((bitstreamList) => {
           let sectionStatus = false;
           this.bitstreamsList = bitstreamList;
