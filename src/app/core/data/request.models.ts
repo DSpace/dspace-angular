@@ -6,6 +6,7 @@ import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RootResponseParsingService } from './root-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
+import { ConfigResponseParsingService } from './config-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 export class RestRequest {
@@ -61,6 +62,16 @@ export class BrowseEndpointRequest extends RestRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return BrowseResponseParsingService;
+  }
+}
+
+export class ConfigRequest extends RestRequest {
+  constructor(href: string) {
+    super(href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return ConfigResponseParsingService;
   }
 }
 
