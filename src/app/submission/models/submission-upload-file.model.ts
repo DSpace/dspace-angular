@@ -10,5 +10,6 @@ export class SubmissionUploadFileObject {
     value: string;
   };
   url: string;
+  thumbnail: string;
   accessConditions: SubmissionUploadFileAccessConditionObject[];
 }

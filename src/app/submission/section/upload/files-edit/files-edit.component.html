@@ -1,6 +1,7 @@
 <div [hidden]="!readMode">
   <div class="float-right w-15">
     <h3 class="text-right">
+      <a href="{{fileData.url}}"  title="Download file" target="_blank"><i class="fa fa-download text-normal mr-3" aria-hidden="true"></i></a>
       <a href="#" (click)="$event.preventDefault();switchMode(false);" title="Edit metadata"><i class="fa fa-pencil-square-o text-normal mr-3"></i></a>
       <a href="#" (click)="$event.preventDefault();openModal(content);" title="Delete bitstream"><i class="fa fa-trash text-danger"></i></a>
     </h3>
