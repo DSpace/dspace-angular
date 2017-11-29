@@ -15,6 +15,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ],{ enableTracing: true })
   ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
 

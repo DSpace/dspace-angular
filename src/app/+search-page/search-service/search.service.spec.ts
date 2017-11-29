@@ -3,11 +3,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { SearchService } from './search.service';
 import { ItemDataService } from './../../core/data/item-data.service';
 import { ViewMode } from '../../+search-page/search-options.model';
+import { RouteService } from '../../shared/route.service';
 
 @Component({ template: '' })
 class DummyComponent { }
@@ -28,6 +28,7 @@ describe('SearchService', () => {
       ],
       providers: [
         { provide: ItemDataService, useValue: {} },
+        { provide: RouteService, useValue: {} },
         SearchService
       ],
     });

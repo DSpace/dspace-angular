@@ -1,0 +1,12 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/mixins.scss';
+
+:host {
+    border: 1px solid map-get($theme-colors, light);
+    .search-filter-wrapper {
+        overflow: hidden;
+    }
+    .filter-toggle {
+        line-height: $line-height-base;
+    }
+}

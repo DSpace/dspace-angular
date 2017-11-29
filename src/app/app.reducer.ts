@@ -8,6 +8,10 @@ import {
   SearchSidebarState,
   sidebarReducer
 } from './+search-page/search-sidebar/search-sidebar.reducer';
+import {
+  filterReducer,
+  SearchFiltersState
+} from './+search-page/search-filters/search-filter/search-filter.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -15,6 +19,7 @@ export interface AppState {
   header: HeaderState;
   forms: FormState;
   searchSidebar: SearchSidebarState;
+  searchFilter: SearchFiltersState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -23,4 +28,5 @@ export const appReducers: ActionReducerMap<AppState> = {
   header: headerReducer,
   forms: formReducer,
   searchSidebar: sidebarReducer,
+  searchFilter: filterReducer
 };

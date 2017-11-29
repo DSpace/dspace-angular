@@ -5,6 +5,7 @@ export class SearchFilterConfig {
   name: string;
   type: FilterType;
   hasFacets: boolean;
+  pageSize = 5;
   isOpenByDefault: boolean;
   /**
    * Name of this configuration that can be used in a url
