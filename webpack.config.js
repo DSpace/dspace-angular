@@ -4,11 +4,9 @@ const clientPartial = require('./webpack/webpack.client');
 const serverPartial = require('./webpack/webpack.server');
 const prodPartial = require('./webpack/webpack.prod');
 
-const {
-  getAotPlugin
-} = require('./webpack/webpack.aot');
+const getAotPlugin = require('./webpack/webpack.aot').getAotPlugin;
 
-module.exports = function(options, webpackOptions) {
+module.exports = function (options, webpackOptions) {
   options = options || {};
 
   if (options.aot) {
@@ -19,7 +17,6 @@ module.exports = function(options, webpackOptions) {
     plugins: [
       getAotPlugin('server', !!options.aot)
     ]
-
   });
 
   let clientConfig = webpackMerge({}, commonPartial, clientPartial, {
@@ -42,6 +39,6 @@ module.exports = function(options, webpackOptions) {
   } else if (options.server) {
     configs.push(serverConfig);
   }
-
+  
   return configs;
-}
+};

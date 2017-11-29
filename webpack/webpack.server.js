@@ -10,6 +10,9 @@ module.exports = {
     filename: 'server.js'
   },
   target: 'node',
+  watchOptions: {
+    ignored: [/node_modules/, /dist/]
+  },
   externals: [nodeExternals({
     whitelist: [
       /@angular/,

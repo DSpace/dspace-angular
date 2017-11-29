@@ -14,16 +14,12 @@ export class SubmissionService {
 
   getSectionsEnabled(submissionId: string): Observable<any> {
     return this.store.select(submissionSelector)
-      .map((submissions: SubmissionState) => {
-        return submissions.objects[ submissionId ]
-      });
+      .map((submissions: SubmissionState) => submissions.objects[ submissionId ]);
   }
 
   getSectionsState(submissionId: string): Observable<boolean> {
     return this.getSectionsEnabled(submissionId)
-      .filter((item) => {
-        return isNotUndefined(item)
-      })
+      .filter((item) => isNotUndefined(item))
       .map((item) => item.sections)
       .map((sections) => {
         const states = [];
@@ -35,9 +31,7 @@ export class SubmissionService {
             states.push(sections[ property ].isValid)
           });
 
-        const isValid = !isEmpty(sections) && isEmpty(states);
-
-        return isValid;
+        return !isEmpty(sections) && isEmpty(states);
       })
       .distinctUntilChanged()
       .startWith(false)
