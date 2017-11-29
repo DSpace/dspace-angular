@@ -1,9 +1,9 @@
-<div class="row">
+<div class="row" *ngIf="!!submissionId">
   <div class="col-6">
     <button type="button" class="btn btn-secondary">Discard</button>
   </div>
   <div class="col text-right">
     <button type="button" class="btn btn-secondary" (click)="onSave()">Save for later</button>
-    <button type="button" class="btn btn-primary" [disabled]="submissionValid" (click)="onDeposit()">Deposit</button>
+    <button type="button" class="btn btn-primary" [disabled]="submissionIsInvalid" (click)="onDeposit()">Deposit</button>
   </div>
 </div>

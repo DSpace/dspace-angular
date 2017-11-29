@@ -7,21 +7,21 @@ import { SubmissionService } from '../../submission.service';
   styleUrls: [ './submission-submit-form-footer.component.scss' ],
   templateUrl: './submission-submit-form-footer.component.html'
 })
-
 export class SubmissionSubmitFormFooterComponent implements OnChanges {
 
   @Input() submissionId;
 
-  public submissionValid = false;
+  private submissionIsInvalid = true;
 
-  constructor(private restService: SubmissionRestService, private submissionService: SubmissionService) {
+  constructor(private restService: SubmissionRestService,
+              private submissionService: SubmissionService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!!this.submissionId) {
       this.submissionService.getSectionsState(this.submissionId)
-        .subscribe((state) => {
-          this.submissionValid = state;
+        .subscribe((isValid) => {
+          this.submissionIsInvalid = isValid === false;
         });
     }
   }

@@ -27,6 +27,7 @@ export class SubmissionService {
       .map((item) => item.sections)
       .map((sections) => {
         const states = [];
+
         Object.keys(sections)
           .filter((property) => sections.hasOwnProperty(property))
           .filter((property) => sections[ property ].isValid === false)
@@ -34,7 +35,9 @@ export class SubmissionService {
             states.push(sections[ property ].isValid)
           });
 
-        return !isEmpty(states)
+        const isValid = !isEmpty(sections) && isEmpty(states);
+
+        return isValid;
       })
       .distinctUntilChanged()
       .startWith(false)
