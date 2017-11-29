@@ -6,12 +6,19 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RemoteData } from './remote-data';
-import { FindAllOptions, FindAllRequest, FindByIDRequest, RestRequest } from './request.models';
-import { RequestService } from './request.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { RemoteData } from './remote-data';
+import {
+  FindAllOptions,
+  FindAllRequest,
+  FindByIDRequest,
+  RestRequest,
+  RestRequestMethod
+} from './request.models';
+import { RequestService } from './request.service';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> extends HALEndpointService {
   protected abstract responseCache: ResponseCacheService;
@@ -102,4 +109,20 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 
+  create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
+    const postHrefObs = this.getEndpoint();
+
+    // TODO ID is unknown at this point
+    const idHrefObs = postHrefObs.map((href: string) => this.getFindByIDHref(href, dso.id));
+
+    postHrefObs
+      .filter((href: string) => hasValue(href))
+      .take(1)
+      .subscribe((href: string) => {
+        const request = new RestRequest(href, RestRequestMethod.Post, dso);
+        this.requestService.configure(request);
+      });
+
+    return this.rdbService.buildSingle<TNormalized, TDomain>(idHrefObs, this.normalizedResourceType);
+  }
 }

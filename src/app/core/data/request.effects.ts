@@ -1,18 +1,23 @@
 import { Inject, Injectable, Injector } from '@angular/core';
+import { Request } from '@angular/http';
+import { RequestArgs } from '@angular/http/src/interfaces';
 import { Actions, Effect } from '@ngrx/effects';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { isNotEmpty } from '../../shared/empty.util';
 import { ErrorResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { RequestActionTypes, RequestCompleteAction, RequestExecuteAction } from './request.actions';
-import { RequestError } from './request.models';
+import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 
 @Injectable()
 export class RequestEffects {
@@ -23,15 +28,24 @@ export class RequestEffects {
       return this.requestService.get(action.payload)
         .take(1);
     })
-    .flatMap((entry: RequestEntry) => {
-      return this.restApi.get(entry.request.href)
+    .map((entry: RequestEntry) => entry.request)
+    .flatMap((request: RestRequest) => {
+      const httpRequestConfig: RequestArgs = {
+        method: request.method,
+        url: request.href
+      };
+      if (isNotEmpty(request.body)) {
+        const serializer = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(request.body.type));
+        httpRequestConfig.body = JSON.stringify(serializer.serialize(request.body));
+      }
+      return this.restApi.request(new Request(httpRequestConfig))
         .map((data: DSpaceRESTV2Response) =>
-          this.injector.get(entry.request.getResponseParser()).parse(entry.request, data))
-        .do((response: RestResponse) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
-        .map((response: RestResponse) => new RequestCompleteAction(entry.request.href))
+          this.injector.get(request.getResponseParser()).parse(request, data))
+        .do((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive))
+        .map((response: RestResponse) => new RequestCompleteAction(request.href))
         .catch((error: RequestError) => Observable.of(new ErrorResponse(error))
-          .do((response: RestResponse) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
-          .map((response: RestResponse) => new RequestCompleteAction(entry.request.href)));
+          .do((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive))
+          .map((response: RestResponse) => new RequestCompleteAction(request.href)));
     });
 
   constructor(
