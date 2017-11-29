@@ -11,7 +11,6 @@ export interface SubmissionState {
 export const submissionReducers: ActionReducerMap<SubmissionState> = {
   definitions: submissionDefinitionReducer,
   objects: submissionObjectReducer,
-
 };
 
 export const submissionSelector = createFeatureSelector<SubmissionState>('submission');

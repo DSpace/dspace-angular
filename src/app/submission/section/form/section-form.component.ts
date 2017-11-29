@@ -10,16 +10,14 @@ import { SectionStatusChangeAction } from '../../objects/submission-objects.acti
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { hasValue } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
-import { CoreState } from '../../../core/core.reducers';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 
 @Component({
   selector: 'ds-submission-section-form',
-  styleUrls: ['./section-form.component.scss'],
+  styleUrls: [ './section-form.component.scss' ],
   templateUrl: './section-form.component.html',
 })
 export class FormSectionComponent extends SectionModelComponent {
@@ -53,7 +51,7 @@ export class FormSectionComponent extends SectionModelComponent {
   }
 
   ngAfterViewInit() {
-    this.forms.changes.subscribe((comps: QueryList <FormComponent>) => {
+    this.forms.changes.subscribe((comps: QueryList<FormComponent>) => {
       this.formRef = comps.first;
       if (hasValue(this.formRef)) {
         this.formService.isValid(this.formRef.getFormUniqueId())
@@ -66,13 +64,9 @@ export class FormSectionComponent extends SectionModelComponent {
     });
   }
 
-  onBlur(event) {}
-
   onChange(event: DynamicFormControlEvent) {
     this.operationsBuilder.replace(
       this.pathCombiner.getPath(this.formBuilderService.getFieldPathFromChangeEvent(event)),
       this.formBuilderService.getFieldValueFromChangeEvent(event));
   }
-
-  onFocus(event) {}
 }
