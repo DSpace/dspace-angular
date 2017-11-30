@@ -12,6 +12,8 @@ import { SearchService } from './search-service/search.service';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
+import { SortOptions } from '../core/cache/models/sort-options.model';
 
 /**
  * This component renders a simple item page.
@@ -58,7 +60,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     pagination.pageSize = 10;
 
     const sort: SortOptions = new SortOptions();
-    this.sortConfig=sort;
+    this.sortConfig = sort;
     this.searchOptions = this.service.searchOptions;
   }
 
@@ -80,7 +82,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
             // pageSize = 9;
             // pageSizeOptions = [9, 18, 27, 36 , 45, 54, 63, 72];
           }
-
 
           const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
           const pagination = Object.assign({},
