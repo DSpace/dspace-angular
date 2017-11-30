@@ -10,7 +10,7 @@ import { NormalizedCollection } from '../core/cache/models/normalized-collection
 import { NormalizedCommunity } from '../core/cache/models/normalized-community.model';
 import { NormalizedItem } from '../core/cache/models/normalized-item.model';
 import { NormalizedLicense } from '../core/cache/models/normalized-license.model';
-import { NormalizedWorkspaceItem } from '../core/cache/models/normalized-workspaceitem.model';
+import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 import { NormalizedObject } from '../core/cache/models/normalized-object.model';
 import { ConfigObject } from '../core/shared/config/config.model';
 import { SubmissionResourceType } from './submission-resource-type';

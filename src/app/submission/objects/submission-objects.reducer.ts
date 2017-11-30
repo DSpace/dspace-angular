@@ -10,7 +10,7 @@ import {
   SubmissionObjectActionTypes
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
-import { SubmissionUploadFileObject } from '../models/submission-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
 
 export interface SubmissionSectionObject {
   sectionViewIndex: number;
@@ -35,7 +35,7 @@ export interface SubmissionCollectionObject {
 }
 
 export interface SubmissionUploadFileEntry {
-  [uuid: string]: SubmissionUploadFileObject
+  [uuid: string]: WorkspaceitemSectionUploadFileObject
 }
 
 export interface SubmissionPolicyEntry {
@@ -166,7 +166,7 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
         sections: Object.assign({}, state[action.payload.submissionId].sections, {
           [action.payload.sectionId]: {
             sectionViewIndex: action.payload.sectionViewIndex,
-            data: Object.create(null),
+            data: action.payload.data,
             isValid: false
           }
         }),

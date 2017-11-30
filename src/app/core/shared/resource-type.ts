@@ -11,5 +11,4 @@ export enum ResourceType {
   Community = 'community',
   ResourcePolicy = 'resourcePolicy',
   License = 'license',
-  WorkspaceItem = 'workspaceitem',
 }
