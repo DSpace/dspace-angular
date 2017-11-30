@@ -10,5 +10,6 @@ export class WorkspaceitemSectionUploadFileObject {
     value: string;
   };
   url: string;
+  thumbnail: string;
   accessConditions: SubmissionUploadFileAccessConditionObject[];
 }
