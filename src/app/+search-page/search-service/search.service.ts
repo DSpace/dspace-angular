@@ -15,7 +15,6 @@ import { FacetValue } from './facet-value.model';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { RouteService } from '../../shared/route.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
