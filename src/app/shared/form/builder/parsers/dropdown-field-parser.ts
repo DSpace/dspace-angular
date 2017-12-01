@@ -1,5 +1,5 @@
 import { FieldParser } from './field-parser';
-import { ClsConfig, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
+import { ClsConfig, DynamicFormGroupModel, DynamicInputModel, DynamicInputModelConfig } from '@ng-dynamic-forms/core';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig, DynamicScrollableDropdownResponseModel
@@ -9,7 +9,7 @@ import { AuthorityOptions } from '../models/authority-options.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { Observable } from 'rxjs/Observable';
 import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
-import { hasValue, isUndefined } from '../../../empty.util';
+import { hasValue, isNotEmpty, isUndefined } from '../../../empty.util';
 import { ConfigData } from '../../../../core/config/config-data';
 import { GlobalConfig } from '../../../../../config/global-config.interface';
 import { RESTURLCombiner } from '../../../../core/url-combiner/rest-url-combiner';
@@ -27,30 +27,38 @@ export class DropdownFieldParser extends FieldParser {
     const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.initModel();
     let cls: ClsConfig;
 
-    dropdownModelConfig.retrieve = this.getPagedAuthorityFn(
-      this.getAuthorityOptionsObj(
-        this.authorityUuid,
-        this.configData.selectableMetadata[0].authority,
-        this.configData.selectableMetadata[0].metadata)
-    );
-    cls = {
-      element: {
-        control: 'col'
-      },
-      grid: {
-        host: 'col'
-      }
-    };
-    const dropdownGroup: DynamicFormGroupModel = Object.create(null);
-    dropdownGroup.id = dropdownModelConfig.id + '_group';
-    dropdownGroup.group = [new DynamicScrollableDropdownModel(dropdownModelConfig, cls)];
-    dropdownGroup.group[0].name = this.fieldId;
-    cls = {
-      element: {
-        control: 'form-row'
-      }
-    };
-    return new DynamicFormGroupModel(dropdownGroup, cls);
+    if (isNotEmpty(this.configData.selectableMetadata[0].authority)) {
+      dropdownModelConfig.retrieve = this.getPagedAuthorityFn(
+        this.getAuthorityOptionsObj(
+          this.authorityUuid,
+          this.configData.selectableMetadata[0].authority,
+          this.configData.selectableMetadata[0].metadata)
+      );
+      cls = {
+        element: {
+          control: 'col'
+        },
+        grid: {
+          host: 'col'
+        }
+      };
+      const dropdownGroup: DynamicFormGroupModel = Object.create(null);
+      dropdownGroup.id = dropdownModelConfig.id + '_group';
+      dropdownGroup.group = [new DynamicScrollableDropdownModel(dropdownModelConfig, cls)];
+      dropdownGroup.group[0].name = this.fieldId;
+      cls = {
+        element: {
+          control: 'form-row'
+        }
+      };
+      return new DynamicFormGroupModel(dropdownGroup, cls);
+    } else {
+      // throw  Error(`Authority name is not available. Please checks form configuration file.`);
+      const inputModelConfig: DynamicInputModelConfig = this.initModel();
+      const inputModel = new DynamicInputModel(inputModelConfig);
+      inputModel.name = this.fieldId;
+      return inputModel;
+    }
   }
 
   // @TODO To refactor when service for retrieving authority will be available
