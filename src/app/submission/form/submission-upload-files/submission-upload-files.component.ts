@@ -28,6 +28,7 @@ export class SubmissionUploadFilesComponent {
           if (!isSectionLoaded) {
             this.sectionService.addSection(this.collectionId, this.submissionId, this.definitionId, this.sectionId)
           }
+
           this.bitstreamService.setNewBitstream(
             this.submissionId,
             this.sectionId,
@@ -40,7 +41,8 @@ export class SubmissionUploadFilesComponent {
                 checkSumAlgorithm: itemData.checkSum.checkSumAlgorithm,
                 value: itemData.checkSum.value,
               },
-              url: null,
+              url: itemData.url,
+              thumbnail: null,
               accessConditions: []
             }
           )

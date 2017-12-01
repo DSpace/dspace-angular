@@ -19,6 +19,10 @@ import { SubmissionDefinitionsConfigService } from '../../core/config/submission
 import { SubmissionSectionsConfigService } from '../../core/config/submission-sections-config.service';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import { SectionDataObject } from './section-data.model';
+import { WorkspaceitemSectionFormObject } from '../models/workspaceitem-section-form.model';
+import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionLicenseObject } from '../models/workspaceitem-section-license.model';
+import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 
 @Injectable()
 export class SectionService {
@@ -93,7 +97,10 @@ export class SectionService {
       .distinctUntilChanged();
   }
 
-  public loadDefaultSections(collectionId: string, submissionId: string, definitionId: string) {
+  public loadDefaultSections(collectionId: string,
+                             submissionId: string,
+                             definitionId: string,
+                             sections: WorkspaceitemSectionsObject) {
     this.store.select(submissionDefinitionFromIdSelector(definitionId))
       .distinctUntilChanged()
       .filter((state) => !isUndefined(state.sections))
@@ -102,7 +109,8 @@ export class SectionService {
           .filter((sectionId) => state.sections[sectionId].mandatory)
           .filter((sectionId) => !this.isSectionHidden(state.sections[sectionId]))
           .map((sectionId) => {
-            this.loadSection(collectionId, submissionId, definitionId, sectionId);
+            const sectionData = (isNotUndefined(sections) && isNotUndefined(sections[sectionId])) ? sections[sectionId] : Object.create(null);
+            this.loadSection(collectionId, submissionId, definitionId, sectionId, sectionData);
           })
       })
   }
@@ -114,7 +122,11 @@ export class SectionService {
 
   }
 
-  private loadSection(collectionId: string, submissionId: string, definitionId: string, sectionId: string) {
+  private loadSection(collectionId: string,
+                      submissionId: string,
+                      definitionId: string,
+                      sectionId: string,
+                      data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadFileObject | WorkspaceitemSectionLicenseObject) {
     let sectionObject: SubmissionSectionModel = Object.create(null);
     this.getSectionDefinition(definitionId, sectionId)
       .subscribe((sectionObj: SubmissionSectionModel) => {
@@ -122,11 +134,11 @@ export class SectionService {
       });
     const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, sectionObject, this.viewContainerRef);
     const viewIndex = this.viewContainerRef.indexOf(componentRef.hostView);
-    this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex));
+    this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex, data));
   }
 
   public addSection(collectionId, submissionId, definitionId, sectionId) {
-    this.loadSection(collectionId, submissionId, definitionId, sectionId);
+    this.loadSection(collectionId, submissionId, definitionId, sectionId, null);
   }
 
   public removeSection(submissionId, sectionId) {

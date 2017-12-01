@@ -8,6 +8,7 @@ import {
   InertSectionErrorAction
 } from '../../objects/submission-objects.actions';
 import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 
 @Component({
   selector: 'ds-submission-submit-form-footer',
@@ -34,9 +35,9 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
     }
   }
 
-  getSectionsState() {
+  /*getSectionsState() {
     return this.submissionService.getSectionsState(this.submissionId);
-  }
+  }*/
 
   saveLater() {
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')

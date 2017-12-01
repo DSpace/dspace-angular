@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
+import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -25,6 +26,7 @@ export class InitDefaultDefinitionAction implements Action {
   type = SubmissionDefinitionActionTypes.INIT_DEFAULT_DEFINITION;
   payload: {
     collectionId: string;
+    sections: WorkspaceitemSectionsObject;
     submissionId: string;
   };
 
@@ -36,8 +38,8 @@ export class InitDefaultDefinitionAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(collectionId: string, submissionId: string) {
-    this.payload = { collectionId, submissionId };
+  constructor(collectionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, submissionId, sections };
   }
 }
 
@@ -46,6 +48,7 @@ export class CompleteInitAction implements Action {
   payload: {
     collectionId: string;
     definitionId: string;
+    sections: WorkspaceitemSectionsObject;
     submissionId: string;
   };
 
@@ -59,8 +62,8 @@ export class CompleteInitAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(collectionId: string, definitionId: string, submissionId: string) {
-    this.payload = { collectionId, definitionId, submissionId };
+  constructor(collectionId: string, definitionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, definitionId, submissionId, sections };
   }
 }
 

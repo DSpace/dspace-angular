@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SubmissionRestService } from '../submission-rest.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { NormalizedWorkspaceItem } from '../../core/cache/models/normalized-workspaceitem.model';
+import { NormalizedWorkspaceItem } from '../models/normalized-workspaceitem.model';
 import { Store } from '@ngrx/store';
 import { SubmissionState } from '../submission.reducers';
 

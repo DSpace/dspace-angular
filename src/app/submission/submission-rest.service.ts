@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
-import { HALEndpointService } from '../core/shared/hal-endpoint.service';
+
 import { ResponseCacheService } from '../core/cache/response-cache.service';
 import { RequestService } from '../core/data/request.service';
 import { GlobalConfig } from '../../config/global-config.interface';
@@ -11,7 +10,10 @@ import {
   SubmitDataSuccessResponse
 } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
-import { ConfigRequest, HttpPostRequest, RestRequest } from '../core/data/request.models';
+import {
+  ConfigRequest, FindAllOptions, HttpPostRequest, RestRequest,
+  SubmissionRequest
+} from '../core/data/request.models';
 import { SubmitDataResponseDefinitionObject } from '../core/shared/submit-data-response-definition.model';
 import { GLOBAL_CONFIG } from '../../config';
 import { PostPatchRestService } from '../core/json-patch/json-patch.service';
@@ -43,11 +45,26 @@ export class SubmissionRestService extends PostPatchRestService<SubmitDataRespon
         .distinctUntilChanged());
   }
 
+  protected getConfigByIdHref(endpoint, resourceName): string {
+    return `${endpoint}/${resourceName}`;
+  }
+
   public getDataByHref(href: string): Observable<any> {
     const request = new ConfigRequest(href);
     this.requestService.configure(request);
 
     return this.getData(request);
+  }
+
+  public getDataById(id: string): Observable<any> {
+    return this.getEndpoint()
+      .map((endpoint: string) => this.getConfigByIdHref(endpoint, id))
+      .filter((href: string) => isNotEmpty(href))
+      .distinctUntilChanged()
+      .map((endpointURL: string) => new SubmissionRequest(endpointURL))
+      .do((request: RestRequest) => this.requestService.configure(request))
+      .flatMap((request: RestRequest) => this.getData(request))
+      .distinctUntilChanged();
   }
 
 }

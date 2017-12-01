@@ -1,8 +1,11 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { SubmissionUploadFileObject } from '../models/submission-upload-file.model';
 import { SubmissionError } from './submission-objects.reducer';
+import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionFormObject } from '../models/workspaceitem-section-form.model';
+import { WorkspaceitemSectionLicenseObject } from '../models/workspaceitem-section-license.model';
+import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -100,6 +103,7 @@ export class EnableSectionAction implements Action {
     submissionId: string;
     sectionId: string;
     sectionViewIndex: number;
+    data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadFileObject | WorkspaceitemSectionLicenseObject
   };
 
   /**
@@ -112,8 +116,8 @@ export class EnableSectionAction implements Action {
    * @param sectionViewIndex
    *    the section's index in the view container
    */
-  constructor(submissionId: string, sectionId: string, sectionViewIndex: number) {
-    this.payload = { submissionId, sectionId, sectionViewIndex };
+  constructor(submissionId: string, sectionId: string, sectionViewIndex: number, data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadFileObject | WorkspaceitemSectionLicenseObject) {
+    this.payload = { submissionId, sectionId, sectionViewIndex, data };
   }
 }
 
@@ -143,6 +147,7 @@ export class InitSubmissionFormAction implements Action {
     collectionId: string;
     definitionId: string;
     submissionId: string;
+    sections: WorkspaceitemSectionsObject;
   };
 
   /**
@@ -155,8 +160,8 @@ export class InitSubmissionFormAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(collectionId: string, definitionId: string, submissionId: string) {
-    this.payload = { collectionId, definitionId, submissionId };
+  constructor(collectionId: string, definitionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, definitionId, submissionId, sections };
   }
 }
 
@@ -182,6 +187,7 @@ export class NewSubmissionFormAction implements Action {
   payload: {
     collectionId: string;
     submissionId: string;
+    sections: WorkspaceitemSectionsObject;
   };
 
   /**
@@ -192,8 +198,8 @@ export class NewSubmissionFormAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(collectionId: string, submissionId: string) {
-    this.payload = { collectionId, submissionId };
+  constructor(collectionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, submissionId, sections };
   }
 }
 
@@ -228,7 +234,7 @@ export class NewUploadedFileAction implements Action {
     submissionId: string;
     sectionId: string;
     fileId: string;
-    data: SubmissionUploadFileObject;
+    data: WorkspaceitemSectionUploadFileObject;
   };
 
   /**
@@ -243,7 +249,7 @@ export class NewUploadedFileAction implements Action {
    * @param data
    *    the metadata of the new bitstream
    */
-  constructor(submissionId: string, sectionId: string, fileId: string, data: SubmissionUploadFileObject) {
+  constructor(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
     this.payload = { submissionId, sectionId, fileId: fileId, data };
   }
 }
@@ -254,7 +260,7 @@ export class EditFileDataAction implements Action {
     submissionId: string;
     sectionId: string;
     fileId: string;
-    data: SubmissionUploadFileObject;
+    data: WorkspaceitemSectionUploadFileObject;
   };
 
   /**
@@ -269,8 +275,8 @@ export class EditFileDataAction implements Action {
    * @param data
    *    the metadata of the new bitstream
    */
-  constructor(submissionId: string, sectionId: string, fileId: string, data: SubmissionUploadFileObject) {
-    this.payload = { submissionId, sectionId, fileId: fileId, data };
+  constructor(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
+    this.payload = { submissionId, sectionId, fileId: fileId, data};
   }
 }
 

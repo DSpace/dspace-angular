@@ -24,11 +24,12 @@
   <ng-container *ngFor="let bitstreamKey of bitstreamsKeys">
     <div class="row">
       <div class="col-md-2">
-        <ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].url | async"></ds-thumbnail>
+        <!--ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].url | async"></ds-thumbnail-->
+        <ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].thumbnail"></ds-thumbnail>
       </div>
       <div class="col-md-10">
         <div class="float-left w-75">
-          <h3>{{bitstreamsList[bitstreamKey].name}} <span class="text-muted">({{bitstreamsList[bitstreamKey].size | dsFileSize}})</span></h3>
+          <h3>{{bitstreamsList[bitstreamKey].name}} <span class="text-muted">({{bitstreamsList[bitstreamKey].sizeBytes | dsFileSize}})</span></h3>
         </div>
         <ds-submission-submit-form-box-files-edit [sectionId]="sectionData.id" [submissionId]="sectionData.submissionId" [fileId]="bitstreamKey" [config]="sectionData.config" [fileIndex]="bitstreamsKeys.indexOf(bitstreamKey)"></ds-submission-submit-form-box-files-edit>
       </div>

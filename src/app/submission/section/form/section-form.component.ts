@@ -79,8 +79,9 @@ export class FormSectionComponent extends SectionModelComponent {
 
               errors.forEach((errorItem: SubmissionError) => {
                 const error = parseSectionErrorPaths(errorItem.path);
-
-                console.log(error, this.formRef);
+                const { formId, formGroup } = this.formRef;
+                
+                this.formBuilderService.getFormControlById(formId, formGroup, this.formModel);
               });
             }
           })

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormArrayGroupModel,
   DynamicFormArrayModel, DynamicFormControlEvent,
-  DynamicFormControlModel, DynamicFormService, DynamicFormValidationService,
+  DynamicFormControlModel, DynamicFormGroupModel, DynamicFormService, DynamicFormValidationService,
   Utils
 } from '@ng-dynamic-forms/core';
 
@@ -17,9 +17,9 @@ import { NameFieldParser } from './parsers/name-field-parser';
 import { TwoboxFieldParser } from './parsers/twobox-field-parser';
 import { LookupFieldParser } from './parsers/lookup-field-parser';
 import { AuthorityOptions } from './models/authority-options.model';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { isNotNull, isNull } from '../../empty.util';
+import { isNotEmpty, isNotNull, isNull } from '../../empty.util';
 import {
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
@@ -27,6 +27,8 @@ import {
 import { ConfigAuthorityModel } from '../../../core/shared/config/config-authority.model';
 import { GLOBAL_CONFIG } from '../../../../config';
 import { GlobalConfig } from '../../../../config/global-config.interface';
+import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -36,9 +38,35 @@ export class FormBuilderService extends DynamicFormService {
   constructor(private formsConfigService: SubmissionFormsConfigService,
               formBuilder: FormBuilder,
               validationService: DynamicFormValidationService,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig
-              ) {
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
     super(formBuilder, validationService);
+  }
+
+  findById(id: string, groupModel: DynamicFormControlModel[], fieldIndex = 0): DynamicFormControlModel | null {
+
+    let result = null;
+    const findByIdFn = (findId: string, findGroupModel: DynamicFormControlModel[]): void => {
+
+      for (const controlModel of findGroupModel) {
+
+        if (controlModel.id === findId) {
+          result = controlModel;
+          break;
+        }
+
+        if (controlModel instanceof DynamicFormGroupModel) {
+          findByIdFn(findId, (controlModel as DynamicFormGroupModel).group);
+        }
+
+        if (controlModel instanceof DynamicFormArrayModel) {
+          findByIdFn(findId, controlModel.get(fieldIndex).group);
+        }
+      }
+    };
+
+    findByIdFn(id, groupModel);
+
+    return result;
   }
 
   modelFromConfiguration(json: string | any): DynamicFormControlModel[] | never {
@@ -142,11 +170,11 @@ export class FormBuilderService extends DynamicFormService {
       } else {
         fieldValue = { value: event.$event.value }
       }
-    }else if ((typeof event.control.value === 'object')) {
+    } else if ((typeof event.control.value === 'object')) {
       fieldValue = [];
       Object.keys(event.control.value)
         .forEach((key) => {
-          if (event.control.value[key]) {
+          if (event.control.value[ key ]) {
             fieldValue.push({ value: key })
           }
         })
@@ -154,5 +182,14 @@ export class FormBuilderService extends DynamicFormService {
       fieldValue = event.control.value;
     }
     return fieldValue;
+  }
+
+  hasAuthorityValue(fieldModel) {
+    return (fieldModel instanceof DynamicTypeaheadModel || fieldModel instanceof DynamicScrollableDropdownModel);
+  }
+
+  getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[]) {
+    const fieldModel = this.findById(id, groupModel);
+    return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 }
