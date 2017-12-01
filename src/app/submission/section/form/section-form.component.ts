@@ -76,13 +76,18 @@ export class FormSectionComponent extends SectionModelComponent {
             const { errors } = state;
 
             if (errors && !isEmpty(errors)) {
-              const { formId, formGroup } = this.formRef;
-              const form = this.formBuilderService.getFormControlById(formId, formGroup, this.formModel);
+              const { formGroup } = this.formRef;
+
 
               errors.forEach((errorItem: SubmissionError) => {
-                const error = parseSectionErrorPaths(errorItem.path);
+                const parsedErrors = parseSectionErrorPaths(errorItem.path);
 
-                console.log('FORMOSONE', error, form);
+                parsedErrors.forEach((parsedError) => {
+                  const parsedId = parsedError.fieldId.replace(/\./g, '_');
+                  const formControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
+                  
+                  console.log('FORM CONTROL', formControl);
+                });
               });
             }
           })

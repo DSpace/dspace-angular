@@ -163,7 +163,7 @@ export class FormComponent implements OnDestroy, OnInit {
 
   /**
    * Method called on submit.
-   * Emit a new submit Event whether the form is valid, mark fileds with error otherwise
+   * Emit a new submit Event whether the form is valid, mark fields with error otherwise
    */
   onSubmit() {
     if (this.formRef.valid) {
