@@ -24,7 +24,7 @@ describe('ObjectCacheEffects', () => {
 
   describe('fixTimestampsOnRehydrate$', () => {
 
-    it('should return a RESET_TIMESTAMPS action in response to an REHYDRATE action to a new route', () => {
+    it('should return a RESET_TIMESTAMPS action in response to a REHYDRATE action', () => {
       spyOn(Date.prototype, 'getTime').and.callFake(() => {
         return timestamp;
       });

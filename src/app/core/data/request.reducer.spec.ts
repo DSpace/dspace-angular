@@ -55,7 +55,7 @@ describe('requestReducer', () => {
     expect(newState[link2].completed).toEqual(false);
   });
 
-  it('should set \'requestPending\' to false, \'responsePending\' to false and leave \'completed\' untouched for the given RestRequest in the state, in response to an EXECUTE action', () => {
+  it('should set \'requestPending\' to false, \'responsePending\' to true and leave \'completed\' untouched for the given RestRequest in the state, in response to an EXECUTE action', () => {
     const state = testState;
 
     const action = new RequestExecuteAction(link1);
@@ -66,7 +66,7 @@ describe('requestReducer', () => {
     expect(newState[link1].responsePending).toEqual(true);
     expect(newState[link1].completed).toEqual(state[link1].completed);
   });
-  it('should leave \'requestPending\' untouched, set \'responsePending\' to false and \'completed\' to false for the given RestRequest in the state, in response to a COMPLETE action', () => {
+  it('should leave \'requestPending\' untouched, set \'responsePending\' to false and \'completed\' to true for the given RestRequest in the state, in response to a COMPLETE action', () => {
     const state = testState;
 
     const action = new RequestCompleteAction(link1);

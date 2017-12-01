@@ -45,7 +45,7 @@ describe('requestReducer', () => {
     expect(newState[uuid2]).toEqual(link2);
   });
 
-  it('should remove the given \'href\' from it\'s corresponding \'uuid\' in the state, in response to a REMOVE_HREF action', () => {
+  it('should remove the given \'href\' from its corresponding \'uuid\' in the state, in response to a REMOVE_HREF action', () => {
     const state = testState;
 
     const action = new RemoveHrefFromUUIDIndexAction(link1);
