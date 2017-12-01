@@ -35,9 +35,9 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
     }
   }
 
-  /*getSectionsState() {
+  getSectionsState() {
     return this.submissionService.getSectionsState(this.submissionId);
-  }*/
+  }
 
   saveLater() {
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
