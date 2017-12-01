@@ -1,6 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SubmissionRestService } from '../../submission-rest.service';
 import { SubmissionService } from '../../submission.service';
+import { Store } from '@ngrx/store';
+import { SubmissionState } from '../../submission.reducers';
+import {
+  DeleteSectionErrorAction,
+  InertSectionErrorAction
+} from '../../objects/submission-objects.actions';
+import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
 
 @Component({
   selector: 'ds-submission-submit-form-footer',
@@ -14,7 +21,8 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
   private submissionIsInvalid = true;
 
   constructor(private restService: SubmissionRestService,
-              private submissionService: SubmissionService) {
+              private submissionService: SubmissionService,
+              private store: Store<SubmissionState>) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -30,10 +38,43 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
     return this.submissionService.getSectionsState(this.submissionId);
   }
 
-  onSave() {
+  saveLater() {
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
-      .subscribe((r) => {
-        console.log('r', r);
+      .subscribe((workspaceItem) => {
+        console.log('response:', workspaceItem);
+
+        // FIXME: the following code is a mock, fix it as soon as server return erros
+
+        const workspaceItemMock = {
+          errors: {
+            'error.validation.one': {
+              paths: [ '/sections/traditionalpageone/dc.title', '/sections/traditionalpageone/dc.identifier.citation' ]
+            },
+            'error.validation.two': {
+              paths: [ '/sections/traditionalpageone/dc.identifier.citation' ]
+            },
+            'error.validation.three': {
+              paths: [ '/sections/traditionalpagetwo/dc.description.abstract' ]
+            }
+          }
+        };
+
+        if (workspaceItemMock.errors) {
+          Object.keys(workspaceItemMock.errors).forEach((messageKey: string) => {
+            const paths: SectionErrorPath[] = parseSectionErrorPaths(workspaceItemMock.errors[ messageKey ].paths);
+
+            paths.forEach((pathItem: SectionErrorPath) => {
+              const error = { path: pathItem.originalPath, messageKey };
+              const action = new InertSectionErrorAction(this.submissionId, pathItem.sectionId, error);
+
+              this.store.dispatch(action);
+            });
+          });
+        }
       });
+  }
+
+  resourceDepoit() {
+    alert('Feature is actually development...');
   }
 }

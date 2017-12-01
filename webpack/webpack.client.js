@@ -12,6 +12,7 @@ module.exports = {
   },
   target: 'web',
   watchOptions: {
+    poll: true,
     ignored: [/node_modules/, /dist/]
   },
   plugins: [

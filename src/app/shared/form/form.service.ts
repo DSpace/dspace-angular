@@ -9,14 +9,15 @@ import { formObjectFromIdSelector } from './selectors';
 @Injectable()
 export class FormService {
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {
+  }
 
   /**
    * Method to retrieve form's status from state
    */
   public isValid(formId: string): Observable<boolean> {
     return this.store.select(formObjectFromIdSelector(formId))
-      .map((state) =>  state.valid)
+      .map((state) => state.valid)
       .distinctUntilChanged();
   }
 
@@ -34,7 +35,7 @@ export class FormService {
    */
   public validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach((field) => {
-      console.log(field);
+      // console.log(field);
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });

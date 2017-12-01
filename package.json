@@ -102,6 +102,7 @@
     "https": "1.0.0",
     "js.clone": "0.0.3",
     "jsonschema": "1.2.0",
+    "lodash": "^4.17.4",
     "methods": "1.1.2",
     "morgan": "1.9.0",
     "ng2-file-upload": "1.2.1",

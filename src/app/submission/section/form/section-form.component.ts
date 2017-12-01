@@ -1,5 +1,6 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
 
+import { isEmpty } from 'lodash';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
@@ -14,6 +15,9 @@ import { hasValue } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { submissionSectionFromIdSelector } from '../../selectors';
+import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
+import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -53,15 +57,36 @@ export class FormSectionComponent extends SectionModelComponent {
   ngAfterViewInit() {
     this.forms.changes.subscribe((comps: QueryList<FormComponent>) => {
       this.formRef = comps.first;
+
+      // if form exists
       if (hasValue(this.formRef)) {
+
         this.formService.isValid(this.formRef.getFormUniqueId())
           .debounceTime(1)
           .subscribe((formState) => {
             this.isLoading = false;
             this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, formState));
           });
+
+        /**
+         * Subscribe to errors
+         */
+        this.store.select(submissionSectionFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
+          .subscribe((state: SubmissionSectionObject) => {
+            const { errors } = state;
+
+            if (errors && !isEmpty(errors)) {
+
+              errors.forEach((errorItem: SubmissionError) => {
+                const error = parseSectionErrorPaths(errorItem.path);
+
+                console.log(error, this.formRef);
+              });
+            }
+          })
       }
     });
+
   }
 
   onChange(event: DynamicFormControlEvent) {
