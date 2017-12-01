@@ -8,7 +8,7 @@ import {
   submissionUploadedFilesFromIdSelector
 } from '../../selectors';
 import { isUndefined } from '../../../shared/empty.util';
-import { SubmissionUploadFileObject } from '../../models/submission-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../models/workspaceitem-section-upload-file.model';
 
 @Injectable()
 export class SectionUploadService {
@@ -34,13 +34,13 @@ export class SectionUploadService {
       .distinctUntilChanged();
   }
 
-  public setNewBitstream(submissionId: string, sectionId: string, fileId: string, data: SubmissionUploadFileObject) {
+  public setNewBitstream(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
       new NewUploadedFileAction(submissionId, sectionId, fileId, data)
     );
   }
 
-  public editBitstream(submissionId: string, sectionId: string, fileId: string, data: SubmissionUploadFileObject) {
+  public editBitstream(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
       new EditFileDataAction(submissionId, sectionId, fileId, data)
     );

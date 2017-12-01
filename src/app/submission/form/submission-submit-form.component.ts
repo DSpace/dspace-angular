@@ -12,6 +12,7 @@ import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-fi
 import { SubmissionRestService } from '../submission-rest.service';
 import { submissionObjectFromIdSelector } from '../selectors';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
+import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -22,6 +23,7 @@ import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 
 export class SubmissionSubmitFormComponent implements OnChanges, OnInit {
   @Input() collectionId: string;
+  @Input() sections: WorkspaceitemSectionsObject;
   @Input() submissionId: string;
 
   definitionId: string;
@@ -38,16 +40,13 @@ export class SubmissionSubmitFormComponent implements OnChanges, OnInit {
   constructor(private store:Store<SubmissionState>, private submissionRestService: SubmissionRestService) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (hasValue(changes.collectionId)
-      && hasValue(changes.collectionId.currentValue)
-      && hasValue(changes.submissionId)
-      && hasValue(changes.submissionId.currentValue)) {
+    if (this.collectionId && this.submissionId) {
       this.submissionRestService.getEndpoint('workspaceitems')
         .filter((href: string) => isNotEmpty(href))
         .distinctUntilChanged()
         .subscribe((endpointURL) => {
           this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
-          this.store.dispatch(new NewSubmissionFormAction(this.collectionId, this.submissionId));
+          this.store.dispatch(new NewSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
         });
     }
   }

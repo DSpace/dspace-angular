@@ -1,11 +1,12 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { mapsTo, relationship } from '../builders/build-decorators';
-import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
-import { License } from '../../shared/license.model';
-import { ResourceType } from '../../shared/resource-type';
-import { ConfigType } from '../../shared/config/config-type';
-import { NormalizedCollection } from './normalized-collection.model';
-import { NormalizedItem } from './normalized-item.model';
+import { mapsTo, relationship } from '../../core/cache/builders/build-decorators';
+import { NormalizedDSpaceObject } from '../../core/cache/models/normalized-dspace-object.model';
+import { License } from '../../core/shared/license.model';
+import { ResourceType } from '../../core/shared/resource-type';
+import { ConfigType } from '../../core/shared/config/config-type';
+import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
+import { NormalizedItem } from '../../core/cache/models/normalized-item.model';
+import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
 @mapsTo(License)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -30,7 +31,7 @@ export class NormalizedWorkspaceItem extends NormalizedDSpaceObject {
   item: NormalizedItem[];
 
   @autoserialize
-  sections: any;
+  sections: WorkspaceitemSectionsObject;
 
   @autoserializeAs(ConfigType.SubmissionDefinition)
   submissionDefinition: ConfigType.SubmissionDefinition;

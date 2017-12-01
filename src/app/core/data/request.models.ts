@@ -125,6 +125,16 @@ export class ConfigRequest extends HttpGetRequest {
   }
 }
 
+export class SubmissionRequest extends HttpGetRequest {
+  constructor(href: string) {
+    super(href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmitDataResponseParsingService;
+  }
+}
+
 export class EpersonRequest extends HttpGetRequest {
   constructor(href: string) {
     super(href);

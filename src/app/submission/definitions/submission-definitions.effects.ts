@@ -29,7 +29,12 @@ export class SubmissionDefinitionEffects {
           const mappedActions = [];
           mappedActions.push(new NewDefinitionAction(definition));
           definition.sections.forEach((section) => {
-            mappedActions.push(new NewSectionDefinitionAction(definition.name, section._links.self.substr(section._links.self.lastIndexOf('/') + 1), section as SubmissionSectionModel))
+            mappedActions.push(
+              new NewSectionDefinitionAction(
+                definition.name,
+                section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
+                section as SubmissionSectionModel)
+            )
           });
           return {action: action, definition: definition, mappedActions: mappedActions};
         })
@@ -41,7 +46,8 @@ export class SubmissionDefinitionEffects {
           new CompleteInitAction(
             result.action.payload.collectionId,
             result.definition.name,
-            result.action.payload.submissionId)
+            result.action.payload.submissionId,
+            result.action.payload.sections)
       ))
     });
 
@@ -51,7 +57,8 @@ export class SubmissionDefinitionEffects {
       new InitSubmissionFormAction(
         action.payload.collectionId,
         action.payload.definitionId,
-        action.payload.submissionId)
+        action.payload.submissionId,
+        action.payload.sections)
     );
 
   constructor(private actions$: Actions,

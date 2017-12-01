@@ -34,8 +34,7 @@ export class SubmissionUploadFilesComponent {
             this.sectionId,
             itemData.uuid,
             {
-              name: itemData.metadata['dc.title'][0].value,
-              metadata: [],
+              metadata: itemData.metadata,
               sizeBytes: itemData.sizeBytes,
               checkSum: {
                 checkSumAlgorithm: itemData.checkSum.checkSumAlgorithm,

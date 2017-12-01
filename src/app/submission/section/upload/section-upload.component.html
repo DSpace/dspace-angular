@@ -1,18 +1,21 @@
-<div *ngIf="collectionPolicies.length > 0 && collectionName && collectionPoliciesMessageType" class="row">
-  <div class="col-md-12">
-    <div class="alert alert-warning" role="alert">
-      <ng-container *ngIf="collectionPoliciesMessageType === 1">
-      Uploaded files in the "{{collectionName}}" collection will be accessible according to the following policies:
-      </ng-container>
-      <ng-container *ngIf="collectionPoliciesMessageType === 2">
-        Please note that uploaded files in the "{{collectionName}}" collection will be accessible,
-        in addition to what is explicity decided for the single file, with the following policies:
-      </ng-container>
-      <span class="clearfix"></span>
-      <ds-policies [policies]="collectionPolicies"></ds-policies>
+<!--<div *ngIf="collectionPolicies.length > 0 && collectionName && collectionPoliciesMessageType" class="row">-->
+<div *ngIf="collectionPoliciesMessageType !== 0" class="row">
+    <div class="col-md-12" >
+      <div class="alert alert-warning" role="alert" >
+        <!-- no def , no banner -->
+        <ng-container *ngIf="collectionPoliciesMessageType === 1">
+          <!-- def e no scelta -->
+          {{ 'submission.section.upload.header.policy.default.nolist' | translate:{ "collectionName": collectionName } }}
+        </ng-container>
+        <ng-container *ngIf="collectionPoliciesMessageType === 2">
+          <!-- def e scelta -->
+          {{ 'submission.section.upload.header.policy.default.withlist' | translate:{ "collectionName": collectionName } }}
+        </ng-container>
+        <span class="clearfix"></span>
+        <ds-policies [policies]="collectionPolicies"></ds-policies>
+      </div>
     </div>
   </div>
-</div>
 <ng-container *ngIf="bitstreamsKeys.length == 0">
   <div class="row">
     <div class="col-md-12">
@@ -29,9 +32,13 @@
       </div>
       <div class="col-md-10">
         <div class="float-left w-75">
-          <h3>{{bitstreamsList[bitstreamKey].name}} <span class="text-muted">({{bitstreamsList[bitstreamKey].sizeBytes | dsFileSize}})</span></h3>
+          <h3>{{bitstreamsList[bitstreamKey].metadata['dc.title'][0].value}} <span class="text-muted">({{bitstreamsList[bitstreamKey].sizeBytes | dsFileSize}})</span>
+          </h3>
         </div>
-        <ds-submission-submit-form-box-files-edit [sectionId]="sectionData.id" [submissionId]="sectionData.submissionId" [fileId]="bitstreamKey" [config]="sectionData.config" [fileIndex]="bitstreamsKeys.indexOf(bitstreamKey)"></ds-submission-submit-form-box-files-edit>
+        <ds-submission-submit-form-box-files-edit [sectionId]="sectionData.id" [submissionId]="sectionData.submissionId"
+                                                  [fileId]="bitstreamKey" [configUrl]="sectionData.config"
+                                                  [fileIndex]="bitstreamsKeys.indexOf(bitstreamKey)"
+                                                  [accessConditions]="availablePolicies"></ds-submission-submit-form-box-files-edit>
       </div>
     </div>
     <div class="row">

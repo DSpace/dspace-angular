@@ -27,6 +27,7 @@ import { FormBuilderService } from '../../../../shared/form/builder/form-builder
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionRestService } from '../../../submission-rest.service';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import {AccessConditionOption} from '../../../../core/shared/config/config-access-condition-option.model';
 
 @Component({
   selector: 'ds-submission-submit-form-box-files-edit',
@@ -42,7 +43,8 @@ export class FilesEditComponent {
   @Input() fileIndex;
   @Input() sectionId;
   @Input() submissionId;
-  @Input() config;
+  @Input() configUrl;
+  @Input() accessConditions: AccessConditionOption[];
   public fileData;
   public formId;
   public readMode = true;
@@ -60,11 +62,13 @@ export class FilesEditComponent {
               private modalService: NgbModal,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private restService: SubmissionRestService,
-              private uploadService: SectionUploadService,
-              private uploadsConfigService: SubmissionUploadsConfigService,) { }
+              private uploadService: SectionUploadService,) { }
 
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, this.fileIndex);
+
+
+    // Retrieve the uploaded file
     this.subscriptions.push(
       this.uploadService
         .getFileData(this.submissionId, this.sectionId, this.fileId)
@@ -72,54 +76,86 @@ export class FilesEditComponent {
         .subscribe((bitstream) => {
             this.fileData = bitstream;
             this.formId = 'form_' + this.fileId;
-            this.subscriptions.push(
-              this.uploadsConfigService.getConfigByHref(this.config)
-                .flatMap((config) => config.payload)
-                .take(1)
-                .subscribe((config:SubmissionUploadsModel) => {
-                    this.formModel = this.buildBitsreamEditForm(config);
-                  }
-                )
-            );
+            this.formModel = this.buildBitsreamEditForm(this.accessConditions);
           }
         )
     );
+
+    // Populate
+    // let groupMap = new  Map<string, any>();
+    this.accessConditions.forEach( (accessCondition) => {
+      // if ( isNotUndefined(accessCondition.selectGroupUUID)) {
+      //   groupMap.set(accessCondition.selectGroupUUID , { name: group.name, uuid: group.uuid })
+      // } else if ( isNotUndefined(accessCondition.groupUUID)) {
+      //
+      // }
+
+      let groupUUID;
+      if (!isNotUndefined(accessCondition.groupUUID)) {
+        groupUUID = accessCondition.groupUUID;
+      } else if (!isNotUndefined(accessCondition.groupUUID)) {
+        groupUUID = accessCondition.selectGroupUUID;
+      }
+
+      if (!isUndefined(groupUUID)) {
+        this.subscriptions.push(
+          this.groupEpersonService.getDataByUuid(accessCondition.groupUUID)
+            .take(1)
+            .flatMap((group) => group.payload)
+            .subscribe((group) => {
+                if (group.groups.length > 0 && isUndefined(this.accessConditionGroups[group.uuid])) {
+                  let groupArrayData;
+                  for (const groupData of group.groups) {
+                    groupArrayData = { name: groupData.name, uuid: groupData.uuid };
+                  }
+                  this.accessConditionGroups[group.uuid] = groupArrayData;
+                } else {
+                  this.accessConditionGroups[group.uuid] = { name: group.name, uuid: group.uuid };
+                }
+              }
+            )
+        );
+      }
+    })
+
+
   }
 
-  protected buildBitsreamEditForm(config:SubmissionUploadsModel) {
+  // protected buildBitsreamEditForm(config:SubmissionUploadsModel) {
+  protected buildBitsreamEditForm(policies: AccessConditionOption[]) {
     const formModel = Object.create(BITSTREAM_METADATA_FORM_MODEL);
     const accessConditionTypeModel = Object.create(BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG);
     const accessConditionsArrayConfig = Object.create(BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG);
     const accessConditionTypeOptions = [];
-    this.accessConditionTypeOptions = config.accessConditionOptions;
+    this.accessConditionTypeOptions = policies;
 
-    if (config.accessConditionOptions.length > 0) {
-      for (const accessPolicy of config.accessConditionOptions) {
+    if (policies.length > 0) {
+      for (const accessPolicy of policies) {
         accessConditionTypeOptions.push(
           {
             label: accessPolicy.name,
             value: accessPolicy.name
           }
         );
-        if (!isUndefined(accessPolicy.groupUUID)) {
-          this.subscriptions.push(
-            this.groupEpersonService.getDataByUuid(accessPolicy.groupUUID)
-              .take(1)
-              .flatMap((group) => group.payload)
-              .subscribe((group) => {
-                  if (group.groups.length > 0 && isUndefined(this.accessConditionGroups[group.uuid])) {
-                    let groupArrayData;
-                    for (const groupData of group.groups) {
-                      groupArrayData = { name: groupData.name, uuid: groupData.uuid };
-                    }
-                    this.accessConditionGroups[group.uuid] = groupArrayData;
-                  } else {
-                    this.accessConditionGroups[group.uuid] = { name: group.name, uuid: group.uuid };
-                  }
-                }
-              )
-          );
-        }
+        // if (!isUndefined(accessPolicy.groupUUID)) {
+        //   this.subscriptions.push(
+        //     this.groupEpersonService.getDataByUuid(accessPolicy.groupUUID)
+        //       .take(1)
+        //       .flatMap((group) => group.payload)
+        //       .subscribe((group) => {
+        //           if (group.groups.length > 0 && isUndefined(this.accessConditionGroups[group.uuid])) {
+        //             let groupArrayData;
+        //             for (const groupData of group.groups) {
+        //               groupArrayData = { name: groupData.name, uuid: groupData.uuid };
+        //             }
+        //             this.accessConditionGroups[group.uuid] = groupArrayData;
+        //           } else {
+        //             this.accessConditionGroups[group.uuid] = { name: group.name, uuid: group.uuid };
+        //           }
+        //         }
+        //       )
+        //   );
+        // }
       }
       accessConditionTypeModel.options = accessConditionTypeOptions;
 
@@ -145,7 +181,7 @@ export class FilesEditComponent {
       // this.formRef.formGroup.controls['files-data'].controls.title.setValue(...);
       // Cannot put the following lines into 'ngOnInit' because 'this.formRef' is available only after the view init.
       // Cannot put the following lines into 'ngAfterViewInit' because of 'ExpressionChangedAfterItHasBeenCheckedError'.
-      this.formRef.formGroup.get('metadata').get('dc_title').setValue(this.fileData.title);
+      this.formRef.formGroup.get('metadata').get('dc_title').setValue(this.fileData.metadata['dc.title'][0].value);
       this.formRef.formGroup.get('metadata').get('dc_description').setValue(this.fileData.description);
     }
   }
