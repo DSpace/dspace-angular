@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 
-import { ResetResponseCacheTimestampsAction } from '../cache/response-cache.actions';
+import { ResetResponseCacheTimestampsAction } from './response-cache.actions';
 import { StoreActionTypes } from '../../store.actions';
 
 @Injectable()
-export class RequestCacheEffects {
+export class ResponseCacheEffects {
 
   /**
    * When the store is rehydrated in the browser, set all cache
