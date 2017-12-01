@@ -18,7 +18,6 @@ import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { hasValue } from '../empty.util';
 
-
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,

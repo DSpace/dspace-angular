@@ -37,7 +37,7 @@ describe('WrapperGridElementComponent', () => {
 
   }));
 
-  it('should show the wrapper element containing the cards',()=>{
+  it('should show the wrapper element containing the cards',() => {
     expect(fixture.debugElement.query(By.css('ds-collection-grid-element'))).toBeDefined();
   })
 })

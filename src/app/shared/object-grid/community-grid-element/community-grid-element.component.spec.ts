@@ -19,7 +19,7 @@ const activatedRouteStub = {
   })
 };
 
-let mockCommunity: Community = Object.assign(new Community(), {
+const mockCommunity: Community = Object.assign(new Community(), {
   metadata: [
     {
       key: 'dc.description.abstract',
@@ -28,7 +28,7 @@ let mockCommunity: Community = Object.assign(new Community(), {
     }]
 });
 
-let createdGridElementComponent:CommunityGridElementComponent= new CommunityGridElementComponent(mockCommunity);
+const createdGridElementComponent:CommunityGridElementComponent= new CommunityGridElementComponent(mockCommunity);
 
 describe('CommunityGridElementComponent', () => {
   beforeEach(async(() => {
@@ -50,16 +50,16 @@ describe('CommunityGridElementComponent', () => {
 
   }));
 
-  it('should show the community cards in the grid element',()=>{
+  it('should show the community cards in the grid element',() => {
     expect(fixture.debugElement.query(By.css('ds-community-grid-element'))).toBeDefined();
   })
 
-  it('should only show the description if "short description" metadata is present',()=>{
-    let descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
+  it('should only show the description if "short description" metadata is present',() => {
+    const descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
 
-    if(mockCommunity.shortDescription.length>0){
+    if (mockCommunity.shortDescription.length > 0) {
       expect(descriptionText).toBeDefined();
-    }else{
+    }else {
       expect(descriptionText).not.toBeDefined();
     }
   });

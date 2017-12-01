@@ -6,8 +6,6 @@ import { RouterStub } from '../../testing/router-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
-
-let collectionGridElementComponent: CollectionGridElementComponent;
 let fixture: ComponentFixture<CollectionGridElementComponent>;
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
@@ -17,7 +15,7 @@ const activatedRouteStub = {
     scope: scopeParam
   })
 };
-let mockCollection: Collection = Object.assign(new Collection(), {
+const mockCollection: Collection = Object.assign(new Collection(), {
   metadata: [
     {
       key: 'dc.description.abstract',
@@ -25,7 +23,7 @@ let mockCollection: Collection = Object.assign(new Collection(), {
       value: 'Short description'
     }]
 });
-let createdGridElementComponent:CollectionGridElementComponent= new CollectionGridElementComponent(mockCollection);
+const createdGridElementComponent:CollectionGridElementComponent= new CollectionGridElementComponent(mockCollection);
 
 describe('CollectionGridElementComponent', () => {
   beforeEach(async(() => {
@@ -45,16 +43,16 @@ describe('CollectionGridElementComponent', () => {
     fixture = TestBed.createComponent(CollectionGridElementComponent);
   }));
 
-  it('should show the collection cards in the grid element',()=>{
+  it('should show the collection cards in the grid element',() => {
     expect(fixture.debugElement.query(By.css('ds-collection-grid-element'))).toBeDefined();
   });
 
-  it('should only show the description if "short description" metadata is present',()=>{
-    let descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
+  it('should only show the description if "short description" metadata is present',() => {
+    const descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
 
-    if(mockCollection.shortDescription.length>0){
+    if (mockCollection.shortDescription.length > 0) {
       expect(descriptionText).toBeDefined();
-    }else{
+    }else {
       expect(descriptionText).not.toBeDefined();
     }
   });

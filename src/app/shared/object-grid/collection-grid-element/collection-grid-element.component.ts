@@ -5,7 +5,6 @@ import { renderElementsFor} from '../../object-collection/shared/dso-element-dec
 import { ViewMode } from '../../../+search-page/search-options.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
-
 @Component({
   selector: 'ds-collection-grid-element',
   styleUrls: ['./collection-grid-element.component.scss'],

@@ -65,14 +65,13 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
     }
   }
 
-
   ngOnInit(): void {
     // this.pageInfo = this.objects.pageInfo;
 
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
-        if(isNotEmpty(params.view)){
+        if (isNotEmpty(params.view)) {
           this.currentMode = params.view;
         }
       });
@@ -91,7 +90,7 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   getViewMode(): ViewMode {
     this.route.queryParams.map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
-        this.currentMode= params.view;
+        this.currentMode = params.view;
       }
     });
     return this.currentMode;

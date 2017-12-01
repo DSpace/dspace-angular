@@ -9,7 +9,6 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Community } from '../../../../core/shared/community.model';
 import { Collection } from '../../../../core/shared/collection.model';
 
-
 let fixture: ComponentFixture<CollectionSearchResultGridElementComponent>;
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
@@ -19,7 +18,7 @@ const activatedRouteStub = {
     scope: scopeParam
   })
 };
-let mockCollection: Collection = Object.assign(new Collection(), {
+const mockCollection: Collection = Object.assign(new Collection(), {
   metadata: [
     {
       key: 'dc.description.abstract',
@@ -29,8 +28,7 @@ let mockCollection: Collection = Object.assign(new Collection(), {
 
 });
 
-let createdGridElementComponent: CollectionSearchResultGridElementComponent = new CollectionSearchResultGridElementComponent(mockCollection);
-
+const createdGridElementComponent: CollectionSearchResultGridElementComponent = new CollectionSearchResultGridElementComponent(mockCollection);
 
 describe('CollectionSearchResultGridElementComponent', () => {
   beforeEach(async(() => {
@@ -54,13 +52,12 @@ describe('CollectionSearchResultGridElementComponent', () => {
     expect(fixture.debugElement.query(By.css('ds-collection-search-result-grid-element'))).toBeDefined();
   });
 
+  it('should only show the description if "short description" metadata is present',() => {
+    const descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
 
-  it('should only show the description if "short description" metadata is present',()=>{
-    let descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
-
-    if(mockCollection.shortDescription.length>0){
+    if (mockCollection.shortDescription.length > 0) {
       expect(descriptionText).toBeDefined();
-    }else{
+    }else {
       expect(descriptionText).not.toBeDefined();
     }
   });

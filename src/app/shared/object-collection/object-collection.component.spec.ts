@@ -40,7 +40,6 @@ describe('ObjectCollectionComponent', () => {
   it('should only show the grid component when the viewmode is set to grid', () => {
     objectCollectionComponent.currentMode = ViewMode.Grid;
 
-
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeNull();
   });

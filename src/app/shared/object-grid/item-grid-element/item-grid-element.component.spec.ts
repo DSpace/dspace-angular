@@ -19,7 +19,7 @@ const activatedRouteStub = {
   })
 };
 /* tslint:disable:no-shadowed-variable */
-let mockItem: Item = Object.assign(new Item(), {
+const mockItem: Item = Object.assign(new Item(), {
   metadata: [
     {
       key: 'dc.contributor.author',
@@ -28,7 +28,7 @@ let mockItem: Item = Object.assign(new Item(), {
     }]
 });
 
-let createdGridElementComponent:ItemGridElementComponent= new ItemGridElementComponent(mockItem);
+const createdGridElementComponent:ItemGridElementComponent= new ItemGridElementComponent(mockItem);
 
 describe('ItemGridElementComponent', () => {
   beforeEach(async(() => {
@@ -50,19 +50,18 @@ describe('ItemGridElementComponent', () => {
 
   }));
 
-  it('should show the item cards in the grid element',()=>{
+  it('should show the item cards in the grid element',() => {
     expect(fixture.debugElement.query(By.css('ds-item-grid-element'))).toBeDefined()
   });
 
-  it('should only show the author span if the author metadata is present',()=>{
-    let itemAuthorField = expect(fixture.debugElement.query(By.css('p.item-authors')));
+  it('should only show the author span if the author metadata is present',() => {
+    const itemAuthorField = expect(fixture.debugElement.query(By.css('p.item-authors')));
 
-    if(mockItem.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length>0){
+    if (mockItem.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0) {
       expect(itemAuthorField).toBeDefined();
-    }else{
+    }else {
       expect(itemAuthorField).toBeDefined();
     }
   });
-
 
 })

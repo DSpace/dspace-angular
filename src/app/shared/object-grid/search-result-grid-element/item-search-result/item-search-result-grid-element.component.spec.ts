@@ -8,7 +8,6 @@ import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Item } from '../../../../core/shared/item.model';
 
-
 let itemSearchResultGridElementComponent: ItemSearchResultGridElementComponent;
 let fixture: ComponentFixture<ItemSearchResultGridElementComponent>;
 const queryParam = 'test query';
@@ -19,7 +18,7 @@ const activatedRouteStub = {
     scope: scopeParam
   })
 };
-let mockItem: Item = Object.assign(new Item(), {
+const mockItem: Item = Object.assign(new Item(), {
   metadata: [
     {
       key: 'dc.contributor.author',
@@ -32,7 +31,7 @@ let mockItem: Item = Object.assign(new Item(), {
       value: '1650-06-26'
     }]
 });
-let createdGridElementComponent:ItemSearchResultGridElementComponent= new ItemSearchResultGridElementComponent(mockItem);
+const createdGridElementComponent:ItemSearchResultGridElementComponent= new ItemSearchResultGridElementComponent(mockItem);
 
 describe('ItemSearchResultGridElementComponent', () => {
   beforeEach(async(() => {
@@ -54,31 +53,28 @@ describe('ItemSearchResultGridElementComponent', () => {
 
   }));
 
-  it('should show the item result cards in the grid element',()=>{
+  it('should show the item result cards in the grid element',() => {
     expect(fixture.debugElement.query(By.css('ds-item-search-result-grid-element'))).toBeDefined();
   });
 
-  it('should only show the author span if the author metadata is present',()=>{
-    let itemAuthorField = expect(fixture.debugElement.query(By.css('p.item-authors')));
+  it('should only show the author span if the author metadata is present',() => {
+    const itemAuthorField = expect(fixture.debugElement.query(By.css('p.item-authors')));
 
-    if(mockItem.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length>0){
+    if (mockItem.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0) {
       expect(itemAuthorField).toBeDefined();
-    }else{
+    }else {
       expect(itemAuthorField).not.toBeDefined();
     }
   });
 
-  it('should only show the date span if the issuedate is present',()=>{
-    let dateField = expect(fixture.debugElement.query(By.css('span.item-list-date')));
+  it('should only show the date span if the issuedate is present',() => {
+    const dateField = expect(fixture.debugElement.query(By.css('span.item-list-date')));
 
-    if(mockItem.findMetadata('dc.date.issued').length>0){
+    if (mockItem.findMetadata('dc.date.issued').length > 0) {
       expect(dateField).toBeDefined();
-    }else{
+    }else {
       expect(dateField).not.toBeDefined();
     }
   });
-
-
-
 
 });
