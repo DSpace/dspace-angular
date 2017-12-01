@@ -104,6 +104,10 @@ export class FormBuilderService extends DynamicFormService {
           // group.push(new SeriesFieldParser(fieldData).parse());
           break;
 
+        case 'tag':
+          // group.push(new TextareaFieldParser(fieldData).parse());
+          break;
+
         case 'textarea':
           group.push(new TextareaFieldParser(fieldData).parse());
           break;
