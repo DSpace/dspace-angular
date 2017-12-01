@@ -16,7 +16,7 @@ import { SeriesFieldParser } from './parsers/series-field-parser';
 import { NameFieldParser } from './parsers/name-field-parser';
 import { TwoboxFieldParser } from './parsers/twobox-field-parser';
 import { LookupFieldParser } from './parsers/lookup-field-parser';
-import { AuthorityOptions } from './models/authority-options.model';
+import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { isNotEmpty, isNotNull, isNull } from '../../empty.util';
@@ -33,7 +33,7 @@ import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scro
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
 
-  protected authorityOptions: AuthorityOptions;
+  protected authorityOptions: IntegrationSearchOptions;
 
   constructor(private formsConfigService: SubmissionFormsConfigService,
               formBuilder: FormBuilder,
@@ -97,6 +97,10 @@ export class FormBuilderService extends DynamicFormService {
           group.push(new ListFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
           break;
 
+        case 'lookup-name':
+          // group.push(new NameFieldParser(fieldData).parse());
+          break;
+
         case 'name':
           // group.push(new NameFieldParser(fieldData).parse());
           break;
@@ -126,7 +130,7 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   setAuthorityUuid(uuid: string) {
-    this.authorityOptions = new AuthorityOptions(uuid);
+    this.authorityOptions = new IntegrationSearchOptions(uuid);
   }
 
   getFieldPathFromChangeEvent(event: DynamicFormControlEvent) {
