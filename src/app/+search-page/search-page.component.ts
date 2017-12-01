@@ -12,7 +12,7 @@ import { SearchService } from './search-service/search.service';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { PaginationComponentOptions } from 'src/app/shared/pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 
 /**
