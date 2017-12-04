@@ -97,14 +97,14 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
       action: 'ENABLE',
       connective: 'OR',
       when: [
-        {
-          id: 'name',
-          value: 'embargo'
-        },
-        {
-          id: 'name',
-          value: 'lease'
-        },
+        // {
+        //   id: 'name',
+        //   value: 'embargo'
+        // },
+        // {
+        //   id: 'name',
+        //   value: 'lease'
+        // },
       ]
     }
   ]
@@ -130,14 +130,14 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
       action: 'ENABLE',
       connective: 'OR',
       when: [
-        {
-          id: 'name',
-          value: 'embargo'
-        },
-        {
-          id: 'name',
-          value: 'lease'
-        },
+        // {
+        //   id: 'name',
+        //   value: 'embargo'
+        // },
+        // {
+        //   id: 'name',
+        //   value: 'lease'
+        // },
       ]
     }
   ]
@@ -167,14 +167,14 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelCo
       action: 'ENABLE',
       connective: 'OR',
       when: [
-        {
-          id: 'name',
-          value: 'embargo'
-        },
-        {
-          id: 'name',
-          value: 'lease'
-        },
+        // {
+        //   id: 'name',
+        //   value: 'embargo'
+        // },
+        // {
+        //   id: 'name',
+        //   value: 'lease'
+        // },
       ]
     }
   ]

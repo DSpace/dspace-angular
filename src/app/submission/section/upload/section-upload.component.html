@@ -1,13 +1,13 @@
 <!--<div *ngIf="collectionPolicies.length > 0 && collectionName && collectionPoliciesMessageType" class="row">-->
-<div *ngIf="collectionPoliciesMessageType !== 0" class="row">
+<div *ngIf="collectionPoliciesMessageType !== POLICY_NO_DEFAULT" class="row">
     <div class="col-md-12" >
       <div class="alert alert-warning" role="alert" >
         <!-- no def , no banner -->
-        <ng-container *ngIf="collectionPoliciesMessageType === 1">
+        <ng-container *ngIf="collectionPoliciesMessageType === POLICY_DEFAULT_NO_LIST">
           <!-- def e no scelta -->
           {{ 'submission.section.upload.header.policy.default.nolist' | translate:{ "collectionName": collectionName } }}
         </ng-container>
-        <ng-container *ngIf="collectionPoliciesMessageType === 2">
+        <ng-container *ngIf="collectionPoliciesMessageType === POLICY_DEFAULT_WITH_LIST">
           <!-- def e scelta -->
           {{ 'submission.section.upload.header.policy.default.withlist' | translate:{ "collectionName": collectionName } }}
         </ng-container>
@@ -38,7 +38,8 @@
         <ds-submission-submit-form-box-files-edit [sectionId]="sectionData.id" [submissionId]="sectionData.submissionId"
                                                   [fileId]="bitstreamKey" [configUrl]="sectionData.config"
                                                   [fileIndex]="bitstreamsKeys.indexOf(bitstreamKey)"
-                                                  [accessConditions]="availablePolicies"></ds-submission-submit-form-box-files-edit>
+                                                  [accessConditions]="availablePolicies"
+                                                  [accessConditionGroups]="policiesGroups"></ds-submission-submit-form-box-files-edit>
       </div>
     </div>
     <div class="row">
