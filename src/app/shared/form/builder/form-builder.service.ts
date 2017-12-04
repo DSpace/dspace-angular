@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormArrayGroupModel,
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DynamicFormArrayModel, DynamicFormControlEvent,
   DynamicFormControlModel, DynamicFormGroupModel, DynamicFormService, DynamicFormValidationService,
   Utils
@@ -12,10 +12,6 @@ import { DropdownFieldParser } from './parsers/dropdown-field-parser';
 import { TextareaFieldParser } from './parsers/textarea-field-parser';
 import { ListFieldParser } from './parsers/list-field-parser';
 import { OneboxFieldParser } from './parsers/onebox-field-parser';
-import { SeriesFieldParser } from './parsers/series-field-parser';
-import { NameFieldParser } from './parsers/name-field-parser';
-import { TwoboxFieldParser } from './parsers/twobox-field-parser';
-import { LookupFieldParser } from './parsers/lookup-field-parser';
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
