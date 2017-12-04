@@ -8,7 +8,7 @@ import {
 import { FormFieldModel } from '../models/form-field.model';
 import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
 import { hasValue, isNotUndefined } from '../../../empty.util';
-import { AuthorityOptions } from '../models/authority-options.model';
+import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { RESTURLCombiner } from '../../../../core/url-combiner/rest-url-combiner';
 import { GlobalConfig } from '../../../../../config/global-config.interface';
@@ -33,10 +33,11 @@ const AUTHORITY = [ {
 export class ListFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
+              protected initFormValues,
               protected authorityUuid: string,
               protected formsConfigService: SubmissionFormsConfigService,
               protected EnvConfig: GlobalConfig) {
-    super(configData);
+    super(configData, initFormValues);
   }
 
   public modelFactory(): any {
@@ -82,7 +83,7 @@ export class ListFieldParser extends FieldParser {
   }
 
   // @TODO To refactor when service for retrieving authority will be available
-  protected getAuthority(authorityOptions: AuthorityOptions, pageInfo?: PageInfo): Observable<any> {
+  protected getAuthority(authorityOptions: IntegrationSearchOptions, pageInfo?: PageInfo): Observable<any> {
     /*const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
     const href = new RESTURLCombiner(this.EnvConfig, `/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`).toString();
     // const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`

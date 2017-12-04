@@ -31,6 +31,7 @@ import { SubmissionUploadFilesComponent } from './form/submission-upload-files/s
 import { SubmissionRestService } from './submission-rest.service';
 import { LicenseSectionComponent } from './section/license/section-license.component';
 import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
+import { SubmissionEditComponent } from './edit/submission-edit.component';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { SubmissionUploadsConfigService } from '../core/config/submission-upload
     SectionContainerComponent,
     SectionHostDirective,
     PoliciesComponent,
+    SubmissionEditComponent,
     SubmissionSubmitComponent,
     SubmissionSubmitFormSectionAddComponent,
     SubmissionSubmitFormCollectionComponent,

@@ -69,7 +69,6 @@ export class SubmissionSubmitFormComponent implements OnChanges, OnInit {
 
   getDefaultSubmissionDefinition() {
     const definitionsSelector = createSelector(submissionSelector, (state: SubmissionState) => state.definitions);
-    // console.log(this.store.select(definitionsSelector));
     return this.store.select(definitionsSelector)
       .filter((definitions) => !isUndefined(definitions) && !isEmpty(definitions))
       .map((definitions) => {

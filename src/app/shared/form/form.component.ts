@@ -66,27 +66,25 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   private subs: Subscription[] = [];
 
-  @ViewChild('formRef') formRef: FormGroupDirective;
-
   constructor(private formService: FormService, private formBuilderService: FormBuilderService, private store: Store<AppState>) {}
 
   /**
    * Method provided by Angular. Invoked after the view has been initialized.
    */
-  ngAfterViewInit(): void {
-    this.subs.push(this.formRef.control.valueChanges.subscribe(() => {
+  ngAfterViewChecked(): void {
+    this.subs.push(this.formGroup.valueChanges.subscribe(() => {
       // Dispatch a FormChangeAction if the user has changed the value in the UI
-      if (this.formRef.control.dirty) {
-        this.store.dispatch(new FormChangeAction(this.formUniqueId, this.formRef.value));
-        this.formRef.control.markAsPristine();
+      if (this.formGroup.dirty) {
+        this.store.dispatch(new FormChangeAction(this.formUniqueId, this.formGroup.value));
+        this.formGroup.markAsPristine();
       }
     }));
-    this.subs.push(this.formRef.control.statusChanges
+    this.subs.push(this.formGroup.statusChanges
       .flatMap(() => this.isValid())
       .subscribe((currentStatus) => {
         // Dispatch a FormStatusChangeAction if the form status has changed
-        if (this.formRef.valid !== currentStatus) {
-          this.store.dispatch(new FormStatusChangeAction(this.formUniqueId, this.formRef.valid));
+        if (this.formGroup.valid !== currentStatus) {
+          this.store.dispatch(new FormStatusChangeAction(this.formUniqueId, this.formGroup.valid));
         }
     }));
   }
@@ -130,8 +128,8 @@ export class FormComponent implements OnDestroy, OnInit {
   private keepSync() {
     this.subs.push(this.formService.getFormData(this.formUniqueId)
       .subscribe((stateFormData) => {
-        if (!Object.is(stateFormData, this.formRef.value) && this.formRef.control) {
-          this.formRef.control.setValue(stateFormData);
+        if (!Object.is(stateFormData, this.formGroup.value) && this.formGroup) {
+          this.formGroup.setValue(stateFormData);
         }
     }));
   }
@@ -153,10 +151,10 @@ export class FormComponent implements OnDestroy, OnInit {
    * Emit a new submit Event whether the form is valid, mark fileds with error otherwise
    */
   onSubmit() {
-    if (this.formRef.valid) {
+    if (this.formGroup.valid) {
       this.submit.emit(this.formService.getFormData(this.formUniqueId));
     } else {
-      this.formService.validateAllFormFields(this.formRef.control);
+      this.formService.validateAllFormFields(this.formGroup);
     }
   }
 
@@ -164,17 +162,17 @@ export class FormComponent implements OnDestroy, OnInit {
    * Method to reset form fields
    */
   reset() {
-    this.formRef.reset();
+    this.formGroup.reset();
   }
 
   removeItem(context: DynamicFormArrayModel, index: number) {
-    this.formRef.control.markAsDirty();
+    this.formGroup.markAsDirty();
     const formArrayControl = this.formGroup.get(context.id) as FormArray;
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, context);
   }
 
   insertItem(context: DynamicFormArrayModel, index: number) {
-    this.formRef.control.markAsDirty();
+    this.formGroup.markAsDirty();
     const formArrayControl = this.formGroup.get(context.id) as FormArray;
     this.formBuilderService.insertFormArrayGroup(index, formArrayControl, context);
   }

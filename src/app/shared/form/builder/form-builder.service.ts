@@ -29,6 +29,9 @@ import { GLOBAL_CONFIG } from '../../../../config';
 import { GlobalConfig } from '../../../../config/global-config.interface';
 import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import { IntegrationModel } from '../../../core/integration/models/integration.model';
+import { AuthorityModel } from '../../../core/integration/models/authority.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -70,7 +73,7 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(json: string | any): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | SubmissionFormsModel, initFormValues: any): DynamicFormControlModel[] | never {
 
     const raw = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
     const group: DynamicFormControlModel[] = [];
@@ -78,11 +81,11 @@ export class FormBuilderService extends DynamicFormService {
     raw.fields.forEach((fieldData: any) => {
       switch (fieldData.input.type) {
         case 'date':
-          group.push(new DateFieldParser(fieldData).parse());
+          group.push(new DateFieldParser(fieldData, initFormValues).parse());
           break;
 
         case 'dropdown':
-          group.push(new DropdownFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
+          group.push(new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
           break;
 
         case 'lookup':
@@ -90,11 +93,11 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'onebox':
-          group.push(new OneboxFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
+          group.push(new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
           break;
 
         case 'list':
-          group.push(new ListFieldParser(fieldData, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
+          group.push(new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
           break;
 
         case 'lookup-name':
@@ -114,7 +117,7 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'textarea':
-          group.push(new TextareaFieldParser(fieldData).parse());
+          group.push(new TextareaFieldParser(fieldData, initFormValues).parse());
           break;
 
         case 'twobox':
@@ -127,6 +130,17 @@ export class FormBuilderService extends DynamicFormService {
     });
 
     return group;
+  }
+
+  getAuthorityNameById(config: SubmissionFormsModel, fieldId) {
+    Object.keys(config)
+      .forEach((key) => {
+        // console.log(config[key]);
+      })
+  }
+
+  hasAuthorityValue(fieldModel) {
+    return (fieldModel instanceof DynamicTypeaheadModel || fieldModel instanceof DynamicScrollableDropdownModel);
   }
 
   setAuthorityUuid(uuid: string) {
@@ -173,9 +187,9 @@ export class FormBuilderService extends DynamicFormService {
       } else {
         fieldValue = event.control.value;
       }
-    } else if (event.$event instanceof ConfigAuthorityModel) {
+    } else if (event.$event instanceof AuthorityModel) {
       if (isNotNull(event.$event.id)) {
-        fieldValue = { value: event.$event.value, id: event.$event.id, confidence: 600 }
+        fieldValue = { value: event.$event.value, authority: event.$event.id, confidence: 600 }
       } else {
         fieldValue = { value: event.$event.value }
       }
@@ -191,10 +205,6 @@ export class FormBuilderService extends DynamicFormService {
       fieldValue = event.control.value;
     }
     return fieldValue;
-  }
-
-  hasAuthorityValue(fieldModel) {
-    return (fieldModel instanceof DynamicTypeaheadModel || fieldModel instanceof DynamicScrollableDropdownModel);
   }
 
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[]) {

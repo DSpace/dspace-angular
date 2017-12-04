@@ -7,20 +7,20 @@ import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN = 'SCROLLABLE_DROPDOWN';
 
-export interface DynamicScrollableDropdownResponseModel {
-  list: any[];
-  pageInfo: PageInfo;
-}
-
 export interface DynamicScrollableDropdownModelConfig extends DynamicInputModelConfig {
+  authorityMetadata: string;
+  authorityName: string;
+  authorityScope: string;
   maxOptions: number;
-  retrieve: (pageInfo: PageInfo) => Observable<DynamicScrollableDropdownResponseModel>;
+  value: any;
 }
 
 export class DynamicScrollableDropdownModel extends DynamicInputModel {
 
+  @serializable() authorityMetadata: string;
+  @serializable() authorityName: string;
+  @serializable() authorityScope: string;
   @serializable() maxOptions: number;
-  retrieve: (pageInfo: PageInfo) => Observable<any>;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN;
 
   constructor(config: DynamicScrollableDropdownModelConfig, cls?: ClsConfig) {
@@ -28,8 +28,10 @@ export class DynamicScrollableDropdownModel extends DynamicInputModel {
     super(config, cls);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
+    this.authorityMetadata = config.authorityMetadata;
+    this.authorityName = config.authorityName;
+    this.authorityScope = config.authorityScope;
     this.maxOptions = config.maxOptions;
-    this.retrieve = config.retrieve;
   }
 
 }

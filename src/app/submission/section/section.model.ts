@@ -11,4 +11,6 @@ export interface SectionDataModel {
 export abstract class SectionModelComponent implements SectionDataModel {
   @Input() sectionData: SectionDataObject;
 
+  protected valid: boolean;
+
 }

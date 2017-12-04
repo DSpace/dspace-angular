@@ -39,7 +39,6 @@ export class FilesSectionComponent extends SectionModelComponent {
       this.collectionDataService.findById(this.sectionData.collectionId)
         .filter((collectionData) => isNotUndefined((collectionData.payload)))
         .subscribe((collectionData) => {
-            console.log(collectionData);
             this.collectionName = collectionData.payload.name;
             // collectionData.payload.defaultAccessConditions
               // .filter((defaultAccessConditions:RemoteData<AccessCondition[]>) => isNotEmpty(defaultAccessConditions))

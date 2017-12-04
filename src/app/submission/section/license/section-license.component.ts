@@ -41,8 +41,6 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
   }
 
   ngOnInit() {
-    this.formId = this.sectionData.id;
-    this.formModel = SECTION_LICENSE_FORM_MODEL;
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
 
     this.subs.push(
@@ -52,6 +50,8 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
         .filter((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload)))
         .subscribe((licenseData: RemoteData<License>) => {
           this.licenseText = licenseData.payload.text;
+          this.formId = this.sectionData.id;
+          this.formModel = SECTION_LICENSE_FORM_MODEL;
         })
     );
   }

@@ -8,35 +8,27 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { FieldParser } from './field-parser';
-import { deleteProperty } from '../../../object.util';
 import {
-  DynamicTypeaheadModel, DynamicTypeaheadModelConfig,
-  DynamicTypeaheadResponseModel
+  DynamicTypeaheadModel, DynamicTypeaheadModelConfig
 } from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { FormFieldModel } from '../models/form-field.model';
-import { AuthorityOptions } from '../models/authority-options.model';
-import { Observable } from 'rxjs/Observable';
-import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
-import { hasValue, isUndefined } from '../../../empty.util';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { ConfigData } from '../../../../core/config/config-data';
 import {
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from '../ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
-import { GlobalConfig } from '../../../../../config/global-config.interface';
-import { RESTURLCombiner } from '../../../../core/url-combiner/rest-url-combiner';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { isNotEmpty } from '../../../empty.util';
+import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 
 export class OneboxFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
-              protected authorityUuid: string,
-              protected formsConfigService: SubmissionFormsConfigService,
-              protected EnvConfig: GlobalConfig) {
-    super(configData);
+              protected initFormValues,
+              protected authorityUuid: string) {
+    super(configData, initFormValues);
   }
 
-  public modelFactory(): any {
+  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     if (this.configData.selectableMetadata.length > 1) {
       let clsGroup: ClsConfig;
       let clsSelect: ClsConfig;
@@ -61,7 +53,6 @@ export class OneboxFieldParser extends FieldParser {
           host: 'col-sm-4 pr-0'
         }
       };
-      const sel = new DynamicSelectModel(selectModelConfig, clsSelect);
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
       const inputModelConfig: DynamicInputModelConfig = this.initModel(newId + COMBOBOX_VALUE_SUFFIX, true, true);
@@ -73,7 +64,6 @@ export class OneboxFieldParser extends FieldParser {
           host: 'col-sm-8 pl-0'
         }
       };
-      const inp = new DynamicInputModel(inputModelConfig, clsInput);
       inputSelectGroup.group.push(new DynamicInputModel(inputModelConfig, clsInput));
 
       clsGroup = {
@@ -84,12 +74,17 @@ export class OneboxFieldParser extends FieldParser {
       return new DynamicComboboxModel(inputSelectGroup, clsGroup);
     } else if (this.configData.selectableMetadata[0].authority) {
       const typeaheadModelConfig: DynamicTypeaheadModelConfig = this.initModel();
-      typeaheadModelConfig.search = this.getSearchFn(
-        this.getAuthorityOptionsObj(
-          this.authorityUuid,
-          this.configData.selectableMetadata[0].authority,
-          this.configData.selectableMetadata[0].metadata));
-      typeaheadModelConfig.value = '';
+      typeaheadModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
+      typeaheadModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
+      typeaheadModelConfig.authorityScope = this.authorityUuid;
+      if (isNotEmpty(fieldValue)) {
+        const authorityValue = {
+          id: fieldValue.authority,
+          value: fieldValue.value,
+          display: fieldValue.value
+        } as AuthorityModel;
+        typeaheadModelConfig.value = authorityValue;
+      }
       typeaheadModelConfig.minChars = 3;
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
       typeaheadModel.name = this.fieldId;
@@ -98,30 +93,10 @@ export class OneboxFieldParser extends FieldParser {
       const inputModelConfig: DynamicInputModelConfig = this.initModel();
       const inputModel = new DynamicInputModel(inputModelConfig);
       inputModel.name = this.fieldId;
+      if (isNotEmpty(fieldValue)) {
+        inputModel.value = fieldValue.value;
+      }
       return inputModel;
-    }
-  }
-
-  // @TODO To refactor when service for retrieving authority will be available
-  protected getAuthority(authorityOptions: AuthorityOptions, pageInfo?: PageInfo): Observable<ConfigData> {
-    const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
-    const href = new RESTURLCombiner(this.EnvConfig, `/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`).toString();
-    // const href = `https://dspace7.dev01.4science.it/dspace-spring-rest/api/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`
-    return this.formsConfigService.getConfigByHref(href)
-  }
-
-  protected getSearchFn(authorityOptions: AuthorityOptions) {
-    return (text: string): Observable<DynamicTypeaheadResponseModel> => {
-      authorityOptions.query = text;
-      return this.getAuthority(authorityOptions)
-        .map((authorities: ConfigData) => {
-          // @TODO Pagination for authority is not working, to refactor when it will be fixed
-          console.log(authorities);
-          return {
-            list: authorities.payload,
-            pageInfo: authorities.pageInfo
-          }
-        })
     }
   }
 }

@@ -1,19 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import {
-  DynamicTypeaheadModel, DynamicTypeaheadModelConfig,
-  DynamicTypeaheadResponseModel
-} from './dynamic-typeahead.model';
-import { Jsonp, URLSearchParams } from '@angular/http';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+import { Observable } from 'rxjs/Observable';
+import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
+import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { IntegrationData } from '../../../../../../core/integration/integration-data';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
   styleUrls: ['./dynamic-typeahead.component.scss'],
   templateUrl: './dynamic-typeahead.component.html'
 })
-export class DsDynamicTypeaheadComponent {
+export class DsDynamicTypeaheadComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTypeaheadModel;
@@ -24,9 +25,10 @@ export class DsDynamicTypeaheadComponent {
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   searching = false;
+  searchOptions: IntegrationSearchOptions;
   searchFailed = false;
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
-  value: any;
+  currentValue: any;
 
   formatter = (x: {display: string}) => x.display;
 
@@ -39,7 +41,15 @@ export class DsDynamicTypeaheadComponent {
         if (term === '' || term.length < this.model.minChars) {
           return Observable.of({list: []});
         } else {
-          return this.model.search(term)
+          this.searchOptions.query = term;
+          return this.authorityService.getEntriesByName(this.searchOptions)
+            .map((authorities) => {
+              // @TODO Pagination for authority is not working, to refactor when it will be fixed
+              return {
+                list: authorities.payload,
+                pageInfo: authorities.pageInfo
+              }
+            })
             .do(() => this.searchFailed = false)
             .catch(() => {
               this.searchFailed = true;
@@ -47,9 +57,25 @@ export class DsDynamicTypeaheadComponent {
             })
         }
       })
-      .map((results: DynamicTypeaheadResponseModel) => results.list)
+      .map((results) => results.list)
       .do(() => this.searching = false)
       .merge(this.hideSearchingWhenUnsubscribed);
+
+  constructor(private authorityService: AuthorityService) {}
+
+  ngOnInit() {
+    this.currentValue = this.model.value;
+    this.searchOptions = new IntegrationSearchOptions(
+      this.model.authorityScope,
+      this.model.authorityName,
+      this.model.authorityMetadata);
+    this.group.valueChanges.subscribe((value) => {
+      if (this.currentValue !== value) {
+        this.currentValue = value[this.model.id][0];
+      }
+      console.log('type', value, this.currentValue);
+    })
+  }
 
   onInput(event) {
     if (event.data) {
@@ -66,6 +92,7 @@ export class DsDynamicTypeaheadComponent {
   }
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
+    this.currentValue = event.item;
     this.group.controls[this.model.id].setValue(event.item);
     this.change.emit(event.item);
   }

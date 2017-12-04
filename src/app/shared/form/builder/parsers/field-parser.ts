@@ -1,27 +1,32 @@
-import { isNotUndefined } from '../../../empty.util';
+import { isNotEmpty, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
-import { AuthorityOptions } from '../models/authority-options.model';
+import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 import { ClsConfig, DynamicFormArrayModel } from '@ng-dynamic-forms/core';
 
 import * as _ from 'lodash';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 export abstract class FieldParser {
 
   protected fieldId: string;
 
-  constructor(protected configData: FormFieldModel) { }
+  constructor(protected configData: FormFieldModel, protected initFormValues) { }
 
-  public abstract modelFactory(): any;
+  public abstract modelFactory(fieldValue: FormFieldMetadataValueObject): any;
 
   public parse() {
     if (this.configData.repeatable && this.configData.input.type !== 'list') {
-      return new DynamicFormArrayModel(
+      let counter = 0;
+      const arrayModel = new DynamicFormArrayModel(
         {
           id : _.uniqueId() + '_array',
-          initialCount: 1,
+          initialCount: this.getInitArrayIndex(),
           groupFactory: () => {
-            const model = this.modelFactory();
+            console.log(this.getFieldId(), counter);
+            const fieldValue = (counter === 0) ? null : this.getInitFieldValue(counter - 1);
+            const model = this.modelFactory(fieldValue);
             model.cls.element.host = model.cls.element.host.concat(' col');
+            counter++;
             return [model];
           }
         }, {
@@ -30,9 +35,31 @@ export abstract class FieldParser {
           }
         }
       );
+      console.log('arraymodel', arrayModel);
+      return arrayModel;
     } else {
-      return this.modelFactory()
+      return this.modelFactory(this.getInitFieldValue());
     }
+  }
+
+  protected getInitFieldValue(index = 0): FormFieldMetadataValueObject {
+    if (isNotEmpty(this.initFormValues) && this.initFormValues.hasOwnProperty(this.getFieldId())) {
+      return this.initFormValues[this.getFieldId()][index];
+    } else {
+      return null;
+    }
+  }
+
+  protected getInitArrayIndex() {
+    if (isNotEmpty(this.initFormValues) && this.initFormValues.hasOwnProperty(this.getFieldId())) {
+      return this.initFormValues[this.getFieldId()].length;
+    } else {
+      return 1;
+    }
+  }
+
+  protected getFieldId() {
+    return this.configData.selectableMetadata[0].metadata;
   }
 
   protected initModel(id?: string, label = true, labelEmpty = false) {
@@ -40,7 +67,7 @@ export abstract class FieldParser {
     const controlModel = Object.create(null);
 
     // Sets input ID
-    this.fieldId = id ? id : this.configData.selectableMetadata[0].metadata;
+    this.fieldId = id ? id : this.getFieldId();
 
     // Sets input name (with the original field's id value)
     controlModel.name = this.fieldId;
@@ -62,9 +89,6 @@ export abstract class FieldParser {
         controlModel.errorMessages,
         {required: this.configData.mandatoryMessage});
     }
-    if (this.configData.value) {
-      controlModel.value = this.configData.value;
-    }
 
     return controlModel;
   }
@@ -82,8 +106,8 @@ export abstract class FieldParser {
     }
   }
 
-  public getAuthorityOptionsObj(uuid, name, metadata): AuthorityOptions {
-    const authorityOptions: AuthorityOptions = new AuthorityOptions(uuid);
+  public getAuthorityOptionsObj(uuid, name, metadata): IntegrationSearchOptions {
+    const authorityOptions: IntegrationSearchOptions = new IntegrationSearchOptions(uuid);
 
     authorityOptions.name = name;
     authorityOptions.metadata = metadata;

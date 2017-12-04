@@ -2,10 +2,10 @@ import { FieldParser } from './field-parser';
 import { ClsConfig, DynamicFormGroupModel, DynamicInputModel, DynamicInputModelConfig } from '@ng-dynamic-forms/core';
 import {
   DynamicScrollableDropdownModel,
-  DynamicScrollableDropdownModelConfig, DynamicScrollableDropdownResponseModel
+  DynamicScrollableDropdownModelConfig
 } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormFieldModel } from '../models/form-field.model';
-import { AuthorityOptions } from '../models/authority-options.model';
+import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { Observable } from 'rxjs/Observable';
 import { SubmissionFormsConfigService } from '../../../../core/config/submission-forms-config.service';
@@ -13,27 +13,36 @@ import { hasValue, isNotEmpty, isUndefined } from '../../../empty.util';
 import { ConfigData } from '../../../../core/config/config-data';
 import { GlobalConfig } from '../../../../../config/global-config.interface';
 import { RESTURLCombiner } from '../../../../core/url-combiner/rest-url-combiner';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 
 export class DropdownFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
+              protected initFormValues,
               protected authorityUuid: string,
               protected formsConfigService: SubmissionFormsConfigService,
               protected EnvConfig: GlobalConfig) {
-    super(configData);
+    super(configData, initFormValues);
   }
 
-  public modelFactory(): any {
+  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.initModel();
     let cls: ClsConfig;
 
     if (isNotEmpty(this.configData.selectableMetadata[0].authority)) {
-      dropdownModelConfig.retrieve = this.getPagedAuthorityFn(
-        this.getAuthorityOptionsObj(
-          this.authorityUuid,
-          this.configData.selectableMetadata[0].authority,
-          this.configData.selectableMetadata[0].metadata)
-      );
+      dropdownModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
+      dropdownModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
+      dropdownModelConfig.authorityScope = this.authorityUuid;
+      dropdownModelConfig.maxOptions = 10;
+      if (isNotEmpty(fieldValue)) {
+        const authorityValue = {
+          id: fieldValue.authority,
+          value: fieldValue.value,
+          display: fieldValue.value
+        } as AuthorityModel;
+        dropdownModelConfig.value = authorityValue;
+      }
       cls = {
         element: {
           control: 'col'
@@ -46,6 +55,7 @@ export class DropdownFieldParser extends FieldParser {
       dropdownGroup.id = dropdownModelConfig.id + '_group';
       dropdownGroup.group = [new DynamicScrollableDropdownModel(dropdownModelConfig, cls)];
       dropdownGroup.group[0].name = this.fieldId;
+
       cls = {
         element: {
           control: 'form-row'
@@ -53,22 +63,18 @@ export class DropdownFieldParser extends FieldParser {
       };
       return new DynamicFormGroupModel(dropdownGroup, cls);
     } else {
-      // throw  Error(`Authority name is not available. Please checks form configuration file.`);
-      const inputModelConfig: DynamicInputModelConfig = this.initModel();
-      const inputModel = new DynamicInputModel(inputModelConfig);
-      inputModel.name = this.fieldId;
-      return inputModel;
+      throw  Error(`Authority name is not available. Please checks form configuration file.`);
     }
   }
 
   // @TODO To refactor when service for retrieving authority will be available
-  protected getAuthority(authorityOptions: AuthorityOptions, pageInfo?: PageInfo): Observable<ConfigData> {
+  protected getAuthority(authorityOptions: IntegrationSearchOptions, pageInfo?: PageInfo): Observable<ConfigData> {
     const queryPage = (hasValue(pageInfo)) ? `&page=${pageInfo.currentPage - 1}&size=${pageInfo.elementsPerPage}` : '';
     const href = new RESTURLCombiner(this.EnvConfig, `/integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}`).toString();
     return this.formsConfigService.getConfigByHref(href)
   }
-
-  protected getPagedAuthorityFn(authorityOptions: AuthorityOptions) {
+/*
+  protected getPagedAuthorityFn(authorityOptions: IntegrationSearchOptions) {
     return (pageInfo: PageInfo): Observable<DynamicScrollableDropdownResponseModel> => {
       return this.getAuthority(authorityOptions, pageInfo)
         .map((authorities: ConfigData) => {
@@ -89,5 +95,5 @@ export class DropdownFieldParser extends FieldParser {
           }
         })
     }
-  }
+  }*/
 }

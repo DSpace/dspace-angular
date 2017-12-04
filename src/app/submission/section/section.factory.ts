@@ -10,6 +10,10 @@ import { SectionContainerComponent } from './container/section-container.compone
 import { SectionDataModel } from './section.model';
 import { SectionDataObject } from './section-data.model';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
+import { WorkspaceitemSectionFormObject } from '../models/workspaceitem-section-form.model';
+import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionLicenseObject } from '../models/workspaceitem-section-license.model';
+import { WorkspaceitemSectionDataType } from '../models/workspaceitem-sections.model';
 
 export interface FactoryDataModel {
   component: Type<any>;
@@ -25,7 +29,12 @@ export class SectionFactoryComponent {
 
   // component: Class for the component you want to create
   // inputs: An object with key/value pairs mapped to input name/input value
-  public get(collectionId: string, submissionId: string, sectionId: string, factoryData: SubmissionSectionModel, sectionsHost: ViewContainerRef) {
+  public get(collectionId: string,
+             submissionId: string,
+             sectionId: string,
+             sectionData: WorkspaceitemSectionDataType,
+             factoryData: SubmissionSectionModel,
+             sectionsHost: ViewContainerRef) {
     if (!factoryData) {
       return;
     }
@@ -36,6 +45,7 @@ export class SectionFactoryComponent {
     const inputs: SectionDataObject = Object.create(null);
     inputs.collectionId = collectionId;
     inputs.id = sectionId;
+    inputs.data = sectionData;
     inputs.header = factoryData.header;
     inputs.mandatory = factoryData.mandatory;
     inputs.submissionId = submissionId;

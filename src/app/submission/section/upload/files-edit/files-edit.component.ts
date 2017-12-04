@@ -247,7 +247,7 @@ export class FilesEditComponent {
             this.uploadService.editBitstream(this.submissionId, this.sectionId, this.fileId, fileData);
 
           } else {
-            this.formService.validateAllFormFields(this.formRef.formRef.control);
+            this.formService.validateAllFormFields(this.formRef.formGroup);
           }
         })
     );
