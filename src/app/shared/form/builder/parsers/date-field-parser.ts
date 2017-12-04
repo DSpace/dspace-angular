@@ -7,8 +7,8 @@ import { FormFieldModel } from '../models/form-field.model';
 
 export class DateFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel) {
-    super(configData);
+  constructor(protected configData: FormFieldModel, protected initFormValues) {
+    super(configData, initFormValues);
   }
 
   public modelFactory(): any {

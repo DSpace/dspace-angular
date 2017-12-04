@@ -5,12 +5,15 @@ import { Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
 import { formObjectFromIdSelector } from './selectors';
+import { FormBuilderService } from './builder/form-builder.service';
+import { DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
+import { isNotEmpty, isNotUndefined } from '../empty.util';
 
 @Injectable()
 export class FormService {
 
-  constructor(private store: Store<AppState>) {
-  }
+  constructor(private formBuilderService: FormBuilderService,
+              private store: Store<AppState>) {}
 
   /**
    * Method to retrieve form's status from state
@@ -43,6 +46,16 @@ export class FormService {
         this.validateAllFormFields(control);
       }
     });
+  }
+
+  public setValue(formGroup: FormGroup, fieldModel: DynamicFormControlModel, fieldId: string, value: any) {
+    if (isNotEmpty(fieldModel)) {
+      const path = this.formBuilderService.getPath(fieldModel);
+      const fieldControl = formGroup.get(path);
+      fieldControl.markAsDirty();
+      fieldControl.setValue(value);
+      console.log('formservice', fieldControl, path);
+    }
   }
 
 }

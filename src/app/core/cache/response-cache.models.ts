@@ -6,6 +6,7 @@ import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-respon
 import { NormalizedDSpaceObject } from './models/normalized-dspace-object.model';
 import { NormalizedObject } from './models/normalized-object.model';
 import { EpersonModel } from '../eperson/models/eperson.model';
+import { IntegrationModel } from '../integration/models/integration.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -90,6 +91,16 @@ export class SubmitDataSuccessResponse extends RestResponse {
 export class EpersonSuccessResponse extends RestResponse {
   constructor(
     public epersonDefinition: EpersonModel[],
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class IntegrationSuccessResponse extends RestResponse {
+  constructor(
+    public dataDefinition: IntegrationModel[],
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {

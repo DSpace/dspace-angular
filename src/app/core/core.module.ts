@@ -45,6 +45,8 @@ import { SubmissionSectionsConfigService } from './config/submission-sections-co
 import { SubmitDataResponseParsingService } from './data/submit-data-response-parsing.service';
 import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
+import { AuthorityService } from './integration/authority.service';
+import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -91,6 +93,8 @@ const PROVIDERS = [
   SubmissionSectionsConfigService,
   SubmitDataResponseParsingService,
   JsonPatchOperationsBuilder,
+  AuthorityService,
+  IntegrationResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

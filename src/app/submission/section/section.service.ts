@@ -22,7 +22,7 @@ import { SectionDataObject } from './section-data.model';
 import { WorkspaceitemSectionFormObject } from '../models/workspaceitem-section-form.model';
 import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
 import { WorkspaceitemSectionLicenseObject } from '../models/workspaceitem-section-license.model';
-import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
+import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 
 @Injectable()
 export class SectionService {
@@ -126,13 +126,13 @@ export class SectionService {
                       submissionId: string,
                       definitionId: string,
                       sectionId: string,
-                      data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadFileObject | WorkspaceitemSectionLicenseObject) {
+                      data: WorkspaceitemSectionDataType) {
     let sectionObject: SubmissionSectionModel = Object.create(null);
     this.getSectionDefinition(definitionId, sectionId)
       .subscribe((sectionObj: SubmissionSectionModel) => {
         sectionObject = sectionObj;
       });
-    const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, sectionObject, this.viewContainerRef);
+    const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, data, sectionObject, this.viewContainerRef);
     const viewIndex = this.viewContainerRef.indexOf(componentRef.hostView);
     this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex, data));
   }

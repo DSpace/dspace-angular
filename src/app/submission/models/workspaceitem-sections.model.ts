@@ -3,6 +3,11 @@ import { WorkspaceitemSectionUploadFileObject } from './workspaceitem-section-up
 import { WorkspaceitemSectionLicenseObject } from './workspaceitem-section-license.model';
 
 export interface WorkspaceitemSectionsObject {
-  [name: string]: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadFileObject | WorkspaceitemSectionLicenseObject;
+  [name: string]: WorkspaceitemSectionDataType;
 
 }
+
+export type WorkspaceitemSectionDataType
+  = WorkspaceitemSectionFormObject
+  | WorkspaceitemSectionUploadFileObject
+  | WorkspaceitemSectionLicenseObject

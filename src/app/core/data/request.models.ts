@@ -12,6 +12,7 @@ import { ConfigResponseParsingService } from './config-response-parsing.service'
 import { JsonPatchOperationModel } from '../json-patch/json-patch.model';
 import { SubmitDataResponseParsingService } from './submit-data-response-parsing.service';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
+import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
 export enum RequestType {
   GET = 'GET',
@@ -142,6 +143,16 @@ export class EpersonRequest extends HttpGetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return EpersonResponseParsingService;
+  }
+}
+
+export class IntegrationRequest extends HttpGetRequest {
+  constructor(href: string) {
+    super(href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return IntegrationResponseParsingService;
   }
 }
 

@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  DynamicScrollableDropdownModel,
-  DynamicScrollableDropdownResponseModel
-} from './dynamic-scrollable-dropdown.model';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+
+import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { isNull, isUndefined } from '../../../../../empty.util';
-import { DynamicFormControlEvent } from '@ng-dynamic-forms/core';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { IntegrationData } from '../../../../../../core/integration/integration-data';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -27,10 +27,21 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
   public pageInfo: PageInfo;
   public optionsList: any;
 
+  protected searchOptions: IntegrationSearchOptions;
+
+  constructor(private authorityService: AuthorityService) {}
+
   ngOnInit() {
-    this.model.retrieve(this.pageInfo)
-      .subscribe((object: DynamicScrollableDropdownResponseModel) => {
-        this.optionsList = object.list;
+    this.searchOptions = new IntegrationSearchOptions(
+      this.model.authorityScope,
+      this.model.authorityName,
+      this.model.authorityMetadata,
+      '',
+      this.model.maxOptions,
+      1);
+    this.authorityService.getEntriesByName(this.searchOptions)
+      .subscribe((object: IntegrationData) => {
+        this.optionsList = object.payload;
         this.pageInfo = object.pageInfo;
       })
   }
@@ -45,24 +56,21 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
   onScroll() {
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
       this.loading = true;
-      this.pageInfo.currentPage++;
-      this.model.retrieve(this.pageInfo)
+      this.searchOptions.currentPage++;
+      this.authorityService.getEntriesByName(this.searchOptions)
         .do(() => this.loading = false)
-        .subscribe((object) => {
-          this.optionsList = this.optionsList.concat(object.list);
+        .subscribe((object: IntegrationData) => {
+          this.optionsList = this.optionsList.concat(object.payload);
           this.pageInfo = object.pageInfo;
-
         })
     }
   }
 
   onBlurEvent(event: Event) {
-    console.log('blur');
     this.blur.emit(event);
   }
 
-  onFocusEvent($event) {
-    console.log('focus');
+  onFocusEvent(event) {
     this.focus.emit(event);
   }
 

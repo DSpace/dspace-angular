@@ -4,8 +4,8 @@ import { FormFieldModel } from '../models/form-field.model';
 // @TODO to be implemented
 export class NameFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel) {
-    super(configData);
+  constructor(protected configData: FormFieldModel, protected initFormValues) {
+    super(configData, initFormValues);
   }
 
   public modelFactory(): any {
