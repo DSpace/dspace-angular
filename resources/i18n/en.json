@@ -160,6 +160,11 @@
       "submit.progressbar.upload": "Upload files",
       "submit.progressbar.license": "Deposit license",
       "submit.progressbar.cclicense": "Creative commons license",
+
+      "upload": {
+        "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following policies:",
+        "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicity decided for the single file, with the following policies:"
+      },
       "form": {
 
       }

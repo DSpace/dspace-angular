@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 
@@ -41,6 +41,7 @@ import { SubmissionEditComponent } from './edit/submission-edit.component';
     StoreModule.forFeature('submission', submissionReducers, { }),
     EffectsModule.forFeature(submissionEffects),
     SubmissionRoutingModule,
+    TranslateModule
   ],
   declarations: [
     DefaultSectionComponent,
