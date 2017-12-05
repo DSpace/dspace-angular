@@ -66,12 +66,13 @@ export class FilesEditComponent {
   }
 
   ngOnInit() {
-    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, this.fileIndex);
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
 
     // Retrieve the uploaded file
     this.subscriptions.push(
       this.uploadService
         .getFileData(this.submissionId, this.sectionId, this.fileId)
+        .filter((bitstream) => isNotUndefined(bitstream))
         .take(1)
         .subscribe((bitstream) => {
             this.fileData = bitstream;
@@ -146,8 +147,25 @@ export class FilesEditComponent {
       // this.formRef.formGroup.controls['files-data'].controls.title.setValue(...);
       // Cannot put the following lines into 'ngOnInit' because 'this.formRef' is available only after the view init.
       // Cannot put the following lines into 'ngAfterViewInit' because of 'ExpressionChangedAfterItHasBeenCheckedError'.
-      this.formRef.formGroup.get('metadata').get('dc_title').setValue(this.fileData.metadata['dc.title'][0].value);
-      this.formRef.formGroup.get('metadata').get('dc_description').setValue(this.fileData.description);
+      const title = this.fileData.metadata[0].value;
+      const description = this.fileData.metadata.length > 1 ? this.fileData.metadata[1].value : '';
+      const accessConditions = this.fileData.accessConditions;
+      this.formRef.formGroup.get('metadata').get('dc_title').setValue(title);
+      this.formRef.formGroup.get('metadata').get('dc_description').setValue(description);
+      this.accessConditions.forEach( (condition, index) => {
+
+        const rowModel: any = this.formBuilderService.findById('accessConditions', this.formModel);
+        if (rowModel) {
+          // rowModel.groups[index].group.get('name').setValue(condition.name);
+          // rowModel.group[index].group.get('groupUUID').setValue(condition.groupUUID);
+          // rowModel.group[index].group.get('startDate').setValue(condition.startDate);
+          // rowModel.group[index].group.get('endDate').setValue(condition.endDate);
+        }
+
+
+
+      });
+      // this.formRef.formGroup.get('accessConditions').setValue(accessConditions);
     }
   }
 
@@ -229,7 +247,8 @@ export class FilesEditComponent {
             const metadatum = [];
             Object.keys((formData.metadata))
               .forEach((key) => {
-                metadatum.push({key: key, value: formData.metadata[key]})
+                const keyDot = key.replace(/\_/g, '.');
+                metadatum.push({key: keyDot, value: formData.metadata[key]})
               });
 
             const fileData = Object.assign({}, this.fileData, {
@@ -245,7 +264,10 @@ export class FilesEditComponent {
                 endDate: null }];*/
             this.operationsBuilder.replace(this.pathCombiner.getPath(titlePath), formData.metadata.dc_title);
             this.operationsBuilder.replace(this.pathCombiner.getPath(descriptionPath), formData.metadata.dc_description);
-            this.operationsBuilder.add(this.pathCombiner.getPath(accessConditionPath), formData.accessConditions);
+            formData.accessConditions.forEach( (condition) => {
+              this.operationsBuilder.add(this.pathCombiner.getPath(accessConditionPath), condition);
+            });
+
             this.restService.jsonPatchByResourceID(
               this.submissionId,
               this.pathCombiner.rootElement,

@@ -29,12 +29,18 @@ export class SubmissionUploadFilesComponent {
             this.sectionService.addSection(this.collectionId, this.submissionId, this.definitionId, this.sectionId)
           }
 
+          const metadatum = [];
+          Object.keys((itemData.metadata))
+            .forEach((key) => {
+              metadatum.push({key: key, value: itemData.metadata[key][0].value})
+            });
+
           this.bitstreamService.setNewBitstream(
             this.submissionId,
             this.sectionId,
             itemData.uuid,
             {
-              metadata: itemData.metadata,
+              metadata: metadatum,
               sizeBytes: itemData.sizeBytes,
               checkSum: {
                 checkSumAlgorithm: itemData.checkSum.checkSumAlgorithm,

@@ -76,6 +76,7 @@ export class FilesSectionComponent extends SectionModelComponent {
                 .flatMap((config) => config.payload)
                 .take(1)
                 .subscribe((config: SubmissionUploadsModel) => {
+                console.log('Metadata' + config.metedata);
                   this.availablePolicies = Object.create(config.accessConditionOptions);
 
                   this.collectionPolicies.length > 0 ?
@@ -114,13 +115,26 @@ export class FilesSectionComponent extends SectionModelComponent {
       ,
       this.bitstreamService
         .getUploadedFileList(this.sectionData.submissionId, this.sectionData.id)
+        .distinctUntilChanged()
         .subscribe((bitstreamList) => {
             let sectionStatus = false;
             this.bitstreamsList = bitstreamList;
             this.bitstreamsKeys = [];
-            this.bitstreamsIndexes = [];
+            // this.bitstreamsIndexes = [];
             if (isNotUndefined(this.bitstreamsList) && Object.keys(bitstreamList).length > 0) {
-              this.bitstreamsKeys = Object.keys(bitstreamList);
+              const keys = Object.keys(bitstreamList);
+              keys.forEach((key) => {
+                let field2 = '';
+                if (bitstreamList[key].metadata.size > 1) {
+                  field2 = bitstreamList[key].metadata[1].value;
+                }
+                this.bitstreamsKeys.push({
+                  key: key,
+                  field1: bitstreamList[key].metadata[0].value,
+                  field2: field2
+                });
+              });
+
               sectionStatus = true;
             }
             this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId,
