@@ -152,18 +152,21 @@ export class FilesEditComponent {
       const accessConditions = this.fileData.accessConditions;
       this.formRef.formGroup.get('metadata').get('dc_title').setValue(title);
       this.formRef.formGroup.get('metadata').get('dc_description').setValue(description);
-      this.accessConditions.forEach( (condition, index) => {
+      this.fileData.accessConditions.forEach( (condition, index) => {
 
-        const rowModel: any = this.formBuilderService.findById('accessConditions', this.formModel);
-        if (rowModel) {
+        const accessConditionControl: any = this.formBuilderService.getFormControlById(
+          'accessConditions',
+          this.formRef.formGroup,
+          this.formModel,
+          index);
+        if (accessConditionControl) {
+          // const cc = this.formBuilderService.getFormControlById('name', this.formRef.formGroup, rowModel.group);
+          accessConditionControl.get('name').setValue(condition.name);
           // rowModel.groups[index].group.get('name').setValue(condition.name);
           // rowModel.group[index].group.get('groupUUID').setValue(condition.groupUUID);
           // rowModel.group[index].group.get('startDate').setValue(condition.startDate);
           // rowModel.group[index].group.get('endDate').setValue(condition.endDate);
         }
-
-
-
       });
       // this.formRef.formGroup.get('accessConditions').setValue(accessConditions);
     }
