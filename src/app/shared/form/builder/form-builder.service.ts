@@ -41,8 +41,7 @@ export class FormBuilderService extends DynamicFormService {
   constructor(private formsConfigService: SubmissionFormsConfigService,
               formBuilder: FormBuilder,
               validationService: DynamicFormValidationService,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig
-              ) {
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
     super(formBuilder, validationService);
   }
 
@@ -51,22 +50,22 @@ export class FormBuilderService extends DynamicFormService {
     let result = null;
     const findByIdFn = (findId: string, findGroupModel: DynamicFormControlModel[]): void => {
 
-        for (const controlModel of findGroupModel) {
+      for (const controlModel of findGroupModel) {
 
-          if (controlModel.id === findId) {
-            result = controlModel;
-            break;
-          }
-
-          if (controlModel instanceof DynamicFormGroupModel) {
-            findByIdFn(findId, (controlModel as DynamicFormGroupModel).group);
-          }
-
-          if (controlModel instanceof DynamicFormArrayModel) {
-            findByIdFn(findId, controlModel.get(fieldIndex).group);
-          }
+        if (controlModel.id === findId) {
+          result = controlModel;
+          break;
         }
-      };
+
+        if (controlModel instanceof DynamicFormGroupModel) {
+          findByIdFn(findId, (controlModel as DynamicFormGroupModel).group);
+        }
+
+        if (controlModel instanceof DynamicFormArrayModel) {
+          findByIdFn(findId, controlModel.get(fieldIndex).group);
+        }
+      }
+    };
 
     findByIdFn(id, groupModel);
 
@@ -193,11 +192,11 @@ export class FormBuilderService extends DynamicFormService {
       } else {
         fieldValue = { value: event.$event.value }
       }
-    }else if ((typeof event.control.value === 'object')) {
+    } else if ((typeof event.control.value === 'object')) {
       fieldValue = [];
       Object.keys(event.control.value)
         .forEach((key) => {
-          if (event.control.value[key]) {
+          if (event.control.value[ key ]) {
             fieldValue.push({ value: key })
           }
         })

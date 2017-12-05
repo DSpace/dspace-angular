@@ -31,7 +31,7 @@ export class FormInitAction implements Action {
    *
    * @param formId
    *    the Form's ID
-   * @param formObject
+   * @param formData
    *    the FormGroup Object
    * @param valid
    *    the Form validation status
@@ -87,7 +87,6 @@ export class FormStatusChangeAction implements Action {
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type FormAction
-  = FormInitAction
+export type FormAction = FormInitAction
   | FormChangeAction
   | FormStatusChangeAction

@@ -3,6 +3,7 @@ import {
   ViewChildren
 } from '@angular/core';
 
+import { isEmpty } from 'lodash';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
@@ -13,11 +14,13 @@ import { SectionStatusChangeAction } from '../../objects/submission-objects.acti
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { submissionSectionFromIdSelector } from '../../selectors';
+import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
+import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { WorkspaceitemSectionFormObject } from '../../models/workspaceitem-section-form.model';
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
@@ -26,7 +29,7 @@ import { IntegrationData } from '../../../core/integration/integration-data';
 
 @Component({
   selector: 'ds-submission-section-form',
-  styleUrls: ['./section-form.component.scss'],
+  styleUrls: [ './section-form.component.scss' ],
   templateUrl: './section-form.component.html',
 })
 export class FormSectionComponent extends SectionModelComponent {
@@ -116,6 +119,7 @@ export class FormSectionComponent extends SectionModelComponent {
       if (isUndefined(this.formRef)) {
         this.formRef = comps.first;
         // this.formRef.formGroup.statusChanges
+
         this.formService.isValid(this.formRef.getFormUniqueId())
           .subscribe((formState) => {
             if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
@@ -123,17 +127,38 @@ export class FormSectionComponent extends SectionModelComponent {
               this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, this.valid));
             }
           });
+
+        /**
+         * Subscribe to errors
+         */
+        this.store.select(submissionSectionFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
+          .subscribe((state: SubmissionSectionObject) => {
+            const { errors } = state;
+
+            if (errors && !isEmpty(errors)) {
+              const { formGroup } = this.formRef;
+
+
+              errors.forEach((errorItem: SubmissionError) => {
+                const parsedErrors = parseSectionErrorPaths(errorItem.path);
+
+                parsedErrors.forEach((parsedError) => {
+                  const parsedId = parsedError.fieldId.replace(/\./g, '_');
+                  const formControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
+                  
+                  console.log('FORM CONTROL', formControl);
+                });
+              });
+            }
+          })
       }
     });
-  }
 
-  onBlur(event) {}
+  }
 
   onChange(event: DynamicFormControlEvent) {
     this.operationsBuilder.replace(
       this.pathCombiner.getPath(this.formBuilderService.getFieldPathFromChangeEvent(event)),
       this.formBuilderService.getFieldValueFromChangeEvent(event));
   }
-
-  onFocus(event) {}
 }

@@ -34,7 +34,7 @@ export class SubmissionSubmitFormComponent implements OnChanges {
     authToken: null,
     disableMultipart: false,
     itemAlias: null
-  }
+  };
 
   @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 

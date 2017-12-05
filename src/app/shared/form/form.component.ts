@@ -1,10 +1,22 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { FormArray, FormGroup, FormGroupDirective } from '@angular/forms';
 
-import { DynamicFormArrayModel, DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormArrayModel,
+  DynamicFormControlEvent,
+  DynamicFormControlModel
+} from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
-import * as _ from 'lodash';
+import { uniqueId } from 'lodash';
 
 import { AppState } from '../../app.reducer';
 import { FormChangeAction, FormInitAction, FormStatusChangeAction } from './form.actions';
@@ -20,7 +32,7 @@ import { FormService } from './form.service';
 @Component({
   exportAs: 'formComponent',
   selector: 'ds-form',
-  styleUrls: ['form.component.scss'],
+  styleUrls: [ 'form.component.scss' ],
   templateUrl: 'form.component.html',
 })
 export class FormComponent implements OnDestroy, OnInit {
@@ -66,7 +78,8 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   private subs: Subscription[] = [];
 
-  constructor(private formService: FormService, private formBuilderService: FormBuilderService, private store: Store<AppState>) {}
+  constructor(private formService: FormService, private formBuilderService: FormBuilderService, private store: Store<AppState>) {
+  }
 
   /**
    * Method provided by Angular. Invoked after the view has been initialized.
@@ -86,14 +99,14 @@ export class FormComponent implements OnDestroy, OnInit {
         if (this.formGroup.valid !== currentStatus) {
           this.store.dispatch(new FormStatusChangeAction(this.formUniqueId, this.formGroup.valid));
         }
-    }));
+      }));
   }
 
   /**
    * Method provided by Angular. Invoked after the constructor
    */
   ngOnInit() {
-    this.formUniqueId = _.uniqueId() + '_' + this.formId;
+    this.formUniqueId = uniqueId() + '_' + this.formId;
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
     this.store.dispatch(new FormInitAction(this.formUniqueId, this.formGroup.value, this.formGroup.valid));
     this.keepSync();
@@ -131,7 +144,7 @@ export class FormComponent implements OnDestroy, OnInit {
         if (!Object.is(stateFormData, this.formGroup.value) && this.formGroup) {
           this.formGroup.setValue(stateFormData);
         }
-    }));
+      }));
   }
 
   onBlur(event) {
@@ -148,7 +161,7 @@ export class FormComponent implements OnDestroy, OnInit {
 
   /**
    * Method called on submit.
-   * Emit a new submit Event whether the form is valid, mark fileds with error otherwise
+   * Emit a new submit Event whether the form is valid, mark fields with error otherwise
    */
   onSubmit() {
     if (this.formGroup.valid) {

@@ -2,8 +2,8 @@
                             [collectionId]="collectionId"
                             [definitionId]="definitionId"
                             [sectionId]="'upload'"
-                            [uploadFilesOptions]="uploadFilesOptions" ></ds-submission-upload-files>
-<div class="submission-submit-form-header mb-3" >
+                            [uploadFilesOptions]="uploadFilesOptions"></ds-submission-upload-files>
+<div class="submission-submit-form-header mb-3">
   <div class="row">
     <div class="col-6">
       <ds-submission-submit-form-collection [currentCollectionId]="collectionId"
@@ -18,10 +18,11 @@
     </div>
   </div>
 </div>
-<div class="submission-submit-form-content" >
+<div class="submission-submit-form-content">
   <ds-loading *ngIf="loading" message="Loading..."></ds-loading>
   <ng-template dsSectionsHost></ng-template>
 </div>
-<div class="submission-submit-form-footer mt-3 mb-3" >
-  <ds-submission-submit-form-footer [submissionId]="submissionId"></ds-submission-submit-form-footer>
+<div class="submission-submit-form-footer mt-3 mb-3">
+  <ds-submission-submit-form-footer
+    [submissionId]="submissionId"></ds-submission-submit-form-footer>
 </div>
