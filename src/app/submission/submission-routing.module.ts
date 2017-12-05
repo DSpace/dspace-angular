@@ -7,7 +7,7 @@ import { SubmissionEditComponent } from './edit/submission-edit.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'edit', component: SubmissionEditComponent },
+      { path: 'edit/:id', component: SubmissionEditComponent },
       { path: 'submit', component: SubmissionSubmitComponent }
     ])
   ]

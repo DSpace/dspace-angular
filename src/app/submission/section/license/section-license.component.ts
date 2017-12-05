@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { SectionModelComponent } from '../section.model';
 import { Store } from '@ngrx/store';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -32,7 +32,8 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
   protected pathCombiner: JsonPatchOperationPathCombiner;
   protected subs: Subscription[] = [];
 
-  constructor(protected collectionDataService: CollectionDataService,
+  constructor(protected changeDetectorRef: ChangeDetectorRef,
+              protected collectionDataService: CollectionDataService,
               protected formBuilderService: FormBuilderService,
               protected formService: FormService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
@@ -48,10 +49,12 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
         .filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload)))
         .flatMap((collectionData: RemoteData<Collection>) => collectionData.payload.license)
         .filter((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload)))
+        .take(1)
         .subscribe((licenseData: RemoteData<License>) => {
           this.licenseText = licenseData.payload.text;
           this.formId = this.sectionData.id;
           this.formModel = SECTION_LICENSE_FORM_MODEL;
+          this.changeDetectorRef.detectChanges();
         })
     );
   }

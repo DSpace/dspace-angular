@@ -1,4 +1,7 @@
-import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef, Component, QueryList,
+  ViewChildren
+} from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
@@ -11,20 +14,15 @@ import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
-import { CoreState } from '../../../core/core.reducers';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { WorkspaceitemSectionFormObject } from '../../models/workspaceitem-section-form.model';
-import { ConfigAuthorityModel } from '../../../core/shared/config/config-authority.model';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
 import { AuthorityService } from '../../../core/integration/authority.service';
 import { IntegrationData } from '../../../core/integration/integration-data';
-import { WorkspaceitemSectionDataType } from '../../models/workspaceitem-sections.model';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -44,6 +42,7 @@ export class FormSectionComponent extends SectionModelComponent {
   @ViewChildren('formRef') private forms: QueryList<FormComponent>;
 
   constructor(protected authorityService: AuthorityService,
+              protected changeDetectorRef: ChangeDetectorRef,
               protected formBuilderService: FormBuilderService,
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
@@ -71,6 +70,7 @@ export class FormSectionComponent extends SectionModelComponent {
               this.updateForm(sectionData);
             }
             this.isLoading = false;
+            this.changeDetectorRef.detectChanges();
           })
 
       });
