@@ -26,6 +26,7 @@ import { WorkspaceitemSectionFormObject } from '../../models/workspaceitem-secti
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
 import { AuthorityService } from '../../../core/integration/authority.service';
 import { IntegrationData } from '../../../core/integration/integration-data';
+import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -138,14 +139,13 @@ export class FormSectionComponent extends SectionModelComponent {
             if (errors && !isEmpty(errors)) {
               const { formGroup } = this.formRef;
 
-
               errors.forEach((errorItem: SubmissionError) => {
                 const parsedErrors = parseSectionErrorPaths(errorItem.path);
 
                 parsedErrors.forEach((parsedError) => {
                   const parsedId = parsedError.fieldId.replace(/\./g, '_');
                   const formControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
-                  
+
                   console.log('FORM CONTROL', formControl);
                 });
               });
