@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, SimpleChanges, ViewChild} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SectionUploadService} from '../section-upload.service';
 import {hasValue, isNotEmpty, isNotUndefined} from '../../../../shared/empty.util';
@@ -30,6 +30,8 @@ import {FormBuilderService} from '../../../../shared/form/builder/form-builder.s
 import {JsonPatchOperationsBuilder} from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import {SubmissionRestService} from '../../../submission-rest.service';
 import {JsonPatchOperationPathCombiner} from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import {FormArray, FormGroup} from "@angular/forms";
+import {setOptions} from "marked";
 
 @Component({
   selector: 'ds-submission-submit-form-box-files-edit',
@@ -66,7 +68,9 @@ export class FilesEditComponent {
   }
 
   ngOnInit() {
-    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
+    // TODO Use this when server is ok
+    // this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, this.fileIndex);
 
     // Retrieve the uploaded file
     this.subscriptions.push(
@@ -77,19 +81,21 @@ export class FilesEditComponent {
         .subscribe((bitstream) => {
             this.fileData = bitstream;
             this.formId = 'form_' + this.fileId;
-            this.formModel = this.buildBitsreamEditForm();
+            this.formModel = this.buildBitstreamEditForm();
           }
-        )
-    );
+        ));
+
   }
 
-  protected buildBitsreamEditForm() {
+  protected buildBitstreamEditForm() {
     const formModel = Object.create(BITSTREAM_METADATA_FORM_MODEL);
     const accessConditionTypeModel = Object.create(BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG);
     const accessConditionsArrayConfig = Object.create(BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG);
     const accessConditionTypeOptions = [];
 
-    if (this.accessConditions.length > 0) {
+
+
+    // if (this.accessConditions.length > 0) {
       for (const accessCondition of this.accessConditions) {
         accessConditionTypeOptions.push(
           {
@@ -138,12 +144,12 @@ export class FilesEditComponent {
       let repeat = this.fileData.accessConditions.length;
       repeat = (repeat == 0) ? 1 : repeat;
 
-      for(let i=0; i<repeat; i++) {
-        formModel.push(
-          new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS)
-        );
-      }
-    }
+      accessConditionsArrayConfig.initialCount = repeat;
+      formModel.push(
+        new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS)
+      );
+
+    // }
     return formModel;
   }
 
@@ -168,8 +174,8 @@ export class FilesEditComponent {
 
       const description = this.fileData.metadata.length > 1 ? this.fileData.metadata[1].value : '';
       const accessConditions = this.fileData.accessConditions;
-      this.formRef.formGroup.get('metadata').get('dc_title').setValue(title);
-      this.formRef.formGroup.get('metadata').get('dc_description').setValue(description);
+
+
       this.fileData.accessConditions.forEach( (condition, index) => {
 
         const accessConditionControl: any = this.formBuilderService.getFormControlById(
@@ -177,70 +183,106 @@ export class FilesEditComponent {
           this.formRef.formGroup,
           this.formModel,
           index);
+        // let accessConditionControl = (this.formRef.formGroup.get('accessConditions') as FormArray).controls[0] as FormGroup;
+
+        // if(index > 0 && (this.formRef.formGroup.get('accessConditions') as FormArray).controls.length === 1) {
+        //   accessConditionControl = Object.create(accessConditionControl);
+        //   (this.formRef.formGroup.get('accessConditions') as FormArray).controls.push(accessConditionControl);
+        // }
+
         if (accessConditionControl) {
+          // console.log('index: '+index);
           const controls = Object.keys(accessConditionControl.controls);
           controls.forEach( (key) => {
-            // TODO Verificare valori non ripetuti nel form
+            // console.log(key+': '+condition[key]);
+
             accessConditionControl.get(key).setValue(condition[key]);
+            if(key === 'name') {
+              const model = this.formBuilderService.findById(key, this.formModel, index);
+              this.setOptions(model, accessConditionControl.get(key));
+            }
           });
         }
       });
-      // this.formRef.formGroup.get('accessConditions').setValue(accessConditions);
+
+      this.formRef.formGroup.get('metadata').get('dc_title').setValue(title);
+      this.formRef.formGroup.get('metadata').get('dc_description').setValue(description);
     }
   }
 
   public switchMode(mode: boolean) {
+    // this.formModel = this.buildBitstreamEditForm();
     this.setFormInitialMetadata();
     this.readMode = mode;
   }
 
+  ngOnChanges() {
+    // Retrieve the uploaded file, for update form access conditions
+    if(this.accessConditions) {
+      this.subscriptions.push(
+        this.uploadService
+          .getFileData(this.submissionId, this.sectionId, this.fileId)
+          .filter((bitstream) => isNotUndefined(bitstream))
+          // .take(1)
+          .subscribe((bitstream) => {
+              this.fileData = bitstream;
+              this.formId = 'form_' + this.fileId;
+              this.formModel = this.buildBitstreamEditForm();
+            }
+          ));
+    }
+  }
+
   public onChange(event: DynamicFormControlEvent) {
     if (event.model.id === 'name') {
-      const accessCondition = this.accessConditions.filter((element) => element.name === event.control.value);
-      if (isNotEmpty(accessCondition)) {
-        const showGroups: boolean = accessCondition[0].hasStartDate === true || accessCondition[0].hasEndDate === true;
+      const model = this.formBuilderService.findById(event.model.id, this.formModel);
+      // model.parent = this.formBuilderService.findById('accessConditions', this.formModel);
+      // this.setOptions(event.model, event.control);
+      this.setOptions(model, event.control);
+    }
+  }
 
-        if (isNotUndefined(accessCondition[0].groupUUID)) {
-          // const hiddenGroupControl = event.group.get('hiddenGroupUUID');
-          const groupModel = this.formBuilderService.findById(
-            'groupUUID',
-            (event.model.parent as DynamicFormArrayGroupModel).group) as DynamicSelectModel<any>;
+  public setOptions(model, control) {
+    const accessCondition = this.accessConditions.filter((element) => element.name === control.value);
+    if (isNotEmpty(accessCondition)) {
+      const showGroups: boolean = accessCondition[0].hasStartDate === true || accessCondition[0].hasEndDate === true;
 
-          if (isNotUndefined(this.accessConditionGroups[accessCondition[0].groupUUID])) {
-            groupModel.options = [
-              {
-                label: this.accessConditionGroups[accessCondition[0].groupUUID].name,
-                value: this.accessConditionGroups[accessCondition[0].groupUUID].uuid
-              }
-            ];
-          } else {
-            groupModel.options = []
+      if (isNotUndefined(accessCondition[0].groupUUID)) {
+        // const hiddenGroupControl = event.group.get('hiddenGroupUUID');
+        const groupModel = this.formBuilderService.findById(
+          'groupUUID',
+          (model.parent as DynamicFormArrayGroupModel).group) as DynamicSelectModel<any>;
+
+        if (isNotUndefined(this.accessConditionGroups[accessCondition[0].groupUUID])) {
+          groupModel.options = [
+            {
+              label: this.accessConditionGroups[accessCondition[0].groupUUID].name,
+              value: this.accessConditionGroups[accessCondition[0].groupUUID].uuid
+            }
+          ];
+        } else {
+          groupModel.options = []
+        }
+
+        if (showGroups) {
+          if (accessCondition[0].hasStartDate) {
+            const startDateModel = this.formBuilderService.findById(
+              'startDate',
+              (model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
+            startDateModel.min = new Date(accessCondition[0].maxStartDate);
           }
-
-          // if (event.control.value !== 'lease' && event.control.value !== 'embargo') {
-          // if (!showGroups) {
-          //   hiddenGroupControl.setValue(this.accessConditionGroups[accessCondition[0].groupUUID].uuid);
-          // }
-          if (showGroups) {
-            if (accessCondition[0].hasStartDate) {
-              const startDateModel = this.formBuilderService.findById(
-                'startDate',
-                (event.model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
-              startDateModel.min = new Date(accessCondition[0].maxStartDate);
-            }
-            if (accessCondition[0].hasEndDate) {
-              const endDateModel = this.formBuilderService.findById(
-                'endDate',
-                (event.model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
-              endDateModel.max = new Date(accessCondition[0].maxEndDate);
-            }
+          if (accessCondition[0].hasEndDate) {
+            const endDateModel = this.formBuilderService.findById(
+              'endDate',
+              (model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
+            endDateModel.max = new Date(accessCondition[0].maxEndDate);
           }
         }
       }
-      const path = this.formBuilderService.getPath(event.model);
-      const segmentpath = this.pathCombiner.getPath(this.formBuilderService.getPath(event.model));
-      console.log('p', path, 's', segmentpath);
     }
+    const path = this.formBuilderService.getPath(model);
+    const segmentpath = this.pathCombiner.getPath(this.formBuilderService.getPath(model));
+    console.log('p', path, 's', segmentpath);
   }
 
   public deleteBitstream() {
@@ -285,7 +327,7 @@ export class FilesEditComponent {
             this.operationsBuilder.replace(this.pathCombiner.getPath(titlePath), formData.metadata.dc_title);
             this.operationsBuilder.replace(this.pathCombiner.getPath(descriptionPath), formData.metadata.dc_description);
             formData.accessConditions.forEach( (condition) => {
-              this.operationsBuilder.add(this.pathCombiner.getPath(accessConditionPath), condition);
+              this.operationsBuilder.add(this.pathCombiner.getPath(accessConditionPath), condition, true);
             });
 
             this.restService.jsonPatchByResourceID(
@@ -321,19 +363,3 @@ export class FilesEditComponent {
       .forEach((subscription) => subscription.unsubscribe());
   }
 }
-
-//
-// interface MyAccessConditionOption {
-//   name: string;
-//   groupUUID: string;
-//   groups: AccessConditionGroup[],
-//   hasStartDate: boolean;
-//   hasEndDate: boolean;
-//   maxStartDate: string;
-//   maxEndDate: string;
-// }
-//
-// interface AccessConditionGroup {
-//   name: string,
-//   uuid: string
-// }

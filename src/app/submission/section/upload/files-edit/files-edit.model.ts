@@ -62,7 +62,6 @@ export const BITSTREAM_METADATA_FORM_MODEL: DynamicFormControlModel[] = [
 
 export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayModelConfig = {
   id: 'accessConditions',
-  initialCount: 1,
   groupFactory: null,
 };
 export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS: ClsConfig = {
