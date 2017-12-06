@@ -2,10 +2,7 @@ import { ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/
 
 import { isEmpty } from 'lodash';
 import { Store } from '@ngrx/store';
-import {
-  DynamicFormControlEvent, DynamicFormControlModel, DynamicInputControlModel,
-  DynamicInputModel, ValidatorFactory
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -27,7 +24,7 @@ import { SubmissionFormsModel } from '../../../core/shared/config/config-submiss
 import { submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'ds-submission-section-form',

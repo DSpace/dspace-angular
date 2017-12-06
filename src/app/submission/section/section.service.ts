@@ -19,9 +19,6 @@ import { SubmissionDefinitionsConfigService } from '../../core/config/submission
 import { SubmissionSectionsConfigService } from '../../core/config/submission-sections-config.service';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import { SectionDataObject } from './section-data.model';
-import { WorkspaceitemSectionFormObject } from '../models/workspaceitem-section-form.model';
-import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
-import { WorkspaceitemSectionLicenseObject } from '../models/workspaceitem-section-license.model';
 import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 
 @Injectable()
