@@ -1,11 +1,11 @@
-import {
-  ChangeDetectorRef, Component, QueryList,
-  ViewChildren
-} from '@angular/core';
+import { ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/core';
 
 import { isEmpty } from 'lodash';
 import { Store } from '@ngrx/store';
-import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlEvent, DynamicFormControlModel, DynamicInputControlModel,
+  DynamicInputModel, ValidatorFactory
+} from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -18,15 +18,16 @@ import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { submissionSectionFromIdSelector } from '../../selectors';
-import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
-import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { WorkspaceitemSectionFormObject } from '../../models/workspaceitem-section-form.model';
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
 import { AuthorityService } from '../../../core/integration/authority.service';
 import { IntegrationData } from '../../../core/integration/integration-data';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import { submissionSectionFromIdSelector } from '../../selectors';
+import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
+import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
+import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -97,7 +98,7 @@ export class FormSectionComponent extends SectionModelComponent {
               fieldModel.authorityScope,
               fieldModel.authorityName,
               index,
-              sectionData[index][0].value);
+              sectionData[ index ][ 0 ].value);
 
             this.authorityService.getEntriesByName(searchOptions)
               .subscribe((result: IntegrationData) => {
@@ -106,7 +107,7 @@ export class FormSectionComponent extends SectionModelComponent {
                 }
               })
           } else {
-            this.formService.setValue(this.formRef.formGroup, fieldModel, fieldId, sectionData[index][0].value);
+            this.formService.setValue(this.formRef.formGroup, fieldModel, fieldId, sectionData[ index ][ 0 ].value);
           }
         }
       })
@@ -116,7 +117,6 @@ export class FormSectionComponent extends SectionModelComponent {
     if (this.forms) {
       this.forms.changes
         .filter((comps: QueryList<FormComponent>) => hasValue(comps.first))
-        .debounceTime(1)
         .subscribe((comps: QueryList<FormComponent>) => {
           if (isUndefined(this.formRef)) {
             this.formRef = comps.first;
@@ -135,26 +135,43 @@ export class FormSectionComponent extends SectionModelComponent {
              */
             this.store.select(submissionSectionFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
               .filter((state: SubmissionSectionObject) => isNotEmpty(state))
+              .distinctUntilChanged()
               .subscribe((state: SubmissionSectionObject) => {
-                const {errors} = state;
+                const { errors } = state;
 
                 if (errors && !isEmpty(errors)) {
-                  const {formGroup} = this.formRef;
+                  const { formGroup } = this.formRef;
 
                   errors.forEach((errorItem: SubmissionError) => {
                     const parsedErrors = parseSectionErrorPaths(errorItem.path);
 
-                    parsedErrors.forEach((parsedError) => {
+                    parsedErrors.forEach((parsedError, index: number) => {
                       const parsedId = parsedError.fieldId.replace(/\./g, '_');
-                      const formControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
+                      const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
+                      const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
+                      const errorKey = `error-${index}`;
+                      const error = {};
 
-                      console.log('FORM CONTROL', formControl);
+                      error[ errorKey ] = errorItem.messageKey;
+
+                      if (!formControlModel.errorMessages) {
+                        formControlModel.errorMessages = {};
+                      }
+
+                      formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
+
+                      formControl.setErrors(error);
+
+                      formGroup.markAsDirty();
+                      formGroup.markAsTouched();
+
+                      this.changeDetectorRef.detectChanges();
                     });
                   });
                 }
               })
-          }
-        });
+        }
+      });
     }
   }
 

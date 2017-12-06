@@ -99,7 +99,7 @@ export class FormComponent implements OnDestroy, OnInit {
         if (this.formGroup.valid !== currentStatus) {
           this.store.dispatch(new FormStatusChangeAction(this.formUniqueId, this.formGroup.valid));
         }
-      }));
+    }));
   }
 
   /**
