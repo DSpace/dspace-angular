@@ -153,8 +153,6 @@ export class FormSectionComponent extends SectionModelComponent {
 
                     error[ errorKey ] = errorItem.messageKey;
 
-                    formControl.setValidators(() => (error));
-
                     if (!formControlModel.errorMessages) {
                       formControlModel.errorMessages = {};
                     }
