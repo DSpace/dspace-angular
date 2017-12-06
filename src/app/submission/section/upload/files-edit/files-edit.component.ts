@@ -73,7 +73,7 @@ export class FilesEditComponent {
       this.uploadService
         .getFileData(this.submissionId, this.sectionId, this.fileId)
         .filter((bitstream) => isNotUndefined(bitstream))
-        .take(1)
+        // .take(1)
         .subscribe((bitstream) => {
             this.fileData = bitstream;
             this.formId = 'form_' + this.fileId;
@@ -133,9 +133,16 @@ export class FilesEditComponent {
         const groups = new DynamicSelectModel(groupsConfig, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CLS);
         return [type, startDate, endDate, groups];
       };
-      formModel.push(
-        new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS)
-      );
+
+      //Number of access conditions blocks in form
+      let repeat = this.fileData.accessConditions.length;
+      repeat = (repeat == 0) ? 1 : repeat;
+
+      for(let i=0; i<repeat; i++) {
+        formModel.push(
+          new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS)
+        );
+      }
     }
     return formModel;
   }
@@ -147,7 +154,18 @@ export class FilesEditComponent {
       // this.formRef.formGroup.controls['files-data'].controls.title.setValue(...);
       // Cannot put the following lines into 'ngOnInit' because 'this.formRef' is available only after the view init.
       // Cannot put the following lines into 'ngAfterViewInit' because of 'ExpressionChangedAfterItHasBeenCheckedError'.
-      const title = this.fileData.metadata[0].value;
+
+      // TODO  bitstreamList[key].metadata['dc.title'][0].value, as in section-upload
+      // dc.title
+      let title = '';
+      if (isNotUndefined(this.fileData.metadata['dc.title'])) {
+        // Case /edit
+        title = this.fileData.metadata['dc.title'][0].value;
+      } else {
+        // Case /submit
+        title = this.fileData.metadata[0].value;
+      }
+
       const description = this.fileData.metadata.length > 1 ? this.fileData.metadata[1].value : '';
       const accessConditions = this.fileData.accessConditions;
       this.formRef.formGroup.get('metadata').get('dc_title').setValue(title);
@@ -160,12 +178,11 @@ export class FilesEditComponent {
           this.formModel,
           index);
         if (accessConditionControl) {
-          // const cc = this.formBuilderService.getFormControlById('name', this.formRef.formGroup, rowModel.group);
-          accessConditionControl.get('name').setValue(condition.name);
-          // rowModel.groups[index].group.get('name').setValue(condition.name);
-          // rowModel.group[index].group.get('groupUUID').setValue(condition.groupUUID);
-          // rowModel.group[index].group.get('startDate').setValue(condition.startDate);
-          // rowModel.group[index].group.get('endDate').setValue(condition.endDate);
+          const controls = Object.keys(accessConditionControl.controls);
+          controls.forEach( (key) => {
+            // TODO Verificare valori non ripetuti nel form
+            accessConditionControl.get(key).setValue(condition[key]);
+          });
         }
       });
       // this.formRef.formGroup.get('accessConditions').setValue(accessConditions);
