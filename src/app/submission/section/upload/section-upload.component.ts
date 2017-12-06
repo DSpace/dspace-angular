@@ -130,7 +130,7 @@ export class FilesSectionComponent extends SectionModelComponent {
                 }
                 this.bitstreamsKeys.push({
                   key: key,
-                  field1: bitstreamList[key].metadata[0].value,
+                  field1: 'title',
                   field2: field2
                 });
               });

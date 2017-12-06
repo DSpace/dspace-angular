@@ -6,7 +6,7 @@ import {
   DeleteUploadedFileAction,
   DisableSectionAction, EditFileDataAction,
   EnableSectionAction, NewUploadedFileAction,
-  NewSubmissionFormAction, SectionStatusChangeAction,
+  LoadSubmissionFormAction, SectionStatusChangeAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes, ClearSectinErrorsAction, InertSectionErrorAction,
   DeleteSectionErrorAction
@@ -89,8 +89,8 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     // Section actions
 
-    case SubmissionObjectActionTypes.NEW: {
-      return newSubmission(state, action as NewSubmissionFormAction);
+    case SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM: {
+      return newSubmission(state, action as LoadSubmissionFormAction);
     }
 
     case SubmissionObjectActionTypes.ENABLE_SECTION: {
@@ -303,11 +303,11 @@ function disableSection(state: SubmissionObjectState, action: DisableSectionActi
  * @param state
  *    the current state
  * @param action
- *    an NewSubmissionFormAction
+ *    an LoadSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section removed.
  */
-function newSubmission(state: SubmissionObjectState, action: NewSubmissionFormAction): SubmissionObjectState {
+function newSubmission(state: SubmissionObjectState, action: LoadSubmissionFormAction): SubmissionObjectState {
   if (!hasValue(state[ action.payload.submissionId ])) {
     const newState = Object.assign({}, state);
     // newState[action.payload.submissionId] = Object.create(null);
@@ -327,7 +327,7 @@ function newSubmission(state: SubmissionObjectState, action: NewSubmissionFormAc
  * @param state
  *    the current state
  * @param action
- *    an NewSubmissionFormAction
+ *    an LoadSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section new validity status.
  */

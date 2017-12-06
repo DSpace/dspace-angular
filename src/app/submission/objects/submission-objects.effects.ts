@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects'
 
 import {
-  NewSubmissionFormAction, InitSubmissionFormAction, SubmissionObjectActionTypes,
+  LoadSubmissionFormAction, InitSubmissionFormAction, SubmissionObjectActionTypes,
   CompleteInitSubmissionFormAction
 } from './submission-objects.actions';
 import { SectionService } from '../section/section.service';
@@ -12,8 +12,8 @@ import { InitDefaultDefinitionAction } from '../definitions/submission-definitio
 export class SubmissionObjectEffects {
 
   @Effect() new$ = this.actions$
-    .ofType(SubmissionObjectActionTypes.NEW)
-    .map((action: NewSubmissionFormAction) =>
+    .ofType(SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM)
+    .map((action: LoadSubmissionFormAction) =>
       new InitDefaultDefinitionAction(action.payload.collectionId, action.payload.submissionId, action.payload.sections));
 
   @Effect() initForm$ = this.actions$

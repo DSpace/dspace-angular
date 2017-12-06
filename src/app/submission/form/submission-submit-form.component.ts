@@ -5,7 +5,7 @@ import {
 import { Store } from '@ngrx/store';
 
 import { SectionHostDirective } from '../section/section-host.directive';
-import { NewSubmissionFormAction } from '../objects/submission-objects.actions';
+import { LoadSubmissionFormAction } from '../objects/submission-objects.actions';
 import { isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
@@ -14,6 +14,7 @@ import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SubmissionState } from '../submission.reducers';
+import { WorkspaceitemObject } from '../models/workspaceitem.model';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -50,7 +51,7 @@ export class SubmissionSubmitFormComponent implements OnChanges {
         .subscribe((endpointURL) => {
           this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
           this.definitionId = this.submissionDefinition.name;
-          this.store.dispatch(new NewSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
+          this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
         });
       this.store.select(submissionObjectFromIdSelector(this.submissionId))
         .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))
@@ -63,8 +64,11 @@ export class SubmissionSubmitFormComponent implements OnChanges {
     }
   }
 
-  onCollectionChange(collectionId) {
-    this.collectionId = collectionId;
+  onCollectionChange(workspaceitemObject: WorkspaceitemObject) {
+    this.collectionId = workspaceitemObject.collection.id;
+    this.sections = workspaceitemObject.sections;
+    this.submissionDefinition = workspaceitemObject.submissionDefinition;
+    this.definitionId = this.submissionDefinition.name;
   }
 
 }

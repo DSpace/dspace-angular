@@ -3,7 +3,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 import { ClsConfig, DynamicFormArrayModel } from '@ng-dynamic-forms/core';
 
-import * as _ from 'lodash';
+import { uniqueId } from 'lodash';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 export abstract class FieldParser {
@@ -19,10 +19,9 @@ export abstract class FieldParser {
       let counter = 0;
       const arrayModel = new DynamicFormArrayModel(
         {
-          id : _.uniqueId() + '_array',
+          id : uniqueId() + '_array',
           initialCount: this.getInitArrayIndex(),
           groupFactory: () => {
-            console.log(this.getFieldId(), counter);
             const fieldValue = (counter === 0) ? null : this.getInitFieldValue(counter - 1);
             const model = this.modelFactory(fieldValue);
             model.cls.element.host = model.cls.element.host.concat(' col');
@@ -35,7 +34,6 @@ export abstract class FieldParser {
           }
         }
       );
-      console.log('arraymodel', arrayModel);
       return arrayModel;
     } else {
       return this.modelFactory(this.getInitFieldValue());

@@ -228,7 +228,7 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
  * @param state
  *    the current state
  * @param action
- *    an NewSubmissionFormAction
+ *    an LoadSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section new validity status.
  */

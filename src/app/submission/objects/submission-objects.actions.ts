@@ -17,7 +17,7 @@ import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.mo
  */
 export const SubmissionObjectActionTypes = {
   // Section types
-  NEW: type('dspace/submission/NEW'),
+  LOAD_SUBMISSION_FORM: type('dspace/submission/LOAD_SUBMISSION_FORM'),
   ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
@@ -182,8 +182,8 @@ export class CompleteInitSubmissionFormAction implements Action {
   }
 }
 
-export class NewSubmissionFormAction implements Action {
-  type = SubmissionObjectActionTypes.NEW;
+export class LoadSubmissionFormAction implements Action {
+  type = SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM;
   payload: {
     collectionId: string;
     submissionId: string;
@@ -191,7 +191,7 @@ export class NewSubmissionFormAction implements Action {
   };
 
   /**
-   * Create a new NewSubmissionFormAction
+   * Create a new LoadSubmissionFormAction
    *
    * @param collectionId
    *    the collection's Id where to deposit
@@ -200,6 +200,25 @@ export class NewSubmissionFormAction implements Action {
    */
   constructor(collectionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
     this.payload = { collectionId, submissionId, sections };
+  }
+}
+
+export class ResetSubmissionFormAction implements Action {
+  type = SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new LoadSubmissionFormAction
+   *
+   * @param collectionId
+   *    the collection's Id where to deposit
+   * @param submissionId
+   *    the submission's ID
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
   }
 }
 
