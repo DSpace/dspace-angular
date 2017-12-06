@@ -39,7 +39,7 @@ export class FormBuilderService extends DynamicFormService {
     super(formBuilder, validationService);
   }
 
-  findById(id: string, groupModel: DynamicFormControlModel[], fieldIndex = 0): DynamicFormControlModel | null {
+  findById(id: string, groupModel: DynamicFormControlModel[], fieldIndex = null): DynamicFormControlModel | null {
 
     let result = null;
     const findByIdFn = (findId: string, findGroupModel: DynamicFormControlModel[]): void => {
@@ -47,7 +47,11 @@ export class FormBuilderService extends DynamicFormService {
       for (const controlModel of findGroupModel) {
 
         if (controlModel.id === findId) {
-          result = controlModel;
+          if (controlModel instanceof DynamicFormArrayModel && isNotNull(fieldIndex)) {
+            result = controlModel.get(fieldIndex)
+          } else {
+            result = controlModel;
+          }
           break;
         }
 
@@ -56,6 +60,7 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (controlModel instanceof DynamicFormArrayModel) {
+          fieldIndex = isNull(fieldIndex) ? 0 : fieldIndex;
           findByIdFn(findId, controlModel.get(fieldIndex).group);
         }
       }
@@ -193,8 +198,8 @@ export class FormBuilderService extends DynamicFormService {
     return fieldValue;
   }
 
-  getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[]) {
-    const fieldModel = this.findById(id, groupModel);
+  getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0) {
+    const fieldModel = this.findById(id, groupModel, index);
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 }

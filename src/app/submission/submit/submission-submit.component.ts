@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+
 import { SubmissionRestService } from '../submission-rest.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 import { NormalizedWorkspaceItem } from '../models/normalized-workspaceitem.model';
-import { Store } from '@ngrx/store';
-import { SubmissionState } from '../submission.reducers';
+import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 
 @Component({
   selector: 'ds-submission-submit',
@@ -13,18 +12,20 @@ import { SubmissionState } from '../submission.reducers';
 
 export class SubmissionSubmitComponent implements OnInit {
   public collectionId: string;
+  public submissionDefinition: SubmissionDefinitionsModel;
   public submissionId: string;
 
-  constructor(private store:Store<SubmissionState>,
-              private restService: SubmissionRestService,
-              private cds: CollectionDataService) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+              private restService: SubmissionRestService) {}
 
   ngOnInit() {
     this.restService.postToEndpoint('workspaceitems', {})
       .map((workspaceitems: NormalizedWorkspaceItem) => workspaceitems[0])
       .subscribe((workspaceitems: NormalizedWorkspaceItem) => {
         this.collectionId = workspaceitems.collection[0].id;
+        this.submissionDefinition = workspaceitems.submissionDefinition[0];
         this.submissionId = workspaceitems.id;
+        this.changeDetectorRef.detectChanges();
     });
   }
 }

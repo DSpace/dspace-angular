@@ -23,7 +23,7 @@ import { NativeWindowRef, NativeWindowService } from './shared/window.service';
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {

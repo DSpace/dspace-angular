@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +8,7 @@ import { AuthorityService } from '../../../../../../core/integration/authority.s
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { isNotEmpty } from '../../../../../empty.util';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
@@ -70,10 +71,9 @@ export class DsDynamicTypeaheadComponent implements OnInit {
       this.model.authorityName,
       this.model.authorityMetadata);
     this.group.valueChanges.subscribe((value) => {
-      if (this.currentValue !== value) {
-        this.currentValue = value[this.model.id][0];
+      if (this.currentValue !== value && isNotEmpty(value[this.model.id])) {
+        this.currentValue = value[this.model.id];
       }
-      console.log('type', value, this.currentValue);
     })
   }
 

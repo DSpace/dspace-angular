@@ -78,7 +78,8 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   private subs: Subscription[] = [];
 
-  constructor(private formService: FormService, private formBuilderService: FormBuilderService, private store: Store<AppState>) {}
+  constructor(private formService: FormService, private formBuilderService: FormBuilderService, private store: Store<AppState>) {
+  }
 
   /**
    * Method provided by Angular. Invoked after the view has been initialized.

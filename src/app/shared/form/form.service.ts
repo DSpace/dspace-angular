@@ -20,7 +20,8 @@ export class FormService {
    */
   public isValid(formId: string): Observable<boolean> {
     return this.store.select(formObjectFromIdSelector(formId))
-      .map((state) => state.valid)
+      .filter((state) => isNotUndefined(state))
+      .map((state) =>  state.valid)
       .distinctUntilChanged();
   }
 
@@ -29,6 +30,7 @@ export class FormService {
    */
   public getFormData(formId: string): Observable<FormControl> {
     return this.store.select(formObjectFromIdSelector(formId))
+      .filter((state) => isNotUndefined(state))
       .map((state) => state.data)
       .distinctUntilChanged();
   }
@@ -38,7 +40,7 @@ export class FormService {
    */
   public validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach((field) => {
-      // console.log(field);
+      console.log(field);
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });

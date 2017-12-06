@@ -1,10 +1,10 @@
-import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/core';
 
 import { isEmpty } from 'lodash';
 import { Store } from '@ngrx/store';
 import {
-  DynamicFormControlEvent, DynamicFormControlModel,
-  DynamicInputModel
+  DynamicFormControlEvent, DynamicFormControlModel, DynamicInputControlModel,
+  DynamicInputModel, ValidatorFactory
 } from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -14,23 +14,20 @@ import { SectionStatusChangeAction } from '../../objects/submission-objects.acti
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { WorkspaceitemSectionFormObject } from '../../models/workspaceitem-section-form.model';
-import { ConfigAuthorityModel } from '../../../core/shared/config/config-authority.model';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
 import { AuthorityService } from '../../../core/integration/authority.service';
 import { IntegrationData } from '../../../core/integration/integration-data';
-import { WorkspaceitemSectionDataType } from '../../models/workspaceitem-sections.model';
+import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
+import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -50,6 +47,7 @@ export class FormSectionComponent extends SectionModelComponent {
   @ViewChildren('formRef') private forms: QueryList<FormComponent>;
 
   constructor(protected authorityService: AuthorityService,
+              protected changeDetectorRef: ChangeDetectorRef,
               protected formBuilderService: FormBuilderService,
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
@@ -77,6 +75,7 @@ export class FormSectionComponent extends SectionModelComponent {
               this.updateForm(sectionData);
             }
             this.isLoading = false;
+            this.changeDetectorRef.detectChanges();
           })
 
       });
@@ -122,6 +121,7 @@ export class FormSectionComponent extends SectionModelComponent {
         if (isUndefined(this.formRef)) {
           this.formRef = comps.first;
           // this.formRef.formGroup.statusChanges
+
           this.formService.isValid(this.formRef.getFormUniqueId())
             .subscribe((formState) => {
               if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
@@ -144,21 +144,36 @@ export class FormSectionComponent extends SectionModelComponent {
                 errors.forEach((errorItem: SubmissionError) => {
                   const parsedErrors = parseSectionErrorPaths(errorItem.path);
 
-                  parsedErrors.forEach((parsedError) => {
-                    const formControlId = parsedError.fieldId.replace(/\./g, '_');
-                    const formControl = formGroup.get(formControlId);
+                  parsedErrors.forEach((parsedError, index: number) => {
+                    const parsedId = parsedError.fieldId.replace(/\./g, '_');
+                    const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
+                    const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
+                    const errorKey = `error-${index}`;
+                    const error = {};
 
-                    console.log('Form Control', formControl);
+                    error[ errorKey ] = errorItem.messageKey;
 
-                    formControl.setErrors({
-                      myError: true,
-                    })
+                    formControl.setValidators(() => (error));
+
+                    if (!formControlModel.errorMessages) {
+                      formControlModel.errorMessages = {};
+                    }
+
+                    formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
+
+                    formControl.setErrors(error);
+
+                    formGroup.markAsDirty();
+                    formGroup.markAsTouched();
+
+                    this.changeDetectorRef.detectChanges();
                   });
                 });
               }
             })
         }
       });
+
   }
 
   onChange(event: DynamicFormControlEvent) {

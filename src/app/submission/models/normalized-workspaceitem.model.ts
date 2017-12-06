@@ -7,6 +7,7 @@ import { ConfigType } from '../../core/shared/config/config-type';
 import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 import { NormalizedItem } from '../../core/cache/models/normalized-item.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
+import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 
 @mapsTo(License)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -33,7 +34,7 @@ export class NormalizedWorkspaceItem extends NormalizedDSpaceObject {
   @autoserialize
   sections: WorkspaceitemSectionsObject;
 
-  @autoserializeAs(ConfigType.SubmissionDefinition)
-  submissionDefinition: ConfigType.SubmissionDefinition;
+  @autoserializeAs(SubmissionDefinitionsModel)
+  submissionDefinition: SubmissionDefinitionsModel;
 
 }
