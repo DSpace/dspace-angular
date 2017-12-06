@@ -54,9 +54,6 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
             'error.validation.two': {
               paths: [ '/sections/traditionalpageone/dc.identifier.citation' ]
             },
-            'error.validation.three': {
-              paths: [ '/sections/traditionalpagetwo/dc.description.abstract' ]
-            }
           }
         };
 
