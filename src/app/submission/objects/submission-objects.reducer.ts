@@ -9,7 +9,7 @@ import {
   LoadSubmissionFormAction, SectionStatusChangeAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes, ClearSectinErrorsAction, InertSectionErrorAction,
-  DeleteSectionErrorAction
+  DeleteSectionErrorAction, ResetSubmissionFormAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
 import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
@@ -90,7 +90,11 @@ export function submissionObjectReducer(state = initialState, action: Submission
     // Section actions
 
     case SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM: {
-      return newSubmission(state, action as LoadSubmissionFormAction);
+      return initSubmission(state, action as LoadSubmissionFormAction);
+    }
+
+    case SubmissionObjectActionTypes.RESET_SUBMISSION_FORM: {
+      return state;
     }
 
     case SubmissionObjectActionTypes.ENABLE_SECTION: {
@@ -169,7 +173,6 @@ const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorAct
     return state;
   }
 };
-
 
 const insertError = (state: SubmissionObjectState, action: InertSectionErrorAction): SubmissionObjectState => {
   const { submissionId, sectionId, error } = action.payload;
@@ -298,7 +301,7 @@ function disableSection(state: SubmissionObjectState, action: DisableSectionActi
 }
 
 /**
- * Set a section enabled.
+ * Init a SubmissionObjectState.
  *
  * @param state
  *    the current state
@@ -307,18 +310,13 @@ function disableSection(state: SubmissionObjectState, action: DisableSectionActi
  * @return SubmissionObjectState
  *    the new state, with the section removed.
  */
-function newSubmission(state: SubmissionObjectState, action: LoadSubmissionFormAction): SubmissionObjectState {
-  if (!hasValue(state[ action.payload.submissionId ])) {
-    const newState = Object.assign({}, state);
-    // newState[action.payload.submissionId] = Object.create(null);
-    newState[ action.payload.submissionId ] = {
-      sections: Object.create(null),
-      isLoading: true
-    };
-    return newState;
-  } else {
-    return state;
-  }
+function initSubmission(state: SubmissionObjectState, action: LoadSubmissionFormAction | ResetSubmissionFormAction): SubmissionObjectState {
+  const newState = Object.assign({}, state);
+  newState[ action.payload.submissionId ] = {
+    sections: Object.create(null),
+    isLoading: true
+  };
+  return newState;
 }
 
 /**
@@ -381,7 +379,8 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
                     state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files,
                     newData)
                 }),
-                isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid
+                isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
+                errors: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errors
               }
             }
           )
@@ -401,7 +400,8 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
               data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                 files: newData
               }),
-              isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid
+              isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
+              errors: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errors
             }
           })
         ),
@@ -435,7 +435,8 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
                       [action.payload.fileId]: action.payload.data
                     })
                 }),
-                isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid
+                isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
+                errors: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errors
               }
             }
           )
@@ -466,10 +467,11 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
           Object.assign({}, {
               [action.payload.sectionId]: {
                 sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
-                isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
                 data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                   files: deleteProperty(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files, action.payload.fileId)
-                })
+                }),
+                isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
+                errors: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errors
               }
             }
           )

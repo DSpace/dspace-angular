@@ -14,6 +14,7 @@ import { FormGroup } from '@angular/forms';
 export const FormActionTypes = {
   FORM_INIT: type('dspace/form/FORM_INIT'),
   FORM_CHANGE: type('dspace/form/FORM_CHANGE'),
+  FORM_REMOVE: type('dspace/form/FORM_REMOVE'),
   FORM_STATUS_CHANGE: type('dspace/form/FORM_STATUS_CHANGE')
 };
 
@@ -58,6 +59,23 @@ export class FormChangeAction implements Action {
    */
   constructor(formId: string, formData: FormGroup) {
     this.payload = { formId, formData };
+  }
+}
+
+export class FormRemoveAction implements Action {
+  type = FormActionTypes.FORM_REMOVE;
+  payload: {
+    formId: string;
+  };
+
+  /**
+   * Create a new FormRemoveAction
+   *
+   * @param formId
+   *    the Form's ID
+   */
+  constructor(formId: string) {
+    this.payload = { formId };
   }
 }
 

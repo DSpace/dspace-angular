@@ -60,7 +60,8 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
 
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.currentCollectionId)
-      && hasValue(changes.currentCollectionId.currentValue)) {
+      && hasValue(changes.currentCollectionId.currentValue)
+      && !isNotEmpty(this.listCollection)) {
       this.selectedCollectionId = this.currentCollectionId;
       // @TODO replace with search/top browse endpoint
       // @TODO implement community/subcommunity hierarchy
@@ -115,12 +116,12 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
 
   onSelect(event) {
     this.searchField.reset();
+    this.searchListCollection = this.listCollection;
     this.selectedCollectionId = event.collection.id;
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
     this.restService.jsonPatchByResourceID(this.submissionId, 'sections', 'collection')
       .subscribe((workspaceitems: WorkspaceitemObject[]) => {
         this.selectedCollectionName = event.collection.name;
-        this.searchListCollection = this.listCollection;
         this.collectionChange.emit(workspaceitems[0]);
       })
   }

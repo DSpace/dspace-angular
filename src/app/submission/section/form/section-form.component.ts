@@ -66,7 +66,7 @@ export class FormSectionComponent extends SectionModelComponent {
         this.store.select(submissionSectionDataFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
           .take(1)
           .subscribe((sectionData: WorkspaceitemSectionFormObject) => {
-            if (isUndefined(sectionData) || Object.is(sectionData, this.sectionData.data)) {
+            if (isUndefined(this.formModel)) {
               // Is the first loading so init form
               this.initForm(config, sectionData)
             } else if (!Object.is(sectionData, this.sectionData.data)) {
@@ -113,47 +113,49 @@ export class FormSectionComponent extends SectionModelComponent {
   }
 
   subscriptions() {
-    this.forms.changes
-      .filter((comps: QueryList <FormComponent>) => hasValue(comps.first))
-      .debounceTime(1)
-      .subscribe((comps: QueryList <FormComponent>) => {
-      if (isUndefined(this.formRef)) {
-        this.formRef = comps.first;
-        // this.formRef.formGroup.statusChanges
+    if (this.forms) {
+      this.forms.changes
+        .filter((comps: QueryList<FormComponent>) => hasValue(comps.first))
+        .debounceTime(1)
+        .subscribe((comps: QueryList<FormComponent>) => {
+          if (isUndefined(this.formRef)) {
+            this.formRef = comps.first;
+            // this.formRef.formGroup.statusChanges
 
-        this.formService.isValid(this.formRef.getFormUniqueId())
-          .subscribe((formState) => {
-            if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
-              this.valid = this.formRef.formGroup.valid;
-              this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, this.valid));
-            }
-          });
-
-        /**
-         * Subscribe to errors
-         */
-        this.store.select(submissionSectionFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
-          .subscribe((state: SubmissionSectionObject) => {
-            const { errors } = state;
-
-            if (errors && !isEmpty(errors)) {
-              const { formGroup } = this.formRef;
-
-              errors.forEach((errorItem: SubmissionError) => {
-                const parsedErrors = parseSectionErrorPaths(errorItem.path);
-
-                parsedErrors.forEach((parsedError) => {
-                  const parsedId = parsedError.fieldId.replace(/\./g, '_');
-                  const formControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
-
-                  console.log('FORM CONTROL', formControl);
-                });
+            this.formService.isValid(this.formRef.getFormUniqueId())
+              .subscribe((formState) => {
+                if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
+                  this.valid = this.formRef.formGroup.valid;
+                  this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, this.valid));
+                }
               });
-            }
-          })
-      }
-    });
 
+            /**
+             * Subscribe to errors
+             */
+            this.store.select(submissionSectionFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
+              .filter((state: SubmissionSectionObject) => isNotEmpty(state))
+              .subscribe((state: SubmissionSectionObject) => {
+                const {errors} = state;
+
+                if (errors && !isEmpty(errors)) {
+                  const {formGroup} = this.formRef;
+
+                  errors.forEach((errorItem: SubmissionError) => {
+                    const parsedErrors = parseSectionErrorPaths(errorItem.path);
+
+                    parsedErrors.forEach((parsedError) => {
+                      const parsedId = parsedError.fieldId.replace(/\./g, '_');
+                      const formControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
+
+                      console.log('FORM CONTROL', formControl);
+                    });
+                  });
+                }
+              })
+          }
+        });
+    }
   }
 
   onChange(event: DynamicFormControlEvent) {

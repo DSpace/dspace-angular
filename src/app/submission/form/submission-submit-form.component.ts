@@ -5,7 +5,7 @@ import {
 import { Store } from '@ngrx/store';
 
 import { SectionHostDirective } from '../section/section-host.directive';
-import { LoadSubmissionFormAction } from '../objects/submission-objects.actions';
+import { LoadSubmissionFormAction, ResetSubmissionFormAction } from '../objects/submission-objects.actions';
 import { isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
@@ -65,10 +65,14 @@ export class SubmissionSubmitFormComponent implements OnChanges {
   }
 
   onCollectionChange(workspaceitemObject: WorkspaceitemObject) {
-    this.collectionId = workspaceitemObject.collection.id;
-    this.sections = workspaceitemObject.sections;
-    this.submissionDefinition = workspaceitemObject.submissionDefinition;
-    this.definitionId = this.submissionDefinition.name;
+    if (this.definitionId !== workspaceitemObject.submissionDefinition[0].name) {
+      this.collectionId = workspaceitemObject.collection[0].id;
+      this.sections = workspaceitemObject.sections;
+      this.submissionDefinition = workspaceitemObject.submissionDefinition[0];
+      this.definitionId = this.submissionDefinition.name;
+      this.store.dispatch(new ResetSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
+    }
+
   }
 
 }

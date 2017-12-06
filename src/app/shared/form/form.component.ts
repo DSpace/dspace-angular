@@ -19,7 +19,7 @@ import { Store } from '@ngrx/store';
 import { uniqueId } from 'lodash';
 
 import { AppState } from '../../app.reducer';
-import { FormChangeAction, FormInitAction, FormStatusChangeAction } from './form.actions';
+import { FormChangeAction, FormInitAction, FormRemoveAction, FormStatusChangeAction } from './form.actions';
 import { FormBuilderService } from './builder/form-builder.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -116,6 +116,7 @@ export class FormComponent implements OnDestroy, OnInit {
    * Method provided by Angular. Invoked when the instance is destroyed
    */
   ngOnDestroy() {
+    this.store.dispatch(new FormRemoveAction(this.formUniqueId));
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
