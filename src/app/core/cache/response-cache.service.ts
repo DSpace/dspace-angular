@@ -4,7 +4,7 @@ import { MemoizedSelector, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { ResponseCacheEntry } from './response-cache.reducer';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
+import { hasNoValue } from '../../shared/empty.util';
 import { ResponseCacheRemoveAction, ResponseCacheAddAction } from './response-cache.actions';
 import { RestResponse } from './response-cache.models';
 import { CoreState } from '../core.reducers';
@@ -25,7 +25,6 @@ export class ResponseCacheService {
 
   add(key: string, response: RestResponse, msToLive: number): Observable<ResponseCacheEntry> {
     if (!this.has(key)) {
-      // this.store.dispatch(new ResponseCacheFindAllAction(key, service, scopeID, paginationOptions, sortOptions));
       this.store.dispatch(new ResponseCacheAddAction(key, response, new Date().getTime(), msToLive));
     }
     return this.get(key);
