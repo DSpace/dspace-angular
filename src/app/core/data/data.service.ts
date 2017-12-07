@@ -10,6 +10,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import {
   FindAllOptions,
@@ -70,7 +71,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     }
   }
 
-  findAll(options: FindAllOptions = {}): Observable<RemoteData<TDomain[]>> {
+  findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
     const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
       .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
 
@@ -82,7 +83,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
+    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<TDomain>>>;
   }
 
   getFindByIDHref(endpoint, resourceID): string {

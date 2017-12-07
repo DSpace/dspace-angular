@@ -12,7 +12,7 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { coreSelector, CoreState } from '../core.reducers';
 import { keySelector } from '../shared/selectors';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
-import { RestRequest } from './request.models';
+import { RestRequest, RestRequestMethod } from './request.models';
 
 import { RequestEntry, RequestState } from './request.reducer';
 
@@ -30,11 +30,9 @@ export function requestStateSelector(): MemoizedSelector<CoreState, RequestState
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];
 
-  constructor(
-    private objectCache: ObjectCacheService,
-    private responseCache: ResponseCacheService,
-    private store: Store<CoreState>
-  ) {
+  constructor(private objectCache: ObjectCacheService,
+              private responseCache: ResponseCacheService,
+              private store: Store<CoreState>) {
   }
 
   isPending(href: string): boolean {
@@ -59,6 +57,12 @@ export class RequestService {
   }
 
   configure<T extends CacheableObject>(request: RestRequest): void {
+    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
+      this.dispatchRequest(request);
+    }
+  }
+
+  private isCachedOrPending(request: RestRequest) {
     let isCached = this.objectCache.hasBySelfLink(request.href);
     if (!isCached && this.responseCache.has(request.href)) {
       const [successResponse, errorResponse] = this.responseCache.get(request.href)
@@ -84,11 +88,13 @@ export class RequestService {
 
     const isPending = this.isPending(request.href);
 
-    if (!(isCached || isPending)) {
-      this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(request.href));
-      this.trackRequestsOnTheirWayToTheStore(request.href);
-    }
+    return isCached || isPending;
+  }
+
+  private dispatchRequest(request: RestRequest) {
+    this.store.dispatch(new RequestConfigureAction(request));
+    this.store.dispatch(new RequestExecuteAction(request.href));
+    this.trackRequestsOnTheirWayToTheStore(request.href);
   }
 
   /**

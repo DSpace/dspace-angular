@@ -1,5 +1,5 @@
-import { PageInfo } from '../shared/page-info.model';
 import { hasValue } from '../../shared/empty.util';
+import { RemoteDataError } from './remote-data-error';
 
 export enum RemoteDataState {
   RequestPending = 'RequestPending',
@@ -13,13 +13,10 @@ export enum RemoteDataState {
  */
 export class RemoteData<T> {
   constructor(
-    public self: string,
     private requestPending: boolean,
     private responsePending: boolean,
     private isSuccessFul: boolean,
-    public errorMessage: string,
-    public statusCode: string,
-    public pageInfo: PageInfo,
+    public error: RemoteDataError,
     public payload: T
   ) {
   }

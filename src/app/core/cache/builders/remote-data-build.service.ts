@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { PaginatedList } from '../../data/paginated-list';
+import { RemoteDataError } from '../../data/remote-data-error';
 
 import { CacheableObject } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
@@ -88,32 +90,18 @@ export class RemoteDataBuildService {
         const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
         const responsePending = hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
         let isSuccessFul: boolean;
-        let errorMessage: string;
-        let statusCode: string;
-        let pageInfo: PageInfo;
+        let error: RemoteDataError;
         if (hasValue(resEntry) && hasValue(resEntry.response)) {
           isSuccessFul = resEntry.response.isSuccessful;
-          errorMessage = isSuccessFul === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
-          statusCode = resEntry.response.statusCode;
-
-          if (hasValue((resEntry.response as DSOSuccessResponse).pageInfo)) {
-            const resPageInfo = (resEntry.response as DSOSuccessResponse).pageInfo;
-            if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
-              pageInfo = Object.assign({}, resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
-            } else {
-              pageInfo = resPageInfo;
-            }
-          }
+          const errorMessage = isSuccessFul === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
+          error = new RemoteDataError(resEntry.response.statusCode, errorMessage);
         }
 
         return new RemoteData(
-          href,
           requestPending,
           responsePending,
           isSuccessFul,
-          errorMessage,
-          statusCode,
-          pageInfo,
+          error,
           payload
         );
       });
@@ -122,7 +110,7 @@ export class RemoteDataBuildService {
   buildList<TNormalized extends CacheableObject, TDomain>(
     hrefObs: string | Observable<string>,
     normalizedType: GenericConstructor<TNormalized>
-  ): Observable<RemoteData<TDomain[]>> {
+  ): Observable<RemoteData<TDomain[] | PaginatedList<TDomain>>> {
     if (typeof hrefObs === 'string') {
       hrefObs = Observable.of(hrefObs);
     }
@@ -132,7 +120,7 @@ export class RemoteDataBuildService {
     const responseCacheObs = hrefObs.flatMap((href: string) => this.responseCache.get(href))
       .filter((entry) => hasValue(entry));
 
-    const payloadObs = responseCacheObs
+    const tDomainListObs = responseCacheObs
       .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks)
       .flatMap((resourceUUIDs: string[]) => {
@@ -145,6 +133,27 @@ export class RemoteDataBuildService {
       })
       .startWith([])
       .distinctUntilChanged();
+
+    const pageInfoObs = responseCacheObs
+      .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
+      .map((entry: ResponseCacheEntry) => {
+        if (hasValue((entry.response as DSOSuccessResponse).pageInfo)) {
+          const resPageInfo = (entry.response as DSOSuccessResponse).pageInfo;
+          if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
+            return Object.assign({}, resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
+          } else {
+            return resPageInfo;
+          }
+        }
+      });
+
+    const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
+      if (hasValue(pageInfo)) {
+        return new PaginatedList(pageInfo, tDomainList);
+      } else {
+        return tDomainList;
+      }
+    });
 
     return this.toRemoteDataObservable(hrefObs, requestObs, responseCacheObs, payloadObs);
   }
@@ -209,35 +218,32 @@ export class RemoteDataBuildService {
           .every((b: boolean) => b === true);
 
         const errorMessage: string = arr
-          .map((d: RemoteData<T>) => d.errorMessage)
-          .map((e: string, idx: number) => {
+          .map((d: RemoteData<T>) => d.error)
+          .map((e: RemoteDataError, idx: number) => {
             if (hasValue(e)) {
-              return `[${idx}]: ${e}`;
+              return `[${idx}]: ${e.message}`;
             }
           }).filter((e: string) => hasValue(e))
           .join(', ');
 
         const statusCode: string = arr
-          .map((d: RemoteData<T>) => d.statusCode)
-          .map((c: string, idx: number) => {
-            if (hasValue(c)) {
-              return `[${idx}]: ${c}`;
+          .map((d: RemoteData<T>) => d.error)
+          .map((e: RemoteDataError, idx: number) => {
+            if (hasValue(e)) {
+              return `[${idx}]: ${e.statusCode}`;
             }
           }).filter((c: string) => hasValue(c))
           .join(', ');
 
-        const pageInfo = undefined;
+        const error = new RemoteDataError(statusCode, errorMessage);
 
         const payload: T[] = arr.map((d: RemoteData<T>) => d.payload);
 
         return new RemoteData(
-          `dspace-angular://aggregated/object/${new Date().getTime()}`,
           requestPending,
           responsePending,
           isSuccessFul,
-          errorMessage,
-          statusCode,
-          pageInfo,
+          error,
           payload
         );
       })

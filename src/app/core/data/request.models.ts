@@ -9,14 +9,24 @@ import { BrowseResponseParsingService } from './browse-response-parsing.service'
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
+
+/**
+ * Represents a Request Method.
+ *
+ * I didn't reuse the RequestMethod enum in @angular/http because
+ * it uses numbers. The string values here are more clear when
+ * debugging.
+ *
+ * The ones commented out are still unsupported in the rest of the codebase
+ */
 export enum RestRequestMethod {
   Get = 'GET',
   Post = 'POST',
-  Put = 'PUT',
-  Delete = 'DELETE',
-  Options = 'OPTIONS',
-  Head = 'HEAD',
-  Patch = 'PATCH'
+  // Put = 'PUT',
+  // Delete = 'DELETE',
+  // Options = 'OPTIONS',
+  // Head = 'HEAD',
+  // Patch = 'PATCH'
 }
 
 export class RestRequest {

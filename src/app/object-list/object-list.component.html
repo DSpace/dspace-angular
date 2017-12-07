@@ -1,7 +1,7 @@
 <ds-pagination
   [paginationOptions]="config"
-  [pageInfoState]="pageInfo"
-  [collectionSize]="pageInfo?.totalElements"
+  [pageInfoState]="objects?.payload"
+  [collectionSize]="objects?.payload?.totalElements"
   [sortOptions]="sortConfig"
   [hideGear]="hideGear"
   [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
@@ -11,7 +11,7 @@
   (sortFieldChange)="onSortFieldChange($event)"
   (paginationChange)="onPaginationChange($event)">
   <ul *ngIf="objects?.hasSucceeded"> <!--class="list-unstyled"-->
-      <li *ngFor="let object of objects?.payload">
+      <li *ngFor="let object of objects?.payload?.page">
           <ds-wrapper-list-element [object]="object"></ds-wrapper-list-element>
       </li>
   </ul>

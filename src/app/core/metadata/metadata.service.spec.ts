@@ -11,6 +11,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
+import { RemoteDataError } from '../data/remote-data-error';
 
 import { MetadataService } from './metadata.service';
 
@@ -178,13 +179,10 @@ describe('MetadataService', () => {
 
   const mockRemoteData = (mockItem: Item): Observable<RemoteData<Item>> => {
     return Observable.of(new RemoteData<Item>(
-      '',
       false,
       false,
       true,
-      '',
-      '200',
-      {} as PageInfo,
+      new RemoteDataError('200', ''),
       MockItem
     ));
   }

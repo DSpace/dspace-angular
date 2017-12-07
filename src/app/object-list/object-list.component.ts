@@ -8,13 +8,12 @@ import {
 } from '@angular/core';
 
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { PaginatedList } from '../core/data/paginated-list';
 
 import { RemoteData } from '../core/data/remote-data';
-import { PageInfo } from '../core/shared/page-info.model';
-import { ListableObject } from '../object-list/listable-object/listable-object.model';
+import { ListableObject } from './listable-object/listable-object.model';
 
 import { fadeIn } from '../shared/animations/fade';
-import { hasValue } from '../shared/empty.util';
 
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
@@ -32,13 +31,9 @@ export class ObjectListComponent {
   @Input() sortConfig: SortOptions;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
-  private _objects: RemoteData<ListableObject[]>;
-  pageInfo: PageInfo;
-  @Input() set objects(objects: RemoteData<ListableObject[]>) {
+  private _objects: RemoteData<PaginatedList<ListableObject>>;
+  @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
     this._objects = objects;
-    if (hasValue(objects)) {
-      this.pageInfo = objects.pageInfo;
-    }
   }
   get objects() {
     return this._objects;

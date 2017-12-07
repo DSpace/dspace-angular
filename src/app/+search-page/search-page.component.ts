@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { CommunityDataService } from '../core/data/community-data.service';
+import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -36,7 +37,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   resultsRDObs: Observable<RemoteData<Array<SearchResult<DSpaceObject>>>>;
   currentParams = {};
   searchOptions: SearchOptions;
-  scopeListRDObs: Observable<RemoteData<Community[]>>;
+  scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
 
   constructor(private service: SearchService,
