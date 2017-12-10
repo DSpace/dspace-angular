@@ -5,12 +5,10 @@ import { WorkspaceitemSectionLicenseObject } from '../models/workspaceitem-secti
 import { WorkspaceitemSectionDataType } from '../models/workspaceitem-sections.model';
 
 export class SectionDataObject {
-  collectionId: string;
   config: string;
   data: WorkspaceitemSectionDataType;
   header: string;
   id: string;
   mandatory: boolean;
-  submissionId: string;
   [propName: string]: any;
 }

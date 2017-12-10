@@ -9,7 +9,9 @@ export interface SectionDataModel {
  * An abstract model class for a submission edit form section.
  */
 export abstract class SectionModelComponent implements SectionDataModel {
+  @Input() collectionId: string;
   @Input() sectionData: SectionDataObject;
+  @Input() submissionId: string;
 
   protected valid: boolean;
 

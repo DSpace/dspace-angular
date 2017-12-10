@@ -61,9 +61,9 @@ export class FormSectionComponent extends SectionModelComponent {
       .flatMap((config: ConfigData) => config.payload)
       .subscribe((config: SubmissionFormsModel) => {
         this.formConfig = config;
-        this.formId = this.sectionData.id;
-        this.formBuilderService.setAuthorityUuid(this.sectionData.collectionId);
-        this.store.select(submissionSectionDataFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
+        this.formId = this.formService.getUniqueId(this.sectionData.id);
+        this.formBuilderService.setAuthorityUuid(this.collectionId);
+        this.store.select(submissionSectionDataFromIdSelector(this.submissionId, this.sectionData.id))
           .take(1)
           .subscribe((sectionData: WorkspaceitemSectionFormObject) => {
             if (isUndefined(sectionData) || Object.is(sectionData, this.sectionData.data)) {
@@ -121,18 +121,18 @@ export class FormSectionComponent extends SectionModelComponent {
         this.formRef = comps.first;
         // this.formRef.formGroup.statusChanges
 
-        this.formService.isValid(this.formRef.getFormUniqueId())
+        this.formService.isValid(this.formId)
           .subscribe((formState) => {
             if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
               this.valid = this.formRef.formGroup.valid;
-              this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, this.valid));
+              this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
             }
           });
 
         /**
          * Subscribe to errors
          */
-        this.store.select(submissionSectionFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
+        this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
           .subscribe((state: SubmissionSectionObject) => {
             const { errors } = state;
 

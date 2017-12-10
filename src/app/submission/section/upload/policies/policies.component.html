@@ -1,6 +1,6 @@
 <ng-container *ngFor="let policy of policies">
-  <span *ngIf="policy.type == 1" class="badge badge-success mt-3 mr-2">{{policy.name}}</span>
-  <span *ngIf="policy.type == 2" class="badge badge-warning mt-3 mr-2">{{policy.name}}</span>
-  <span *ngIf="policy.type == 3" class="badge badge-primary mt-3 mr-2">{{policy.name}} until {{policy.date}}</span>
-  <span *ngIf="policy.type == 4" class="badge badge-dark mt-3 mr-2">{{policy.name}} until {{policy.date}}</span>
+  <span *ngIf="policy.action == 'DEFAULT_BITSTREAM_READ'" class="badge badge-success mt-3 mr-2">{{policy.name}}</span>
+  <span *ngIf="policy.action == 2" class="badge badge-warning mt-3 mr-2">{{policy.name}}</span>
+  <span *ngIf="policy.action == 3" class="badge badge-primary mt-3 mr-2">{{policy.name}} until {{policy.date}}</span>
+  <span *ngIf="policy.action == 4" class="badge badge-dark mt-3 mr-2">{{policy.name}} until {{policy.date}}</span>
 </ng-container>

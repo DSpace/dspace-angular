@@ -21,10 +21,16 @@ export class SectionUploadService {
       .distinctUntilChanged();
   }
 
-  public getFileData(submissionId: string, sectionId: string, fileId: string): Observable<any> {
-    return this.store.select(submissionUploadedFileFromUuidSelector(submissionId, sectionId, fileId))
+  public getFileData(submissionId: string, sectionId: string, fileUuid: string): Observable<any> {
+    return this.store.select(submissionUploadedFilesFromIdSelector(submissionId, sectionId))
       .filter((state) => !isUndefined(state))
-      .map((state) => state)
+      .map((state) => {
+        let fileState;
+        Object.keys(state)
+          .filter((key) => state[key].uuid === fileUuid)
+          .forEach((key) => fileState = state[key]);
+        return fileState;
+      })
       .distinctUntilChanged();
   }
 

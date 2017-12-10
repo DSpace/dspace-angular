@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnInit } from '@angular/core';
 import { SectionService } from './section.service';
 
 @Directive({
@@ -14,7 +14,7 @@ export class SectionDirective implements OnInit {
   private sectionState = this.mandatory;
   private valid: boolean;
 
-  constructor(private sectionService: SectionService) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef, private sectionService: SectionService) {}
 
   ngOnInit() {
     this.sectionService.isSectionValid(this.submissionId, this.sectionId)
@@ -22,6 +22,7 @@ export class SectionDirective implements OnInit {
       .debounceTime(1)
       .subscribe((valid) => {
           this.valid = valid;
+          this.changeDetectorRef.detectChanges();
       });
   }
 

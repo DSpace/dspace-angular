@@ -1,6 +1,6 @@
 <div dsSection #sectionRef="sectionRef"
      [mandatory]="sectionData.mandatory"
-     [submissionId]="sectionData.submissionId"
+     [submissionId]="submissionId"
      [sectionId]="sectionData.id">
   <ngb-accordion #acc="ngbAccordion"
                  (panelChange)="sectionRef.sectionChange($event)"
@@ -32,10 +32,10 @@
 
 <ng-template #sectionContentTemplate>
   <ng-container [ngSwitch]="sectionComponentType">
-      <ds-submission-section-form *ngSwitchCase="'submission-form'" [sectionData]="sectionData"></ds-submission-section-form>
-      <ds-submission-section-files *ngSwitchCase="'upload'" [sectionData]="sectionData"></ds-submission-section-files>
-      <ds-submission-section-license *ngSwitchCase="'license'" [sectionData]="sectionData"></ds-submission-section-license>
-      <ds-submission-section-default *ngSwitchCase="'cclicense'" [sectionData]="sectionData"></ds-submission-section-default>
-      <ds-submission-section-default *ngSwitchCase="'collection'" [sectionData]="sectionData"></ds-submission-section-default>
+      <ds-submission-section-form *ngSwitchCase="'submission-form'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-form>
+      <ds-submission-section-files *ngSwitchCase="'upload'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-files>
+      <ds-submission-section-license *ngSwitchCase="'license'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-license>
+      <ds-submission-section-default *ngSwitchCase="'cclicense'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-default>
+      <ds-submission-section-default *ngSwitchCase="'collection'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-default>
   </ng-container>
 </ng-template>
