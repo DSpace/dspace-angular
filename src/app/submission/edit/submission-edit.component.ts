@@ -6,7 +6,7 @@ import { SubmissionState } from '../submission.reducers';
 import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotUndefined } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { WorkspaceitemObject } from '../models/workspaceitem.model';
 
@@ -37,6 +37,8 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
       .subscribe((params: ParamMap) => {
         this.submissionId = params.get('id');
         this.restService.getDataById(this.submissionId)
+          .filter((workspaceitems: WorkspaceitemObject) => isNotUndefined(workspaceitems))
+          .take(1)
           .map((workspaceitems: WorkspaceitemObject) => workspaceitems[0])
           .subscribe((workspaceitems: NormalizedWorkspaceItem) => {
             this.collectionId = workspaceitems.collection[0].id;

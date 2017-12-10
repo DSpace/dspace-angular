@@ -24,7 +24,7 @@ export class SubmissionDefinitionEffects {
     .switchMap((action: InitDefaultDefinitionAction) => {
       return this.definitionsConfigService.getConfigBySearch({scopeID: action.payload.collectionId})
         .flatMap((definitions: ConfigData) => definitions.payload)
-        .filter((definition: SubmissionDefinitionsModel) => definition.isDefault)
+        // .filter((definition: SubmissionDefinitionsModel) => definition.isDefault)
         .map((definition: SubmissionDefinitionsModel) => {
           const mappedActions = [];
           mappedActions.push(new NewDefinitionAction(definition));

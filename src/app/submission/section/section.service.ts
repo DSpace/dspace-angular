@@ -100,7 +100,9 @@ export class SectionService {
                              sections: WorkspaceitemSectionsObject) {
     this.store.select(submissionDefinitionFromIdSelector(definitionId))
       .distinctUntilChanged()
+      .filter((state) => !isUndefined(state))
       .filter((state) => !isUndefined(state.sections))
+      .take(1)
       .subscribe((state) => {
         Object.keys(state.sections)
           .filter((sectionId) => state.sections[sectionId].mandatory)
@@ -139,12 +141,23 @@ export class SectionService {
   }
 
   public removeSection(submissionId, sectionId) {
-    let sectionObject: SubmissionSectionObject = Object.create(null);
     this.getSectionState(submissionId, sectionId)
-      .subscribe((sectionObj: SubmissionSectionObject) => {
-        sectionObject = sectionObj;
+      .take(1)
+      .subscribe((sectionObject: SubmissionSectionObject) => {
+        this.viewContainerRef.remove(sectionObject.sectionViewIndex);
+        this.store.dispatch(new DisableSectionAction(submissionId, sectionId));
       });
-    this.viewContainerRef.remove(sectionObject.sectionViewIndex);
-    this.store.dispatch(new DisableSectionAction(submissionId, sectionId));
+  }
+
+  public removeAllSections(submissionId) {
+    this.store.select(submissionObjectFromIdSelector(submissionId))
+      .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))
+      .take(1)
+      .subscribe((submission: SubmissionObjectEntry) => {
+        Object.keys(submission.sections)
+          .forEach((sectionId) => {
+            this.viewContainerRef.remove(submission.sections[sectionId].sectionViewIndex);
+          });
+      });
   }
 }

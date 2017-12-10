@@ -76,7 +76,6 @@ export class FilesSectionComponent extends SectionModelComponent {
                 .flatMap((config) => config.payload)
                 .take(1)
                 .subscribe((config: SubmissionUploadsModel) => {
-                console.log('Metadata' + config.metedata);
                   this.availablePolicies = Object.create(config.accessConditionOptions);
 
                   this.collectionPolicies.length > 0 ?
@@ -128,9 +127,21 @@ export class FilesSectionComponent extends SectionModelComponent {
                 if (bitstreamList[key].metadata.size > 1) {
                   field2 = bitstreamList[key].metadata[1].value;
                 }
+
+                // dc.title
+                let field1 = '';
+                if (isNotUndefined(bitstreamList[key].metadata['dc.title'])) {
+                  // Case /edit
+                  field1 = bitstreamList[key].metadata['dc.title'][0].value;
+                } else {
+                  // Case /submit
+                  field1 = bitstreamList[key].metadata[0].value;
+                }
+
                 this.bitstreamsKeys.push({
                   key: key,
-                  field1: bitstreamList[key].metadata[0].value,
+                  // TODO  bitstreamList[key].metadata['dc.title'][0].value,
+                  field1: field1,
                   field2: field2
                 });
               });

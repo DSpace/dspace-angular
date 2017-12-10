@@ -2,7 +2,10 @@ import { ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/
 
 import { isEmpty } from 'lodash';
 import { Store } from '@ngrx/store';
-import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlEvent, DynamicFormControlModel, DynamicInputControlModel,
+  DynamicInputModel, ValidatorFactory
+} from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -24,7 +27,7 @@ import { SubmissionFormsModel } from '../../../core/shared/config/config-submiss
 import { submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -64,10 +67,7 @@ export class FormSectionComponent extends SectionModelComponent {
         this.store.select(submissionSectionDataFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
           .take(1)
           .subscribe((sectionData: WorkspaceitemSectionFormObject) => {
-
-            console.log('SUBCRISTO ngOnInit');
-
-            if (isUndefined(sectionData) || Object.is(sectionData, this.sectionData.data)) {
+            if (isUndefined(this.formModel)) {
               // Is the first loading so init form
               this.initForm(config, sectionData)
             } else if (!Object.is(sectionData, this.sectionData.data)) {
@@ -114,66 +114,65 @@ export class FormSectionComponent extends SectionModelComponent {
   }
 
   subscriptions() {
-    this.forms.changes
-      .filter((comps: QueryList<FormComponent>) => hasValue(comps.first))
-      .debounceTime(1)
-      .subscribe((comps: QueryList<FormComponent>) => {
-        if (isUndefined(this.formRef)) {
-          this.formRef = comps.first;
-          // this.formRef.formGroup.statusChanges
+    if (this.forms) {
+      this.forms.changes
+        .filter((comps: QueryList<FormComponent>) => hasValue(comps.first))
+        .subscribe((comps: QueryList<FormComponent>) => {
+          if (isUndefined(this.formRef)) {
+            this.formRef = comps.first;
+            // this.formRef.formGroup.statusChanges
 
-          this.formService.isValid(this.formRef.getFormUniqueId())
-            .subscribe((formState) => {
-              if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
-                this.valid = this.formRef.formGroup.valid;
-                this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, this.valid));
-              }
-            });
+            this.formService.isValid(this.formRef.getFormUniqueId())
+              .subscribe((formState) => {
+                if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
+                  this.valid = this.formRef.formGroup.valid;
+                  this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, this.valid));
+                }
+              });
 
-          /**
-           * Subscribe to errors
-           */
-          this.store.select(submissionSectionFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
-            .distinctUntilChanged()
-            .subscribe((state: SubmissionSectionObject) => {
-              const { errors } = state;
+            /**
+             * Subscribe to errors
+             */
+            this.store.select(submissionSectionFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
+              .filter((state: SubmissionSectionObject) => isNotEmpty(state))
+              .distinctUntilChanged()
+              .subscribe((state: SubmissionSectionObject) => {
+                const { errors } = state;
 
-              console.log('Submission State changed');
+                if (errors && !isEmpty(errors)) {
+                  const { formGroup } = this.formRef;
 
-              if (errors && !isEmpty(errors)) {
-                const { formGroup } = this.formRef;
+                  errors.forEach((errorItem: SubmissionError) => {
+                    const parsedErrors = parseSectionErrorPaths(errorItem.path);
 
-                errors.forEach((errorItem: SubmissionError) => {
-                  const parsedErrors = parseSectionErrorPaths(errorItem.path);
+                    parsedErrors.forEach((parsedError, index: number) => {
+                      const parsedId = parsedError.fieldId.replace(/\./g, '_');
+                      const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
+                      const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
+                      const errorKey = `error-${index}`;
+                      const error = {};
 
-                  parsedErrors.forEach((parsedError, index: number) => {
-                    const parsedId = parsedError.fieldId.replace(/\./g, '_');
-                    const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
-                    const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
-                    const errorKey = `error-${index}`;
-                    const error = {};
+                      error[ errorKey ] = errorItem.messageKey;
 
-                    error[ errorKey ] = errorItem.messageKey;
+                      if (!formControlModel.errorMessages) {
+                        formControlModel.errorMessages = {};
+                      }
 
-                    if (!formControlModel.errorMessages) {
-                      formControlModel.errorMessages = {};
-                    }
+                      formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
 
-                    formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
+                      formControl.setErrors(error);
 
-                    formControl.setErrors(error);
+                      formGroup.markAsDirty();
+                      formGroup.markAsTouched();
 
-                    formGroup.markAsDirty();
-                    formGroup.markAsTouched();
-
-                    this.changeDetectorRef.detectChanges();
+                      this.changeDetectorRef.detectChanges();
+                    });
                   });
-                });
-              }
-            })
+                }
+              })
         }
       });
-
+    }
   }
 
   onChange(event: DynamicFormControlEvent) {

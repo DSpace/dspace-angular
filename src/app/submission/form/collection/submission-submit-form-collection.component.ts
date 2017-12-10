@@ -8,6 +8,10 @@ import { CommunityDataService } from '../../../core/data/community-data.service'
 import { Community } from '../../../core/shared/community.model';
 import { hasUndefinedValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionRestService } from '../../submission-rest.service';
+import { WorkspaceitemObject } from '../../models/workspaceitem.model';
 
 @Component({
   selector: 'ds-submission-submit-form-collection',
@@ -16,12 +20,13 @@ import { RemoteData } from '../../../core/data/remote-data';
 })
 export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnInit {
   @Input() currentCollectionId: string;
+  @Input() submissionId;
 
   /**
    * An event fired when a different collection is selected.
    * Event's payload equals to new collection uuid.
    */
-  @Output() collectionChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() collectionChange: EventEmitter<WorkspaceitemObject> = new EventEmitter<WorkspaceitemObject>();
 
   public listCollection = [];
   public model: any;
@@ -30,6 +35,7 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
   public selectedCollectionId: string;
   public selectedCollectionName: string;
 
+  protected pathCombiner: JsonPatchOperationPathCombiner;
   private scrollableBottom = false;
   private scrollableTop = false;
   private subs: Subscription[] = [];
@@ -43,7 +49,9 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
     }
   }
 
-  constructor(private communityDataService: CommunityDataService) {}
+  constructor(private communityDataService: CommunityDataService,
+              private operationsBuilder: JsonPatchOperationsBuilder,
+              private restService: SubmissionRestService) {}
 
   onScroll(event) {
     this.scrollableBottom = (event.target.scrollTop + event.target.clientHeight === event.target.scrollHeight);
@@ -52,7 +60,8 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
 
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.currentCollectionId)
-      && hasValue(changes.currentCollectionId.currentValue)) {
+      && hasValue(changes.currentCollectionId.currentValue)
+      && !isNotEmpty(this.listCollection)) {
       this.selectedCollectionId = this.currentCollectionId;
       // @TODO replace with search/top browse endpoint
       // @TODO implement community/subcommunity hierarchy
@@ -77,12 +86,11 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
               this.searchListCollection.push(collectionEntry);
             }))
         }));
-
-
     }
   }
 
   ngOnInit() {
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
     this.searchField = new FormControl();
     this.searchField.valueChanges
       .debounceTime(200)
@@ -108,10 +116,14 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
 
   onSelect(event) {
     this.searchField.reset();
-    this.selectedCollectionId = event.collection.id;
-    this.selectedCollectionName = event.collection.name;
     this.searchListCollection = this.listCollection;
-    this.collectionChange.emit(this.selectedCollectionId);
+    this.selectedCollectionId = event.collection.id;
+    this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
+    this.restService.jsonPatchByResourceID(this.submissionId, 'sections', 'collection')
+      .subscribe((workspaceitems: WorkspaceitemObject[]) => {
+        this.selectedCollectionName = event.collection.name;
+        this.collectionChange.emit(workspaceitems[0]);
+      })
   }
 
   onClose(event) {

@@ -17,10 +17,11 @@ import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.mo
  */
 export const SubmissionObjectActionTypes = {
   // Section types
-  NEW: type('dspace/submission/NEW'),
-  ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
+  LOAD_SUBMISSION_FORM: type('dspace/submission/LOAD_SUBMISSION_FORM'),
+  RESET_SUBMISSION_FORM: type('dspace/submission/RESET_SUBMISSION_FORM'),
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
+  ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
   NEW_PATCH_OPERATION: type('dspace/submission/NEW_PATCH_OPERATION'),
@@ -182,8 +183,8 @@ export class CompleteInitSubmissionFormAction implements Action {
   }
 }
 
-export class NewSubmissionFormAction implements Action {
-  type = SubmissionObjectActionTypes.NEW;
+export class LoadSubmissionFormAction implements Action {
+  type = SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM;
   payload: {
     collectionId: string;
     submissionId: string;
@@ -191,7 +192,28 @@ export class NewSubmissionFormAction implements Action {
   };
 
   /**
-   * Create a new NewSubmissionFormAction
+   * Create a new LoadSubmissionFormAction
+   *
+   * @param collectionId
+   *    the collection's Id where to deposit
+   * @param submissionId
+   *    the submission's ID
+   */
+  constructor(collectionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, submissionId, sections };
+  }
+}
+
+export class ResetSubmissionFormAction implements Action {
+  type = SubmissionObjectActionTypes.RESET_SUBMISSION_FORM;
+  payload: {
+    collectionId: string;
+    submissionId: string;
+    sections: WorkspaceitemSectionsObject;
+  };
+
+  /**
+   * Create a new LoadSubmissionFormAction
    *
    * @param collectionId
    *    the collection's Id where to deposit
@@ -311,6 +333,8 @@ export class DeleteUploadedFileAction implements Action {
  */
 export type SubmissionObjectAction = DisableSectionAction
   | EnableSectionAction
+  | LoadSubmissionFormAction
+  | ResetSubmissionFormAction
   | InitSubmissionFormAction
   | CompleteInitSubmissionFormAction
   | SectionStatusChangeAction

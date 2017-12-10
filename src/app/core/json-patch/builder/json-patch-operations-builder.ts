@@ -6,6 +6,7 @@ import {
 } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
 import { Injectable } from '@angular/core';
+import { isNotEmpty } from '../../../shared/empty.util';
 
 @Injectable()
 export class JsonPatchOperationsBuilder {
@@ -39,23 +40,25 @@ export class JsonPatchOperationsBuilder {
   }
 
   protected prepareValue(value: any, plain) {
-    let operationValue: any;
-    if (plain) {
-      operationValue = value
-    } else {
-      operationValue = [];
-      if (Array.isArray(value)) {
-        value.forEach((entry) => {
-          if ((typeof entry === 'object')) {
-            operationValue.push(entry);
-          } else {
-            operationValue.push({value: entry});
-          }
-        })
-      } else if ((typeof value === 'object') && value.hasOwnProperty('value')) {
-        operationValue.push(value);
+    let operationValue: any = null;
+    if (isNotEmpty(value)) {
+      if (plain) {
+        operationValue = value
       } else {
-        operationValue.push({value: value});
+        operationValue = [];
+        if (Array.isArray(value)) {
+          value.forEach((entry) => {
+            if ((typeof entry === 'object')) {
+              operationValue.push(entry);
+            } else {
+              operationValue.push({value: entry});
+            }
+          })
+        } else if ((typeof value === 'object') && value.hasOwnProperty('value')) {
+          operationValue.push(value);
+        } else {
+          operationValue.push({value: value});
+        }
       }
     }
     return operationValue;
