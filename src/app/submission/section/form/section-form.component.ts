@@ -27,7 +27,7 @@ import { SubmissionFormsModel } from '../../../core/shared/config/config-submiss
 import { submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
-import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -162,16 +162,16 @@ export class FormSectionComponent extends SectionModelComponent {
 
                       formControl.setErrors(error);
 
-                      formGroup.markAsDirty();
-                      formGroup.markAsTouched();
-
-                      this.changeDetectorRef.detectChanges();
+                      // formGroup.markAsDirty();
+                      formControl.markAsTouched();
                     });
                   });
+
+                  this.changeDetectorRef.detectChanges();
                 }
               })
-        }
-      });
+          }
+        });
     }
   }
 
