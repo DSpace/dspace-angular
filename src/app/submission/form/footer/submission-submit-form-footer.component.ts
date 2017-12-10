@@ -51,6 +51,9 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
             'error.validation.one': {
               paths: [ '/sections/traditionalpageone/dc.title', '/sections/traditionalpageone/dc.identifier.citation' ]
             },
+            'error.validation.test': {
+              paths: [ '/sections/traditionalpagetwo/dc.description.sponsorship' ]
+            },
             'error.validation.two': {
               paths: [ '/sections/traditionalpageone/dc.identifier.citation' ]
             },

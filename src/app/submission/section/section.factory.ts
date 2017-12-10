@@ -10,9 +10,6 @@ import { SectionContainerComponent } from './container/section-container.compone
 import { SectionDataModel } from './section.model';
 import { SectionDataObject } from './section-data.model';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
-import { WorkspaceitemSectionFormObject } from '../models/workspaceitem-section-form.model';
-import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
-import { WorkspaceitemSectionLicenseObject } from '../models/workspaceitem-section-license.model';
 import { WorkspaceitemSectionDataType } from '../models/workspaceitem-sections.model';
 
 export interface FactoryDataModel {
@@ -25,7 +22,8 @@ export class SectionFactoryComponent {
   // @TODO retrieve from app configuration
   typeToComponentMapping = [ 'submission-form', 'upload', 'license', 'cclicense', 'collection' ];
 
-  constructor(private resolver: ComponentFactoryResolver) {}
+  constructor(private resolver: ComponentFactoryResolver) {
+  }
 
   // component: Class for the component you want to create
   // inputs: An object with key/value pairs mapped to input name/input value
@@ -52,14 +50,14 @@ export class SectionFactoryComponent {
     inputs.config = factoryData._links.config;
 
     // Inputs need to be in the following format to be resolved properly
-    const inputProviders = [{provide: 'sectionData',  useValue: inputs}];
+    const inputProviders = [ { provide: 'sectionData', useValue: inputs } ];
     const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
 
     // We create an injector out of the data we want to pass down and this components injector
     const injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, sectionsHost.parentInjector);
 
     // We create a factory out of the component we want to create
-    const containerFactory  = this.resolver.resolveComponentFactory(SectionContainerComponent);
+    const containerFactory = this.resolver.resolveComponentFactory(SectionContainerComponent);
 
     // We create the component using the factory and the injector
     const containerRef = containerFactory.create(injector);

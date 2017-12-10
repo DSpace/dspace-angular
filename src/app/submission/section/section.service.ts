@@ -35,12 +35,12 @@ export class SectionService {
     this.viewContainerRef = viewContainerRef;
   }
 
-  private getDefinitionSections(definitionId: string) {
+  /*private getDefinitionSections(definitionId: string) {
     return this.store.select(submissionDefinitionFromIdSelector(definitionId))
       .filter((state) => !isUndefined(state))
       .map((state) => state.sections)
       .distinctUntilChanged();
-  }
+  }*/
 
   public getAvailableSectionList(submissionId, definitionId): Observable<any> {
     const submissionObjectsSelector = createSelector(submissionSelector, (state: SubmissionState) => state.objects);

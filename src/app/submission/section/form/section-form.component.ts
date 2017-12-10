@@ -64,6 +64,9 @@ export class FormSectionComponent extends SectionModelComponent {
         this.store.select(submissionSectionDataFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
           .take(1)
           .subscribe((sectionData: WorkspaceitemSectionFormObject) => {
+
+            console.log('SUBCRISTO ngOnInit');
+
             if (isUndefined(sectionData) || Object.is(sectionData, this.sectionData.data)) {
               // Is the first loading so init form
               this.initForm(config, sectionData)
@@ -134,6 +137,8 @@ export class FormSectionComponent extends SectionModelComponent {
             .distinctUntilChanged()
             .subscribe((state: SubmissionSectionObject) => {
               const { errors } = state;
+
+              console.log('Submission State changed');
 
               if (errors && !isEmpty(errors)) {
                 const { formGroup } = this.formRef;
