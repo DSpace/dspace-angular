@@ -3,6 +3,7 @@ import { SectionService } from '../../section/section.service';
 import { SectionUploadService } from '../../section/upload/section-upload.service';
 import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload-files-component-options.model';
 import { hasValue } from '../../../shared/empty.util';
+import { WorkspaceitemSectionUploadFileObject } from '../../models/workspaceitem-section-upload-file.model';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -21,7 +22,7 @@ export class SubmissionUploadFilesComponent {
   constructor(private bitstreamService: SectionUploadService,
               private sectionService: SectionService) { }
 
-  public onCompleteItem(itemData) {
+  public onCompleteItem(itemData: WorkspaceitemSectionUploadFileObject) {
     this.subscriptions.push(
       this.sectionService.isSectionLoaded(this.submissionId, this.sectionId)
         .subscribe((isSectionLoaded) => {
@@ -29,17 +30,18 @@ export class SubmissionUploadFilesComponent {
             this.sectionService.addSection(this.collectionId, this.submissionId, this.definitionId, this.sectionId)
           }
 
-          const metadatum = [];
+          /*const metadatum = [];
           Object.keys((itemData.metadata))
             .forEach((key) => {
               metadatum.push({key: key, value: itemData.metadata[key][0].value})
             });
-
+          */
           this.bitstreamService.setNewBitstream(
             this.submissionId,
             this.sectionId,
             itemData.uuid,
-            {
+            /*{
+              uuid: itemData.uuid,
               metadata: metadatum,
               sizeBytes: itemData.sizeBytes,
               checkSum: {
@@ -49,7 +51,8 @@ export class SubmissionUploadFilesComponent {
               url: itemData.url,
               thumbnail: null,
               accessConditions: []
-            }
+            }*/
+            itemData
           )
         })
     );
