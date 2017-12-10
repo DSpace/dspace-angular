@@ -120,13 +120,11 @@ export class FormSectionComponent extends SectionModelComponent {
 
           console.log('Subscribe to the form changes;');
 
-
           if (isUndefined(this.formRef)) {
             this.formRef = comps.first;
-            // this.formRef.formGroup.statusChanges
 
             this.formService.isValid(this.formRef.getFormUniqueId())
-              .subscribe((formState) => {
+              .subscribe(() => {
                 if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
                   this.valid = this.formRef.formGroup.valid;
                   this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, this.valid));
