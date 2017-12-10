@@ -2,10 +2,7 @@ import { ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/
 
 import { isEmpty } from 'lodash';
 import { Store } from '@ngrx/store';
-import {
-  DynamicFormControlEvent, DynamicFormControlModel, DynamicInputControlModel,
-  DynamicInputModel, ValidatorFactory
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';

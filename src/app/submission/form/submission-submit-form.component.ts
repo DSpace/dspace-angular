@@ -5,7 +5,10 @@ import {
 import { Store } from '@ngrx/store';
 
 import { SectionHostDirective } from '../section/section-host.directive';
-import { LoadSubmissionFormAction, ResetSubmissionFormAction } from '../objects/submission-objects.actions';
+import {
+  LoadSubmissionFormAction,
+  ResetSubmissionFormAction
+} from '../objects/submission-objects.actions';
 import { isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
@@ -18,7 +21,7 @@ import { WorkspaceitemObject } from '../models/workspaceitem.model';
 
 @Component({
   selector: 'ds-submission-submit-form',
-  styleUrls: ['./submission-submit-form.component.scss'],
+  styleUrls: [ './submission-submit-form.component.scss' ],
   templateUrl: './submission-submit-form.component.html',
 })
 
@@ -40,8 +43,9 @@ export class SubmissionSubmitFormComponent implements OnChanges {
   @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private store:Store<SubmissionState>,
-              private submissionRestService: SubmissionRestService) {}
+              private store: Store<SubmissionState>,
+              private submissionRestService: SubmissionRestService) {
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.collectionId && this.submissionId) {
@@ -64,11 +68,11 @@ export class SubmissionSubmitFormComponent implements OnChanges {
     }
   }
 
-  onCollectionChange(workspaceitemObject: WorkspaceitemObject) {
-    if (this.definitionId !== workspaceitemObject.submissionDefinition[0].name) {
-      this.collectionId = workspaceitemObject.collection[0].id;
-      this.sections = workspaceitemObject.sections;
-      this.submissionDefinition = workspaceitemObject.submissionDefinition[0];
+  onCollectionChange(workspaceItemObject: WorkspaceitemObject) {
+    if (this.definitionId !== workspaceItemObject.submissionDefinition[ 0 ].name) {
+      this.collectionId = workspaceItemObject.collection[ 0 ].id;
+      this.sections = workspaceItemObject.sections;
+      this.submissionDefinition = workspaceItemObject.submissionDefinition[ 0 ];
       this.definitionId = this.submissionDefinition.name;
       this.store.dispatch(new ResetSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
     }
