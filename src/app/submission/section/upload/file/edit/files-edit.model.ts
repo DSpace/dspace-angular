@@ -1,68 +1,28 @@
 import {
   ClsConfig,
   DynamicDatePickerModelConfig,
-  DynamicFormGroupModel,
-  DynamicFormControlModel,
   DynamicFormArrayModelConfig,
-  DynamicInputModel,
   DynamicSelectModelConfig,
-  DynamicTextAreaModel, DynamicInputModelConfig,
+  DynamicFormGroupModelConfig,
 } from '@ng-dynamic-forms/core';
 
-export const BITSTREAM_METADATA_FORM_MODEL: DynamicFormControlModel[] = [
-
-  new DynamicFormGroupModel(
-    {
-      id: 'metadata',
-      group: [
-
-        new DynamicInputModel(
-          {
-            id: 'dc_title',
-            label: 'Title',
-            placeholder: 'Title'
-          },
-          {
-            element: {
-              container: 'p-0',
-              label: 'col-form-label'
-            },
-            grid: {
-              host: 'col-md-12'
-            }
-          }
-        ),
-
-        new DynamicTextAreaModel(
-          {
-            id: 'dc_description',
-            label: 'Description',
-            placeholder: 'Description',
-            rows: 5
-          },
-          {
-            element: {
-              container: 'p-0',
-              label: 'col-form-label'
-            },
-            grid: {
-              host: 'col-md-12'
-            }
-          }
-        ),
-      ]
-    },
-    {
-      element: {
-        control: 'form-row'
-      }
-    }
-  )
-];
+export const BITSTREAM_METADATA_FORM_GROUP_CONFIG: DynamicFormGroupModelConfig = {
+  id: 'metadata',
+  group: []
+};
+export const BITSTREAM_METADATA_FORM_GROUP_CLS: ClsConfig = {
+  element: {
+    container: 'row',
+      label: 'col-form-label'
+  },
+  grid: {
+    control: 'col-sm-12',
+      label: 'col-sm-3'
+  }
+};
 
 export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayModelConfig = {
   id: 'accessConditions',
-  initialCount: 1,
   groupFactory: null,
 };
 export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS: ClsConfig = {
@@ -96,16 +56,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
     {
       action: 'ENABLE',
       connective: 'OR',
-      when: [
-        // {
-        //   id: 'name',
-        //   value: 'embargo'
-        // },
-        // {
-        //   id: 'name',
-        //   value: 'lease'
-        // },
-      ]
+      when: []
     }
   ]
 };
@@ -129,16 +80,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
     {
       action: 'ENABLE',
       connective: 'OR',
-      when: [
-        // {
-        //   id: 'name',
-        //   value: 'embargo'
-        // },
-        // {
-        //   id: 'name',
-        //   value: 'lease'
-        // },
-      ]
+      when: []
     }
   ]
 };
@@ -152,12 +94,6 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CLS: ClsConfig = {
   }
 };
 
-export const BITSTREAM_FORM_ACCESS_CONDITION_HIDDEN_GROUP_CONFIG: DynamicInputModelConfig = {
-  id: 'hiddenGroupUUID',
-  inputType: 'hidden',
-  value: null
-}
-
 export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelConfig<any> = {
   id: 'groupUUID',
   label: 'Group',
@@ -166,16 +102,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelCo
     {
       action: 'ENABLE',
       connective: 'OR',
-      when: [
-        // {
-        //   id: 'name',
-        //   value: 'embargo'
-        // },
-        // {
-        //   id: 'name',
-        //   value: 'lease'
-        // },
-      ]
+      when: []
     }
   ]
 };

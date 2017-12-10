@@ -41,16 +41,18 @@ export class SectionFactoryComponent {
     }
 
     const inputs: SectionDataObject = Object.create(null);
-    inputs.collectionId = collectionId;
     inputs.id = sectionId;
     inputs.data = sectionData;
     inputs.header = factoryData.header;
     inputs.mandatory = factoryData.mandatory;
-    inputs.submissionId = submissionId;
     inputs.config = factoryData._links.config;
 
     // Inputs need to be in the following format to be resolved properly
-    const inputProviders = [ { provide: 'sectionData', useValue: inputs } ];
+    const inputProviders = [
+      {provide: 'collectionId',  useValue: collectionId},
+      {provide: 'sectionData',  useValue: inputs},
+      {provide: 'submissionId',  useValue: submissionId}
+    ];
     const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
 
     // We create an injector out of the data we want to pass down and this components injector
@@ -62,8 +64,10 @@ export class SectionFactoryComponent {
     // We create the component using the factory and the injector
     const containerRef = containerFactory.create(injector);
 
+    containerRef.instance.collectionId = collectionId;
     containerRef.instance.sectionData = inputs;
     containerRef.instance.sectionComponentType = factoryData.sectionType;
+    containerRef.instance.submissionId = submissionId;
 
     // We insert the component into the dom container
     sectionsHost.insert(containerRef.hostView);

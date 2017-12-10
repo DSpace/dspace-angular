@@ -1,4 +1,4 @@
-<ng-container *ngIf="bitstreamsKeys.length == 0">
+<ng-container *ngIf="fileList.length == 0">
   <div class="row">
     <div class="col-md-12">
       <h3 class="text-center"><span class="text-muted">No file uploaded yet.</span></h3>
@@ -6,44 +6,35 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="bitstreamsKeys.length > 0">
+<ng-container *ngIf="fileList.length > 0">
 
-  <div *ngIf="collectionPoliciesMessageType !== POLICY_NO_DEFAULT" class="row">
+  <div *ngIf="collectionDefaultAccessConditions.length > 0" class="row">
     <div class="col-md-12" >
       <div class="alert alert-warning" role="alert" >
         <!-- no def , no banner -->
-        <ng-container *ngIf="collectionPoliciesMessageType === POLICY_DEFAULT_NO_LIST">
+        <ng-container *ngIf="collectionPolicyType === 1">
           <!-- def e no scelta -->
           {{ 'submission.section.upload.header.policy.default.nolist' | translate:{ "collectionName": collectionName } }}
         </ng-container>
-        <ng-container *ngIf="collectionPoliciesMessageType === POLICY_DEFAULT_WITH_LIST">
+        <ng-container *ngIf="collectionPolicyType === 2">
           <!-- def e scelta -->
           {{ 'submission.section.upload.header.policy.default.withlist' | translate:{ "collectionName": collectionName } }}
         </ng-container>
         <span class="clearfix"></span>
-        <ds-policies [policies]="collectionPolicies"></ds-policies>
+        <ds-policies [policies]="collectionDefaultAccessConditions"></ds-policies>
       </div>
     </div>
   </div>
 
-  <ng-container *ngFor="let bitstreamKey of bitstreamsKeys">
-    <div class="row">
-      <div class="col-md-2">
-        <!--ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].url | async"></ds-thumbnail-->
-        <ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey.key].thumbnail"></ds-thumbnail>
-      </div>
-      <div class="col-md-10">
-        <div class="float-left w-75">
-          <h3>{{bitstreamKey.field1}} <span class="text-muted">({{bitstreamsList[bitstreamKey.key].sizeBytes | dsFileSize}})</span>
-          </h3>
-        </div>
-        <ds-submission-submit-form-box-files-edit [sectionId]="sectionData.id" [submissionId]="sectionData.submissionId"
-                                                  [fileId]="bitstreamKey.key" [configUrl]="sectionData.config"
-                                                  [fileIndex]="bitstreamsKeys.indexOf(bitstreamKey.key)"
-                                                  [accessConditions]="availablePolicies"
-                                                  [accessConditionGroups]="policiesGroups"></ds-submission-submit-form-box-files-edit>
-      </div>
-    </div>
+  <ng-container *ngFor="let fileEntry of fileList">
+    <ds-submission-upload-section-file [availableAccessConditionGroups]="availableGroups"
+                                       [availableAccessConditionOptions]="availableAccessConditionOptions"
+                                       [collectionPolicyType]="collectionPolicyType"
+                                       [configMetadataForm]="configMetadataForm"
+                                       [fileId]="fileIndexes[fileList.indexOf(fileEntry)]"
+                                       [fileIndex]="fileList.indexOf(fileEntry)"
+                                       [sectionId]="'upload'"
+                                       [submissionId]="submissionId"></ds-submission-upload-section-file>
     <div class="row">
       <div class="col-md-12">
         <hr/>

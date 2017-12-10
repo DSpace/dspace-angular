@@ -59,9 +59,9 @@ export class FormSectionComponent extends SectionModelComponent {
       .flatMap((config: ConfigData) => config.payload)
       .subscribe((config: SubmissionFormsModel) => {
         this.formConfig = config;
-        this.formId = this.sectionData.id;
-        this.formBuilderService.setAuthorityUuid(this.sectionData.collectionId);
-        this.store.select(submissionSectionDataFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
+        this.formId = this.formService.getUniqueId(this.sectionData.id);
+        this.formBuilderService.setAuthorityUuid(this.collectionId);
+        this.store.select(submissionSectionDataFromIdSelector(this.submissionId, this.sectionData.id))
           .take(1)
           .subscribe((sectionData: WorkspaceitemSectionFormObject) => {
             if (isUndefined(this.formModel)) {
@@ -112,22 +112,20 @@ export class FormSectionComponent extends SectionModelComponent {
 
   subscriptions() {
     console.log('Subscribe to the form;');
-
     if (this.forms) {
       this.forms.changes
         .filter((comps: QueryList<FormComponent>) => hasValue(comps.first))
         .subscribe((comps: QueryList<FormComponent>) => {
-
           console.log('Subscribe to the form changes;');
 
           if (isUndefined(this.formRef)) {
             this.formRef = comps.first;
 
-            this.formService.isValid(this.formRef.getFormUniqueId())
-              .subscribe(() => {
+            this.formService.isValid(this.formId)
+              .subscribe((formState) => {
                 if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
                   this.valid = this.formRef.formGroup.valid;
-                  this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, this.valid));
+                  this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
                 }
               });
 
@@ -138,11 +136,11 @@ export class FormSectionComponent extends SectionModelComponent {
               .filter((state: SubmissionSectionObject) => isNotEmpty(state))
               .distinctUntilChanged()
               .subscribe((state: SubmissionSectionObject) => {
-                const { errors } = state;
+                const {errors} = state;
 
                 // if there are errors
                 if (errors && !isEmpty(errors)) {
-                  const { formGroup } = this.formRef;
+                  const {formGroup} = this.formRef;
 
                   errors.forEach((errorItem: SubmissionError) => {
                     const parsedErrors = parseSectionErrorPaths(errorItem.path);
@@ -155,7 +153,7 @@ export class FormSectionComponent extends SectionModelComponent {
                       const errorKey = `error-${index}`; // create a single key for the error
                       const error = {}; // create the error object
 
-                      error[ errorKey ] = errorItem.messageKey; // assign message
+                      error[errorKey] = errorItem.messageKey; // assign message
 
                       // if form control model has errorMessages object, create it
                       if (!formControlModel.errorMessages) {
@@ -163,7 +161,7 @@ export class FormSectionComponent extends SectionModelComponent {
                       }
 
                       // put the error in the for control model
-                      formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
+                      formControlModel.errorMessages[errorKey] = errorItem.messageKey;
 
                       // add the error in the form control
                       formControl.setErrors(error);

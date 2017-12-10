@@ -30,8 +30,10 @@ import { SubmissionState } from '../../submission.reducers';
   ]
 })
 export class SectionContainerComponent {
+  @Input() collectionId: string;
   @Input() sectionData: SectionDataObject;
   @Input() store: Store<SubmissionState>;
+  @Input() submissionId: string;
 
   public sectionComponentType: string;
 
@@ -40,6 +42,6 @@ export class SectionContainerComponent {
   public removeSection(event) {
     event.preventDefault();
     event.stopPropagation();
-    this.sectionRef.removeSection(this.sectionData.submissionId, this.sectionData.id);
+    this.sectionRef.removeSection(this.submissionId, this.sectionData.id);
   }
 }

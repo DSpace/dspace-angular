@@ -4,10 +4,9 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output,
-  ViewChild
+  Output
 } from '@angular/core';
-import { FormArray, FormGroup, FormGroupDirective } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 
 import {
   DynamicFormArrayModel,
@@ -15,8 +14,6 @@ import {
   DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
-
-import { uniqueId } from 'lodash';
 
 import { AppState } from '../../app.reducer';
 import { FormChangeAction, FormInitAction, FormRemoveAction, FormStatusChangeAction } from './form.actions';
@@ -43,7 +40,7 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() displaySubmit = true;
 
   /**
-   * An ID used to generate the form unique ID
+   * The form unique ID
    */
   @Input() formId: string;
 
@@ -68,11 +65,6 @@ export class FormComponent implements OnDestroy, OnInit {
   public formGroup: FormGroup;
 
   /**
-   * The form unique ID
-   */
-  public formUniqueId: string;
-
-  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -85,20 +77,19 @@ export class FormComponent implements OnDestroy, OnInit {
    * Method provided by Angular. Invoked after the view has been initialized.
    */
   ngAfterViewChecked(): void {
-    this.subs.push(this.formGroup.valueChanges.subscribe(() => {
-      // Dispatch a FormChangeAction if the user has changed the value in the UI
-      if (this.formGroup.dirty) {
-        this.store.dispatch(new FormChangeAction(this.formUniqueId, this.formGroup.value));
+    this.subs.push(this.formGroup.valueChanges
+      .filter((formGroup) => this.formGroup.dirty)
+      .subscribe(() => {
+        // Dispatch a FormChangeAction if the user has changed the value in the UI
+        this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
         this.formGroup.markAsPristine();
-      }
     }));
     this.subs.push(this.formGroup.statusChanges
       .flatMap(() => this.isValid())
+      .filter((currentStatus) => this.formGroup.valid !== currentStatus)
       .subscribe((currentStatus) => {
         // Dispatch a FormStatusChangeAction if the form status has changed
-        if (this.formGroup.valid !== currentStatus) {
-          this.store.dispatch(new FormStatusChangeAction(this.formUniqueId, this.formGroup.valid));
-        }
+        this.store.dispatch(new FormStatusChangeAction(this.formId, this.formGroup.valid));
     }));
   }
 
@@ -106,9 +97,8 @@ export class FormComponent implements OnDestroy, OnInit {
    * Method provided by Angular. Invoked after the constructor
    */
   ngOnInit() {
-    this.formUniqueId = uniqueId() + '_' + this.formId;
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-    this.store.dispatch(new FormInitAction(this.formUniqueId, this.formGroup.value, this.formGroup.valid));
+    this.store.dispatch(new FormInitAction(this.formId, this.formGroup.value, this.formGroup.valid));
     this.keepSync();
   }
 
@@ -123,24 +113,17 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to retrieve the form's unique ID
-   */
-  public getFormUniqueId(): string {
-    return this.formUniqueId;
-  }
-
-  /**
    * Method to check if the form status is valid or not
    */
   public isValid(): Observable<boolean> {
-    return this.formService.isValid(this.formUniqueId)
+    return this.formService.isValid(this.formId)
   }
 
   /**
    * Method to keep synchronized form controls values with form state
    */
   private keepSync() {
-    this.subs.push(this.formService.getFormData(this.formUniqueId)
+    this.subs.push(this.formService.getFormData(this.formId)
       .subscribe((stateFormData) => {
         if (!Object.is(stateFormData, this.formGroup.value) && this.formGroup) {
           this.formGroup.setValue(stateFormData);
@@ -166,7 +149,7 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   onSubmit() {
     if (this.formGroup.valid) {
-      this.submit.emit(this.formService.getFormData(this.formUniqueId));
+      this.submit.emit(this.formService.getFormData(this.formId));
     } else {
       this.formService.validateAllFormFields(this.formGroup);
     }

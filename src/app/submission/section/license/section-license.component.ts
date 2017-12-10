@@ -45,14 +45,14 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
 
     this.subs.push(
-      this.collectionDataService.findById(this.sectionData.collectionId)
+      this.collectionDataService.findById(this.collectionId)
         .filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload)))
         .flatMap((collectionData: RemoteData<Collection>) => collectionData.payload.license)
         .filter((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload)))
         .take(1)
         .subscribe((licenseData: RemoteData<License>) => {
           this.licenseText = licenseData.payload.text;
-          this.formId = this.sectionData.id;
+          this.formId = this.formService.getUniqueId(this.sectionData.id);
           this.formModel = SECTION_LICENSE_FORM_MODEL;
           this.changeDetectorRef.detectChanges();
         })
@@ -75,7 +75,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
   onChange(event: DynamicFormControlEvent) {
     const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
-    this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, value));
+    this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, value));
     if (value) {
       this.operationsBuilder.replace(this.pathCombiner.getPath(path), dateToGMTString(new Date()), true);
     } else {

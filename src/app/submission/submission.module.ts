@@ -23,7 +23,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { submissionReducers } from './submission.reducers';
 import { submissionEffects } from './submission.effects';
 import { FilesSectionComponent } from './section/upload/section-upload.component';
-import { FilesEditComponent } from './section/upload/files-edit/files-edit.component';
 import { PoliciesComponent } from './section/upload/policies/policies.component';
 import { SectionUploadService } from './section/upload/section-upload.service';
 import { SubmissionService } from './submission.service';
@@ -32,6 +31,9 @@ import { SubmissionRestService } from './submission-rest.service';
 import { LicenseSectionComponent } from './section/license/section-license.component';
 import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
 import { SubmissionEditComponent } from './edit/submission-edit.component';
+import { UploadSectionFileComponent } from './section/upload/file/file.component';
+import { UploadSectionFileEditComponent } from './section/upload/file/edit/file-edit.component';
+import { UploadSectionFileViewComponent } from './section/upload/file/view/file-view.component';
 
 @NgModule({
   imports: [
@@ -45,7 +47,6 @@ import { SubmissionEditComponent } from './edit/submission-edit.component';
   ],
   declarations: [
     DefaultSectionComponent,
-    FilesEditComponent,
     FilesSectionComponent,
     FormSectionComponent,
     InjectPanelTemplateDirective,
@@ -60,7 +61,10 @@ import { SubmissionEditComponent } from './edit/submission-edit.component';
     SubmissionSubmitFormCollectionComponent,
     SubmissionSubmitFormComponent,
     SubmissionSubmitFormFooterComponent,
-    SubmissionUploadFilesComponent
+    SubmissionUploadFilesComponent,
+    UploadSectionFileComponent,
+    UploadSectionFileEditComponent,
+    UploadSectionFileViewComponent
   ],
   entryComponents: [ DefaultSectionComponent, FilesSectionComponent, FormSectionComponent, LicenseSectionComponent, SectionContainerComponent ],
   exports: [

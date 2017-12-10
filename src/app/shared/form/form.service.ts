@@ -8,6 +8,7 @@ import { formObjectFromIdSelector } from './selectors';
 import { FormBuilderService } from './builder/form-builder.service';
 import { DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
 import { isNotEmpty, isNotUndefined } from '../empty.util';
+import { uniqueId } from 'lodash';
 
 @Injectable()
 export class FormService {
@@ -33,6 +34,10 @@ export class FormService {
       .filter((state) => isNotUndefined(state))
       .map((state) => state.data)
       .distinctUntilChanged();
+  }
+
+  public getUniqueId(formId): string {
+    return uniqueId() + '_' + formId;
   }
 
   /**
