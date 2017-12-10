@@ -42,7 +42,7 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
   saveLater() {
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
       .subscribe((workspaceItem) => {
-        console.log('response:', workspaceItem);
+        // console.log('response:', workspaceItem);
 
         // FIXME: the following code is a mock, fix it as soon as server return erros
 

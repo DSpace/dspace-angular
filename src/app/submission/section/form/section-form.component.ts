@@ -114,10 +114,16 @@ export class FormSectionComponent extends SectionModelComponent {
   }
 
   subscriptions() {
+    console.log('Subscribe to the form;');
+
     if (this.forms) {
       this.forms.changes
         .filter((comps: QueryList<FormComponent>) => hasValue(comps.first))
         .subscribe((comps: QueryList<FormComponent>) => {
+
+          console.log('Subscribe to the form changes;');
+
+
           if (isUndefined(this.formRef)) {
             this.formRef = comps.first;
             // this.formRef.formGroup.statusChanges
@@ -139,27 +145,32 @@ export class FormSectionComponent extends SectionModelComponent {
               .subscribe((state: SubmissionSectionObject) => {
                 const { errors } = state;
 
+                // if there are errors
                 if (errors && !isEmpty(errors)) {
                   const { formGroup } = this.formRef;
 
                   errors.forEach((errorItem: SubmissionError) => {
                     const parsedErrors = parseSectionErrorPaths(errorItem.path);
 
+                    // every error is related to a single field, but can contain multiple errors
                     parsedErrors.forEach((parsedError, index: number) => {
                       const parsedId = parsedError.fieldId.replace(/\./g, '_');
                       const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
                       const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
-                      const errorKey = `error-${index}`;
-                      const error = {};
+                      const errorKey = `error-${index}`; // create a single key for the error
+                      const error = {}; // create the error object
 
-                      error[ errorKey ] = errorItem.messageKey;
+                      error[ errorKey ] = errorItem.messageKey; // assign message
 
+                      // if form control model has errorMessages object, create it
                       if (!formControlModel.errorMessages) {
                         formControlModel.errorMessages = {};
                       }
 
+                      // put the error in the for control model
                       formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
 
+                      // add the error in the form control
                       formControl.setErrors(error);
 
                       // formGroup.markAsDirty();
@@ -167,6 +178,7 @@ export class FormSectionComponent extends SectionModelComponent {
                     });
                   });
 
+                  // after the cycles are over detectChanges();
                   this.changeDetectorRef.detectChanges();
                 }
               })
