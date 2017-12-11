@@ -11,7 +11,7 @@ import {
 } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
 import {
-  ConfigRequest, FindAllOptions, HttpPostRequest, RestRequest,
+  ConfigRequest, FindAllOptions, HttpDeleteRequest, HttpPostRequest, RestRequest, SubmissionDeleteRequest,
   SubmissionRequest
 } from '../core/data/request.models';
 import { SubmitDataResponseDefinitionObject } from '../core/shared/submit-data-response-definition.model';
@@ -47,6 +47,17 @@ export class SubmissionRestService extends PostPatchRestService<SubmitDataRespon
 
   protected getConfigByIdHref(endpoint, resourceName): string {
     return `${endpoint}/${resourceName}`;
+  }
+
+  public deleteById(scopeId: string, linkName?: string): Observable<SubmitDataResponseDefinitionObject>  {
+    return this.getEndpoint(linkName)
+      .filter((href: string) => isNotEmpty(href))
+      .distinctUntilChanged()
+      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
+      .map((endpointURL: string) => new SubmissionDeleteRequest(endpointURL))
+      .do((request: HttpDeleteRequest) => this.requestService.configure(request, true))
+      .flatMap((request: HttpDeleteRequest) => this.submitData(request))
+      .distinctUntilChanged();
   }
 
   public getDataByHref(href: string): Observable<any> {

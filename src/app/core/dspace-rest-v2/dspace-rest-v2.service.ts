@@ -19,6 +19,25 @@ export class DSpaceRESTv2Service {
   }
 
   /**
+   * Performs a request to the REST API with the `delte` http method.
+   *
+   * @param absoluteURL
+   *      A URL
+   * @param options
+   *      A RequestOptionsArgs object, with options for the http call.
+   * @return {Observable<string>}
+   *      An Observable<string> containing the response from the server
+   */
+  delete(absoluteURL: string, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
+    return this.http.delete(absoluteURL, options)
+      .map((res) => ({ payload: res.json(), statusCode: res.statusText }))
+      .catch((err) => {
+        console.log('Error: ', err);
+        return Observable.throw(err);
+      });
+  }
+
+  /**
    * Performs a request to the REST API with the `get` http method.
    *
    * @param absoluteURL

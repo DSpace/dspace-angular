@@ -59,9 +59,9 @@ export class RequestService {
     return this.store.select(entryFromHrefSelector(href));
   }
 
-  configure<T extends CacheableObject>(request: RestRequest): void {
+  configure<T extends CacheableObject>(request: RestRequest, overwriteRequest = false): void {
     let isCached = this.objectCache.hasBySelfLink(request.href);
-    if (!isCached && this.responseCache.has(request.href)) {
+    if (!isCached && this.responseCache.has(request.href) && !overwriteRequest) {
       const [successResponse, errorResponse] = this.responseCache.get(request.href)
         .take(1)
         .map((entry: ResponseCacheEntry) => entry.response)
@@ -81,24 +81,13 @@ export class RequestService {
             .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
           )
       ).subscribe((c) => isCached = c);
+    } else if (overwriteRequest && this.responseCache.has(request.href)) {
+      this.store.dispatch(new ResponseCacheRemoveAction(request.href));
     }
 
     const isPending = this.isPending(request.href);
 
     if (!(isCached || isPending)) {
-      this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(request));
-      this.trackRequestsOnTheirWayToTheStore(request.href);
-    }
-  }
-
-  configureSubmit<T extends CacheableObject>(request: RestRequest): void {
-    if (this.responseCache.has(request.href)) {
-      this.store.dispatch(new ResponseCacheRemoveAction(request.href));
-    }
-    const isPending = this.isPending(request.href);
-
-    if (!isPending) {
       this.store.dispatch(new RequestConfigureAction(request));
       this.store.dispatch(new RequestExecuteAction(request));
       this.trackRequestsOnTheirWayToTheStore(request.href);

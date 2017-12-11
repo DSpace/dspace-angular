@@ -15,6 +15,7 @@ import { EpersonResponseParsingService } from '../eperson/eperson-response-parsi
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
 export enum RequestType {
+  DELETE = 'DELETE',
   GET = 'GET',
   POST = 'POST',
   PATCH = 'PATCH',
@@ -30,6 +31,14 @@ export abstract class RestRequest {
   ) { }
 
   abstract getResponseParser(): GenericConstructor<ResponseParsingService>;
+}
+
+export abstract class HttpDeleteRequest extends RestRequest {
+  constructor(
+    href: string,
+  ) {
+    super(RequestType.DELETE, href);
+  }
 }
 
 export class HttpGetRequest extends RestRequest {
@@ -127,6 +136,16 @@ export class ConfigRequest extends HttpGetRequest {
 }
 
 export class SubmissionRequest extends HttpGetRequest {
+  constructor(href: string) {
+    super(href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmitDataResponseParsingService;
+  }
+}
+
+export class SubmissionDeleteRequest extends HttpDeleteRequest {
   constructor(href: string) {
     super(href);
   }
