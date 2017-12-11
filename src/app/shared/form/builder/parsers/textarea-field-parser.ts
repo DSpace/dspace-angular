@@ -3,6 +3,8 @@ import {
   ClsConfig, DynamicTextAreaModel, DynamicTextAreaModelConfig
 } from '@ng-dynamic-forms/core';
 import { FormFieldModel } from '../models/form-field.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { isNotEmpty } from '../../../empty.util';
 
 export class TextareaFieldParser extends FieldParser {
 
@@ -10,7 +12,7 @@ export class TextareaFieldParser extends FieldParser {
     super(configData, initFormValues);
   }
 
-  public modelFactory(): any {
+  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     const inputTextModel: DynamicTextAreaModelConfig = this.initModel();
     let cls: ClsConfig;
 
@@ -21,6 +23,9 @@ export class TextareaFieldParser extends FieldParser {
     };
     const textareaModel = new DynamicTextAreaModel(inputTextModel, cls);
     textareaModel.name = this.fieldId;
+    if (isNotEmpty(fieldValue)) {
+      textareaModel.value = fieldValue.value;
+    }
     return textareaModel;
   }
 }

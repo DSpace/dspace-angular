@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { SubmissionState } from '../../submission.reducers';
 import { InertSectionErrorAction } from '../../objects/submission-objects.actions';
 import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-submission-submit-form-footer',
@@ -17,7 +19,9 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
 
   private submissionIsInvalid = true;
 
-  constructor(private restService: SubmissionRestService,
+  constructor(private modalService: NgbModal,
+              private restService: SubmissionRestService,
+              private router: Router,
               private submissionService: SubmissionService,
               private store: Store<SubmissionState>) {
   }
@@ -71,7 +75,21 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
       });
   }
 
-  resourceDepoit() {
+  public resourceDeposit() {
     alert('Feature is actually development...');
+  }
+
+  protected resourceDiscard() {
+    this.router.navigate(['home']);
+  }
+
+  public confirmDiscard(content) {
+    this.modalService.open(content).result.then(
+      (result) => {
+        if (result === 'ok') {
+          this.resourceDiscard();
+        }
+      }
+    );
   }
 }

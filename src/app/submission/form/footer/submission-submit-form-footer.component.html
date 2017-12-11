@@ -1,9 +1,25 @@
 <div class="row" *ngIf="!!submissionId">
   <div class="col-6">
-    <button type="button" class="btn btn-secondary">Discard</button>
+    <button type="button" class="btn btn-secondary" (click)="$event.preventDefault();confirmDiscard(content)">Discard</button>
   </div>
   <div class="col text-right">
     <button type="button" class="btn btn-secondary" (click)="saveLater()">Save for later</button>
-    <button type="button" class="btn btn-primary" [disabled]="submissionIsInvalid" (click)="resourceDepoit()">Deposit</button>
+    <button type="button" class="btn btn-primary" [disabled]="submissionIsInvalid" (click)="resourceDeposit()">Deposit</button>
   </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">Discard submission</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>This operation can't be undone. Are you sure?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="c('ok')">Yes, I'm sure</button>
+  </div>
+</ng-template>

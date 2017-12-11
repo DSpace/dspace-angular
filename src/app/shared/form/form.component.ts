@@ -106,7 +106,7 @@ export class FormComponent implements OnDestroy, OnInit {
    * Method provided by Angular. Invoked when the instance is destroyed
    */
   ngOnDestroy() {
-    this.store.dispatch(new FormRemoveAction(this.formUniqueId));
+    this.store.dispatch(new FormRemoveAction(this.formId));
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());

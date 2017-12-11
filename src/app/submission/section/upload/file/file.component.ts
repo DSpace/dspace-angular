@@ -108,16 +108,19 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
               this.operationsBuilder.replace(this.pathCombiner.getPath(path), formData.metadata[key]);
             });
           formData.accessConditions
-            .forEach((accessCondition) => {
+            .forEach((accessCondition, index) => {
               let accessConditionOpt;
               this.availableAccessConditionOptions.filter((element) => element.name === accessCondition.name)
                 .forEach((element) => accessConditionOpt = element);
-              if (accessConditionOpt.hasStartDate !== true && accessConditionOpt.hasEndDate !== true) {
-                accessConditionOpt = deleteProperty(accessConditionOpt, 'hasStartDate');
-                accessConditionOpt = deleteProperty(accessConditionOpt, 'hasEndDate');
-                this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionOpt);
-              } else {
-                this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessCondition);
+              if (accessConditionOpt) {
+                const path = `accessConditions/${index}`;
+                if (accessConditionOpt.hasStartDate !== true && accessConditionOpt.hasEndDate !== true) {
+                  accessConditionOpt = deleteProperty(accessConditionOpt, 'hasStartDate');
+                  accessConditionOpt = deleteProperty(accessConditionOpt, 'hasEndDate');
+                  this.operationsBuilder.replace(this.pathCombiner.getPath(path), accessConditionOpt, true);
+                } else {
+                  this.operationsBuilder.replace(this.pathCombiner.getPath(path), accessCondition, true);
+                }
               }
             });
           this.restService.jsonPatchByResourceID(
@@ -125,6 +128,13 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
             this.pathCombiner.rootElement,
             this.pathCombiner.subRootElement)
             .subscribe((result) => {
+              Object.keys(result[0].sections.upload.files)
+                .filter((key) => result[0].sections.upload.files[key].uuid === this.fileId)
+                .forEach((key) => this.uploadService.editBitstream(
+                  this.submissionId,
+                  this.sectionId,
+                  this.fileId,
+                  result[0].sections.upload.files[key]));
               this.switchMode();
               console.log(result);
             });

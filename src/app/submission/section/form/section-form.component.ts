@@ -2,7 +2,10 @@ import { ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/
 
 import { isEmpty } from 'lodash';
 import { Store } from '@ngrx/store';
-import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormArrayGroupModel, DynamicFormControlEvent, DynamicFormControlModel,
+  DynamicFormGroupModel
+} from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -11,7 +14,7 @@ import { SectionStatusChangeAction } from '../../objects/submission-objects.acti
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -25,6 +28,7 @@ import { submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
 import { AbstractControl } from '@angular/forms';
+import { DynamicScrollableDropdownModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -132,7 +136,7 @@ export class FormSectionComponent extends SectionModelComponent {
             /**
              * Subscribe to errors
              */
-            this.store.select(submissionSectionFromIdSelector(this.sectionData.submissionId, this.sectionData.id))
+            this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
               .filter((state: SubmissionSectionObject) => isNotEmpty(state))
               .distinctUntilChanged()
               .subscribe((state: SubmissionSectionObject) => {
@@ -181,8 +185,19 @@ export class FormSectionComponent extends SectionModelComponent {
   }
 
   onChange(event: DynamicFormControlEvent) {
-    this.operationsBuilder.replace(
-      this.pathCombiner.getPath(this.formBuilderService.getFieldPathFromChangeEvent(event)),
-      this.formBuilderService.getFieldValueFromChangeEvent(event));
+    const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
+    const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+    if (event.model.parent instanceof DynamicFormArrayGroupModel
+      || (event.model.parent instanceof DynamicFormGroupModel
+          && isNotUndefined(event.model.parent.parent)
+          && event.model.parent.parent instanceof DynamicFormArrayGroupModel)) {
+      this.operationsBuilder.add(
+        this.pathCombiner.getPath(path),
+        value);
+    } else {
+      this.operationsBuilder.replace(
+        this.pathCombiner.getPath(path),
+        value);
+    }
   }
 }

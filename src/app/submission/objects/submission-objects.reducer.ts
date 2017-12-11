@@ -1,4 +1,4 @@
-import { hasValue, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { uniqWith, isEqual } from 'lodash';
 
 import {
@@ -422,28 +422,36 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
  *    the new state, with the edited bitstream.
  */
 function editFileData(state: SubmissionObjectState, action: EditFileDataAction): SubmissionObjectState {
-  if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files[ action.payload.fileId ])) {
-    return Object.assign({}, state, {
-      [action.payload.submissionId]: Object.assign({}, state[ action.payload.submissionId ], {
-        sections: Object.assign({}, state[ action.payload.submissionId ].sections,
-          Object.assign({}, {
-              [action.payload.sectionId]: {
-                sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
-                data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
-                  files: Object.assign({},
-                    state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files, {
-                      [action.payload.fileId]: action.payload.data
-                    })
-                }),
-                isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
-                errors: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errors
+  if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files)) {
+    let fileIndex = null;
+    Object.keys(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files)
+      .filter((index) => state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files[index].uuid === action.payload.fileId)
+      .forEach((index) => fileIndex = index);
+    if (isNotNull(fileIndex)) {
+      return Object.assign({}, state, {
+        [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
+          sections: Object.assign({}, state[action.payload.submissionId].sections,
+            Object.assign({}, {
+                [action.payload.sectionId]: {
+                  sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
+                  data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
+                    files: Object.assign({},
+                      state[action.payload.submissionId].sections[action.payload.sectionId].data.files, {
+                        [fileIndex]: action.payload.data
+                      })
+                  }),
+                  isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
+                  errors: state[action.payload.submissionId].sections[action.payload.sectionId].errors
+                }
               }
-            }
-          )
-        ),
-        isLoading: state[ action.payload.submissionId ].isLoading,
-      })
-    });
+            )
+          ),
+          isLoading: state[action.payload.submissionId].isLoading,
+        })
+      });
+    } else {
+      return state;
+    }
   } else {
     return state;
   }
