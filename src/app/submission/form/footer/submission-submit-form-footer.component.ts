@@ -35,10 +35,6 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
     }
   }
 
-  /*getSectionsState() {
-    return this.submissionService.getSectionsState(this.submissionId);
-  }*/
-
   saveLater() {
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
       .subscribe((workspaceItem) => {
@@ -87,7 +83,10 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
-          this.resourceDiscard();
+          this.restService.deleteById(this.submissionId)
+            .subscribe((response) => {
+              this.resourceDiscard();
+            })
         }
       }
     );

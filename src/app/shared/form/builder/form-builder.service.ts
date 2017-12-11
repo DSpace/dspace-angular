@@ -129,7 +129,7 @@ export class FormBuilderService extends DynamicFormService {
 
     return group;
   }
-  
+
   hasAuthorityValue(fieldModel) {
     return (fieldModel instanceof DynamicTypeaheadModel || fieldModel instanceof DynamicScrollableDropdownModel);
   }
