@@ -126,14 +126,14 @@ export class SectionService {
                       definitionId: string,
                       sectionId: string,
                       data: WorkspaceitemSectionDataType) {
-    let sectionObject: SubmissionSectionModel = Object.create(null);
     this.getSectionDefinition(definitionId, sectionId)
+      .filter((sectionObj: SubmissionSectionModel) => isNotUndefined(sectionObj))
+      .take(1)
       .subscribe((sectionObj: SubmissionSectionModel) => {
-        sectionObject = sectionObj;
+        const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, data, sectionObj, this.viewContainerRef);
+        const viewIndex = this.viewContainerRef.indexOf(componentRef.hostView);
+        this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex, data));
       });
-    const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, data, sectionObject, this.viewContainerRef);
-    const viewIndex = this.viewContainerRef.indexOf(componentRef.hostView);
-    this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex, data));
   }
 
   public addSection(collectionId, submissionId, definitionId, sectionId) {

@@ -150,6 +150,7 @@
     "section": {
       "submit.progressbar.describe.stepone": "Describe",
       "submit.progressbar.describe.steptwo": "Describe",
+      "submit.progressbar.describe.stepcustom": "Describe",
       "submit.progressbar.describe.basicinformation": "Basic Information",
       "submit.progressbar.describe.additionalfields": "Additional Fields",
       "submit.progressbar.describe.documenttype": "Document Type",

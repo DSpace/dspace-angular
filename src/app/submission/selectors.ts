@@ -11,7 +11,7 @@ import { SectionObjectEntry, SubmissionDefinitionEntry } from './definitions/sub
 // @TODO: Merge with keySelector function present in 'src/app/core/shared/selectors.ts'
 export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: string, key: string): MemoizedSelector<T, V> {
   return createSelector(parentSelector, (state: T) => {
-    if (hasValue(state[subState])) {
+    if (hasValue(state) && hasValue(state[subState])) {
       return state[subState][key];
     } else {
       return undefined;
@@ -21,7 +21,7 @@ export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: 
 
 export function subStateSelector<T, V>(parentSelector: Selector<any, any>, subState: string): MemoizedSelector<T, V> {
   return createSelector(parentSelector, (state: T) => {
-    if (hasValue(state[subState])) {
+    if (hasValue(state) && hasValue(state[subState])) {
       return state[subState];
     } else {
       return undefined;
