@@ -25,7 +25,7 @@ export class RequestEffects {
   @Effect() execute = this.actions$
     .ofType(RequestActionTypes.EXECUTE)
     .flatMap((action: RequestExecuteAction) => {
-      return this.requestService.get(action.payload)
+      return this.requestService.getByUUID(action.payload)
         .take(1);
     })
     .map((entry: RequestEntry) => entry.request)
@@ -42,10 +42,10 @@ export class RequestEffects {
         .map((data: DSpaceRESTV2Response) =>
           this.injector.get(request.getResponseParser()).parse(request, data))
         .do((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive))
-        .map((response: RestResponse) => new RequestCompleteAction(request.href))
+        .map((response: RestResponse) => new RequestCompleteAction(request.uuid))
         .catch((error: RequestError) => Observable.of(new ErrorResponse(error))
           .do((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive))
-          .map((response: RestResponse) => new RequestCompleteAction(request.href)));
+          .map((response: RestResponse) => new RequestCompleteAction(request.uuid)));
     });
 
   constructor(

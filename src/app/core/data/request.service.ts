@@ -10,14 +10,20 @@ import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { coreSelector, CoreState } from '../core.reducers';
-import { keySelector } from '../shared/selectors';
+import { IndexName } from '../index/index.reducer';
+import { pathSelector } from '../shared/selectors';
+import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { RestRequest, RestRequestMethod } from './request.models';
 
 import { RequestEntry, RequestState } from './request.reducer';
 
-function entryFromHrefSelector(href: string): MemoizedSelector<CoreState, RequestEntry> {
-  return keySelector<RequestEntry>('data/request', href);
+function entryFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, RequestEntry> {
+  return pathSelector<CoreState, RequestEntry>(coreSelector, 'data/request', uuid);
+}
+
+function uuidFromHrefSelector(href: string): MemoizedSelector<CoreState, string> {
+  return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.REQUEST, href);
 }
 
 export function requestStateSelector(): MemoizedSelector<CoreState, RequestState> {
@@ -32,18 +38,23 @@ export class RequestService {
 
   constructor(private objectCache: ObjectCacheService,
               private responseCache: ResponseCacheService,
+              private uuidService: UUIDService,
               private store: Store<CoreState>) {
   }
 
-  isPending(href: string): boolean {
+  generateRequestId(): string {
+    return `client/${this.uuidService.generate()}`;
+  }
+
+  isPending(uuid: string): boolean {
     // first check requests that haven't made it to the store yet
-    if (this.requestsOnTheirWayToTheStore.includes(href)) {
+    if (this.requestsOnTheirWayToTheStore.includes(uuid)) {
       return true;
     }
 
     // then check the store
     let isPending = false;
-    this.store.select(entryFromHrefSelector(href))
+    this.store.select(entryFromUUIDSelector(uuid))
       .take(1)
       .subscribe((re: RequestEntry) => {
         isPending = (hasValue(re) && !re.completed)
@@ -52,8 +63,13 @@ export class RequestService {
     return isPending;
   }
 
-  get(href: string): Observable<RequestEntry> {
-    return this.store.select(entryFromHrefSelector(href));
+  getByUUID(uuid: string): Observable<RequestEntry> {
+    return this.store.select(entryFromUUIDSelector(uuid));
+  }
+
+  getByHref(href: string): Observable<RequestEntry> {
+    return this.store.select(uuidFromHrefSelector(href))
+      .flatMap((uuid: string) => this.getByUUID(uuid));
   }
 
   configure<T extends CacheableObject>(request: RestRequest): void {
@@ -86,15 +102,15 @@ export class RequestService {
       ).subscribe((c) => isCached = c);
     }
 
-    const isPending = this.isPending(request.href);
+    const isPending = this.isPending(request.uuid);
 
     return isCached || isPending;
   }
 
   private dispatchRequest(request: RestRequest) {
     this.store.dispatch(new RequestConfigureAction(request));
-    this.store.dispatch(new RequestExecuteAction(request.href));
-    this.trackRequestsOnTheirWayToTheStore(request.href);
+    this.store.dispatch(new RequestExecuteAction(request.uuid));
+    this.trackRequestsOnTheirWayToTheStore(request.uuid);
   }
 
   /**
@@ -104,13 +120,13 @@ export class RequestService {
    * This method will store the href of every request that gets configured in a local variable, and
    * remove it as soon as it can be found in the store.
    */
-  private trackRequestsOnTheirWayToTheStore(href: string) {
-    this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, href];
-    this.store.select(entryFromHrefSelector(href))
+  private trackRequestsOnTheirWayToTheStore(uuid: string) {
+    this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, uuid];
+    this.store.select(entryFromUUIDSelector(uuid))
       .filter((re: RequestEntry) => hasValue(re))
       .take(1)
       .subscribe((re: RequestEntry) => {
-        this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== href)
+        this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingUUID: string) => pendingUUID !== uuid)
       });
   }
 }

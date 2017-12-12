@@ -79,7 +79,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       .filter((href: string) => hasValue(href))
       .take(1)
       .subscribe((href: string) => {
-        const request = new FindAllRequest(href, options);
+        const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);
       });
 
@@ -98,7 +98,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       .filter((href: string) => hasValue(href))
       .take(1)
       .subscribe((href: string) => {
-        const request = new FindByIDRequest(href, id);
+        const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
         this.requestService.configure(request);
       });
 
@@ -106,7 +106,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   findByHref(href: string): Observable<RemoteData<TDomain>> {
-    this.requestService.configure(new RestRequest(href));
+    this.requestService.configure(new RestRequest(this.requestService.generateRequestId(), href));
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 
@@ -120,7 +120,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       .filter((href: string) => hasValue(href))
       .take(1)
       .subscribe((href: string) => {
-        const request = new RestRequest(href, RestRequestMethod.Post, dso);
+        const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.Post, dso);
         this.requestService.configure(request);
       });
 

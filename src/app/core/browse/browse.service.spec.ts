@@ -1,3 +1,4 @@
+import { initMockRequestService } from '../../shared/mocks/mock-request.service';
 import { BrowseService } from './browse.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
@@ -85,10 +86,6 @@ describe('BrowseService', () => {
     });
   }
 
-  function initMockRequestService() {
-    return jasmine.createSpyObj('requestService', ['configure']);
-  }
-
   function initTestService() {
     return new BrowseService(
       responseCache,
@@ -157,7 +154,7 @@ describe('BrowseService', () => {
       it('should configure a new BrowseEndpointRequest', () => {
         const metadatumKey = 'dc.date.issued';
         const linkName = 'items';
-        const expected = new BrowseEndpointRequest(browsesEndpointURL);
+        const expected = new BrowseEndpointRequest(requestService.generateRequestId(), browsesEndpointURL);
 
         scheduler.schedule(() => service.getBrowseURLFor(metadatumKey, linkName).subscribe());
         scheduler.flush();

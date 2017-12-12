@@ -1,5 +1,6 @@
 import { cold, hot } from 'jasmine-marbles';
 import { GlobalConfig } from '../../../config/global-config.interface';
+import { initMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RootEndpointRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
@@ -38,7 +39,7 @@ describe('HALEndpointService', () => {
         })
       });
 
-      requestService = jasmine.createSpyObj('requestService', ['configure']);
+      requestService = initMockRequestService();
 
       envConfig = {
         rest: { baseUrl: 'https://rest.api/' }
@@ -53,7 +54,7 @@ describe('HALEndpointService', () => {
 
     it('should configure a new RootEndpointRequest', () => {
       (service as any).getEndpointMap();
-      const expected = new RootEndpointRequest(envConfig);
+      const expected = new RootEndpointRequest(requestService.generateRequestId(), envConfig);
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 

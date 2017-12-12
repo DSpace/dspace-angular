@@ -27,8 +27,14 @@ export class RequestExecuteAction implements Action {
   type = RequestActionTypes.EXECUTE;
   payload: string;
 
-  constructor(key: string) {
-    this.payload = key
+  /**
+   * Create a new RequestExecuteAction
+   *
+   * @param uuid
+   *    the request's uuid
+   */
+  constructor(uuid: string) {
+    this.payload = uuid
   }
 }
 
@@ -42,11 +48,11 @@ export class RequestCompleteAction implements Action {
   /**
    * Create a new RequestCompleteAction
    *
-   * @param key
-   *    the key under which  this request is stored,
+   * @param uuid
+   *    the request's uuid
    */
-  constructor(key: string) {
-    this.payload = key;
+  constructor(uuid: string) {
+    this.payload = uuid;
   }
 }
 /* tslint:enable:max-classes-per-file */

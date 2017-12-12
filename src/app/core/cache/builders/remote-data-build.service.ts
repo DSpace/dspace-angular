@@ -39,10 +39,10 @@ export class RemoteDataBuildService {
       this.objectCache.getRequestHrefBySelfLink(href));
 
     const requestObs = Observable.race(
-      hrefObs.flatMap((href: string) => this.requestService.get(href))
+      hrefObs.flatMap((href: string) => this.requestService.getByHref(href))
         .filter((entry) => hasValue(entry)),
       requestHrefObs.flatMap((requestHref) =>
-        this.requestService.get(requestHref)).filter((entry) => hasValue(entry))
+        this.requestService.getByHref(requestHref)).filter((entry) => hasValue(entry))
     );
 
     const responseCacheObs = Observable.race(
@@ -115,7 +115,7 @@ export class RemoteDataBuildService {
       hrefObs = Observable.of(hrefObs);
     }
 
-    const requestObs = hrefObs.flatMap((href: string) => this.requestService.get(href))
+    const requestObs = hrefObs.flatMap((href: string) => this.requestService.getByHref(href))
       .filter((entry) => hasValue(entry));
     const responseCacheObs = hrefObs.flatMap((href: string) => this.responseCache.get(href))
       .filter((entry) => hasValue(entry));
@@ -169,7 +169,7 @@ export class RemoteDataBuildService {
         const resourceConstructor = NormalizedObjectFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
           normalized[relationship].forEach((href: string) => {
-            this.requestService.configure(new RestRequest(href))
+            this.requestService.configure(new RestRequest(this.requestService.generateRequestId(), href))
           });
 
           const rdArr = [];
@@ -183,7 +183,7 @@ export class RemoteDataBuildService {
             links[relationship] = rdArr[0];
           }
         } else {
-          this.requestService.configure(new RestRequest(normalized[relationship]));
+          this.requestService.configure(new RestRequest(this.requestService.generateRequestId(), normalized[relationship]));
 
           // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
           // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),

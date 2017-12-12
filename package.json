@@ -107,6 +107,7 @@
     "reflect-metadata": "0.1.10",
     "rxjs": "5.4.3",
     "ts-md5": "1.2.2",
+    "uuid": "^3.1.0",
     "webfontloader": "1.6.28",
     "zone.js": "0.8.18"
   },
@@ -126,6 +127,7 @@
     "@types/node": "8.0.34",
     "@types/serve-static": "1.7.32",
     "@types/source-map": "0.5.1",
+    "@types/uuid": "^3.4.3",
     "@types/webfontloader": "1.6.29",
     "ajv": "5.2.3",
     "ajv-keywords": "2.1.0",

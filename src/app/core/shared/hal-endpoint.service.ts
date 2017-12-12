@@ -14,7 +14,7 @@ export abstract class HALEndpointService {
   protected abstract EnvConfig: GlobalConfig;
 
   protected getEndpointMap(): Observable<EndpointMap> {
-    const request = new RootEndpointRequest(this.EnvConfig);
+    const request = new RootEndpointRequest(this.requestService.generateRequestId(), this.EnvConfig);
     this.requestService.configure(request);
     return this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)

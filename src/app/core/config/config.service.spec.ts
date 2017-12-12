@@ -1,6 +1,7 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/Rx';
 import { GlobalConfig } from '../../../config';
+import { initMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { ConfigService } from './config.service';
 import { RequestService } from '../data/request.service';
@@ -38,10 +39,6 @@ describe('ConfigService', () => {
   const scopedEndpoint = `${serviceEndpoint}/${scopeName}`;
   const searchEndpoint = `${serviceEndpoint}/${BROWSE}?uuid=${scopeID}`;
 
-  function initMockRequestService(): RequestService {
-    return jasmine.createSpyObj('requestService', ['configure']);
-  }
-
   function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
     return jasmine.createSpyObj('responseCache', {
       get: cold('c-', {
@@ -70,7 +67,7 @@ describe('ConfigService', () => {
   describe('getConfigByHref', () => {
 
     it('should configure a new ConfigRequest', () => {
-      const expected = new ConfigRequest(scopedEndpoint);
+      const expected = new ConfigRequest(requestService.generateRequestId(), scopedEndpoint);
       scheduler.schedule(() => service.getConfigByHref(scopedEndpoint).subscribe());
       scheduler.flush();
 
@@ -81,7 +78,7 @@ describe('ConfigService', () => {
   describe('getConfigByName', () => {
 
     it('should configure a new ConfigRequest', () => {
-      const expected = new ConfigRequest(scopedEndpoint);
+      const expected = new ConfigRequest(requestService.generateRequestId(), scopedEndpoint);
       scheduler.schedule(() => service.getConfigByName(scopeName).subscribe());
       scheduler.flush();
 
@@ -93,7 +90,7 @@ describe('ConfigService', () => {
 
     it('should configure a new ConfigRequest', () => {
       findOptions.scopeID = scopeID;
-      const expected = new ConfigRequest(searchEndpoint);
+      const expected = new ConfigRequest(requestService.generateRequestId(), searchEndpoint);
       scheduler.schedule(() => service.getConfigBySearch(findOptions).subscribe());
       scheduler.flush();
 

@@ -31,10 +31,12 @@ export enum RestRequestMethod {
 
 export class RestRequest {
   constructor(
+    public uuid: string,
     public href: string,
     public method: RestRequestMethod = RestRequestMethod.Get,
     public body?: any
-  ) { }
+  ) {
+  }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return DSOResponseParsingService;
@@ -43,10 +45,11 @@ export class RestRequest {
 
 export class FindByIDRequest extends RestRequest {
   constructor(
+    uuid: string,
     href: string,
     public resourceID: string
   ) {
-    super(href);
+    super(uuid, href);
   }
 }
 
@@ -59,17 +62,18 @@ export class FindAllOptions {
 
 export class FindAllRequest extends RestRequest {
   constructor(
+    uuid: string,
     href: string,
     public options?: FindAllOptions,
   ) {
-    super(href);
+    super(uuid, href);
   }
 }
 
 export class RootEndpointRequest extends RestRequest {
-  constructor(EnvConfig: GlobalConfig) {
+  constructor(uuid: string, EnvConfig: GlobalConfig) {
     const href = new RESTURLCombiner(EnvConfig, '/').toString();
-    super(href);
+    super(uuid, href);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -78,8 +82,8 @@ export class RootEndpointRequest extends RestRequest {
 }
 
 export class BrowseEndpointRequest extends RestRequest {
-  constructor(href: string) {
-    super(href);
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -88,8 +92,8 @@ export class BrowseEndpointRequest extends RestRequest {
 }
 
 export class ConfigRequest extends RestRequest {
-  constructor(href: string) {
-    super(href);
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {

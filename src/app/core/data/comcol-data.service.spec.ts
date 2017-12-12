@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/Rx';
 import { GlobalConfig } from '../../../config';
+import { initMockRequestService } from '../../shared/mocks/mock-request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -62,10 +63,6 @@ describe('ComColDataService', () => {
     });
   }
 
-  function initMockRequestService(): RequestService {
-    return jasmine.createSpyObj('requestService', ['configure']);
-  }
-
   function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
     return jasmine.createSpyObj('responseCache', {
       get: cold('c-', {
@@ -110,7 +107,7 @@ describe('ComColDataService', () => {
       responseCache = initMockResponseCacheService(true);
       service = initTestService();
 
-      const expected = new FindByIDRequest(communityEndpoint, scopeID);
+      const expected = new FindByIDRequest(requestService.generateRequestId(), communityEndpoint, scopeID);
 
       scheduler.schedule(() => service.getScopedEndpoint(scopeID).subscribe());
       scheduler.flush();

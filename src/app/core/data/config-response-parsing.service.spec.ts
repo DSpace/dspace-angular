@@ -21,7 +21,7 @@ describe('ConfigResponseParsingService', () => {
   });
 
   describe('parse', () => {
-    const validRequest = new ConfigRequest('https://rest.api/config/submissiondefinitions/traditional');
+    const validRequest = new ConfigRequest('69f375b5-19f4-4453-8c7a-7dc5c55aafbb', 'https://rest.api/config/submissiondefinitions/traditional');
 
     const validResponse = {
       payload: {
