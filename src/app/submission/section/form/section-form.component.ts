@@ -10,7 +10,11 @@ import {
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { SectionStatusChangeAction } from '../../objects/submission-objects.actions';
+import {
+  DeleteSectionErrorAction,
+  SectionStatusChangeAction,
+  SubmissionObjectAction
+} from '../../objects/submission-objects.actions';
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
@@ -34,6 +38,7 @@ import {
   COMBOBOX_VALUE_SUFFIX
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { isEqual } from 'lodash';
+import { FormStatusChangeAction } from '../../../shared/form/form.actions';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -48,7 +53,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   protected formConfig: SubmissionFormsModel;
   protected pathCombiner: JsonPatchOperationPathCombiner;
-  protected previousValue: { path: any[], value: string};
+  protected previousValue: { path: any[], value: string };
 
   @ViewChild('formRef') private formRef: FormComponent;
 
@@ -138,11 +143,11 @@ export class FormSectionComponent extends SectionModelComponent {
       .filter((state: SubmissionSectionObject) => isNotUndefined(this.formRef))
       .distinctUntilChanged()
       .subscribe((state: SubmissionSectionObject) => {
-        const {errors} = state;
+        const { errors } = state;
 
         // if there are errors
         if (errors && !isEmpty(errors)) {
-          const {formGroup} = this.formRef;
+          const { formGroup } = this.formRef;
 
           errors.forEach((errorItem: SubmissionError) => {
             const parsedErrors = parseSectionErrorPaths(errorItem.path);
@@ -155,7 +160,7 @@ export class FormSectionComponent extends SectionModelComponent {
               const errorKey = `error-${index}`; // create a single key for the error
               const error = {}; // create the error object
 
-              error[errorKey] = errorItem.messageKey; // assign message
+              error[ errorKey ] = errorItem.messageKey; // assign message
 
               // if form control model has errorMessages object, create it
               if (!formControlModel.errorMessages) {
@@ -163,7 +168,7 @@ export class FormSectionComponent extends SectionModelComponent {
               }
 
               // put the error in the for control model
-              formControlModel.errorMessages[errorKey] = errorItem.messageKey;
+              formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
 
               // add the error in the form control
               formControl.setErrors(error);
@@ -175,6 +180,12 @@ export class FormSectionComponent extends SectionModelComponent {
 
           // after the cycles are over detectChanges();
           this.changeDetectorRef.detectChanges();
+
+          // remove errors from state
+          errors.forEach((errorItem: SubmissionError) => {
+            const removeAction = new DeleteSectionErrorAction(this.submissionId, this.sectionData.id, errorItem);
+            this.store.dispatch(removeAction);
+          });
         }
       })
   }
@@ -183,7 +194,7 @@ export class FormSectionComponent extends SectionModelComponent {
     const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
     if (this.previousValue && isEqual(this.previousValue.path, this.formBuilderService.getPath(event.model))
-        && event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX) && this.previousValue.value !== event.control.value) {
+      && event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX) && this.previousValue.value !== event.control.value) {
       this.operationsBuilder.remove(this.pathCombiner.getPath(this.previousValue.value));
       this.previousValue = null;
     }
@@ -192,8 +203,8 @@ export class FormSectionComponent extends SectionModelComponent {
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
     } else if (event.model.parent instanceof DynamicFormArrayGroupModel
       || (event.model.parent instanceof DynamicFormGroupModel
-          && isNotUndefined(event.model.parent.parent)
-          && event.model.parent.parent instanceof DynamicFormArrayGroupModel)) {
+        && isNotUndefined(event.model.parent.parent)
+        && event.model.parent.parent instanceof DynamicFormArrayGroupModel)) {
       if (this.formBuilderService.getArrayIndexFromEvent(event) === 0) {
         this.operationsBuilder.add(
           this.pathCombiner.getPath(this.formBuilderService.getId(event.model)),
