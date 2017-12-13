@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormArrayGroupModel,
   DynamicFormArrayModel, DynamicFormControlEvent,
-  DynamicFormControlModel, DynamicFormGroupModel, DynamicFormService, DynamicFormValidationService,
+  DynamicFormControlModel, DynamicFormGroupModel, DynamicFormService, DynamicFormValidationService, DynamicPathable,
   Utils
 } from '@ng-dynamic-forms/core';
 
@@ -164,7 +164,7 @@ export class FormBuilderService extends DynamicFormService {
         fieldId = event.control.value;
       }
     } else {
-      fieldId = event.model.name;
+      fieldId = this.getId(event.model);
     }
     return fieldId + fieldIndex;
   }
@@ -201,5 +201,15 @@ export class FormBuilderService extends DynamicFormService {
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0) {
     const fieldModel = this.findById(id, groupModel, index);
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
+  }
+
+  getId(model: DynamicPathable) {
+    if (model instanceof DynamicFormArrayGroupModel) {
+      return model.index.toString()
+    } else {
+      return ((model as DynamicFormControlModel).id !== (model as DynamicFormControlModel).name) ?
+        (model as DynamicFormControlModel).name :
+        (model as DynamicFormControlModel).id;
+    }
   }
 }

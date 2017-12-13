@@ -45,6 +45,9 @@ export class OneboxFieldParser extends FieldParser {
 
       const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(  newId + COMBOBOX_METADATA_SUFFIX);
       this.setOptions(selectModelConfig);
+      if (isNotEmpty(fieldValue)) {
+        selectModelConfig.value = fieldValue.metadata;
+      }
       clsSelect = {
         element: {
           control: 'input-group-addon ds-form-input-addon',
@@ -56,6 +59,9 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
       const inputModelConfig: DynamicInputModelConfig = this.initModel(newId + COMBOBOX_VALUE_SUFFIX, true, true);
+      if (isNotEmpty(fieldValue)) {
+        inputModelConfig.value = fieldValue.value;
+      }
       clsInput = {
         element: {
           control: 'ds-form-input-value',

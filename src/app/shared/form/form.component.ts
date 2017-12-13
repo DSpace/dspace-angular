@@ -6,12 +6,12 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
-  DynamicFormControlModel
+  DynamicFormControlModel, DynamicFormGroupModel
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
@@ -52,6 +52,8 @@ export class FormComponent implements OnDestroy, OnInit {
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output() addArrayItem: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output() removeArrayItem: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
 
   /**
    * An event fired when form is valid and submitted .
@@ -162,16 +164,27 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formGroup.reset();
   }
 
-  removeItem(context: DynamicFormArrayModel, index: number) {
+  removeItem($event, arrayContext: DynamicFormArrayModel, index: number) {
     this.formGroup.markAsDirty();
-    const formArrayControl = this.formGroup.get(context.id) as FormArray;
-    this.formBuilderService.removeFormArrayGroup(index, formArrayControl, context);
+    const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
+    this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
+    this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
   }
 
-  insertItem(context: DynamicFormArrayModel, index: number) {
+  insertItem($event, arrayContext: DynamicFormArrayModel, index: number) {
     this.formGroup.markAsDirty();
-    const formArrayControl = this.formGroup.get(context.id) as FormArray;
-    this.formBuilderService.insertFormArrayGroup(index, formArrayControl, context);
+    const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
+    this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
+    this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
+  }
+
+  protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {
+    const context = arrayContext.groups[index];
+    const itemGroupModel = context.context;
+    const group = this.formGroup.get(itemGroupModel.id) as FormGroup;
+    const model = context.group[0] as DynamicFormControlModel;
+    const control = group.controls[index] as FormControl;
+    return {$event, context, control, group, model, type};
   }
 
 }
