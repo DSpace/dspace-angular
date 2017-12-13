@@ -188,11 +188,13 @@ export class FormSectionComponent extends SectionModelComponent {
       this.previousValue = null;
     }
 
-    if (event.model.parent instanceof DynamicFormArrayGroupModel
+    if (this.previousValue && isEmpty(value) && isEqual(this.previousValue.path, this.formBuilderService.getPath(event.model))) {
+      this.operationsBuilder.remove(this.pathCombiner.getPath(path));
+    } else if (event.model.parent instanceof DynamicFormArrayGroupModel
       || (event.model.parent instanceof DynamicFormGroupModel
           && isNotUndefined(event.model.parent.parent)
           && event.model.parent.parent instanceof DynamicFormArrayGroupModel)) {
-      if (!event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX) && event.context.index === 0) {
+      if (this.formBuilderService.getArrayIndexFromEvent(event) === 0) {
         this.operationsBuilder.add(
           this.pathCombiner.getPath(this.formBuilderService.getId(event.model)),
           value, false, true);

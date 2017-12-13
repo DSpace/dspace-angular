@@ -138,24 +138,29 @@ export class FormBuilderService extends DynamicFormService {
     this.authorityOptions = new IntegrationSearchOptions(uuid);
   }
 
-  getFieldPathFromChangeEvent(event: DynamicFormControlEvent) {
-    let fieldIndex = '';
-    let fieldId;
+  getArrayIndexFromEvent(event: DynamicFormControlEvent) {
+    let fieldIndex: number;
     if (isNull(event.context)) {
       if (isNotNull(event.model.parent)) {
         if ((event.model.parent as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP) {
           if (isNotNull((event.model.parent as any).parent)) {
             if (isNotNull((event.model.parent as any).parent.context)) {
               if ((event.model.parent as any).parent.context.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY) {
-                fieldIndex = '/' + (event.model.parent as any).parent.index;
+                fieldIndex = (event.model.parent as any).parent.index;
               }
             }
           }
         }
       }
     } else {
-      fieldIndex = '/' + event.context.index;
+      fieldIndex = event.context.index;
     }
+    return fieldIndex
+  }
+
+  getFieldPathFromChangeEvent(event: DynamicFormControlEvent) {
+    const fieldIndex = '/' + this.getArrayIndexFromEvent(event);
+    let fieldId;
     if (event.model.parent instanceof DynamicComboboxModel) {
       if (event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX)) {
         const metadataId = event.model.id.replace(COMBOBOX_VALUE_SUFFIX, COMBOBOX_METADATA_SUFFIX);
