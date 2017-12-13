@@ -26,6 +26,7 @@ import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dyn
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { AuthorityModel } from '../../../core/integration/models/authority.model';
+import {TagFieldParser} from "./parsers/tag-field-parser";
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -111,7 +112,7 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'tag':
-          // group.push(new TextareaFieldParser(fieldData).parse());
+           group.push(new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
           break;
 
         case 'textarea':
@@ -129,7 +130,7 @@ export class FormBuilderService extends DynamicFormService {
 
     return group;
   }
-  
+
   hasAuthorityValue(fieldModel) {
     return (fieldModel instanceof DynamicTypeaheadModel || fieldModel instanceof DynamicScrollableDropdownModel);
   }

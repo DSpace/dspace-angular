@@ -211,7 +211,6 @@ dist/*.*
 *.css.shim.ts
 *.scss.shim.ts
 
-.DS_Store
 
 webpack.records.json
 
@@ -220,3 +219,4 @@ webpack.records.json
 morgan.log
 
 yarn-error.log
+*.iml

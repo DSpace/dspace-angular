@@ -13,6 +13,7 @@ export interface DynamicTypeaheadModelConfig extends DynamicInputModelConfig {
   authorityScope: string;
   minChars: number;
   value: any;
+  withTag: boolean;
 }
 
 export class DynamicTypeaheadModel extends DynamicInputModel {
@@ -22,6 +23,7 @@ export class DynamicTypeaheadModel extends DynamicInputModel {
   @serializable() authorityScope: string;
   @serializable() minChars: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD;
+  @serializable() withTag: boolean;
 
   constructor(config: DynamicTypeaheadModelConfig, cls?: ClsConfig) {
 
@@ -32,6 +34,7 @@ export class DynamicTypeaheadModel extends DynamicInputModel {
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
     this.minChars = config.minChars;
+    this.withTag = config.withTag;
   }
 
 }

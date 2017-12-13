@@ -9,6 +9,7 @@ import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { isNotEmpty } from '../../../../../empty.util';
+import {Chips} from "../../../../../chips/chips.model";
 
 @Component({
   selector: 'ds-dynamic-typeahead',
@@ -24,6 +25,8 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+
+  chips: Chips;
 
   searching = false;
   searchOptions: IntegrationSearchOptions;
@@ -75,6 +78,8 @@ export class DsDynamicTypeaheadComponent implements OnInit {
         this.currentValue = value[this.model.id];
       }
     })
+
+    this.chips = new Chips();
   }
 
   onInput(event) {
@@ -92,8 +97,24 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   }
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
-    this.currentValue = event.item;
-    this.group.controls[this.model.id].setValue(event.item);
-    this.change.emit(event.item);
+    if (!this.model.withTag) {
+      // Case no tag
+      this.currentValue = event.item;
+      this.group.controls[this.model.id].setValue(event.item);
+      this.change.emit(event.item);
+    } else {
+      // Case with Tag
+      this.currentValue = "";
+      this.chips.add(event.item);
+
+    }
+  }
+
+  chipsSelected(event) {
+    console.log("Selected chips : "+JSON.stringify(this.chips.chipsItems[event]));
+  }
+
+  removeChips(event) {
+    console.log("Removed chips index: "+event);
   }
 }
