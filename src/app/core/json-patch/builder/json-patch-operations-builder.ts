@@ -14,12 +14,12 @@ export class JsonPatchOperationsBuilder {
   constructor(private store: Store<CoreState>) {
   }
 
-  add(path: JsonPatchOperationPathObject, value, plain = false) {
+  add(path: JsonPatchOperationPathObject, value, plain = false, first = false) {
     this.store.dispatch(
       new NewPatchAddOperationAction(
         path.rootElement,
         path.subRootElement,
-        path.path, this.prepareValue(value, plain)));
+        path.path, this.prepareValue(value, plain, first)));
   }
 
   replace(path: JsonPatchOperationPathObject, value, plain = false) {
@@ -28,7 +28,7 @@ export class JsonPatchOperationsBuilder {
         path.rootElement,
         path.subRootElement,
         path.path,
-        this.prepareValue(value, plain)));
+        this.prepareValue(value, plain, false)));
   }
 
   remove(path: JsonPatchOperationPathObject) {
@@ -39,14 +39,14 @@ export class JsonPatchOperationsBuilder {
         path.path));
   }
 
-  protected prepareValue(value: any, plain) {
+  protected prepareValue(value: any, plain: boolean, first: boolean) {
     let operationValue: any = null;
     if (isNotEmpty(value)) {
       if (plain) {
         operationValue = value
       } else {
-        operationValue = [];
         if (Array.isArray(value)) {
+          operationValue = [];
           value.forEach((entry) => {
             if ((typeof entry === 'object')) {
               operationValue.push(entry);
@@ -55,13 +55,13 @@ export class JsonPatchOperationsBuilder {
             }
           })
         } else if ((typeof value === 'object') && value.hasOwnProperty('value')) {
-          operationValue.push(value);
+          operationValue = value;
         } else {
-          operationValue.push({value: value});
+          operationValue = {value: value};
         }
       }
     }
-    return operationValue;
+    return (first && !Array.isArray(operationValue)) ? [operationValue] : operationValue;
   }
 
 }
