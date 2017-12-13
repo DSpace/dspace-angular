@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 
-import { isEmpty } from 'lodash';
+import { isEmpty, uniqueId } from 'lodash';
 import { Store } from '@ngrx/store';
 import {
   DynamicFormArrayGroupModel, DynamicFormControlEvent, DynamicFormControlModel,
@@ -13,7 +13,6 @@ import { FormService } from '../../../shared/form/form.service';
 import {
   DeleteSectionErrorAction,
   SectionStatusChangeAction,
-  SubmissionObjectAction
 } from '../../objects/submission-objects.actions';
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
@@ -30,7 +29,7 @@ import { IntegrationData } from '../../../core/integration/integration-data';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
-import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
+import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
 import { AbstractControl } from '@angular/forms';
 
 import {
@@ -38,7 +37,6 @@ import {
   COMBOBOX_VALUE_SUFFIX
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { isEqual } from 'lodash';
-import { FormStatusChangeAction } from '../../../shared/form/form.actions';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -50,6 +48,8 @@ export class FormSectionComponent extends SectionModelComponent {
   public formId;
   public formModel: DynamicFormControlModel[];
   public isLoading = true;
+
+  protected sectionError: string = null;
 
   protected formConfig: SubmissionFormsModel;
   protected pathCombiner: JsonPatchOperationPathCombiner;
@@ -141,23 +141,29 @@ export class FormSectionComponent extends SectionModelComponent {
     this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
       .filter((state: SubmissionSectionObject) => isNotEmpty(state) && isNotEmpty(state.errors))
       .filter((state: SubmissionSectionObject) => isNotUndefined(this.formRef))
+      .map((state: SubmissionSectionObject) => state.errors)
+      .filter((errors: SubmissionError[]) => !isEmpty(errors))
       .distinctUntilChanged()
-      .subscribe((state: SubmissionSectionObject) => {
-        const { errors } = state;
+      .subscribe((errors: SubmissionError[]) => {
+        const { formGroup } = this.formRef;
 
-        // if there are errors
-        if (errors && !isEmpty(errors)) {
-          const { formGroup } = this.formRef;
+        errors.forEach((errorItem: SubmissionError) => {
+          const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
 
-          errors.forEach((errorItem: SubmissionError) => {
-            const parsedErrors = parseSectionErrorPaths(errorItem.path);
+          // every error is related to a single field, but can contain multiple errors
+          parsedErrors.forEach((parsedError: SectionErrorPath) => {
 
-            // every error is related to a single field, but can contain multiple errors
-            parsedErrors.forEach((parsedError, index: number) => {
+            // errors on section
+            if (!parsedError.fieldId) {
+              this.sectionError = errorItem.messageKey;
+            }
+
+            // errors on fields
+            if (parsedError.fieldId) {
               const parsedId = parsedError.fieldId.replace(/\./g, '_');
               const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
               const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
-              const errorKey = `error-${index}`; // create a single key for the error
+              const errorKey = uniqueId('error-'); // create a single key for the error
               const error = {}; // create the error object
 
               error[ errorKey ] = errorItem.messageKey; // assign message
@@ -175,18 +181,16 @@ export class FormSectionComponent extends SectionModelComponent {
 
               // formGroup.markAsDirty();
               formControl.markAsTouched();
-            });
-          });
 
-          // after the cycles are over detectChanges();
-          this.changeDetectorRef.detectChanges();
-
-          // remove errors from state
-          errors.forEach((errorItem: SubmissionError) => {
-            const removeAction = new DeleteSectionErrorAction(this.submissionId, this.sectionData.id, errorItem);
-            this.store.dispatch(removeAction);
+              // because it has been shown, remove the error from the state
+              const removeAction = new DeleteSectionErrorAction(this.submissionId, this.sectionData.id, errorItem);
+              this.store.dispatch(removeAction);
+            }
           });
-        }
+        });
+
+        // after the cycles are over detectChanges();
+        this.changeDetectorRef.detectChanges();
       })
   }
 

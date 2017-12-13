@@ -85,7 +85,8 @@ export class FormComponent implements OnDestroy, OnInit {
   /**
    * Method provided by Angular. Invoked after the view has been initialized.
    */
-  ngAfterViewChecked(): void {
+
+  /*ngAfterViewChecked(): void {
     this.subs.push(this.formGroup.valueChanges
       .filter((formGroup) => this.formGroup.dirty)
       .subscribe(() => {
@@ -93,7 +94,7 @@ export class FormComponent implements OnDestroy, OnInit {
         this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
         this.formGroup.markAsPristine();
       }));
-  }
+  }*/
 
   /**
    * Method provided by Angular. Invoked after the constructor
@@ -109,7 +110,7 @@ export class FormComponent implements OnDestroy, OnInit {
       .filter((currentStatus) => this.formValid !== currentStatus)
       .subscribe((currentStatus) => {
         // Dispatch a FormStatusChangeAction if the form status has changed
-        this.store.dispatch(new FormStatusChangeAction(this.formId, currentStatus));
+        this.store.dispatch(new FormStatusChangeAction(this.formId, this.formGroup.valid));
         this.formValid = currentStatus;
       }));
   }
@@ -152,6 +153,10 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event) {
+    const action: FormChangeAction = new FormChangeAction(this.formId, this.formGroup.value);
+    this.store.dispatch(action);
+    this.formGroup.markAsPristine();
+
     this.change.emit(event);
   }
 
@@ -196,5 +201,4 @@ export class FormComponent implements OnDestroy, OnInit {
     const control = group.controls[ index ] as FormControl;
     return { $event, context, control, group, model, type };
   }
-
 }
