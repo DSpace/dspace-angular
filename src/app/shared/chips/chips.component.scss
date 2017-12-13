@@ -1,0 +1,22 @@
+.chips-box {
+  border: 1px;
+  padding: 10px;
+  width: 100%;
+  overflow-y: scroll;
+}
+.chips {
+  margin: 2px;
+  padding: 5px;
+  max-width: 160px;
+  float: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: white;
+  background-color: #1682ff;
+  border-radius: 3px;
+}
+.chips-item {
+  margin: 2px;
+  padding: 0 15px 0 0;
+}
+

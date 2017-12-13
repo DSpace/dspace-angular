@@ -45,6 +45,7 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { UploadFilesComponent } from './upload-files/upload-files.component';
+import {ChipsComponent} from "./chips/chips.component";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -75,6 +76,7 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
+  ChipsComponent,
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,

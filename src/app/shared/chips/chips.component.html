@@ -1,0 +1,11 @@
+<div class="chips-box">
+  <span *ngFor="let item of chips.chipsItems; let i = index" class="chips">
+    <span class="chips-item" (click)="chipsSelected(i)">
+      {{item.display}}
+    </span>
+    <span class="fa fa-times" (click)="removeChips(i)"></span>
+  </span>
+
+</div>
+
+<hr/>
