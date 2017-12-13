@@ -14,5 +14,4 @@ export abstract class SectionModelComponent implements SectionDataModel {
   @Input() submissionId: string;
 
   protected valid: boolean;
-
 }

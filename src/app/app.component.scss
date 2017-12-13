@@ -30,3 +30,7 @@ body {
   margin-top: $content-spacing;
   margin-bottom: $content-spacing;
 }
+.alert.hide {
+  padding: 0;
+  margin: 0;
+}

@@ -10,18 +10,36 @@
       <ng-template ngbPanelTitle>
         <span>{{ 'submission.section.'+sectionData.header | translate }}</span>
         <div class="d-inline-block float-right">
-          <i *ngIf="!sectionRef.isValid()" class="fa fa-exclamation-circle text-warning mr-3" aria-hidden="true"></i>
-          <i *ngIf="sectionRef.isValid()" class="fa fa-check-circle text-success mr-3" aria-hidden="true"></i>
+          <i *ngIf="!sectionRef.isValid()" class="fa fa-exclamation-circle text-warning mr-3"
+             aria-hidden="true"></i>
+          <i *ngIf="sectionRef.isValid()" class="fa fa-check-circle text-success mr-3"
+             aria-hidden="true"></i>
           <a class="close" aria-label="Close">
-            <span *ngIf="sectionRef.isOpen()" class="fa fa-angle-up fa-fw" aria-hidden="true"></span>
-            <span *ngIf="!sectionRef.isOpen()" class="fa fa-angle-down fa-fw" aria-hidden="true"></span>
+            <span *ngIf="sectionRef.isOpen()" class="fa fa-angle-up fa-fw"
+                  aria-hidden="true"></span>
+            <span *ngIf="!sectionRef.isOpen()" class="fa fa-angle-down fa-fw"
+                  aria-hidden="true"></span>
           </a>
-          <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory()" (click)="removeSection($event)">
+          <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory()"
+             (click)="removeSection($event)">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
           </a>
         </div>
       </ng-template>
       <ng-template ngbPanelContent>
+
+        <div
+          [ngClass]="{ 'alert alert-danger alert-dismissible fade': true,'show': sectionRef.hasErrors(), 'hide': !sectionRef.hasErrors() }"
+          role="alert">
+          <span *ngFor="let error of sectionRef.getErrors()">
+            {{error}}
+          </span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                  (click)="sectionRef.resetErrors()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
         <ng-container
           *ngTemplateOutlet="sectionContentTemplate">
         </ng-container>
@@ -32,10 +50,20 @@
 
 <ng-template #sectionContentTemplate>
   <ng-container [ngSwitch]="sectionComponentType">
-      <ds-submission-section-form *ngSwitchCase="'submission-form'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-form>
-      <ds-submission-section-files *ngSwitchCase="'upload'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-files>
-      <ds-submission-section-license *ngSwitchCase="'license'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-license>
-      <ds-submission-section-default *ngSwitchCase="'cclicense'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-default>
-      <ds-submission-section-default *ngSwitchCase="'collection'" [collectionId]="collectionId" [sectionData]="sectionData" [submissionId]="submissionId"></ds-submission-section-default>
+    <ds-submission-section-form *ngSwitchCase="'submission-form'" [collectionId]="collectionId"
+                                [sectionData]="sectionData"
+                                [submissionId]="submissionId"></ds-submission-section-form>
+    <ds-submission-section-files *ngSwitchCase="'upload'" [collectionId]="collectionId"
+                                 [sectionData]="sectionData"
+                                 [submissionId]="submissionId"></ds-submission-section-files>
+    <ds-submission-section-license *ngSwitchCase="'license'" [collectionId]="collectionId"
+                                   [sectionData]="sectionData"
+                                   [submissionId]="submissionId"></ds-submission-section-license>
+    <ds-submission-section-default *ngSwitchCase="'cclicense'" [collectionId]="collectionId"
+                                   [sectionData]="sectionData"
+                                   [submissionId]="submissionId"></ds-submission-section-default>
+    <ds-submission-section-default *ngSwitchCase="'collection'" [collectionId]="collectionId"
+                                   [sectionData]="sectionData"
+                                   [submissionId]="submissionId"></ds-submission-section-default>
   </ng-container>
 </ng-template>

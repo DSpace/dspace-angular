@@ -53,7 +53,7 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
             'error.validation.two': {
               paths: [ '/sections/traditionalpageone/dc.identifier.citation' ]
             },
-            'street\'s like a jungle, so call the police': {
+            'Section error': {
               paths: [ '/sections/traditionalpageone/' ]
             }
           }
