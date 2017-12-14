@@ -1,10 +1,19 @@
 <div class="chips-box">
+  <div id="chips-container">
   <span *ngFor="let item of chips.chipsItems; let i = index" class="chips">
     <span class="chips-item" (click)="chipsSelected(i)">
       {{item.display}}
     </span>
     <span class="fa fa-times" (click)="removeChips(i)"></span>
   </span>
+  </div>
+  <input
+    *ngIf="editable"
+    type="text"
+    placeholder="Enter a chips"
+    (keyup)="keyUp($event)"
+    [(ngModel)]="inputText"
+  />
 
 </div>
 

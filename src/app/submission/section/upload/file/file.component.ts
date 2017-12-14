@@ -75,7 +75,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
   }
 
   protected deleteFile() {
-    this.uploadService.deleteBitstream(this.submissionId, this.sectionId, this.fileId);
+    this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
     this.operationsBuilder.remove(this.pathCombiner.getPath());
     this.restService.jsonPatchByResourceID(
       this.submissionId,
@@ -130,7 +130,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
             .subscribe((result) => {
               Object.keys(result[0].sections.upload.files)
                 .filter((key) => result[0].sections.upload.files[key].uuid === this.fileId)
-                .forEach((key) => this.uploadService.editBitstream(
+                .forEach((key) => this.uploadService.updateFileData(
                   this.submissionId,
                   this.sectionId,
                   this.fileId,

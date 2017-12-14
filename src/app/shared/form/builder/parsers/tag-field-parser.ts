@@ -1,16 +1,9 @@
-import { FieldParser } from './field-parser';
-import {
-  ClsConfig, DynamicTextAreaModel, DynamicTextAreaModelConfig
-} from '@ng-dynamic-forms/core';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { isNotEmpty } from '../../../empty.util';
-import {DynamicScrollableDropdownModelConfig} from "../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model";
-import {
-  DynamicTypeaheadModel,
-  DynamicTypeaheadModelConfig
-} from "../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model";
+import {FieldParser} from './field-parser';
+import {FormFieldModel} from '../models/form-field.model';
+import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
+import {isNotEmpty} from '../../../empty.util';
 import {AuthorityModel} from "../../../../core/integration/models/authority.model";
+import {DynamicTagModel, DynamicTagModelConfig} from "../ds-dynamic-form-ui/models/tag/dynamic-tag.model";
 
 export class TagFieldParser extends FieldParser {
 
@@ -20,21 +13,22 @@ export class TagFieldParser extends FieldParser {
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
-    const typeaheadModelConfig: DynamicTypeaheadModelConfig = this.initModel();
-    typeaheadModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
-    typeaheadModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
-    typeaheadModelConfig.authorityScope = this.authorityUuid;
+    const tagModelConfig: DynamicTagModelConfig = this.initModel();
+    tagModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
+    tagModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
+    tagModelConfig.authorityScope = this.authorityUuid;
+    tagModelConfig.withTag = true;
     if (isNotEmpty(fieldValue)) {
       const authorityValue = {
         id: fieldValue.authority,
         value: fieldValue.value,
         display: fieldValue.value
       } as AuthorityModel;
-      typeaheadModelConfig.value = authorityValue;
+      tagModelConfig.value = authorityValue;
     }
-    typeaheadModelConfig.minChars = 3;
-    const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
-    typeaheadModel.name = this.fieldId;
-    return typeaheadModel;
+    tagModelConfig.minChars = 3;
+    const tagModel = new DynamicTagModel(tagModelConfig);
+    tagModel.name = this.fieldId;
+    return tagModel;
   }
 }

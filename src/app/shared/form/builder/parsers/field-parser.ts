@@ -1,7 +1,7 @@
-import { isNotEmpty, isNotUndefined } from '../../../empty.util';
+import { isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
-import { ClsConfig, DynamicFormArrayModel } from '@ng-dynamic-forms/core';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core';
 
 import { uniqueId } from 'lodash';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -15,9 +15,9 @@ export abstract class FieldParser {
   public abstract modelFactory(fieldValue: FormFieldMetadataValueObject): any;
 
   public parse() {
-    if (this.configData.repeatable && this.configData.input.type !== 'list') {
+    if (this.configData.repeatable && this.configData.input.type !== 'list' && this.configData.input.type !== 'tag') {
       let counter = 0;
-      const arrayModel = new DynamicFormArrayModel(
+      return new DynamicFormArrayModel(
         {
           id : uniqueId() + '_array',
           initialCount: this.getInitArrayIndex(),
@@ -34,30 +34,57 @@ export abstract class FieldParser {
           }
         }
       );
-      return arrayModel;
     } else {
       return this.modelFactory(this.getInitFieldValue());
     }
   }
 
-  protected getInitFieldValue(index = 0): FormFieldMetadataValueObject {
-    if (isNotEmpty(this.initFormValues) && this.initFormValues.hasOwnProperty(this.getFieldId())) {
-      return this.initFormValues[this.getFieldId()][index];
+  protected getInitFieldValue(index = 0, fieldId?): FormFieldMetadataValueObject {
+    const fieldIds = fieldId || this.getFieldId();
+    if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
+      return this.initFormValues[fieldIds[0]][index];
+    } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
+      const values: FormFieldMetadataValueObject[] = [];
+      fieldIds.forEach((id) => {
+        if (this.initFormValues.hasOwnProperty(id)) {
+          values.push(Object.assign({}, {metadata: id}, this.initFormValues[id][0]));
+        }
+      });
+      return values[index];
     } else {
       return null;
     }
   }
 
   protected getInitArrayIndex() {
-    if (isNotEmpty(this.initFormValues) && this.initFormValues.hasOwnProperty(this.getFieldId())) {
-      return this.initFormValues[this.getFieldId()].length;
+    const fieldIds: any = this.getFieldId();
+    if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds)) {
+      return this.initFormValues[fieldIds].length;
+    } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
+      let counter = 0;
+      fieldIds.forEach((id) => {
+        if (this.initFormValues.hasOwnProperty(id)) {
+          counter++;
+        }
+      });
+      return (counter === 0) ? 1 : counter;
     } else {
       return 1;
     }
   }
 
-  protected getFieldId() {
-    return this.configData.selectableMetadata[0].metadata;
+  protected getFieldId(): string[] {
+    if (Array.isArray(this.configData.selectableMetadata)) {
+      if (this.configData.selectableMetadata.length === 1) {
+        return [this.configData.selectableMetadata[0].metadata];
+      } else {
+        const ids = [];
+        this.configData.selectableMetadata.forEach((entry) => ids.push(entry.metadata));
+        return ids;
+      }
+    } else {
+      return null;
+    }
   }
 
   protected initModel(id?: string, label = true, labelEmpty = false) {
@@ -65,7 +92,7 @@ export abstract class FieldParser {
     const controlModel = Object.create(null);
 
     // Sets input ID
-    this.fieldId = id ? id : this.getFieldId();
+    this.fieldId = id ? id : this.getFieldId()[0];
 
     // Sets input name (with the original field's id value)
     controlModel.name = this.fieldId;

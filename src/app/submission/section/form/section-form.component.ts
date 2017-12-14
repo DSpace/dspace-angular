@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 
 import { isEmpty } from 'lodash';
 import { Store } from '@ngrx/store';
@@ -28,7 +28,12 @@ import { submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import parseSectionErrorPaths from '../../utils/parseSectionErrorPaths';
 import { AbstractControl } from '@angular/forms';
-import { DynamicScrollableDropdownModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+
+import {
+  COMBOBOX_METADATA_SUFFIX,
+  COMBOBOX_VALUE_SUFFIX
+} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
+import { isEqual } from 'lodash';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -40,12 +45,12 @@ export class FormSectionComponent extends SectionModelComponent {
   public formId;
   public formModel: DynamicFormControlModel[];
   public isLoading = true;
-  public formRef: FormComponent;
 
   protected formConfig: SubmissionFormsModel;
   protected pathCombiner: JsonPatchOperationPathCombiner;
+  protected previousValue: { path: any[], value: string};
 
-  @ViewChildren('formRef') private forms: QueryList<FormComponent>;
+  @ViewChild('formRef') private formRef: FormComponent;
 
   constructor(protected authorityService: AuthorityService,
               protected changeDetectorRef: ChangeDetectorRef,
@@ -115,89 +120,122 @@ export class FormSectionComponent extends SectionModelComponent {
   }
 
   subscriptions() {
+    this.formService.isValid(this.formId)
+      .filter((formValid) => isNotUndefined(formValid))
+      .filter((formValid) => formValid !== this.valid)
+      .subscribe((formState) => {
+        this.valid = formState;
+        this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
+      });
+
     console.log('Subscribe to the form;');
-    if (this.forms) {
-      this.forms.changes
-        .filter((comps: QueryList<FormComponent>) => hasValue(comps.first))
-        .subscribe((comps: QueryList<FormComponent>) => {
-          console.log('Subscribe to the form changes;');
 
-          if (isUndefined(this.formRef)) {
-            this.formRef = comps.first;
+    /**
+     * Subscribe to errors
+     */
+    this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
+      .filter((state: SubmissionSectionObject) => isNotEmpty(state) && isNotEmpty(state.errors))
+      .filter((state: SubmissionSectionObject) => isNotUndefined(this.formRef))
+      .distinctUntilChanged()
+      .subscribe((state: SubmissionSectionObject) => {
+        const {errors} = state;
 
-            this.formService.isValid(this.formId)
-              .subscribe((formState) => {
-                if (!hasValue(this.valid) || (hasValue(this.valid) && (this.valid !== this.formRef.formGroup.valid))) {
-                  this.valid = this.formRef.formGroup.valid;
-                  this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
-                }
-              });
+        // if there are errors
+        if (errors && !isEmpty(errors)) {
+          const {formGroup} = this.formRef;
 
-            /**
-             * Subscribe to errors
-             */
-            this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
-              .filter((state: SubmissionSectionObject) => isNotEmpty(state))
-              .distinctUntilChanged()
-              .subscribe((state: SubmissionSectionObject) => {
-                const {errors} = state;
+          errors.forEach((errorItem: SubmissionError) => {
+            const parsedErrors = parseSectionErrorPaths(errorItem.path);
 
-                // if there are errors
-                if (errors && !isEmpty(errors)) {
-                  const {formGroup} = this.formRef;
+            // every error is related to a single field, but can contain multiple errors
+            parsedErrors.forEach((parsedError, index: number) => {
+              const parsedId = parsedError.fieldId.replace(/\./g, '_');
+              const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
+              const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
+              const errorKey = `error-${index}`; // create a single key for the error
+              const error = {}; // create the error object
 
-                  errors.forEach((errorItem: SubmissionError) => {
-                    const parsedErrors = parseSectionErrorPaths(errorItem.path);
+              error[errorKey] = errorItem.messageKey; // assign message
 
-                    // every error is related to a single field, but can contain multiple errors
-                    parsedErrors.forEach((parsedError, index: number) => {
-                      const parsedId = parsedError.fieldId.replace(/\./g, '_');
-                      const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
-                      const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
-                      const errorKey = `error-${index}`; // create a single key for the error
-                      const error = {}; // create the error object
+              // if form control model has errorMessages object, create it
+              if (!formControlModel.errorMessages) {
+                formControlModel.errorMessages = {};
+              }
 
-                      error[errorKey] = errorItem.messageKey; // assign message
+              // put the error in the for control model
+              formControlModel.errorMessages[errorKey] = errorItem.messageKey;
 
-                      // if form control model has errorMessages object, create it
-                      if (!formControlModel.errorMessages) {
-                        formControlModel.errorMessages = {};
-                      }
+              // add the error in the form control
+              formControl.setErrors(error);
 
-                      // put the error in the for control model
-                      formControlModel.errorMessages[errorKey] = errorItem.messageKey;
+              // formGroup.markAsDirty();
+              formControl.markAsTouched();
+            });
+          });
 
-                      // add the error in the form control
-                      formControl.setErrors(error);
-
-                      // formGroup.markAsDirty();
-                      formControl.markAsTouched();
-                    });
-                  });
-
-                  // after the cycles are over detectChanges();
-                  this.changeDetectorRef.detectChanges();
-                }
-              })
-          }
-        });
-    }
+          // after the cycles are over detectChanges();
+          this.changeDetectorRef.detectChanges();
+        }
+      })
   }
 
   onChange(event: DynamicFormControlEvent) {
     const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+    if (this.previousValue && isEqual(this.previousValue.path, this.formBuilderService.getPath(event.model))
+        && event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX) && this.previousValue.value !== event.control.value) {
+      this.operationsBuilder.remove(this.pathCombiner.getPath(this.previousValue.value));
+      this.previousValue = null;
+    }
+
     if (event.model.parent instanceof DynamicFormArrayGroupModel
       || (event.model.parent instanceof DynamicFormGroupModel
           && isNotUndefined(event.model.parent.parent)
           && event.model.parent.parent instanceof DynamicFormArrayGroupModel)) {
-      this.operationsBuilder.add(
-        this.pathCombiner.getPath(path),
-        value);
+      if (!event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX) && event.context.index === 0) {
+        this.operationsBuilder.add(
+          this.pathCombiner.getPath(this.formBuilderService.getId(event.model)),
+          value, false, true);
+      } else {
+        this.operationsBuilder.add(
+          this.pathCombiner.getPath(path),
+          value);
+      }
     } else {
-      this.operationsBuilder.replace(
-        this.pathCombiner.getPath(path),
-        value);
+      if (this.hasStoredValue(this.formBuilderService.getId(event.model))) {
+        this.operationsBuilder.replace(
+          this.pathCombiner.getPath(path),
+          value);
+      } else {
+        this.operationsBuilder.add(
+          this.pathCombiner.getPath(path),
+          value, false, true);
+      }
+    }
+  }
+
+  onFocus(event: DynamicFormControlEvent) {
+    if (isNotEmpty(event.control.value)) {
+      this.previousValue = {
+        path: this.formBuilderService.getPath(event.model),
+        value: event.control.value
+      }
+    }
+  }
+
+  onRemove(event: DynamicFormControlEvent) {
+    const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
+    const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+    if (isNotEmpty(value)) {
+      this.operationsBuilder.remove(this.pathCombiner.getPath(path));
+    }
+  }
+
+  hasStoredValue(fieldId) {
+    if (isNotEmpty(this.sectionData.data)) {
+      return this.sectionData.data.hasOwnProperty(fieldId);
+    } else {
+      return false;
     }
   }
 }

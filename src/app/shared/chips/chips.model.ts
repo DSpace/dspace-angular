@@ -11,7 +11,11 @@ export class Chips {
   }
 
   public add(item: any) {
-    let chipsItem: ChipsItem = {order: this.chipsItems.length, display: item.display, item: item};
+    const textToDisplay = item.display.length > 20 ? item.display.substr(0,17).concat('...') : item.display;
+    let chipsItem: ChipsItem = {
+      order: this.chipsItems.length,
+      display: textToDisplay,
+      item: item};
     this.chipsItems.push(chipsItem);
     this.receivedItems.push(item);
   }
@@ -24,10 +28,13 @@ export class Chips {
   private setItems() {
     this.chipsItems = [];
     this.receivedItems.forEach((item, index) => {
-      let chipsItem: ChipsItem = {order: index, display: item.display, item: item};
+      const textToDisplay = item.display.length > 20 ? item.display.substr(0,17).concat('...') : item.display;
+      let chipsItem: ChipsItem = {order: index, display: textToDisplay, item: item};
       this.chipsItems.push(chipsItem);
     })
   }
+
+
 
 
 }

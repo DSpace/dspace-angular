@@ -1,31 +1,29 @@
-import { Inject, Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {
-  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-  DynamicFormArrayModel, DynamicFormControlEvent,
-  DynamicFormControlModel, DynamicFormGroupModel, DynamicFormService, DynamicFormValidationService,
-  Utils
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormArrayGroupModel,
+  DynamicFormArrayModel, DynamicFormControlEvent, DynamicFormControlModel, DynamicFormGroupModel, DynamicFormService,
+  DynamicFormValidationService, DynamicPathable, Utils
 } from '@ng-dynamic-forms/core';
 
-import { DateFieldParser } from './parsers/date-field-parser';
-import { DropdownFieldParser } from './parsers/dropdown-field-parser';
-import { TextareaFieldParser } from './parsers/textarea-field-parser';
-import { ListFieldParser } from './parsers/list-field-parser';
-import { OneboxFieldParser } from './parsers/onebox-field-parser';
-import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { isNotEmpty, isNotNull, isNull } from '../../empty.util';
+import {DateFieldParser} from './parsers/date-field-parser';
+import {DropdownFieldParser} from './parsers/dropdown-field-parser';
+import {TextareaFieldParser} from './parsers/textarea-field-parser';
+import {ListFieldParser} from './parsers/list-field-parser';
+import {OneboxFieldParser} from './parsers/onebox-field-parser';
+import {IntegrationSearchOptions} from '../../../core/integration/models/integration-options.model';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {SubmissionFormsConfigService} from '../../../core/config/submission-forms-config.service';
+import {isNotEmpty, isNotNull, isNull} from '../../empty.util';
 import {
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
-import { GLOBAL_CONFIG } from '../../../../config';
-import { GlobalConfig } from '../../../../config/global-config.interface';
-import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
-import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import { AuthorityModel } from '../../../core/integration/models/authority.model';
+import {GLOBAL_CONFIG} from '../../../../config';
+import {GlobalConfig} from '../../../../config/global-config.interface';
+import {DynamicTypeaheadModel} from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import {DynamicScrollableDropdownModel} from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import {SubmissionFormsModel} from '../../../core/shared/config/config-submission-forms.model';
+import {AuthorityModel} from '../../../core/integration/models/authority.model';
 import {TagFieldParser} from "./parsers/tag-field-parser";
 
 @Injectable()
@@ -165,7 +163,7 @@ export class FormBuilderService extends DynamicFormService {
         fieldId = event.control.value;
       }
     } else {
-      fieldId = event.model.name;
+      fieldId = this.getId(event.model);
     }
     return fieldId + fieldIndex;
   }
@@ -202,5 +200,15 @@ export class FormBuilderService extends DynamicFormService {
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0) {
     const fieldModel = this.findById(id, groupModel, index);
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
+  }
+
+  getId(model: DynamicPathable) {
+    if (model instanceof DynamicFormArrayGroupModel) {
+      return model.index.toString()
+    } else {
+      return ((model as DynamicFormControlModel).id !== (model as DynamicFormControlModel).name) ?
+        (model as DynamicFormControlModel).name :
+        (model as DynamicFormControlModel).id;
+    }
   }
 }

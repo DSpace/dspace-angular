@@ -40,19 +40,19 @@ export class SectionUploadService {
       .distinctUntilChanged();
   }
 
-  public setNewBitstream(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
+  public addUploadedFile(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
       new NewUploadedFileAction(submissionId, sectionId, fileId, data)
     );
   }
 
-  public editBitstream(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
+  public updateFileData(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
       new EditFileDataAction(submissionId, sectionId, fileId, data)
     );
   }
 
-  public deleteBitstream(submissionId: string, sectionId: string, fileId: string) {
+  public removeUploadedFile(submissionId: string, sectionId: string, fileId: string) {
     this.store.dispatch(
       new DeleteUploadedFileAction(submissionId, sectionId, fileId)
     );

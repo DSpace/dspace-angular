@@ -5,21 +5,21 @@ import { Observable } from 'rxjs/Observable';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
+import { DynamicTagModel } from './dynamic-tag.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { isNotEmpty } from '../../../../../empty.util';
 import {Chips} from "../../../../../chips/chips.model";
 
 @Component({
-  selector: 'ds-dynamic-typeahead',
-  styleUrls: ['./dynamic-typeahead.component.scss'],
-  templateUrl: './dynamic-typeahead.component.html'
+  selector: 'ds-dynamic-tag',
+  styleUrls: ['./dynamic-tag.component.scss'],
+  templateUrl: './dynamic-tag.component.html'
 })
-export class DsDynamicTypeaheadComponent implements OnInit {
+export class DsDynamicTagComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
-  @Input() model: DynamicTypeaheadModel;
+  @Input() model: DynamicTagModel;
   @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
@@ -97,9 +97,18 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   }
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
+    if (!this.model.withTag) {
+      // Case no tag
       this.currentValue = event.item;
       this.group.controls[this.model.id].setValue(event.item);
-      this.change.emit(event.item);
+    } else {
+      // Case with Tag
+      this.currentValue = {display: ""};
+      this.group.controls[this.model.id].setValue(this.currentValue);
+      this.chips.add(event.item);
+    }
+
+    this.change.emit(event.item);
   }
 
   chipsSelected(event) {

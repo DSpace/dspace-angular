@@ -69,12 +69,14 @@ export class SubmissionSubmitFormComponent implements OnChanges {
   }
 
   onCollectionChange(workspaceItemObject: WorkspaceitemObject) {
+    this.collectionId = workspaceItemObject.collection[ 0 ].id;
     if (this.definitionId !== workspaceItemObject.submissionDefinition[ 0 ].name) {
-      this.collectionId = workspaceItemObject.collection[ 0 ].id;
       this.sections = workspaceItemObject.sections;
       this.submissionDefinition = workspaceItemObject.submissionDefinition[ 0 ];
       this.definitionId = this.submissionDefinition.name;
       this.store.dispatch(new ResetSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
+    } else {
+      this.changeDetectorRef.detectChanges();
     }
 
   }

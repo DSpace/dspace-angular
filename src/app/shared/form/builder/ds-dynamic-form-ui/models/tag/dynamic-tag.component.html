@@ -22,3 +22,10 @@
 
   <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 </div>
+
+<ds-chips *ngIf="model.withTag && chips.chipsItems.length > 0"
+  [chips]="chips"
+  (selected)="chipsSelected($event)"
+  (remove)="removeChips($event)"
+></ds-chips>
+<br/>

@@ -1,0 +1,38 @@
+@import "../../../../../../../styles/variables";
+
+/* enable absolute positioning */
+.spinner-addon {
+  position: relative;
+}
+
+/* style fa-spin */
+.spinner-addon .fa-spin {
+  color: map-get($theme-colors, primary);
+  position: absolute;
+  margin-top: 3px;
+  padding: 0;
+  pointer-events: none;
+}
+
+/* align fa-spin */
+.left-addon .fa-spin  { left:  0px;}
+.right-addon .fa-spin { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
+:host /deep/ .dropdown-menu {
+  width: 100% !important;
+  max-height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+:host /deep/ .dropdown-item.active,
+:host /deep/ .dropdown-item:active,
+:host /deep/ .dropdown-item:focus,
+:host /deep/ .dropdown-item:hover {
+  color: $dropdown-link-hover-color !important;
+  background-color: $dropdown-link-hover-bg !important;
+}
