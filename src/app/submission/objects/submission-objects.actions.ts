@@ -84,7 +84,7 @@ export class DeleteSectionErrorAction implements Action {
  * @param {string} submissionId
  * @param {string} sectionId
  */
-export class ClearSectinErrorsAction implements Action {
+export class ClearSectionErrorsAction implements Action {
   type: string = SubmissionObjectActionTypes.CLEAR_ERRORS;
   payload: {
     submissionId: string;
@@ -343,4 +343,4 @@ export type SubmissionObjectAction = DisableSectionAction
   | DeleteUploadedFileAction
   | InertSectionErrorAction
   | DeleteSectionErrorAction
-  | ClearSectinErrorsAction;
+  | ClearSectionErrorsAction;

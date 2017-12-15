@@ -130,62 +130,59 @@ export class FormSectionComponent extends SectionModelComponent {
         this.valid = formState;
         this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
       });
+    
+    /**
+     * Subscribe to form errors
+     */
+    this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
+      .filter((state: SubmissionSectionObject) => !!this.formRef)
+      .filter((state: SubmissionSectionObject) => !!state && isNotEmpty(state.errors))
+      .map((state: SubmissionSectionObject) => state.errors)
+      .filter((errors: SubmissionError[]) => !isEmpty(errors))
+      .distinctUntilChanged()
+      .subscribe((errors: SubmissionError[]) => {
+        const { formGroup } = this.formRef;
 
-    console.log('Subscribe to the form;');
+        errors.forEach((errorItem: SubmissionError) => {
+          const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
 
-    if (this.formRef) {
-      /**
-       * Subscribe to form errors
-       */
-      this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
-        .filter((state: SubmissionSectionObject) => !!state && isNotEmpty(state.errors))
-        .map((state: SubmissionSectionObject) => state.errors)
-        .filter((errors: SubmissionError[]) => !isEmpty(errors))
-        .distinctUntilChanged()
-        .subscribe((errors: SubmissionError[]) => {
-          const { formGroup } = this.formRef;
+          // every error is related to a single field, but can contain multiple errors
+          parsedErrors.forEach((parsedError: SectionErrorPath) => {
 
-          errors.forEach((errorItem: SubmissionError) => {
-            const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
+            // errors on fields
+            if (parsedError.fieldId) {
+              const parsedId = parsedError.fieldId.replace(/\./g, '_');
+              const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
+              const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
+              const errorKey = uniqueId('error-'); // create a single key for the error
+              const error = {}; // create the error object
 
-            // every error is related to a single field, but can contain multiple errors
-            parsedErrors.forEach((parsedError: SectionErrorPath) => {
+              error[ errorKey ] = errorItem.messageKey; // assign message
 
-              // errors on fields
-              if (parsedError.fieldId) {
-                const parsedId = parsedError.fieldId.replace(/\./g, '_');
-                const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
-                const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
-                const errorKey = uniqueId('error-'); // create a single key for the error
-                const error = {}; // create the error object
-
-                error[ errorKey ] = errorItem.messageKey; // assign message
-
-                // if form control model has errorMessages object, create it
-                if (!formControlModel.errorMessages) {
-                  formControlModel.errorMessages = {};
-                }
-
-                // put the error in the for control model
-                formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
-
-                // add the error in the form control
-                formControl.setErrors(error);
-
-                // formGroup.markAsDirty();
-                formControl.markAsTouched();
-
-                // because it has been shown, remove the error from the state
-                const removeAction = new DeleteSectionErrorAction(this.submissionId, this.sectionData.id, errorItem);
-                this.store.dispatch(removeAction);
+              // if form control model has errorMessages object, create it
+              if (!formControlModel.errorMessages) {
+                formControlModel.errorMessages = {};
               }
-            });
-          });
 
-          // after the cycles are over detectChanges();
-          this.changeDetectorRef.detectChanges();
+              // put the error in the for control model
+              formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
+
+              // add the error in the form control
+              formControl.setErrors(error);
+
+              // formGroup.markAsDirty();
+              formControl.markAsTouched();
+
+              // because it has been shown, remove the error from the state
+              const removeAction = new DeleteSectionErrorAction(this.submissionId, this.sectionData.id, errorItem);
+              this.store.dispatch(removeAction);
+            }
+          });
         });
-    }
+
+        // after the cycles are over detectChanges();
+        this.changeDetectorRef.detectChanges();
+      });
   }
 
   onChange(event: DynamicFormControlEvent) {

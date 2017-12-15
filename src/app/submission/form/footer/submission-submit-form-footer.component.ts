@@ -1,12 +1,17 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { isEmpty } from 'lodash';
 import { SubmissionRestService } from '../../submission-rest.service';
 import { SubmissionService } from '../../submission.service';
-import { Store } from '@ngrx/store';
 import { SubmissionState } from '../../submission.reducers';
-import { InertSectionErrorAction } from '../../objects/submission-objects.actions';
+import {
+  ClearSectionErrorsAction,
+  InertSectionErrorAction
+} from '../../objects/submission-objects.actions';
 import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { submissionObjectSectionsFromIdSelector } from '../../selectors';
 
 @Component({
   selector: 'ds-submission-submit-form-footer',
@@ -36,9 +41,23 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
   }
 
   saveLater() {
+
+
+    /*this.store.select(submissionObjectSectionsFromIdSelector(this.submissionId))
+      .subscribe((sectionsObject) => {
+        Object.keys(sectionsObject).forEach((sectionId: string) => {
+          const section = sectionsObject[ sectionId ];
+          if (section.errors && !isEmpty(section.errors)) {
+            console.log('\n\n\n\n\n\n\n\nclearing', section);
+            const action = new ClearSectionErrorsAction(this.submissionId, sectionId);
+            this.store.dispatch(action);
+          }
+        });
+      });
+*/
+
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
       .subscribe((workspaceItem) => {
-        console.log('response:', workspaceItem);
 
         // FIXME: the following code is a mock, fix it as soon as server return erros
 

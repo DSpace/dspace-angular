@@ -8,7 +8,7 @@ import {
   EnableSectionAction, NewUploadedFileAction,
   LoadSubmissionFormAction, SectionStatusChangeAction,
   SubmissionObjectAction,
-  SubmissionObjectActionTypes, ClearSectinErrorsAction, InertSectionErrorAction,
+  SubmissionObjectActionTypes, ClearSectionErrorsAction, InertSectionErrorAction,
   DeleteSectionErrorAction, ResetSubmissionFormAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
@@ -139,7 +139,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.CLEAR_ERRORS: {
-      return clearErrorsFromSection(state, action as ClearSectinErrorsAction);
+      return clearErrorsFromSection(state, action as ClearSectionErrorsAction);
     }
 
     default: {
@@ -198,7 +198,7 @@ const insertError = (state: SubmissionObjectState, action: InertSectionErrorActi
   }
 };
 
-const clearErrorsFromSection = (state: SubmissionObjectState, action: ClearSectinErrorsAction): SubmissionObjectState => {
+const clearErrorsFromSection = (state: SubmissionObjectState, action: ClearSectionErrorsAction): SubmissionObjectState => {
   const { submissionId, sectionId } = action.payload;
 
   if (hasValue(state[ submissionId ].sections[ sectionId ])) {

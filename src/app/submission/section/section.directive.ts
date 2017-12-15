@@ -6,7 +6,7 @@ import { submissionSectionFromIdSelector } from '../selectors';
 import { Store } from '@ngrx/store';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
-import { isEmpty } from 'lodash';
+import { isEmpty, uniq } from 'lodash';
 import { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import parseSectionErrorPaths from '../utils/parseSectionErrorPaths';
 
@@ -52,7 +52,7 @@ export class SectionDirective implements OnDestroy, OnInit {
 
             parsedErrors.forEach((error: SectionErrorPath) => {
               if (!error.fieldId) {
-                this.sectionErrors.push(errorItem.messageKey);
+                this.sectionErrors = uniq(this.sectionErrors.concat(errorItem.messageKey));
               }
             });
           });
