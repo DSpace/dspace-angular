@@ -35,7 +35,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't retrieve the config`))),
+        Observable.throw(new Error(`Couldn't send data to server`))),
       successResponse
         .filter((response: PostPatchSuccessResponse) => isNotEmpty(response))
         .map((response: PostPatchSuccessResponse) => response.dataDefinition)

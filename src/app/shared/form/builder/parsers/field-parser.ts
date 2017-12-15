@@ -1,4 +1,4 @@
-import { isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
+import { isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 import { DynamicFormArrayModel } from '@ng-dynamic-forms/core';
@@ -12,20 +12,34 @@ export abstract class FieldParser {
 
   constructor(protected configData: FormFieldModel, protected initFormValues) { }
 
-  public abstract modelFactory(fieldValue: FormFieldMetadataValueObject): any;
+  public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject): any;
 
   public parse() {
     if (this.configData.repeatable && this.configData.input.type !== 'list') {
-      let counter = 0;
+      let arrayCounter = 0;
+      let fieldArrayCounter = 0;
       return new DynamicFormArrayModel(
         {
           id : uniqueId() + '_array',
           initialCount: this.getInitArrayIndex(),
           groupFactory: () => {
-            const fieldValue = (counter === 0) ? null : this.getInitFieldValue(counter - 1);
-            const model = this.modelFactory(fieldValue);
+            let model;
+            if ((arrayCounter === 0)) {
+              model = this.modelFactory();
+              arrayCounter++;
+            } else {
+              const fieldArrayOfValueLenght = this.getInitValueCount(arrayCounter - 1);
+              let fieldValue = null;
+              if (fieldArrayOfValueLenght > 0) {
+                fieldValue = this.getInitFieldValue(arrayCounter - 1, fieldArrayCounter++);
+                if (fieldArrayCounter === fieldArrayOfValueLenght) {
+                  fieldArrayCounter = 0;
+                  arrayCounter++;
+                }
+              }
+              model = this.modelFactory(fieldValue);
+            }
             model.cls.element.host = model.cls.element.host.concat(' col');
-            counter++;
             return [model];
           }
         }, {
@@ -39,18 +53,35 @@ export abstract class FieldParser {
     }
   }
 
-  protected getInitFieldValue(index = 0, fieldId?): FormFieldMetadataValueObject {
+  protected getInitValueCount(index = 0, fieldId?): number {
+      const fieldIds = fieldId || this.getFieldId();
+      if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
+        return this.initFormValues[fieldIds[0]].length;
+      } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
+        const values = [];
+        fieldIds.forEach((id) => {
+          if (this.initFormValues.hasOwnProperty(id)) {
+            values.push(this.initFormValues[id].length);
+          }
+        });
+        return values[index];
+      } else {
+        return 0;
+      }
+    }
+
+  protected getInitFieldValue(outerIndex = 0, innerIndex = 0, fieldId?): FormFieldMetadataValueObject {
     const fieldIds = fieldId || this.getFieldId();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
-      return this.initFormValues[fieldIds[0]][index];
+      return this.initFormValues[fieldIds[0]][outerIndex];
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
       const values: FormFieldMetadataValueObject[] = [];
       fieldIds.forEach((id) => {
         if (this.initFormValues.hasOwnProperty(id)) {
-          values.push(Object.assign({}, {metadata: id}, this.initFormValues[id][0]));
+          values.push(Object.assign({}, {metadata: id}, this.initFormValues[id][innerIndex]));
         }
       });
-      return values[index];
+      return values[outerIndex];
     } else {
       return null;
     }
@@ -64,7 +95,7 @@ export abstract class FieldParser {
       let counter = 0;
       fieldIds.forEach((id) => {
         if (this.initFormValues.hasOwnProperty(id)) {
-          counter++;
+          counter = counter + this.initFormValues[id].length;
         }
       });
       return (counter === 0) ? 1 : counter;
