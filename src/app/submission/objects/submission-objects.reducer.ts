@@ -1,5 +1,5 @@
 import { hasValue, isNotNull, isNotUndefined } from '../../shared/empty.util';
-import { uniqWith, isEqual } from 'lodash';
+import { uniqWith, isEqual, differenceWith } from 'lodash';
 
 import {
   CompleteInitSubmissionFormAction,
@@ -8,8 +8,8 @@ import {
   EnableSectionAction, NewUploadedFileAction,
   LoadSubmissionFormAction, SectionStatusChangeAction,
   SubmissionObjectAction,
-  SubmissionObjectActionTypes, ClearSectionErrorsAction, InertSectionErrorAction,
-  DeleteSectionErrorAction, ResetSubmissionFormAction
+  SubmissionObjectActionTypes, ClearSectionErrorsAction, InertSectionErrorsAction,
+  DeleteSectionErrorsAction, ResetSubmissionFormAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
 import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
@@ -130,12 +130,12 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return deleteFile(state, action as DeleteUploadedFileAction);
     }
 
-    case SubmissionObjectActionTypes.INSERT_ERROR: {
-      return insertError(state, action as InertSectionErrorAction);
+    case SubmissionObjectActionTypes.INSERT_ERRORS: {
+      return insertError(state, action as InertSectionErrorsAction);
     }
 
-    case SubmissionObjectActionTypes.DELETE_ERROR: {
-      return removeError(state, action as DeleteSectionErrorAction);
+    case SubmissionObjectActionTypes.DELETE_ERRORS: {
+      return removeError(state, action as DeleteSectionErrorsAction);
     }
 
     case SubmissionObjectActionTypes.CLEAR_ERRORS: {
@@ -148,18 +148,22 @@ export function submissionObjectReducer(state = initialState, action: Submission
   }
 }
 
-const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorAction): SubmissionObjectState => {
+const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorsAction): SubmissionObjectState => {
   const { submissionId, sectionId, error } = action.payload;
 
   if (hasValue(state[ submissionId ].sections[ sectionId ])) {
-    const errors = state[ submissionId ].sections[ sectionId ].errors.filter((currentError) => {
+    let errors = state[ submissionId ].sections[ sectionId ].errors.filter((currentError) => {
       return currentError.messageKey !== error && !isEqual(currentError, error);
     });
 
+    if (action.payload.error instanceof Array) {
+      errors = differenceWith(errors, action.payload.error, isEqual);
+    }
+
     return Object.assign({}, state, {
-      [submissionId]: Object.assign({}, state[ submissionId ], {
+      [ submissionId ]: Object.assign({}, state[ submissionId ], {
         sections: Object.assign({}, state[ submissionId ].sections, {
-          [sectionId]: {
+          [ sectionId ]: {
             sectionViewIndex: state[ submissionId ].sections[ sectionId ].sectionViewIndex,
             data: state[ submissionId ].sections[ sectionId ].data,
             isValid: state[ submissionId ].sections[ sectionId ].isValid,
@@ -174,16 +178,16 @@ const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorAct
   }
 };
 
-const insertError = (state: SubmissionObjectState, action: InertSectionErrorAction): SubmissionObjectState => {
+const insertError = (state: SubmissionObjectState, action: InertSectionErrorsAction): SubmissionObjectState => {
   const { submissionId, sectionId, error } = action.payload;
 
   if (hasValue(state[ submissionId ].sections[ sectionId ])) {
     const errors = uniqWith(state[ submissionId ].sections[ sectionId ].errors.concat(error), isEqual);
 
     return Object.assign({}, state, {
-      [submissionId]: Object.assign({}, state[ submissionId ], {
+      [ submissionId ]: Object.assign({}, state[ submissionId ], {
         sections: Object.assign({}, state[ submissionId ].sections, {
-          [sectionId]: {
+          [ sectionId ]: {
             sectionViewIndex: state[ submissionId ].sections[ sectionId ].sectionViewIndex,
             data: state[ submissionId ].sections[ sectionId ].data,
             isValid: state[ submissionId ].sections[ sectionId ].isValid,
@@ -205,9 +209,9 @@ const clearErrorsFromSection = (state: SubmissionObjectState, action: ClearSecti
     const errors = []; // clear the errors
 
     return Object.assign({}, state, {
-      [submissionId]: Object.assign({}, state[ submissionId ], {
+      [ submissionId ]: Object.assign({}, state[ submissionId ], {
         sections: Object.assign({}, state[ submissionId ].sections, {
-          [sectionId]: {
+          [ sectionId ]: {
             sectionViewIndex: state[ submissionId ].sections[ sectionId ].sectionViewIndex,
             data: state[ submissionId ].sections[ sectionId ].data,
             isValid: state[ submissionId ].sections[ sectionId ].isValid,
@@ -235,7 +239,7 @@ const clearErrorsFromSection = (state: SubmissionObjectState, action: ClearSecti
 function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissionFormAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
-      [action.payload.submissionId]: Object.assign({}, state[ action.payload.submissionId ], {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: state[ action.payload.submissionId ].sections,
         isLoading: false,
       })
@@ -260,9 +264,9 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
 function enableSection(state: SubmissionObjectState, action: EnableSectionAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
-      [action.payload.submissionId]: Object.assign({}, state[ action.payload.submissionId ], {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
-          [action.payload.sectionId]: {
+          [ action.payload.sectionId ]: {
             sectionViewIndex: action.payload.sectionViewIndex,
             isValid: false,
             errors: [],
@@ -290,7 +294,7 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
 function disableSection(state: SubmissionObjectState, action: DisableSectionAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
     return Object.assign({}, state, {
-      [action.payload.submissionId]: Object.assign({}, state[ action.payload.submissionId ], {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: deleteProperty(state[ action.payload.submissionId ].sections, action.payload.sectionId),
         isLoading: state[ action.payload.submissionId ].isLoading,
       })
@@ -332,10 +336,10 @@ function initSubmission(state: SubmissionObjectState, action: LoadSubmissionForm
 function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
     return Object.assign({}, state, {
-      [action.payload.submissionId]: Object.assign({}, state[ action.payload.submissionId ], {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections,
           Object.assign({}, {
-            [action.payload.sectionId]: {
+            [ action.payload.sectionId ]: {
               sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
               data: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data,
               isValid: action.payload.status,
@@ -369,10 +373,10 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
     const newData = [];
     newData[ action.payload.fileId ] = action.payload.data;
     return Object.assign({}, state, {
-      [action.payload.submissionId]: Object.assign({}, state[ action.payload.submissionId ], {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections,
           Object.assign({}, {
-              [action.payload.sectionId]: {
+              [ action.payload.sectionId ]: {
                 sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
                 data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                   files: Object.assign({},
@@ -392,10 +396,10 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
     const newData = [];
     newData[ action.payload.fileId ] = action.payload.data;
     return Object.assign({}, state, {
-      [action.payload.submissionId]: Object.assign({}, state[ action.payload.submissionId ], {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections,
           Object.assign({}, {
-            [action.payload.sectionId]: {
+            [ action.payload.sectionId ]: {
               sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
               data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                 files: newData
@@ -425,28 +429,28 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
   if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files)) {
     let fileIndex = null;
     Object.keys(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files)
-      .filter((index) => state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files[index].uuid === action.payload.fileId)
+      .filter((index) => state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files[ index ].uuid === action.payload.fileId)
       .forEach((index) => fileIndex = index);
     if (isNotNull(fileIndex)) {
       return Object.assign({}, state, {
-        [action.payload.submissionId]: Object.assign({}, state[action.payload.submissionId], {
-          sections: Object.assign({}, state[action.payload.submissionId].sections,
+        [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+          sections: Object.assign({}, state[ action.payload.submissionId ].sections,
             Object.assign({}, {
-                [action.payload.sectionId]: {
-                  sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
-                  data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
+                [ action.payload.sectionId ]: {
+                  sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
+                  data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                     files: Object.assign({},
-                      state[action.payload.submissionId].sections[action.payload.sectionId].data.files, {
-                        [fileIndex]: action.payload.data
+                      state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files, {
+                        [ fileIndex ]: action.payload.data
                       })
                   }),
-                  isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
-                  errors: state[action.payload.submissionId].sections[action.payload.sectionId].errors
+                  isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
+                  errors: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errors
                 }
               }
             )
           ),
-          isLoading: state[action.payload.submissionId].isLoading,
+          isLoading: state[ action.payload.submissionId ].isLoading,
         })
       });
     } else {
@@ -470,10 +474,10 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
 function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files[ action.payload.fileId ])) {
     return Object.assign({}, state, {
-      [action.payload.submissionId]: Object.assign({}, state[ action.payload.submissionId ], {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections,
           Object.assign({}, {
-              [action.payload.sectionId]: {
+              [ action.payload.sectionId ]: {
                 sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
                 data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                   files: deleteProperty(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files, action.payload.fileId)

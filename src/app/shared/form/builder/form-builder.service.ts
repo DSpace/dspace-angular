@@ -1,9 +1,15 @@
 import { Inject, Injectable } from '@angular/core';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormArrayGroupModel,
-  DynamicFormArrayModel, DynamicFormControlEvent,
-  DynamicFormControlModel, DynamicFormGroupModel, DynamicFormService, DynamicFormValidationService, DynamicPathable,
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  DynamicFormArrayGroupModel,
+  DynamicFormArrayModel,
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormService,
+  DynamicFormValidationService,
+  DynamicPathable,
   Utils
 } from '@ng-dynamic-forms/core';
 
@@ -13,7 +19,7 @@ import { TextareaFieldParser } from './parsers/textarea-field-parser';
 import { ListFieldParser } from './parsers/list-field-parser';
 import { OneboxFieldParser } from './parsers/onebox-field-parser';
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import { isNotEmpty, isNotNull, isNull } from '../../empty.util';
 import {
@@ -26,6 +32,9 @@ import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dyn
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { AuthorityModel } from '../../../core/integration/models/authority.model';
+import { FormFieldModel } from './models/form-field.model';
+import { DeleteSectionErrorsAction } from '../../../submission/objects/submission-objects.actions';
+import { find, uniqueId } from 'lodash';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {

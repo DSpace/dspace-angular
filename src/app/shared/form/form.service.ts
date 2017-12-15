@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -8,13 +8,14 @@ import { formObjectFromIdSelector } from './selectors';
 import { FormBuilderService } from './builder/form-builder.service';
 import { DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
 import { isNotEmpty, isNotUndefined } from '../empty.util';
-import { uniqueId } from 'lodash';
+import { find, uniqueId } from 'lodash';
 
 @Injectable()
 export class FormService {
 
   constructor(private formBuilderService: FormBuilderService,
-              private store: Store<AppState>) {}
+              private store: Store<AppState>) {
+  }
 
   /**
    * Method to retrieve form's status from state
@@ -22,7 +23,7 @@ export class FormService {
   public isValid(formId: string): Observable<boolean> {
     return this.store.select(formObjectFromIdSelector(formId))
       .filter((state) => isNotUndefined(state))
-      .map((state) =>  state.valid)
+      .map((state) => state.valid)
       .distinctUntilChanged();
   }
 
@@ -61,8 +62,32 @@ export class FormService {
       const fieldControl = formGroup.get(path);
       fieldControl.markAsDirty();
       fieldControl.setValue(value);
-      console.log('formservice', fieldControl, path);
     }
   }
 
+  public addErrorToField(field: AbstractControl, model: DynamicFormControlModel, message: string) {
+    const errorFound = !!(find(field.errors, (err) => err === message));
+
+    // search for the same error in the formControl.errors property
+    if (!errorFound) {
+      const errorKey = uniqueId('error-'); // create a single key for the error
+      const error = {}; // create the error object
+
+      error[ errorKey ] = message; // assign message
+
+      // if form control model has errorMessages object, create it
+      if (!model.errorMessages) {
+        model.errorMessages = {};
+      }
+
+      // put the error in the for control model
+      model.errorMessages[ errorKey ] = message;
+
+      // add the error in the form control
+      field.setErrors(error);
+
+      // formGroup.markAsDirty();
+      field.markAsTouched();
+    }
+  }
 }

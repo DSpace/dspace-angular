@@ -9,6 +9,7 @@ import { SubmissionError, SubmissionSectionObject } from '../objects/submission-
 import { isEmpty, uniq } from 'lodash';
 import { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import parseSectionErrorPaths from '../utils/parseSectionErrorPaths';
+import { DeleteSectionErrorsAction } from '../objects/submission-objects.actions';
 
 @Directive({
   selector: '[dsSection]',
@@ -42,19 +43,27 @@ export class SectionDirective implements OnDestroy, OnInit {
 
     this.subs.push(
       this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionId))
-        .filter((state: SubmissionSectionObject) => !!state && isNotEmpty(state.errors))
+      // .filter((state: SubmissionSectionObject) => !!state && isNotEmpty(state.errors))
         .map((state: SubmissionSectionObject) => state.errors)
-        .filter((errors: SubmissionError[]) => !isEmpty(errors))
         .distinctUntilChanged()
         .subscribe((errors: SubmissionError[]) => {
           errors.forEach((errorItem: SubmissionError) => {
             const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
 
-            parsedErrors.forEach((error: SectionErrorPath) => {
-              if (!error.fieldId) {
-                this.sectionErrors = uniq(this.sectionErrors.concat(errorItem.messageKey));
-              }
-            });
+            if (!isEmpty(parsedErrors)) {
+              parsedErrors.forEach((error: SectionErrorPath) => {
+                if (!error.fieldId) {
+                  this.sectionErrors = uniq(this.sectionErrors.concat(errorItem.messageKey));
+
+                  // because it has been shown, remove the error from the state
+                  // const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionId, errorItem);
+                  // this.store.dispatch(removeAction);
+                }
+              });
+            } else {
+              this.sectionErrors = [];
+            }
+
           });
         })
     );

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 
-import { isEmpty, uniqueId } from 'lodash';
+import { isEmpty, uniqueId, find } from 'lodash';
 import { Store } from '@ngrx/store';
 import {
   DynamicFormArrayGroupModel, DynamicFormControlEvent, DynamicFormControlModel,
@@ -11,7 +11,7 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import {
-  DeleteSectionErrorAction,
+  DeleteSectionErrorsAction,
   SectionStatusChangeAction,
 } from '../../objects/submission-objects.actions';
 import { SectionModelComponent } from '../section.model';
@@ -37,6 +37,7 @@ import {
   COMBOBOX_VALUE_SUFFIX
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { isEqual } from 'lodash';
+import { FormAddError } from '../../../shared/form/form.actions';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -130,64 +131,44 @@ export class FormSectionComponent extends SectionModelComponent {
         this.valid = formState;
         this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
       });
-    
+
     /**
      * Subscribe to form errors
      */
     this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
-      .filter((state: SubmissionSectionObject) => !!this.formRef)
-      .filter((state: SubmissionSectionObject) => !!state && isNotEmpty(state.errors))
+      .filter((state: SubmissionSectionObject) => !!this.formRef && !!state && isNotEmpty(state.errors))
       .map((state: SubmissionSectionObject) => state.errors)
-      .filter((errors: SubmissionError[]) => !isEmpty(errors))
       .distinctUntilChanged()
       .subscribe((errors: SubmissionError[]) => {
-        const { formGroup } = this.formRef;
 
-        errors.forEach((errorItem: SubmissionError) => {
-          const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
+        errors.forEach((error: SubmissionError) => {
+          const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
 
-          // every error is related to a single field, but can contain multiple errors
-          parsedErrors.forEach((parsedError: SectionErrorPath) => {
+          errorPaths.forEach((path: SectionErrorPath) => {
+            if (path.fieldId) {
+              const { formId } = this.formRef;
+              const fieldId = path.fieldId.replace(/\./g, '_');
 
-            // errors on fields
-            if (parsedError.fieldId) {
-              const parsedId = parsedError.fieldId.replace(/\./g, '_');
-              const formControl: AbstractControl = this.formBuilderService.getFormControlById(parsedId, formGroup, this.formModel);
-              const formControlModel: DynamicFormControlModel = this.formBuilderService.findById(parsedId, this.formModel);
-              const errorKey = uniqueId('error-'); // create a single key for the error
-              const error = {}; // create the error object
-
-              error[ errorKey ] = errorItem.messageKey; // assign message
-
-              // if form control model has errorMessages object, create it
-              if (!formControlModel.errorMessages) {
-                formControlModel.errorMessages = {};
-              }
-
-              // put the error in the for control model
-              formControlModel.errorMessages[ errorKey ] = errorItem.messageKey;
-
-              // add the error in the form control
-              formControl.setErrors(error);
-
-              // formGroup.markAsDirty();
-              formControl.markAsTouched();
-
-              // because it has been shown, remove the error from the state
-              const removeAction = new DeleteSectionErrorAction(this.submissionId, this.sectionData.id, errorItem);
-              this.store.dispatch(removeAction);
+              // Dispatch action to the form state;
+              const formAddErrorAction = new FormAddError(formId, fieldId, error.messageKey);
+              this.store.dispatch(formAddErrorAction);
             }
           });
         });
 
+        // because errors has been shown, remove them form the state
+        const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionData.id, errors);
+        this.store.dispatch(removeAction);
+
         // after the cycles are over detectChanges();
-        this.changeDetectorRef.detectChanges();
+        // this.changeDetectorRef.detectChanges();
       });
   }
 
   onChange(event: DynamicFormControlEvent) {
     const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+
     if (this.previousValue && isEqual(this.previousValue.path, this.formBuilderService.getPath(event.model))
       && event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX) && this.previousValue.value !== event.control.value) {
       this.operationsBuilder.remove(this.pathCombiner.getPath(this.previousValue.value));

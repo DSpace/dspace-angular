@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -6,12 +7,12 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
-  DynamicFormControlModel, DynamicFormGroupModel
+  DynamicFormControlModel,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
@@ -27,6 +28,9 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { hasValue } from '../empty.util';
 import { FormService } from './form.service';
+import { formObjectFromIdSelector } from './selectors';
+import { FormEntry, FormError } from './form.reducers';
+import { isEmpty } from 'lodash';
 
 /**
  * The default form component.
@@ -79,7 +83,10 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   private subs: Subscription[] = [];
 
-  constructor(private formService: FormService, private formBuilderService: FormBuilderService, private store: Store<AppState>) {
+  constructor(private formService: FormService,
+              protected changeDetectorRef: ChangeDetectorRef,
+              private formBuilderService: FormBuilderService,
+              private store: Store<AppState>) {
   }
 
   /**
@@ -113,6 +120,27 @@ export class FormComponent implements OnDestroy, OnInit {
         this.store.dispatch(new FormStatusChangeAction(this.formId, this.formGroup.valid));
         this.formValid = currentStatus;
       }));
+
+    this.subs.push(
+      this.store.select(formObjectFromIdSelector(this.formId))
+        .filter((formState: FormEntry) => !!formState && !isEmpty(formState.errors))
+        .map((formState) => formState.errors)
+        .distinctUntilChanged()
+        .delay(120) // this terrible delay is here to prevent the detection change error
+        .subscribe((errors: FormError[]) => {
+          const { formGroup, formModel } = this;
+
+          errors.forEach((error: FormError) => {
+            const { fieldId } = error;
+            const field: AbstractControl = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel);
+            const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+
+            this.formService.addErrorToField(field, model, error.message);
+          });
+
+          this.changeDetectorRef.detectChanges();
+        })
+    );
   }
 
   /**
@@ -158,6 +186,7 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formGroup.markAsPristine();
 
     this.change.emit(event);
+
   }
 
   /**
