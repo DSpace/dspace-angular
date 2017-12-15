@@ -1,4 +1,14 @@
 <ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
+
+<div
+  [ngClass]="{'alert alert-danger alert-dismissible fade': true, 'show': !!sectionError, 'hide': !sectionError }"
+  role="alert">
+  {{sectionError}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="sectionError = null">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
 <ds-form *ngIf="!isLoading" #formRef="formComponent"
          [formId]="formId"
          [formModel]="formModel"

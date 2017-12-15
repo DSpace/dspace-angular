@@ -16,7 +16,12 @@ import {
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
-import { FormChangeAction, FormInitAction, FormRemoveAction, FormStatusChangeAction } from './form.actions';
+import {
+  FormChangeAction,
+  FormInitAction,
+  FormRemoveAction,
+  FormStatusChangeAction
+} from './form.actions';
 import { FormBuilderService } from './builder/form-builder.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -33,6 +38,8 @@ import { FormService } from './form.service';
   templateUrl: 'form.component.html',
 })
 export class FormComponent implements OnDestroy, OnInit {
+
+  private formValid: boolean;
 
   /**
    * A boolean that indicate if to display form's submit and cancel buttons
@@ -78,22 +85,16 @@ export class FormComponent implements OnDestroy, OnInit {
   /**
    * Method provided by Angular. Invoked after the view has been initialized.
    */
-  ngAfterViewChecked(): void {
+
+  /*ngAfterViewChecked(): void {
     this.subs.push(this.formGroup.valueChanges
       .filter((formGroup) => this.formGroup.dirty)
       .subscribe(() => {
         // Dispatch a FormChangeAction if the user has changed the value in the UI
         this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
         this.formGroup.markAsPristine();
-    }));
-    this.subs.push(this.formGroup.statusChanges
-      .flatMap(() => this.isValid())
-      .filter((currentStatus) => this.formGroup.valid !== currentStatus)
-      .subscribe((currentStatus) => {
-        // Dispatch a FormStatusChangeAction if the form status has changed
-        this.store.dispatch(new FormStatusChangeAction(this.formId, this.formGroup.valid));
-    }));
-  }
+      }));
+  }*/
 
   /**
    * Method provided by Angular. Invoked after the constructor
@@ -102,6 +103,16 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
     this.store.dispatch(new FormInitAction(this.formId, this.formGroup.value, this.formGroup.valid));
     this.keepSync();
+
+    this.formValid = this.formGroup.valid;
+
+    this.subs.push(this.formGroup.statusChanges
+      .filter((currentStatus) => this.formValid !== currentStatus)
+      .subscribe((currentStatus) => {
+        // Dispatch a FormStatusChangeAction if the form status has changed
+        this.store.dispatch(new FormStatusChangeAction(this.formId, this.formGroup.valid));
+        this.formValid = currentStatus;
+      }));
   }
 
   /**
@@ -142,6 +153,10 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event) {
+    const action: FormChangeAction = new FormChangeAction(this.formId, this.formGroup.value);
+    this.store.dispatch(action);
+    this.formGroup.markAsPristine();
+
     this.change.emit(event);
   }
 
@@ -179,12 +194,11 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {
-    const context = arrayContext.groups[index];
+    const context = arrayContext.groups[ index ];
     const itemGroupModel = context.context;
     const group = this.formGroup.get(itemGroupModel.id) as FormGroup;
-    const model = context.group[0] as DynamicFormControlModel;
-    const control = group.controls[index] as FormControl;
-    return {$event, context, control, group, model, type};
+    const model = context.group[ 0 ] as DynamicFormControlModel;
+    const control = group.controls[ index ] as FormControl;
+    return { $event, context, control, group, model, type };
   }
-
 }

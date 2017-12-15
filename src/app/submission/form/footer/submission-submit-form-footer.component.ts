@@ -38,7 +38,7 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
   saveLater() {
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
       .subscribe((workspaceItem) => {
-        // console.log('response:', workspaceItem);
+        console.log('response:', workspaceItem);
 
         // FIXME: the following code is a mock, fix it as soon as server return erros
 
@@ -53,6 +53,9 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
             'error.validation.two': {
               paths: [ '/sections/traditionalpageone/dc.identifier.citation' ]
             },
+            'street\'s like a jungle, so call the police': {
+              paths: [ '/sections/traditionalpageone/' ]
+            }
           }
         };
 
@@ -72,11 +75,11 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
   }
 
   public resourceDeposit() {
-    alert('Feature is actually development...');
+    alert('Feature is actually in development...');
   }
 
   protected resourceDiscard() {
-    this.router.navigate(['home']);
+    this.router.navigate([ 'home' ]);
   }
 
   public confirmDiscard(content) {
