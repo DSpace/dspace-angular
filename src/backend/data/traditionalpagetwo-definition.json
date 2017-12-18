@@ -21,7 +21,11 @@
           "input": {
             "type": "tag"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Abstract",
           "mandatory": false,
@@ -39,7 +43,11 @@
           "input": {
             "type": "textarea"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Sponsors",
           "mandatory": false,
@@ -57,7 +65,11 @@
           "input": {
             "type": "textarea"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Description",
           "mandatory": false,
