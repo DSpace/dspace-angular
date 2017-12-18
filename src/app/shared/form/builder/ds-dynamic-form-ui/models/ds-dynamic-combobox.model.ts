@@ -1,6 +1,7 @@
 
 import { DynamicFormGroupModel } from '@ng-dynamic-forms/core';
 
+export const COMBOBOX_GROUP_SUFFIX = '_COMBO_GROUP';
 export const COMBOBOX_METADATA_SUFFIX = '_COMBO_METADATA';
 export const COMBOBOX_VALUE_SUFFIX = '_COMBO_VALUE';
 

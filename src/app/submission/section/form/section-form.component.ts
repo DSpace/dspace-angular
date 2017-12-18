@@ -1,11 +1,8 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 
-import { isEmpty, uniqueId, find } from 'lodash';
+import { isEqual } from 'lodash';
 import { Store } from '@ngrx/store';
-import {
-  DynamicFormArrayGroupModel, DynamicFormControlEvent, DynamicFormControlModel,
-  DynamicFormGroupModel
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -17,9 +14,13 @@ import {
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined
+} from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { WorkspaceitemSectionFormObject } from '../../models/workspaceitem-section-form.model';
@@ -30,13 +31,12 @@ import { SubmissionFormsModel } from '../../../core/shared/config/config-submiss
 import { submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
-import { AbstractControl } from '@angular/forms';
 
 import {
   COMBOBOX_METADATA_SUFFIX,
-  COMBOBOX_VALUE_SUFFIX
+  COMBOBOX_VALUE_SUFFIX, DynamicComboboxModel
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
-import { isEqual } from 'lodash';
+import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormAddError } from '../../../shared/form/form.actions';
 
 @Component({
@@ -52,7 +52,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   protected formConfig: SubmissionFormsModel;
   protected pathCombiner: JsonPatchOperationPathCombiner;
-  protected previousValue: { path: any[], value: string };
+  protected previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
 
   @ViewChild('formRef') private formRef: FormComponent;
 
@@ -61,7 +61,6 @@ export class FormSectionComponent extends SectionModelComponent {
               protected formBuilderService: FormBuilderService,
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
-              protected operationsBuilder: JsonPatchOperationsBuilder,
               protected store: Store<SubmissionState>) {
     super();
   }
@@ -159,14 +158,21 @@ export class FormSectionComponent extends SectionModelComponent {
         // because errors has been shown, remove them form the state
         const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionData.id, errors);
         this.store.dispatch(removeAction);
-
-        // after the cycles are over detectChanges();
-        // this.changeDetectorRef.detectChanges();
       });
   }
 
+  onAdd(event) {
+    if (event.model instanceof DynamicComboboxModel) {
+      console.log(event);
+    }
+  }
+
+  onBlur(event) {
+    // console.log('blur');
+  }
+
   onChange(event: DynamicFormControlEvent) {
-    const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
+    /*const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
 
     if (this.previousValue && isEqual(this.previousValue.path, this.formBuilderService.getPath(event.model))
@@ -190,32 +196,71 @@ export class FormSectionComponent extends SectionModelComponent {
       }
     } else {
       if (this.hasStoredValue(this.formBuilderService.getId(event.model))) {
+    if (event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX) || event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX)) {
+      this.dispatchComboboxOperations(event);
+    } else if (this.hasPreviousValue(event.model) || this.hasStoredValue(this.formBuilderService.getId(event.model))) {
+      if (isEmpty(value)) {
+        if (this.formBuilderService.getArrayIndexFromEvent(event) === 0) {
+          this.operationsBuilder.remove(this.pathCombiner.getPath(this.formBuilderService.getFieldPathSegmentedFromChangeEvent(event)));
+        } else {
+          this.operationsBuilder.remove(this.pathCombiner.getPath(path));
+        }
+      } else {
         this.operationsBuilder.replace(
           this.pathCombiner.getPath(path),
           value);
+    }
+      this.previousValue = null;
+    } else if (isNotEmpty(value)) {
+      if (isUndefined(this.formBuilderService.getArrayIndexFromEvent(event))
+        || this.formBuilderService.getArrayIndexFromEvent(event) === 0) {
+        this.operationsBuilder.add(
+          this.pathCombiner.getPath(this.formBuilderService.getFieldPathSegmentedFromChangeEvent(event)),
+          value, false, true);
       } else {
         this.operationsBuilder.add(
           this.pathCombiner.getPath(path),
-          value, false, true);
+          value);
       }
-    }
+    }*/
+
+    this.formBuilderService.dispatchOperationsFromEvent(
+      this.pathCombiner,
+      event,
+      this.previousValue,
+      this.hasStoredValue(this.formBuilderService.getId(event.model)));
   }
 
   onFocus(event: DynamicFormControlEvent) {
-    if (isNotEmpty(event.control.value)) {
-      this.previousValue = {
-        path: this.formBuilderService.getPath(event.model),
-        value: event.control.value
-      }
+    const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+    const path = this.formBuilderService.getPath(event.model)
+    if (event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX) || event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX)) {
+      console.log('focus');
+      this.previousValue.path = path;
+      this.previousValue.value = this.formBuilderService.getComboboxMap(event);
+    } else if (isNotEmpty(value)) {
+      this.previousValue.path = path;
+      this.previousValue.value = value;
     }
   }
 
   onRemove(event: DynamicFormControlEvent) {
-    const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
+    /*const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
-    if (isNotEmpty(value)) {
+    if (event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX) || event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX)) {
+      this.dispatchComboboxOperations(event);
+    } else if (isNotEmpty(value)) {
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
-    }
+    }*/
+    this.formBuilderService.dispatchOperationsFromEvent(
+      this.pathCombiner,
+      event,
+      this.previousValue,
+      this.hasStoredValue(this.formBuilderService.getId(event.model)));
+  }
+
+  hasPreviousValue(model) {
+    return this.previousValue && isEqual(this.previousValue.path, this.formBuilderService.getPath(model));
   }
 
   hasStoredValue(fieldId) {

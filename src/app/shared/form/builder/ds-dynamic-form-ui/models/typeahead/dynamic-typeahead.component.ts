@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,14 +8,14 @@ import { AuthorityService } from '../../../../../../core/integration/authority.s
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
-import { isNotEmpty } from '../../../../../empty.util';
+import { isEmpty, isNotEmpty } from '../../../../../empty.util';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
   styleUrls: ['./dynamic-typeahead.component.scss'],
   templateUrl: './dynamic-typeahead.component.html'
 })
-export class DsDynamicTypeaheadComponent implements OnInit {
+export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTypeaheadModel;
@@ -64,6 +64,9 @@ export class DsDynamicTypeaheadComponent implements OnInit {
 
   constructor(private authorityService: AuthorityService) {}
 
+  ngOnChanges() {
+    console.log(this.currentValue);
+  }
   ngOnInit() {
     this.currentValue = this.model.value;
     this.searchOptions = new IntegrationSearchOptions(
@@ -85,6 +88,14 @@ export class DsDynamicTypeaheadComponent implements OnInit {
 
   onBlurEvent(event: Event) {
     this.blur.emit(event);
+  }
+
+  onChangeEvent(event: Event) {
+    event.stopPropagation();
+    if (isEmpty(this.currentValue)) {
+      this.group.controls[this.model.id].setValue(null);
+      this.change.emit(null);
+    }
   }
 
   onFocusEvent($event) {
