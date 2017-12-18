@@ -147,10 +147,10 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   chipsSelected(event) {
-    console.log("Selected chips : "+JSON.stringify(this.chips.chipsItems[event]));
+    // console.log("Selected chips : "+JSON.stringify(this.chips.chipsItems[event]));
   }
 
   removeChips(event) {
-    console.log("Removed chips index: "+event);
+    // console.log("Removed chips index: "+event);
   }
 }

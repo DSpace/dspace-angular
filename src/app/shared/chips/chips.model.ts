@@ -17,7 +17,6 @@ export class Chips {
     let chipsItem: ChipsItem;
     if (item && item[this.displayField]) {
       const textToDisplay = item[this.displayField].length > 20 ? item[this.displayField].substr(0,17).concat('...') : item[this.displayField];
-      console.log(item);
 
       chipsItem = {
         order: this.chipsItems.length,
