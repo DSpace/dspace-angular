@@ -1,29 +1,34 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
+import { DynamicTagModel } from './dynamic-tag.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
-import { isEmpty, isNotEmpty } from '../../../../../empty.util';
+import { isNotEmpty } from '../../../../../empty.util';
+import {Chips} from "../../../../../chips/chips.model";
 
 @Component({
-  selector: 'ds-dynamic-typeahead',
-  styleUrls: ['./dynamic-typeahead.component.scss'],
-  templateUrl: './dynamic-typeahead.component.html'
+  selector: 'ds-dynamic-tag',
+  styleUrls: ['./dynamic-tag.component.scss'],
+  templateUrl: './dynamic-tag.component.html'
 })
-export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
+export class DsDynamicTagComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
-  @Input() model: DynamicTypeaheadModel;
+  @Input() model: DynamicTagModel;
   @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+
+  chips: Chips;
+  placeholder = "Enter tags...";
+  inputText: string;
 
   searching = false;
   searchOptions: IntegrationSearchOptions;
@@ -31,7 +36,14 @@ export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
 
-  formatter = (x: {display: string}) => x.display;
+  formatter = (x) => {
+    if(x.display) {
+      return x.display;
+    } else {
+      return null;
+    }
+  };
+// (x: {display: string}) => x.display;
 
   search = (text$: Observable<string>) =>
     text$
@@ -64,20 +76,21 @@ export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
 
   constructor(private authorityService: AuthorityService) {}
 
-  ngOnChanges() {
-    console.log(this.currentValue);
-  }
   ngOnInit() {
     this.currentValue = this.model.value;
-    this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityScope,
-      this.model.authorityName,
-      this.model.authorityMetadata);
+    if(this.model.authorityName && this.model.authorityName.length > 0) {
+      this.searchOptions = new IntegrationSearchOptions(
+        this.model.authorityScope,
+        this.model.authorityName,
+        this.model.authorityMetadata);
+    }
     this.group.valueChanges.subscribe((value) => {
       if (this.currentValue !== value && isNotEmpty(value[this.model.id])) {
         this.currentValue = value[this.model.id];
       }
     })
+
+    this.chips = new Chips();
   }
 
   onInput(event) {
@@ -90,21 +103,54 @@ export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
     this.blur.emit(event);
   }
 
-  onChangeEvent(event: Event) {
-    event.stopPropagation();
-    if (isEmpty(this.currentValue)) {
-      this.group.controls[this.model.id].setValue(null);
-      this.change.emit(null);
-    }
-  }
-
   onFocusEvent($event) {
     this.focus.emit(event);
   }
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
-    this.currentValue = event.item;
-    this.group.controls[this.model.id].setValue(event.item);
-    this.change.emit(event.item);
+      this.chips.add(event.item);
+      this.change.emit(event.item);
+      this.group.controls[this.model.id].setValue(this.currentValue);
+
+      setTimeout(() => {
+        // Reset the input text after x ms, mandatory or the formatter overwrite it
+        this.currentValue = null;
+      }, 50);
+  }
+
+  onKeyUp(event) {
+    if (event.keyCode === 13 || event.keyCode === 188) {
+      // Key: Enter or , or ;
+      this.addTagsToChips(this.inputText);
+      this.inputText = '';
+    }
+
+  }
+
+  private addTagsToChips(text: string) {
+    let res: string[] = [];
+    res = text.split(',');
+
+    let res1 = [];
+    res.forEach((item) => {
+      item.split(';').forEach( (item) => {
+        res1.push(item);
+      });
+    });
+
+    res1.forEach((c) =>{
+      c = c.trim();
+      if (c.length > 0) {
+        this.chips.add(c);
+      }
+    });
+  }
+
+  chipsSelected(event) {
+    // console.log("Selected chips : "+JSON.stringify(this.chips.chipsItems[event]));
+  }
+
+  removeChips(event) {
+    // console.log("Removed chips index: "+event);
   }
 }

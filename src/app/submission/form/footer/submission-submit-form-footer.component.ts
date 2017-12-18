@@ -1,12 +1,19 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { SubmissionRestService } from '../../submission-rest.service';
 import { SubmissionService } from '../../submission.service';
-import { Store } from '@ngrx/store';
 import { SubmissionState } from '../../submission.reducers';
-import { InertSectionErrorAction } from '../../objects/submission-objects.actions';
-import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { NormalizedWorkspaceItem } from '../../models/normalized-workspaceitem.model';
+import { isEmpty } from 'lodash';
+import { WorkspaceItemError } from '../../models/workspaceitem.model';
+import {
+  default as parseSectionErrorPaths,
+  SectionErrorPath
+} from '../../utils/parseSectionErrorPaths';
+import { InertSectionErrorsAction } from '../../objects/submission-objects.actions';
 
 @Component({
   selector: 'ds-submission-submit-form-footer',
@@ -22,6 +29,7 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
   constructor(private modalService: NgbModal,
               private restService: SubmissionRestService,
               private router: Router,
+              private formBuilderService: FormBuilderService,
               private submissionService: SubmissionService,
               private store: Store<SubmissionState>) {
   }
@@ -35,59 +43,59 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
     }
   }
 
-  /*getSectionsState() {
-    return this.submissionService.getSectionsState(this.submissionId);
-  }*/
-
   saveLater() {
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
-      .subscribe((workspaceItem) => {
-        // console.log('response:', workspaceItem);
+      .distinctUntilChanged()
+      .subscribe((items: NormalizedWorkspaceItem[]) => {
+        const sections = {};
 
-        // FIXME: the following code is a mock, fix it as soon as server return erros
+        // to avoid dispatching an action for every error, create an array of errors per section
+        items.forEach((item: NormalizedWorkspaceItem) => {
+          const { errors } = item;
 
-        const workspaceItemMock = {
-          errors: {
-            'error.validation.one': {
-              paths: [ '/sections/traditionalpageone/dc.title', '/sections/traditionalpageone/dc.identifier.citation' ]
-            },
-            'error.validation.test': {
-              paths: [ '/sections/traditionalpagetwo/dc.description.sponsorship' ]
-            },
-            'error.validation.two': {
-              paths: [ '/sections/traditionalpageone/dc.identifier.citation' ]
-            },
-          }
-        };
+          if (errors && !isEmpty(errors)) {
+            errors.forEach((error: WorkspaceItemError) => {
+              const paths: SectionErrorPath[] = parseSectionErrorPaths(error.paths);
 
-        if (workspaceItemMock.errors) {
-          Object.keys(workspaceItemMock.errors).forEach((messageKey: string) => {
-            const paths: SectionErrorPath[] = parseSectionErrorPaths(workspaceItemMock.errors[ messageKey ].paths);
-
-            paths.forEach((pathItem: SectionErrorPath) => {
-              const error = { path: pathItem.originalPath, messageKey };
-              const action = new InertSectionErrorAction(this.submissionId, pathItem.sectionId, error);
-
-              this.store.dispatch(action);
+              paths.forEach((path: SectionErrorPath) => {
+                const sectionError = { path: path.originalPath, message: error.message };
+                if (!sections[ path.sectionId ]) {
+                  sections[ path.sectionId ] = { errors: [] };
+                }
+                sections[ path.sectionId ].errors.push(sectionError);
+              });
             });
+          }
+        });
+
+        // and now dispatch an action with an array of errors for every section
+        if (!isEmpty(sections)) {
+          Object.keys(sections).forEach((sectionId) => {
+            const { errors } = sections[ sectionId ];
+            const action = new InertSectionErrorsAction(this.submissionId, sectionId, errors);
+
+            this.store.dispatch(action);
           });
         }
       });
   }
 
   public resourceDeposit() {
-    alert('Feature is actually development...');
+    alert('Feature is actually in development...');
   }
 
   protected resourceDiscard() {
-    this.router.navigate(['home']);
+    this.router.navigate([ 'home' ]);
   }
 
   public confirmDiscard(content) {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
-          this.resourceDiscard();
+          this.restService.deleteById(this.submissionId)
+            .subscribe((response) => {
+              this.resourceDiscard();
+            })
         }
       }
     );

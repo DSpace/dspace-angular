@@ -33,8 +33,8 @@ export const SubmissionObjectActionTypes = {
   DELETE_FILE: type('dspace/submission/DELETE_FILE'),
 
   // Errors
-  INSERT_ERROR: type('dspace/submission/INSERT_ERROR'),
-  DELETE_ERROR: type('dspace/submission/DELETE_ERROR'),
+  INSERT_ERRORS: type('dspace/submission/INSERT_ERRORS'),
+  DELETE_ERRORS: type('dspace/submission/DELETE_ERRORS'),
   CLEAR_ERRORS: type('dspace/submission/CLEAR_ERRORS'),
 };
 
@@ -47,12 +47,12 @@ export const SubmissionObjectActionTypes = {
  * @param {string} sectionId
  * @param {SubmissionError} error
  */
-export class InertSectionErrorAction implements Action {
-  type: string = SubmissionObjectActionTypes.INSERT_ERROR;
+export class InertSectionErrorsAction implements Action {
+  type: string = SubmissionObjectActionTypes.INSERT_ERRORS;
   payload: {
     submissionId: string;
     sectionId: string;
-    error: SubmissionError;
+    error: SubmissionError | SubmissionError[];
   };
 
   constructor(submissionId: string, sectionId: string, error: SubmissionError) {
@@ -66,15 +66,15 @@ export class InertSectionErrorAction implements Action {
  * @param {string} sectionId
  * @param {string | SubmissionError} error
  */
-export class DeleteSectionErrorAction implements Action {
-  type: string = SubmissionObjectActionTypes.DELETE_ERROR;
+export class DeleteSectionErrorsAction implements Action {
+  type: string = SubmissionObjectActionTypes.DELETE_ERRORS;
   payload: {
     submissionId: string;
     sectionId: string;
-    error: string | SubmissionError;
+    error: string | SubmissionError | SubmissionError[];
   };
 
-  constructor(submissionId: string, sectionId: string, error: string | SubmissionError) {
+  constructor(submissionId: string, sectionId: string, error: string | SubmissionError | SubmissionError[]) {
     this.payload = { submissionId, sectionId, error };
   }
 }
@@ -84,7 +84,7 @@ export class DeleteSectionErrorAction implements Action {
  * @param {string} submissionId
  * @param {string} sectionId
  */
-export class ClearSectinErrorsAction implements Action {
+export class ClearSectionErrorsAction implements Action {
   type: string = SubmissionObjectActionTypes.CLEAR_ERRORS;
   payload: {
     submissionId: string;
@@ -298,7 +298,7 @@ export class EditFileDataAction implements Action {
    *    the metadata of the new bitstream
    */
   constructor(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
-    this.payload = { submissionId, sectionId, fileId: fileId, data};
+    this.payload = { submissionId, sectionId, fileId: fileId, data };
   }
 }
 
@@ -341,6 +341,6 @@ export type SubmissionObjectAction = DisableSectionAction
   | NewUploadedFileAction
   | EditFileDataAction
   | DeleteUploadedFileAction
-  | InertSectionErrorAction
-  | DeleteSectionErrorAction
-  | ClearSectinErrorsAction;
+  | InertSectionErrorsAction
+  | DeleteSectionErrorsAction
+  | ClearSectionErrorsAction;

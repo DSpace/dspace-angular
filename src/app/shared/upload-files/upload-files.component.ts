@@ -21,10 +21,18 @@ import { isNotEmpty } from '../empty.util';
 export class UploadFilesComponent {
 
   /**
+   * The function to call before an upload
+   */
+  @Input()  onBeforeUpload: () => void;
+
+  /**
    * Configuration for the ng2-file-upload component.
    */
   @Input()  uploadFilesOptions: UploadFilesComponentOptions;
 
+  /**
+   * The function to call when upload is completed
+   */
   @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();
 
   public uploader:FileUploader;
@@ -50,6 +58,7 @@ export class UploadFilesComponent {
     this.uploader.onAfterAddingFile = ((item) => {
       item.withCredentials = false;
     });
+    this.uploader.onBeforeUploadItem = this.onBeforeUpload;
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       const responsePath = JSON.parse(response);
       this.onCompleteItem.emit(responsePath);

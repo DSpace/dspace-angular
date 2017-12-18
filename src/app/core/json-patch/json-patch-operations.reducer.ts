@@ -174,7 +174,7 @@ function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPa
  */
 function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperationsState {
   const newState = Object.assign({}, state);
-  const newBody = buildOperationsList(
+  const newBody = addOperationToList(
     (hasValue(newState[ action.payload.resourceType ])
       && hasValue(newState[ action.payload.resourceType ].children)
       && hasValue(newState[ action.payload.resourceType ].children[ action.payload.resourceId ])
@@ -197,16 +197,6 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
         commitPending: state[ action.payload.resourceType ].commitPending
       })
     });
-    /*} else if (hasValue(newState[action.payload.resourceType])) {
-      return Object.assign({}, state, {
-        [action.payload.resourceType]: Object.assign({}, state[action.payload.resourceType],{
-          [action.payload.resourceId]: {
-            body: newBody,
-            transactionStartTime: null,
-            commitPending: false
-          }
-        })
-      });*/
   } else {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, {
@@ -271,6 +261,30 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
   } else {
     return state;
   }
+}
+
+function addOperationToList(body: JsonPatchOperationObject[], actionType, targetPath, value?) {
+  const newBody = Array.from(body);
+  switch (actionType) {
+    case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_ADD_OPERATION:
+      newBody.push(makeOperationEntry({
+        op: JsonPatchOperationType.add,
+        path: targetPath,
+        value: value
+      }));
+      break;
+    case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REPLACE_OPERATION:
+      newBody.push(makeOperationEntry({
+        op: JsonPatchOperationType.replace,
+        path: targetPath,
+        value: value
+      }));
+      break;
+    case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REMOVE_OPERATION:
+      newBody.push(makeOperationEntry({ op: JsonPatchOperationType.remove, path: targetPath }));
+      break;
+  }
+  return newBody;
 }
 
 function buildOperationsList(body: JsonPatchOperationObject[], actionType, targetPath, value?) {

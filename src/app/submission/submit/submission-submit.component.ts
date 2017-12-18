@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SubmissionRestService } from '../submission-rest.service';
 import { NormalizedWorkspaceItem } from '../models/normalized-workspaceitem.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
+import {Chips} from "../../shared/chips/chips.model";
 
 @Component({
   selector: 'ds-submission-submit',
@@ -11,12 +12,16 @@ import { SubmissionDefinitionsModel } from '../../core/shared/config/config-subm
 })
 
 export class SubmissionSubmitComponent implements OnInit {
+  public model: any;
+
+
   public collectionId: string;
   public submissionDefinition: SubmissionDefinitionsModel;
   public submissionId: string;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private restService: SubmissionRestService) {}
+              private restService: SubmissionRestService) {
+  }
 
   ngOnInit() {
     this.restService.postToEndpoint('workspaceitems', {})
@@ -28,4 +33,5 @@ export class SubmissionSubmitComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
     });
   }
+
 }

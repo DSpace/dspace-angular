@@ -15,7 +15,10 @@ export const FormActionTypes = {
   FORM_INIT: type('dspace/form/FORM_INIT'),
   FORM_CHANGE: type('dspace/form/FORM_CHANGE'),
   FORM_REMOVE: type('dspace/form/FORM_REMOVE'),
-  FORM_STATUS_CHANGE: type('dspace/form/FORM_STATUS_CHANGE')
+  FORM_STATUS_CHANGE: type('dspace/form/FORM_STATUS_CHANGE'),
+  FORM_ADD_ERROR: type('dspace/form/ADD_ERROR'),
+  FORM_REMOVE_ERROR: type('dspace/form/REMOVE_ERROR'),
+  CLEAR_ERRORS: type('dspace/form/CLEAR_ERRORS'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -99,6 +102,19 @@ export class FormStatusChangeAction implements Action {
   }
 }
 
+export class FormAddError implements Action {
+  type = FormActionTypes.FORM_ADD_ERROR;
+  payload: {
+    formId: string,
+    fieldId: string,
+    errorMessage: string,
+  };
+
+  constructor(formId: string, fieldId: string, errorMessage: string) {
+    this.payload = { formId, fieldId, errorMessage };
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -108,3 +124,4 @@ export class FormStatusChangeAction implements Action {
 export type FormAction = FormInitAction
   | FormChangeAction
   | FormStatusChangeAction
+  | FormAddError

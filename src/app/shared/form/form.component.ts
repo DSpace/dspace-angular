@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -6,22 +7,30 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
-  DynamicFormControlModel
+  DynamicFormControlModel,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
-import { FormChangeAction, FormInitAction, FormRemoveAction, FormStatusChangeAction } from './form.actions';
+import {
+  FormChangeAction,
+  FormInitAction,
+  FormRemoveAction,
+  FormStatusChangeAction
+} from './form.actions';
 import { FormBuilderService } from './builder/form-builder.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { hasValue } from '../empty.util';
 import { FormService } from './form.service';
+import { formObjectFromIdSelector } from './selectors';
+import { FormEntry, FormError } from './form.reducers';
+import { isEmpty } from 'lodash';
 
 /**
  * The default form component.
@@ -33,6 +42,8 @@ import { FormService } from './form.service';
   templateUrl: 'form.component.html',
 })
 export class FormComponent implements OnDestroy, OnInit {
+
+  private formValid: boolean;
 
   /**
    * A boolean that indicate if to display form's submit and cancel buttons
@@ -52,6 +63,8 @@ export class FormComponent implements OnDestroy, OnInit {
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output() addArrayItem: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output() removeArrayItem: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
 
   /**
    * An event fired when form is valid and submitted .
@@ -70,28 +83,25 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   private subs: Subscription[] = [];
 
-  constructor(private formService: FormService, private formBuilderService: FormBuilderService, private store: Store<AppState>) {
+  constructor(private formService: FormService,
+              protected changeDetectorRef: ChangeDetectorRef,
+              private formBuilderService: FormBuilderService,
+              private store: Store<AppState>) {
   }
 
   /**
    * Method provided by Angular. Invoked after the view has been initialized.
    */
-  ngAfterViewChecked(): void {
+
+  /*ngAfterViewChecked(): void {
     this.subs.push(this.formGroup.valueChanges
       .filter((formGroup) => this.formGroup.dirty)
       .subscribe(() => {
         // Dispatch a FormChangeAction if the user has changed the value in the UI
         this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
         this.formGroup.markAsPristine();
-    }));
-    this.subs.push(this.formGroup.statusChanges
-      .flatMap(() => this.isValid())
-      .filter((currentStatus) => this.formGroup.valid !== currentStatus)
-      .subscribe((currentStatus) => {
-        // Dispatch a FormStatusChangeAction if the form status has changed
-        this.store.dispatch(new FormStatusChangeAction(this.formId, this.formGroup.valid));
-    }));
-  }
+      }));
+  }*/
 
   /**
    * Method provided by Angular. Invoked after the constructor
@@ -100,6 +110,37 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
     this.store.dispatch(new FormInitAction(this.formId, this.formGroup.value, this.formGroup.valid));
     this.keepSync();
+
+    this.formValid = this.formGroup.valid;
+
+    this.subs.push(this.formGroup.statusChanges
+      .filter((currentStatus) => this.formValid !== currentStatus)
+      .subscribe((currentStatus) => {
+        // Dispatch a FormStatusChangeAction if the form status has changed
+        this.store.dispatch(new FormStatusChangeAction(this.formId, this.formGroup.valid));
+        this.formValid = currentStatus;
+      }));
+
+    this.subs.push(
+      this.store.select(formObjectFromIdSelector(this.formId))
+        .filter((formState: FormEntry) => !!formState && !isEmpty(formState.errors))
+        .map((formState) => formState.errors)
+        .distinctUntilChanged()
+        .delay(100) // this terrible delay is here to prevent the detection change error
+        .subscribe((errors: FormError[]) => {
+          const { formGroup, formModel } = this;
+
+          errors.forEach((error: FormError) => {
+            const { fieldId } = error;
+            const field: AbstractControl = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel);
+            const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+
+            this.formService.addErrorToField(field, model, error.message);
+          });
+
+          this.changeDetectorRef.detectChanges();
+        })
+    );
   }
 
   /**
@@ -140,7 +181,15 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event) {
+    const action: FormChangeAction = new FormChangeAction(this.formId, this.formGroup.value);
+    this.store.dispatch(action);
+    this.formGroup.markAsPristine();
+
     this.change.emit(event);
+
+    const control: FormControl = event.control;
+
+    control.setErrors(null);
   }
 
   /**
@@ -162,16 +211,26 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formGroup.reset();
   }
 
-  removeItem(context: DynamicFormArrayModel, index: number) {
+  removeItem($event, arrayContext: DynamicFormArrayModel, index: number) {
     this.formGroup.markAsDirty();
-    const formArrayControl = this.formGroup.get(context.id) as FormArray;
-    this.formBuilderService.removeFormArrayGroup(index, formArrayControl, context);
+    const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
+    this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
+    this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
   }
 
-  insertItem(context: DynamicFormArrayModel, index: number) {
+  insertItem($event, arrayContext: DynamicFormArrayModel, index: number) {
     this.formGroup.markAsDirty();
-    const formArrayControl = this.formGroup.get(context.id) as FormArray;
-    this.formBuilderService.insertFormArrayGroup(index, formArrayControl, context);
+    const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
+    this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
+    this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
   }
 
+  protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {
+    const context = arrayContext.groups[ index ];
+    const itemGroupModel = context.context;
+    const group = this.formGroup.get(itemGroupModel.id) as FormGroup;
+    const model = context.group[ 0 ] as DynamicFormControlModel;
+    const control = group.controls[ index ] as FormControl;
+    return { $event, context, control, group, model, type };
+  }
 }

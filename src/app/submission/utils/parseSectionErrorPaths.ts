@@ -1,6 +1,6 @@
 export interface SectionErrorPath {
   sectionId: string;
-  fieldId: string;
+  fieldId?: string;
   originalPath: string;
 }
 

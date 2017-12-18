@@ -8,6 +8,7 @@ import { NormalizedCollection } from '../../core/cache/models/normalized-collect
 import { NormalizedItem } from '../../core/cache/models/normalized-item.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
+import { WorkspaceItemError } from './workspaceitem.model';
 
 @mapsTo(License)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -37,4 +38,6 @@ export class NormalizedWorkspaceItem extends NormalizedDSpaceObject {
   @autoserializeAs(SubmissionDefinitionsModel)
   submissionDefinition: SubmissionDefinitionsModel;
 
+  @autoserialize
+  errors: WorkspaceItemError[]
 }

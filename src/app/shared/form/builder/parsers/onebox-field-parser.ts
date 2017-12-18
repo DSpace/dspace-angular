@@ -13,6 +13,7 @@ import {
 } from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { FormFieldModel } from '../models/form-field.model';
 import {
+  COMBOBOX_GROUP_SUFFIX,
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from '../ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
@@ -39,12 +40,15 @@ export class OneboxFieldParser extends FieldParser {
         .join('.');
 
       const inputSelectGroup: DynamicFormGroupModel = Object.create(null);
-      inputSelectGroup.id = newId.replace(/\./g, '_') + '_group';
+      inputSelectGroup.id = newId.replace(/\./g, '_') + COMBOBOX_GROUP_SUFFIX;
       inputSelectGroup.group = [];
       inputSelectGroup.legend = this.configData.label;
 
       const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(  newId + COMBOBOX_METADATA_SUFFIX);
       this.setOptions(selectModelConfig);
+      if (isNotEmpty(fieldValue)) {
+        selectModelConfig.value = fieldValue.metadata;
+      }
       clsSelect = {
         element: {
           control: 'input-group-addon ds-form-input-addon',
@@ -56,6 +60,9 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
       const inputModelConfig: DynamicInputModelConfig = this.initModel(newId + COMBOBOX_VALUE_SUFFIX, true, true);
+      if (isNotEmpty(fieldValue)) {
+        inputModelConfig.value = fieldValue.value;
+      }
       clsInput = {
         element: {
           control: 'ds-form-input-value',

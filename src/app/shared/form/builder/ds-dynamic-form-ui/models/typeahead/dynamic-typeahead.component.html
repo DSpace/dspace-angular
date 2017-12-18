@@ -16,7 +16,7 @@
          [(ngModel)]="currentValue"
          (blur)="onBlurEvent($event)"
          (focus)="onFocusEvent($event)"
-         (change)="$event.stopPropagation()"
+         (change)="onChangeEvent($event);"
          (input)="onInput($event)"
          (selectItem)="onSelectItem($event)">
 

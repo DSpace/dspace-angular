@@ -3,5 +3,8 @@
          [formId]="formId"
          [formModel]="formModel"
          [displaySubmit]="false"
-         (change)="onChange($event)">
-</ds-form>
+         (addArrayItem)="onAdd($event)"
+         (blur)="onBlur($event)"
+         (change)="onChange($event)"
+         (focus)="onFocus($event)"
+         (removeArrayItem)="onRemove($event)"></ds-form>

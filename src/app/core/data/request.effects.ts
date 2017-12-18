@@ -46,6 +46,9 @@ export class RequestEffects {
 
   private makeHttpRequest(request: RestRequest): Observable<DSpaceRESTV2Response> {
     switch (request.requestType) {
+      case RequestType.DELETE: {
+        return this.restApi.delete(request.href)
+      }
       case RequestType.GET: {
         return this.restApi.get(request.href)
       }

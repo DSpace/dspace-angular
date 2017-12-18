@@ -35,7 +35,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't retrieve the config`))),
+        Observable.throw(new Error(`Couldn't send data to server`))),
       successResponse
         .filter((response: PostPatchSuccessResponse) => isNotEmpty(response))
         .map((response: PostPatchSuccessResponse) => response.dataDefinition)
@@ -71,7 +71,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
             return new HttpPatchRequest(endpointURL, body);
           });
       })
-      .do((request: HttpPatchRequest) => this.requestService.configureSubmit(request))
+      .do((request: HttpPatchRequest) => this.requestService.configure(request, true))
       .flatMap((request: HttpPatchRequest) => {
         const [successResponse, errorResponse] =  this.responseCache.get(request.href)
           .take(1)
@@ -98,7 +98,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new HttpPostRequest(endpointURL, body))
-      .do((request: HttpPostRequest) => this.requestService.configureSubmit(request))
+      .do((request: HttpPostRequest) => this.requestService.configure(request, true))
       .flatMap((request: HttpPostRequest) => this.submitData(request))
       .distinctUntilChanged();
   }
@@ -108,7 +108,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new HttpPostRequest(endpointURL, body))
-      .do((request: HttpPostRequest) => this.requestService.configureSubmit(request))
+      .do((request: HttpPostRequest) => this.requestService.configure(request, true))
       .flatMap((request: HttpPostRequest) => this.submitData(request))
       .distinctUntilChanged();
   }

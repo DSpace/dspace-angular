@@ -1,7 +1,15 @@
 import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { SectionService } from './section.service';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { submissionSectionFromIdSelector } from '../selectors';
+import { Store } from '@ngrx/store';
+import { SubmissionState } from '../submission.reducers';
+import { SubmissionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
+import { isEmpty, uniq } from 'lodash';
+import { SectionErrorPath } from '../utils/parseSectionErrorPaths';
+import parseSectionErrorPaths from '../utils/parseSectionErrorPaths';
+import { DeleteSectionErrorsAction } from '../objects/submission-objects.actions';
 
 @Directive({
   selector: '[dsSection]',
@@ -17,16 +25,49 @@ export class SectionDirective implements OnDestroy, OnInit {
   private subs: Subscription[] = [];
   private valid: boolean;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private sectionService: SectionService) {}
+  public sectionErrors: string[] = [];
+
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+              private store: Store<SubmissionState>,
+              private sectionService: SectionService) {
+  }
 
   ngOnInit() {
     this.subs.push(this.sectionService.isSectionValid(this.submissionId, this.sectionId)
-      // Avoid 'ExpressionChangedAfterItHasBeenCheckedError' using debounceTime
+    // Avoid 'ExpressionChangedAfterItHasBeenCheckedError' using debounceTime
       .debounceTime(1)
-      .subscribe((valid) => {
-          this.valid = valid;
-          this.changeDetectorRef.detectChanges();
+      .subscribe((valid: boolean) => {
+        this.valid = valid;
+        if (valid) {
+          this.sectionErrors = [];
+        }
+        this.changeDetectorRef.detectChanges();
       }));
+
+    this.subs.push(
+      this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionId))
+        .map((state: SubmissionSectionObject) => state.errors)
+        .distinctUntilChanged()
+        .subscribe((errors: SubmissionError[]) => {
+          errors.forEach((errorItem: SubmissionError) => {
+            const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
+
+            if (!isEmpty(parsedErrors)) {
+              parsedErrors.forEach((error: SectionErrorPath) => {
+                if (!error.fieldId) {
+                  this.sectionErrors = uniq(this.sectionErrors.concat(errorItem.message));
+
+                  // because it has been shown, remove the error from the state
+                  const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionId, errorItem);
+                  this.store.dispatch(removeAction);
+                }
+              });
+            } else {
+              this.sectionErrors = [];
+            }
+          });
+        })
+    );
   }
 
   ngOnDestroy() {
@@ -57,5 +98,17 @@ export class SectionDirective implements OnDestroy, OnInit {
 
   public removeSection(submissionId, sectionId) {
     this.sectionService.removeSection(submissionId, sectionId)
+  }
+
+  public hasErrors() {
+    return this.sectionErrors && this.sectionErrors.length > 0
+  }
+
+  public getErrors() {
+    return this.sectionErrors;
+  }
+
+  public resetErrors() {
+    return this.sectionErrors = [];
   }
 }
