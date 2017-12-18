@@ -40,7 +40,7 @@ export class DsDynamicTagComponent implements OnInit {
     if(x.display) {
       return x.display;
     } else {
-      return '';
+      return null;
     }
   };
 // (x: {display: string}) => x.display;
@@ -110,8 +110,12 @@ export class DsDynamicTagComponent implements OnInit {
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
       this.chips.add(event.item);
       this.change.emit(event.item);
-      this.currentValue = null;
       this.group.controls[this.model.id].setValue(this.currentValue);
+
+      setTimeout(() => {
+        // Reset the input text after x ms, mandatory or the formatter overwrite it
+        this.currentValue = null;
+      }, 50);
   }
 
   onKeyUp(event) {

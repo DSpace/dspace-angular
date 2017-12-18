@@ -1,3 +1,7 @@
+<ng-template #rt let-r="result" let-t="term">
+  {{ r.display}}
+</ng-template>
+
 <ds-chips
   [chips]="chips"
   (selected)="chipsSelected($event)"
