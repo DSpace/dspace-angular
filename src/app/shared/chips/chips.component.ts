@@ -14,10 +14,6 @@ export class ChipsComponent implements OnInit, OnChanges {
   remove = new EventEmitter<number>();
   @Input()
   chips: Chips;
-  @Input()
-  editable: boolean = true;
-  inputText: string;
-
 
   ngOnInit() {
 
@@ -28,7 +24,6 @@ export class ChipsComponent implements OnInit, OnChanges {
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
       console.log("ngOnChanges items=" + JSON.stringify(this.chips));
-      // TODO Manage add item
     }
   }
 
@@ -41,18 +36,13 @@ export class ChipsComponent implements OnInit, OnChanges {
     this.chips.remove(index);
   }
 
-  keyUp(event) {
-    if (event.key === "Enter") {
-      console.log(event);
-      const l = this.inputText.length;
-      this.chips.add(this.inputText.substr(0, l-1));
-    }
-
-    // TODO Verify edit of input
-    // const l = this.inputText.length;
-    // if (this.inputText.substr(l-1, l) === ',') {
-    //   this.chips.add(this.inputText.substr(0, l-1));
-    // }
-  }
+  // addInputChips(text: string) {
+  //   const l = text.length;
+  //   if ( l > 2) {
+  //     this.chips.add(text.substring(0, text.length - 1));
+  //     text.split(',');
+  //
+  //   }
+  // }
 
 }

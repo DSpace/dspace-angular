@@ -14,17 +14,20 @@ export class TagFieldParser extends FieldParser {
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     const tagModelConfig: DynamicTagModelConfig = this.initModel();
-    tagModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
-    tagModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
-    tagModelConfig.authorityScope = this.authorityUuid;
-    tagModelConfig.withTag = true;
-    if (isNotEmpty(fieldValue)) {
-      const authorityValue = {
-        id: fieldValue.authority,
-        value: fieldValue.value,
-        display: fieldValue.value
-      } as AuthorityModel;
-      tagModelConfig.value = authorityValue;
+    if(this.configData.selectableMetadata[0].authority
+      && this.configData.selectableMetadata[0].authority.length > 0 ) {
+        tagModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
+        tagModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
+        tagModelConfig.authorityScope = this.authorityUuid;
+        tagModelConfig.withTag = true;
+        if (isNotEmpty(fieldValue)) {
+          const authorityValue = {
+            id: fieldValue.authority,
+            value: fieldValue.value,
+            display: fieldValue.value
+          } as AuthorityModel;
+          tagModelConfig.value = authorityValue;
+        }
     }
     tagModelConfig.minChars = 3;
     const tagModel = new DynamicTagModel(tagModelConfig);

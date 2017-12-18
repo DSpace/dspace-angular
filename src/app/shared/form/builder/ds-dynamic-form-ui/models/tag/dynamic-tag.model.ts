@@ -23,7 +23,6 @@ export class DynamicTagModel extends DynamicInputModel {
   @serializable() authorityScope: string;
   @serializable() minChars: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TAG;
-  @serializable() withTag: boolean;
 
   constructor(config: DynamicTagModelConfig, cls?: ClsConfig) {
 
@@ -34,7 +33,6 @@ export class DynamicTagModel extends DynamicInputModel {
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
     this.minChars = config.minChars;
-    this.withTag = config.withTag;
   }
 
 }

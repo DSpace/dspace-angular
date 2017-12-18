@@ -27,6 +27,8 @@ export class DsDynamicTagComponent implements OnInit {
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   chips: Chips;
+  placeholder = "Enter tags...";
+  inputText: string;
 
   searching = false;
   searchOptions: IntegrationSearchOptions;
@@ -34,7 +36,14 @@ export class DsDynamicTagComponent implements OnInit {
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
 
-  formatter = (x: {display: string}) => x.display;
+  formatter = (x) => {
+    if(x.display) {
+      return x.display;
+    } else {
+      return '';
+    }
+  };
+// (x: {display: string}) => x.display;
 
   search = (text$: Observable<string>) =>
     text$
@@ -69,10 +78,12 @@ export class DsDynamicTagComponent implements OnInit {
 
   ngOnInit() {
     this.currentValue = this.model.value;
-    this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityScope,
-      this.model.authorityName,
-      this.model.authorityMetadata);
+    if(this.model.authorityName && this.model.authorityName.length > 0) {
+      this.searchOptions = new IntegrationSearchOptions(
+        this.model.authorityScope,
+        this.model.authorityName,
+        this.model.authorityMetadata);
+    }
     this.group.valueChanges.subscribe((value) => {
       if (this.currentValue !== value && isNotEmpty(value[this.model.id])) {
         this.currentValue = value[this.model.id];
@@ -97,18 +108,38 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
-    if (!this.model.withTag) {
-      // Case no tag
-      this.currentValue = event.item;
-      this.group.controls[this.model.id].setValue(event.item);
-    } else {
-      // Case with Tag
-      this.currentValue = {display: ""};
-      this.group.controls[this.model.id].setValue(this.currentValue);
       this.chips.add(event.item);
+      this.change.emit(event.item);
+      this.currentValue = null;
+      this.group.controls[this.model.id].setValue(this.currentValue);
+  }
+
+  onKeyUp(event) {
+    if (event.keyCode === 13 || event.keyCode === 188) {
+      // Key: Enter or , or ;
+      this.addTagsToChips(this.inputText);
+      this.inputText = '';
     }
 
-    this.change.emit(event.item);
+  }
+
+  private addTagsToChips(text: string) {
+    let res: string[] = [];
+    res = text.split(',');
+
+    let res1 = [];
+    res.forEach((item) => {
+      item.split(';').forEach( (item) => {
+        res1.push(item);
+      });
+    });
+
+    res1.forEach((c) =>{
+      c = c.trim();
+      if (c.length > 0) {
+        this.chips.add(c);
+      }
+    });
   }
 
   chipsSelected(event) {

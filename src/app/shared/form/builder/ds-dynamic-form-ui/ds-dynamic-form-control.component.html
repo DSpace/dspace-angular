@@ -238,6 +238,13 @@
                 </ng-container>
             </ng-container>
 
+            <ng-container *ngSwitchCase="14">
+          <ng-container *ngTemplateOutlet="tagTemplate;
+                                                   context:{bindId: bindId, model: model, showErrorMessages: showErrorMessages}">
+
+          </ng-container>
+        </ng-container>
+
 
             <small *ngIf="hasHint" class="text-muted" [innerHTML]="model.hint"
                    [ngClass]="model.cls.element.hint"></small>
@@ -313,14 +320,24 @@
         </ng-template>
 
         <ng-template #scrollableDropdownTemplate let-bindId="bindId" let-model="model" let-showErrorMessages="showErrorMessages">
-          <ds-dynamic-scrollable-dropdown [bindId]="bindId"
-                                [group]="group"
-                                [model]="model"
-                                [showErrorMessages]="showErrorMessages"
-                                (blur)="onBlurEvent($event)"
-                                (change)="onValueChange($event)"
-                                (focus)="onFocusEvent($event)"></ds-dynamic-scrollable-dropdown>
-        </ng-template>
+      <ds-dynamic-scrollable-dropdown [bindId]="bindId"
+                                      [group]="group"
+                                      [model]="model"
+                                      [showErrorMessages]="showErrorMessages"
+                                      (blur)="onBlurEvent($event)"
+                                      (change)="onValueChange($event)"
+                                      (focus)="onFocusEvent($event)"></ds-dynamic-scrollable-dropdown>
+    </ng-template>
+
+      <ng-template #tagTemplate let-bindId="bindId" let-model="model" let-showErrorMessages="showErrorMessages">
+        <ds-dynamic-tag [bindId]="bindId"
+                        [group]="group"
+                        [model]="model"
+                        [showErrorMessages]="showErrorMessages"
+                        (blur)="onBlurEvent($event)"
+                        (change)="onValueChange($event)"
+                        (focus)="onFocusEvent($event)"></ds-dynamic-tag>
+      </ng-template>
 
     </div>
 

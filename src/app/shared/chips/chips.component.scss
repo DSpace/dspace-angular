@@ -1,15 +1,9 @@
 .chips-box {
-  border: 1px;
+  border: 0;
   padding: 10px;
   width: 100%;
-  overflow-y: scroll;
-}
-
-.chips-box > input {
-  border: 0;
-}
-.chips-box > input:focus{
-  outline: none;
+  display: inline;
+  overflow: auto;
 }
 
 .chips {
@@ -25,6 +19,13 @@
 }
 .chips-item {
   margin: 2px;
-  padding: 0 15px 0 0;
+}
+
+.fa {
+  padding-right: 3px;
+}
+
+.fa-times {
+  padding-left: 10px;
 }
 

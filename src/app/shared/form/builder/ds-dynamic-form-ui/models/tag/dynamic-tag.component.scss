@@ -36,3 +36,11 @@
   color: $dropdown-link-hover-color !important;
   background-color: $dropdown-link-hover-bg !important;
 }
+
+input {
+  border: 0;
+  margin-left: 10px;
+}
+input:focus{
+  outline: none;
+}
