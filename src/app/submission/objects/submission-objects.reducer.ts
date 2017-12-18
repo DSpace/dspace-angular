@@ -24,7 +24,7 @@ export interface SubmissionSectionObject {
 
 export interface SubmissionError {
   path: string;
-  messageKey: string;
+  message: string;
 }
 
 export interface SubmissionSectionEntry {
@@ -153,7 +153,7 @@ const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorsAc
 
   if (hasValue(state[ submissionId ].sections[ sectionId ])) {
     let errors = state[ submissionId ].sections[ sectionId ].errors.filter((currentError) => {
-      return currentError.messageKey !== error && !isEqual(currentError, error);
+      return currentError.message !== error && !isEqual(currentError, error);
     });
 
     if (action.payload.error instanceof Array) {

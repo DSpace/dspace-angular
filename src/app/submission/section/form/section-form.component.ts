@@ -147,7 +147,7 @@ export class FormSectionComponent extends SectionModelComponent {
               const fieldId = path.fieldId.replace(/\./g, '_');
 
               // Dispatch action to the form state;
-              const formAddErrorAction = new FormAddError(formId, fieldId, error.messageKey);
+              const formAddErrorAction = new FormAddError(formId, fieldId, error.message);
               this.store.dispatch(formAddErrorAction);
             }
           });

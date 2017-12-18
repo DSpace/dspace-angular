@@ -23,4 +23,10 @@ export interface WorkspaceitemObject {
 
   submissionDefinition: SubmissionDefinitionsModel;
 
+  errors: WorkspaceItemError[];
+}
+
+export interface WorkspaceItemError {
+  message: string,
+  paths: string[],
 }

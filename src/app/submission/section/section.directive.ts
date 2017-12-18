@@ -55,7 +55,7 @@ export class SectionDirective implements OnDestroy, OnInit {
             if (!isEmpty(parsedErrors)) {
               parsedErrors.forEach((error: SectionErrorPath) => {
                 if (!error.fieldId) {
-                  this.sectionErrors = uniq(this.sectionErrors.concat(errorItem.messageKey));
+                  this.sectionErrors = uniq(this.sectionErrors.concat(errorItem.message));
 
                   // because it has been shown, remove the error from the state
                   const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionId, errorItem);
@@ -65,7 +65,6 @@ export class SectionDirective implements OnDestroy, OnInit {
             } else {
               this.sectionErrors = [];
             }
-
           });
         })
     );
