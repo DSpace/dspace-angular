@@ -46,6 +46,11 @@ import {TagFieldParser} from "./parsers/tag-field-parser";
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
+import {SeriesFieldParser} from "./parsers/series-field-parser";
+import {
+  DynamicSeriesModel, SERIES_GROUP_SUFFIX,
+  SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
+} from "./ds-dynamic-form-ui/models/ds-dynamic-series.model";
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -128,7 +133,7 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'series':
-          // group.push(new SeriesFieldParser(fieldData).parse());
+          group.push(new SeriesFieldParser(fieldData, initFormValues).parse());
           break;
 
         case 'tag':
@@ -214,6 +219,20 @@ export class FormBuilderService extends DynamicFormService {
         fieldValue = event.group.get(valueId).value;
       } else {
         fieldValue = event.control.value;
+      }
+    } else if (event.model.parent instanceof DynamicSeriesModel) {
+      if (event.model.id.endsWith(SERIES_INPUT_1_SUFFIX)) {
+        const valueId_1 = event.model.id;
+        const valueId_2 = event.model.id.replace(SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX);
+        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
+        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
+        fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
+      } else {
+        const valueId_2 = event.model.id;
+        const valueId_1 = event.model.id.replace(SERIES_INPUT_2_SUFFIX, SERIES_INPUT_1_SUFFIX);
+        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
+        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
+        fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
       }
     } else if (event.$event instanceof AuthorityModel) {
       if (isNotNull(event.$event.id)) {
