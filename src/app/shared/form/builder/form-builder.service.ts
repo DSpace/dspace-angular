@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { isEqual } from 'lodash';
 
 import {
@@ -8,7 +8,7 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormGroupModel,
+  DynamicFormGroupModel, DynamicFormGroupModelConfig,
   DynamicFormService,
   DynamicFormValidationService,
   DynamicPathable,
@@ -36,13 +36,13 @@ import {
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
-import {GLOBAL_CONFIG} from '../../../../config';
-import {GlobalConfig} from '../../../../config/global-config.interface';
-import {DynamicTypeaheadModel} from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
-import {DynamicScrollableDropdownModel} from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import {SubmissionFormsModel} from '../../../core/shared/config/config-submission-forms.model';
-import {AuthorityModel} from '../../../core/integration/models/authority.model';
-import {TagFieldParser} from "./parsers/tag-field-parser";
+import { GLOBAL_CONFIG } from '../../../../config';
+import { GlobalConfig } from '../../../../config/global-config.interface';
+import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import { AuthorityModel } from '../../../core/integration/models/authority.model';
+import { TagFieldParser } from './parsers/tag-field-parser';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
@@ -93,62 +93,74 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   modelFromConfiguration(json: string | SubmissionFormsModel, initFormValues: any): DynamicFormControlModel[] | never {
+    const rows: DynamicFormControlModel[] = [];
+    const rawData = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
 
-    const raw = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
-    const group: DynamicFormControlModel[] = [];
+    if (rawData.rows && !isEmpty(rawData.rows)) {
+      const config: DynamicFormGroupModelConfig = {
+        group: [],
+      };
 
-    raw.fields.forEach((fieldData: any) => {
-      switch (fieldData.input.type) {
-        case 'date':
-          group.push(new DateFieldParser(fieldData, initFormValues).parse());
-          break;
+      rawData.rows.forEach((currentRow) => {
+        currentRow.fields.forEach((fieldData: any) => {
 
-        case 'dropdown':
-          group.push(new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
-          break;
+          switch (fieldData.input.type) {
+            case 'date':
+              config.group.push(new DateFieldParser(fieldData, initFormValues).parse());
+              break;
 
-        case 'lookup':
-          // group.push(new LookupFieldParser(fieldData).parse());
-          break;
+            case 'dropdown':
+              config.group.push(new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
+              break;
 
-        case 'onebox':
-          group.push(new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-          break;
+            case 'lookup':
+              // group.push(new LookupFieldParser(fieldData).parse());
+              break;
 
-        case 'list':
-          group.push(new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
-          break;
+            case 'onebox':
+              config.group.push(new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              break;
 
-        case 'lookup-name':
-          // group.push(new NameFieldParser(fieldData).parse());
-          break;
+            case 'list':
+              config.group.push(new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
+              break;
 
-        case 'name':
-          // group.push(new NameFieldParser(fieldData).parse());
-          break;
+            case 'lookup-name':
+              // group.push(new NameFieldParser(fieldData).parse());
+              break;
 
-        case 'series':
-          // group.push(new SeriesFieldParser(fieldData).parse());
-          break;
+            case 'name':
+              // group.push(new NameFieldParser(fieldData).parse());
+              break;
 
-        case 'tag':
-           group.push(new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-          break;
+            case 'series':
+              // group.push(new SeriesFieldParser(fieldData).parse());
+              break;
 
-        case 'textarea':
-          group.push(new TextareaFieldParser(fieldData, initFormValues).parse());
-          break;
+            case 'tag':
+              config.group.push(new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              break;
 
-        case 'twobox':
-          // group.push(new TwoboxFieldParser(fieldData).parse());
-          break;
+            case 'textarea':
+              config.group.push(new TextareaFieldParser(fieldData, initFormValues).parse());
+              break;
 
-        default:
-          throw new Error(`unknown form control model type defined on JSON object with label "${fieldData.label}"`);
-      }
-    });
+            case 'twobox':
+              // group.push(new TwoboxFieldParser(fieldData).parse());
+              break;
 
-    return group;
+            default:
+              throw new Error(`unknown form control model type defined on JSON object with label "${fieldData.label}"`);
+          }
+
+          rows.push(new DynamicFormGroupModel(config));
+        });
+      });
+    }
+
+    console.log('\n\n\n\n\n\n\n\n\nROWS', rows);
+
+    return rows;
   }
 
   hasAuthorityValue(fieldModel) {
