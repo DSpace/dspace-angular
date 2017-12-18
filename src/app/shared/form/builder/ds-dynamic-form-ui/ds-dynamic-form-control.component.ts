@@ -1,38 +1,38 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    EventEmitter,
-    Input,
-    OnChanges,
-    Output,
-    QueryList,
-    SimpleChanges
+  ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  QueryList,
+  SimpleChanges
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-    DynamicFormValidationService,
-    DynamicFormControlComponent,
-    DynamicFormControlModel,
-    DynamicFormArrayGroupModel,
-    DynamicFormControlEvent,
-    DynamicTemplateDirective,
-    DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-    DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
-    DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
-    DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
-    DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-    DYNAMIC_FORM_CONTROL_TYPE_INPUT,
-    DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
-    DYNAMIC_FORM_CONTROL_TYPE_SELECT,
-    DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
-    DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-    DynamicDatePickerModel
+  DynamicFormValidationService,
+  DynamicFormControlComponent,
+  DynamicFormControlModel,
+  DynamicFormArrayGroupModel,
+  DynamicFormControlEvent,
+  DynamicTemplateDirective,
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
+  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
+  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_INPUT,
+  DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_SELECT,
+  DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
+  DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
+  DynamicDatePickerModel
 } from '@ng-dynamic-forms/core';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import {DYNAMIC_FORM_CONTROL_TYPE_TAG} from "./models/tag/dynamic-tag.model";
+import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 
 export const enum NGBootstrapFormControlType {
 
@@ -53,9 +53,9 @@ export const enum NGBootstrapFormControlType {
 }
 
 @Component({
-    selector: 'ds-dynamic-form-control',
-    styleUrls: ['../../form.component.scss'],
-    templateUrl: './ds-dynamic-form-control.component.html'
+  selector: 'ds-dynamic-form-control',
+  styleUrls: [ '../../form.component.scss' ],
+  templateUrl: './ds-dynamic-form-control.component.html'
 })
 export class DsDynamicFormControlComponent extends DynamicFormControlComponent implements OnChanges {
 
@@ -122,7 +122,7 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
         return NGBootstrapFormControlType.TypeTag;
 
       default:
-          return null;
+        return null;
     }
   }
 

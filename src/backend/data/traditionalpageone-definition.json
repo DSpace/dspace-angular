@@ -25,7 +25,7 @@
             {
               "fields": [
                 {
-                  "label": null,
+                  "label": "Author",
                   "repeatable": false,
                   "mandatory": true,
                   "mandatoryMessage": "The name of the author is mandatory",

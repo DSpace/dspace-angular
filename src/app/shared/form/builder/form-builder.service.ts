@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { isEqual } from 'lodash';
+import { isEqual, uniqueId } from 'lodash';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -46,6 +46,8 @@ import { TagFieldParser } from './parsers/tag-field-parser';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
+import { FormFieldModel } from './models/form-field.model';
+import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -92,25 +94,27 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(json: string | SubmissionFormsModel, initFormValues: any): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | SubmissionFormsModel, initFormValues: any, isGroup: boolean = false): DynamicFormControlModel[] | never {
     const rows: DynamicFormControlModel[] = [];
     const rawData = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
-      const config: DynamicFormGroupModelConfig = {
-        group: [],
-      };
-
       rawData.rows.forEach((currentRow) => {
-        currentRow.fields.forEach((fieldData: any) => {
+        let fieldModel: any = null;
+        const config: DynamicFormGroupModelConfig = {
+          id: uniqueId('df-row-group-config-'),
+          group: [],
+        };
+
+        currentRow.fields.forEach((fieldData) => {
 
           switch (fieldData.input.type) {
             case 'date':
-              config.group.push(new DateFieldParser(fieldData, initFormValues).parse());
+              fieldModel = (new DateFieldParser(fieldData, initFormValues).parse());
               break;
 
             case 'dropdown':
-              config.group.push(new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
+              fieldModel = (new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
               break;
 
             case 'lookup':
@@ -118,11 +122,11 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
             case 'onebox':
-              config.group.push(new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
               break;
 
             case 'list':
-              config.group.push(new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
+              fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
               break;
 
             case 'lookup-name':
@@ -138,11 +142,15 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
             case 'tag':
-              config.group.push(new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              fieldModel = (new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
               break;
 
             case 'textarea':
-              config.group.push(new TextareaFieldParser(fieldData, initFormValues).parse());
+              fieldModel = (new TextareaFieldParser(fieldData, initFormValues).parse());
+              break;
+
+            case 'group':
+              fieldModel = this.modelFromConfiguration(fieldData, initFormValues, true);
               break;
 
             case 'twobox':
@@ -153,12 +161,26 @@ export class FormBuilderService extends DynamicFormService {
               throw new Error(`unknown form control model type defined on JSON object with label "${fieldData.label}"`);
           }
 
-          rows.push(new DynamicFormGroupModel(config));
+          if (fieldModel) {
+            if (fieldModel instanceof DynamicFormArrayModel) {
+              rows.push(fieldModel);
+            } else {
+              if (fieldModel instanceof Array) {
+                fieldModel.forEach((model) => {
+                  rows.push(model);
+                })
+              } else {
+                config.group.push(fieldModel);
+              }
+            }
+          }
         });
+
+        if (config && !isEmpty(config.group)) {
+          rows.push(isGroup ? new DynamicRelationGroupModel(config) : new DynamicFormGroupModel(config));
+        }
       });
     }
-
-    console.log('\n\n\n\n\n\n\n\n\nROWS', rows);
 
     return rows;
   }
