@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 
-const __FLAG = false;
-
 @Component({
   selector: 'ds-submission-submit-form-footer',
   styleUrls: [ './submission-submit-form-footer.component.scss' ],
