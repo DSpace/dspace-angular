@@ -99,7 +99,11 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Title",
           "mandatory": true,
@@ -127,7 +131,11 @@
           "input": {
             "type": "onebox"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Other Titles",
           "mandatory": false,
@@ -145,7 +153,11 @@
           "input": {
             "type": "onebox"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Date of Issue",
           "mandatory": true,
@@ -164,7 +176,11 @@
           "input": {
             "type": "date"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Publisher",
           "mandatory": false,
@@ -182,7 +198,11 @@
           "input": {
             "type": "lookup"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Citation",
           "mandatory": false,
@@ -200,7 +220,11 @@
           "input": {
             "type": "onebox"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Series/Report No.",
           "mandatory": false,
@@ -218,7 +242,11 @@
           "input": {
             "type": "series"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Identifiers",
           "mandatory": false,
@@ -266,7 +294,11 @@
           "input": {
             "type": "onebox"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Type",
           "mandatory": false,
@@ -284,7 +316,11 @@
           "input": {
             "type": "dropdown"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Classification Subject",
           "mandatory": false,
@@ -301,7 +337,11 @@
           "input": {
             "type": "list"
           }
-        },
+        }
+      ]
+    },
+    {
+      "fields": [
         {
           "label": "Language",
           "mandatory": false,

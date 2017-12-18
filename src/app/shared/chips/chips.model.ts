@@ -17,18 +17,13 @@ export class Chips {
     let chipsItem: ChipsItem;
     if (item && item[this.displayField]) {
       const textToDisplay = item[this.displayField].length > 20 ? item[this.displayField].substr(0,17).concat('...') : item[this.displayField];
-      console.log(item);
-      // REMOVE, ONLY FOR TEST
-      let itemWithIcons = Object.assign({}, item);
-      itemWithIcons['icons'] = ['fa fa-comments', 'fa fa-cutlery'];
 
       chipsItem = {
         order: this.chipsItems.length,
         display: textToDisplay,
-        item: itemWithIcons};
+        item: item};
     } else {
       const textToDisplay = item.length > 20 ? item.substr(0,17).concat('...') : item;
-      // let itemInternal = Object.create({}).addAttribute(this.displayField, item);
       let itemInternal = {};
       itemInternal[this.displayField] = item;
       chipsItem = {order: this.chipsItems.length, display: textToDisplay, item: itemInternal};
