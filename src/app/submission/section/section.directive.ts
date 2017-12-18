@@ -36,14 +36,16 @@ export class SectionDirective implements OnDestroy, OnInit {
     this.subs.push(this.sectionService.isSectionValid(this.submissionId, this.sectionId)
     // Avoid 'ExpressionChangedAfterItHasBeenCheckedError' using debounceTime
       .debounceTime(1)
-      .subscribe((valid) => {
+      .subscribe((valid: boolean) => {
         this.valid = valid;
+        if (valid) {
+          this.sectionErrors = [];
+        }
         this.changeDetectorRef.detectChanges();
       }));
 
     this.subs.push(
       this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionId))
-      // .filter((state: SubmissionSectionObject) => !!state && isNotEmpty(state.errors))
         .map((state: SubmissionSectionObject) => state.errors)
         .distinctUntilChanged()
         .subscribe((errors: SubmissionError[]) => {
@@ -56,8 +58,8 @@ export class SectionDirective implements OnDestroy, OnInit {
                   this.sectionErrors = uniq(this.sectionErrors.concat(errorItem.messageKey));
 
                   // because it has been shown, remove the error from the state
-                  // const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionId, errorItem);
-                  // this.store.dispatch(removeAction);
+                  const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionId, errorItem);
+                  this.store.dispatch(removeAction);
                 }
               });
             } else {

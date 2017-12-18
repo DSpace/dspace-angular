@@ -126,7 +126,7 @@ export class FormComponent implements OnDestroy, OnInit {
         .filter((formState: FormEntry) => !!formState && !isEmpty(formState.errors))
         .map((formState) => formState.errors)
         .distinctUntilChanged()
-        .delay(120) // this terrible delay is here to prevent the detection change error
+        .delay(100) // this terrible delay is here to prevent the detection change error
         .subscribe((errors: FormError[]) => {
           const { formGroup, formModel } = this;
 
@@ -187,6 +187,9 @@ export class FormComponent implements OnDestroy, OnInit {
 
     this.change.emit(event);
 
+    const control: FormControl = event.control;
+
+    control.setErrors(null);
   }
 
   /**
