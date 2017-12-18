@@ -32,6 +32,7 @@ import {
 
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import {DYNAMIC_FORM_CONTROL_TYPE_TAG} from "./models/tag/dynamic-tag.model";
 
 export const enum NGBootstrapFormControlType {
 
@@ -47,7 +48,8 @@ export const enum NGBootstrapFormControlType {
   TextArea = 10, // 'TEXTAREA',
   TimePicker = 11, // 'TIMEPICKER'
   TypeAhead = 12, // 'TYPEAHEAD'
-  ScrollableDropdown = 13 // 'SCROLLABLE_DROPDOWN'
+  ScrollableDropdown = 13, // 'SCROLLABLE_DROPDOWN'
+  TypeTag = 14 // 'TYPETAG'
 }
 
 @Component({
@@ -115,6 +117,10 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
 
       case DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN:
         return NGBootstrapFormControlType.ScrollableDropdown;
+
+      case DYNAMIC_FORM_CONTROL_TYPE_TAG:
+        return NGBootstrapFormControlType.TypeTag;
+
       default:
           return null;
     }

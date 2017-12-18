@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import { isEqual } from 'lodash';
 
 import {
@@ -36,12 +36,13 @@ import {
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
-import { GLOBAL_CONFIG } from '../../../../config';
-import { GlobalConfig } from '../../../../config/global-config.interface';
-import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
-import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import { AuthorityModel } from '../../../core/integration/models/authority.model';
+import {GLOBAL_CONFIG} from '../../../../config';
+import {GlobalConfig} from '../../../../config/global-config.interface';
+import {DynamicTypeaheadModel} from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import {DynamicScrollableDropdownModel} from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import {SubmissionFormsModel} from '../../../core/shared/config/config-submission-forms.model';
+import {AuthorityModel} from '../../../core/integration/models/authority.model';
+import {TagFieldParser} from "./parsers/tag-field-parser";
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
@@ -131,7 +132,7 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'tag':
-          // group.push(new TextareaFieldParser(fieldData).parse());
+           group.push(new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
           break;
 
         case 'textarea':

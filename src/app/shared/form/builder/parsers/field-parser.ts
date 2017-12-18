@@ -15,7 +15,7 @@ export abstract class FieldParser {
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject): any;
 
   public parse() {
-    if (this.configData.repeatable && this.configData.input.type !== 'list') {
+    if (this.configData.repeatable && this.configData.input.type !== 'list' && this.configData.input.type !== 'tag') {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
       return new DynamicFormArrayModel(

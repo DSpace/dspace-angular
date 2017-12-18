@@ -1,0 +1,19 @@
+<div class="chips-box">
+  <div id="chips-container">
+
+  <span *ngFor="let c of chips.chipsItems; let i = index" class="chips">
+    <ng-container *ngIf="c.item.icons && c.item.icons.length > 0">
+      <i *ngFor="let icon of c.item.icons"
+         class="fa {{icon}}"
+         aria-hidden="true" ></i>
+    </ng-container>
+
+    <span class="chips-item" (click)="chipsSelected(i)">
+      {{c.display}}
+    </span>
+    <span class="fa fa-times" (click)="removeChips(i)"></span>
+  </span>
+  </div>
+
+
+</div>
