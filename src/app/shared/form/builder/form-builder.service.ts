@@ -48,11 +48,11 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
 import { FormFieldModel } from './models/form-field.model';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
-import {SeriesFieldParser} from "./parsers/series-field-parser";
+import { SeriesFieldParser } from './parsers/series-field-parser';
 import {
   DynamicSeriesModel, SERIES_GROUP_SUFFIX,
   SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
-} from "./ds-dynamic-form-ui/models/ds-dynamic-series.model";
+} from './ds-dynamic-form-ui/models/ds-dynamic-series.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -141,12 +141,9 @@ export class FormBuilderService extends DynamicFormService {
             case 'name':
               // group.push(new NameFieldParser(fieldData).parse());
               break;
-        case 'series':
-          group.push(new SeriesFieldParser(fieldData, initFormValues).parse());
-          break;
 
             case 'series':
-              // group.push(new SeriesFieldParser(fieldData).parse());
+              fieldModel = (new SeriesFieldParser(fieldData, initFormValues).parse());
               break;
 
             case 'tag':
@@ -259,17 +256,17 @@ export class FormBuilderService extends DynamicFormService {
       }
     } else if (event.model.parent instanceof DynamicSeriesModel) {
       if (event.model.id.endsWith(SERIES_INPUT_1_SUFFIX)) {
-        const valueId_1 = event.model.id;
-        const valueId_2 = event.model.id.replace(SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX);
-        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
-        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
-        fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
+        const firstValueId = event.model.id;
+        const secondValueId = event.model.id.replace(SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX);
+        const value1 = event.group.get(firstValueId).value === null ? '' : event.group.get(firstValueId).value;
+        const value2 = event.group.get(secondValueId).value === null ? '' : event.group.get(secondValueId).value;
+        fieldValue = value1 + ';' + value2;
       } else {
-        const valueId_2 = event.model.id;
-        const valueId_1 = event.model.id.replace(SERIES_INPUT_2_SUFFIX, SERIES_INPUT_1_SUFFIX);
-        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
-        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
-        fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
+        const secondValueId = event.model.id;
+        const firstValueId = event.model.id.replace(SERIES_INPUT_2_SUFFIX, SERIES_INPUT_1_SUFFIX);
+        const value1 = event.group.get(firstValueId).value === null ? '' : event.group.get(firstValueId).value;
+        const value2 = event.group.get(secondValueId).value === null ? '' : event.group.get(secondValueId).value;
+        fieldValue = value1 + ';' + value2;
       }
     } else if (event.$event instanceof AuthorityModel) {
       if (isNotNull(event.$event.id)) {
