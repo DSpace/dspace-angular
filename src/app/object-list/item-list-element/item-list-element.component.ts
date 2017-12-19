@@ -11,4 +11,6 @@ import { listElementFor } from '../list-element-decorator';
 })
 
 @listElementFor(Item)
-export class ItemListElementComponent extends ObjectListElementComponent<Item> {}
+export class ItemListElementComponent extends ObjectListElementComponent<Item> {
+  private lines = 3;
+}

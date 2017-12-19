@@ -1,4 +1,7 @@
-import { Directive, ElementRef, Inject, Input, OnDestroy } from '@angular/core';
+import {
+  Directive, ElementRef, Inject, Input, OnChanges, OnDestroy,
+  OnInit
+} from '@angular/core';
 import { default as shave } from 'shave';
 import { NativeWindowRef, NativeWindowService } from '../window.service';
 import { Observable } from 'rxjs/Observable';
@@ -6,12 +9,33 @@ import { Observable } from 'rxjs/Observable';
 @Directive({
   selector: '[dsShave]'
 })
-export class ShaveDirective implements OnDestroy {
+export class ShaveDirective implements OnDestroy, OnChanges {
+
   @Input() shave: IShaveOptions = {};
-  @Input() shaveHeight: 100;
+
+  @Input()
+  set shaveHeight(value) {
+    if (value > 0) {
+      console.log(value);
+      this._shaveHeight = value;
+    }
+  };
+
+  get shaveHeight() {
+    return this._shaveHeight;
+  }
+
+  private _shaveHeight = 72;
   private sub;
 
   constructor(private ele: ElementRef, @Inject(NativeWindowService) private _window: NativeWindowRef) {
+  }
+
+  ngOnChanges(): void {
+    console.log("onchange");
+    if (this.shaveHeight > 0) {
+      this.runShave();
+    }
     this.subscribeForResizeEvent();
   }
 
