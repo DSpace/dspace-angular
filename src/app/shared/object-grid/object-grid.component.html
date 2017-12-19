@@ -1,14 +1,14 @@
 <ds-pagination
   [paginationOptions]="config"
   [pageInfoState]="pageInfo"
-  [collectionSize]="(pageInfo | async)?.totalElements"
+  [collectionSize]="pageInfo?.totalElements"
   [sortOptions]="sortConfig"
   [hideGear]="hideGear"
   [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
   (pageChange)="onPageChange($event)"
   (pageSizeChange)="onPageSizeChange($event)"
   (sortDirectionChange)="onSortDirectionChange($event)"
-  (sortFieldChange)="onSortDirectionChange($event)"
+  (sortFieldChange)="onSortFieldChange($event)"
   (paginationChange)="onPaginationChange($event)">
     <div class="row mt-2" *ngIf="objects?.hasSucceeded" @fadeIn>
         <div class="col-lg-4 col-sm-6 col-xs-12 "

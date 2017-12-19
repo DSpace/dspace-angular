@@ -77,10 +77,15 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           let pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
 
           if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
-            pageSize = 12;
             pageSizeOptions = [12, 24, 36, 48 , 50, 62, 74, 84];
-            // pageSize = 9;
-            // pageSizeOptions = [9, 18, 27, 36 , 45, 54, 63, 72];
+            if (pageSizeOptions.indexOf(pageSize) === -1) {
+              pageSize = 12;
+            }
+          }
+          if (isNotEmpty(params.view) && params.view === ViewMode.List) {
+            if (pageSizeOptions.indexOf(pageSize) === -1) {
+              pageSize = 10;
+            }
           }
 
           const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
