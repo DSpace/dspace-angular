@@ -24,6 +24,7 @@ export const SubmissionObjectActionTypes = {
   ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
+  UPLOAD_SECTION_DATA: type('dspace/submission/UPLOAD_SECTION_DATA'),
   NEW_PATCH_OPERATION: type('dspace/submission/NEW_PATCH_OPERATION'),
   FLUSH_PATCH_OPERATIONS: type('dspace/submission/FLUSH_PATCH_OPERATIONS'),
 
@@ -37,7 +38,6 @@ export const SubmissionObjectActionTypes = {
   DELETE_ERRORS: type('dspace/submission/DELETE_ERRORS'),
   CLEAR_ERRORS: type('dspace/submission/CLEAR_ERRORS'),
 };
-
 
 /* tslint:disable:max-classes-per-file */
 
@@ -139,6 +139,31 @@ export class DisableSectionAction implements Action {
    */
   constructor(submissionId: string, sectionId: string) {
     this.payload = { submissionId, sectionId };
+  }
+}
+
+export class UpdateSectionDataAction implements Action {
+  type = SubmissionObjectActionTypes.UPLOAD_SECTION_DATA;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+    data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadFileObject | WorkspaceitemSectionLicenseObject
+  };
+
+  /**
+   * Create a new EnableSectionAction
+   *
+   * @param submissionId
+   *    the submission's ID to remove
+   * @param sectionId
+   *    the section's ID to add
+   * @param sectionViewIndex
+   *    the section's index in the view container
+   */
+  constructor(submissionId: string,
+              sectionId: string,
+              data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadFileObject | WorkspaceitemSectionLicenseObject) {
+    this.payload = { submissionId, sectionId, data };
   }
 }
 
@@ -343,4 +368,5 @@ export type SubmissionObjectAction = DisableSectionAction
   | DeleteUploadedFileAction
   | InertSectionErrorsAction
   | DeleteSectionErrorsAction
-  | ClearSectionErrorsAction;
+  | ClearSectionErrorsAction
+  | UpdateSectionDataAction;

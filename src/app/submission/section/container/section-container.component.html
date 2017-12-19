@@ -28,7 +28,7 @@
       </ng-template>
       <ng-template ngbPanelContent>
 
-        <div
+        <div *ngIf="sectionRef.hasErrors()"
           [ngClass]="{ 'alert alert-danger alert-dismissible fade': true,'show': sectionRef.hasErrors(), 'hide': !sectionRef.hasErrors() }"
           role="alert">
           <span *ngFor="let error of sectionRef.getErrors()">

@@ -9,7 +9,7 @@ import {
   LoadSubmissionFormAction, SectionStatusChangeAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes, ClearSectionErrorsAction, InertSectionErrorsAction,
-  DeleteSectionErrorsAction, ResetSubmissionFormAction
+  DeleteSectionErrorsAction, ResetSubmissionFormAction, UpdateSectionDataAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
 import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
@@ -99,6 +99,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.ENABLE_SECTION: {
       return enableSection(state, action as EnableSectionAction);
+    }
+
+    case SubmissionObjectActionTypes.UPLOAD_SECTION_DATA: {
+      return updateSectionData(state, action as UpdateSectionDataAction);
     }
 
     case SubmissionObjectActionTypes.DISABLE_SECTION: {
@@ -270,6 +274,34 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
             sectionViewIndex: action.payload.sectionViewIndex,
             isValid: false,
             errors: [],
+            data: action.payload.data,
+          }
+        }),
+        isLoading: state[ action.payload.submissionId ].isLoading,
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Update section's data.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an UpdateSectionDataAction
+ * @return SubmissionObjectState
+ *    the new state, with the section's data updated.
+ */
+function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDataAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ]
+      && hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId]))) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ action.payload.sectionId ]: {
             data: action.payload.data,
           }
         }),

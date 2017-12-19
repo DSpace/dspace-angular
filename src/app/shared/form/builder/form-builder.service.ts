@@ -67,7 +67,7 @@ export class FormBuilderService extends DynamicFormService {
     super(formBuilder, validationService);
   }
 
-  findById(id: string, groupModel: DynamicFormControlModel[], fieldIndex = null): DynamicFormControlModel | null {
+  findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
 
     let result = null;
     const findByIdFn = (findId: string, findGroupModel: DynamicFormControlModel[]): void => {
@@ -75,8 +75,8 @@ export class FormBuilderService extends DynamicFormService {
       for (const controlModel of findGroupModel) {
 
         if (controlModel.id === findId) {
-          if (controlModel instanceof DynamicFormArrayModel && isNotNull(fieldIndex)) {
-            result = controlModel.get(fieldIndex)
+          if (controlModel instanceof DynamicFormArrayModel && isNotNull(arrayIndex)) {
+            result = controlModel.get(arrayIndex)
           } else {
             result = controlModel;
           }
@@ -87,9 +87,9 @@ export class FormBuilderService extends DynamicFormService {
           findByIdFn(findId, (controlModel as DynamicFormGroupModel).group);
         }
 
-        if (controlModel instanceof DynamicFormArrayModel) {
-          fieldIndex = isNull(fieldIndex) ? 0 : fieldIndex;
-          findByIdFn(findId, controlModel.get(fieldIndex).group);
+        if (controlModel instanceof DynamicFormArrayModel && (isNull(arrayIndex) || controlModel.size > (arrayIndex))) {
+          arrayIndex = (isNull(arrayIndex)) ? 0 : arrayIndex;
+          findByIdFn(findId, controlModel.get(arrayIndex).group);
         }
       }
     };
@@ -111,6 +111,8 @@ export class FormBuilderService extends DynamicFormService {
           group: [],
         };
 
+        const clsGridClass = ' col-sm-' + Math.trunc(12 / currentRow.fields.length);
+
         currentRow.fields.forEach((fieldData) => {
 
           switch (fieldData.input.type) {
@@ -123,7 +125,7 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
             case 'lookup':
-              // group.push(new LookupFieldParser(fieldData).parse());
+              fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
               break;
 
             case 'onebox':
@@ -175,14 +177,21 @@ export class FormBuilderService extends DynamicFormService {
                   rows.push(model);
                 })
               } else {
+                fieldModel.cls.grid.host = (fieldModel.cls.grid.host) ? fieldModel.cls.grid.host + clsGridClass : clsGridClass;
                 config.group.push(fieldModel);
               }
             }
+            fieldModel = null;
           }
         });
 
         if (config && !isEmpty(config.group)) {
-          rows.push(isGroup ? new DynamicRelationGroupModel(config) : new DynamicFormGroupModel(config));
+          const clsGroup = {
+            element: {
+              control: 'form-row',
+            }
+          };
+          rows.push(isGroup ? new DynamicRelationGroupModel(config) : new DynamicFormGroupModel(config, clsGroup));
         }
       });
     }

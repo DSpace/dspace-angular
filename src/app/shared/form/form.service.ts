@@ -80,7 +80,7 @@ export class FormService {
         model.errorMessages = {};
       }
 
-      // put the error in the for control model
+      // put the error in the form control model
       model.errorMessages[ errorKey ] = message;
 
       // add the error in the form control
