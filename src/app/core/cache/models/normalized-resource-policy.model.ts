@@ -8,20 +8,38 @@ import { ResourcePolicy } from '../../shared/resource-policy.model';
 export class NormalizedResourcePolicy extends NormalizedDSpaceObject {
 
   /**
-   * The identifier of the access condition
+   * The action of the resource policy
+   */
+  @autoserialize
+  action: string;
+
+  /**
+   * The identifier of the resource policy
    */
   @autoserialize
   id: string;
 
   /**
-   * The group uuid bound to the access condition
+   * The group uuid bound to the resource policy
    */
   @autoserialize
   groupUUID: string;
 
   /**
-   * The end date of the access condition
+   * The end date of the resource policy
    */
   @autoserialize
   endDate: string;
+
+  /**
+   * The start date of the resource policy
+   */
+  @autoserialize
+  startDate: string;
+
+  /**
+   * The type of the resource policy
+   */
+  @autoserialize
+  rpType: string
 }

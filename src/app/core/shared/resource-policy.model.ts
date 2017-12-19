@@ -3,17 +3,32 @@ import { DSpaceObject } from './dspace-object.model';
 export class ResourcePolicy extends DSpaceObject {
 
   /**
-   * The identifier of the access condition
+   * The action of the resource policy
    */
-  id: any;
+  action: string;
 
   /**
-   * The group uuid bound to the access condition
+   * The identifier of the resource policy
+   */
+  id: string;
+
+  /**
+   * The group uuid bound to the resource policy
    */
   groupUUID: string;
 
   /**
-   * The end date of the access condition
+   * The end date of the resource policy
    */
   endDate: string;
+
+  /**
+   * The start date of the resource policy
+   */
+  startDate: string;
+
+  /**
+   * The type of the resource policy
+   */
+  rpType: string
 }
