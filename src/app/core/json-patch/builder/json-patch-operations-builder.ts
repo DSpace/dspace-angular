@@ -7,6 +7,7 @@ import {
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
 import { Injectable } from '@angular/core';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { dateToGMTString } from '../../../shared/date.util';
 
 @Injectable()
 export class JsonPatchOperationsBuilder {
@@ -14,7 +15,7 @@ export class JsonPatchOperationsBuilder {
   constructor(private store: Store<CoreState>) {
   }
 
-  add(path: JsonPatchOperationPathObject, value, plain = false, first = false) {
+  add(path: JsonPatchOperationPathObject, value, first = false, plain = false) {
     this.store.dispatch(
       new NewPatchAddOperationAction(
         path.rootElement,
@@ -54,6 +55,8 @@ export class JsonPatchOperationsBuilder {
               operationValue.push({value: entry});
             }
           })
+        } else if (value instanceof Date) {
+          operationValue = dateToGMTString(value);
         } else if ((typeof value === 'object') && value.hasOwnProperty('value')) {
           operationValue = value;
         } else {

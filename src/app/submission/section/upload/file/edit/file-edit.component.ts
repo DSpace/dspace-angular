@@ -134,11 +134,19 @@ export class UploadSectionFileEditComponent implements OnChanges {
   public initModelData(formModel: DynamicFormControlModel[]) {
     console.log(formModel);
     this.fileData.accessConditions.forEach((accessCondition, index) => {
-      Array.of('name', 'groupUUID', 'maxStartDate', 'maxEndDate')
+      Array.of('name', 'groupUUID', 'startDate', 'endDate')
         .filter((key) => accessCondition.hasOwnProperty(key))
         .forEach((key) => {
           const metadataModel: any = this.formBuilderService.findById(key, formModel, index);
           if (metadataModel) {
+            if (key === 'groupUUID') {
+              this.availableAccessConditionGroups.forEach((group) => {
+                metadataModel.options.push({
+                  label: group.name,
+                  value: group.uuid
+                })
+              });
+            }
             metadataModel.value = accessCondition[key];
           }
         });

@@ -38,7 +38,6 @@ export class SubmissionUploadFilesComponent implements OnChanges {
         .filter((state) => isNotUndefined(state))
         .take(1)
         .subscribe((state) => {
-          console.log(state);
           this.uploadEnabled = true;
       }));
     }

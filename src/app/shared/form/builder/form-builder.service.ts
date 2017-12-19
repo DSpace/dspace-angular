@@ -283,7 +283,7 @@ export class FormBuilderService extends DynamicFormService {
           || this.getArrayIndexFromEvent(event) === 0) {
           this.operationsBuilder.add(
             pathCombiner.getPath(this.getFieldPathSegmentedFromChangeEvent(event)),
-            value, false, true);
+            value, true);
         } else {
           this.operationsBuilder.add(
             pathCombiner.getPath(path),
@@ -321,7 +321,7 @@ export class FormBuilderService extends DynamicFormService {
         const currentValue = currentValueMap.get(index);
         if (currentValue) {
           if (!isEqual(entry, currentValue)) {
-            this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, false, true);
+            this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
           }
           currentValueMap.delete(index);
         } else if (!currentValue) {
@@ -330,7 +330,7 @@ export class FormBuilderService extends DynamicFormService {
       });
     }
     currentValueMap.forEach((entry, index) => {
-      this.operationsBuilder.add(pathCombiner.getPath(index), entry, false, true);
+      this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
     });
 
     previousValue.delete();

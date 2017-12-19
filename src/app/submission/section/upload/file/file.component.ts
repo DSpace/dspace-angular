@@ -14,6 +14,7 @@ import { WorkspaceitemSectionUploadFileObject } from '../../../models/workspacei
 import { SubmissionFormsModel } from '../../../../core/shared/config/config-submission-forms.model';
 import { AccessConditionOption } from '../../../../core/shared/config/config-access-condition-option.model';
 import { deleteProperty } from '../../../../shared/object.util';
+import { dateToGMTString } from '../../../../shared/date.util';
 
 @Component({
   selector: 'ds-submission-upload-section-file',
@@ -64,14 +65,8 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.formId = this.formService.getUniqueId(this.fileId);
     // TODO Use this when server is ok
-    // this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
-    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, this.fileIndex);
-    /*this.formService.getFormData(this.formId)
-      .filter((formState) => isNotUndefined(formState))
-      .subscribe((formState) => {
-        this.formState = formState;
-        console.log(this.formState);
-      })*/
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
+    // this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, this.fileIndex);
   }
 
   protected deleteFile() {
@@ -105,8 +100,9 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
             .forEach((key) => {
               const metadataKey = key.replace(/_/g, '.');
               const path = `metadata/${metadataKey}`;
-              this.operationsBuilder.replace(this.pathCombiner.getPath(path), formData.metadata[key]);
+              this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
             });
+          const accessConditionsToSave = [];
           formData.accessConditions
             .forEach((accessCondition, index) => {
               let accessConditionOpt;
@@ -116,13 +112,22 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
                 const path = `accessConditions/${index}`;
                 if (accessConditionOpt.hasStartDate !== true && accessConditionOpt.hasEndDate !== true) {
                   accessConditionOpt = deleteProperty(accessConditionOpt, 'hasStartDate');
+
                   accessConditionOpt = deleteProperty(accessConditionOpt, 'hasEndDate');
-                  this.operationsBuilder.replace(this.pathCombiner.getPath(path), accessConditionOpt, true);
+                  accessConditionsToSave.push(accessConditionOpt);
                 } else {
-                  this.operationsBuilder.replace(this.pathCombiner.getPath(path), accessCondition, true);
+                  accessConditionOpt = Object.assign({}, accessCondition)
+                  if (accessCondition.startDate) {
+                    accessConditionOpt.startDate = dateToGMTString(accessCondition.startDate);
+                  }
+                  if (accessCondition.endDate) {
+                    accessConditionOpt.endDate = dateToGMTString(accessCondition.endDate);
+                  }
+                  accessConditionsToSave.push(accessConditionOpt);
                 }
               }
             });
+          this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
           this.restService.jsonPatchByResourceID(
             this.submissionId,
             this.pathCombiner.rootElement,
