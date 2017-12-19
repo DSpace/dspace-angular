@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDatepickerModule,
+  NgbModule,
+  NgbTimepickerModule,
+  NgbTypeaheadModule
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -17,6 +22,7 @@ import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
 import { TruncatePipe } from './utils/truncate.pipe';
+import { ConsolePipe } from './utils/console.pipe';
 
 import { CollectionListElementComponent } from '../object-list/collection-list-element/collection-list-element.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
@@ -45,8 +51,8 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { UploadFilesComponent } from './upload-files/upload-files.component';
-import {ChipsComponent} from "./chips/chips.component";
-import {DsDynamicTagComponent} from "./form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component";
+import { ChipsComponent } from './chips/chips.component';
+import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -72,7 +78,8 @@ const PIPES = [
   EnumKeysPipe,
   FileSizePipe,
   SafeUrlPipe,
-  TruncatePipe
+  TruncatePipe,
+  ConsolePipe
 ];
 
 const COMPONENTS = [

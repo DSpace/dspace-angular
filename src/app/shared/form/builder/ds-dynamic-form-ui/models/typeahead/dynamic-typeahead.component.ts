@@ -65,7 +65,7 @@ export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
   constructor(private authorityService: AuthorityService) {}
 
   ngOnChanges() {
-    console.log(this.currentValue);
+    // console.log(this.currentValue);
   }
   ngOnInit() {
     this.currentValue = this.model.value;
