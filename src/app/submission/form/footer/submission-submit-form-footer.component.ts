@@ -14,6 +14,8 @@ import {
   SectionErrorPath
 } from '../../utils/parseSectionErrorPaths';
 import { InertSectionErrorsAction } from '../../objects/submission-objects.actions';
+import { isNotEmpty } from '../../../shared/empty.util';
+import { SectionService } from '../../section/section.service';
 
 @Component({
   selector: 'ds-submission-submit-form-footer',
@@ -30,6 +32,7 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
               private restService: SubmissionRestService,
               private router: Router,
               private formBuilderService: FormBuilderService,
+              private sectionService: SectionService,
               private submissionService: SubmissionService,
               private store: Store<SubmissionState>) {
   }
@@ -47,10 +50,16 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
       .distinctUntilChanged()
       .subscribe((items: NormalizedWorkspaceItem[]) => {
-        const sections = {};
+        const errorsList = {};
 
         // to avoid dispatching an action for every error, create an array of errors per section
         items.forEach((item: NormalizedWorkspaceItem) => {
+          const { sections } = item;
+          if (sections && isNotEmpty(sections)) {
+            Object.keys(sections)
+              .forEach((sectionId) => this.sectionService.updateSectionData(this.submissionId, sectionId, sections[sectionId]))
+          }
+
           const { errors } = item;
 
           if (errors && !isEmpty(errors)) {
@@ -59,19 +68,19 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
 
               paths.forEach((path: SectionErrorPath) => {
                 const sectionError = { path: path.originalPath, message: error.message };
-                if (!sections[ path.sectionId ]) {
-                  sections[ path.sectionId ] = { errors: [] };
+                if (!errorsList[ path.sectionId ]) {
+                  errorsList[ path.sectionId ] = { errors: [] };
                 }
-                sections[ path.sectionId ].errors.push(sectionError);
+                errorsList[ path.sectionId ].errors.push(sectionError);
               });
             });
           }
         });
 
         // and now dispatch an action with an array of errors for every section
-        if (!isEmpty(sections)) {
-          Object.keys(sections).forEach((sectionId) => {
-            const { errors } = sections[ sectionId ];
+        if (!isEmpty(errorsList)) {
+          Object.keys(errorsList).forEach((sectionId) => {
+            const { errors } = errorsList[ sectionId ];
             const action = new InertSectionErrorsAction(this.submissionId, sectionId, errors);
 
             this.store.dispatch(action);

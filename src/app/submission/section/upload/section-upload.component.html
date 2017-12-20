@@ -9,7 +9,7 @@
 <ng-container *ngIf="fileList.length > 0">
 
   <div *ngIf="collectionDefaultAccessConditions.length > 0" class="row">
-    <div class="col-md-12" >
+    <div class="col-sm-12" >
       <div class="alert alert-warning" role="alert" >
         <!-- no def , no banner -->
         <ng-container *ngIf="collectionPolicyType === 1">
@@ -21,7 +21,7 @@
           {{ 'submission.section.upload.header.policy.default.withlist' | translate:{ "collectionName": collectionName } }}
         </ng-container>
         <span class="clearfix"></span>
-        <ds-policies [policies]="collectionDefaultAccessConditions"></ds-policies>
+        <ds-access-conditions [accessConditions]="collectionDefaultAccessConditions"></ds-access-conditions>
       </div>
     </div>
   </div>

@@ -23,7 +23,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { submissionReducers } from './submission.reducers';
 import { submissionEffects } from './submission.effects';
 import { FilesSectionComponent } from './section/upload/section-upload.component';
-import { PoliciesComponent } from './section/upload/policies/policies.component';
 import { SectionUploadService } from './section/upload/section-upload.service';
 import { SubmissionService } from './submission.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
@@ -34,6 +33,7 @@ import { SubmissionEditComponent } from './edit/submission-edit.component';
 import { UploadSectionFileComponent } from './section/upload/file/file.component';
 import { UploadSectionFileEditComponent } from './section/upload/file/edit/file-edit.component';
 import { UploadSectionFileViewComponent } from './section/upload/file/view/file-view.component';
+import { AccessConditionsComponent } from './section/upload/accessConditions/accessConditions.component';
 
 @NgModule({
   imports: [
@@ -46,6 +46,7 @@ import { UploadSectionFileViewComponent } from './section/upload/file/view/file-
     TranslateModule
   ],
   declarations: [
+    AccessConditionsComponent,
     DefaultSectionComponent,
     FilesSectionComponent,
     FormSectionComponent,
@@ -54,7 +55,6 @@ import { UploadSectionFileViewComponent } from './section/upload/file/view/file-
     SectionDirective,
     SectionContainerComponent,
     SectionHostDirective,
-    PoliciesComponent,
     SubmissionEditComponent,
     SubmissionSubmitComponent,
     SubmissionSubmitFormSectionAddComponent,

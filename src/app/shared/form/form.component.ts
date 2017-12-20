@@ -114,11 +114,11 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formValid = this.formGroup.valid;
 
     this.subs.push(this.formGroup.statusChanges
-      .filter((currentStatus) => this.formValid !== currentStatus)
+      .filter((currentStatus) => this.formValid !== this.formGroup.valid)
       .subscribe((currentStatus) => {
         // Dispatch a FormStatusChangeAction if the form status has changed
         this.store.dispatch(new FormStatusChangeAction(this.formId, this.formGroup.valid));
-        this.formValid = currentStatus;
+        this.formValid = this.formGroup.valid;
       }));
 
     this.subs.push(
@@ -212,17 +212,17 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number) {
-    this.formGroup.markAsDirty();
     const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
     this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
+    this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number) {
-    this.formGroup.markAsDirty();
     const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
     this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
     this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
+    this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {

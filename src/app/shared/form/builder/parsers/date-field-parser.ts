@@ -27,13 +27,14 @@ export class DateFieldParser extends FieldParser {
     };
     const datePickerGroup: DynamicFormGroupModel = Object.create(null);
     datePickerGroup.id = inputDateModelConfig.id + '_group';
-    datePickerGroup.group = [new DynamicDatePickerModel(inputDateModelConfig, cls)];
+    datePickerGroup.group = [new DynamicDatePickerModel(inputDateModelConfig)];
     datePickerGroup.group[0].name = this.fieldId;
     cls = {
       element: {
         control: 'form-row'
       }
     };
-    return new DynamicFormGroupModel(datePickerGroup, cls);
+    // return new DynamicFormGroupModel(datePickerGroup);
+    return new DynamicDatePickerModel(inputDateModelConfig);
   }
 }

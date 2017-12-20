@@ -44,7 +44,7 @@ export class FilesSectionComponent extends SectionModelComponent implements OnCh
   /*
    * List of available access conditions that could be setted to files
    */
-  public availableAccessConditionOptions: any[];  // List of policies that an user can select
+  public availableAccessConditionOptions: any[];  // List of accessConditions that an user can select
 
   /*
    * List of Groups available for every access condition

@@ -6,8 +6,11 @@ import { createSelector, Store } from '@ngrx/store';
 import { SectionFactoryComponent } from './section.factory';
 import { submissionSelector, SubmissionState } from '../submission.reducers';
 
-import { hasValue, isNotUndefined, isUndefined } from '../../shared/empty.util';
-import { DisableSectionAction, EnableSectionAction } from '../objects/submission-objects.actions';
+import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
+import {
+  DisableSectionAction, EnableSectionAction,
+  UpdateSectionDataAction
+} from '../objects/submission-objects.actions';
 import { SubmissionObjectEntry, SubmissionSectionObject } from '../objects/submission-objects.reducer';
 import {
   sectionDefinitionFromIdSelector,
@@ -159,5 +162,16 @@ export class SectionService {
             this.viewContainerRef.remove(submission.sections[sectionId].sectionViewIndex);
           });
       });
+  }
+
+  public updateSectionData(submissionId, sectionId, data) {
+    if (isNotEmpty(data)) {
+      this.isSectionLoaded(submissionId, sectionId)
+        .take(1)
+        .filter((loaded) => loaded)
+        .subscribe(() => {
+          this.store.dispatch(new UpdateSectionDataAction(submissionId, sectionId, data));
+        });
+    }
   }
 }

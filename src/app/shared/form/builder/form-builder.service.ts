@@ -1,5 +1,5 @@
-import {Inject, Injectable} from '@angular/core';
-import { isEqual } from 'lodash';
+import { Inject, Injectable } from '@angular/core';
+import { isEqual, uniqueId } from 'lodash';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -8,7 +8,7 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormGroupModel,
+  DynamicFormGroupModel, DynamicFormGroupModelConfig,
   DynamicFormService,
   DynamicFormValidationService,
   DynamicPathable,
@@ -36,22 +36,27 @@ import {
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
-import {GLOBAL_CONFIG} from '../../../../config';
-import {GlobalConfig} from '../../../../config/global-config.interface';
-import {DynamicTypeaheadModel} from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
-import {DynamicScrollableDropdownModel} from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import {SubmissionFormsModel} from '../../../core/shared/config/config-submission-forms.model';
-import {AuthorityModel} from '../../../core/integration/models/authority.model';
-import {TagFieldParser} from "./parsers/tag-field-parser";
+import { GLOBAL_CONFIG } from '../../../../config';
+import { GlobalConfig } from '../../../../config/global-config.interface';
+import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import { AuthorityModel } from '../../../core/integration/models/authority.model';
+import { TagFieldParser } from './parsers/tag-field-parser';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
+import { FormFieldModel } from './models/form-field.model';
+import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
+import { SeriesFieldParser } from './parsers/series-field-parser';
 import {
   DynamicSeriesAndNameModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX, SERIES_GROUP_SUFFIX,
   SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
 } from "./ds-dynamic-form-ui/models/ds-dynamic-series-name.model";
 import {AuthorityService} from "../../../core/integration/authority.service";
 import {SeriesAndNameFieldParser} from "./parsers/series-name-field-parser";
+} from './ds-dynamic-form-ui/models/ds-dynamic-series.model';
+
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -67,7 +72,7 @@ export class FormBuilderService extends DynamicFormService {
     super(formBuilder, validationService);
   }
 
-  findById(id: string, groupModel: DynamicFormControlModel[], fieldIndex = null): DynamicFormControlModel | null {
+  findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
 
     let result = null;
     const findByIdFn = (findId: string, findGroupModel: DynamicFormControlModel[]): void => {
@@ -75,8 +80,8 @@ export class FormBuilderService extends DynamicFormService {
       for (const controlModel of findGroupModel) {
 
         if (controlModel.id === findId) {
-          if (controlModel instanceof DynamicFormArrayModel && isNotNull(fieldIndex)) {
-            result = controlModel.get(fieldIndex)
+          if (controlModel instanceof DynamicFormArrayModel && isNotNull(arrayIndex)) {
+            result = controlModel.get(arrayIndex)
           } else {
             result = controlModel;
           }
@@ -87,9 +92,9 @@ export class FormBuilderService extends DynamicFormService {
           findByIdFn(findId, (controlModel as DynamicFormGroupModel).group);
         }
 
-        if (controlModel instanceof DynamicFormArrayModel) {
-          fieldIndex = isNull(fieldIndex) ? 0 : fieldIndex;
-          findByIdFn(findId, controlModel.get(fieldIndex).group);
+        if (controlModel instanceof DynamicFormArrayModel && (isNull(arrayIndex) || controlModel.size > (arrayIndex))) {
+          arrayIndex = (isNull(arrayIndex)) ? 0 : arrayIndex;
+          findByIdFn(findId, controlModel.get(arrayIndex).group);
         }
       }
     };
@@ -99,35 +104,41 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(json: string | SubmissionFormsModel, initFormValues: any): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | SubmissionFormsModel, initFormValues: any, isGroup: boolean = false): DynamicFormControlModel[] | never {
+    const rows: DynamicFormControlModel[] = [];
+    const rawData = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
 
-    const raw = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
-    const group: DynamicFormControlModel[] = [];
+    if (rawData.rows && !isEmpty(rawData.rows)) {
+      rawData.rows.forEach((currentRow) => {
+        let fieldModel: any = null;
+        const config: DynamicFormGroupModelConfig = {
+          id: uniqueId('df-row-group-config-'),
+          group: [],
+        };
 
-    raw.fields.forEach((fieldData: any) => {
+        const clsGridClass = ' col-sm-' + Math.trunc(12 / currentRow.fields.length);
+
+    currentRow.fields.forEach((fieldData) => {
+
       switch (fieldData.input.type) {
         case 'date':
-          group.push(new DateFieldParser(fieldData, initFormValues).parse());
+          fieldModel = (new DateFieldParser(fieldData, initFormValues).parse());
           break;
 
         case 'dropdown':
-          group.push(new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
-          break;
-
-        case 'lookup':
-          // group.push(new LookupFieldParser(fieldData).parse());
-          break;
-
-        case 'onebox':
-          group.push(new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-          break;
+              fieldModel = (new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              break;
 
         case 'list':
           // group.push(new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig, this.authorityService).parse());
           break;
 
-        case 'lookup-name':
-          // group.push(new NameFieldParser(fieldData).parse());
+        case 'lookup':
+          fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+          break;
+
+        case 'onebox':
+          fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
           break;
 
         case 'name':
@@ -138,12 +149,32 @@ export class FormBuilderService extends DynamicFormService {
           group.push(new SeriesAndNameFieldParser(fieldData, initFormValues, 'series').parse());
           break;
 
+        case 'list':
+          fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+          break;
+
+        case 'lookup-name':
+          // group.push(new NameFieldParser(fieldData).parse());
+          break;
+
+        case 'name':
+          fieldModel = group.push(new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
+          break;
+
+        case 'series':
+          fieldModel = (new SeriesFieldParser(fieldData, initFormValues, 'series').parse());
+          break;
+
         case 'tag':
-           group.push(new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+          fieldModel = (new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
           break;
 
         case 'textarea':
-          group.push(new TextareaFieldParser(fieldData, initFormValues).parse());
+          fieldModel = (new TextareaFieldParser(fieldData, initFormValues).parse());
+          break;
+
+        case 'group':
+          fieldModel = this.modelFromConfiguration(fieldData, initFormValues, true);
           break;
 
         case 'twobox':
@@ -152,10 +183,37 @@ export class FormBuilderService extends DynamicFormService {
 
         default:
           throw new Error(`unknown form control model type defined on JSON object with label "${fieldData.label}"`);
-      }
-    });
+          }
 
-    return group;
+          if (fieldModel) {
+            if (fieldModel instanceof DynamicFormArrayModel) {
+              rows.push(fieldModel);
+            } else {
+              if (fieldModel instanceof Array) {
+                fieldModel.forEach((model) => {
+                  rows.push(model);
+                })
+              } else {
+                fieldModel.cls.grid.host = (fieldModel.cls.grid.host) ? fieldModel.cls.grid.host + clsGridClass : clsGridClass;
+                config.group.push(fieldModel);
+              }
+            }
+            fieldModel = null;
+          }
+        });
+
+        if (config && !isEmpty(config.group)) {
+          const clsGroup = {
+            element: {
+              control: 'form-row',
+            }
+          };
+          rows.push(isGroup ? new DynamicRelationGroupModel(config) : new DynamicFormGroupModel(config, clsGroup));
+        }
+      });
+    }
+
+    return rows;
   }
 
   hasAuthorityValue(fieldModel) {
@@ -316,7 +374,7 @@ export class FormBuilderService extends DynamicFormService {
           || this.getArrayIndexFromEvent(event) === 0) {
           this.operationsBuilder.add(
             pathCombiner.getPath(this.getFieldPathSegmentedFromChangeEvent(event)),
-            value, false, true);
+            value, true);
         } else {
           this.operationsBuilder.add(
             pathCombiner.getPath(path),
@@ -354,7 +412,7 @@ export class FormBuilderService extends DynamicFormService {
         const currentValue = currentValueMap.get(index);
         if (currentValue) {
           if (!isEqual(entry, currentValue)) {
-            this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, false, true);
+            this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
           }
           currentValueMap.delete(index);
         } else if (!currentValue) {
@@ -363,7 +421,7 @@ export class FormBuilderService extends DynamicFormService {
       });
     }
     currentValueMap.forEach((entry, index) => {
-      this.operationsBuilder.add(pathCombiner.getPath(index), entry, false, true);
+      this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
     });
 
     previousValue.delete();

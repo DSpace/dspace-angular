@@ -20,22 +20,20 @@ export class ConfigResponseParsingService extends BaseResponseParsingService imp
   protected objectFactory = ConfigObjectFactory;
   protected toCache = false;
 
-  constructor(
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    protected objectCache: ObjectCacheService,
-  ) { super();
+  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              protected objectCache: ObjectCacheService,) {
+    super();
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && (data.statusCode === '201' || data.statusCode === '200' || data.statusCode === 'OK')) {
-      const configDefinition = this.process<ConfigObject,ConfigType>(data.payload, request.href);
-      return new ConfigSuccessResponse(configDefinition[Object.keys(configDefinition)[0]], data.statusCode, this.processPageInfo(data.payload.page));
+      const configDefinition = this.process<ConfigObject, ConfigType>(data.payload, request.href);
+      return new ConfigSuccessResponse(configDefinition[ Object.keys(configDefinition)[ 0 ] ], data.statusCode, this.processPageInfo(data.payload.page));
     } else {
-      console.log(request, data);
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from config endpoint'),
-          {statusText: data.statusCode}
+          { statusText: data.statusCode }
         )
       );
     }
