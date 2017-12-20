@@ -248,6 +248,13 @@
         </ng-container>
       </ng-container>
 
+      <ng-container *ngSwitchCase="15">
+        <ng-container *ngTemplateOutlet="listTemplate;
+                                                   context:{bindId: bindId, model: model, showErrorMessages: showErrorMessages}">
+
+        </ng-container>
+      </ng-container>
+
 
       <small *ngIf="hasHint" class="text-muted" [innerHTML]="model.hint"
              [ngClass]="model.cls.element.hint"></small>
@@ -347,6 +354,17 @@
                       (blur)="onBlurEvent($event)"
                       (change)="onValueChange($event)"
                       (focus)="onFocusEvent($event)"></ds-dynamic-tag>
+    </ng-template>
+
+    <ng-template #listTemplate let-bindId="bindId" let-model="model"
+                 let-showErrorMessages="showErrorMessages">
+      <ds-dynamic-list [bindId]="bindId"
+                      [group]="group"
+                      [model]="model"
+                      [showErrorMessages]="showErrorMessages"
+                      (blur)="onBlurEvent($event)"
+                      (change)="onValueChange($event)"
+                      (focus)="onFocusEvent($event)"></ds-dynamic-list>
     </ng-template>
 
   </div>

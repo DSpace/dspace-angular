@@ -11,6 +11,8 @@ export interface DynamicListModelConfig extends DynamicInputModelConfig {
   authorityMetadata: string;
   authorityName: string;
   authorityScope: string;
+  repeteable: boolean;
+  value: any;
 }
 
 export class DynamicListModel extends DynamicInputModel {
@@ -18,6 +20,7 @@ export class DynamicListModel extends DynamicInputModel {
   @serializable() authorityMetadata: string;
   @serializable() authorityName: string;
   @serializable() authorityScope: string;
+  @serializable() repeteable: boolean;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_LIST;
 
   constructor(config: DynamicListModelConfig, cls?: ClsConfig) {
@@ -26,6 +29,7 @@ export class DynamicListModel extends DynamicInputModel {
     this.authorityMetadata = config.authorityMetadata;
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
+    this.repeteable = config.repeteable;
   }
 
 }
