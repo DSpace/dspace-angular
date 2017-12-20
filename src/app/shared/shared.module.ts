@@ -53,6 +53,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { UploadFilesComponent } from './upload-files/upload-files.component';
 import { ChipsComponent } from './chips/chips.component';
 import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
+import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models/list/dynamic-list.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -90,6 +91,7 @@ const COMPONENTS = [
   ComcolPageLogoComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlComponent,
+  DsDynamicListComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
   DsDynamicTypeaheadComponent,

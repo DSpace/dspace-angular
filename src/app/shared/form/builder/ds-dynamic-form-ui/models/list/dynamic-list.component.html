@@ -1,0 +1,45 @@
+<div *ngIf="model.repeatable"
+     [dynamicId]="bindId && model.id"
+     [ngClass]="model.cls.element.control">
+
+  <div *ngFor="let item of items" class="ml-4 form-check"
+       [class.disabled]="model.disabled">
+    <label class="form-check-label"
+           [ngClass]="model.cls.element.control">
+
+      <input type="checkbox" class="form-check-input"
+             [attr.tabindex]="items.indexOf(item)"
+             [checked]="item.checked"
+             [dynamicId]="bindId && model.id"
+             [name]="model.name"
+             [required]="model.required"
+             [value]="item.value"
+             (blur)="onBlurEvent($event)"
+             (change)="onChangeEvent($event)"
+             (focus)="onFocusEvent($event)" /><span [ngClass]="model.cls.element.label"
+                                                    [innerHTML]="item.label"></span></label>
+    <br>
+  </div>
+</div>
+
+<div *ngIf="!model.repeatable" ngbRadioGroup class="btn-group" role="radiogroup"
+     [attr.tabindex]="model.tabIndex"
+     [dynamicId]="bindId && model.id"
+     [ngClass]="model.cls.element.control"
+     (change)="onValueChange($event)">
+
+  <!--<legend *ngIf="model.legend" [innerHTML]="model.legend"></legend>-->
+
+  <label *ngFor="let option of items" ngbButtonLabel
+         [ngClass]="[model.cls.element.option, model.cls.grid.option]">
+
+    <input type="radio" ngbButton
+           [disabled]="option.disabled"
+           [name]="model.name"
+           [value]="option.value"
+           (blur)="onBlurEvent($event)"
+           (focus)="onFocusEvent($event)"
+           (change)="onChangeEvent($event)"/><span [innerHTML]="option.label"></span>
+  </label>
+
+</div>
