@@ -56,7 +56,6 @@ export class UploadSectionFileEditComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.fileData && this.formId) {
-      console.log(this.configMetadataForm);
       this.formModel = this.buildFileEditForm();
     }
   }
@@ -137,7 +136,6 @@ export class UploadSectionFileEditComponent implements OnChanges {
   }
 
   public initModelData(formModel: DynamicFormControlModel[]) {
-    console.log(formModel);
     this.fileData.accessConditions.forEach((accessCondition, index) => {
       Array.of('name', 'groupUUID', 'startDate', 'endDate')
         .filter((key) => accessCondition.hasOwnProperty(key))

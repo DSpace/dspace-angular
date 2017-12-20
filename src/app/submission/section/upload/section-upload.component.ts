@@ -70,7 +70,6 @@ export class FilesSectionComponent extends SectionModelComponent implements OnCh
           .filter((collectionData) => isNotUndefined((collectionData.payload)))
           .take(1)
           .subscribe((collectionData) => {
-            console.log(collectionData);
             this.collectionName = collectionData.payload.name;
 
             // Default Access Conditions

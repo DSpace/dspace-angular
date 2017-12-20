@@ -75,7 +75,6 @@ export class FormSectionComponent extends SectionModelComponent {
         this.formBuilderService.setAuthorityUuid(this.collectionId);
         this.store.select(submissionSectionDataFromIdSelector(this.submissionId, this.sectionData.id))
           .subscribe((sectionData: WorkspaceitemSectionFormObject) => {
-            console.log(this.sectionData.id, this.sectionData.data);
             if (isUndefined(this.formModel)) {
               // Is the first loading so init form
               this.initForm(config, sectionData);
@@ -181,7 +180,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   onAdd(event) {
     if (event.model instanceof DynamicComboboxModel) {
-      console.log(event);
+      // console.log(event);
     }
   }
 
@@ -201,7 +200,6 @@ export class FormSectionComponent extends SectionModelComponent {
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model)
     if (event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX) || event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX)) {
-      console.log('focus');
       this.previousValue.path = path;
       this.previousValue.value = this.formBuilderService.getComboboxMap(event);
     } else if (isNotEmpty(value)) {

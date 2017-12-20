@@ -49,11 +49,10 @@ import {
 
   SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
 } from './ds-dynamic-form-ui/models/ds-dynamic-series-name.model';
-import {AuthorityService} from "../../../core/integration/authority.service";
-import {SeriesAndNameFieldParser} from "./parsers/series-name-field-parser";
+import { AuthorityService } from '../../../core/integration/authority.service';
+import { SeriesAndNameFieldParser } from './parsers/series-name-field-parser';
 import { DynamicListModel } from './ds-dynamic-form-ui/models/list/dynamic-list.model';
 import { DsDynamicListComponent } from './ds-dynamic-form-ui/models/list/dynamic-list.component';
-
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -113,59 +112,59 @@ export class FormBuilderService extends DynamicFormService {
 
         const clsGridClass = ' col-sm-' + Math.trunc(12 / currentRow.fields.length);
 
-    currentRow.fields.forEach((fieldData) => {
+        currentRow.fields.forEach((fieldData) => {
 
-      switch (fieldData.input.type) {
-        case 'date':
-          fieldModel = (new DateFieldParser(fieldData, initFormValues).parse());
-          break;
-
-        case 'dropdown':
-              fieldModel = (new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+          switch (fieldData.input.type) {
+            case 'date':
+              fieldModel = (new DateFieldParser(fieldData, initFormValues).parse());
               break;
 
-        case 'list':
-          fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.authorityService).parse());
-          break;
+            case 'dropdown':
+                  fieldModel = (new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+                  break;
 
-        case 'lookup':
-          fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-          break;
+            case 'list':
+              fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.authorityService).parse());
+              break;
 
-        case 'onebox':
-          fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-          break;
+            case 'lookup':
+              fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              break;
 
-        case 'lookup-name':
-          // group.push(new NameFieldParser(fieldData).parse());
-          break;
+            case 'onebox':
+              fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              break;
 
-        case 'name':
-          fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
-          break;
+            case 'lookup-name':
+              // group.push(new NameFieldParser(fieldData).parse());
+              break;
 
-        case 'series':
-          fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'series').parse());
-          break;
+            case 'name':
+              fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
+              break;
 
-        case 'tag':
-          fieldModel = (new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-          break;
+            case 'series':
+              fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'series').parse());
+              break;
 
-        case 'textarea':
-          fieldModel = (new TextareaFieldParser(fieldData, initFormValues).parse());
-          break;
+            case 'tag':
+              fieldModel = (new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              break;
 
-        case 'group':
-          fieldModel = this.modelFromConfiguration(fieldData, initFormValues, true);
-          break;
+            case 'textarea':
+              fieldModel = (new TextareaFieldParser(fieldData, initFormValues).parse());
+              break;
 
-        case 'twobox':
-          // group.push(new TwoboxFieldParser(fieldData).parse());
-          break;
+            case 'group':
+              fieldModel = this.modelFromConfiguration(fieldData, initFormValues, true);
+              break;
 
-        default:
-          throw new Error(`unknown form control model type defined on JSON object with label "${fieldData.label}"`);
+            case 'twobox':
+              // group.push(new TwoboxFieldParser(fieldData).parse());
+              break;
+
+            default:
+              throw new Error(`unknown form control model type defined on JSON object with label "${fieldData.label}"`);
           }
 
           if (fieldModel) {
@@ -264,32 +263,42 @@ export class FormBuilderService extends DynamicFormService {
         fieldValue = event.control.value;
       }
     } else if (event.model instanceof DynamicListModel) {
-      // fieldValue = 
+      // fieldValue =
     } else if (event.model.parent instanceof DynamicSeriesAndNameModel) {
+      let firstValueId;
+      let secondValueId;
+      let value1;
+      let value2;
+      let separator;
       if (event.model.id.endsWith(SERIES_INPUT_1_SUFFIX)) {
-        const firstValueId = event.model.id;
-        const secondValueId = event.model.id.replace(SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX);
-        const value1 = event.group.get(firstValueId).value === null ? '' : event.group.get(firstValueId).value;
-        const value2 = event.group.get(secondValueId).value === null ? '' : event.group.get(secondValueId).value;
-        fieldValue = value1 + ';' + value2;
-      } else if (event.model.id.endsWith(SERIES_INPUT_2_SUFFIX)){
-        const secondValueId = event.model.id;
-        const firstValueId = event.model.id.replace(SERIES_INPUT_2_SUFFIX, SERIES_INPUT_1_SUFFIX);
-        const value1 = event.group.get(firstValueId).value === null ? '' : event.group.get(firstValueId).value;
-        const value2 = event.group.get(secondValueId).value === null ? '' : event.group.get(secondValueId).value;
-        fieldValue = value1 + ';' + value2;
+        firstValueId = event.model.id;
+        secondValueId = event.model.id.replace(SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX);
+        // value1 = event.group.get(firstValueId).value === null ? '' : event.group.get(firstValueId).value;
+        // value2 = event.group.get(secondValueId).value === null ? '' : event.group.get(secondValueId).value;
+        separator = '; ';
+      } else if (event.model.id.endsWith(SERIES_INPUT_2_SUFFIX)) {
+        secondValueId = event.model.id;
+        firstValueId = event.model.id.replace(SERIES_INPUT_2_SUFFIX, SERIES_INPUT_1_SUFFIX);
+        // value1 = event.group.get(firstValueId).value === null ? '' : event.group.get(firstValueId).value;
+        // value2 = event.group.get(secondValueId).value === null ? '' : event.group.get(secondValueId).value;
+        separator = '; ';
       } else if (event.model.id.endsWith(NAME_INPUT_1_SUFFIX)) {
-        const firstValueId = event.model.id;
-        const secondValueId = event.model.id.replace(NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX);
-        const value1 = event.group.get(firstValueId).value === 'null' ? '': event.group.get(firstValueId).value;
-        const value2 = event.group.get(secondValueId).value === 'null' ? '': event.group.get(secondValueId).value;
-        fieldValue = event.group.get(firstValueId).value +';'+ event.group.get(secondValueId).value;
-      } else if (event.model.id.endsWith(NAME_INPUT_2_SUFFIX)){
-        const secondValueId = event.model.id;
-        const firstValueId = event.model.id.replace(NAME_INPUT_2_SUFFIX, NAME_INPUT_1_SUFFIX);
-        const value1 = event.group.get(firstValueId).value === 'null' ? '': event.group.get(firstValueId).value;
-        const value2 = event.group.get(secondValueId).value === 'null' ? '': event.group.get(secondValueId).value;
-        fieldValue = event.group.get(firstValueId).value +';'+ event.group.get(secondValueId).value;
+        firstValueId = event.model.id;
+        secondValueId = event.model.id.replace(NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX);
+        // value1 = event.group.get(firstValueId).value === 'null' ? '' : event.group.get(firstValueId).value;
+        // value2 = event.group.get(secondValueId).value === 'null' ? '' : event.group.get(secondValueId).value;
+        separator = ', ';
+      } else if (event.model.id.endsWith(NAME_INPUT_2_SUFFIX)) {
+        secondValueId = event.model.id;
+        firstValueId = event.model.id.replace(NAME_INPUT_2_SUFFIX, NAME_INPUT_1_SUFFIX);
+        // value1 = event.group.get(firstValueId).value === 'null' ? '' : event.group.get(firstValueId).value;
+        // value2 = event.group.get(secondValueId).value === 'null' ? '' : event.group.get(secondValueId).value;
+        separator = ', ';
+      }
+      value1 = event.group.get(firstValueId).value === 'null' ? '' : event.group.get(firstValueId).value;
+      value2 = event.group.get(secondValueId).value === 'null' ? '' : event.group.get(secondValueId).value;
+      if (isNotEmpty(value1) && isNotEmpty(value2)) {
+        fieldValue = value1 + separator + value2;
       }
     } else if (event.$event instanceof AuthorityModel) {
       if (isNotNull(event.$event.id)) {
@@ -390,7 +399,6 @@ export class FormBuilderService extends DynamicFormService {
   dispatchComboboxOperations(pathCombiner: JsonPatchOperationPathCombiner,
                              event: DynamicFormControlEvent,
                              previousValue: FormFieldPreviousValueObject) {
-    console.log('change');
     const currentValueMap = this.getComboboxMap(event);
     if (previousValue.isPathEqual(this.getPath(event.model))) {
       previousValue.value.forEach((entry, index) => {

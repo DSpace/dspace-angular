@@ -141,7 +141,6 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
                   this.fileId,
                   result[0].sections.upload.files[key]));
               this.switchMode();
-              console.log(result);
             });
         })
     );

@@ -24,7 +24,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
 
   onBeforeUpload = () => {
     this.submissionRestService.jsonPatchByResourceType(this.submissionId, 'sections')
-      .subscribe((state) => console.log('before upload', state));
+      .subscribe();
   };
 
   constructor(private sectionUploadService: SectionUploadService,

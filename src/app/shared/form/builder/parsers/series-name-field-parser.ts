@@ -1,12 +1,13 @@
 import {FieldParser} from './field-parser';
 import {FormFieldModel} from '../models/form-field.model';
-import {FormFieldMetadataValueObject} from "../models/form-field-metadata-value.model";
-import {ClsConfig, DynamicFormGroupModel, DynamicInputModel, DynamicInputModelConfig} from "@ng-dynamic-forms/core";
+import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.model';
+import {ClsConfig, DynamicFormGroupModel, DynamicInputModel, DynamicInputModelConfig} from '@ng-dynamic-forms/core';
 import {
   DynamicSeriesAndNameModel, NAME_GROUP_SUFFIX, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX, SERIES_GROUP_SUFFIX,
   SERIES_INPUT_1_SUFFIX,
   SERIES_INPUT_2_SUFFIX
-} from "../ds-dynamic-form-ui/models/ds-dynamic-series-name.model";
+} from '../ds-dynamic-form-ui/models/ds-dynamic-series-name.model';
+import { isNotEmpty } from '../../../empty.util';
 
 export class SeriesAndNameFieldParser extends FieldParser {
   private groupSuffix;
@@ -16,7 +17,7 @@ export class SeriesAndNameFieldParser extends FieldParser {
   constructor(protected configData: FormFieldModel, protected initFormValues, private type: string) {
     super(configData, initFormValues);
 
-    if(type === 'series') {
+    if (type === 'series') {
       this.groupSuffix = SERIES_GROUP_SUFFIX;
       this.input1suffix = SERIES_INPUT_1_SUFFIX;
       this.input2suffix = SERIES_INPUT_2_SUFFIX;
@@ -51,9 +52,9 @@ export class SeriesAndNameFieldParser extends FieldParser {
     const input2ModelConfig: DynamicInputModelConfig = this.initModel(newId + this.input2suffix, true, true);
 
     // values
-    if (fieldValue && fieldValue.value && fieldValue.value.length > 0) {
+    if (isNotEmpty(fieldValue)) {
       let values;
-      if(this.type === 'series') {
+      if (this.type === 'series') {
         values = fieldValue.value.split(';');
       } else {
         values = fieldValue.value.split(',');
@@ -61,16 +62,16 @@ export class SeriesAndNameFieldParser extends FieldParser {
 
       if (values.length > 1) {
         input1ModelConfig.value = values[0];
-        input1ModelConfig.value = values[1];
+        input2ModelConfig.value = values[1];
       }
     }
 
-    let model1 = new DynamicInputModel(input1ModelConfig, clsInput);
-    let model2 = new DynamicInputModel(input2ModelConfig, clsInput);
+    const model1 = new DynamicInputModel(input1ModelConfig, clsInput);
+    const model2 = new DynamicInputModel(input2ModelConfig, clsInput);
     model1.name = this.getFieldId()[0];
     model2.name = this.getFieldId()[0];
-    let placeholder = model1.placeholder.split('/');
-    if(placeholder.length === 2) {
+    const placeholder = model1.placeholder.split('/');
+    if (placeholder.length === 2) {
       model1.placeholder = placeholder[0];
       model2.placeholder = placeholder[1];
     }
