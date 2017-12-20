@@ -8,7 +8,7 @@
     </span>
     (<span *ngIf="dso.findMetadata('dc.publisher')" class="item-list-publisher" [innerHTML]="getFirstValue('dc.publisher')">, </span><span *ngIf="dso.findMetadata('dc.date.issued')" class="item-list-date" [innerHTML]="getFirstValue('dc.date.issued')"></span>)
   </span>
-    <div  width="100%" *ngIf="dso.findMetadata('dc.description.abstract')" class="item-list-abstract">
-        <span [dsClamp]="lines" [innerHTML]="getFirstValue('dc.description.abstract')" ></span>
+    <div *ngIf="dso.findMetadata('dc.description.abstract')" class="item-list-abstract">
+        <div class="clamp-3" [innerHTML]="getFirstValue('dc.description.abstract')"></div>
     </div>
 </div>
