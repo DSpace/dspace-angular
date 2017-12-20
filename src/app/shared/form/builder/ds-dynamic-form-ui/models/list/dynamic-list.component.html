@@ -1,27 +1,23 @@
 <div *ngIf="model.repeatable"
      [dynamicId]="bindId && model.id"
-     [formGroupName]="model.id"
      [ngClass]="model.cls.element.control">
 
-  <p>CHECKBOX</p>
-
-  <div *ngFor="let controlModel of items | async" class="ml-4 form-check"
+  <div *ngFor="let item of items" class="ml-4 form-check"
        [class.disabled]="model.disabled">
     <label class="form-check-label"
-           [ngClass]="controlModel.cls.element.control">
+           [ngClass]="model.cls.element.control">
 
       <input type="checkbox" class="form-check-input"
-             [attr.tabindex]="controlModel.tabIndex"
-             [checked]="controlModel.checked"
-             [dynamicId]="bindId && controlModel.id"
-             [formControlName]="controlModel.id"
-             [name]="controlModel.name"
-             [required]="controlModel.required"
-             [value]="controlModel.value"
+             [attr.tabindex]="items.indexOf(item)"
+             [checked]="item.checked"
+             [dynamicId]="bindId && model.id"
+             [name]="model.name"
+             [required]="model.required"
+             [value]="item.value"
              (blur)="onBlurEvent($event)"
-             (change)="onValueChange($event)"
-             (focus)="onFocusEvent($event)" /><span [ngClass]="controlModel.cls.element.label"
-                                                    [innerHTML]="controlModel.label"></span></label>
+             (change)="onChangeEvent($event)"
+             (focus)="onFocusEvent($event)" /><span [ngClass]="model.cls.element.label"
+                                                    [innerHTML]="item.label"></span></label>
     <br>
   </div>
 </div>
@@ -29,24 +25,21 @@
 <div *ngIf="!model.repeatable" ngbRadioGroup class="btn-group" role="radiogroup"
      [attr.tabindex]="model.tabIndex"
      [dynamicId]="bindId && model.id"
-     [formGroupName]="model.id"
      [ngClass]="model.cls.element.control"
      (change)="onValueChange($event)">
 
-  <p>RADIO</p>
-
   <!--<legend *ngIf="model.legend" [innerHTML]="model.legend"></legend>-->
 
-  <label *ngFor="let option of items | async" ngbButtonLabel
+  <label *ngFor="let option of items" ngbButtonLabel
          [ngClass]="[model.cls.element.option, model.cls.grid.option]">
 
     <input type="radio" ngbButton
            [disabled]="option.disabled"
-           [formControlName]="option.id"
            [name]="model.name"
            [value]="option.value"
            (blur)="onBlurEvent($event)"
-           (focus)="onFocusEvent($event)" /><span [innerHTML]="option.label"></span>
+           (focus)="onFocusEvent($event)"
+           (change)="onChangeEvent($event)"/><span [innerHTML]="option.label"></span>
   </label>
 
 </div>

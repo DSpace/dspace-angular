@@ -32,8 +32,8 @@ export class DsDynamicListComponent implements OnInit {
 
   private items: {
     label,
-    id,
-    value
+    value,
+    checked
   }[];
 
   protected searchOptions: IntegrationSearchOptions;
@@ -68,11 +68,6 @@ export class DsDynamicListComponent implements OnInit {
     this.setOptionsFromAuthority();
   }
 
-  onInput(event) {
-    if (event.data) {
-      this.group.markAsDirty();
-    }
-  }
   onBlurEvent(event: Event) {
     this.blur.emit(event);
   }
@@ -81,25 +76,20 @@ export class DsDynamicListComponent implements OnInit {
     this.focus.emit(event);
   }
 
-  onChange($event) {
+  onChangeEvent($event) {
     this.focus.emit(event);
-  }
-
-  onSelect() {
-    this.group.markAsDirty();
-    this.group.get(this.model.id).setValue(event);
-    this.change.emit(event);
   }
 
   protected setOptionsFromAuthority() {
     if (this.model.authorityName && this.model.authorityName.length > 0) {
       this.authorityService.getEntriesByName(this.searchOptions).subscribe((authorities: ConfigData) => {
-
         (authorities.payload as ConfigAuthorityModel[]).forEach((option, key) => {
-          this.items.push({
+          const item = {
             label: option.display,
-            id: option.value,
-            value: false})
+            value: option.id || option.value,
+            checked: false
+          };
+          this.items.push(item);
         });
 
         // let list = this.pushAuthorities(authorities);

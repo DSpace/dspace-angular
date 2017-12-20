@@ -33,7 +33,7 @@ export class ListFieldParser extends FieldParser {
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     let listModelConfig: DynamicListModelConfig = this.initModel();
-    listModelConfig.repeteable = this.configData.repeatable;
+    listModelConfig.repeatable = this.configData.repeatable;
 
     if(this.configData.selectableMetadata[0].authority
       && this.configData.selectableMetadata[0].authority.length > 0 ) {

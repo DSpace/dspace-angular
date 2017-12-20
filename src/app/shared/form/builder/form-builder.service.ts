@@ -51,6 +51,8 @@ import {
 } from './ds-dynamic-form-ui/models/ds-dynamic-series-name.model';
 import {AuthorityService} from "../../../core/integration/authority.service";
 import {SeriesAndNameFieldParser} from "./parsers/series-name-field-parser";
+import { DynamicListModel } from './ds-dynamic-form-ui/models/list/dynamic-list.model';
+import { DsDynamicListComponent } from './ds-dynamic-form-ui/models/list/dynamic-list.component';
 
 
 @Injectable()
@@ -261,6 +263,8 @@ export class FormBuilderService extends DynamicFormService {
       } else {
         fieldValue = event.control.value;
       }
+    } else if (event.model instanceof DynamicListModel) {
+      // fieldValue = 
     } else if (event.model.parent instanceof DynamicSeriesAndNameModel) {
       if (event.model.id.endsWith(SERIES_INPUT_1_SUFFIX)) {
         const firstValueId = event.model.id;
@@ -275,17 +279,17 @@ export class FormBuilderService extends DynamicFormService {
         const value2 = event.group.get(secondValueId).value === null ? '' : event.group.get(secondValueId).value;
         fieldValue = value1 + ';' + value2;
       } else if (event.model.id.endsWith(NAME_INPUT_1_SUFFIX)) {
-        const valueId_1 = event.model.id;
-        const valueId_2 = event.model.id.replace(NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX);
-        const value1 = event.group.get(valueId_1).value === 'null' ? '': event.group.get(valueId_1).value;
-        const value2 = event.group.get(valueId_2).value === 'null' ? '': event.group.get(valueId_2).value;
-        fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
+        const firstValueId = event.model.id;
+        const secondValueId = event.model.id.replace(NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX);
+        const value1 = event.group.get(firstValueId).value === 'null' ? '': event.group.get(firstValueId).value;
+        const value2 = event.group.get(secondValueId).value === 'null' ? '': event.group.get(secondValueId).value;
+        fieldValue = event.group.get(firstValueId).value +';'+ event.group.get(secondValueId).value;
       } else if (event.model.id.endsWith(NAME_INPUT_2_SUFFIX)){
-        const valueId_2 = event.model.id;
-        const valueId_1 = event.model.id.replace(NAME_INPUT_2_SUFFIX, NAME_INPUT_1_SUFFIX);
-        const value1 = event.group.get(valueId_1).value === 'null' ? '': event.group.get(valueId_1).value;
-        const value2 = event.group.get(valueId_2).value === 'null' ? '': event.group.get(valueId_2).value;
-        fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
+        const secondValueId = event.model.id;
+        const firstValueId = event.model.id.replace(NAME_INPUT_2_SUFFIX, NAME_INPUT_1_SUFFIX);
+        const value1 = event.group.get(firstValueId).value === 'null' ? '': event.group.get(firstValueId).value;
+        const value2 = event.group.get(secondValueId).value === 'null' ? '': event.group.get(secondValueId).value;
+        fieldValue = event.group.get(firstValueId).value +';'+ event.group.get(secondValueId).value;
       }
     } else if (event.$event instanceof AuthorityModel) {
       if (isNotNull(event.$event.id)) {
