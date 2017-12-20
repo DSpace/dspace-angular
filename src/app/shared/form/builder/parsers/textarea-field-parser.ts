@@ -14,6 +14,7 @@ export class TextareaFieldParser extends FieldParser {
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     const inputTextModel: DynamicTextAreaModelConfig = this.initModel();
+
     let cls: ClsConfig;
 
     cls = {
@@ -25,6 +26,7 @@ export class TextareaFieldParser extends FieldParser {
     textareaModel.name = this.fieldId;
     if (isNotEmpty(fieldValue)) {
       textareaModel.value = fieldValue.value;
+      textareaModel.rows = 10;
     }
     return textareaModel;
   }

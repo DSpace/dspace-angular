@@ -459,12 +459,9 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
           isLoading: state[ action.payload.submissionId ].isLoading,
         })
       });
-    } else {
-      return state;
     }
-  } else {
-    return state;
   }
+  return state;
 }
 
 /**
@@ -478,26 +475,30 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
  *    the new state, with the bitstream removed.
  */
 function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileAction): SubmissionObjectState {
-  if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files[ action.payload.fileId ])) {
-    return Object.assign({}, state, {
-      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
-        sections: Object.assign({}, state[ action.payload.submissionId ].sections,
-          Object.assign({}, {
-              [ action.payload.sectionId ]: {
-                sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
-                data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
-                  files: deleteProperty(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files, action.payload.fileId)
-                }),
-                isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
-                errors: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errors
+  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files)) {
+    const fileIndex = findKey(
+      state[action.payload.submissionId].sections[action.payload.sectionId].data.files,
+      {uuid: action.payload.fileId});
+    if (isNotNull(fileIndex)) {
+      return Object.assign({}, state, {
+        [ action.payload.submissionId ]: Object.assign({}, state[action.payload.submissionId], {
+          sections: Object.assign({}, state[action.payload.submissionId].sections,
+            Object.assign({}, {
+                [ action.payload.sectionId ]: {
+                  sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
+                  data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
+                    files: deleteProperty(state[action.payload.submissionId].sections[action.payload.sectionId].data.files, fileIndex)
+                  }),
+                  isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
+                  errors: state[action.payload.submissionId].sections[action.payload.sectionId].errors
+                }
               }
-            }
-          )
-        ),
-        isLoading: state[ action.payload.submissionId ].isLoading,
-      })
-    });
-  } else {
-    return state;
+            )
+          ),
+          isLoading: state[action.payload.submissionId].isLoading,
+        })
+      });
+    }
   }
+  return state;
 }

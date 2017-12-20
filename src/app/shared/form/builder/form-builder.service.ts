@@ -206,8 +206,8 @@ export class FormBuilderService extends DynamicFormService {
     if (isNull(event.context)) {
       if (isNotNull(event.model.parent)) {
         if ((event.model.parent as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP) {
-          if (isNotNull((event.model.parent as any).parent)) {
-            if (isNotNull((event.model.parent as any).parent.context)) {
+          if ((event.model.parent as any).parent) {
+            if ((event.model.parent as any).parent.context) {
               if ((event.model.parent as any).parent.context.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY) {
                 fieldIndex = (event.model.parent as any).parent.index;
               }

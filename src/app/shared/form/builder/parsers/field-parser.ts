@@ -73,7 +73,7 @@ export abstract class FieldParser {
   protected getInitFieldValue(outerIndex = 0, innerIndex = 0, fieldId?): FormFieldMetadataValueObject {
     const fieldIds = fieldId || this.getFieldId();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
-      return this.initFormValues[fieldIds[0]][outerIndex];
+      return this.initFormValues[fieldIds[outerIndex]][innerIndex];
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
       const values: FormFieldMetadataValueObject[] = [];
       fieldIds.forEach((id) => {

@@ -24,6 +24,7 @@ export const SubmissionObjectActionTypes = {
   ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
+  SECTION_LOADING_STATUS_CHANGE: type('dspace/submission/SECTION_LOADING_STATUS_CHANGE'),
   UPLOAD_SECTION_DATA: type('dspace/submission/UPLOAD_SECTION_DATA'),
   NEW_PATCH_OPERATION: type('dspace/submission/NEW_PATCH_OPERATION'),
   FLUSH_PATCH_OPERATIONS: type('dspace/submission/FLUSH_PATCH_OPERATIONS'),
@@ -270,6 +271,29 @@ export class SectionStatusChangeAction implements Action {
    */
   constructor(submissionId: string, sectionId: string, status: boolean) {
     this.payload = { submissionId, sectionId, status };
+  }
+}
+
+export class SectionLoadingStatusChangeAction implements Action {
+  type = SubmissionObjectActionTypes.SECTION_LOADING_STATUS_CHANGE;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+    loading: boolean
+  };
+
+  /**
+   * Change the section loading status
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID to change
+   * @param loading
+   *    the section loading status (true if is loading)
+   */
+  constructor(submissionId: string, sectionId: string, loading: boolean) {
+    this.payload = { submissionId, sectionId, loading };
   }
 }
 

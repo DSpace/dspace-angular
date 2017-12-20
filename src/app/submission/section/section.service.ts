@@ -169,7 +169,7 @@ export class SectionService {
       this.isSectionLoaded(submissionId, sectionId)
         .take(1)
         .filter((loaded) => loaded)
-        .subscribe(() => {
+        .subscribe((loaded: boolean) => {
           this.store.dispatch(new UpdateSectionDataAction(submissionId, sectionId, data));
         });
     }

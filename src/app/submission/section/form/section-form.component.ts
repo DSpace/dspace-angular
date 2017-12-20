@@ -78,14 +78,30 @@ export class FormSectionComponent extends SectionModelComponent {
             console.log(this.sectionData.id, this.sectionData.data);
             if (isUndefined(this.formModel)) {
               // Is the first loading so init form
-              this.initForm(config, sectionData)
-            } else if (!isEqual(sectionData, this.sectionData.data)) {
-              // TODO send a notification to notify data may have been changed
-              // Data are changed from remote response so update form's values
-              this.updateForm(sectionData);
+              this.initForm(config, sectionData);
+              this.subscriptions();
+              this.isLoading = false;
+              // this.changeDetectorRef.detectChanges();
+            } else {
+              if (!isEqual(sectionData, this.sectionData.data)) {
+                // TODO send a notification to notify data may have been changed
+                // Data are changed from remote response so update form's values
+                /*this.isLoading = true;
+                this.changeDetectorRef.detectChanges();
+                this.formModel = null;*/
+                // this.updateForm(sectionData);
+                this.isLoading = true;
+                setTimeout(() => {
+                  // Reset the form
+                  this.initForm(config, sectionData);
+                  this.isLoading = false;
+                }, 50);
+                // this.changeDetectorRef.detectChanges();
+              } else {
+                this.isLoading = false;
+              }
             }
-            this.isLoading = false;
-            this.changeDetectorRef.detectChanges();
+
           })
 
       });
@@ -94,7 +110,6 @@ export class FormSectionComponent extends SectionModelComponent {
 
   initForm(config: SubmissionFormsModel, sectionData: WorkspaceitemSectionFormObject) {
     this.formModel = this.formBuilderService.modelFromConfiguration(config, sectionData);
-    this.subscriptions();
   }
 
   updateForm(sectionData: WorkspaceitemSectionFormObject) {

@@ -2,9 +2,10 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { SectionService } from '../../section/section.service';
 import { SectionUploadService } from '../../section/upload/section-upload.service';
 import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload-files-component-options.model';
-import { hasValue, isNotUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { WorkspaceitemSectionUploadFileObject } from '../../models/workspaceitem-section-upload-file.model';
 import { SubmissionRestService } from '../../submission-rest.service';
+import { WorkspaceitemObject } from '../../models/workspaceitem.model';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -43,7 +44,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
     }
   }
 
-  public onCompleteItem(itemData: WorkspaceitemSectionUploadFileObject) {
+  public onCompleteItem(workspaceitem: WorkspaceitemObject) {
     // Checks if upload section is enabled so do upload
     if (this.uploadEnabled) {
       this.subs.push(
@@ -53,13 +54,17 @@ export class SubmissionUploadFilesComponent implements OnChanges {
             if (!isSectionLoaded) {
               this.sectionService.addSection(this.collectionId, this.submissionId, this.definitionId, this.sectionId)
             }
-
-            this.sectionUploadService.addUploadedFile(
+            const { sections } = workspaceitem;
+            if (sections && isNotEmpty(sections)) {
+              Object.keys(sections)
+                .forEach((sectionId) => this.sectionService.updateSectionData(this.submissionId, sectionId, sections[sectionId]))
+            }
+            /*this.sectionUploadService.addUploadedFile(
               this.submissionId,
               this.sectionId,
-              itemData.uuid,
-              itemData
-            )
+              workspaceitemData.uuid,
+              workspaceitemData
+            )*/
           })
       );
     }
