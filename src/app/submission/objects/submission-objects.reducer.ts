@@ -1,5 +1,5 @@
 import { hasValue, isNotNull, isNotUndefined } from '../../shared/empty.util';
-import { uniqWith, isEqual, differenceWith } from 'lodash';
+import { findKey, uniqWith, isEqual, differenceWith } from 'lodash';
 
 import {
   CompleteInitSubmissionFormAction,
@@ -35,36 +35,8 @@ export interface SubmissionDataEntry {
   files: SubmissionUploadFileEntry;
 }
 
-export interface SubmissionCollectionObject {
-  id: string;
-  name: string;
-  policiesMessageType: number;
-  policies: SubmissionPolicyEntry;
-}
-
 export interface SubmissionUploadFileEntry {
   [uuid: string]: WorkspaceitemSectionUploadFileObject
-}
-
-export interface SubmissionPolicyEntry {
-  [index: number]: SubmissionPolicyObject
-}
-
-export interface SubmissionPolicyObject {
-  type: string;
-  name: string;
-  date: string;
-  availableGroups: SubmissionPolicyGroupEntry;
-}
-
-export interface SubmissionPolicyGroupEntry {
-  [index: number]: SubmissionPolicyGroupObject
-}
-
-export interface SubmissionPolicyGroupObject {
-  id: string;
-  name: string;
-  selected: boolean;
 }
 
 export interface SubmissionObjectEntry {
@@ -272,9 +244,9 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ action.payload.sectionId ]: {
             sectionViewIndex: action.payload.sectionViewIndex,
-            isValid: false,
-            errors: [],
             data: action.payload.data,
+            isValid: false,
+            errors: []
           }
         }),
         isLoading: state[ action.payload.submissionId ].isLoading,
@@ -302,7 +274,10 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ action.payload.sectionId ]: {
+            sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
             data: action.payload.data,
+            isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
+            errors: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errors
           }
         }),
         isLoading: state[ action.payload.submissionId ].isLoading,
@@ -459,10 +434,9 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
  */
 function editFileData(state: SubmissionObjectState, action: EditFileDataAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files)) {
-    let fileIndex = null;
-    Object.keys(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files)
-      .filter((index) => state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files[ index ].uuid === action.payload.fileId)
-      .forEach((index) => fileIndex = index);
+    const fileIndex = findKey(
+      state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files,
+      { uuid: action.payload.fileId });
     if (isNotNull(fileIndex)) {
       return Object.assign({}, state, {
         [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {

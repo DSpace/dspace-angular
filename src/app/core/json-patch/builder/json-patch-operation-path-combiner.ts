@@ -3,7 +3,7 @@
  * of a relative REST URL in to a single, absolute REST URL
  *
  */
-import { isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
+import { isNotUndefined } from '../../../shared/empty.util';
 
 export interface JsonPatchOperationPathObject {
   rootElement: string;
