@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { isEqual, uniqueId } from 'lodash';
 
 import {
@@ -22,7 +22,6 @@ import { ListFieldParser } from './parsers/list-field-parser';
 import { OneboxFieldParser } from './parsers/onebox-field-parser';
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import {
   isEmpty,
   isNotEmpty,
@@ -36,8 +35,6 @@ import {
   COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
-import { GLOBAL_CONFIG } from '../../../../config';
-import { GlobalConfig } from '../../../../config/global-config.interface';
 import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
@@ -46,11 +43,10 @@ import { TagFieldParser } from './parsers/tag-field-parser';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
-import { FormFieldModel } from './models/form-field.model';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
 import { SeriesFieldParser } from './parsers/series-field-parser';
 import {
-  DynamicSeriesModel, SERIES_GROUP_SUFFIX,
+  DynamicSeriesModel,
   SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
 } from './ds-dynamic-form-ui/models/ds-dynamic-series.model';
 
@@ -59,10 +55,8 @@ export class FormBuilderService extends DynamicFormService {
 
   protected authorityOptions: IntegrationSearchOptions;
 
-  constructor(private formsConfigService: SubmissionFormsConfigService,
-              formBuilder: FormBuilder,
+  constructor(formBuilder: FormBuilder,
               validationService: DynamicFormValidationService,
-              @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig,
               private operationsBuilder: JsonPatchOperationsBuilder) {
     super(formBuilder, validationService);
   }
@@ -363,7 +357,7 @@ export class FormBuilderService extends DynamicFormService {
       event.model.id.replace(COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX) : event.model.id;
     const groupId = valueId.replace(COMBOBOX_VALUE_SUFFIX, COMBOBOX_GROUP_SUFFIX);
 
-    (event.group.parent.parent as FormArray).value.forEach((entry, index) => {
+    (event.group.parent.parent as FormArray).value.forEach((entry) => {
       const metadataValueList = (metadataValueMap.get(entry[ groupId ][ metadataId ])) ? metadataValueMap.get(entry[ groupId ][ metadataId ]) : [];
       if (entry[ groupId ][ valueId ]) {
         metadataValueList.push(entry[ groupId ][ valueId ]);
