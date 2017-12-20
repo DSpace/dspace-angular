@@ -18,7 +18,8 @@ import { ConfigAuthorityModel } from '../../../../core/shared/config/config-auth
 import {AuthorityService} from "../../../../core/integration/authority.service";
 import {FormFieldMetadataValueObject} from "../models/form-field-metadata-value.model";
 import {isNotEmpty} from '../../../empty.util';
-import {AuthorityModel} from "../../../../core/integration/models/authority.model";
+import { AuthorityModel } from '../../../../core/integration/models/authority.model';
+
 
 // const AUTHORITY = [ {
 //   id : 'H2020',
@@ -40,8 +41,6 @@ export class ListFieldParser extends FieldParser {
   constructor(protected configData: FormFieldModel,
               protected initFormValues,
               protected authorityUuid: string,
-              protected formsConfigService: SubmissionFormsConfigService,
-              protected EnvConfig: GlobalConfig,
               private authorityService: AuthorityService) {
     super(configData, initFormValues);
 
@@ -63,7 +62,6 @@ export class ListFieldParser extends FieldParser {
       listModel.authorityMetadata = this.configData.selectableMetadata[0].metadata;
       listModel.authorityName = this.configData.selectableMetadata[0].authority;
       listModel.authorityScope = this.authorityUuid;
-      listModel.withTag = true;
       if (isNotEmpty(fieldValue)) {
         const authorityValue = {
           id: fieldValue.authority,
@@ -90,45 +88,45 @@ export class ListFieldParser extends FieldParser {
       && isNotUndefined(this.configData.selectableMetadata[0].authority)) {
 
       this.authorityService.getEntriesByName(this.searchOptions).subscribe((authorities: ConfigData) => {
-        const list = [];
-            (authorities.payload as ConfigAuthorityModel[]).forEach((option, key) => {
-              if (repeatable) {
-                list.push(new DynamicCheckboxModel({label: option.display, id: option.value, value: false}))
-              } else {
-                list.push(new DynamicRadioGroupModel({label: option.display, value: option.value}))
-              }
-            });
+          let list = this.pushAuthorities(authorities, repeatable);
+        const totalPages =  authorities.pageInfo.totalPages;
+        let currentPage = authorities.pageInfo.currentPage;
+        while ( currentPage < totalPages) {
+          // TODO Gestire parser (modificare) list, checkbox se il model ha repeteable, sennò radiobutton.
+          // gestire getEntriesByname come in tag con risultati paginati
+          // vedere dynamic scrollable,
+          // integrationsearchoption è il modello con le pagine. Io deve richiedere a partire da 1, il server risponde da 0.
+          // L'ultima dimensione restituita di size è sbagliata
+          // fare ListModel
+          this.searchOptions.currentPage = currentPage+2;
+          // this.authorityService.getEntriesByName(this.searchOptions).
+          //
+          //
+          // currentPage
+        }
 
 
-            if (repeatable) {
-              (controlModel as DynamicFormGroupModelConfig).group = list;
-            } else {
-              (controlModel as DynamicRadioGroupModelConfig<any>).options = list;
-            }
-
+        if (repeatable) {
+          (controlModel as DynamicFormGroupModelConfig).group = list;
+        } else {
+          (controlModel as DynamicRadioGroupModelConfig<any>).options = list;
+        }
       });
 
-      // return this.getAuthority(this.getAuthorityOptionsObj(
-      //   this.authorityUuid,
-      //   this.configData.selectableMetadata[0].authority,
-      //   this.configData.selectableMetadata[0].metadata))
-      //
-      //   .subscribe((authorities: ConfigData) => {
-      //     const list = [];
-      //     (authorities.payload as ConfigAuthorityModel[]).forEach((option, key) => {
-      //       if (repeatable) {
-      //         list.push(new DynamicCheckboxModel({label: option.display, id: option.value, value: false}))
-      //       } else {
-      //         list.push(new DynamicRadioGroupModel({label: option.display, value: option.value}))
-      //       }
-      //     });
-      //     if (repeatable) {
-      //       (controlModel as DynamicFormGroupModelConfig).group = list;
-      //     } else {
-      //       (controlModel as DynamicRadioGroupModelConfig<any>).options = list;
-      //     }
-      //   })
     }
+  }
+
+  pushAuthorities(authorities: ConfigData, repeatable: boolean): any[] {
+    const list = [];
+    (authorities.payload as ConfigAuthorityModel[]).forEach((option, key) => {
+      if (repeatable) {
+        list.push(new DynamicCheckboxModel({label: option.display, id: option.value, value: false}))
+      } else {
+        list.push(new DynamicRadioGroupModel({label: option.display, value: option.value}))
+      }
+    });
+
+    return list;
   }
 
   // @TODO To refactor when service for retrieving authority will be available

@@ -128,7 +128,7 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
         case 'list':
-          // fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig, this.authorityService).parse());
+          fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.authorityService).parse());
           break;
 
         case 'lookup':
@@ -270,26 +270,26 @@ export class FormBuilderService extends DynamicFormService {
       if (event.model.id.endsWith(SERIES_INPUT_1_SUFFIX)) {
         const valueId_1 = event.model.id;
         const valueId_2 = event.model.id.replace(SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX);
-        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
-        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
+        const value1 = event.group.get(valueId_1).value === 'null' ? '': event.group.get(valueId_1).value;
+        const value2 = event.group.get(valueId_2).value === 'null' ? '': event.group.get(valueId_2).value;
         fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
       } else if (event.model.id.endsWith(SERIES_INPUT_2_SUFFIX)){
         const valueId_2 = event.model.id;
         const valueId_1 = event.model.id.replace(SERIES_INPUT_2_SUFFIX, SERIES_INPUT_1_SUFFIX);
-        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
-        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
+        const value1 = event.group.get(valueId_1).value === 'null' ? '': event.group.get(valueId_1).value;
+        const value2 = event.group.get(valueId_2).value === 'null' ? '': event.group.get(valueId_2).value;
         fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
       } else if (event.model.id.endsWith(NAME_INPUT_1_SUFFIX)) {
         const valueId_1 = event.model.id;
         const valueId_2 = event.model.id.replace(NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX);
-        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
-        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
+        const value1 = event.group.get(valueId_1).value === 'null' ? '': event.group.get(valueId_1).value;
+        const value2 = event.group.get(valueId_2).value === 'null' ? '': event.group.get(valueId_2).value;
         fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
       } else if (event.model.id.endsWith(NAME_INPUT_2_SUFFIX)){
         const valueId_2 = event.model.id;
         const valueId_1 = event.model.id.replace(NAME_INPUT_2_SUFFIX, NAME_INPUT_1_SUFFIX);
-        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
-        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
+        const value1 = event.group.get(valueId_1).value === 'null' ? '': event.group.get(valueId_1).value;
+        const value2 = event.group.get(valueId_2).value === 'null' ? '': event.group.get(valueId_2).value;
         fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
       }
     } else if (event.$event instanceof AuthorityModel) {

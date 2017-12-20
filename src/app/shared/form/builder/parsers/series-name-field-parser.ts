@@ -8,14 +8,6 @@ import {
   SERIES_INPUT_2_SUFFIX
 } from "../ds-dynamic-form-ui/models/ds-dynamic-series-name.model";
 
-// @TODO Gestire "name" in questo parser, che concatena con virgola
-
-// TODO Gestire parser (modificare) list, checkbox se il model ha repeteable, sennò radiobutton.
-// gestire getEntriesByname come in tag con risultati paginati
-// vedere dynamic scrollable,
-// integrationsearchoption è il modello con le pagine. Io deve richiedere a partire da 1, il server risponde da 0.
-// L'ultima dimensione restituita di size è sbagliata
-// fare ListModel
 export class SeriesAndNameFieldParser extends FieldParser {
   private groupSuffix;
   private input1suffix;
