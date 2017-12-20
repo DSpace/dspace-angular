@@ -60,7 +60,12 @@ export class SeriesAndNameFieldParser extends FieldParser {
 
     // values
     if (fieldValue && fieldValue.value && fieldValue.value.length > 0) {
-      const values = fieldValue.value.split(';');
+      let values;
+      if(this.type === 'series') {
+        values = fieldValue.value.split(';');
+      } else {
+        values = fieldValue.value.split(',');
+      }
 
       if (values.length > 1) {
         input1ModelConfig.value = values[0];
