@@ -100,7 +100,7 @@ export class SearchService implements OnDestroy {
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
-    this.searchOptions = this.searchOptions;
+    this.searchOptions = searchOptions;
     let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}`;
     if (hasValue(scopeId)) {
       self += `&scope=${scopeId}`;
@@ -124,7 +124,7 @@ export class SearchService implements OnDestroy {
 
     if (isNotEmpty(searchOptions)) {
       returningPageInfo.elementsPerPage = searchOptions.pagination.pageSize;
-      returningPageInfo.currentPage = searchOptions.pagination.currentPage;
+     returningPageInfo.currentPage = searchOptions.pagination.currentPage;
     } else {
       returningPageInfo.elementsPerPage = 10;
       returningPageInfo.currentPage = 1;
