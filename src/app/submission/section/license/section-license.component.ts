@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SectionModelComponent } from '../section.model';
 import { Store } from '@ngrx/store';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -11,7 +11,6 @@ import { Collection } from '../../../core/shared/collection.model';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { SECTION_LICENSE_FORM_MODEL } from './section-license.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { dateToGMTString } from '../../../shared/date.util';
 import { SectionStatusChangeAction } from '../../objects/submission-objects.actions';
 import { FormService } from '../../../shared/form/form.service';
 import { SubmissionState } from '../../submission.reducers';
@@ -59,25 +58,12 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
     );
   }
 
-  /*ngAfterViewInit() {
-    this.forms.changes.subscribe((comps: QueryList <FormComponent>) => {
-      this.formRef = comps.first;
-      if (hasValue(this.formRef)) {
-        this.formService.isValid(this.formRef.getFormUniqueId())
-          .debounceTime(1)
-          .subscribe((formState) => {
-            // this.store.dispatch(new SectionStatusChangeAction(this.sectionData.submissionId, this.sectionData.id, formState));
-          });
-      }
-    });
-  }*/
-
   onChange(event: DynamicFormControlEvent) {
     const path = this.formBuilderService.getFieldPathFromChangeEvent(event);
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
     this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, value));
     if (value) {
-      this.operationsBuilder.replace(this.pathCombiner.getPath(path), dateToGMTString(new Date()), true);
+      this.operationsBuilder.add(this.pathCombiner.getPath(path), value.toString(), false, true);
     } else {
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
     }

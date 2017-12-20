@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { SectionService } from './section.service';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { submissionSectionFromIdSelector } from '../selectors';
 import { Store } from '@ngrx/store';
 import { SubmissionState } from '../submission.reducers';
@@ -39,15 +39,16 @@ export class SectionDirective implements OnDestroy, OnInit {
       .subscribe((valid: boolean) => {
         this.valid = valid;
         if (valid) {
-          this.sectionErrors = [];
+          this.resetErrors();
         }
         this.changeDetectorRef.detectChanges();
       }));
 
     this.subs.push(
       this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionId))
+        .filter((state: SubmissionSectionObject) => isNotUndefined(state))
         .map((state: SubmissionSectionObject) => state.errors)
-        .distinctUntilChanged()
+        .filter((errors: SubmissionError[]) => isNotEmpty(errors))
         .subscribe((errors: SubmissionError[]) => {
           errors.forEach((errorItem: SubmissionError) => {
             const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
@@ -63,7 +64,7 @@ export class SectionDirective implements OnDestroy, OnInit {
                 }
               });
             } else {
-              this.sectionErrors = [];
+              this.resetErrors();
             }
           });
         })

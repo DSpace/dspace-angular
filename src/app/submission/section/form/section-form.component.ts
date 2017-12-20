@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
+import { isEqual, findIndex } from 'lodash';
+
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
@@ -72,12 +74,13 @@ export class FormSectionComponent extends SectionModelComponent {
         this.formId = this.formService.getUniqueId(this.sectionData.id);
         this.formBuilderService.setAuthorityUuid(this.collectionId);
         this.store.select(submissionSectionDataFromIdSelector(this.submissionId, this.sectionData.id))
-          .take(1)
           .subscribe((sectionData: WorkspaceitemSectionFormObject) => {
+            console.log(this.sectionData.id, this.sectionData.data);
             if (isUndefined(this.formModel)) {
               // Is the first loading so init form
               this.initForm(config, sectionData)
-            } else if (!Object.is(sectionData, this.sectionData.data)) {
+            } else if (!isEqual(sectionData, this.sectionData.data)) {
+              // TODO send a notification to notify data may have been changed
               // Data are changed from remote response so update form's values
               this.updateForm(sectionData);
             }
@@ -110,14 +113,16 @@ export class FormSectionComponent extends SectionModelComponent {
             this.authorityService.getEntriesByName(searchOptions)
               .subscribe((result: IntegrationData) => {
                 if (hasValue(result.payload)) {
-                  this.formService.setValue(this.formRef.formGroup, fieldModel, fieldId, result.payload);
+                  const searchIndex = findIndex(result.payload, { value: sectionData[ index ][ 0 ].value });
+                  this.formService.setValue(this.formRef.formGroup, fieldModel, fieldId, result.payload[searchIndex]);
                 }
               })
           } else {
             this.formService.setValue(this.formRef.formGroup, fieldModel, fieldId, sectionData[ index ][ 0 ].value);
           }
         }
-      })
+      });
+    this.sectionData.data = sectionData;
   }
 
   subscriptions() {
