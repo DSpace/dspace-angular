@@ -32,7 +32,6 @@ export class ShaveDirective implements OnDestroy, OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log("onchange");
     if (this.shaveHeight > 0) {
       this.runShave();
     }

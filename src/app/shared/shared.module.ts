@@ -33,6 +33,8 @@ import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.com
 import { VarDirective } from './utils/var.directive';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { ShaveDirective } from './utils/shave.directive';
+import { TextOverflowClampDirective } from './utils/clamp-directive';
+
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -80,7 +82,8 @@ const ENTRY_COMPONENTS = [
 
 const DIRECTIVES = [
   VarDirective,
-  ShaveDirective
+  ShaveDirective,
+  TextOverflowClampDirective
 ];
 
 @NgModule({
