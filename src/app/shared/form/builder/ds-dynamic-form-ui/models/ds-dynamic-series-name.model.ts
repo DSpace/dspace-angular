@@ -10,4 +10,5 @@ export const NAME_INPUT_2_SUFFIX = '_NAME_INPUT_2';
 
 export class DynamicSeriesAndNameModel  extends DynamicFormGroupModel {
 
+
 }

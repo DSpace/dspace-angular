@@ -68,11 +68,15 @@ export class SeriesAndNameFieldParser extends FieldParser {
       }
     }
 
-
     let model1 = new DynamicInputModel(input1ModelConfig, clsInput);
     let model2 = new DynamicInputModel(input2ModelConfig, clsInput);
     model1.name = this.getFieldId()[0];
     model2.name = this.getFieldId()[0];
+    let placeholder = model1.placeholder.split('/');
+    if(placeholder.length === 2) {
+      model1.placeholder = placeholder[0];
+      model2.placeholder = placeholder[1];
+    }
     inputGroup.group.push(model1);
     inputGroup.group.push(model2);
 

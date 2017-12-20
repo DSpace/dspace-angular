@@ -48,14 +48,12 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
 import { FormFieldModel } from './models/form-field.model';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
-import { SeriesFieldParser } from './parsers/series-field-parser';
 import {
-  DynamicSeriesAndNameModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX, SERIES_GROUP_SUFFIX,
+  DynamicSeriesAndNameModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX,
   SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
 } from "./ds-dynamic-form-ui/models/ds-dynamic-series-name.model";
 import {AuthorityService} from "../../../core/integration/authority.service";
 import {SeriesAndNameFieldParser} from "./parsers/series-name-field-parser";
-} from './ds-dynamic-form-ui/models/ds-dynamic-series.model';
 
 
 @Injectable()
@@ -142,15 +140,15 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'name':
-          group.push(new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
+          fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
           break;
 
         case 'series':
-          group.push(new SeriesAndNameFieldParser(fieldData, initFormValues, 'series').parse());
+          fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'series').parse());
           break;
 
         case 'list':
-          fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+          // fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
           break;
 
         case 'lookup-name':
@@ -158,11 +156,11 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'name':
-          fieldModel = group.push(new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
+          fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
           break;
 
         case 'series':
-          fieldModel = (new SeriesFieldParser(fieldData, initFormValues, 'series').parse());
+          fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'series').parse());
           break;
 
         case 'tag':
