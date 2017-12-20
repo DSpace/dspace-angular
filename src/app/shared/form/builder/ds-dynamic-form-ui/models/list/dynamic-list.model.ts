@@ -5,9 +5,9 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
-export const DYNAMIC_FORM_CONTROL_TYPE_TAG = 'TYPETAG';
+export const DYNAMIC_FORM_CONTROL_TYPE_LIST = 'TYPELIST';
 
-export interface DynamicTagModelConfig extends DynamicInputModelConfig {
+export interface DynamicListModelConfig extends DynamicInputModelConfig {
   authorityMetadata: string;
   authorityName: string;
   authorityScope: string;
@@ -15,15 +15,15 @@ export interface DynamicTagModelConfig extends DynamicInputModelConfig {
   value: any;
 }
 
-export class DynamicTagModel extends DynamicInputModel {
+export class DynamicListModel extends DynamicInputModel {
 
   @serializable() authorityMetadata: string;
   @serializable() authorityName: string;
   @serializable() authorityScope: string;
   @serializable() minChars: number;
-  @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TAG;
+  @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_LIST;
 
-  constructor(config: DynamicTagModelConfig, cls?: ClsConfig) {
+  constructor(config: DynamicListModelConfig, cls?: ClsConfig) {
 
     super(config, cls);
 

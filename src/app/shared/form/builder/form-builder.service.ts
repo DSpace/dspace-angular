@@ -3,7 +3,7 @@ import { isEqual } from 'lodash';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicCheckboxModel,
   DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlEvent,
@@ -46,11 +46,12 @@ import {TagFieldParser} from "./parsers/tag-field-parser";
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
-import {SeriesFieldParser} from "./parsers/series-field-parser";
 import {
-  DynamicSeriesModel, SERIES_GROUP_SUFFIX,
+  DynamicSeriesAndNameModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX, SERIES_GROUP_SUFFIX,
   SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
-} from "./ds-dynamic-form-ui/models/ds-dynamic-series.model";
+} from "./ds-dynamic-form-ui/models/ds-dynamic-series-name.model";
+import {AuthorityService} from "../../../core/integration/authority.service";
+import {SeriesAndNameFieldParser} from "./parsers/series-name-field-parser";
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -61,7 +62,8 @@ export class FormBuilderService extends DynamicFormService {
               formBuilder: FormBuilder,
               validationService: DynamicFormValidationService,
               @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig,
-              private operationsBuilder: JsonPatchOperationsBuilder) {
+              private operationsBuilder: JsonPatchOperationsBuilder,
+              private authorityService: AuthorityService) {
     super(formBuilder, validationService);
   }
 
@@ -121,7 +123,7 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'list':
-          group.push(new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig).parse());
+          // group.push(new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig, this.authorityService).parse());
           break;
 
         case 'lookup-name':
@@ -129,11 +131,11 @@ export class FormBuilderService extends DynamicFormService {
           break;
 
         case 'name':
-          // group.push(new NameFieldParser(fieldData).parse());
+          group.push(new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
           break;
 
         case 'series':
-          group.push(new SeriesFieldParser(fieldData, initFormValues).parse());
+          group.push(new SeriesAndNameFieldParser(fieldData, initFormValues, 'series').parse());
           break;
 
         case 'tag':
@@ -210,7 +212,7 @@ export class FormBuilderService extends DynamicFormService {
 
   getFieldValueFromChangeEvent(event: DynamicFormControlEvent) {
     let fieldValue;
-    if (event.model instanceof DynamicComboboxModel) {
+    if (event.model instanceof DynamicComboboxModel || event.model instanceof DynamicCheckboxModel) {
       const valueId = event.model.id.replace(COMBOBOX_GROUP_SUFFIX, COMBOBOX_VALUE_SUFFIX);
       fieldValue = event.control.get(event.model.id).get(valueId).value || null;
     } else if (event.model.parent instanceof DynamicComboboxModel) {
@@ -220,16 +222,28 @@ export class FormBuilderService extends DynamicFormService {
       } else {
         fieldValue = event.control.value;
       }
-    } else if (event.model.parent instanceof DynamicSeriesModel) {
+    } else if (event.model.parent instanceof DynamicSeriesAndNameModel) {
       if (event.model.id.endsWith(SERIES_INPUT_1_SUFFIX)) {
         const valueId_1 = event.model.id;
         const valueId_2 = event.model.id.replace(SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX);
         const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
         const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
         fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
-      } else {
+      } else if (event.model.id.endsWith(SERIES_INPUT_2_SUFFIX)){
         const valueId_2 = event.model.id;
         const valueId_1 = event.model.id.replace(SERIES_INPUT_2_SUFFIX, SERIES_INPUT_1_SUFFIX);
+        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
+        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
+        fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
+      } else if (event.model.id.endsWith(NAME_INPUT_1_SUFFIX)) {
+        const valueId_1 = event.model.id;
+        const valueId_2 = event.model.id.replace(NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX);
+        const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
+        const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
+        fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;
+      } else if (event.model.id.endsWith(NAME_INPUT_2_SUFFIX)){
+        const valueId_2 = event.model.id;
+        const valueId_1 = event.model.id.replace(NAME_INPUT_2_SUFFIX, NAME_INPUT_1_SUFFIX);
         const value1 = event.group.get(valueId_1).value === null ? '': event.group.get(valueId_1).value;
         const value2 = event.group.get(valueId_2).value === null ? '': event.group.get(valueId_2).value;
         fieldValue = event.group.get(valueId_1).value +';'+ event.group.get(valueId_2).value;

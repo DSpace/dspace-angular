@@ -19,7 +19,6 @@ export class TagFieldParser extends FieldParser {
         tagModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
         tagModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
         tagModelConfig.authorityScope = this.authorityUuid;
-        tagModelConfig.withTag = true;
         if (isNotEmpty(fieldValue)) {
           const authorityValue = {
             id: fieldValue.authority,

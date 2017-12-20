@@ -4,5 +4,10 @@ export const SERIES_GROUP_SUFFIX = '_SERIES_GROUP';
 export const SERIES_INPUT_1_SUFFIX = '_SERIES_INPUT_1';
 export const SERIES_INPUT_2_SUFFIX = '_SERIES_INPUT_2';
 
-export class DynamicSeriesModel  extends DynamicFormGroupModel {
+export const NAME_GROUP_SUFFIX = '_NAME_GROUP';
+export const NAME_INPUT_1_SUFFIX = '_NAME_INPUT_1';
+export const NAME_INPUT_2_SUFFIX = '_NAME_INPUT_2';
+
+export class DynamicSeriesAndNameModel  extends DynamicFormGroupModel {
+
 }
