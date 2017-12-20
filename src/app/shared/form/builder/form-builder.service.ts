@@ -128,7 +128,7 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
         case 'list':
-          // group.push(new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig, this.authorityService).parse());
+          // fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.formsConfigService, this.EnvConfig, this.authorityService).parse());
           break;
 
         case 'lookup':
@@ -137,18 +137,6 @@ export class FormBuilderService extends DynamicFormService {
 
         case 'onebox':
           fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-          break;
-
-        case 'name':
-          fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
-          break;
-
-        case 'series':
-          fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'series').parse());
-          break;
-
-        case 'list':
-          // fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
           break;
 
         case 'lookup-name':
