@@ -34,6 +34,7 @@ export class ListFieldParser extends FieldParser {
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     let listModelConfig: DynamicListModelConfig = this.initModel();
     listModelConfig.repeatable = this.configData.repeatable;
+    // listModelConfig.repeatable = false; // TODO REMOVE, FORCE RADIO
 
     if(this.configData.selectableMetadata[0].authority
       && this.configData.selectableMetadata[0].authority.length > 0 ) {

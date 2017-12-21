@@ -1,11 +1,11 @@
-<div *ngIf="model.repeatable"
+<div class="form-row" *ngIf="model.repeatable"
      [dynamicId]="bindId && model.id"
      [ngClass]="model.cls.element.control">
 
-  <div *ngFor="let item of items" class="ml-4 form-check"
+  <div *ngFor="let itemsRow of items" class="col-sm-2 ml-4 form-check"
        [class.disabled]="model.disabled">
-    <label class="form-check-label"
-           [ngClass]="model.cls.element.control">
+    <label *ngFor="let item of itemsRow" class="d-block"
+           [ngClass]="model.cls.element.control" >
 
       <input type="checkbox" class="form-check-input"
              [attr.tabindex]="items.indexOf(item)"
@@ -16,30 +16,30 @@
              [value]="item.value"
              (blur)="onBlurEvent($event)"
              (change)="onChangeEvent($event)"
-             (focus)="onFocusEvent($event)" /><span [ngClass]="model.cls.element.label"
-                                                    [innerHTML]="item.label"></span></label>
+             (focus)="onFocusEvent($event)"/><span [ngClass]="model.cls.element.label"
+                                                   [innerHTML]="item.label"></span></label>
     <br>
   </div>
 </div>
 
-<div *ngIf="!model.repeatable" ngbRadioGroup class="btn-group" role="radiogroup"
+<div *ngIf="!model.repeatable"
+     class="form-row"
      [attr.tabindex]="model.tabIndex"
      [dynamicId]="bindId && model.id"
-     [ngClass]="model.cls.element.control"
-     (change)="onValueChange($event)">
+     [ngClass]="model.cls.element.control">
 
   <!--<legend *ngIf="model.legend" [innerHTML]="model.legend"></legend>-->
+  <div *ngFor="let itemsRow of items" ngbRadioGroup class="col-sm-2 ml-4 form-check" role="radiogroup">
+    <label *ngFor="let item of itemsRow" ngbButtonLabel class="d-block"
+           [ngClass]="[model.cls.element.option, model.cls.grid.option]">
 
-  <label *ngFor="let option of items" ngbButtonLabel
-         [ngClass]="[model.cls.element.option, model.cls.grid.option]">
-
-    <input type="radio" ngbButton
-           [disabled]="option.disabled"
-           [name]="model.name"
-           [value]="option.value"
-           (blur)="onBlurEvent($event)"
-           (focus)="onFocusEvent($event)"
-           (change)="onChangeEvent($event)"/><span [innerHTML]="option.label"></span>
-  </label>
+      <input type="radio" ngbButton
+             [name]="model.name"
+             [value]="item.value"
+             (blur)="onBlurEvent($event)"
+             (focus)="onFocusEvent($event)"
+             (change)="onChangeEvent($event)"/><span [innerHTML]="item.label"></span>
+    </label>
+  </div>
 
 </div>

@@ -1,1 +1,23 @@
+[data-toggle="buttons"] > .btn input[type="radio"],
+[data-toggle="buttons"] > .btn input[type="checkbox"],
+[data-toggle="buttons"] > .btn-group > .btn input[type="radio"],
+[data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"] {
+  position: relative;
+  margin-right: 3px;
+}
+//
+//.list-container {
+//  display: block;
+//}
+//
+//.list-content {
+//  display: inline-block;
+//  width: 25%;
+//  min-width: 25%;
+//  max-width: 25%;
+//}
 
+label {
+  display: block;
+  //width: 100%;
+}
