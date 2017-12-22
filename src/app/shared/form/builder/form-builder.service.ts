@@ -45,14 +45,15 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
 import {
- DynamicSeriesAndNameModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX,
+ DynamicConcatModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX,
 
   SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
-} from './ds-dynamic-form-ui/models/ds-dynamic-series-name.model';
+} from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { AuthorityService } from '../../../core/integration/authority.service';
-import { SeriesAndNameFieldParser } from './parsers/series-name-field-parser';
+import { SeriesFieldParser } from './parsers/series-field-parser';
 import { DynamicListModel } from './ds-dynamic-form-ui/models/list/dynamic-list.model';
 import { DsDynamicListComponent } from './ds-dynamic-form-ui/models/list/dynamic-list.component';
+import { NameFieldParser } from './parsers/name-field-parser';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -140,11 +141,11 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
             case 'name':
-              fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'name').parse());
+              fieldModel = (new NameFieldParser(fieldData, initFormValues).parse());
               break;
 
             case 'series':
-              fieldModel = (new SeriesAndNameFieldParser(fieldData, initFormValues, 'series').parse());
+              fieldModel = (new SeriesFieldParser(fieldData, initFormValues).parse());
               break;
 
             case 'tag':
@@ -223,7 +224,7 @@ export class FormBuilderService extends DynamicFormService {
     } else {
       fieldIndex = event.context.index;
     }
-    return fieldIndex
+    return isNotUndefined(fieldIndex) ? fieldIndex : 0;
   }
 
   getFieldPathFromChangeEvent(event: DynamicFormControlEvent) {
@@ -234,16 +235,8 @@ export class FormBuilderService extends DynamicFormService {
 
   getFieldPathSegmentedFromChangeEvent(event: DynamicFormControlEvent) {
     let fieldId;
-    if (event.model instanceof DynamicComboboxModel) {
-      const metadataId = event.model.id.replace(COMBOBOX_GROUP_SUFFIX, COMBOBOX_METADATA_SUFFIX);
-      fieldId = event.control.get(event.model.id).get(metadataId).value || null;
-    } else if (event.model.parent instanceof DynamicComboboxModel) {
-      if (event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX)) {
-        const metadataId = event.model.id.replace(COMBOBOX_VALUE_SUFFIX, COMBOBOX_METADATA_SUFFIX);
-        fieldId = event.group.get(metadataId).value;
-      } else {
-        fieldId = event.control.value;
-      }
+    if (event.model.parent instanceof DynamicComboboxModel) {
+      fieldId = event.model.parent.path;
     } else {
       fieldId = this.getId(event.model);
     }
@@ -252,61 +245,9 @@ export class FormBuilderService extends DynamicFormService {
 
   getFieldValueFromChangeEvent(event: DynamicFormControlEvent) {
     let fieldValue;
-    if (event.model instanceof DynamicComboboxModel || event.model instanceof DynamicCheckboxModel) {
-      const valueId = event.model.id.replace(COMBOBOX_GROUP_SUFFIX, COMBOBOX_VALUE_SUFFIX);
-      fieldValue = event.control.get(event.model.id).get(valueId).value || null;
-    } else if (event.model.parent instanceof DynamicComboboxModel) {
-      if (event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX)) {
-        const valueId = event.model.id.replace(COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX);
-        fieldValue = event.group.get(valueId).value;
-      } else {
-        fieldValue = event.control.value;
-      }
-    } else if (event.model instanceof DynamicListModel) {
-      // fieldValue =
-    } else if (event.model.parent instanceof DynamicSeriesAndNameModel) {
-      let firstValueId;
-      let secondValueId;
-      let value1;
-      let value2;
-      let separator;
-      if (event.model.id.endsWith(SERIES_INPUT_1_SUFFIX)) {
-        firstValueId = event.model.id;
-        secondValueId = event.model.id.replace(SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX);
-        // value1 = event.group.get(firstValueId).value === null ? '' : event.group.get(firstValueId).value;
-        // value2 = event.group.get(secondValueId).value === null ? '' : event.group.get(secondValueId).value;
-        separator = '; ';
-      } else if (event.model.id.endsWith(SERIES_INPUT_2_SUFFIX)) {
-        secondValueId = event.model.id;
-        firstValueId = event.model.id.replace(SERIES_INPUT_2_SUFFIX, SERIES_INPUT_1_SUFFIX);
-        // value1 = event.group.get(firstValueId).value === null ? '' : event.group.get(firstValueId).value;
-        // value2 = event.group.get(secondValueId).value === null ? '' : event.group.get(secondValueId).value;
-        separator = '; ';
-      } else if (event.model.id.endsWith(NAME_INPUT_1_SUFFIX)) {
-        firstValueId = event.model.id;
-        secondValueId = event.model.id.replace(NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX);
-        // value1 = event.group.get(firstValueId).value === 'null' ? '' : event.group.get(firstValueId).value;
-        // value2 = event.group.get(secondValueId).value === 'null' ? '' : event.group.get(secondValueId).value;
-        separator = ', ';
-      } else if (event.model.id.endsWith(NAME_INPUT_2_SUFFIX)) {
-        secondValueId = event.model.id;
-        firstValueId = event.model.id.replace(NAME_INPUT_2_SUFFIX, NAME_INPUT_1_SUFFIX);
-        // value1 = event.group.get(firstValueId).value === 'null' ? '' : event.group.get(firstValueId).value;
-        // value2 = event.group.get(secondValueId).value === 'null' ? '' : event.group.get(secondValueId).value;
-        separator = ', ';
-      }
-      value1 = event.group.get(firstValueId).value === 'null' ? '' : event.group.get(firstValueId).value;
-      value2 = event.group.get(secondValueId).value === 'null' ? '' : event.group.get(secondValueId).value;
-      if (isNotEmpty(value1) && isNotEmpty(value2)) {
-        fieldValue = value1 + separator + value2;
-      }
-    } else if (event.$event instanceof AuthorityModel) {
-      if (isNotNull(event.$event.id)) {
-        fieldValue = { value: event.$event.value, authority: event.$event.id, confidence: 600 };
-      } else {
-        fieldValue = { value: event.$event.value };
-      }
-    } else if (isNotEmpty(event.control.value) && typeof event.control.value === 'object') {
+    if (this.isModelInCustomGroup(event.model)) {
+      fieldValue = (event.model.parent as any).value;
+    } else if (isNotEmpty(event.control.value) && typeof event.control.value === 'object' && !(event.control.value instanceof AuthorityModel)) {
       fieldValue = [];
       Object.keys(event.control.value)
         .forEach((key) => {
@@ -318,6 +259,12 @@ export class FormBuilderService extends DynamicFormService {
       fieldValue = event.control.value;
     }
     return fieldValue;
+  }
+
+  isModelInCustomGroup(model: DynamicFormControlModel) {
+    return model.parent &&
+      (model.parent instanceof DynamicConcatModel
+        || model.parent instanceof DynamicComboboxModel);
   }
 
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0) {
@@ -335,70 +282,88 @@ export class FormBuilderService extends DynamicFormService {
     }
   }
 
+  protected dispatchOperationsFromRemoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
+                                              event: DynamicFormControlEvent,
+                                              previousValue: FormFieldPreviousValueObject) {
+    const path = this.getFieldPathFromChangeEvent(event);
+    const value = this.getFieldValueFromChangeEvent(event);
+    if (event.model.parent instanceof DynamicComboboxModel) {
+      this.dispatchComboboxOperations(pathCombiner, event, previousValue);
+    } else if (isNotEmpty(value)) {
+      this.operationsBuilder.remove(pathCombiner.getPath(path));
+    }
+  }
+
+  protected dispatchOperationsFromChangeEvent(pathCombiner: JsonPatchOperationPathCombiner,
+                                              event: DynamicFormControlEvent,
+                                              previousValue: FormFieldPreviousValueObject,
+                                              hasStoredValue: boolean) {
+    const path = this.getFieldPathFromChangeEvent(event);
+    const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
+    const value = this.getFieldValueFromChangeEvent(event);
+    if (event.model.parent instanceof DynamicComboboxModel) {
+      this.dispatchComboboxOperations(pathCombiner, event, previousValue);
+    } else if (previousValue.isPathEqual(this.getPath(event.model)) || hasStoredValue) {
+      if (isEmpty(value)) {
+        if (this.getArrayIndexFromEvent(event) === 0) {
+          this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));
+        } else {
+          this.operationsBuilder.remove(pathCombiner.getPath(path));
+        }
+      } else {
+        this.operationsBuilder.replace(
+          pathCombiner.getPath(path),
+          value);
+      }
+      previousValue.delete();
+    } else if (isNotEmpty(value)) {
+      if (isUndefined(this.getArrayIndexFromEvent(event))
+        || this.getArrayIndexFromEvent(event) === 0) {
+        this.operationsBuilder.add(
+          pathCombiner.getPath(segmentedPath),
+          value, true);
+      } else {
+        this.operationsBuilder.add(
+          pathCombiner.getPath(segmentedPath),
+          value);
+      }
+    }
+  }
+
   dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
                               event: DynamicFormControlEvent,
                               previousValue: FormFieldPreviousValueObject,
                               hasStoredValue: boolean) {
-    const path = this.getFieldPathFromChangeEvent(event);
-    const value = this.getFieldValueFromChangeEvent(event);
-    if (event.type === 'remove') {
-      if (event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX) || event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX)) {
-        this.dispatchComboboxOperations(pathCombiner, event, previousValue);
-      } else if (isNotEmpty(value)) {
-        this.operationsBuilder.remove(pathCombiner.getPath(path));
-      }
-    } else {
-      if (event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX) || event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX)) {
-        this.dispatchComboboxOperations(pathCombiner, event, previousValue);
-      } else if (previousValue.isPathEqual(this.getPath(event.model)) || hasStoredValue) {
-        if (isEmpty(value)) {
-          if (this.getArrayIndexFromEvent(event) === 0) {
-            this.operationsBuilder.remove(pathCombiner.getPath(this.getFieldPathSegmentedFromChangeEvent(event)));
-          } else {
-            this.operationsBuilder.remove(pathCombiner.getPath(path));
-          }
-        } else {
-          this.operationsBuilder.replace(
-            pathCombiner.getPath(path),
-            value);
-        }
-        previousValue.delete();
-      } else if (isNotEmpty(value)) {
-        if (isUndefined(this.getArrayIndexFromEvent(event))
-          || this.getArrayIndexFromEvent(event) === 0) {
-          this.operationsBuilder.add(
-            pathCombiner.getPath(this.getFieldPathSegmentedFromChangeEvent(event)),
-            value, true);
-        } else {
-          this.operationsBuilder.add(
-            pathCombiner.getPath(path),
-            value);
-        }
-      }
+    switch (event.type) {
+      case 'remove':
+        this.dispatchOperationsFromRemoveEvent(pathCombiner, event, previousValue);
+        break;
+      case 'change':
+        this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue);
+        break;
+      default:
+        break;
     }
   }
 
   public getComboboxMap(event): Map<string, any> {
     const metadataValueMap = new Map();
-    const metadataId = (event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX)) ?
-      event.model.id.replace(COMBOBOX_VALUE_SUFFIX, COMBOBOX_METADATA_SUFFIX) : event.model.id;
-    const valueId = (event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX)) ?
-      event.model.id.replace(COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX) : event.model.id;
-    const groupId = valueId.replace(COMBOBOX_VALUE_SUFFIX, COMBOBOX_GROUP_SUFFIX);
 
-    (event.group.parent.parent as FormArray).value.forEach((entry) => {
-      const metadataValueList = (metadataValueMap.get(entry[ groupId ][ metadataId ])) ? metadataValueMap.get(entry[ groupId ][ metadataId ]) : [];
-      if (entry[ groupId ][ valueId ]) {
-        metadataValueList.push(entry[ groupId ][ valueId ]);
-        metadataValueMap.set(entry[ groupId ][ metadataId ], metadataValueList);
+    (event.model.parent.parent as DynamicFormArrayGroupModel).context.groups.forEach((arrayModel: DynamicFormArrayGroupModel) => {
+      const groupModel = arrayModel.group[0] as DynamicComboboxModel;
+      const metadataValueList = metadataValueMap.get(groupModel.path) ? metadataValueMap.get(groupModel.path) : [];
+      if (groupModel.value) {
+        metadataValueList.push(groupModel.value);
+        metadataValueMap.set(groupModel.path, metadataValueList);
       }
     });
+
     return metadataValueMap;
   }
 
-  dispatchComboboxOperations(pathCombiner: JsonPatchOperationPathCombiner,
-                             event: DynamicFormControlEvent,
-                             previousValue: FormFieldPreviousValueObject) {
+  protected dispatchComboboxOperations(pathCombiner: JsonPatchOperationPathCombiner,
+                                       event: DynamicFormControlEvent,
+                                       previousValue: FormFieldPreviousValueObject) {
     const currentValueMap = this.getComboboxMap(event);
     if (previousValue.isPathEqual(this.getPath(event.model))) {
       previousValue.value.forEach((entry, index) => {
