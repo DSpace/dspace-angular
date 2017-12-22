@@ -194,7 +194,7 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
           }
         }),
         transactionStartTime: state[ action.payload.resourceType ].transactionStartTime,
-        commitPending: state[ action.payload.resourceType ].commitPending
+        commitPending: isNotUndefined(state[ action.payload.resourceType ].commitPending) ? state[ action.payload.resourceType ].commitPending : false
       })
     });
   } else {
