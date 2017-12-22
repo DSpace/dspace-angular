@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { NormalizedWorkspaceItem } from '../../models/normalized-workspaceitem.model';
 import { isEmpty } from 'lodash';
-import { WorkspaceItemError } from '../../models/workspaceitem.model';
+import { WorkspaceItemError, WorkspaceitemObject } from '../../models/workspaceitem.model';
 import {
   default as parseSectionErrorPaths,
   SectionErrorPath
@@ -16,6 +16,7 @@ import {
 import { InertSectionErrorsAction } from '../../objects/submission-objects.actions';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { SectionService } from '../../section/section.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-submission-submit-form-footer',
@@ -26,6 +27,7 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
 
   @Input() submissionId;
 
+  public saving = false;
   private submissionIsInvalid = true;
 
   constructor(private modalService: NgbModal,
@@ -46,46 +48,49 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
     }
   }
 
-  saveLater() {
+  saveLater(event) {
+    this.saving = true
     this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
-      .distinctUntilChanged()
-      .subscribe((items: NormalizedWorkspaceItem[]) => {
-        const errorsList = {};
+      .subscribe((response) => {
+        if (isNotEmpty(response)) {
+          const errorsList = {};
 
-        // to avoid dispatching an action for every error, create an array of errors per section
-        items.forEach((item: NormalizedWorkspaceItem) => {
-          const { sections } = item;
-          if (sections && isNotEmpty(sections)) {
-            Object.keys(sections)
-              .forEach((sectionId) => this.sectionService.updateSectionData(this.submissionId, sectionId, sections[sectionId]))
-          }
+          // to avoid dispatching an action for every error, create an array of errors per section
+          (response as WorkspaceitemObject[]).forEach((item: WorkspaceitemObject) => {
+            const {sections} = item;
+            if (sections && isNotEmpty(sections)) {
+              Object.keys(sections)
+                .forEach((sectionId) => this.sectionService.updateSectionData(this.submissionId, sectionId, sections[sectionId]))
+            }
 
-          const { errors } = item;
+            const {errors} = item;
 
-          if (errors && !isEmpty(errors)) {
-            errors.forEach((error: WorkspaceItemError) => {
-              const paths: SectionErrorPath[] = parseSectionErrorPaths(error.paths);
+            if (errors && !isEmpty(errors)) {
+              errors.forEach((error: WorkspaceItemError) => {
+                const paths: SectionErrorPath[] = parseSectionErrorPaths(error.paths);
 
-              paths.forEach((path: SectionErrorPath) => {
-                const sectionError = { path: path.originalPath, message: error.message };
-                if (!errorsList[ path.sectionId ]) {
-                  errorsList[ path.sectionId ] = { errors: [] };
-                }
-                errorsList[ path.sectionId ].errors.push(sectionError);
+                paths.forEach((path: SectionErrorPath) => {
+                  const sectionError = {path: path.originalPath, message: error.message};
+                  if (!errorsList[path.sectionId]) {
+                    errorsList[path.sectionId] = {errors: []};
+                  }
+                  errorsList[path.sectionId].errors.push(sectionError);
+                });
               });
+            }
+          });
+
+          // and now dispatch an action with an array of errors for every section
+          if (!isEmpty(errorsList)) {
+            Object.keys(errorsList).forEach((sectionId) => {
+              const {errors} = errorsList[sectionId];
+              const action = new InertSectionErrorsAction(this.submissionId, sectionId, errors);
+
+              this.store.dispatch(action);
             });
           }
-        });
-
-        // and now dispatch an action with an array of errors for every section
-        if (!isEmpty(errorsList)) {
-          Object.keys(errorsList).forEach((sectionId) => {
-            const { errors } = errorsList[ sectionId ];
-            const action = new InertSectionErrorsAction(this.submissionId, sectionId, errors);
-
-            this.store.dispatch(action);
-          });
         }
+        this.saving = false;
       });
   }
 

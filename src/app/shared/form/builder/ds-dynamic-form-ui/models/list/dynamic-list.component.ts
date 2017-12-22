@@ -52,7 +52,7 @@ export class DsDynamicListComponent implements OnInit {
   }
 
   onChangeEvent($event) {
-    this.focus.emit(event);
+    this.change.emit(event);
   }
 
   protected setOptionsFromAuthority() {

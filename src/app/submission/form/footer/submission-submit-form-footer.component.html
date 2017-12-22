@@ -3,7 +3,14 @@
     <button type="button" class="btn btn-secondary" (click)="$event.preventDefault();confirmDiscard(content)">Discard</button>
   </div>
   <div class="col text-right">
-    <button type="button" class="btn btn-info" (click)="saveLater()">Save for later</button>
+    <button type="button"
+            class="btn btn-info"
+            id="load"
+            [disabled]="saving"
+            (click)="saveLater($event)">
+      <span *ngIf="saving"><i class='fa fa-circle-o-notch fa-spin'></i> Saving...</span>
+      <span *ngIf="!saving">Save for later</span>
+    </button>
     <button type="button" class="btn btn-primary" [disabled]="submissionIsInvalid" (click)="resourceDeposit()">Deposit</button>
   </div>
 </div>

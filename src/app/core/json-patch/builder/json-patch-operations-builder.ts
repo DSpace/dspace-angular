@@ -8,6 +8,7 @@ import { JsonPatchOperationPathObject } from './json-patch-operation-path-combin
 import { Injectable } from '@angular/core';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { dateToGMTString } from '../../../shared/date.util';
+import { AuthorityModel } from '../../integration/models/authority.model';
 
 @Injectable()
 export class JsonPatchOperationsBuilder {
@@ -57,6 +58,12 @@ export class JsonPatchOperationsBuilder {
           })
         } else if (value instanceof Date) {
           operationValue = dateToGMTString(value);
+        } else if (value instanceof AuthorityModel) {
+          if (isNotEmpty(value.id)) {
+            operationValue = { value: value.value, authority: value.id, confidence: 600 };
+          } else {
+            operationValue = { value: value.value };
+          }
         } else if ((typeof value === 'object') && value.hasOwnProperty('value')) {
           operationValue = value;
         } else {

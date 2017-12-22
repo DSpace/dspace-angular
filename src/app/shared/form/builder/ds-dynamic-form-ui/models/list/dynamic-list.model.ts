@@ -30,6 +30,7 @@ export class DynamicListModel extends DynamicInputModel {
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
     this.repeatable = config.repeatable;
+
   }
 
 }

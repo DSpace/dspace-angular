@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import {
   ErrorResponse, PostPatchSuccessResponse,
   RestResponse
@@ -30,7 +30,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
   protected abstract store: Store<CoreState>;
 
   protected submitData(request: RestRequest): Observable<ResponseDefinitionDomain> {
-    const [successResponse, errorResponse] =  this.responseCache.get(request.href)
+    const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
@@ -43,50 +43,64 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
   }
 
   protected submitJsonPatchOperations(hrefObs: Observable<string>, resourceType: string, resourceId?: string) {
-    return hrefObs
+    let startTransactionTime = null;
+    const [patchRequestObs, emptyRequestObs] = hrefObs
       .flatMap((endpointURL: string) => {
         return this.store.select(jsonPatchOperationsByResourceType(resourceType))
           .take(1)
-          .filter((operationsList: JsonPatchOperationsResourceEntry) => isNotEmpty(operationsList))
-          .do(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, new Date().getTime())))
+          .filter((operationsList: JsonPatchOperationsResourceEntry) => isUndefined(operationsList) || !(operationsList.commitPending))
+          .do(() => startTransactionTime = new Date().getTime())
           .map((operationsList: JsonPatchOperationsResourceEntry)  => {
             const body: JsonPatchOperationModel[] = [];
-            if (isNotEmpty(resourceId)) {
-              if (isNotUndefined(operationsList.children[resourceId]) && isNotEmpty(operationsList.children[resourceId].body)) {
-                operationsList.children[resourceId].body.forEach((entry) => {
-                  body.push(entry.operation);
-                });
-              }
-            } else {
-              Object.keys(operationsList.children)
-                .filter((key) => operationsList.children.hasOwnProperty(key))
-                .filter((key) => hasValue(operationsList.children[key]))
-                .filter((key) => hasValue(operationsList.children[key].body))
-                .forEach((key) => {
-                  operationsList.children[key].body.forEach((entry) => {
+            if (isNotEmpty(operationsList)) {
+              if (isNotEmpty(resourceId)) {
+                if (isNotUndefined(operationsList.children[resourceId]) && isNotEmpty(operationsList.children[resourceId].body)) {
+                  operationsList.children[resourceId].body.forEach((entry) => {
                     body.push(entry.operation);
                   });
-                })
+                }
+              } else {
+                Object.keys(operationsList.children)
+                  .filter((key) => operationsList.children.hasOwnProperty(key))
+                  .filter((key) => hasValue(operationsList.children[key]))
+                  .filter((key) => hasValue(operationsList.children[key].body))
+                  .forEach((key) => {
+                    operationsList.children[key].body.forEach((entry) => {
+                      body.push(entry.operation);
+                    });
+                  })
+              }
             }
             return new HttpPatchRequest(endpointURL, body);
           });
       })
-      .do((request: HttpPatchRequest) => this.requestService.configure(request, true))
-      .flatMap((request: HttpPatchRequest) => {
-        const [successResponse, errorResponse] =  this.responseCache.get(request.href)
-          .take(1)
-          .map((entry: ResponseCacheEntry) => entry.response)
-          .partition((response: RestResponse) => response.isSuccessful);
-        return Observable.merge(
-          errorResponse
-            .do(() => this.store.dispatch(new RollbacktPatchOperationsAction(resourceType, resourceId)))
-            .flatMap((response: ErrorResponse) => Observable.of(new Error(`Couldn't patch operations`))),
-          successResponse
-            .filter((response: PostPatchSuccessResponse) => isNotEmpty(response))
-            .do(() => this.store.dispatch(new CommitPatchOperationsAction(resourceType, resourceId)))
-            .map((response: PostPatchSuccessResponse) => response.dataDefinition)
-            .distinctUntilChanged());
-      })
+      .partition((request: HttpPatchRequest) => isNotEmpty(request.body));
+
+    return Observable.merge(
+      emptyRequestObs
+        .filter((request: HttpPatchRequest) => isEmpty(request.body))
+        .do(() => startTransactionTime = null)
+        .map(() => null),
+      patchRequestObs
+        .filter((request: HttpPatchRequest) => isNotEmpty(request.body))
+        .do(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime)))
+        .do((request: HttpPatchRequest) => this.requestService.configure(request, true))
+        .flatMap((request: HttpPatchRequest) => {
+          const [successResponse, errorResponse] =  this.responseCache.get(request.href)
+            .take(1)
+            .map((entry: ResponseCacheEntry) => entry.response)
+            .partition((response: RestResponse) => response.isSuccessful);
+          return Observable.merge(
+            errorResponse
+              .do(() => this.store.dispatch(new RollbacktPatchOperationsAction(resourceType, resourceId)))
+              .flatMap((response: ErrorResponse) => Observable.of(new Error(`Couldn't patch operations`))),
+            successResponse
+              .filter((response: PostPatchSuccessResponse) => isNotEmpty(response))
+              .do(() => this.store.dispatch(new CommitPatchOperationsAction(resourceType, resourceId)))
+              .map((response: PostPatchSuccessResponse) => response.dataDefinition)
+              .distinctUntilChanged());
+        })
+    );
   }
 
   protected getEndpointByIDHref(endpoint, resourceID): string {

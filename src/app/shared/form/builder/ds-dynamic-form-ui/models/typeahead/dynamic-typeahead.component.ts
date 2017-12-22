@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
@@ -7,7 +7,6 @@ import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { isEmpty, isNotEmpty } from '../../../../../empty.util';
 
 @Component({
@@ -15,7 +14,7 @@ import { isEmpty, isNotEmpty } from '../../../../../empty.util';
   styleUrls: ['./dynamic-typeahead.component.scss'],
   templateUrl: './dynamic-typeahead.component.html'
 })
-export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
+export class DsDynamicTypeaheadComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTypeaheadModel;
@@ -64,9 +63,6 @@ export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
 
   constructor(private authorityService: AuthorityService) {}
 
-  ngOnChanges() {
-    // console.log(this.currentValue);
-  }
   ngOnInit() {
     this.currentValue = this.model.value;
     this.searchOptions = new IntegrationSearchOptions(
@@ -93,6 +89,7 @@ export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
   onChangeEvent(event: Event) {
     event.stopPropagation();
     if (isEmpty(this.currentValue)) {
+      // this.model.value = null;
       this.group.controls[this.model.id].setValue(null);
       this.change.emit(null);
     }
@@ -104,6 +101,7 @@ export class DsDynamicTypeaheadComponent implements OnChanges, OnInit {
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
     this.currentValue = event.item;
+    // this.model.value = this.currentValue;
     this.group.controls[this.model.id].setValue(event.item);
     this.change.emit(event.item);
   }
