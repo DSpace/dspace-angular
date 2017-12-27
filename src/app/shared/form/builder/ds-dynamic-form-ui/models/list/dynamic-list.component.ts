@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { DynamicListModel } from "./dynamic-list.model";
+import { DynamicListModel, ListItem } from "./dynamic-list.model";
 import { ConfigData } from '../../../../../../core/config/config-data';
 import { ConfigAuthorityModel } from '../../../../../../core/shared/config/config-authority.model';
+import { NgbCheckBox } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicCheckControlModel } from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-list',
@@ -23,7 +25,6 @@ export class DsDynamicListComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  private items: ListItem[][];
   private groupBy: number = 5;
 
   protected searchOptions: IntegrationSearchOptions;
@@ -31,7 +32,7 @@ export class DsDynamicListComponent implements OnInit {
   constructor(private authorityService: AuthorityService) {}
 
   ngOnInit() {
-    this.items = [];
+    this.model.items = [];
     this.searchOptions = new IntegrationSearchOptions(
       this.model.authorityScope,
       this.model.authorityName,
@@ -47,12 +48,13 @@ export class DsDynamicListComponent implements OnInit {
     this.blur.emit(event);
   }
 
-  onFocusEvent($event) {
+  onFocusEvent(event) {
     this.focus.emit(event);
   }
 
-  onChangeEvent($event) {
+  onChangeEvent(event) {
     this.change.emit(event);
+    this.group.controls[this.model.id].setValue(event);
   }
 
   protected setOptionsFromAuthority() {
@@ -73,16 +75,18 @@ export class DsDynamicListComponent implements OnInit {
 
 
         (authorities.payload as ConfigAuthorityModel[]).forEach((option, key) => {
-          const item = {
+          const item: ListItem = {
             label: option.display,
             value: option.id || option.value,
             checked: false
           };
           tmpList.push(item);
+          // TODO Check why it's necessary here
+          this.group.addControl(item.value, new FormControl());
 
           if( tmpList.length % this.groupBy === 0 || key+1 === authorities.payload.length) {
             const clone = tmpList.map(a => Object.assign({}, a));
-            this.items.push(Object.assign(clone));
+            this.model.items.push(Object.assign(clone));
             tmpList = [];
           }
 
@@ -94,9 +98,3 @@ export class DsDynamicListComponent implements OnInit {
   }
 
 }
-
-interface ListItem {
-  label,
-  value,
-  checked
-};

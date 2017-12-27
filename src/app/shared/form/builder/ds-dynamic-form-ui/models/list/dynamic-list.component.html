@@ -1,16 +1,19 @@
+<div [formGroup]="group">
 <div class="form-row" *ngIf="model.repeatable"
      [dynamicId]="bindId && model.id"
-     [ngClass]="model.cls.element.control">
+     [ngClass]="model.cls.element.control"
+>
 
-  <div *ngFor="let itemsRow of items" class="col-sm-2 ml-4 form-check"
-       [class.disabled]="model.disabled">
+  <div *ngFor="let itemsRow of model.items; let i=index" class="col-sm-2 ml-4 form-check"
+       [class.disabled]="model.disabled"   >
     <label *ngFor="let item of itemsRow" class="d-block"
            [ngClass]="model.cls.element.control" >
 
       <input type="checkbox" class="form-check-input"
-             [attr.tabindex]="items.indexOf(item)"
+             [attr.tabindex]="itemsRow.indexOf(item)"
              [checked]="item.checked"
-             [dynamicId]="bindId && model.id"
+             [dynamicId]="item.value"
+             [formControlName]="item.value"
              [name]="model.name"
              [required]="model.required"
              [value]="item.value"
@@ -21,6 +24,8 @@
     <br>
   </div>
 </div>
+</div>
+
 
 <div *ngIf="!model.repeatable"
      class="form-row"
