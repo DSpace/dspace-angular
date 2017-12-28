@@ -5,7 +5,7 @@ import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { submissionSectionFromIdSelector } from '../selectors';
 import { Store } from '@ngrx/store';
 import { SubmissionState } from '../submission.reducers';
-import { SubmissionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
+import { SubmissionSectionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
 import { isEmpty, uniq } from 'lodash';
 import { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import parseSectionErrorPaths from '../utils/parseSectionErrorPaths';
@@ -48,9 +48,9 @@ export class SectionDirective implements OnDestroy, OnInit {
       this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionId))
         .filter((state: SubmissionSectionObject) => isNotUndefined(state))
         .map((state: SubmissionSectionObject) => state.errors)
-        .filter((errors: SubmissionError[]) => isNotEmpty(errors))
-        .subscribe((errors: SubmissionError[]) => {
-          errors.forEach((errorItem: SubmissionError) => {
+        .filter((errors: SubmissionSectionError[]) => isNotEmpty(errors))
+        .subscribe((errors: SubmissionSectionError[]) => {
+          errors.forEach((errorItem: SubmissionSectionError) => {
             const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
 
             if (!isEmpty(parsedErrors)) {

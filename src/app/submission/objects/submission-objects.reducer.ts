@@ -1,4 +1,4 @@
-import { hasValue, isNotNull, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { findKey, uniqWith, isEqual, differenceWith } from 'lodash';
 
 import {
@@ -9,20 +9,22 @@ import {
   LoadSubmissionFormAction, SectionStatusChangeAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes, ClearSectionErrorsAction, InertSectionErrorsAction,
-  DeleteSectionErrorsAction, ResetSubmissionFormAction, UpdateSectionDataAction
+  DeleteSectionErrorsAction, ResetSubmissionFormAction, UpdateSectionDataAction, SaveSubmissionFormAction,
+  CompleteSaveSubmissionFormAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
-import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionDataType } from '../models/workspaceitem-sections.model';
+import { WorkspaceitemSectionUploadObject } from '../models/workspaceitem-section-upload.model';
 
 export interface SubmissionSectionObject {
   sectionViewIndex: number;
-  data: SubmissionDataEntry;
-  errors: SubmissionError[];
+  data: WorkspaceitemSectionDataType;
+  errors: SubmissionSectionError[];
   isLoading: boolean;
   isValid: boolean;
 }
 
-export interface SubmissionError {
+export interface SubmissionSectionError {
   path: string;
   message: string;
 }
@@ -31,17 +33,10 @@ export interface SubmissionSectionEntry {
   [sectionId: string]: SubmissionSectionObject;
 }
 
-export interface SubmissionDataEntry {
-  files: SubmissionUploadFileEntry;
-}
-
-export interface SubmissionUploadFileEntry {
-  [uuid: string]: WorkspaceitemSectionUploadFileObject
-}
-
 export interface SubmissionObjectEntry {
   sections: SubmissionSectionEntry;
   isLoading: boolean;
+  savePending: boolean;
 }
 
 /**
@@ -59,7 +54,14 @@ const initialState: SubmissionObjectState = Object.create(null);
 export function submissionObjectReducer(state = initialState, action: SubmissionObjectAction): SubmissionObjectState {
   switch (action.type) {
 
-    // Section actions
+    // submission form actions
+    case SubmissionObjectActionTypes.INIT_SUBMISSION_FORM: {
+      return state;
+    }
+
+    case SubmissionObjectActionTypes.COMPLETE_INIT_SUBMISSION_FORM: {
+      return completeInit(state, action as CompleteInitSubmissionFormAction);
+    }
 
     case SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM: {
       return initSubmission(state, action as LoadSubmissionFormAction);
@@ -69,6 +71,15 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return state;
     }
 
+    case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM: {
+      return saveSubmission(state, action as SaveSubmissionFormAction);
+    }
+
+    case SubmissionObjectActionTypes.COMPLETE_SAVE_SUBMISSION_FORM: {
+      return completeSave(state, action as CompleteSaveSubmissionFormAction);
+    }
+
+    // Section actions
     case SubmissionObjectActionTypes.ENABLE_SECTION: {
       return enableSection(state, action as EnableSectionAction);
     }
@@ -81,19 +92,11 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return disableSection(state, action as DisableSectionAction);
     }
 
-    case SubmissionObjectActionTypes.INIT_SUBMISSION_FORM: {
-      return state;
-    }
-
-    case SubmissionObjectActionTypes.COMPLETE_INIT_SUBMISSION_FORM: {
-      return completeInit(state, action as CompleteInitSubmissionFormAction);
-    }
-
     case SubmissionObjectActionTypes.SECTION_STATUS_CHANGE: {
       return setIsValid(state, action as SectionStatusChangeAction);
     }
 
-    // Bitstram actions
+    // Files actions
     case SubmissionObjectActionTypes.NEW_FILE: {
       return newFile(state, action as NewUploadedFileAction);
     }
@@ -106,6 +109,7 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return deleteFile(state, action as DeleteUploadedFileAction);
     }
 
+    // errors actions
     case SubmissionObjectActionTypes.INSERT_ERRORS: {
       return insertError(state, action as InertSectionErrorsAction);
     }
@@ -147,6 +151,7 @@ const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorsAc
           }
         }),
         isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   } else {
@@ -171,6 +176,7 @@ const insertError = (state: SubmissionObjectState, action: InertSectionErrorsAct
           }
         }),
         isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   } else {
@@ -195,6 +201,7 @@ const clearErrorsFromSection = (state: SubmissionObjectState, action: ClearSecti
           }
         }),
         isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   } else {
@@ -218,6 +225,7 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: state[ action.payload.submissionId ].sections,
         isLoading: false,
+        savePending: false,
       })
     });
   } else {
@@ -225,6 +233,53 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
   }
 }
 
+/**
+ * Set submission save flag to true
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an EnableSectionAction
+ * @return SubmissionObjectState
+ *    the new state, with the section removed.
+ */
+function saveSubmission(state: SubmissionObjectState, action: SaveSubmissionFormAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: state[ action.payload.submissionId ].sections,
+        isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: true,
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set submission save flag to false.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an EnableSectionAction
+ * @return SubmissionObjectState
+ *    the new state, with the section removed.
+ */
+function completeSave(state: SubmissionObjectState, action: CompleteSaveSubmissionFormAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: state[ action.payload.submissionId ].sections,
+        isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: false,
+      })
+    });
+  } else {
+    return state;
+  }
+}
 // ------ Section functions ------ //
 
 /**
@@ -250,6 +305,7 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
           }
         }),
         isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   } else {
@@ -268,8 +324,8 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
  *    the new state, with the section's data updated.
  */
 function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDataAction): SubmissionObjectState {
-  if (hasValue(state[ action.payload.submissionId ]
-      && hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId]))) {
+  if (isNotEmpty(state[ action.payload.submissionId ])
+      && isNotEmpty(state[ action.payload.submissionId ].sections[ action.payload.sectionId])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
@@ -277,10 +333,11 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
             sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
             data: action.payload.data,
             isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
-            errors: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].errors
+            errors: action.payload.errors
           }
         }),
         isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   } else {
@@ -304,6 +361,7 @@ function disableSection(state: SubmissionObjectState, action: DisableSectionActi
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: deleteProperty(state[ action.payload.submissionId ].sections, action.payload.sectionId),
         isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   } else {
@@ -325,7 +383,8 @@ function initSubmission(state: SubmissionObjectState, action: LoadSubmissionForm
   const newState = Object.assign({}, state);
   newState[ action.payload.submissionId ] = {
     sections: Object.create(null),
-    isLoading: true
+    isLoading: true,
+    savePending: false
   };
   return newState;
 }
@@ -355,6 +414,7 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
           })
         ),
         isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   } else {
@@ -375,8 +435,9 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
  *    the new state, with the new bitstream.
  */
 function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): SubmissionObjectState {
-  if (isNotUndefined(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files)
-    && !hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files[ action.payload.fileId ])) {
+  const filesData = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data as WorkspaceitemSectionUploadObject;
+  if (isNotUndefined(filesData.files)
+    && !hasValue(filesData.files[ action.payload.fileId ])) {
     const newData = [];
     newData[ action.payload.fileId ] = action.payload.data;
     return Object.assign({}, state, {
@@ -387,7 +448,7 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
                 sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
                 data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                   files: Object.assign({},
-                    state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files,
+                    filesData.files,
                     newData)
                 }),
                 isValid: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].isValid,
@@ -397,6 +458,7 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
           )
         ),
         isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   } else {
@@ -417,6 +479,7 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
           })
         ),
         isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   }
@@ -433,9 +496,10 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
  *    the new state, with the edited bitstream.
  */
 function editFileData(state: SubmissionObjectState, action: EditFileDataAction): SubmissionObjectState {
-  if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files)) {
+  const filesData = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data as WorkspaceitemSectionUploadObject;
+  if (hasValue(filesData.files)) {
     const fileIndex = findKey(
-      state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files,
+      filesData.files,
       { uuid: action.payload.fileId });
     if (isNotNull(fileIndex)) {
       return Object.assign({}, state, {
@@ -446,7 +510,7 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
                   sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
                   data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                     files: Object.assign({},
-                      state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data.files, {
+                      filesData.files, {
                         [ fileIndex ]: action.payload.data
                       })
                   }),
@@ -457,6 +521,7 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
             )
           ),
           isLoading: state[ action.payload.submissionId ].isLoading,
+          savePending: state[ action.payload.submissionId ].savePending,
         })
       });
     }
@@ -475,9 +540,10 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
  *    the new state, with the bitstream removed.
  */
 function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileAction): SubmissionObjectState {
-  if (hasValue(state[action.payload.submissionId].sections[action.payload.sectionId].data.files)) {
+  const filesData = state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data as WorkspaceitemSectionUploadObject;
+  if (hasValue(filesData.files)) {
     const fileIndex = findKey(
-      state[action.payload.submissionId].sections[action.payload.sectionId].data.files,
+      filesData.files,
       {uuid: action.payload.fileId});
     if (isNotNull(fileIndex)) {
       return Object.assign({}, state, {
@@ -487,7 +553,7 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
                 [ action.payload.sectionId ]: {
                   sectionViewIndex: state[action.payload.submissionId].sections[action.payload.sectionId].sectionViewIndex,
                   data: Object.assign({}, state[action.payload.submissionId].sections[action.payload.sectionId].data, {
-                    files: deleteProperty(state[action.payload.submissionId].sections[action.payload.sectionId].data.files, fileIndex)
+                    files: deleteProperty(filesData.files, fileIndex)
                   }),
                   isValid: state[action.payload.submissionId].sections[action.payload.sectionId].isValid,
                   errors: state[action.payload.submissionId].sections[action.payload.sectionId].errors
@@ -496,6 +562,7 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
             )
           ),
           isLoading: state[action.payload.submissionId].isLoading,
+          savePending: state[action.payload.submissionId].savePending,
         })
       });
     }

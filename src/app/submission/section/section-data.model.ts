@@ -1,12 +1,10 @@
-import { SubmissionDataEntry } from '../objects/submission-objects.reducer';
-import { WorkspaceitemSectionFormObject } from '../models/workspaceitem-section-form.model';
-import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
-import { WorkspaceitemSectionLicenseObject } from '../models/workspaceitem-section-license.model';
-import { WorkspaceitemSectionDataType } from '../models/workspaceitem-sections.model';
+import { SubmissionSectionError } from '../objects/submission-objects.reducer';
+import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 
-export class SectionDataObject {
+export interface SectionDataObject {
   config: string;
   data: WorkspaceitemSectionDataType;
+  errors: SubmissionSectionError[];
   header: string;
   id: string;
   mandatory: boolean;

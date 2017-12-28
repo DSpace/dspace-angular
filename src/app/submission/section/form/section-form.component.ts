@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
-import { isEqual, findIndex } from 'lodash';
+import { isEqual } from 'lodash';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -15,7 +15,6 @@ import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
 import {
-  hasValue,
   isNotEmpty,
   isNotUndefined,
   isUndefined
@@ -23,21 +22,19 @@ import {
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
-import { WorkspaceitemSectionFormObject } from '../../models/workspaceitem-section-form.model';
-import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
-import { AuthorityService } from '../../../core/integration/authority.service';
-import { IntegrationData } from '../../../core/integration/integration-data';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { submissionSectionFromIdSelector } from '../../selectors';
-import { SubmissionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
+import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
 
 import {
   COMBOBOX_METADATA_SUFFIX,
-  COMBOBOX_VALUE_SUFFIX, DynamicComboboxModel
+  COMBOBOX_VALUE_SUFFIX,
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormAddError } from '../../../shared/form/form.actions';
+import { WorkspaceitemSectionDataType } from '../../models/workspaceitem-sections.model';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -53,12 +50,11 @@ export class FormSectionComponent extends SectionModelComponent {
   protected formConfig: SubmissionFormsModel;
   protected pathCombiner: JsonPatchOperationPathCombiner;
   protected previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
+  protected subs: Subscription[] = [];
 
   @ViewChild('formRef') private formRef: FormComponent;
 
-  constructor(protected authorityService: AuthorityService,
-              protected changeDetectorRef: ChangeDetectorRef,
-              protected formBuilderService: FormBuilderService,
+  constructor(protected formBuilderService: FormBuilderService,
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
               protected store: Store<SubmissionState>) {
@@ -74,118 +70,88 @@ export class FormSectionComponent extends SectionModelComponent {
         this.formId = this.formService.getUniqueId(this.sectionData.id);
         this.formBuilderService.setAuthorityUuid(this.collectionId);
         this.store.select(submissionSectionDataFromIdSelector(this.submissionId, this.sectionData.id))
-          .subscribe((sectionData: WorkspaceitemSectionFormObject) => {
+          .take(1)
+          .subscribe((sectionData: WorkspaceitemSectionDataType) => {
             if (isUndefined(this.formModel)) {
+              this.sectionData.errors = [];
               // Is the first loading so init form
-              this.initForm(config, sectionData);
+              this.initForm(sectionData);
               this.subscriptions();
               this.isLoading = false;
-              // this.changeDetectorRef.detectChanges();
-            } else {
-              if (!isEqual(sectionData, this.sectionData.data)) {
-                // TODO send a notification to notify data may have been changed
-                // Data are changed from remote response so update form's values
-                /*this.isLoading = true;
-                this.changeDetectorRef.detectChanges();
-                this.formModel = null;*/
-                // this.updateForm(sectionData);
-                this.isLoading = true;
-                setTimeout(() => {
-                  // Reset the form
-                  this.initForm(config, sectionData);
-                  this.isLoading = false;
-                }, 50);
-                // this.changeDetectorRef.detectChanges();
-              } else {
-                this.isLoading = false;
-              }
             }
-
           })
-
       });
-
   }
 
-  initForm(config: SubmissionFormsModel, sectionData: WorkspaceitemSectionFormObject) {
-    this.formModel = this.formBuilderService.modelFromConfiguration(config, sectionData);
+  initForm(sectionData: WorkspaceitemSectionDataType) {
+    this.formModel = this.formBuilderService.modelFromConfiguration(this.formConfig, sectionData);
   }
 
-  updateForm(sectionData: WorkspaceitemSectionFormObject) {
-    Object.keys(sectionData)
-      .forEach((index) => {
-        const fieldId = index.replace(/\./g, '_');
-        const fieldModel: any = this.formBuilderService.findById(fieldId, this.formModel);
-        if (isNotEmpty(fieldModel)) {
-          if (this.formBuilderService.hasAuthorityValue(fieldModel)) {
-            const searchOptions = new IntegrationSearchOptions(
-              fieldModel.authorityScope,
-              fieldModel.authorityName,
-              index,
-              sectionData[ index ][ 0 ].value);
-
-            this.authorityService.getEntriesByName(searchOptions)
-              .subscribe((result: IntegrationData) => {
-                if (hasValue(result.payload)) {
-                  const searchIndex = findIndex(result.payload, { value: sectionData[ index ][ 0 ].value });
-                  this.formService.setValue(this.formRef.formGroup, fieldModel, fieldId, result.payload[searchIndex]);
-                }
-              })
-          } else {
-            this.formService.setValue(this.formRef.formGroup, fieldModel, fieldId, sectionData[ index ][ 0 ].value);
-          }
-        }
-      });
-    this.sectionData.data = sectionData;
+  updateForm(sectionData: WorkspaceitemSectionDataType, errors: SubmissionSectionError[]) {
+    this.formModel = this.formBuilderService.modelFromConfiguration(this.formConfig, sectionData);
+    this.isLoading = false;
+    this.checksForErrors(errors);
   }
 
-  subscriptions() {
-    this.formService.isValid(this.formId)
-      .filter((formValid) => isNotUndefined(formValid))
-      .filter((formValid) => formValid !== this.valid)
-      .subscribe((formState) => {
-        this.valid = formState;
-        this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
-      });
-
-    /**
-     * Subscribe to form errors
-     */
-    this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
-      .filter((state: SubmissionSectionObject) => !!this.formRef && !!state && isNotEmpty(state.errors))
-      .map((state: SubmissionSectionObject) => state.errors)
-      .distinctUntilChanged()
-      .subscribe((errors: SubmissionError[]) => {
-
-        errors.forEach((error: SubmissionError) => {
+  checksForErrors(errors: SubmissionSectionError[]) {
+    this.formService.isFormInitialized(this.formId)
+      .filter((status: boolean) => status === true)
+      .take(1)
+      .subscribe(() => {
+        errors.forEach((error: SubmissionSectionError) => {
           const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
 
           errorPaths.forEach((path: SectionErrorPath) => {
             if (path.fieldId) {
-              const { formId } = this.formRef;
               const fieldId = path.fieldId.replace(/\./g, '_');
 
               // Dispatch action to the form state;
-              const formAddErrorAction = new FormAddError(formId, fieldId, error.message);
+              const formAddErrorAction = new FormAddError(this.formId, fieldId, error.message);
               this.store.dispatch(formAddErrorAction);
             }
           });
         });
 
-        // because errors has been shown, remove them form the state
+        // because errors has been shown, remove them from the state
         const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionData.id, errors);
         this.store.dispatch(removeAction);
+        this.sectionData.errors = errors;
       });
   }
 
-  onAdd(event) {
-    if (event.model instanceof DynamicComboboxModel) {
-      // console.log(event);
-    }
-  }
+  subscriptions() {
+    this.subs.push(
+      /**
+       * Subscribe to form status
+       */
+      this.formService.isValid(this.formId)
+      .filter((formValid) => isNotUndefined(formValid))
+      .filter((formValid) => formValid !== this.valid)
+      .subscribe((formState) => {
+        this.valid = formState;
+        this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
+      }),
 
-  onBlur(event) {
-    // console.log('blur');
+      /**
+       * Subscribe to section state
+       */
+      this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
+        .filter((sectionState: SubmissionSectionObject) => isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
+        .subscribe((sectionState: SubmissionSectionObject) => {
+          if (isNotEmpty(sectionState.data) && !isEqual(sectionState.data, this.sectionData.data)) {
+            // Data are changed from remote response so update form's values
+            // TODO send a notification to notify data may have been changed
+            this.sectionData.data = sectionState.data;
+            this.isLoading = true;
+            setTimeout(() => {
+              // Reset the form
+              this.updateForm(sectionState.data, sectionState.errors);
+            }, 50);
+          } else if (isNotEmpty(sectionState.errors)) {
+            this.checksForErrors(sectionState.errors);
+          }
+        })
+    )
   }
 
   onChange(event: DynamicFormControlEvent) {
@@ -198,7 +164,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   onFocus(event: DynamicFormControlEvent) {
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
-    const path = this.formBuilderService.getPath(event.model)
+    const path = this.formBuilderService.getPath(event.model);
     if (event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX) || event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX)) {
       this.previousValue.path = path;
       this.previousValue.value = this.formBuilderService.getComboboxMap(event);
