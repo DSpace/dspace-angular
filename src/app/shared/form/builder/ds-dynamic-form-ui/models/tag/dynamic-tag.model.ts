@@ -38,17 +38,17 @@ export class DynamicTagModel extends DynamicInputModel {
     this.chips = config.chips || new Chips();
   }
 
-  get value() {
-    const out = [];
-    this.chips.chipsItems.forEach((item) => {
-      out.push(item.item);
-    });
+  // get value() {
+  //   const out = [];
+  //   this.chips.chipsItems.forEach((item) => {
+  //     out.push(item.item);
+  //   });
+  //
+  //   return out;
+  // }
 
-    return out;
-  }
-
-  set value(value: any[]) {
-    // this.chips.chipsItems = value;
-  }
+  // set value(value: any[]) {
+  //   // this.chips.chipsItems = value;
+  // }
 
 }

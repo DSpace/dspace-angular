@@ -34,6 +34,7 @@ export class DsDynamicTagComponent implements OnInit {
   searchFailed = false;
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
+  value: any;
 
   formatter = (x) => {
     if (x.display) {
@@ -77,18 +78,18 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentValue = this.model.value;
+    // this.currentValue = this.model.value;
     if (this.model.authorityName && this.model.authorityName.length > 0) {
       this.searchOptions = new IntegrationSearchOptions(
         this.model.authorityScope,
         this.model.authorityName,
         this.model.authorityMetadata);
     }
-    this.group.valueChanges.subscribe((value) => {
-      if (this.currentValue !== value && isNotEmpty(value[this.model.id])) {
-        this.currentValue = value[this.model.id];
-      }
-    })
+    // this.group.valueChanges.subscribe((value) => {
+    //   if (this.currentValue !== value && isNotEmpty(value[this.model.id])) {
+    //     this.currentValue = value[this.model.id];
+    //   }
+    // })
 
     this.model.chips = new Chips();
   }
@@ -111,6 +112,7 @@ export class DsDynamicTagComponent implements OnInit {
     this.model.chips.add(event.item);
     // this.group.controls[this.model.id].setValue(this.model.value);
     this.model.valueUpdates.next(this.model.value);
+    this.value = this.model.value;
     this.change.emit(event.item);
 
     console.log(this.model.value);

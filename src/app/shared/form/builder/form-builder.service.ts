@@ -54,6 +54,7 @@ import { SeriesFieldParser } from './parsers/series-field-parser';
 import { DynamicListModel } from './ds-dynamic-form-ui/models/list/dynamic-list.model';
 import { DsDynamicListComponent } from './ds-dynamic-form-ui/models/list/dynamic-list.component';
 import { NameFieldParser } from './parsers/name-field-parser';
+import {DynamicTagModel} from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -251,10 +252,12 @@ export class FormBuilderService extends DynamicFormService {
       fieldValue = [];
       Object.keys(event.control.value)
         .forEach((key) => {
-          if (event.control.value[ key ]) {
-            fieldValue.push({ value: key })
+          if (event.control.value[key]) {
+            fieldValue.push({value: key})
           }
         })
+    } else if (event.model instanceof DynamicTagModel) {
+      fieldValue = event.model.chips.chipsItems;
     } else {
       fieldValue = event.control.value;
     }
