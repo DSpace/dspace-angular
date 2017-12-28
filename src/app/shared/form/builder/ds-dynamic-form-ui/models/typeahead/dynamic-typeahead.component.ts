@@ -102,7 +102,8 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
     this.currentValue = event.item;
     // this.model.value = this.currentValue;
-    this.group.controls[this.model.id].setValue(event.item);
+    // this.group.controls[this.model.id].setValue(event.item);
+    this.model.valueUpdates.next(event.item);
     this.change.emit(event.item);
   }
 }

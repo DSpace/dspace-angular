@@ -12,6 +12,8 @@ import {DynamicListModel} from "./dynamic-list.model";
 import {IntegrationData} from "../../../../../../core/integration/integration-data";
 import { ConfigData } from '../../../../../../core/config/config-data';
 import { ConfigAuthorityModel } from '../../../../../../core/shared/config/config-authority.model';
+import { FormBuilderService } from '../../../form-builder.service';
+import { DynamicFormGroupModel } from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-list',
@@ -38,18 +40,18 @@ export class DsDynamicListComponent implements OnInit {
 
   protected searchOptions: IntegrationSearchOptions;
 
-  constructor(private authorityService: AuthorityService) {}
+  constructor(private authorityService: AuthorityService, private formBuilderService: FormBuilderService) {}
 
   ngOnInit() {
     this.items = [];
-    this.searchOptions = new IntegrationSearchOptions(
+    /*this.searchOptions = new IntegrationSearchOptions(
       this.model.authorityScope,
       this.model.authorityName,
       this.model.authorityMetadata,
       '',
-      1000, //Max elements
+      1000, // Max elements
       1);// Current Page
-
+*/
     // let authority = this.authorityService.getEntriesByName(this.searchOptions)
     //   .subscribe((object: IntegrationData) => {
     //     this.optionsList = object.payload;
@@ -77,7 +79,7 @@ export class DsDynamicListComponent implements OnInit {
   }
 
   onChangeEvent($event) {
-    this.focus.emit(event);
+    this.change.emit(event);
   }
 
   protected setOptionsFromAuthority() {

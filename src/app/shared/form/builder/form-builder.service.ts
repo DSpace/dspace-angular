@@ -125,7 +125,7 @@ export class FormBuilderService extends DynamicFormService {
                   break;
 
             case 'list':
-              fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid, this.authorityService).parse());
+              fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
               break;
 
             case 'lookup':

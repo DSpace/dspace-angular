@@ -79,7 +79,7 @@
       </div>
 
 
-      <div *ngSwitchCase="4"
+      <!-- div *ngSwitchCase="4"
            [dynamicId]="bindId && model.id"
            [formGroupName]="model.id"
            [ngClass]="model.cls.element.control">
@@ -104,7 +104,7 @@
           <br>
         </div>
 
-      </div>
+      </div-->
 
 
       <div *ngSwitchCase="5" class="input-group">
@@ -248,7 +248,7 @@
         </ng-container>
       </ng-container>
 
-      <ng-container *ngSwitchCase="15">
+      <ng-container *ngSwitchCase="4">
         <ng-container *ngTemplateOutlet="listTemplate;
                                                    context:{bindId: bindId, model: model, showErrorMessages: showErrorMessages}">
 
