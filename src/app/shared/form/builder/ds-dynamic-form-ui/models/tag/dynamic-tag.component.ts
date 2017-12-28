@@ -34,7 +34,6 @@ export class DsDynamicTagComponent implements OnInit {
   searchFailed = false;
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
-  value: any;
 
   formatter = (x) => {
     if (x.display) {
@@ -111,15 +110,19 @@ export class DsDynamicTagComponent implements OnInit {
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
     this.model.chips.add(event.item);
     // this.group.controls[this.model.id].setValue(this.model.value);
-    this.model.valueUpdates.next(this.model.value);
-    this.value = this.model.value;
-    this.change.emit(event.item);
+    this.updateModel(event);
 
-    console.log(this.model.value);
     setTimeout(() => {
       // Reset the input text after x ms, mandatory or the formatter overwrite it
       this.currentValue = null;
     }, 50);
+  }
+
+  updateModel(event) {
+    console.log('getItems...');
+    console.log(this.model.chips.getItems());
+    this.model.valueUpdates.next(this.model.chips.getItems());
+    this.change.emit(event);
   }
 
   onKeyUp(event) {
@@ -127,6 +130,7 @@ export class DsDynamicTagComponent implements OnInit {
       // Key: Enter or , or ;
       this.addTagsToChips(this.inputText);
       this.inputText = '';
+      this.updateModel(event);
     }
 
   }

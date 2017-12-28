@@ -256,8 +256,6 @@ export class FormBuilderService extends DynamicFormService {
             fieldValue.push({value: key})
           }
         })
-    } else if (event.model instanceof DynamicTagModel) {
-      fieldValue = event.model.chips.chipsItems;
     } else {
       fieldValue = event.control.value;
     }

@@ -49,6 +49,14 @@ export class Chips {
     })
   }
 
+  public getItems(): any[] {
+    const out = [];
+    this.chipsItems.forEach((item) => {
+          out.push(item.item);
+        });
+    return out;
+  }
+
 }
 
 interface ChipsItem {
