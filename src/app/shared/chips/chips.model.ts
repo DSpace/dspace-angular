@@ -9,7 +9,6 @@ export class Chips {
       this.receivedItems = items;
       this.setItems();
     }
-
     this.displayField = displayField;
   }
 
@@ -24,7 +23,7 @@ export class Chips {
         item: item};
     } else {
       const textToDisplay = item.length > 20 ? item.substr(0,17).concat('...') : item;
-      let itemInternal = {};
+      const itemInternal = {};
       itemInternal[this.displayField] = item;
       chipsItem = {order: this.chipsItems.length, display: textToDisplay, item: itemInternal};
     }
@@ -41,20 +40,16 @@ export class Chips {
   private setItems() {
     this.chipsItems = [];
     this.receivedItems.forEach((item, index) => {
-      if(item && item[this.displayField]) {
+      if (item && item[this.displayField]) {
         const displayContent = item[this.displayField];
         const textToDisplay = item[this.displayField].length > 20 ? item[this.displayField].substr(0, 17).concat('...') : item[this.displayField];
-        let chipsItem: ChipsItem = {order: index, display: textToDisplay, item: item};
+        const chipsItem: ChipsItem = {order: index, display: textToDisplay, item: item};
         this.chipsItems.push(chipsItem);
       }
     })
   }
 
-
-
-
 }
-
 
 interface ChipsItem {
   order: number,

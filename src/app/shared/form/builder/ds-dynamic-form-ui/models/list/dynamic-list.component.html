@@ -1,11 +1,11 @@
 <div [formGroup]="group">
 <div class="form-row" *ngIf="model.repeatable"
-     [dynamicId]="bindId && model.id"
      [ngClass]="model.cls.element.control"
+     [dynamicId]="bindId && model.id"
 >
 
   <div *ngFor="let itemsRow of model.items; let i=index" class="col-sm-2 ml-4 form-check"
-       [class.disabled]="model.disabled"   >
+       [class.disabled]="model.disabled">
     <label *ngFor="let item of itemsRow" class="d-block"
            [ngClass]="model.cls.element.control" >
 

@@ -1,15 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import {Observable} from 'rxjs/Observable';
+import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { DynamicTagModel } from './dynamic-tag.model';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
-import { isNotEmpty } from '../../../../../empty.util';
-import {Chips} from "../../../../../chips/chips.model";
+import {AuthorityService} from '../../../../../../core/integration/authority.service';
+import {DynamicTagModel} from './dynamic-tag.model';
+import {IntegrationSearchOptions} from '../../../../../../core/integration/models/integration-options.model';
+import {isNotEmpty} from '../../../../../empty.util';
+import {Chips} from '../../../../../chips/chips.model';
 
 @Component({
   selector: 'ds-dynamic-tag',
@@ -26,8 +25,8 @@ export class DsDynamicTagComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  chips: Chips;
-  placeholder = "Enter tags...";
+  // chips: Chips;
+  placeholder = 'Enter tags...';
   inputText: string;
 
   searching = false;
@@ -37,7 +36,7 @@ export class DsDynamicTagComponent implements OnInit {
   currentValue: any;
 
   formatter = (x) => {
-    if(x.display) {
+    if (x.display) {
       return x.display;
     } else {
       return null;
@@ -74,11 +73,12 @@ export class DsDynamicTagComponent implements OnInit {
       .do(() => this.searching = false)
       .merge(this.hideSearchingWhenUnsubscribed);
 
-  constructor(private authorityService: AuthorityService) {}
+  constructor(private authorityService: AuthorityService) {
+  }
 
   ngOnInit() {
     this.currentValue = this.model.value;
-    if(this.model.authorityName && this.model.authorityName.length > 0) {
+    if (this.model.authorityName && this.model.authorityName.length > 0) {
       this.searchOptions = new IntegrationSearchOptions(
         this.model.authorityScope,
         this.model.authorityName,
@@ -90,7 +90,7 @@ export class DsDynamicTagComponent implements OnInit {
       }
     })
 
-    this.chips = new Chips();
+    this.model.chips = new Chips();
   }
 
   onInput(event) {
@@ -108,14 +108,16 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
-      this.chips.add(event.item);
-      this.change.emit(event.item);
-      this.group.controls[this.model.id].setValue(this.currentValue);
+    this.model.chips.add(event.item);
+    // this.group.controls[this.model.id].setValue(this.model.value);
+    this.model.valueUpdates.next(this.model.value);
+    this.change.emit(event.item);
 
-      setTimeout(() => {
-        // Reset the input text after x ms, mandatory or the formatter overwrite it
-        this.currentValue = null;
-      }, 50);
+    console.log(this.model.value);
+    setTimeout(() => {
+      // Reset the input text after x ms, mandatory or the formatter overwrite it
+      this.currentValue = null;
+    }, 50);
   }
 
   onKeyUp(event) {
@@ -131,17 +133,17 @@ export class DsDynamicTagComponent implements OnInit {
     let res: string[] = [];
     res = text.split(',');
 
-    let res1 = [];
+    const res1 = [];
     res.forEach((item) => {
-      item.split(';').forEach( (item) => {
-        res1.push(item);
+      item.split(';').forEach((i) => {
+        res1.push(i);
       });
     });
 
-    res1.forEach((c) =>{
+    res1.forEach((c) => {
       c = c.trim();
       if (c.length > 0) {
-        this.chips.add(c);
+        this.model.chips.add(c);
       }
     });
   }

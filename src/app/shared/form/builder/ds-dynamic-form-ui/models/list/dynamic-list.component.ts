@@ -1,13 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { DynamicListModel, ListItem } from "./dynamic-list.model";
-import { ConfigData } from '../../../../../../core/config/config-data';
-import { ConfigAuthorityModel } from '../../../../../../core/shared/config/config-authority.model';
-import { NgbCheckBox } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicCheckControlModel } from '@ng-dynamic-forms/core';
+import {AuthorityService} from '../../../../../../core/integration/authority.service';
+import {IntegrationSearchOptions} from '../../../../../../core/integration/models/integration-options.model';
+import {DynamicListModel, ListItem} from './dynamic-list.model';
+import {ConfigData} from '../../../../../../core/config/config-data';
+import {ConfigAuthorityModel} from '../../../../../../core/shared/config/config-authority.model';
+import {DynamicCheckboxModel, DynamicFormGroupModel} from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-list',
@@ -25,11 +24,12 @@ export class DsDynamicListComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  private groupBy: number = 5;
+  private groupBy = 5;
 
   protected searchOptions: IntegrationSearchOptions;
 
-  constructor(private authorityService: AuthorityService) {}
+  constructor(private authorityService: AuthorityService) {
+  }
 
   ngOnInit() {
     this.model.items = [];
@@ -38,10 +38,11 @@ export class DsDynamicListComponent implements OnInit {
       this.model.authorityName,
       this.model.authorityMetadata,
       '',
-      1000, //Max elements
+      1000, // Max elements
       1);// Current Page
 
     this.setOptionsFromAuthority();
+    // console.log("group is "+JSON.stringify(this.group));
   }
 
   onBlurEvent(event: Event) {
@@ -55,6 +56,8 @@ export class DsDynamicListComponent implements OnInit {
   onChangeEvent(event) {
     this.change.emit(event);
     this.group.controls[this.model.id].setValue(event);
+    // this.model.items[event.groupIndex][event.index] = event;
+    // console.log(this.model.value);
   }
 
   protected setOptionsFromAuthority() {
@@ -72,8 +75,6 @@ export class DsDynamicListComponent implements OnInit {
         // })
         // authorities.payload = testArray;
 
-
-
         (authorities.payload as ConfigAuthorityModel[]).forEach((option, key) => {
           const item: ListItem = {
             label: option.display,
@@ -83,9 +84,14 @@ export class DsDynamicListComponent implements OnInit {
           tmpList.push(item);
           // TODO Check why it's necessary here
           this.group.addControl(item.value, new FormControl());
-
-          if( tmpList.length % this.groupBy === 0 || key+1 === authorities.payload.length) {
-            const clone = tmpList.map(a => Object.assign({}, a));
+          (this.model as DynamicFormGroupModel).add(new DynamicCheckboxModel({id: item.label, label: item.value}));
+          if (tmpList.length % this.groupBy === 0 || key + 1 === authorities.payload.length) {
+            const groupIndex = Math.floor(tmpList.length / this.groupBy);
+            const index = this.model.items.length % this.groupBy;
+            const clone = tmpList.map((a) => Object.assign({}, a, {
+              groupIndex: groupIndex,
+              index: this.model.items.length
+            }));
             this.model.items.push(Object.assign(clone));
             tmpList = [];
           }
