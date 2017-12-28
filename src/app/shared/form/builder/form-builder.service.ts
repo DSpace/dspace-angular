@@ -45,7 +45,7 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
 import {
- DynamicConcatModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX,
+  DynamicConcatModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX,
 
   SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
 } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
@@ -54,6 +54,7 @@ import { SeriesFieldParser } from './parsers/series-field-parser';
 import { DynamicListModel } from './ds-dynamic-form-ui/models/list/dynamic-list.model';
 import { DsDynamicListComponent } from './ds-dynamic-form-ui/models/list/dynamic-list.component';
 import { NameFieldParser } from './parsers/name-field-parser';
+import { GroupFieldParser } from './parsers/group-field-parser';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -121,8 +122,8 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
             case 'dropdown':
-                  fieldModel = (new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-                  break;
+              fieldModel = (new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              break;
 
             case 'list':
               fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
@@ -157,7 +158,8 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
             case 'group':
-              fieldModel = this.modelFromConfiguration(fieldData, initFormValues, true);
+              fieldModel = new GroupFieldParser(fieldData, initFormValues).parse();
+              //fieldModel = this.modelFromConfiguration(fieldData, initFormValues, true);
               break;
 
             case 'twobox':
@@ -350,7 +352,7 @@ export class FormBuilderService extends DynamicFormService {
     const metadataValueMap = new Map();
 
     (event.model.parent.parent as DynamicFormArrayGroupModel).context.groups.forEach((arrayModel: DynamicFormArrayGroupModel) => {
-      const groupModel = arrayModel.group[0] as DynamicComboboxModel;
+      const groupModel = arrayModel.group[ 0 ] as DynamicComboboxModel;
       const metadataValueList = metadataValueMap.get(groupModel.path) ? metadataValueMap.get(groupModel.path) : [];
       if (groupModel.value) {
         metadataValueList.push(groupModel.value);

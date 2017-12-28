@@ -54,6 +54,7 @@ import { UploadFilesComponent } from './upload-files/upload-files.component';
 import { ChipsComponent } from './chips/chips.component';
 import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
 import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models/list/dynamic-list.component';
+import { DsDynamicGroupComponent } from './form/builder/ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.components';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -105,7 +106,8 @@ const COMPONENTS = [
   ThumbnailComponent,
   UploadFilesComponent,
   WrapperListElementComponent,
-  ViewModeSwitchComponent
+  ViewModeSwitchComponent,
+  DsDynamicGroupComponent,
 ];
 
 const ENTRY_COMPONENTS = [

@@ -248,6 +248,11 @@
         </ng-container>
       </ng-container>
 
+      <ng-container *ngSwitchCase="16">
+        <ds-dynamic-group></ds-dynamic-group>
+      </ng-container>
+
+
       <ng-container *ngSwitchCase="4">
         <ng-container *ngTemplateOutlet="listTemplate;
                                                    context:{bindId: bindId, model: model, showErrorMessages: showErrorMessages}">
@@ -359,12 +364,12 @@
     <ng-template #listTemplate let-bindId="bindId" let-model="model"
                  let-showErrorMessages="showErrorMessages">
       <ds-dynamic-list [bindId]="bindId"
-                      [group]="group"
-                      [model]="model"
-                      [showErrorMessages]="showErrorMessages"
-                      (blur)="onBlurEvent($event)"
-                      (change)="onValueChange($event)"
-                      (focus)="onFocusEvent($event)"></ds-dynamic-list>
+                       [group]="group"
+                       [model]="model"
+                       [showErrorMessages]="showErrorMessages"
+                       (blur)="onBlurEvent($event)"
+                       (change)="onValueChange($event)"
+                       (focus)="onFocusEvent($event)"></ds-dynamic-list>
     </ng-template>
 
   </div>
