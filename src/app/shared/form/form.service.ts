@@ -37,6 +37,15 @@ export class FormService {
       .distinctUntilChanged();
   }
 
+  /**
+   * Method to retrieve form's data from state
+   */
+  public isFormInitialized(formId: string): Observable<boolean> {
+    return this.store.select(formObjectFromIdSelector(formId))
+      .distinctUntilChanged()
+      .map((state) => isNotUndefined(state));
+  }
+
   public getUniqueId(formId): string {
     return uniqueId() + '_' + formId;
   }

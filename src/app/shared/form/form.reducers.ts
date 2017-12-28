@@ -53,20 +53,23 @@ export function formReducer(state = initialState, action: FormAction): FormState
 
 function addFormErrors(state: FormState, action: FormAddError) {
   const formId = action.payload.formId;
-  const error: FormError = {
-    fieldId: action.payload.fieldId,
-    message: action.payload.errorMessage
-  };
+  if (hasValue(state[formId])) {
+    const error: FormError = {
+      fieldId: action.payload.fieldId,
+      message: action.payload.errorMessage
+    };
 
-  return Object.assign({}, state, {
-    [ formId ]: {
-      data: state[ formId ].data,
-      valid: state[ formId ].valid,
-      errors: state[ formId ].errors ? uniqWith(state[ formId ].errors.concat(error), isEqual) : [].concat(error),
-    }
-  });
+    return Object.assign({}, state, {
+      [ formId ]: {
+        data: state[formId].data,
+        valid: state[formId].valid,
+        errors: state[formId].errors ? uniqWith(state[formId].errors.concat(error), isEqual) : [].concat(error),
+      }
+    });
+  } else {
+    return state;
+  }
 }
-
 
 /**
  * Init form state.
