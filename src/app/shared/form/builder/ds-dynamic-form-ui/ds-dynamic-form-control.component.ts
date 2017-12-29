@@ -33,7 +33,8 @@ import {
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_LIST } from './models/list/dynamic-list.model';
+import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
 
 export const enum NGBootstrapFormControlType {
 
@@ -51,7 +52,7 @@ export const enum NGBootstrapFormControlType {
   TypeAhead = 12, // 'TYPEAHEAD'
   ScrollableDropdown = 13, // 'SCROLLABLE_DROPDOWN'
   TypeTag = 14, // 'TYPETAG'
-  TypeList = 15, // 'TYPELIST'
+  List = 15, // 'TYPELIST'
 }
 
 @Component({
@@ -89,7 +90,7 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
         return NGBootstrapFormControlType.Checkbox;
 
       case DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP:
-        return NGBootstrapFormControlType.CheckboxGroup;
+        return (model instanceof DynamicListCheckboxGroupModel) ? NGBootstrapFormControlType.List : NGBootstrapFormControlType.CheckboxGroup;
 
       case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER:
         const datepickerModel = model as DynamicDatePickerModel;
@@ -103,7 +104,7 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
         return NGBootstrapFormControlType.Input;
 
       case DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP:
-        return NGBootstrapFormControlType.RadioGroup;
+        return (model instanceof DynamicListRadioGroupModel) ? NGBootstrapFormControlType.List : NGBootstrapFormControlType.RadioGroup;
 
       case DYNAMIC_FORM_CONTROL_TYPE_SELECT:
         return NGBootstrapFormControlType.Select;
@@ -122,9 +123,6 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
 
       case DYNAMIC_FORM_CONTROL_TYPE_TAG:
         return NGBootstrapFormControlType.TypeTag;
-
-      case DYNAMIC_FORM_CONTROL_TYPE_LIST:
-        return NGBootstrapFormControlType.TypeList;
 
       default:
         return null;
