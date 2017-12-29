@@ -28,6 +28,7 @@
 
           <ds-dynamic-form-control *ngFor="let controlModel of groupModel.group"
                                    [bindId]="false"
+                                   [formId]="formId"
                                    [context]="groupModel"
                                    [group]="control.at(idx)"
                                    [hasErrorMessaging]="controlModel.hasErrorMessages"
@@ -57,9 +58,9 @@
 
       <div *ngSwitchCase="3" class="form-check" [class.disabled]="model.disabled">
 
-        <label class="form-check-label">
+        <label class="custom-control custom-checkbox">
 
-          <input type="checkbox" class="form-check-input"
+          <input type="checkbox" class="custom-control-input"
                  [attr.tabindex]="model.tabIndex"
                  [checked]="model.checked"
                  [class.is-invalid]="showErrorMessages"
@@ -72,14 +73,17 @@
                  [value]="model.value"
                  (blur)="onBlurEvent($event)"
                  (change)="onValueChange($event)"
-                 (focus)="onFocusEvent($event)" /><span [innerHTML]="model.label"
-                                                        [ngClass]="[model.cls.element.label, model.cls.grid.label]"></span>
+                 (focus)="onFocusEvent($event)" />
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description"
+                [ngClass]="[model.cls.element.label, model.cls.grid.label]"
+                [innerHTML]="model.label"></span>
         </label>
 
       </div>
 
 
-      <!-- div *ngSwitchCase="4"
+      <div *ngSwitchCase="4"
            [dynamicId]="bindId && model.id"
            [formGroupName]="model.id"
            [ngClass]="model.cls.element.control">
@@ -104,7 +108,7 @@
           <br>
         </div>
 
-      </div-->
+      </div>
 
 
       <div *ngSwitchCase="5" class="input-group">
@@ -135,6 +139,7 @@
         <ds-dynamic-form-control *ngFor="let controlModel of model.group"
                                  [asBootstrapFormGroup]="true"
                                  [group]="control"
+                                 [formId]="formId"
                                  [hasErrorMessaging]="controlModel.hasErrorMessages"
                                  [model]="controlModel"
                                  [templates]="templates"
@@ -248,16 +253,15 @@
         </ng-container>
       </ng-container>
 
-      <ng-container *ngSwitchCase="16">
-        <ds-dynamic-group [model]="model" [group]="group"></ds-dynamic-group>
-      </ng-container>
-
-
-      <ng-container *ngSwitchCase="4">
+      <ng-container *ngSwitchCase="15">
         <ng-container *ngTemplateOutlet="listTemplate;
                                                    context:{bindId: bindId, model: model, showErrorMessages: showErrorMessages}">
 
         </ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="16">
+        <ds-dynamic-group [model]="model" [group]="group.get(model.id)" [formId]="formId"></ds-dynamic-group>
       </ng-container>
 
 

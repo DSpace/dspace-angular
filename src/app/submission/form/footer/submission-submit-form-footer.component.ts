@@ -6,8 +6,17 @@ import { SubmissionState } from '../../submission.reducers';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { SaveSubmissionFormAction } from '../../objects/submission-objects.actions';
+import { NormalizedWorkspaceItem } from '../../models/normalized-workspaceitem.model';
+import { isEmpty } from 'lodash';
+import { WorkspaceItemError, WorkspaceitemObject } from '../../models/workspaceitem.model';
+import {
+  default as parseSectionErrorPaths,
+  SectionErrorPath
+} from '../../utils/parseSectionErrorPaths';
+import { InertSectionErrorsAction } from '../../objects/submission-objects.actions';
+import { isNotEmpty } from '../../../shared/empty.util';
 import { SectionService } from '../../section/section.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-submission-submit-form-footer',
@@ -36,17 +45,12 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
         .subscribe((isValid) => {
           this.submissionIsInvalid = isValid === false;
         });
-      this.submissionService.getSubmissionSaveStatus(this.submissionId)
-        .subscribe((status: boolean) => {
-          console.log('footer', status);
-          this.saving = status
-        });
     }
   }
 
   saveLater(event) {
     this.saving = true
-    /*this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
+    this.restService.jsonPatchByResourceType(this.submissionId, 'sections')
       .subscribe((response) => {
         if (isNotEmpty(response)) {
           const errorsList = {};
@@ -87,8 +91,7 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
           }
         }
         this.saving = false;
-      });*/
-    this.store.dispatch(new SaveSubmissionFormAction(this.submissionId));
+      });
   }
 
   public resourceDeposit() {

@@ -10,17 +10,21 @@ export abstract class FieldParser {
 
   protected fieldId: string;
 
-  constructor(protected configData: FormFieldModel, protected initFormValues) { }
+  constructor(protected configData: FormFieldModel, protected initFormValues) {
+  }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject): any;
 
   public parse() {
-    if (this.configData.repeatable && this.configData.input.type !== 'list' && this.configData.input.type !== 'tag') {
+    if (this.configData.repeatable &&
+      (this.configData.input.type !== 'list') &&
+      (this.configData.input.type !== 'tag') &&
+      (this.configData.input.type !== 'group')) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
       return new DynamicFormArrayModel(
         {
-          id : uniqueId() + '_array',
+          id: uniqueId() + '_array',
           initialCount: this.getInitArrayIndex(),
           groupFactory: () => {
             let model;
@@ -40,7 +44,7 @@ export abstract class FieldParser {
               model = this.modelFactory(fieldValue);
             }
             model.cls.element.host = model.cls.element.host.concat(' col');
-            return [model];
+            return [ model ];
           }
         }, {
           grid: {
@@ -54,34 +58,41 @@ export abstract class FieldParser {
   }
 
   protected getInitValueCount(index = 0, fieldId?): number {
-      const fieldIds = fieldId || this.getFieldId();
-      if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
-        return this.initFormValues[fieldIds[0]].length;
-      } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
-        const values = [];
-        fieldIds.forEach((id) => {
-          if (this.initFormValues.hasOwnProperty(id)) {
-            values.push(this.initFormValues[id].length);
-          }
-        });
-        return values[index];
-      } else {
-        return 0;
-      }
+    const fieldIds = fieldId || this.getFieldId();
+    if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[ 0 ])) {
+      return this.initFormValues[ fieldIds[ 0 ] ].length;
+    } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
+      const values = [];
+      fieldIds.forEach((id) => {
+        if (this.initFormValues.hasOwnProperty(id)) {
+          values.push(this.initFormValues[ id ].length);
+        }
+      });
+      return values[ index ];
+    } else {
+      return 0;
     }
+  }
+
+  protected getInitGroupValues(): FormFieldMetadataValueObject[] {
+    const fieldIds = this.getFieldId();
+    if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[ 0 ])) {
+      return this.initFormValues[ fieldIds[ 0 ] ];
+    }
+  }
 
   protected getInitFieldValue(outerIndex = 0, innerIndex = 0, fieldId?): FormFieldMetadataValueObject {
     const fieldIds = fieldId || this.getFieldId();
-    if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
-      return this.initFormValues[fieldIds[outerIndex]][innerIndex];
+    if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[ 0 ])) {
+      return this.initFormValues[ fieldIds[ outerIndex ] ][ innerIndex ];
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
       const values: FormFieldMetadataValueObject[] = [];
       fieldIds.forEach((id) => {
         if (this.initFormValues.hasOwnProperty(id)) {
-          values.push(Object.assign({}, {metadata: id}, this.initFormValues[id][innerIndex]));
+          values.push(Object.assign({}, { metadata: id }, this.initFormValues[ id ][ innerIndex ]));
         }
       });
-      return values[outerIndex];
+      return values[ outerIndex ];
     } else {
       return null;
     }
@@ -90,12 +101,12 @@ export abstract class FieldParser {
   protected getInitArrayIndex() {
     const fieldIds: any = this.getFieldId();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds)) {
-      return this.initFormValues[fieldIds].length;
+      return this.initFormValues[ fieldIds ].length;
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
       let counter = 0;
       fieldIds.forEach((id) => {
         if (this.initFormValues.hasOwnProperty(id)) {
-          counter = counter + this.initFormValues[id].length;
+          counter = counter + this.initFormValues[ id ].length;
         }
       });
       return (counter === 0) ? 1 : counter;
@@ -107,7 +118,7 @@ export abstract class FieldParser {
   protected getFieldId(): string[] {
     if (Array.isArray(this.configData.selectableMetadata)) {
       if (this.configData.selectableMetadata.length === 1) {
-        return [this.configData.selectableMetadata[0].metadata];
+        return [ this.configData.selectableMetadata[ 0 ].metadata ];
       } else {
         const ids = [];
         this.configData.selectableMetadata.forEach((entry) => ids.push(entry.metadata));
@@ -123,7 +134,7 @@ export abstract class FieldParser {
     const controlModel = Object.create(null);
 
     // Sets input ID
-    this.fieldId = id ? id : this.getFieldId()[0];
+    this.fieldId = id ? id : this.getFieldId()[ 0 ];
 
     // Sets input name (with the original field's id value)
     controlModel.name = this.fieldId;
@@ -139,11 +150,11 @@ export abstract class FieldParser {
 
     if (this.configData.mandatory) {
       controlModel.required = true;
-      controlModel.validators = Object.assign({}, controlModel.validators, {required: null});
+      controlModel.validators = Object.assign({}, controlModel.validators, { required: null });
       controlModel.errorMessages = Object.assign(
         {},
         controlModel.errorMessages,
-        {required: this.configData.mandatoryMessage});
+        { required: this.configData.mandatoryMessage });
     }
 
     return controlModel;
@@ -157,7 +168,7 @@ export abstract class FieldParser {
         if (key === 0) {
           controlModel.value = option.metadata
         }
-        controlModel.options.push({label: option.label, value: option.metadata})
+        controlModel.options.push({ label: option.label, value: option.metadata })
       });
     }
   }

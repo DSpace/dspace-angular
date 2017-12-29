@@ -8,10 +8,10 @@ import { submissionSelector, SubmissionState } from '../submission.reducers';
 
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import {
-  DisableSectionAction, EnableSectionAction, InertSectionErrorsAction,
+  DisableSectionAction, EnableSectionAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
-import { SubmissionSectionError, SubmissionObjectEntry, SubmissionSectionObject } from '../objects/submission-objects.reducer';
+import { SubmissionObjectEntry, SubmissionSectionObject } from '../objects/submission-objects.reducer';
 import {
   sectionDefinitionFromIdSelector,
   submissionDefinitionFromIdSelector, submissionObjectFromIdSelector,
@@ -170,12 +170,8 @@ export class SectionService {
         .take(1)
         .filter((loaded) => loaded)
         .subscribe((loaded: boolean) => {
-          this.store.dispatch(new UpdateSectionDataAction(submissionId, sectionId, data, []));
+          this.store.dispatch(new UpdateSectionDataAction(submissionId, sectionId, data));
         });
     }
-  }
-
-  public setSectionError(submissionId:string, sectionId: string, errors: SubmissionSectionError[]) {
-    this.store.dispatch(new InertSectionErrorsAction(submissionId, sectionId, errors));
   }
 }

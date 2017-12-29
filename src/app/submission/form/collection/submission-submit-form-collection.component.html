@@ -2,13 +2,10 @@
   <div ngbDropdown #collectionControls="ngbDropdown" class="btn-group">
     <span class="input-group-addon" id="collectionControlsMenuLabel">Collection</span>
     <button aria-describedby="collectionControlsMenuLabel"
-            id="collectionControlsMenuButton"
             class="btn btn-outline-primary"
             (click)="onClose($event)"
-            [disabled]="disabled"
-            ngbDropdownToggle>
-      <span *ngIf="disabled"><i class='fa fa-circle-o-notch fa-spin'></i></span>
-      <span *ngIf="!disabled">{{ (selectedCollectionName) ? selectedCollectionName : '' }}</span>
+            id="collectionControlsMenuButton"
+            ngbDropdownToggle>{{ (selectedCollectionName) ? selectedCollectionName : '' }}
     </button>
 
     <div ngbDropdownMenu class="dropdown-menu" id="collectionControlsDropdownMenu" aria-labelledby="collectionControlsMenuButton">

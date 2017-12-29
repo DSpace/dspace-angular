@@ -7,12 +7,12 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, Form, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicFormGroupModel,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
@@ -59,6 +59,8 @@ export class FormComponent implements OnDestroy, OnInit {
    * An array of DynamicFormControlModel type
    */
   @Input() formModel: DynamicFormControlModel[];
+  @Input() parentFormModel: DynamicFormGroupModel | DynamicFormGroupModel[];
+  @Input() formGroup: FormGroup;
 
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -75,7 +77,7 @@ export class FormComponent implements OnDestroy, OnInit {
   /**
    * An object of FormGroup type
    */
-  public formGroup: FormGroup;
+  // public formGroup: FormGroup;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -107,9 +109,18 @@ export class FormComponent implements OnDestroy, OnInit {
    * Method provided by Angular. Invoked after the constructor
    */
   ngOnInit() {
-    this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+    if (!this.formGroup) {
+      this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+    } else {
+      this.formModel.forEach((model) => {
+        this.formBuilderService.addFormGroupControl(this.formGroup, this.parentFormModel, model);
+      });
+
+      this.formGroup = this.formGroup.parent as FormGroup;
+    }
+
     this.store.dispatch(new FormInitAction(this.formId, this.formGroup.value, this.formGroup.valid));
-    this.keepSync();
+    // this.keepSync();
 
     this.formValid = this.formGroup.valid;
 

@@ -2,7 +2,10 @@ import { createSelector, MemoizedSelector, Selector } from '@ngrx/store';
 
 import { hasValue } from '../shared/empty.util';
 import { submissionSelector, SubmissionState } from './submission.reducers';
-import { SubmissionObjectEntry, SubmissionSectionObject } from './objects/submission-objects.reducer';
+import {
+  SubmissionSectionEntry, SubmissionObjectEntry,
+  SubmissionUploadFileEntry, SubmissionSectionObject
+} from './objects/submission-objects.reducer';
 import { SectionObjectEntry, SubmissionDefinitionEntry } from './definitions/submission-definitions.reducer';
 
 // @TODO: Merge with keySelector function present in 'src/app/core/shared/selectors.ts'

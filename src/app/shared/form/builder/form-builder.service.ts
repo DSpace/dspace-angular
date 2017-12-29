@@ -45,16 +45,14 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
 import {
-  DynamicConcatModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX,
-
-  SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
+  DynamicConcatModel
 } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { AuthorityService } from '../../../core/integration/authority.service';
 import { SeriesFieldParser } from './parsers/series-field-parser';
-import { DynamicListModel } from './ds-dynamic-form-ui/models/list/dynamic-list.model';
-import { DsDynamicListComponent } from './ds-dynamic-form-ui/models/list/dynamic-list.component';
+import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { NameFieldParser } from './parsers/name-field-parser';
 import { GroupFieldParser } from './parsers/group-field-parser';
+import { DynamicGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -170,7 +168,7 @@ export class FormBuilderService extends DynamicFormService {
           }
 
           if (fieldModel) {
-            if (fieldModel instanceof DynamicFormArrayModel) {
+            if (fieldModel instanceof DynamicFormArrayModel || fieldModel instanceof DynamicGroupModel) {
               rows.push(fieldModel);
             } else {
               if (fieldModel instanceof Array) {
@@ -248,17 +246,22 @@ export class FormBuilderService extends DynamicFormService {
     let fieldValue;
     if (this.isModelInCustomGroup(event.model)) {
       fieldValue = (event.model.parent as any).value;
-    } else if (isNotEmpty(event.control.value) && typeof event.control.value === 'object' && !(event.control.value instanceof AuthorityModel)) {
-      fieldValue = [];
-      Object.keys(event.control.value)
-        .forEach((key) => {
-          if (event.control.value[ key ]) {
-            fieldValue.push({ value: key })
-          }
-        })
     } else {
-      fieldValue = event.control.value;
+      fieldValue = (event.model as  any).value;
     }
+    /*else if (isNotEmpty(event.control.value)
+         && typeof event.control.value === 'object'
+         && (!(event.control.value instanceof AuthorityModel))) {
+         fieldValue = [];
+         Object.keys(event.control.value)
+           .forEach((key) => {
+             if (event.control.value[key]) {
+               fieldValue.push({value: key})
+             }
+           })
+       } else {
+         fieldValue = event.control.value;
+       }*/
     return fieldValue;
   }
 
@@ -266,6 +269,10 @@ export class FormBuilderService extends DynamicFormService {
     return model.parent &&
       (model.parent instanceof DynamicConcatModel
         || model.parent instanceof DynamicComboboxModel);
+  }
+
+  isModelInAuthorityGroup(model: DynamicFormControlModel) {
+    return (model instanceof DynamicListCheckboxGroupModel);
   }
 
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0) {
@@ -304,6 +311,10 @@ export class FormBuilderService extends DynamicFormService {
     const value = this.getFieldValueFromChangeEvent(event);
     if (event.model.parent instanceof DynamicComboboxModel) {
       this.dispatchComboboxOperations(pathCombiner, event, previousValue);
+    } else if (this.isModelInAuthorityGroup(event.model)) {
+      this.operationsBuilder.add(
+        pathCombiner.getPath(segmentedPath),
+        value, true);
     } else if (previousValue.isPathEqual(this.getPath(event.model)) || hasStoredValue) {
       if (isEmpty(value)) {
         if (this.getArrayIndexFromEvent(event) === 0) {

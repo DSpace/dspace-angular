@@ -1,36 +1,37 @@
 import {
-  ClsConfig,
+  ClsConfig, DynamicFormGroupModel, DynamicFormGroupModelConfig,
   DynamicInputModel,
   DynamicInputModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-import { SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
+import {
+  FormRowModel
+} from '../../../../../../core/shared/config/config-submission-forms.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP = 'DYNAMIC_GROUP';
 
 /**
  * Dynamic Group Model configuration interface
  */
-export interface DynamicGroupModelConfig extends DynamicInputModelConfig {
+export interface DynamicGroupModelConfig extends DynamicFormGroupModelConfig {
   id: string,
   label: string,
   name: string,
   placeholder: string,
-  formConfiguration: SubmissionFormsModel[],
+  formConfiguration: FormRowModel[],
 }
 
 /**
  * Dynamic Group Model class
  */
-export class DynamicGroupModel extends DynamicInputModel {
+export class DynamicGroupModel extends DynamicFormGroupModel {
 
   @serializable() id: string;
   @serializable() label: string;
   @serializable() name: string;
   @serializable() placeholder: string;
-  @serializable() formConfiguration: SubmissionFormsModel[];
-  @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP;
-
+  @serializable() formConfiguration: FormRowModel[];
+  // @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP;
 
   constructor(config: DynamicGroupModelConfig, cls?: ClsConfig) {
     super(config, cls);

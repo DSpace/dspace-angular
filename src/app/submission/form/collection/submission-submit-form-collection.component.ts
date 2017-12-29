@@ -28,7 +28,6 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
    */
   @Output() collectionChange: EventEmitter<WorkspaceitemObject> = new EventEmitter<WorkspaceitemObject>();
 
-  public disabled = true;
   public listCollection = [];
   public model: any;
   public searchField: FormControl;
@@ -85,7 +84,6 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
               };
               this.listCollection.push(collectionEntry);
               this.searchListCollection.push(collectionEntry);
-              this.disabled = false;
             }))
         }));
     }
@@ -119,14 +117,12 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
   onSelect(event) {
     this.searchField.reset();
     this.searchListCollection = this.listCollection;
-    this.disabled = true;
+    this.selectedCollectionId = event.collection.id;
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
     this.restService.jsonPatchByResourceID(this.submissionId, 'sections', 'collection')
       .subscribe((workspaceitems: WorkspaceitemObject[]) => {
-        this.selectedCollectionId = event.collection.id;
         this.selectedCollectionName = event.collection.name;
         this.collectionChange.emit(workspaceitems[0]);
-        this.disabled = false;
       })
   }
 

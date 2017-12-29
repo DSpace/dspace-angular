@@ -10,7 +10,7 @@ import { SectionContainerComponent } from './container/section-container.compone
 import { SectionDataModel } from './section.model';
 import { SectionDataObject } from './section-data.model';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
-import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
+import { WorkspaceitemSectionDataType } from '../models/workspaceitem-sections.model';
 
 export interface FactoryDataModel {
   component: Type<any>;

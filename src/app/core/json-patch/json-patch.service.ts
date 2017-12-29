@@ -87,7 +87,6 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
         .do((request: HttpPatchRequest) => this.requestService.configure(request, true))
         .flatMap((request: HttpPatchRequest) => {
           const [successResponse, errorResponse] =  this.responseCache.get(request.href)
-            .filter((entry: ResponseCacheEntry) => startTransactionTime < entry.timeAdded)
             .take(1)
             .map((entry: ResponseCacheEntry) => entry.response)
             .partition((response: RestResponse) => response.isSuccessful);
