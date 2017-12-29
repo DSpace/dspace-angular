@@ -33,6 +33,7 @@ export class DynamicListModel extends DynamicCheckboxGroupModel {
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
     this.repeatable = config.repeatable;
+    this.repeatable = false;
     this.items = [];
   }
 

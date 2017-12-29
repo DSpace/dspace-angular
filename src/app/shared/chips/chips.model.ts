@@ -1,4 +1,3 @@
-
 export class Chips {
   receivedItems: any[];
   chipsItems: ChipsItem[];
@@ -15,17 +14,24 @@ export class Chips {
   public add(item: any) {
     let chipsItem: ChipsItem;
     if (item && item[this.displayField]) {
-      const textToDisplay = item[this.displayField].length > 20 ? item[this.displayField].substr(0,17).concat('...') : item[this.displayField];
+      const textToDisplay = item[this.displayField].length > 20 ? item[this.displayField].substr(0, 17).concat('...') : item[this.displayField];
 
       chipsItem = {
         order: this.chipsItems.length,
         display: textToDisplay,
-        item: item};
+        item: item,
+        isSimple: false
+      };
     } else {
-      const textToDisplay = item.length > 20 ? item.substr(0,17).concat('...') : item;
+      const textToDisplay = item.length > 20 ? item.substr(0, 17).concat('...') : item;
       const itemInternal = {};
       itemInternal[this.displayField] = item;
-      chipsItem = {order: this.chipsItems.length, display: textToDisplay, item: itemInternal};
+      chipsItem = {
+        order: this.chipsItems.length,
+        display: textToDisplay,
+        item: itemInternal,
+        isSimple: true
+      };
     }
 
     this.chipsItems.push(chipsItem);
@@ -33,8 +39,8 @@ export class Chips {
   }
 
   public remove(index) {
-    this.receivedItems.splice(index,1);
-    this.chipsItems.splice(index,1);
+    this.receivedItems.splice(index, 1);
+    this.chipsItems.splice(index, 1);
   }
 
   private setItems() {
@@ -43,7 +49,7 @@ export class Chips {
       if (item && item[this.displayField]) {
         const displayContent = item[this.displayField];
         const textToDisplay = item[this.displayField].length > 20 ? item[this.displayField].substr(0, 17).concat('...') : item[this.displayField];
-        const chipsItem: ChipsItem = {order: index, display: textToDisplay, item: item};
+        const chipsItem: ChipsItem = {order: index, display: textToDisplay, item: item, isSimple: false};
         this.chipsItems.push(chipsItem);
       }
     })
@@ -52,8 +58,12 @@ export class Chips {
   public getItems(): any[] {
     const out = [];
     this.chipsItems.forEach((item) => {
-          out.push(item.item);
-        });
+      if (item && !item.isSimple) {
+        out.push(item.item);
+      } else {
+        out.push(item.item[this.displayField]);
+      }
+    });
     return out;
   }
 
@@ -62,5 +72,6 @@ export class Chips {
 interface ChipsItem {
   order: number,
   display: string,
-  item: any
+  item: any,
+  isSimple: boolean
 }

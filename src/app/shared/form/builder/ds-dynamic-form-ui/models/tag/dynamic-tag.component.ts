@@ -90,7 +90,7 @@ export class DsDynamicTagComponent implements OnInit {
     //   }
     // })
 
-    this.model.chips = new Chips();
+    // this.model.chips = new Chips();
   }
 
   onInput(event) {

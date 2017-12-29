@@ -54,8 +54,8 @@ export class DsDynamicListComponent implements OnInit {
   }
 
   onChangeEvent(event) {
-    this.change.emit(event);
     this.group.controls[this.model.id].setValue(event);
+    this.change.emit(event);
     // this.model.items[event.groupIndex][event.index] = event;
     // console.log(this.model.value);
   }
