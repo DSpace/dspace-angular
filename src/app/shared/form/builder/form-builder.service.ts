@@ -51,7 +51,7 @@ import {
 } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { AuthorityService } from '../../../core/integration/authority.service';
 import { SeriesFieldParser } from './parsers/series-field-parser';
-import { DynamicListModel } from './ds-dynamic-form-ui/models/list/dynamic-list.model';
+import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DsDynamicListComponent } from './ds-dynamic-form-ui/models/list/dynamic-list.component';
 import { NameFieldParser } from './parsers/name-field-parser';
 import {DynamicTagModel} from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
@@ -248,7 +248,11 @@ export class FormBuilderService extends DynamicFormService {
     let fieldValue;
     if (this.isModelInCustomGroup(event.model)) {
       fieldValue = (event.model.parent as any).value;
-    } else if (isNotEmpty(event.control.value) && typeof event.control.value === 'object' && !(event.control.value instanceof AuthorityModel)) {
+    }else {
+      fieldValue = (event.model as  any).value;
+    } /*else if (isNotEmpty(event.control.value)
+      && typeof event.control.value === 'object'
+      && (!(event.control.value instanceof AuthorityModel))) {
       fieldValue = [];
       Object.keys(event.control.value)
         .forEach((key) => {
@@ -258,7 +262,7 @@ export class FormBuilderService extends DynamicFormService {
         })
     } else {
       fieldValue = event.control.value;
-    }
+    }*/
     return fieldValue;
   }
 
@@ -266,6 +270,10 @@ export class FormBuilderService extends DynamicFormService {
     return model.parent &&
       (model.parent instanceof DynamicConcatModel
         || model.parent instanceof DynamicComboboxModel);
+  }
+
+  isModelInAuthorityGroup(model: DynamicFormControlModel) {
+    return (model instanceof DynamicListCheckboxGroupModel);
   }
 
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0) {
@@ -304,6 +312,10 @@ export class FormBuilderService extends DynamicFormService {
     const value = this.getFieldValueFromChangeEvent(event);
     if (event.model.parent instanceof DynamicComboboxModel) {
       this.dispatchComboboxOperations(pathCombiner, event, previousValue);
+    } else if (this.isModelInAuthorityGroup(event.model)) {
+      this.operationsBuilder.add(
+        pathCombiner.getPath(segmentedPath),
+        value, true);
     } else if (previousValue.isPathEqual(this.getPath(event.model)) || hasStoredValue) {
       if (isEmpty(value)) {
         if (this.getArrayIndexFromEvent(event) === 0) {

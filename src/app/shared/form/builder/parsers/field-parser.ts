@@ -70,6 +70,13 @@ export abstract class FieldParser {
       }
     }
 
+  protected getInitGroupValues(): FormFieldMetadataValueObject[] {
+    const fieldIds = this.getFieldId();
+    if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
+      return this.initFormValues[fieldIds[0]];
+    }
+  }
+
   protected getInitFieldValue(outerIndex = 0, innerIndex = 0, fieldId?): FormFieldMetadataValueObject {
     const fieldIds = fieldId || this.getFieldId();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
