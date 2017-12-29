@@ -159,7 +159,6 @@ export class FormBuilderService extends DynamicFormService {
 
             case 'group':
               fieldModel = new GroupFieldParser(fieldData, initFormValues).parse();
-              //fieldModel = this.modelFromConfiguration(fieldData, initFormValues, true);
               break;
 
             case 'twobox':

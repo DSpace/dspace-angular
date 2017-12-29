@@ -4,7 +4,7 @@ import {
   DynamicInputModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-
+import { SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP = 'DYNAMIC_GROUP';
 
@@ -16,10 +16,11 @@ export interface DynamicGroupModelConfig extends DynamicInputModelConfig {
   label: string,
   name: string,
   placeholder: string,
+  formConfiguration: SubmissionFormsModel[],
 }
 
 /**
- * Dynamic Grupl Model class
+ * Dynamic Group Model class
  */
 export class DynamicGroupModel extends DynamicInputModel {
 
@@ -27,6 +28,7 @@ export class DynamicGroupModel extends DynamicInputModel {
   @serializable() label: string;
   @serializable() name: string;
   @serializable() placeholder: string;
+  @serializable() formConfiguration: SubmissionFormsModel[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP;
 
 
@@ -37,5 +39,6 @@ export class DynamicGroupModel extends DynamicInputModel {
     this.label = config.label;
     this.name = config.name;
     this.placeholder = config.placeholder;
+    this.formConfiguration = config.formConfiguration;
   }
 }

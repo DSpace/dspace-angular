@@ -31,5 +31,8 @@ export class FormFieldModel {
   }>;
 
   @autoserialize
+  rows: FormRowModel[];
+
+  @autoserialize
   value: any;
 }

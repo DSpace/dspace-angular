@@ -19,6 +19,12 @@ export class GroupFieldParser extends FieldParser {
     const modelConfiguration: DynamicGroupModelConfig = this.initModel(modelId);
     const model: DynamicGroupModel = new DynamicGroupModel(modelConfiguration);
 
+    if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
+      model.formConfiguration = this.configData.rows;
+    } else {
+      throw new Error(`Configuration not valid: ${model.name}`);
+    }
+
     return model;
   }
 
