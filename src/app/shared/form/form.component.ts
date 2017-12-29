@@ -105,6 +105,14 @@ export class FormComponent implements OnDestroy, OnInit {
       }));
   }*/
 
+  private getFormGroupValue() {
+    if (!!this.parentFormModel) {
+      return this.formGroup.parent.value;
+    }
+
+    return this.formGroup.value;
+  }
+
   /**
    * Method provided by Angular. Invoked after the constructor
    */
@@ -115,11 +123,11 @@ export class FormComponent implements OnDestroy, OnInit {
       this.formModel.forEach((model) => {
         this.formBuilderService.addFormGroupControl(this.formGroup, this.parentFormModel, model);
       });
-
-      this.formGroup = this.formGroup.parent as FormGroup;
     }
 
-    this.store.dispatch(new FormInitAction(this.formId, this.formGroup.value, this.formGroup.valid));
+    this.store.dispatch(new FormInitAction(this.formId, this.getFormGroupValue(), this.formGroup.valid));
+
+    // TODO: take a look to the following method:
     // this.keepSync();
 
     this.formValid = this.formGroup.valid;
@@ -192,7 +200,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event) {
-    const action: FormChangeAction = new FormChangeAction(this.formId, this.formGroup.value);
+    const action: FormChangeAction = new FormChangeAction(this.formId, this.getFormGroupValue());
     this.store.dispatch(action);
     this.formGroup.markAsPristine();
 
@@ -226,14 +234,14 @@ export class FormComponent implements OnDestroy, OnInit {
     const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
     this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
-    this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
+    this.store.dispatch(new FormChangeAction(this.formId, this.getFormGroupValue()));
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number) {
     const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
     this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
     this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
-    this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
+    this.store.dispatch(new FormChangeAction(this.formId, this.getFormGroupValue()));
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {
