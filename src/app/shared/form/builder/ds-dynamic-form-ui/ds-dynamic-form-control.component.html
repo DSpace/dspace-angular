@@ -28,6 +28,7 @@
 
           <ds-dynamic-form-control *ngFor="let controlModel of groupModel.group"
                                    [bindId]="false"
+                                   [formId]="formId"
                                    [context]="groupModel"
                                    [group]="control.at(idx)"
                                    [hasErrorMessaging]="controlModel.hasErrorMessages"
@@ -138,6 +139,7 @@
         <ds-dynamic-form-control *ngFor="let controlModel of model.group"
                                  [asBootstrapFormGroup]="true"
                                  [group]="control"
+                                 [formId]="formId"
                                  [hasErrorMessaging]="controlModel.hasErrorMessages"
                                  [model]="controlModel"
                                  [templates]="templates"
@@ -256,6 +258,10 @@
                                                    context:{bindId: bindId, model: model, showErrorMessages: showErrorMessages}">
 
         </ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="16">
+        <ds-dynamic-group [model]="model" [group]="group.get(model.id)" [formId]="formId"></ds-dynamic-group>
       </ng-container>
 
 

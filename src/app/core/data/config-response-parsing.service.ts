@@ -30,6 +30,7 @@ export class ConfigResponseParsingService extends BaseResponseParsingService imp
       const configDefinition = this.process<ConfigObject, ConfigType>(data.payload, request.href);
       return new ConfigSuccessResponse(configDefinition[ Object.keys(configDefinition)[ 0 ] ], data.statusCode, this.processPageInfo(data.payload.page));
     } else {
+      console.log(request, data);
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from config endpoint'),

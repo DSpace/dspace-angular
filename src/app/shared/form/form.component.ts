@@ -7,12 +7,12 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, Form, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicFormGroupModel,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
@@ -59,6 +59,8 @@ export class FormComponent implements OnDestroy, OnInit {
    * An array of DynamicFormControlModel type
    */
   @Input() formModel: DynamicFormControlModel[];
+  @Input() parentFormModel: DynamicFormGroupModel | DynamicFormGroupModel[];
+  @Input() formGroup: FormGroup;
 
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -75,7 +77,7 @@ export class FormComponent implements OnDestroy, OnInit {
   /**
    * An object of FormGroup type
    */
-  public formGroup: FormGroup;
+  // public formGroup: FormGroup;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -103,13 +105,30 @@ export class FormComponent implements OnDestroy, OnInit {
       }));
   }*/
 
+  private getFormGroupValue() {
+    if (!!this.parentFormModel) {
+      return this.formGroup.parent.value;
+    }
+
+    return this.formGroup.value;
+  }
+
   /**
    * Method provided by Angular. Invoked after the constructor
    */
   ngOnInit() {
-    this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-    this.store.dispatch(new FormInitAction(this.formId, this.formGroup.value, this.formGroup.valid));
-    this.keepSync();
+    if (!this.formGroup) {
+      this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+    } else {
+      this.formModel.forEach((model) => {
+        this.formBuilderService.addFormGroupControl(this.formGroup, this.parentFormModel, model);
+      });
+    }
+
+    this.store.dispatch(new FormInitAction(this.formId, this.getFormGroupValue(), this.formGroup.valid));
+
+    // TODO: take a look to the following method:
+    // this.keepSync();
 
     this.formValid = this.formGroup.valid;
 
@@ -181,7 +200,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event) {
-    const action: FormChangeAction = new FormChangeAction(this.formId, this.formGroup.value);
+    const action: FormChangeAction = new FormChangeAction(this.formId, this.getFormGroupValue());
     this.store.dispatch(action);
     this.formGroup.markAsPristine();
 
@@ -215,14 +234,14 @@ export class FormComponent implements OnDestroy, OnInit {
     const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
     this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
-    this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
+    this.store.dispatch(new FormChangeAction(this.formId, this.getFormGroupValue()));
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number) {
     const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
     this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
     this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
-    this.store.dispatch(new FormChangeAction(this.formId, this.formGroup.value));
+    this.store.dispatch(new FormChangeAction(this.formId, this.getFormGroupValue()));
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {

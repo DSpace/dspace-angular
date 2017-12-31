@@ -1,0 +1,13 @@
+<div class="ds-dynamic-group-component">
+  <ds-form
+    [formId]="formId"
+    [formModel]="formModel"
+    [parentFormModel]="model"
+    [formGroup]="group"
+    [displaySubmit]="false"
+    (addArrayItem)="onAddItem($event)"
+    (blur)="onBlur($event)"
+    (change)="onChange($event)"
+    (focus)="onFocus($event)"
+    (removeArrayItem)="onRemoveItem($event)"></ds-form>
+</div>

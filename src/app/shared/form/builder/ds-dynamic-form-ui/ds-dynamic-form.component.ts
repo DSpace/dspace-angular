@@ -1,4 +1,12 @@
-import { Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  ContentChildren,
+  EventEmitter,
+  Input,
+  Output,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormComponent,
@@ -15,6 +23,7 @@ import { DsDynamicFormControlComponent } from './ds-dynamic-form-control.compone
 })
 export class DsDynamicFormComponent extends DynamicFormComponent {
 
+  @Input() formId: string;
   @Input() group: FormGroup;
   @Input() model: DynamicFormControlModel[];
 
