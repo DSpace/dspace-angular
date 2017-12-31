@@ -13,6 +13,7 @@
   type="text"
   placeholder="Enter a tag..."
   (keyup)="onKeyUp($event)"
+  (change)="$event.stopPropagation()"
   [(ngModel)]="inputText"
 />
 

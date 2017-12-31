@@ -273,7 +273,7 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   isModelInAuthorityGroup(model: DynamicFormControlModel) {
-    return (model instanceof DynamicListCheckboxGroupModel);
+    return (model instanceof DynamicListCheckboxGroupModel || model instanceof DynamicTagModel);
   }
 
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0) {

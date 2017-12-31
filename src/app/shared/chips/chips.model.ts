@@ -1,68 +1,61 @@
 export class Chips {
-  receivedItems: any[];
   chipsItems: ChipsItem[];
   displayField: string;
 
   constructor(items: any[] = [], displayField: string = 'display') {
     if (Array.isArray(items)) {
-      this.receivedItems = items;
-      this.setItems();
+      this.setInitialItems(items);
     }
     this.displayField = displayField;
   }
 
   public add(item: any) {
     let chipsItem: ChipsItem;
+    let value = item;
     if (item && item[this.displayField]) {
-      const textToDisplay = item[this.displayField].length > 20 ? item[this.displayField].substr(0, 17).concat('...') : item[this.displayField];
-
-      chipsItem = {
-        order: this.chipsItems.length,
-        display: textToDisplay,
-        item: item,
-        isSimple: false
-      };
-    } else {
-      const textToDisplay = item.length > 20 ? item.substr(0, 17).concat('...') : item;
-      const itemInternal = {};
-      itemInternal[this.displayField] = item;
-      chipsItem = {
-        order: this.chipsItems.length,
-        display: textToDisplay,
-        item: itemInternal,
-        isSimple: true
-      };
+      value = item[this.displayField];
     }
+    const textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
+    chipsItem = {
+      order: this.chipsItems.length,
+      display: textToDisplay,
+      item: item,
+    };
 
     this.chipsItems.push(chipsItem);
-    this.receivedItems.push(item);
   }
 
   public remove(index) {
-    this.receivedItems.splice(index, 1);
     this.chipsItems.splice(index, 1);
   }
 
-  private setItems() {
+  /**
+   * Sets initial items, used in edit mode
+   */
+  private setInitialItems(items: any[]) {
     this.chipsItems = [];
-    this.receivedItems.forEach((item, index) => {
-      if (item && item[this.displayField]) {
-        const displayContent = item[this.displayField];
-        const textToDisplay = item[this.displayField].length > 20 ? item[this.displayField].substr(0, 17).concat('...') : item[this.displayField];
-        const chipsItem: ChipsItem = {order: index, display: textToDisplay, item: item, isSimple: false};
-        this.chipsItems.push(chipsItem);
+    items.forEach((item, index) => {
+      let value;
+      if (item instanceof String) {
+        value = item;
+      } else {
+        value = item[this.displayField];
       }
+      const textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
+      const chipsItem: ChipsItem = {order: index, display: textToDisplay, item: item};
+      this.chipsItems.push(chipsItem);
+      // }
     })
   }
 
+  /**
+   * To use to get items before to store it
+   * @returns {any[]}
+   */
   public getItems(): any[] {
     const out = [];
     this.chipsItems.forEach((item) => {
-      if (item && !item.isSimple) {
         out.push(item.item);
-      } else {
-        out.push(item.item[this.displayField]);
-      }
     });
     return out;
   }
@@ -72,6 +65,5 @@ export class Chips {
 interface ChipsItem {
   order: number,
   display: string,
-  item: any,
-  isSimple: boolean
+  item: any
 }

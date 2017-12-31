@@ -9,6 +9,7 @@ import {DynamicTagModel} from './dynamic-tag.model';
 import {IntegrationSearchOptions} from '../../../../../../core/integration/models/integration-options.model';
 import {isNotEmpty} from '../../../../../empty.util';
 import {Chips} from '../../../../../chips/chips.model';
+import {AuthorityModel} from '../../../../../../core/integration/models/authority.model';
 
 @Component({
   selector: 'ds-dynamic-tag',
@@ -35,14 +36,7 @@ export class DsDynamicTagComponent implements OnInit {
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
 
-  formatter = (x) => {
-    if (x.display) {
-      return x.display;
-    } else {
-      return null;
-    }
-  };
-// (x: {display: string}) => x.display;
+  formatter = (x: {display: string}) => x.display;
 
   search = (text$: Observable<string>) =>
     text$
@@ -77,20 +71,30 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.currentValue = this.model.value;
-    if (this.model.authorityName && this.model.authorityName.length > 0) {
+    const withAuthority = this.model.authorityName && this.model.authorityName.length > 0;
+    if (withAuthority) {
       this.searchOptions = new IntegrationSearchOptions(
         this.model.authorityScope,
         this.model.authorityName,
         this.model.authorityMetadata);
     }
-    // this.group.valueChanges.subscribe((value) => {
-    //   if (this.currentValue !== value && isNotEmpty(value[this.model.id])) {
-    //     this.currentValue = value[this.model.id];
-    //   }
-    // })
 
-    // this.model.chips = new Chips();
+    if (this.model.storedValue && this.model.storedValue.length > 0) {
+      // Values found in edit
+      this.model.storedValue.forEach( (v) => {
+        let item;
+        if (withAuthority) {
+          item = {
+            id: v.authority || v.value,
+            value: v.value,
+            display: v.value
+          } as AuthorityModel;
+        } else {
+          item = v.value;
+        }
+        this.model.chips.add(item);
+      });
+    }
   }
 
   onInput(event) {
@@ -119,8 +123,6 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   updateModel(event) {
-    console.log('getItems...');
-    console.log(this.model.chips.getItems());
     this.model.valueUpdates.next(this.model.chips.getItems());
     this.change.emit(event);
   }

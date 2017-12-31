@@ -16,10 +16,10 @@ export class ChipsComponent implements OnChanges {
   chips: Chips;
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges...' + JSON.stringify(changes));
+    // console.log('ngOnChanges...' + JSON.stringify(changes));
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
-      console.log('ngOnChanges items=' + JSON.stringify(this.chips));
+      // console.log('ngOnChanges items=' + JSON.stringify(this.chips));
     }
   }
 

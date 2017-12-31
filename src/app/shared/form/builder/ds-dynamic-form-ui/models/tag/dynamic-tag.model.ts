@@ -15,6 +15,7 @@ export interface DynamicTagModelConfig extends DynamicInputModelConfig {
   minChars: number;
   value: any;
   chips: Chips;
+  storedValue: any[];
 }
 
 export class DynamicTagModel extends DynamicInputModel {
@@ -25,6 +26,7 @@ export class DynamicTagModel extends DynamicInputModel {
   @serializable() minChars: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TAG;
   @serializable() chips: Chips;
+  @serializable() storedValue: any[];
 
   constructor(config: DynamicTagModelConfig, cls?: ClsConfig) {
 
@@ -36,6 +38,7 @@ export class DynamicTagModel extends DynamicInputModel {
     this.authorityScope = config.authorityScope;
     this.minChars = config.minChars;
     this.chips = config.chips || new Chips();
+    this.storedValue = config.storedValue;
   }
 
   // get value() {
