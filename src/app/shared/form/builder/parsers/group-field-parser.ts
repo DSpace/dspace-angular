@@ -7,6 +7,7 @@ import {
   DynamicGroupModel,
   DynamicGroupModelConfig
 } from '../ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.model';
+import {isNotEmpty} from '../../../empty.util';
 
 export class GroupFieldParser extends FieldParser {
 
@@ -23,6 +24,10 @@ export class GroupFieldParser extends FieldParser {
       model.formConfiguration = this.configData.rows;
     } else {
       throw new Error(`Configuration not valid: ${model.name}`);
+    }
+
+    if (isNotEmpty(this.getInitGroupValues())) {
+      model.storedValue = this.getInitGroupValues();
     }
 
     return model;

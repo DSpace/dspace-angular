@@ -14,6 +14,9 @@ export class Chips {
     let value = item;
     if (item && item[this.displayField]) {
       value = item[this.displayField];
+    } else if (item && item['dc.contributor.author'] && item['dc.contributor.author'].display) {
+      // Case Group Form
+      value = item['dc.contributor.author'].display;
     }
     const textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
     chipsItem = {
@@ -58,6 +61,10 @@ export class Chips {
         out.push(item.item);
     });
     return out;
+  }
+
+  setDiplayField(displayField) {
+    this.displayField = displayField;
   }
 
 }
