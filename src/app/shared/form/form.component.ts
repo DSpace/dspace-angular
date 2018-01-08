@@ -151,10 +151,17 @@ export class FormComponent implements OnDestroy, OnInit {
 
           errors.forEach((error: FormError) => {
             const { fieldId } = error;
-            const field: AbstractControl = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel);
-            const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+            let field: AbstractControl;
+            if (!!this.parentFormModel) {
+              field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel);
+            } else {
+              field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel);
+            }
 
-            this.formService.addErrorToField(field, model, error.message);
+            if (field) {
+              const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+              this.formService.addErrorToField(field, model, error.message);
+            }
           });
 
           this.changeDetectorRef.detectChanges();
