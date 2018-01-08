@@ -4,6 +4,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Observable } from 'rxjs/Observable';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { Chips } from '../../../../../chips/chips.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_TAG = 'TYPETAG';
 
@@ -13,6 +14,8 @@ export interface DynamicTagModelConfig extends DynamicInputModelConfig {
   authorityScope: string;
   minChars: number;
   value: any;
+  chips: Chips;
+  storedValue: any[];
 }
 
 export class DynamicTagModel extends DynamicInputModel {
@@ -22,6 +25,8 @@ export class DynamicTagModel extends DynamicInputModel {
   @serializable() authorityScope: string;
   @serializable() minChars: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TAG;
+  @serializable() chips: Chips;
+  @serializable() storedValue: any[];
 
   constructor(config: DynamicTagModelConfig, cls?: ClsConfig) {
 
@@ -32,6 +37,21 @@ export class DynamicTagModel extends DynamicInputModel {
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
     this.minChars = config.minChars;
+    this.chips = config.chips || new Chips();
+    this.storedValue = config.storedValue;
   }
+
+  // get value() {
+  //   const out = [];
+  //   this.chips.chipsItems.forEach((item) => {
+  //     out.push(item.item);
+  //   });
+  //
+  //   return out;
+  // }
+
+  // set value(value: any[]) {
+  //   // this.chips.chipsItems = value;
+  // }
 
 }

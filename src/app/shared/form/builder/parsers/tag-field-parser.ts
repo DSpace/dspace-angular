@@ -4,6 +4,10 @@ import {FormFieldMetadataValueObject} from '../models/form-field-metadata-value.
 import {isNotEmpty} from '../../../empty.util';
 import {AuthorityModel} from "../../../../core/integration/models/authority.model";
 import {DynamicTagModel, DynamicTagModelConfig} from "../ds-dynamic-form-ui/models/tag/dynamic-tag.model";
+import {Observable} from 'rxjs/Observable';
+import {SearchOptions} from '../../../../+search-page/search-options.model';
+import {IntegrationSearchOptions} from '../../../../core/integration/models/integration-options.model';
+import {AuthorityService} from '../../../../core/integration/authority.service';
 
 export class TagFieldParser extends FieldParser {
 
@@ -14,7 +18,7 @@ export class TagFieldParser extends FieldParser {
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     const tagModelConfig: DynamicTagModelConfig = this.initModel();
-    if(this.configData.selectableMetadata[0].authority
+    if (this.configData.selectableMetadata[0].authority
       && this.configData.selectableMetadata[0].authority.length > 0 ) {
         tagModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
         tagModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
@@ -27,10 +31,21 @@ export class TagFieldParser extends FieldParser {
           } as AuthorityModel;
           tagModelConfig.value = authorityValue;
         }
+
     }
+
+    if (isNotEmpty(this.getInitGroupValues())) {
+      tagModelConfig.storedValue = this.getInitGroupValues();
+    }
+
     tagModelConfig.minChars = 3;
     const tagModel = new DynamicTagModel(tagModelConfig);
     tagModel.name = this.fieldId;
+
+    console.log('initgroupValue');
+    console.log(this.getInitGroupValues());
+
     return tagModel;
   }
+
 }

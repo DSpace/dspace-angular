@@ -1,15 +1,15 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import {Observable} from 'rxjs/Observable';
+import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { DynamicTagModel } from './dynamic-tag.model';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
-import { isNotEmpty } from '../../../../../empty.util';
-import {Chips} from "../../../../../chips/chips.model";
+import {AuthorityService} from '../../../../../../core/integration/authority.service';
+import {DynamicTagModel} from './dynamic-tag.model';
+import {IntegrationSearchOptions} from '../../../../../../core/integration/models/integration-options.model';
+import {isNotEmpty} from '../../../../../empty.util';
+import {Chips} from '../../../../../chips/chips.model';
+import {AuthorityModel} from '../../../../../../core/integration/models/authority.model';
 
 @Component({
   selector: 'ds-dynamic-tag',
@@ -26,8 +26,8 @@ export class DsDynamicTagComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  chips: Chips;
-  placeholder = "Enter tags...";
+  // chips: Chips;
+  placeholder = 'Enter tags...';
   inputText: string;
 
   searching = false;
@@ -36,14 +36,7 @@ export class DsDynamicTagComponent implements OnInit {
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
 
-  formatter = (x) => {
-    if(x.display) {
-      return x.display;
-    } else {
-      return null;
-    }
-  };
-// (x: {display: string}) => x.display;
+  formatter = (x: {display: string}) => x.display;
 
   search = (text$: Observable<string>) =>
     text$
@@ -74,23 +67,34 @@ export class DsDynamicTagComponent implements OnInit {
       .do(() => this.searching = false)
       .merge(this.hideSearchingWhenUnsubscribed);
 
-  constructor(private authorityService: AuthorityService) {}
+  constructor(private authorityService: AuthorityService) {
+  }
 
   ngOnInit() {
-    this.currentValue = this.model.value;
-    if(this.model.authorityName && this.model.authorityName.length > 0) {
+    const withAuthority = this.model.authorityName && this.model.authorityName.length > 0;
+    if (withAuthority) {
       this.searchOptions = new IntegrationSearchOptions(
         this.model.authorityScope,
         this.model.authorityName,
         this.model.authorityMetadata);
     }
-    this.group.valueChanges.subscribe((value) => {
-      if (this.currentValue !== value && isNotEmpty(value[this.model.id])) {
-        this.currentValue = value[this.model.id];
-      }
-    })
 
-    this.chips = new Chips();
+    if (this.model.storedValue && this.model.storedValue.length > 0) {
+      // Values found in edit
+      this.model.storedValue.forEach( (v) => {
+        let item;
+        if (withAuthority) {
+          item = {
+            id: v.authority || v.value,
+            value: v.value,
+            display: v.value
+          } as AuthorityModel;
+        } else {
+          item = v.value;
+        }
+        this.model.chips.add(item);
+      });
+    }
   }
 
   onInput(event) {
@@ -108,14 +112,19 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
-      this.chips.add(event.item);
-      this.change.emit(event.item);
-      this.group.controls[this.model.id].setValue(this.currentValue);
+    this.model.chips.add(event.item);
+    // this.group.controls[this.model.id].setValue(this.model.value);
+    this.updateModel(event);
 
-      setTimeout(() => {
-        // Reset the input text after x ms, mandatory or the formatter overwrite it
-        this.currentValue = null;
-      }, 50);
+    setTimeout(() => {
+      // Reset the input text after x ms, mandatory or the formatter overwrite it
+      this.currentValue = null;
+    }, 50);
+  }
+
+  updateModel(event) {
+    this.model.valueUpdates.next(this.model.chips.getItems());
+    this.change.emit(event);
   }
 
   onKeyUp(event) {
@@ -123,6 +132,7 @@ export class DsDynamicTagComponent implements OnInit {
       // Key: Enter or , or ;
       this.addTagsToChips(this.inputText);
       this.inputText = '';
+      this.updateModel(event);
     }
 
   }
@@ -131,17 +141,17 @@ export class DsDynamicTagComponent implements OnInit {
     let res: string[] = [];
     res = text.split(',');
 
-    let res1 = [];
+    const res1 = [];
     res.forEach((item) => {
-      item.split(';').forEach( (item) => {
-        res1.push(item);
+      item.split(';').forEach((i) => {
+        res1.push(i);
       });
     });
 
-    res1.forEach((c) =>{
+    res1.forEach((c) => {
       c = c.trim();
       if (c.length > 0) {
-        this.chips.add(c);
+        this.model.chips.add(c);
       }
     });
   }

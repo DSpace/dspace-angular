@@ -35,6 +35,10 @@ import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollab
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP,
+  DynamicGroupModel
+} from './models/ds-dynamic-group/dynamic-group.model';
 
 export const enum NGBootstrapFormControlType {
 
@@ -53,6 +57,7 @@ export const enum NGBootstrapFormControlType {
   ScrollableDropdown = 13, // 'SCROLLABLE_DROPDOWN'
   TypeTag = 14, // 'TYPETAG'
   List = 15, // 'TYPELIST'
+  DynamicGroup = 16, // Dynamic Grup
 }
 
 @Component({
@@ -66,6 +71,7 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
   // tslint:disable-next-line:no-input-rename
   @Input('templates') inputTemplates: QueryList<DynamicTemplateDirective>;
 
+  @Input() formId: string;
   @Input() asBootstrapFormGroup = true;
   @Input() bindId = true;
   @Input() context: DynamicFormArrayGroupModel | null = null;
@@ -98,7 +104,8 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
         return datepickerModel.inline ? NGBootstrapFormControlType.Calendar : NGBootstrapFormControlType.DatePicker;
 
       case DYNAMIC_FORM_CONTROL_TYPE_GROUP:
-        return NGBootstrapFormControlType.Group;
+        return (model instanceof DynamicGroupModel) ? NGBootstrapFormControlType.DynamicGroup : NGBootstrapFormControlType.Group;
+      // return NGBootstrapFormControlType.Group;
 
       case DYNAMIC_FORM_CONTROL_TYPE_INPUT:
         return NGBootstrapFormControlType.Input;
@@ -124,6 +131,8 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
       case DYNAMIC_FORM_CONTROL_TYPE_TAG:
         return NGBootstrapFormControlType.TypeTag;
 
+      case DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP:
+        return NGBootstrapFormControlType.DynamicGroup;
       default:
         return null;
     }
