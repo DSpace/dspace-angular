@@ -32,6 +32,10 @@ export class Chips {
     this.chipsItems.splice(index, 1);
   }
 
+  public update(chipsItem: ChipsItem) {
+
+  }
+
   /**
    * Sets initial items, used in edit mode
    */

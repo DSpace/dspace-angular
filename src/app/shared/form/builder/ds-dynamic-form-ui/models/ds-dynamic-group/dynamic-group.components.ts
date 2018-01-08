@@ -106,7 +106,9 @@ export class DsDynamicGroupComponent implements OnInit {
       const keys = Object.keys(this.group.controls);
       console.log(keys); // df-row-group-config-18
       (this.group.controls[keys[0]] as FormGroup).controls[AUTHOR_KEY].patchValue(null);
+      this.group.reset();
     }, 50);
+
     // console.log(this.model.chips.getItems());
   }
 

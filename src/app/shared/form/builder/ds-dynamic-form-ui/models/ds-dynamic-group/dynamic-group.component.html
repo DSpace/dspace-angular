@@ -11,15 +11,15 @@
     (focus)="onFocus($event)"
     (removeArrayItem)="onRemoveItem($event)"></ds-form>
   <button *ngIf="!editMode" type="button" class="btn btn-link" (click)="addChips()">
-    <i class="fa fa-plus-circle fa-3x" style="color: gray" aria-hidden="true"></i>
+    <i class="fa fa-plus-circle fa-2x" style="color: gray" aria-hidden="true"></i>
   </button>
 
   <div *ngIf="editMode">
     <button type="button" class="btn btn-link" (click)="modifyChips()">
-      <i class="fa fa-save fa-3x" style="color: darkcyan" aria-hidden="true"></i>
+      <i class="fa fa-save fa-2x" style="color: darkcyan" aria-hidden="true"></i>
     </button>
     <button type="button" class="btn btn-link" (click)="exitEditMode()">
-      <i class="fa fa-undo fa-3x" style="color: gray" aria-hidden="true"></i>
+      <i class="fa fa-undo fa-2x" style="color: gray" aria-hidden="true"></i>
     </button>
   </div>
 
