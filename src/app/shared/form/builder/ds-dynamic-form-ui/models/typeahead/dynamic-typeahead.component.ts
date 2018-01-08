@@ -69,10 +69,15 @@ export class DsDynamicTypeaheadComponent implements OnInit {
       this.model.authorityScope,
       this.model.authorityName,
       this.model.authorityMetadata);
-    this.group.valueChanges.subscribe((value) => {
-      if (this.currentValue !== value && isNotEmpty(value[this.model.id])) {
-        this.currentValue = value[this.model.id];
-      }
+    this.group.get(this.model.id).valueChanges
+      .filter((value) => isEmpty(value))
+      .subscribe((value) => {
+        console.log('change', value);
+        console.log('model', this.model.value);
+        this.currentValue = value;
+        /*if (this.currentValue !== value && isNotEmpty(value[this.model.id])) {
+          this.currentValue = value[this.model.id];
+        }*/
     })
   }
 

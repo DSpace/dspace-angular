@@ -25,7 +25,7 @@
 :host /deep/ .dropdown-menu {
   width: 100% !important;
   max-height: 200px;
-  overflow-y: scroll;
+  overflow-y: auto !important;
   overflow-x: hidden;
 }
 

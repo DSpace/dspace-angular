@@ -1,59 +1,37 @@
-import { Injectable } from '@angular/core';
-import { isEqual, uniqueId } from 'lodash';
+import {Injectable} from '@angular/core';
+import {isEqual, uniqueId} from 'lodash';
 
 import {
-  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicCheckboxModel,
-  DynamicFormArrayGroupModel,
-  DynamicFormArrayModel,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormGroupModel, DynamicFormGroupModelConfig,
-  DynamicFormService,
-  DynamicFormValidationService,
-  DynamicPathable,
-  Utils
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DYNAMIC_FORM_CONTROL_TYPE_GROUP, DynamicFormArrayGroupModel,
+  DynamicFormArrayModel, DynamicFormControlEvent, DynamicFormControlModel, DynamicFormGroupModel,
+  DynamicFormGroupModelConfig, DynamicFormService, DynamicFormValidationService, DynamicPathable, Utils
 } from '@ng-dynamic-forms/core';
 
-import { DateFieldParser } from './parsers/date-field-parser';
-import { DropdownFieldParser } from './parsers/dropdown-field-parser';
-import { TextareaFieldParser } from './parsers/textarea-field-parser';
-import { ListFieldParser } from './parsers/list-field-parser';
-import { OneboxFieldParser } from './parsers/onebox-field-parser';
-import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import {
-  isEmpty,
-  isNotEmpty,
-  isNotNull,
-  isNotUndefined,
-  isNull,
-  isUndefined
-} from '../../empty.util';
-import {
-  COMBOBOX_GROUP_SUFFIX,
-  COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
-  DynamicComboboxModel
-} from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
-import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
-import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import { AuthorityModel } from '../../../core/integration/models/authority.model';
-import { TagFieldParser } from './parsers/tag-field-parser';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
-import {
- DynamicConcatModel, NAME_INPUT_1_SUFFIX, NAME_INPUT_2_SUFFIX,
-
-  SERIES_INPUT_1_SUFFIX, SERIES_INPUT_2_SUFFIX
-} from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { AuthorityService } from '../../../core/integration/authority.service';
-import { SeriesFieldParser } from './parsers/series-field-parser';
-import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
-import { DsDynamicListComponent } from './ds-dynamic-form-ui/models/list/dynamic-list.component';
-import { NameFieldParser } from './parsers/name-field-parser';
+import {DateFieldParser} from './parsers/date-field-parser';
+import {DropdownFieldParser} from './parsers/dropdown-field-parser';
+import {TextareaFieldParser} from './parsers/textarea-field-parser';
+import {ListFieldParser} from './parsers/list-field-parser';
+import {OneboxFieldParser} from './parsers/onebox-field-parser';
+import {IntegrationSearchOptions} from '../../../core/integration/models/integration-options.model';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined} from '../../empty.util';
+import {DynamicComboboxModel} from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
+import {DynamicTypeaheadModel} from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import {DynamicScrollableDropdownModel} from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import {SubmissionFormsModel} from '../../../core/shared/config/config-submission-forms.model';
+import {TagFieldParser} from './parsers/tag-field-parser';
+import {JsonPatchOperationPathCombiner} from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import {JsonPatchOperationsBuilder} from '../../../core/json-patch/builder/json-patch-operations-builder';
+import {FormFieldPreviousValueObject} from './models/form-field-previous-value-object';
+import {DynamicRelationGroupModel} from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
+import {DynamicConcatModel} from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import {AuthorityService} from '../../../core/integration/authority.service';
+import {SeriesFieldParser} from './parsers/series-field-parser';
+import {DynamicListCheckboxGroupModel} from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
+import {NameFieldParser} from './parsers/name-field-parser';
+import {GroupFieldParser} from './parsers/group-field-parser';
+import {DynamicGroupModel} from './ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.model';
+import {DynamicTagModel} from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -121,8 +99,8 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
             case 'dropdown':
-                  fieldModel = (new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-                  break;
+              fieldModel = (new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
+              break;
 
             case 'list':
               fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
@@ -157,7 +135,7 @@ export class FormBuilderService extends DynamicFormService {
               break;
 
             case 'group':
-              fieldModel = this.modelFromConfiguration(fieldData, initFormValues, true);
+              fieldModel = new GroupFieldParser(fieldData, initFormValues).parse();
               break;
 
             case 'twobox':
@@ -169,7 +147,7 @@ export class FormBuilderService extends DynamicFormService {
           }
 
           if (fieldModel) {
-            if (fieldModel instanceof DynamicFormArrayModel) {
+            if (fieldModel instanceof DynamicFormArrayModel || fieldModel instanceof DynamicGroupModel) {
               rows.push(fieldModel);
             } else {
               if (fieldModel instanceof Array) {
@@ -247,21 +225,22 @@ export class FormBuilderService extends DynamicFormService {
     let fieldValue;
     if (this.isModelInCustomGroup(event.model)) {
       fieldValue = (event.model.parent as any).value;
-    }else {
-      fieldValue = (event.model as  any).value;
-    } /*else if (isNotEmpty(event.control.value)
-      && typeof event.control.value === 'object'
-      && (!(event.control.value instanceof AuthorityModel))) {
-      fieldValue = [];
-      Object.keys(event.control.value)
-        .forEach((key) => {
-          if (event.control.value[ key ]) {
-            fieldValue.push({ value: key })
-          }
-        })
     } else {
-      fieldValue = event.control.value;
-    }*/
+      fieldValue = (event.model as  any).value;
+    }
+    /*else if (isNotEmpty(event.control.value)
+         && typeof event.control.value === 'object'
+         && (!(event.control.value instanceof AuthorityModel))) {
+         fieldValue = [];
+         Object.keys(event.control.value)
+           .forEach((key) => {
+             if (event.control.value[key]) {
+               fieldValue.push({value: key})
+             }
+           })
+       } else {
+         fieldValue = event.control.value;
+       }*/
     return fieldValue;
   }
 
@@ -272,7 +251,7 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   isModelInAuthorityGroup(model: DynamicFormControlModel) {
-    return (model instanceof DynamicListCheckboxGroupModel);
+    return (model instanceof DynamicListCheckboxGroupModel || model instanceof DynamicTagModel);
   }
 
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0) {
@@ -362,7 +341,7 @@ export class FormBuilderService extends DynamicFormService {
     const metadataValueMap = new Map();
 
     (event.model.parent.parent as DynamicFormArrayGroupModel).context.groups.forEach((arrayModel: DynamicFormArrayGroupModel) => {
-      const groupModel = arrayModel.group[0] as DynamicComboboxModel;
+      const groupModel = arrayModel.group[ 0 ] as DynamicComboboxModel;
       const metadataValueList = metadataValueMap.get(groupModel.path) ? metadataValueMap.get(groupModel.path) : [];
       if (groupModel.value) {
         metadataValueList.push(groupModel.value);

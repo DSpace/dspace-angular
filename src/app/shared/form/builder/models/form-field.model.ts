@@ -1,4 +1,5 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
+import { autoserialize } from 'cerialize';
+import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
 
 export class FormFieldModel {
 
@@ -29,6 +30,9 @@ export class FormFieldModel {
     authority?: string;
     [name: string]: any;
   }>;
+
+  @autoserialize
+  rows: FormRowModel[];
 
   @autoserialize
   value: any;
