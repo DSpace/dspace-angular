@@ -37,7 +37,7 @@ export class DynamicGroupModel extends DynamicFormGroupModel {
   @serializable() placeholder: string;
   @serializable() formConfiguration: FormRowModel[];
   // @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP;
-
+  @serializable() mandatoryField: string;
   @serializable() chips: Chips;
   @serializable() storedValue: any[];
 
@@ -54,7 +54,7 @@ export class DynamicGroupModel extends DynamicFormGroupModel {
     this.storedValue = config.storedValue;
   }
 
-  // get value(): any[] {
-  //   return this.chips.getItems();
-  // }
+  get value(): any[] {
+    return this.chips.getItems();
+  }
 }

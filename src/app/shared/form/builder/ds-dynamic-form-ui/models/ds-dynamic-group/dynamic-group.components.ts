@@ -5,16 +5,10 @@ import {FormBuilderService} from '../../../form-builder.service';
 import {DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel} from '@ng-dynamic-forms/core';
 import {SubmissionFormsModel} from '../../../../../../core/shared/config/config-submission-forms.model';
 import {AuthorityModel} from '../../../../../../core/integration/models/authority.model';
-import {IntegrationSearchOptions} from '../../../../../../core/integration/models/integration-options.model';
 import {DynamicTypeaheadModel} from '../typeahead/dynamic-typeahead.model';
+import {FormService} from "../../../../form.service";
 
-const AUTHOR_KEY = 'dc_contributor_author';
-const ORCID_KEY = 'local_contributor_orcid';
-const AFFILIATION_KEY = 'local_contributor_affiliation';
-
-const DOT_AUTHOR_KEY = 'dc.contributor.author';
-const DOT_ORCID_KEY = 'local.contributor.orcid';
-const DOT_AFFILIATION_KEY = 'local.contributor.affiliation';
+const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -34,11 +28,11 @@ export class DsDynamicGroupComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  author: DynamicTypeaheadModel;
-  orcId: DynamicInputModel;
-  affiliation: DynamicInputModel;
+  // author: DynamicTypeaheadModel;
+  // orcId: DynamicInputModel;
+  // affiliation: DynamicInputModel;
 
-  constructor(private formBuilderService: FormBuilderService) {
+  constructor(private formBuilderService: FormBuilderService, private formService: FormService) {
   }
 
   ngOnInit() {
@@ -48,30 +42,17 @@ export class DsDynamicGroupComponent implements OnInit {
     this.formModel = this.formBuilderService.modelFromConfiguration(config, {});
     this.formModelRow = this.formModel[0] as DynamicGroupModel;
 
-    this.author = (this.formModelRow as DynamicFormGroupModel).group[0] as DynamicTypeaheadModel;
-    this.orcId = (this.formModelRow as DynamicFormGroupModel).group[1] as DynamicInputModel;
-    this.affiliation = (this.formModelRow as DynamicFormGroupModel).group[2] as DynamicInputModel;
-
-    // const withAuthority = this.model.authorityName && this.model.authorityName.length > 0;
-    // if (withAuthority) {
-    //   this.searchOptions = new IntegrationSearchOptions(
-    //     this.model.authorityScope,
-    //     this.model.authorityName,
-    //     this.model.authorityMetadata);
-    // }
-
     this.model.storedValue = [];
-
     if (this.model.storedValue && this.model.storedValue.length > 0) {
       // Values found in edit
       this.model.storedValue.forEach((v) => {
         let item;
         // if (withAuthority) {
-        item = {
-          id: v.authority || v.value,
-          value: v.value,
-          display: v.value
-        } as AuthorityModel;
+        // item = {
+        //   id: v.authority || v.value,
+        //   value: v.value,
+        //   display: v.value
+        // } as AuthorityModel;
         // }
         // else {
         //   item = v.value;
@@ -82,66 +63,101 @@ export class DsDynamicGroupComponent implements OnInit {
   }
 
   addChips(event) {
-    const placeHolder = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
-    console.log(this.author);
+    // if(!this.group.valid) {
+    //   this.formService.validateAllFormFields(this.group);
+    //   return;
+    // }
 
-    const authorValue = this.author.value;
-    const orcIdValue = this.orcId.value || placeHolder;
-    const affiliationValue = this.affiliation.value || placeHolder;
+    // Item to add
+    const item = {};
+    this.formModelRow.group.forEach( (control: DynamicInputModel) => {
+      item[control.name] = control.value || PLACEHOLDER;
+    });
+    console.log(item);
 
-    console.log('add Chips... orcId:' + orcIdValue + ' affiliation:' + affiliationValue + ' author...');
-    console.log(authorValue);
+    // If no mandatory field value, abort
+    if(!item[this.model.mandatoryField] || item[this.model.mandatoryField] === PLACEHOLDER) {
+      return false;
+    }
 
-    const item = {
-      'dc.contributor.author': authorValue,
-      'local.contributor.orcid': orcIdValue || placeHolder,
-      'local.contributor.affiliation': affiliationValue || placeHolder,
-    };
+    // Search for duplicates
+    let exit = false;
+    this.model.chips.chipsItems.forEach((current) => {
+      if(current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField]) {
+        const internalItem = current.item[this.model.mandatoryField];
+        if ( internalItem instanceof AuthorityModel) {
+          // With Authority
+          if( internalItem.id === item[this.model.mandatoryField].id )
+          // Duplicate Item, don't add
+            exit = true;
+            return;
+        } else if(internalItem === item[this.model.mandatoryField]) {
+          // Without Authority
+          exit = true;
+          return;
+        }
+      }
+    })
+
+    if(exit) {
+      return;
+    }
 
     this.model.chips.add(item);
     this.change.emit(event);
 
     setTimeout(() => {
       // Reset the input text after x ms, mandatory or the formatter overwrite it
-      const keys = Object.keys(this.group.controls);
-      console.log(keys); // df-row-group-config-18
-      (this.group.controls[keys[0]] as FormGroup).controls[AUTHOR_KEY].patchValue(null);
+      const keys = Object.keys(this.group.controls); // df-row-group-config-18
+      // (this.group.controls[keys[0]] as FormGroup).controls[AUTHOR_KEY].patchValue(null);
       this.group.reset();
     }, 50);
 
-    // console.log(this.model.chips.getItems());
+    console.log(this.model.chips.getItems());
   }
 
   chipsSelected(event) {
     console.log('Selected chips : ' + JSON.stringify(this.model.chips.chipsItems[event]));
     console.log(event);
-    ((this.model.group[0] as DynamicFormGroupModel).group[1] as DynamicInputModel).value = this.model.chips.chipsItems[event].item['local.contributor.orcid'];
-    this.author.value = this.model.chips.chipsItems[event].item[DOT_AUTHOR_KEY];
-    this.orcId.value = this.model.chips.chipsItems[event].item[DOT_ORCID_KEY];
-    this.affiliation.value = this.model.chips.chipsItems[event].item[DOT_AFFILIATION_KEY];
 
-    // PatchValue
+
+    const selected = this.model.chips.chipsItems[event].item;
     const keys = Object.keys(this.group.controls);
-    console.log(keys);
-    (this.group.controls[keys[0]] as FormGroup).controls[AUTHOR_KEY].patchValue(this.author.value);
-    (this.group.controls[keys[0]] as FormGroup).controls[ORCID_KEY].patchValue(this.orcId.value);
-    (this.group.controls[keys[0]] as FormGroup).controls[AFFILIATION_KEY].patchValue(this.affiliation.value);
 
-    // Add is now change
+    this.formModelRow.group.forEach( (control: DynamicInputModel) => {
+      (this.group.controls[keys[0]] as FormGroup).controls[control.id].patchValue(selected[control.name]);
+    });
+
     this.editMode = true;
-
   }
 
   exitEditMode() {
+    const keys = Object.keys(this.group.controls);
+    console.log(keys);
+
     this.editMode = false;
+    this.group.reset();
   }
 
-  mofifyChips(){
+  modifyChips(){
+    const item = {};
+    this.formModelRow.group.forEach( (control: DynamicInputModel) => {
+      item[control.name] = control.value || PLACEHOLDER;
+    });
 
+    this.model.chips.chipsItems.forEach((current) => {
+      if(current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField] === item[this.model.mandatoryField]) {
+        current.item = Object.assign({}, item);
+        this.change.emit(event);
+        this.editMode = false;
+        this.group.reset();
+      }
+    });
   }
 
   removeChips(event) {
     // console.log("Removed chips index: "+event);
+    this.change.emit(event);
   }
 
   onBlur(event) {
@@ -161,11 +177,5 @@ export class DsDynamicGroupComponent implements OnInit {
   onFocus(event) {
     this.focus.emit(event);
   }
-
-  // onRemoveItem(event) {
-  // }
-  //
-  // onAddItem(event) {
-  // }
 
 }

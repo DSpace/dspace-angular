@@ -18,21 +18,21 @@ export class TagFieldParser extends FieldParser {
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     const tagModelConfig: DynamicTagModelConfig = this.initModel();
-    // if (this.configData.selectableMetadata[0].authority
-    //   && this.configData.selectableMetadata[0].authority.length > 0 ) {
-    //     tagModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
-    //     tagModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
-    //     tagModelConfig.authorityScope = this.authorityUuid;
-    //     if (isNotEmpty(fieldValue)) {
-    //       const authorityValue = {
-    //         id: fieldValue.authority,
-    //         value: fieldValue.value,
-    //         display: fieldValue.value
-    //       } as AuthorityModel;
-    //       tagModelConfig.value = authorityValue;
-    //     }
-    //
-    // }
+    if (this.configData.selectableMetadata[0].authority
+      && this.configData.selectableMetadata[0].authority.length > 0 ) {
+        tagModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
+        tagModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
+        tagModelConfig.authorityScope = this.authorityUuid;
+        if (isNotEmpty(fieldValue)) {
+          const authorityValue = {
+            id: fieldValue.authority,
+            value: fieldValue.value,
+            display: fieldValue.value
+          } as AuthorityModel;
+          tagModelConfig.value = authorityValue;
+        }
+
+    }
 
     if (isNotEmpty(this.getInitGroupValues())) {
       tagModelConfig.storedValue = this.getInitGroupValues();

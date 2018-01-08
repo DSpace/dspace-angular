@@ -22,6 +22,9 @@ export class GroupFieldParser extends FieldParser {
 
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
       model.formConfiguration = this.configData.rows;
+      if(this.configData.selectableMetadata[0] && this.configData.selectableMetadata[0].metadata) {
+        model.mandatoryField = this.configData.selectableMetadata[0].metadata;
+      }
     } else {
       throw new Error(`Configuration not valid: ${model.name}`);
     }

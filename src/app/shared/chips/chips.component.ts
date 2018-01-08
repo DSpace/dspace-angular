@@ -28,8 +28,8 @@ export class ChipsComponent implements OnChanges {
   }
 
   removeChips(index) {
-    this.remove.emit(index);
     this.chips.remove(index);
+    this.remove.emit(index);
   }
 
 }
