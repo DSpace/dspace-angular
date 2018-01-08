@@ -1,4 +1,5 @@
-<ds-submission-upload-files [submissionId]="submissionId"
+<ds-submission-upload-files *ngIf="!loading"
+                            [submissionId]="submissionId"
                             [collectionId]="collectionId"
                             [definitionId]="definitionId"
                             [sectionId]="'upload'"
@@ -6,13 +7,15 @@
 <div class="submission-submit-form-header mb-3">
   <div class="row">
     <div class="col-6">
-      <ds-submission-submit-form-collection [currentCollectionId]="collectionId"
+      <ds-submission-submit-form-collection *ngIf="!loading"
+                                            [currentCollectionId]="collectionId"
                                             [submissionId]="submissionId"
                                             (collectionChange)="onCollectionChange($event)">
       </ds-submission-submit-form-collection>
     </div>
     <div class="col text-right">
-      <ds-submission-submit-form-box-handler [collectionId]="collectionId"
+      <ds-submission-submit-form-box-handler *ngIf="!loading"
+                                             [collectionId]="collectionId"
                                              [submissionId]="submissionId"
                                              [definitionId]="definitionId">
       </ds-submission-submit-form-box-handler>

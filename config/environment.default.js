@@ -21,6 +21,15 @@ module.exports = {
     msToLive: 15 * 60 * 1000, // 15 minute
     control: 'max-age=60' // revalidate browser
   },
+  // Submission settings
+  submission: {
+    autosave: {
+      // NOTE: which metadata trigger an autosave
+      metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
+      // NOTE: every how many minutes submission is saved automatically
+      timer: 5
+    }
+  },
   // Angular Universal settings
   universal: {
     preboot: true,

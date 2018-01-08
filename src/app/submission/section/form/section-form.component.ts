@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
@@ -8,7 +8,7 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import {
-  DeleteSectionErrorsAction,
+  DeleteSectionErrorsAction, SaveSubmissionFormAction,
   SectionStatusChangeAction,
 } from '../../objects/submission-objects.actions';
 import { SectionModelComponent } from '../section.model';
@@ -35,6 +35,8 @@ import { FormFieldPreviousValueObject } from '../../../shared/form/builder/model
 import { FormAddError } from '../../../shared/form/form.actions';
 import { WorkspaceitemSectionDataType } from '../../models/workspaceitem-sections.model';
 import { Subscription } from 'rxjs/Subscription';
+import { GLOBAL_CONFIG } from '../../../../config';
+import { GlobalConfig } from '../../../../config/global-config.interface';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -57,7 +59,8 @@ export class FormSectionComponent extends SectionModelComponent {
   constructor(protected formBuilderService: FormBuilderService,
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
-              protected store: Store<SubmissionState>) {
+              protected store: Store<SubmissionState>,
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
     super();
   }
 
@@ -160,6 +163,12 @@ export class FormSectionComponent extends SectionModelComponent {
       event,
       this.previousValue,
       this.hasStoredValue(this.formBuilderService.getId(event.model)));
+    const metadata = this.formBuilderService.getFieldPathSegmentedFromChangeEvent(event);
+    const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+
+    if (this.EnvConfig.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
+      this.store.dispatch(new SaveSubmissionFormAction(this.submissionId));
+    }
   }
 
   onFocus(event: DynamicFormControlEvent) {
