@@ -22,11 +22,8 @@
   </div>
 </div>
 <div class="clearfix"></div>
-  <div>
-    <ds-chips
-      [chips]="model.chips"
-      (selected)="chipsSelected($event)"
-      (remove)="removeChips($event)"
-    ></ds-chips>
-  </div>
-  <br/>
+
+  <ds-chips
+    [chips]="model.chips"
+    (selected)="chipsSelected($event)"
+    (remove)="removeChips($event)"></ds-chips>
