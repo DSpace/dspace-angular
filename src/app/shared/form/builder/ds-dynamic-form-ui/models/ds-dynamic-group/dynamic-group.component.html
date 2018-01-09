@@ -1,5 +1,6 @@
+<hr class="mt-0">
 <div class="ds-dynamic-group-component row">
-  <ds-form class="col-11"
+  <ds-form class="col-sm-10 pl-0"
     [formId]="formId"
     [formModel]="formModel"
     [parentFormModel]="model"
@@ -7,21 +8,21 @@
     [displaySubmit]="false"
     (addArrayItem)="onAddItem($event)"
     (removeArrayItem)="onRemoveItem($event)"></ds-form>
-  <button *ngIf="!editMode" type="button" class="btn btn-link col align-middle" (click)="addChips()">
+  <button *ngIf="!editMode" type="button" class="btn btn-link col pr-0 align-middle" (click)="addChips()">
     <i class="fa fa-plus-circle fa-2x" style="color: gray" aria-hidden="true"></i>
   </button>
 
-  <div *ngIf="editMode" class="col align-middle">
-    <button type="button" class="btn btn-link" (click)="modifyChips()">
+  <div *ngIf="editMode" class="col pr-0 d-flex">
+    <button type="button" class="btn btn-link align-middle" (click)="modifyChips()">
       <i class="fa fa-save fa-2x" style="color: darkcyan" aria-hidden="true"></i>
     </button>
-    <button type="button" class="btn btn-link" (click)="exitEditMode()">
+    <button type="button" class="btn btn-link align-middle" (click)="exitEditMode()">
       <i class="fa fa-undo fa-2x" style="color: gray" aria-hidden="true"></i>
     </button>
   </div>
 </div>
-
-  <div style="clean: both;">
+<div class="clearfix"></div>
+  <div>
     <ds-chips
       [chips]="model.chips"
       (selected)="chipsSelected($event)"

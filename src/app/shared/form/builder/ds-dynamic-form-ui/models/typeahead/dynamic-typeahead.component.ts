@@ -72,8 +72,6 @@ export class DsDynamicTypeaheadComponent implements OnInit {
     this.group.get(this.model.id).valueChanges
       .filter((value) => this.currentValue !== value)
       .subscribe((value) => {
-        console.log('change', value);
-        console.log('model', this.model.value);
         this.currentValue = value;
     })
   }
@@ -89,7 +87,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   }
 
   onChangeEvent(event: Event) {
-    event.stopPropagation();
+    // event.stopPropagation();
     if (isEmpty(this.currentValue)) {
       this.model.valueUpdates.next(null);
       this.change.emit(null);

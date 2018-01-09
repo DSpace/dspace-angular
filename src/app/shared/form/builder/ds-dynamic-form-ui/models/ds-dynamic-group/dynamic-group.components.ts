@@ -1,12 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DynamicGroupModel} from './dynamic-group.model';
-import {FormGroup} from '@angular/forms';
-import {FormBuilderService} from '../../../form-builder.service';
-import {DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel} from '@ng-dynamic-forms/core';
-import {SubmissionFormsModel} from '../../../../../../core/shared/config/config-submission-forms.model';
-import {AuthorityModel} from '../../../../../../core/integration/models/authority.model';
-import {DynamicTypeaheadModel} from '../typeahead/dynamic-typeahead.model';
-import {FormService} from "../../../../form.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DynamicGroupModel } from './dynamic-group.model';
+import { FormGroup } from '@angular/forms';
+import { FormBuilderService } from '../../../form-builder.service';
+import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import { SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
+import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { FormService } from "../../../../form.service";
 
 const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
@@ -70,28 +69,28 @@ export class DsDynamicGroupComponent implements OnInit {
 
     // Item to add
     const item = {};
-    this.formModelRow.group.forEach( (control: DynamicInputModel) => {
+    this.formModelRow.group.forEach((control: DynamicInputModel) => {
       item[control.name] = control.value || PLACEHOLDER;
     });
     console.log(item);
 
     // If no mandatory field value, abort
-    if(!item[this.model.mandatoryField] || item[this.model.mandatoryField] === PLACEHOLDER) {
+    if (!item[this.model.mandatoryField] || item[this.model.mandatoryField] === PLACEHOLDER) {
       return false;
     }
 
     // Search for duplicates
     let exit = false;
     this.model.chips.chipsItems.forEach((current) => {
-      if(current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField]) {
+      if (current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField]) {
         const internalItem = current.item[this.model.mandatoryField];
-        if ( internalItem instanceof AuthorityModel) {
+        if (internalItem instanceof AuthorityModel) {
           // With Authority
-          if( internalItem.id === item[this.model.mandatoryField].id )
+          if (internalItem.id === item[this.model.mandatoryField].id)
           // Duplicate Item, don't add
             exit = true;
-            return;
-        } else if(internalItem === item[this.model.mandatoryField]) {
+          return;
+        } else if (internalItem === item[this.model.mandatoryField]) {
           // Without Authority
           exit = true;
           return;
@@ -99,7 +98,7 @@ export class DsDynamicGroupComponent implements OnInit {
       }
     })
 
-    if(exit) {
+    if (exit) {
       return;
     }
 
@@ -124,7 +123,7 @@ export class DsDynamicGroupComponent implements OnInit {
     const selected = this.model.chips.chipsItems[event].item;
     const keys = Object.keys(this.group.controls);
 
-    this.formModelRow.group.forEach( (control: DynamicInputModel) => {
+    this.formModelRow.group.forEach((control: DynamicInputModel) => {
       (this.group.controls[keys[0]] as FormGroup).controls[control.id].patchValue(selected[control.name]);
     });
 
@@ -139,14 +138,14 @@ export class DsDynamicGroupComponent implements OnInit {
     this.group.reset();
   }
 
-  modifyChips(){
+  modifyChips() {
     const item = {};
-    this.formModelRow.group.forEach( (control: DynamicInputModel) => {
+    this.formModelRow.group.forEach((control: DynamicInputModel) => {
       item[control.name] = control.value || PLACEHOLDER;
     });
 
     this.model.chips.chipsItems.forEach((current) => {
-      if(current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField] === item[this.model.mandatoryField]) {
+      if (current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField] === item[this.model.mandatoryField]) {
         current.item = Object.assign({}, item);
         this.change.emit(event);
         this.editMode = false;

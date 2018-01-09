@@ -45,33 +45,57 @@ export class JsonPatchOperationsBuilder {
     let operationValue: any = null;
     if (isNotEmpty(value)) {
       if (plain) {
-        operationValue = value
+        operationValue = value;
       } else {
         if (Array.isArray(value)) {
           operationValue = [];
           value.forEach((entry) => {
             if ((typeof entry === 'object')) {
-              operationValue.push(entry);
+              operationValue.push(this.prepareObjectValue(entry));
             } else {
               operationValue.push({value: entry});
             }
           })
-        } else if (value instanceof Date) {
-          operationValue = dateToGMTString(value);
-        } else if (value instanceof AuthorityModel) {
-          if (isNotEmpty(value.id)) {
-            operationValue = { value: value.value, authority: value.id, confidence: 600 };
-          } else {
-            operationValue = { value: value.value };
-          }
-        } else if ((typeof value === 'object') && value.hasOwnProperty('value')) {
-          operationValue = value;
+        } else if (typeof value === 'object') {
+          operationValue = this.prepareObjectValue(value);
         } else {
           operationValue = {value: value};
         }
       }
     }
     return (first && !Array.isArray(operationValue)) ? [operationValue] : operationValue;
+  }
+
+  protected prepareObjectValue(value: any) {
+    let operationValue = Object.create(null);
+    if (value instanceof Date) {
+      operationValue = dateToGMTString(value);
+    } else if (value instanceof AuthorityModel) {
+      operationValue = this.prepareAuthorityValue(value);
+    } else if (value.hasOwnProperty('value')) {
+      operationValue = value;
+    } else {
+      Object.keys(value)
+        .forEach((key) => {
+          if (typeof value[key] === 'object') {
+            operationValue[key] = this.prepareObjectValue(value[key]);
+          } else {
+            operationValue[key] = value[key];
+          }
+        })
+      // operationValue = {value: value};
+    }
+    return operationValue;
+  }
+
+  protected prepareAuthorityValue(value: any) {
+    let operationValue: any = null;
+    if (isNotEmpty(value.id)) {
+      operationValue = { value: value.value, authority: value.id, confidence: 600 };
+    } else {
+      operationValue = { value: value.value };
+    }
+    return operationValue
   }
 
 }

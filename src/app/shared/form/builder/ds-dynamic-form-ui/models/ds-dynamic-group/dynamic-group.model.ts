@@ -21,8 +21,8 @@ export interface DynamicGroupModelConfig extends DynamicFormGroupModelConfig {
   name: string,
   placeholder: string,
   formConfiguration: FormRowModel[],
-
-  chips: Chips;
+  mandatoryField: string,
+  relationFields: string[],
   storedValue: any[];
 }
 
@@ -38,6 +38,7 @@ export class DynamicGroupModel extends DynamicFormGroupModel {
   @serializable() formConfiguration: FormRowModel[];
   // @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP;
   @serializable() mandatoryField: string;
+  @serializable() relationFields: string[];
   @serializable() chips: Chips;
   @serializable() storedValue: any[];
 
@@ -49,12 +50,26 @@ export class DynamicGroupModel extends DynamicFormGroupModel {
     this.name = config.name;
     this.placeholder = config.placeholder;
     this.formConfiguration = config.formConfiguration;
-
-    this.chips = config.chips || new Chips();
+    this.mandatoryField = config.mandatoryField;
+    this.relationFields = config.relationFields;
+    this.chips = new Chips();
     this.storedValue = config.storedValue;
   }
 
-  get value(): any[] {
-    return this.chips.getItems();
+  get value(): Map<string, any> {
+    const metadataValueMap = new Map();
+    const items: any[] = this.chips.getItems();
+
+    items.forEach((item) => {
+      Object.keys(item)
+        .forEach((key) => {
+          const metadataValueList = metadataValueMap.get(key) ? metadataValueMap.get(key) : [];
+          metadataValueList.push(item[key]);
+          metadataValueMap.set(key, metadataValueList);
+        })
+
+    });
+    console.log(metadataValueMap);
+    return metadataValueMap;
   }
 }

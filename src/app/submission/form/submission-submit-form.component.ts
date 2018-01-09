@@ -31,9 +31,9 @@ export class SubmissionSubmitFormComponent implements OnChanges {
   @Input() submissionDefinition: SubmissionDefinitionsModel;
   @Input() submissionId: string;
 
-  definitionId: string;
-  loading = true;
-  uploadFilesOptions: UploadFilesComponentOptions = {
+  public definitionId: string;
+  public loading = true;
+  public uploadFilesOptions: UploadFilesComponentOptions = {
     url: '',
     authToken: null,
     disableMultipart: false,

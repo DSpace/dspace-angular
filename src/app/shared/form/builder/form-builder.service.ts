@@ -275,7 +275,7 @@ export class FormBuilderService extends DynamicFormService {
     const path = this.getFieldPathFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
     if (event.model.parent instanceof DynamicComboboxModel) {
-      this.dispatchComboboxOperations(pathCombiner, event, previousValue);
+      this.dispatchOperationsFromMap(this.getComboboxMap(event), pathCombiner, event, previousValue);
     } else if (isNotEmpty(value)) {
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     }
@@ -289,7 +289,9 @@ export class FormBuilderService extends DynamicFormService {
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
     if (event.model.parent instanceof DynamicComboboxModel) {
-      this.dispatchComboboxOperations(pathCombiner, event, previousValue);
+      this.dispatchOperationsFromMap(this.getComboboxMap(event),pathCombiner, event, previousValue);
+    } else if (value instanceof Map) {
+      this.dispatchOperationsFromMap(value, pathCombiner, event, previousValue);
     } else if (this.isModelInAuthorityGroup(event.model)) {
       this.operationsBuilder.add(
         pathCombiner.getPath(segmentedPath),
@@ -352,10 +354,11 @@ export class FormBuilderService extends DynamicFormService {
     return metadataValueMap;
   }
 
-  protected dispatchComboboxOperations(pathCombiner: JsonPatchOperationPathCombiner,
-                                       event: DynamicFormControlEvent,
-                                       previousValue: FormFieldPreviousValueObject) {
-    const currentValueMap = this.getComboboxMap(event);
+  protected dispatchOperationsFromMap(valueMap: Map<string, any>,
+                                      pathCombiner: JsonPatchOperationPathCombiner,
+                                      event: DynamicFormControlEvent,
+                                      previousValue: FormFieldPreviousValueObject) {
+    const currentValueMap = valueMap;
     if (previousValue.isPathEqual(this.getPath(event.model))) {
       previousValue.value.forEach((entry, index) => {
         const currentValue = currentValueMap.get(index);
