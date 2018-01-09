@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges,} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges,} from '@angular/core';
 import {Chips} from './chips.model';
 
 @Component({
@@ -14,6 +14,14 @@ export class ChipsComponent implements OnChanges {
   remove = new EventEmitter<number>();
   @Input()
   chips: Chips;
+  @Input()
+  editable;
+
+  ngOnInit() {
+    if(!this.editable) {
+      this.editable = false;
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     // console.log('ngOnChanges...' + JSON.stringify(changes));
@@ -24,12 +32,38 @@ export class ChipsComponent implements OnChanges {
   }
 
   chipsSelected(index) {
+    // Case Editable, set different color ang go back managed by external component
+    // Case not editable, set different color and go back on blur
+    // if (!this.chips.chipsItems[index].editMode) {
+    //   // Can't reselect if selected yet
+    //   this.chips.chipsItems[index].editMode = true
+    this.chips.chipsItems.forEach((item, i) => {
+      if (i==index) {
+        item.editMode = true;
+      } else {
+        item.editMode = false;
+      }
+    });
+    ;
     this.selected.emit(index);
+
+
+    // }
+  }
+
+  chipsBlur(index) {
+    if(!this.editable) {
+      // Case not editable, set different color and go back on blur
+      this.chips.chipsItems[index].editMode = false;
+    }
   }
 
   removeChips(index) {
-    this.chips.remove(index);
-    this.remove.emit(index);
+    if (!this.chips.chipsItems[index].editMode) {
+      // Can't remove if this element is in editMode
+      this.chips.remove(index);
+      this.remove.emit(index);
+    }
   }
 
 }

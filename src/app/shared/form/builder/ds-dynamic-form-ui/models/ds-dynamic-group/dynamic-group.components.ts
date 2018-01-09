@@ -7,6 +7,7 @@ import {SubmissionFormsModel} from '../../../../../../core/shared/config/config-
 import {AuthorityModel} from '../../../../../../core/integration/models/authority.model';
 import {DynamicTypeaheadModel} from '../typeahead/dynamic-typeahead.model';
 import {FormService} from "../../../../form.service";
+import {Chips} from "../../../../../chips/chips.model";
 
 const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
@@ -17,7 +18,7 @@ const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 export class DsDynamicGroupComponent implements OnInit {
 
   public formModel: DynamicFormControlModel[];
-  public formModelRow: DynamicFormGroupModel;
+  // public formModelRow: DynamicFormGroupModel;
   public editMode = false;
 
   @Input() formId: string;
@@ -28,11 +29,8 @@ export class DsDynamicGroupComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  // author: DynamicTypeaheadModel;
-  // orcId: DynamicInputModel;
-  // affiliation: DynamicInputModel;
-
   constructor(private formBuilderService: FormBuilderService, private formService: FormService) {
+
   }
 
   ngOnInit() {
@@ -40,25 +38,14 @@ export class DsDynamicGroupComponent implements OnInit {
     console.log(this.model.formConfiguration);
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
     this.formModel = this.formBuilderService.modelFromConfiguration(config, {});
-    this.formModelRow = this.formModel[0] as DynamicGroupModel;
+    // this.formModelRow = this.formModel[0] as DynamicGroupModel;
 
-    this.model.storedValue = [];
-    if (this.model.storedValue && this.model.storedValue.length > 0) {
-      // Values found in edit
-      this.model.storedValue.forEach((v) => {
-        let item;
-        // if (withAuthority) {
-        // item = {
-        //   id: v.authority || v.value,
-        //   value: v.value,
-        //   display: v.value
-        // } as AuthorityModel;
-        // }
-        // else {
-        //   item = v.value;
-        // }
-        this.model.chips.add(item);
-      });
+    if (this.model.storedValues && this.model.storedValues.length > 0) {
+      this.model.chips = new Chips(
+        this.model.storedValues,
+        'value',
+        'dc.contributor.author');
+
     }
   }
 
@@ -70,9 +57,16 @@ export class DsDynamicGroupComponent implements OnInit {
 
     // Item to add
     const item = {};
-    this.formModelRow.group.forEach( (control: DynamicInputModel) => {
-      item[control.name] = control.value || PLACEHOLDER;
-    });
+    this.formModel.forEach( (row) => {
+      const modelRow = row as DynamicGroupModel;
+      modelRow.group.forEach( (control: DynamicInputModel) => {
+        item[control.name] = control.value || PLACEHOLDER;
+      });
+    })
+
+
+
+
     console.log(item);
 
     // If no mandatory field value, abort
@@ -120,12 +114,15 @@ export class DsDynamicGroupComponent implements OnInit {
     console.log('Selected chips : ' + JSON.stringify(this.model.chips.chipsItems[event]));
     console.log(event);
 
-
     const selected = this.model.chips.chipsItems[event].item;
     const keys = Object.keys(this.group.controls);
 
-    this.formModelRow.group.forEach( (control: DynamicInputModel) => {
-      (this.group.controls[keys[0]] as FormGroup).controls[control.id].patchValue(selected[control.name]);
+    this.formModel.forEach( (row, i) => {
+      const modelRow = row as DynamicGroupModel;
+      modelRow.group.forEach( (control: DynamicInputModel) => {
+      const value = selected[control.name] === PLACEHOLDER ? null : selected[control.name];
+      (this.group.controls[keys[i]] as FormGroup).controls[control.id].patchValue(value);
+      })
     });
 
     this.editMode = true;
@@ -135,19 +132,37 @@ export class DsDynamicGroupComponent implements OnInit {
     const keys = Object.keys(this.group.controls);
     console.log(keys);
 
+    // Set ChipsItem's editModel=false
+    const item = {};
+    this.formModel.forEach( (row) => {
+      const modelRow = row as DynamicGroupModel;
+      modelRow.group.forEach((control: DynamicInputModel) => {
+        item[control.name] = control.value || PLACEHOLDER;
+      })
+    });
+    this.model.chips.chipsItems.forEach((current) => {
+      if(current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField] === item[this.model.mandatoryField]) {
+        current.editMode = false;
+      }
+    });
+
     this.editMode = false;
     this.group.reset();
   }
 
   modifyChips(){
     const item = {};
-    this.formModelRow.group.forEach( (control: DynamicInputModel) => {
-      item[control.name] = control.value || PLACEHOLDER;
+    this.formModel.forEach( (row) => {
+      const modelRow = row as DynamicGroupModel;
+      modelRow.group.forEach((control: DynamicInputModel) => {
+        item[control.name] = control.value || PLACEHOLDER;
+      })
     });
 
     this.model.chips.chipsItems.forEach((current) => {
       if(current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField] === item[this.model.mandatoryField]) {
         current.item = Object.assign({}, item);
+        current.editMode = false;
         this.change.emit(event);
         this.editMode = false;
         this.group.reset();
