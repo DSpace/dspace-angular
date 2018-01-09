@@ -5,9 +5,7 @@
     [formModel]="formModel"
     [parentFormModel]="model"
     [formGroup]="group"
-    [displaySubmit]="false"
-    (addArrayItem)="onAddItem($event)"
-    (removeArrayItem)="onRemoveItem($event)"></ds-form>
+    [displaySubmit]="false"></ds-form>
   <button *ngIf="!editMode" type="button" class="btn btn-link col pr-0 align-middle" (click)="addChips()">
     <i class="fa fa-plus-circle fa-2x" style="color: gray" aria-hidden="true"></i>
   </button>
@@ -22,9 +20,10 @@
   </div>
 </div>
 <div class="clearfix"></div>
-
+<div class="d-inline-flex">
   <ds-chips
     [chips]="model.chips"
     [editable]="true"
     (selected)="chipsSelected($event)"
     (remove)="removeChips($event)"></ds-chips>
+</div>

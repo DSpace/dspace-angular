@@ -3,11 +3,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import { isNotEmpty } from '../../../empty.util';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { AuthorityModel } from '../../../../core/integration/models/authority.model';
-import {
-  DynamicListCheckboxGroupModel,
-  DynamicListCheckboxGroupModelConfig
-} from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
+import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 
 export class ListFieldParser extends FieldParser {
@@ -39,7 +35,7 @@ export class ListFieldParser extends FieldParser {
       listModelConfig.group = [];
       listModel = new DynamicListCheckboxGroupModel(listModelConfig);
     } else {
-      listModelConfig.options = []
+      listModelConfig.options = [];
       listModel = new DynamicListRadioGroupModel(listModelConfig);
     }
     listModel.name = this.getFieldId()[0];

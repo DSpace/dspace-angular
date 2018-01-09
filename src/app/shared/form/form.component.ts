@@ -113,6 +113,14 @@ export class FormComponent implements OnDestroy, OnInit {
     return this.formGroup.value;
   }
 
+  private getFormGroupValidStatus() {
+    if (!!this.parentFormModel) {
+      return this.formGroup.parent.valid;
+    }
+
+    return this.formGroup.valid;
+  }
+
   /**
    * Method provided by Angular. Invoked after the constructor
    */
@@ -125,19 +133,19 @@ export class FormComponent implements OnDestroy, OnInit {
       });
     }
 
-    this.store.dispatch(new FormInitAction(this.formId, this.getFormGroupValue(), this.formGroup.valid));
+    this.store.dispatch(new FormInitAction(this.formId, this.getFormGroupValue(), this.getFormGroupValidStatus()));
 
     // TODO: take a look to the following method:
     // this.keepSync();
 
-    this.formValid = this.formGroup.valid;
+    this.formValid = this.getFormGroupValidStatus();
 
     this.subs.push(this.formGroup.statusChanges
-      .filter((currentStatus) => this.formValid !== this.formGroup.valid)
+      .filter((currentStatus) => this.formValid !== this.getFormGroupValidStatus())
       .subscribe((currentStatus) => {
         // Dispatch a FormStatusChangeAction if the form status has changed
-        this.store.dispatch(new FormStatusChangeAction(this.formId, this.formGroup.valid));
-        this.formValid = this.formGroup.valid;
+        this.store.dispatch(new FormStatusChangeAction(this.formId, this.getFormGroupValidStatus()));
+        this.formValid = this.getFormGroupValidStatus();
       }));
 
     this.subs.push(
@@ -223,7 +231,7 @@ export class FormComponent implements OnDestroy, OnInit {
    * Emit a new submit Event whether the form is valid, mark fields with error otherwise
    */
   onSubmit() {
-    if (this.formGroup.valid) {
+    if (this.getFormGroupValidStatus()) {
       this.submit.emit(this.formService.getFormData(this.formId));
     } else {
       this.formService.validateAllFormFields(this.formGroup);
