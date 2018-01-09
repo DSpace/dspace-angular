@@ -52,8 +52,8 @@ export class DynamicGroupModel extends DynamicFormGroupModel {
     this.formConfiguration = config.formConfiguration;
     this.mandatoryField = config.mandatoryField;
     this.relationFields = config.relationFields;
-    this.chips = new Chips();
     this.storedValue = config.storedValue;
+    this.chips =  new Chips(this.storedValue, 'value', this.mandatoryField);
   }
 
   get value(): Map<string, any> {

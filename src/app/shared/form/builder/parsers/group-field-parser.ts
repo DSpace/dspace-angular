@@ -41,7 +41,12 @@ export class GroupFieldParser extends FieldParser {
         const item = Object.create(null);
         item[modelConfiguration.mandatoryField] = entry;
         modelConfiguration.relationFields.forEach((fieldId) => {
-          item[fieldId] = this.getInitFieldValue(0, index, [fieldId]);
+          const value = this.getInitFieldValue(0, index, [fieldId]);
+          if (value.authority && value.authority.length > 0) {
+            item[fieldId] = value;
+          } else {
+            item[fieldId] = value.value;
+          }
         });
         modelConfiguration.storedValue.push(item);
       })

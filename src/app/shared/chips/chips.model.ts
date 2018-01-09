@@ -4,15 +4,15 @@ export class Chips {
   displayObj: string;
 
   constructor(items: any[] = [], displayField: string = 'display', displayObj?: string) {
+    this.displayField = displayField;
+    this.displayObj = displayObj;
     if (Array.isArray(items)) {
       this.setInitialItems(items);
     }
-    this.displayField = displayField;
-    this.displayObj = displayObj;
   }
 
   public add(item: any) {
-    let chipsItem = {
+    const chipsItem = {
       order: this.chipsItems.length,
       display: this.getDisplayText(item),
       editMode: false,
@@ -35,7 +35,7 @@ export class Chips {
   private setInitialItems(items: any[]) {
     this.chipsItems = [];
     items.forEach((item, index) => {
-      let chipsItem = {
+      const chipsItem = {
         order: this.chipsItems.length,
         display: this.getDisplayText(item),
         editMode: false,
@@ -47,11 +47,8 @@ export class Chips {
 
   private getDisplayText(item: any) {
     let value = item;
-    let obj = item;
-    if(this.displayObj) {
-      // If displayField is in an internal object
-      obj = item[this.displayObj];
-    }
+    // Check If displayField is in an internal object
+    const obj = this.displayObj ? item[this.displayObj] : item;
 
     if (obj && obj[this.displayField]) {
       value = obj[this.displayField];
@@ -72,7 +69,7 @@ export class Chips {
   public getItems(): any[] {
     const out = [];
     this.chipsItems.forEach((item) => {
-        out.push(item.item);
+      out.push(item.item);
     });
     return out;
   }
