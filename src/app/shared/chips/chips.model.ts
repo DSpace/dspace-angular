@@ -1,30 +1,23 @@
 export class Chips {
   chipsItems: ChipsItem[];
   displayField: string;
+  displayObj: string;
 
-  constructor(items: any[] = [], displayField: string = 'display') {
+  constructor(items: any[] = [], displayField: string = 'display', displayObj?: string) {
     if (Array.isArray(items)) {
       this.setInitialItems(items);
     }
     this.displayField = displayField;
+    this.displayObj = displayObj;
   }
 
   public add(item: any) {
-    let chipsItem: ChipsItem;
-    let value = item;
-    if (item && item[this.displayField]) {
-      value = item[this.displayField];
-    } else if (item && item['dc.contributor.author'] && item['dc.contributor.author'].display) {
-      // Case Group Form
-      value = item['dc.contributor.author'].display;
-    }
-    const textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
-    chipsItem = {
+    let chipsItem = {
       order: this.chipsItems.length,
-      display: textToDisplay,
+      display: this.getDisplayText(item),
+      editMode: false,
       item: item,
     };
-
     this.chipsItems.push(chipsItem);
   }
 
@@ -42,17 +35,34 @@ export class Chips {
   private setInitialItems(items: any[]) {
     this.chipsItems = [];
     items.forEach((item, index) => {
-      let value;
-      if (item instanceof String) {
-        value = item;
-      } else {
-        value = item[this.displayField];
-      }
-      const textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
-      const chipsItem: ChipsItem = {order: index, display: textToDisplay, item: item};
+      let chipsItem = {
+        order: this.chipsItems.length,
+        display: this.getDisplayText(item),
+        editMode: false,
+        item: item,
+      };
       this.chipsItems.push(chipsItem);
-      // }
     })
+  }
+
+  private getDisplayText(item: any) {
+    let value = item;
+    let obj = item;
+    if(this.displayObj) {
+      // If displayField is in an internal object
+      obj = item[this.displayObj];
+    }
+
+    if (obj && obj[this.displayField]) {
+      value = obj[this.displayField];
+    }
+    // else if (obj && obj['dc.contributor.author'] && obj['dc.contributor.author'].display) {
+    //   // Case Group Form
+    //   value = item['dc.contributor.author'].display;
+    // }
+    const textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
+    return textToDisplay;
+
   }
 
   /**
@@ -67,14 +77,11 @@ export class Chips {
     return out;
   }
 
-  setDiplayField(displayField) {
-    this.displayField = displayField;
-  }
-
 }
 
 interface ChipsItem {
   order: number,
   display: string,
+  editMode?: boolean,
   item: any
 }
