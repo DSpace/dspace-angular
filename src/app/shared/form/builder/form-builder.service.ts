@@ -290,8 +290,8 @@ export class FormBuilderService extends DynamicFormService {
     const value = this.getFieldValueFromChangeEvent(event);
     if (event.model.parent instanceof DynamicComboboxModel) {
       this.dispatchOperationsFromMap(this.getComboboxMap(event),pathCombiner, event, previousValue);
-    } else if (value instanceof Map) {
-      this.dispatchOperationsFromMap(value, pathCombiner, event, previousValue);
+    } else if (event.model instanceof DynamicGroupModel) {
+      this.dispatchOperationsFromMap(this.getValueMap(value), pathCombiner, event, previousValue);
     } else if (this.isModelInAuthorityGroup(event.model)) {
       this.operationsBuilder.add(
         pathCombiner.getPath(segmentedPath),
@@ -351,6 +351,22 @@ export class FormBuilderService extends DynamicFormService {
       }
     });
 
+    return metadataValueMap;
+  }
+
+  getValueMap(items: any[]): Map<string, any> {
+    const metadataValueMap = new Map();
+
+    items.forEach((item) => {
+      Object.keys(item)
+        .forEach((key) => {
+          const metadataValueList = metadataValueMap.get(key) ? metadataValueMap.get(key) : [];
+          metadataValueList.push(item[key]);
+          metadataValueMap.set(key, metadataValueList);
+        })
+
+    });
+    console.log(metadataValueMap);
     return metadataValueMap;
   }
 

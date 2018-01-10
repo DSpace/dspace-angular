@@ -1,27 +1,16 @@
-import {
-  ClsConfig, DynamicFormGroupModel, DynamicFormGroupModelConfig,
-  DynamicInputModel,
-  DynamicInputModelConfig,
-  serializable
-} from '@ng-dynamic-forms/core';
-import {
-  FormRowModel
-} from '../../../../../../core/shared/config/config-submission-forms.model';
-import {Chips} from '../../../../../chips/chips.model';
-import {isNotEmpty} from '../../../../../empty.util';
+import { ClsConfig, DynamicInputModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
+import { FormRowModel } from '../../../../../../core/shared/config/config-submission-forms.model';
+import { Chips } from '../../../../../chips/chips.model';
 
-export const DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP = 'DYNAMIC_GROUP';
+export const DYNAMIC_FORM_CONTROL_TYPE_RELATION = 'RELATION';
 
 /**
  * Dynamic Group Model configuration interface
  */
-export interface DynamicGroupModelConfig extends DynamicFormGroupModelConfig {
-  id: string,
-  label: string,
-  name: string,
-  placeholder: string,
+export interface DynamicGroupModelConfig extends DynamicInputModelConfig {
   formConfiguration: FormRowModel[],
   mandatoryField: string,
+  name: string,
   relationFields: string[],
   storedValue: any[];
 }
@@ -29,47 +18,22 @@ export interface DynamicGroupModelConfig extends DynamicFormGroupModelConfig {
 /**
  * Dynamic Group Model class
  */
-export class DynamicGroupModel extends DynamicFormGroupModel {
+export class DynamicGroupModel extends DynamicInputModel {
 
-  @serializable() id: string;
-  @serializable() label: string;
-  @serializable() name: string;
-  @serializable() placeholder: string;
   @serializable() formConfiguration: FormRowModel[];
-  // @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DYNAMIC_GROUP;
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
   @serializable() chips: Chips;
   @serializable() storedValue: any[];
+  @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION;
 
   constructor(config: DynamicGroupModelConfig, cls?: ClsConfig) {
     super(config, cls);
 
-    this.id = config.id;
-    this.label = config.label;
-    this.name = config.name;
-    this.placeholder = config.placeholder;
     this.formConfiguration = config.formConfiguration;
     this.mandatoryField = config.mandatoryField;
     this.relationFields = config.relationFields;
     this.storedValue = config.storedValue;
-    this.chips =  new Chips(this.storedValue, 'value', this.mandatoryField);
-  }
-
-  get value(): Map<string, any> {
-    const metadataValueMap = new Map();
-    const items: any[] = this.chips.getItems();
-
-    items.forEach((item) => {
-      Object.keys(item)
-        .forEach((key) => {
-          const metadataValueList = metadataValueMap.get(key) ? metadataValueMap.get(key) : [];
-          metadataValueList.push(item[key]);
-          metadataValueMap.set(key, metadataValueList);
-        })
-
-    });
-    console.log(metadataValueMap);
-    return metadataValueMap;
+    this.chips = new Chips(this.storedValue, 'value', this.mandatoryField);
   }
 }

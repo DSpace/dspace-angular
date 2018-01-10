@@ -1,3 +1,5 @@
+import { uniqueId } from 'lodash';
+
 import { FieldParser } from './field-parser';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FormFieldModel } from '../models/form-field.model';
@@ -16,8 +18,8 @@ export class GroupFieldParser extends FieldParser {
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject) {
-    // const modelId = uniqueId('group-field-');
-    const modelConfiguration: DynamicGroupModelConfig = this.initModel();
+    const modelId = uniqueId('group-field-');
+    const modelConfiguration: DynamicGroupModelConfig = this.initModel(modelId);
 
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
       modelConfiguration.formConfiguration = this.configData.rows;

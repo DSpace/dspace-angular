@@ -47,7 +47,7 @@ export class Chips {
 
   private getDisplayText(item: any) {
     let value = item;
-    if (item instanceof Object) {
+    if ( typeof item === 'object') {
       // Check If displayField is in an internal object
       const obj = this.displayObj ? item[this.displayObj] : item;
 

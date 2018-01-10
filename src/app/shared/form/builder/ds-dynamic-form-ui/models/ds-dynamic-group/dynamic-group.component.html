@@ -1,11 +1,10 @@
 <hr class="mt-0">
 <div class="ds-dynamic-group-component row">
-  <ds-form class="col-sm-10 pl-0"
-    [formId]="formId"
-    [formModel]="formModel"
-    [parentFormModel]="model"
-    [formGroup]="group"
-    [displaySubmit]="false"></ds-form>
+  <ds-form #formRef="formComponent"
+           class="col-sm-10 pl-0"
+           [formId]="formId"
+           [formModel]="formModel"
+           [displaySubmit]="false"></ds-form>
   <button *ngIf="!editMode" type="button" class="btn btn-link col pr-0 align-middle" (click)="addChips()">
     <i class="fa fa-plus-circle fa-2x" style="color: gray" aria-hidden="true"></i>
   </button>

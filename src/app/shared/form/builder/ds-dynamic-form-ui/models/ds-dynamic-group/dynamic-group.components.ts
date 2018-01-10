@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DynamicGroupModel } from './dynamic-group.model';
 import { FormGroup } from '@angular/forms';
 import { FormBuilderService } from '../../../form-builder.service';
-import { DynamicFormControlModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
 import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 import { FormService } from '../../../../form.service';
 import { Chips } from '../../../../../chips/chips.model';
+import { FormComponent } from '../../../../form.component';
 
 const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
@@ -28,6 +29,8 @@ export class DsDynamicGroupComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
+  @ViewChild('formRef') private formRef: FormComponent;
+
   constructor(private formBuilderService: FormBuilderService, private formService: FormService) {
 
   }
@@ -36,6 +39,7 @@ export class DsDynamicGroupComponent implements OnInit {
     console.log('FormConfiguration...');
     console.log(this.model.formConfiguration);
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
+    this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(config, {});
   }
 
@@ -48,7 +52,7 @@ export class DsDynamicGroupComponent implements OnInit {
     // Item to add
     const item = {};
     this.formModel.forEach((row) => {
-      const modelRow = row as DynamicGroupModel;
+      const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((control: DynamicInputModel) => {
         item[control.name] = control.value || PLACEHOLDER;
       });
@@ -86,15 +90,17 @@ export class DsDynamicGroupComponent implements OnInit {
     }
 
     this.model.chips.add(item);
+    this.model.valueUpdates.next(this.model.chips.getItems());
     this.change.emit(event);
 
-    setTimeout(() => {
+    this.formRef.formGroup.reset();
+    /*setTimeout(() => {
       // Reset the input text after x ms, mandatory or the formatter overwrite it
       const keys = Object.keys(this.group.controls); // df-row-group-config-18
       // (this.group.controls[keys[0]] as FormGroup).controls[AUTHOR_KEY].patchValue(null);
-      this.group.reset();
+      this.formRef.formGroup.reset();
     }, 50);
-
+*/
     console.log(this.model.chips.getItems());
   }
 
@@ -106,7 +112,7 @@ export class DsDynamicGroupComponent implements OnInit {
     const keys = Object.keys(this.group.controls);
 
     this.formModel.forEach((row, i) => {
-      const modelRow = row as DynamicGroupModel;
+      const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((model: DynamicInputModel) => {
         const value = selected[model.name] === PLACEHOLDER ? null : selected[model.name];
         if (model instanceof DynamicInputModel) {
@@ -127,7 +133,7 @@ export class DsDynamicGroupComponent implements OnInit {
     // Set ChipsItem's editModel=false
     const item = {};
     this.formModel.forEach((row) => {
-      const modelRow = row as DynamicGroupModel;
+      const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((control: DynamicInputModel) => {
         item[control.name] = control.value || PLACEHOLDER;
       })
@@ -145,7 +151,7 @@ export class DsDynamicGroupComponent implements OnInit {
   modifyChips() {
     const item = {};
     this.formModel.forEach((row) => {
-      const modelRow = row as DynamicGroupModel;
+      const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((control: DynamicInputModel) => {
         item[control.name] = control.value || PLACEHOLDER;
       })
@@ -163,7 +169,7 @@ export class DsDynamicGroupComponent implements OnInit {
   }
 
   removeChips(event) {
-    // console.log("Removed chips index: "+event);
+    this.model.valueUpdates.next(this.model.chips.getItems());
     this.change.emit(event);
   }
 
