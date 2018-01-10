@@ -6,7 +6,7 @@
        [formGroupName]="model.id"
        [ngClass]="model.cls.element.control">
 
-    <div *ngFor="let columnItems of items" class="col-sm-2 ml-4 form-check">
+    <div *ngFor="let columnItems of items" class="col-sm ml-4 form-check">
 
       <label *ngFor="let item of columnItems" class="d-block custom-control custom-checkbox"
              [class.disabled]="model.disabled"
@@ -39,7 +39,7 @@
        [ngClass]="model.cls.element.control"
        (change)="onChangeEvent($event)">
 
-    <div *ngFor="let columnItems of items" class="col-sm-2 ml-4 form-check">
+    <div *ngFor="let columnItems of items" class="col-sm ml-4 form-check">
 
       <label *ngFor="let item of columnItems" class="d-block custom-control custom-radio"
              [class.disabled]="model.disabled"
