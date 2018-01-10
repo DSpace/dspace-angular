@@ -225,9 +225,9 @@
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@types/source-map/-/source-map-0.5.1.tgz#7e74db5d06ab373a712356eebfaea2fad0ea2367"
 
-"@types/key@^3.4.3":
+"@types/uuid@^3.4.3":
   version "3.4.3"
-  resolved "https://registry.yarnpkg.com/@types/key/-/key-3.4.3.tgz#121ace265f5569ce40f4f6d0ff78a338c732a754"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.3.tgz#121ace265f5569ce40f4f6d0ff78a338c732a754"
   dependencies:
     "@types/node" "*"
 
@@ -1015,7 +1015,7 @@ cache-base@^1.0.1:
   dependencies:
     collection-visit "^1.0.0"
     component-emitter "^1.2.1"
-    getByUUID-value "^2.0.6"
+    get-value "^2.0.6"
     has-value "^1.0.0"
     isobject "^3.0.1"
     set-value "^2.0.0"
@@ -1757,7 +1757,7 @@ dateformat@^1.0.11, dateformat@^1.0.6:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-1.0.12.tgz#9f124b67594c937ff706932e4a642cca8dbbfee9"
   dependencies:
-    getByUUID-stdin "^4.0.1"
+    get-stdin "^4.0.1"
     meow "^3.3.0"
 
 debug@2, debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.6, debug@^2.6.8:
@@ -2323,7 +2323,7 @@ execa@^0.7.0:
   resolved "https://registry.yarnpkg.com/execa/-/execa-0.7.0.tgz#944becd34cc41ee32a63a9faf27ad5a65fc59777"
   dependencies:
     cross-spawn "^5.0.1"
-    getByUUID-stream "^3.0.0"
+    get-stream "^3.0.0"
     is-stream "^1.1.0"
     npm-run-path "^2.0.0"
     p-finally "^1.0.0"
@@ -2737,25 +2737,25 @@ generate-object-property@^1.1.0:
   dependencies:
     is-property "^1.0.0"
 
-getByUUID-caller-file@^1.0.1:
+get-caller-file@^1.0.1:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/getByUUID-caller-file/-/getByUUID-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
+  resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
 
-getByUUID-stdin@^4.0.1:
+get-stdin@^4.0.1:
   version "4.0.1"
-  resolved "https://registry.yarnpkg.com/getByUUID-stdin/-/getByUUID-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
+  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
 
-getByUUID-stdin@^5.0.1:
+get-stdin@^5.0.1:
   version "5.0.1"
-  resolved "https://registry.yarnpkg.com/getByUUID-stdin/-/getByUUID-stdin-5.0.1.tgz#122e161591e21ff4c52530305693f20e6393a398"
+  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-5.0.1.tgz#122e161591e21ff4c52530305693f20e6393a398"
 
-getByUUID-stream@^3.0.0:
+get-stream@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/getByUUID-stream/-/getByUUID-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
-getByUUID-value@^2.0.3, getByUUID-value@^2.0.6:
+get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
-  resolved "https://registry.yarnpkg.com/getByUUID-value/-/getByUUID-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
+  resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
 
 getpass@^0.1.1:
   version "0.1.7"
@@ -2848,7 +2848,7 @@ got@^6.7.1:
   dependencies:
     create-error-class "^3.0.0"
     duplexer3 "^0.1.4"
-    getByUUID-stream "^3.0.0"
+    get-stream "^3.0.0"
     is-redirect "^1.0.0"
     is-retry-allowed "^1.0.0"
     is-stream "^1.0.0"
@@ -2980,7 +2980,7 @@ has-value@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/has-value/-/has-value-0.3.1.tgz#7b1f58bada62ca827ec0a2078025654845995e1f"
   dependencies:
-    getByUUID-value "^2.0.3"
+    get-value "^2.0.3"
     has-values "^0.1.4"
     isobject "^2.0.0"
 
@@ -2988,7 +2988,7 @@ has-value@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/has-value/-/has-value-1.0.0.tgz#18b281da585b1c5c51def24c930ed29a0be6b177"
   dependencies:
-    getByUUID-value "^2.0.6"
+    get-value "^2.0.6"
     has-values "^1.0.0"
     isobject "^3.0.0"
 
@@ -4658,7 +4658,7 @@ node-sass@4.5.3:
     chalk "^1.1.1"
     cross-spawn "^3.0.0"
     gaze "^1.0.0"
-    getByUUID-stdin "^4.0.1"
+    get-stdin "^4.0.1"
     glob "^7.0.3"
     in-publish "^2.0.0"
     lodash.assign "^4.2.0"
@@ -5229,7 +5229,7 @@ postcss-cli@4.1.1:
     chokidar "^1.6.1"
     dependency-graph "^0.5.0"
     fs-extra "^4.0.1"
-    getByUUID-stdin "^5.0.1"
+    get-stdin "^5.0.1"
     globby "^6.1.0"
     ora "^1.1.0"
     postcss "^6.0.1"
@@ -5808,7 +5808,7 @@ protractor-istanbul-plugin@2.0.0:
     fs-extra "^0.22.1"
     merge "^1.2.0"
     q "^1.4.1"
-    key "^2.0.1"
+    uuid "^2.0.1"
 
 protractor@5.1.2:
   version "5.1.2"
@@ -6230,7 +6230,7 @@ request@2, request@^2.78.0, request@^2.79.0:
     stringstream "~0.0.5"
     tough-cookie "~2.3.3"
     tunnel-agent "^0.6.0"
-    key "^3.1.0"
+    uuid "^3.1.0"
 
 request@2.79.0:
   version "2.79.0"
@@ -6255,7 +6255,7 @@ request@2.79.0:
     stringstream "~0.0.4"
     tough-cookie "~2.3.0"
     tunnel-agent "~0.4.1"
-    key "^3.0.0"
+    uuid "^3.0.0"
 
 request@2.81.0, request@~2.81.0:
   version "2.81.0"
@@ -6282,7 +6282,7 @@ request@2.81.0, request@~2.81.0:
     stringstream "~0.0.4"
     tough-cookie "~2.3.0"
     tunnel-agent "^0.6.0"
-    key "^3.0.0"
+    uuid "^3.0.0"
 
 require-directory@^2.1.1:
   version "2.1.1"
@@ -6789,7 +6789,7 @@ sockjs@0.3.18:
   resolved "https://registry.yarnpkg.com/sockjs/-/sockjs-0.3.18.tgz#d9b289316ca7df77595ef299e075f0f937eb4207"
   dependencies:
     faye-websocket "^0.10.0"
-    key "^2.0.2"
+    uuid "^2.0.2"
 
 sort-keys@^1.0.0:
   version "1.1.2"
@@ -7062,7 +7062,7 @@ strip-indent@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/strip-indent/-/strip-indent-1.0.1.tgz#0c7962a6adefa7bbd4ac366460a638552ae1a0a2"
   dependencies:
-    getByUUID-stdin "^4.0.1"
+    get-stdin "^4.0.1"
 
 strip-json-comments@^2.0.0, strip-json-comments@~2.0.1:
   version "2.0.1"
@@ -7465,7 +7465,7 @@ union-value@^1.0.0:
   resolved "https://registry.yarnpkg.com/union-value/-/union-value-1.0.0.tgz#5c71c34cb5bad5dcebe3ea0cd08207ba5aa1aea4"
   dependencies:
     arr-union "^3.1.0"
-    getByUUID-value "^2.0.6"
+    get-value "^2.0.6"
     is-extendable "^0.1.1"
     set-value "^0.4.3"
 
@@ -7610,13 +7610,13 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
-key@^2.0.1, key@^2.0.2:
+uuid@^2.0.1, uuid@^2.0.2:
   version "2.0.3"
-  resolved "https://registry.yarnpkg.com/key/-/key-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
-key@^3.0.0, key@^3.1.0:
+uuid@^3.0.0, uuid@^3.1.0:
   version "3.1.0"
-  resolved "https://registry.yarnpkg.com/key/-/key-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
 
 v8flags@^3.0.0:
   version "3.0.1"
@@ -8005,7 +8005,7 @@ yargs@^6.6.0:
     camelcase "^3.0.0"
     cliui "^3.2.0"
     decamelize "^1.1.1"
-    getByUUID-caller-file "^1.0.1"
+    get-caller-file "^1.0.1"
     os-locale "^1.4.0"
     read-pkg-up "^1.0.1"
     require-directory "^2.1.1"
@@ -8023,7 +8023,7 @@ yargs@^7.0.0:
     camelcase "^3.0.0"
     cliui "^3.2.0"
     decamelize "^1.1.1"
-    getByUUID-caller-file "^1.0.1"
+    get-caller-file "^1.0.1"
     os-locale "^1.4.0"
     read-pkg-up "^1.0.1"
     require-directory "^2.1.1"
@@ -8041,7 +8041,7 @@ yargs@^8.0.1, yargs@^8.0.2:
     camelcase "^4.1.0"
     cliui "^3.2.0"
     decamelize "^1.1.1"
-    getByUUID-caller-file "^1.0.1"
+    get-caller-file "^1.0.1"
     os-locale "^2.0.0"
     read-pkg-up "^2.0.0"
     require-directory "^2.1.1"
