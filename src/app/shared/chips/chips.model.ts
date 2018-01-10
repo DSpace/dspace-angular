@@ -47,16 +47,16 @@ export class Chips {
 
   private getDisplayText(item: any) {
     let value = item;
-    // Check If displayField is in an internal object
-    const obj = this.displayObj ? item[this.displayObj] : item;
+    if (item instanceof Object) {
+      // Check If displayField is in an internal object
+      const obj = this.displayObj ? item[this.displayObj] : item;
 
-    if (obj && obj[this.displayField]) {
-      value = obj[this.displayField];
+      if (obj instanceof Object && obj && obj[this.displayField]) {
+        value = obj[this.displayField];
+      } else {
+        value = obj;
+      }
     }
-    // else if (obj && obj['dc.contributor.author'] && obj['dc.contributor.author'].display) {
-    //   // Case Group Form
-    //   value = item['dc.contributor.author'].display;
-    // }
     const textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
     return textToDisplay;
 

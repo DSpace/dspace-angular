@@ -70,7 +70,9 @@ export class ConcatFieldParser extends FieldParser {
         control: 'form-row',
       }
     };
-    return new DynamicConcatModel(concatGroup, clsGroup);
+    const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
+    concatModel.name = this.getFieldId()[0];
+    return concatModel;
   }
 
 }

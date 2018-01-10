@@ -107,10 +107,14 @@ export class DsDynamicGroupComponent implements OnInit {
 
     this.formModel.forEach((row, i) => {
       const modelRow = row as DynamicGroupModel;
-      modelRow.group.forEach((control: DynamicInputModel) => {
-        const value = selected[control.name] === PLACEHOLDER ? null : selected[control.name];
-        (this.group.controls[keys[i]] as FormGroup).controls[control.id].patchValue(value);
-      })
+      modelRow.group.forEach((model: DynamicInputModel) => {
+        const value = selected[model.name] === PLACEHOLDER ? null : selected[model.name];
+        if (model instanceof DynamicInputModel) {
+          model.valueUpdates.next(value);
+        } else {
+          (model as any).value = value;
+        }
+      });
     });
 
     this.editMode = true;
