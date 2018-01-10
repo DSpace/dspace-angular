@@ -40,7 +40,7 @@ export class DynamicGroupModel extends DynamicFormGroupModel {
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
   @serializable() chips: Chips;
-  @serializable() storedValue: any[];
+  @serializable() storedValues: any[];
 
   constructor(config: DynamicGroupModelConfig, cls?: ClsConfig) {
     super(config, cls);
