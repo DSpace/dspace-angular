@@ -4,9 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {FormBuilderService} from '../../../form-builder.service';
 import {DynamicFormControlModel, DynamicInputModel} from '@ng-dynamic-forms/core';
 import {SubmissionFormsModel} from '../../../../../../core/shared/config/config-submission-forms.model';
-import {AuthorityModel} from '../../../../../../core/integration/models/authority.model';
 import {FormService} from '../../../../form.service';
-import * as _ from 'lodash';
 
 const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
@@ -52,41 +50,7 @@ export class DsDynamicGroupComponent implements OnInit {
       modelRow.group.forEach((control: DynamicInputModel) => {
         item[control.name] = control.value || PLACEHOLDER;
       });
-    })
-
-    console.log(item);
-
-    // If no mandatory field value, abort
-    if (!item[this.model.mandatoryField] || item[this.model.mandatoryField] === PLACEHOLDER) {
-      return false;
-    }
-
-    // Search for duplicates
-    let exit = false;
-    // const mandatory = this.model.mandatoryField;
-    // const duplicated = _.findKey(this.model.chips.chipsItems, {item: {mandatory: {id: item[this.model.mandatoryField].id}}});
-
-    this.model.chips.chipsItems.forEach((current) => {
-      if (current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField]) {
-        const internalItem = current.item[this.model.mandatoryField];
-        if (internalItem instanceof AuthorityModel) {
-          // With Authority
-          if (internalItem.id === item[this.model.mandatoryField].id) {
-            // Duplicate Item, don't add
-            exit = true;
-            return;
-          }
-        } else if (internalItem === item[this.model.mandatoryField]) {
-          // Without Authority
-          exit = true;
-          return;
-        }
-      }
-    })
-
-    if (exit) {
-      return;
-    }
+    });
 
     this.model.chips.add(item);
     this.change.emit(event);
@@ -106,9 +70,7 @@ export class DsDynamicGroupComponent implements OnInit {
     console.log(event);
 
     const selected = this.model.chips.chipsItems[event].item;
-    const keys = Object.keys(this.group.controls);
-
-    this.formModel.forEach((row, i) => {
+    this.formModel.forEach((row) => {
       const modelRow = row as DynamicGroupModel;
       modelRow.group.forEach((model: DynamicInputModel) => {
         const value = selected[model.name] === PLACEHOLDER ? null : selected[model.name];
