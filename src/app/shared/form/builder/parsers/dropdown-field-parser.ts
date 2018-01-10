@@ -57,7 +57,8 @@ export class DropdownFieldParser extends FieldParser {
       };
       return new DynamicFormGroupModel(dropdownGroup, cls);
     } else {
-      throw  Error(`Authority name is not available. Please checks form configuration file.`);
+      return null;
+      // throw  Error(`Authority name is not available. Please checks form configuration file.`);
     }
   }
 }

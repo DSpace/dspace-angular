@@ -40,4 +40,13 @@ export class DynamicConcatModel  extends DynamicFormGroupModel {
       return null
     }
   }
+
+  set value(value: string) {
+    const  values = value.split(this.separator);
+
+    if (values.length > 1) {
+      (this.get(0) as DynamicInputModel).valueUpdates.next(values[0]);
+      (this.get(1) as DynamicInputModel).valueUpdates.next(values[1]);
+    }
+  }
 }
