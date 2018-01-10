@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export class Chips {
   chipsItems: ChipsItem[];
   displayField: string;
@@ -18,16 +20,20 @@ export class Chips {
       editMode: false,
       item: item,
     };
-    this.chipsItems.push(chipsItem);
+
+    const duplicated = _.findKey(this.chipsItems, {item: item});
+    if (!duplicated) {
+      this.chipsItems.push(chipsItem);
+    }
   }
 
   public remove(index) {
     this.chipsItems.splice(index, 1);
   }
 
-  public update(chipsItem: ChipsItem) {
-
-  }
+  // public update(chipsItem: ChipsItem) {
+  //
+  // }
 
   /**
    * Sets initial items, used in edit mode
