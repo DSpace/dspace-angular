@@ -77,6 +77,31 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
+  reset(groupModel: DynamicFormControlModel[]): void {
+
+    const iterateControlModel = (findGroupModel: DynamicFormControlModel[]): void => {
+
+      for (const controlModel of findGroupModel) {
+
+        if (controlModel instanceof DynamicFormGroupModel) {
+          iterateControlModel((controlModel as DynamicFormGroupModel).group);
+          continue;
+        }
+
+        if (controlModel instanceof DynamicFormArrayModel) {
+          iterateControlModel(controlModel.groupFactory());
+          continue;
+        }
+
+        if (controlModel.hasOwnProperty('valueUpdates')) {
+          (controlModel as any).valueUpdates.next(null);
+        }
+      }
+    };
+
+    iterateControlModel(groupModel);
+  }
+
   modelFromConfiguration(json: string | SubmissionFormsModel, initFormValues: any, isGroup: boolean = false): DynamicFormControlModel[] | never {
     const rows: DynamicFormControlModel[] = [];
     const rawData = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
