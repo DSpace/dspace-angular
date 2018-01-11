@@ -110,20 +110,21 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 
-  create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
-    const postHrefObs = this.getEndpoint();
-
-    // TODO ID is unknown at this point
-    const idHrefObs = postHrefObs.map((href: string) => this.getFindByIDHref(href, dso.id));
-
-    postHrefObs
-      .filter((href: string) => hasValue(href))
-      .take(1)
-      .subscribe((href: string) => {
-        const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.Post, dso);
-        this.requestService.configure(request);
-      });
-
-    return this.rdbService.buildSingle<TNormalized, TDomain>(idHrefObs, this.normalizedResourceType);
-  }
+  // TODO implement, after the structure of the REST server's POST response is finalized
+  // create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
+  //   const postHrefObs = this.getEndpoint();
+  //
+  //   // TODO ID is unknown at this point
+  //   const idHrefObs = postHrefObs.map((href: string) => this.getFindByIDHref(href, dso.id));
+  //
+  //   postHrefObs
+  //     .filter((href: string) => hasValue(href))
+  //     .take(1)
+  //     .subscribe((href: string) => {
+  //       const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.Post, dso);
+  //       this.requestService.configure(request);
+  //     });
+  //
+  //   return this.rdbService.buildSingle<TNormalized, TDomain>(idHrefObs, this.normalizedResourceType);
+  // }
 }
