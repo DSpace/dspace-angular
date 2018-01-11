@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges,} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges, } from '@angular/core';
 import { Chips, ChipsItem } from './chips.model';
 import * as _ from 'lodash';
 
@@ -27,7 +27,7 @@ export class ChipsComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
-      this.chips.chipsItems = _.sortBy(changes.chips.currentValue, 'order')  as ChipsItem[];
+      this.sortChips();
     }
   }
 
@@ -58,30 +58,51 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
+  private sortChips() {
+    this.chips.chipsItems = _.sortBy(this.chips.chipsItems, 'order');
+  }
+
   onMove(chipsItem: ChipsItem, position: number) {
     console.log(chipsItem.order + 'to' + position);
 
-    let delta;
-    if (position > chipsItem.order) {
-      delta = 'forward';
-    } else {
-      delta = 'back';
-    }
+    const to = position;
+    const from = chipsItem.order;
+    this.chips.chipsItems.splice(to, 0, this.chips.chipsItems.splice(from, 1)[0]);
 
+    const out = new Array();
     this.chips.chipsItems.forEach( (current) => {
-      // current.order = current.order > position ?
-      if (current.order === chipsItem.order) {
-        // Moved Object
-        current.order = position;
-      }
-      if (delta === 'forward' && current.order > chipsItem.order && current.order <= position) {
-        current.order--;
-      } else if (delta === 'back' && current.order < chipsItem.order && current.order >= position) {
-        current.order++;
-      }
-      console.log(current.item['local.contributor.orcid'] + 'in position ' + current.order);
+      out[current.order] = current;
     });
+    this.chips.chipsItems = out;
+
+    this.sortChips();
+    console.log(this.chips.chipsItems);
+
+    // let delta;
+    // if (position > chipsItem.order) {
+    //   delta = 'forward';
+    // } else {
+    //   delta = 'back';
+    // }
+    //
+    // this.chips.chipsItems.forEach( (current) => {
+    //   // current.order = current.order > position ?
+    //   if (current.order === chipsItem.order) {
+    //     // Moved Object
+    //     current.order = position;
+    //   }
+    //   if (delta === 'forward' && current.order > chipsItem.order && current.order <= position) {
+    //     current.order--;
+    //   } else if (delta === 'back' && current.order < chipsItem.order && current.order >= position) {
+    //     current.order++;
+    //   }
+    //   console.log(current.item['local.contributor.orcid'] + 'in position ' + current.order);
+    // });
 
   }
+
+  // onDragEnd(chipsItem: ChipsItem, position: number) {
+  //   console.log('From ' + chipsItem.order + ' to ' + position);
+  // }
 
 }

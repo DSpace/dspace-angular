@@ -7,7 +7,8 @@
         (click)="chipsSelected(i)"
         (mouseout)="chipsBlur(i)"
         dnd-sortable [sortableIndex]="i"
-        [dragData]="c" >
+        [dragData]="c"
+        (onDropSuccess)="onMove($event, i)">
 
     <ng-container *ngIf="c.item.icons && c.item.icons.length > 0">
       <i *ngFor="let icon of c.item.icons"

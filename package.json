@@ -105,6 +105,7 @@
     "lodash": "^4.17.4",
     "methods": "1.1.2",
     "morgan": "1.9.0",
+    "ng2-dnd": "^4.0.0",
     "ng2-file-upload": "1.2.1",
     "ngx-infinite-scroll": "^0.5.2",
     "ngx-pagination": "3.0.1",
