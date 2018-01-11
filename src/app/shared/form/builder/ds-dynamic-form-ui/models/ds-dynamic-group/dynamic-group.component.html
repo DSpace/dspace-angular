@@ -21,7 +21,8 @@
 <div class="clearfix"></div>
 <div class="d-inline-flex">
   <ds-chips
-    [chips]="model.chips"
+    *ngIf="chips.chipsItems.length > 0"
+    [chips]="chips"
     [editable]="true"
     (selected)="chipsSelected($event)"
     (remove)="removeChips($event)"></ds-chips>

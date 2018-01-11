@@ -260,7 +260,7 @@
       </ng-container>
 
       <ng-container *ngSwitchCase="16">
-        <ds-dynamic-group [model]="model" [group]="group.get(model.id)" [formId]="formId"
+        <ds-dynamic-group [model]="model" [formId]="formId"
                           (blur)="onBlurEvent($event)"
                           (change)="onValueChange($event)"
                           (focus)="onFocusEvent($event)"></ds-dynamic-group>

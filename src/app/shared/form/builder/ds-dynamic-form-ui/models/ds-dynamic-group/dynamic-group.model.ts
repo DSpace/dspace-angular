@@ -1,6 +1,5 @@
-import { ClsConfig, DynamicInputModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
-import { FormRowModel } from '../../../../../../core/shared/config/config-submission-forms.model';
-import { Chips } from '../../../../../chips/chips.model';
+import {ClsConfig, DynamicInputModel, DynamicInputModelConfig, serializable} from '@ng-dynamic-forms/core';
+import {FormRowModel} from '../../../../../../core/shared/config/config-submission-forms.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_RELATION = 'RELATION';
 
@@ -19,11 +18,9 @@ export interface DynamicGroupModelConfig extends DynamicInputModelConfig {
  * Dynamic Group Model class
  */
 export class DynamicGroupModel extends DynamicInputModel {
-
   @serializable() formConfiguration: FormRowModel[];
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
-  @serializable() chips: Chips;
   @serializable() storedValue: any[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION;
 
@@ -34,6 +31,5 @@ export class DynamicGroupModel extends DynamicInputModel {
     this.mandatoryField = config.mandatoryField;
     this.relationFields = config.relationFields;
     this.storedValue = config.storedValue;
-    this.chips = new Chips(this.storedValue, 'value', this.mandatoryField);
   }
 }

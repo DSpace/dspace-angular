@@ -3,7 +3,7 @@ import {Chips} from './chips.model';
 
 @Component({
   selector: 'ds-chips',
-  styleUrls: [ './chips.component.scss' ],
+  styleUrls: ['./chips.component.scss'],
   templateUrl: './chips.component.html',
 })
 
@@ -18,7 +18,7 @@ export class ChipsComponent implements OnChanges {
   editable;
 
   ngOnInit() {
-    if(!this.editable) {
+    if (!this.editable) {
       this.editable = false;
     }
   }
@@ -38,7 +38,7 @@ export class ChipsComponent implements OnChanges {
     //   // Can't reselect if selected yet
     //   this.chips.chipsItems[index].editMode = true
     this.chips.chipsItems.forEach((item, i) => {
-      if (i==index) {
+      if (i === index) {
         item.editMode = true;
       } else {
         item.editMode = false;
@@ -52,7 +52,7 @@ export class ChipsComponent implements OnChanges {
   }
 
   chipsBlur(index) {
-    if(!this.editable) {
+    if (!this.editable) {
       // Case not editable, set different color and go back on blur
       this.chips.chipsItems[index].editMode = false;
     }

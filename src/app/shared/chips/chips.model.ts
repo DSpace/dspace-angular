@@ -15,6 +15,7 @@ export class Chips {
 
   public add(item: any) {
     const chipsItem = {
+      id: _.uniqueId(),
       order: this.chipsItems.length,
       display: this.getDisplayText(item),
       editMode: false,
@@ -31,9 +32,12 @@ export class Chips {
     this.chipsItems.splice(index, 1);
   }
 
-  // public update(chipsItem: ChipsItem) {
-  //
-  // }
+  public update(chipsItem: ChipsItem) {
+    const index = _.findKey(this.chipsItems, {id: chipsItem.id});
+    const chipsItemTarget = this.chipsItems[index];
+    chipsItemTarget.item = chipsItem.item;
+    chipsItemTarget.editMode = false;
+  }
 
   /**
    * Sets initial items, used in edit mode
@@ -42,6 +46,7 @@ export class Chips {
     this.chipsItems = [];
     items.forEach((item, index) => {
       const chipsItem = {
+        id: _.uniqueId(),
         order: this.chipsItems.length,
         display: this.getDisplayText(item),
         editMode: false,
@@ -82,7 +87,8 @@ export class Chips {
 
 }
 
-interface ChipsItem {
+export interface ChipsItem {
+  id: string,
   order: number,
   display: string,
   editMode?: boolean,

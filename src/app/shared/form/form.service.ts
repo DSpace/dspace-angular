@@ -103,6 +103,7 @@ export class FormService {
 
   public resetForm(formGroup: FormGroup, groupModel: DynamicFormControlModel[], formId: string) {
     this.formBuilderService.clearAllModelsValue(groupModel);
+    formGroup.reset();
     this.store.dispatch(new FormChangeAction(formId, formGroup.value));
   }
 }
