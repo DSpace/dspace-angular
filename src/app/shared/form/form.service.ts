@@ -9,6 +9,7 @@ import { FormBuilderService } from './builder/form-builder.service';
 import { DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
 import { isNotEmpty, isNotUndefined } from '../empty.util';
 import { find, uniqueId } from 'lodash';
+import { FormChangeAction } from './form.actions';
 
 @Injectable()
 export class FormService {
@@ -98,5 +99,10 @@ export class FormService {
       // formGroup.markAsDirty();
       field.markAsTouched();
     }
+  }
+
+  public resetForm(formGroup: FormGroup, groupModel: DynamicFormControlModel[], formId: string) {
+    this.formBuilderService.clearAllModelsValue(groupModel);
+    this.store.dispatch(new FormChangeAction(formId, formGroup.value));
   }
 }

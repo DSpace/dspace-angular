@@ -16,7 +16,6 @@ const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 export class DsDynamicGroupComponent implements OnInit {
 
   public formModel: DynamicFormControlModel[];
-  // public formModelRow: DynamicFormGroupModel;
   public editMode = false;
 
   @Input() formId: string;
@@ -56,9 +55,8 @@ export class DsDynamicGroupComponent implements OnInit {
 
     this.model.chips.add(item);
     this.model.valueUpdates.next(this.model.chips.getItems());
-    // this.formRef.formGroup.reset();
     this.change.emit(event);
-    this.formBuilderService.reset(this.formModel);
+    this.resetForm();
   }
 
   chipsSelected(event) {
@@ -79,24 +77,8 @@ export class DsDynamicGroupComponent implements OnInit {
   }
 
   exitEditMode() {
-    const keys = Object.keys(this.group.controls);
-
-    // Set ChipsItem's editModel=false
-    const item = {};
-    this.formModel.forEach((row) => {
-      const modelRow = row as DynamicFormGroupModel;
-      modelRow.group.forEach((control: DynamicInputModel) => {
-        item[control.name] = control.value || PLACEHOLDER;
-      })
-    });
-    this.model.chips.chipsItems.forEach((current) => {
-      if (current.item && current.item[this.model.mandatoryField] && current.item[this.model.mandatoryField] === item[this.model.mandatoryField]) {
-        current.editMode = false;
-      }
-    });
-
     this.editMode = false;
-    this.group.reset();
+    this.resetForm();
   }
 
   modifyChips() {
@@ -117,6 +99,10 @@ export class DsDynamicGroupComponent implements OnInit {
         this.group.reset();
       }
     });
+  }
+
+  resetForm() {
+    this.formService.resetForm(this.formRef.formGroup, this.formModel, this.formId);
   }
 
   removeChips(event) {

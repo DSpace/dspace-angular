@@ -77,7 +77,7 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  reset(groupModel: DynamicFormControlModel[]): void {
+  clearAllModelsValue(groupModel: DynamicFormControlModel[]): void {
 
     const iterateControlModel = (findGroupModel: DynamicFormControlModel[]): void => {
 
