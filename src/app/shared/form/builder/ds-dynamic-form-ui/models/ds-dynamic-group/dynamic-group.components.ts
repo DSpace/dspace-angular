@@ -72,6 +72,8 @@ export class DsDynamicGroupComponent implements OnInit {
   }
 
   exitEditMode() {
+    this.selectedChips.editMode = false;
+    this.selectedChips = null;
     this.editMode = false;
     this.resetForm();
     this.change.emit(event);
