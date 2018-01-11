@@ -124,7 +124,7 @@ export class SearchService implements OnDestroy {
 
     if (isNotEmpty(searchOptions)) {
       returningPageInfo.elementsPerPage = searchOptions.pagination.pageSize;
-     returningPageInfo.currentPage = searchOptions.pagination.currentPage;
+      returningPageInfo.currentPage = searchOptions.pagination.currentPage;
     } else {
       returningPageInfo.elementsPerPage = 10;
       returningPageInfo.currentPage = 1;
