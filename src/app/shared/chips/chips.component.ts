@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges,} from '@angular/core';
-import {Chips} from './chips.model';
+import { Chips, ChipsItem } from './chips.model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'ds-chips',
@@ -24,19 +25,13 @@ export class ChipsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log('ngOnChanges...' + JSON.stringify(changes));
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
-      // console.log('ngOnChanges items=' + JSON.stringify(this.chips));
+      this.chips.chipsItems = _.sortBy(changes.chips.currentValue, 'order')  as ChipsItem[];
     }
   }
 
   chipsSelected(index) {
-    // Case Editable, set different color ang go back managed by external component
-    // Case not editable, set different color and go back on blur
-    // if (!this.chips.chipsItems[index].editMode) {
-    //   // Can't reselect if selected yet
-    //   this.chips.chipsItems[index].editMode = true
     this.chips.chipsItems.forEach((item, i) => {
       if (i === index) {
         item.editMode = true;
@@ -46,9 +41,6 @@ export class ChipsComponent implements OnChanges {
     });
     ;
     this.selected.emit(index);
-
-
-    // }
   }
 
   chipsBlur(index) {
@@ -59,11 +51,37 @@ export class ChipsComponent implements OnChanges {
   }
 
   removeChips(index) {
+    // Can't remove if this element is in editMode
     if (!this.chips.chipsItems[index].editMode) {
-      // Can't remove if this element is in editMode
       this.chips.remove(index);
       this.remove.emit(index);
     }
+  }
+
+  onMove(chipsItem: ChipsItem, position: number) {
+    console.log(chipsItem.order + 'to' + position);
+
+    let delta;
+    if (position > chipsItem.order) {
+      delta = 'forward';
+    } else {
+      delta = 'back';
+    }
+
+    this.chips.chipsItems.forEach( (current) => {
+      // current.order = current.order > position ?
+      if (current.order === chipsItem.order) {
+        // Moved Object
+        current.order = position;
+      }
+      if (delta === 'forward' && current.order > chipsItem.order && current.order <= position) {
+        current.order--;
+      } else if (delta === 'back' && current.order < chipsItem.order && current.order >= position) {
+        current.order++;
+      }
+      console.log(current.item['local.contributor.orcid'] + 'in position ' + current.order);
+    });
+
   }
 
 }

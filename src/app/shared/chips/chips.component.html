@@ -1,11 +1,13 @@
 <div class="chips-box">
-  <div id="chips-container">
+  <div id="chips-container"  dnd-sortable-container [sortableData]="chips.chipsItems">
 
   <span *ngFor="let c of chips.chipsItems; let i = index"
         class="chips"
         [ngClass]="{'selected': c.editMode}"
         (click)="chipsSelected(i)"
-        (mouseout)="chipsBlur(i)">
+        (mouseout)="chipsBlur(i)"
+        dnd-sortable [sortableIndex]="i"
+        [dragData]="c" >
 
     <ng-container *ngIf="c.item.icons && c.item.icons.length > 0">
       <i *ngFor="let icon of c.item.icons"

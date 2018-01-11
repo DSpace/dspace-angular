@@ -19,6 +19,7 @@ module.exports = {
       /@ng/,
       /angular2-text-mask/,
       /ng2-file-upload/,
+      /ng2-dnd/,
       /ngx/]
   })],
 };

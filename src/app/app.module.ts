@@ -30,6 +30,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { GLOBAL_CONFIG, ENV_CONFIG, GlobalConfig } from '../config';
 
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
+import { DndModule } from 'ng2-dnd';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -57,6 +58,7 @@ if (!ENV_CONFIG.production) {
     SubmissionModule,
     AppRoutingModule,
     CoreModule.forRoot(),
+    DndModule.forRoot(),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
     EffectsModule.forRoot(appEffects),
