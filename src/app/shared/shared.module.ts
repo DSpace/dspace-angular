@@ -55,12 +55,12 @@ import { ChipsComponent } from './chips/chips.component';
 import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
 import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models/list/dynamic-list.component';
 import { DsDynamicGroupComponent } from './form/builder/ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.components';
-import { DndModule } from 'ng2-dnd';
+import { SortablejsModule } from 'angular-sortablejs';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
-  DndModule,
+  SortablejsModule,
   DynamicFormsCoreModule,
   DynamicFormsNGBootstrapUIModule,
   FileUploadModule,

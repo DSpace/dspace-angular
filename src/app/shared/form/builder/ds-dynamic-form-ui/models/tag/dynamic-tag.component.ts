@@ -162,5 +162,12 @@ export class DsDynamicTagComponent implements OnInit {
 
   removeChips(event) {
     // console.log("Removed chips index: "+event);
+    this.model.valueUpdates.next(this.model.chips.getItems());
+    this.change.emit(event);
+  }
+
+  changeChips(event) {
+    this.model.valueUpdates.next(this.model.chips.getItems());
+    this.change.emit(event);
   }
 }

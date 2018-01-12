@@ -13,10 +13,22 @@ export class ChipsComponent implements OnChanges {
   selected = new EventEmitter<number>();
   @Output()
   remove = new EventEmitter<number>();
+  @Output()
+  change = new EventEmitter<any>();
   @Input()
   chips: Chips;
   @Input()
   editable;
+  options;
+
+  constructor() {
+    this.options = {
+      onUpdate: (event: any) => {
+        this.onDrop(event);
+      },
+      animation: 300,
+    };
+  }
 
   ngOnInit() {
     if (!this.editable) {
@@ -27,7 +39,7 @@ export class ChipsComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
-      this.sortChips();
+      // this.sortChips();
     }
   }
 
@@ -58,51 +70,9 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
-  private sortChips() {
-    this.chips.chipsItems = _.sortBy(this.chips.chipsItems, 'order');
+  onDrop(event) {
+    // console.log(event);
+    this.change.emit(event);
   }
-
-  onMove(chipsItem: ChipsItem, position: number) {
-    console.log(chipsItem.order + 'to' + position);
-
-    const to = position;
-    const from = chipsItem.order;
-    this.chips.chipsItems.splice(to, 0, this.chips.chipsItems.splice(from, 1)[0]);
-
-    const out = new Array();
-    this.chips.chipsItems.forEach( (current) => {
-      out[current.order] = current;
-    });
-    this.chips.chipsItems = out;
-
-    this.sortChips();
-    console.log(this.chips.chipsItems);
-
-    // let delta;
-    // if (position > chipsItem.order) {
-    //   delta = 'forward';
-    // } else {
-    //   delta = 'back';
-    // }
-    //
-    // this.chips.chipsItems.forEach( (current) => {
-    //   // current.order = current.order > position ?
-    //   if (current.order === chipsItem.order) {
-    //     // Moved Object
-    //     current.order = position;
-    //   }
-    //   if (delta === 'forward' && current.order > chipsItem.order && current.order <= position) {
-    //     current.order--;
-    //   } else if (delta === 'back' && current.order < chipsItem.order && current.order >= position) {
-    //     current.order++;
-    //   }
-    //   console.log(current.item['local.contributor.orcid'] + 'in position ' + current.order);
-    // });
-
-  }
-
-  // onDragEnd(chipsItem: ChipsItem, position: number) {
-  //   console.log('From ' + chipsItem.order + ' to ' + position);
-  // }
 
 }
