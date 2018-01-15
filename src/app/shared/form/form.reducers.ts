@@ -171,7 +171,7 @@ function changeStatusForm(state: FormState, action: FormStatusChangeAction): For
 function removeForm(state: FormState, action: FormRemoveAction): FormState {
   if (hasValue(state[ action.payload.formId ])) {
     const newState = Object.assign({}, state);
-    delete newState[ action.payload.formId ]
+    delete newState[ action.payload.formId ];
     return newState;
   } else {
     return state;

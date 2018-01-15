@@ -95,7 +95,10 @@ export abstract class FieldParser {
       const values: FormFieldMetadataValueObject[] = [];
       fieldIds.forEach((id) => {
         if (this.initFormValues.hasOwnProperty(id)) {
-          values.push(Object.assign({}, {metadata: id}, this.initFormValues[id][innerIndex]));
+          const valueObj: FormFieldMetadataValueObject = Object.create({});
+          valueObj.metadata = id;
+          valueObj.value = this.initFormValues[id][innerIndex];
+          values.push(valueObj);
         }
       });
       return values[outerIndex];
@@ -135,7 +138,7 @@ export abstract class FieldParser {
     }
   }
 
-  protected initModel(id?: string, label = true, labelEmpty = false) {
+  protected initModel(id?: string, label = true, labelEmpty = false, setErrors = true) {
 
     const controlModel = Object.create(null);
 
@@ -154,16 +157,20 @@ export abstract class FieldParser {
 
     controlModel.placeholder = this.configData.label;
 
-    if (this.configData.mandatory) {
-      controlModel.required = true;
-      controlModel.validators = Object.assign({}, controlModel.validators, {required: null});
-      controlModel.errorMessages = Object.assign(
-        {},
-        controlModel.errorMessages,
-        {required: this.configData.mandatoryMessage});
+    if (this.configData.mandatory && setErrors) {
+      this.setErrors(controlModel);
     }
 
     return controlModel;
+  }
+
+  protected setErrors(controlModel) {
+    controlModel.required = true;
+    controlModel.validators = Object.assign({}, controlModel.validators, {required: null});
+    controlModel.errorMessages = Object.assign(
+      {},
+      controlModel.errorMessages,
+      {required: this.configData.mandatoryMessage});
   }
 
   protected setOptions(controlModel) {

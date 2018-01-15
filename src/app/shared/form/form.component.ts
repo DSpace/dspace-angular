@@ -1,28 +1,16 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output
-} from '@angular/core';
-import { AbstractControl, Form, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
-  DynamicFormControlModel, DynamicFormGroupModel,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
-import {
-  FormChangeAction,
-  FormInitAction,
-  FormRemoveAction,
-  FormStatusChangeAction
-} from './form.actions';
+import { FormChangeAction, FormInitAction, FormRemoveAction, FormStatusChangeAction } from './form.actions';
 import { FormBuilderService } from './builder/form-builder.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -38,7 +26,7 @@ import { isEmpty } from 'lodash';
 @Component({
   exportAs: 'formComponent',
   selector: 'ds-form',
-  styleUrls: [ 'form.component.scss' ],
+  styleUrls: ['form.component.scss'],
   templateUrl: 'form.component.html',
 })
 export class FormComponent implements OnDestroy, OnInit {
@@ -105,20 +93,20 @@ export class FormComponent implements OnDestroy, OnInit {
       }));
   }*/
 
-  private getFormGroupValue() {
+  private getFormGroup(): FormGroup {
     if (!!this.parentFormModel) {
-      return this.formGroup.parent.value;
+      return this.formGroup.parent as FormGroup;
     }
 
-    return this.formGroup.value;
+    return this.formGroup;
+  }
+
+  private getFormGroupValue() {
+    return this.getFormGroup().value;
   }
 
   private getFormGroupValidStatus() {
-    if (!!this.parentFormModel) {
-      return this.formGroup.parent.valid;
-    }
-
-    return this.formGroup.valid;
+    return this.getFormGroup().valid;
   }
 
   /**
@@ -133,7 +121,7 @@ export class FormComponent implements OnDestroy, OnInit {
       });
     }
 
-    this.store.dispatch(new FormInitAction(this.formId, this.getFormGroupValue(), this.getFormGroupValidStatus()));
+    this.store.dispatch(new FormInitAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel), this.getFormGroupValidStatus()));
 
     // TODO: take a look to the following method:
     // this.keepSync();
@@ -155,10 +143,10 @@ export class FormComponent implements OnDestroy, OnInit {
         .distinctUntilChanged()
         .delay(100) // this terrible delay is here to prevent the detection change error
         .subscribe((errors: FormError[]) => {
-          const { formGroup, formModel } = this;
+          const {formGroup, formModel} = this;
 
           errors.forEach((error: FormError) => {
-            const { fieldId } = error;
+            const {fieldId} = error;
             let field: AbstractControl;
             if (!!this.parentFormModel) {
               field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel);
@@ -215,12 +203,12 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event) {
-    const action: FormChangeAction = new FormChangeAction(this.formId, this.getFormGroupValue());
+    const action: FormChangeAction = new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel));
+
     this.store.dispatch(action);
     this.formGroup.markAsPristine();
 
     this.change.emit(event);
-
     const control: FormControl = event.control;
 
     control.setErrors(null);
@@ -246,25 +234,25 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number) {
-    const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
+    const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
-    this.store.dispatch(new FormChangeAction(this.formId, this.getFormGroupValue()));
+    this.store.dispatch(new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel)));
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number) {
-    const formArrayControl = this.formGroup.get(arrayContext.id) as FormArray;
+    const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
     this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
-    this.store.dispatch(new FormChangeAction(this.formId, this.getFormGroupValue()));
+    this.store.dispatch(new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel)));
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {
-    const context = arrayContext.groups[ index ];
+    const context = arrayContext.groups[index];
     const itemGroupModel = context.context;
     const group = this.formGroup.get(itemGroupModel.id) as FormGroup;
-    const model = context.group[ 0 ] as DynamicFormControlModel;
-    const control = group.controls[ index ] as FormControl;
-    return { $event, context, control, group, model, type };
+    const model = context.group[0] as DynamicFormControlModel;
+    const control = group.controls[index] as FormControl;
+    return {$event, context, control, group, model, type};
   }
 }

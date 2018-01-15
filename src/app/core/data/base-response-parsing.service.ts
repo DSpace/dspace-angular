@@ -17,7 +17,7 @@ function isPaginatedResponse(halObj: any) {
 
 /* tslint:disable:max-classes-per-file */
 
-class ProcessRequestDTO<ObjectDomain> {
+export class ProcessRequestDTO<ObjectDomain> {
   [key: string]: ObjectDomain[]
 }
 

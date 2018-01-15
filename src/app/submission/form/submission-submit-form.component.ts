@@ -9,7 +9,7 @@ import {
   LoadSubmissionFormAction,
   ResetSubmissionFormAction
 } from '../objects/submission-objects.actions';
-import { isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
 import { submissionObjectFromIdSelector } from '../selectors';
@@ -78,7 +78,9 @@ export class SubmissionSubmitFormComponent implements OnChanges {
     } else {
       this.changeDetectorRef.detectChanges();
     }
-
   }
 
+  isLoading() {
+    return isUndefined(this.loading) || this.loading === true;
+  }
 }

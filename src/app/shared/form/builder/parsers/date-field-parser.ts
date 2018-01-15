@@ -13,9 +13,10 @@ export class DateFieldParser extends FieldParser {
 
   public modelFactory(): any {
     const inputDateModelConfig: DynamicDatePickerModelConfig = this.initModel();
-    let cls: ClsConfig;
 
     inputDateModelConfig.toggleIcon = 'fa fa-calendar';
+    /*
+    let cls: ClsConfig;
     cls = {
       element: {
         container: 'p-0',
@@ -26,15 +27,9 @@ export class DateFieldParser extends FieldParser {
       }
     };
     const datePickerGroup: DynamicFormGroupModel = Object.create(null);
-    datePickerGroup.id = inputDateModelConfig.id + '_group';
-    datePickerGroup.group = [new DynamicDatePickerModel(inputDateModelConfig)];
-    datePickerGroup.group[0].name = this.fieldId;
-    cls = {
-      element: {
-        control: 'form-row'
-      }
-    };
-    // return new DynamicFormGroupModel(datePickerGroup);
-    return new DynamicDatePickerModel(inputDateModelConfig);
+    datePickerGroup.id = inputDateModelConfig.id + '_group';*/
+    const dateModel = new DynamicDatePickerModel(inputDateModelConfig);
+    dateModel.name = this.fieldId;
+    return dateModel;
   }
 }

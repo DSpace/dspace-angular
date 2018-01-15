@@ -24,14 +24,8 @@ export class TagFieldParser extends FieldParser {
         tagModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
         tagModelConfig.authorityScope = this.authorityUuid;
         if (isNotEmpty(fieldValue)) {
-          const authorityValue = {
-            id: fieldValue.authority,
-            value: fieldValue.value,
-            display: fieldValue.value
-          } as AuthorityModel;
-          tagModelConfig.value = authorityValue;
+          tagModelConfig.value = fieldValue;
         }
-
     }
 
     if (isNotEmpty(this.getInitGroupValues())) {
@@ -41,9 +35,6 @@ export class TagFieldParser extends FieldParser {
     tagModelConfig.minChars = 3;
     const tagModel = new DynamicTagModel(tagModelConfig);
     tagModel.name = this.fieldId;
-
-    console.log('initgroupValue');
-    console.log(this.getInitGroupValues());
 
     return tagModel;
   }

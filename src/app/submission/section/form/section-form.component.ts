@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
@@ -8,29 +8,20 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import {
-  DeleteSectionErrorsAction, SaveSubmissionFormAction,
+  DeleteSectionErrorsAction,
+  SaveSubmissionFormAction,
   SectionStatusChangeAction,
 } from '../../objects/submission-objects.actions';
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import {
-  isNotEmpty,
-  isNotUndefined,
-  isUndefined
-} from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { submissionSectionDataFromIdSelector } from '../../selectors';
+import { submissionSectionDataFromIdSelector, submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import { submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
-
-import {
-  COMBOBOX_METADATA_SUFFIX,
-  COMBOBOX_VALUE_SUFFIX,
-} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormAddError } from '../../../shared/form/form.actions';
 import { WorkspaceitemSectionDataType } from '../../models/workspaceitem-sections.model';
@@ -40,10 +31,10 @@ import { GlobalConfig } from '../../../../config/global-config.interface';
 
 @Component({
   selector: 'ds-submission-section-form',
-  styleUrls: [ './section-form.component.scss' ],
+  styleUrls: ['./section-form.component.scss'],
   templateUrl: './section-form.component.html',
 })
-export class FormSectionComponent extends SectionModelComponent {
+export class FormSectionComponent extends SectionModelComponent implements OnDestroy {
 
   public formId;
   public formModel: DynamicFormControlModel[];
@@ -84,6 +75,12 @@ export class FormSectionComponent extends SectionModelComponent {
             }
           })
       });
+  }
+
+  ngOnDestroy() {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
   initForm(sectionData: WorkspaceitemSectionDataType) {
@@ -128,18 +125,20 @@ export class FormSectionComponent extends SectionModelComponent {
        * Subscribe to form status
        */
       this.formService.isValid(this.formId)
-      .filter((formValid) => isNotUndefined(formValid))
-      .filter((formValid) => formValid !== this.valid)
-      .subscribe((formState) => {
-        this.valid = formState;
-        this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
-      }),
+        .filter((formValid) => isNotUndefined(formValid))
+        .filter((formValid) => formValid !== this.valid)
+        .subscribe((formState) => {
+          this.valid = formState;
+          this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
+        }),
 
       /**
        * Subscribe to section state
        */
       this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionData.id))
-        .filter((sectionState: SubmissionSectionObject) => isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
+        .filter((sectionState: SubmissionSectionObject) => {
+          return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
+        })
         .subscribe((sectionState: SubmissionSectionObject) => {
           if (isNotEmpty(sectionState.data) && !isEqual(sectionState.data, this.sectionData.data)) {
             // Data are changed from remote response so update form's values
@@ -174,7 +173,7 @@ export class FormSectionComponent extends SectionModelComponent {
   onFocus(event: DynamicFormControlEvent) {
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model);
-    if (event.model.id.endsWith(COMBOBOX_METADATA_SUFFIX) || event.model.id.endsWith(COMBOBOX_VALUE_SUFFIX)) {
+    if (this.formBuilderService.hasMappedGroupValue(event.model)) {
       this.previousValue.path = path;
       this.previousValue.value = this.formBuilderService.getComboboxMap(event);
     } else if (isNotEmpty(value)) {

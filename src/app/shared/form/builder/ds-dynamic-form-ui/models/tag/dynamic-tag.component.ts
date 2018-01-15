@@ -90,7 +90,7 @@ export class DsDynamicTagComponent implements OnInit {
             display: v.value
           } as AuthorityModel;
         } else {
-          item = v.value;
+          item = v;
         }
         this.model.chips.add(item);
       });

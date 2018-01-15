@@ -18,8 +18,7 @@ export class GroupFieldParser extends FieldParser {
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject) {
-    const modelId = uniqueId('group-field-');
-    const modelConfiguration: DynamicGroupModelConfig = this.initModel(modelId);
+    const modelConfiguration: DynamicGroupModelConfig = this.initModel();
 
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
       modelConfiguration.formConfiguration = this.configData.rows;
@@ -27,6 +26,9 @@ export class GroupFieldParser extends FieldParser {
       this.configData.rows.forEach((row: FormRowModel) => {
         row.fields.forEach((field: FormFieldModel) => {
           if (field.selectableMetadata[0].metadata === this.configData.selectableMetadata[0].metadata) {
+            if (!this.configData.mandatory) {
+              throw new Error(`Configuration not valid: Main field ${this.configData.selectableMetadata[0].metadata} may be mandatory`);
+            }
             modelConfiguration.mandatoryField = this.configData.selectableMetadata[0].metadata;
           } else {
             modelConfiguration.relationFields.push(field.selectableMetadata[0].metadata);
@@ -38,25 +40,18 @@ export class GroupFieldParser extends FieldParser {
     }
 
     if (isNotEmpty(this.getInitGroupValues())) {
-      modelConfiguration.storedValue = [];
+      modelConfiguration.value = [];
       const mandatoryFieldEntries: FormFieldMetadataValueObject[] = this.getInitFieldValues(modelConfiguration.mandatoryField);
       mandatoryFieldEntries.forEach((entry, index) => {
         const item = Object.create(null);
         const listFields = modelConfiguration.relationFields.concat(modelConfiguration.mandatoryField);
         listFields.forEach((fieldId) => {
           const value = this.getInitFieldValue(0, index, [fieldId]);
-          if (value.authority && value.authority.length > 0) {
-            const authorityValue = {
-              id: value.authority,
-              value: value.value,
-              display: value.value
-            } as AuthorityModel;
-            item[fieldId] = authorityValue;
-          } else {
-            item[fieldId] = value.value;
+          if (value) {
+            item[fieldId] = value;
           }
         });
-        modelConfiguration.storedValue.push(item);
+        modelConfiguration.value.push(item);
       })
     }
     const cls = {
@@ -64,7 +59,10 @@ export class GroupFieldParser extends FieldParser {
         container: 'mb-0'
       }
     };
-    return new DynamicGroupModel(modelConfiguration, cls);
+
+    const model = new DynamicGroupModel(modelConfiguration, cls);
+    model.name = this.getFieldId()[0];
+    return model;
   }
 
 }

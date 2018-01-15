@@ -36,7 +36,7 @@ export class DsDynamicGroupComponent implements OnInit {
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
     this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(config, {});
-    this.chips = new Chips(this.model.storedValue, 'value', this.model.mandatoryField);
+    this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);
   }
 
   isMandatoryFieldEmpty() {

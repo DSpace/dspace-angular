@@ -12,7 +12,7 @@ export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any
   authorityScope: string;
   groupLength: number;
   repeatable: boolean;
-  storedValue: any;
+  value?: any;
 }
 
 export class DynamicListRadioGroupModel extends DynamicRadioGroupModel<any> {
@@ -22,8 +22,6 @@ export class DynamicListRadioGroupModel extends DynamicRadioGroupModel<any> {
   @serializable() authorityScope: string;
   @serializable() repeatable: boolean;
   @serializable() groupLength: number;
-  @serializable() storedValue: any;
-  @serializable() internalValue: AuthorityModel[];
 
   constructor(config: DynamicListModelConfig, cls?: ClsConfig) {
     super(config, cls);
@@ -32,9 +30,8 @@ export class DynamicListRadioGroupModel extends DynamicRadioGroupModel<any> {
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
     this.groupLength = config.groupLength || 5;
-    this.internalValue = [];
     this.repeatable = config.repeatable;
-    this.storedValue = config.storedValue;
+    this.valueUpdates.next(config.value);
   }
 
 }

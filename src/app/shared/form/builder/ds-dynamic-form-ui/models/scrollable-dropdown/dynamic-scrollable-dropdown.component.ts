@@ -76,7 +76,9 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
 
   onSelect(event) {
     this.group.markAsDirty();
-    this.group.get(this.model.id).setValue(event);
+    // (this.model as DynamicScrollableDropdownModel).parent as
+    // this.group.get(this.model.id).setValue(event);
+    this.model.valueUpdates.next(event)
     this.change.emit(event);
   }
 }

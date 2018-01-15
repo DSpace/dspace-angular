@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../ngrx/type';
-import { FormGroup } from '@angular/forms';
 
 /**
  * For each action type in an action group, make a simple
@@ -26,7 +25,7 @@ export class FormInitAction implements Action {
   type = FormActionTypes.FORM_INIT;
   payload: {
     formId: string;
-    formData: FormGroup;
+    formData: any;
     valid: boolean;
   };
 
@@ -40,8 +39,8 @@ export class FormInitAction implements Action {
    * @param valid
    *    the Form validation status
    */
-  constructor(formId: string, formData: FormGroup, valid: boolean) {
-    this.payload = { formId, formData, valid };
+  constructor(formId: string, formData: any, valid: boolean) {
+    this.payload = {formId, formData, valid};
   }
 }
 
@@ -49,7 +48,7 @@ export class FormChangeAction implements Action {
   type = FormActionTypes.FORM_CHANGE;
   payload: {
     formId: string;
-    formData: FormGroup;
+    formData: any;
   };
 
   /**
@@ -57,11 +56,11 @@ export class FormChangeAction implements Action {
    *
    * @param formId
    *    the Form's ID
-   * @param formObject
+   * @param formData
    *    the FormGroup Object
    */
-  constructor(formId: string, formData: FormGroup) {
-    this.payload = { formId, formData };
+  constructor(formId: string, formData: any) {
+    this.payload = {formId, formData};
   }
 }
 
@@ -78,7 +77,7 @@ export class FormRemoveAction implements Action {
    *    the Form's ID
    */
   constructor(formId: string) {
-    this.payload = { formId };
+    this.payload = {formId};
   }
 }
 
@@ -98,7 +97,7 @@ export class FormStatusChangeAction implements Action {
    *    the Form validation status
    */
   constructor(formId: string, valid: boolean) {
-    this.payload = { formId, valid };
+    this.payload = {formId, valid};
   }
 }
 
@@ -111,7 +110,7 @@ export class FormAddError implements Action {
   };
 
   constructor(formId: string, fieldId: string, errorMessage: string) {
-    this.payload = { formId, fieldId, errorMessage };
+    this.payload = {formId, fieldId, errorMessage};
   }
 }
 

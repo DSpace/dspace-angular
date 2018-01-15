@@ -11,7 +11,7 @@ export class DynamicComboboxModel  extends DynamicFormGroupModel {
    return (this.get(1) as DynamicInputModel).value;
   }
 
-  get path() {
-    return (this.get(0) as DynamicInputModel).value;
+  get qualdropId(): string {
+    return (this.get(0) as DynamicInputModel).value.toString();
   }
 }

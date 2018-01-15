@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs/Subject';
+
 import {
   ClsConfig,
   DynamicCheckboxGroupModel,
@@ -12,7 +14,7 @@ export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupMod
   authorityScope: string;
   groupLength: number;
   repeatable: boolean;
-  storedValue: any;
+  value?: any;
 }
 
 export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
@@ -22,8 +24,8 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
   @serializable() authorityScope: string;
   @serializable() repeatable: boolean;
   @serializable() groupLength: number;
-  @serializable() storedValue: any;
-  @serializable() internalValue: AuthorityModel[];
+  @serializable() _value: AuthorityModel[];
+  valueUpdates: Subject<any>;
 
   constructor(config: DynamicListCheckboxGroupModelConfig, cls?: ClsConfig) {
     super(config, cls);
@@ -32,12 +34,27 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
     this.groupLength = config.groupLength || 5;
-    this.internalValue = [];
+    this._value = [];
     this.repeatable = config.repeatable;
-    this.storedValue = config.storedValue;
+
+    this.valueUpdates = new Subject<any>();
+    this.valueUpdates.subscribe((value: AuthorityModel | AuthorityModel[]) => this.value = value);
+    this.valueUpdates.next(config.value);
   }
 
   get value() {
-    return this.internalValue;
+    return this._value;
+  }
+
+  set value(value: AuthorityModel | AuthorityModel[]) {
+    if (value) {
+      if (Array.isArray(value)) {
+        this._value = value;
+      } else {
+        // _value is non extendible so assign it a new array
+        const newValue = (this.value as AuthorityModel[]).concat([value]);
+        this._value = newValue
+      }
+    }
   }
 }

@@ -5,7 +5,7 @@
 
   <label *ngIf="type !== 3 && model.label"
          [attr.for]="model.id"
-         [innerHTML]="model.required? model.label + ' *' : model.label"
+         [innerHTML]="(model.required && model.label) ? model.label + ' *' : model.label"
          [ngClass]="[model.cls.element.label, model.cls.grid.label]"></label>
 
 
