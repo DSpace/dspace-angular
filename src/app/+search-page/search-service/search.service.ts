@@ -102,7 +102,7 @@ export class SearchService implements OnDestroy {
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
-    const error = new RemoteDataError('200', undefined);
+    const error = undefined;
     const returningPageInfo = new PageInfo();
 
     if (isNotEmpty(searchOptions)) {
@@ -158,7 +158,7 @@ export class SearchService implements OnDestroy {
     const requestPending = false;
     const responsePending = false;
     const isSuccessful = true;
-    const error = new RemoteDataError('200', undefined);
+    const error = undefined;
     return Observable.of(new RemoteData(
       requestPending,
       responsePending,
@@ -186,7 +186,7 @@ export class SearchService implements OnDestroy {
         const requestPending = false;
         const responsePending = false;
         const isSuccessful = true;
-        const error = new RemoteDataError('200', undefined);;
+        const error = undefined;
         return new RemoteData(
           requestPending,
           responsePending,

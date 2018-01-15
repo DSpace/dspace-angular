@@ -182,7 +182,7 @@ describe('MetadataService', () => {
       false,
       false,
       true,
-      new RemoteDataError('200', ''),
+      undefined,
       MockItem
     ));
   }
