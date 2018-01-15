@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges,} from '@angular/core';
-import {Chips} from './chips.model';
+import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges, } from '@angular/core';
+import { Chips, ChipsItem } from './chips.model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'ds-chips',
@@ -12,10 +13,22 @@ export class ChipsComponent implements OnChanges {
   selected = new EventEmitter<number>();
   @Output()
   remove = new EventEmitter<number>();
+  @Output()
+  change = new EventEmitter<any>();
   @Input()
   chips: Chips;
   @Input()
   editable;
+  options;
+
+  constructor() {
+    this.options = {
+      onUpdate: (event: any) => {
+        this.onDrop(event);
+      },
+      animation: 300,
+    };
+  }
 
   ngOnInit() {
     if (!this.editable) {
@@ -24,19 +37,13 @@ export class ChipsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log('ngOnChanges...' + JSON.stringify(changes));
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
-      // console.log('ngOnChanges items=' + JSON.stringify(this.chips));
+      // this.sortChips();
     }
   }
 
   chipsSelected(index) {
-    // Case Editable, set different color ang go back managed by external component
-    // Case not editable, set different color and go back on blur
-    // if (!this.chips.chipsItems[index].editMode) {
-    //   // Can't reselect if selected yet
-    //   this.chips.chipsItems[index].editMode = true
     this.chips.chipsItems.forEach((item, i) => {
       if (i === index) {
         item.editMode = true;
@@ -46,9 +53,6 @@ export class ChipsComponent implements OnChanges {
     });
     ;
     this.selected.emit(index);
-
-
-    // }
   }
 
   chipsBlur(index) {
@@ -59,11 +63,16 @@ export class ChipsComponent implements OnChanges {
   }
 
   removeChips(index) {
+    // Can't remove if this element is in editMode
     if (!this.chips.chipsItems[index].editMode) {
-      // Can't remove if this element is in editMode
       this.chips.remove(index);
       this.remove.emit(index);
     }
+  }
+
+  onDrop(event) {
+    // console.log(event);
+    this.change.emit(event);
   }
 
 }

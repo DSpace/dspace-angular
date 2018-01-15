@@ -1,5 +1,8 @@
 <div class="chips-box">
-  <div id="chips-container">
+  <div
+    id="chips-container"
+    [sortablejs]="chips.chipsItems"
+    [sortablejsOptions]="options">
 
   <span *ngFor="let c of chips.chipsItems; let i = index"
         class="chips"
@@ -22,3 +25,38 @@
 
 
 </div>
+
+
+
+
+
+
+
+
+<!--<div class="chips-box">-->
+  <!--<div id="chips-container"  dnd-sortable-container [sortableData]="chips.chipsItems">-->
+
+  <!--<span *ngFor="let c of chips.chipsItems; let i = index"-->
+        <!--class="chips"-->
+        <!--[ngClass]="{'selected': c.editMode}"-->
+        <!--(click)="chipsSelected(i)"-->
+        <!--(mouseout)="chipsBlur(i)"-->
+        <!--dnd-sortable [sortableIndex]="i"-->
+        <!--[dragData]="c"-->
+        <!--(onDropSuccess)="onMove($event, i)">-->
+
+    <!--<ng-container *ngIf="c.item.icons && c.item.icons.length > 0">-->
+      <!--<i *ngFor="let icon of c.item.icons"-->
+         <!--class="fa {{icon}}"-->
+         <!--aria-hidden="true"></i>-->
+    <!--</ng-container>-->
+
+    <!--<span class="chips-item">-->
+      <!--{{c.display}}-->
+    <!--</span>-->
+    <!--<span [ngClass]="{'invisible': editable&&c.editMode}" class="fa fa-times" (click)="removeChips(i)"></span>-->
+  <!--</span>-->
+  <!--</div>-->
+
+
+<!--</div>-->

@@ -16,7 +16,7 @@ export class Chips {
   public add(item: any) {
     const chipsItem = {
       id: _.uniqueId(),
-      order: this.chipsItems.length,
+      // order: this.chipsItems.length,
       display: this.getDisplayText(item),
       editMode: false,
       item: item,
@@ -47,7 +47,7 @@ export class Chips {
     items.forEach((item, index) => {
       const chipsItem = {
         id: _.uniqueId(),
-        order: this.chipsItems.length,
+        // order: this.chipsItems.length,
         display: this.getDisplayText(item),
         editMode: false,
         item: item,
@@ -89,7 +89,6 @@ export class Chips {
 
 export interface ChipsItem {
   id: string,
-  order: number,
   display: string,
   editMode?: boolean,
   item: any

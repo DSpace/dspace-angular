@@ -71,7 +71,14 @@ export class DsDynamicGroupComponent implements OnInit {
     this.editMode = true;
   }
 
+  changeChips(event) {
+    this.model.valueUpdates.next(this.chips.getItems());
+    this.change.emit(event);
+  }
+
   exitEditMode() {
+    this.selectedChips.editMode = false;
+    this.selectedChips = null;
     this.editMode = false;
     this.resetForm();
     this.change.emit(event);
@@ -84,6 +91,8 @@ export class DsDynamicGroupComponent implements OnInit {
 
     this.editMode = false;
     this.resetForm();
+
+    this.model.valueUpdates.next(this.chips.getItems());
     this.change.emit(event);
   }
 

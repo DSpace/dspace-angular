@@ -19,6 +19,8 @@ module.exports = {
       /@ng/,
       /angular2-text-mask/,
       /ng2-file-upload/,
+      /angular-sortablejs/,
+      /sortablejs/,
       /ngx/]
   })],
 };
