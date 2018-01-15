@@ -5,6 +5,7 @@ import { IntegrationSearchOptions } from '../../../../core/integration/models/in
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
+import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 
 export class ListFieldParser extends FieldParser {
   searchOptions: IntegrationSearchOptions;
@@ -23,7 +24,17 @@ export class ListFieldParser extends FieldParser {
       && this.configData.selectableMetadata[0].authority.length > 0) {
 
       if (isNotEmpty(this.getInitGroupValues())) {
-        listModelConfig.storedValue = this.getInitGroupValues();
+        listModelConfig.value = [];
+        this.getInitGroupValues().forEach((value: any) => {
+          if (value instanceof AuthorityModel) {
+            listModelConfig.value.push(value);
+          } else {
+            const authorityValue: AuthorityModel = new AuthorityModel();
+            authorityValue.value = value;
+            authorityValue.display = value;
+            listModelConfig.value.push(authorityValue);
+          }
+        });
       }
       listModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
       listModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
@@ -38,7 +49,7 @@ export class ListFieldParser extends FieldParser {
       listModelConfig.options = [];
       listModel = new DynamicListRadioGroupModel(listModelConfig);
     }
-    listModel.name = this.getFieldId()[0];
+    listModel.name = this.fieldId;
 
     return listModel;
   }

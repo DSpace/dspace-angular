@@ -17,7 +17,7 @@ export class ConcatFieldParser extends FieldParser {
     this.separator = separator;
   }
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
+  public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
 
     let clsGroup: ClsConfig;
     let clsInput: ClsConfig;
@@ -32,17 +32,18 @@ export class ConcatFieldParser extends FieldParser {
       }
     };
 
-    const concatGroup: DynamicConcatModelConfig = Object.create(null);
-    concatGroup.id = newId.replace(/\./g, '_') + CONCAT_GROUP_SUFFIX;
+    const groupId = newId.replace(/\./g, '_') + CONCAT_GROUP_SUFFIX;
+    const concatGroup: DynamicConcatModelConfig = this.initModel(groupId, false, false);
+
     concatGroup.group = [];
     concatGroup.separator = this.separator;
 
-    const input1ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_FIRST_INPUT_SUFFIX, true, false);
-    const input2ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_SECOND_INPUT_SUFFIX, true, true);
+    const input1ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_FIRST_INPUT_SUFFIX, true, false, false);
+    const input2ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_SECOND_INPUT_SUFFIX, true, true, false);
 
     // Init values
     if (isNotEmpty(fieldValue)) {
-      const  values = fieldValue.value.split(this.separator);
+      const  values = fieldValue.split(this.separator);
 
       if (values.length > 1) {
         input1ModelConfig.value = values[0];

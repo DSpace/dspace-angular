@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { find, findKey, pull } from 'lodash';
+import { findKey, pull } from 'lodash';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
@@ -18,7 +18,7 @@ export interface ListItem {
   label: string,
   value: boolean,
   index: number
-};
+}
 
 @Component({
   selector: 'ds-dynamic-list',
@@ -62,19 +62,19 @@ export class DsDynamicListComponent implements OnInit {
     this.blur.emit(event);
   }
 
-  onFocusEvent($event) {
+  onFocusEvent(event: Event) {
     this.focus.emit(event);
   }
 
-  onChangeEvent($event) {
+  onChangeEvent(event: Event) {
     const target = event.target as any;
     if (this.model.repeatable) {
       // Target tabindex coincide with the array index of the value into the authority list
-      const authorityValue = this.authorityList[target.tabIndex];
+      const authorityValue: AuthorityModel = this.authorityList[target.tabIndex];
       if (target.checked) {
-        this.model.internalValue.push(authorityValue);
+        this.model.valueUpdates.next(authorityValue);
       } else {
-        this.model.internalValue = pull(this.model.internalValue, authorityValue);
+        this.model.valueUpdates.next(pull(this.model.value, authorityValue));
       }
     } else {
       (this.model as DynamicListRadioGroupModel).valueUpdates.next(this.authorityList[target.value]);
@@ -94,15 +94,9 @@ export class DsDynamicListComponent implements OnInit {
         (authorities.payload as ConfigAuthorityModel[]).forEach((option, key) => {
           const value = option.id || option.value;
           const checked: boolean = isNotEmpty(findKey(
-            this.model.storedValue,
+            this.model.value,
             {value: option.value}));
-          if (checked) {
-            if (this.model.repeatable) {
-              this.model.internalValue.push(option)
-            } else {
-              (this.model as DynamicListRadioGroupModel).valueUpdates.next(option);
-            }
-          }
+
           const item: ListItem = {
             id: value,
             label: option.display,

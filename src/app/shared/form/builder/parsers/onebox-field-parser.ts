@@ -29,7 +29,7 @@ export class OneboxFieldParser extends FieldParser {
     super(configData, initFormValues);
   }
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
+  public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
     if (this.configData.selectableMetadata.length > 1) {
       let clsGroup: ClsConfig;
       let clsSelect: ClsConfig;
@@ -85,12 +85,15 @@ export class OneboxFieldParser extends FieldParser {
       typeaheadModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
       typeaheadModelConfig.authorityScope = this.authorityUuid;
       if (isNotEmpty(fieldValue)) {
-        const authorityValue = {
-          id: fieldValue.authority,
-          value: fieldValue.value,
-          display: fieldValue.value
-        } as AuthorityModel;
-        typeaheadModelConfig.value = authorityValue;
+        // If value isn't an instance of AuthorityModel instantiate it
+        if (fieldValue instanceof AuthorityModel) {
+          typeaheadModelConfig.value = fieldValue;
+        } else {
+          const authorityValue: AuthorityModel = new AuthorityModel();
+          authorityValue.value = fieldValue;
+          authorityValue.display = fieldValue;
+          typeaheadModelConfig.value = authorityValue;
+        }
       }
       typeaheadModelConfig.minChars = 3;
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
@@ -101,7 +104,7 @@ export class OneboxFieldParser extends FieldParser {
       const inputModel = new DynamicInputModel(inputModelConfig);
       inputModel.name = this.fieldId;
       if (isNotEmpty(fieldValue)) {
-        inputModel.value = fieldValue.value;
+        inputModel.value = fieldValue;
       }
       return inputModel;
     }

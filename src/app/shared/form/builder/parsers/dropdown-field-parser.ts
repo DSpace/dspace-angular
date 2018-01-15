@@ -30,12 +30,7 @@ export class DropdownFieldParser extends FieldParser {
       dropdownModelConfig.authorityScope = this.authorityUuid;
       dropdownModelConfig.maxOptions = 10;
       if (isNotEmpty(fieldValue)) {
-        const authorityValue = {
-          id: fieldValue.authority,
-          value: fieldValue.value,
-          display: fieldValue.value
-        } as AuthorityModel;
-        dropdownModelConfig.value = authorityValue;
+        dropdownModelConfig.value = fieldValue;
       }
       cls = {
         element: {
@@ -45,20 +40,11 @@ export class DropdownFieldParser extends FieldParser {
           host: 'col'
         }
       };
-      const dropdownGroup: DynamicFormGroupModel = Object.create(null);
-      dropdownGroup.id = dropdownModelConfig.id + '_group';
-      dropdownGroup.group = [ new DynamicScrollableDropdownModel(dropdownModelConfig, cls) ];
-      dropdownGroup.group[ 0 ].name = this.fieldId;
-
-      cls = {
-        element: {
-          control: 'form-row'
-        }
-      };
-      return new DynamicFormGroupModel(dropdownGroup, cls);
+      const dropdownMpdel = new DynamicScrollableDropdownModel(dropdownModelConfig, cls);
+      dropdownMpdel.name = this.fieldId;
+      return dropdownMpdel;
     } else {
-      return null;
-      // throw  Error(`Authority name is not available. Please checks form configuration file.`);
+      throw  Error(`Authority name is not available. Please checks form configuration file.`);
     }
   }
 }
