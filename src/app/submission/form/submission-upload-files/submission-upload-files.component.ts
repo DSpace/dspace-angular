@@ -6,6 +6,7 @@ import { hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util
 import { WorkspaceitemSectionUploadFileObject } from '../../models/workspaceitem-section-upload-file.model';
 import { SubmissionRestService } from '../../submission-rest.service';
 import { WorkspaceitemObject } from '../../models/workspaceitem.model';
+import { normalizeSectionData } from '../../models/workspaceitem-sections.model';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -57,14 +58,12 @@ export class SubmissionUploadFilesComponent implements OnChanges {
             const { sections } = workspaceitem;
             if (sections && isNotEmpty(sections)) {
               Object.keys(sections)
-                .forEach((sectionId) => this.sectionService.updateSectionData(this.submissionId, sectionId, sections[sectionId]))
+                .forEach((sectionId) => {
+                  const sectionData = normalizeSectionData(sections[sectionId]);
+                  console.log(sectionData, sections[sectionId]);
+                  this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData)
+                })
             }
-            /*this.sectionUploadService.addUploadedFile(
-              this.submissionId,
-              this.sectionId,
-              workspaceitemData.uuid,
-              workspaceitemData
-            )*/
           })
       );
     }
