@@ -24,8 +24,8 @@
         <button class="dropdown-item disabled" *ngIf="searchListCollection.length == 0">No results found</button>
         <button class="dropdown-item collection-item" *ngFor="let listItem of searchListCollection" (click)="onSelect(listItem)" title="{{ listItem.collection.name }}">
           <ul class="list-unstyled mb-0">
-            <li class="list-item text-truncate" *ngFor="let item of listItem.communities" >{{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i></li>
-            <li class="list-item text-truncate">{{ listItem.collection.name}}</li>
+            <li class="list-item text-truncate text-secondary" *ngFor="let item of listItem.communities" >{{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i></li>
+            <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</li>
           </ul>
         </button>
       </div>

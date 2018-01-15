@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SectionModelComponent } from '../section.model';
 import { Store } from '@ngrx/store';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { Subscription } from 'rxjs/Subscription';
-import { isNotUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotUndefined } from '../../../shared/empty.util';
 import { License } from '../../../core/shared/license.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
@@ -21,7 +21,7 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
 })
-export class LicenseSectionComponent extends SectionModelComponent implements OnInit {
+export class LicenseSectionComponent extends SectionModelComponent implements OnDestroy, OnInit {
 
   public formId;
   public formModel: DynamicFormControlModel[];
@@ -68,4 +68,10 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
     }
   }
+  ngOnDestroy() {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
+  }
+
 }

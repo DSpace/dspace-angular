@@ -11,7 +11,7 @@ export interface DynamicGroupModelConfig extends DynamicInputModelConfig {
   mandatoryField: string,
   name: string,
   relationFields: string[],
-  storedValue: any[];
+  value?: any;
 }
 
 /**
@@ -21,7 +21,7 @@ export class DynamicGroupModel extends DynamicInputModel {
   @serializable() formConfiguration: FormRowModel[];
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
-  @serializable() storedValue: any[];
+  @serializable() value: any[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION;
 
   constructor(config: DynamicGroupModelConfig, cls?: ClsConfig) {
@@ -30,6 +30,7 @@ export class DynamicGroupModel extends DynamicInputModel {
     this.formConfiguration = config.formConfiguration;
     this.mandatoryField = config.mandatoryField;
     this.relationFields = config.relationFields;
-    this.storedValue = config.storedValue;
+    const value = config.value || [];
+    this.valueUpdates.next(value)
   }
 }
