@@ -20,6 +20,7 @@ export class ChipsComponent implements OnChanges {
   @Input()
   editable;
   options;
+  dragged = -1;
 
   constructor() {
     this.options = {
@@ -70,8 +71,16 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
+  onDrag(event) {
+    this.dragged = event;
+  }
+
+  onDragEnd(event) {
+    this.dragged = -1;
+    this.change.emit(event);
+  }
+
   onDrop(event) {
-    // console.log(event);
     this.change.emit(event);
   }
 
