@@ -13,9 +13,8 @@ export interface DynamicTagModelConfig extends DynamicInputModelConfig {
   authorityName: string;
   authorityScope: string;
   minChars: number;
-  value: any;
-  chips: Chips;
-  storedValue: any[];
+  value?: any;
+  // chips: Chips;
 }
 
 export class DynamicTagModel extends DynamicInputModel {
@@ -24,9 +23,9 @@ export class DynamicTagModel extends DynamicInputModel {
   @serializable() authorityName: string;
   @serializable() authorityScope: string;
   @serializable() minChars: number;
+  @serializable() value: any[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TAG;
-  @serializable() chips: Chips;
-  @serializable() storedValue: any[];
+  // @serializable() chips: Chips;
 
   constructor(config: DynamicTagModelConfig, cls?: ClsConfig) {
 
@@ -37,8 +36,9 @@ export class DynamicTagModel extends DynamicInputModel {
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
     this.minChars = config.minChars;
-    this.chips = config.chips || new Chips();
-    this.storedValue = config.storedValue;
+    // this.chips = config.chips || new Chips();
+    const value = config.value || [];
+    this.valueUpdates.next(value)
   }
 
   // get value() {

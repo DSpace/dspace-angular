@@ -26,7 +26,7 @@ export class DsDynamicTagComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
-  // chips: Chips;
+  chips: Chips;
   placeholder = 'Enter tags...';
   inputText: string;
 
@@ -79,22 +79,40 @@ export class DsDynamicTagComponent implements OnInit {
         this.model.authorityMetadata);
     }
 
-    if (this.model.storedValue && this.model.storedValue.length > 0) {
-      // Values found in edit
-      this.model.storedValue.forEach( (v) => {
-        let item;
-        if (withAuthority) {
-          item = {
-            id: v.authority || v.value,
-            value: v.value,
-            display: v.value
-          } as AuthorityModel;
-        } else {
-          item = v;
-        }
-        this.model.chips.add(item);
-      });
+    if (withAuthority) {
+      this.chips = new Chips(this.model.value, 'display');
+      // this.model.value.forEach( (v) => {
+      //       let item;
+      //       if (withAuthority) {
+      //         item = {
+      //           id: v.authority || v.value,
+      //           value: v.value,
+      //           display: v.value
+      //         } as AuthorityModel;
+      //       } else {
+      //         item = v;
+      //       }
+      //       this.chips.add(item);
+      //     });
+    } else {
+      this.chips = new Chips(this.model.value, 'display');
     }
+    // if (this.model.storedValue && this.model.storedValue.length > 0) {
+    //   // Values found in edit
+    //   this.model.storedValue.forEach( (v) => {
+    //     let item;
+    //     if (withAuthority) {
+    //       item = {
+    //         id: v.authority || v.value,
+    //         value: v.value,
+    //         display: v.value
+    //       } as AuthorityModel;
+    //     } else {
+    //       item = v;
+    //     }
+    //     this.model.chips.add(item);
+    //   });
+    // }
   }
 
   onInput(event) {
@@ -104,6 +122,11 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onBlurEvent(event: Event) {
+    if (this.chips.displayObj === null) {
+      if (this.inputText != null && this.inputText.length > 0) {
+        this.addTagsToChips();
+      }
+    }
     this.blur.emit(event);
   }
 
@@ -112,7 +135,7 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
-    this.model.chips.add(event.item);
+    this.chips.add(event.item);
     // this.group.controls[this.model.id].setValue(this.model.value);
     this.updateModel(event);
 
@@ -123,23 +146,21 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   updateModel(event) {
-    this.model.valueUpdates.next(this.model.chips.getItems());
+    this.model.valueUpdates.next(this.chips.getItems());
     this.change.emit(event);
   }
 
   onKeyUp(event) {
     if (event.keyCode === 13 || event.keyCode === 188) {
       // Key: Enter or , or ;
-      this.addTagsToChips(this.inputText);
-      this.inputText = '';
-      this.updateModel(event);
+      this.addTagsToChips();
     }
 
   }
 
-  private addTagsToChips(text: string) {
+  private addTagsToChips() {
     let res: string[] = [];
-    res = text.split(',');
+    res = this.inputText.split(',');
 
     const res1 = [];
     res.forEach((item) => {
@@ -151,9 +172,13 @@ export class DsDynamicTagComponent implements OnInit {
     res1.forEach((c) => {
       c = c.trim();
       if (c.length > 0) {
-        this.model.chips.add(c);
+        this.chips.add(c);
       }
     });
+
+    this.inputText = '';
+    this.updateModel(event);
+
   }
 
   chipsSelected(event) {
@@ -162,12 +187,12 @@ export class DsDynamicTagComponent implements OnInit {
 
   removeChips(event) {
     // console.log("Removed chips index: "+event);
-    this.model.valueUpdates.next(this.model.chips.getItems());
+    this.model.valueUpdates.next(this.chips.getItems());
     this.change.emit(event);
   }
 
   changeChips(event) {
-    this.model.valueUpdates.next(this.model.chips.getItems());
+    this.model.valueUpdates.next(this.chips.getItems());
     this.change.emit(event);
   }
 }
