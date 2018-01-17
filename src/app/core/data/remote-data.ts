@@ -1,5 +1,7 @@
 import { PageInfo } from '../shared/page-info.model';
 import { hasValue } from '../../shared/empty.util';
+import { Equatable } from '../shared/equatable.mixin';
+import { applyMixins } from 'rxjs/util/applyMixins';
 
 export enum RemoteDataState {
   RequestPending = 'RequestPending',
@@ -11,7 +13,9 @@ export enum RemoteDataState {
 /**
  * A class to represent the state of a remote resource
  */
-export class RemoteData<T> {
+export class RemoteData<T> implements Equatable {
+  equals: (that: RemoteData<T>) => boolean;
+
   constructor(
     public self: string,
     private requestPending: boolean,
@@ -56,5 +60,5 @@ export class RemoteData<T> {
   get hasSucceeded(): boolean {
     return this.state === RemoteDataState.Success;
   }
-
 }
+applyMixins(RemoteData, [Equatable]);

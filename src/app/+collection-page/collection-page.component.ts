@@ -17,6 +17,7 @@ import { Item } from '../core/shared/item.model';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { compareEquatables } from '../core/shared/equatable.mixin';
 
 @Component({
   selector: 'ds-collection-page',
@@ -43,30 +44,38 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     private metadata: MetadataService,
     private route: ActivatedRoute
   ) {
-    this.paginationConfig = new PaginationComponentOptions();
-    this.paginationConfig.id = 'collection-page-pagination';
-    this.paginationConfig.pageSize = 5;
-    this.paginationConfig.currentPage = 1;
+    this.paginationConfig = {
+      id: 'collection-page-pagination',
+      pageSize: 5
+    } as PaginationComponentOptions;
     this.sortConfig = new SortOptions();
   }
 
   ngOnInit(): void {
-    this.subs.push(
-      Observable.combineLatest(
-        this.route.params,
-        this.route.queryParams,
-        (params, queryParams, ) => {
-          return Object.assign({}, params, queryParams);
-        })
-        .subscribe((params) => {
-          this.collectionId = params.id;
-          this.collectionRDObs = this.collectionDataService.findById(this.collectionId);
-          this.metadata.processRemoteData(this.collectionRDObs);
-          this.subs.push(this.collectionRDObs
-            .map((rd: RemoteData<Collection>) => rd.payload)
-            .filter((collection: Collection) => hasValue(collection))
-            .subscribe((collection: Collection) => this.logoRDObs = collection.logo));
+    const paramObs = Observable.combineLatest(
+      this.route.params,
+      this.route.queryParams,
+      (params, queryParams, ) => {
+        return Object.assign({}, params, queryParams);
+      });
 
+    this.collectionRDObs = paramObs.map((params) => params.id)
+      .flatMap((id: string) => this.collectionDataService.findById(id))
+      .distinctUntilChanged(compareEquatables);
+
+    this.collectionRDObs.subscribe((c) => console.log('c', c.state, c.payload));
+
+    this.metadata.processRemoteData(this.collectionRDObs);
+
+    this.logoRDObs = this.collectionRDObs
+      .map((rd: RemoteData<Collection>) => rd.payload)
+      .filter((collection: Collection) => hasValue(collection))
+      .flatMap((collection: Collection) => collection.logo)
+      .distinctUntilChanged(compareEquatables);
+
+    this.subs.push(
+      paramObs.subscribe((params) => {
+          this.collectionId = params.id;
           const page = +params.page || this.paginationConfig.currentPage;
           const pageSize = +params.pageSize || this.paginationConfig.pageSize;
           const sortDirection = +params.page || this.sortConfig.direction;

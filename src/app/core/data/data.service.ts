@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { GlobalConfig } from '../../../config';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -12,6 +12,7 @@ import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, RestRequest } from './request.models';
 import { RequestService } from './request.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { compareEquatables } from '../shared/equatable.mixin';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> extends HALEndpointService {
   protected abstract responseCache: ResponseCacheService;
@@ -75,7 +76,9 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
+    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType)
+      .distinctUntilChanged(compareEquatables)
+
   }
 
   getFindByIDHref(endpoint, resourceID): string {
@@ -94,12 +97,14 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
+    return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs, this.normalizedResourceType)
+      .distinctUntilChanged(compareEquatables);
   }
 
   findByHref(href: string): Observable<RemoteData<TDomain>> {
     this.requestService.configure(new RestRequest(href));
-    return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
+    return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType)
+      .distinctUntilChanged(compareEquatables);
   }
 
 }

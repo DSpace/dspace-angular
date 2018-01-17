@@ -5,11 +5,13 @@ import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { Observable } from 'rxjs/Observable';
+import { Equatable } from './equatable.mixin';
+import { applyMixins } from 'rxjs/util/applyMixins';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
-export abstract class DSpaceObject implements CacheableObject, ListableObject {
+export abstract class DSpaceObject implements CacheableObject, ListableObject, Equatable {
 
   self: string;
 
@@ -47,6 +49,8 @@ export abstract class DSpaceObject implements CacheableObject, ListableObject {
    * The DSpaceObject that owns this DSpaceObject
    */
   owner: Observable<RemoteData<DSpaceObject>>;
+
+  equals: (o: DSpaceObject) => boolean;
 
   /**
    * Find a metadata field by key and language
@@ -87,3 +91,4 @@ export abstract class DSpaceObject implements CacheableObject, ListableObject {
   }
 
 }
+applyMixins(DSpaceObject, [Equatable]);

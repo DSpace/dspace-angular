@@ -1,9 +1,11 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
+import { Equatable } from './equatable.mixin';
+import { applyMixins } from 'rxjs/util/applyMixins';
 
 /**
  * Represents the state of a paginated response
  */
-export class PageInfo {
+export class PageInfo implements Equatable {
   /**
    * The number of elements on a page
    */
@@ -28,4 +30,6 @@ export class PageInfo {
   @autoserializeAs(Number, 'number')
   currentPage: number;
 
+  equals: (o: PageInfo) => boolean;
 }
+applyMixins(PageInfo, [Equatable]);

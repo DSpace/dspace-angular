@@ -195,9 +195,6 @@ describe('Pagination component', () => {
   }));
 
   it('should render', () => {
-    expect(testComp.paginationOptions.id).toEqual('test');
-    expect(testComp.paginationOptions.currentPage).toEqual(1);
-    expect(testComp.paginationOptions.pageSize).toEqual(10);
     expectPages(testFixture, ['-« Previous', '+1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '» Next']);
   });
 
