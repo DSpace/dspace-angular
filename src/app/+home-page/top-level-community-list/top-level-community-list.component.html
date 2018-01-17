@@ -1,15 +1,13 @@
 <ng-container *ngVar="(communitiesRDObs | async) as communitiesRD">
-  <div *ngIf="communitiesRD?.hasSucceeded" @fadeInOut>
-    <h2>{{'home.top-level-communities.head' | translate}}</h2>
-    <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
-    <ds-object-list
-      [config]="config"
-      [sortConfig]="sortConfig"
-      [objects]="communitiesRD"
-      [hideGear]="true"
-      (paginationChange)="updatePage($event)">
-    </ds-object-list>
-  </div>
-  <ds-error *ngIf="communitiesRD?.hasFailed" message="{{'error.top-level-communites' | translate}}"></ds-error>
-  <ds-loading *ngIf="communitiesRD?.isLoading" message="{{'loading.top-level-communities' | translate}}"></ds-loading>
-</ng-container>
+  <div *ngIf="communitiesRD?.hasSucceeded " @fadeInOut>
+  <h2>{{'home.top-level-communities.head' | translate}}</h2>
+  <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
+  <ds-viewable-collection
+    [config]="config"
+    [sortConfig]="sortConfig"
+    [objects]="communitiesRD"
+    (paginationChange)="updatePage($event)">
+  </ds-viewable-collection>
+</div>
+<ds-error *ngIf="communitiesRD?.hasFailed " message="{{'error.top-level-communites' | translate}}"></ds-error>
+<ds-loading *ngIf="communitiesRD?.isLoading " message="{{'loading.top-level-communities' | translate}}"></ds-loading></ng-container>

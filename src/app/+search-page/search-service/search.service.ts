@@ -9,10 +9,10 @@ import { SearchOptions } from '../search-options.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Metadatum } from '../../core/shared/metadatum.model';
 import { Item } from '../../core/shared/item.model';
-import { ItemSearchResult } from '../../object-list/search-result-list-element/item-search-result/item-search-result.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
+import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { RouteService } from '../../shared/route.service';
@@ -100,7 +100,7 @@ export class SearchService implements OnDestroy {
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
-    this.searchOptions = this.searchOptions;
+    this.searchOptions = searchOptions;
     let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}`;
     if (hasValue(scopeId)) {
       self += `&scope=${scopeId}`;
