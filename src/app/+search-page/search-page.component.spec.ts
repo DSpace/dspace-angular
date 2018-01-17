@@ -109,10 +109,10 @@ describe('SearchPageComponent', () => {
   });
 
   describe('when update search results is called', () => {
-    let pagination;
-    let sort;
+    let paginationUpdate;
+    let sortUpdate;
     beforeEach(() => {
-      pagination = Object.assign(
+      paginationUpdate = Object.assign(
         {},
         new PaginationComponentOptions(),
         {
@@ -120,7 +120,7 @@ describe('SearchPageComponent', () => {
           pageSize: 15
         }
       );
-      sort = Object.assign({},
+      sortUpdate = Object.assign({},
         new SortOptions(),
         {
           direction: SortDirection.Ascending,

@@ -14,7 +14,7 @@
     <h5>{{ 'search.sidebar.settings.rpp' | translate}}</h5>
 
     <select class="form-control" (change)="reloadRPP($event)">
-        <option *ngFor="let item of searchOptions.pagination.pageSizeOptions" [value]="item"
+        <option *ngFor="let item of pageSizeOptions" [value]="item"
                 [selected]="item === searchOptions.pagination.pageSize ? 'selected': null">
             {{item}}
         </option>

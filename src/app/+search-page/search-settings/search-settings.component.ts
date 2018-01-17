@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
-import { SearchOptions } from '../search-options.model';
+import { SearchOptions, ViewMode } from '../search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
@@ -20,6 +20,9 @@ export class SearchSettingsComponent implements OnInit {
    * Number of items per page.
    */
   public pageSize;
+  @Input() public pageSizeOptions;
+  public listPageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
+  public gridPageSizeOptions: number[] = [12, 24, 36, 48 , 50, 62, 74, 84];
 
   private sub;
   private scope: string;
@@ -36,6 +39,7 @@ export class SearchSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.searchOptions = this.service.searchOptions;
     this.pageSize = this.searchOptions.pagination.pageSize;
+    this.pageSizeOptions = this.searchOptions.pagination.pageSizeOptions;
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
@@ -45,6 +49,11 @@ export class SearchSettingsComponent implements OnInit {
         this.page  = +params.page || this.searchOptions.pagination.currentPage;
         this.pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
         this.direction = +params.sortDirection || this.searchOptions.sort.direction;
+        if (params.view === ViewMode.Grid) {
+          this.pageSizeOptions = this.gridPageSizeOptions;
+        } else {
+          this.pageSizeOptions = this.listPageSizeOptions;
+        }
       });
   }
 

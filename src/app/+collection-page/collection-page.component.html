@@ -41,13 +41,13 @@
     <ng-container *ngVar="(itemRDObs | async) as itemRD">
       <div *ngIf="itemRD?.hasSucceeded" @fadeIn>
         <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
-        <ds-object-list
+        <ds-viewable-collection
           [config]="paginationConfig"
           [sortConfig]="sortConfig"
           [objects]="itemRD"
           [hideGear]="false"
           (paginationChange)="onPaginationChange($event)">
-        </ds-object-list>
+        </ds-viewable-collection>
       </div>
       <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.recent-submissions' | translate}}"></ds-error>
       <ds-loading *ngIf="!itemRD || itemRD.isLoading" message="{{'loading.recent-submissions' | translate}}"></ds-loading>

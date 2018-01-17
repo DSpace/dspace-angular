@@ -1,8 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
-import { Http, RequestOptionsArgs, Headers } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
@@ -14,7 +13,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class DSpaceRESTv2Service {
 
-  constructor(private http: Http, @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
+  constructor(private http: HttpClient) {
 
   }
 
@@ -43,13 +42,13 @@ export class DSpaceRESTv2Service {
    * @param absoluteURL
    *      A URL
    * @param options
-   *      A RequestOptionsArgs object, with options for the http call.
-   * @return {Observable<string>}
-   *      An Observable<string> containing the response from the server
+   *      An object, with options for the http call.
+   * @return {Observable<DSpaceRESTV2Response>}
+   *      An Observable<DSpaceRESTV2Response> containing the response from the server
    */
-  get(absoluteURL: string, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
-    return this.http.get(absoluteURL, options)
-      .map((res) => ({ payload: res.json(), statusCode: res.statusText }))
+  get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
+    return this.http.get(absoluteURL, { observe: 'response' })
+      .map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.statusText }))
       .catch((err) => {
         console.log('Error: ', err);
         return Observable.throw(err);
