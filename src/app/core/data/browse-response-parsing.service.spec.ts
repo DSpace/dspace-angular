@@ -2,6 +2,7 @@ import { BrowseResponseParsingService } from './browse-response-parsing.service'
 import { BrowseEndpointRequest } from './request.models';
 import { BrowseSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
 import { BrowseDefinition } from '../shared/browse-definition.model';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 describe('BrowseResponseParsingService', () => {
   let service: BrowseResponseParsingService;
@@ -48,7 +49,7 @@ describe('BrowseResponseParsingService', () => {
         _links: { self: { href: 'https://rest.api/discover/browses' } },
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
       }, statusCode: '200'
-    };
+    } as DSpaceRESTV2Response;
 
     const invalidResponse1 = {
       payload: {
@@ -71,22 +72,21 @@ describe('BrowseResponseParsingService', () => {
         _links: { self: { href: 'https://rest.api/discover/browses' } },
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
       }, statusCode: '200'
-    };
+    } as DSpaceRESTV2Response;
 
     const invalidResponse2 = {
       payload: {
-        browses: [{}, {}],
         _links: { self: { href: 'https://rest.api/discover/browses' } },
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
       }, statusCode: '200'
-    };
+    } as DSpaceRESTV2Response ;
 
     const invalidResponse3 = {
       payload: {
         _links: { self: { href: 'https://rest.api/discover/browses' } },
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
       }, statusCode: '500'
-    };
+    } as DSpaceRESTV2Response;
 
     const definitions = [
       Object.assign(new BrowseDefinition(), {

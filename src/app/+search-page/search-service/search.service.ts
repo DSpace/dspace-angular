@@ -1,25 +1,24 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { ViewMode } from '../../+search-page/search-options.model';
+import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
-import { Observable } from 'rxjs/Observable';
-import { RemoteDataError } from '../../core/data/remote-data-error';
-import { SearchResult } from '../search-result.model';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchOptions } from '../search-options.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { Metadatum } from '../../core/shared/metadatum.model';
 import { Item } from '../../core/shared/item.model';
-import { ItemSearchResult } from '../../object-list/search-result-list-element/item-search-result/item-search-result.model';
-import { SearchFilterConfig } from './search-filter-config.model';
-import { FilterType } from './filter-type.model';
-import { FacetValue } from './facet-value.model';
-import { ViewMode } from '../../+search-page/search-options.model';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { RouteService } from '../../shared/route.service';
+import { Metadatum } from '../../core/shared/metadatum.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { RouteService } from '../../shared/route.service';
+import { SearchOptions } from '../search-options.model';
+import { SearchResult } from '../search-result.model';
+import { FacetValue } from './facet-value.model';
+import { FilterType } from './filter-type.model';
+import { SearchFilterConfig } from './search-filter-config.model';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -102,6 +101,24 @@ export class SearchService implements OnDestroy {
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
+    this.searchOptions = searchOptions;
+    let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}`;
+    if (hasValue(scopeId)) {
+      self += `&scope=${scopeId}`;
+    }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.currentPage)) {
+      self += `&page=${searchOptions.pagination.currentPage}`;
+    }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.pageSize)) {
+      self += `&pageSize=${searchOptions.pagination.pageSize}`;
+    }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.direction)) {
+      self += `&sortDirection=${searchOptions.sort.direction}`;
+    }
+    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.field)) {
+      self += `&sortField=${searchOptions.sort.field}`;
+    }
+
     const error = undefined;
     const returningPageInfo = new PageInfo();
 

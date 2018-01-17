@@ -29,8 +29,8 @@
                 | translate}}
               </button>
             </div>
-            <ds-search-results [searchResults]="(resultsRDObs | async)"
-                               [searchConfig]="searchOptions"></ds-search-results>
+            <ds-search-results [searchResults]="resultsRDObs | async"
+                               [searchConfig]="searchOptions" [sortConfig]="sortConfig"></ds-search-results>
           </div>
         </div>
       </div>
