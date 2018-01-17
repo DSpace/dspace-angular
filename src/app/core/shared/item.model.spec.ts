@@ -104,13 +104,10 @@ describe('Item', () => {
 
 function createRemoteDataObject(object: any) {
   return Observable.of(new RemoteData(
-    '',
     false,
     false,
     true,
     undefined,
-    '200',
-    new PageInfo(),
     object
   ));
 

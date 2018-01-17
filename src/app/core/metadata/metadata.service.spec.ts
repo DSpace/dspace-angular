@@ -12,6 +12,7 @@ import { Store, StoreModule } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
 import { RemoteDataError } from '../data/remote-data-error';
+import { UUIDService } from '../shared/uuid.service';
 
 import { MetadataService } from './metadata.service';
 
@@ -65,6 +66,7 @@ describe('MetadataService', () => {
   let objectCacheService: ObjectCacheService;
   let responseCacheService: ResponseCacheService;
   let requestService: RequestService;
+  let uuidService: UUIDService;
   let remoteDataBuildService: RemoteDataBuildService;
   let itemDataService: ItemDataService;
 
@@ -83,7 +85,8 @@ describe('MetadataService', () => {
 
     objectCacheService = new ObjectCacheService(store);
     responseCacheService = new ResponseCacheService(store);
-    requestService = new RequestService(objectCacheService, responseCacheService, store);
+    uuidService = new UUIDService();
+    requestService = new RequestService(objectCacheService, responseCacheService, uuidService, store);
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, responseCacheService, requestService);
 
     TestBed.configureTestingModule({
