@@ -10,7 +10,7 @@ import {
   SubmissionObjectAction,
   SubmissionObjectActionTypes, ClearSectionErrorsAction, InertSectionErrorsAction,
   DeleteSectionErrorsAction, ResetSubmissionFormAction, UpdateSectionDataAction, SaveSubmissionFormAction,
-  CompleteSaveSubmissionFormAction
+  CompleteSaveSubmissionFormAction, SetActiveSectionAction, SaveSubmissionSectionFormAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
 import { WorkspaceitemSectionDataType } from '../models/workspaceitem-sections.model';
@@ -34,6 +34,7 @@ export interface SubmissionSectionEntry {
 }
 
 export interface SubmissionObjectEntry {
+  activeSection: string;
   sections: SubmissionSectionEntry;
   isLoading: boolean;
   savePending: boolean;
@@ -75,8 +76,16 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return saveSubmission(state, action as SaveSubmissionFormAction);
     }
 
+    case SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM: {
+      return saveSubmission(state, action as SaveSubmissionSectionFormAction);
+    }
+
     case SubmissionObjectActionTypes.COMPLETE_SAVE_SUBMISSION_FORM: {
       return completeSave(state, action as CompleteSaveSubmissionFormAction);
+    }
+
+    case SubmissionObjectActionTypes.SET_ACTIVE_SECTION: {
+      return setActiveSection(state, action as SetActiveSectionAction);
     }
 
     // Section actions
@@ -142,6 +151,7 @@ const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorsAc
 
     return Object.assign({}, state, {
       [ submissionId ]: Object.assign({}, state[ submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: Object.assign({}, state[ submissionId ].sections, {
           [ sectionId ]: {
             sectionViewIndex: state[ submissionId ].sections[ sectionId ].sectionViewIndex,
@@ -167,6 +177,7 @@ const insertError = (state: SubmissionObjectState, action: InertSectionErrorsAct
 
     return Object.assign({}, state, {
       [ submissionId ]: Object.assign({}, state[ submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: Object.assign({}, state[ submissionId ].sections, {
           [ sectionId ]: {
             sectionViewIndex: state[ submissionId ].sections[ sectionId ].sectionViewIndex,
@@ -192,6 +203,7 @@ const clearErrorsFromSection = (state: SubmissionObjectState, action: ClearSecti
 
     return Object.assign({}, state, {
       [ submissionId ]: Object.assign({}, state[ submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: Object.assign({}, state[ submissionId ].sections, {
           [ sectionId ]: {
             sectionViewIndex: state[ submissionId ].sections[ sectionId ].sectionViewIndex,
@@ -223,6 +235,7 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: state[ action.payload.submissionId ].sections,
         isLoading: false,
         savePending: false,
@@ -247,6 +260,7 @@ function saveSubmission(state: SubmissionObjectState, action: SaveSubmissionForm
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: state[ action.payload.submissionId ].sections,
         isLoading: state[ action.payload.submissionId ].isLoading,
         savePending: true,
@@ -271,9 +285,35 @@ function completeSave(state: SubmissionObjectState, action: CompleteSaveSubmissi
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: state[ action.payload.submissionId ].sections,
         isLoading: state[ action.payload.submissionId ].isLoading,
         savePending: false,
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set submission active section.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an SetActiveSectionAction
+ * @return SubmissionObjectState
+ *    the new state, with the active section.
+ */
+function setActiveSection(state: SubmissionObjectState, action: SetActiveSectionAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: action.payload.sectionId,
+        sections: state[ action.payload.submissionId ].sections,
+        isLoading: state[ action.payload.submissionId ].isLoading,
+        savePending: state[ action.payload.submissionId ].savePending,
       })
     });
   } else {
@@ -296,6 +336,7 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ action.payload.sectionId ]: {
             sectionViewIndex: action.payload.sectionViewIndex,
@@ -328,6 +369,7 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
       && isNotEmpty(state[ action.payload.submissionId ].sections[ action.payload.sectionId])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ action.payload.sectionId ]: {
             sectionViewIndex: state[ action.payload.submissionId ].sections[ action.payload.sectionId ].sectionViewIndex,
@@ -359,6 +401,7 @@ function disableSection(state: SubmissionObjectState, action: DisableSectionActi
   if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: deleteProperty(state[ action.payload.submissionId ].sections, action.payload.sectionId),
         isLoading: state[ action.payload.submissionId ].isLoading,
         savePending: state[ action.payload.submissionId ].savePending,
@@ -382,6 +425,7 @@ function disableSection(state: SubmissionObjectState, action: DisableSectionActi
 function initSubmission(state: SubmissionObjectState, action: LoadSubmissionFormAction | ResetSubmissionFormAction): SubmissionObjectState {
   const newState = Object.assign({}, state);
   newState[ action.payload.submissionId ] = {
+    activeSection: null,
     sections: Object.create(null),
     isLoading: true,
     savePending: false
@@ -403,6 +447,7 @@ function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAct
   if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: Object.assign({}, state[ action.payload.submissionId ].sections,
           Object.assign({}, {
             [ action.payload.sectionId ]: {
@@ -442,6 +487,7 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
     newData[ action.payload.fileId ] = action.payload.data;
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: Object.assign({}, state[ action.payload.submissionId ].sections,
           Object.assign({}, {
               [ action.payload.sectionId ]: {
@@ -466,6 +512,7 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
     newData[ action.payload.fileId ] = action.payload.data;
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        activeSection: state[ action.payload.submissionId ].activeSection,
         sections: Object.assign({}, state[ action.payload.submissionId ].sections,
           Object.assign({}, {
             [ action.payload.sectionId ]: {
@@ -504,6 +551,7 @@ function editFileData(state: SubmissionObjectState, action: EditFileDataAction):
     if (isNotNull(fileIndex)) {
       return Object.assign({}, state, {
         [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+          activeSection: state[ action.payload.submissionId ].activeSection,
           sections: Object.assign({}, state[ action.payload.submissionId ].sections,
             Object.assign({}, {
                 [ action.payload.sectionId ]: {
@@ -548,6 +596,7 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
     if (isNotNull(fileIndex)) {
       return Object.assign({}, state, {
         [ action.payload.submissionId ]: Object.assign({}, state[action.payload.submissionId], {
+          activeSection: state[ action.payload.submissionId ].activeSection,
           sections: Object.assign({}, state[action.payload.submissionId].sections,
             Object.assign({}, {
                 [ action.payload.sectionId ]: {

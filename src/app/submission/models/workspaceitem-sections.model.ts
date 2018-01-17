@@ -4,7 +4,7 @@ import { WorkspaceitemSectionUploadObject } from './workspaceitem-section-upload
 import { isNotEmpty, isNotNull } from '../../shared/empty.util';
 import { AuthorityModel } from '../../core/integration/models/authority.model';
 
-export interface WorkspaceitemSectionsObject {
+export class WorkspaceitemSectionsObject {
   [name: string]: WorkspaceitemSectionDataType;
 
 }

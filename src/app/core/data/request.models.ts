@@ -10,7 +10,7 @@ import { RootResponseParsingService } from './root-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { JsonPatchOperationModel } from '../json-patch/json-patch.model';
-import { SubmitDataResponseParsingService } from './submit-data-response-parsing.service';
+import { SubmissionDataResponseParsingService } from './submit-data-response-parsing.service';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
@@ -62,7 +62,7 @@ export class HttpPostRequest extends RestRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmitDataResponseParsingService;
+    return SubmissionDataResponseParsingService;
   }
 }
 
@@ -75,7 +75,7 @@ export class HttpPatchRequest extends RestRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmitDataResponseParsingService;
+    return SubmissionDataResponseParsingService;
   }
 }
 
@@ -141,7 +141,7 @@ export class SubmissionRequest extends HttpGetRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmitDataResponseParsingService;
+    return SubmissionDataResponseParsingService;
   }
 }
 
@@ -151,7 +151,7 @@ export class SubmissionDeleteRequest extends HttpDeleteRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmitDataResponseParsingService;
+    return SubmissionDataResponseParsingService;
   }
 }
 

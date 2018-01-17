@@ -1,4 +1,5 @@
 import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 

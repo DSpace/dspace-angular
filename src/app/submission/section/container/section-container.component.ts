@@ -35,6 +35,7 @@ export class SectionContainerComponent {
   @Input() store: Store<SubmissionState>;
   @Input() submissionId: string;
 
+  public active = true;
   public sectionComponentType: string;
 
   @ViewChild('sectionRef') sectionRef: SectionDirective;

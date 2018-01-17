@@ -9,7 +9,11 @@ import { SubmissionSectionError, SubmissionSectionObject } from '../objects/subm
 import { isEmpty, uniq } from 'lodash';
 import { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import parseSectionErrorPaths from '../utils/parseSectionErrorPaths';
-import { DeleteSectionErrorsAction } from '../objects/submission-objects.actions';
+import {
+  DeleteSectionErrorsAction, SaveSubmissionSectionFormAction,
+  SetActiveSectionAction
+} from '../objects/submission-objects.actions';
+import { SubmissionService } from '../submission.service';
 
 @Directive({
   selector: '[dsSection]',
@@ -20,6 +24,7 @@ export class SectionDirective implements OnDestroy, OnInit {
   @Input() sectionId;
   @Input() submissionId;
 
+  private active = true;
   private animation = !this.mandatory;
   private sectionState = this.mandatory;
   private subs: Subscription[] = [];
@@ -29,7 +34,8 @@ export class SectionDirective implements OnDestroy, OnInit {
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private store: Store<SubmissionState>,
-              private sectionService: SectionService) {
+              private sectionService: SectionService,
+              private submissionService: SubmissionService) {
   }
 
   ngOnInit() {
@@ -67,6 +73,18 @@ export class SectionDirective implements OnDestroy, OnInit {
               this.resetErrors();
             }
           });
+        }),
+      this.submissionService.getActiveSectionId(this.submissionId)
+        .subscribe((activeSection) => {
+          const previousActive = this.active;
+          this.active = (activeSection === this.sectionId);
+          if (previousActive !== this.active) {
+            this.changeDetectorRef.detectChanges();
+            // If section is no longer active dispatch save action
+            if (!this.active) {
+              this.store.dispatch(new SaveSubmissionSectionFormAction(this.submissionId, this.sectionId));
+            }
+          }
         })
     );
   }
@@ -75,6 +93,10 @@ export class SectionDirective implements OnDestroy, OnInit {
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
+  }
+
+  protected checkActiveSection(activeSection:string) {
+    console.log(activeSection);
   }
 
   public sectionChange(event) {
@@ -93,6 +115,10 @@ export class SectionDirective implements OnDestroy, OnInit {
     return this.animation;
   }
 
+  public isSectionActive() {
+    return this.active;
+  }
+
   public isValid() {
     return this.valid;
   }
@@ -107,6 +133,12 @@ export class SectionDirective implements OnDestroy, OnInit {
 
   public getErrors() {
     return this.sectionErrors;
+  }
+
+  public setFocus(event) {
+    if (!this.active) {
+      this.store.dispatch(new SetActiveSectionAction(this.submissionId, this.sectionId));
+    }
   }
 
   public resetErrors() {

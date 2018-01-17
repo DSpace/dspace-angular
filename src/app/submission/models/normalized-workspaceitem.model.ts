@@ -4,9 +4,10 @@ import { NormalizedDSpaceObject } from '../../core/cache/models/normalized-dspac
 import { License } from '../../core/shared/license.model';
 import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 import { NormalizedItem } from '../../core/cache/models/normalized-item.model';
-import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
+
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { WorkspaceItemError } from './workspaceitem.model';
+import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
 @mapsTo(License)
 @inheritSerialization(NormalizedDSpaceObject)

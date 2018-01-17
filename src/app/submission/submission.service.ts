@@ -1,29 +1,41 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { submissionSelector, SubmissionState } from './submission.reducers';
-
 // utils
-import { isEmpty, isNotEmpty, isNotUndefined } from '../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../shared/empty.util';
 import { WorkspaceItemError, WorkspaceitemObject } from './models/workspaceitem.model';
 import { SubmissionRestService } from './submission-rest.service';
 import { SectionService } from './section/section.service';
 import { default as parseSectionErrorPaths, SectionErrorPath } from './utils/parseSectionErrorPaths';
-import { InertSectionErrorsAction } from './objects/submission-objects.actions';
-import { SubmissionObjectEntry, SubmissionObjectState } from './objects/submission-objects.reducer';
+import { InertSectionErrorsAction, SaveSubmissionFormAction } from './objects/submission-objects.actions';
+import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
+import { GlobalConfig } from '../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../config';
 
 @Injectable()
 export class SubmissionService {
 
+  protected autoSaveSub: Subscription;
+  protected timerObs: Observable<any>;
+
   constructor(private sectionService: SectionService,
               private submissionRestService: SubmissionRestService,
-              private store: Store<SubmissionState>) {
+              private store: Store<SubmissionState>,
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
+  }
+
+  getActiveSectionId(submissionId: string): Observable<string> {
+    return this.store.select(submissionSelector)
+      .filter((submissions: SubmissionState) => isNotUndefined(submissions.objects[submissionId]))
+      .map((submissions: SubmissionState) => submissions.objects[submissionId].activeSection);
   }
 
   getSectionsEnabled(submissionId: string): Observable<any> {
     return this.store.select(submissionSelector)
-      .map((submissions: SubmissionState) => submissions.objects[ submissionId ]);
+      .map((submissions: SubmissionState) => submissions.objects[submissionId]);
   }
 
   getSectionsState(submissionId: string): Observable<boolean> {
@@ -35,9 +47,9 @@ export class SubmissionService {
 
         Object.keys(sections)
           .filter((property) => sections.hasOwnProperty(property))
-          .filter((property) => sections[ property ].isValid === false)
+          .filter((property) => sections[property].isValid === false)
           .forEach((property) => {
-            states.push(sections[ property ].isValid)
+            states.push(sections[property].isValid)
           });
 
         return !isEmpty(sections) && isEmpty(states);
@@ -51,6 +63,22 @@ export class SubmissionService {
       .filter((state: SubmissionObjectEntry) => isNotUndefined(state))
       .map((state: SubmissionObjectEntry) => state.savePending)
       .distinctUntilChanged()
+  }
+
+  startAutoSave(submissionId) {
+    // AUTOSAVE submission
+    // Retrieve interval from config and convert to milliseconds
+    const duration = this.EnvConfig.submission.autosave.timer * (1000 * 60);
+    // Dispatch save action after given duration
+    this.timerObs = Observable.timer(duration, duration);
+    this.autoSaveSub = this.timerObs
+      .subscribe(() => this.store.dispatch(new SaveSubmissionFormAction(submissionId)));
+  }
+
+  stopAutoSave() {
+    if (hasValue(this.autoSaveSub)) {
+      this.autoSaveSub.unsubscribe();
+    }
   }
 
   saveSubmission(submissionId) {

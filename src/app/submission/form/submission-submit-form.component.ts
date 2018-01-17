@@ -1,8 +1,13 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+
+import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { SectionHostDirective } from '../section/section-host.directive';
-import { LoadSubmissionFormAction, ResetSubmissionFormAction } from '../objects/submission-objects.actions';
+import {
+  LoadSubmissionFormAction, ResetSubmissionFormAction,
+  SaveSubmissionFormAction
+} from '../objects/submission-objects.actions';
 import { isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
@@ -12,6 +17,9 @@ import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.mo
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SubmissionState } from '../submission.reducers';
 import { WorkspaceitemObject } from '../models/workspaceitem.model';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../config';
+import { SubmissionService } from '../submission.service';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -34,11 +42,14 @@ export class SubmissionSubmitFormComponent implements OnChanges {
     itemAlias: null
   };
 
+  private pid: any;
+
   @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private store: Store<SubmissionState>,
-              private submissionRestService: SubmissionRestService) {
+              private submissionRestService: SubmissionRestService,
+              private submissionService: SubmissionService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -51,6 +62,7 @@ export class SubmissionSubmitFormComponent implements OnChanges {
           this.definitionId = this.submissionDefinition.name;
           this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
         });
+
       this.store.select(submissionObjectFromIdSelector(this.submissionId))
         .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))
         .subscribe((submission: SubmissionObjectEntry) => {
@@ -59,7 +71,12 @@ export class SubmissionSubmitFormComponent implements OnChanges {
             this.changeDetectorRef.detectChanges();
           }
         });
+      this.submissionService.startAutoSave(this.submissionId)
     }
+  }
+
+  ngOnDestroy() {
+    this.submissionService.stopAutoSave();
   }
 
   onCollectionChange(workspaceItemObject: WorkspaceitemObject) {

@@ -26,7 +26,7 @@ export class GroupFieldParser extends FieldParser {
       this.configData.rows.forEach((row: FormRowModel) => {
         row.fields.forEach((field: FormFieldModel) => {
           if (field.selectableMetadata[0].metadata === this.configData.selectableMetadata[0].metadata) {
-            if (!this.configData.mandatory) {
+            if (!field.mandatory) {
               throw new Error(`Configuration not valid: Main field ${this.configData.selectableMetadata[0].metadata} may be mandatory`);
             }
             modelConfiguration.mandatoryField = this.configData.selectableMetadata[0].metadata;

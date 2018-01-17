@@ -23,7 +23,9 @@ export const SubmissionObjectActionTypes = {
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
   SAVE_SUBMISSION_FORM: type('dspace/submission/SAVE_SUBMISSION_FORM'),
+  SAVE_SUBMISSION_SECTION_FORM: type('dspace/submission/SAVE_SUBMISSION_SECTION_FORM'),
   COMPLETE_SAVE_SUBMISSION_FORM: type('dspace/submission/COMPLETE_SAVE_SUBMISSION_FORM'),
+  SET_ACTIVE_SECTION: type('dspace/submission/SET_ACTIVE_SECTION'),
   ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
@@ -254,6 +256,26 @@ export class SaveSubmissionFormAction implements Action {
   }
 }
 
+export class SaveSubmissionSectionFormAction implements Action {
+  type = SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+  };
+
+  /**
+   * Create a new SaveSubmissionSectionFormAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID
+   */
+  constructor(submissionId: string, sectionId: string) {
+    this.payload = { submissionId, sectionId };
+  }
+}
+
 export class CompleteSaveSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.COMPLETE_SAVE_SUBMISSION_FORM;
   payload: {
@@ -338,6 +360,25 @@ export class SectionLoadingStatusChangeAction implements Action {
   }
 }
 
+export class SetActiveSectionAction implements Action {
+  type = SubmissionObjectActionTypes.SET_ACTIVE_SECTION;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+  };
+
+  /**
+   * Create a new SetActiveSectionAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID to active
+   */
+  constructor(submissionId: string, sectionId: string) {
+    this.payload = { submissionId, sectionId };
+  }
+}
 // Upload file actions
 
 export class NewUploadedFileAction implements Action {
@@ -436,4 +477,6 @@ export type SubmissionObjectAction = DisableSectionAction
   | ClearSectionErrorsAction
   | UpdateSectionDataAction
   | SaveSubmissionFormAction
-  | CompleteSaveSubmissionFormAction;
+  | SaveSubmissionSectionFormAction
+  | CompleteSaveSubmissionFormAction
+  | SetActiveSectionAction;

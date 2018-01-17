@@ -18,7 +18,7 @@ import { NormalizedWorkspaceItem } from '../../submission/models/normalized-work
 import { normalizeSectionData } from '../../submission/models/workspaceitem-sections.model';
 
 @Injectable()
-export class SubmitDataResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
+export class SubmissionDataResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
   protected objectFactory = NormalizedSubmissionObjectFactory;
   protected toCache = false;
@@ -30,11 +30,12 @@ export class SubmitDataResponseParsingService extends BaseResponseParsingService
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links)
-      && (data.statusCode === '201' || data.statusCode === '200' || data.statusCode === 'OK' || data.statusCode === 'Created')) {
+      && (data.statusCode === '201' || data.statusCode === '200' || data.statusCode === '204' || data.statusCode === 'OK' || data.statusCode === 'Created')) {
       let dataDefinition = this.process<NormalizedObject | ConfigObject, SubmissionResourceType>(data.payload, request.href);
       dataDefinition = this.postProcess<NormalizedObject | ConfigObject, SubmissionResourceType>(dataDefinition);
       return new SubmitDataSuccessResponse(dataDefinition[Object.keys(dataDefinition)[0]], data.statusCode, this.processPageInfo(data.payload.page));
     } else {
+      console.log(data);
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from server'),
