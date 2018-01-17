@@ -6,19 +6,12 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
-import {
-  FindAllOptions,
-  FindAllRequest,
-  FindByIDRequest,
-  RestRequest,
-  RestRequestMethod
-} from './request.models';
+import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> extends HALEndpointService {
@@ -106,7 +99,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   findByHref(href: string): Observable<RemoteData<TDomain>> {
-    this.requestService.configure(new RestRequest(this.requestService.generateRequestId(), href));
+    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href));
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 

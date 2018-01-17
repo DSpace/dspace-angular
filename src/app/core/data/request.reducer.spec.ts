@@ -4,7 +4,7 @@ import { requestReducer, RequestState } from './request.reducer';
 import {
   RequestCompleteAction, RequestConfigureAction, RequestExecuteAction
 } from './request.actions';
-import { RestRequest } from './request.models';
+import { GetRequest, RestRequest } from './request.models';
 
 class NullAction extends RequestCompleteAction {
   type = null;
@@ -22,7 +22,7 @@ describe('requestReducer', () => {
   const link2 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/1911e8a4-6939-490c-b58b-a5d70f8d91fb';
   const testState: RequestState = {
     [id1]: {
-      request: new RestRequest(id1, link1),
+      request: new GetRequest(id1, link1),
       requestPending: false,
       responsePending: false,
       completed: false
@@ -46,7 +46,7 @@ describe('requestReducer', () => {
 
   it('should add the new RestRequest and set \'requestPending\' to true, \'responsePending\' to false and \'completed\' to false for the given RestRequest in the state, in response to a CONFIGURE action', () => {
     const state = testState;
-    const request = new RestRequest(id2, link2);
+    const request = new GetRequest(id2, link2);
 
     const action = new RequestConfigureAction(request);
     const newState = requestReducer(state, action);

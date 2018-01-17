@@ -22,14 +22,14 @@ import { ConfigResponseParsingService } from './config-response-parsing.service'
 export enum RestRequestMethod {
   Get = 'GET',
   Post = 'POST',
-  // Put = 'PUT',
-  // Delete = 'DELETE',
-  // Options = 'OPTIONS',
-  // Head = 'HEAD',
-  // Patch = 'PATCH'
+  Put = 'PUT',
+  Delete = 'DELETE',
+  Options = 'OPTIONS',
+  Head = 'HEAD',
+  Patch = 'PATCH'
 }
 
-export class RestRequest {
+export abstract class RestRequest {
   constructor(
     public uuid: string,
     public href: string,
@@ -40,6 +40,76 @@ export class RestRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return DSOResponseParsingService;
+  }
+}
+
+export class GetRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Get, body)
+  }
+}
+
+export class PostRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Post, body)
+  }
+}
+
+export class PutRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Put, body)
+  }
+}
+
+export class DeleteRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Delete, body)
+  }
+}
+
+export class OptionsRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Options, body)
+  }
+}
+
+export class HeadRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Head, body)
+  }
+}
+
+export class PatchRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Patch, body)
   }
 }
 

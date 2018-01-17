@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
+import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
+import { GetRequest } from '../../data/request.models';
+import { RequestEntry } from '../../data/request.reducer';
+import { RequestService } from '../../data/request.service';
+import { GenericConstructor } from '../../shared/generic-constructor';
+import { NormalizedObjectFactory } from '../models/normalized-object-factory';
 
 import { CacheableObject } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
-import { RequestService } from '../../data/request.service';
-import { ResponseCacheService } from '../response-cache.service';
-import { RequestEntry } from '../../data/request.reducer';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { DSOSuccessResponse, ErrorResponse } from '../response-cache.models';
 import { ResponseCacheEntry } from '../response-cache.reducer';
-import { ErrorResponse, DSOSuccessResponse } from '../response-cache.models';
-import { RemoteData } from '../../data/remote-data';
-import { GenericConstructor } from '../../shared/generic-constructor';
+import { ResponseCacheService } from '../response-cache.service';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
-import { NormalizedObjectFactory } from '../models/normalized-object-factory';
-import { RestRequest } from '../../data/request.models';
-import { PageInfo } from '../../shared/page-info.model';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -169,7 +168,7 @@ export class RemoteDataBuildService {
         const resourceConstructor = NormalizedObjectFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
           normalized[relationship].forEach((href: string) => {
-            this.requestService.configure(new RestRequest(this.requestService.generateRequestId(), href))
+            this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href))
           });
 
           const rdArr = [];
@@ -183,7 +182,7 @@ export class RemoteDataBuildService {
             links[relationship] = rdArr[0];
           }
         } else {
-          this.requestService.configure(new RestRequest(this.requestService.generateRequestId(), normalized[relationship]));
+          this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), normalized[relationship]));
 
           // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
           // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
