@@ -30,15 +30,12 @@ export class RequestEffects {
     })
     .map((entry: RequestEntry) => entry.request)
     .flatMap((request: RestRequest) => {
-      const httpRequestConfig: RequestArgs = {
-        method: request.method,
-        url: request.href
-      };
+      let body;
       if (isNotEmpty(request.body)) {
         const serializer = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(request.body.type));
-        httpRequestConfig.body = JSON.stringify(serializer.serialize(request.body));
+        body = JSON.stringify(serializer.serialize(request.body));
       }
-      return this.restApi.request(new Request(httpRequestConfig))
+      return this.restApi.request(request.method, request.href, body)
         .map((data: DSpaceRESTV2Response) =>
           this.injector.get(request.getResponseParser()).parse(request, data))
         .do((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive))
