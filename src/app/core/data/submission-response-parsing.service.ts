@@ -3,8 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { ErrorResponse, RestResponse, SubmitDataSuccessResponse } from '../cache/response-cache.models';
-import { isNotEmpty, isNotNull } from '../../shared/empty.util';
+import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache/response-cache.models';
+import { isEmpty, isNotEmpty, isNotNull } from '../../shared/empty.util';
 
 import { ConfigObject } from '../shared/config/config.model';
 import { BaseResponseParsingService, ProcessRequestDTO } from './base-response-parsing.service';
@@ -18,7 +18,7 @@ import { NormalizedWorkspaceItem } from '../../submission/models/normalized-work
 import { normalizeSectionData } from '../../submission/models/workspaceitem-sections.model';
 
 @Injectable()
-export class SubmissionDataResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
+export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
   protected objectFactory = NormalizedSubmissionObjectFactory;
   protected toCache = false;
@@ -29,11 +29,15 @@ export class SubmissionDataResponseParsingService extends BaseResponseParsingSer
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links)
-      && (data.statusCode === '201' || data.statusCode === '200' || data.statusCode === '204' || data.statusCode === 'OK' || data.statusCode === 'Created')) {
+    if (isNotEmpty(data.payload)
+        && isNotEmpty(data.payload._links)
+        && (data.statusCode === '201' || data.statusCode === '200' || data.statusCode === 'OK' || data.statusCode === 'Created')) {
       let dataDefinition = this.process<NormalizedObject | ConfigObject, SubmissionResourceType>(data.payload, request.href);
       dataDefinition = this.postProcess<NormalizedObject | ConfigObject, SubmissionResourceType>(dataDefinition);
-      return new SubmitDataSuccessResponse(dataDefinition[Object.keys(dataDefinition)[0]], data.statusCode, this.processPageInfo(data.payload.page));
+      return new SubmissionSuccessResponse(dataDefinition[Object.keys(dataDefinition)[0]], data.statusCode, this.processPageInfo(data.payload.page));
+    } else if (isEmpty(data.payload) && data.statusCode === '204') {
+      // Response from a DELETE request
+      return new SubmissionSuccessResponse(null, data.statusCode);
     } else {
       console.log(data);
       return new ErrorResponse(

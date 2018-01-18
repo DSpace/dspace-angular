@@ -42,7 +42,7 @@ import { DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-fo
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
-import { SubmissionDataResponseParsingService } from './data/submit-data-response-parsing.service';
+import { SubmissionResponseParsingService } from './data/submission-response-parsing.service';
 import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { AuthorityService } from './integration/authority.service';
@@ -91,7 +91,7 @@ const PROVIDERS = [
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
-  SubmissionDataResponseParsingService,
+  SubmissionResponseParsingService,
   JsonPatchOperationsBuilder,
   AuthorityService,
   IntegrationResponseParsingService,

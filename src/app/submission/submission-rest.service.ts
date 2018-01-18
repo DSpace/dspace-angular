@@ -7,7 +7,7 @@ import { GlobalConfig } from '../../config/global-config.interface';
 import { ResponseCacheEntry } from '../core/cache/response-cache.reducer';
 import {
   ErrorResponse, RestResponse,
-  SubmitDataSuccessResponse
+  SubmissionSuccessResponse
 } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
 import {
@@ -40,8 +40,8 @@ export class SubmissionRestService extends PostPatchRestService<SubmitDataRespon
       errorResponse.flatMap((response: ErrorResponse) =>
         Observable.throw(new Error(`Couldn't retrieve the data`))),
       successResponse
-        .filter((response: SubmitDataSuccessResponse) => isNotEmpty(response))
-        .map((response: SubmitDataSuccessResponse) => response.dataDefinition)
+        .filter((response: SubmissionSuccessResponse) => isNotEmpty(response))
+        .map((response: SubmissionSuccessResponse) => response.dataDefinition)
         .distinctUntilChanged());
   }
 

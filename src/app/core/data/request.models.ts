@@ -9,8 +9,7 @@ import { ResponseParsingService } from './parsing.service';
 import { RootResponseParsingService } from './root-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
-import { JsonPatchOperationModel } from '../json-patch/json-patch.model';
-import { SubmissionDataResponseParsingService } from './submit-data-response-parsing.service';
+import { SubmissionResponseParsingService } from './submission-response-parsing.service';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
@@ -23,28 +22,23 @@ export enum RequestType {
 
 /* tslint:disable:max-classes-per-file */
 export abstract class RestRequest {
-  constructor(
-    public requestType: RequestType,
-    public href: string,
-    public body?: any,
-    public requestOptions?: RequestOptionsArgs,
-  ) { }
+  constructor(public requestType: RequestType,
+              public href: string,
+              public body?: any,
+              public requestOptions?: RequestOptionsArgs,) {
+  }
 
   abstract getResponseParser(): GenericConstructor<ResponseParsingService>;
 }
 
 export abstract class HttpDeleteRequest extends RestRequest {
-  constructor(
-    href: string,
-  ) {
+  constructor(href: string,) {
     super(RequestType.DELETE, href);
   }
 }
 
 export class HttpGetRequest extends RestRequest {
-  constructor(
-    href: string,
-  ) {
+  constructor(href: string,) {
     super(RequestType.GET, href);
   }
 
@@ -54,36 +48,30 @@ export class HttpGetRequest extends RestRequest {
 }
 
 export class HttpPostRequest extends RestRequest {
-  constructor(
-    href: string,
-    body: any,
-  ) {
+  constructor(href: string,
+              body: any,) {
     super(RequestType.POST, href, body);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmissionDataResponseParsingService;
+    return SubmissionResponseParsingService;
   }
 }
 
 export class HttpPatchRequest extends RestRequest {
-  constructor(
-    href: string,
-    body: any,
-  ) {
+  constructor(href: string,
+              body: any,) {
     super(RequestType.PATCH, href, body);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmissionDataResponseParsingService;
+    return SubmissionResponseParsingService;
   }
 }
 
 export class FindByIDRequest extends HttpGetRequest {
-  constructor(
-    href: string,
-    public resourceID: string
-  ) {
+  constructor(href: string,
+              public resourceID: string) {
     super(href);
   }
 }
@@ -96,10 +84,8 @@ export class FindAllOptions {
 }
 
 export class FindAllRequest extends HttpGetRequest {
-  constructor(
-    href: string,
-    public options?: FindAllOptions,
-  ) {
+  constructor(href: string,
+              public options?: FindAllOptions,) {
     super(href);
   }
 }
@@ -141,7 +127,7 @@ export class SubmissionRequest extends HttpGetRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmissionDataResponseParsingService;
+    return SubmissionResponseParsingService;
   }
 }
 
@@ -151,7 +137,7 @@ export class SubmissionDeleteRequest extends HttpDeleteRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmissionDataResponseParsingService;
+    return SubmissionResponseParsingService;
   }
 }
 
@@ -178,4 +164,5 @@ export class IntegrationRequest extends HttpGetRequest {
 export class RequestError extends Error {
   statusText: string;
 }
+
 /* tslint:enable:max-classes-per-file */

@@ -28,6 +28,8 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { GLOBAL_CONFIG, ENV_CONFIG, GlobalConfig } from '../config';
 
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
+import { SubmissionModule } from './submission/submission.module';
+import { SortablejsModule } from 'angular-sortablejs';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -52,8 +54,10 @@ if (!ENV_CONFIG.production) {
   imports: [
     CommonModule,
     HttpClientModule,
+    SubmissionModule,
     AppRoutingModule,
     CoreModule.forRoot(),
+    SortablejsModule.forRoot({ animation: 150 }),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
     EffectsModule.forRoot(appEffects),
