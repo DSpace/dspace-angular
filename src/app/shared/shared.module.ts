@@ -56,6 +56,8 @@ import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models/list/dynamic-list.component';
 import { DsDynamicGroupComponent } from './form/builder/ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.components';
 import { SortablejsModule } from 'angular-sortablejs';
+import { NumberPickerComponent } from './number-picker/number-picker.component';
+import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/ds-date-picker/ds-date-picker.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -101,6 +103,7 @@ const COMPONENTS = [
   ErrorComponent,
   FormComponent,
   LoadingComponent,
+  NumberPickerComponent,
   ObjectListComponent,
   ObjectListElementComponent,
   PaginationComponent,
@@ -110,6 +113,7 @@ const COMPONENTS = [
   WrapperListElementComponent,
   ViewModeSwitchComponent,
   DsDynamicGroupComponent,
+  DsDatePickerComponent,
 ];
 
 const ENTRY_COMPONENTS = [

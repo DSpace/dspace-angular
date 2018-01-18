@@ -1,0 +1,32 @@
+<div class="ngb-tp-hour">
+    <button
+      type="button"
+      class="btn btn-link"
+      [disabled]="disabled"
+      (click)="increment()">
+      <span class="chevron"></span>
+      <span class="sr-only">Increment</span>
+    </button>
+    <input
+      type="text"
+      class="form-control"
+      maxlength="{{size}}"
+      size="{{size}}"
+      placeholder="{{placeholder}}"
+      [name]="name"
+      [(ngModel)]="value"
+      (change)="update($event)"
+      (focus)="onFocus()"
+      [readonly]="readonlyInputs"
+      [disabled]="disabled"
+      aria-label="Hours"
+    >
+    <button
+      type="button"
+      class="btn btn-link"
+      [disabled]="disabled"
+      (click)="decrement()">
+      <span class="chevron bottom"></span>
+      <span class="sr-only">Decrement</span>
+    </button>
+</div>
