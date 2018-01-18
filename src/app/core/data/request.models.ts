@@ -113,7 +113,7 @@ export class PatchRequest extends RestRequest {
   }
 }
 
-export class FindByIDRequest extends RestRequest {
+export class FindByIDRequest extends GetRequest {
   constructor(
     uuid: string,
     href: string,
@@ -130,7 +130,7 @@ export class FindAllOptions {
   sort?: SortOptions;
 }
 
-export class FindAllRequest extends RestRequest {
+export class FindAllRequest extends GetRequest {
   constructor(
     uuid: string,
     href: string,
@@ -140,7 +140,7 @@ export class FindAllRequest extends RestRequest {
   }
 }
 
-export class RootEndpointRequest extends RestRequest {
+export class RootEndpointRequest extends GetRequest {
   constructor(uuid: string, EnvConfig: GlobalConfig) {
     const href = new RESTURLCombiner(EnvConfig, '/').toString();
     super(uuid, href);
@@ -151,7 +151,7 @@ export class RootEndpointRequest extends RestRequest {
   }
 }
 
-export class BrowseEndpointRequest extends RestRequest {
+export class BrowseEndpointRequest extends GetRequest {
   constructor(uuid: string, href: string) {
     super(uuid, href);
   }
@@ -161,7 +161,7 @@ export class BrowseEndpointRequest extends RestRequest {
   }
 }
 
-export class ConfigRequest extends RestRequest {
+export class ConfigRequest extends GetRequest {
   constructor(uuid: string, href: string) {
     super(uuid, href);
   }
