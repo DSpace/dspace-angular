@@ -88,18 +88,18 @@ export class RemoteDataBuildService {
       (href: string, reqEntry: RequestEntry, resEntry: ResponseCacheEntry, payload: T) => {
         const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
         const responsePending = hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
-        let isSuccessFul: boolean;
+        let isSuccessful: boolean;
         let error: RemoteDataError;
         if (hasValue(resEntry) && hasValue(resEntry.response)) {
-          isSuccessFul = resEntry.response.isSuccessful;
-          const errorMessage = isSuccessFul === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
+          isSuccessful = resEntry.response.isSuccessful;
+          const errorMessage = isSuccessful === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
           error = new RemoteDataError(resEntry.response.statusCode, errorMessage);
         }
 
         return new RemoteData(
           requestPending,
           responsePending,
-          isSuccessFul,
+          isSuccessful,
           error,
           payload
         );
@@ -212,7 +212,7 @@ export class RemoteDataBuildService {
           .map((d: RemoteData<T>) => d.isResponsePending)
           .every((b: boolean) => b === true);
 
-        const isSuccessFul: boolean = arr
+        const isSuccessful: boolean = arr
           .map((d: RemoteData<T>) => d.hasSucceeded)
           .every((b: boolean) => b === true);
 
@@ -241,7 +241,7 @@ export class RemoteDataBuildService {
         return new RemoteData(
           requestPending,
           responsePending,
-          isSuccessFul,
+          isSuccessful,
           error,
           payload
         );
