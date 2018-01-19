@@ -53,7 +53,7 @@ export class DsDatePickerComponent implements OnInit {
     this.initialMonth = now.getMonth() + 1;
     this.initialDay = now.getDate();
 
-    if (this.model.value) {
+    if (this.model.value && this.model.value !== null) {
       const values = this.model.value[0].split('-');
       if (values.length > 0) {
         this.initialYear = parseInt(values[0]);
@@ -78,31 +78,42 @@ export class DsDatePickerComponent implements OnInit {
     // update year-month-day
     switch (event.field) {
       case 'year': {
-        this.year = event.value;
-        this.manageFebruary();
+        if (event.value !== null) {
+          this.year = event.value;
+        } else {
+          this.year = undefined;
+          this.month = undefined;
+          this.day = undefined;
+        }
         break;
       }
       case 'month': {
-        this.month = event.value;
-        this.manageFebruary();
+        if (event.value !== null) {
+          this.month = event.value;
+        } else {
+          this.month = undefined;
+          this.day = undefined;
+        }
         break;
       }
       case 'day': {
-        this.day = event.value;
+        if (event.value !== null) {
+          this.day = event.value;
+        } else {
+          this.day = undefined;
+        }
         break;
       }
     }
 
     // set max for days by month/year
-    let date = null;
-    if (this.month && this.day) {
-      date = new Date(this.year, this.month - 1, this.day);
-    } else {
-      const month = this.month ? this.month - 1 : 0;
-      date = new Date(this.year, month);
-    }
     if (!this.disabledDay) {
-      this.maxDay = this.getLastDay(date.getFullYear(), date.getMonth() + 1);
+      const month = this.month ? this.month - 1 : 0;
+      const date = new Date(this.year, month, 1);
+      this.maxDay = this.getLastDay(date);
+      if (this.day > this.maxDay) {
+        this.day = this.maxDay;
+      }
     }
 
     // Manage disable
@@ -113,39 +124,34 @@ export class DsDatePickerComponent implements OnInit {
     }
 
     // update value
-    let value = date.getFullYear().toString();
+    let value = null;
+    if (this.year) {
+      let yyyy = this.year.toString();
+      while (yyyy.length < 4) {
+        yyyy = '0' + yyyy;
+      }
+      value = yyyy;
+    }
     if (this.month) {
-      const month = this.month.toString().length === 1
+      const mm = this.month.toString().length === 1
         ? '0' + this.month.toString()
         : this.month.toString();
-      value += '-' + month;
+      value += '-' + mm;
     }
     if (this.day) {
-      const day = this.day.toString().length === 1
+      const dd = this.day.toString().length === 1
         ? '0' + this.day.toString()
         : this.day.toString();
-      value += '-' + day;
+      value += '-' + dd;
     }
     this.model.valueUpdates.next(value);
     this.change.emit(event);
-
-
   }
 
-  getLastDay(year, month) {
-    const date = new Date(year, month - 1);
-    date.setMonth(month, 0);
+  getLastDay(date: Date) {
+    // Last Day of the same month (+1 month, -1 day)
+    date.setMonth(date.getMonth() + 1, 0);
     return date.getDate();
   }
 
-  manageFebruary() {
-    // Case february
-    if (this.month === 2 && this.day > 28) {
-      if (this.year % 4 > 0) {
-        this.day = 28;
-      } else {
-        this.day = 29;
-      }
-    }
-  }
 }

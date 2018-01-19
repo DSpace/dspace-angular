@@ -51,8 +51,15 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.value && changes.max) {
-      this.value = this.value > this.max ? this.max : this.value;
+    if (this.value) {
+      if (changes.max) {
+        // When the user select a month with < # of days
+        this.value = this.value > this.max ? this.max : this.value;
+      }
+
+    } else if (changes.value && changes.value.currentValue === null) {
+      // When the user delete the inserted value
+        this.value = null;
     }
   }
 
@@ -92,22 +99,29 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
     try {
       console.log(event);
       const i = Number.parseInt(event.target.value);
-      console.log(i);
+      // console.log(i);
 
       if (i >= this.min && i <= this.max) {
         this.value = i;
+        this.emitChange();
+      } else if (event.target.value === null || event.target.value === '') {
+        this.value = null;
         this.emitChange();
       } else {
         this.value = this.lastValue;
       }
     } catch (e) {
+
       this.value = this.lastValue;
       console.log('Catch Not a number...');
+
     }
   }
 
   onFocus() {
-    this.lastValue = this.value;
+    if (this.value) {
+      this.lastValue = this.value;
+    }
   }
 
   writeValue(value) {
