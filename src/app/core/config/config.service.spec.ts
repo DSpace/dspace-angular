@@ -1,7 +1,7 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/Rx';
 import { GlobalConfig } from '../../../config';
-import { initMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { ConfigService } from './config.service';
 import { RequestService } from '../data/request.service';
@@ -57,7 +57,7 @@ describe('ConfigService', () => {
 
   beforeEach(() => {
     responseCache = initMockResponseCacheService(true);
-    requestService = initMockRequestService();
+    requestService = getMockRequestService();
     service = initTestService();
     scheduler = getTestScheduler();
     spyOn(service, 'getEndpoint').and

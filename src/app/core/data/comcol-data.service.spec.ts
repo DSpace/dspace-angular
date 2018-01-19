@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/Rx';
 import { GlobalConfig } from '../../../config';
-import { initMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -102,7 +102,7 @@ describe('ComColDataService', () => {
 
     it('should configure a new FindByIDRequest for the scope Community', () => {
       cds = initMockCommunityDataService();
-      requestService = initMockRequestService();
+      requestService = getMockRequestService();
       objectCache = initMockObjectCacheService();
       responseCache = initMockResponseCacheService(true);
       service = initTestService();
@@ -118,7 +118,7 @@ describe('ComColDataService', () => {
     describe('if the scope Community can be found', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = initMockRequestService();
+        requestService = getMockRequestService();
         objectCache = initMockObjectCacheService();
         responseCache = initMockResponseCacheService(true);
         service = initTestService();
@@ -141,7 +141,7 @@ describe('ComColDataService', () => {
     describe('if the scope Community can\'t be found', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = initMockRequestService();
+        requestService = getMockRequestService();
         objectCache = initMockObjectCacheService();
         responseCache = initMockResponseCacheService(false);
         service = initTestService();
@@ -158,7 +158,7 @@ describe('ComColDataService', () => {
     describe('if the scope is not specified', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = initMockRequestService();
+        requestService = getMockRequestService();
         objectCache = initMockObjectCacheService();
         responseCache = initMockResponseCacheService(true);
         service = initTestService();

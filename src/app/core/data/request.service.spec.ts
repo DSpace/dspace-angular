@@ -1,9 +1,10 @@
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
-import { initMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
-import { initMockStore } from '../../shared/mocks/mock-store';
-import { defaultUUID, initMockUUIDService } from '../../shared/mocks/mock-uuid.service';
+import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
+import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
+import { getMockStore } from '../../shared/mocks/mock-store';
+import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
@@ -16,7 +17,7 @@ import {
   OptionsRequest,
   PatchRequest,
   PostRequest,
-  PutRequest
+  PutRequest, RestRequest
 } from './request.models';
 import { RequestService } from './request.service';
 
@@ -38,45 +39,29 @@ describe('RequestService', () => {
   const testHeadRequest = new HeadRequest(testUUID, testHref);
   const testPatchRequest = new PatchRequest(testUUID, testHref);
 
-  const defaultSelectResult = Observable.of(undefined);
-  const defaultHasResponse = false;
-  const defaultGetResponse = Observable.of(undefined);
-  const defaultHasObjectCache = false;
+  beforeEach(() => {
+    objectCache = getMockObjectCacheService();
+    (objectCache.hasBySelfLink as any).and.returnValue(false);
 
-  function initMockResponseCacheService(hasResponse, getResponse) {
-    return jasmine.createSpyObj('responseCache', {
-      has: hasResponse,
-      get: getResponse
-    });
-  }
+    responseCache = getMockResponseCacheService();
+    (responseCache.has as any).and.returnValue(false);
+    (responseCache.get as any).and.returnValue(Observable.of(undefined));
 
-  function initTestService() {
-    return new RequestService(
+    uuidService = getMockUUIDService();
+
+    store = getMockStore<CoreState>();
+    (store.select as any).and.returnValue(Observable.of(undefined));
+
+    service = new RequestService(
       objectCache,
       responseCache,
       uuidService,
       store
     );
-  }
-
-  function initServices(selectResult = defaultSelectResult, hasResponse = defaultHasResponse, getResponse = defaultGetResponse, hasObjectCache: boolean | boolean[] = defaultHasObjectCache) {
-    if (!Array.isArray(hasObjectCache)) {
-      hasObjectCache = [hasObjectCache];
-    }
-    objectCache = initMockObjectCacheService();
-    (objectCache.hasBySelfLink as any).and.returnValues(...hasObjectCache);
-    responseCache = initMockResponseCacheService(hasResponse, getResponse);
-    uuidService = initMockUUIDService();
-    store = initMockStore<CoreState>(selectResult);
-    service = initTestService();
     serviceAsAny = service as any;
-  }
+  });
 
   describe('generateRequestId', () => {
-    beforeEach(() => {
-      initServices();
-    });
-
     it('should generate a new request ID', () => {
       const result = service.generateRequestId();
       const expected = `client/${defaultUUID}`;
@@ -88,7 +73,7 @@ describe('RequestService', () => {
   describe('isPending', () => {
     describe('before the request is configured', () => {
       beforeEach(() => {
-        initServices();
+        spyOn(service, 'getByHref').and.returnValue(Observable.of(undefined));
       });
 
       it('should return false', () => {
@@ -101,11 +86,11 @@ describe('RequestService', () => {
 
     describe('when the request has been configured but hasn\'t reached the store yet', () => {
       beforeEach(() => {
-        initServices();
+        spyOn(service, 'getByHref').and.returnValue(Observable.of(undefined));
+        serviceAsAny.requestsOnTheirWayToTheStore = [testHref];
       });
 
       it('should return true', () => {
-        serviceAsAny.requestsOnTheirWayToTheStore = [testHref];
         const result = service.isPending(testGetRequest);
         const expected = true;
 
@@ -115,9 +100,9 @@ describe('RequestService', () => {
 
     describe('when the request has reached the store, before the server responds', () => {
       beforeEach(() => {
-        initServices(Observable.of({
+        spyOn(service, 'getByHref').and.returnValue(Observable.of({
           completed: false
-        }));
+        }))
       });
 
       it('should return true', () => {
@@ -130,7 +115,7 @@ describe('RequestService', () => {
 
     describe('after the server responds', () => {
       beforeEach(() => {
-        initServices(Observable.of({
+        spyOn(service, 'getByHref').and.returnValues(Observable.of({
           completed: true
         }));
       });
@@ -147,13 +132,15 @@ describe('RequestService', () => {
 
   describe('getByUUID', () => {
     describe('if the request with the specified UUID exists in the store', () => {
-      it('should return an Observable of the RequestEntry', () => {
-        initServices(hot('a', {
+      beforeEach(() => {
+        (store.select as any).and.returnValues(hot('a', {
           a: {
             completed: true
           }
         }));
+      });
 
+      it('should return an Observable of the RequestEntry', () => {
         const result = service.getByUUID(testUUID);
         const expected = cold('b', {
           b: {
@@ -166,11 +153,13 @@ describe('RequestService', () => {
     });
 
     describe('if the request with the specified UUID doesn\'t exist in the store', () => {
-      it('should return an Observable of undefined', () => {
-        initServices(hot('a', {
+      beforeEach(() => {
+        (store.select as any).and.returnValues(hot('a', {
           a: undefined
         }));
+      });
 
+      it('should return an Observable of undefined', () => {
         const result = service.getByUUID(testUUID);
         const expected = cold('b', {
           b: undefined
@@ -183,9 +172,9 @@ describe('RequestService', () => {
   });
 
   describe('getByHref', () => {
-    describe('if the request with the specified href exists in the store', () => {
-      it('should return an Observable of the RequestEntry', () => {
-        initServices(hot('a', {
+    describe('when the request with the specified href exists in the store', () => {
+      beforeEach(() => {
+        (store.select as any).and.returnValues(hot('a', {
           a: testUUID
         }));
         spyOn(service, 'getByUUID').and.returnValue(cold('b', {
@@ -193,7 +182,9 @@ describe('RequestService', () => {
             completed: true
           }
         }));
+      });
 
+      it('should return an Observable of the RequestEntry', () => {
         const result = service.getByHref(testHref);
         const expected = cold('c', {
           c: {
@@ -205,15 +196,17 @@ describe('RequestService', () => {
       });
     });
 
-    describe('if the request with the specified href doesn\'t exist in the store', () => {
-      it('should return an Observable of undefined', () => {
-        initServices(hot('a', {
+    describe('when the request with the specified href doesn\'t exist in the store', () => {
+      beforeEach(() => {
+        (store.select as any).and.returnValues(hot('a', {
           a: undefined
         }));
         spyOn(service, 'getByUUID').and.returnValue(cold('b', {
           b: undefined
         }));
+      });
 
+      it('should return an Observable of undefined', () => {
         const result = service.getByHref(testHref);
         const expected = cold('c', {
           c: undefined
@@ -225,34 +218,41 @@ describe('RequestService', () => {
   });
 
   describe('configure', () => {
-    describe('if the request is a GET request', () => {
-      describe('and it isn\'t already cached', () => {
-        it('should dispatch the request', () => {
-          initServices();
-          spyOn(serviceAsAny, 'dispatchRequest');
-          spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(false);
+    beforeEach(() => {
+      spyOn(serviceAsAny, 'dispatchRequest');
+    });
 
-          service.configure(testGetRequest);
-          expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testGetRequest);
+    describe('when the request is a GET request', () => {
+      let request: RestRequest;
+
+      beforeEach(() => {
+        request = testGetRequest;
+      });
+
+      describe('and it isn\'t cached or pending', () => {
+        beforeEach(() => {
+          spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(false);
+        });
+
+        it('should dispatch the request', () => {
+          service.configure(request);
+          expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(request);
         });
       });
       describe('and it is already cached or pending', () => {
-        it('shouldn\'t dispatch the request', () => {
-          initServices();
-          spyOn(serviceAsAny, 'dispatchRequest');
+        beforeEach(() => {
           spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(true);
+        });
 
-          service.configure(testGetRequest);
+        it('shouldn\'t dispatch the request', () => {
+          service.configure(request);
           expect(serviceAsAny.dispatchRequest).not.toHaveBeenCalled();
         });
       });
     });
 
-    describe('if the request isn\'t a GET request', () => {
+    describe('when the request isn\'t a GET request', () => {
       it('should dispatch the request', () => {
-        initServices();
-        spyOn(serviceAsAny, 'dispatchRequest');
-
         service.configure(testPostRequest);
         expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPostRequest);
 
@@ -277,14 +277,11 @@ describe('RequestService', () => {
   describe('isCachedOrPending', () => {
     describe('when the request is cached', () => {
       describe('in the ObjectCache', () => {
-        it('should return true', () => {
-          initServices(defaultSelectResult, true, Observable.of({
-              response: {
-                isSuccessful: true
-              }
-            }
-          ), true);
+        beforeEach(() => {
+          (objectCache.hasBySelfLink as any).and.returnValues(true);
+        });
 
+        it('should return true', () => {
           const result = serviceAsAny.isCachedOrPending(testGetRequest);
           const expected = true;
 
@@ -292,9 +289,13 @@ describe('RequestService', () => {
         });
       });
       describe('in the responseCache', () => {
+        beforeEach(() => {
+          (responseCache.has as any).and.returnValues(true);
+        });
+
         describe('and it\'s a DSOSuccessResponse', () => {
-          it('should return true if all top level links in the response are cached in the object cache', () => {
-            initServices(defaultSelectResult, true, Observable.of({
+          beforeEach(() => {
+            (responseCache.get as any).and.returnValues(Observable.of({
                 response: {
                   isSuccessful: true,
                   resourceSelfLinks: [
@@ -303,7 +304,11 @@ describe('RequestService', () => {
                   ]
                 }
               }
-            ), [false, true, true]);
+            ));
+          });
+
+          it('should return true if all top level links in the response are cached in the object cache', () => {
+            (objectCache.hasBySelfLink as any).and.returnValues(false, true, true);
 
             const result = serviceAsAny.isCachedOrPending(testGetRequest);
             const expected = true;
@@ -311,16 +316,7 @@ describe('RequestService', () => {
             expect(result).toEqual(expected);
           });
           it('should return false if not all top level links in the response are cached in the object cache', () => {
-            initServices(defaultSelectResult, true, Observable.of({
-                response: {
-                  isSuccessful: true,
-                  resourceSelfLinks: [
-                    'https://rest.api/endpoint/selfLink1',
-                    'https://rest.api/endpoint/selfLink2'
-                  ]
-                }
-              }
-            ), [false, true, false]);
+            (objectCache.hasBySelfLink as any).and.returnValues(false, true, false);
 
             const result = serviceAsAny.isCachedOrPending(testGetRequest);
             const expected = false;
@@ -329,14 +325,18 @@ describe('RequestService', () => {
           });
         });
         describe('and it isn\'t a DSOSuccessResponse', () => {
-          it('should return true', () => {
-            initServices(defaultSelectResult, true, Observable.of({
+          beforeEach(() => {
+            (objectCache.hasBySelfLink as any).and.returnValues(false);
+            (responseCache.has as any).and.returnValues(true);
+            (responseCache.get as any).and.returnValues(Observable.of({
                 response: {
                   isSuccessful: true
                 }
               }
-            ), false);
+            ));
+          });
 
+          it('should return true', () => {
             const result = serviceAsAny.isCachedOrPending(testGetRequest);
             const expected = true;
 
@@ -347,10 +347,11 @@ describe('RequestService', () => {
     });
 
     describe('when the request is pending', () => {
-      it('should return true', () => {
-        initServices();
+      beforeEach(() => {
         spyOn(service, 'isPending').and.returnValue(true);
+      });
 
+      it('should return true', () => {
         const result = serviceAsAny.isCachedOrPending(testGetRequest);
         const expected = true;
 
@@ -360,8 +361,6 @@ describe('RequestService', () => {
 
     describe('when the request is neither cached nor pending', () => {
       it('should return false', () => {
-        initServices();
-
         const result = serviceAsAny.isCachedOrPending(testGetRequest);
         const expected = false;
 
@@ -371,27 +370,31 @@ describe('RequestService', () => {
   });
 
   describe('dispatchRequest', () => {
-    beforeEach(() => {
-      initServices();
-    });
     it('should dispatch a RequestConfigureAction', () => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
       expect(store.dispatch).toHaveBeenCalledWith(new RequestConfigureAction(request));
     });
+
     it('should dispatch a RequestExecuteAction', () => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
       expect(store.dispatch).toHaveBeenCalledWith(new RequestExecuteAction(request.uuid));
     });
+
     describe('when it\'s a GET request', () => {
+      let request: RestRequest;
+      beforeEach(() => {
+        request = testGetRequest;
+      });
+
       it('should track it on it\'s way to the store', () => {
         spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
-        const request = testGetRequest;
         serviceAsAny.dispatchRequest(request);
         expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).toHaveBeenCalledWith(request);
       });
     });
+
     describe('when it\'s not a GET request', () => {
       it('shouldn\'t track it', () => {
         spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
@@ -421,7 +424,6 @@ describe('RequestService', () => {
     let request: GetRequest;
 
     beforeEach(() => {
-      initServices();
       request = testGetRequest;
     });
 
@@ -435,7 +437,7 @@ describe('RequestService', () => {
 
     describe('when the request is added to the store', () => {
       it('should stop tracking the request', () => {
-        (store.select as any).and.returnValue(Observable.of({ request }));
+        (store.select as any).and.returnValues(Observable.of({ request }));
         serviceAsAny.trackRequestsOnTheirWayToTheStore(request);
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });

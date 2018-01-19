@@ -1,4 +1,5 @@
-import { initMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import { BrowseService } from './browse.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
@@ -74,16 +75,16 @@ describe('BrowseService', () => {
   ];
 
   function initMockResponseCacheService(isSuccessful: boolean) {
-    return jasmine.createSpyObj('responseCache', {
-      get: cold('b-', {
-        b: {
-          response: {
-            isSuccessful,
-            browseDefinitions,
-          }
+    const rcs = getMockResponseCacheService();
+    (rcs.get as any).and.returnValue(cold('b-', {
+      b: {
+        response: {
+          isSuccessful,
+          browseDefinitions,
         }
-      })
-    });
+      }
+    }));
+    return rcs;
   }
 
   function initTestService() {
@@ -103,7 +104,7 @@ describe('BrowseService', () => {
     describe('if getEndpoint fires', () => {
       beforeEach(() => {
         responseCache = initMockResponseCacheService(true);
-        requestService = initMockRequestService();
+        requestService = getMockRequestService();
         service = initTestService();
         spyOn(service, 'getEndpoint').and
           .returnValue(hot('--a-', { a: browsesEndpointURL }));
@@ -168,7 +169,7 @@ describe('BrowseService', () => {
     describe('if getEndpoint doesn\'t fire', () => {
       it('should return undefined', () => {
         responseCache = initMockResponseCacheService(true);
-        requestService = initMockRequestService();
+        requestService = getMockRequestService();
         service = initTestService();
         spyOn(service, 'getEndpoint').and
           .returnValue(hot('----'));
@@ -185,7 +186,7 @@ describe('BrowseService', () => {
     describe('if the browses endpoint can\'t be retrieved', () => {
       it('should throw an error', () => {
         responseCache = initMockResponseCacheService(false);
-        requestService = initMockRequestService();
+        requestService = getMockRequestService();
         service = initTestService();
         spyOn(service, 'getEndpoint').and
           .returnValue(hot('--a-', { a: browsesEndpointURL }));

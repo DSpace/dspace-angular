@@ -1,6 +1,6 @@
 import { cold, hot } from 'jasmine-marbles';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { initMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RootEndpointRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
@@ -39,7 +39,7 @@ describe('HALEndpointService', () => {
         })
       });
 
-      requestService = initMockRequestService();
+      requestService = getMockRequestService();
 
       envConfig = {
         rest: { baseUrl: 'https://rest.api/' }
