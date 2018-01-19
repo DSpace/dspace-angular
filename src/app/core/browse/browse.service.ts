@@ -40,7 +40,7 @@ export class BrowseService extends HALEndpointService {
     return this.getEndpoint()
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new BrowseEndpointRequest(endpointURL))
+      .map((endpointURL: string) => new BrowseEndpointRequest(this.requestService.generateRequestId(), endpointURL))
       .do((request: RestRequest) => this.requestService.configure(request))
       .flatMap((request: RestRequest) => {
         const [successResponse, errorResponse] = this.responseCache.get(request.href)

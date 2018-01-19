@@ -1,7 +1,7 @@
 <ds-pagination
   [paginationOptions]="config"
-  [pageInfoState]="pageInfo"
-  [collectionSize]="pageInfo?.totalElements"
+  [pageInfoState]="objects?.payload"
+  [collectionSize]="objects?.payload?.totalElements"
   [sortOptions]="sortConfig"
   [hideGear]="hideGear"
   [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
@@ -12,7 +12,7 @@
   (paginationChange)="onPaginationChange($event)">
     <div class="row mt-2" *ngIf="objects?.hasSucceeded" @fadeIn>
         <div class="col-lg-4 col-sm-6 col-xs-12 "
-          *ngFor="let object of objects?.payload">
+          *ngFor="let object of objects?.payload?.page">
           <ds-wrapper-grid-element [object]="object"></ds-wrapper-grid-element>
       </div>
     </div>

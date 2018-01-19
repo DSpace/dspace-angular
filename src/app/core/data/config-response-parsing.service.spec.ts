@@ -1,4 +1,5 @@
 import { ConfigSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -21,7 +22,7 @@ describe('ConfigResponseParsingService', () => {
   });
 
   describe('parse', () => {
-    const validRequest = new ConfigRequest('https://rest.api/config/submissiondefinitions/traditional');
+    const validRequest = new ConfigRequest('69f375b5-19f4-4453-8c7a-7dc5c55aafbb', 'https://rest.api/config/submissiondefinitions/traditional');
 
     const validResponse = {
       payload: {

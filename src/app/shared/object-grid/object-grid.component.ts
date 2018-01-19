@@ -1,20 +1,20 @@
 import {
   ChangeDetectionStrategy,
-  Component, EventEmitter,
+  Component,
+  EventEmitter,
   Input,
   Output,
   ViewEncapsulation
 } from '@angular/core';
 
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../core/data/paginated-list';
+
 import { RemoteData } from '../../core/data/remote-data';
-import { PageInfo } from '../../core/shared/page-info.model';
-
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-
-import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
 import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { hasValue } from '../empty.util';
+
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -31,13 +31,9 @@ export class ObjectGridComponent {
   @Input() sortConfig: SortOptions;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
-  private _objects: RemoteData<ListableObject[]>;
-  pageInfo: PageInfo;
-  @Input() set objects(objects: RemoteData<ListableObject[]>) {
+  private _objects: RemoteData<PaginatedList<ListableObject>>;
+  @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
     this._objects = objects;
-    if (hasValue(objects)) {
-      this.pageInfo = objects.pageInfo;
-    }
   }
   get objects() {
     return this._objects;

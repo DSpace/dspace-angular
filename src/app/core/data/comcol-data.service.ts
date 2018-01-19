@@ -33,7 +33,7 @@ export abstract class ComColDataService<TNormalized extends CacheableObject, TDo
         .filter((href: string) => isNotEmpty(href))
         .take(1)
         .do((href: string) => {
-          const request = new FindByIDRequest(href, scopeID);
+          const request = new FindByIDRequest(this.requestService.generateRequestId(), href, scopeID);
           this.requestService.configure(request);
         });
 

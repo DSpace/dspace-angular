@@ -75,14 +75,14 @@ export abstract class ConfigService extends HALEndpointService {
     return this.getEndpoint()
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new ConfigRequest(endpointURL))
+      .map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL))
       .do((request: RestRequest) => this.requestService.configure(request))
       .flatMap((request: RestRequest) => this.getConfig(request))
       .distinctUntilChanged();
   }
 
   public getConfigByHref(href: string): Observable<ConfigData> {
-    const request = new ConfigRequest(href);
+    const request = new ConfigRequest(this.requestService.generateRequestId(), href);
     this.requestService.configure(request);
 
     return this.getConfig(request);
@@ -93,7 +93,7 @@ export abstract class ConfigService extends HALEndpointService {
       .map((endpoint: string) => this.getConfigByNameHref(endpoint, name))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new ConfigRequest(endpointURL))
+      .map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL))
       .do((request: RestRequest) => this.requestService.configure(request))
       .flatMap((request: RestRequest) => this.getConfig(request))
       .distinctUntilChanged();
@@ -104,7 +104,7 @@ export abstract class ConfigService extends HALEndpointService {
       .map((endpoint: string) => this.getConfigSearchHref(endpoint, options))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new ConfigRequest(endpointURL))
+      .map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL))
       .do((request: RestRequest) => this.requestService.configure(request))
       .flatMap((request: RestRequest) => this.getConfig(request))
       .distinctUntilChanged();

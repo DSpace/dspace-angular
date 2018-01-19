@@ -37,6 +37,7 @@ import { RouteService } from '../shared/route.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
+import { UUIDService } from './shared/uuid.service';
 
 const IMPORTS = [
   CommonModule,
@@ -75,6 +76,7 @@ const PROVIDERS = [
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
+  UUIDService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

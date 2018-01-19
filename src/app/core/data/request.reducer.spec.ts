@@ -4,7 +4,7 @@ import { requestReducer, RequestState } from './request.reducer';
 import {
   RequestCompleteAction, RequestConfigureAction, RequestExecuteAction
 } from './request.actions';
-import { RestRequest } from './request.models';
+import { GetRequest, RestRequest } from './request.models';
 
 class NullAction extends RequestCompleteAction {
   type = null;
@@ -16,11 +16,13 @@ class NullAction extends RequestCompleteAction {
 }
 
 describe('requestReducer', () => {
+  const id1 = 'clients/eca2ea1d-6a6a-4f62-8907-176d5fec5014';
+  const id2 = 'clients/eb7cde2e-a03f-4f0b-ac5d-888a4ef2b4eb';
   const link1 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/567a639f-f5ff-4126-807c-b7d0910808c8';
   const link2 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/1911e8a4-6939-490c-b58b-a5d70f8d91fb';
   const testState: RequestState = {
-    [link1]: {
-      request: new RestRequest(link1),
+    [id1]: {
+      request: new GetRequest(id1, link1),
       requestPending: false,
       responsePending: false,
       completed: false
@@ -44,37 +46,40 @@ describe('requestReducer', () => {
 
   it('should add the new RestRequest and set \'requestPending\' to true, \'responsePending\' to false and \'completed\' to false for the given RestRequest in the state, in response to a CONFIGURE action', () => {
     const state = testState;
-    const request = new RestRequest(link2);
+    const request = new GetRequest(id2, link2);
 
     const action = new RequestConfigureAction(request);
     const newState = requestReducer(state, action);
 
-    expect(newState[link2].request.href).toEqual(link2);
-    expect(newState[link2].requestPending).toEqual(true);
-    expect(newState[link2].responsePending).toEqual(false);
-    expect(newState[link2].completed).toEqual(false);
+    expect(newState[id2].request.uuid).toEqual(id2);
+    expect(newState[id2].request.href).toEqual(link2);
+    expect(newState[id2].requestPending).toEqual(true);
+    expect(newState[id2].responsePending).toEqual(false);
+    expect(newState[id2].completed).toEqual(false);
   });
 
   it('should set \'requestPending\' to false, \'responsePending\' to true and leave \'completed\' untouched for the given RestRequest in the state, in response to an EXECUTE action', () => {
     const state = testState;
 
-    const action = new RequestExecuteAction(link1);
+    const action = new RequestExecuteAction(id1);
     const newState = requestReducer(state, action);
 
-    expect(newState[link1].request.href).toEqual(link1);
-    expect(newState[link1].requestPending).toEqual(false);
-    expect(newState[link1].responsePending).toEqual(true);
-    expect(newState[link1].completed).toEqual(state[link1].completed);
+    expect(newState[id1].request.uuid).toEqual(id1);
+    expect(newState[id1].request.href).toEqual(link1);
+    expect(newState[id1].requestPending).toEqual(false);
+    expect(newState[id1].responsePending).toEqual(true);
+    expect(newState[id1].completed).toEqual(state[id1].completed);
   });
   it('should leave \'requestPending\' untouched, set \'responsePending\' to false and \'completed\' to true for the given RestRequest in the state, in response to a COMPLETE action', () => {
     const state = testState;
 
-    const action = new RequestCompleteAction(link1);
+    const action = new RequestCompleteAction(id1);
     const newState = requestReducer(state, action);
 
-    expect(newState[link1].request.href).toEqual(link1);
-    expect(newState[link1].requestPending).toEqual(state[link1].requestPending);
-    expect(newState[link1].responsePending).toEqual(false);
-    expect(newState[link1].completed).toEqual(true);
+    expect(newState[id1].request.uuid).toEqual(id1);
+    expect(newState[id1].request.href).toEqual(link1);
+    expect(newState[id1].requestPending).toEqual(state[id1].requestPending);
+    expect(newState[id1].responsePending).toEqual(false);
+    expect(newState[id1].completed).toEqual(true);
   });
 });
