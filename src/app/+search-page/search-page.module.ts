@@ -25,6 +25,23 @@ const effects = [
   SearchSidebarEffects
 ];
 
+const components = [
+  SearchPageComponent,
+  SearchResultsComponent,
+  SearchSidebarComponent,
+  SearchSettingsComponent,
+  ItemSearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  CommunitySearchResultListElementComponent,
+  ItemSearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
+  CommunitySearchResultGridElementComponent,
+  CommunitySearchResultListElementComponent,
+  SearchFiltersComponent,
+  SearchFilterComponent,
+  SearchFacetFilterComponent
+];
+
 @NgModule({
   imports: [
     SearchPageRoutingModule,
@@ -32,22 +49,7 @@ const effects = [
     SharedModule,
     EffectsModule.forFeature(effects),
   ],
-  declarations: [
-    SearchPageComponent,
-    SearchResultsComponent,
-    SearchSidebarComponent,
-    SearchSettingsComponent,
-    ItemSearchResultListElementComponent,
-    CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent,
-    ItemSearchResultGridElementComponent,
-    CollectionSearchResultGridElementComponent,
-    CommunitySearchResultGridElementComponent,
-    CommunitySearchResultListElementComponent,
-    SearchFiltersComponent,
-    SearchFilterComponent,
-    SearchFacetFilterComponent
-  ],
+  declarations: components,
   providers: [
     SearchService,
     SearchSidebarService,
@@ -60,7 +62,8 @@ const effects = [
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
-  ]
+  ],
+  exports: components
 })
 export class SearchPageModule {
 }

@@ -47,6 +47,7 @@ import { EpersonResponseParsingService } from './eperson/eperson-response-parsin
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { AuthorityService } from './integration/authority.service';
 import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
+import { WorkspaceitemDataService } from './data/workspaceitem-data.service';
 
 const IMPORTS = [
   CommonModule,
@@ -95,6 +96,7 @@ const PROVIDERS = [
   JsonPatchOperationsBuilder,
   AuthorityService,
   IntegrationResponseParsingService,
+  WorkspaceitemDataService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

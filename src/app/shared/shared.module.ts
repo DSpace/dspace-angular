@@ -67,6 +67,8 @@ import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models
 import { DsDynamicGroupComponent } from './form/builder/ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.components';
 import { SortablejsModule } from 'angular-sortablejs';
 
+import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
+
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
@@ -132,6 +134,7 @@ const ENTRY_COMPONENTS = [
   ItemListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
+  MyDSpaceResultListElementComponent,
   SearchResultListElementComponent,
   ItemGridElementComponent,
   CollectionGridElementComponent,

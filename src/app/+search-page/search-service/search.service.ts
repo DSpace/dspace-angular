@@ -14,7 +14,7 @@ import { FilterType } from './filter-type.model';
 import { FacetValue } from './facet-value.model';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { RouteService } from '../../shared/route.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
@@ -50,7 +50,7 @@ export class SearchService implements OnDestroy {
     '<em>The QSAR DataBank (QsarDB) repository</em>',
   );
   private sub;
-  searchLink = '/search';
+  searchLink: string;
 
   config: SearchFilterConfig[] = [
     Object.assign(new SearchFilterConfig(),
@@ -85,17 +85,18 @@ export class SearchService implements OnDestroy {
   // searchOptions: BehaviorSubject<SearchOptions>;
   searchOptions: SearchOptions;
 
-  constructor(private itemDataService: ItemDataService,
-              private routeService: RouteService,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor(protected itemDataService: ItemDataService,
+              protected routeService: RouteService,
+              protected route: ActivatedRoute,
+              protected router: Router) {
 
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
     pagination.id = 'search-results-pagination';
     pagination.currentPage = 1;
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
-    this.searchOptions = { pagination: pagination, sort: sort };
+    this.searchOptions = {pagination: pagination, sort: sort};
+    this.searchLink = this.getSearchLink();
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
   }
 
@@ -126,7 +127,7 @@ export class SearchService implements OnDestroy {
       returningPageInfo.elementsPerPage = searchOptions.pagination.pageSize;
       returningPageInfo.currentPage = searchOptions.pagination.currentPage;
     } else {
-      returningPageInfo.elementsPerPage = 10;
+      returningPageInfo.elementsPerPage = 20;
       returningPageInfo.currentPage = 1;
     }
 
@@ -141,7 +142,7 @@ export class SearchService implements OnDestroy {
       .map((rd: RemoteData<Item[]>) => {
 
         const totalElements = rd.pageInfo.totalElements > 20 ? 20 : rd.pageInfo.totalElements;
-        const pageInfo = Object.assign({}, rd.pageInfo, { totalElements: totalElements });
+        const pageInfo = Object.assign({}, rd.pageInfo, {totalElements: totalElements});
 
         const payload = shuffle(rd.payload)
           .map((item: Item, index: number) => {
@@ -242,7 +243,7 @@ export class SearchService implements OnDestroy {
 
   setViewMode(viewMode: ViewMode) {
     const navigationExtras: NavigationExtras = {
-      queryParams: { view: viewMode },
+      queryParams: {view: viewMode},
       queryParamsHandling: 'merge'
     };
 
@@ -264,7 +265,8 @@ export class SearchService implements OnDestroy {
   }
 
   getSearchLink() {
-    return this.searchLink;
+    const urlTree = this.router.parseUrl(this.router.url);
+    return `/${urlTree.root.children.primary.segments[0].path}`;
   }
 
   ngOnDestroy(): void {
