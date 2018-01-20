@@ -1,15 +1,17 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { mapsTo } from '../../core/cache/builders/build-decorators';
+import { mapsTo, relationship } from '../../core/cache/builders/build-decorators';
 import { NormalizedDSpaceObject } from '../../core/cache/models/normalized-dspace-object.model';
 import { License } from '../../core/shared/license.model';
 import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 import { NormalizedItem } from '../../core/cache/models/normalized-item.model';
 
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
-import { WorkspaceItemError } from './workspaceitem.model';
+import { WorkspaceItemError, Workspaceitem } from './workspaceitem.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
+import { ResourceType } from '../../core/shared/resource-type';
+import { EpersonModel } from '../../core/eperson/models/eperson.model';
 
-@mapsTo(License)
+@mapsTo(Workspaceitem)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedWorkspaceItem extends NormalizedDSpaceObject {
 
@@ -28,14 +30,18 @@ export class NormalizedWorkspaceItem extends NormalizedDSpaceObject {
   @autoserializeAs(NormalizedCollection)
   collection: NormalizedCollection[];
 
-  @autoserializeAs(NormalizedItem)
-  item: NormalizedItem[];
+  @autoserialize
+  @relationship(ResourceType.Item, true)
+  item: string[];
 
   @autoserialize
   sections: WorkspaceitemSectionsObject;
 
   @autoserializeAs(SubmissionDefinitionsModel)
   submissionDefinition: SubmissionDefinitionsModel;
+
+  @autoserializeAs(EpersonModel)
+  submitter: EpersonModel;
 
   @autoserialize
   errors: WorkspaceItemError[]

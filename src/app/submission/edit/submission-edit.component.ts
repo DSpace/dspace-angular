@@ -9,7 +9,7 @@ import { NormalizedWorkspaceItem } from '../models/normalized-workspaceitem.mode
 import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 import { hasValue, isNotUndefined } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
-import { WorkspaceitemObject } from '../models/workspaceitem.model';
+import { Workspaceitem } from '../models/workspaceitem.model';
 
 @Component({
   selector: 'ds-submission-edit',
@@ -42,9 +42,9 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         .subscribe((params: ParamMap) => {
           this.submissionId = params.get('id');
           this.restService.getDataById(this.submissionId)
-            .filter((workspaceitems: WorkspaceitemObject) => isNotUndefined(workspaceitems))
+            .filter((workspaceitems: Workspaceitem) => isNotUndefined(workspaceitems))
             .take(1)
-            .map((workspaceitems: WorkspaceitemObject) => workspaceitems[0])
+            .map((workspaceitems: Workspaceitem) => workspaceitems[0])
             .subscribe((workspaceitems: NormalizedWorkspaceItem) => {
               this.collectionId = workspaceitems.collection[0].id;
               this.sections = workspaceitems.sections;

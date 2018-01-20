@@ -16,7 +16,7 @@ import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SubmissionState } from '../submission.reducers';
-import { WorkspaceitemObject } from '../models/workspaceitem.model';
+import { Workspaceitem } from '../models/workspaceitem.model';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
 import { SubmissionService } from '../submission.service';
@@ -79,7 +79,7 @@ export class SubmissionSubmitFormComponent implements OnChanges {
     this.submissionService.stopAutoSave();
   }
 
-  onCollectionChange(workspaceItemObject: WorkspaceitemObject) {
+  onCollectionChange(workspaceItemObject: Workspaceitem) {
     this.collectionId = workspaceItemObject.collection[0].id;
     if (this.definitionId !== workspaceItemObject.submissionDefinition[0].name) {
       this.sections = workspaceItemObject.sections;

@@ -52,7 +52,7 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
           const errorsList = {};
 
           // to avoid dispatching an action for every error, create an array of errors per section
-          (response as WorkspaceitemObject[]).forEach((item: WorkspaceitemObject) => {
+          (response as Workspaceitem[]).forEach((item: Workspaceitem) => {
             const {sections} = item;
             if (sections && isNotEmpty(sections)) {
               Object.keys(sections)

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { submissionSelector, SubmissionState } from './submission.reducers';
 // utils
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../shared/empty.util';
-import { WorkspaceItemError, WorkspaceitemObject } from './models/workspaceitem.model';
+import { WorkspaceItemError, Workspaceitem } from './models/workspaceitem.model';
 import { SubmissionRestService } from './submission-rest.service';
 import { SectionService } from './section/section.service';
 import { default as parseSectionErrorPaths, SectionErrorPath } from './utils/parseSectionErrorPaths';
@@ -88,7 +88,7 @@ export class SubmissionService {
           const errorsList = {};
 
           // to avoid dispatching an action for every error, create an array of errors per section
-          (response as WorkspaceitemObject[]).forEach((item: WorkspaceitemObject) => {
+          (response as Workspaceitem[]).forEach((item: Workspaceitem) => {
             const {sections} = item;
             if (sections && isNotEmpty(sections)) {
               Object.keys(sections)

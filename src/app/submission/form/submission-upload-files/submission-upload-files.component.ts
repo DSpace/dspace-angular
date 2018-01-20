@@ -5,7 +5,7 @@ import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload
 import { hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { WorkspaceitemSectionUploadFileObject } from '../../models/workspaceitem-section-upload-file.model';
 import { SubmissionRestService } from '../../submission-rest.service';
-import { WorkspaceitemObject } from '../../models/workspaceitem.model';
+import { Workspaceitem } from '../../models/workspaceitem.model';
 import { normalizeSectionData } from '../../models/workspaceitem-sections.model';
 
 @Component({
@@ -45,7 +45,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
     }
   }
 
-  public onCompleteItem(workspaceitem: WorkspaceitemObject) {
+  public onCompleteItem(workspaceitem: Workspaceitem) {
     // Checks if upload section is enabled so do upload
     if (this.uploadEnabled) {
       this.subs.push(

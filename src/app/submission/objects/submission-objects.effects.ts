@@ -18,7 +18,7 @@ import { SectionService } from '../section/section.service';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
 import { SubmissionRestService } from '../submission-rest.service';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { WorkspaceItemError, WorkspaceitemObject } from '../models/workspaceitem.model';
+import { WorkspaceItemError, Workspaceitem } from '../models/workspaceitem.model';
 import { default as parseSectionErrorPaths, SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from '../../app.reducer';
@@ -53,7 +53,7 @@ export class SubmissionObjectEffects {
     .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM)
     .switchMap((action: SaveSubmissionFormAction) => {
       return this.submissionRestService.jsonPatchByResourceType(action.payload.submissionId, 'sections')
-        .map((response: WorkspaceitemObject[]) => {
+        .map((response: Workspaceitem[]) => {
           return this.parseSaveResponse(response, action.payload.submissionId);
         });
     })
@@ -68,7 +68,7 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections',
         action.payload.sectionId)
-        .map((response: WorkspaceitemObject[]) => {
+        .map((response: Workspaceitem[]) => {
           return this.parseSaveResponse(response, action.payload.submissionId);
         });
     })
@@ -82,13 +82,13 @@ export class SubmissionObjectEffects {
               private submissionRestService: SubmissionRestService) {
   }
 
-  protected parseSaveResponse(response: WorkspaceitemObject[], submissionId: string) {
+  protected parseSaveResponse(response: Workspaceitem[], submissionId: string) {
     const mappedActions = [];
     if (isNotEmpty(response)) {
       const errorsList = {};
 
       // to avoid dispatching an action for every error, create an array of errors per section
-      response.forEach((item: WorkspaceitemObject) => {
+      response.forEach((item: Workspaceitem) => {
 
         const {errors} = item;
 
