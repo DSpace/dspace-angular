@@ -7,11 +7,11 @@ import { ResponseCacheEntry } from './response-cache.reducer';
 import { hasNoValue } from '../../shared/empty.util';
 import { ResponseCacheRemoveAction, ResponseCacheAddAction } from './response-cache.actions';
 import { RestResponse } from './response-cache.models';
-import { CoreState } from '../core.reducers';
-import { keySelector } from '../shared/selectors';
+import { coreSelector, CoreState } from '../core.reducers';
+import { pathSelector } from '../shared/selectors';
 
 function entryFromKeySelector(key: string): MemoizedSelector<CoreState, ResponseCacheEntry> {
-  return keySelector<ResponseCacheEntry>('data/response', key);
+  return pathSelector<CoreState, ResponseCacheEntry>(coreSelector, 'data/response', key);
 }
 
 /**

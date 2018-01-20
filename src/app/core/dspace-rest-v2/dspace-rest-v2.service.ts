@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { RequestOptionsArgs } from '@angular/http';
+import { Request } from '@angular/http';
+import { HttpClient, HttpResponse } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable';
+import { RestRequestMethod } from '../data/request.models';
 
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
 
@@ -16,33 +17,12 @@ export class DSpaceRESTv2Service {
   }
 
   /**
-   * Performs a request to the REST API with the `delte` http method.
-   *
-   * @param absoluteURL
-   *      A URL
-   * @param options
-   *      A RequestOptionsArgs object, with options for the http call.
-   * @return {Observable<string>}
-   *      An Observable<string> containing the response from the server
-   */
-  delete(absoluteURL: string, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
-    return this.http.delete(absoluteURL, {observe: 'response'})
-      .map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.statusText }))
-      .catch((err) => {
-        console.log('Error: ', err);
-        return Observable.throw(err);
-      });
-  }
-
-  /**
    * Performs a request to the REST API with the `get` http method.
    *
    * @param absoluteURL
    *      A URL
-   * @param options
-   *      An object, with options for the http call.
-   * @return {Observable<DSpaceRESTV2Response>}
-   *      An Observable<DSpaceRESTV2Response> containing the response from the server
+   * @return {Observable<string>}
+   *      An Observable<string> containing the response from the server
    */
   get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
     return this.http.get(absoluteURL, { observe: 'response' })
@@ -54,52 +34,24 @@ export class DSpaceRESTv2Service {
   }
 
   /**
-   * Performs a request to the REST API with the `post` http method.
+   * Performs a request to the REST API.
    *
-   * @param absoluteURL
-   *      A URL
+   * @param method
+   *    the HTTP method for the request
+   * @param url
+   *    the URL for the request
    * @param body
-   *      The request body
-   * @param options
-   *      A RequestOptionsArgs object, with options for the http call.
+   *    an optional body for the request
    * @return {Observable<string>}
    *      An Observable<string> containing the response from the server
    */
-  post(absoluteURL: string, body: any, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
-    return this.http.post(absoluteURL, body, {observe: 'response'})
-      .map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.statusText }))
+  request(method: RestRequestMethod, url: string, body?: any): Observable<DSpaceRESTV2Response> {
+    return this.http.request(method, url, { body, observe: 'response' })
+      .map((res) => ({ payload: res.body, statusCode: res.statusText }))
       .catch((err) => {
         console.log('Error: ', err);
         return Observable.throw(err);
       });
   }
 
-  /**
-   * Performs a request to the REST API with the `patch` http method.
-   *
-   * @param absoluteURL
-   *      A URL
-   * @param body
-   *      The request body
-   * @param options
-   *      A RequestOptionsArgs object, with options for the http call.
-   * @return {Observable<string>}
-   *      An Observable<string> containing the response from the server
-   */
-  patch(absoluteURL: string, body: any, options?: RequestOptionsArgs): Observable<DSpaceRESTV2Response> {
-    options = {};
-    const headers = {
-      headers: new HttpHeaders().set('\'Content-Type', 'application/json; charset=UTF-8'),
-      observe: 'response'
-    };
-    return this.http.patch(absoluteURL, body, {
-      headers: new HttpHeaders().set('\'Content-Type', 'application/json; charset=UTF-8'),
-      observe: 'response'
-    })
-      .map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.statusText }))
-      .catch((err) => {
-        console.log('Error: ', err);
-        return Observable.throw(err);
-      });
-  }
 }

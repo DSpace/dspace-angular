@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { ItemDataService } from '../core/data/item-data.service';
+import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 
 import { MetadataService } from '../core/metadata/metadata.service';
@@ -30,7 +31,7 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 })
 export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionRDObs: Observable<RemoteData<Collection>>;
-  itemRDObs: Observable<RemoteData<Item[]>>;
+  itemRDObs: Observable<RemoteData<PaginatedList<Item>>>;
   logoRDObs: Observable<RemoteData<Bitstream>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;

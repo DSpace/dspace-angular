@@ -1,19 +1,20 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
+import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
+import { pushInOut } from '../shared/animations/push';
 import { isNotEmpty } from '../shared/empty.util';
-import { SearchOptions,ViewMode } from './search-options.model';
+import { HostWindowService } from '../shared/host-window.service';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { SearchOptions, ViewMode } from './search-options.model';
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
-import { pushInOut } from '../shared/animations/push';
-import { HostWindowService } from '../shared/host-window.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SortOptions } from '../core/cache/models/sort-options.model';
 
 /**
  * This component renders a simple item page.
@@ -39,7 +40,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   currentParams = {};
   searchOptions: SearchOptions;
   sortConfig: SortOptions;
-  scopeListRDObs: Observable<RemoteData<Community[]>>;
+  scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
 
   constructor(private service: SearchService,

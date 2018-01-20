@@ -12,7 +12,7 @@ export class RequestEntry {
 }
 
 export interface RequestState {
-  [key: string]: RequestEntry
+  [uuid: string]: RequestEntry
 }
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
@@ -41,7 +41,7 @@ export function requestReducer(state = initialState, action: RequestAction): Req
 
 function configureRequest(state: RequestState, action: RequestConfigureAction): RequestState {
   return Object.assign({}, state, {
-    [action.payload.href]: {
+    [action.payload.uuid]: {
       request: action.payload,
       requestPending: true,
       responsePending: false,

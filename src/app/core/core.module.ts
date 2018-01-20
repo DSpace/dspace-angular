@@ -92,6 +92,7 @@ const PROVIDERS = [
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
+  UUIDService,
   SubmissionResponseParsingService,
   JsonPatchOperationsBuilder,
   AuthorityService,
