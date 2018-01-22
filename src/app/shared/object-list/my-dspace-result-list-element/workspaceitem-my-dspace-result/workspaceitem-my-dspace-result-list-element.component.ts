@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../+search-page/search-options.model';
-import { Workspaceitem } from '../../../../submission/models/workspaceitem.model';
+import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
 
 @Component({

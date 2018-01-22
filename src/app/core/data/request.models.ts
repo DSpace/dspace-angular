@@ -7,6 +7,9 @@ import { ResponseParsingService } from './parsing.service';
 import { RootResponseParsingService } from './root-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
+import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
+import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
+import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -168,6 +171,71 @@ export class ConfigRequest extends GetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return ConfigResponseParsingService;
+  }
+}
+
+export class SubmissionRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class SubmissionDeleteRequest extends DeleteRequest {
+  constructor(public uuid: string,
+              public href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class SubmissionPatchRequest extends PatchRequest {
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any) {
+    super(uuid, href, body);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class SubmissionPostRequest extends PostRequest {
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any) {
+    super(uuid, href, body);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class EpersonRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return EpersonResponseParsingService;
+  }
+}
+
+export class IntegrationRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return IntegrationResponseParsingService;
   }
 }
 

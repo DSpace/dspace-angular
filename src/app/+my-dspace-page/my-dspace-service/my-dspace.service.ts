@@ -12,11 +12,15 @@ import { SearchFilterConfig } from '../../+search-page/search-service/search-fil
 import { FilterType } from '../../+search-page/search-service/filter-type.model';
 import { SearchOptions } from '../../+search-page/search-options.model';
 import { SearchResult } from '../../+search-page/search-result.model';
-import { WorkspaceitemDataService } from '../../core/data/workspaceitem-data.service';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RouteService } from '../../shared/route.service';
-import { Workspaceitem } from '../../submission/models/workspaceitem.model';
+import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { MyDSpaceResult } from '../my-dspace-result.model';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { Metadatum } from '../../core/shared/metadatum.model';
+import { WorkspaceitemMyDSpaceResultListElementComponent } from '../../shared/object-list/my-dspace-result-list-element/workspaceitem-my-dspace-result/workspaceitem-my-dspace-result-list-element.component';
+import { WorkspaceitemMyDSpaceResult } from '../../shared/object-collection/shared/workspaceitem-my-dspace-result.model';
 
 @Injectable()
 export class MyDspaceService extends SearchService implements OnDestroy {
@@ -84,8 +88,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
       self += `&sortField=${searchOptions.sort.field}`;
     }
 
-    const errorMessage = undefined;
-    const statusCode = '200';
+    const error = undefined;
     const returningPageInfo = new PageInfo();
 
     if (isNotEmpty(searchOptions)) {
@@ -97,22 +100,39 @@ export class MyDspaceService extends SearchService implements OnDestroy {
     }
 
     const itemsObs = this.workspaceitemDataService.findAll({
+      scopeID: scopeId,
       currentPage: returningPageInfo.currentPage,
       elementsPerPage: returningPageInfo.elementsPerPage
-    }).do((rd) => console.log(rd));
+    });
 
     return itemsObs
-      .filter((rd: RemoteData<Workspaceitem[]>) => rd.hasSucceeded)
-      .startWith(new RemoteData(
-        '',
+      .filter((rd: RemoteData<PaginatedList<Workspaceitem>>) => rd.hasSucceeded)
+      .map((rd: RemoteData<PaginatedList<Workspaceitem>>) => {
+
+        const page = [];
+        rd.payload.page
+          .forEach((item: Workspaceitem, index) => {
+            const mockResult: MyDSpaceResult<DSpaceObject> = new WorkspaceitemMyDSpaceResult();
+            mockResult.dspaceObject = item;
+            mockResult.hitHighlights = item.metadata || [];
+            page.push(mockResult);
+          });
+
+        const payload = Object.assign({}, rd.payload, { totalElements: rd.payload.totalElements, page });
+
+        return new RemoteData(
+          rd.isRequestPending,
+          rd.isResponsePending,
+          rd.hasSucceeded,
+          error,
+          payload
+        )
+      }).startWith(new RemoteData(
         true,
         false,
-        undefined,
-        undefined,
         undefined,
         undefined,
         undefined
       ));
   }
-
 }

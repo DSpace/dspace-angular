@@ -7,19 +7,19 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { hasNoValue, isEmpty } from '../../empty.util';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 
 @Component({
   selector: 'ds-my-dspace-result-list-element',
   template: ``
 })
 
-export class MyDSpaceResultListElementComponent<T extends MyDSpaceResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
+export class MyDSpaceResultListElementComponent<T extends MyDSpaceResult<K>, K extends SubmissionObject> extends AbstractListableElementComponent<T> {
   dso: K;
 
 public constructor(@Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
-    console.log(listable, this);
-    this.dso = listable as K;
+    this.dso = this.object.dspaceObject;
   }
 
   getValues(keys: string[]): string[] {

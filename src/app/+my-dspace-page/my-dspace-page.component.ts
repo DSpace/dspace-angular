@@ -1,21 +1,22 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { Observable } from 'rxjs/Observable';
-
+import { SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
+import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { isNotEmpty } from '../shared/empty.util';
 import { pushInOut } from '../shared/animations/push';
+import { isNotEmpty } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SortOptions } from '../core/cache/models/sort-options.model';
 import { SearchOptions, ViewMode } from '../+search-page/search-options.model';
+import { SearchResult } from '../+search-page/search-result.model';
+import { SearchService } from '../+search-page/search-service/search.service';
 import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
-import { MyDspaceService } from './my-dspace-service/my-dspace.service';
 import { MyDSpaceResult } from './my-dspace-result.model';
+import { MyDspaceService } from './my-dspace-service/my-dspace.service';
 
 /**
  * This component renders a simple item page.
@@ -41,7 +42,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   currentParams = {};
   searchOptions: SearchOptions;
   sortConfig: SortOptions;
-  scopeListRDObs: Observable<RemoteData<Community[]>>;
+  scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
 
   constructor(private service: MyDspaceService,
@@ -49,7 +50,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
               private communityService: CommunityDataService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService) {
-    this.isMobileView = Observable.combineLatest(
+    this.isMobileView =  Observable.combineLatest(
       this.windowService.isXs(),
       this.windowService.isSm(),
       ((isXs, isSm) => isXs || isSm)
@@ -57,11 +58,12 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
     this.scopeListRDObs = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'search-results-pagination';
+    pagination.id = 'my-dspace-results-pagination';
     pagination.currentPage = 1;
     pagination.pageSize = 10;
 
-    this.sortConfig = new SortOptions();
+    const sort: SortOptions = new SortOptions();
+    this.sortConfig = sort;
     this.searchOptions = this.service.searchOptions;
   }
 
@@ -78,7 +80,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
           let pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
 
           if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
-            pageSizeOptions = [12, 24, 36, 48, 50, 62, 74, 84];
+            pageSizeOptions = [12, 24, 36, 48 , 50, 62, 74, 84];
             if (pageSizeOptions.indexOf(pageSize) === -1) {
               pageSize = 12;
             }
@@ -92,11 +94,11 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
           const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
           const pagination = Object.assign({},
             this.searchOptions.pagination,
-            {currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
+            { currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
           );
           const sort = Object.assign({},
             this.searchOptions.sort,
-            {direction: sortDirection, field: params.sortField}
+            { direction: sortDirection, field: params.sortField }
           );
 
           this.updateSearchResults({

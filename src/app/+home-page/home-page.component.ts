@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WorkspaceitemDataService } from '../core/data/workspaceitem-data.service';
+import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 
 @Component({
   selector: 'ds-home-page',

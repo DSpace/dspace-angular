@@ -17,6 +17,7 @@ import { RequestConfigureAction, RequestExecuteAction } from './request.actions'
 import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
 
 import { RequestEntry, RequestState } from './request.reducer';
+import { ResponseCacheRemoveAction } from '../cache/response-cache.actions';
 
 @Injectable()
 export class RequestService {
@@ -102,6 +103,7 @@ export class RequestService {
   }
 
   private dispatchRequest(request: RestRequest) {
+    this.store.dispatch(new ResponseCacheRemoveAction(request.href));
     this.store.dispatch(new RequestConfigureAction(request));
     this.store.dispatch(new RequestExecuteAction(request.uuid));
     if (request.method === RestRequestMethod.Get) {

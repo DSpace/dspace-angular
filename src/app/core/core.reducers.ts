@@ -10,8 +10,7 @@ export interface CoreState {
   'data/object': ObjectCacheState,
   'data/response': ResponseCacheState,
   'data/request': RequestState,
-  'index': IndexState
-
+  'index': IndexState,
   'json/patch': JsonPatchOperationsState
 }
 
@@ -19,8 +18,7 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'data/object': objectCacheReducer,
   'data/response': responseCacheReducer,
   'data/request': requestReducer,
-  'index': indexReducer
-
+  'index': indexReducer,
   'json/patch': jsonPatchOperationsReducer
 };
 

@@ -51,7 +51,7 @@ export class SearchService implements OnDestroy {
     '<em>The QSAR DataBank (QsarDB) repository</em>',
   );
   private sub;
-  searchLink = '/search';
+  searchLink: string;
 
   config: SearchFilterConfig[] = [
     Object.assign(new SearchFilterConfig(),
@@ -86,10 +86,10 @@ export class SearchService implements OnDestroy {
   // searchOptions: BehaviorSubject<SearchOptions>;
   searchOptions: SearchOptions;
 
-  constructor(private itemDataService: ItemDataService,
-              private routeService: RouteService,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor(protected itemDataService: ItemDataService,
+              protected routeService: RouteService,
+              protected route: ActivatedRoute,
+              protected router: Router) {
 
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
     pagination.id = 'search-results-pagination';
@@ -98,6 +98,7 @@ export class SearchService implements OnDestroy {
     const sort: SortOptions = new SortOptions();
     this.searchOptions = { pagination: pagination, sort: sort };
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
+    this.searchLink = this.getSearchLink();
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {

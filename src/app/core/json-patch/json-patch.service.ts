@@ -8,7 +8,10 @@ import {
 } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { HttpPatchRequest, HttpPostRequest, RestRequest } from '../data/request.models';
+import {
+  PatchRequest, PostRequest, RestRequest, SubmissionPatchRequest,
+  SubmissionPostRequest
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { CoreState } from '../core.reducers';
@@ -71,21 +74,21 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
                   })
               }
             }
-            return new HttpPatchRequest(endpointURL, body);
+            return new SubmissionPatchRequest(this.requestService.generateRequestId(), endpointURL, body);
           });
       })
-      .partition((request: HttpPatchRequest) => isNotEmpty(request.body));
+      .partition((request: PatchRequest) => isNotEmpty(request.body));
 
     return Observable.merge(
       emptyRequestObs
-        .filter((request: HttpPatchRequest) => isEmpty(request.body))
+        .filter((request: PatchRequest) => isEmpty(request.body))
         .do(() => startTransactionTime = null)
         .map(() => null),
       patchRequestObs
-        .filter((request: HttpPatchRequest) => isNotEmpty(request.body))
+        .filter((request: PatchRequest) => isNotEmpty(request.body))
         .do(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime)))
-        .do((request: HttpPatchRequest) => this.requestService.configure(request, true))
-        .flatMap((request: HttpPatchRequest) => {
+        .do((request: PatchRequest) => this.requestService.configure(request))
+        .flatMap((request: PatchRequest) => {
           const [successResponse, errorResponse] =  this.responseCache.get(request.href)
             .filter((entry: ResponseCacheEntry) => startTransactionTime < entry.timeAdded)
             .take(1)
@@ -112,9 +115,9 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
     return this.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new HttpPostRequest(endpointURL, body))
-      .do((request: HttpPostRequest) => this.requestService.configure(request, true))
-      .flatMap((request: HttpPostRequest) => this.submitData(request))
+      .map((endpointURL: string) => new SubmissionPostRequest(this.requestService.generateRequestId(), endpointURL, body))
+      .do((request: PostRequest) => this.requestService.configure(request))
+      .flatMap((request: PostRequest) => this.submitData(request))
       .distinctUntilChanged();
   }
 
@@ -122,9 +125,9 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
     return this.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new HttpPostRequest(endpointURL, body))
-      .do((request: HttpPostRequest) => this.requestService.configure(request, true))
-      .flatMap((request: HttpPostRequest) => this.submitData(request))
+      .map((endpointURL: string) => new SubmissionPatchRequest(this.requestService.generateRequestId(), endpointURL, body))
+      .do((request: PostRequest) => this.requestService.configure(request))
+      .flatMap((request: PostRequest) => this.submitData(request))
       .distinctUntilChanged();
   }
 
