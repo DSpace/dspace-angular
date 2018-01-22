@@ -8,7 +8,7 @@ import { MyDSpacePageComponent } from './my-dspace-page.component';
 import { SearchPageModule } from '../+search-page/search-page.module';
 import { MyDSpaceResultsComponent } from './my-dspace-results/my-dspace-results.component';
 import { MyDspaceService } from './my-dspace-service/my-dspace.service';
-import { WorkspaceitemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workspaceitem-my-dspace-result/workspaceitem-my-dspace-result-list-element.component';
+import { WorkspaceitemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/wsi-my-dspace-result/wsi-my-dspace-result-list-element.component';
 
 @NgModule({
   imports: [

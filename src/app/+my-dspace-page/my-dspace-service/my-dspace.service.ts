@@ -11,15 +11,12 @@ import { SearchService } from '../../+search-page/search-service/search.service'
 import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
 import { FilterType } from '../../+search-page/search-service/filter-type.model';
 import { SearchOptions } from '../../+search-page/search-options.model';
-import { SearchResult } from '../../+search-page/search-result.model';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RouteService } from '../../shared/route.service';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { MyDSpaceResult } from '../my-dspace-result.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { Metadatum } from '../../core/shared/metadatum.model';
-import { WorkspaceitemMyDSpaceResultListElementComponent } from '../../shared/object-list/my-dspace-result-list-element/workspaceitem-my-dspace-result/workspaceitem-my-dspace-result-list-element.component';
 import { WorkspaceitemMyDSpaceResult } from '../../shared/object-collection/shared/workspaceitem-my-dspace-result.model';
 
 @Injectable()
@@ -118,7 +115,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
             page.push(mockResult);
           });
 
-        const payload = Object.assign({}, rd.payload, { totalElements: rd.payload.totalElements, page });
+        const payload = Object.assign({}, rd.payload, {totalElements: rd.payload.totalElements, page});
 
         return new RemoteData(
           rd.isRequestPending,
