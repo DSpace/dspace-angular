@@ -8,6 +8,7 @@ import { GlobalConfig } from '../../../../../../../config/global-config.interfac
 import { SubmissionFormsConfigService } from '../../../../../../core/config/submission-forms-config.service';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { Store } from '@ngrx/store';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
 
@@ -57,9 +58,6 @@ export class DsDatePickerComponent implements OnInit {
   disabledDay = true;
   invalid = false;
 
-  // constructor(private formService: FormService) {
-  // }
-
   ngOnInit() {// TODO Manage fields when not setted
     const now = new Date();
     this.initialYear = now.getFullYear();
@@ -90,8 +88,6 @@ export class DsDatePickerComponent implements OnInit {
     this.group.get(this.model.id).statusChanges.subscribe((state) => {
       if (state === 'INVALID' || this.model.malformedDate) {
         this.invalid = true;
-        const errorMessage = 'The stored date is not compliant';
-        // this.formService.addErrorToField(this.group.get(this.model.id), this.model, errorMessage)
       } else {
         this.invalid = false;
         this.model.malformedDate = false;

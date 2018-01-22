@@ -56,6 +56,12 @@ export class DateFieldParser extends FieldParser {
         } else {
           // TODO Set error message
           dateModel.malformedDate = true;
+          // TODO
+          // const errorMessage = 'The stored date is not compliant';
+          // dateModel.validators = Object.assign({}, dateModel.validators, {malformedDate: null});
+          // dateModel.errorMessages = Object.assign({}, dateModel.errorMessages, {malformedDate: errorMessage});
+
+          // this.formService.addErrorToField(this.group.get(this.model.id), this.model, errorMessage)
         }
       }
 
