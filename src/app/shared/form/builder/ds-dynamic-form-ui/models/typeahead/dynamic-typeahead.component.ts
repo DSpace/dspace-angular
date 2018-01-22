@@ -29,14 +29,12 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   searchFailed = false;
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
-  test = false;
 
   formatter = (x: {display: string}) => x.display;
 
   search = (text$: Observable<string>) =>
     text$
       .debounceTime(300)
-      .filter(() => this.test)
       .distinctUntilChanged()
       .do(() => this.searching = true)
       .switchMap((term) => {
