@@ -8,8 +8,8 @@ import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/w
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
-  styleUrls: ['../my-dspace-result-list-element.component.scss', './workspaceitem-my-dspace-result-list-element.component.scss'],
-  templateUrl: './workspaceitem-my-dspace-result-list-element.component.html'
+  styleUrls: ['../my-dspace-result-list-element.component.scss', './wsi-my-dspace-result-list-element.component.scss'],
+  templateUrl: './wsi-my-dspace-result-list-element.component.html'
 })
 
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
