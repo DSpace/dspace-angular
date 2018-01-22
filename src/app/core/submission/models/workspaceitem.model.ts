@@ -1,11 +1,11 @@
-import { Collection } from '../../core/shared/collection.model';
-import { Item } from '../../core/shared/item.model';
+import { SubmissionObject } from './submission-object.model';
+import { Collection } from '../../shared/collection.model';
+import { EpersonModel } from '../../eperson/models/eperson.model';
+import { Item } from '../../shared/item.model';
+import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
-import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { EpersonModel } from '../../core/eperson/models/eperson.model';
 
-export class Workspaceitem extends DSpaceObject {
+export class Workspaceitem extends SubmissionObject {
 
   /**
    * The workspaceitem identifier

@@ -25,7 +25,7 @@ import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/s
 import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormAddError } from '../../../shared/form/form.actions';
-import { WorkspaceitemSectionDataType } from '../../models/workspaceitem-sections.model';
+import { WorkspaceitemSectionDataType } from '../../../core/submission/models/workspaceitem-sections.model';
 import { Subscription } from 'rxjs/Subscription';
 import { GLOBAL_CONFIG } from '../../../../config';
 import { GlobalConfig } from '../../../../config/global-config.interface';

@@ -13,8 +13,8 @@ import {
   CompleteSaveSubmissionFormAction, SetActiveSectionAction, SaveSubmissionSectionFormAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
-import { WorkspaceitemSectionDataType } from '../models/workspaceitem-sections.model';
-import { WorkspaceitemSectionUploadObject } from '../models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 
 export interface SubmissionSectionObject {
   sectionViewIndex: number;

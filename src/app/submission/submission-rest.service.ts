@@ -11,7 +11,7 @@ import {
 } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
 import {
-  ConfigRequest, FindAllOptions, HttpDeleteRequest, HttpPostRequest, RestRequest, SubmissionDeleteRequest,
+  ConfigRequest, FindAllOptions, DeleteRequest, PostRequest, RestRequest, SubmissionDeleteRequest,
   SubmissionRequest
 } from '../core/data/request.models';
 import { SubmitDataResponseDefinitionObject } from '../core/shared/submit-data-response-definition.model';
@@ -54,14 +54,14 @@ export class SubmissionRestService extends PostPatchRestService<SubmitDataRespon
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
-      .map((endpointURL: string) => new SubmissionDeleteRequest(endpointURL))
-      .do((request: HttpDeleteRequest) => this.requestService.configure(request, true))
-      .flatMap((request: HttpDeleteRequest) => this.submitData(request))
+      .map((endpointURL: string) => new SubmissionDeleteRequest(this.requestService.generateRequestId(), endpointURL))
+      .do((request: DeleteRequest) => this.requestService.configure(request))
+      .flatMap((request: DeleteRequest) => this.submitData(request))
       .distinctUntilChanged();
   }
 
   public getDataByHref(href: string): Observable<any> {
-    const request = new ConfigRequest(href);
+    const request = new ConfigRequest(this.requestService.generateRequestId(), href);
     this.requestService.configure(request);
 
     return this.getData(request);
@@ -72,7 +72,7 @@ export class SubmissionRestService extends PostPatchRestService<SubmitDataRespon
       .map((endpoint: string) => this.getConfigByIdHref(endpoint, id))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new SubmissionRequest(endpointURL))
+      .map((endpointURL: string) => new SubmissionRequest(this.requestService.generateRequestId(), endpointURL))
       .do((request: RestRequest) => this.requestService.configure(request))
       .flatMap((request: RestRequest) => this.getData(request))
       .distinctUntilChanged();

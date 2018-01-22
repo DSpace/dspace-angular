@@ -11,7 +11,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionRestService } from '../../submission-rest.service';
-import { Workspaceitem } from '../../models/workspaceitem.model';
+import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-submission-submit-form-collection',
@@ -67,9 +68,9 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
       // @TODO replace with search/top browse endpoint
       // @TODO implement community/subcommunity hierarchy
       this.subs.push(this.communityDataService.findAll()
-        .filter((communities: RemoteData<Community[]>) => isNotEmpty(communities.payload))
+        .filter((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload))
         .first()
-        .switchMap((communities: RemoteData<Community[]>) => communities.payload)
+        .switchMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page)
         .subscribe((communityData: Community) => {
           this.subs.push( communityData.collections
             .filter((collections: RemoteData<Collection[]>) => isNotEmpty(collections.payload) && !hasUndefinedValue(collections.payload))

@@ -5,11 +5,11 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SubmissionRestService } from '../submission-rest.service';
-import { NormalizedWorkspaceItem } from '../models/normalized-workspaceitem.model';
-import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
+import { NormalizedWorkspaceItem } from '../../core/submission/models/normalized-workspaceitem.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { hasValue, isNotUndefined } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
-import { Workspaceitem } from '../models/workspaceitem.model';
+import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 
 @Component({
   selector: 'ds-submission-edit',

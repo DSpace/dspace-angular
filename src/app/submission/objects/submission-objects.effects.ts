@@ -18,7 +18,7 @@ import { SectionService } from '../section/section.service';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
 import { SubmissionRestService } from '../submission-rest.service';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { WorkspaceItemError, Workspaceitem } from '../models/workspaceitem.model';
+import { WorkspaceItemError, Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { default as parseSectionErrorPaths, SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from '../../app.reducer';

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { submissionSelector, SubmissionState } from './submission.reducers';
 // utils
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../shared/empty.util';
-import { WorkspaceItemError, Workspaceitem } from './models/workspaceitem.model';
+import { WorkspaceItemError, Workspaceitem } from '../core/submission/models/workspaceitem.model';
 import { SubmissionRestService } from './submission-rest.service';
 import { SectionService } from './section/section.service';
 import { default as parseSectionErrorPaths, SectionErrorPath } from './utils/parseSectionErrorPaths';

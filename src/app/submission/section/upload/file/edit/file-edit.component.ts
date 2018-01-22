@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
   DynamicDateControlModel,
   DynamicDatePickerModel,

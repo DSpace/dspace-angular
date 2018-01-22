@@ -4,7 +4,7 @@ import { isPlatformServer } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 
 import { SubmissionRestService } from '../submission-rest.service';
-import { NormalizedWorkspaceItem } from '../models/normalized-workspaceitem.model';
+import { NormalizedWorkspaceItem } from '../../core/submission/models/normalized-workspaceitem.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 
 @Component({

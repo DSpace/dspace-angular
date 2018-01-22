@@ -10,7 +10,7 @@ import {JsonPatchOperationsBuilder} from '../../../../core/json-patch/builder/js
 import {SubmissionRestService} from '../../../submission-rest.service';
 import {JsonPatchOperationPathCombiner} from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionFormsModel } from '../../../../core/shared/config/config-submission-forms.model';
 import { AccessConditionOption } from '../../../../core/shared/config/config-access-condition-option.model';
 import { deleteProperty } from '../../../../shared/object.util';

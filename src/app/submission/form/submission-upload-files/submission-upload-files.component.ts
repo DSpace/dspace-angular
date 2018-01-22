@@ -3,10 +3,10 @@ import { SectionService } from '../../section/section.service';
 import { SectionUploadService } from '../../section/upload/section-upload.service';
 import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload-files-component-options.model';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
-import { WorkspaceitemSectionUploadFileObject } from '../../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionRestService } from '../../submission-rest.service';
-import { Workspaceitem } from '../../models/workspaceitem.model';
-import { normalizeSectionData } from '../../models/workspaceitem-sections.model';
+import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
+import { normalizeSectionData } from '../../../core/submission/models/workspaceitem-sections.model';
 
 @Component({
   selector: 'ds-submission-upload-files',

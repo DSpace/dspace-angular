@@ -1,20 +1,20 @@
-import { SubmissionDefinitionsModel } from '../core/shared/config/config-submission-definitions.model';
-import { SubmissionFormsModel } from '../core/shared/config/config-submission-forms.model';
-import { SubmissionSectionModel } from '../core/shared/config/config-submission-section.model';
-import { ConfigAuthorityModel } from '../core/shared/config/config-authority.model';
-import { GenericConstructor } from '../core/shared/generic-constructor';
-import { NormalizedBitstream } from '../core/cache/models/normalized-bitstream.model';
-import { NormalizedBitstreamFormat } from '../core/cache/models/normalized-bitstream-format.model';
-import { NormalizedBundle } from '../core/cache/models/normalized-bundle.model';
-import { NormalizedCollection } from '../core/cache/models/normalized-collection.model';
-import { NormalizedCommunity } from '../core/cache/models/normalized-community.model';
-import { NormalizedItem } from '../core/cache/models/normalized-item.model';
-import { NormalizedLicense } from '../core/cache/models/normalized-license.model';
+import { SubmissionDefinitionsModel } from '../shared/config/config-submission-definitions.model';
+import { SubmissionFormsModel } from '../shared/config/config-submission-forms.model';
+import { SubmissionSectionModel } from '../shared/config/config-submission-section.model';
+import { ConfigAuthorityModel } from '../shared/config/config-authority.model';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { NormalizedBitstream } from '../cache/models/normalized-bitstream.model';
+import { NormalizedBitstreamFormat } from '../cache/models/normalized-bitstream-format.model';
+import { NormalizedBundle } from '../cache/models/normalized-bundle.model';
+import { NormalizedCollection } from '../cache/models/normalized-collection.model';
+import { NormalizedCommunity } from '../cache/models/normalized-community.model';
+import { NormalizedItem } from '../cache/models/normalized-item.model';
+import { NormalizedLicense } from '../cache/models/normalized-license.model';
 import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
-import { NormalizedObject } from '../core/cache/models/normalized-object.model';
-import { ConfigObject } from '../core/shared/config/config.model';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { ConfigObject } from '../shared/config/config.model';
 import { SubmissionResourceType } from './submission-resource-type';
-import { NormalizedResourcePolicy } from '../core/cache/models/normalized-resource-policy.model';
+import { NormalizedResourcePolicy } from '../cache/models/normalized-resource-policy.model';
 
 export class NormalizedSubmissionObjectFactory {
   public static getConstructor(type: SubmissionResourceType): GenericConstructor<NormalizedObject|ConfigObject> {

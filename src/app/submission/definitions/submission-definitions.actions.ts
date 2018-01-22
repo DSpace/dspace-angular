@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
-import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 
 /**
  * For each action type in an action group, make a simple

@@ -1,8 +1,8 @@
 import { WorkspaceitemSectionFormObject } from './workspaceitem-section-form.model';
 import { WorkspaceitemSectionLicenseObject } from './workspaceitem-section-license.model';
 import { WorkspaceitemSectionUploadObject } from './workspaceitem-section-upload.model';
-import { isNotEmpty, isNotNull } from '../../shared/empty.util';
-import { AuthorityModel } from '../../core/integration/models/authority.model';
+import { isNotEmpty, isNotNull } from '../../../shared/empty.util';
+import { AuthorityModel } from '../../integration/models/authority.model';
 
 export class WorkspaceitemSectionsObject {
   [name: string]: WorkspaceitemSectionDataType;

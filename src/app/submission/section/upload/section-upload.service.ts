@@ -8,7 +8,7 @@ import {
   submissionUploadedFilesFromIdSelector
 } from '../../selectors';
 import { isUndefined } from '../../../shared/empty.util';
-import { WorkspaceitemSectionUploadFileObject } from '../../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
 
 @Injectable()
 export class SectionUploadService {

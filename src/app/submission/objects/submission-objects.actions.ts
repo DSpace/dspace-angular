@@ -2,11 +2,11 @@ import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
 import { SubmissionSectionError } from './submission-objects.reducer';
-import { WorkspaceitemSectionUploadFileObject } from '../models/workspaceitem-section-upload-file.model';
-import { WorkspaceitemSectionFormObject } from '../models/workspaceitem-section-form.model';
-import { WorkspaceitemSectionLicenseObject } from '../models/workspaceitem-section-license.model';
-import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
-import { WorkspaceitemSectionUploadObject } from '../models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionFormObject } from '../../core/submission/models/workspaceitem-section-form.model';
+import { WorkspaceitemSectionLicenseObject } from '../../core/submission/models/workspaceitem-section-license.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 
 /**
  * For each action type in an action group, make a simple

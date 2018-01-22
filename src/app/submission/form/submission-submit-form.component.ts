@@ -13,10 +13,10 @@ import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-fi
 import { SubmissionRestService } from '../submission-rest.service';
 import { submissionObjectFromIdSelector } from '../selectors';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
-import { WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SubmissionState } from '../submission.reducers';
-import { Workspaceitem } from '../models/workspaceitem.model';
+import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
 import { SubmissionService } from '../submission.service';

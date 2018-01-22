@@ -1,4 +1,3 @@
-import { Metadatum } from '../../core/shared/metadatum.model';
 import { SubmissionUploadFileAccessConditionObject } from './submission-upload-file-access-condition.model';
 import { WorkspaceitemSectionFormObject } from './workspaceitem-section-form.model';
 

@@ -5,14 +5,13 @@ import { Observable } from 'rxjs/Observable';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedItem } from '../cache/models/normalized-item.model';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 
-import { DataService } from './data.service';
-import { RequestService } from './request.service';
-import { Workspaceitem } from '../../submission/models/workspaceitem.model';
-import { NormalizedWorkspaceItem } from '../../submission/models/normalized-workspaceitem.model';
+import { DataService } from '../data/data.service';
+import { RequestService } from '../data/request.service';
+import { Workspaceitem } from './models/workspaceitem.model';
+import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 
 @Injectable()
 export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceItem, Workspaceitem> {
