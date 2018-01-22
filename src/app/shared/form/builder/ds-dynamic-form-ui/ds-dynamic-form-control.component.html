@@ -112,7 +112,6 @@
 
 
       <div *ngSwitchCase="5" class="input-group">
-
         <input ngbDatepicker class="form-control" #datepicker="ngbDatepicker"
                [class.is-invalid]="showErrorMessages"
                [dynamicId]="bindId && model.id"
@@ -264,6 +263,18 @@
                           (blur)="onBlurEvent($event)"
                           (change)="onValueChange($event)"
                           (focus)="onFocusEvent($event)"></ds-dynamic-group>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="17">
+        <ds-date-picker
+          [bindId]="bindId"
+          [group]="group"
+          [model]="model"
+          [showErrorMessages]="showErrorMessages"
+          (blur)="onBlurEvent($event)"
+          (change)="onValueChange($event)"
+          (focus)="onFocusEvent($event)"
+        ></ds-date-picker>
       </ng-container>
 
 

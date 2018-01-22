@@ -39,6 +39,21 @@ export class DsDynamicGroupComponent implements OnInit {
     this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);
   }
 
+  isMandatoryFieldEmpty() {
+    // formModel[0].group[0].value == null
+    let res = true;
+    this.formModel.forEach((row) => {
+      const modelRow = row as DynamicFormGroupModel;
+      modelRow.group.forEach((model: DynamicInputModel) => {
+        if (model.name === this.model.mandatoryField) {
+          res = model.value == null;
+          return;
+        }
+      });
+    });
+    return res;
+  }
+
   addChips(event) {
     if (!this.formRef.formGroup.valid) {
       this.formService.validateAllFormFields(this.formRef.formGroup);

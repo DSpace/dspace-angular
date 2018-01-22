@@ -6,9 +6,12 @@
 
   <span *ngFor="let c of chips.chipsItems; let i = index"
         class="chips"
-        [ngClass]="{'selected': c.editMode}"
+        [ngClass]="{'selected': c.editMode, 'dragged': dragged == i}"
         (click)="chipsSelected(i)"
-        (mouseout)="chipsBlur(i)">
+        (mouseout)="chipsBlur(i)"
+        draggable="true"
+        (drag)="onDrag(i)"
+        (dragend)="onDragEnd(i)">
 
     <ng-container *ngIf="c.item.icons && c.item.icons.length > 0">
       <i *ngFor="let icon of c.item.icons"

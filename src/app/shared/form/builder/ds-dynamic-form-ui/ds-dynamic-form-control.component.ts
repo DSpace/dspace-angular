@@ -36,6 +36,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION, DynamicGroupModel } from './models/ds-dynamic-group/dynamic-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/ds-date-picker/ds-date-picker.model';
 
 export const enum NGBootstrapFormControlType {
 
@@ -55,6 +56,7 @@ export const enum NGBootstrapFormControlType {
   TypeTag = 14, // 'TYPETAG'
   List = 15, // 'TYPELIST'
   Relation = 16, // Dynamic Grup
+  DsDatePicker = 17, // Ds Date Picker
 }
 
 @Component({
@@ -130,6 +132,9 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
 
       case DYNAMIC_FORM_CONTROL_TYPE_RELATION:
         return NGBootstrapFormControlType.Relation;
+
+      case DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER:
+        return NGBootstrapFormControlType.DsDatePicker;
 
       default:
         return null;

@@ -66,6 +66,8 @@ import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models/list/dynamic-list.component';
 import { DsDynamicGroupComponent } from './form/builder/ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.components';
 import { SortablejsModule } from 'angular-sortablejs';
+import { NumberPickerComponent } from './number-picker/number-picker.component';
+import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/ds-date-picker/ds-date-picker.component';
 
 import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
 
@@ -113,6 +115,7 @@ const COMPONENTS = [
   ErrorComponent,
   FormComponent,
   LoadingComponent,
+  NumberPickerComponent,
   ObjectListComponent,
   AbstractListableElementComponent,
   WrapperListElementComponent,
@@ -127,6 +130,7 @@ const COMPONENTS = [
   WrapperListElementComponent,
   ViewModeSwitchComponent,
   DsDynamicGroupComponent,
+  DsDatePickerComponent,
 ];
 
 const ENTRY_COMPONENTS = [

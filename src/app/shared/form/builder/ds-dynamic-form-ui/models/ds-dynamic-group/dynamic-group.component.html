@@ -5,7 +5,11 @@
            [formId]="formId"
            [formModel]="formModel"
            [displaySubmit]="false"></ds-form>
-  <button *ngIf="!editMode" type="button" class="btn btn-link col pr-0 align-middle" (click)="addChips()">
+  <button *ngIf="!editMode"
+          type="button"
+          class="btn btn-link col pr-0 align-middle"
+          [disabled]="isMandatoryFieldEmpty()"
+          (click)="addChips()">
     <i class="fa fa-plus-circle fa-2x" style="color: gray" aria-hidden="true"></i>
   </button>
 
