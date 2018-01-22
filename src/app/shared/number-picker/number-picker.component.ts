@@ -114,12 +114,12 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
         this.emitChange();
       } else {
         this.value = this.lastValue;
+        this.emitChange();
       }
     } catch (e) {
-
       this.value = this.lastValue;
+      this.emitChange();
       console.log('Catch Not a number...');
-
     }
   }
 

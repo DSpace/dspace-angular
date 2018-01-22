@@ -19,7 +19,7 @@
       (focus)="onFocus()"
       [readonly]="readonlyInputs"
       [disabled]="disabled"
-      [ngClass]="{error: invalid}"
+      [ngClass]="{'is-invalid': invalid}"
       aria-label="Hours"
     >
     <button
