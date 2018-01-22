@@ -6,6 +6,7 @@ import {
 import { FormFieldModel } from '../models/form-field.model';
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/ds-date-picker/ds-date-picker.model';
 import { isNotEmpty } from '../../../empty.util';
+import { DS_DATE_PICKER_SEPARATOR } from '../ds-dynamic-form-ui/models/ds-date-picker/ds-date-picker.component';
 
 export class DateFieldParser extends FieldParser {
 
@@ -34,8 +35,30 @@ export class DateFieldParser extends FieldParser {
     // const dateModel = new DynamicDatePickerModel(inputDateModelConfig);
     const dateModel = new DynamicDsDatePickerModel(inputDateModelConfig);
     dateModel.name = this.fieldId;
-    if (isNotEmpty(this.getInitGroupValues())) {
-      dateModel.valueUpdates.next(this.getInitGroupValues());
+
+    // Init Data and validity check
+    if (isNotEmpty(this.getInitFieldValue())) {
+      let malformedData = false;
+      const value = this.getInitFieldValue().toString();
+      if (value.length >= 4) {
+        const valuesArray = value.split(DS_DATE_PICKER_SEPARATOR);
+        if (valuesArray.length < 4) {
+          for (let i = 0; i < valuesArray.length; i++) {
+            const len = i === 0 ? 4 : 2;
+            if (valuesArray[i].length !== len) {
+              malformedData = true;
+            }
+          }
+        }
+
+        if (!malformedData) {
+          dateModel.valueUpdates.next(this.getInitFieldValue());
+        } else {
+          // TODO Set error message
+          dateModel.malformedDate = true;
+        }
+      }
+
     }
     return dateModel;
   }

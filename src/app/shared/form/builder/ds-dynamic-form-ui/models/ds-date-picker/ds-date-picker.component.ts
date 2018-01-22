@@ -1,6 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicDsDatePickerModel } from './ds-date-picker.model';
+import { FormService } from '../../../../form.service';
+import { SubmissionState } from '../../../../../../submission/submission.reducers';
+import { FormBuilderService } from '../../../form-builder.service';
+import { GlobalConfig } from '../../../../../../../config/global-config.interface';
+import { SubmissionFormsConfigService } from '../../../../../../core/config/submission-forms-config.service';
+import { GLOBAL_CONFIG } from '../../../../../../../config';
+import { Store } from '@ngrx/store';
+
+export const DS_DATE_PICKER_SEPARATOR = '-';
 
 @Component({
   selector: 'ds-date-picker',
@@ -46,6 +55,10 @@ export class DsDatePickerComponent implements OnInit {
 
   disabledMonth = true;
   disabledDay = true;
+  invalid = false;
+
+  // constructor(private formService: FormService) {
+  // }
 
   ngOnInit() {// TODO Manage fields when not setted
     const now = new Date();
@@ -54,24 +67,36 @@ export class DsDatePickerComponent implements OnInit {
     this.initialDay = now.getDate();
 
     if (this.model.value && this.model.value !== null) {
-      const values = this.model.value[0].split('-');
+      const values = this.model.value.toString().split(DS_DATE_PICKER_SEPARATOR);
       if (values.length > 0) {
-        this.initialYear = parseInt(values[0]);
+        this.initialYear = parseInt(values[0], 10);
         this.year = this.initialYear;
         this.disabledMonth = false;
       }
       if (values.length > 1) {
-        this.initialMonth = parseInt(values[1]);
+        this.initialMonth = parseInt(values[1], 10);
         this.month = this.initialMonth;
         this.disabledDay = false;
       }
       if (values.length > 2) {
-        this.initialDay = parseInt(values[2]);
+        this.initialDay = parseInt(values[2], 10);
         this.day = this.initialDay;
       }
     }
 
     this.maxYear = this.initialYear + 100;
+
+    // Invalid state for year
+    this.group.get(this.model.id).statusChanges.subscribe((state) => {
+      if (state === 'INVALID' || this.model.malformedDate) {
+        this.invalid = true;
+        const errorMessage = 'The stored date is not compliant';
+        // this.formService.addErrorToField(this.group.get(this.model.id), this.model, errorMessage)
+      } else {
+        this.invalid = false;
+        this.model.malformedDate = false;
+      }
+    });
   }
 
   onChange(event) {
@@ -136,13 +161,13 @@ export class DsDatePickerComponent implements OnInit {
       const mm = this.month.toString().length === 1
         ? '0' + this.month.toString()
         : this.month.toString();
-      value += '-' + mm;
+      value += DS_DATE_PICKER_SEPARATOR + mm;
     }
     if (this.day) {
       const dd = this.day.toString().length === 1
         ? '0' + this.day.toString()
         : this.day.toString();
-      value += '-' + dd;
+      value += DS_DATE_PICKER_SEPARATOR + dd;
     }
     this.model.valueUpdates.next(value);
     this.change.emit(event);

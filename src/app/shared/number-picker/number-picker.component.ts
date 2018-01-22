@@ -33,6 +33,8 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   @Input()
   disabled: boolean;
   @Input()
+  invalid: boolean;
+  @Input()
   value: number;
   lastValue: number;
 
@@ -47,6 +49,7 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
     this.min = this.min || 0;
     this.max = this.max || 100;
     this.disabled = this.disabled || false;
+    this.invalid = this.invalid || false;
     this.cd.detectChanges();
   }
 
@@ -60,6 +63,8 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
     } else if (changes.value && changes.value.currentValue === null) {
       // When the user delete the inserted value
         this.value = null;
+    } else if (changes.invalid) {
+      this.invalid = changes.invalid.currentValue;
     }
   }
 
