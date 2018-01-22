@@ -4,9 +4,12 @@ import { SharedModule } from '../shared/shared.module';
 import { SearchPageRoutingModule } from './search-page-routing.module';
 import { SearchPageComponent } from './search-page.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
-import { ItemSearchResultListElementComponent } from '../object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
-import { CollectionSearchResultListElementComponent } from '../object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
-import { CommunitySearchResultListElementComponent } from '../object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
+import { ItemSearchResultListElementComponent } from '../shared/object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
+import { CollectionSearchResultListElementComponent } from '../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import { CommunitySearchResultListElementComponent } from '../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
+import { ItemSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/item-search-result/item-search-result-grid-element.component';
+import { CommunitySearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component'
+import { CollectionSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
@@ -22,6 +25,23 @@ const effects = [
   SearchSidebarEffects
 ];
 
+const components = [
+  SearchPageComponent,
+  SearchResultsComponent,
+  SearchSidebarComponent,
+  SearchSettingsComponent,
+  ItemSearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  CommunitySearchResultListElementComponent,
+  ItemSearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
+  CommunitySearchResultGridElementComponent,
+  CommunitySearchResultListElementComponent,
+  SearchFiltersComponent,
+  SearchFilterComponent,
+  SearchFacetFilterComponent
+];
+
 @NgModule({
   imports: [
     SearchPageRoutingModule,
@@ -29,18 +49,7 @@ const effects = [
     SharedModule,
     EffectsModule.forFeature(effects),
   ],
-  declarations: [
-    SearchPageComponent,
-    SearchResultsComponent,
-    SearchSidebarComponent,
-    SearchSettingsComponent,
-    ItemSearchResultListElementComponent,
-    CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent,
-    SearchFiltersComponent,
-    SearchFilterComponent,
-    SearchFacetFilterComponent
-  ],
+  declarations: components,
   providers: [
     SearchService,
     SearchSidebarService,
@@ -49,7 +58,12 @@ const effects = [
   entryComponents: [
     ItemSearchResultListElementComponent,
     CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent
-  ]
+    CommunitySearchResultListElementComponent,
+    ItemSearchResultGridElementComponent,
+    CollectionSearchResultGridElementComponent,
+    CommunitySearchResultGridElementComponent,
+  ],
+  exports: components
 })
-export class SearchPageModule { }
+export class SearchPageModule {
+}

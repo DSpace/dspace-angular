@@ -11,7 +11,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionRestService } from '../../submission-rest.service';
-import { WorkspaceitemObject } from '../../models/workspaceitem.model';
+import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-submission-submit-form-collection',
@@ -26,7 +27,7 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
    * An event fired when a different collection is selected.
    * Event's payload equals to new collection uuid.
    */
-  @Output() collectionChange: EventEmitter<WorkspaceitemObject> = new EventEmitter<WorkspaceitemObject>();
+  @Output() collectionChange: EventEmitter<Workspaceitem> = new EventEmitter<Workspaceitem>();
 
   public disabled = true;
   public listCollection = [];
@@ -67,9 +68,9 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
       // @TODO replace with search/top browse endpoint
       // @TODO implement community/subcommunity hierarchy
       this.subs.push(this.communityDataService.findAll()
-        .filter((communities: RemoteData<Community[]>) => isNotEmpty(communities.payload))
+        .filter((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload))
         .first()
-        .switchMap((communities: RemoteData<Community[]>) => communities.payload)
+        .switchMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page)
         .subscribe((communityData: Community) => {
           this.subs.push( communityData.collections
             .filter((collections: RemoteData<Collection[]>) => isNotEmpty(collections.payload) && !hasUndefinedValue(collections.payload))
@@ -122,7 +123,7 @@ export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnIni
     this.disabled = true;
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
     this.restService.jsonPatchByResourceID(this.submissionId, 'sections', 'collection')
-      .subscribe((workspaceitems: WorkspaceitemObject[]) => {
+      .subscribe((workspaceitems: Workspaceitem[]) => {
         this.selectedCollectionId = event.collection.id;
         this.selectedCollectionName = event.collection.name;
         this.collectionChange.emit(workspaceitems[0]);

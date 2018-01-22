@@ -1,0 +1,15 @@
+<ds-object-list [config]="config"
+                [sortConfig]="sortConfig"
+                [objects]="objects"
+                [hideGear]="hideGear"
+                *ngIf="getViewMode()===viewModeEnum.List">
+</ds-object-list>
+
+<ds-object-grid [config]="config"
+                [sortConfig]="sortConfig"
+                [objects]="objects"
+                [hideGear]="true"
+                *ngIf="getViewMode()===viewModeEnum.Grid">
+</ds-object-grid>
+
+

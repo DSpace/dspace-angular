@@ -46,7 +46,7 @@ export class SearchFilterService {
   }
 
   get searchLink() {
-    return this.searchService.searchLink;
+    return this.searchService.getSearchLink();
   }
 
   isCollapsed(filterName: string): Observable<boolean> {

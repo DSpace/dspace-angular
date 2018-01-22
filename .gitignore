@@ -207,6 +207,7 @@ dist/
 dist/*.*
 
 .idea
+*.iml
 *.ngfactory.ts
 *.css.shim.ts
 *.scss.shim.ts

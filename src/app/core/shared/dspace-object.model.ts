@@ -3,7 +3,7 @@ import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
-import { ListableObject } from '../../object-list/listable-object/listable-object.model';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { Observable } from 'rxjs/Observable';
 
 /**
@@ -64,9 +64,9 @@ export abstract class DSpaceObject implements CacheableObject, ListableObject {
    * @return string
    */
   findMetadata(key: string, language?: string): string {
-    const metadatum = this.metadata.find((m: Metadatum) => {
+    const metadatum = (this.metadata) ? this.metadata.find((m: Metadatum) => {
       return m.key === key && (isEmpty(language) || m.language === language)
-    });
+    }) : null;
     if (isNotEmpty(metadatum)) {
       return metadatum.value;
     } else {
@@ -85,7 +85,7 @@ export abstract class DSpaceObject implements CacheableObject, ListableObject {
    * @return Array<Metadatum>
    */
   filterMetadata(keys: string[]): Metadatum[] {
-    return this.metadata.filter((metadatum: Metadatum) => {
+    return (this.metadata || []).filter((metadatum: Metadatum) => {
       return keys.some((key) => key === metadatum.key);
     });
   }

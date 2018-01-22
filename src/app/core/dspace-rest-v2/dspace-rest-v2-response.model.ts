@@ -1,6 +1,6 @@
 export interface DSpaceRESTV2Response {
   payload: {
-    [name: string]: string;
+    [name: string]: any;
     _embedded?: any;
     _links?: any;
     page?: any;

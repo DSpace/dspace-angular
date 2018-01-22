@@ -3,9 +3,10 @@ import { SectionService } from '../../section/section.service';
 import { SectionUploadService } from '../../section/upload/section-upload.service';
 import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload-files-component-options.model';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
-import { WorkspaceitemSectionUploadFileObject } from '../../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionRestService } from '../../submission-rest.service';
-import { WorkspaceitemObject } from '../../models/workspaceitem.model';
+import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
+import { normalizeSectionData } from '../../../core/submission/models/workspaceitem-sections.model';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -44,7 +45,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
     }
   }
 
-  public onCompleteItem(workspaceitem: WorkspaceitemObject) {
+  public onCompleteItem(workspaceitem: Workspaceitem) {
     // Checks if upload section is enabled so do upload
     if (this.uploadEnabled) {
       this.subs.push(
@@ -57,14 +58,12 @@ export class SubmissionUploadFilesComponent implements OnChanges {
             const { sections } = workspaceitem;
             if (sections && isNotEmpty(sections)) {
               Object.keys(sections)
-                .forEach((sectionId) => this.sectionService.updateSectionData(this.submissionId, sectionId, sections[sectionId]))
+                .forEach((sectionId) => {
+                  const sectionData = normalizeSectionData(sections[sectionId]);
+                  console.log(sectionData, sections[sectionId]);
+                  this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData)
+                })
             }
-            /*this.sectionUploadService.addUploadedFile(
-              this.submissionId,
-              this.sectionId,
-              workspaceitemData.uuid,
-              workspaceitemData
-            )*/
           })
       );
     }

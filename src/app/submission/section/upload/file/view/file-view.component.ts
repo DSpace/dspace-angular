@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { Metadatum } from '../../../../../core/shared/metadatum.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
 

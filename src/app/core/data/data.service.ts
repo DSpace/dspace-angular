@@ -8,10 +8,11 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RemoteData } from './remote-data';
-import { FindAllOptions, FindAllRequest, FindByIDRequest, HttpGetRequest } from './request.models';
-import { RequestService } from './request.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
+import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
+import { RequestService } from './request.service';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> extends HALEndpointService {
   protected abstract responseCache: ResponseCacheService;
@@ -63,7 +64,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     }
   }
 
-  findAll(options: FindAllOptions = {}): Observable<RemoteData<TDomain[]>> {
+  findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
     const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
       .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
 
@@ -71,11 +72,11 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       .filter((href: string) => hasValue(href))
       .take(1)
       .subscribe((href: string) => {
-        const request = new FindAllRequest(href, options);
+        const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
+    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<TDomain>>>;
   }
 
   getFindByIDHref(endpoint, resourceID): string {
@@ -90,7 +91,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       .filter((href: string) => hasValue(href))
       .take(1)
       .subscribe((href: string) => {
-        const request = new FindByIDRequest(href, id);
+        const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
         this.requestService.configure(request);
       });
 
@@ -98,8 +99,25 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   }
 
   findByHref(href: string): Observable<RemoteData<TDomain>> {
-    this.requestService.configure(new HttpGetRequest(href));
+    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href));
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 
+  // TODO implement, after the structure of the REST server's POST response is finalized
+  // create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
+  //   const postHrefObs = this.getEndpoint();
+  //
+  //   // TODO ID is unknown at this point
+  //   const idHrefObs = postHrefObs.map((href: string) => this.getFindByIDHref(href, dso.id));
+  //
+  //   postHrefObs
+  //     .filter((href: string) => hasValue(href))
+  //     .take(1)
+  //     .subscribe((href: string) => {
+  //       const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.Post, dso);
+  //       this.requestService.configure(request);
+  //     });
+  //
+  //   return this.rdbService.buildSingle<TNormalized, TDomain>(idHrefObs, this.normalizedResourceType);
+  // }
 }

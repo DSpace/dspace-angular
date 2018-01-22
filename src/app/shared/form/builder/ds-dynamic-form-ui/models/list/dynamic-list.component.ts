@@ -74,7 +74,11 @@ export class DsDynamicListComponent implements OnInit {
       if (target.checked) {
         this.model.valueUpdates.next(authorityValue);
       } else {
-        this.model.valueUpdates.next(pull(this.model.value, authorityValue));
+        const newValue = [];
+        this.model.value
+          .filter((item) => item.value !== authorityValue.value)
+          .forEach((item) => newValue.push(item));
+        this.model.valueUpdates.next(newValue);
       }
     } else {
       (this.model as DynamicListRadioGroupModel).valueUpdates.next(this.authorityList[target.value]);

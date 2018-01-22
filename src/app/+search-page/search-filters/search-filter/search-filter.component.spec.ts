@@ -166,6 +166,4 @@ describe('SearchFilterComponent', () => {
       sub.unsubscribe();
     });
   });
-
-
 });

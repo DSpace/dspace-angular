@@ -2,11 +2,8 @@ import { Observable } from 'rxjs/Observable';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import {
-  EpersonSuccessResponse, ErrorResponse, IntegrationSuccessResponse,
-  RestResponse
-} from '../cache/response-cache.models';
-import { EpersonRequest, IntegrationRequest, RestRequest } from '../data/request.models';
+import { ErrorResponse, IntegrationSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { EpersonRequest, IntegrationRequest, GetRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -21,20 +18,20 @@ export abstract class IntegrationService extends HALEndpointService {
   protected abstract EnvConfig: GlobalConfig;
   protected abstract browseEndpoint: string;
 
-  protected getData(request: RestRequest): Observable<IntegrationData> {
-    const [successResponse, errorResponse] =  this.responseCache.get(request.href)
+  protected getData(request: GetRequest): Observable<IntegrationData> {
+    const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
         Observable.throw(new Error(`Couldn't retrieve the integration data`))),
       successResponse
-      .filter((response: IntegrationSuccessResponse) => isNotEmpty(response))
-      .map((response: IntegrationSuccessResponse) => new IntegrationData(response.pageInfo, response.dataDefinition))
-      .distinctUntilChanged());
+        .filter((response: IntegrationSuccessResponse) => isNotEmpty(response))
+        .map((response: IntegrationSuccessResponse) => new IntegrationData(response.pageInfo, response.dataDefinition))
+        .distinctUntilChanged());
   }
 
-  protected getIntegrationHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions() ): string {
+  protected getIntegrationHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions()): string {
     let result;
     const args = [];
 
@@ -84,9 +81,9 @@ export abstract class IntegrationService extends HALEndpointService {
       .map((endpoint: string) => this.getIntegrationHref(endpoint, options))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new IntegrationRequest(endpointURL))
-      .do((request: RestRequest) => this.requestService.configure(request))
-      .flatMap((request: RestRequest) => this.getData(request))
+      .map((endpointURL: string) => new IntegrationRequest(this.requestService.generateRequestId(), endpointURL))
+      .do((request: GetRequest) => this.requestService.configure(request))
+      .flatMap((request: GetRequest) => this.getData(request))
       .distinctUntilChanged();
   }
 

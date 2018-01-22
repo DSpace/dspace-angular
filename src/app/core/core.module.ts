@@ -42,11 +42,13 @@ import { DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-fo
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
-import { SubmitDataResponseParsingService } from './data/submit-data-response-parsing.service';
+import { SubmissionResponseParsingService } from './submission/submission-response-parsing.service';
 import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { AuthorityService } from './integration/authority.service';
 import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
+import { WorkspaceitemDataService } from './submission/workspaceitem-data.service';
+import { UUIDService } from './shared/uuid.service';
 
 const IMPORTS = [
   CommonModule,
@@ -91,10 +93,12 @@ const PROVIDERS = [
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
-  SubmitDataResponseParsingService,
+  SubmissionResponseParsingService,
   JsonPatchOperationsBuilder,
   AuthorityService,
   IntegrationResponseParsingService,
+  UUIDService,
+  WorkspaceitemDataService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

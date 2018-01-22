@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/Rx';
 import { GlobalConfig } from '../../../config';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -62,10 +63,6 @@ describe('ComColDataService', () => {
     });
   }
 
-  function initMockRequestService(): RequestService {
-    return jasmine.createSpyObj('requestService', ['configure']);
-  }
-
   function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
     return jasmine.createSpyObj('responseCache', {
       get: cold('c-', {
@@ -105,12 +102,12 @@ describe('ComColDataService', () => {
 
     it('should configure a new FindByIDRequest for the scope Community', () => {
       cds = initMockCommunityDataService();
-      requestService = initMockRequestService();
+      requestService = getMockRequestService();
       objectCache = initMockObjectCacheService();
       responseCache = initMockResponseCacheService(true);
       service = initTestService();
 
-      const expected = new FindByIDRequest(communityEndpoint, scopeID);
+      const expected = new FindByIDRequest(requestService.generateRequestId(), communityEndpoint, scopeID);
 
       scheduler.schedule(() => service.getScopedEndpoint(scopeID).subscribe());
       scheduler.flush();
@@ -121,7 +118,7 @@ describe('ComColDataService', () => {
     describe('if the scope Community can be found', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = initMockRequestService();
+        requestService = getMockRequestService();
         objectCache = initMockObjectCacheService();
         responseCache = initMockResponseCacheService(true);
         service = initTestService();
@@ -144,7 +141,7 @@ describe('ComColDataService', () => {
     describe('if the scope Community can\'t be found', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = initMockRequestService();
+        requestService = getMockRequestService();
         objectCache = initMockObjectCacheService();
         responseCache = initMockResponseCacheService(false);
         service = initTestService();
@@ -161,7 +158,7 @@ describe('ComColDataService', () => {
     describe('if the scope is not specified', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = initMockRequestService();
+        requestService = getMockRequestService();
         objectCache = initMockObjectCacheService();
         responseCache = initMockResponseCacheService(true);
         service = initTestService();

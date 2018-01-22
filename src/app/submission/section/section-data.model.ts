@@ -1,5 +1,5 @@
 import { SubmissionSectionError } from '../objects/submission-objects.reducer';
-import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
+import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 
 export interface SectionDataObject {
   config: string;

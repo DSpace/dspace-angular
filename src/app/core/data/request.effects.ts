@@ -1,19 +1,23 @@
 import { Inject, Injectable, Injector } from '@angular/core';
+import { Request } from '@angular/http';
+import { RequestArgs } from '@angular/http/src/interfaces';
 import { Actions, Effect } from '@ngrx/effects';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { isNotEmpty } from '../../shared/empty.util';
 import { ErrorResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { RequestActionTypes, RequestCompleteAction, RequestExecuteAction } from './request.actions';
-import { RequestError, RestRequest, RequestType } from './request.models';
+import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
-import { NormalizedBitstream } from '../cache/models/normalized-bitstream.model';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 
 @Injectable()
 export class RequestEffects {
@@ -21,18 +25,25 @@ export class RequestEffects {
   @Effect() execute = this.actions$
     .ofType(RequestActionTypes.EXECUTE)
     .flatMap((action: RequestExecuteAction) => {
-      return this.requestService.get(action.payload.href)
+      return this.requestService.getByUUID(action.payload)
         .take(1);
     })
-    .flatMap((entry: RequestEntry) => {
-      return this.makeHttpRequest(entry.request)
+    .map((entry: RequestEntry) => entry.request)
+    .flatMap((request: RestRequest) => {
+      let body;
+      if (isNotEmpty(request.body)) {
+        const serializer = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(request.body.type));
+        // body = JSON.stringify(serializer.serialize(request.body));
+        body = request.body;
+      }
+      return this.restApi.request(request.method, request.href, body)
         .map((data: DSpaceRESTV2Response) =>
-          this.injector.get(entry.request.getResponseParser()).parse(entry.request, data))
-        .do((response: RestResponse) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
-        .map((response: RestResponse) => new RequestCompleteAction(entry.request.href))
+          this.injector.get(request.getResponseParser()).parse(request, data))
+        .do((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive))
+        .map((response: RestResponse) => new RequestCompleteAction(request.uuid))
         .catch((error: RequestError) => Observable.of(new ErrorResponse(error))
-          .do((response: RestResponse) => this.responseCache.add(entry.request.href, response, this.EnvConfig.cache.msToLive))
-          .map((response: RestResponse) => new RequestCompleteAction(entry.request.href)));
+          .do((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive))
+          .map((response: RestResponse) => new RequestCompleteAction(request.uuid)));
     });
 
   constructor(
@@ -43,23 +54,6 @@ export class RequestEffects {
     private responseCache: ResponseCacheService,
     protected requestService: RequestService
   ) { }
-
-  private makeHttpRequest(request: RestRequest): Observable<DSpaceRESTV2Response> {
-    switch (request.requestType) {
-      case RequestType.DELETE: {
-        return this.restApi.delete(request.href)
-      }
-      case RequestType.GET: {
-        return this.restApi.get(request.href)
-      }
-      case RequestType.POST: {
-        return this.restApi.post(request.href, request.body)
-      }
-      case RequestType.PATCH: {
-        return this.restApi.patch(request.href, request.body)
-      }
-    }
-  }
 
 }
 /* tslint:enable:max-classes-per-file */

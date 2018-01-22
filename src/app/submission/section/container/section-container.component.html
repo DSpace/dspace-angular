@@ -1,4 +1,5 @@
 <div dsSection #sectionRef="sectionRef"
+     [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() }"
      [mandatory]="sectionData.mandatory"
      [submissionId]="submissionId"
      [sectionId]="sectionData.id">
@@ -39,10 +40,12 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-
-        <ng-container
-          *ngTemplateOutlet="sectionContentTemplate">
-        </ng-container>
+        <div id="sectionContent_{{sectionData.id}}"
+             (click)="sectionRef.setFocus($event)">
+          <ng-container
+            *ngTemplateOutlet="sectionContentTemplate">
+          </ng-container>
+        </div>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

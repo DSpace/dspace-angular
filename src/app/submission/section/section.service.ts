@@ -22,7 +22,7 @@ import { SubmissionDefinitionsConfigService } from '../../core/config/submission
 import { SubmissionSectionsConfigService } from '../../core/config/submission-sections-config.service';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import { SectionDataObject } from './section-data.model';
-import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../models/workspaceitem-sections.model';
+import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 
 @Injectable()
 export class SectionService {

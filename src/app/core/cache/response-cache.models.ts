@@ -78,7 +78,7 @@ export class PostPatchSuccessResponse extends RestResponse {
   }
 }
 
-export class SubmitDataSuccessResponse extends RestResponse {
+export class SubmissionSuccessResponse extends RestResponse {
   constructor(
     public dataDefinition: Array<NormalizedObject|ConfigObject>,
     public statusCode: string,

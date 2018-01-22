@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, APP_BASE_HREF } from '@angular/common';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule, MetaReducer, META_REDUCERS } from '@ngrx/store';
@@ -20,8 +20,6 @@ import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
-import { SubmissionModule } from './submission/submission.module';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -30,6 +28,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { GLOBAL_CONFIG, ENV_CONFIG, GlobalConfig } from '../config';
 
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
+import { SubmissionModule } from './submission/submission.module';
 import { SortablejsModule } from 'angular-sortablejs';
 
 export function getConfig() {
@@ -54,7 +53,7 @@ if (!ENV_CONFIG.production) {
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
+    HttpClientModule,
     SubmissionModule,
     AppRoutingModule,
     CoreModule.forRoot(),

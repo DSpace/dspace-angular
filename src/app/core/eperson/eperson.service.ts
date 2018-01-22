@@ -6,7 +6,7 @@ import {
   EpersonSuccessResponse, ErrorResponse,
   RestResponse
 } from '../cache/response-cache.models';
-import { EpersonRequest, RestRequest} from '../data/request.models';
+import { EpersonRequest, GetRequest} from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -20,7 +20,7 @@ export abstract class EpersonService extends HALEndpointService {
   protected abstract EnvConfig: GlobalConfig;
   protected abstract browseEndpoint: string;
 
-  protected getEperson(request: RestRequest): Observable<EpersonData> {
+  protected getEperson(request: GetRequest): Observable<EpersonData> {
     const [successResponse, errorResponse] =  this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .partition((response: RestResponse) => response.isSuccessful);
@@ -34,7 +34,7 @@ export abstract class EpersonService extends HALEndpointService {
   }
 
   public getDataByHref(href: string): Observable<EpersonData> {
-    const request = new EpersonRequest(href);
+    const request = new EpersonRequest(this.requestService.generateRequestId(), href);
     this.requestService.configure(request);
 
     return this.getEperson(request);
@@ -45,9 +45,9 @@ export abstract class EpersonService extends HALEndpointService {
       .map((endpoint: string) => this.getDataByIDHref(endpoint, uuid))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new EpersonRequest(endpointURL))
-      .do((request: RestRequest) => this.requestService.configure(request))
-      .flatMap((request: RestRequest) => this.getEperson(request))
+      .map((endpointURL: string) => new EpersonRequest(this.requestService.generateRequestId(), endpointURL))
+      .do((request: GetRequest) => this.requestService.configure(request))
+      .flatMap((request: GetRequest) => this.getEperson(request))
       .distinctUntilChanged();
   }
 

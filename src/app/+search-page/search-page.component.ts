@@ -1,16 +1,19 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
+import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
+import { pushInOut } from '../shared/animations/push';
 import { isNotEmpty } from '../shared/empty.util';
-import { SearchOptions } from './search-options.model';
+import { HostWindowService } from '../shared/host-window.service';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { SearchOptions, ViewMode } from './search-options.model';
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
-import { pushInOut } from '../shared/animations/push';
-import { HostWindowService } from '../shared/host-window.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 
 /**
@@ -36,7 +39,8 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   resultsRDObs: Observable<RemoteData<Array<SearchResult<DSpaceObject>>>>;
   currentParams = {};
   searchOptions: SearchOptions;
-  scopeListRDObs: Observable<RemoteData<Community[]>>;
+  sortConfig: SortOptions;
+  scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
 
   constructor(private service: SearchService,
@@ -51,6 +55,13 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     );
     this.scopeListRDObs = communityService.findAll();
     // Initial pagination config
+    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
+    pagination.id = 'search-results-pagination';
+    pagination.currentPage = 1;
+    pagination.pageSize = 10;
+
+    const sort: SortOptions = new SortOptions();
+    this.sortConfig = sort;
     this.searchOptions = this.service.searchOptions;
   }
 
@@ -63,16 +74,31 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this.query = params.query || '';
           this.scope = params.scope;
           const page = +params.page || this.searchOptions.pagination.currentPage;
-          const pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
+          let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
+          let pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
+
+          if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
+            pageSizeOptions = [12, 24, 36, 48 , 50, 62, 74, 84];
+            if (pageSizeOptions.indexOf(pageSize) === -1) {
+              pageSize = 12;
+            }
+          }
+          if (isNotEmpty(params.view) && params.view === ViewMode.List) {
+            if (pageSizeOptions.indexOf(pageSize) === -1) {
+              pageSize = 10;
+            }
+          }
+
           const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
           const pagination = Object.assign({},
             this.searchOptions.pagination,
-            { currentPage: page, pageSize: pageSize }
+            { currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
           );
           const sort = Object.assign({},
             this.searchOptions.sort,
             { direction: sortDirection, field: params.sortField }
           );
+
           this.updateSearchResults({
             pagination: pagination,
             sort: sort
@@ -88,6 +114,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   private updateSearchResults(searchOptions) {
     this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions);
+    this.searchOptions = searchOptions;
   }
 
   ngOnDestroy() {

@@ -8,7 +8,8 @@
                         [query]="query"
                         [scope]="(scopeObjectRDObs | async)?.payload"
                         [currentParams]="currentParams"
-                        [scopes]="(scopeListRDObs | async)?.payload">
+                        [scopes]="(scopeListRDObs | async)?.payload?.page"
+                        [searchLink]="search">
         </ds-search-form>
       <div class="row">
         <div id="search-body"
@@ -30,7 +31,7 @@
               </button>
             </div>
             <ds-search-results [searchResults]="resultsRDObs | async"
-                               [searchConfig]="searchOptions"></ds-search-results>
+                               [searchConfig]="searchOptions" [sortConfig]="sortConfig"></ds-search-results>
           </div>
         </div>
       </div>
