@@ -13,13 +13,14 @@ import { AuthorityModel } from '../../../../core/integration/models/authority.mo
 
 export class GroupFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel, protected initFormValues) {
+  constructor(protected configData: FormFieldModel, protected initFormValues, protected authorityUuid: string) {
     super(configData, initFormValues);
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject) {
     const modelConfiguration: DynamicGroupModelConfig = this.initModel();
 
+    modelConfiguration.scopeUUID = this.authorityUuid;
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
       modelConfiguration.formConfiguration = this.configData.rows;
       modelConfiguration.relationFields = [];

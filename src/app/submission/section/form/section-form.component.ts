@@ -63,7 +63,6 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
       .subscribe((config: SubmissionFormsModel) => {
         this.formConfig = config;
         this.formId = this.formService.getUniqueId(this.sectionData.id);
-        this.formBuilderService.setAuthorityUuid(this.collectionId);
         this.store.select(submissionSectionDataFromIdSelector(this.submissionId, this.sectionData.id))
           .take(1)
           .subscribe((sectionData: WorkspaceitemSectionDataType) => {
@@ -85,11 +84,11 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   }
 
   initForm(sectionData: WorkspaceitemSectionDataType) {
-    this.formModel = this.formBuilderService.modelFromConfiguration(this.formConfig, sectionData);
+    this.formModel = this.formBuilderService.modelFromConfiguration(this.formConfig, this.collectionId, sectionData);
   }
 
   updateForm(sectionData: WorkspaceitemSectionDataType, errors: SubmissionSectionError[]) {
-    this.formModel = this.formBuilderService.modelFromConfiguration(this.formConfig, sectionData);
+    this.formModel = this.formBuilderService.modelFromConfiguration(this.formConfig, this.collectionId, sectionData);
     this.isLoading = false;
     this.checksForErrors(errors);
   }

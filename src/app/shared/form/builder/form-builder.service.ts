@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { isEqual, uniqueId } from 'lodash';
+import { isEqual, merge, mergeWith } from 'lodash';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -9,18 +9,11 @@ import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicFormGroupModelConfig,
   DynamicFormService,
   DynamicFormValidationService,
   DynamicPathable,
   Utils
 } from '@ng-dynamic-forms/core';
-
-import { DateFieldParser } from './parsers/date-field-parser';
-import { DropdownFieldParser } from './parsers/dropdown-field-parser';
-import { TextareaFieldParser } from './parsers/textarea-field-parser';
-import { ListFieldParser } from './parsers/list-field-parser';
-import { OneboxFieldParser } from './parsers/onebox-field-parser';
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../empty.util';
@@ -28,24 +21,21 @@ import { DynamicComboboxModel } from './ds-dynamic-form-ui/models/ds-dynamic-com
 import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import { TagFieldParser } from './parsers/tag-field-parser';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldPreviousValueObject } from './models/form-field-previous-value-object';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-relation-group-model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { SeriesFieldParser } from './parsers/series-field-parser';
 import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
-import { NameFieldParser } from './parsers/name-field-parser';
-import { GroupFieldParser } from './parsers/group-field-parser';
 import { DynamicGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
+import { RowParser } from './parsers/row-parser';
+
+import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
-
-  protected authorityOptions: IntegrationSearchOptions;
 
   constructor(formBuilder: FormBuilder,
               validationService: DynamicFormValidationService,
@@ -112,20 +102,41 @@ export class FormBuilderService extends DynamicFormService {
 
   getValueFromModel(groupModel: DynamicFormControlModel[]): void {
 
-    const result = Object.create({});
+    let result = Object.create({});
+
+    const customizer = (objValue, srcValue) => {
+      if (Array.isArray(objValue)) {
+        return objValue.concat(srcValue);
+      }
+    }
+
     const iterateControlModels = (findGroupModel: DynamicFormControlModel[]): void => {
+      let iterateResult = Object.create({});
 
       // Iterate over all group's controls
       for (const controlModel of findGroupModel) {
 
+        if (controlModel instanceof DynamicRowGroupModel && !this.isCustomGroup(controlModel)) {
+          iterateResult = mergeWith(iterateResult, iterateControlModels((controlModel as DynamicFormGroupModel).group), customizer);
+          continue;
+        }
+
         if (controlModel instanceof DynamicFormGroupModel && !this.isCustomGroup(controlModel)) {
-          iterateControlModels((controlModel as DynamicFormGroupModel).group);
+          iterateResult[controlModel.name] = iterateControlModels((controlModel as DynamicFormGroupModel).group);
+          continue;
+        }
+
+        if (controlModel instanceof DynamicRowArrayModel) {
+          for (const arrayItemModel of controlModel.groups) {
+            iterateResult = mergeWith(iterateResult, iterateControlModels(arrayItemModel.group), customizer);
+          }
           continue;
         }
 
         if (controlModel instanceof DynamicFormArrayModel) {
+          iterateResult[controlModel.name] = [];
           for (const arrayItemModel of controlModel.groups) {
-            iterateControlModels(arrayItemModel.group);
+            iterateResult[controlModel.name].push(iterateControlModels(arrayItemModel.group));
           }
           continue;
         }
@@ -140,112 +151,30 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         const controlValue = (controlModel as any).value || null;
-        if (controlId && result.hasOwnProperty(controlId) && isNotNull(result[controlId])) {
-          result[controlId].push(controlValue);
+        if (controlId && iterateResult.hasOwnProperty(controlId) && isNotNull(iterateResult[controlId])) {
+          iterateResult[controlId].push(controlValue);
         } else {
-          result[controlId] = isNotEmpty(controlValue) ? (Array.isArray(controlValue) ? controlValue : [controlValue]) : null;
+          iterateResult[controlId] = isNotEmpty(controlValue) ? (Array.isArray(controlValue) ? controlValue : [controlValue]) : null;
         }
       }
+
+      return iterateResult;
     };
 
-    iterateControlModels(groupModel);
+    result = iterateControlModels(groupModel);
 
     return result;
   }
 
-  modelFromConfiguration(json: string | SubmissionFormsModel, initFormValues: any, isGroup: boolean = false): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any): DynamicFormControlModel[] | never {
     const rows: DynamicFormControlModel[] = [];
     const rawData = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        let fieldModel: any = null;
-        const config: DynamicFormGroupModelConfig = {
-          id: uniqueId('df-row-group-config-'),
-          group: [],
-        };
-
-        const clsGridClass = ' col-sm-' + Math.trunc(12 / currentRow.fields.length);
-
-        currentRow.fields.forEach((fieldData) => {
-
-          switch (fieldData.input.type) {
-            case 'date':
-              fieldModel = (new DateFieldParser(fieldData, initFormValues).parse());
-              break;
-
-            case 'dropdown':
-              fieldModel = (new DropdownFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-              break;
-
-            case 'list':
-              fieldModel = (new ListFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-              break;
-
-            case 'lookup':
-              fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-              break;
-
-            case 'onebox':
-              fieldModel = (new OneboxFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-              break;
-
-            case 'lookup-name':
-              // group.push(new NameFieldParser(fieldData).parse());
-              break;
-
-            case 'name':
-              fieldModel = (new NameFieldParser(fieldData, initFormValues).parse());
-              break;
-
-            case 'series':
-              fieldModel = (new SeriesFieldParser(fieldData, initFormValues).parse());
-              break;
-
-            case 'tag':
-              fieldModel = (new TagFieldParser(fieldData, initFormValues, this.authorityOptions.uuid).parse());
-              break;
-
-            case 'textarea':
-              fieldModel = (new TextareaFieldParser(fieldData, initFormValues).parse());
-              break;
-
-            case 'group':
-              fieldModel = new GroupFieldParser(fieldData, initFormValues).parse();
-              break;
-
-            case 'twobox':
-              // group.push(new TwoboxFieldParser(fieldData).parse());
-              break;
-
-            default:
-              throw new Error(`unknown form control model type defined on JSON object with label "${fieldData.label}"`);
-          }
-
-          if (fieldModel) {
-            if (fieldModel instanceof DynamicFormArrayModel || fieldModel instanceof DynamicGroupModel) {
-              rows.push(fieldModel);
-            } else {
-              if (fieldModel instanceof Array) {
-                fieldModel.forEach((model) => {
-                  rows.push(model);
-                })
-              } else {
-                fieldModel.cls.grid.host = (fieldModel.cls.grid.host) ? fieldModel.cls.grid.host + clsGridClass : clsGridClass;
-                config.group.push(fieldModel);
-              }
-            }
-            fieldModel = null;
-          }
-        });
-
-        if (config && !isEmpty(config.group)) {
-          const clsGroup = {
-            element: {
-              control: 'form-row',
-            }
-          };
-          rows.push(isGroup ? new DynamicRelationGroupModel(config) : new DynamicFormGroupModel(config, clsGroup));
+        const rowParsed = new RowParser(currentRow, scopeUUID, initFormValues).parse();
+        if (isNotNull(rowParsed)) {
+          rows.push(rowParsed);
         }
       });
     }
@@ -255,10 +184,6 @@ export class FormBuilderService extends DynamicFormService {
 
   hasAuthorityValue(fieldModel) {
     return (fieldModel instanceof DynamicTypeaheadModel || fieldModel instanceof DynamicScrollableDropdownModel);
-  }
-
-  setAuthorityUuid(uuid: string) {
-    this.authorityOptions = new IntegrationSearchOptions(uuid);
   }
 
   getArrayIndexFromEvent(event: DynamicFormControlEvent) {
