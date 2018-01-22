@@ -36,5 +36,9 @@
   "buildOnSave": false,
   "atom": {
     "rewriteTsconfig": false
+  },
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "preserveWhitespaces": false
   }
 }
