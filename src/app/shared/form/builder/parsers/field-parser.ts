@@ -5,6 +5,7 @@ import { DynamicFormArrayModel } from '@ng-dynamic-forms/core';
 
 import { uniqueId } from 'lodash';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 
 export abstract class FieldParser {
 
@@ -22,7 +23,7 @@ export abstract class FieldParser {
       (this.configData.input.type !== 'group')) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
-      return new DynamicFormArrayModel(
+      return new DynamicRowArrayModel(
         {
           id: uniqueId() + '_array',
           initialCount: this.getInitArrayIndex(),

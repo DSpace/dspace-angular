@@ -35,7 +35,7 @@ export class DsDynamicGroupComponent implements OnInit {
   ngOnInit() {
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
     this.formId = this.formService.getUniqueId(this.model.id);
-    this.formModel = this.formBuilderService.modelFromConfiguration(config, {});
+    this.formModel = this.formBuilderService.modelFromConfiguration(config, this.model.scopeUUID,{});
     this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);
   }
 
