@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
-import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
+import { IdlePreload, IdlePreloadModule } from 'angular-idle-preload';
 
 import { EffectsModule } from '@ngrx/effects';
 
