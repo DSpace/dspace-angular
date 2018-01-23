@@ -12,7 +12,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
-import { TruncatePipe } from './utils/truncate.pipe';
 
 import { CollectionListElementComponent } from '../object-list/collection-list-element/collection-list-element.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
@@ -31,8 +30,9 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { WrapperListElementComponent } from '../object-list/wrapper-list-element/wrapper-list-element.component';
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { VarDirective } from './utils/var.directive';
-import { ShaveDirective } from './utils/shave.directive';
-
+import { TruncatePipe } from './utils/truncate.pipe';
+import { TruncatableComponent } from './truncatable/truncatable.component';
+import { TruncatableService } from './truncatable/truncatable.service';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -67,6 +67,7 @@ const COMPONENTS = [
   ThumbnailComponent,
   WrapperListElementComponent,
   ViewModeSwitchComponent,
+  TruncatableComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -77,9 +78,12 @@ const ENTRY_COMPONENTS = [
   SearchResultListElementComponent
 ];
 
+const PROVIDERS = [
+  TruncatableService
+];
+
 const DIRECTIVES = [
-  VarDirective,
-  ShaveDirective
+  VarDirective
 ];
 
 @NgModule({
@@ -92,6 +96,9 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES
+  ],
+  providers: [
+    ...PROVIDERS
   ],
   exports: [
     ...MODULES,

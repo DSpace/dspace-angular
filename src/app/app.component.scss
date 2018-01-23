@@ -1,5 +1,4 @@
 @import '../styles/variables.scss';
-@import '../styles/mixins.scss';
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import "../../node_modules/font-awesome/scss/font-awesome.scss";
 
@@ -31,8 +30,4 @@ body {
   flex: 1 0 auto;
   margin-top: $content-spacing;
   margin-bottom: $content-spacing;
-}
-
-.clamp-3 {
-  @include clamp(3);
 }
