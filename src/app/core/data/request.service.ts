@@ -10,43 +10,45 @@ import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { coreSelector, CoreState } from '../core.reducers';
-import { keySelector } from '../shared/selectors';
+import { IndexName } from '../index/index.reducer';
+import { pathSelector } from '../shared/selectors';
+import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
-import { RestRequest } from './request.models';
+import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
 
 import { RequestEntry, RequestState } from './request.reducer';
-
-function entryFromHrefSelector(href: string): MemoizedSelector<CoreState, RequestEntry> {
-  return keySelector<RequestEntry>('data/request', href);
-}
-
-export function requestStateSelector(): MemoizedSelector<CoreState, RequestState> {
-  return createSelector(coreSelector, (state: CoreState) => {
-    return state['data/request'] as RequestState;
-  });
-}
-
 
 @Injectable()
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];
 
-  constructor(
-    private objectCache: ObjectCacheService,
-    private responseCache: ResponseCacheService,
-    private store: Store<CoreState>
-  ) {
+  constructor(private objectCache: ObjectCacheService,
+              private responseCache: ResponseCacheService,
+              private uuidService: UUIDService,
+              private store: Store<CoreState>) {
   }
 
-  isPending(href: string): boolean {
+  private entryFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, RequestEntry> {
+    return pathSelector<CoreState, RequestEntry>(coreSelector, 'data/request', uuid);
+  }
+
+  private uuidFromHrefSelector(href: string): MemoizedSelector<CoreState, string> {
+    return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.REQUEST, href);
+  }
+
+  generateRequestId(): string {
+    return `client/${this.uuidService.generate()}`;
+  }
+
+  isPending(request: GetRequest): boolean {
     // first check requests that haven't made it to the store yet
-    if (this.requestsOnTheirWayToTheStore.includes(href)) {
+    if (this.requestsOnTheirWayToTheStore.includes(request.href)) {
       return true;
     }
 
     // then check the store
     let isPending = false;
-    this.store.select(entryFromHrefSelector(href))
+    this.getByHref(request.href)
       .take(1)
       .subscribe((re: RequestEntry) => {
         isPending = (hasValue(re) && !re.completed)
@@ -55,11 +57,22 @@ export class RequestService {
     return isPending;
   }
 
-  get(href: string): Observable<RequestEntry> {
-    return this.store.select(entryFromHrefSelector(href));
+  getByUUID(uuid: string): Observable<RequestEntry> {
+    return this.store.select(this.entryFromUUIDSelector(uuid));
+  }
+
+  getByHref(href: string): Observable<RequestEntry> {
+    return this.store.select(this.uuidFromHrefSelector(href))
+      .flatMap((uuid: string) => this.getByUUID(uuid));
   }
 
   configure<T extends CacheableObject>(request: RestRequest): void {
+    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
+      this.dispatchRequest(request);
+    }
+  }
+
+  private isCachedOrPending(request: GetRequest) {
     let isCached = this.objectCache.hasBySelfLink(request.href);
     if (!isCached && this.responseCache.has(request.href)) {
       const [successResponse, errorResponse] = this.responseCache.get(request.href)
@@ -83,29 +96,33 @@ export class RequestService {
       ).subscribe((c) => isCached = c);
     }
 
-    const isPending = this.isPending(request.href);
+    const isPending = this.isPending(request);
 
-    if (!(isCached || isPending)) {
-      this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(request.href));
-      this.trackRequestsOnTheirWayToTheStore(request.href);
+    return isCached || isPending;
+  }
+
+  private dispatchRequest(request: RestRequest) {
+    this.store.dispatch(new RequestConfigureAction(request));
+    this.store.dispatch(new RequestExecuteAction(request.uuid));
+    if (request.method === RestRequestMethod.Get) {
+      this.trackRequestsOnTheirWayToTheStore(request);
     }
   }
 
   /**
    * ngrx action dispatches are asynchronous. But this.isPending needs to return true as soon as the
-   * configure method for a request has been executed, otherwise certain requests will happen multiple times.
+   * configure method for a GET request has been executed, otherwise certain requests will happen multiple times.
    *
-   * This method will store the href of every request that gets configured in a local variable, and
+   * This method will store the href of every GET request that gets configured in a local variable, and
    * remove it as soon as it can be found in the store.
    */
-  private trackRequestsOnTheirWayToTheStore(href: string) {
-    this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, href];
-    this.store.select(entryFromHrefSelector(href))
+  private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
+    this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
+    this.store.select(this.entryFromUUIDSelector(request.href))
       .filter((re: RequestEntry) => hasValue(re))
       .take(1)
       .subscribe((re: RequestEntry) => {
-        this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== href)
+        this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
       });
   }
 }

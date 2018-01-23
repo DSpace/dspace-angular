@@ -1,0 +1,23 @@
+<div class="card">
+
+  <a [routerLink]="['/items/' + object.id]" class="card-img-top">
+    <ds-grid-thumbnail [thumbnail]="object.getThumbnail()">
+    </ds-grid-thumbnail>
+  </a>
+  <div class="card-body">
+    <h4 class="card-title">{{object.findMetadata('dc.title')}}</h4>
+
+    <p *ngIf="object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);" class="item-authors card-text text-muted">
+        <span *ngFor="let authorMd of object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
+            <span *ngIf="!last">; </span>
+        </span>
+      <span *ngIf="object.findMetadata('dc.date.issued')">{{object.findMetadata("dc.date.issued")}}</span>
+    </p>
+
+    <p *ngIf="object.findMetadata('dc.description.abstract')" class="item-abstract card-text">{{object.findMetadata("dc.description.abstract") | dsTruncate:[200] }}</p>
+
+    <div class="text-center">
+      <a [routerLink]="['/items/' + object.id]" class="lead btn btn-primary viewButton">View</a>
+    </div>
+  </div>
+</div>

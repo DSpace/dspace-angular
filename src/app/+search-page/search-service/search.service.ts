@@ -1,23 +1,24 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { RemoteData } from '../../core/data/remote-data';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { SearchResult } from '../search-result.model';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchOptions } from '../search-options.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { Metadatum } from '../../core/shared/metadatum.model';
-import { Item } from '../../core/shared/item.model';
-import { ItemSearchResult } from '../../object-list/search-result-list-element/item-search-result/item-search-result.model';
-import { SearchFilterConfig } from './search-filter-config.model';
-import { FilterType } from './filter-type.model';
-import { FacetValue } from './facet-value.model';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { RouteService } from '../../shared/route.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { RemoteData } from '../../core/data/remote-data';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Item } from '../../core/shared/item.model';
+import { Metadatum } from '../../core/shared/metadatum.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { RouteService } from '../../shared/route.service';
+import { SearchOptions } from '../search-options.model';
+import { SearchResult } from '../search-result.model';
+import { FacetValue } from './facet-value.model';
+import { FilterType } from './filter-type.model';
+import { SearchFilterConfig } from './search-filter-config.model';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -100,7 +101,7 @@ export class SearchService implements OnDestroy {
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
-    this.searchOptions = this.searchOptions;
+    this.searchOptions = searchOptions;
     let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}`;
     if (hasValue(scopeId)) {
       self += `&scope=${scopeId}`;
@@ -118,8 +119,7 @@ export class SearchService implements OnDestroy {
       self += `&sortField=${searchOptions.sort.field}`;
     }
 
-    const errorMessage = undefined;
-    const statusCode = '200';
+    const error = undefined;
     const returningPageInfo = new PageInfo();
 
     if (isNotEmpty(searchOptions)) {
@@ -137,13 +137,12 @@ export class SearchService implements OnDestroy {
     });
 
     return itemsObs
-      .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded)
-      .map((rd: RemoteData<Item[]>) => {
+      .filter((rd: RemoteData<PaginatedList<Item>>) => rd.hasSucceeded)
+      .map((rd: RemoteData<PaginatedList<Item>>) => {
 
-        const totalElements = rd.pageInfo.totalElements > 20 ? 20 : rd.pageInfo.totalElements;
-        const pageInfo = Object.assign({}, rd.pageInfo, { totalElements: totalElements });
+        const totalElements = rd.payload.totalElements > 20 ? 20 : rd.payload.totalElements;
 
-        const payload = shuffle(rd.payload)
+        const page = shuffle(rd.payload.page)
           .map((item: Item, index: number) => {
             const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
             mockResult.dspaceObject = item;
@@ -154,22 +153,18 @@ export class SearchService implements OnDestroy {
             return mockResult;
           });
 
+        const payload = Object.assign({}, rd.payload, { totalElements: totalElements, page });
+
         return new RemoteData(
-          self,
           rd.isRequestPending,
           rd.isResponsePending,
           rd.hasSucceeded,
-          errorMessage,
-          statusCode,
-          pageInfo,
+          error,
           payload
         )
       }).startWith(new RemoteData(
-        '',
         true,
         false,
-        undefined,
-        undefined,
         undefined,
         undefined,
         undefined
@@ -180,17 +175,12 @@ export class SearchService implements OnDestroy {
     const requestPending = false;
     const responsePending = false;
     const isSuccessful = true;
-    const errorMessage = undefined;
-    const statusCode = '200';
-    const returningPageInfo = new PageInfo();
+    const error = undefined;
     return Observable.of(new RemoteData(
-      'https://dspace7.4science.it/dspace-spring-rest/api/search',
       requestPending,
       responsePending,
       isSuccessful,
-      errorMessage,
-      statusCode,
-      returningPageInfo,
+      error,
       this.config
     ));
   }
@@ -198,12 +188,12 @@ export class SearchService implements OnDestroy {
   getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
     const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
     return this.routeService.getQueryParameterValues(filterConfig.paramName).map((selectedValues: string[]) => {
-        const values: FacetValue[] = [];
+        const payload: FacetValue[] = [];
         const totalFilters = 13;
         for (let i = 0; i < totalFilters; i++) {
           const value = searchFilterConfigName + ' ' + (i + 1);
           if (!selectedValues.includes(value)) {
-            values.push({
+            payload.push({
               value: value,
               count: Math.floor(Math.random() * 20) + 20 * (totalFilters - i), // make sure first results have the highest (random) count
               search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
@@ -213,18 +203,13 @@ export class SearchService implements OnDestroy {
         const requestPending = false;
         const responsePending = false;
         const isSuccessful = true;
-        const errorMessage = undefined;
-        const statusCode = '200';
-        const returningPageInfo = new PageInfo();
+        const error = undefined;
         return new RemoteData(
-          'https://dspace7.4science.it/dspace-spring-rest/api/search',
           requestPending,
           responsePending,
           isSuccessful,
-          errorMessage,
-          statusCode,
-          returningPageInfo,
-          values
+          error,
+          payload
         )
       }
     )

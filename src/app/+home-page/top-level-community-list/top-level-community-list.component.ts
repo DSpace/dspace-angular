@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
+import { PaginatedList } from '../../core/data/paginated-list';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
@@ -17,7 +18,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
   animations: [fadeInOut]
 })
 export class TopLevelCommunityListComponent {
-  communitiesRDObs: Observable<RemoteData<Community[]>>;
+  communitiesRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   config: PaginationComponentOptions;
   sortConfig: SortOptions;
 

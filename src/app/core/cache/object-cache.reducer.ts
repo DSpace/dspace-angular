@@ -5,6 +5,12 @@ import {
 import { hasValue } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
 
+export enum DirtyType {
+  Created = 'Created',
+  Updated = 'Updated',
+  Deleted = 'Deleted'
+}
+
 /**
  * An interface to represent objects that can be cached
  *
@@ -13,6 +19,11 @@ import { CacheEntry } from './cache-entry';
 export interface CacheableObject {
   uuid?: string;
   self: string;
+  // isNew: boolean;
+  // dirtyType: DirtyType;
+  // hasDirtyAttributes: boolean;
+  // changedAttributes: AttributeDiffh;
+  // save(): void;
 }
 
 /**

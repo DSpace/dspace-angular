@@ -6,24 +6,120 @@ import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RootResponseParsingService } from './root-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
+import { ConfigResponseParsingService } from './config-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
-export class RestRequest {
+
+/**
+ * Represents a Request Method.
+ *
+ * I didn't reuse the RequestMethod enum in @angular/http because
+ * it uses numbers. The string values here are more clear when
+ * debugging.
+ *
+ * The ones commented out are still unsupported in the rest of the codebase
+ */
+export enum RestRequestMethod {
+  Get = 'GET',
+  Post = 'POST',
+  Put = 'PUT',
+  Delete = 'DELETE',
+  Options = 'OPTIONS',
+  Head = 'HEAD',
+  Patch = 'PATCH'
+}
+
+export abstract class RestRequest {
   constructor(
+    public uuid: string,
     public href: string,
-  ) { }
+    public method: RestRequestMethod = RestRequestMethod.Get,
+    public body?: any
+  ) {
+  }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return DSOResponseParsingService;
   }
 }
 
-export class FindByIDRequest extends RestRequest {
+export class GetRequest extends RestRequest {
   constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Get, body)
+  }
+}
+
+export class PostRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Post, body)
+  }
+}
+
+export class PutRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Put, body)
+  }
+}
+
+export class DeleteRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Delete, body)
+  }
+}
+
+export class OptionsRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Options, body)
+  }
+}
+
+export class HeadRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Head, body)
+  }
+}
+
+export class PatchRequest extends RestRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  )  {
+    super(uuid, href, RestRequestMethod.Patch, body)
+  }
+}
+
+export class FindByIDRequest extends GetRequest {
+  constructor(
+    uuid: string,
     href: string,
     public resourceID: string
   ) {
-    super(href);
+    super(uuid, href);
   }
 }
 
@@ -34,19 +130,20 @@ export class FindAllOptions {
   sort?: SortOptions;
 }
 
-export class FindAllRequest extends RestRequest {
+export class FindAllRequest extends GetRequest {
   constructor(
+    uuid: string,
     href: string,
     public options?: FindAllOptions,
   ) {
-    super(href);
+    super(uuid, href);
   }
 }
 
-export class RootEndpointRequest extends RestRequest {
-  constructor(EnvConfig: GlobalConfig) {
+export class RootEndpointRequest extends GetRequest {
+  constructor(uuid: string, EnvConfig: GlobalConfig) {
     const href = new RESTURLCombiner(EnvConfig, '/').toString();
-    super(href);
+    super(uuid, href);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -54,13 +151,23 @@ export class RootEndpointRequest extends RestRequest {
   }
 }
 
-export class BrowseEndpointRequest extends RestRequest {
-  constructor(href: string) {
-    super(href);
+export class BrowseEndpointRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return BrowseResponseParsingService;
+  }
+}
+
+export class ConfigRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return ConfigResponseParsingService;
   }
 }
 

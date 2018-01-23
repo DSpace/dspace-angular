@@ -2,20 +2,21 @@ import { Injectable } from '@angular/core';
 import { MemoizedSelector, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
+import { IndexName } from '../index/index.reducer';
 
 import { ObjectCacheEntry, CacheableObject } from './object-cache.reducer';
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
 import { hasNoValue } from '../../shared/empty.util';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { CoreState } from '../core.reducers';
-import { keySelector } from '../shared/selectors';
+import { coreSelector, CoreState } from '../core.reducers';
+import { pathSelector } from '../shared/selectors';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
-  return keySelector<string>('index/uuid', uuid);
+  return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);
 }
 
 function entryFromSelfLinkSelector(selfLink: string): MemoizedSelector<CoreState, ObjectCacheEntry> {
-  return keySelector<ObjectCacheEntry>('data/object', selfLink);
+  return pathSelector<CoreState, ObjectCacheEntry>(coreSelector, 'data/object', selfLink);
 }
 
 /**
@@ -60,7 +61,7 @@ export class ObjectCacheService {
    * the cached plain javascript object in to an instance of
    * a class.
    *
-   * e.g. get('c96588c6-72d3-425d-9d47-fa896255a695', Item)
+   * e.g. getByUUID('c96588c6-72d3-425d-9d47-fa896255a695', Item)
    *
    * @param uuid
    *    The UUID of the object to get

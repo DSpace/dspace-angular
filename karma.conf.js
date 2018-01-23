@@ -146,11 +146,6 @@ module.exports = function (config) {
     ],
 
     customLaunchers: {
-      // Continuous integraation with Chrome - launcher
-      'ChromeTravisCi': {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      },
       // Remote Selenium Server with Chrome - launcher
       'SeleniumChrome': {
         base: 'WebDriver',
@@ -172,10 +167,6 @@ module.exports = function (config) {
     browserNoActivityTimeout: 30000
 
   };
-
-  if (process.env.TRAVIS) {
-    configuration.browsers = ['ChromeTravisCi'];
-  }
 
   config.set(configuration);
 };

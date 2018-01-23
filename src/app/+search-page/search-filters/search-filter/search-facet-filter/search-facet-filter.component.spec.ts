@@ -41,7 +41,7 @@ describe('SearchFacetFilterComponent', () => {
     }
   ];
   let filterService;
-  let page = Observable.of(0)
+  const page = Observable.of(0)
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
@@ -147,8 +147,8 @@ describe('SearchFacetFilterComponent', () => {
 
     it('should return the correct number of items shown (this equals the page count x page size)', () => {
       const sub = count.subscribe((c) => {
-        const subsub = comp.currentPage.subscribe((page) => {
-          expect(c).toBe(page * mockFilterConfig.pageSize);
+        const subsub = comp.currentPage.subscribe((currentPage) => {
+          expect(c).toBe(currentPage * mockFilterConfig.pageSize);
         });
         subsub.unsubscribe()
       });
