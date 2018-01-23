@@ -59,7 +59,7 @@ describe('ItemGridElementComponent', () => {
 
     if (mockItem.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0) {
       expect(itemAuthorField).toBeDefined();
-    }else {
+    } else {
       expect(itemAuthorField).toBeDefined();
     }
   });
