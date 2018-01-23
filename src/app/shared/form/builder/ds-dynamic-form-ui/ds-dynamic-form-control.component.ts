@@ -37,7 +37,6 @@ import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkb
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION, DynamicGroupModel } from './models/ds-dynamic-group/dynamic-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/ds-date-picker/ds-date-picker.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 
 export const enum NGBootstrapFormControlType {
 
@@ -58,7 +57,6 @@ export const enum NGBootstrapFormControlType {
   List = 15, // 'TYPELIST'
   Relation = 16, // Dynamic Grup
   DsDatePicker = 17, // Ds Date Picker
-  Lookup = 18, // LOOKUP
 }
 
 @Component({
@@ -137,9 +135,6 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
 
       case DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER:
         return NGBootstrapFormControlType.DsDatePicker;
-
-      case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP:
-        return NGBootstrapFormControlType.Lookup;
 
       default:
         return null;

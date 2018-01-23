@@ -277,18 +277,6 @@
         ></ds-date-picker>
       </ng-container>
 
-      <ng-container *ngSwitchCase="18">
-        <ds-dynamic-lookup
-          [bindId]="bindId"
-          [group]="group"
-          [model]="model"
-          [showErrorMessages]="showErrorMessages"
-          (blur)="onBlurEvent($event)"
-          (change)="onValueChange($event)"
-          (focus)="onFocusEvent($event)"
-        ></ds-dynamic-lookup>
-      </ng-container>
-
 
       <small *ngIf="hasHint" class="text-muted" [innerHTML]="model.hint"
              [ngClass]="model.cls.element.hint"></small>
