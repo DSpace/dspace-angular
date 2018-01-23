@@ -5,15 +5,20 @@ const {
 } = require('./helpers');
 
 module.exports = {
-  entry: root('./src/main.server.ts'),
-  output: {
-    filename: 'server.js'
-  },
-  target: 'node',
-  externals: [nodeExternals({
-    whitelist: [
-      /@angular/,
-      /@ng/,
-      /ngx/]
-  })],
+  getServerWebpackPartial: function (aot) {
+    const entry = aot ? root('./src/main.server.aot.ts') : root('./src/main.server.ts');
+    return {
+      entry: entry,
+      output: {
+        filename: 'server.js'
+      },
+      target: 'node',
+      externals: [nodeExternals({
+        whitelist: [
+          /@angular/,
+          /@ng/,
+          /ngx/]
+      })],
+    }
+  }
 };
