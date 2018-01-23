@@ -30,7 +30,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
 
-  formatter = (x: {display: string}) => x.display;
+  formatter = (x: { display: string }) => x.display;
 
   search = (text$: Observable<string>) =>
     text$
@@ -48,20 +48,21 @@ export class DsDynamicTypeaheadComponent implements OnInit {
               return {
                 list: authorities.payload,
                 pageInfo: authorities.pageInfo
-              }
+              };
             })
             .do(() => this.searchFailed = false)
             .catch(() => {
               this.searchFailed = true;
               return Observable.of({list: []});
-            })
+            });
         }
       })
       .map((results) => results.list)
       .do(() => this.searching = false)
       .merge(this.hideSearchingWhenUnsubscribed);
 
-  constructor(private authorityService: AuthorityService) {}
+  constructor(private authorityService: AuthorityService) {
+  }
 
   ngOnInit() {
     this.currentValue = this.model.value;
@@ -73,7 +74,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
       .filter((value) => this.currentValue !== value)
       .subscribe((value) => {
         this.currentValue = value;
-    })
+      });
   }
 
   onInput(event) {
