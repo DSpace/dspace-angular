@@ -26,7 +26,7 @@ export class RowParser {
 
   public parse(): DynamicRowGroupModel {
     let fieldModel: any = null;
-    let parseResult = null;
+    let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
       id: uniqueId(ROW_ID_PREFIX),
       group: [],
@@ -91,12 +91,12 @@ export class RowParser {
 
       if (fieldModel) {
         if (fieldModel instanceof DynamicFormArrayModel || fieldModel instanceof DynamicGroupModel) {
-          parseResult = fieldModel;
+          parsedResult = fieldModel;
           return;
         } else {
           if (fieldModel instanceof Array) {
             fieldModel.forEach((model) => {
-              parseResult = model;
+              parsedResult = model;
               return;
             })
           } else {
@@ -114,9 +114,9 @@ export class RowParser {
           control: 'form-row',
         }
       };
-      parseResult = new DynamicRowGroupModel(config, clsGroup);
+      parsedResult = new DynamicRowGroupModel(config, clsGroup);
     }
-    return parseResult;
+    return parsedResult;
   }
 
 }
