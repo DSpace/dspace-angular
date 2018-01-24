@@ -1,1 +1,3 @@
-<div class="clamp-{{lines}}" [innerHTML]="content" (click)="toggleCollapse()"></div>
+<div (click)="toggle()" (mouseenter)="hoverExpand()" (mouseleave)="hoverCollapse">
+    <ng-content></ng-content>
+</div>

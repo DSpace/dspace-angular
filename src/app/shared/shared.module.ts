@@ -43,6 +43,7 @@ import { VarDirective } from './utils/var.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
+import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -82,7 +83,8 @@ const COMPONENTS = [
   GridThumbnailComponent,
   WrapperListElementComponent,
   ViewModeSwitchComponent,
-  TruncatableComponent
+  TruncatableComponent,
+  TruncatablePartComponent,
 ];
 
 const ENTRY_COMPONENTS = [

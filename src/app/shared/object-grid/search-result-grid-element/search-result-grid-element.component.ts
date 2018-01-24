@@ -6,6 +6,8 @@ import { Metadatum } from '../../../core/shared/metadatum.model';
 import { isEmpty, hasNoValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { TruncatableService } from '../../truncatable/truncatable.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-search-result-grid-element',
@@ -15,7 +17,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
 
-  public constructor(@Inject('objectElementProvider') public gridable: ListableObject) {
+  public constructor(@Inject('objectElementProvider') public gridable: ListableObject, private truncatableService: TruncatableService) {
     super(gridable);
     this.dso = this.object.dspaceObject;
   }
@@ -44,7 +46,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
     this.object.hitHighlights.some(
       (md: Metadatum) => {
         if (key === md.key) {
-          result =  md.value;
+          result = md.value;
           return true;
         }
       }
@@ -53,5 +55,9 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
       result = this.dso.findMetadata(key);
     }
     return result;
+  }
+
+  isCollapsed(): Observable<boolean> {
+    return this.truncatableService.isCollapsed(this.dso.id);
   }
 }

@@ -11,6 +11,8 @@ import { type } from '../ngrx/type';
  */
 export const TruncatableActionTypes = {
   TOGGLE: type('dspace/truncatable/TOGGLE'),
+  COLLAPSE: type('dspace/truncatable/COLLAPSE'),
+  EXPAND: type('dspace/truncatable/EXPAND'),
 };
 
 export class TruncatableAction implements Action {
@@ -24,6 +26,14 @@ export class TruncatableAction implements Action {
 /* tslint:disable:max-classes-per-file */
 export class TruncatableToggleAction extends TruncatableAction {
   type = TruncatableActionTypes.TOGGLE;
+}
+
+export class TruncatableCollapseAction extends TruncatableAction {
+  type = TruncatableActionTypes.COLLAPSE;
+}
+
+export class TruncatableExpandAction extends TruncatableAction {
+  type = TruncatableActionTypes.EXPAND;
 }
 
 /* tslint:enable:max-classes-per-file */

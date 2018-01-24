@@ -10,7 +10,7 @@
   (sortDirectionChange)="onSortDirectionChange($event)"
   (sortFieldChange)="onSortFieldChange($event)"
   (paginationChange)="onPaginationChange($event)">
-  <ul *ngIf="objects?.hasSucceeded"> <!--class="list-unstyled"-->
+  <ul *ngIf="objects?.hasSucceeded" class="list-unstyled">
       <li *ngFor="let object of objects?.payload?.page">
         <ds-wrapper-list-element [object]="object"></ds-wrapper-list-element>
       </li>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { TruncatablesState, TruncatableState } from './truncatable.reducer';
-import { TruncatableToggleAction } from './truncatable.actions';
+import { TruncatableExpandAction, TruncatableToggleAction, TruncatableCollapseAction } from './truncatable.actions';
 import { hasValue } from '../empty.util';
 
 const truncatableStateSelector = (state: TruncatablesState) => state.truncatable;
@@ -16,7 +16,6 @@ export class TruncatableService {
   isCollapsed(id: string): Observable<boolean> {
     return this.store.select(truncatableByIdSelector(id))
       .map((object: TruncatableState) => {
-      console.log(object);
         if (object) {
           return object.collapsed;
         } else {
@@ -28,6 +27,14 @@ export class TruncatableService {
   public toggle(id: string): void {
     this.store.dispatch(new TruncatableToggleAction(id));
   }
+
+  public collapse(id: string): void {
+    this.store.dispatch(new TruncatableCollapseAction(id));
+  }
+
+  public expand(id: string): void {
+    this.store.dispatch(new TruncatableExpandAction(id));
+  }
 }
 
 function truncatableByIdSelector(id: string): MemoizedSelector<TruncatablesState, TruncatableState> {
@@ -36,8 +43,6 @@ function truncatableByIdSelector(id: string): MemoizedSelector<TruncatablesState
 
 export function keySelector<T>(key: string): MemoizedSelector<TruncatablesState, T> {
   return createSelector(truncatableStateSelector, (state: TruncatableState) => {
-    console.log(state, 'test');
-
     if (hasValue(state)) {
       return state[key];
     } else {
