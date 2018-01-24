@@ -4,6 +4,8 @@ import { EpersonModel } from '../../eperson/models/eperson.model';
 import { Item } from '../../shared/item.model';
 import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
+import { Observable } from 'rxjs/Observable';
+import { RemoteData } from '../../data/remote-data';
 
 export class Workspaceitem extends SubmissionObject {
 
@@ -17,9 +19,9 @@ export class Workspaceitem extends SubmissionObject {
    */
   lastModified: Date;
 
-  collection: Collection;
+  collection: Observable<RemoteData<Collection[]>> | Collection[];
 
-  item: Item;
+  item: Observable<RemoteData<Item[]>> | Item[];
 
   sections: WorkspaceitemSectionsObject;
 
@@ -29,9 +31,6 @@ export class Workspaceitem extends SubmissionObject {
 
   errors: WorkspaceItemError[];
 
-  get metadata() {
-    return this.item.metadata;
-  }
 }
 
 export interface WorkspaceItemError {

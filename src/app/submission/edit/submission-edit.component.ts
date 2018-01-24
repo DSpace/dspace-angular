@@ -5,7 +5,6 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import { SubmissionRestService } from '../submission-rest.service';
-import { NormalizedWorkspaceItem } from '../../core/submission/models/normalized-workspaceitem.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { hasValue, isNotUndefined } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
@@ -41,17 +40,19 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
       this.subs.push(this.route.paramMap
         .subscribe((params: ParamMap) => {
           this.submissionId = params.get('id');
-          this.restService.getDataById(this.submissionId)
-            .filter((workspaceitems: Workspaceitem) => isNotUndefined(workspaceitems))
-            .take(1)
-            .map((workspaceitems: Workspaceitem) => workspaceitems[0])
-            .subscribe((workspaceitems: NormalizedWorkspaceItem) => {
-              this.collectionId = workspaceitems.collection[0].id;
-              this.sections = workspaceitems.sections;
-              this.submissionDefinition = workspaceitems.submissionDefinition[0];
-              this.changeDetectorRef.detectChanges();
-            });
-      }));
+          this.subs.push(
+            this.restService.getDataById(this.submissionId)
+              .filter((workspaceitems: Workspaceitem) => isNotUndefined(workspaceitems))
+              .take(1)
+              .map((workspaceitems: Workspaceitem) => workspaceitems[0])
+              .subscribe((workspaceitems: Workspaceitem) => {
+                this.collectionId = workspaceitems.collection[0].id;
+                this.sections = workspaceitems.sections;
+                this.submissionDefinition = workspaceitems.submissionDefinition[0];
+                this.changeDetectorRef.detectChanges();
+              })
+          )
+        }));
     }
   }
 

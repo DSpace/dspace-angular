@@ -1,4 +1,7 @@
-import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnDestroy, OnInit, SimpleChanges,
+  ViewChild
+} from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
@@ -8,7 +11,7 @@ import {
   LoadSubmissionFormAction, ResetSubmissionFormAction,
   SaveSubmissionFormAction
 } from '../objects/submission-objects.actions';
-import { isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
 import { submissionObjectFromIdSelector } from '../selectors';
@@ -20,6 +23,7 @@ import { Workspaceitem } from '../../core/submission/models/workspaceitem.model'
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
 import { SubmissionService } from '../submission.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -27,7 +31,7 @@ import { SubmissionService } from '../submission.service';
   templateUrl: './submission-submit-form.component.html',
 })
 
-export class SubmissionSubmitFormComponent implements OnChanges {
+export class SubmissionSubmitFormComponent implements OnChanges, OnDestroy {
   @Input() collectionId: string;
   @Input() sections: WorkspaceitemSectionsObject;
   @Input() submissionDefinition: SubmissionDefinitionsModel;
@@ -42,7 +46,7 @@ export class SubmissionSubmitFormComponent implements OnChanges {
     itemAlias: null
   };
 
-  private pid: any;
+  protected subs: Subscription[] = [];
 
   @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 
@@ -54,29 +58,34 @@ export class SubmissionSubmitFormComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.collectionId && this.submissionId) {
-      this.submissionRestService.getEndpoint('workspaceitems')
-        .filter((href: string) => isNotEmpty(href))
-        .distinctUntilChanged()
-        .subscribe((endpointURL) => {
-          this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
-          this.definitionId = this.submissionDefinition.name;
-          this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
-        });
+      this.subs.push(
+        this.submissionRestService.getEndpoint('workspaceitems')
+          .filter((href: string) => isNotEmpty(href))
+          .distinctUntilChanged()
+          .subscribe((endpointURL) => {
+            this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
+            this.definitionId = this.submissionDefinition.name;
+            this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
+          }),
 
-      this.store.select(submissionObjectFromIdSelector(this.submissionId))
-        .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))
-        .subscribe((submission: SubmissionObjectEntry) => {
-          if (this.loading !== submission.isLoading) {
-            this.loading = submission.isLoading;
-            this.changeDetectorRef.detectChanges();
-          }
-        });
+        this.store.select(submissionObjectFromIdSelector(this.submissionId))
+          .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))
+          .subscribe((submission: SubmissionObjectEntry) => {
+            if (this.loading !== submission.isLoading) {
+              this.loading = submission.isLoading;
+              this.changeDetectorRef.detectChanges();
+            }
+          })
+      );
       this.submissionService.startAutoSave(this.submissionId)
     }
   }
 
   ngOnDestroy() {
     this.submissionService.stopAutoSave();
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
   onCollectionChange(workspaceItemObject: Workspaceitem) {

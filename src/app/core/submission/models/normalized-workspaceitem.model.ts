@@ -27,8 +27,9 @@ export class NormalizedWorkspaceItem extends NormalizedSubmissionObject {
   @autoserialize
   lastModified: Date;
 
-  @autoserializeAs(NormalizedCollection)
-  collection: NormalizedCollection[];
+  @autoserialize
+  @relationship(ResourceType.Collection, true)
+  collection: string[];
 
   @autoserialize
   @relationship(ResourceType.Item, true)

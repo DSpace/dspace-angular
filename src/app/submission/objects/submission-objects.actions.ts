@@ -5,7 +5,10 @@ import { SubmissionSectionError } from './submission-objects.reducer';
 import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
 import { WorkspaceitemSectionFormObject } from '../../core/submission/models/workspaceitem-section-form.model';
 import { WorkspaceitemSectionLicenseObject } from '../../core/submission/models/workspaceitem-section-license.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import {
+  WorkspaceitemSectionDataType,
+  WorkspaceitemSectionsObject
+} from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 
 /**
@@ -110,7 +113,7 @@ export class EnableSectionAction implements Action {
     submissionId: string;
     sectionId: string;
     sectionViewIndex: number;
-    data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadObject | WorkspaceitemSectionLicenseObject
+    data: WorkspaceitemSectionDataType
   };
 
   /**
@@ -123,7 +126,7 @@ export class EnableSectionAction implements Action {
    * @param sectionViewIndex
    *    the section's index in the view container
    */
-  constructor(submissionId: string, sectionId: string, sectionViewIndex: number, data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadObject | WorkspaceitemSectionLicenseObject) {
+  constructor(submissionId: string, sectionId: string, sectionViewIndex: number, data: WorkspaceitemSectionDataType) {
     this.payload = { submissionId, sectionId, sectionViewIndex, data };
   }
 }
@@ -153,7 +156,7 @@ export class UpdateSectionDataAction implements Action {
   payload: {
     submissionId: string;
     sectionId: string;
-    data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadObject | WorkspaceitemSectionLicenseObject;
+    data: WorkspaceitemSectionDataType;
     errors: SubmissionSectionError[];
   };
 
@@ -171,7 +174,7 @@ export class UpdateSectionDataAction implements Action {
    */
   constructor(submissionId: string,
               sectionId: string,
-              data: WorkspaceitemSectionFormObject | WorkspaceitemSectionUploadObject | WorkspaceitemSectionLicenseObject,
+              data: WorkspaceitemSectionDataType,
               errors: SubmissionSectionError[]) {
     this.payload = { submissionId, sectionId, data, errors };
   }

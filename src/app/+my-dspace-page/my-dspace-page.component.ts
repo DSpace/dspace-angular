@@ -58,7 +58,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
     this.scopeListRDObs = communityService.findAll();
     // Initial pagination config
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'my-dspace-results-pagination';
+    pagination.id = 'mydspace-results-pagination';
     pagination.currentPage = 1;
     pagination.pageSize = 10;
 
@@ -77,12 +77,12 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
           this.scope = params.scope;
           const page = +params.page || this.searchOptions.pagination.currentPage;
           let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
-          let pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
+          let pageSizeOptions: number[] = [5, 10, 20];
 
           if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
-            pageSizeOptions = [12, 24, 36, 48 , 50, 62, 74, 84];
+            pageSizeOptions = [6, 12];
             if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 12;
+              pageSize = 6;
             }
           }
           if (isNotEmpty(params.view) && params.view === ViewMode.List) {

@@ -24,6 +24,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppState } from '../../app.reducer';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionObjectState } from './submission-objects.reducer';
+import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 
 @Injectable()
 export class SubmissionObjectEffects {

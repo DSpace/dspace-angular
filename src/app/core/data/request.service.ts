@@ -67,8 +67,8 @@ export class RequestService {
       .flatMap((uuid: string) => this.getByUUID(uuid));
   }
 
-  configure<T extends CacheableObject>(request: RestRequest): void {
-    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
+  configure<T extends CacheableObject>(request: RestRequest, overrideRequest: boolean = false): void {
+    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request) || overrideRequest) {
       this.dispatchRequest(request);
     }
   }

@@ -75,7 +75,10 @@
   },
   "mydspace": {
     "title": "MyDSpace",
-    "description": ""
+    "description": "",
+    "results": {
+      "head": "Your submissions"
+    }
   },
   "search": {
     "title": "DSpace Angular :: Search",
@@ -97,7 +100,11 @@
       "settings":{
         "title":"Settings",
         "sort-by":"Sort By",
+        "order":"Order",
         "rpp":"Results per page"
+      },
+      "tab":{
+        "title":"Show"
       }
     },
     "view-switch": {
@@ -125,7 +132,25 @@
         "date": {
           "placeholder": "Date",
           "head": "Date"
+        },
+        "status": {
+          "placeholder": "Status",
+          "head": "Status"
+        },
+        "date_submitted": {
+          "placeholder": "Date submitted",
+          "head": "Date issued"
+        },
+        "date_issued": {
+          "placeholder": "Date issued",
+          "head": "Date issued"
+        },
+        "type": {
+          "placeholder": "Type",
+          "head": "Type"
         }
+
+
       }
     }
   },
@@ -138,7 +163,8 @@
     "recent-submissions": "Loading recent submissions...",
     "item": "Loading item...",
     "objects": "Loading...",
-    "search-results": "Loading search results..."
+    "search-results": "Loading search results...",
+    "mydspace-results": "Loading your submissions..."
   },
   "error": {
     "default": "Error",

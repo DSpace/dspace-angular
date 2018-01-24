@@ -1,4 +1,4 @@
-import {DynamicFormArrayModel } from '@ng-dynamic-forms/core';
+import { DynamicFormArrayModel } from '@ng-dynamic-forms/core';
 
 export class DynamicRowArrayModel extends DynamicFormArrayModel {
 

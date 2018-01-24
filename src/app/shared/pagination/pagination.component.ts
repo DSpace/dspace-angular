@@ -178,8 +178,9 @@ export class PaginationComponent implements OnDestroy, OnInit {
           const fixedProperties = this.validateParams(queryParams);
           if (isNotEmpty(fixedProperties)) {
             this.fixRoute(fixedProperties);
+          } else {
+            this.setFields();
           }
-          this.setFields();
         }
       }));
   }
@@ -374,10 +375,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
     const filteredSize = this.validatePageSize(params.pageSize);
     const fixedFields: any = {};
     if (+params.page !== validPage) {
-      fixedFields.page = validPage;
+      fixedFields.page = validPage.toString();
     }
     if (+params.pageSize !== filteredSize) {
-      fixedFields.pageSize = filteredSize;
+      fixedFields.pageSize = filteredSize.toString();
     }
     return fixedFields;
   }

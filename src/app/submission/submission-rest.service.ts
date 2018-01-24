@@ -62,7 +62,7 @@ export class SubmissionRestService extends PostPatchRestService<SubmitDataRespon
 
   public getDataByHref(href: string): Observable<any> {
     const request = new ConfigRequest(this.requestService.generateRequestId(), href);
-    this.requestService.configure(request);
+    this.requestService.configure(request, true);
 
     return this.getData(request);
   }
@@ -73,7 +73,7 @@ export class SubmissionRestService extends PostPatchRestService<SubmitDataRespon
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new SubmissionRequest(this.requestService.generateRequestId(), endpointURL))
-      .do((request: RestRequest) => this.requestService.configure(request))
+      .do((request: RestRequest) => this.requestService.configure(request, true))
       .flatMap((request: RestRequest) => this.getData(request))
       .distinctUntilChanged();
   }
