@@ -1,2 +1,13 @@
-<a [routerLink]="['/edit/' + dso.id]" class="lead" [innerHTML]="dso.id"></a>
-<p>{{getFirstValue('dc.title')}}</p>
+<h3 [innerHTML]="getTitle() || 'No Title'" [ngClass]="{'text-muted': !getTitle()}"></h3>
+<div>
+  <span class="text-muted">
+    <span *ngIf="item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);" class="item-list-authors">
+        <span *ngFor="let author of getValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
+          <span [innerHTML]="author"><span [innerHTML]="author"></span><span *ngIf="!author" >No Authors</span></span>
+        </span>
+    </span>
+    (<span *ngIf="item.findMetadata('dc.publisher')" class="item-list-publisher" [innerHTML]="getFirstValue('dc.publisher')">, </span><span class="item-list-date" [innerHTML]="item.findMetadata('dc.date.issued') || 'No Date'"></span>)
+  </span>
+  <div class="item-list-abstract" [ngClass]="{'text-muted': !getFirstValue('dc.description.abstract')}" [innerHTML]="(getFirstValue('dc.description.abstract') | dsTruncate:[200]) || 'No Abstract'"></div>
+</div>
+<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/edit/' + dso.id]" >Edit</button>

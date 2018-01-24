@@ -1,9 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { ResponseParsingService } from '../data/parsing.service';
-import { RestRequest } from '../data/request.models';
+import { RestRequest, RestRequestMethod } from '../data/request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache/response-cache.models';
+import {
+  DSOSuccessResponse, ErrorResponse, RestResponse,
+  SubmissionSuccessResponse
+} from '../cache/response-cache.models';
 import { isEmpty, isNotEmpty, isNotNull } from '../../shared/empty.util';
 
 import { ConfigObject } from '../shared/config/config.model';
@@ -50,10 +53,14 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
   }
 
   protected postProcess<ObjectDomain, ObjectType>(dataDefinition): ProcessRequestDTO<ObjectDomain> {
-    dataDefinition[Object.keys(dataDefinition)[0]].forEach((item) => {
+    const normalizedDefinition = Object.create({});
+    normalizedDefinition[Object.keys(dataDefinition)[0]] = [];
+    dataDefinition[Object.keys(dataDefinition)[0]].forEach((item, index) => {
+      let normalizedItem = Object.assign({}, item);
       // In case data is an Instance of NormalizedWorkspaceItem normalize field value of all the section of type form
       if (item instanceof NormalizedWorkspaceItem) {
         if (item.sections) {
+          const precessedSection = Object.create({});
           // Iterate over all workspaceitem's sections
           Object.keys(item.sections)
             .forEach((sectionId) => {
@@ -77,15 +84,16 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
                       normalizedSectionData[metdadataId] = entry;
                     }
                   });
-                item.sections[sectionId] = normalizedSectionData;
+                precessedSection[sectionId] = normalizedSectionData;
               }
-            })
+            });
+          normalizedItem = Object.assign({}, item, {sections :precessedSection});
         }
-        console.log(item.sections);
       }
+      normalizedDefinition[Object.keys(dataDefinition)[0]][index] = normalizedItem;
     });
 
-    return dataDefinition as ProcessRequestDTO<ObjectDomain>;
+    return normalizedDefinition as ProcessRequestDTO<ObjectDomain>;
   }
 
 }

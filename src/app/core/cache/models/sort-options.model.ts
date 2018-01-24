@@ -2,6 +2,12 @@ export enum SortDirection {
   Ascending,
   Descending
 }
+export enum SortBy {
+  'Last updated',
+  'Date submitted',
+  'Date issued',
+  'Title'
+}
 
 export class SortOptions {
 

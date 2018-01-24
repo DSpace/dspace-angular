@@ -9,6 +9,7 @@ import { SearchPageModule } from '../+search-page/search-page.module';
 import { MyDSpaceResultsComponent } from './my-dspace-results/my-dspace-results.component';
 import { MyDspaceService } from './my-dspace-service/my-dspace.service';
 import { WorkspaceitemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/wsi-my-dspace-result/wsi-my-dspace-result-list-element.component';
+import { ItemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/item-my-dspace-result/item-my-dspace-result-list-element.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { WorkspaceitemMyDSpaceResultListElementComponent } from '../shared/objec
     SearchPageModule
   ],
   declarations: [
+    ItemMyDSpaceResultListElementComponent,
     MyDSpacePageComponent,
     MyDSpaceResultsComponent,
     WorkspaceitemMyDSpaceResultListElementComponent
@@ -26,6 +28,7 @@ import { WorkspaceitemMyDSpaceResultListElementComponent } from '../shared/objec
     MyDspaceService
   ],
   entryComponents: [
+    ItemMyDSpaceResultListElementComponent,
     WorkspaceitemMyDSpaceResultListElementComponent,
   ]
 })

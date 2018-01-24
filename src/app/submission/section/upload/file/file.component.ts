@@ -106,7 +106,8 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
           formData.accessConditions
             .forEach((accessCondition, index) => {
               let accessConditionOpt;
-              this.availableAccessConditionOptions.filter((element) => element.name === accessCondition.name)
+              this.availableAccessConditionOptions
+                .filter((element) => element.name === accessCondition.name[0])
                 .forEach((element) => accessConditionOpt = element);
               if (accessConditionOpt) {
                 const path = `accessConditions/${index}`;

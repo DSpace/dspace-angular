@@ -80,7 +80,7 @@ export class PostPatchSuccessResponse extends RestResponse {
 
 export class SubmissionSuccessResponse extends RestResponse {
   constructor(
-    public dataDefinition: Array<NormalizedObject|ConfigObject>,
+    public dataDefinition: Array<NormalizedObject|ConfigObject|string>,
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {

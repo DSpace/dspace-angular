@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { SearchOptions, ViewMode } from '../search-options.model';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
+import { SortBy, SortDirection } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { MyDspaceService } from '../../+my-dspace-page/my-dspace-service/my-dspace.service';
 
 @Component({
   selector: 'ds-search-settings',
@@ -16,6 +17,7 @@ export class SearchSettingsComponent implements OnInit {
    * Declare SortDirection enumeration to use it in the template
    */
   public sortDirections = SortDirection;
+  public sortBy = SortBy;
   /**
    * Number of items per page.
    */
@@ -31,7 +33,7 @@ export class SearchSettingsComponent implements OnInit {
   direction: SortDirection;
   currentParams = {};
 
-  constructor(private service: SearchService,
+  constructor(private service: MyDspaceService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -64,7 +66,7 @@ export class SearchSettingsComponent implements OnInit {
         pageSize: value
       })
     };
-    this.router.navigate([ '/mydspace' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 
   reloadOrder(event: Event) {
@@ -74,6 +76,6 @@ export class SearchSettingsComponent implements OnInit {
         sortDirection: value
       })
     };
-    this.router.navigate([ '/mydspace' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 }

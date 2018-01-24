@@ -57,4 +57,5 @@ export function normalizeSectionData(obj: any) {
 export type WorkspaceitemSectionDataType
   = WorkspaceitemSectionUploadObject
   | WorkspaceitemSectionFormObject
-  | WorkspaceitemSectionLicenseObject;
+  | WorkspaceitemSectionLicenseObject
+  | string;

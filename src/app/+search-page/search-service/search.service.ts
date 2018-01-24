@@ -19,8 +19,12 @@ import { SearchResult } from '../search-result.model';
 import { FacetValue } from './facet-value.model';
 import { FilterType } from './filter-type.model';
 import { SearchFilterConfig } from './search-filter-config.model';
+import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { MyDSpaceResult } from '../../+my-dspace-page/my-dspace-result.model';
+import { WorkspaceitemMyDSpaceResult } from '../../shared/object-collection/shared/workspaceitem-my-dspace-result.model';
 
-function shuffle(array: any[]) {
+export function shuffle(array: any[]) {
   let i = 0;
   let j = 0;
   let temp = null;
@@ -91,14 +95,15 @@ export class SearchService implements OnDestroy {
               protected route: ActivatedRoute,
               protected router: Router) {
 
+    this.searchLink = this.getSearchLink();
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'search-results-pagination';
+    pagination.id = `${this.searchLink}-results-pagination`;
     pagination.currentPage = 1;
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
     this.searchOptions = { pagination: pagination, sort: sort };
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
-    this.searchLink = this.getSearchLink();
+
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
@@ -169,7 +174,7 @@ export class SearchService implements OnDestroy {
         undefined,
         undefined,
         undefined
-      ));
+      ))
   }
 
   getConfig(): Observable<RemoteData<SearchFilterConfig[]>> {

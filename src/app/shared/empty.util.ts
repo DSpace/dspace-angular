@@ -115,6 +115,19 @@ export function hasUndefinedValue(obj?: any): boolean {
 }
 
 /**
+ * Returns true if the passed value is null or undefined.
+ * hasUndefinedValue();                 // true
+ * hasUndefinedValue(null);             // true
+ * hasUndefinedValue(undefined);        // true
+ * hasUndefinedValue('');               // false
+ * hasUndefinedValue({undefined, obj}); // false
+ * hasUndefinedValue([undefined, val]); // false
+ */
+export function hasNoUndefinedValue(obj?: any): boolean {
+  return !hasUndefinedValue(obj);
+}
+
+/**
  * Verifies that a value is `null` or an empty string, empty array,
  * or empty function.
  * isEmpty();                // true
