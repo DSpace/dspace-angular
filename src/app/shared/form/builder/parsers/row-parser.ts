@@ -15,6 +15,7 @@ import { DynamicGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-group
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { isEmpty } from '../../../empty.util';
 import { LookupFieldParser } from './lookup-field-parser';
+import { LookupNameFieldParser } from './lookup-name-field-parser';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -59,7 +60,7 @@ export class RowParser {
           break;
 
         case 'lookup-name':
-          // group.push(new NameFieldParser(fieldData).parse());
+          fieldModel = (new LookupNameFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse());
           break;
 
         case 'name':

@@ -5,7 +5,6 @@ import { isNotEmpty } from '../../../empty.util';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicLookupModel, DynamicLookupModelConfig } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 
-// @TODO to be implemented
 export class LookupFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel, protected initFormValues, protected authorityUuid: string) {
@@ -18,7 +17,8 @@ export class LookupFieldParser extends FieldParser {
       lookupModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
       lookupModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
       lookupModelConfig.authorityScope = this.authorityUuid;
-      if (isNotEmpty(fieldValue)) {
+      if (isNotEmpty(this.getInitFieldValue(0, 0))) {
+        fieldValue = fieldValue ? fieldValue : this.getInitFieldValue(0, 0);
         // If value isn't an instance of AuthorityModel instantiate it
         if (fieldValue instanceof AuthorityModel) {
           lookupModelConfig.value = fieldValue;
@@ -29,7 +29,6 @@ export class LookupFieldParser extends FieldParser {
           lookupModelConfig.value = authorityValue;
         }
       }
-      lookupModelConfig.minChars = 3;
       const lookupModel = new DynamicLookupModel(lookupModelConfig);
       lookupModel.name = this.fieldId;
       return lookupModel;

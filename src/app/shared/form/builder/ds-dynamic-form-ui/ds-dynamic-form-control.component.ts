@@ -1,33 +1,14 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  ContentChildren,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  QueryList,
+  ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, Output, QueryList,
   SimpleChanges
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
-  DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
-  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-  DYNAMIC_FORM_CONTROL_TYPE_INPUT,
-  DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
-  DYNAMIC_FORM_CONTROL_TYPE_SELECT,
-  DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
-  DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel,
-  DynamicFormArrayGroupModel,
-  DynamicFormControlComponent,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormValidationService,
-  DynamicTemplateDirective
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX, DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER, DYNAMIC_FORM_CONTROL_TYPE_GROUP, DYNAMIC_FORM_CONTROL_TYPE_INPUT,
+  DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP, DYNAMIC_FORM_CONTROL_TYPE_SELECT, DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
+  DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER, DynamicDatePickerModel, DynamicFormArrayGroupModel, DynamicFormControlComponent,
+  DynamicFormControlEvent, DynamicFormControlModel, DynamicFormValidationService, DynamicTemplateDirective
 } from '@ng-dynamic-forms/core';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
@@ -35,7 +16,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollab
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION, DynamicGroupModel } from './models/ds-dynamic-group/dynamic-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION } from './models/ds-dynamic-group/dynamic-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/ds-date-picker/ds-date-picker.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 
