@@ -1,7 +1,10 @@
 <div #sdRef="ngbDropdown"
      ngbDropdown
-     (click)="$event.stopPropagation();">
-  <div class="input-group">
+     (click)="$event.stopPropagation();"
+>
+  <div class="form-row">
+
+    <div class="col-5">
     <input class="form-control"
            [attr.autoComplete]="model.autoComplete"
            [class.is-invalid]="showErrorMessages"
@@ -9,13 +12,17 @@
            [name]="model.name"
            [type]="model.inputType"
            [value]="formatItemForInput(model.value, 1)"
-           [(ngModel)]="currentValue"
-           [disabled]="this.model.value != null"
-           (change)="onChangeEvent($event); sdRef.close();"
+           [(ngModel)]="model.currentValue"
+           [disabled]="model.value != null"
+           [placeholder]="model.placeholder"
+           (change)="$event.preventDefault()"
            (blur)="onBlurEvent($event); sdRef.close();"
            (focus)="onFocusEvent($event); sdRef.close();"
-           (click)="$event.stopPropagation(); sdRef.close();">
+           (click)="$event.stopPropagation(); sdRef.close();"
+           (keyup)="onKeyUp($event)">
+    </div>
 
+    <div class="col-5">
     <input *ngIf="lookupName"
            class="form-control"
            [attr.autoComplete]="model.autoComplete"
@@ -24,14 +31,16 @@
            [name]="name2"
            [type]="model.inputType"
            [value]="formatItemForInput(model.value, 2)"
-           [(ngModel)]="currentValue2"
-           [disabled]="this.model.value != null"
-           (change)="onChangeEvent($event); sdRef.close();"
+           [(ngModel)]="model.currentValue2"
+           [disabled]="model.value != null"
+           [placeholder]="model.placeholder2"
+           (change)="$event.preventDefault()"
            (blur)="onBlurEvent($event); sdRef.close();"
            (focus)="onFocusEvent($event); sdRef.close();"
-           (click)="$event.stopPropagation(); sdRef.close();">
-
-    <span class="input-group-btn">
+           (click)="$event.stopPropagation(); sdRef.close();"
+           (keyup)="onKeyUp($event)">
+    </div>
+    <div class="col-1">
     <button
       *ngIf="model.value == null" class="btn btn-secondary"
       type="button"
@@ -40,7 +49,7 @@
       *ngIf="model.value != null" class="btn btn-secondary"
       type="button"
       (click)="remove($event)">Remove</button>
-  </span>
+    </div>
   </div>
 
   <div ngbDropdownMenu

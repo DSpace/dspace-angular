@@ -155,7 +155,6 @@ export class DsDynamicTagComponent implements OnInit {
       // Key: Enter or , or ;
       this.addTagsToChips();
     }
-
   }
 
   private addTagsToChips() {

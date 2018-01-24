@@ -6,6 +6,7 @@ import {SubmissionFormsModel} from '../../../../../../core/shared/config/config-
 import {FormService} from '../../../../form.service';
 import {FormComponent} from '../../../../form.component';
 import {Chips, ChipsItem} from '../../../../../chips/chips.model';
+import { DynamicLookupModel } from '../lookup/dynamic-lookup.model';
 
 const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
@@ -75,7 +76,9 @@ export class DsDynamicGroupComponent implements OnInit {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((model: DynamicInputModel) => {
         const value = this.selectedChips.item[model.name] === PLACEHOLDER ? null : this.selectedChips.item[model.name];
-        if (model instanceof DynamicInputModel) {
+        if (model instanceof DynamicLookupModel) {
+          (model as DynamicLookupModel).valueUpdates.next(value);
+        } else if (model instanceof DynamicInputModel) {
           model.valueUpdates.next(value);
         } else {
           (model as any).value = value;
