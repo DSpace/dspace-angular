@@ -9,9 +9,7 @@
     line-height: $line-height;
     overflow-wrap: break-word;
     &:after {
-        content: "...";
-        color: $link-color;
-        text-align: right;
+        content: "";
         position: absolute;
         padding-right: 15px;
         top: ($lines - 1) * $height;

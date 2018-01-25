@@ -11,11 +11,11 @@ import { TruncatableService } from '../truncatable.service';
 
 export class TruncatablePartComponent implements OnInit, OnDestroy {
   @Input() minLines: number;
-  @Input() maxLines: number;
+  @Input() maxLines = -1;
   @Input() initialExpand = false;
   @Input() id: string;
   @Input() type: string;
-  private lines: number;
+  private lines: string;
   private sub;
 
   public constructor(private service: TruncatableService) {
@@ -28,9 +28,9 @@ export class TruncatablePartComponent implements OnInit, OnDestroy {
   private setLines() {
     this.sub = this.service.isCollapsed(this.id).subscribe((collapsed: boolean) => {
       if (collapsed) {
-        this.lines = this.minLines;
+        this.lines = this.minLines.toString();
       } else {
-        this.lines = this.maxLines;
+        this.lines = this.maxLines < 0 ? 'none' : this.maxLines.toString();
       }
     });
   }

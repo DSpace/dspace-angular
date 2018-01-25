@@ -1,12 +1,11 @@
 <ds-truncatable [id]="dso.id">
-    <ds-truncatable-part [id]="dso.id" [minLines]="1" [maxLines]="5" type="title">
-        <a [routerLink]="['/items/' + dso.id]" class="lead"
-           [innerHTML]="getFirstValue('dc.title')"></a>
-    </ds-truncatable-part>
-    <div>
+    <div [@focusBackground]="(isCollapsed() | async)?'blur':'focus'">
+        <a
+            [routerLink]="['/items/' + dso.id]" class="lead"
+            [innerHTML]="getFirstValue('dc.title')"></a>
+        <div>
   <span class="text-muted">
-
-    <ds-truncatable-part [id]="dso.id" [minLines]="1" [maxLines]="5">
+    <ds-truncatable-part [id]="dso.id" [minLines]="1">
             (<span *ngIf="dso.findMetadata('dc.publisher')" class="item-list-publisher"
                    [innerHTML]="getFirstValue('dc.publisher')">, </span><span
             *ngIf="dso.findMetadata('dc.date.issued')" class="item-list-date"
@@ -19,10 +18,11 @@
             </span>
         </ds-truncatable-part>
   </span>
-        <div *ngIf="dso.findMetadata('dc.description.abstract')" class="item-list-abstract">
-            <ds-truncatable-part [id]="dso.id" [minLines]="3" [maxLines]="15"><span
-                    [innerHTML]="getFirstValue('dc.description.abstract')"></span>
-            </ds-truncatable-part>
+            <div *ngIf="dso.findMetadata('dc.description.abstract')" class="item-list-abstract">
+                <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
+                        [innerHTML]="getFirstValue('dc.description.abstract')"></span>
+                </ds-truncatable-part>
+            </div>
         </div>
     </div>
 </ds-truncatable>
