@@ -22,9 +22,8 @@
            (keyup)="onKeyUp($event)">
     </div>
 
-    <div class="col-5">
-    <input *ngIf="lookupName"
-           class="form-control"
+    <div *ngIf="lookupName" class="col-5">
+    <input class="form-control"
            [attr.autoComplete]="model.autoComplete"
            [class.is-invalid]="showErrorMessages"
            [dynamicId]="bindId && model.id"

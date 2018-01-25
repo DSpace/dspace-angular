@@ -112,6 +112,8 @@ export class DsDynamicLookupComponent implements OnInit {
 
     this.model.valueUpdates.next(event);
     this.change.emit(event);
+    this.optionsList = null;
+    this.pageInfo = null;
   }
 
   remove(event) {
