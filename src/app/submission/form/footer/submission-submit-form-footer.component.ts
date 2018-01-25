@@ -96,7 +96,7 @@ export class SubmissionSubmitFormFooterComponent implements OnChanges {
   }
 
   protected resourceDiscard() {
-    this.router.navigate([ 'home' ]);
+    this.router.navigate([ '/mydspace' ]);
   }
 
   public confirmDiscard(content) {
