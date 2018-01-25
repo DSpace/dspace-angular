@@ -30,7 +30,9 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
 
-  formatter = (x: { display: string }) => x.display;
+  formatter = (x: { display: string }) => {
+    return (typeof x === 'object') ? x.display : x
+  };
 
   search = (text$: Observable<string>) =>
     text$
