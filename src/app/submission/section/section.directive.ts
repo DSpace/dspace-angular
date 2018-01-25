@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { SectionService } from './section.service';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { submissionSectionFromIdSelector } from '../selectors';
 import { Store } from '@ngrx/store';
 import { SubmissionState } from '../submission.reducers';
@@ -75,13 +75,13 @@ export class SectionDirective implements OnDestroy, OnInit {
           });
         }),
       this.submissionService.getActiveSectionId(this.submissionId)
-        .subscribe((activeSection) => {
+        .subscribe((activeSectionId) => {
           const previousActive = this.active;
-          this.active = (activeSection === this.sectionId);
+          this.active = (activeSectionId === this.sectionId);
           if (previousActive !== this.active) {
             this.changeDetectorRef.detectChanges();
             // If section is no longer active dispatch save action
-            if (!this.active) {
+            if (!this.active && isNotNull(activeSectionId)) {
               this.store.dispatch(new SaveSubmissionSectionFormAction(this.submissionId, this.sectionId));
             }
           }
