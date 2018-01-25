@@ -17,6 +17,7 @@ export class LookupFieldParser extends FieldParser {
       lookupModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
       lookupModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
       lookupModelConfig.authorityScope = this.authorityUuid;
+      lookupModelConfig.maxOptions = 10;
       if (isNotEmpty(this.getInitFieldValue(0, 0))) {
         fieldValue = fieldValue ? fieldValue : this.getInitFieldValue(0, 0);
         // If value isn't an instance of AuthorityModel instantiate it

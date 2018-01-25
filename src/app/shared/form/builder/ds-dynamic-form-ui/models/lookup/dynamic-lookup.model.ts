@@ -14,7 +14,7 @@ export interface DynamicLookupModelConfig extends DynamicInputModelConfig {
   authorityMetadata: string;
   authorityName: string;
   authorityScope: string;
-  minChars: number;
+  maxOptions: number;
   value: any;
   separator: string;
 }
@@ -23,6 +23,7 @@ export class DynamicLookupModel extends DynamicInputModel {// DynamicInputModel 
   @serializable() authorityMetadata: string;
   @serializable() authorityName: string;
   @serializable() authorityScope: string;
+  @serializable() maxOptions: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_LOOKUP;
   @serializable() value: any;
   @serializable() separator: string; // Defined only for lookup-name
@@ -41,6 +42,7 @@ export class DynamicLookupModel extends DynamicInputModel {// DynamicInputModel 
     this.authorityMetadata = config.authorityMetadata;
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
+    this.maxOptions = config.maxOptions;
     this.separator = config.separator; // Defined only for lookup-name
 
     this.valueUpdates.subscribe(() => {
@@ -55,7 +57,7 @@ export class DynamicLookupModel extends DynamicInputModel {// DynamicInputModel 
     }
 
     if (this.separator) {
-      let values = [null, null];
+      let values = ['', ''  ];
       if (x) {
         console.log('Splitting ' + x);
         values = x.split(this.separator);

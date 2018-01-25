@@ -33,6 +33,7 @@ export class DsDynamicLookupComponent implements OnInit {
   // Only for LookupName
   lookupName: boolean;
   name2: string;
+
   // currentValue2; Now is in model
 
   constructor(private authorityService: AuthorityService) {
@@ -45,7 +46,7 @@ export class DsDynamicLookupComponent implements OnInit {
       this.model.authorityName,
       this.model.authorityMetadata,
       '',
-      // this.model.maxOptions,
+      this.model.maxOptions,
       1);
 
     // Switch Lookup/LookupName
@@ -87,9 +88,23 @@ export class DsDynamicLookupComponent implements OnInit {
   }
 
   search() {
-    this.searchOptions.query = this.lookupName ?
-      this.model.currentValue + this.model.separator + this.model.currentValue2
-      : this.model.currentValue;
+    this.optionsList = null;
+    this.pageInfo = null;
+
+    // Query
+    this.searchOptions.query = '';
+    if (!this.lookupName) {
+      this.searchOptions.query = this.model.currentValue;
+    } else {
+      if (this.model.currentValue !== '') {
+        this.searchOptions.query = this.model.currentValue;
+      }
+      if (this.model.currentValue2 !== '') {
+        this.searchOptions.query = this.searchOptions.query === ''
+          ? this.model.currentValue2
+          : this.model.currentValue + this.model.separator + ' ' + this.model.currentValue2;
+      }
+    }
 
     this.loading = true;
     this.authorityService.getEntriesByName(this.searchOptions)
@@ -99,6 +114,13 @@ export class DsDynamicLookupComponent implements OnInit {
         this.optionsList = object.payload;
         this.pageInfo = object.pageInfo;
       });
+  }
+
+  noResults() {
+    this.model.currentValue = '';
+    if (this.lookupName) {
+      this.model.currentValue2 = '';
+    }
   }
 
   onSelect(event) {
@@ -114,6 +136,14 @@ export class DsDynamicLookupComponent implements OnInit {
     this.change.emit(event);
     this.optionsList = null;
     this.pageInfo = null;
+  }
+
+  isSearchDisabled() {
+    if (this.model.currentValue === ''
+      && (this.lookupName ? this.model.currentValue2 === '' : true)) {
+      return true;
+    }
+    return false;
   }
 
   remove(event) {
@@ -139,11 +169,6 @@ export class DsDynamicLookupComponent implements OnInit {
     const values = received.split(this.model.separator);
     this.model.currentValue = values[0];
     this.model.currentValue2 = values[1];
-  }
-
-  onChangeEvent(event: Event) {
-    this.optionsList = null;
-    this.pageInfo = null;
   }
 
   onBlurEvent(event: Event) {
