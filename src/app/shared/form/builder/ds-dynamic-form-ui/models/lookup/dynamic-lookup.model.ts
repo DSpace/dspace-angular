@@ -59,14 +59,14 @@ export class DynamicLookupModel extends DynamicInputModel {// DynamicInputModel 
     if (this.separator) {
       let values = ['', ''  ];
       if (x) {
-        console.log('Splitting ' + x);
+        // console.log('Splitting ' + x);
         values = x.split(this.separator);
       }
 
       this.currentValue = values[0];
       this.currentValue2 = values[1];
     } else {
-      this.currentValue = x;
+      this.currentValue = x || '';
     }
   }
 

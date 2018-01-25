@@ -4,7 +4,8 @@
 >
   <div class="form-row">
 
-    <div class="col">
+
+        <div class="col-4 col-lg-4">
     <input class="form-control"
            [attr.autoComplete]="model.autoComplete"
            [class.is-invalid]="showErrorMessages"
@@ -18,11 +19,10 @@
            (change)="$event.preventDefault()"
            (blur)="onBlurEvent($event); sdRef.close();"
            (focus)="onFocusEvent($event); sdRef.close();"
-           (click)="$event.stopPropagation(); sdRef.close();"
-           (keyup)="onKeyUp($event)">
+           (click)="$event.stopPropagation(); sdRef.close();">
     </div>
 
-    <div *ngIf="lookupName" class="col">
+    <div *ngIf="lookupName" class="col-4 col-lg-4">
     <input class="form-control"
            [attr.autoComplete]="model.autoComplete"
            [class.is-invalid]="showErrorMessages"
@@ -36,10 +36,10 @@
            (change)="$event.preventDefault()"
            (blur)="onBlurEvent($event); sdRef.close();"
            (focus)="onFocusEvent($event); sdRef.close();"
-           (click)="$event.stopPropagation(); sdRef.close();"
-           (keyup)="onKeyUp($event)">
+           (click)="$event.stopPropagation(); sdRef.close();">
     </div>
-    <div class="col">
+
+    <div class="col-3 col-lg-2">
     <button
       *ngIf="model.value == null" class="btn btn-secondary"
       type="button"
