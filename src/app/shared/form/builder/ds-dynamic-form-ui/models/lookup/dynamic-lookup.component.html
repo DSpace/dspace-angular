@@ -4,52 +4,58 @@
 >
   <div class="form-row">
 
+    <div class="col-8 col-md-9">
+      <div class="row">
+        <div class="col">
+          <input class="form-control"
+                 [attr.autoComplete]="model.autoComplete"
+                 [class.is-invalid]="showErrorMessages"
+                 [dynamicId]="bindId && model.id"
+                 [name]="model.name"
+                 [type]="model.inputType"
+                 [value]="formatItemForInput(model.value, 1)"
+                 [(ngModel)]="model.currentValue"
+                 [disabled]="model.value != null"
+                 [placeholder]="model.placeholder"
+                 (change)="$event.preventDefault()"
+                 (blur)="onBlurEvent($event); sdRef.close();"
+                 (focus)="onFocusEvent($event); sdRef.close();"
+                 (click)="$event.stopPropagation(); sdRef.close();">
+        </div>
 
-        <div class="col-4 col-lg-4">
-    <input class="form-control"
-           [attr.autoComplete]="model.autoComplete"
-           [class.is-invalid]="showErrorMessages"
-           [dynamicId]="bindId && model.id"
-           [name]="model.name"
-           [type]="model.inputType"
-           [value]="formatItemForInput(model.value, 1)"
-           [(ngModel)]="model.currentValue"
-           [disabled]="model.value != null"
-           [placeholder]="model.placeholder"
-           (change)="$event.preventDefault()"
-           (blur)="onBlurEvent($event); sdRef.close();"
-           (focus)="onFocusEvent($event); sdRef.close();"
-           (click)="$event.stopPropagation(); sdRef.close();">
+        <div *ngIf="lookupName" class="col"  style="padding-left: 0 !important; margin-left: -5px;">
+          <input  class="form-control col"
+                 [attr.autoComplete]="model.autoComplete"
+                 [class.is-invalid]="showErrorMessages"
+                 [dynamicId]="bindId && model.id"
+                 [name]="name2"
+                 [type]="model.inputType"
+                 [value]="formatItemForInput(model.value, 2)"
+                 [(ngModel)]="model.currentValue2"
+                 [disabled]="model.value != null"
+                 [placeholder]="model.placeholder2"
+                 (change)="$event.preventDefault()"
+                 (blur)="onBlurEvent($event); sdRef.close();"
+                 (focus)="onFocusEvent($event); sdRef.close();"
+                 (click)="$event.stopPropagation(); sdRef.close();">
+        </div>
+      </div>
+    </div>
+    <div class="col-4 col-md-3">
+      <button
+        *ngIf="model.value == null" class="btn btn-secondary"
+        type="button"
+        [disabled]="isSearchDisabled()"
+        (click)="search($event); sdRef.open();">Search
+      </button>
+      <button
+        *ngIf="model.value != null" class="btn btn-secondary"
+        type="button"
+        (click)="remove($event)">Remove
+      </button>
     </div>
 
-    <div *ngIf="lookupName" class="col-4 col-lg-4">
-    <input class="form-control"
-           [attr.autoComplete]="model.autoComplete"
-           [class.is-invalid]="showErrorMessages"
-           [dynamicId]="bindId && model.id"
-           [name]="name2"
-           [type]="model.inputType"
-           [value]="formatItemForInput(model.value, 2)"
-           [(ngModel)]="model.currentValue2"
-           [disabled]="model.value != null"
-           [placeholder]="model.placeholder2"
-           (change)="$event.preventDefault()"
-           (blur)="onBlurEvent($event); sdRef.close();"
-           (focus)="onFocusEvent($event); sdRef.close();"
-           (click)="$event.stopPropagation(); sdRef.close();">
-    </div>
 
-    <div class="col-3 col-lg-2">
-    <button
-      *ngIf="model.value == null" class="btn btn-secondary"
-      type="button"
-      [disabled]="isSearchDisabled()"
-      (click)="search($event); sdRef.open();">Search</button>
-    <button
-      *ngIf="model.value != null" class="btn btn-secondary"
-      type="button"
-      (click)="remove($event)">Remove</button>
-    </div>
   </div>
 
   <div ngbDropdownMenu
@@ -66,8 +72,9 @@
          [scrollWindow]="false">
 
       <button class="dropdown-item disabled"
-        *ngIf="optionsList && optionsList.length == 0"
-        (click)="noResults(); sdRef.close();" >No results found</button>
+              *ngIf="optionsList && optionsList.length == 0"
+              (click)="noResults(); sdRef.close();">No results found
+      </button>
       <button class="dropdown-item collection-item"
               *ngFor="let listEntry of optionsList"
               (click)="onSelect(listEntry); sdRef.close();"
