@@ -11,8 +11,8 @@ export class LookupNameFieldParser extends LookupFieldParser {
   public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
     const lookupModel = super.modelFactory(fieldValue);
     lookupModel.separator = ',';
-    lookupModel.placeholder = 'Last name';
-    lookupModel.placeholder2 = 'First name';
+    lookupModel.placeholder = 'submission.section.form.last_name';
+    lookupModel.placeholder2 = 'submission.section.form.first_name';
     return lookupModel;
 
   }

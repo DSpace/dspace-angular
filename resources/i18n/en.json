@@ -198,7 +198,12 @@
         "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicity decided for the single file, with the following policies:"
       },
       "form": {
-
+        "search": "Search",
+        "remove": "Remove",
+        "first_name": "First name",
+        "last_name": "Last name",
+        "loading": "Loading...",
+        "no_results": "No results found"
       }
     }
   }

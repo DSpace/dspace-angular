@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -7,7 +7,6 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { isNull, isUndefined } from '../../../../../empty.util';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 
 @Component({
   selector: 'ds-dynamic-lookup',

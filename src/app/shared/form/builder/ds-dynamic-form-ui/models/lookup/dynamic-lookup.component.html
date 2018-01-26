@@ -43,7 +43,7 @@
 
   <!--Lookup-name, 2 fields-->
   <div class="form-row" *ngIf="lookupName">
-    <div class="col-xs-12 col-md-9 col-lg-10">
+    <div class="col-xs-12 col-md-9 col-lg-9">
       <div class="row">
         <div class="col-xs-12 col-sm-6">
           <input class="form-control"
@@ -55,7 +55,7 @@
                  [value]="formatItemForInput(model.value, 1)"
                  [(ngModel)]="model.currentValue"
                  [disabled]="model.value != null"
-                 [placeholder]="model.placeholder"
+                 [placeholder]="model.placeholder | translate"
                  (change)="$event.preventDefault()"
                  (blur)="onBlurEvent($event); sdRef.close();"
                  (focus)="onFocusEvent($event); sdRef.close();"
@@ -73,7 +73,7 @@
                   [value]="formatItemForInput(model.value, 2)"
                   [(ngModel)]="model.currentValue2"
                   [disabled]="model.value != null"
-                  [placeholder]="model.placeholder2"
+                  [placeholder]="model.placeholder2 | translate"
                   (change)="$event.preventDefault()"
                   (blur)="onBlurEvent($event); sdRef.close();"
                   (focus)="onFocusEvent($event); sdRef.close();"
@@ -86,12 +86,12 @@
         *ngIf="model.value == null" class="btn btn-secondary"
         type="button"
         [disabled]="isSearchDisabled()"
-        (click)="search($event); sdRef.open();">Search
+        (click)="search($event); sdRef.open();"> {{'submission.section.form.search' | translate}}
       </button>
       <button
         *ngIf="model.value != null" class="btn btn-secondary"
         type="button"
-        (click)="remove($event)">Remove
+        (click)="remove($event)"> {{'submission.section.form.remove' | translate}}
       </button>
     </div>
   </div>
@@ -111,7 +111,7 @@
 
       <button class="dropdown-item disabled"
               *ngIf="optionsList && optionsList.length == 0"
-              (click)="noResults(); sdRef.close();">No results found
+              (click)="noResults(); sdRef.close();">{{'submission.section.form.no_results' | translate}}
       </button>
       <button class="dropdown-item collection-item"
               *ngFor="let listEntry of optionsList"
@@ -119,7 +119,7 @@
               title="{{ listEntry.display }}">
         {{listEntry.value}}
       </button>
-      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>Loading...</p></div>
+      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'submission.section.form.loading' | translate}}</p></div>
     </div>
   </div>
 
