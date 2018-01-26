@@ -15,12 +15,22 @@
 }
 
 /* align fa-spin */
-.left-addon .fa-spin  { left:  0px;}
-.right-addon .fa-spin { right: 0px;}
+.left-addon .fa-spin {
+  left: 0px;
+}
+
+.right-addon .fa-spin {
+  right: 0px;
+}
 
 /* add padding  */
-.left-addon input  { padding-left:  30px; }
-.right-addon input { padding-right: 30px; }
+.left-addon input {
+  padding-left: 30px;
+}
+
+.right-addon input {
+  padding-right: 30px;
+}
 
 :host /deep/ .dropdown-menu {
   width: 100% !important;
@@ -50,3 +60,9 @@ button {
   margin-right: 10px;
 }
 
+//@media (min-width: $screen-sm-min) {
+//  .firstName {
+//    padding-left: 0 !important;
+//    margin-left: -5px !important;
+//  }
+//}

@@ -2,9 +2,10 @@
      ngbDropdown
      (click)="$event.stopPropagation();"
 >
-  <div class="form-row">
 
-    <div class="col-8 col-md-9">
+  <!--Simple lookup, only 1 field -->
+  <div class="form-row" *ngIf="!lookupName">
+    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
       <div class="row">
         <div class="col">
           <input class="form-control"
@@ -23,25 +24,9 @@
                  (click)="$event.stopPropagation(); sdRef.close();">
         </div>
 
-        <div *ngIf="lookupName" class="col"  style="padding-left: 0 !important; margin-left: -5px;">
-          <input  class="form-control col"
-                 [attr.autoComplete]="model.autoComplete"
-                 [class.is-invalid]="showErrorMessages"
-                 [dynamicId]="bindId && model.id"
-                 [name]="name2"
-                 [type]="model.inputType"
-                 [value]="formatItemForInput(model.value, 2)"
-                 [(ngModel)]="model.currentValue2"
-                 [disabled]="model.value != null"
-                 [placeholder]="model.placeholder2"
-                 (change)="$event.preventDefault()"
-                 (blur)="onBlurEvent($event); sdRef.close();"
-                 (focus)="onFocusEvent($event); sdRef.close();"
-                 (click)="$event.stopPropagation(); sdRef.close();">
-        </div>
       </div>
     </div>
-    <div class="col-4 col-md-3">
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-1 text-center">
       <button
         *ngIf="model.value == null" class="btn btn-secondary"
         type="button"
@@ -54,8 +39,61 @@
         (click)="remove($event)">Remove
       </button>
     </div>
+  </div>
 
+  <!--Lookup-name, 2 fields-->
+  <div class="form-row" *ngIf="lookupName">
+    <div class="col-xs-12 col-md-9 col-lg-10">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <input class="form-control"
+                 [attr.autoComplete]="model.autoComplete"
+                 [class.is-invalid]="showErrorMessages"
+                 [dynamicId]="bindId && model.id"
+                 [name]="model.name"
+                 [type]="model.inputType"
+                 [value]="formatItemForInput(model.value, 1)"
+                 [(ngModel)]="model.currentValue"
+                 [disabled]="model.value != null"
+                 [placeholder]="model.placeholder"
+                 (change)="$event.preventDefault()"
+                 (blur)="onBlurEvent($event); sdRef.close();"
+                 (focus)="onFocusEvent($event); sdRef.close();"
+                 (click)="$event.stopPropagation(); sdRef.close();">
+        </div>
 
+        <div *ngIf="lookupName" class="col-xs-12 col-sm-6 firstName" >
+          <input  class="form-control"
+                  [ngClass]="{}"
+                  [attr.autoComplete]="model.autoComplete"
+                  [class.is-invalid]="showErrorMessages"
+                  [dynamicId]="bindId && model.id"
+                  [name]="name2"
+                  [type]="model.inputType"
+                  [value]="formatItemForInput(model.value, 2)"
+                  [(ngModel)]="model.currentValue2"
+                  [disabled]="model.value != null"
+                  [placeholder]="model.placeholder2"
+                  (change)="$event.preventDefault()"
+                  (blur)="onBlurEvent($event); sdRef.close();"
+                  (focus)="onFocusEvent($event); sdRef.close();"
+                  (click)="$event.stopPropagation(); sdRef.close();">
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3 col-lg-1 text-center">
+      <button
+        *ngIf="model.value == null" class="btn btn-secondary"
+        type="button"
+        [disabled]="isSearchDisabled()"
+        (click)="search($event); sdRef.open();">Search
+      </button>
+      <button
+        *ngIf="model.value != null" class="btn btn-secondary"
+        type="button"
+        (click)="remove($event)">Remove
+      </button>
+    </div>
   </div>
 
   <div ngbDropdownMenu
