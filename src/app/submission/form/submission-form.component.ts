@@ -27,11 +27,11 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ds-submission-submit-form',
-  styleUrls: ['./submission-submit-form.component.scss'],
-  templateUrl: './submission-submit-form.component.html',
+  styleUrls: ['./submission-form.component.scss'],
+  templateUrl: './submission-form.component.html',
 })
 
-export class SubmissionSubmitFormComponent implements OnChanges, OnDestroy {
+export class SubmissionFormComponent implements OnChanges, OnDestroy {
   @Input() collectionId: string;
   @Input() sections: WorkspaceitemSectionsObject;
   @Input() submissionDefinition: SubmissionDefinitionsModel;
