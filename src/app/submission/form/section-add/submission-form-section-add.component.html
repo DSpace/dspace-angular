@@ -1,4 +1,4 @@
-<div ngbDropdown #sectionAdd="ngbDropdown" placement="bottom-right" class="d-inline-block">
+<div ngbDropdown #sectionAdd="ngbDropdown" placement="bottom-right" class="d-inline-block" [ngClass]="{'w-100': windowService.isXs()}">
   <button class="btn btn-outline-primary dropdown-toggle"
           id="sectionControls"
           ngbDropdownToggle>

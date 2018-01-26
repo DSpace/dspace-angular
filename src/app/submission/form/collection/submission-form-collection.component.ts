@@ -16,10 +16,10 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-submission-submit-form-collection',
-  styleUrls: ['./submission-submit-form-collection.component.scss'],
-  templateUrl: './submission-submit-form-collection.component.html'
+  styleUrls: ['./submission-form-collection.component.scss'],
+  templateUrl: './submission-form-collection.component.html'
 })
-export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnInit {
+export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @Input() currentCollectionId: string;
   @Input() submissionId;
 

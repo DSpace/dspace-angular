@@ -9,13 +9,14 @@ import { Subscription } from 'rxjs/Subscription';
 import { SectionService } from '../../section/section.service';
 
 import { hasValue, isNotUndefined } from '../../../shared/empty.util';
+import { HostWindowService } from '../../../shared/host-window.service';
 
 @Component({
-  selector: 'ds-submission-submit-form-box-handler',
-  styleUrls: [ './submission-submit-form-section-add.component.scss' ],
-  templateUrl: './submission-submit-form-section-add.component.html'
+  selector: 'ds-submission-form-section-add',
+  styleUrls: [ './submission-form-section-add.component.scss' ],
+  templateUrl: './submission-form-section-add.component.html'
 })
-export class SubmissionSubmitFormSectionAddComponent implements OnChanges {
+export class SubmissionFormSectionAddComponent implements OnChanges {
   @Input() collectionId: string;
   @Input() submissionId: string;
   @Input() definitionId: string;
@@ -27,7 +28,7 @@ export class SubmissionSubmitFormSectionAddComponent implements OnChanges {
    */
   private subs: Subscription[] = [];
 
-  constructor(private sectionService: SectionService) {
+  constructor(private sectionService: SectionService, private windowService: HostWindowService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {

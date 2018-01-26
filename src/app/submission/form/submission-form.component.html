@@ -1,25 +1,24 @@
 <div class="container-fluid">
-  <div *ngIf="!isLoading()" class="submission-submit-form-header">
+  <div *ngIf="!isLoading()">
     <ds-submission-upload-files [submissionId]="submissionId"
                                 [collectionId]="collectionId"
                                 [definitionId]="definitionId"
                                 [sectionId]="'upload'"
                                 [uploadFilesOptions]="uploadFilesOptions"></ds-submission-upload-files>
+    <div class="clearfix"></div>
     <div class="submission-submit-form-header mb-3">
-      <div class="row">
-        <div class="col-6">
+        <div class="submission-submit-form-header-item mb-3 mb-sm-0">
           <ds-submission-submit-form-collection [currentCollectionId]="collectionId"
                                                 [submissionId]="submissionId"
                                                 (collectionChange)="onCollectionChange($event)">
           </ds-submission-submit-form-collection>
         </div>
-        <div class="col text-right">
+        <div class="submission-submit-form-header-item text-right">
           <ds-submission-submit-form-box-handler [collectionId]="collectionId"
                                                  [submissionId]="submissionId"
                                                  [definitionId]="definitionId">
           </ds-submission-submit-form-box-handler>
         </div>
-      </div>
     </div>
   </div>
   <div class="submission-submit-form-content">
