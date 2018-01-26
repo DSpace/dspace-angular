@@ -26,7 +26,7 @@
 
       </div>
     </div>
-    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-1 text-center">
+    <div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 text-center">
       <button
         *ngIf="model.value == null" class="btn btn-secondary"
         type="button"
@@ -62,7 +62,7 @@
                  (click)="$event.stopPropagation(); sdRef.close();">
         </div>
 
-        <div *ngIf="lookupName" class="col-xs-12 col-sm-6 firstName" >
+        <div *ngIf="lookupName" class="col-xs-12 col-sm-6 pl-sm-0" >
           <input  class="form-control"
                   [ngClass]="{}"
                   [attr.autoComplete]="model.autoComplete"
@@ -81,7 +81,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-md-3 col-lg-1 text-center">
+    <div class="col-xs-12 col-md-3 col-lg-2 text-center">
       <button
         *ngIf="model.value == null" class="btn btn-secondary"
         type="button"
