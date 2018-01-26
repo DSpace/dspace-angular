@@ -93,7 +93,12 @@ export class RowParser {
 
       if (fieldModel) {
         if (fieldModel instanceof DynamicFormArrayModel || fieldModel instanceof DynamicGroupModel) {
-          parsedResult = fieldModel;
+          if (this.rowData.fields.length > 1) {
+            fieldModel.cls.grid.host = (fieldModel.cls.grid.host) ? fieldModel.cls.grid.host + clsGridClass : clsGridClass;
+            parsedResult = [fieldModel]
+          } else {
+            parsedResult = fieldModel;
+          }
           return;
         } else {
           if (fieldModel instanceof Array) {
@@ -116,7 +121,12 @@ export class RowParser {
           control: 'form-row',
         }
       };
-      parsedResult = new DynamicRowGroupModel(config, clsGroup);
+      const groupModel = new DynamicRowGroupModel(config, clsGroup);
+      if (Array.isArray(parsedResult)) {
+        parsedResult.push(groupModel)
+      } else {
+        parsedResult = groupModel;
+      }
     }
     return parsedResult;
   }

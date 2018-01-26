@@ -15,7 +15,7 @@ import { Workspaceitem } from '../../../core/submission/models/workspaceitem.mod
 import { PaginatedList } from '../../../core/data/paginated-list';
 
 @Component({
-  selector: 'ds-submission-submit-form-collection',
+  selector: 'ds-submission-form-collection',
   styleUrls: ['./submission-form-collection.component.scss'],
   templateUrl: './submission-form-collection.component.html'
 })

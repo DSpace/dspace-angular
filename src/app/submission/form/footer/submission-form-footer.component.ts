@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SaveSubmissionFormAction } from '../../objects/submission-objects.actions';
 
 @Component({
-  selector: 'ds-submission-submit-form-footer',
+  selector: 'ds-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
   templateUrl: './submission-form-footer.component.html'
 })

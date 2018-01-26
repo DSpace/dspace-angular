@@ -167,14 +167,18 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any): DynamicFormControlModel[] | never {
-    const rows: DynamicFormControlModel[] = [];
+    let rows: DynamicFormControlModel[] = [];
     const rawData = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
         const rowParsed = new RowParser(currentRow, scopeUUID, initFormValues).parse();
         if (isNotNull(rowParsed)) {
-          rows.push(rowParsed);
+          if (Array.isArray(rowParsed)) {
+            rows = rows.concat(rowParsed);
+          } else {
+            rows.push(rowParsed);
+          }
         }
       });
     }
