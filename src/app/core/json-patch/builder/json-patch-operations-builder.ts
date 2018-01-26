@@ -53,7 +53,8 @@ export class JsonPatchOperationsBuilder {
             if ((typeof entry === 'object')) {
               operationValue.push(this.prepareObjectValue(entry));
             } else {
-              operationValue.push({value: entry});
+              // operationValue.push({value: entry});
+              operationValue.push(entry);
             }
           })
         } else if (typeof value === 'object') {

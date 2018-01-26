@@ -10,10 +10,10 @@ import { SectionService } from './section/section.service';
 import { DefaultSectionComponent } from './section/default/section-default.component';
 import { SubmissionRoutingModule } from './submission-routing.module';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
-import { SubmissionSubmitFormCollectionComponent } from './form/collection/submission-submit-form-collection.component';
-import { SubmissionSubmitFormFooterComponent } from './form/footer/submission-submit-form-footer.component';
-import { SubmissionSubmitFormComponent } from './form/submission-submit-form.component';
-import { SubmissionSubmitFormSectionAddComponent } from './form/section-add/submission-submit-form-section-add.component';
+import { SubmissionFormCollectionComponent } from './form/collection/submission-form-collection.component';
+import { SubmissionFormFooterComponent } from './form/footer/submission-form-footer.component';
+import { SubmissionFormComponent } from './form/submission-form.component';
+import { SubmissionFormSectionAddComponent } from './form/section-add/submission-form-section-add.component';
 import { SectionFactoryComponent } from './section/section.factory';
 import { SectionContainerComponent } from './section/container/section-container.component';
 import { InjectPanelTemplateDirective } from './section/section-inject.directive';
@@ -57,10 +57,10 @@ import { AccessConditionsComponent } from './section/upload/accessConditions/acc
     SectionHostDirective,
     SubmissionEditComponent,
     SubmissionSubmitComponent,
-    SubmissionSubmitFormSectionAddComponent,
-    SubmissionSubmitFormCollectionComponent,
-    SubmissionSubmitFormComponent,
-    SubmissionSubmitFormFooterComponent,
+    SubmissionFormSectionAddComponent,
+    SubmissionFormCollectionComponent,
+    SubmissionFormComponent,
+    SubmissionFormFooterComponent,
     SubmissionUploadFilesComponent,
     UploadSectionFileComponent,
     UploadSectionFileEditComponent,

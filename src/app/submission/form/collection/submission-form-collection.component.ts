@@ -15,11 +15,11 @@ import { Workspaceitem } from '../../../core/submission/models/workspaceitem.mod
 import { PaginatedList } from '../../../core/data/paginated-list';
 
 @Component({
-  selector: 'ds-submission-submit-form-collection',
-  styleUrls: ['./submission-submit-form-collection.component.scss'],
-  templateUrl: './submission-submit-form-collection.component.html'
+  selector: 'ds-submission-form-collection',
+  styleUrls: ['./submission-form-collection.component.scss'],
+  templateUrl: './submission-form-collection.component.html'
 })
-export class SubmissionSubmitFormCollectionComponent implements OnChanges, OnInit {
+export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @Input() currentCollectionId: string;
   @Input() submissionId;
 
