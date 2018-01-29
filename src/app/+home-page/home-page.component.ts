@@ -7,10 +7,4 @@ import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.
   templateUrl: './home-page.component.html'
 })
 export class HomePageComponent {
-  constructor(protected workspaceitemDataService: WorkspaceitemDataService) {}
-
-  ngOnInit() {
-    this.workspaceitemDataService.findAll()
-      .subscribe((result) => console.log(result));
-  }
 }
