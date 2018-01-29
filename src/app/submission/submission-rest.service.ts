@@ -1,39 +1,41 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 
 import { ResponseCacheService } from '../core/cache/response-cache.service';
 import { RequestService } from '../core/data/request.service';
 import { GlobalConfig } from '../../config/global-config.interface';
 import { ResponseCacheEntry } from '../core/cache/response-cache.reducer';
-import {
-  ErrorResponse, RestResponse,
-  SubmissionSuccessResponse
-} from '../core/cache/response-cache.models';
+import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
 import {
-  ConfigRequest, FindAllOptions, DeleteRequest, PostRequest, RestRequest, SubmissionDeleteRequest,
+  ConfigRequest,
+  DeleteRequest,
+  PostRequest,
+  RestRequest,
+  SubmissionDeleteRequest,
+  SubmissionPatchRequest,
+  SubmissionPostRequest,
   SubmissionRequest
 } from '../core/data/request.models';
 import { SubmitDataResponseDefinitionObject } from '../core/shared/submit-data-response-definition.model';
 import { GLOBAL_CONFIG } from '../../config';
-import { PostPatchRestService } from '../core/json-patch/json-patch.service';
-import { Store } from '@ngrx/store';
 import { CoreState } from '../core/core.reducers';
+import { PostPatchDataService } from '../core/data/postpatch-data.service';
 
 @Injectable()
-export class SubmissionRestService extends PostPatchRestService<SubmitDataResponseDefinitionObject> {
+export class SubmissionRestService extends PostPatchDataService<SubmitDataResponseDefinitionObject> {
   protected linkName = 'workspaceitems';
 
-  constructor(
-    protected responseCache: ResponseCacheService,
-    protected requestService: RequestService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    protected store: Store<CoreState>) {
+  constructor(protected responseCache: ResponseCacheService,
+              protected requestService: RequestService,
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              protected store: Store<CoreState>) {
     super();
   }
 
   protected getData(request: RestRequest): Observable<SubmitDataResponseDefinitionObject> {
-    const [successResponse, errorResponse] =  this.responseCache.get(request.href)
+    const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
@@ -45,11 +47,7 @@ export class SubmissionRestService extends PostPatchRestService<SubmitDataRespon
         .distinctUntilChanged());
   }
 
-  protected getConfigByIdHref(endpoint, resourceName): string {
-    return `${endpoint}/${resourceName}`;
-  }
-
-  public deleteById(scopeId: string, linkName?: string): Observable<SubmitDataResponseDefinitionObject>  {
+  public deleteById(scopeId: string, linkName?: string): Observable<SubmitDataResponseDefinitionObject> {
     return this.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
@@ -69,12 +67,34 @@ export class SubmissionRestService extends PostPatchRestService<SubmitDataRespon
 
   public getDataById(id: string): Observable<any> {
     return this.getEndpoint()
-      .map((endpoint: string) => this.getConfigByIdHref(endpoint, id))
+      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new SubmissionRequest(this.requestService.generateRequestId(), endpointURL))
       .do((request: RestRequest) => this.requestService.configure(request, true))
       .flatMap((request: RestRequest) => this.getData(request))
+      .distinctUntilChanged();
+  }
+
+  public postToEndpoint(linkName: string, body: any, scopeId?: string): Observable<SubmitDataResponseDefinitionObject> {
+    return this.getEndpoint(linkName)
+      .filter((href: string) => isNotEmpty(href))
+      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
+      .distinctUntilChanged()
+      .map((endpointURL: string) => new SubmissionPostRequest(this.requestService.generateRequestId(), endpointURL, body))
+      .do((request: PostRequest) => this.requestService.configure(request))
+      .flatMap((request: PostRequest) => this.submitData(request))
+      .distinctUntilChanged();
+  }
+
+  public patchToEndpoint(linkName: string, body: any, scopeId?: string): Observable<SubmitDataResponseDefinitionObject> {
+    return this.getEndpoint(linkName)
+      .filter((href: string) => isNotEmpty(href))
+      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
+      .distinctUntilChanged()
+      .map((endpointURL: string) => new SubmissionPatchRequest(this.requestService.generateRequestId(), endpointURL, body))
+      .do((request: PostRequest) => this.requestService.configure(request))
+      .flatMap((request: PostRequest) => this.submitData(request))
       .distinctUntilChanged();
   }
 

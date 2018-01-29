@@ -13,6 +13,9 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { SubmissionRestService } from '../../submission-rest.service';
 import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
+import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-operations.service';
+import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
+import { SubmissionService } from '../../submission.service';
 
 @Component({
   selector: 'ds-submission-form-collection',
@@ -53,7 +56,8 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
   constructor(private communityDataService: CommunityDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
-              private restService: SubmissionRestService) {}
+              private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
+              private submissionService: SubmissionService) {}
 
   onScroll(event) {
     this.scrollableBottom = (event.target.scrollTop + event.target.clientHeight === event.target.scrollHeight);
@@ -122,7 +126,11 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     this.searchListCollection = this.listCollection;
     this.disabled = true;
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
-    this.restService.jsonPatchByResourceID(this.submissionId, 'sections', 'collection')
+    this.operationsService.jsonPatchByResourceID(
+      this.submissionService.getSubmissionObjectLinkName(),
+      this.submissionId,
+      'sections',
+      'collection')
       .subscribe((workspaceitems: Workspaceitem[]) => {
         this.selectedCollectionId = event.collection.id;
         this.selectedCollectionName = event.collection.name;

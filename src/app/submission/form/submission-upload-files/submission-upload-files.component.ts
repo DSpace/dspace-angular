@@ -7,6 +7,9 @@ import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/m
 import { SubmissionRestService } from '../../submission-rest.service';
 import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 import { normalizeSectionData } from '../../../core/submission/models/workspaceitem-sections.model';
+import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-operations.service';
+import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
+import { SubmissionService } from '../../submission.service';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -24,13 +27,17 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   private uploadEnabled: boolean;
 
   onBeforeUpload = () => {
-    this.submissionRestService.jsonPatchByResourceType(this.submissionId, 'sections')
+    this.operationsService.jsonPatchByResourceType(
+      this.submissionService.getSubmissionObjectLinkName(),
+      this.submissionId,
+      'sections')
       .subscribe();
   };
 
   constructor(private sectionUploadService: SectionUploadService,
               private sectionService: SectionService,
-              private submissionRestService: SubmissionRestService,) { }
+              private submissionService: SubmissionService,
+              private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>) { }
 
   ngOnChanges() {
     this.uploadEnabled = false;

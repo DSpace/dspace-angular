@@ -1,17 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
-import {
-  ErrorResponse, PostPatchSuccessResponse,
-  RestResponse
-} from '../cache/response-cache.models';
+import { ErrorResponse, PostPatchSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import {
-  PatchRequest, PostRequest, RestRequest, SubmissionPatchRequest,
-  SubmissionPostRequest
-} from '../data/request.models';
+import { PatchRequest, RestRequest, SubmissionPatchRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { CoreState } from '../core.reducers';
@@ -19,18 +13,23 @@ import { Store } from '@ngrx/store';
 import { jsonPatchOperationsByResourceType } from './selectors';
 import { JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
 import {
-  CommitPatchOperationsAction, RollbacktPatchOperationsAction,
+  CommitPatchOperationsAction,
+  RollbacktPatchOperationsAction,
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel } from './json-patch.model';
+import { GLOBAL_CONFIG } from '../../../config';
 
 @Injectable()
-export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HALEndpointService {
-  protected abstract responseCache: ResponseCacheService;
-  protected abstract requestService: RequestService;
-  protected abstract linkName: string;
-  protected abstract EnvConfig: GlobalConfig;
-  protected abstract store: Store<CoreState>;
+export class JsonPatchOperationsService<ResponseDefinitionDomain> extends HALEndpointService {
+  protected linkName;
+
+  constructor(protected responseCache: ResponseCacheService,
+              protected requestService: RequestService,
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              protected store: Store<CoreState>) {
+    super();
+  }
 
   protected submitData(request: RestRequest): Observable<ResponseDefinitionDomain> {
     const [successResponse, errorResponse] = this.responseCache.get(request.href)
@@ -53,7 +52,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
           .take(1)
           .filter((operationsList: JsonPatchOperationsResourceEntry) => isUndefined(operationsList) || !(operationsList.commitPending))
           .do(() => startTransactionTime = new Date().getTime())
-          .map((operationsList: JsonPatchOperationsResourceEntry)  => {
+          .map((operationsList: JsonPatchOperationsResourceEntry) => {
             const body: JsonPatchOperationModel[] = [];
             if (isNotEmpty(operationsList)) {
               if (isNotEmpty(resourceId)) {
@@ -89,7 +88,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
         .do(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime)))
         .do((request: PatchRequest) => this.requestService.configure(request))
         .flatMap((request: PatchRequest) => {
-          const [successResponse, errorResponse] =  this.responseCache.get(request.href)
+          const [successResponse, errorResponse] = this.responseCache.get(request.href)
             .filter((entry: ResponseCacheEntry) => startTransactionTime < entry.timeAdded)
             .take(1)
             .map((entry: ResponseCacheEntry) => entry.response)
@@ -111,31 +110,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
     return isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
   }
 
-  public postToEndpoint(linkName: string, body: any): Observable<ResponseDefinitionDomain>  {
-    return this.getEndpoint(linkName)
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new SubmissionPostRequest(this.requestService.generateRequestId(), endpointURL, body))
-      .do((request: PostRequest) => this.requestService.configure(request))
-      .flatMap((request: PostRequest) => this.submitData(request))
-      .distinctUntilChanged();
-  }
-
-  public patchToEndpoint(linkName: string, body: any): Observable<ResponseDefinitionDomain>  {
-    return this.getEndpoint(linkName)
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new SubmissionPatchRequest(this.requestService.generateRequestId(), endpointURL, body))
-      .do((request: PostRequest) => this.requestService.configure(request))
-      .flatMap((request: PostRequest) => this.submitData(request))
-      .distinctUntilChanged();
-  }
-
-  /*public jsonPatchbyResourceType(resourceType: string) {
-    return this.submitJsonPatchOperations(resourceType);
-  }*/
-
-  public jsonPatchByResourceType(scopeId:string, resourceType: string, linkName?:string) {
+  public jsonPatchByResourceType(linkName: string, scopeId: string, resourceType: string, ) {
     const hrefObs = this.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
@@ -144,7 +119,7 @@ export abstract class PostPatchRestService<ResponseDefinitionDomain> extends HAL
     return this.submitJsonPatchOperations(hrefObs, resourceType);
   }
 
-  public jsonPatchByResourceID(scopeId:string, resourceType: string, resourceId: string, linkName?:string) {
+  public jsonPatchByResourceID(linkName: string, scopeId: string, resourceType: string, resourceId: string) {
     const hrefObs = this.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()

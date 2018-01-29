@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects'
-import { Store } from '@ngrx/store';
 
 import {
   CompleteInitSubmissionFormAction,
@@ -10,21 +9,18 @@ import {
   ResetSubmissionFormAction,
   SaveSubmissionFormAction,
   SaveSubmissionSectionFormAction,
-  SetActiveSectionAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction
 } from './submission-objects.actions';
 import { SectionService } from '../section/section.service';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
-import { SubmissionRestService } from '../submission-rest.service';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { WorkspaceItemError, Workspaceitem } from '../../core/submission/models/workspaceitem.model';
+import { Workspaceitem, WorkspaceItemError } from '../../core/submission/models/workspaceitem.model';
 import { default as parseSectionErrorPaths, SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { Observable } from 'rxjs/Observable';
-import { AppState } from '../../app.reducer';
-import { SubmissionState } from '../submission.reducers';
-import { SubmissionObjectState } from './submission-objects.reducer';
-import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
+import { JsonPatchOperationsService } from '../../core/json-patch/json-patch-operations.service';
+import { SubmitDataResponseDefinitionObject } from '../../core/shared/submit-data-response-definition.model';
+import { SubmissionService } from '../submission.service';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -53,7 +49,10 @@ export class SubmissionObjectEffects {
   @Effect() saveSubmission$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM)
     .switchMap((action: SaveSubmissionFormAction) => {
-      return this.submissionRestService.jsonPatchByResourceType(action.payload.submissionId, 'sections')
+      return this.operationsService.jsonPatchByResourceType(
+        this.submissionService.getSubmissionObjectLinkName(),
+        action.payload.submissionId,
+        'sections')
         .map((response: Workspaceitem[]) => {
           return this.parseSaveResponse(response, action.payload.submissionId);
         });
@@ -65,7 +64,8 @@ export class SubmissionObjectEffects {
   @Effect() saveSection$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM)
     .switchMap((action: SaveSubmissionSectionFormAction) => {
-      return this.submissionRestService.jsonPatchByResourceID(
+      return this.operationsService.jsonPatchByResourceID(
+        this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections',
         action.payload.sectionId)
@@ -78,9 +78,9 @@ export class SubmissionObjectEffects {
     });
 
   constructor(private actions$: Actions,
-              private store$: Store<AppState>,
+              private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
               private sectionService: SectionService,
-              private submissionRestService: SubmissionRestService) {
+              private submissionService: SubmissionService) {
   }
 
   protected parseSaveResponse(response: Workspaceitem[], submissionId: string) {

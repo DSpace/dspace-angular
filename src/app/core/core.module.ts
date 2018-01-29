@@ -49,6 +49,8 @@ import { AuthorityService } from './integration/authority.service';
 import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
 import { WorkspaceitemDataService } from './submission/workspaceitem-data.service';
 import { UUIDService } from './shared/uuid.service';
+import { JsonPatchOperationsService } from './json-patch/json-patch-operations.service';
+import { PostPatchDataService } from './data/postpatch-data.service';
 
 const IMPORTS = [
   CommonModule,
@@ -95,6 +97,7 @@ const PROVIDERS = [
   SubmissionSectionsConfigService,
   SubmissionResponseParsingService,
   JsonPatchOperationsBuilder,
+  JsonPatchOperationsService,
   AuthorityService,
   IntegrationResponseParsingService,
   UUIDService,
