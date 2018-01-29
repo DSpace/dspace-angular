@@ -1,7 +1,6 @@
 import { isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
-import { DynamicFormArrayModel } from '@ng-dynamic-forms/core';
 
 import { uniqueId } from 'lodash';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -57,7 +56,7 @@ export abstract class FieldParser {
       return this.modelFactory(this.getInitFieldValue());
     }
   }
-
+  
   protected getInitValueCount(index = 0, fieldId?): number {
     const fieldIds = fieldId || this.getFieldId();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
@@ -180,9 +179,9 @@ export abstract class FieldParser {
       controlModel.options = [];
       this.configData.selectableMetadata.forEach((option, key) => {
         if (key === 0) {
-          controlModel.value = option.metadata
+          controlModel.value = option.metadata;
         }
-        controlModel.options.push({label: option.label, value: option.metadata})
+        controlModel.options.push({label: option.label, value: option.metadata});
       });
     }
   }

@@ -1,8 +1,6 @@
-import {
-  ClsConfig, DynamicFormGroupModel, DynamicFormGroupModelConfig, DynamicInputModel,
-  serializable
-} from '@ng-dynamic-forms/core';
+import { ClsConfig, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { isNotEmpty } from '../../../../empty.util';
+import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
 export const CONCAT_FIRST_INPUT_SUFFIX = '_CONCAT_FIRST_INPUT';
@@ -32,8 +30,8 @@ export class DynamicConcatModel  extends DynamicFormGroupModel {
   }
 
   get value() {
-    const firstValue = (this.get(0) as DynamicInputModel).value;
-    const secondValue = (this.get(1) as DynamicInputModel).value;
+    const firstValue = (this.get(0) as DsDynamicInputModel).value;
+    const secondValue = (this.get(1) as DsDynamicInputModel).value;
     if (isNotEmpty(firstValue) && isNotEmpty(secondValue)) {
       return firstValue + this.separator + secondValue;
     } else {
@@ -45,8 +43,8 @@ export class DynamicConcatModel  extends DynamicFormGroupModel {
     const  values = value.split(this.separator);
 
     if (values.length > 1) {
-      (this.get(0) as DynamicInputModel).valueUpdates.next(values[0]);
-      (this.get(1) as DynamicInputModel).valueUpdates.next(values[1]);
+      (this.get(0) as DsDynamicInputModel).valueUpdates.next(values[0]);
+      (this.get(1) as DsDynamicInputModel).valueUpdates.next(values[1]);
     }
   }
 }

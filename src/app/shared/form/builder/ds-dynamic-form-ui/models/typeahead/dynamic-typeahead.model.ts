@@ -4,10 +4,11 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Observable } from 'rxjs/Observable';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD = 'TYPEAHEAD';
 
-export interface DynamicTypeaheadModelConfig extends DynamicInputModelConfig {
+export interface DsDynamicTypeaheadModelConfig extends DsDynamicInputModelConfig {
   authorityMetadata: string;
   authorityName: string;
   authorityScope: string;
@@ -15,7 +16,7 @@ export interface DynamicTypeaheadModelConfig extends DynamicInputModelConfig {
   value: any;
 }
 
-export class DynamicTypeaheadModel extends DynamicInputModel {
+export class DynamicTypeaheadModel extends DsDynamicInputModel {
 
   @serializable() authorityMetadata: string;
   @serializable() authorityName: string;
@@ -23,7 +24,7 @@ export class DynamicTypeaheadModel extends DynamicInputModel {
   @serializable() minChars: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD;
 
-  constructor(config: DynamicTypeaheadModelConfig, cls?: ClsConfig) {
+  constructor(config: DsDynamicTypeaheadModelConfig, cls?: ClsConfig) {
 
     super(config, cls);
 

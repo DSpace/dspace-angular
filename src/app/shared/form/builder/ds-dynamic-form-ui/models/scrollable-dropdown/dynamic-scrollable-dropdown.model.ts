@@ -1,13 +1,9 @@
-import {
-  AUTOCOMPLETE_OFF, ClsConfig, DynamicInputModel, DynamicInputModelConfig,
-  serializable
-} from '@ng-dynamic-forms/core';
-import { Observable } from 'rxjs/Observable';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { AUTOCOMPLETE_OFF, ClsConfig, serializable } from '@ng-dynamic-forms/core';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN = 'SCROLLABLE_DROPDOWN';
 
-export interface DynamicScrollableDropdownModelConfig extends DynamicInputModelConfig {
+export interface DynamicScrollableDropdownModelConfig extends DsDynamicInputModelConfig {
   authorityMetadata: string;
   authorityName: string;
   authorityScope: string;
@@ -15,7 +11,7 @@ export interface DynamicScrollableDropdownModelConfig extends DynamicInputModelC
   value: any;
 }
 
-export class DynamicScrollableDropdownModel extends DynamicInputModel {
+export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
 
   @serializable() authorityMetadata: string;
   @serializable() authorityName: string;

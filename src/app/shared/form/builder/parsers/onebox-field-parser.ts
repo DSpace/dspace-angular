@@ -8,18 +8,21 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { FieldParser } from './field-parser';
-import {
-  DynamicTypeaheadModel, DynamicTypeaheadModelConfig
-} from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { FormFieldModel } from '../models/form-field.model';
 import {
   COMBOBOX_GROUP_SUFFIX,
-  COMBOBOX_METADATA_SUFFIX, COMBOBOX_VALUE_SUFFIX,
+  COMBOBOX_METADATA_SUFFIX,
+  COMBOBOX_VALUE_SUFFIX,
   DynamicComboboxModel
 } from '../ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { isNotEmpty } from '../../../empty.util';
 import { AuthorityModel } from '../../../../core/integration/models/authority.model';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import {
+  DsDynamicTypeaheadModelConfig,
+  DynamicTypeaheadModel
+} from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 
 export class OneboxFieldParser extends FieldParser {
 
@@ -80,7 +83,7 @@ export class OneboxFieldParser extends FieldParser {
       };
       return new DynamicComboboxModel(inputSelectGroup, clsGroup);
     } else if (this.configData.selectableMetadata[0].authority) {
-      const typeaheadModelConfig: DynamicTypeaheadModelConfig = this.initModel();
+      const typeaheadModelConfig: DsDynamicTypeaheadModelConfig = this.initModel();
       typeaheadModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
       typeaheadModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
       typeaheadModelConfig.authorityScope = this.authorityUuid;
@@ -100,12 +103,13 @@ export class OneboxFieldParser extends FieldParser {
       typeaheadModel.name = this.fieldId;
       return typeaheadModel;
     } else {
-      const inputModelConfig: DynamicInputModelConfig = this.initModel();
-      const inputModel = new DynamicInputModel(inputModelConfig);
+      const inputModelConfig: DsDynamicInputModelConfig = this.initModel();
+      const inputModel = new DsDynamicInputModel(inputModelConfig);
       inputModel.name = this.fieldId;
       if (isNotEmpty(fieldValue)) {
         inputModel.value = fieldValue;
       }
+      inputModel.languageUpdates.next({code:'en_US', display: 'English'}); // TODO TO REMOVE
       return inputModel;
     }
   }

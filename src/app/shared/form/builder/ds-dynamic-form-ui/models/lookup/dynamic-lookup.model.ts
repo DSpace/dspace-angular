@@ -1,16 +1,10 @@
-import {
-  AUTOCOMPLETE_OFF, ClsConfig, DynamicInputModel, DynamicInputModelConfig,
-  serializable
-} from '@ng-dynamic-forms/core';
-import {
-  DynamicScrollableDropdownModel,
-  DynamicScrollableDropdownModelConfig
-} from '../scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { AUTOCOMPLETE_OFF, ClsConfig, serializable } from '@ng-dynamic-forms/core';
 import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_LOOKUP = 'LOOKUP';
 
-export interface DynamicLookupModelConfig extends DynamicInputModelConfig {
+export interface DynamicLookupModelConfig extends DsDynamicInputModelConfig {
   authorityMetadata: string;
   authorityName: string;
   authorityScope: string;
@@ -19,7 +13,7 @@ export interface DynamicLookupModelConfig extends DynamicInputModelConfig {
   separator: string;
 }
 
-export class DynamicLookupModel extends DynamicInputModel {// DynamicInputModel {
+export class DynamicLookupModel extends DsDynamicInputModel {
   @serializable() authorityMetadata: string;
   @serializable() authorityName: string;
   @serializable() authorityScope: string;

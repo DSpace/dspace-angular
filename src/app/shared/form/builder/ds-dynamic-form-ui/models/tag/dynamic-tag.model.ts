@@ -1,14 +1,9 @@
-import {
-  AUTOCOMPLETE_OFF, ClsConfig, DynamicInputModel, DynamicInputModelConfig,
-  serializable
-} from '@ng-dynamic-forms/core';
-import { Observable } from 'rxjs/Observable';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { Chips } from '../../../../../chips/chips.model';
+import { AUTOCOMPLETE_OFF, ClsConfig, serializable } from '@ng-dynamic-forms/core';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_TAG = 'TYPETAG';
 
-export interface DynamicTagModelConfig extends DynamicInputModelConfig {
+export interface DynamicTagModelConfig extends DsDynamicInputModelConfig {
   authorityMetadata: string;
   authorityName: string;
   authorityScope: string;
@@ -17,7 +12,7 @@ export interface DynamicTagModelConfig extends DynamicInputModelConfig {
   // chips: Chips;
 }
 
-export class DynamicTagModel extends DynamicInputModel {
+export class DynamicTagModel extends DsDynamicInputModel {
 
   @serializable() authorityMetadata: string;
   @serializable() authorityName: string;

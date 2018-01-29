@@ -16,6 +16,7 @@ import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-ro
 import { isEmpty } from '../../../empty.util';
 import { LookupFieldParser } from './lookup-field-parser';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
+import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -24,6 +25,7 @@ export class RowParser {
 
   constructor(protected rowData, protected scopeUUID, protected initFormValues: any) {
     this.authorityOptions = new IntegrationSearchOptions(scopeUUID);
+    console.log(rowData);
   }
 
   public parse(): DynamicRowGroupModel {
@@ -57,6 +59,12 @@ export class RowParser {
 
         case 'onebox':
           fieldModel = (new OneboxFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse());
+          if (fieldData.languageCodes && fieldData.languageCodes.length > 0) {
+            (fieldModel as DsDynamicInputModel).languages = fieldData.languageCodes;
+            // (fieldModel as DsDynamicInputModel).languageUpdates.next(this.initFormValues);
+            console.log('this.initFormValues is ');
+            console.log(this.initFormValues);
+          }
           break;
 
         case 'lookup-name':

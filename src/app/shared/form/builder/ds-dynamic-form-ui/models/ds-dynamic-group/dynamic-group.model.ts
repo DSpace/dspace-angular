@@ -1,12 +1,13 @@
-import {ClsConfig, DynamicInputModel, DynamicInputModelConfig, serializable} from '@ng-dynamic-forms/core';
-import {FormRowModel} from '../../../../../../core/shared/config/config-submission-forms.model';
+import { ClsConfig, serializable } from '@ng-dynamic-forms/core';
+import { FormRowModel } from '../../../../../../core/shared/config/config-submission-forms.model';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_RELATION = 'RELATION';
 
 /**
  * Dynamic Group Model configuration interface
  */
-export interface DynamicGroupModelConfig extends DynamicInputModelConfig {
+export interface DynamicGroupModelConfig extends DsDynamicInputModelConfig {
   formConfiguration: FormRowModel[],
   mandatoryField: string,
   name: string,
@@ -18,7 +19,7 @@ export interface DynamicGroupModelConfig extends DynamicInputModelConfig {
 /**
  * Dynamic Group Model class
  */
-export class DynamicGroupModel extends DynamicInputModel {
+export class DynamicGroupModel extends DsDynamicInputModel {
   @serializable() formConfiguration: FormRowModel[];
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
