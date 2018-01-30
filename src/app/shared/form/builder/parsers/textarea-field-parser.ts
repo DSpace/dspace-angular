@@ -5,6 +5,10 @@ import {
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { isNotEmpty } from '../../../empty.util';
+import {
+  DsDynamicTextAreaModel,
+  DsDynamicTextAreaModelConfig
+} from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 
 export class TextareaFieldParser extends FieldParser {
 
@@ -13,7 +17,7 @@ export class TextareaFieldParser extends FieldParser {
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
-    const inputTextModel: DynamicTextAreaModelConfig = this.initModel();
+    const inputTextModel: DsDynamicTextAreaModelConfig = this.initModel();
 
     let cls: ClsConfig;
 
@@ -22,7 +26,7 @@ export class TextareaFieldParser extends FieldParser {
         label: 'col-form-label'
       }
     };
-    const textareaModel = new DynamicTextAreaModel(inputTextModel, cls);
+    const textareaModel = new DsDynamicTextAreaModel(inputTextModel, cls);
     textareaModel.name = this.fieldId;
     if (isNotEmpty(fieldValue)) {
       textareaModel.value = fieldValue;

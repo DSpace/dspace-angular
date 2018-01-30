@@ -1,5 +1,6 @@
 import { autoserialize } from 'cerialize';
 import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
+import { Language } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 export class FormFieldModel {
 
@@ -8,6 +9,9 @@ export class FormFieldModel {
 
   @autoserialize
   label: string;
+
+  @autoserialize
+  languageCodes: Language[];
 
   @autoserialize
   mandatoryMessage: string;

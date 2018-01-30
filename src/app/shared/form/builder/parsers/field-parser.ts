@@ -5,6 +5,7 @@ import { IntegrationSearchOptions } from '../../../../core/integration/models/in
 import { uniqueId } from 'lodash';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 export abstract class FieldParser {
 
@@ -53,10 +54,15 @@ export abstract class FieldParser {
         }
       );
     } else {
-      return this.modelFactory(this.getInitFieldValue());
+      const model = this.modelFactory(this.getInitFieldValue());
+      if (model instanceof DsDynamicInputModel && model.hasLanguages()) {
+        model.cls.element.control = model.cls.element.control.concat(' col');
+        model.cls.element.errors = model.cls.element.errors.concat(' col-12');
+      }
+      return model;
     }
   }
-  
+
   protected getInitValueCount(index = 0, fieldId?): number {
     const fieldIds = fieldId || this.getFieldId();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
@@ -159,6 +165,10 @@ export abstract class FieldParser {
 
     if (this.configData.mandatory && setErrors) {
       this.setErrors(controlModel);
+    }
+
+    if (this.configData.languageCodes && this.configData.languageCodes.length > 0) {
+      (controlModel as DsDynamicInputModel).languages = this.configData.languageCodes;
     }
 
     return controlModel;

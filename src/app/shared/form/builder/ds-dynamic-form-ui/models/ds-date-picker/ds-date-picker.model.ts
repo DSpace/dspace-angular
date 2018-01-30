@@ -17,4 +17,9 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
     super(config, cls);
     this.malformedDate = false;
   }
+
+  hasLanguages() {
+    return false;
+  }
+
 }

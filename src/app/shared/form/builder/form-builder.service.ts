@@ -52,7 +52,7 @@ export class FormBuilderService extends DynamicFormService {
 
         if (controlModel.id === findId) {
           if (controlModel instanceof DynamicFormArrayModel && isNotNull(arrayIndex)) {
-            result = controlModel.get(arrayIndex)
+            result = controlModel.get(arrayIndex);
           } else {
             result = controlModel;
           }
@@ -108,7 +108,7 @@ export class FormBuilderService extends DynamicFormService {
       if (Array.isArray(objValue)) {
         return objValue.concat(srcValue);
       }
-    }
+    };
 
     const iterateControlModels = (findGroupModel: DynamicFormControlModel[]): void => {
       let iterateResult = Object.create({});
@@ -231,9 +231,19 @@ export class FormBuilderService extends DynamicFormService {
     if (this.isModelInCustomGroup(event.model)) {
       fieldValue = (event.model.parent as any).value;
     } else {
-      fieldValue = (event.model as  any).value;
+      const value = (event.model as any).value;
+      fieldValue = value;
+
+      if ((event.model as any).languages && (event.model as any).hasLanguages()) {
+        const language = (event.model as any).language;
+        fieldValue = {
+          value: value,
+          language: language
+        };
+      }
     }
-    /*else if (isNotEmpty(event.control.value)
+
+  /*else if (isNotEmpty(event.control.value)
          && typeof event.control.value === 'object'
          && (!(event.control.value instanceof AuthorityModel))) {
          fieldValue = [];
@@ -279,7 +289,7 @@ export class FormBuilderService extends DynamicFormService {
 
   getId(model: DynamicPathable) {
     if (model instanceof DynamicFormArrayGroupModel) {
-      return model.index.toString()
+      return model.index.toString();
     } else {
       return ((model as DynamicFormControlModel).id !== (model as DynamicFormControlModel).name) ?
         (model as DynamicFormControlModel).name :
@@ -381,7 +391,7 @@ export class FormBuilderService extends DynamicFormService {
           const metadataValueList = metadataValueMap.get(key) ? metadataValueMap.get(key) : [];
           metadataValueList.push(item[key]);
           metadataValueMap.set(key, metadataValueList);
-        })
+        });
 
     });
     console.log(metadataValueMap);

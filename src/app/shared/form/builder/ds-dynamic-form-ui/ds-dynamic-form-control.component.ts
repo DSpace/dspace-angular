@@ -144,21 +144,11 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
     }
   }
 
-  onChange(event) {
-    console.log(event);
-    try {
-      const sel = event.target.selectedOptions[0].value;
-      if (sel !== '') {
-        if (this.model instanceof DsDynamicInputModel) {
-          this.model.languageUpdates.next(sel);
-        }
-      }
-    } catch (e) {
-      console.log(e);
+  onChangeLanguage(event) {
+    if ((this.model as any).language) {
+      // (this.model as any).languageUpdates.next(event);
+      this.change.emit(event);
     }
   }
 
-  equals(o1: Language, o2: Language) {
-    return o1.code === o2.code;
-  }
 }

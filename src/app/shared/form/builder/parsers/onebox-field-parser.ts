@@ -12,7 +12,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import {
   COMBOBOX_GROUP_SUFFIX,
   COMBOBOX_METADATA_SUFFIX,
-  COMBOBOX_VALUE_SUFFIX,
+  COMBOBOX_VALUE_SUFFIX, DsDynamicComboboxModelConfig,
   DynamicComboboxModel
 } from '../ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -42,12 +42,12 @@ export class OneboxFieldParser extends FieldParser {
         .slice(0, this.configData.selectableMetadata[0].metadata.split('.').length - 1)
         .join('.');
 
-      const inputSelectGroup: DynamicFormGroupModel = Object.create(null);
+      const inputSelectGroup: DsDynamicComboboxModelConfig = Object.create(null);
       inputSelectGroup.id = newId.replace(/\./g, '_') + COMBOBOX_GROUP_SUFFIX;
       inputSelectGroup.group = [];
       inputSelectGroup.legend = this.configData.label;
 
-      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(  newId + COMBOBOX_METADATA_SUFFIX);
+      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(newId + COMBOBOX_METADATA_SUFFIX);
       this.setOptions(selectModelConfig);
       if (isNotEmpty(fieldValue)) {
         selectModelConfig.value = fieldValue.metadata;
@@ -109,7 +109,6 @@ export class OneboxFieldParser extends FieldParser {
       if (isNotEmpty(fieldValue)) {
         inputModel.value = fieldValue;
       }
-      inputModel.languageUpdates.next({code:'en_US', display: 'English'}); // TODO TO REMOVE
       return inputModel;
     }
   }

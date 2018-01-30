@@ -25,7 +25,6 @@ export class RowParser {
 
   constructor(protected rowData, protected scopeUUID, protected initFormValues: any) {
     this.authorityOptions = new IntegrationSearchOptions(scopeUUID);
-    console.log(rowData);
   }
 
   public parse(): DynamicRowGroupModel {
@@ -59,12 +58,6 @@ export class RowParser {
 
         case 'onebox':
           fieldModel = (new OneboxFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse());
-          if (fieldData.languageCodes && fieldData.languageCodes.length > 0) {
-            (fieldModel as DsDynamicInputModel).languages = fieldData.languageCodes;
-            // (fieldModel as DsDynamicInputModel).languageUpdates.next(this.initFormValues);
-            console.log('this.initFormValues is ');
-            console.log(this.initFormValues);
-          }
           break;
 
         case 'lookup-name':

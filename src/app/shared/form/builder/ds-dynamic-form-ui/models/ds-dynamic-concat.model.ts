@@ -47,4 +47,9 @@ export class DynamicConcatModel  extends DynamicFormGroupModel {
       (this.get(1) as DsDynamicInputModel).valueUpdates.next(values[1]);
     }
   }
+
+  hasLanguages() {
+    return false;
+  }
+
 }
