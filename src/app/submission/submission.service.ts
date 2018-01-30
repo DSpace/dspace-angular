@@ -1,15 +1,13 @@
-import { Inject, Injectable, NgZone } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
+
 import { submissionSelector, SubmissionState } from './submission.reducers';
-// utils
-import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../shared/empty.util';
-import { WorkspaceItemError, Workspaceitem } from '../core/submission/models/workspaceitem.model';
+import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
 import { SubmissionRestService } from './submission-rest.service';
 import { SectionService } from './section/section.service';
-import { default as parseSectionErrorPaths, SectionErrorPath } from './utils/parseSectionErrorPaths';
-import { InertSectionErrorsAction, SaveSubmissionFormAction } from './objects/submission-objects.actions';
+import { SaveSubmissionFormAction } from './objects/submission-objects.actions';
 import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
 import { GlobalConfig } from '../../config/global-config.interface';
@@ -21,9 +19,7 @@ export class SubmissionService {
   protected autoSaveSub: Subscription;
   protected timerObs: Observable<any>;
 
-  constructor(private sectionService: SectionService,
-              private submissionRestService: SubmissionRestService,
-              private store: Store<SubmissionState>,
+  constructor(private store: Store<SubmissionState>,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
   }
 
@@ -36,6 +32,10 @@ export class SubmissionService {
   getSectionsEnabled(submissionId: string): Observable<any> {
     return this.store.select(submissionSelector)
       .map((submissions: SubmissionState) => submissions.objects[submissionId]);
+  }
+
+  getSubmissionObjectLinkName() {
+    return 'workspaceitems';
   }
 
   getSectionsState(submissionId: string): Observable<boolean> {
@@ -66,10 +66,12 @@ export class SubmissionService {
   }
 
   startAutoSave(submissionId) {
+    this.stopAutoSave();
+    console.log('AUTOSAVE ON!!!');
     // AUTOSAVE submission
     // Retrieve interval from config and convert to milliseconds
-    // const duration = this.EnvConfig.submission.autosave.timer * (1000 * 60);
-    const duration = (1000 * 60);
+    const duration = this.EnvConfig.submission.autosave.timer * (1000 * 60);
+    // const duration = (1000 * 30);
     // Dispatch save action after given duration
     this.timerObs = Observable.timer(duration, duration);
     this.autoSaveSub = this.timerObs
@@ -78,52 +80,9 @@ export class SubmissionService {
 
   stopAutoSave() {
     if (hasValue(this.autoSaveSub)) {
+      console.log('AUTOSAVE OFFF!!!');
       this.autoSaveSub.unsubscribe();
+      this.autoSaveSub = null;
     }
-  }
-
-  saveSubmission(submissionId) {
-    this.submissionRestService.jsonPatchByResourceType(submissionId, 'sections')
-      .subscribe((response) => {
-        if (isNotEmpty(response)) {
-          const errorsList = {};
-
-          // to avoid dispatching an action for every error, create an array of errors per section
-          (response as Workspaceitem[]).forEach((item: Workspaceitem) => {
-            const {sections} = item;
-            if (sections && isNotEmpty(sections)) {
-              Object.keys(sections)
-                .forEach((sectionId) => this.sectionService.updateSectionData(submissionId, sectionId, sections[sectionId]))
-            }
-
-            const {errors} = item;
-
-            if (errors && !isEmpty(errors)) {
-              errors.forEach((error: WorkspaceItemError) => {
-                const paths: SectionErrorPath[] = parseSectionErrorPaths(error.paths);
-
-                paths.forEach((path: SectionErrorPath) => {
-                  const sectionError = {path: path.originalPath, message: error.message};
-                  if (!errorsList[path.sectionId]) {
-                    errorsList[path.sectionId] = {errors: []};
-                  }
-                  errorsList[path.sectionId].errors.push(sectionError);
-                });
-              });
-            }
-          });
-
-          // and now dispatch an action with an array of errors for every section
-          if (!isEmpty(errorsList)) {
-            Object.keys(errorsList).forEach((sectionId) => {
-              const {errors} = errorsList[sectionId];
-              const action = new InertSectionErrorsAction(submissionId, sectionId, errors);
-
-              this.store.dispatch(action);
-            });
-          }
-        }
-        // this.saving = false;
-      });
   }
 }
