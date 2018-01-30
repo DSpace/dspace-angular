@@ -13,9 +13,8 @@
     <ng-container *ngTemplateOutlet="template?.templateRef; context: model"></ng-container>
   </ng-container>
 
-
-  <div [ngClass]="model.cls.grid.control">
-    <div [ngClass]="{'form-row m-0': (model.languages && model.hasLanguages()) }">
+  <div [ngClass]="{'form-row': (model.languages && model.hasLanguages()) }">
+    <div [ngClass]="model.cls.grid.control">
 
       <ng-container [ngSwitch]="type">
 
@@ -291,24 +290,10 @@
           ></ds-dynamic-lookup>
         </ng-container>
 
-
-        <div *ngIf="model.languages && model.languages.length > 0" class="col-xs-2">
-          <select
-            #language="ngModel"
-            [(ngModel)]="model.language"
-            class="form-control"
-            (change)="onChangeLanguage($event)"
-            [ngModelOptions]="{standalone: true}"
-            required>
-            <option [value]="null" disabled>Language</option>
-            <option *ngFor="let lang of model.languages" [value]="lang.code">{{lang.display}}</option>
-          </select>
-        </div>
-
         <small *ngIf="hasHint" class="text-muted" [innerHTML]="model.hint"
                [ngClass]="model.cls.element.hint"></small>
 
-        <div *ngIf="showErrorMessages" class=" col-12" [ngClass]="[model.cls.element.errors, model.cls.grid.errors]">
+        <div *ngIf="showErrorMessages" [ngClass]="[model.cls.element.errors, model.cls.grid.errors]">
           <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message
             }}
           </small>
@@ -416,6 +401,20 @@
       </ng-template>
 
     </div>
+
+    <div *ngIf="model.languages && model.languages.length > 0" class="col-xs-2">
+      <select
+        #language="ngModel"
+        [(ngModel)]="model.language"
+        class="form-control"
+        (change)="onChangeLanguage($event)"
+        [ngModelOptions]="{standalone: true}"
+        required>
+        <option [value]="null" disabled>Language</option>
+        <option *ngFor="let lang of model.languages" [value]="lang.code">{{lang.display}}</option>
+      </select>
+    </div>
+
   </div>
 
   <ng-container *ngIf="type !== 1 && template?.align === 'END'">

@@ -56,8 +56,7 @@ export abstract class FieldParser {
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
       if (model instanceof DsDynamicInputModel && model.hasLanguages()) {
-        model.cls.element.control = model.cls.element.control.concat(' col');
-        model.cls.element.errors = model.cls.element.errors.concat(' col-12');
+        model.cls.grid.control = model.cls.grid.control.concat(' col');
       }
       return model;
     }
