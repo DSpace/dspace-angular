@@ -18,7 +18,7 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   separator: string;
 }
 
-export class DynamicConcatModel  extends DynamicFormGroupModel {
+export class DynamicConcatModel extends DynamicFormGroupModel {
 
   @serializable() separator: string;
 
@@ -40,7 +40,7 @@ export class DynamicConcatModel  extends DynamicFormGroupModel {
   }
 
   set value(value: string) {
-    const  values = value.split(this.separator);
+    const values = value.split(this.separator);
 
     if (values.length > 1) {
       (this.get(0) as DsDynamicInputModel).valueUpdates.next(values[0]);

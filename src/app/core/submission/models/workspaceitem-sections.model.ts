@@ -3,6 +3,8 @@ import { WorkspaceitemSectionLicenseObject } from './workspaceitem-section-licen
 import { WorkspaceitemSectionUploadObject } from './workspaceitem-section-upload.model';
 import { isNotEmpty, isNotNull } from '../../../shared/empty.util';
 import { AuthorityModel } from '../../integration/models/authority.model';
+import { LanguageCode } from '../../../shared/form/builder/models/form-field-language-value.model';
+import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 
 export class WorkspaceitemSectionsObject {
   [name: string]: WorkspaceitemSectionDataType;
@@ -34,6 +36,12 @@ export function normalizeSectionData(obj: any) {
         authorityValue.value = obj.value;
         authorityValue.display = obj.value;
         result = authorityValue;
+      } else if (isNotEmpty(obj.language)) {
+        const languageValue: FormFieldLanguageValueObject = {
+          value: obj.value,
+          language: obj.language
+        }
+        result = languageValue;
       } else {
         // Normalize as a string value
         result = obj.value;

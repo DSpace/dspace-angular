@@ -167,7 +167,7 @@ export abstract class FieldParser {
     }
 
     if (this.configData.languageCodes && this.configData.languageCodes.length > 0) {
-      (controlModel as DsDynamicInputModel).languages = this.configData.languageCodes;
+      (controlModel as DsDynamicInputModel).languageCodes = this.configData.languageCodes;
     }
 
     return controlModel;

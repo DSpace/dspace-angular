@@ -19,7 +19,8 @@ import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-gro
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION } from './models/ds-dynamic-group/dynamic-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/ds-date-picker/ds-date-picker.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
-import { DsDynamicInputModel, Language } from './models/ds-dynamic-input.model';
+import { DsDynamicInputModel} from './models/ds-dynamic-input.model';
+import { LanguageCode } from '../models/form-field-language-value.model';
 
 export const enum NGBootstrapFormControlType {
 

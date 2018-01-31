@@ -13,7 +13,7 @@
     <ng-container *ngTemplateOutlet="template?.templateRef; context: model"></ng-container>
   </ng-container>
 
-  <div [ngClass]="{'form-row': (model.languages && model.hasLanguages()) }">
+  <div [ngClass]="{'form-row': (model.languageCodes && model.hasLanguages()) }">
     <div [ngClass]="model.cls.grid.control">
 
       <ng-container [ngSwitch]="type">
@@ -402,7 +402,7 @@
 
     </div>
 
-    <div *ngIf="model.languages && model.languages.length > 0" class="col-xs-2">
+    <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2">
       <select
         #language="ngModel"
         [(ngModel)]="model.language"
@@ -411,7 +411,7 @@
         [ngModelOptions]="{standalone: true}"
         required>
         <option [value]="null" disabled>Language</option>
-        <option *ngFor="let lang of model.languages" [value]="lang.code">{{lang.display}}</option>
+        <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
       </select>
     </div>
 

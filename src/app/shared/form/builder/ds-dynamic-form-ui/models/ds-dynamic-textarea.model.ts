@@ -1,29 +1,22 @@
-import {
-  ClsConfig, DynamicFormGroupModel, DynamicFormGroupModelConfig, DynamicInputModel, DynamicInputModelConfig,
-  DynamicTextAreaModel,
-  DynamicTextAreaModelConfig,
-  serializable
-} from '@ng-dynamic-forms/core';
-import { isNotEmpty } from '../../../../empty.util';
+import { ClsConfig, DynamicTextAreaModel, DynamicTextAreaModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs/Subject';
-import { AuthorityModel } from '../../../../../core/integration/models/authority.model';
-import { Language } from './ds-dynamic-input.model';
+import { LanguageCode } from '../../models/form-field-language-value.model';
 
 export interface DsDynamicTextAreaModelConfig extends DynamicTextAreaModelConfig {
-  languages: Language[];
+  languageCodes: LanguageCode[];
   language: string;
 }
 
 export class DsDynamicTextAreaModel extends DynamicTextAreaModel {
 
-  @serializable() private _languages: Language[];
+  @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
 
   constructor(config: DsDynamicTextAreaModelConfig, cls?: ClsConfig) {
     super(config, cls);
 
-    this.languages = config.languages;
+    this.languageCodes = config.languageCodes;
 
     this.languageUpdates = new Subject<string>();
     this.languageUpdates.subscribe((lang: string) => {
@@ -32,7 +25,7 @@ export class DsDynamicTextAreaModel extends DynamicTextAreaModel {
   }
 
   hasLanguages(): boolean {
-    if (this.languages && this.languages.length > 1) {
+    if (this.languageCodes && this.languageCodes.length > 1) {
       return true;
     }
   }
@@ -45,13 +38,13 @@ export class DsDynamicTextAreaModel extends DynamicTextAreaModel {
     this._language = language;
   }
 
-  get languages(): Language[] {
-    return this._languages;
+  get languageCodes(): LanguageCode[] {
+    return this._languageCodes;
   }
 
-  set languages(languages: Language[]) {
-    this._languages = languages;
-    this.language = this.language || this.languages ? this.languages[0].code : null;
+  set languageCodes(languageCodes: LanguageCode[]) {
+    this._languageCodes = languageCodes;
+    this.language = this.language || this.languageCodes ? this.languageCodes[0].code : null;
   }
 
 }

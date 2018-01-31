@@ -234,7 +234,7 @@ export class FormBuilderService extends DynamicFormService {
       const value = (event.model as any).value;
       fieldValue = value;
 
-      if ((event.model as any).languages && (event.model as any).hasLanguages()) {
+      if ((event.model as any).languageCodes && (event.model as any).hasLanguages()) {
         const language = (event.model as any).language;
         fieldValue = {
           value: value,
