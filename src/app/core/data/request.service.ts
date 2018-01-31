@@ -118,7 +118,7 @@ export class RequestService {
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.store.select(this.entryFromUUIDSelector(request.href))
+    this.getByHref(request.href)
       .filter((re: RequestEntry) => hasValue(re))
       .take(1)
       .subscribe((re: RequestEntry) => {
