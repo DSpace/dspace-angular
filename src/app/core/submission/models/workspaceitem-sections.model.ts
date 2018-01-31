@@ -35,12 +35,10 @@ export function normalizeSectionData(obj: any) {
         authorityValue.id = obj.authority;
         authorityValue.value = obj.value;
         authorityValue.display = obj.value;
+        authorityValue.language = obj.language;
         result = authorityValue;
       } else if (isNotEmpty(obj.language)) {
-        const languageValue: FormFieldLanguageValueObject = {
-          value: obj.value,
-          language: obj.language
-        }
+        const languageValue = new FormFieldLanguageValueObject(obj.value, obj.language);
         result = languageValue;
       } else {
         // Normalize as a string value

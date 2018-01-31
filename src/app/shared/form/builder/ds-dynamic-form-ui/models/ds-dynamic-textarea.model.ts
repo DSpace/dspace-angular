@@ -8,15 +8,16 @@ export interface DsDynamicTextAreaModelConfig extends DynamicTextAreaModelConfig
 }
 
 export class DsDynamicTextAreaModel extends DynamicTextAreaModel {
-
-  @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
+  @serializable() private _languageCodes: LanguageCode[];
   @serializable() languageUpdates: Subject<string>;
 
   constructor(config: DsDynamicTextAreaModelConfig, cls?: ClsConfig) {
     super(config, cls);
 
+    this.value = config.value;
     this.languageCodes = config.languageCodes;
+    this.language = config.language;
 
     this.languageUpdates = new Subject<string>();
     this.languageUpdates.subscribe((lang: string) => {
@@ -44,7 +45,9 @@ export class DsDynamicTextAreaModel extends DynamicTextAreaModel {
 
   set languageCodes(languageCodes: LanguageCode[]) {
     this._languageCodes = languageCodes;
-    this.language = this.language || this.languageCodes ? this.languageCodes[0].code : null;
+    if (!this.language || this.language === null || this.language === '') {
+      this.language = this.languageCodes ? this.languageCodes[0].code : null
+    }
   }
 
 }

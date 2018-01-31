@@ -1,5 +1,5 @@
 import { ClsConfig, DynamicFormGroupModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
-import { DsDynamicInputModel, DsDynamicInputModelConfig} from './ds-dynamic-input.model';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from './ds-dynamic-input.model';
 import { Subject } from 'rxjs/Subject';
 import { DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core/src/model/form-group/dynamic-form-group.model';
 import { LanguageCode } from '../../models/form-field-language-value.model';
@@ -14,14 +14,15 @@ export interface DsDynamicComboboxModelConfig extends DynamicFormGroupModelConfi
 }
 
 export class DynamicComboboxModel extends DynamicFormGroupModel {
-  @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
+  @serializable() private _languageCodes: LanguageCode[];
   @serializable() languageUpdates: Subject<string>;
 
   constructor(config: DsDynamicComboboxModelConfig, cls?: ClsConfig) {
     super(config, cls);
 
     this.languageCodes = config.languageCodes;
+    this.language = config.language;
     this.languageUpdates = new Subject<string>();
     this.languageUpdates.subscribe((lang: string) => {
       this.language = lang;
@@ -52,9 +53,11 @@ export class DynamicComboboxModel extends DynamicFormGroupModel {
     return this._languageCodes;
   }
 
-  set languageCodes(languages: LanguageCode[]) {
-    this._languageCodes = languages;
-    this.language = this.language || this.languageCodes ? this.languageCodes[0].code : null;
+  set languageCodes(languageCodes: LanguageCode[]) {
+    this._languageCodes = languageCodes;
+    if (!this.language || this.language === null || this.language === '') {
+      this.language = this.languageCodes ? this.languageCodes[0].code : null
+    }
   }
 
 }

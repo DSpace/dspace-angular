@@ -5,7 +5,10 @@ import { IntegrationSearchOptions } from '../../../../core/integration/models/in
 import { uniqueId } from 'lodash';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DynamicFormControlModelConfig } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
+import { AuthorityModel } from '../../../../core/integration/models/authority.model';
+import { FormFieldLanguageValueObject } from '../models/form-field-language-value.model';
 
 export abstract class FieldParser {
 
@@ -202,6 +205,35 @@ export abstract class FieldParser {
     authorityOptions.metadata = metadata;
 
     return authorityOptions;
+  }
+
+  public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceAuthority: boolean = false) {
+    if (isNotEmpty(fieldValue)) {
+
+      if (fieldValue instanceof FormFieldLanguageValueObject) {
+        // Case string with language
+        modelConfig.value = fieldValue.value;
+        modelConfig.language = fieldValue.language;
+
+      } else if (fieldValue instanceof AuthorityModel) {
+        // AuthorityModel
+        modelConfig.value = fieldValue;
+
+      } else {
+        if (forceAuthority) {
+          // If value isn't an instance of AuthorityModel instantiate it
+          const authorityValue: AuthorityModel = new AuthorityModel();
+          authorityValue.value = fieldValue;
+          authorityValue.display = fieldValue;
+          modelConfig.value = authorityValue;
+        } else {
+          // Case only string
+          modelConfig.value = fieldValue;
+        }
+      }
+    }
+
+    return modelConfig;
   }
 
 }

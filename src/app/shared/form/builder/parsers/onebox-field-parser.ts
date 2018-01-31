@@ -62,10 +62,11 @@ export class OneboxFieldParser extends FieldParser {
       };
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
-      const inputModelConfig: DynamicInputModelConfig = this.initModel(newId + COMBOBOX_VALUE_SUFFIX, true, true);
-      if (isNotEmpty(fieldValue)) {
-        inputModelConfig.value = fieldValue.value;
-      }
+      const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + COMBOBOX_VALUE_SUFFIX, true, true);
+      this.setValues(inputModelConfig, fieldValue);
+      // if (isNotEmpty(fieldValue)) {
+      //   inputModelConfig.value = fieldValue.value;
+      // }
       clsInput = {
         element: {
           control: 'ds-form-input-value',
@@ -74,7 +75,7 @@ export class OneboxFieldParser extends FieldParser {
           host: 'col-sm-8 pl-0'
         }
       };
-      inputSelectGroup.group.push(new DynamicInputModel(inputModelConfig, clsInput));
+      inputSelectGroup.group.push(new DsDynamicInputModel(inputModelConfig, clsInput));
 
       clsGroup = {
         element: {
@@ -89,14 +90,15 @@ export class OneboxFieldParser extends FieldParser {
       typeaheadModelConfig.authorityScope = this.authorityUuid;
       if (isNotEmpty(fieldValue)) {
         // If value isn't an instance of AuthorityModel instantiate it
-        if (fieldValue instanceof AuthorityModel) {
-          typeaheadModelConfig.value = fieldValue;
-        } else {
-          const authorityValue: AuthorityModel = new AuthorityModel();
-          authorityValue.value = fieldValue;
-          authorityValue.display = fieldValue;
-          typeaheadModelConfig.value = authorityValue;
-        }
+        this.setValues(typeaheadModelConfig, fieldValue, true);
+        // if (fieldValue instanceof AuthorityModel) {
+        //   typeaheadModelConfig.value = fieldValue;
+        // } else {
+        //   const authorityValue: AuthorityModel = new AuthorityModel();
+        //   authorityValue.value = fieldValue;
+        //   authorityValue.display = fieldValue;
+        //   typeaheadModelConfig.value = authorityValue;
+        // }
       }
       typeaheadModelConfig.minChars = 3;
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
@@ -104,11 +106,12 @@ export class OneboxFieldParser extends FieldParser {
       return typeaheadModel;
     } else {
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel();
+      this.setValues(inputModelConfig, fieldValue);
       const inputModel = new DsDynamicInputModel(inputModelConfig);
       inputModel.name = this.fieldId;
-      if (isNotEmpty(fieldValue)) {
-        inputModel.value = fieldValue;
-      }
+      // if (isNotEmpty(fieldValue)) {
+      //   inputModel.value = fieldValue;
+      // }
       return inputModel;
     }
   }

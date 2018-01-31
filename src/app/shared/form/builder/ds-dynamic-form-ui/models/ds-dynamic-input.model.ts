@@ -4,7 +4,8 @@ import { LanguageCode } from '../../models/form-field-language-value.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   languageCodes: LanguageCode[];
-  language: string;
+  language?: string;
+  value?: any;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -15,6 +16,8 @@ export class DsDynamicInputModel extends DynamicInputModel {
   constructor(config: DsDynamicInputModelConfig, cls?: ClsConfig) {
     super(config, cls);
 
+    this.value = config.value;
+    this.language = config.language;
     this.languageCodes = config.languageCodes;
 
     this.languageUpdates = new Subject<string>();
@@ -43,7 +46,9 @@ export class DsDynamicInputModel extends DynamicInputModel {
 
   set languageCodes(languageCodes: LanguageCode[]) {
     this._languageCodes = languageCodes;
-    this.language = this.language || this.languageCodes ? this.languageCodes[0].code : null;
+    if (!this.language || this.language === null || this.language === '') {
+      this.language = this.languageCodes ? this.languageCodes[0].code : null;
+    }
   }
 
 }

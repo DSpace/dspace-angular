@@ -21,6 +21,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/ds-date-picker/
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 import { DsDynamicInputModel} from './models/ds-dynamic-input.model';
 import { LanguageCode } from '../models/form-field-language-value.model';
+import { isNotEmpty } from '../../../empty.util';
 
 export const enum NGBootstrapFormControlType {
 
@@ -39,7 +40,7 @@ export const enum NGBootstrapFormControlType {
   ScrollableDropdown = 13, // 'SCROLLABLE_DROPDOWN'
   TypeTag = 14, // 'TYPETAG'
   List = 15, // 'TYPELIST'
-  Relation = 16, // Dynamic Grup
+  Relation = 16, // Dynamic Group
   DsDatePicker = 17, // Ds Date Picker
   Lookup = 18, // LOOKUP
 }
@@ -146,9 +147,9 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
   }
 
   onChangeLanguage(event) {
-    if ((this.model as any).language) {
-      // (this.model as any).languageUpdates.next(event);
-      this.change.emit(event);
+    if (isNotEmpty((this.model as any).value)) {
+      console.log(event);
+      this.onValueChange(event);
     }
   }
 

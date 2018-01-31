@@ -17,4 +17,7 @@ export class ConfigAuthorityModel extends ConfigObject {
   @autoserialize
   otherInformation: any;
 
+  @autoserialize
+  language: string;
+
 }

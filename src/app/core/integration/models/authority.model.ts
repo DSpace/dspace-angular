@@ -13,5 +13,8 @@ export class AuthorityModel extends IntegrationModel {
   value: string;
 
   @autoserialize
-  otherInformation: any
+  otherInformation: any;
+
+  @autoserialize
+  language: string
 }
