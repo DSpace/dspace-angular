@@ -436,9 +436,18 @@ describe('RequestService', () => {
     });
 
     describe('when the request is added to the store', () => {
+      beforeEach(() => {
+        spyOn(service, 'getByHref').and.returnValue(Observable.of({
+          request,
+          requestPending: false,
+          responsePending: true,
+          completed: false
+        }));
+      });
+
       it('should stop tracking the request', () => {
-        (store.select as any).and.returnValues(Observable.of({ request }));
         serviceAsAny.trackRequestsOnTheirWayToTheStore(request);
+        expect(service.getByHref).toHaveBeenCalledWith(request.href);
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });
     });
