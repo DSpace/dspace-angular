@@ -1,30 +1,19 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
-import { IdlePreload, IdlePreloadModule } from 'angular-idle-preload';
-
-import { EffectsModule } from '@ngrx/effects';
-
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { IdlePreload, IdlePreloadModule } from 'angular-idle-preload';
 
 import { AppComponent } from '../../app/app.component';
 
 import { AppModule } from '../../app/app.module';
-import { BrowserTransferStateModule } from '../transfer-state/browser-transfer-state.module';
-
-import { TransferState } from '../transfer-state/transfer-state';
-import { BrowserTransferStoreEffects } from '../transfer-store/browser-transfer-store.effects';
-import { BrowserTransferStoreModule } from '../transfer-store/browser-transfer-store.module';
-
-export function init(cache: TransferState) {
-  return () => {
-    cache.initialize();
-  };
-}
+import { DSpaceBrowserTransferStateModule } from '../transfer-state/dspace-browser-transfer-state.module';
+import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -34,7 +23,7 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [AppComponent],
   imports: [
     BrowserModule.withServerTransition({
-      appId: 'ds-app-id'
+      appId: 'dspace-angular'
     }),
     HttpClientModule,
     // forRoot ensures the providers are only created once
@@ -46,8 +35,7 @@ export function createTranslateLoader(http: HttpClient) {
       IdlePreload
     }),
     BrowserAnimationsModule,
-    BrowserTransferStateModule,
-    BrowserTransferStoreModule,
+    DSpaceBrowserTransferStateModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -55,20 +43,13 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    EffectsModule.forRoot([BrowserTransferStoreEffects]),
     AppModule
   ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: init,
-      deps: [
-        TransferState
-      ]
-    }
-  ]
 })
 export class BrowserAppModule {
-
+  constructor(
+    private transferState: DSpaceTransferState,
+  ) {
+    this.transferState.transfer();
+  }
 }
