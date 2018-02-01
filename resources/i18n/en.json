@@ -46,7 +46,8 @@
     }
   },
   "nav": {
-    "home": "Home"
+    "home": "Home",
+    "login": "Log In"
   },
   "pagination": {
     "results-per-page": "Results Per Page",
@@ -145,5 +146,14 @@
     "item": "Error fetching item",
     "objects": "Error fetching objects",
     "search-results": "Error fetching search results"
+  },
+  "login": {
+    "title": "Login",
+    "form": {
+      "header": "Please log in",
+      "email": "Email address",
+      "password": "Password",
+      "submit": "Log in"
+    }
   }
 }

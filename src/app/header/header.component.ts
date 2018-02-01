@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { HeaderState } from './header.reducer';
 import { HeaderToggleAction } from './header.actions';
 import { AppState } from '../app.reducer';
+import { HostWindowService } from '../shared/host-window.service';
+import { fadeInOut } from '../shared/animations/fade';
 
 const headerStateSelector = (state: AppState) => state.header;
 const navCollapsedSelector = createSelector(headerStateSelector, (header: HeaderState) => header.navCollapsed);
@@ -12,13 +14,17 @@ const navCollapsedSelector = createSelector(headerStateSelector, (header: Header
 @Component({
   selector: 'ds-header',
   styleUrls: ['header.component.scss'],
-  templateUrl: 'header.component.html'
+  templateUrl: 'header.component.html',
+  animations: [
+    fadeInOut
+  ]
 })
 export class HeaderComponent implements OnInit {
   public isNavBarCollapsed: Observable<boolean>;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private windowService: HostWindowService
   ) {
   }
 

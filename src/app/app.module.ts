@@ -28,6 +28,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { GLOBAL_CONFIG, ENV_CONFIG, GlobalConfig } from '../config';
 
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
+import { SharedModule } from './shared/shared.module';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -51,6 +52,7 @@ if (!ENV_CONFIG.production) {
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     HttpClientModule,
     AppRoutingModule,
     CoreModule.forRoot(),

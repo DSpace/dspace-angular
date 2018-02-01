@@ -41,6 +41,7 @@ import { SearchResultGridElementComponent } from './object-grid/search-result-gr
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -68,6 +69,7 @@ const COMPONENTS = [
   ComcolPageLogoComponent,
   ErrorComponent,
   LoadingComponent,
+  LoginFormComponent,
   ObjectListComponent,
   AbstractListableElementComponent,
   WrapperListElementComponent,
