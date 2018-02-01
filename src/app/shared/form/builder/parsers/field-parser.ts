@@ -48,6 +48,9 @@ export abstract class FieldParser {
               model = this.modelFactory(fieldValue);
             }
             model.cls.element.host = model.cls.element.host.concat(' col');
+            if (model.hasLanguages && model.hasLanguages()) {
+              model.cls.grid.control = model.cls.grid.control.concat(' col');
+            }
             return [model];
           }
         }, {
@@ -58,7 +61,7 @@ export abstract class FieldParser {
       );
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
-      if (model instanceof DsDynamicInputModel && model.hasLanguages()) {
+      if (model.hasLanguages && model.hasLanguages()) {
         model.cls.grid.control = model.cls.grid.control.concat(' col');
       }
       return model;
