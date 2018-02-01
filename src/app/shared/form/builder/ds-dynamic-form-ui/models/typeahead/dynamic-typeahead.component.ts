@@ -81,7 +81,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
 
   onInput(event) {
     if (event.data) {
-      this.group.markAsDirty();
+      // this.group.markAsDirty();
     }
   }
 
@@ -90,7 +90,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   }
 
   onChangeEvent(event: Event) {
-    // event.stopPropagation();
+    event.stopPropagation();
     if (isEmpty(this.currentValue)) {
       this.model.valueUpdates.next(null);
       this.change.emit(null);

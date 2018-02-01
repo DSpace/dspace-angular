@@ -17,7 +17,7 @@ export class TextareaFieldParser extends FieldParser {
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
-    const inputTextModel: DsDynamicTextAreaModelConfig = this.initModel();
+    const textAreaModelConfig: DsDynamicTextAreaModelConfig = this.initModel();
 
     let cls: ClsConfig;
 
@@ -26,12 +26,11 @@ export class TextareaFieldParser extends FieldParser {
         label: 'col-form-label'
       }
     };
-    const textareaModel = new DsDynamicTextAreaModel(inputTextModel, cls);
-    textareaModel.name = this.fieldId;
-    if (isNotEmpty(fieldValue)) {
-      textareaModel.value = fieldValue;
-      textareaModel.rows = 10;
-    }
-    return textareaModel;
+
+    this.setValues(textAreaModelConfig, fieldValue);
+    const textAreaModel = new DsDynamicTextAreaModel(textAreaModelConfig, cls);
+    textAreaModel.name = this.fieldId;
+    textAreaModel.rows = 10;
+    return textAreaModel;
   }
 }

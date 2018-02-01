@@ -53,8 +53,8 @@ export class JsonPatchOperationsBuilder {
             if ((typeof entry === 'object')) {
               operationValue.push(this.prepareObjectValue(entry));
             } else {
-              // operationValue.push({value: entry});
-              operationValue.push(entry);
+              operationValue.push({value: entry});
+              // operationValue.push(entry);
             }
           })
         } else if (typeof value === 'object') {
@@ -92,9 +92,9 @@ export class JsonPatchOperationsBuilder {
   protected prepareAuthorityValue(value: any) {
     let operationValue: any = null;
     if (isNotEmpty(value.id)) {
-      operationValue = { value: value.value, authority: value.id, confidence: 600 };
+      operationValue = { value: value.value, language: value.language, authority: value.id, confidence: 600 };
     } else {
-      operationValue = { value: value.value };
+      operationValue = { value: value.value, language: value.language };
     }
     return operationValue
   }

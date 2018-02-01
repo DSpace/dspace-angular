@@ -61,9 +61,12 @@ export class Chips {
     if ( typeof item === 'object') {
       // Check If displayField is in an internal object
       const obj = this.displayObj ? item[this.displayObj] : item;
+      const displayFieldBkp = 'value';
 
       if (obj instanceof Object && obj && obj[this.displayField]) {
         value = obj[this.displayField];
+      } else if (obj instanceof Object && obj && obj[displayFieldBkp]) {
+        value = obj[displayFieldBkp];
       } else {
         value = obj;
       }

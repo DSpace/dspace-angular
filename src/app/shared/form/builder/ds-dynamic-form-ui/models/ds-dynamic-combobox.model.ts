@@ -21,8 +21,9 @@ export class DynamicComboboxModel extends DynamicFormGroupModel {
   constructor(config: DsDynamicComboboxModelConfig, cls?: ClsConfig) {
     super(config, cls);
 
-    this.languageCodes = config.languageCodes;
     this.language = config.language;
+    this.languageCodes = config.languageCodes;
+
     this.languageUpdates = new Subject<string>();
     this.languageUpdates.subscribe((lang: string) => {
       this.language = lang;
@@ -56,7 +57,7 @@ export class DynamicComboboxModel extends DynamicFormGroupModel {
   set languageCodes(languageCodes: LanguageCode[]) {
     this._languageCodes = languageCodes;
     if (!this.language || this.language === null || this.language === '') {
-      this.language = this.languageCodes ? this.languageCodes[0].code : null
+      this.language = this.languageCodes ? this.languageCodes[0].code : null;
     }
   }
 

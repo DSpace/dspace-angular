@@ -64,9 +64,7 @@ export class OneboxFieldParser extends FieldParser {
 
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + COMBOBOX_VALUE_SUFFIX, true, true);
       this.setValues(inputModelConfig, fieldValue);
-      // if (isNotEmpty(fieldValue)) {
-      //   inputModelConfig.value = fieldValue.value;
-      // }
+
       clsInput = {
         element: {
           control: 'ds-form-input-value',
@@ -88,18 +86,8 @@ export class OneboxFieldParser extends FieldParser {
       typeaheadModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
       typeaheadModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
       typeaheadModelConfig.authorityScope = this.authorityUuid;
-      if (isNotEmpty(fieldValue)) {
-        // If value isn't an instance of AuthorityModel instantiate it
-        this.setValues(typeaheadModelConfig, fieldValue, true);
-        // if (fieldValue instanceof AuthorityModel) {
-        //   typeaheadModelConfig.value = fieldValue;
-        // } else {
-        //   const authorityValue: AuthorityModel = new AuthorityModel();
-        //   authorityValue.value = fieldValue;
-        //   authorityValue.display = fieldValue;
-        //   typeaheadModelConfig.value = authorityValue;
-        // }
-      }
+
+      this.setValues(typeaheadModelConfig, fieldValue, true);
       typeaheadModelConfig.minChars = 3;
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
       typeaheadModel.name = this.fieldId;
@@ -109,9 +97,6 @@ export class OneboxFieldParser extends FieldParser {
       this.setValues(inputModelConfig, fieldValue);
       const inputModel = new DsDynamicInputModel(inputModelConfig);
       inputModel.name = this.fieldId;
-      // if (isNotEmpty(fieldValue)) {
-      //   inputModel.value = fieldValue;
-      // }
       return inputModel;
     }
   }

@@ -33,6 +33,7 @@ import { RowParser } from './parsers/row-parser';
 
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
+import { AuthorityModel } from '../../../core/integration/models/authority.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -228,35 +229,55 @@ export class FormBuilderService extends DynamicFormService {
 
   getFieldValueFromChangeEvent(event: DynamicFormControlEvent) {
     let fieldValue;
+    const value = (event.model as any).value;
+
     if (this.isModelInCustomGroup(event.model)) {
       fieldValue = (event.model.parent as any).value;
-    } else {
-      const value = (event.model as any).value;
-      fieldValue = value;
-
-      if ((event.model as any).languageCodes && (event.model as any).hasLanguages()) {
-        const language = (event.model as any).language;
+    } else if ((event.model as any).languageCodes && (event.model as any).hasLanguages()) {
+      const language = (event.model as any).language;
+      if (this.isModelWithAuthority(event.model)) {
+        if (Array.isArray(value)) {
+          value.forEach((authority, index) => {
+            authority = Object.assign({}, authority, {language: null});
+            authority.language = language;
+            value[index] = authority;
+          });
+          fieldValue = value;
+        } else {
+          fieldValue = Object.assign({}, value, {language: null});
+          fieldValue.language = language;
+        }
+      } else {
+        // Language without Authority
         fieldValue = {
           value: value,
           language: language
         };
       }
+    } else {
+      // Authority Simple, without language
+      fieldValue = value;
     }
 
-  /*else if (isNotEmpty(event.control.value)
-         && typeof event.control.value === 'object'
-         && (!(event.control.value instanceof AuthorityModel))) {
-         fieldValue = [];
-         Object.keys(event.control.value)
-           .forEach((key) => {
-             if (event.control.value[key]) {
-               fieldValue.push({value: key})
-             }
-           })
-       } else {
-         fieldValue = event.control.value;
-       }*/
+    /*else if (isNotEmpty(event.control.value)
+           && typeof event.control.value === 'object'
+           && (!(event.control.value instanceof AuthorityModel))) {
+           fieldValue = [];
+           Object.keys(event.control.value)
+             .forEach((key) => {
+               if (event.control.value[key]) {
+                 fieldValue.push({value: key})
+               }
+             })
+         } else {
+           fieldValue = event.control.value;
+         }*/
     return fieldValue;
+  }
+
+  isModelWithAuthority(model: DynamicFormControlModel) {
+    return model instanceof DynamicTypeaheadModel ||
+      model instanceof DynamicTagModel;
   }
 
   isModelInCustomGroup(model: DynamicFormControlModel) {

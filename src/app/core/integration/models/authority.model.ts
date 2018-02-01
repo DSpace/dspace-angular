@@ -16,5 +16,5 @@ export class AuthorityModel extends IntegrationModel {
   otherInformation: any;
 
   @autoserialize
-  language: string
+  language: string;
 }

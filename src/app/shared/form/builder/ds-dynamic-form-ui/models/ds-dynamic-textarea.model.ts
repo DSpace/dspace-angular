@@ -16,8 +16,8 @@ export class DsDynamicTextAreaModel extends DynamicTextAreaModel {
     super(config, cls);
 
     this.value = config.value;
-    this.languageCodes = config.languageCodes;
     this.language = config.language;
+    this.languageCodes = config.languageCodes;
 
     this.languageUpdates = new Subject<string>();
     this.languageUpdates.subscribe((lang: string) => {
