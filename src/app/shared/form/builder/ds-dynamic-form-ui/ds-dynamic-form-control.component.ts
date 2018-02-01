@@ -62,7 +62,7 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
   @Input() context: DynamicFormArrayGroupModel | null = null;
   @Input() group: FormGroup;
   @Input() hasErrorMessaging = false;
-  @Input() model: DynamicFormControlModel;
+  @Input() model: DynamicFormControlModel | DsDynamicInputModel;
 
   @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();

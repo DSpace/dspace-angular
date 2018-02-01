@@ -28,7 +28,7 @@ export class SubmissionFormSectionAddComponent implements OnChanges {
    */
   private subs: Subscription[] = [];
 
-  constructor(private sectionService: SectionService, private windowService: HostWindowService) {
+  constructor(private sectionService: SectionService, public windowService: HostWindowService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
