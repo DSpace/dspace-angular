@@ -248,7 +248,7 @@ export class FormBuilderService extends DynamicFormService {
           fieldValue.language = language;
         }
       } else {
-        // Language without Authority
+        // Language without Authority (input, textArea)
         fieldValue = {
           value: value,
           language: language

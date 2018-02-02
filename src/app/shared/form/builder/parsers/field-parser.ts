@@ -61,7 +61,7 @@ export abstract class FieldParser {
       );
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
-      if (model.hasLanguages && model.hasLanguages()) {
+      if (model.language && model.hasLanguages()) {
         model.cls.grid.control = model.cls.grid.control.concat(' col');
       }
       return model;
