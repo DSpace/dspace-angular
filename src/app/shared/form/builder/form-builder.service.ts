@@ -333,36 +333,48 @@ export class FormBuilderService extends DynamicFormService {
     const path = this.getFieldPathFromChangeEvent(event);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
+    // Detect which operation must be dispatched
     if (event.model.parent instanceof DynamicComboboxModel) {
+      // It's a qualdrup model
       this.dispatchOperationsFromMap(this.getComboboxMap(event), pathCombiner, event, previousValue);
     } else if (event.model instanceof DynamicGroupModel) {
+      // It's a relation model
       this.dispatchOperationsFromMap(this.getValueMap(value), pathCombiner, event, previousValue);
     } else if (this.isModelInAuthorityGroup(event.model)) {
+      // Model has as value an array, so dispatch an add operation with entire block of values
       this.operationsBuilder.add(
         pathCombiner.getPath(segmentedPath),
         value, true);
     } else if (previousValue.isPathEqual(this.getPath(event.model)) || hasStoredValue) {
+      // Here model has a previous value changed or stored in the server
       if (isEmpty(value)) {
+        // New value is empty, so dispatch a remove operation
         if (this.getArrayIndexFromEvent(event) === 0) {
           this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));
         } else {
           this.operationsBuilder.remove(pathCombiner.getPath(path));
         }
       } else {
+        // New value is not equal from the previous one, so dispatch a replace operation
         this.operationsBuilder.replace(
           pathCombiner.getPath(path),
           value);
       }
       previousValue.delete();
     } else if (isNotEmpty(value)) {
+      // Here model has no previous value but a new one
       if (isUndefined(this.getArrayIndexFromEvent(event))
         || this.getArrayIndexFromEvent(event) === 0) {
+        // Model is single field or is part of an array model but is the first item,
+        // so dispatch an add operation that initialize the values of a specific metadata
         this.operationsBuilder.add(
           pathCombiner.getPath(segmentedPath),
           value, true);
       } else {
+        // Model is part of an array model but is not the first item,
+        // so dispatch an add operation that add a value to an existent metadata
         this.operationsBuilder.add(
-          pathCombiner.getPath(segmentedPath),
+          pathCombiner.getPath(path),
           value);
       }
     }
