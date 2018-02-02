@@ -59,7 +59,7 @@ export class JsonPatchOperationsBuilder {
               // operationValue.push({value: entry});
               // operationValue.push(entry);
             }
-          })
+          });
         } else if (typeof value === 'object') {
           operationValue = this.prepareObjectValue(value);
         } else {
@@ -72,7 +72,9 @@ export class JsonPatchOperationsBuilder {
 
   protected prepareObjectValue(value: any) {
     let operationValue = Object.create(null);
-    if (value instanceof Date) {
+    if (value instanceof FormFieldMetadataValueObject) {
+      operationValue = value;
+    } else if (value instanceof Date) {
       operationValue = new FormFieldMetadataValueObject(dateToGMTString(value));
     } else if (value instanceof AuthorityModel) {
       operationValue = this.prepareAuthorityValue(value);
@@ -89,7 +91,7 @@ export class JsonPatchOperationsBuilder {
           } else {
             operationValue[key] = value[key];
           }
-        })
+        });
       // operationValue = {value: value};
     }
     return operationValue;
@@ -104,7 +106,7 @@ export class JsonPatchOperationsBuilder {
       operationValue = new FormFieldMetadataValueObject(value.value, value.language);
       // operationValue = { value: value.value, language: value.language };
     }
-    return operationValue
+    return operationValue;
   }
 
 }
