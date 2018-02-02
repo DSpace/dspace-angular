@@ -34,6 +34,7 @@ import { RowParser } from './parsers/row-parser';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { AuthorityModel } from '../../../core/integration/models/authority.model';
+import { FormFieldLanguageValueObject } from './models/form-field-language-value.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -238,21 +239,16 @@ export class FormBuilderService extends DynamicFormService {
       if (this.isModelWithAuthority(event.model)) {
         if (Array.isArray(value)) {
           value.forEach((authority, index) => {
-            authority = Object.assign({}, authority, {language: null});
-            authority.language = language;
+            authority = Object.assign(new AuthorityModel(), authority, {language});
             value[index] = authority;
           });
           fieldValue = value;
         } else {
-          fieldValue = Object.assign({}, value, {language: null});
-          fieldValue.language = language;
+          fieldValue = Object.assign(new AuthorityModel(), value, {language});
         }
       } else {
         // Language without Authority (input, textArea)
-        fieldValue = {
-          value: value,
-          language: language
-        };
+        fieldValue = new FormFieldLanguageValueObject(value, language);
       }
     } else {
       // Authority Simple, without language

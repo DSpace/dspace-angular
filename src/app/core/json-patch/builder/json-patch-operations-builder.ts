@@ -9,6 +9,8 @@ import { Injectable } from '@angular/core';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { dateToGMTString } from '../../../shared/date.util';
 import { AuthorityModel } from '../../integration/models/authority.model';
+import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 
 @Injectable()
 export class JsonPatchOperationsBuilder {
@@ -53,14 +55,15 @@ export class JsonPatchOperationsBuilder {
             if ((typeof entry === 'object')) {
               operationValue.push(this.prepareObjectValue(entry));
             } else {
-              operationValue.push({value: entry});
+              operationValue.push(new FormFieldMetadataValueObject(entry));
+              // operationValue.push({value: entry});
               // operationValue.push(entry);
             }
           })
         } else if (typeof value === 'object') {
           operationValue = this.prepareObjectValue(value);
         } else {
-          operationValue = {value: value};
+          operationValue = new FormFieldMetadataValueObject(value);
         }
       }
     }
@@ -70,11 +73,14 @@ export class JsonPatchOperationsBuilder {
   protected prepareObjectValue(value: any) {
     let operationValue = Object.create(null);
     if (value instanceof Date) {
-      operationValue = dateToGMTString(value);
+      operationValue = new FormFieldMetadataValueObject(dateToGMTString(value));
     } else if (value instanceof AuthorityModel) {
       operationValue = this.prepareAuthorityValue(value);
+    } else if (value instanceof FormFieldLanguageValueObject) {
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language);
     } else if (value.hasOwnProperty('value')) {
-      operationValue = value;
+      operationValue = new FormFieldMetadataValueObject(value.value);
+      // operationValue = value;
     } else {
       Object.keys(value)
         .forEach((key) => {
@@ -92,9 +98,11 @@ export class JsonPatchOperationsBuilder {
   protected prepareAuthorityValue(value: any) {
     let operationValue: any = null;
     if (isNotEmpty(value.id)) {
-      operationValue = { value: value.value, language: value.language, authority: value.id, confidence: 600 };
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language, value.id);
+      // operationValue = { value: value.value, language: value.language, authority: value.id, confidence: 600 };
     } else {
-      operationValue = { value: value.value, language: value.language };
+      operationValue = new FormFieldMetadataValueObject(value.value, value.language);
+      // operationValue = { value: value.value, language: value.language };
     }
     return operationValue
   }
