@@ -25,8 +25,8 @@ export class LookupFieldParser extends FieldParser {
           lookupModelConfig.value = fieldValue;
         } else {
           const authorityValue: AuthorityModel = new AuthorityModel();
-          authorityValue.value = fieldValue;
-          authorityValue.display = fieldValue;
+          authorityValue.value = fieldValue.value;
+          authorityValue.display = fieldValue.value;
           lookupModelConfig.value = authorityValue;
         }
       }

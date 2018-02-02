@@ -9,6 +9,7 @@ import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-fo
 import { DynamicFormControlModelConfig } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 import { FormFieldLanguageValueObject } from '../models/form-field-language-value.model';
+import { DynamicRowNotRepeteableArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-not-repeteable-array.model';
 
 export abstract class FieldParser {
 
@@ -22,52 +23,58 @@ export abstract class FieldParser {
   public parse() {
     // cOunt items
     const l = this.getInitValueCount();
-    if (l > 1 e this.configData.repeatable) {
-      entro nell if dopo , ma a riga 36 istanzio un nuovo array con type diverso (non estendibile), notRepetableArray
-    che estende ArrayModel ed ha un type diverso (da creare)}
-    stesso config per 2 modelli,
-      poi in base al type ritorno il modello corretto
-
-
-    if (this.configData.repeatable &&
+    // if (l > 1 e this.configData.repeatable) {
+    //   entro nell if dopo , ma a riga 36 istanzio un nuovo array con type diverso (non estendibile), notRepetableArray
+    // che estende ArrayModel ed ha un type diverso (da creare)}
+    // stesso config per 2 modelli,
+    //   poi in base al type ritorno il modello corretto
+    if ((l > 1 && this.configData.repeatable) ||
+      this.configData.repeatable &&
       (this.configData.input.type !== 'list') &&
       (this.configData.input.type !== 'tag') &&
       (this.configData.input.type !== 'group')) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
-      return new DynamicRowArrayModel(
-        {
-          id: uniqueId() + '_array',
-          initialCount: this.getInitArrayIndex(),
-          groupFactory: () => {
-            let model;
-            if ((arrayCounter === 0)) {
-              model = this.modelFactory();
-              arrayCounter++;
-            } else {
-              const fieldArrayOfValueLenght = this.getInitValueCount(arrayCounter - 1);
-              let fieldValue = null;
-              if (fieldArrayOfValueLenght > 0) {
-                fieldValue = this.getInitFieldValue(arrayCounter - 1, fieldArrayCounter++);
-                if (fieldArrayCounter === fieldArrayOfValueLenght) {
-                  fieldArrayCounter = 0;
-                  arrayCounter++;
-                }
+
+      const config = {
+        id: uniqueId() + '_array',
+        initialCount: this.getInitArrayIndex(),
+        groupFactory: () => {
+          let model;
+          if ((arrayCounter === 0)) {
+            model = this.modelFactory();
+            arrayCounter++;
+          } else {
+            const fieldArrayOfValueLenght = this.getInitValueCount(arrayCounter - 1);
+            let fieldValue = null;
+            if (fieldArrayOfValueLenght > 0) {
+              fieldValue = this.getInitFieldValue(arrayCounter - 1, fieldArrayCounter++);
+              if (fieldArrayCounter === fieldArrayOfValueLenght) {
+                fieldArrayCounter = 0;
+                arrayCounter++;
               }
-              model = this.modelFactory(fieldValue);
             }
-            model.cls.element.host = model.cls.element.host.concat(' col');
-            if (model.hasLanguages) {
-              model.cls.grid.control = model.cls.grid.control.concat(' col');
-            }
-            return [model];
+            model = this.modelFactory(fieldValue);
           }
-        }, {
-          grid: {
-            group: 'dsgridgroup form-row'
+          model.cls.element.host = model.cls.element.host.concat(' col');
+          if (model.hasLanguages) {
+            model.cls.grid.control = model.cls.grid.control.concat(' col');
           }
+          return [model];
         }
-      );
+      };
+
+      const cls = {
+        grid: {
+          group: 'dsgridgroup form-row'
+        }
+      }
+
+      if (this.getInitValueCount() > 1) {
+        return new DynamicRowNotRepeteableArrayModel(config, cls);
+      } else {
+        return new DynamicRowArrayModel(config, cls);
+      }
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
       if (model.hasLanguages) {
