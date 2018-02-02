@@ -20,6 +20,15 @@ export abstract class FieldParser {
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject): any;
 
   public parse() {
+    // cOunt items
+    const l = this.getInitValueCount();
+    if (l > 1 e this.configData.repeatable) {
+      entro nell if dopo , ma a riga 36 istanzio un nuovo array con type diverso (non estendibile), notRepetableArray
+    che estende ArrayModel ed ha un type diverso (da creare)}
+    stesso config per 2 modelli,
+      poi in base al type ritorno il modello corretto
+
+
     if (this.configData.repeatable &&
       (this.configData.input.type !== 'list') &&
       (this.configData.input.type !== 'tag') &&
@@ -100,7 +109,11 @@ export abstract class FieldParser {
 
   protected getInitFieldValue(outerIndex = 0, innerIndex = 0, fieldId?): FormFieldMetadataValueObject {
     const fieldIds = fieldId || this.getFieldId();
-    if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
+    if (isNotEmpty(this.initFormValues)
+      && isNotNull(fieldIds)
+      && fieldIds.length === 1
+      && this.initFormValues.hasOwnProperty(fieldIds[outerIndex])
+      && this.initFormValues[fieldIds[outerIndex]].length > innerIndex) {
       return this.initFormValues[fieldIds[outerIndex]][innerIndex];
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
       const values: FormFieldMetadataValueObject[] = [];
@@ -213,6 +226,11 @@ export abstract class FieldParser {
   public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceAuthority: boolean = false) {
     if (isNotEmpty(fieldValue)) {
 
+      if (fieldValue instanceof FormFieldMetadataValueObject) {
+        // Case string with language
+        modelConfig.value = fieldValue;
+        modelConfig.language = fieldValue.language;
+      }
       if (fieldValue instanceof FormFieldLanguageValueObject) {
         // Case string with language
         modelConfig.value = fieldValue.value;
