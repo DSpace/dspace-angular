@@ -25,9 +25,11 @@ export class DsDynamicTextAreaModel extends DynamicTextAreaModel {
     });
   }
 
-  hasLanguages(): boolean {
+  get hasLanguages(): boolean {
     if (this.languageCodes && this.languageCodes.length > 1) {
       return true;
+    } else {
+      return false;
     }
   }
 

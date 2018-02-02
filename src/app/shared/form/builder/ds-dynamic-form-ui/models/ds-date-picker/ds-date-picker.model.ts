@@ -12,14 +12,11 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
   valueUpdates: Subject<any>;
   malformedDate: boolean;
+  hasLanguages = false;
 
   constructor(config: DynamicDateControlModelConfig, cls?: ClsConfig) {
     super(config, cls);
     this.malformedDate = false;
-  }
-
-  hasLanguages() {
-    return false;
   }
 
 }

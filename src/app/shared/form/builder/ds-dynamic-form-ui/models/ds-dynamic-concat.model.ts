@@ -21,6 +21,7 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
 export class DynamicConcatModel extends DynamicFormGroupModel {
 
   @serializable() separator: string;
+  @serializable() hasLanguages = false;
 
   constructor(config: DynamicConcatModelConfig, cls?: ClsConfig) {
 
@@ -46,10 +47,6 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
       (this.get(0) as DsDynamicInputModel).valueUpdates.next(values[0]);
       (this.get(1) as DsDynamicInputModel).valueUpdates.next(values[1]);
     }
-  }
-
-  hasLanguages() {
-    return false;
   }
 
 }

@@ -13,7 +13,7 @@
     <ng-container *ngTemplateOutlet="template?.templateRef; context: model"></ng-container>
   </ng-container>
 
-  <div [ngClass]="{'form-row': (model.languageCodes && model.hasLanguages()) }">
+  <div [ngClass]="{'form-row': model.hasLanguages }">
     <div [ngClass]="model.cls.grid.control">
 
       <ng-container [ngSwitch]="type">

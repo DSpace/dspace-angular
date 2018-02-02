@@ -233,7 +233,7 @@ export class FormBuilderService extends DynamicFormService {
 
     if (this.isModelInCustomGroup(event.model)) {
       fieldValue = (event.model.parent as any).value;
-    } else if ((event.model as any).languageCodes && (event.model as any).hasLanguages()) {
+    } else if ((event.model as any).hasLanguages) {
       const language = (event.model as any).language;
       if (this.isModelWithAuthority(event.model)) {
         if (Array.isArray(value)) {

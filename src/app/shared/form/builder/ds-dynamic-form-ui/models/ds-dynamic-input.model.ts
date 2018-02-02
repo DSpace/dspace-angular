@@ -27,7 +27,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
       // TypeAhead
       if (config.value instanceof AuthorityModel) {
         this.language = config.value.language;
-      } else if (Array.isArray(config.value)){
+      } else if (Array.isArray(config.value)) {
         // Tag of Authority
         if (config.value[0].language) {
           this.language = config.value[0].language;
@@ -42,10 +42,12 @@ export class DsDynamicInputModel extends DynamicInputModel {
     });
   }
 
-  hasLanguages(): boolean {
-    if (this.languageCodes && this.languageCodes.length > 1) {
-      return true;
-    }
+  get hasLanguages(): boolean {
+      if (this.languageCodes && this.languageCodes.length > 1) {
+        return true;
+      } else {
+        return false;
+      }
   }
 
   get language(): string {

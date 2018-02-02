@@ -17,6 +17,7 @@ export class DynamicComboboxModel extends DynamicFormGroupModel {
   @serializable() private _language: string;
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() languageUpdates: Subject<string>;
+  @serializable() hasLanguages = false;
 
   constructor(config: DsDynamicComboboxModelConfig, cls?: ClsConfig) {
     super(config, cls);
@@ -36,10 +37,6 @@ export class DynamicComboboxModel extends DynamicFormGroupModel {
 
   get qualdropId(): string {
     return (this.get(0) as DsDynamicInputModel).value.toString();
-  }
-
-  hasLanguages() {
-    return false;
   }
 
   get language(): string {
