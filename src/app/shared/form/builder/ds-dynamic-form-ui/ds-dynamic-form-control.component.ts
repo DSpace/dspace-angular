@@ -43,8 +43,6 @@ export const enum NGBootstrapFormControlType {
   Relation = 16, // Dynamic Group
   DsDatePicker = 17, // Ds Date Picker
   Lookup = 18, // LOOKUP
-
-  NotRepeteableArray = 100, // Used in Field-Parser
 }
 
 @Component({

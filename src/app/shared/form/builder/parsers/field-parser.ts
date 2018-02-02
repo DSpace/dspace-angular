@@ -21,24 +21,22 @@ export abstract class FieldParser {
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject): any;
 
   public parse() {
-    // cOunt items
     const l = this.getInitValueCount();
-    // if (l > 1 e this.configData.repeatable) {
-    //   entro nell if dopo , ma a riga 36 istanzio un nuovo array con type diverso (non estendibile), notRepetableArray
-    // che estende ArrayModel ed ha un type diverso (da creare)}
-    // stesso config per 2 modelli,
-    //   poi in base al type ritorno il modello corretto
-    if ((l > 1 && this.configData.repeatable) ||
-      this.configData.repeatable &&
-      (this.configData.input.type !== 'list') &&
-      (this.configData.input.type !== 'tag') &&
-      (this.configData.input.type !== 'group')) {
+    if ((l > 1 && !this.configData.repeatable) ||
+      (
+        this.configData.repeatable &&
+        (this.configData.input.type !== 'list') &&
+        (this.configData.input.type !== 'tag') &&
+        (this.configData.input.type !== 'group')
+      )
+    ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
 
       const config = {
         id: uniqueId() + '_array',
         initialCount: this.getInitArrayIndex(),
+        notRepeteable: !this.configData.repeatable,
         groupFactory: () => {
           let model;
           if ((arrayCounter === 0)) {
@@ -70,11 +68,12 @@ export abstract class FieldParser {
         }
       }
 
-      if (this.getInitValueCount() > 1) {
+      if (!this.configData.repeatable) {
         return new DynamicRowNotRepeteableArrayModel(config, cls);
       } else {
         return new DynamicRowArrayModel(config, cls);
       }
+
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
       if (model.hasLanguages) {

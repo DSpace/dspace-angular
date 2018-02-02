@@ -18,7 +18,7 @@
 
       <ng-container [ngSwitch]="type">
 
-        <div *ngSwitchCase="1"
+        <div *ngSwitchCase="type == 1"
              [dynamicId]="bindId && model.id"
              [formArrayName]="model.id"
              [ngClass]="model.cls.element.control">
@@ -41,7 +41,7 @@
 
             <ng-container
               *ngTemplateOutlet="template?.templateRef; context: groupModel"></ng-container>
-
+            <!--context: {groupModel: groupModel, model: model}-->
           </div>
 
         </div>

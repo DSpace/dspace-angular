@@ -11,7 +11,7 @@ export class LookupFieldParser extends FieldParser {
     super(configData, initFormValues);
   }
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
+  public modelFactory(fieldValue: any): any {
     if (this.configData.selectableMetadata[0].authority) {
       const lookupModelConfig: DynamicLookupModelConfig = this.initModel();
       lookupModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
@@ -25,8 +25,8 @@ export class LookupFieldParser extends FieldParser {
           lookupModelConfig.value = fieldValue;
         } else {
           const authorityValue: AuthorityModel = new AuthorityModel();
-          authorityValue.value = fieldValue.value;
-          authorityValue.display = fieldValue.value;
+          authorityValue.value = fieldValue;
+          authorityValue.display = fieldValue;
           lookupModelConfig.value = authorityValue;
         }
       }

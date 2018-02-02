@@ -9,8 +9,11 @@
       (change)="onChange($event)"
       (focus)="onFocus($event)">
 
-      <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
-        <div class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
+      <ng-template modelType="ARRAY" let-group let-index="index" let-context="context" let-model="model">
+
+        <!--Array with repeteable items-->
+        <div *ngIf="!model.notRepeteable"
+             class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
                     (click)="insertItem($event, group.context, group.index + 1)">
@@ -23,15 +26,11 @@
             </button>
           </div>
         </div>
-      </ng-template>
 
-      <ng-template modelType="NOT_REPETEABLE_ARRAY" let-group let-index="index" let-context="context">
-        <div class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
+        <!--Array with non repeteable items - Only delete button-->
+        <div *ngIf="model.notRepeteable"
+             class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-secondary"
-                    (click)="insertItem($event, group.context, group.index + 1)">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
             <button type="button" class="btn btn-secondary"
                     (click)="removeItem($event, context, index)"
                     [disabled]="group.context.groups.length === 1">
