@@ -1,4 +1,4 @@
-import {CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
+import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Community } from '../../../../core/shared/community.model';
 import { Collection } from '../../../../core/shared/collection.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 let fixture: ComponentFixture<CollectionSearchResultGridElementComponent>;
 const queryParam = 'test query';
@@ -18,29 +19,33 @@ const activatedRouteStub = {
     scope: scopeParam
   })
 };
+const truncatableServiceStub: any = {
+  isCollapsed: (id: number) => Observable.of(true),
+};
+
 const mockCollection: Collection = Object.assign(new Collection(), {
   metadata: [
     {
       key: 'dc.description.abstract',
       language: 'en_US',
       value: 'Short description'
-    } ]
+    }]
 
 });
-
-const createdGridElementComponent: CollectionSearchResultGridElementComponent = new CollectionSearchResultGridElementComponent(mockCollection);
+const createdGridElementComponent: CollectionSearchResultGridElementComponent = new CollectionSearchResultGridElementComponent(mockCollection, truncatableServiceStub as TruncatableService);
 
 describe('CollectionSearchResultGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CollectionSearchResultGridElementComponent, TruncatePipe ],
+      declarations: [CollectionSearchResultGridElementComponent, TruncatePipe],
       providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub },
         { provide: 'objectElementProvider', useValue: (createdGridElementComponent) }
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();  // compile template and css
   }));
 
@@ -52,12 +57,12 @@ describe('CollectionSearchResultGridElementComponent', () => {
     expect(fixture.debugElement.query(By.css('ds-collection-search-result-grid-element'))).toBeDefined();
   });
 
-  it('should only show the description if "short description" metadata is present',() => {
+  it('should only show the description if "short description" metadata is present', () => {
     const descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
 
     if (mockCollection.shortDescription.length > 0) {
       expect(descriptionText).toBeDefined();
-    }else {
+    } else {
       expect(descriptionText).not.toBeDefined();
     }
   });

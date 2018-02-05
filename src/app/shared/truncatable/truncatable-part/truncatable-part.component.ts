@@ -1,21 +1,21 @@
-import {
-  Component, Input, OnDestroy, OnInit, ElementRef, ViewChild
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { TruncatableService } from '../truncatable.service';
+import { cardExpand } from '../../animations/card-expand';
 
 @Component({
   selector: 'ds-truncatable-part',
   templateUrl: './truncatable-part.component.html',
-  styleUrls: ['./truncatable-part.component.scss']
+  styleUrls: ['./truncatable-part.component.scss'],
+  animations: [cardExpand]
 })
 
 export class TruncatablePartComponent implements OnInit, OnDestroy {
   @Input() minLines: number;
   @Input() maxLines = -1;
-  @Input() initialExpand = false;
   @Input() id: string;
   @Input() type: string;
-  private lines: string;
+  @Input() fixedHeight = false;
+  lines: string;
   private sub;
 
   public constructor(private service: TruncatableService) {
@@ -38,5 +38,4 @@ export class TruncatablePartComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
-
 }

@@ -1,4 +1,4 @@
-import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
+import { CommunitySearchResultListElementComponent } from './community-search-result-list-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,8 +9,7 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Community } from '../../../../core/shared/community.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 
-
-let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
+let fixture: ComponentFixture<CommunitySearchResultListElementComponent>;
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 const activatedRouteStub = {
@@ -33,17 +32,17 @@ const mockCommunity: Community = Object.assign(new Community(), {
 
 });
 
-const createdGridElementComponent: CommunitySearchResultGridElementComponent = new CommunitySearchResultGridElementComponent(mockCommunity, truncatableServiceStub as TruncatableService);
+const createdListElementComponent: CommunitySearchResultListElementComponent = new CommunitySearchResultListElementComponent(mockCommunity, truncatableServiceStub as TruncatableService);
 
-describe('CommunitySearchResultGridElementComponent', () => {
+describe('CommunitySearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunitySearchResultGridElementComponent, TruncatePipe ],
+      declarations: [ CommunitySearchResultListElementComponent, TruncatePipe ],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useValue: (createdGridElementComponent) }
+        { provide: 'objectElementProvider', useValue: (createdListElementComponent) }
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -51,11 +50,11 @@ describe('CommunitySearchResultGridElementComponent', () => {
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(CommunitySearchResultGridElementComponent);
+    fixture = TestBed.createComponent(CommunitySearchResultListElementComponent);
   }));
 
-  it('should show the item result cards in the grid element', () => {
-    expect(fixture.debugElement.query(By.css('ds-community-search-result-grid-element'))).toBeDefined();
+  it('should show the item result cards in the list element', () => {
+    expect(fixture.debugElement.query(By.css('ds-community-search-result-list-element'))).toBeDefined();
   });
 
   it('should only show the description if "short description" metadata is present',() => {

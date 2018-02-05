@@ -1,4 +1,4 @@
-import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
+import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,8 +9,8 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 
-let itemSearchResultGridElementComponent: ItemSearchResultGridElementComponent;
-let fixture: ComponentFixture<ItemSearchResultGridElementComponent>;
+let itemSearchResultListElementComponent: ItemSearchResultListElementComponent;
+let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 const activatedRouteStub = {
@@ -37,17 +37,17 @@ const mockItem: Item = Object.assign(new Item(), {
       value: '1650-06-26'
     }]
 });
-const createdGridElementComponent: ItemSearchResultGridElementComponent = new ItemSearchResultGridElementComponent(mockItem, truncatableServiceStub as TruncatableService);
+const createdListElementComponent: ItemSearchResultListElementComponent = new ItemSearchResultListElementComponent(mockItem, truncatableServiceStub as TruncatableService);
 
-describe('ItemSearchResultGridElementComponent', () => {
+describe('ItemSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemSearchResultGridElementComponent, TruncatePipe],
+      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useValue: (createdGridElementComponent) }
+        { provide: 'objectElementProvider', useValue: (createdListElementComponent) }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -55,12 +55,12 @@ describe('ItemSearchResultGridElementComponent', () => {
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(ItemSearchResultGridElementComponent);
-    itemSearchResultGridElementComponent = fixture.componentInstance;
+    fixture = TestBed.createComponent(ItemSearchResultListElementComponent);
+    itemSearchResultListElementComponent = fixture.componentInstance;
   }));
 
-  it('should show the item result cards in the grid element', () => {
-    expect(fixture.debugElement.query(By.css('ds-item-search-result-grid-element'))).toBeDefined();
+  it('should show the item result cards in the list element', () => {
+    expect(fixture.debugElement.query(By.css('ds-item-search-result-list-element'))).toBeDefined();
   });
 
   it('should only show the author span if the author metadata is present', () => {

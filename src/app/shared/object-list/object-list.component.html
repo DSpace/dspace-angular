@@ -11,7 +11,7 @@
   (sortFieldChange)="onSortFieldChange($event)"
   (paginationChange)="onPaginationChange($event)">
   <ul *ngIf="objects?.hasSucceeded" class="list-unstyled">
-      <li *ngFor="let object of objects?.payload?.page" class="mt-2 mb-2">
+      <li *ngFor="let object of objects?.payload?.page" class="mt-4 mb-4">
         <ds-wrapper-list-element [object]="object"></ds-wrapper-list-element>
       </li>
   </ul>

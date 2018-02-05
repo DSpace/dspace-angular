@@ -1,9 +1,7 @@
 <ds-truncatable [id]="dso.id">
-    <div [@focusBackground]="(isCollapsed() | async)?'blur':'focus'">
         <a
             [routerLink]="['/items/' + dso.id]" class="lead"
             [innerHTML]="getFirstValue('dc.title')"></a>
-        <div>
   <span class="text-muted">
     <ds-truncatable-part [id]="dso.id" [minLines]="1">
             (<span *ngIf="dso.findMetadata('dc.publisher')" class="item-list-publisher"
@@ -23,6 +21,4 @@
                         [innerHTML]="getFirstValue('dc.description.abstract')"></span>
                 </ds-truncatable-part>
             </div>
-        </div>
-    </div>
 </ds-truncatable>

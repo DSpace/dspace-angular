@@ -3,22 +3,27 @@
 
 @mixin clamp($lines, $size-factor: 1, $line-height: $line-height-base) {
     $height: $line-height * $font-size-base * $size-factor;
-    max-height: $lines * $height;
-    position: relative;
-    overflow: hidden;
-    line-height: $line-height;
-    overflow-wrap: break-word;
-    &:after {
-        content: "";
-        position: absolute;
-        padding-right: 15px;
-        top: ($lines - 1) * $height;
-        right: 0;
-        width: 30%;
-        min-width: 75px;
-        max-width: 150px;
-        height: $height;
-        background: linear-gradient(to right, rgba(255, 255, 255, 0), $body-bg 50%);
+    &.fixedHeight {
+        height: $lines * $height;
+    }
+    .content {
+        max-height: $lines * $height;
+        position: relative;
+        overflow: hidden;
+        line-height: $line-height;
+        overflow-wrap: break-word;
+        &:after {
+            content: "";
+            position: absolute;
+            padding-right: 15px;
+            top: ($lines - 1) * $height;
+            right: 0;
+            width: 30%;
+            min-width: 75px;
+            max-width: 150px;
+            height: $height;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), $body-bg 70%);
+        }
     }
 
 }
@@ -26,15 +31,18 @@
 $h4-factor: strip-unit($h4-font-size);
 @for $i from 1 through 15 {
     .clamp-#{$i} {
+        transition: height 1s;
         @include clamp($i);
         &.title {
             @include clamp($i, 1.25);
         }
         &.h4 {
             @include clamp($i, $h4-factor, $headings-line-height);
-
         }
     }
 }
 
 
+.clamp-none {
+    overflow: hidden;
+}

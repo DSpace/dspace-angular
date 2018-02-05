@@ -2,7 +2,7 @@ import { animate, state, transition, trigger, style } from '@angular/animations'
 
 export const focusShadow = trigger('focusShadow', [
 
-  state('focus', style({ 'box-shadow': '0 0 6px #777777' })),
+  state('focus', style({ 'box-shadow': 'rgba(119, 119, 119, 0.6) 0px 0px 6px' })),
 
   state('blur', style({ 'box-shadow': 'none' })),
 

@@ -1,3 +1,5 @@
-<div class="clamp-{{lines}} {{type}}">
-    <ng-content></ng-content>
+<div class="clamp-{{lines}} {{type}} {{fixedHeight ? 'fixedHeight' : ''}}">
+    <div class="content">
+        <ng-content></ng-content>
+    </div>
 </div>
