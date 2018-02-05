@@ -17,10 +17,6 @@ export class DsDynamicInputModel extends DynamicInputModel {
   constructor(config: DsDynamicInputModelConfig, cls?: ClsConfig) {
     super(config, cls);
 
-    console.log(this.id);
-    console.log(config.value);
-    console.log(config.language);
-
     this.value = config.value;
     this.language = config.language;
     if (!this.language) {

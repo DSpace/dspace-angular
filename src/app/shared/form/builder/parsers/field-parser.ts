@@ -4,12 +4,13 @@ import { IntegrationSearchOptions } from '../../../../core/integration/models/in
 
 import { uniqueId } from 'lodash';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import {
+  DynamicRowArrayModel,
+  DynamicRowArrayModelConfig
+} from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { DynamicFormControlModelConfig } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 import { FormFieldLanguageValueObject } from '../models/form-field-language-value.model';
-import { DynamicRowNotRepeteableArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-not-repeteable-array.model';
 
 export abstract class FieldParser {
 
@@ -60,7 +61,7 @@ export abstract class FieldParser {
           }
           return [model];
         }
-      };
+      } as DynamicRowArrayModelConfig;
 
       const cls = {
         grid: {
@@ -68,11 +69,7 @@ export abstract class FieldParser {
         }
       }
 
-      if (!this.configData.repeatable) {
-        return new DynamicRowNotRepeteableArrayModel(config, cls);
-      } else {
-        return new DynamicRowArrayModel(config, cls);
-      }
+      return new DynamicRowArrayModel(config, cls);
 
     } else {
       const model = this.modelFactory(this.getInitFieldValue());

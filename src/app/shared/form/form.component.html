@@ -9,10 +9,10 @@
       (change)="onChange($event)"
       (focus)="onFocus($event)">
 
-      <ng-template modelType="ARRAY" let-group let-index="index" let-context="context" let-model="model">
+      <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
 
         <!--Array with repeteable items-->
-        <div *ngIf="!model.notRepeteable"
+        <div *ngIf="!context.notRepeteable"
              class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
@@ -28,7 +28,7 @@
         </div>
 
         <!--Array with non repeteable items - Only delete button-->
-        <div *ngIf="model.notRepeteable"
+        <div *ngIf="context.notRepeteable && group.context.groups.length > 1"
              class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"

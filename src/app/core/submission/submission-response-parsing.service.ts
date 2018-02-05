@@ -78,10 +78,6 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
                         const normValue = normalizeSectionData(valueItem);
                         if (isNotEmpty(normValue)) {
                           normalizedSectionData[metdadataId].push(normValue);
-                          if(metdadataId === 'dc.title') {
-                            // TODO REMOVE
-                            normalizedSectionData[metdadataId].push(normValue);
-                          }
                         }
                       });
                     } else {

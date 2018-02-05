@@ -1,7 +1,8 @@
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
 import {
-  NewPatchAddOperationAction, NewPatchRemoveOperationAction,
+  NewPatchAddOperationAction,
+  NewPatchRemoveOperationAction,
   NewPatchReplaceOperationAction
 } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
