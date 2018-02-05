@@ -40,7 +40,7 @@ export class SearchService implements OnDestroy {
   totalPages = 5;
   mockedHighlights: string[] = new Array(
     'This is a <em>sample abstract</em>.',
-    'This is a sample abstractabstractabstractabstractabstractabstractabstractabstract. But, to fill up some space, here\'s <em>"Hello"</em> in several different languages : ',
+    'This is a sample abstract. But, to fill up some space, here\'s <em>"Hello"</em> in several different languages : ',
     'This is a Sample HTML webpage including several <em>images</em> and styles (CSS).',
     'This is <em>really</em> just a sample abstract. But, Í’vé thrown ïn a cõuple of spëciâl charactèrs för êxtrå fuñ!',
     'This abstract is <em>really quite great</em>',

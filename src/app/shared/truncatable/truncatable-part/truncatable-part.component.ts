@@ -1,12 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { TruncatableService } from '../truncatable.service';
-import { cardExpand } from '../../animations/card-expand';
 
 @Component({
   selector: 'ds-truncatable-part',
   templateUrl: './truncatable-part.component.html',
-  styleUrls: ['./truncatable-part.component.scss'],
-  animations: [cardExpand]
+  styleUrls: ['./truncatable-part.component.scss']
 })
 
 export class TruncatablePartComponent implements OnInit, OnDestroy {

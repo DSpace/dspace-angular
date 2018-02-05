@@ -2,8 +2,6 @@ import {
   Component, Input
 } from '@angular/core';
 import { TruncatableService } from './truncatable.service';
-import { Observable } from 'rxjs/Observable';
-import { cardExpand } from '../animations/card-expand';
 
 @Component({
   selector: 'ds-truncatable',
