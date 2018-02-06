@@ -38,6 +38,9 @@ import { SubmissionDefinitionsConfigService } from './config/submission-definiti
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
 import { UUIDService } from './shared/uuid.service';
+import { AuthService } from './auth/auth.service';
+import { AuthenticatedGuard } from './auth/authenticated.guard';
+import { AuthRequestService } from './auth/auth-request.service';
 
 const IMPORTS = [
   CommonModule,
@@ -55,6 +58,9 @@ const EXPORTS = [
 
 const PROVIDERS = [
   ApiService,
+  AuthenticatedGuard,
+  AuthRequestService,
+  AuthService,
   CommunityDataService,
   CollectionDataService,
   DSOResponseParsingService,

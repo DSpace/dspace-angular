@@ -5,10 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 // reducers
-import {
-  isAuthenticated,
-  State
-} from '../app.reducers';
+import { CoreState } from '../core.reducers';
+import { isAuthenticated } from './selectors';
 
 /**
  * Prevent unauthorized activating and loading of routes
@@ -20,7 +18,7 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
   /**
    * @constructor
    */
-  constructor(private router: Router, private store: Store<State>) {}
+  constructor(private router: Router, private store: Store<CoreState>) {}
 
   /**
    * True when user is authenticated

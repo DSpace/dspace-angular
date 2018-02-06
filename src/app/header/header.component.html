@@ -12,19 +12,7 @@
           <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fa fa-home fa-fw" aria-hidden="true"></i> {{ 'nav.home' | translate }}<span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <ul class="navbar-nav" [ngClass]="{'mr-auto': (windowService.isMobileView() | async)}">
-        <li *ngIf="!(windowService.isMobileView() | async)" class="nav-item dropdown" (click)="$event.stopPropagation();">
-          <div ngbDropdown placement="bottom-right" class="d-inline-block float-right" @fadeInOut>
-            <a href="#" id="dropdownLogin" class="nav-link" (click)="$event.preventDefault()" ngbDropdownToggle><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> {{ 'nav.login' | translate }}<span class="caret"></span></a>
-            <div ngbDropdownMenu aria-labelledby="dropdownLogin">
-              <ds-login-form></ds-login-form>
-            </div>
-          </div>
-        </li>
-        <li *ngIf="(windowService.isMobileView() | async)" class="nav-item">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> {{ 'nav.login' | translate }}<span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
+      <ds-auth-nav-menu></ds-auth-nav-menu>
     </div>
   </nav>
 </header>

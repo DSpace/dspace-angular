@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Eperson } from '../eperson/models/eperson.model';
+import { AuthRequestService } from './auth-request.service';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 
 export const MOCK_USER = new Eperson();
 MOCK_USER.id = '92a59227-ccf7-46da-9776-86c3fc64147f';
@@ -27,6 +30,8 @@ MOCK_USER.metadata = [
   }
 ];
 
+export const TOKENITEM = 'ds-token';
+
 /**
  * The user service.
  */
@@ -39,18 +44,36 @@ export class AuthService {
    */
   private _authenticated = false;
 
+  constructor(private authRequestService: AuthRequestService) {}
+
   /**
    * Authenticate the user
    *
-   * @param {string} email The user's email address
+   * @param {string} user The user name
    * @param {string} password The user's password
    * @returns {Observable<User>} The authenticated user observable.
    */
-  public authenticate(email: string, password: string): Observable<Eperson> {
+  public authenticate(user: string, password: string): Observable<Eperson> {
     // Normally you would do an HTTP request to determine to
     // attempt authenticating the user using the supplied credentials.
-
-    if (email === MOCK_USER.email && password === 'password') {
+    // const body = `user=${user}&password=${password}`;
+    // const body = encodeURI('password=test&user=vera.aloe@mailinator.com');
+    // const body = [{user}, {password}];
+    const formData: FormData = new FormData();
+    formData.append('user', user);
+    formData.append('password', password);
+    const body = 'password=' + password.toString() + '&user=' + user.toString();
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers = headers.append('Accept', 'application/json');
+    options.headers = headers;
+    options.responseType = 'text';
+    this.authRequestService.postToEndpoint('login', body, options)
+      .subscribe((r) => {
+        console.log(r);
+      })
+    if (user === 'test' && password === 'password') {
       this._authenticated = true;
       return Observable.of(MOCK_USER);
     }

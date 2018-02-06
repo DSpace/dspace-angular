@@ -1,10 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Request } from '@angular/http';
-import { HttpClient, HttpResponse } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable';
 import { RestRequestMethod } from '../data/request.models';
 
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
+import { HttpObserve } from '@angular/common/http/src/client';
+
+export interface HttpOptions {
+  body?: any;
+  headers?: HttpHeaders;
+  params?: HttpParams;
+  observe?: HttpObserve;
+  reportProgress?: boolean;
+  responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
+  withCredentials?: boolean;
+}
 
 /**
  * Service to access DSpace's REST API
@@ -45,8 +56,25 @@ export class DSpaceRESTv2Service {
    * @return {Observable<string>}
    *      An Observable<string> containing the response from the server
    */
-  request(method: RestRequestMethod, url: string, body?: any): Observable<DSpaceRESTV2Response> {
-    return this.http.request(method, url, { body, observe: 'response' })
+  request(method: RestRequestMethod, url: string, body?: any, options?: HttpOptions): Observable<DSpaceRESTV2Response> {
+    const requestOptions: HttpOptions = {};
+    requestOptions.body = body;
+    requestOptions.observe = 'response';
+    if (options && options.headers) {
+      let headers = new HttpHeaders();
+      headers = headers.append('Accept', 'application/json');
+      headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      // requestOptions.headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+      requestOptions.headers = headers;
+      /* const keys = options.headers.getAll('');
+      keys.forEach((key) => {
+        requestOptions.headers.append(key, options.headers.get(key));
+      })*/
+    }
+    if (options && options.responseType) {
+      // requestOptions.responseType = options.responseType;
+    }
+    return this.http.request(method, url, requestOptions)
       .map((res) => ({ payload: res.body, statusCode: res.statusText }))
       .catch((err) => {
         console.log('Error: ', err);

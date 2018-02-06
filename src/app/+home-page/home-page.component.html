@@ -1,5 +1,6 @@
 <ds-home-news></ds-home-news>
 <div class="container">
+  <p *ngIf="(isAuthenticated | async)">Loggato</p>
   <ds-search-form></ds-search-form>
   <ds-top-level-community-list></ds-top-level-community-list>
 </div>

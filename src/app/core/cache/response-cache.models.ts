@@ -62,4 +62,14 @@ export class ConfigSuccessResponse extends RestResponse {
     super(true, statusCode);
   }
 }
+
+export class AuthSuccessResponse extends RestResponse {
+  constructor(
+    public authResponse: any,
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
 /* tslint:enable:max-classes-per-file */

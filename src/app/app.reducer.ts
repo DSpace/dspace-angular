@@ -11,6 +11,7 @@ import {
   filterReducer,
   SearchFiltersState
 } from './+search-page/search-filters/search-filter/search-filter.reducer';
+import { authReducer, AuthState } from './core/auth/auth.reducers';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;

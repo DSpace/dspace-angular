@@ -1,0 +1,9 @@
+<ds-loading *ngIf="(loading | async)"></ds-loading>
+<div *ngIf="!(loading | async)" class="form-login px-4 py-3">
+
+  <div *ngIf="(error | async) && hasError" class="alert alert-danger" role="alert" @fadeOut>{{ error | async }}</div>
+  <button class="btn btn-lg btn-primary btn-block mt-3" (click)="logOut()">{{"logout.form.submit" | translate}}</button>
+  <div class="dropdown-divider"></div>
+  <a class="dropdown-item" href="#">{{"login.form.new-user" | translate}}</a>
+  <a class="dropdown-item" href="#">{{"login.form.forgot-password" | translate}}</a>
+</div>
