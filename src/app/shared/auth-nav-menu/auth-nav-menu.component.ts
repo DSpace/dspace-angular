@@ -37,7 +37,7 @@ export class AuthNavMenuComponent implements OnDestroy, OnInit {
   constructor(
     private appStore: Store<AppState>,
     private coreStore: Store<CoreState>,
-    private windowService: HostWindowService) {
+    public windowService: HostWindowService) {
   }
 
   ngOnInit(): void {
