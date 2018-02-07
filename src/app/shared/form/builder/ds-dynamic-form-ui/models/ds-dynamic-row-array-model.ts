@@ -1,4 +1,4 @@
-import { DynamicFormArrayModel, DynamicFormArrayModelConfig } from '@ng-dynamic-forms/core';
+import { DynamicFormArrayModel, DynamicFormArrayModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { ClsConfig } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 
 export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig {
@@ -6,7 +6,7 @@ export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig 
 }
 
 export class DynamicRowArrayModel extends DynamicFormArrayModel {
-  notRepeteable = false;
+  @serializable() notRepeteable = false;
 
   constructor(config: DynamicRowArrayModelConfig, cls: ClsConfig) {
     super(config, cls);

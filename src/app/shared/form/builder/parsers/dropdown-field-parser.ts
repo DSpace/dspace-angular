@@ -40,9 +40,9 @@ export class DropdownFieldParser extends FieldParser {
           host: 'col'
         }
       };
-      const dropdownMpdel = new DynamicScrollableDropdownModel(dropdownModelConfig, cls);
-      dropdownMpdel.name = this.fieldId;
-      return dropdownMpdel;
+      const dropdownModel = new DynamicScrollableDropdownModel(dropdownModelConfig, cls);
+      dropdownModel.name = this.fieldId;
+      return dropdownModel;
     } else {
       throw  Error(`Authority name is not available. Please checks form configuration file.`);
     }

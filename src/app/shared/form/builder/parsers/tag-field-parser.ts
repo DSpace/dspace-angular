@@ -20,17 +20,8 @@ export class TagFieldParser extends FieldParser {
       tagModelConfig.authorityScope = this.authorityUuid;
     }
 
-    tagModelConfig.value = this.getInitGroupValues();
     tagModelConfig.minChars = 3;
-    // this.setValues(tagModelConfig, fieldValue); // TODO Use this after changes in fieldValue
-    if (tagModelConfig.value && tagModelConfig.value.length > 0 && tagModelConfig.value[0].language) {
-      tagModelConfig.language = tagModelConfig.value[0].language;
-      // tagModelConfig.value.forEach((item, index) => {
-      //   if (!item.display && item.value) {
-      //     tagModelConfig.value[index] = Object.assign({}, item, {display: item.value});
-      //   }
-      // });
-    }
+    this.setValues(tagModelConfig, fieldValue, null, true);
 
     const tagModel = new DynamicTagModel(tagModelConfig);
     tagModel.name = this.fieldId;

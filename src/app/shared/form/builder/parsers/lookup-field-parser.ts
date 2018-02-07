@@ -18,18 +18,20 @@ export class LookupFieldParser extends FieldParser {
       lookupModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
       lookupModelConfig.authorityScope = this.authorityUuid;
       lookupModelConfig.maxOptions = 10;
-      if (isNotEmpty(this.getInitFieldValue(0, 0))) {
-        fieldValue = fieldValue ? fieldValue : this.getInitFieldValue(0, 0);
-        // If value isn't an instance of AuthorityModel instantiate it
-        if (fieldValue instanceof AuthorityModel) {
-          lookupModelConfig.value = fieldValue;
-        } else {
-          const authorityValue: AuthorityModel = new AuthorityModel();
-          authorityValue.value = fieldValue;
-          authorityValue.display = fieldValue;
-          lookupModelConfig.value = authorityValue;
-        }
-      }
+
+      this.setValues(lookupModelConfig, fieldValue, true);
+      // if (isNotEmpty(this.getInitFieldValue(0, 0))) {
+      //   fieldValue = fieldValue ? fieldValue : this.getInitFieldValue(0, 0);
+      //   // If value isn't an instance of AuthorityModel instantiate it
+      //   if (fieldValue instanceof AuthorityModel) {
+      //     lookupModelConfig.value = fieldValue;
+      //   } else {
+      //     const authorityValue: AuthorityModel = new AuthorityModel();
+      //     authorityValue.value = fieldValue;
+      //     authorityValue.display = fieldValue;
+      //     lookupModelConfig.value = authorityValue;
+      //   }
+      // }
       const lookupModel = new DynamicLookupModel(lookupModelConfig);
       lookupModel.name = this.fieldId;
       return lookupModel;

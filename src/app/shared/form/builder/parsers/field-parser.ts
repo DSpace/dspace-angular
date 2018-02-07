@@ -11,6 +11,13 @@ import {
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 import { FormFieldLanguageValueObject } from '../models/form-field-language-value.model';
+import { DynamicTagModelConfig } from '../ds-dynamic-form-ui/models/tag/dynamic-tag.model';
+import { letProto } from 'rxjs/operator/let';
+import { Type } from 'typedoc/dist/lib/models';
+import {
+  DsDynamicTypeaheadModelConfig,
+  DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD
+} from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 
 export abstract class FieldParser {
 
@@ -67,7 +74,7 @@ export abstract class FieldParser {
         grid: {
           group: 'dsgridgroup form-row'
         }
-      }
+      };
 
       return new DynamicRowArrayModel(config, cls);
 
@@ -188,6 +195,7 @@ export abstract class FieldParser {
       this.setErrors(controlModel);
     }
 
+    // Available Languages
     if (this.configData.languageCodes && this.configData.languageCodes.length > 0) {
       (controlModel as DsDynamicInputModel).languageCodes = this.configData.languageCodes;
     }
@@ -226,8 +234,17 @@ export abstract class FieldParser {
     return authorityOptions;
   }
 
-  public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceAuthority: boolean = false) {
+  public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceAuthority: boolean = false, groupModel?: boolean) {
     if (isNotEmpty(fieldValue)) {
+      if (groupModel) {
+        // Array, values is an array
+        modelConfig.value = this.getInitGroupValues();
+        if (Array.isArray(modelConfig.value) && modelConfig.value.length > 0 && modelConfig.value[0].language) {
+          // Array Item has language, ex. AuthorityModel
+          modelConfig.language = modelConfig.value[0].language;
+        }
+        return;
+      }
 
       if (fieldValue instanceof FormFieldMetadataValueObject) {
         // Case string with language
@@ -251,8 +268,13 @@ export abstract class FieldParser {
           authorityValue.display = fieldValue;
           modelConfig.value = authorityValue;
         } else {
-          // Case only string
-          modelConfig.value = fieldValue;
+          if (typeof fieldValue === 'string') {
+            // Case only string
+            modelConfig.value = fieldValue;
+          } else if (fieldValue.value) {
+            // Case ComboBox, >=1 retry, first time fieldValue is null
+            modelConfig.value = fieldValue.value;
+          }
         }
       }
     }
