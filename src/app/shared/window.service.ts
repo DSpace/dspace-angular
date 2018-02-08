@@ -1,6 +1,6 @@
-import { OpaqueToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
-export const NativeWindowService = new OpaqueToken('NativeWindowService');
+export const NativeWindowService = new InjectionToken('NativeWindowService');
 
 export class NativeWindowRef {
   get nativeWindow(): any {

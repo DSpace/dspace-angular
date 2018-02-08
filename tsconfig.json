@@ -7,13 +7,13 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "noEmit": true,
     "noEmitHelpers": true,
     "importHelpers": true,
     "noImplicitAny": false,
     "strictNullChecks": false,
+    "skipDefaultLibCheck": true,
+    "pretty": true,
     "baseUrl": ".",
-    "paths": {},
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -22,15 +22,19 @@
       "node"
     ],
     "lib": [
+      "dom",
+      "es6",
+      "es2015",
       "es2016",
-      "dom"
+      "es2017"
     ]
   },
   "exclude": [
     "node_modules",
     "dist",
     "src/**/*.spec.ts",
-    "src/**/*.e2e.ts"
+    "src/**/*.e2e.ts",
+    "src/main.server.aot.ts"
   ],
   "compileOnSave": false,
   "buildOnSave": false,

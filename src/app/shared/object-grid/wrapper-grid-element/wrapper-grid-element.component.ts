@@ -1,8 +1,8 @@
-import { Component, Input, Injector, ReflectiveInjector, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
+import { ViewMode } from '../../../+search-page/search-options.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { rendersDSOType } from '../../object-collection/shared/dso-element-decorator';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
-import { ViewMode } from '../../../+search-page/search-options.model';
 
 @Component({
   selector: 'ds-wrapper-grid-element',
@@ -13,11 +13,14 @@ export class WrapperGridElementComponent implements OnInit {
   @Input() object: ListableObject;
   objectInjector: Injector;
 
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector) {
+  }
 
   ngOnInit(): void {
-    this.objectInjector = ReflectiveInjector.resolveAndCreate(
-      [{provide: 'objectElementProvider', useFactory: () => (this.object) }], this.injector);
+    this.objectInjector = Injector.create({
+      providers: [{ provide: 'objectElementProvider', useFactory: () => (this.object), deps:[] }],
+      parent: this.injector
+    });
 
   }
 

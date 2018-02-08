@@ -1,7 +1,7 @@
 const webpackMerge = require('webpack-merge');
 const commonPartial = require('./webpack/webpack.common');
 const clientPartial = require('./webpack/webpack.client');
-const serverPartial = require('./webpack/webpack.server');
+const { getServerWebpackPartial } = require('./webpack/webpack.server');
 const prodPartial = require('./webpack/webpack.prod');
 
 const {
@@ -14,6 +14,8 @@ module.exports = function(options, webpackOptions) {
   if (options.aot) {
     console.log(`Running build for ${options.client ? 'client' : 'server'} with AoT Compilation`)
   }
+
+  let serverPartial = getServerWebpackPartial(options.aot);
 
   let serverConfig = webpackMerge({}, commonPartial, serverPartial, {
     plugins: [
