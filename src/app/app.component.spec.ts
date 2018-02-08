@@ -23,9 +23,6 @@ import { AppComponent } from './app.component';
 import { HostWindowState } from './shared/host-window.reducer';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 
-import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
-import { BrowserTransferStoreModule } from '../modules/transfer-store/browser-transfer-store.module';
-
 import { MetadataService } from './core/metadata/metadata.service';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
@@ -53,8 +50,6 @@ describe('App component', () => {
             useClass: MockTranslateLoader
           }
         }),
-        BrowserTransferStateModule,
-        BrowserTransferStoreModule
       ],
       declarations: [AppComponent], // declare the test component
       providers: [

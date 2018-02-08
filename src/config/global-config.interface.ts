@@ -10,6 +10,5 @@ export interface GlobalConfig extends Config {
   cache: CacheConfig;
   universal: UniversalConfig;
   logDirectory: string;
-  prerenderStrategy: string;
   debug: boolean;
 }
