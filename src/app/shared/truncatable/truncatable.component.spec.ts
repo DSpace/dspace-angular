@@ -11,6 +11,7 @@ describe('TruncatableComponent', () => {
   const identifier = '1234567890';
   let truncatableService;
   const truncatableServiceStub: any = {
+    /* tslint:disable:no-empty */
     isCollapsed: (id: string) => {
       if (id === '1') {
         return Observable.of(true)
@@ -24,6 +25,7 @@ describe('TruncatableComponent', () => {
     },
     toggle: (id: string) => {
     }
+    /* tslint:enable:no-empty */
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({

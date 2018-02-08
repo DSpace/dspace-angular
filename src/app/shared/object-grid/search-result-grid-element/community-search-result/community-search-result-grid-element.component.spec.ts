@@ -9,7 +9,6 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Community } from '../../../../core/shared/community.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 
-
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
