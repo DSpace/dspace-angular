@@ -56,4 +56,4 @@ describe('CollectionListElementComponent', () => {
       expect(descriptionText).not.toBeDefined();
     }
   });
-})
+});

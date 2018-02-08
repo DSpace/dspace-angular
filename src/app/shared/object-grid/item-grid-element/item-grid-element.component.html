@@ -6,7 +6,6 @@
   </a>
   <div class="card-body">
     <h4 class="card-title">{{object.findMetadata('dc.title')}}</h4>
-
     <p *ngIf="object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);" class="item-authors card-text text-muted">
         <span *ngFor="let authorMd of object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
             <span *ngIf="!last">; </span>

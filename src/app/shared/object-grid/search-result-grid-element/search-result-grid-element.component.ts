@@ -20,6 +20,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   public constructor(@Inject('objectElementProvider') public gridable: ListableObject, private truncatableService: TruncatableService) {
     super(gridable);
     this.dso = this.object.dspaceObject;
+    console.log(JSON.stringify(this.object.hitHighlights));
   }
 
   getValues(keys: string[]): string[] {
@@ -43,6 +44,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
 
   getFirstValue(key: string): string {
     let result: string;
+    console.log(JSON.stringify(this.object.hitHighlights));
     this.object.hitHighlights.some(
       (md: Metadatum) => {
         if (key === md.key) {

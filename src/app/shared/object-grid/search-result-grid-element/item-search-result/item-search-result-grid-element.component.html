@@ -10,10 +10,10 @@
             <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="3" type="h4">
                 <h4 class="card-title" [innerHTML]="dso.findMetadata('dc.title')"></h4>
             </ds-truncatable-part>
-            <p *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])"
+            <p *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"
                class="item-authors card-text text-muted">
                 <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="1">
-                    <span *ngIf="dso.findMetadata('dc.date.issued')" class="item-list-date">{{dso.findMetadata("dc.date.issued")}}</span>
+                    <span *ngIf="dso.findMetadata('dc.date.issued').length > 0" class="item-date">{{dso.findMetadata("dc.date.issued")}}</span>
                     <span *ngFor="let authorMd of dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);">,
                         <span [innerHTML]="authorMd.value"></span>
                     </span>

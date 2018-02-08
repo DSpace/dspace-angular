@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../testing/router-stub';
 import { Observable } from 'rxjs/Observable';
 import { By } from '@angular/platform-browser';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { Community } from '../../../core/shared/community.model';
 
 let communityGridElementComponent: CommunityGridElementComponent;
@@ -51,6 +50,7 @@ describe('CommunityGridElementComponent', () => {
   }));
 
   it('should show the community cards in the grid element',() => {
+    console.log(fixture.debugElement.query(By.css('ds-community-grid-element')));
     expect(fixture.debugElement.query(By.css('ds-community-grid-element'))).toBeDefined();
   })
 
