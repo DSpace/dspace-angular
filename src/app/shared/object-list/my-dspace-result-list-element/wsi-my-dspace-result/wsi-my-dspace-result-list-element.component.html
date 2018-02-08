@@ -11,3 +11,17 @@
   <div class="item-list-abstract" [ngClass]="{'text-muted': !getFirstValue('dc.description.abstract')}" [innerHTML]="(getFirstValue('dc.description.abstract') | dsTruncate:[200]) || 'No Abstract'"></div>
 </div>
 <button class="btn btn-primary mt-1 mb-3" [routerLink]="['/edit/' + dso.id]" >Edit</button>
+<button class="btn btn-primary mt-1 mb-3" (click)="openMessageBoard()">
+  <i class="fa fa-envelope"></i>
+  <span *ngIf="unRead > 0" class="badge badge-pill badge-danger">{{unRead}}</span>
+</button>
+
+<div id="board-back" *ngIf="this.showMessageBoard" >
+  <div id="board" class="rounded">
+    <ds-message-board
+      [messages]="messages"
+      (close)="hideMessageBoard()">
+
+    </ds-message-board>
+  </div>
+</div>
