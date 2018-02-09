@@ -31,7 +31,6 @@
   margin-right: 60px;
 }
 
-
 .chat li .chat-body p
 {
   margin: 0;
@@ -41,6 +40,7 @@
 .panel .slidedown .glyphicon, .chat .glyphicon
 {
   margin-right: 5px;
+  background-color: lightgrey;
 }
 
 .body-panel
@@ -78,7 +78,7 @@
 }
 
 .title {
-  margin-top: -20px;
+  margin-top: -25px;
 }
 
 .description {
@@ -87,6 +87,7 @@
 
 .avatar {
   height: 60px;
+  padding: 5px;
 }
 
 .chat-body {
@@ -100,4 +101,10 @@
   overflow-y: auto;
 }
 
+.left {
+  text-align: left;
+}
 
+.right {
+  text-align: right;
+}

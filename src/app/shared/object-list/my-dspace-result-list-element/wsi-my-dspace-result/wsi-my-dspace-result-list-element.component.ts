@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
@@ -10,13 +10,9 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue, hasNoValue, isEmpty } from '../../../empty.util';
 import { Metadatum } from '../../../../core/shared/metadatum.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 
 import * as data from '../../../../../backend/data/bitstream-messages.json';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { PaginatedList } from '../../../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -31,10 +27,6 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   public messages: Bitstream[] = [];
   public showMessageBoard = false;
   public unRead = 0;
-
-  // public constructor(private modalService: NgbModal, @Inject('objectElementProvider') public listable: ListableObject) {
-  //   super(listable);
-  // }
 
   ngOnInit() {
     (this.dso.item as Observable<RemoteData<Item[]>>)
@@ -72,7 +64,6 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
         this.unRead++;
       }
     });
-
   }
 
   getTitle(): string {
@@ -145,5 +136,3 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
 // - uuid bitsream
 
 }
-
-

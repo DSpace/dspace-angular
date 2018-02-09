@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Bitstream} from '../../core/shared/bitstream.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Bitstream } from '../../core/shared/bitstream.model';
 
 @Component({
   selector: 'ds-message-board',
@@ -14,15 +14,20 @@ export class MessageBoardComponent {
   public close = new EventEmitter<any>();
   public show = [];
   public isCreator: boolean;
+  public creatorUuid: string;
 
   ngOnInit() {
     this.messages.forEach((m) => {
       this.show.push(false);
     });
 
+
     // TODO Check if actual user is the creator
 
     // TODO Mark as read only when other read, not the writer
+
+    // TODO Remove, only for testing
+
 
   }
 

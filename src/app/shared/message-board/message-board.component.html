@@ -52,30 +52,40 @@
         </div>
         <div class="panel-body body-panel">
           <ul class="chat">
+            <ng-container *ngFor="let m of messages; let i = index">
+            <li *ngVar="m.findMetadata('dc.type') as type"
+                [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound', clearfix:1}">
 
-            <li *ngFor="let m of messages; let i = index" [ngClass]="{'left': i%2 == 0, 'right':i%2==1, clearfix:1}">
-              <span [ngClass]="{'chat-img': true, 'pull-left': i%2 == 0, 'pull-right': i%2==1}">
-                  <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="avatar rounded-circle"/>
+              <span [ngClass]="{'chat-img': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">
+                  <img *ngIf="type == 'outbound'" alt="Avatar"
+                       src="/assets/images/dspace-logo.png"
+                       class="avatar rounded-circle"/>
+                 <img *ngIf="type == 'inbound'"alt="Avatar"
+                     src="/assets/images/dspace-logo-old.png"
+                     class="avatar rounded-circle"/>
               </span>
 
               <div class="chat-body clearfix">
                 <div class="header clearfix">
-                  <strong [ngClass]="{'primary-font': true, 'pull-left': i%2 == 0, 'pull-right': i%2==1}">
+                  <strong [ngClass]="{'primary-font': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">
                     {{m.findMetadata('dc.creator')}}
                   </strong>
-                  <small [ngClass]="{'pull-right': i%2 == 0, 'pull-left': i%2==1,  'text-muted':1}">
+                  <small [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
                       <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued')}}
                   </small>
                 </div>
-                <div (click)="toggleDescription(i)" class="title">
+                <div (click)="toggleDescription(i)" class="title"
+                     [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}">
                   <i class="fa fa-angle-double-down"></i>
                   {{m.findMetadata('dc.title')}}</div>
+
                 <div *ngIf="show[i]" class="description">
                   {{m.findMetadata('dc.description')}}
                 </div>
               </div>
 
             </li>
+            </ng-container>
             <!--<li class="right clearfix"><span class="chat-img pull-right">-->
                             <!--<img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />-->
                         <!--</span>-->
