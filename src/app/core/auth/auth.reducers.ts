@@ -6,6 +6,7 @@ import {
 
 // import models
 import { Eperson } from '../eperson/models/eperson.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 /**
  * The auth state.
@@ -24,6 +25,9 @@ export interface AuthState {
 
   // true when loading
   loading: boolean;
+
+  // access token
+  token?: AuthTokenInfo;
 
   // the authenticated user
   user?: Eperson;
@@ -62,8 +66,10 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
 
     case AuthActionTypes.AUTHENTICATED_SUCCESS:
       return Object.assign({}, state, {
-        authenticated: (action as AuthenticatedSuccessAction).payload.authenticated,
+        authenticated: true,
         loaded: true,
+        error: undefined,
+        loading: false,
         user: (action as AuthenticatedSuccessAction).payload.user
       });
 
@@ -76,26 +82,26 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       });
 
     case AuthActionTypes.AUTHENTICATE_SUCCESS:
-    case AuthActionTypes.REGISTRATION_SUCCESS:
-      const user: Eperson = (action as AuthenticationSuccessAction).payload;
+      const token: AuthTokenInfo = (action as AuthenticationSuccessAction).payload;
 
-      // verify user is not null
-      if (user === null) {
+      // verify token is not null
+      if (token === null) {
         return state;
       }
 
       return Object.assign({}, state, {
-        authenticated: true,
-        error: undefined,
-        loading: false,
-        user: user
+        token: token
       });
+
+    case AuthActionTypes.REGISTRATION_SUCCESS:
+      return state;
 
     case AuthActionTypes.RESET_ERROR:
       return Object.assign({}, state, {
         authenticated: null,
+        error: undefined,
         loaded: false,
-        loading: false
+        loading: false,
       });
 
     case AuthActionTypes.LOG_OUT_ERROR:
@@ -109,7 +115,10 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         authenticated: false,
         error: undefined,
-        user: undefined
+        loaded: false,
+        loading: false,
+        user: undefined,
+        token: undefined
       });
 
     case AuthActionTypes.REGISTRATION:

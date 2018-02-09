@@ -6,6 +6,7 @@ import { type } from '../../shared/ngrx/type';
 
 // import models
 import { Eperson } from '../eperson/models/eperson.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),
@@ -49,9 +50,9 @@ export class AuthenticateAction implements Action {
  */
 export class AuthenticatedAction implements Action {
   public type: string = AuthActionTypes.AUTHENTICATED;
-  payload: string;
+  payload: AuthTokenInfo;
 
-  constructor(token: string) {
+  constructor(token: AuthTokenInfo) {
     this.payload = token;
   }
 }
@@ -108,10 +109,10 @@ export class AuthenticationErrorAction implements Action {
  */
 export class AuthenticationSuccessAction implements Action {
   public type: string = AuthActionTypes.AUTHENTICATE_SUCCESS;
-  payload: Eperson;
+  payload: AuthTokenInfo;
 
-  constructor(user: Eperson) {
-    this.payload = user;
+  constructor(token: AuthTokenInfo) {
+    this.payload = token;
   }
 }
 

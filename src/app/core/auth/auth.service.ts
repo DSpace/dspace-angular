@@ -6,6 +6,10 @@ import { Eperson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import { isNotEmpty, isNotNull } from '../../shared/empty.util';
+import { AuthStorageService } from './auth-storage.service';
 
 export const MOCK_USER = new Eperson();
 MOCK_USER.id = '92a59227-ccf7-46da-9776-86c3fc64147f';
@@ -30,21 +34,28 @@ MOCK_USER.metadata = [
   }
 ];
 
-export const TOKENITEM = 'ds-token';
+export const TOKENITEM = 'dsAuthInfo';
 
 /**
- * The user service.
+ * The auth service.
  */
 @Injectable()
 export class AuthService {
 
   /**
    * True if authenticated
-   * @type
+   * @type boolean
    */
   private _authenticated = false;
 
-  constructor(private authRequestService: AuthRequestService) {}
+  /**
+   * The url to redirect after login
+   * @type string
+   */
+  private _redirectUrl: string;
+
+  constructor(private authRequestService: AuthRequestService, private storage: AuthStorageService) {
+  }
 
   /**
    * Authenticate the user
@@ -53,32 +64,28 @@ export class AuthService {
    * @param {string} password The user's password
    * @returns {Observable<User>} The authenticated user observable.
    */
-  public authenticate(user: string, password: string): Observable<Eperson> {
+  public authenticate(user: string, password: string): Observable<AuthStatus> {
     // Normally you would do an HTTP request to determine to
     // attempt authenticating the user using the supplied credentials.
     // const body = `user=${user}&password=${password}`;
     // const body = encodeURI('password=test&user=vera.aloe@mailinator.com');
     // const body = [{user}, {password}];
-    const formData: FormData = new FormData();
-    formData.append('user', user);
-    formData.append('password', password);
-    const body = 'password=' + password.toString() + '&user=' + user.toString();
+    // const body = encodeURI('password=' + password.toString() + '&user=' + user.toString());
+    const body = encodeURI(`password=${password}&user=${user}`);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers = headers.append('Accept', 'application/json');
     options.headers = headers;
     options.responseType = 'text';
-    this.authRequestService.postToEndpoint('login', body, options)
-      .subscribe((r) => {
-        console.log(r);
+    return this.authRequestService.postToEndpoint('login', body, options)
+      .map((status: AuthStatus) => {
+        if (status.authenticated) {
+          return status;
+        } else {
+          throw(new Error('Invalid email or password'));
+        }
       })
-    if (user === 'test' && password === 'password') {
-      this._authenticated = true;
-      return Observable.of(MOCK_USER);
-    }
 
-    return Observable.throw(new Error('Invalid email or password'));
   }
 
   /**
@@ -93,11 +100,25 @@ export class AuthService {
    * Returns the authenticated user
    * @returns {User}
    */
-  public authenticatedUser(): Observable<Eperson> {
+  public authenticatedUser(token: AuthTokenInfo): Observable<Eperson> {
     // Normally you would do an HTTP request to determine if
     // the user has an existing auth session on the server
     // but, let's just return the mock user for this example.
-    return Observable.of(MOCK_USER);
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Accept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
+    options.headers = headers;
+    return this.authRequestService.getRequest('status', options)
+      .map((status: AuthStatus) => {
+        if (status.authenticated) {
+          this._authenticated = true;
+          return status.eperson[0];
+        } else {
+          this._authenticated = false;
+          throw(new Error('Not authenticated'));
+        }
+      });
   }
 
   /**
@@ -119,7 +140,47 @@ export class AuthService {
   public signout(): Observable<boolean> {
     // Normally you would do an HTTP request sign end the session
     // but, let's just return an observable of true.
-    this._authenticated = false;
-    return Observable.of(true);
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    const options: HttpOptions = Object.create({headers, responseType: 'text'});
+    return this.authRequestService.getRequest('logout', options)
+      .map((status: AuthStatus) => {
+        if (!status.authenticated) {
+          this._authenticated = false;
+          return true;
+        } else {
+          throw(new Error('Invalid email or password'));
+        }
+      })
+
+  }
+
+  public getAuthHeader(): string {
+    // Retrieve authentication token info
+    const token = this.storage.get(TOKENITEM);
+    return (isNotNull(token) && this._authenticated) ? `Bearer ${token.accessToken}` : '';
+  }
+
+  public getToken(): AuthTokenInfo {
+    // Retrieve authentication token info
+    return this.storage.get(TOKENITEM);
+  }
+
+  public storeToken(token: AuthTokenInfo) {
+    // Save authentication token info
+    return this.storage.store(TOKENITEM, JSON.stringify(token));
+  }
+
+  public removeToken() {
+    // Remove authentication token info
+    return this.storage.remove(TOKENITEM);
+  }
+
+  get redirectUrl(): string {
+    return this._redirectUrl;
+  }
+
+  set redirectUrl(value: string) {
+    this._redirectUrl = value;
   }
 }

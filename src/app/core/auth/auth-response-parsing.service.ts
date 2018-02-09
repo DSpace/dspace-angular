@@ -3,6 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { AuthObjectFactory } from './auth-object-factory';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
 import {
+  AuthErrorResponse,
+  AuthStatusResponse,
   AuthSuccessResponse, ConfigSuccessResponse, ErrorResponse,
   RestResponse
 } from '../cache/response-cache.models';
@@ -11,10 +13,15 @@ import { ConfigObject } from '../shared/config/config.model';
 import { ConfigType } from '../shared/config/config-type';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/request.models';
+import { AuthType } from './auth-type';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
+import { AuthStatus } from './models/auth-status.model';
 
 @Injectable()
 export class AuthResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
@@ -29,19 +36,14 @@ export class AuthResponseParsingService extends BaseResponseParsingService imple
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    /*if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && data.statusCode === '200') {
-      const configDefinition = this.process<ConfigObject,ConfigType>(data.payload, request.href);
-      return new ConfigSuccessResponse(configDefinition[Object.keys(configDefinition)[0]], data.statusCode, this.processPageInfo(data.payload.page));
+    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && data.statusCode === '200') {
+      const response = this.process<AuthStatus,AuthType>(data.payload, request.href);
+      return new AuthStatusResponse(response[Object.keys(response)[0]][0], data.statusCode);
+    } else if (isEmpty(data.payload) && isNotEmpty(data.headers.get('authorization')) && data.statusCode === '200') {
+      return new AuthSuccessResponse(new AuthTokenInfo(data.headers.get('authorization')), data.statusCode);
     } else {
-      return new ErrorResponse(
-        Object.assign(
-          new Error('Unexpected response from config endpoint'),
-          {statusText: data.statusCode}
-        )
-      );
-    }*/
-    console.log(data);
-    return new AuthSuccessResponse(data.payload, data.statusCode)
+      return new AuthStatusResponse(data.payload as AuthStatus, data.statusCode);
+    }
   }
 
 }

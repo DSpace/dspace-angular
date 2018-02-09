@@ -41,6 +41,10 @@ import { UUIDService } from './shared/uuid.service';
 import { AuthService } from './auth/auth.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthRequestService } from './auth/auth-request.service';
+import { AuthResponseParsingService } from './auth/auth-response-parsing.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { AuthStorageService } from './auth/auth-storage.service';
 
 const IMPORTS = [
   CommonModule,
@@ -60,7 +64,9 @@ const PROVIDERS = [
   ApiService,
   AuthenticatedGuard,
   AuthRequestService,
+  AuthResponseParsingService,
   AuthService,
+  AuthStorageService,
   CommunityDataService,
   CollectionDataService,
   DSOResponseParsingService,
@@ -83,7 +89,13 @@ const PROVIDERS = [
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
   UUIDService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory }
+  { provide: NativeWindowService, useFactory: NativeWindowFactory },
+  // register TokenInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }
 ];
 
 @NgModule({

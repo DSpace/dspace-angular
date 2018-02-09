@@ -12,7 +12,9 @@ import { Store } from '@ngrx/store';
 export class HomePageComponent implements OnInit {
   public isAuthenticated: Observable<boolean>;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {
+  }
+
   ngOnInit() {
     // set loading
     this.isAuthenticated = this.store.select(isAuthenticated);

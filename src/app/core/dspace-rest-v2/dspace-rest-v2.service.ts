@@ -61,21 +61,16 @@ export class DSpaceRESTv2Service {
     requestOptions.body = body;
     requestOptions.observe = 'response';
     if (options && options.headers) {
-      let headers = new HttpHeaders();
-      headers = headers.append('Accept', 'application/json');
-      headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-      // requestOptions.headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-      requestOptions.headers = headers;
-      /* const keys = options.headers.getAll('');
-      keys.forEach((key) => {
-        requestOptions.headers.append(key, options.headers.get(key));
-      })*/
+      requestOptions.headers = Object.assign(new HttpHeaders(),  options.headers);
     }
     if (options && options.responseType) {
-      // requestOptions.responseType = options.responseType;
+      requestOptions.responseType = options.responseType;
     }
     return this.http.request(method, url, requestOptions)
-      .map((res) => ({ payload: res.body, statusCode: res.statusText }))
+      .map((res) => {
+        console.log(res);
+        return ({ payload: res.body, headers: res.headers, statusCode: res.statusText })
+      })
       .catch((err) => {
         console.log('Error: ', err);
         return Observable.throw(err);

@@ -6,7 +6,7 @@ import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { Observable } from 'rxjs/Observable';
 import { isNotEmpty } from '../../shared/empty.util';
-import { AuthPostRequest, PostRequest, RestRequest } from '../data/request.models';
+import { AuthGetRequest, AuthPostRequest, PostRequest, RestRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { AuthSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -28,16 +28,16 @@ export class AuthRequestService extends HALEndpointService {
     super();
   }
 
-  protected submitRequest(request: RestRequest): Observable<any> {
+  protected fetchRequest(request: RestRequest): Observable<any> {
     const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't send data to server`))),
+        Observable.throw(new Error(response.errorMessage))),
       successResponse
         .filter((response: AuthSuccessResponse) => isNotEmpty(response))
-        .map((response: AuthSuccessResponse) => response.authResponse)
+        .map((response: AuthSuccessResponse) => response.response)
         .distinctUntilChanged());
   }
 
@@ -51,8 +51,19 @@ export class AuthRequestService extends HALEndpointService {
       .map((endpointURL) => this.getEndpointByMethod(endpointURL, method))
       .distinctUntilChanged()
       .map((endpointURL: string) => new AuthPostRequest(this.requestService.generateRequestId(), endpointURL, body, options))
-      .do((request: PostRequest) => this.requestService.configure(request))
-      .flatMap((request: PostRequest) => this.submitRequest(request))
+      .do((request: PostRequest) => this.requestService.configure(request, true))
+      .flatMap((request: PostRequest) => this.fetchRequest(request))
+      .distinctUntilChanged();
+  }
+
+  public getRequest(method: string, options?: HttpOptions): Observable<any> {
+    return this.getEndpoint()
+      .filter((href: string) => isNotEmpty(href))
+      .map((endpointURL) => this.getEndpointByMethod(endpointURL, method))
+      .distinctUntilChanged()
+      .map((endpointURL: string) => new AuthGetRequest(this.requestService.generateRequestId(), endpointURL, options))
+      .do((request: PostRequest) => this.requestService.configure(request, true))
+      .flatMap((request: PostRequest) => this.fetchRequest(request))
       .distinctUntilChanged();
   }
 }
