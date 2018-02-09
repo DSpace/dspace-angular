@@ -1,8 +1,8 @@
-import { Component, Input, Injector, ReflectiveInjector, OnInit } from '@angular/core';
-import { rendersDSOType } from '../../object-collection/shared/dso-element-decorator'
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { Component, Injector, Input, OnInit } from '@angular/core';
 import { ViewMode } from '../../../+search-page/search-options.model';
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { rendersDSOType } from '../../object-collection/shared/dso-element-decorator'
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
 
 @Component({
   selector: 'ds-wrapper-list-element',
@@ -16,8 +16,10 @@ export class WrapperListElementComponent implements OnInit {
   constructor(private injector: Injector) {}
 
   ngOnInit(): void {
-    this.objectInjector = ReflectiveInjector.resolveAndCreate(
-      [{provide: 'objectElementProvider', useFactory: () => (this.object) }], this.injector);
+    this.objectInjector = Injector.create({
+        providers: [{ provide: 'objectElementProvider', useFactory: () => (this.object), deps:[] }],
+        parent: this.injector
+    });
   }
 
   getListElement(): string {

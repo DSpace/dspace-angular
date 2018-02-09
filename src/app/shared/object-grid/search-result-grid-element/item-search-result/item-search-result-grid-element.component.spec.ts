@@ -62,7 +62,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
     if (mockItem.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0) {
       expect(itemAuthorField).toBeDefined();
-    }else {
+    } else {
       expect(itemAuthorField).not.toBeDefined();
     }
   });
@@ -72,7 +72,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
     if (mockItem.findMetadata('dc.date.issued').length > 0) {
       expect(dateField).toBeDefined();
-    }else {
+    } else {
       expect(dateField).not.toBeDefined();
     }
   });

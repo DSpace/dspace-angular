@@ -57,7 +57,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
 
     if (mockCollection.shortDescription.length > 0) {
       expect(descriptionText).toBeDefined();
-    }else {
+    } else {
       expect(descriptionText).not.toBeDefined();
     }
   });
