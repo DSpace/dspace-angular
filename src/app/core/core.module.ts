@@ -14,7 +14,7 @@ import { coreReducers } from './core.reducers';
 
 import { isNotEmpty } from '../shared/empty.util';
 
-import { ApiService } from '../shared/api.service';
+import { ApiService } from '../shared/services/api.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
@@ -28,12 +28,12 @@ import { RemoteDataBuildService } from './cache/builders/remote-data-build.servi
 import { RequestService } from './data/request.service';
 import { ResponseCacheService } from './cache/response-cache.service';
 import { RootResponseParsingService } from './data/root-response-parsing.service';
-import { ServerResponseService } from '../shared/server-response.service';
-import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
+import { ServerResponseService } from '../shared/services/server-response.service';
+import { NativeWindowFactory, NativeWindowService } from '../shared/services/window.service';
 import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 import { ConfigResponseParsingService } from './data/config-response-parsing.service';
-import { RouteService } from '../shared/route.service';
+import { RouteService } from '../shared/services/route.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';

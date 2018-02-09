@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, convertToParamMap, Params, } from '@angular/router';
-import { isNotEmpty } from './empty.util';
+import { isNotEmpty } from '../empty.util';
 
 @Injectable()
 export class RouteService {

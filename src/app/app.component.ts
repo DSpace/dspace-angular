@@ -16,7 +16,7 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/host-window.reducer';
-import { NativeWindowRef, NativeWindowService } from './shared/window.service';
+import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
 
 @Component({
   selector: 'ds-app',

@@ -10,7 +10,7 @@ import { SearchService } from '../../+search-page/search-service/search.service'
 import { ItemDataService } from './../../core/data/item-data.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { RouteService } from '../route.service';
+import { RouteService } from '../services/route.service';
 
 @Component({ template: '' })
 class DummyComponent { }

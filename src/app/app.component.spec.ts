@@ -26,7 +26,7 @@ import { HostWindowResizeAction } from './shared/host-window.actions';
 import { MetadataService } from './core/metadata/metadata.service';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
-import { NativeWindowRef, NativeWindowService } from './shared/window.service';
+import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
 
 import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
 import { MockMetadataService } from './shared/mocks/mock-metadata-service';

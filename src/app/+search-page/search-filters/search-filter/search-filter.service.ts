@@ -13,7 +13,7 @@ import {
 import { hasValue, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchService } from '../../search-service/search.service';
-import { RouteService } from '../../../shared/route.service';
+import { RouteService } from '../../../shared/services/route.service';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
