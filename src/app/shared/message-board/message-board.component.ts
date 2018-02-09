@@ -13,10 +13,12 @@ export class MessageBoardComponent {
   @Output()
   public close = new EventEmitter<any>();
   public show = [];
+  public textMessage: string;
   public isCreator: boolean;
   public creatorUuid: string;
 
   ngOnInit() {
+    this.textMessage = '';
     this.messages.forEach((m) => {
       this.show.push(false);
     });
@@ -37,6 +39,10 @@ export class MessageBoardComponent {
 
   toggleDescription(i: number) {
     this.show[i] = !this.show[i];
+  }
+
+  sendMessage() {
+    // TODO
   }
 
 }

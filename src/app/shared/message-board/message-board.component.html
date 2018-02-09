@@ -1,142 +1,145 @@
-<!--<div>-->
-  <!--<span class="close" (click)="closeDashboard($event)">-->
-    <!--<i class="fa fa-times" style="color: red"></i>-->
-  <!--</span>-->
-
-  <!--<div *ngIf="messages.length == 0">-->
-    <!--<p>-->
-      <!--No messages-->
-    <!--</p>-->
-  <!--</div>-->
-
-  <!--<div id="board_internal">-->
-    <!--<div *ngIf="messages.length > 0">-->
-      <!--<div *ngFor="let message of messages">-->
-        <!--<div>-->
-          <!--&lt;!&ndash;usare getMetadata dai bitstream&ndash;&gt;-->
-          <!--<h3>Title: {{ message.findMetadata('dc.title') }}</h3>-->
-          <!--<p>Message: {{ message.findMetadata('dc.description') }}</p>-->
-        <!--</div>-->
-
-      <!--</div>-->
-    <!--</div>-->
-
-
-    <!--<h3>RAW</h3>-->
-    <!--<p>-->
-      <!--{{messages | json}}-->
-    <!--</p>-->
-  <!--</div>-->
-
-
-<!--</div>-->
-
-
-
-
-
-<div class="container-fluid rounded">
-  <!--<div class="row form-group">-->
-    <!--<div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-8 col-lg-offset-2">-->
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <i class="fa fa-envelope"></i> Messages
-          <!--<span class="close" (click)="closeDashboard($event)">-->
-          <!--<i class="fa fa-times" style="color: red"></i>-->
-          <!--</span>-->
-          <div class="btn-group pull-right">
-            <span (click)="closeDashboard($event)">
-          <i class="fa fa-2x fa-times" style="color: white"></i>
-          </span>
-          </div>
-        </div>
-        <div class="panel-body body-panel">
-          <ul class="chat">
-            <ng-container *ngFor="let m of messages; let i = index">
-            <li *ngVar="m.findMetadata('dc.type') as type"
-                [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound', clearfix:1}">
+<section id="container" >
+  <header id="header" >This is a header</header>
+  <article id="content" >
+    <div class="panel-body body-panel">
+      <ul class="chat">
+        <ng-container *ngFor="let m of messages; let i = index">
+          <li *ngVar="m.findMetadata('dc.type') as type"
+              [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound', clearfix:1}">
 
               <span [ngClass]="{'chat-img': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">
                   <img *ngIf="type == 'outbound'" alt="Avatar"
                        src="/assets/images/dspace-logo.png"
-                       class="avatar rounded-circle"/>
-                 <img *ngIf="type == 'inbound'"alt="Avatar"
-                     src="/assets/images/dspace-logo-old.png"
-                     class="avatar rounded-circle"/>
+                       class="avatar img-rounded"/>
+                 <img *ngIf="type == 'inbound'" alt="Avatar"
+                      src="/assets/images/dspace-logo-old.png"
+                      class="avatar img-rounded"/>
               </span>
 
-              <div class="chat-body clearfix">
-                <div class="header clearfix">
-                  <strong [ngClass]="{'primary-font': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">
-                    {{m.findMetadata('dc.creator')}}
-                  </strong>
-                  <small [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-                      <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued')}}
-                  </small>
-                </div>
-                <div (click)="toggleDescription(i)" class="title"
-                     [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}">
-                  <i class="fa fa-angle-double-down"></i>
-                  {{m.findMetadata('dc.title')}}</div>
-
-                <div *ngIf="show[i]" class="description">
-                  {{m.findMetadata('dc.description')}}
-                </div>
+            <div class="chat-body clearfix">
+              <div class="header clearfix">
+                <strong
+                  [ngClass]="{'primary-font': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">
+                  {{m.findMetadata('dc.creator')}}
+                </strong>
+                <small
+                  [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
+                  <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued')}}
+                </small>
+              </div>
+              <div (click)="toggleDescription(i)" class="title"
+                   [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}">
+                <i *ngIf="!show[i]" class="fa fa-angle-double-down"></i>
+                <i *ngIf="show[i]" class="fa fa-angle-double-up"></i>
+                {{m.findMetadata('dc.title')}}
               </div>
 
-            </li>
-            </ng-container>
-            <!--<li class="right clearfix"><span class="chat-img pull-right">-->
-                            <!--<img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />-->
-                        <!--</span>-->
-              <!--<div class="chat-body clearfix">-->
-                <!--<div class="header">-->
-                  <!--<small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>-->
-                  <!--<strong class="pull-right primary-font">Bhaumik Patel</strong>-->
-                <!--</div>-->
-                <!--<p>-->
-                  <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare-->
-                  <!--dolor, quis ullamcorper ligula sodales.-->
-                <!--</p>-->
-              <!--</div>-->
-            <!--</li>-->
-            <!--<li class="left clearfix"><span class="chat-img pull-left">-->
-                            <!--<img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />-->
-                        <!--</span>-->
-              <!--<div class="chat-body clearfix">-->
-                <!--<div class="header">-->
-                  <!--<strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">-->
-                  <!--<span class="glyphicon glyphicon-time"></span>14 mins ago</small>-->
-                <!--</div>-->
-                <!--<p>-->
-                  <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare-->
-                  <!--dolor, quis ullamcorper ligula sodales.-->
-                <!--</p>-->
-              <!--</div>-->
-            <!--</li>-->
-            <!--<li class="right clearfix"><span class="chat-img pull-right">-->
-                            <!--<img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />-->
-                        <!--</span>-->
-              <!--<div class="chat-body clearfix">-->
-                <!--<div class="header">-->
-                  <!--<small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>-->
-                  <!--<strong class="pull-right primary-font">Bhaumik Patel</strong>-->
-                <!--</div>-->
-                <!--<p>-->
-                  <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare-->
-                  <!--dolor, quis ullamcorper ligula sodales.-->
-                <!--</p>-->
-              <!--</div>-->
-            <!--</li>-->
-          </ul>
-        </div>
-        <div class="panel-footer mt-3 clearfix">
-          <textarea class="form-control" rows="3"></textarea>
-          <span class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12" style="margin-top: 10px">
-                        <button class="btn btn-warning btn-lg btn-block" id="btn-chat">Send</button>
+              <div *ngIf="show[i]" class="description">
+                {{m.findMetadata('dc.description')}}
+              </div>
+            </div>
+
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </article>
+  <footer id="footer" >
+    <div class="panel-footer mt-3 rounded-bottom clearfix">
+          <textarea
+            [ngModel]="textMessage"
+            class="form-control"
+            rows="3"></textarea>
+      <span class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12" style="margin-top: 10px">
+                        <button
+                          id="btn-chat"
+                          class="btn btn-warning btn-lg btn-block"
+                          (click)="sendMessage()">Send</button>
                     </span>
-        </div>
-      </div>
+    </div>
+
+  </footer>
+</section>
+
+
+
+
+<!--<div class="container-fluid rounded">-->
+  <!--&lt;!&ndash;<div class="row form-group">&ndash;&gt;-->
+  <!--&lt;!&ndash;<div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-8 col-lg-offset-2">&ndash;&gt;-->
+  <!--<div class="panel panel-primary">-->
+
+    <!--<div class="panel-heading rounded-top">-->
+      <!--<i class="fa fa-envelope"></i> Messages-->
+      <!--&lt;!&ndash;<span class="close" (click)="closeDashboard($event)">&ndash;&gt;-->
+      <!--&lt;!&ndash;<i class="fa fa-times" style="color: red"></i>&ndash;&gt;-->
+      <!--&lt;!&ndash;</span>&ndash;&gt;-->
+      <!--<div class="btn-group pull-right">-->
+            <!--<span (click)="closeDashboard($event)">-->
+          <!--<i class="fa fa-2x fa-times" style="color: white"></i>-->
+          <!--</span>-->
+      <!--</div>-->
     <!--</div>-->
+
+    <!--<div>-->
+      <!--<div class="panel-body body-panel">-->
+        <!--<ul class="chat">-->
+          <!--<ng-container *ngFor="let m of messages; let i = index">-->
+            <!--<li *ngVar="m.findMetadata('dc.type') as type"-->
+                <!--[ngClass]="{'left': type == 'outbound', 'right': type == 'inbound', clearfix:1}">-->
+
+              <!--<span [ngClass]="{'chat-img': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">-->
+                  <!--<img *ngIf="type == 'outbound'" alt="Avatar"-->
+                       <!--src="/assets/images/dspace-logo.png"-->
+                       <!--class="avatar img-rounded"/>-->
+                 <!--<img *ngIf="type == 'inbound'" alt="Avatar"-->
+                      <!--src="/assets/images/dspace-logo-old.png"-->
+                      <!--class="avatar img-rounded"/>-->
+              <!--</span>-->
+
+              <!--<div class="chat-body clearfix">-->
+                <!--<div class="header clearfix">-->
+                  <!--<strong-->
+                    <!--[ngClass]="{'primary-font': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">-->
+                    <!--{{m.findMetadata('dc.creator')}}-->
+                  <!--</strong>-->
+                  <!--<small-->
+                    <!--[ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">-->
+                    <!--<span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued')}}-->
+                  <!--</small>-->
+                <!--</div>-->
+                <!--<div (click)="toggleDescription(i)" class="title"-->
+                     <!--[ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}">-->
+                  <!--<i *ngIf="!show[i]" class="fa fa-angle-double-down"></i>-->
+                  <!--<i *ngIf="show[i]" class="fa fa-angle-double-up"></i>-->
+                  <!--{{m.findMetadata('dc.title')}}-->
+                <!--</div>-->
+
+                <!--<div *ngIf="show[i]" class="description">-->
+                  <!--{{m.findMetadata('dc.description')}}-->
+                <!--</div>-->
+              <!--</div>-->
+
+            <!--</li>-->
+          <!--</ng-container>-->
+        <!--</ul>-->
+      <!--</div>-->
+
+      <!--<div class="panel-footer mt-3 rounded-bottom clearfix">-->
+          <!--<textarea-->
+            <!--[ngModel]="textMessage"-->
+            <!--class="form-control"-->
+            <!--rows="3"></textarea>-->
+        <!--<span class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12" style="margin-top: 10px">-->
+                        <!--<button-->
+                          <!--id="btn-chat"-->
+                          <!--class="btn btn-warning btn-lg btn-block"-->
+                          <!--(click)="sendMessage()">Send</button>-->
+                    <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
+
   <!--</div>-->
-</div>
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</div>-->
