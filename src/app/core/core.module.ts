@@ -44,7 +44,8 @@ import { AuthRequestService } from './auth/auth-request.service';
 import { AuthResponseParsingService } from './auth/auth-response-parsing.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { AuthStorageService } from './auth/auth-storage.service';
+import { CookieService } from '../shared/services/cookie.service';
+import { PlatformService } from '../shared/services/platform.service';
 
 const IMPORTS = [
   CommonModule,
@@ -66,9 +67,9 @@ const PROVIDERS = [
   AuthRequestService,
   AuthResponseParsingService,
   AuthService,
-  AuthStorageService,
   CommunityDataService,
   CollectionDataService,
+  CookieService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
   HostWindowService,
@@ -76,6 +77,7 @@ const PROVIDERS = [
   MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
+  PlatformService,
   RemoteDataBuildService,
   RequestService,
   ResponseCacheService,
@@ -90,7 +92,7 @@ const PROVIDERS = [
   SubmissionSectionsConfigService,
   UUIDService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
-  // register TokenInterceptor as HttpInterceptor
+  // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

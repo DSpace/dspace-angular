@@ -36,10 +36,10 @@ export class AuthResponseParsingService extends BaseResponseParsingService imple
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && data.statusCode === '200') {
+    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && (data.statusCode === '200' || data.statusCode === 'OK')) {
       const response = this.process<AuthStatus,AuthType>(data.payload, request.href);
       return new AuthStatusResponse(response[Object.keys(response)[0]][0], data.statusCode);
-    } else if (isEmpty(data.payload) && isNotEmpty(data.headers.get('authorization')) && data.statusCode === '200') {
+    } else if (isEmpty(data.payload) && isNotEmpty(data.headers.get('authorization')) && (data.statusCode === '200' || data.statusCode === 'OK')) {
       return new AuthSuccessResponse(new AuthTokenInfo(data.headers.get('authorization')), data.statusCode);
     } else {
       return new AuthStatusResponse(data.payload as AuthStatus, data.statusCode);

@@ -15,6 +15,8 @@ export const AuthActionTypes = {
   AUTHENTICATED: type('dspace/auth/AUTHENTICATED'),
   AUTHENTICATED_ERROR: type('dspace/auth/AUTHENTICATED_ERROR'),
   AUTHENTICATED_SUCCESS: type('dspace/auth/AUTHENTICATED_SUCCESS'),
+  CHECK_AUTHENTICATION_TOKEN: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN'),
+  CHECK_AUTHENTICATION_TOKEN_ERROR: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN_ERROR'),
   RESET_ERROR: type('dspace/auth/RESET_ERROR'),
   LOG_OUT: type('dspace/auth/LOG_OUT'),
   LOG_OUT_ERROR: type('dspace/auth/LOG_OUT_ERROR'),
@@ -117,6 +119,24 @@ export class AuthenticationSuccessAction implements Action {
 }
 
 /**
+ * Check if token is already present upon initial load.
+ * @class CheckAuthenticationTokenAction
+ * @implements {Action}
+ */
+export class CheckAuthenticationTokenAction implements Action {
+  public type: string = AuthActionTypes.CHECK_AUTHENTICATION_TOKEN;
+}
+
+/**
+ * Check Authentication Token Error.
+ * @class CheckAuthenticationTokenErrorAction
+ * @implements {Action}
+ */
+export class CheckAuthenticationTokenErrorAction implements Action {
+  public type: string = AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_ERROR;
+}
+
+/**
  * Reset error.
  * @class ResetAuthenticationErrorAction
  * @implements {Action}
@@ -215,6 +235,8 @@ export type AuthActions
   | AuthenticatedSuccessAction
   | AuthenticationErrorAction
   | AuthenticationSuccessAction
+  | CheckAuthenticationTokenAction
+  | CheckAuthenticationTokenErrorAction
   | RegistrationAction
   | RegistrationErrorAction
   | RegistrationSuccessAction;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 // import @ngrx
 import { Effect, Actions } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 
 // import rxjs
 import { Observable } from 'rxjs/Observable';
@@ -16,7 +16,7 @@ import {
   AuthenticatedErrorAction,
   AuthenticatedSuccessAction,
   AuthenticationErrorAction,
-  AuthenticationSuccessAction, LogOutAction,
+  AuthenticationSuccessAction, CheckAuthenticationTokenAction, CheckAuthenticationTokenErrorAction, LogOutAction,
   LogOutErrorAction,
   LogOutSuccessAction, RegistrationAction,
   RegistrationErrorAction,
@@ -24,6 +24,10 @@ import {
 } from './auth.actions';
 import { Eperson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AppState } from '../../app.reducer';
+import { isAuthenticated } from './selectors';
+import { StoreActionTypes } from '../../store.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -46,12 +50,7 @@ export class AuthEffects {
   public authenticateSuccess: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.AUTHENTICATE_SUCCESS)
     .do((action: AuthenticationSuccessAction) => this.authService.storeToken(action.payload))
-    .map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload))
-
-  @Effect({dispatch: false})
-  public logOutSuccess: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.LOG_OUT_SUCCESS)
-    .do((action: LogOutSuccessAction) => this.authService.removeToken());
+    .map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload));
 
   @Effect()
   public authenticated: Observable<Action> = this.actions$
@@ -60,6 +59,20 @@ export class AuthEffects {
       return this.authService.authenticatedUser(action.payload)
         .map((user: Eperson) => new AuthenticatedSuccessAction((user !== null), user))
         .catch((error) => Observable.of(new AuthenticatedErrorAction(error)));
+    });
+
+  @Effect({dispatch: false})
+  public authenticatedError: Observable<Action> = this.actions$
+    .ofType(AuthActionTypes.AUTHENTICATED_ERROR)
+    .do((action: LogOutSuccessAction) => this.authService.removeToken());
+
+  @Effect()
+  public checkToken: Observable<Action> = this.actions$
+    .ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN)
+    .switchMap(() => {
+      return this.authService.checkAuthenticationToken()
+        .map((token: AuthTokenInfo) => new AuthenticatedAction(token))
+        .catch((error) => Observable.of(new CheckAuthenticationTokenErrorAction()));
     });
 
   @Effect()
@@ -72,14 +85,33 @@ export class AuthEffects {
         .catch((error) => Observable.of(new RegistrationErrorAction(error)));
     });
 
+  /**
+   * When the store is rehydrated in the browser,
+   * clear a possible invalid token
+   */
+  @Effect({dispatch: false})
+  public clearInvalidTokenOnRehydrate = this.actions$
+    .ofType(StoreActionTypes.REHYDRATE)
+    .switchMap(() => {
+      return this.store.select(isAuthenticated)
+        .take(1)
+        .filter((authenticated) => !authenticated)
+        .do(() => this.authService.removeToken());
+    });
+
   @Effect()
-  public signOut: Observable<Action> = this.actions$
+  public logOut: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.LOG_OUT)
-    .switchMap((action: LogOutAction) => {
-      return this.authService.signout()
+    .switchMap(() => {
+      return this.authService.logout()
         .map((value) => new LogOutSuccessAction())
         .catch((error) => Observable.of(new LogOutErrorAction(error)));
     });
+
+  @Effect({dispatch: false})
+  public logOutSuccess: Observable<Action> = this.actions$
+    .ofType(AuthActionTypes.LOG_OUT_SUCCESS)
+    .do((action: LogOutSuccessAction) => this.authService.removeToken());
 
   /**
    * @constructor
@@ -87,6 +119,7 @@ export class AuthEffects {
    * @param {AuthService} authService
    */
   constructor(private actions$: Actions,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private store: Store<AppState>) {
   }
 }

@@ -23,6 +23,10 @@ export class AuthInterceptor implements HttpInterceptor {
     return status === 401 || status === 403;
   }
 
+  private isAuthRequest(url: string): boolean {
+    return url.endsWith('/authn/login') || url.endsWith('/authn/logout') || url.endsWith('/authn/status');
+  }
+
   private isLoginResponse(url: string): boolean {
     return url.endsWith('/authn/login');
   }
@@ -40,7 +44,7 @@ export class AuthInterceptor implements HttpInterceptor {
       authStatus.token = new AuthTokenInfo(accessToken);
     } else {
       authStatus.authenticated = false;
-      authStatus.error = JSON.parse(error);
+      authStatus.error = isNotEmpty(error) ? JSON.parse(error) : null;
     }
     return authStatus;
   }
@@ -53,11 +57,11 @@ export class AuthInterceptor implements HttpInterceptor {
     const Authorization = authService.getAuthHeader();
 
     let authReq;
-    if (isNotEmpty(Authorization)) {
+    if (!this.isAuthRequest(req.url) && isNotEmpty(Authorization)) {
       // Clone the request to add the new header.
        authReq = req.clone({headers: req.headers.set('authorization', Authorization)});
     } else {
-       authReq = req.clone();
+       authReq = req;
     }
 
     // Pass on the cloned request instead of the original request.
@@ -67,6 +71,7 @@ export class AuthInterceptor implements HttpInterceptor {
           let authRes: HttpResponse<any>;
           if (this.isLoginResponse(response.url)) {
             const token = response.headers.get('authorization');
+            const expires = response.headers.get('expires');
             authRes = response.clone({body: this.makeAuthStatusObject(true, token)});
           } else {
             authRes = response.clone({body: this.makeAuthStatusObject(false)});

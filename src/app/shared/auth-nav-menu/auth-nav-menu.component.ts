@@ -35,18 +35,17 @@ export class AuthNavMenuComponent implements OnDestroy, OnInit {
   protected subs: Subscription[] = [];
 
   constructor(
-    private appStore: Store<AppState>,
-    private coreStore: Store<CoreState>,
+    private store: Store<AppState>,
     public windowService: HostWindowService) {
   }
 
   ngOnInit(): void {
     // set loading
-    this.isAuthenticated = this.coreStore.select(isAuthenticated);
+    this.isAuthenticated = this.store.select(isAuthenticated);
 
-    this.user = this.appStore.select(getAuthenticatedUser);
+    this.user = this.store.select(getAuthenticatedUser);
 
-    this.subs.push(this.appStore.select(routerStateSelector)
+    this.subs.push(this.store.select(routerStateSelector)
       .filter((router: RouterReducerState) => isNotUndefined(router))
       .subscribe((router: RouterReducerState) => {
         this.showAuth = router.state.url !== '/login';

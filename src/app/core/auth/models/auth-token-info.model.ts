@@ -1,3 +1,5 @@
+export const TOKENITEM = 'dsAuthInfo';
+
 export class AuthTokenInfo {
   public accessToken: string;
   public expires?: number;

@@ -7,34 +7,9 @@ import { AuthRequestService } from './auth-request.service';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isNotEmpty, isNotNull } from '../../shared/empty.util';
-import { AuthStorageService } from './auth-storage.service';
-
-export const MOCK_USER = new Eperson();
-MOCK_USER.id = '92a59227-ccf7-46da-9776-86c3fc64147f';
-MOCK_USER.uuid = '92a59227-ccf7-46da-9776-86c3fc64147f';
-MOCK_USER.name = 'andrea.bollini@4science.it';
-MOCK_USER.email = 'andrea.bollini@4science.it';
-MOCK_USER.metadata = [
-  {
-    key: 'eperson.firstname',
-    value: 'Andrea',
-    language: null
-  },
-  {
-    key: 'eperson.lastname',
-    value: 'Bollini',
-    language: null
-  },
-  {
-    key: 'eperson.language',
-    value: 'en',
-    language: null
-  }
-];
-
-export const TOKENITEM = 'dsAuthInfo';
+import { CookieService } from '../../shared/services/cookie.service';
 
 /**
  * The auth service.
@@ -54,7 +29,7 @@ export class AuthService {
    */
   private _redirectUrl: string;
 
-  constructor(private authRequestService: AuthRequestService, private storage: AuthStorageService) {
+  constructor(private authRequestService: AuthRequestService, private storage: CookieService) {
   }
 
   /**
@@ -76,7 +51,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers = headers;
-    options.responseType = 'text';
+    // options.responseType = 'text';
     return this.authRequestService.postToEndpoint('login', body, options)
       .map((status: AuthStatus) => {
         if (status.authenticated) {
@@ -101,9 +76,7 @@ export class AuthService {
    * @returns {User}
    */
   public authenticatedUser(token: AuthTokenInfo): Observable<Eperson> {
-    // Normally you would do an HTTP request to determine if
-    // the user has an existing auth session on the server
-    // but, let's just return the mock user for this example.
+    // Determine if the user has an existing auth session on the server
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
@@ -122,6 +95,14 @@ export class AuthService {
   }
 
   /**
+   * Checks if token is present into storage
+   */
+  public checkAuthenticationToken(): Observable<AuthTokenInfo> {
+    const token = this.getToken();
+    return isNotEmpty(token) ? Observable.of(token) : Observable.throw(false);
+  }
+
+  /**
    * Create a new user
    * @returns {User}
    */
@@ -137,7 +118,7 @@ export class AuthService {
    * End session
    * @returns {Observable<boolean>}
    */
-  public signout(): Observable<boolean> {
+  public logout(): Observable<boolean> {
     // Normally you would do an HTTP request sign end the session
     // but, let's just return an observable of true.
     let headers = new HttpHeaders();
@@ -168,11 +149,12 @@ export class AuthService {
 
   public storeToken(token: AuthTokenInfo) {
     // Save authentication token info
-    return this.storage.store(TOKENITEM, JSON.stringify(token));
+    return this.storage.set(TOKENITEM, token);
   }
 
   public removeToken() {
     // Remove authentication token info
+    console.log('REMOVE!!!!');
     return this.storage.remove(TOKENITEM);
   }
 

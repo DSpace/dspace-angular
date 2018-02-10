@@ -31,6 +31,7 @@ export class AuthRequestService extends HALEndpointService {
   protected fetchRequest(request: RestRequest): Observable<any> {
     const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
+      .do(() => this.responseCache.remove(request.href))
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>

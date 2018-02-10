@@ -6,7 +6,6 @@ import {
 
 // import models
 import { Eperson } from '../eperson/models/eperson.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
 
 /**
  * The auth state.
@@ -25,9 +24,6 @@ export interface AuthState {
 
   // true when loading
   loading: boolean;
-
-  // access token
-  token?: AuthTokenInfo;
 
   // the authenticated user
   user?: Eperson;
@@ -61,7 +57,8 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         authenticated: false,
         error: (action as AuthenticationErrorAction).payload.message,
-        loaded: true
+        loaded: true,
+        loading: false
       });
 
     case AuthActionTypes.AUTHENTICATED_SUCCESS:
@@ -82,15 +79,16 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       });
 
     case AuthActionTypes.AUTHENTICATE_SUCCESS:
-      const token: AuthTokenInfo = (action as AuthenticationSuccessAction).payload;
+      return state;
 
-      // verify token is not null
-      if (token === null) {
-        return state;
-      }
-
+    case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN:
       return Object.assign({}, state, {
-        token: token
+        loading: true
+      });
+
+    case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_ERROR:
+      return Object.assign({}, state, {
+        loading: false
       });
 
     case AuthActionTypes.REGISTRATION_SUCCESS:
@@ -117,8 +115,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         error: undefined,
         loaded: false,
         loading: false,
-        user: undefined,
-        token: undefined
+        user: undefined
       });
 
     case AuthActionTypes.REGISTRATION:
