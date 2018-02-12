@@ -14,15 +14,15 @@ import { AuthenticateAction, ResetAuthenticationErrorAction } from '../../core/a
 
 // reducers
 import {
-  getAuthenticationError,
+  getAuthenticationError, getAuthenticationMessage,
   isAuthenticated,
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
-import { Router } from '@angular/router';
 import { CoreState } from '../../core/core.reducers';
 
-import { isNotEmpty, isNotNull } from '../empty.util';
+import { isNotEmpty } from '../empty.util';
 import { fadeOut } from '../animations/fade';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * /users/sign-in
@@ -49,6 +49,18 @@ export class LogInComponent implements OnDestroy, OnInit {
   public hasError = false;
 
   /**
+   * The authentication info message.
+   * @type {Observable<string>}
+   */
+  public message: Observable<string>;
+
+  /**
+   * Has authentication message.
+   * @type {boolean}
+   */
+  public hasMessage = false;
+
+  /**
    * True if the authentication is loading.
    * @type {boolean}
    */
@@ -68,12 +80,13 @@ export class LogInComponent implements OnDestroy, OnInit {
 
   /**
    * @constructor
+   * @param {AuthService} authService
    * @param {FormBuilder} formBuilder
    * @param {Store<State>} store
    */
   constructor(
+    private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router,
     private store: Store<CoreState>
   ) { }
 
@@ -95,6 +108,13 @@ export class LogInComponent implements OnDestroy, OnInit {
         return error;
       });
 
+    // set error
+    this.message = this.store.select(getAuthenticationMessage)
+      .map((message) => {
+        this.hasMessage = (isNotEmpty(message));
+        return message;
+      });
+
     // set loading
     this.loading = this.store.select(isAuthenticationLoading);
 
@@ -103,7 +123,7 @@ export class LogInComponent implements OnDestroy, OnInit {
       .takeWhile(() => this.alive)
       .filter((authenticated) => authenticated)
       .subscribe(() => {
-        this.router.navigate(['/']);
+        this.authService.redirectToPreviousUrl();
       });
   }
 
@@ -116,20 +136,13 @@ export class LogInComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Go to the home page.
-   * @method home
+   * Reset error or message.
    */
-  public home() {
-    this.router.navigate(['/home']);
-  }
-
-  /**
-   * Reset error.
-   */
-  public resetError() {
-    if (this.hasError) {
+  public resetErrorOrMessage() {
+    if (this.hasError || this.hasMessage) {
       this.store.dispatch(new ResetAuthenticationErrorAction());
       this.hasError = false;
+      this.hasMessage = false;
     }
   }
 
@@ -138,7 +151,8 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @method register
    */
   public register() {
-    this.router.navigate(['/register']);
+    // TODO enable after registration process is done
+    // this.router.navigate(['/register']);
   }
 
   /**

@@ -8,9 +8,16 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import { isNotEmpty, isNotNull } from '../../shared/empty.util';
+import { isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { isAuthenticated } from './selectors';
+import { AppState, routerStateSelector } from '../../app.reducer';
+import { Store } from '@ngrx/store';
+import { ResetAuthenticationErrorAction } from './auth.actions';
+import { RouterReducerState } from '@ngrx/router-store';
 
+export const LOGIN_ROUTE = '/login';
 /**
  * The auth service.
  */
@@ -21,7 +28,7 @@ export class AuthService {
    * True if authenticated
    * @type boolean
    */
-  private _authenticated = false;
+  private _authenticated: boolean;
 
   /**
    * The url to redirect after login
@@ -29,7 +36,27 @@ export class AuthService {
    */
   private _redirectUrl: string;
 
-  constructor(private authRequestService: AuthRequestService, private storage: CookieService) {
+  constructor(private route: ActivatedRoute,
+              private authRequestService: AuthRequestService,
+              private router: Router,
+              private storage: CookieService,
+              private store: Store<AppState>) {
+    this.store.select(isAuthenticated)
+      .startWith(false)
+      .subscribe((authenticated: boolean) => this._authenticated = authenticated);
+
+    // If current route is different from the one setted in authentication guard
+    // and is not the login route, clear it
+    this.store.select(routerStateSelector)
+      .filter((routerState: RouterReducerState) => isNotUndefined(routerState))
+      .filter((routerState: RouterReducerState) =>
+        (routerState.state.url !== LOGIN_ROUTE)
+        && isNotEmpty(this._redirectUrl)
+        && (routerState.state.url !== this._redirectUrl))
+      .distinctUntilChanged()
+      .subscribe((routerState: RouterReducerState) => {
+        this._redirectUrl = '';
+      })
   }
 
   /**
@@ -40,18 +67,12 @@ export class AuthService {
    * @returns {Observable<User>} The authenticated user observable.
    */
   public authenticate(user: string, password: string): Observable<AuthStatus> {
-    // Normally you would do an HTTP request to determine to
-    // attempt authenticating the user using the supplied credentials.
-    // const body = `user=${user}&password=${password}`;
-    // const body = encodeURI('password=test&user=vera.aloe@mailinator.com');
-    // const body = [{user}, {password}];
-    // const body = encodeURI('password=' + password.toString() + '&user=' + user.toString());
+    // Attempt authenticating the user using the supplied credentials.
     const body = encodeURI(`password=${password}&user=${user}`);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers = headers;
-    // options.responseType = 'text';
     return this.authRequestService.postToEndpoint('login', body, options)
       .map((status: AuthStatus) => {
         if (status.authenticated) {
@@ -67,8 +88,8 @@ export class AuthService {
    * Determines if the user is authenticated
    * @returns {Observable<boolean>}
    */
-  public authenticated(): Observable<boolean> {
-    return Observable.of(this._authenticated);
+  public isAuthenticated(): Observable<boolean> {
+    return this.store.select(isAuthenticated);
   }
 
   /**
@@ -85,10 +106,8 @@ export class AuthService {
     return this.authRequestService.getRequest('status', options)
       .map((status: AuthStatus) => {
         if (status.authenticated) {
-          this._authenticated = true;
           return status.eperson[0];
         } else {
-          this._authenticated = false;
           throw(new Error('Not authenticated'));
         }
       });
@@ -100,6 +119,13 @@ export class AuthService {
   public checkAuthenticationToken(): Observable<AuthTokenInfo> {
     const token = this.getToken();
     return isNotEmpty(token) ? Observable.of(token) : Observable.throw(false);
+  }
+
+  /**
+   * Clear authentication errors
+   */
+  public resetAuthenticationError(): void {
+    this.store.dispatch(new ResetAuthenticationErrorAction());
   }
 
   /**
@@ -119,15 +145,13 @@ export class AuthService {
    * @returns {Observable<boolean>}
    */
   public logout(): Observable<boolean> {
-    // Normally you would do an HTTP request sign end the session
-    // but, let's just return an observable of true.
+    // Send a request that sign end the session
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     const options: HttpOptions = Object.create({headers, responseType: 'text'});
     return this.authRequestService.getRequest('logout', options)
       .map((status: AuthStatus) => {
         if (!status.authenticated) {
-          this._authenticated = false;
           return true;
         } else {
           throw(new Error('Invalid email or password'));
@@ -136,32 +160,77 @@ export class AuthService {
 
   }
 
+  /**
+   * Retrieve authentication token info and make authorization header
+   * @returns {string}
+   */
   public getAuthHeader(): string {
-    // Retrieve authentication token info
-    const token = this.storage.get(TOKENITEM);
-    return (isNotNull(token) && this._authenticated) ? `Bearer ${token.accessToken}` : '';
+    const token = this.getToken();
+    return (this._authenticated && isNotNull(token)) ? `Bearer ${token.accessToken}` : '';
   }
 
+  /**
+   * Get authentication token info
+   * @returns {AuthTokenInfo}
+   */
   public getToken(): AuthTokenInfo {
-    // Retrieve authentication token info
-    return this.storage.get(TOKENITEM);
+    // Retrieve authentication token info and check if is valid
+    const token = this.storage.get(TOKENITEM);
+    if (isNotEmpty(token) && token.hasOwnProperty('accessToken') && isNotEmpty(token.accessToken)) {
+      return token;
+    } else {
+      return null;
+    }
   }
 
+  /**
+   * Save authentication token info
+   *
+   * @param {AuthTokenInfo} token The token to save
+   * @returns {AuthTokenInfo}
+   */
   public storeToken(token: AuthTokenInfo) {
-    // Save authentication token info
     return this.storage.set(TOKENITEM, token);
   }
 
+  /**
+   * Remove authentication token info
+   */
   public removeToken() {
-    // Remove authentication token info
-    console.log('REMOVE!!!!');
     return this.storage.remove(TOKENITEM);
   }
 
+  /**
+   * Redirect to the login route
+   */
+  public redirectToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  /**
+   * Redirect to the route navigated before the login
+   */
+  public redirectToPreviousUrl() {
+    if (isNotEmpty(this._redirectUrl)) {
+      const url = this._redirectUrl;
+      // Clear url
+      this._redirectUrl = null;
+      this.router.navigate([url]);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
+  /**
+   * Get redirect url
+   */
   get redirectUrl(): string {
     return this._redirectUrl;
   }
 
+  /**
+   * Set redirect url
+   */
   set redirectUrl(value: string) {
     this._redirectUrl = value;
   }

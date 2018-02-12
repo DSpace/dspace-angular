@@ -75,13 +75,6 @@ export class LogOutComponent implements OnDestroy, OnInit {
     this.router.navigate(['/home']);
   }
 
-  /**
-   * To to the log in page.
-   */
-  public logIn() {
-    this.router.navigate(['/login']);
-  }
-
   public logOut() {
     this.store.dispatch(new LogOutAction());
   }

@@ -7,13 +7,11 @@ import { Store } from '@ngrx/store';
 import { fadeInOut, fadeOut } from '../animations/fade';
 import { CoreState } from '../../core/core.reducers';
 import { HostWindowService } from '../host-window.service';
-import { AppState } from '../../app.reducer';
+import { AppState, routerStateSelector } from '../../app.reducer';
 import { hasValue, isNotUndefined } from '../empty.util';
 import { getAuthenticatedUser, isAuthenticated } from '../../core/auth/selectors';
 import { Subscription } from 'rxjs/Subscription';
 import { Eperson } from '../../core/eperson/models/eperson.model';
-
-const routerStateSelector = (state: AppState) => state.router;
 
 @Component({
   selector: 'ds-auth-nav-menu',

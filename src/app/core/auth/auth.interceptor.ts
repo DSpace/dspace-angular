@@ -14,10 +14,13 @@ import { AuthType } from './auth-type';
 import { ResourceType } from '../shared/resource-type';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { isNotEmpty } from '../../shared/empty.util';
+import { AppState } from '../../app.reducer';
+import { RedirectWhenTokenExpiredAction } from './auth.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private inj: Injector, private router: Router) { }
+  constructor(private inj: Injector, private store: Store<AppState>) { }
 
   private isUnauthorized(status: number): boolean {
     return status === 401 || status === 403;
@@ -84,15 +87,21 @@ export class AuthInterceptor implements HttpInterceptor {
       .catch((error, caught) => {
         // Intercept an unauthorized error response
         if (error instanceof HttpErrorResponse && this.isUnauthorized(error.status)) {
-          // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
-          const authResponse = new HttpResponse({
-            body: this.makeAuthStatusObject(false, null, error.error),
-            headers: error.headers,
-            status: error.status,
-            statusText: error.statusText,
-            url: error.url
-          });
-          return Observable.of(authResponse);
+          // Checks if is a response from a request to an authentication endpoint
+          if (this.isAuthRequest(error.url)) {
+            // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
+            const authResponse = new HttpResponse({
+              body: this.makeAuthStatusObject(false, null, error.error),
+              headers: error.headers,
+              status: error.status,
+              statusText: error.statusText,
+              url: error.url
+            });
+            return Observable.of(authResponse);
+          } else {
+            // Redirect to the login route
+            this.store.dispatch(new RedirectWhenTokenExpiredAction('Your session has expired. Please log in again.'));
+          }
         } else {
           // Return error response as is.
           return Observable.throw(error);

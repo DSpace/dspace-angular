@@ -2,7 +2,7 @@
   <li *ngIf="!(isAuthenticated | async) && !(windowService.isMobileView() | async) && showAuth" class="nav-item dropdown" (click)="$event.stopPropagation();">
     <div ngbDropdown placement="bottom-right" class="d-inline-block float-right" @fadeInOut>
       <a href="#" id="dropdownLogin" class="nav-link" (click)="$event.preventDefault()" ngbDropdownToggle><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> {{ 'nav.login' | translate }}<span class="caret"></span></a>
-      <div ngbDropdownMenu aria-labelledby="dropdownLogin">
+      <div id="loginDropdownMenu" ngbDropdownMenu aria-labelledby="dropdownLogin">
         <ds-log-in></ds-log-in>
       </div>
     </div>
@@ -13,7 +13,7 @@
   <li *ngIf="(isAuthenticated | async) && !(windowService.isMobileView() | async)" class="nav-item">
     <div ngbDropdown placement="bottom-right" class="d-inline-block" [ngClass]="{'float-right': !(windowService.isMobileView() | async)}" @fadeInOut>
       <a href="#" id="dropdownUser" class="nav-link" (click)="$event.preventDefault()" ngbDropdownToggle><i class="fa fa-user fa-fw" aria-hidden="true"></i>Hello {{(user | async).name}}<span class="caret"></span></a>
-      <div ngbDropdownMenu aria-labelledby="dropdownUser">
+      <div id="logoutDropdownMenu" ngbDropdownMenu aria-labelledby="dropdownUser">
         <ds-log-out></ds-log-out>
       </div>
     </div>

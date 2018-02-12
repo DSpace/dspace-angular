@@ -1,7 +1,7 @@
 // import actions
 import {
   AuthActions, AuthActionTypes, AuthenticatedSuccessAction, AuthenticationErrorAction,
-  AuthenticationSuccessAction, LogOutErrorAction
+  AuthenticationSuccessAction, LogOutErrorAction, RedirectWhenTokenExpiredAction
 } from './auth.actions';
 
 // import models
@@ -25,6 +25,9 @@ export interface AuthState {
   // true when loading
   loading: boolean;
 
+  // info message
+  message?: string;
+
   // the authenticated user
   user?: Eperson;
 }
@@ -33,7 +36,7 @@ export interface AuthState {
  * The initial state.
  */
 const initialState: AuthState = {
-  authenticated: null,
+  authenticated: false,
   loaded: false,
   loading: false
 };
@@ -50,7 +53,8 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.AUTHENTICATE:
       return Object.assign({}, state, {
         error: undefined,
-        loading: true
+        loading: true,
+        message: undefined
       });
 
     case AuthActionTypes.AUTHENTICATED_ERROR:
@@ -67,6 +71,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loaded: true,
         error: undefined,
         loading: false,
+        message: undefined,
         user: (action as AuthenticatedSuccessAction).payload.user
       });
 
@@ -96,10 +101,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
 
     case AuthActionTypes.RESET_ERROR:
       return Object.assign({}, state, {
-        authenticated: null,
+        authenticated: false,
         error: undefined,
         loaded: false,
         loading: false,
+        message: undefined,
       });
 
     case AuthActionTypes.LOG_OUT_ERROR:
@@ -115,6 +121,16 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         error: undefined,
         loaded: false,
         loading: false,
+        message: undefined,
+        user: undefined
+      });
+
+    case AuthActionTypes.REDIRECT:
+      return Object.assign({}, state, {
+        authenticated: false,
+        loaded: false,
+        loading: false,
+        message: (action as RedirectWhenTokenExpiredAction).payload,
         user: undefined
       });
 
@@ -122,7 +138,8 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         authenticated: false,
         error: undefined,
-        loading: true
+        loading: true,
+        message: undefined
       });
 
     default:
@@ -158,9 +175,17 @@ export const getAuthenticatedUser = (state: AuthState) => state.user;
  * Returns the authentication error.
  * @function getAuthenticationError
  * @param {State} state
- * @returns {Error}
+ * @returns {String}
  */
 export const getAuthenticationError = (state: AuthState) => state.error;
+
+/**
+ * Returns the authentication info message.
+ * @function getAuthenticationError
+ * @param {State} state
+ * @returns {String}
+ */
+export const getAuthenticationMessage = (state: AuthState) => state.message;
 
 /**
  * Returns true if request is in progress.

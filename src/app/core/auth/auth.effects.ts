@@ -16,7 +16,7 @@ import {
   AuthenticatedErrorAction,
   AuthenticatedSuccessAction,
   AuthenticationErrorAction,
-  AuthenticationSuccessAction, CheckAuthenticationTokenAction, CheckAuthenticationTokenErrorAction, LogOutAction,
+  AuthenticationSuccessAction, CheckAuthenticationTokenErrorAction,
   LogOutErrorAction,
   LogOutSuccessAction, RegistrationAction,
   RegistrationErrorAction,
@@ -87,7 +87,7 @@ export class AuthEffects {
 
   /**
    * When the store is rehydrated in the browser,
-   * clear a possible invalid token
+   * clear a possible invalid token or authentication errors
    */
   @Effect({dispatch: false})
   public clearInvalidTokenOnRehydrate = this.actions$
@@ -96,7 +96,8 @@ export class AuthEffects {
       return this.store.select(isAuthenticated)
         .take(1)
         .filter((authenticated) => !authenticated)
-        .do(() => this.authService.removeToken());
+        .do(() => this.authService.removeToken())
+        .do(() => this.authService.resetAuthenticationError());
     });
 
   @Effect()
@@ -113,10 +114,16 @@ export class AuthEffects {
     .ofType(AuthActionTypes.LOG_OUT_SUCCESS)
     .do((action: LogOutSuccessAction) => this.authService.removeToken());
 
+  @Effect({dispatch: false})
+  public redirectToLogin: Observable<Action> = this.actions$
+    .ofType(AuthActionTypes.REDIRECT)
+    .do(() => this.authService.redirectToLogin());
+
   /**
    * @constructor
    * @param {Actions} actions$
    * @param {AuthService} authService
+   * @param {Store} store
    */
   constructor(private actions$: Actions,
               private authService: AuthService,

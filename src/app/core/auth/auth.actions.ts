@@ -17,6 +17,7 @@ export const AuthActionTypes = {
   AUTHENTICATED_SUCCESS: type('dspace/auth/AUTHENTICATED_SUCCESS'),
   CHECK_AUTHENTICATION_TOKEN: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN'),
   CHECK_AUTHENTICATION_TOKEN_ERROR: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN_ERROR'),
+  REDIRECT: type('dspace/auth/REDIRECT'),
   RESET_ERROR: type('dspace/auth/RESET_ERROR'),
   LOG_OUT: type('dspace/auth/LOG_OUT'),
   LOG_OUT_ERROR: type('dspace/auth/LOG_OUT_ERROR'),
@@ -137,15 +138,6 @@ export class CheckAuthenticationTokenErrorAction implements Action {
 }
 
 /**
- * Reset error.
- * @class ResetAuthenticationErrorAction
- * @implements {Action}
- */
-export class ResetAuthenticationErrorAction implements Action {
-  public type: string = AuthActionTypes.RESET_ERROR;
-}
-
-/**
  * Sign out.
  * @class LogOutAction
  * @implements {Action}
@@ -177,6 +169,20 @@ export class LogOutErrorAction implements Action {
 export class LogOutSuccessAction implements Action {
   public type: string = AuthActionTypes.LOG_OUT_SUCCESS;
   constructor(public payload?: any) {}
+}
+
+/**
+ * Redirect to login page when token is expired.
+ * @class RedirectWhenTokenExpiredAction
+ * @implements {Action}
+ */
+export class RedirectWhenTokenExpiredAction implements Action {
+  public type: string = AuthActionTypes.REDIRECT;
+  payload: string;
+
+  constructor(message: string) {
+    this.payload = message ;
+  }
 }
 
 /**
@@ -221,6 +227,15 @@ export class RegistrationSuccessAction implements Action {
   }
 }
 
+/**
+ * Reset error.
+ * @class ResetAuthenticationErrorAction
+ * @implements {Action}
+ */
+export class ResetAuthenticationErrorAction implements Action {
+  public type: string = AuthActionTypes.RESET_ERROR;
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -237,6 +252,7 @@ export type AuthActions
   | AuthenticationSuccessAction
   | CheckAuthenticationTokenAction
   | CheckAuthenticationTokenErrorAction
+  | RedirectWhenTokenExpiredAction
   | RegistrationAction
   | RegistrationErrorAction
   | RegistrationSuccessAction;

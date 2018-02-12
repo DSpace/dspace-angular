@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 // reducers
 import { CoreState } from '../core.reducers';
-import { isAuthenticated } from './selectors';
+import { isAuthenticated, isAuthenticationLoading } from './selectors';
 import { AuthService } from './auth.service';
 
 /**
@@ -50,6 +50,7 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
   }
 
   private handleAuth(url: string): Observable<boolean> {
+    console.log('handleAuth', url)
     // get observable
     const observable = this.store.select(isAuthenticated);
 
@@ -57,7 +58,7 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
     observable.subscribe((authenticated) => {
       if (!authenticated) {
         this.authService.redirectUrl = url;
-        this.router.navigate(['/login']);
+        this.authService.redirectToLogin();
       }
     });
 
