@@ -1,4 +1,7 @@
-import { ClsConfig, DynamicInputModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig,
+  serializable
+} from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs/Subject';
 import { LanguageCode } from '../../models/form-field-language-value.model';
 import { AuthorityModel } from '../../../../../core/integration/models/authority.model';
@@ -14,8 +17,8 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
 
-  constructor(config: DsDynamicInputModelConfig, cls?: ClsConfig) {
-    super(config, cls);
+  constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
+    super(config, layout);
 
     this.value = config.value;
     this.language = config.language;

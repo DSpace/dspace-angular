@@ -10,7 +10,7 @@ import {GroupEpersonService} from '../../../core/eperson/group-eperson.service';
 import {SubmissionUploadsConfigService} from '../../../core/config/submission-uploads-config.service';
 import {SubmissionUploadsModel} from '../../../core/shared/config/config-submission-uploads.model';
 import { Observable } from 'rxjs/Observable';
-import { GroupsModel } from '../../../core/eperson/models/groups.model';
+import { Group } from '../../../core/eperson/models/group.model';
 import { EpersonData } from '../../../core/eperson/eperson-data';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 
@@ -109,7 +109,7 @@ export class FilesSectionComponent extends SectionModelComponent implements OnCh
                       .flatMap((group) => group)
                       .take(groupsObs.length)
                       .subscribe((data: EpersonData) => {
-                        const group = data.payload[0] as GroupsModel;
+                        const group = data.payload[0] as Group;
                         if (isUndefined(this.availableGroups.get(group.uuid))) {
                           if (Array.isArray(group.groups)) {
                             const groupArrayData = [];

@@ -21,7 +21,7 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'data/response': responseCacheReducer,
   'data/request': requestReducer,
   'index': indexReducer,
-  'auth': authReducer
+  'auth': authReducer,
   'json/patch': jsonPatchOperationsReducer
 };
 

@@ -1,10 +1,9 @@
 import {
-  ClsConfig,
-  DynamicCheckboxGroupModel,
-  DynamicFormGroupModelConfig, DynamicRadioGroupModel, DynamicRadioGroupModelConfig,
+  DynamicFormControlLayout,
+  DynamicRadioGroupModel,
+  DynamicRadioGroupModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   authorityMetadata: string;
@@ -23,8 +22,8 @@ export class DynamicListRadioGroupModel extends DynamicRadioGroupModel<any> {
   @serializable() repeatable: boolean;
   @serializable() groupLength: number;
 
-  constructor(config: DynamicListModelConfig, cls?: ClsConfig) {
-    super(config, cls);
+  constructor(config: DynamicListModelConfig, layout?: DynamicFormControlLayout) {
+    super(config, layout);
 
     this.authorityMetadata = config.authorityMetadata;
     this.authorityName = config.authorityName;

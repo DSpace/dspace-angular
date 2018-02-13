@@ -1,4 +1,4 @@
-import { AUTOCOMPLETE_OFF, ClsConfig, serializable } from '@ng-dynamic-forms/core';
+import { AUTOCOMPLETE_OFF, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
@@ -28,9 +28,9 @@ export class DynamicLookupModel extends DsDynamicInputModel {
   @serializable() placeholder: string;
   @serializable() placeholder2: string;
 
-  constructor(config: DynamicLookupModelConfig, cls?: ClsConfig) {
+  constructor(config: DynamicLookupModelConfig, layout?: DynamicFormControlLayout) {
 
-    super(config, cls);
+    super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
     this.authorityMetadata = config.authorityMetadata;

@@ -4,18 +4,19 @@ import { isEqual, merge, mergeWith } from 'lodash';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-  DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
+  DynamicFormArrayGroupModel,
+
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormService,
   DynamicFormValidationService,
-  DynamicPathable,
-  Utils
+  DynamicPathable, JSONUtils
 } from '@ng-dynamic-forms/core';
+
 import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../empty.util';
 import { DynamicComboboxModel } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
@@ -39,10 +40,9 @@ import { FormFieldLanguageValueObject } from './models/form-field-language-value
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
 
-  constructor(formBuilder: FormBuilder,
-              validationService: DynamicFormValidationService,
+  constructor(validationService: DynamicFormValidationService,
               private operationsBuilder: JsonPatchOperationsBuilder) {
-    super(formBuilder, validationService);
+    super(validationService);
   }
 
   findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
@@ -170,7 +170,7 @@ export class FormBuilderService extends DynamicFormService {
 
   modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
-    const rawData = Utils.isString(json) ? JSON.parse(json as string, Utils.parseJSONReviver) : json;
+    const rawData = typeof json === 'string' ? JSON.parse(json, JSONUtils.parseReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {

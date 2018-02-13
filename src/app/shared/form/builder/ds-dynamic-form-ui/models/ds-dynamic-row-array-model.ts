@@ -1,5 +1,7 @@
-import { DynamicFormArrayModel, DynamicFormArrayModelConfig, serializable } from '@ng-dynamic-forms/core';
-import { ClsConfig } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
+import {
+  DynamicFormArrayModel, DynamicFormArrayModelConfig, DynamicFormControlLayout,
+  serializable
+} from '@ng-dynamic-forms/core';
 
 export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig {
   notRepeteable: boolean;
@@ -8,8 +10,8 @@ export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig 
 export class DynamicRowArrayModel extends DynamicFormArrayModel {
   @serializable() notRepeteable = false;
 
-  constructor(config: DynamicRowArrayModelConfig, cls: ClsConfig) {
-    super(config, cls);
+  constructor(config: DynamicRowArrayModelConfig, layout?: DynamicFormControlLayout) {
+    super(config, layout);
     this.notRepeteable = config.notRepeteable;
   }
 

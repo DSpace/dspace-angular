@@ -1,5 +1,5 @@
 import {
-  ClsConfig,
+  DynamicFormControlLayoutConfig,
   DynamicFormGroupModel,
   DynamicInputModel,
   DynamicInputModelConfig,

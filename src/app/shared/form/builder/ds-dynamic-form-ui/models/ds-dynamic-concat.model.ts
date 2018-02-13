@@ -1,18 +1,10 @@
-import { ClsConfig, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { isNotEmpty } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
 export const CONCAT_FIRST_INPUT_SUFFIX = '_CONCAT_FIRST_INPUT';
 export const CONCAT_SECOND_INPUT_SUFFIX = '_CONCAT_SECOND_INPUT';
-
-export const SERIES_GROUP_SUFFIX = '_SERIES_GROUP';
-export const SERIES_INPUT_1_SUFFIX = '_SERIES_INPUT_1';
-export const SERIES_INPUT_2_SUFFIX = '_SERIES_INPUT_2';
-
-export const NAME_GROUP_SUFFIX = '_NAME_GROUP';
-export const NAME_INPUT_1_SUFFIX = '_NAME_INPUT_1';
-export const NAME_INPUT_2_SUFFIX = '_NAME_INPUT_2';
 
 export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   separator: string;
@@ -23,9 +15,9 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() separator: string;
   @serializable() hasLanguages = false;
 
-  constructor(config: DynamicConcatModelConfig, cls?: ClsConfig) {
+  constructor(config: DynamicConcatModelConfig, layout?: DynamicFormControlLayout) {
 
-    super(config, cls);
+    super(config, layout);
 
     this.separator = config.separator + ' ';
   }

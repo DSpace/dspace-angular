@@ -11,13 +11,6 @@ import {
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 import { FormFieldLanguageValueObject } from '../models/form-field-language-value.model';
-import { DynamicTagModelConfig } from '../ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { letProto } from 'rxjs/operator/let';
-import { Type } from 'typedoc/dist/lib/models';
-import {
-  DsDynamicTypeaheadModelConfig,
-  DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD
-} from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 
 export abstract class FieldParser {
 

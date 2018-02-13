@@ -1,8 +1,5 @@
 import { FieldParser } from './field-parser';
-import {
-  ClsConfig, DynamicDatePickerModel, DynamicDatePickerModelConfig,
-  DynamicFormGroupModel
-} from '@ng-dynamic-forms/core';
+import { DynamicDatePickerModelConfig } from '@ng-dynamic-forms/core';
 import { FormFieldModel } from '../models/form-field.model';
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/ds-date-picker/ds-date-picker.model';
 import { isNotEmpty } from '../../../empty.util';

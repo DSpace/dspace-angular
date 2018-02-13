@@ -1,6 +1,5 @@
-import { ClsConfig, DynamicDateControlModel, serializable } from '@ng-dynamic-forms/core';
+import { DynamicDateControlModel, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 import { DynamicDateControlModelConfig } from '@ng-dynamic-forms/core/src/model/dynamic-date-control.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from '../typeahead/dynamic-typeahead.model';
 import { Subject } from 'rxjs/Subject';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DSDATEPICKER';
@@ -14,8 +13,8 @@ export class DynamicDsDatePickerModel extends DynamicDateControlModel {
   malformedDate: boolean;
   hasLanguages = false;
 
-  constructor(config: DynamicDateControlModelConfig, cls?: ClsConfig) {
-    super(config, cls);
+  constructor(config: DynamicDateControlModelConfig, layout?: DynamicFormControlLayout) {
+    super(config, layout);
     this.malformedDate = false;
   }
 

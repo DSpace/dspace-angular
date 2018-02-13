@@ -32,6 +32,7 @@ import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-s
 import { SharedModule } from './shared/shared.module';
 import { SubmissionModule } from './submission/submission.module';
 import { SortablejsModule } from 'angular-sortablejs';
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -55,6 +56,7 @@ if (!ENV_CONFIG.production) {
 @NgModule({
   imports: [
     CommonModule,
+    DynamicFormsCoreModule.forRoot(),
     SharedModule,
     HttpClientModule,
     SubmissionModule,

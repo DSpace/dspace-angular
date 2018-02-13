@@ -1,8 +1,5 @@
 import { FieldParser } from './field-parser';
-import {
-  ClsConfig,
-  DynamicFormGroupModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, } from '@ng-dynamic-forms/core';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig
@@ -10,7 +7,6 @@ import {
 import { FormFieldModel } from '../models/form-field.model';
 import { isNotEmpty } from '../../../empty.util';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 
 export class DropdownFieldParser extends FieldParser {
 
@@ -22,17 +18,17 @@ export class DropdownFieldParser extends FieldParser {
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.initModel();
-    let cls: ClsConfig;
+    let layout: DynamicFormControlLayout;
 
-    if (isNotEmpty(this.configData.selectableMetadata[ 0 ].authority)) {
-      dropdownModelConfig.authorityMetadata = this.configData.selectableMetadata[ 0 ].metadata;
-      dropdownModelConfig.authorityName = this.configData.selectableMetadata[ 0 ].authority;
+    if (isNotEmpty(this.configData.selectableMetadata[0].authority)) {
+      dropdownModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
+      dropdownModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
       dropdownModelConfig.authorityScope = this.authorityUuid;
       dropdownModelConfig.maxOptions = 10;
       if (isNotEmpty(fieldValue)) {
         dropdownModelConfig.value = fieldValue;
       }
-      cls = {
+      layout = {
         element: {
           control: 'col'
         },
@@ -40,7 +36,7 @@ export class DropdownFieldParser extends FieldParser {
           host: 'col'
         }
       };
-      const dropdownModel = new DynamicScrollableDropdownModel(dropdownModelConfig, cls);
+      const dropdownModel = new DynamicScrollableDropdownModel(dropdownModelConfig, layout);
       dropdownModel.name = this.fieldId;
       return dropdownModel;
     } else {

@@ -3,7 +3,7 @@ import { GroupEpersonService } from '../../../../core/eperson/group-eperson.serv
 import { ResourcePolicy } from '../../../../core/shared/resource-policy.model';
 import { isEmpty } from '../../../../shared/empty.util';
 import { EpersonData } from '../../../../core/eperson/eperson-data';
-import { GroupsModel } from '../../../../core/eperson/models/groups.model';
+import { Group } from '../../../../core/eperson/models/group.model';
 
 @Component({
   selector: 'ds-access-conditions',
@@ -22,7 +22,7 @@ export class AccessConditionsComponent implements OnInit {
       if (isEmpty(accessCondition.name)) {
         this.groupService.getDataByUuid(accessCondition.groupUUID)
           .subscribe((data: EpersonData) => {
-            const group = data.payload[0] as GroupsModel;
+            const group = data.payload[0] as Group;
             const accessConditionEntry = Object.assign({}, accessCondition);
             accessConditionEntry.name = group.name;
             this.accessConditionsList.push(accessConditionEntry);

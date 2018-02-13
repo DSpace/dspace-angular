@@ -1,8 +1,7 @@
 import { Subject } from 'rxjs/Subject';
 
 import {
-  ClsConfig,
-  DynamicCheckboxGroupModel,
+  DynamicCheckboxGroupModel, DynamicFormControlLayout,
   DynamicFormGroupModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
@@ -27,8 +26,8 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
   @serializable() _value: AuthorityModel[];
   valueUpdates: Subject<any>;
 
-  constructor(config: DynamicListCheckboxGroupModelConfig, cls?: ClsConfig) {
-    super(config, cls);
+  constructor(config: DynamicListCheckboxGroupModelConfig, layout?: DynamicFormControlLayout) {
+    super(config, layout);
 
     this.authorityMetadata = config.authorityMetadata;
     this.authorityName = config.authorityName;

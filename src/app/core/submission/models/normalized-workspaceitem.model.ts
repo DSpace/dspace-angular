@@ -9,7 +9,7 @@ import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { NormalizedCollection } from '../../cache/models/normalized-collection.model';
 import { ResourceType } from '../../shared/resource-type';
 import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
-import { EpersonModel } from '../../eperson/models/eperson.model';
+import { Eperson } from '../../eperson/models/eperson.model';
 
 @mapsTo(Workspaceitem)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -41,8 +41,8 @@ export class NormalizedWorkspaceItem extends NormalizedSubmissionObject {
   @autoserializeAs(SubmissionDefinitionsModel)
   submissionDefinition: SubmissionDefinitionsModel;
 
-  @autoserializeAs(EpersonModel)
-  submitter: EpersonModel;
+  @autoserializeAs(Eperson)
+  submitter: Eperson;
 
   @autoserialize
   errors: WorkspaceItemError[]

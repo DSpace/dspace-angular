@@ -1,4 +1,4 @@
-import { ClsConfig, DynamicFormGroupModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from './ds-dynamic-input.model';
 import { Subject } from 'rxjs/Subject';
 import { DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core/src/model/form-group/dynamic-form-group.model';
@@ -19,8 +19,8 @@ export class DynamicComboboxModel extends DynamicFormGroupModel {
   @serializable() languageUpdates: Subject<string>;
   @serializable() hasLanguages = false;
 
-  constructor(config: DsDynamicComboboxModelConfig, cls?: ClsConfig) {
-    super(config, cls);
+  constructor(config: DsDynamicComboboxModelConfig, layout?: DynamicFormControlLayout) {
+    super(config, layout);
 
     this.language = config.language;
     this.languageCodes = config.languageCodes;

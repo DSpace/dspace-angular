@@ -1,6 +1,6 @@
 import { SubmissionObject } from './submission-object.model';
 import { Collection } from '../../shared/collection.model';
-import { EpersonModel } from '../../eperson/models/eperson.model';
+import { Eperson } from '../../eperson/models/eperson.model';
 import { Item } from '../../shared/item.model';
 import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
@@ -27,7 +27,7 @@ export class Workspaceitem extends SubmissionObject {
 
   submissionDefinition: SubmissionDefinitionsModel;
 
-  submitter: EpersonModel;
+  submitter: Eperson;
 
   errors: WorkspaceItemError[];
 

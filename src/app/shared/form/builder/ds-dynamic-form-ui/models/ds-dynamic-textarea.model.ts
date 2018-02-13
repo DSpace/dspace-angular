@@ -1,4 +1,7 @@
-import { ClsConfig, DynamicTextAreaModel, DynamicTextAreaModelConfig, serializable } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout, DynamicTextAreaModel, DynamicTextAreaModelConfig,
+  serializable
+} from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs/Subject';
 import { LanguageCode } from '../../models/form-field-language-value.model';
 
@@ -12,8 +15,8 @@ export class DsDynamicTextAreaModel extends DynamicTextAreaModel {
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() languageUpdates: Subject<string>;
 
-  constructor(config: DsDynamicTextAreaModelConfig, cls?: ClsConfig) {
-    super(config, cls);
+  constructor(config: DsDynamicTextAreaModelConfig, layout?: DynamicFormControlLayout) {
+    super(config, layout);
 
     this.value = config.value;
     this.language = config.language;

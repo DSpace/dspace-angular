@@ -1,6 +1,6 @@
 import { FieldParser } from './field-parser';
 import {
-  ClsConfig, DynamicTextAreaModel, DynamicTextAreaModelConfig
+  DynamicFormControlLayout, DynamicTextAreaModel, DynamicTextAreaModelConfig
 } from '@ng-dynamic-forms/core';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -19,16 +19,16 @@ export class TextareaFieldParser extends FieldParser {
   public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
     const textAreaModelConfig: DsDynamicTextAreaModelConfig = this.initModel();
 
-    let cls: ClsConfig;
+    let layout: DynamicFormControlLayout;
 
-    cls = {
+    layout = {
       element: {
         label: 'col-form-label'
       }
     };
 
     this.setValues(textAreaModelConfig, fieldValue);
-    const textAreaModel = new DsDynamicTextAreaModel(textAreaModelConfig, cls);
+    const textAreaModel = new DsDynamicTextAreaModel(textAreaModelConfig, layout);
     textAreaModel.name = this.fieldId;
     textAreaModel.rows = 10;
     return textAreaModel;

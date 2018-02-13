@@ -11,6 +11,15 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
+  DynamicDatePickerModel,
+  DynamicFormArrayGroupModel,
+  DynamicFormControlComponent,
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+  DynamicFormLayout,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+  DynamicTemplateDirective,
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
@@ -21,23 +30,15 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel,
-  DynamicFormArrayGroupModel,
-  DynamicFormControlComponent,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormValidationService,
-  DynamicTemplateDirective
 } from '@ng-dynamic-forms/core';
-
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
-import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
-import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION } from './models/ds-dynamic-group/dynamic-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/ds-date-picker/ds-date-picker.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
+import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
 import { isNotEmpty } from '../../../empty.util';
 
 export const enum NGBootstrapFormControlType {
@@ -69,9 +70,9 @@ export const enum NGBootstrapFormControlType {
 })
 export class DsDynamicFormControlComponent extends DynamicFormControlComponent implements OnChanges {
 
-  @ContentChildren(DynamicTemplateDirective) contentTemplates: QueryList<DynamicTemplateDirective>;
-  // tslint:disable-next-line:no-input-rename
-  @Input('templates') inputTemplates: QueryList<DynamicTemplateDirective>;
+    @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
+    // tslint:disable-next-line:no-input-rename
+    @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
 
   @Input() formId: string;
   @Input() asBootstrapFormGroup = true;
@@ -79,11 +80,14 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
   @Input() context: DynamicFormArrayGroupModel | null = null;
   @Input() group: FormGroup;
   @Input() hasErrorMessaging = false;
-  @Input() model: any;
+  @Input() layout: DynamicFormLayout;
+  @Input() model: DynamicFormControlModel;
 
-  @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
-  @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
-  @Output() focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  /* tslint:disable:no-output-rename */
+  @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  /* tslint:enable:no-output-rename */
 
   type: NGBootstrapFormControlType | null;
 
@@ -147,10 +151,10 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
     }
   }
 
-  constructor(protected changeDetectorRef: ChangeDetectorRef,
+  constructor(protected changeDetectorRef: ChangeDetectorRef, protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService) {
 
-    super(changeDetectorRef, validationService);
+    super(changeDetectorRef, layoutService, validationService);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -165,7 +169,6 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
 
   onChangeLanguage(event) {
     if (isNotEmpty((this.model as any).value)) {
-      console.log(event);
       this.onValueChange(event);
     }
   }

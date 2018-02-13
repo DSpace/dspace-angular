@@ -1,4 +1,4 @@
-import { AUTOCOMPLETE_OFF, ClsConfig, serializable } from '@ng-dynamic-forms/core';
+import { AUTOCOMPLETE_OFF, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_TAG = 'TYPETAG';
@@ -21,9 +21,9 @@ export class DynamicTagModel extends DsDynamicInputModel {
   @serializable() value: any[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TAG;
 
-  constructor(config: DynamicTagModelConfig, cls?: ClsConfig) {
+  constructor(config: DynamicTagModelConfig, layout?: DynamicFormControlLayout) {
 
-    super(config, cls);
+    super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
     this.authorityMetadata = config.authorityMetadata;

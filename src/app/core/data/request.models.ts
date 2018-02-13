@@ -206,7 +206,7 @@ export class AuthGetRequest extends GetRequest {
 }
 
 export class SubmissionFindAllRequest extends GetRequest {
-  constructor(uuid: string, href: string, public options?: FindAllOptions) {
+  constructor(uuid: string, href: string, public body?: FindAllOptions) {
     super(uuid, href);
   }
 

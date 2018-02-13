@@ -1,4 +1,4 @@
-import { ClsConfig, serializable } from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 import { FormRowModel } from '../../../../../../core/shared/config/config-submission-forms.model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
@@ -27,8 +27,8 @@ export class DynamicGroupModel extends DsDynamicInputModel {
   @serializable() value: any[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION;
 
-  constructor(config: DynamicGroupModelConfig, cls?: ClsConfig) {
-    super(config, cls);
+  constructor(config: DynamicGroupModelConfig, layout?: DynamicFormControlLayout) {
+    super(config, layout);
 
     this.formConfiguration = config.formConfiguration;
     this.mandatoryField = config.mandatoryField;

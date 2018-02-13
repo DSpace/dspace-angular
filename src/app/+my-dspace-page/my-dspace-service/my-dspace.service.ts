@@ -13,7 +13,7 @@ import { FilterType } from '../../+search-page/search-service/filter-type.model'
 import { SearchOptions } from '../../+search-page/search-options.model';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { RouteService } from '../../shared/route.service';
+import { RouteService } from '../../shared/services/route.service';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { MyDSpaceResult } from '../my-dspace-result.model';
 import { PaginatedList } from '../../core/data/paginated-list';

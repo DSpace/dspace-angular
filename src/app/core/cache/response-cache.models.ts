@@ -8,8 +8,10 @@ import { AuthStatus } from '../auth/models/auth-status.model';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
 import { NormalizedDSpaceObject } from './models/normalized-dspace-object.model';
 import { NormalizedObject } from './models/normalized-object.model';
-import { EpersonModel } from '../eperson/models/eperson.model';
+
 import { IntegrationModel } from '../integration/models/integration.model';
+import { Eperson } from '../eperson/models/eperson.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -124,7 +126,7 @@ export class SubmissionSuccessResponse extends RestResponse {
 
 export class EpersonSuccessResponse extends RestResponse {
   constructor(
-    public epersonDefinition: EpersonModel[],
+    public epersonDefinition: NormalizedObject[],
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {

@@ -1,7 +1,10 @@
 import { FieldParser } from './field-parser';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { ClsConfig, DynamicInputModel, DynamicInputModelConfig } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout, DynamicInputModel,
+  DynamicInputModelConfig
+} from '@ng-dynamic-forms/core';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX, CONCAT_SECOND_INPUT_SUFFIX,
@@ -19,8 +22,8 @@ export class ConcatFieldParser extends FieldParser {
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
 
-    let clsGroup: ClsConfig;
-    let clsInput: ClsConfig;
+    let clsGroup: DynamicFormControlLayout;
+    let clsInput: DynamicFormControlLayout;
     const newId = this.configData.selectableMetadata[0].metadata
       .split('.')
       .slice(0, this.configData.selectableMetadata[0].metadata.split('.').length - 1)

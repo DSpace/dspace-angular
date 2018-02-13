@@ -12,9 +12,11 @@ import {
   DynamicFormComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicTemplateDirective
+    DynamicFormLayout,
+    DynamicFormLayoutService,
+    DynamicFormService,
+    DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-
 import { DsDynamicFormControlComponent } from './ds-dynamic-form-control.component';
 
 @Component({
@@ -23,15 +25,23 @@ import { DsDynamicFormControlComponent } from './ds-dynamic-form-control.compone
 })
 export class DsDynamicFormComponent extends DynamicFormComponent {
 
-  @Input() formId: string;
-  @Input() group: FormGroup;
-  @Input() model: DynamicFormControlModel[];
+  /* tslint:disable:no-input-rename */
+  @Input('group') formGroup: FormGroup;
+  @Input('model') formModel: DynamicFormControlModel[];
+  @Input('layout') formLayout: DynamicFormLayout;
+  /* tslint:enable:no-input-rename */
 
-  @Output() blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
-  @Output() change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
-  @Output() focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  /* tslint:disable:no-output-rename */
+  @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
+  /* tslint:enable:no-output-rename */
 
   @ContentChildren(DynamicTemplateDirective) templates: QueryList<DynamicTemplateDirective>;
 
   @ViewChildren(DsDynamicFormControlComponent) components: QueryList<DsDynamicFormControlComponent>;
+
+    constructor(protected formService: DynamicFormService, protected layoutService: DynamicFormLayoutService) {
+        super(formService, layoutService);
+    }
 }
