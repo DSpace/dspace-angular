@@ -8,7 +8,7 @@
                    [innerHTML]="getFirstValue('dc.publisher')">, </span><span
             *ngIf="dso.findMetadata('dc.date.issued')" class="item-list-date"
             [innerHTML]="getFirstValue('dc.date.issued')"></span>)
-            <span *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);"
+            <span *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"
                   class="item-list-authors">
                     <span *ngFor="let author of getValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
                         <span [innerHTML]="author"><span [innerHTML]="author"></span></span>

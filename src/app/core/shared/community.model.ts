@@ -24,6 +24,7 @@ export class Community extends DSpaceObject {
    * Corresponds to the metadata field dc.description.abstract
    */
   get shortDescription(): string {
+    debugger;
     return this.findMetadata('dc.description.abstract');
   }
 

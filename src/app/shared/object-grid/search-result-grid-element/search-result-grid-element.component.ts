@@ -17,10 +17,9 @@ import { Observable } from 'rxjs/Observable';
 export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
 
-  public constructor(@Inject('objectElementProvider') public gridable: ListableObject, private truncatableService: TruncatableService) {
-    super(gridable);
+  public constructor(@Inject('objectElementProvider') public listableObject: ListableObject, private truncatableService: TruncatableService) {
+    super(listableObject);
     this.dso = this.object.dspaceObject;
-    console.log(JSON.stringify(this.object.hitHighlights));
   }
 
   getValues(keys: string[]): string[] {
@@ -44,7 +43,6 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
 
   getFirstValue(key: string): string {
     let result: string;
-    console.log(JSON.stringify(this.object.hitHighlights));
     this.object.hitHighlights.some(
       (md: Metadatum) => {
         if (key === md.key) {

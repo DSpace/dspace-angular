@@ -1,47 +1,55 @@
 import { ItemGridElementComponent } from './item-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../testing/router-stub';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../utils/truncate.pipe';
 import { Item } from '../../../core/shared/item.model';
+import { Observable } from 'rxjs/Observable';
 
 let itemGridElementComponent: ItemGridElementComponent;
 let fixture: ComponentFixture<ItemGridElementComponent>;
-const queryParam = 'test query';
-const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-const activatedRouteStub = {
-  queryParams: Observable.of({
-    query: queryParam,
-    scope: scopeParam
-  })
-};
-/* tslint:disable:no-shadowed-variable */
-const mockItem: Item = Object.assign(new Item(), {
+
+const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
+  bitstreams: Observable.of({}),
   metadata: [
     {
       key: 'dc.contributor.author',
       language: 'en_US',
       value: 'Smith, Donald'
+    },
+    {
+      key: 'dc.date.issued',
+      language: null,
+      value: '2015-06-26'
     }]
 });
-
-const createdGridElementComponent:ItemGridElementComponent= new ItemGridElementComponent(mockItem);
+const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
+  bitstreams: Observable.of({}),
+  metadata: [
+    {
+      key: 'dc.title',
+      language: 'en_US',
+      value: 'This is just another title'
+    },
+    {
+      key: 'dc.type',
+      language: null,
+      value: 'Article'
+    }]
+});
 
 describe('ItemGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ItemGridElementComponent , TruncatePipe],
       providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useValue: {createdGridElementComponent}}
+        { provide: 'objectElementProvider', useValue: {mockItemWithAuthorAndDate}}
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
-    }).compileComponents();  // compile template and css
+    }).overrideComponent(ItemGridElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
   }));
 
   beforeEach(async(() => {
@@ -50,18 +58,51 @@ describe('ItemGridElementComponent', () => {
 
   }));
 
-  it('should show the item cards in the grid element',() => {
-    expect(fixture.debugElement.query(By.css('ds-item-grid-element'))).toBeDefined()
+  describe('When the item has an author', () => {
+    beforeEach(() => {
+      itemGridElementComponent.object = mockItemWithAuthorAndDate;
+      fixture.detectChanges();
+    });
+
+    it('should show the author paragraph', () => {
+      const itemAuthorField = fixture.debugElement.query(By.css('p.item-authors'));
+      expect(itemAuthorField).not.toBeNull();
+    });
   });
 
-  it('should only show the author span if the author metadata is present',() => {
-    const itemAuthorField = expect(fixture.debugElement.query(By.css('p.item-authors')));
+  describe('When the item has no author', () => {
+    beforeEach(() => {
+      itemGridElementComponent.object = mockItemWithoutAuthorAndDate;
+      fixture.detectChanges();
+    });
 
-    if (mockItem.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0) {
-      expect(itemAuthorField).toBeDefined();
-    }else {
-      expect(itemAuthorField).toBeDefined();
-    }
+    it('should not show the author paragraph', () => {
+      const itemAuthorField = fixture.debugElement.query(By.css('p.item-authors'));
+      expect(itemAuthorField).toBeNull();
+    });
   });
 
+  describe('When the item has an issuedate', () => {
+    beforeEach(() => {
+      itemGridElementComponent.object = mockItemWithAuthorAndDate;
+      fixture.detectChanges();
+    });
+
+    it('should show the issuedate span', () => {
+      const itemAuthorField = fixture.debugElement.query(By.css('span.item-date'));
+      expect(itemAuthorField).not.toBeNull();
+    });
+  });
+
+  describe('When the item has no issuedate', () => {
+    beforeEach(() => {
+      itemGridElementComponent.object = mockItemWithoutAuthorAndDate;
+      fixture.detectChanges();
+    });
+
+    it('should not show the issuedate span', () => {
+      const dateField = fixture.debugElement.query(By.css('span.item-date'));
+      expect(dateField).toBeNull();
+    });
+  });
 });

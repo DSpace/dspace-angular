@@ -1,8 +1,6 @@
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../../testing/router-stub';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
@@ -13,14 +11,6 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 
 let itemSearchResultGridElementComponent: ItemSearchResultGridElementComponent;
 let fixture: ComponentFixture<ItemSearchResultGridElementComponent>;
-const queryParam = 'test query';
-const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-const activatedRouteStub = {
-  queryParams: Observable.of({
-    query: queryParam,
-    scope: scopeParam
-  })
-};
 
 const truncatableServiceStub: any = {
   isCollapsed: (id: number) => Observable.of(true),
@@ -46,7 +36,7 @@ mockItemWithAuthorAndDate.dspaceObject = Object.assign(new Item(), {
 const mockItemWithoutAuthorAndDate: ItemSearchResult = new ItemSearchResult();
 mockItemWithoutAuthorAndDate.hitHighlights = [];
 mockItemWithoutAuthorAndDate.dspaceObject = Object.assign(new Item(), {
-  bitstream: Observable.of({}),
+  bitstreams: Observable.of({}),
   metadata: [
     {
       key: 'dc.title',
@@ -60,8 +50,6 @@ mockItemWithoutAuthorAndDate.dspaceObject = Object.assign(new Item(), {
     }]
 });
 
-const createdGridElementComponent: ItemSearchResultGridElementComponent = new ItemSearchResultGridElementComponent(mockItemWithAuthorAndDate, truncatableServiceStub as TruncatableService);
-
 describe('ItemSearchResultGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -69,9 +57,7 @@ describe('ItemSearchResultGridElementComponent', () => {
       declarations: [ItemSearchResultGridElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useValue: (createdGridElementComponent) }
+        { provide: 'objectElementProvider', useValue: (mockItemWithoutAuthorAndDate) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSearchResultGridElementComponent, {
@@ -84,7 +70,7 @@ describe('ItemSearchResultGridElementComponent', () => {
     itemSearchResultGridElementComponent = fixture.componentInstance;
   }));
 
-  fdescribe('When the item has an author', () => {
+  describe('When the item has an author', () => {
     beforeEach(() => {
       itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
       fixture.detectChanges();
@@ -99,6 +85,7 @@ describe('ItemSearchResultGridElementComponent', () => {
   describe('When the item has no author', () => {
     beforeEach(() => {
       itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      fixture.detectChanges();
     });
 
     it('should not show the author paragraph', () => {
@@ -110,6 +97,7 @@ describe('ItemSearchResultGridElementComponent', () => {
   describe('When the item has an issuedate', () => {
     beforeEach(() => {
       itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
+      fixture.detectChanges();
     });
 
     it('should show the issuedate span', () => {
@@ -121,6 +109,7 @@ describe('ItemSearchResultGridElementComponent', () => {
   describe('When the item has no issuedate', () => {
     beforeEach(() => {
       itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      fixture.detectChanges();
     });
 
     it('should not show the issuedate span', () => {

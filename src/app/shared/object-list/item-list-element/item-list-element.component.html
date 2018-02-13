@@ -3,7 +3,7 @@
 </a>
 <div>
   <span class="text-muted">
-    <span *ngIf="object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);"
+    <span *ngIf="object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"
           class="item-list-authors">
         <span *ngFor="let authorMd of object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
             <span *ngIf="!last">; </span>
