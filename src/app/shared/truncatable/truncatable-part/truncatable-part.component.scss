@@ -49,7 +49,7 @@ $h4-factor: strip-unit($h4-font-size);
 .clamp-none {
     overflow: hidden;
     @for $i from 1 through 15 {
-        &.min-#{$i} {
+        &.fixedHeight.min-#{$i} {
             transition: height 1s;
             @include min($i);
             &.title {

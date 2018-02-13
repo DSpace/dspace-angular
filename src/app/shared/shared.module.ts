@@ -40,6 +40,7 @@ import { SearchResultGridElementComponent } from './object-grid/search-result-gr
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
+import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
@@ -104,7 +105,8 @@ const PROVIDERS = [
 ];
 
 const DIRECTIVES = [
-  VarDirective
+  VarDirective,
+  DragClickDirective
 ];
 
 @NgModule({
