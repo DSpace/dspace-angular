@@ -25,11 +25,10 @@ import { DsDynamicFormControlComponent } from './ds-dynamic-form-control.compone
 })
 export class DsDynamicFormComponent extends DynamicFormComponent {
 
-  /* tslint:disable:no-input-rename */
-  @Input('group') formGroup: FormGroup;
-  @Input('model') formModel: DynamicFormControlModel[];
-  @Input('layout') formLayout: DynamicFormLayout;
-  /* tslint:enable:no-input-rename */
+  @Input() formId: string;
+  @Input() group: FormGroup;
+  @Input() model: DynamicFormControlModel[];
+  @Input() formLayout: DynamicFormLayout;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();

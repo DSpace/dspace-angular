@@ -1,6 +1,6 @@
 import { SearchService } from '../search-service/search.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SearchSettingsComponent } from './search-tab.component';
+import { SearchSettingsComponent } from '../search-settings/search-settings.component';
 import { Observable } from 'rxjs/Observable';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortOptions } from '../../core/cache/models/sort-options.model';

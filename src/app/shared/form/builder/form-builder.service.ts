@@ -4,9 +4,8 @@ import { isEqual, merge, mergeWith } from 'lodash';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
-  DynamicFormArrayModel,
   DynamicFormArrayGroupModel,
-
+  DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
