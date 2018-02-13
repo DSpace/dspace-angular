@@ -56,7 +56,6 @@ if (!ENV_CONFIG.production) {
 @NgModule({
   imports: [
     CommonModule,
-    DynamicFormsCoreModule.forRoot(),
     SharedModule,
     HttpClientModule,
     SubmissionModule,

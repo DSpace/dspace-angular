@@ -81,6 +81,7 @@ const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
   SortablejsModule,
+  DynamicFormsCoreModule,
   DynamicFormsNGBootstrapUIModule,
   FileUploadModule,
   FormsModule,

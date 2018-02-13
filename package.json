@@ -92,7 +92,7 @@
     "angular-sortablejs": "^2.5.0",
     "angular2-text-mask": "8.0.4",
     "body-parser": "1.18.2",
-    "bootstrap": "4.0.0",
+    "bootstrap": "4.0.0-beta",
     "cerialize": "0.1.18",
     "compression": "1.7.1",
     "cookie-parser": "1.4.3",
