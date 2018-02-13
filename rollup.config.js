@@ -8,7 +8,7 @@ export default {
    file: 'dist/client.js',
    format: 'iife',
   },
-  sourceMap: false,
+  sourcemap: false,
   plugins: [
     nodeResolve({
       jsnext: true,

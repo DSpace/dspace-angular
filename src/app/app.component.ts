@@ -13,7 +13,6 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 
-import { TransferState } from '../modules/transfer-state/transfer-state';
 import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/host-window.reducer';
@@ -32,7 +31,6 @@ export class AppComponent implements OnInit {
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     private translate: TranslateService,
-    private cache: TransferState,
     private store: Store<HostWindowState>,
     private metadata: MetadataService
   ) {
@@ -46,16 +44,6 @@ export class AppComponent implements OnInit {
     if (config.debug) {
       console.info(config);
     }
-  }
-
-  ngAfterViewChecked() {
-    this.syncCache();
-  }
-
-  syncCache() {
-    this.store.take(1).subscribe((state: HostWindowState) => {
-      this.cache.set('state', state);
-    });
   }
 
   ngOnInit() {
