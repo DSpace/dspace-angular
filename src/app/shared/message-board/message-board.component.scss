@@ -1,30 +1,17 @@
 
-#container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  width: 100%;
-}
-
-#container header {
-  background-color: #1682bb;
+.modal-header {
+  background-color: #2B4E72;
   color: white;
-  padding: 10px;
-}
-#container article {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  min-height: 0px;
-}
-#container footer {
-  background-color: lightgrey;
-  padding: 20px;
-  bottom: 0;
-  width: 100%;
-  position: absolute;
 }
 
+.modal-footer {
+  width: 100%;
+  display: block;
+}
+
+.modal-footer :not(:first-child){
+  margin: 0 auto !important;
+}
 
 .close {
   position: relative;
@@ -42,8 +29,7 @@
   padding: 0;
 }
 
-.chat li
-{
+.chat li {
   margin-bottom: 10px;
   padding-bottom: 5px;
   border-bottom: 1px dotted #B3A9A9;
@@ -110,8 +96,7 @@
 
 textarea {
   resize: none;
+  margin-bottom: 15px;
 }
 
-#list {
-  padding-bottom: 220px;
-}
+

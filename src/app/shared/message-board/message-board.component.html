@@ -1,14 +1,14 @@
-<section id="container" class="rounded">
-  <header id="header" class="rounded-top" >
-    <i class="fa fa-envelope"></i> Messages
-    <div class="btn-group pull-right">
-            <span (click)="closeDashboard($event)">
+<div class="modal-header rounded-top">
+  <i class="fa fa-envelope"></i> Messages
+  <div class="btn-group pull-right">
+            <span (click)="modalRef.dismiss('Cross click')">
           <i class="fa fa-2x fa-times" style="color: white"></i>
           </span>
-    </div>
+  </div>
+</div>
 
-  </header>
-  <article id="content" class="rounded-bottom" >
+<div class="modal-body">
+  <article id="content" class="rounded-bottom">
     <div id="list">
       <ul class="chat">
         <ng-container *ngFor="let m of messages; let i = index">
@@ -51,19 +51,17 @@
         </ng-container>
       </ul>
     </div>
-
-    <footer id="footer mt-3 rounded-bottom" >
-          <textarea
-            [ngModel]="textMessage"
-            class="form-control"
-            rows="3"></textarea>
-      <span class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12" style="margin-top: 10px">
-                        <button
-                          id="btn-chat"
-                          class="btn btn-warning btn-lg btn-block"
-                          (click)="sendMessage()">Send</button>
-                    </span>
-    </footer>
   </article>
+</div>
 
-</section>
+<div class="modal-footer">
+  <textarea
+    [ngModel]="textMessage"
+    class="form-control"
+    rows="3"></textarea>
+    <button
+      id="btn-chat"
+      class="btn btn-warning btn-lg btn-block mt-3"
+      (click)="sendMessage()">Send
+    </button>
+</div>

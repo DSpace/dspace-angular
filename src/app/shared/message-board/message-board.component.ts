@@ -1,21 +1,30 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Bitstream } from '../../core/shared/bitstream.model';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Bitstream} from '../../core/shared/bitstream.model';
+import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-message-board',
   styleUrls: ['./message-board.component.scss'],
-  templateUrl: './message-board.component.html'
+  templateUrl: './message-board.component.html',
+  providers: [
+    NgbActiveModal,
+  ]
 })
 
 export class MessageBoardComponent {
   @Input()
   public messages: Bitstream[];
+  @Input()
+  public modalRef: NgbModalRef;
   @Output()
   public close = new EventEmitter<any>();
   public show = [];
   public textMessage: string;
   public isCreator: boolean;
   public creatorUuid: string;
+
+  // constructor(public activeModal: NgbActiveModal) {
+  // }
 
   ngOnInit() {
     this.textMessage = '';
@@ -45,14 +54,4 @@ export class MessageBoardComponent {
     // TODO
   }
 
-}
-
-interface DsMessage {
-  uuid: string, // bitstream message id
-  title: string,
-  description: string,
-  sent?: string,
-  read?: string, // NULL if not read
-  creatorName?: string, // String, not id
-  type?: string, // INBOUND, OUTBOUND
 }

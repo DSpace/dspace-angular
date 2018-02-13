@@ -1,23 +1,28 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
-import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
-import { ViewMode } from '../../../../+search-page/search-options.model';
-import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
-import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Observable } from 'rxjs/Observable';
-import { hasNoUndefinedValue, hasNoValue, isEmpty } from '../../../empty.util';
-import { Metadatum } from '../../../../core/shared/metadatum.model';
+import {renderElementsFor} from '../../../object-collection/shared/dso-element-decorator';
+import {MyDSpaceResultListElementComponent,} from '../my-dspace-result-list-element.component';
+import {ViewMode} from '../../../../+search-page/search-options.model';
+import {Workspaceitem} from '../../../../core/submission/models/workspaceitem.model';
+import {WorkspaceitemMyDSpaceResult} from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
+import {Item} from '../../../../core/shared/item.model';
+import {RemoteData} from '../../../../core/data/remote-data';
+import {Observable} from 'rxjs/Observable';
+import {hasNoUndefinedValue, hasNoValue, isEmpty} from '../../../empty.util';
+import {Metadatum} from '../../../../core/shared/metadatum.model';
 
 import * as data from '../../../../../backend/data/bitstream-messages.json';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
+import {Bitstream} from '../../../../core/shared/bitstream.model';
+import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {ListableObject} from '../../../object-collection/shared/listable-object.model';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
   styleUrls: ['../my-dspace-result-list-element.component.scss', './wsi-my-dspace-result-list-element.component.scss'],
   templateUrl: './wsi-my-dspace-result-list-element.component.html',
+  // providers: [
+  //   NgbActiveModal,
+  // ]
 })
 
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
@@ -25,8 +30,12 @@ import { Bitstream } from '../../../../core/shared/bitstream.model';
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   public item: Item;
   public messages: Bitstream[] = [];
-  public showMessageBoard = false;
   public unRead = 0;
+  public modalRef: NgbModalRef;
+
+  constructor(private modalService: NgbModal, @Inject('objectElementProvider') public listable: ListableObject) {
+    super(listable);
+  }
 
   ngOnInit() {
     (this.dso.item as Observable<RemoteData<Item[]>>)
@@ -109,13 +118,10 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     return result;
   }
 
-  openMessageBoard() {
-    // this.modalService.open('test');
-    this.showMessageBoard = true;
-  }
-
-  hideMessageBoard() {
-    this.showMessageBoard = false;
+  openMessageBoard(content) {
+    // this.modalService.open(content, {windowClass: 'dark-modal'});
+    this.modalRef = this.modalService.open(content);
+    // modalRef.componentInstance.name = 'test';
   }
 
 // CREAZIONE messaggio
