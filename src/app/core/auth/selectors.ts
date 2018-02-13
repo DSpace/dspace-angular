@@ -40,12 +40,12 @@ export const getAuthenticationError = createSelector(getAuthState, auth.getAuthe
 
 /**
  * Returns the authentication info message.
- * @function getAuthenticationError
+ * @function getAuthenticationInfo
  * @param {AuthState} state
  * @param {any} props
- * @return {Error}
+ * @return {string}
  */
-export const getAuthenticationMessage = createSelector(getAuthState, auth.getAuthenticationMessage);
+export const getAuthenticationInfo = createSelector(getAuthState, auth.getAuthenticationInfo);
 
 /**
  * Returns true if the user is authenticated

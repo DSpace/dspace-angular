@@ -10,12 +10,12 @@ import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { isAuthenticated } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { Store } from '@ngrx/store';
-import { ResetAuthenticationErrorAction } from './auth.actions';
+import { ResetAuthenticationMessagesAction } from './auth.actions';
 import { RouterReducerState } from '@ngrx/router-store';
+import { Router } from '@angular/router';
 
 export const LOGIN_ROUTE = '/login';
 /**
@@ -36,8 +36,7 @@ export class AuthService {
    */
   private _redirectUrl: string;
 
-  constructor(private route: ActivatedRoute,
-              private authRequestService: AuthRequestService,
+  constructor(private authRequestService: AuthRequestService,
               private router: Router,
               private storage: CookieService,
               private store: Store<AppState>) {
@@ -46,7 +45,7 @@ export class AuthService {
       .subscribe((authenticated: boolean) => this._authenticated = authenticated);
 
     // If current route is different from the one setted in authentication guard
-    // and is not the login route, clear it
+    // and is not the login route, clear redirect url and messages
     this.store.select(routerStateSelector)
       .filter((routerState: RouterReducerState) => isNotUndefined(routerState))
       .filter((routerState: RouterReducerState) =>
@@ -54,7 +53,7 @@ export class AuthService {
         && isNotEmpty(this._redirectUrl)
         && (routerState.state.url !== this._redirectUrl))
       .distinctUntilChanged()
-      .subscribe((routerState: RouterReducerState) => {
+      .subscribe(() => {
         this._redirectUrl = '';
       })
   }
@@ -125,7 +124,7 @@ export class AuthService {
    * Clear authentication errors
    */
   public resetAuthenticationError(): void {
-    this.store.dispatch(new ResetAuthenticationErrorAction());
+    this.store.dispatch(new ResetAuthenticationMessagesAction());
   }
 
   /**
@@ -219,6 +218,19 @@ export class AuthService {
     } else {
       this.router.navigate(['/']);
     }
+  }
+
+  /**
+   * Refresh route navigated
+   */
+  public refreshPage() {
+    this.store.select(routerStateSelector)
+      .take(1)
+      .subscribe((router) => {
+        // TODO Chack a way to hard refresh the same route
+        // this.router.navigate([router.state.url],  { replaceUrl: true });
+        this.router.navigate(['/']);
+      })
   }
 
   /**

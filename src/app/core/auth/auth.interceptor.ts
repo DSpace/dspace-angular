@@ -1,20 +1,19 @@
 import { Injectable, Injector } from '@angular/core';
-import { Router } from '@angular/router';
 import {
-  HttpClient, HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse,
+  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
+
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/throw'
 import 'rxjs/add/operator/catch';
 
+import { AppState } from '../../app.reducer';
+import { AuthError } from './models/auth-error.model';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
-import { AuthType } from './auth-type';
-import { ResourceType } from '../shared/resource-type';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { isNotEmpty } from '../../shared/empty.util';
-import { AppState } from '../../app.reducer';
 import { RedirectWhenTokenExpiredAction } from './auth.actions';
 import { Store } from '@ngrx/store';
 
@@ -47,7 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
       authStatus.token = new AuthTokenInfo(accessToken);
     } else {
       authStatus.authenticated = false;
-      authStatus.error = isNotEmpty(error) ? JSON.parse(error) : null;
+      authStatus.error = isNotEmpty(error) ? ((typeof error === 'string') ? JSON.parse(error) : error) : null;
     }
     return authStatus;
   }

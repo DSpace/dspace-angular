@@ -17,8 +17,9 @@ export const AuthActionTypes = {
   AUTHENTICATED_SUCCESS: type('dspace/auth/AUTHENTICATED_SUCCESS'),
   CHECK_AUTHENTICATION_TOKEN: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN'),
   CHECK_AUTHENTICATION_TOKEN_ERROR: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN_ERROR'),
-  REDIRECT: type('dspace/auth/REDIRECT'),
-  RESET_ERROR: type('dspace/auth/RESET_ERROR'),
+  REDIRECT_TOKEN_EXPIRED: type('dspace/auth/REDIRECT_TOKEN_EXPIRED'),
+  REDIRECT_AUTHENTICATION_REQUIRED: type('dspace/auth/REDIRECT_AUTHENTICATION_REQUIRED'),
+  RESET_MESSAGES: type('dspace/auth/RESET_MESSAGES'),
   LOG_OUT: type('dspace/auth/LOG_OUT'),
   LOG_OUT_ERROR: type('dspace/auth/LOG_OUT_ERROR'),
   LOG_OUT_SUCCESS: type('dspace/auth/LOG_OUT_SUCCESS'),
@@ -172,12 +173,26 @@ export class LogOutSuccessAction implements Action {
 }
 
 /**
+ * Redirect to login page when authentication is required.
+ * @class RedirectWhenAuthenticationIsRequiredAction
+ * @implements {Action}
+ */
+export class RedirectWhenAuthenticationIsRequiredAction implements Action {
+  public type: string = AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED;
+  payload: string;
+
+  constructor(message: string) {
+    this.payload = message ;
+  }
+}
+
+/**
  * Redirect to login page when token is expired.
  * @class RedirectWhenTokenExpiredAction
  * @implements {Action}
  */
 export class RedirectWhenTokenExpiredAction implements Action {
-  public type: string = AuthActionTypes.REDIRECT;
+  public type: string = AuthActionTypes.REDIRECT_TOKEN_EXPIRED;
   payload: string;
 
   constructor(message: string) {
@@ -229,11 +244,11 @@ export class RegistrationSuccessAction implements Action {
 
 /**
  * Reset error.
- * @class ResetAuthenticationErrorAction
+ * @class ResetAuthenticationMessagesAction
  * @implements {Action}
  */
-export class ResetAuthenticationErrorAction implements Action {
-  public type: string = AuthActionTypes.RESET_ERROR;
+export class ResetAuthenticationMessagesAction implements Action {
+  public type: string = AuthActionTypes.RESET_MESSAGES;
 }
 
 /* tslint:enable:max-classes-per-file */
@@ -252,6 +267,7 @@ export type AuthActions
   | AuthenticationSuccessAction
   | CheckAuthenticationTokenAction
   | CheckAuthenticationTokenErrorAction
+  | RedirectWhenAuthenticationIsRequiredAction
   | RedirectWhenTokenExpiredAction
   | RegistrationAction
   | RegistrationErrorAction

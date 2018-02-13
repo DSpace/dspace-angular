@@ -8,6 +8,8 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { isAuthenticated, isAuthenticationLoading } from './selectors';
 import { AuthService } from './auth.service';
+import { RedirectWhenAuthenticationIsRequiredAction } from './auth.actions';
+import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Prevent unauthorized activating and loading of routes
@@ -27,7 +29,6 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const url = state.url;
-
     return this.handleAuth(url);
   }
 
@@ -50,16 +51,19 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
   }
 
   private handleAuth(url: string): Observable<boolean> {
-    console.log('handleAuth', url)
     // get observable
     const observable = this.store.select(isAuthenticated);
 
     // redirect to sign in page if user is not authenticated
-    observable.subscribe((authenticated) => {
-      if (!authenticated) {
-        this.authService.redirectUrl = url;
-        this.authService.redirectToLogin();
-      }
+    observable
+      // .filter(() => isEmpty(this.router.routerState.snapshot.url) || this.router.routerState.snapshot.url === url)
+      .take(1)
+      .subscribe((authenticated) => {
+        console.log('handleAuth', url, this.router.routerState.snapshot.url);
+        if (!authenticated) {
+          this.authService.redirectUrl = url;
+          this.store.dispatch(new RedirectWhenAuthenticationIsRequiredAction('Login required'));
+        }
     });
 
     return observable;

@@ -10,11 +10,11 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/takeWhile';
 
 // actions
-import { AuthenticateAction, ResetAuthenticationErrorAction } from '../../core/auth/auth.actions';
+import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../core/auth/auth.actions';
 
 // reducers
 import {
-  getAuthenticationError, getAuthenticationMessage,
+  getAuthenticationError, getAuthenticationInfo,
   isAuthenticated,
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
@@ -109,7 +109,7 @@ export class LogInComponent implements OnDestroy, OnInit {
       });
 
     // set error
-    this.message = this.store.select(getAuthenticationMessage)
+    this.message = this.store.select(getAuthenticationInfo)
       .map((message) => {
         this.hasMessage = (isNotEmpty(message));
         return message;
@@ -140,7 +140,7 @@ export class LogInComponent implements OnDestroy, OnInit {
    */
   public resetErrorOrMessage() {
     if (this.hasError || this.hasMessage) {
-      this.store.dispatch(new ResetAuthenticationErrorAction());
+      this.store.dispatch(new ResetAuthenticationMessagesAction());
       this.hasError = false;
       this.hasMessage = false;
     }

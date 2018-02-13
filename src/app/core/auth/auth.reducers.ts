@@ -1,7 +1,8 @@
 // import actions
 import {
   AuthActions, AuthActionTypes, AuthenticatedSuccessAction, AuthenticationErrorAction,
-  AuthenticationSuccessAction, LogOutErrorAction, RedirectWhenTokenExpiredAction
+  AuthenticationSuccessAction, LogOutErrorAction, RedirectWhenAuthenticationIsRequiredAction,
+  RedirectWhenTokenExpiredAction
 } from './auth.actions';
 
 // import models
@@ -26,7 +27,7 @@ export interface AuthState {
   loading: boolean;
 
   // info message
-  message?: string;
+  info?: string;
 
   // the authenticated user
   user?: Eperson;
@@ -54,7 +55,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         error: undefined,
         loading: true,
-        message: undefined
+        info: undefined
       });
 
     case AuthActionTypes.AUTHENTICATED_ERROR:
@@ -71,7 +72,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loaded: true,
         error: undefined,
         loading: false,
-        message: undefined,
+        info: undefined,
         user: (action as AuthenticatedSuccessAction).payload.user
       });
 
@@ -96,18 +97,6 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: false
       });
 
-    case AuthActionTypes.REGISTRATION_SUCCESS:
-      return state;
-
-    case AuthActionTypes.RESET_ERROR:
-      return Object.assign({}, state, {
-        authenticated: false,
-        error: undefined,
-        loaded: false,
-        loading: false,
-        message: undefined,
-      });
-
     case AuthActionTypes.LOG_OUT_ERROR:
       return Object.assign({}, state, {
         authenticated: true,
@@ -121,16 +110,17 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         error: undefined,
         loaded: false,
         loading: false,
-        message: undefined,
+        info: undefined,
         user: undefined
       });
 
-    case AuthActionTypes.REDIRECT:
+    case AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED:
+    case AuthActionTypes.REDIRECT_TOKEN_EXPIRED:
       return Object.assign({}, state, {
         authenticated: false,
         loaded: false,
         loading: false,
-        message: (action as RedirectWhenTokenExpiredAction).payload,
+        info: (action as RedirectWhenTokenExpiredAction as RedirectWhenAuthenticationIsRequiredAction).payload,
         user: undefined
       });
 
@@ -139,7 +129,19 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         authenticated: false,
         error: undefined,
         loading: true,
-        message: undefined
+        info: undefined
+      });
+
+    case AuthActionTypes.REGISTRATION_SUCCESS:
+      return state;
+
+    case AuthActionTypes.RESET_MESSAGES:
+      return Object.assign({}, state, {
+        authenticated: false,
+        error: undefined,
+        loaded: false,
+        loading: false,
+        info: undefined,
       });
 
     default:
@@ -181,11 +183,11 @@ export const getAuthenticationError = (state: AuthState) => state.error;
 
 /**
  * Returns the authentication info message.
- * @function getAuthenticationError
+ * @function getAuthenticationInfo
  * @param {State} state
  * @returns {String}
  */
-export const getAuthenticationMessage = (state: AuthState) => state.message;
+export const getAuthenticationInfo = (state: AuthState) => state.info;
 
 /**
  * Returns true if request is in progress.
