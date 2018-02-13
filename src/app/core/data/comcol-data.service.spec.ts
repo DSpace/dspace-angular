@@ -22,7 +22,7 @@ class NormalizedTestObject implements CacheableObject {
 }
 
 class TestService extends ComColDataService<NormalizedTestObject, any> {
-  protected linkName = LINK_NAME;
+  protected linkPath = LINK_NAME;
 
   constructor(
     protected responseCache: ResponseCacheService,

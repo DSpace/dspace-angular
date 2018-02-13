@@ -19,7 +19,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract store: Store<CoreState>;
-  protected abstract linkName: string;
+  protected abstract linkPath: string;
   protected abstract EnvConfig: GlobalConfig;
 
   constructor(

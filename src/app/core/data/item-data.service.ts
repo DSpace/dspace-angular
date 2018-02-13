@@ -17,7 +17,7 @@ import { RequestService } from './request.service';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
-  protected linkName = 'items';
+  protected linkPath = 'items';
 
   constructor(
     protected responseCache: ResponseCacheService,
@@ -34,7 +34,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     if (isEmpty(scopeID)) {
       return this.getEndpoint();
     } else {
-      return this.bs.getBrowseURLFor('dc.date.issued', this.linkName)
+      return this.bs.getBrowseURLFor('dc.date.issued', this.linkPath)
         .filter((href: string) => isNotEmpty(href))
         .map((href: string) => new URLCombiner(href, `?scope=${scopeID}`).toString())
         .distinctUntilChanged();

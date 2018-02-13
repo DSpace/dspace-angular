@@ -1,12 +1,25 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
+import { GLOBAL_CONFIG } from '../../../config';
+import { GlobalConfig } from '../../../config/global-config.interface';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { RestResponse } from '../../core/cache/response-cache.models';
+import { ResponseCacheService } from '../../core/cache/response-cache.service';
+import { DebugResponseParsingService } from '../../core/data/debug-response-parsing.service';
+import { DSOResponseParsingService } from '../../core/data/dso-response-parsing.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
+import { ResponseParsingService } from '../../core/data/parsing.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { GetRequest, EndpointMapRequest, RestRequest } from '../../core/data/request.models';
+import { RequestService } from '../../core/data/request.service';
+import { DSpaceRESTV2Response } from '../../core/dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
 import { Metadatum } from '../../core/shared/metadatum.model';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -19,6 +32,7 @@ import { SearchResult } from '../search-result.model';
 import { FacetValue } from './facet-value.model';
 import { FilterType } from './filter-type.model';
 import { SearchFilterConfig } from './search-filter-config.model';
+import { SearchResponseParsingService } from '../../core/data/search-response-parsing.service';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -35,23 +49,11 @@ function shuffle(array: any[]) {
 }
 
 @Injectable()
-export class SearchService implements OnDestroy {
+export class SearchService extends HALEndpointService implements OnDestroy {
+  protected linkPath = 'discover/search/objects';
 
-  totalPages = 5;
-  mockedHighlights: string[] = new Array(
-    'This is a <em>sample abstract</em>.',
-    'This is a sample abstract. But, to fill up some space, here\'s <em>"Hello"</em> in several different languages : ',
-    'This is a Sample HTML webpage including several <em>images</em> and styles (CSS).',
-    'This is <em>really</em> just a sample abstract. But, Í’vé thrown ïn a cõuple of spëciâl charactèrs för êxtrå fuñ!',
-    'This abstract is <em>really quite great</em>',
-    'The solution structure of the <em>bee</em> venom neurotoxin',
-    'BACKGROUND: The <em>Open Archive Initiative (OAI)</em> refers to a movement started around the \'90 s to guarantee free access to scientific information',
-    'The collision fault detection of a <em>XXY</em> stage is proposed for the first time in this paper',
-    '<em>This was blank in the actual item, no abstract</em>',
-    '<em>The QSAR DataBank (QsarDB) repository</em>',
-  );
   private sub;
-  searchLink = '/search';
+  uiSearchRoute = '/search';
 
   config: SearchFilterConfig[] = [
     Object.assign(new SearchFilterConfig(),
@@ -86,11 +88,16 @@ export class SearchService implements OnDestroy {
   // searchOptions: BehaviorSubject<SearchOptions>;
   searchOptions: SearchOptions;
 
-  constructor(private itemDataService: ItemDataService,
-              private routeService: RouteService,
-              private route: ActivatedRoute,
-              private router: Router) {
-
+  constructor(
+    protected responseCache: ResponseCacheService,
+    protected requestService: RequestService,
+    private itemDataService: ItemDataService,
+    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+    private routeService: RouteService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    super();
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
     pagination.id = 'search-results-pagination';
     pagination.currentPage = 1;
@@ -101,74 +108,18 @@ export class SearchService implements OnDestroy {
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
-    this.searchOptions = searchOptions;
-    let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}`;
-    if (hasValue(scopeId)) {
-      self += `&scope=${scopeId}`;
-    }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.currentPage)) {
-      self += `&page=${searchOptions.pagination.currentPage}`;
-    }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.pageSize)) {
-      self += `&pageSize=${searchOptions.pagination.pageSize}`;
-    }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.direction)) {
-      self += `&sortDirection=${searchOptions.sort.direction}`;
-    }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.field)) {
-      self += `&sortField=${searchOptions.sort.field}`;
-    }
-
-    const error = undefined;
-    const returningPageInfo = new PageInfo();
-
-    if (isNotEmpty(searchOptions)) {
-      returningPageInfo.elementsPerPage = searchOptions.pagination.pageSize;
-      returningPageInfo.currentPage = searchOptions.pagination.currentPage;
-    } else {
-      returningPageInfo.elementsPerPage = 10;
-      returningPageInfo.currentPage = 1;
-    }
-
-    const itemsObs = this.itemDataService.findAll({
-      scopeID: scopeId,
-      currentPage: returningPageInfo.currentPage,
-      elementsPerPage: returningPageInfo.elementsPerPage
-    });
-
-    return itemsObs
-      .filter((rd: RemoteData<PaginatedList<Item>>) => rd.hasSucceeded)
-      .map((rd: RemoteData<PaginatedList<Item>>) => {
-
-        const totalElements = rd.payload.totalElements > 20 ? 20 : rd.payload.totalElements;
-
-        const page = shuffle(rd.payload.page)
-          .map((item: Item, index: number) => {
-            const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
-            mockResult.dspaceObject = item;
-            const highlight = new Metadatum();
-            highlight.key = 'dc.description.abstract';
-            highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
-            mockResult.hitHighlights = new Array(highlight);
-            return mockResult;
-          });
-
-        const payload = Object.assign({}, rd.payload, { totalElements: totalElements, page });
-
-        return new RemoteData(
-          rd.isRequestPending,
-          rd.isResponsePending,
-          rd.hasSucceeded,
-          error,
-          payload
-        )
-      }).startWith(new RemoteData(
-        true,
-        false,
-        undefined,
-        undefined,
-        undefined
-      ));
+    const searchEndpointUrlObs = this.getEndpoint();
+    searchEndpointUrlObs.pipe(
+      map((url: string) => {
+        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return SearchResponseParsingService;
+          }
+        });
+      })
+    ).subscribe((request: RestRequest) => this.requestService.configure(request));
+    return Observable.of(undefined);
   }
 
   getConfig(): Observable<RemoteData<SearchFilterConfig[]>> {
@@ -231,7 +182,7 @@ export class SearchService implements OnDestroy {
       queryParamsHandling: 'merge'
     };
 
-    this.router.navigate([this.searchLink], navigationExtras);
+    this.router.navigate([this.uiSearchRoute], navigationExtras);
   }
 
   getClearFiltersQueryParams(): any {
@@ -249,7 +200,7 @@ export class SearchService implements OnDestroy {
   }
 
   getSearchLink() {
-    return this.searchLink;
+    return this.uiSearchRoute;
   }
 
   ngOnDestroy(): void {

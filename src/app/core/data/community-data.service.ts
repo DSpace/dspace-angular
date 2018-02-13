@@ -13,7 +13,7 @@ import { RequestService } from './request.service';
 
 @Injectable()
 export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {
-  protected linkName = 'communities';
+  protected linkPath = 'communities';
   protected cds = this;
 
   constructor(

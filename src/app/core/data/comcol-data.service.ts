@@ -17,7 +17,7 @@ export abstract class ComColDataService<TNormalized extends CacheableObject, TDo
   /**
    * Get the scoped endpoint URL by fetching the object with
    * the given scopeID and returning its HAL link with this
-   * data-service's linkName
+   * data-service's linkPath
    *
    * @param {string} scopeID
    *    the id of the scope object
@@ -48,7 +48,7 @@ export abstract class ComColDataService<TNormalized extends CacheableObject, TDo
           Observable.throw(new Error(`The Community with scope ${scopeID} couldn't be retrieved`))),
         successResponse
           .flatMap((response: DSOSuccessResponse) => this.objectCache.getByUUID(scopeID, NormalizedCommunity))
-          .map((nc: NormalizedCommunity) => nc._links[this.linkName])
+          .map((nc: NormalizedCommunity) => nc._links[this.linkPath])
           .filter((href) => isNotEmpty(href))
       ).distinctUntilChanged();
     }

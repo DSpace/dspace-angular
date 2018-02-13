@@ -18,7 +18,7 @@ describe('HALEndpointService', () => {
 
   /* tslint:disable:no-shadowed-variable */
   class TestService extends HALEndpointService {
-    protected linkName = 'test';
+    protected linkPath = 'test';
 
     constructor(protected responseCache: ResponseCacheService,
                 protected requestService: RequestService,
@@ -29,7 +29,7 @@ describe('HALEndpointService', () => {
 
   /* tslint:enable:no-shadowed-variable */
 
-  describe('getEndpointMap', () => {
+  describe('getRootEndpointMap', () => {
     beforeEach(() => {
       responseCache = jasmine.createSpyObj('responseCache', {
         get: hot('--a-', {
@@ -53,13 +53,13 @@ describe('HALEndpointService', () => {
     });
 
     it('should configure a new RootEndpointRequest', () => {
-      (service as any).getEndpointMap();
+      (service as any).getRootEndpointMap();
       const expected = new RootEndpointRequest(requestService.generateRequestId(), envConfig);
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
     it('should return an Observable of the endpoint map', () => {
-      const result = (service as any).getEndpointMap();
+      const result = (service as any).getRootEndpointMap();
       const expected = cold('--b-', { b: endpointMap });
       expect(result).toBeObservable(expected);
     });
@@ -74,18 +74,18 @@ describe('HALEndpointService', () => {
         envConfig
       );
 
-      spyOn(service as any, 'getEndpointMap').and
+      spyOn(service as any, 'getRootEndpointMap').and
         .returnValue(hot('--a-', { a: endpointMap }));
     });
 
-    it('should return the endpoint URL for the service\'s linkName', () => {
+    it('should return the endpoint URL for the service\'s linkPath', () => {
       const result = service.getEndpoint();
       const expected = cold('--b-', { b: endpointMap.test });
       expect(result).toBeObservable(expected);
     });
 
-    it('should return undefined for a linkName that isn\'t in the endpoint map', () => {
-      (service as any).linkName = 'unknown';
+    it('should return undefined for a linkPath that isn\'t in the endpoint map', () => {
+      (service as any).linkPath = 'unknown';
       const result = service.getEndpoint();
       const expected = cold('--b-', { b: undefined });
       expect(result).toBeObservable(expected);
@@ -103,8 +103,8 @@ describe('HALEndpointService', () => {
 
     });
 
-    it('should return undefined as long as getEndpointMap hasn\'t fired', () => {
-      spyOn(service as any, 'getEndpointMap').and
+    it('should return undefined as long as getRootEndpointMap hasn\'t fired', () => {
+      spyOn(service as any, 'getRootEndpointMap').and
         .returnValue(hot('----'));
 
       const result = service.isEnabledOnRestApi();
@@ -112,8 +112,8 @@ describe('HALEndpointService', () => {
       expect(result).toBeObservable(expected);
     });
 
-    it('should return true if the service\'s linkName is in the endpoint map', () => {
-      spyOn(service as any, 'getEndpointMap').and
+    it('should return true if the service\'s linkPath is in the endpoint map', () => {
+      spyOn(service as any, 'getRootEndpointMap').and
         .returnValue(hot('--a-', { a: endpointMap }));
 
       const result = service.isEnabledOnRestApi();
@@ -121,11 +121,11 @@ describe('HALEndpointService', () => {
       expect(result).toBeObservable(expected);
     });
 
-    it('should return false if the service\'s linkName isn\'t in the endpoint map', () => {
-      spyOn(service as any, 'getEndpointMap').and
+    it('should return false if the service\'s linkPath isn\'t in the endpoint map', () => {
+      spyOn(service as any, 'getRootEndpointMap').and
         .returnValue(hot('--a-', { a: endpointMap }));
 
-      (service as any).linkName = 'unknown';
+      (service as any).linkPath = 'unknown';
       const result = service.isEnabledOnRestApi();
       const expected = cold('b-c-', { b: undefined, c: false  });
       expect(result).toBeObservable(expected);

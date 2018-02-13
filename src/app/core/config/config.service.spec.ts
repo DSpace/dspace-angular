@@ -11,7 +11,7 @@ const LINK_NAME = 'test';
 const BROWSE = 'search/findByCollection';
 
 class TestService extends ConfigService {
-  protected linkName = LINK_NAME;
+  protected linkPath = LINK_NAME;
   protected browseEndpoint = BROWSE;
 
   constructor(

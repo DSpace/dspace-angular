@@ -192,13 +192,13 @@ describe('SearchFilterService', () => {
     });
   });
 
-  describe('when the searchLink method is called', () => {
+  describe('when the uiSearchRoute method is called', () => {
     let link: string;
     beforeEach(() => {
       link = service.searchLink;
     });
 
-    it('should return the value of searchLink in the search service', () => {
+    it('should return the value of uiSearchRoute in the search service', () => {
       expect(link).toEqual(searchServiceStub.searchLink);
     });
   });

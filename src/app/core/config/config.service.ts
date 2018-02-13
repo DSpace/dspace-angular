@@ -16,7 +16,7 @@ export abstract class ConfigService extends HALEndpointService {
   protected request: ConfigRequest;
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
-  protected abstract linkName: string;
+  protected abstract linkPath: string;
   protected abstract EnvConfig: GlobalConfig;
   protected abstract browseEndpoint: string;
 

@@ -17,7 +17,9 @@ import { isNotEmpty } from '../shared/empty.util';
 import { ApiService } from '../shared/api.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
+import { DebugResponseParsingService } from './data/debug-response-parsing.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
+import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ItemDataService } from './data/item-data.service';
@@ -27,7 +29,7 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { RequestService } from './data/request.service';
 import { ResponseCacheService } from './cache/response-cache.service';
-import { RootResponseParsingService } from './data/root-response-parsing.service';
+import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
 import { ServerResponseService } from '../shared/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
 import { BrowseService } from './browse/browse.service';
@@ -67,7 +69,9 @@ const PROVIDERS = [
   RemoteDataBuildService,
   RequestService,
   ResponseCacheService,
-  RootResponseParsingService,
+  EndpointMapResponseParsingService,
+  DebugResponseParsingService,
+  SearchResponseParsingService,
   ServerResponseService,
   BrowseResponseParsingService,
   BrowseService,

@@ -96,8 +96,8 @@ describe('SearchFacetFilterComponent', () => {
       link = comp.getSearchLink();
     });
 
-    it('should return the value of the searchLink variable in the filter service', () => {
-      expect(link).toEqual(filterService.searchLink);
+    it('should return the value of the uiSearchRoute variable in the filter service', () => {
+      expect(link).toEqual(filterService.uiSearchRoute);
     });
   });
 
