@@ -12,6 +12,5 @@ export interface GlobalConfig extends Config {
   submission: SubmissionConfig;
   universal: UniversalConfig;
   logDirectory: string;
-  prerenderStrategy: string;
   debug: boolean;
 }

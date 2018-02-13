@@ -59,7 +59,7 @@ describe('CommunityGridElementComponent', () => {
 
     if (mockCommunity.shortDescription.length > 0) {
       expect(descriptionText).toBeDefined();
-    }else {
+    } else {
       expect(descriptionText).not.toBeDefined();
     }
   });

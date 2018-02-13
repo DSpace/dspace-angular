@@ -1,30 +1,22 @@
-import { autoserialize } from 'cerialize';
+import { DSpaceObject } from '../../shared/dspace-object.model';
+import { Group } from './group.model';
 
-export abstract class EpersonModel {
+export class Eperson extends DSpaceObject {
 
-  @autoserialize
-  public id: string;
-
-  @autoserialize
-  public uuid: string;
-
-  @autoserialize
-  public name: string;
-
-  @autoserialize
   public handle: string;
 
-  @autoserialize
-  public metadata: any;
+  public groups: Group[];
 
-  @autoserialize
-  public groups: any;
+  public netid: string;
 
-  @autoserialize
-  public type: string;
+  public lastActive: string;
 
-  @autoserialize
-  public _links: {
-    [name: string]: string
-  }
+  public canLogIn: boolean;
+
+  public email: string;
+
+  public requireCertificate: boolean;
+
+  public selfRegistered: boolean;
+
 }

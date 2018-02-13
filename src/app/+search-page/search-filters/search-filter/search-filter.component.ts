@@ -6,7 +6,7 @@ import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
-import { RouteService } from '../../../shared/route.service';
+import { RouteService } from '../../../shared/services/route.service';
 import { first } from 'rxjs/operator/first';
 import { MyDspaceService } from '../../../+my-dspace-page/my-dspace-service/my-dspace.service';
 

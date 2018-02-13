@@ -13,7 +13,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { RouteService } from '../../shared/route.service';
+import { RouteService } from '../../shared/services/route.service';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { FacetValue } from './facet-value.model';

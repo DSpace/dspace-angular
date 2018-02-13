@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 import { SearchService } from './search.service';
 import { ItemDataService } from './../../core/data/item-data.service';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { RouteService } from '../../shared/route.service';
+import { RouteService } from '../../shared/services/route.service';
 
 @Component({ template: '' })
 class DummyComponent { }

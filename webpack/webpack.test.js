@@ -227,6 +227,11 @@ module.exports = function (options) {
         /angular(\\|\/)core(\\|\/)@angular/,
         root('./src'), {}
       ),
+      // Workaround for https://github.com/angular/angular/issues/20357
+      new ContextReplacementPlugin(
+        /\@angular(\\|\/)core(\\|\/)esm5/,
+        root('./src'), {}
+      ),
 
       /**
        * Plugin: DefinePlugin

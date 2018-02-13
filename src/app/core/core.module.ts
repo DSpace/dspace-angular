@@ -14,7 +14,7 @@ import { coreReducers } from './core.reducers';
 
 import { isNotEmpty } from '../shared/empty.util';
 
-import { ApiService } from '../shared/api.service';
+import { ApiService } from '../shared/services/api.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
@@ -31,12 +31,12 @@ import { RemoteDataBuildService } from './cache/builders/remote-data-build.servi
 import { RequestService } from './data/request.service';
 import { ResponseCacheService } from './cache/response-cache.service';
 import { RootResponseParsingService } from './data/root-response-parsing.service';
-import { ServerResponseService } from '../shared/server-response.service';
-import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
+import { ServerResponseService } from '../shared/services/server-response.service';
+import { NativeWindowFactory, NativeWindowService } from '../shared/services/window.service';
 import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 import { ConfigResponseParsingService } from './data/config-response-parsing.service';
-import { RouteService } from '../shared/route.service';
+import { RouteService } from '../shared/services/route.service';
 import { DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
@@ -49,6 +49,14 @@ import { AuthorityService } from './integration/authority.service';
 import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
 import { WorkspaceitemDataService } from './submission/workspaceitem-data.service';
 import { UUIDService } from './shared/uuid.service';
+import { AuthService } from './auth/auth.service';
+import { AuthenticatedGuard } from './auth/authenticated.guard';
+import { AuthRequestService } from './auth/auth-request.service';
+import { AuthResponseParsingService } from './auth/auth-response-parsing.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { CookieService } from '../shared/services/cookie.service';
+import { PlatformService } from '../shared/services/platform.service';
 import { JsonPatchOperationsService } from './json-patch/json-patch-operations.service';
 import { PostPatchDataService } from './data/postpatch-data.service';
 
@@ -68,8 +76,13 @@ const EXPORTS = [
 
 const PROVIDERS = [
   ApiService,
+  AuthenticatedGuard,
+  AuthRequestService,
+  AuthResponseParsingService,
+  AuthService,
   CommunityDataService,
   CollectionDataService,
+  CookieService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
   DynamicFormService,
@@ -83,6 +96,7 @@ const PROVIDERS = [
   MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
+  PlatformService,
   RemoteDataBuildService,
   RequestService,
   ResponseCacheService,
@@ -101,8 +115,13 @@ const PROVIDERS = [
   AuthorityService,
   IntegrationResponseParsingService,
   UUIDService,
-  WorkspaceitemDataService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory }
+  { provide: NativeWindowService, useFactory: NativeWindowFactory },
+  // register AuthInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }
 ];
 
 @NgModule({

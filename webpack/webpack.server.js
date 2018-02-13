@@ -5,22 +5,24 @@ const {
 } = require('./helpers');
 
 module.exports = {
-  entry: root('./src/main.server.ts'),
-  output: {
-    filename: 'server.js'
-  },
-  target: 'node',
-  watchOptions: {
-    ignored: [/node_modules/, /dist/]
-  },
-  externals: [nodeExternals({
-    whitelist: [
-      /@angular/,
-      /@ng/,
-      /angular2-text-mask/,
-      /ng2-file-upload/,
-      /angular-sortablejs/,
-      /sortablejs/,
-      /ngx/]
-  })],
+  getServerWebpackPartial: function (aot) {
+    const entry = aot ? root('./src/main.server.aot.ts') : root('./src/main.server.ts');
+    return {
+      entry: entry,
+      output: {
+        filename: 'server.js'
+      },
+      target: 'node',
+      externals: [nodeExternals({
+        whitelist: [
+          /@angular/,
+          /@ng/,
+		  /angular2-text-mask/,
+      	  /ng2-file-upload/,
+      	  /angular-sortablejs/,
+      	  /sortablejs/,
+          /ngx/]
+      })],
+    }
+  }
 };

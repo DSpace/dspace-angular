@@ -60,4 +60,10 @@ export class HostWindowService {
       .map((width) => width >= GridBreakpoint.XL)
       .distinctUntilChanged();
   }
+
+  isMobileView(): Observable<boolean> {
+    return this.getWidthObs()
+      .map((width) => width < GridBreakpoint.MD)
+      .distinctUntilChanged();
+  }
 }

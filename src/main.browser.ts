@@ -28,4 +28,4 @@ export function main() {
 }
 
 // support async tag or hmr
-bootloader(main);
+document.addEventListener('DOMContentLoaded', () => bootloader(main));

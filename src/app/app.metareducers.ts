@@ -6,13 +6,11 @@ let actionCounter = 0;
 
 export function debugMetaReducer(reducer) {
   return (state, action) => {
-    if (isNotEmpty(console.debug)) {
-      actionCounter++;
-      console.debug('@ngrx action', actionCounter, action.type);
-      console.debug('state', state);
-      console.debug('action', action);
-      console.debug('------------------------------------');
-    }
+    actionCounter++;
+    console.log('@ngrx action', actionCounter, action.type);
+    console.log('state', JSON.stringify(state));
+    console.log('action', JSON.stringify(action));
+    console.log('------------------------------------');
     return reducer(state, action);
   }
 }

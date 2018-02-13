@@ -69,7 +69,7 @@ export class RequestService {
 
   configure<T extends CacheableObject>(request: RestRequest, overrideRequest: boolean = false): void {
     if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request) || overrideRequest) {
-      this.dispatchRequest(request);
+      this.dispatchRequest(request, overrideRequest);
     }
   }
 
@@ -102,11 +102,11 @@ export class RequestService {
     return isCached || isPending;
   }
 
-  private dispatchRequest(request: RestRequest) {
+  private dispatchRequest(request: RestRequest, overrideRequest: boolean) {
     this.store.dispatch(new ResponseCacheRemoveAction(request.href));
     this.store.dispatch(new RequestConfigureAction(request));
     this.store.dispatch(new RequestExecuteAction(request.uuid));
-    if (request.method === RestRequestMethod.Get) {
+    if (request.method === RestRequestMethod.Get && !overrideRequest) {
       this.trackRequestsOnTheirWayToTheStore(request);
     }
   }
