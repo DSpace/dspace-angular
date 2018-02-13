@@ -71,6 +71,8 @@ import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/
 
 import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
+import { Console } from 'inspector';
+import { MessageBoardComponent } from './message-board/message-board.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -117,6 +119,7 @@ const COMPONENTS = [
   ErrorComponent,
   FormComponent,
   LoadingComponent,
+  MessageBoardComponent,
   NumberPickerComponent,
   ObjectListComponent,
   AbstractListableElementComponent,
