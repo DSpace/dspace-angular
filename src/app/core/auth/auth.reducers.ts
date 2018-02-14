@@ -137,10 +137,10 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
 
     case AuthActionTypes.RESET_MESSAGES:
       return Object.assign({}, state, {
-        authenticated: false,
+        authenticated: state.authenticated,
         error: undefined,
-        loaded: false,
-        loading: false,
+        loaded: state.loaded,
+        loading: state.loading,
         info: undefined,
       });
 
