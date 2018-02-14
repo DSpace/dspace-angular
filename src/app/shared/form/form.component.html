@@ -3,11 +3,11 @@
 
     <ds-dynamic-form
       [formId]="formId"
-      [group]="formGroup"
-      [model]="formModel"
-      (blur)="onBlur($event)"
-      (change)="onChange($event)"
-      (focus)="onFocus($event)">
+      [formGroup]="formGroup"
+      [formModel]="formModel"
+      (dfBlur)="onBlur($event)"
+      (dfChange)="onChange($event)"
+      (dfFocus)="onFocus($event)">
 
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
 

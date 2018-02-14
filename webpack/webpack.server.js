@@ -17,7 +17,7 @@ module.exports = {
         whitelist: [
           /@angular/,
           /@ng/,
-		  /angular2-text-mask/,
+		      /angular2-text-mask/,
       	  /ng2-file-upload/,
       	  /angular-sortablejs/,
       	  /sortablejs/,

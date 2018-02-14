@@ -77,11 +77,11 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
   @Input() formId: string;
   @Input() asBootstrapFormGroup = true;
   @Input() bindId = true;
-  @Input() context: DynamicFormArrayGroupModel | null = null;
+  @Input() context: any | null = null;
   @Input() group: FormGroup;
   @Input() hasErrorMessaging = false;
   @Input() layout: DynamicFormLayout;
-  @Input() model: DynamicFormControlModel;
+  @Input() model: any;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();

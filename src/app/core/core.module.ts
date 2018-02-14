@@ -37,7 +37,7 @@ import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 import { ConfigResponseParsingService } from './data/config-response-parsing.service';
 import { RouteService } from '../shared/services/route.service';
-import { DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
@@ -63,7 +63,7 @@ import { PostPatchDataService } from './data/postpatch-data.service';
 const IMPORTS = [
   CommonModule,
   StoreModule.forFeature('core', coreReducers, {}),
-  EffectsModule.forFeature(coreEffects)
+  EffectsModule.forFeature(coreEffects),
 ];
 
 const DECLARATIONS = [
@@ -85,6 +85,7 @@ const PROVIDERS = [
   CookieService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
+  DynamicFormLayoutService,
   DynamicFormService,
   DynamicFormValidationService,
   FormBuilderService,
@@ -115,6 +116,7 @@ const PROVIDERS = [
   AuthorityService,
   IntegrationResponseParsingService,
   UUIDService,
+  WorkspaceitemDataService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   // register AuthInterceptor as HttpInterceptor
   {

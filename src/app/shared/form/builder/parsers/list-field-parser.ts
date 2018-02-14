@@ -49,7 +49,6 @@ export class ListFieldParser extends FieldParser {
       listModelConfig.options = [];
       listModel = new DynamicListRadioGroupModel(listModelConfig);
     }
-    listModel.name = this.fieldId;
 
     return listModel;
   }

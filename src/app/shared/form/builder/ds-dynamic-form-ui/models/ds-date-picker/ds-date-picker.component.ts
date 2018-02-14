@@ -1,14 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicDsDatePickerModel } from './ds-date-picker.model';
-import { FormService } from '../../../../form.service';
-import { SubmissionState } from '../../../../../../submission/submission.reducers';
-import { FormBuilderService } from '../../../form-builder.service';
-import { GlobalConfig } from '../../../../../../../config/global-config.interface';
-import { SubmissionFormsConfigService } from '../../../../../../core/config/submission-forms-config.service';
-import { GLOBAL_CONFIG } from '../../../../../../../config';
-import { Store } from '@ngrx/store';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
 

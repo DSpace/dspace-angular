@@ -48,7 +48,7 @@
   "nav": {
     "home": "Home",
     "login": "Log In",
-    "logout": "Log Out"
+    "logout": "Log Out",
     "mydspace": "MyDSpace"
   },
   "pagination": {

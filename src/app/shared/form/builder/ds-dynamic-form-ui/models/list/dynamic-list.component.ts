@@ -12,6 +12,7 @@ import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicCheckboxModel } from '@ng-dynamic-forms/core';
 import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
+import { DsDynamicFormControlComponent } from '../../ds-dynamic-form-control.component';
 
 export interface ListItem {
   id: string,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { isEqual, merge, mergeWith } from 'lodash';
+import { isEqual, mergeWith } from 'lodash';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -11,10 +11,9 @@ import {
   DynamicFormGroupModel,
   DynamicFormService,
   DynamicFormValidationService,
-  DynamicPathable, JSONUtils
+  DynamicPathable,
+  JSONUtils,
 } from '@ng-dynamic-forms/core';
-
-import { IntegrationSearchOptions } from '../../../core/integration/models/integration-options.model';
 import { FormGroup } from '@angular/forms';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../empty.util';
 import { DynamicComboboxModel } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';

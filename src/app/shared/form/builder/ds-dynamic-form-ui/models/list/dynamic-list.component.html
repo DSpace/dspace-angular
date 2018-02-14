@@ -4,13 +4,13 @@
        [attr.tabindex]="model.tabIndex"
        [dynamicId]="bindId && model.id"
        [formGroupName]="model.id"
-       [ngClass]="model.cls.element.control">
+       [ngClass]="model.layout.element?.control">
 
     <div *ngFor="let columnItems of items" class="col-sm ml-4 form-check">
 
       <label *ngFor="let item of columnItems" class="d-block custom-control custom-checkbox"
              [class.disabled]="model.disabled"
-             [ngClass]="model.cls.element.control" >
+             [ngClass]="model.layout.element?.control" >
 
         <input type="checkbox" class="custom-control-input"
                [attr.tabindex]="item.index"
@@ -24,7 +24,7 @@
                (change)="onChangeEvent($event)"
                (focus)="onFocusEvent($event)"/>
         <span class="custom-control-indicator"></span>
-        <span class="custom-control-description" [ngClass]="model.cls.element.label" [innerHTML]="item.label"></span>
+        <span class="custom-control-description" [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
       </label>
       <br>
     </div>
@@ -36,14 +36,14 @@
        ngbRadioGroup
        [attr.tabindex]="model.tabIndex"
        [dynamicId]="bindId && model.id"
-       [ngClass]="model.cls.element.control"
+       [ngClass]="model.layout.element?.control"
        (change)="onChangeEvent($event)">
 
     <div *ngFor="let columnItems of items" class="col-sm ml-4 form-check">
 
       <label *ngFor="let item of columnItems" class="d-block custom-control custom-radio"
              [class.disabled]="model.disabled"
-             [ngClass]="model.cls.element.control">
+             [ngClass]="model.layout.element?.control">
         <input type="radio" class="custom-control-input"
                [checked]="item.value"
                [dynamicId]="item.id"
@@ -53,7 +53,7 @@
                (blur)="onBlurEvent($event)"
                (focus)="onFocusEvent($event)"/>
         <span class="custom-control-indicator"></span>
-        <span class="custom-control-description" [ngClass]="model.cls.element.label" [innerHTML]="item.label"></span>
+        <span class="custom-control-description" [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
       </label>
     </div>
 

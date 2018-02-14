@@ -17,6 +17,7 @@ import { isEmpty } from '../../../empty.util';
 import { LookupFieldParser } from './lookup-field-parser';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
 import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { setLayout } from './parser.utils';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -35,7 +36,7 @@ export class RowParser {
       group: [],
     };
 
-    const clsGridClass = ' col-sm-' + Math.trunc(12 / this.rowData.fields.length);
+    const layoutGridClass = ' col-sm-' + Math.trunc(12 / this.rowData.fields.length);
 
     this.rowData.fields.forEach((fieldData) => {
 
@@ -95,7 +96,7 @@ export class RowParser {
       if (fieldModel) {
         if (fieldModel instanceof DynamicFormArrayModel || fieldModel instanceof DynamicGroupModel) {
           if (this.rowData.fields.length > 1) {
-            fieldModel.cls.grid.host = (fieldModel.cls.grid.host) ? fieldModel.cls.grid.host + clsGridClass : clsGridClass;
+            setLayout(fieldModel, 'grid', 'host', layoutGridClass);
             parsedResult = [fieldModel]
           } else {
             parsedResult = fieldModel;
@@ -108,7 +109,7 @@ export class RowParser {
               return;
             })
           } else {
-            fieldModel.cls.grid.host = (fieldModel.cls.grid.host) ? fieldModel.cls.grid.host + clsGridClass : clsGridClass;
+            setLayout(fieldModel, 'grid', 'host', layoutGridClass);
             config.group.push(fieldModel);
           }
         }

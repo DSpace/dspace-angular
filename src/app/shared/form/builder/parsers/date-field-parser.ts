@@ -31,7 +31,6 @@ export class DateFieldParser extends FieldParser {
 
     // const dateModel = new DynamicDatePickerModel(inputDateModelConfig);
     const dateModel = new DynamicDsDatePickerModel(inputDateModelConfig);
-    dateModel.name = this.fieldId;
 
     // Init Data and validity check
     if (isNotEmpty(this.getInitFieldValue())) {

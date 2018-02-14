@@ -91,13 +91,11 @@ export class OneboxFieldParser extends FieldParser {
       typeaheadModelConfig.authorityScope = this.authorityUuid;
       typeaheadModelConfig.minChars = 3;
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
-      typeaheadModel.name = this.fieldId;
       return typeaheadModel;
     } else {
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel();
       this.setValues(inputModelConfig, fieldValue);
       const inputModel = new DsDynamicInputModel(inputModelConfig);
-      inputModel.name = this.fieldId;
       return inputModel;
     }
   }

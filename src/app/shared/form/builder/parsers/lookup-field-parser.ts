@@ -33,7 +33,6 @@ export class LookupFieldParser extends FieldParser {
       //   }
       // }
       const lookupModel = new DynamicLookupModel(lookupModelConfig);
-      lookupModel.name = this.fieldId;
       return lookupModel;
     }
   }

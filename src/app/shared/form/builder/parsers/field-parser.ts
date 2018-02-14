@@ -1,4 +1,4 @@
-import { isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
+import { isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 
@@ -11,6 +11,11 @@ import {
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 import { FormFieldLanguageValueObject } from '../models/form-field-language-value.model';
+import {
+  DynamicFileControlModel, DynamicFormControlLayout, DynamicFormControlLayoutConfig,
+  DynamicFormControlModel
+} from '@ng-dynamic-forms/core';
+import { setLayout } from './parser.utils';
 
 export abstract class FieldParser {
 
@@ -55,26 +60,26 @@ export abstract class FieldParser {
             }
             model = this.modelFactory(fieldValue);
           }
-          model.cls.element.host = model.cls.element.host.concat(' col');
+          setLayout(model, 'element', 'host', 'col');
           if (model.hasLanguages) {
-            model.cls.grid.control = model.cls.grid.control.concat(' col');
+            setLayout(model, 'grid', 'control', 'col');
           }
           return [model];
         }
       } as DynamicRowArrayModelConfig;
 
-      const cls = {
+      const layout: DynamicFormControlLayout = {
         grid: {
           group: 'dsgridgroup form-row'
         }
       };
 
-      return new DynamicRowArrayModel(config, cls);
+      return new DynamicRowArrayModel(config, layout);
 
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
       if (model.hasLanguages) {
-        model.cls.grid.control = model.cls.grid.control.concat(' col');
+        setLayout(model, 'grid', 'control', 'col');
       }
       return model;
     }

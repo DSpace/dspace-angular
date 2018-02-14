@@ -1,4 +1,4 @@
-<ds-dynamic-form-control *ngFor="let controlModel of model; trackBy: trackByFn"
+<ds-dynamic-form-control *ngFor="let model of formModel; trackBy: trackByFn"
                          [formId]="formId"
                          [group]="formGroup"
                          [hasErrorMessaging]="model.hasErrorMessages"

@@ -63,9 +63,6 @@ export class ConcatFieldParser extends FieldParser {
 
     const model1 = new DynamicInputModel(input1ModelConfig, clsInput);
     const model2 = new DynamicInputModel(input2ModelConfig, clsInput);
-    // TODO remove when merge https://github.com/udos86/ng-dynamic-forms/commit/cadd7e3ac9ffdbb550900bd2bd06764d7f7abfb1
-    model1.name = this.getFieldId()[0];
-    model2.name = this.getFieldId()[0];
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 
@@ -76,6 +73,7 @@ export class ConcatFieldParser extends FieldParser {
     };
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId()[0];
+
     return concatModel;
   }
 

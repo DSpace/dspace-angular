@@ -24,7 +24,6 @@ export class TagFieldParser extends FieldParser {
     this.setValues(tagModelConfig, fieldValue, null, true);
 
     const tagModel = new DynamicTagModel(tagModelConfig);
-    tagModel.name = this.fieldId;
 
     return tagModel;
   }
