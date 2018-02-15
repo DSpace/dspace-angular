@@ -83,7 +83,8 @@ export class MessageService extends HALEndpointService {
     if (isNotEmpty(body) && typeof body === 'object') {
       Object.keys(body)
         .forEach((param) => {
-          queryParams = isEmpty(queryParams) ? queryParams.concat(body[param]) : queryParams.concat('&', body[param]);
+          const paramValue = `${param}=${body[param]}`;
+          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
         })
     }
     return encodeURI(queryParams);
