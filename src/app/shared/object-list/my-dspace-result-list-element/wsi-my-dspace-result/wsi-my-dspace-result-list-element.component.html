@@ -17,7 +17,7 @@
                   'badge-info': status == ALL_STATUS[2],
                   'badge-warning': status == ALL_STATUS[3],
                   'badge-success': status == ALL_STATUS[4]}">
-  [fake] {{statusString}}
+  {{statusString}}
 </span>
 </div>
 <!--<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/edit/' + dso.id]" >Edit</button>-->
@@ -31,6 +31,7 @@
   <ds-message-board
     [messages]="messages"
     [submitter]="submitter"
-    [modalRef]="modalRef">
+    [modalRef]="modalRef"
+    [itemUUID]="item.uuid">
   </ds-message-board>
 </ng-template>

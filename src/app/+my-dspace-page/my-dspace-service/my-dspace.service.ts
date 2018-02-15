@@ -223,9 +223,6 @@ export class MyDspaceService extends SearchService implements OnDestroy {
   }
 
   getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
-    this.user.subscribe((u) => {
-      console.log(u);
-    })
     const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
     return this.routeService.getQueryParameterValues(filterConfig.paramName)
       .flatMap((selectedValues: string[]) => {

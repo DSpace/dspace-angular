@@ -7,6 +7,8 @@ import {Eperson} from "../../core/eperson/models/eperson.model";
 import {getAuthenticatedUser} from "../../core/auth/selectors";
 import {AppState} from "../../app.reducer";
 import {Store} from "@ngrx/store";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { isNotEmpty } from '../empty.util';
 
 @Component({
   selector: 'ds-message-board',
@@ -24,35 +26,45 @@ export class MessageBoardComponent {
   public submitter: Eperson;
   @Input()
   public modalRef: NgbModalRef;
+  @Input()
+  public itemUUID: string;
   @Output()
   public close = new EventEmitter<any>();
   public show = [];
-  public textSubject: string;
-  public textDescription: string;
+
+  /**
+   * The message form.
+   * @type {FormGroup}
+   */
+  public messageForm: FormGroup;
+
   public isCreator: boolean;
   public creatorUuid: string;
   public user: Eperson;
   public showUnread = false;
 
-  constructor(private msgService: MessageService, private store: Store<AppState>,) {
+  constructor(private formBuilder: FormBuilder,
+              private msgService: MessageService,
+              private store: Store<AppState>,) {
   }
 
   ngOnInit() {
-    this.textSubject = '';
-    this.textDescription = '';
+    // set formGroup
+    this.messageForm = this.formBuilder.group({
+      textSubject: ['', Validators.required],
+      textDescription: ['', Validators.required]
+    });
+
     this.messages.forEach((m) => {
       this.show.push(false);
     });
 
-    this.store.select(getAuthenticatedUser).subscribe((user) => {
-      this.user = user;
-    });
-
-    // console.log('User is');
-    // console.log(this.user);
-    //
-    // console.log('Submitter is');
-    // console.log(this.submitter);
+    this.store.select(getAuthenticatedUser)
+      .filter((user: Eperson) => isNotEmpty(user))
+      .take(1)
+      .subscribe((user: Eperson) => {
+        this.user = user;
+      });
 
     if (this.messages && this.messages.length > 0) {
       const lastMsg = this.messages[this.messages.length - 1];
@@ -72,7 +84,6 @@ export class MessageBoardComponent {
 
     // TODO Remove, only for testing
 
-
   }
 
   closeDashboard($event) {
@@ -84,18 +95,21 @@ export class MessageBoardComponent {
   }
 
   sendMessage() {
-    // TODO
+    // get subject and description values
+    const subject: string = this.messageForm.get('textSubject').value;
+    const description: string = this.messageForm.get('textDescription').value;
     const body = {
-      uuid: '',
-      subject: this.textSubject,
-      description: this.textDescription
+      uuid: this.itemUUID,
+      subject,
+      description
     };
     const req = this.msgService.createMessage(body);
+    this.closeDashboard(null);
     req.subscribe((res) => {
       console.log('After message creation:');
       console.log(res);
     });
-    this.closeDashboard(null);
+
   }
 
   unRead() {

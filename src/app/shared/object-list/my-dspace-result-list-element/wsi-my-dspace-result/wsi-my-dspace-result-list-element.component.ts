@@ -8,7 +8,7 @@ import {WorkspaceitemMyDSpaceResult} from '../../../object-collection/shared/wor
 import {Item} from '../../../../core/shared/item.model';
 import {RemoteData} from '../../../../core/data/remote-data';
 import {Observable} from 'rxjs/Observable';
-import {hasNoUndefinedValue, hasNoValue, isEmpty} from '../../../empty.util';
+import { hasNoUndefinedValue, hasNoValue, isEmpty, isNotEmpty } from '../../../empty.util';
 import {Metadatum} from '../../../../core/shared/metadatum.model';
 
 import * as data from '../../../../../backend/data/bitstream-messages.json';
@@ -52,6 +52,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .first()
       .subscribe((rd: RemoteData<any>) => {
+        console.log(rd);
         this.submitter = rd.payload[0];
       });
 
@@ -69,7 +70,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     //   undefined,
     //   messages));
 
-    let i = Math.random() * 10 % Object.keys(ItemStatus).length;
+    /*let i = Math.random() * 10 % Object.keys(ItemStatus).length;
     // console.log(i);
     i = Math.round(i);
     // console.log('Rounded' + i);
@@ -79,8 +80,8 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       case 2: { this.status = ItemStatus.WAITING_CONTROLLER; break;}
       case 3: { this.status = ItemStatus.VALIDATION; break;}
       default: { this.status = ItemStatus.IN_PROGRESS; break;}
-    }
-
+    }*/
+    this.status = ItemStatus.IN_PROGRESS;
     // TODO END REMOVE
 
     switch (this.status) {  // TODO switch on item.status or .getStatus()
@@ -106,24 +107,24 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       }
     }
 
-    const messagesObs = this.item.getBitstreamsByBundleName('MESSAGE');
+    // const messagesObs = this.item.getBitstreamsByBundleName('MESSAGE');
     // TODO Test.... later I must to create this.messages here
-    messagesObs
-    // .filter()
+    this.item.bitstreams
+      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .take(1)
-      .subscribe((bitStreams) => {
+      .subscribe((bitStreams: RemoteData<Bitstream[]>) => {
         console.log(bitStreams);
-        this.messages = bitStreams;
+        bitStreams.payload
+          .filter((bitStream: Bitstream) => bitStream.bundleName === 'MESSAGE')
+          .forEach((bitStream: Bitstream) => {
+            this.messages.push(bitStream);
+            // const accessioned = bistream.findMetadata('dc.date.accessioned');
+            const accessioned = bitStream.findMetadata('dc.date.issued');
+            if (!accessioned || accessioned.length === 0) {
+              this.unRead++;
+            }
+          });
       });
-
-    this.messages.forEach((m) => {
-      const b = Object.assign(new Bitstream(), m);
-      this.messages.push(b);
-      const accessioned = b.findMetadata('dc.date.accessioned');
-      if (!accessioned || accessioned.length === 0) {
-        this.unRead++;
-      }
-    });
   }
 
   getTitle(): string {

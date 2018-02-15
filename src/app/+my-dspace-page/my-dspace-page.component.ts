@@ -8,7 +8,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
-import { isNotEmpty } from '../shared/empty.util';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchOptions, ViewMode } from '../+search-page/search-options.model';
@@ -21,6 +21,7 @@ import { getAuthenticatedUser } from '../core/auth/selectors';
 import { AppState } from '../app.reducer';
 import { Store } from '@ngrx/store';
 import { Eperson } from '../core/eperson/models/eperson.model';
+import { PlatformService } from '../shared/services/platform.service';
 
 /**
  * This component renders a simple item page.
@@ -53,6 +54,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   constructor(private service: MyDspaceService,
               private route: ActivatedRoute,
               private communityService: CommunityDataService,
+              private platform: PlatformService,
               private sidebarService: SearchSidebarService,
               private store: Store<AppState>,
               private windowService: HostWindowService) {
@@ -75,51 +77,52 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user = this.store.select(getAuthenticatedUser);
+    if (this.platform.isBrowser) {
+      this.sub = this.route
+        .queryParams
+        .subscribe((params) => {
+            // Save current parameters
+            this.currentParams = params;
+            this.query = params.query || '';
+            this.scope = params.scope;
+            const page = +params.page || this.searchOptions.pagination.currentPage;
+            let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
+            let pageSizeOptions: number[] = [5, 10, 20];
 
-    this.sub = this.route
-      .queryParams
-      .subscribe((params) => {
-          // Save current parameters
-          this.currentParams = params;
-          this.query = params.query || '';
-          this.scope = params.scope;
-          const page = +params.page || this.searchOptions.pagination.currentPage;
-          let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
-          let pageSizeOptions: number[] = [5, 10, 20];
+            if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
+              pageSizeOptions = [6, 12];
+              if (pageSizeOptions.indexOf(pageSize) === -1) {
+                pageSize = 6;
+              }
+            }
+            if (isNotEmpty(params.view) && params.view === ViewMode.List) {
+              if (pageSizeOptions.indexOf(pageSize) === -1) {
+                pageSize = 10;
+              }
+            }
 
-          if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
-            pageSizeOptions = [6, 12];
-            if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 6;
+            const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
+            const pagination = Object.assign({},
+              this.searchOptions.pagination,
+              {currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
+            );
+            const sort = Object.assign({},
+              this.searchOptions.sort,
+              {direction: sortDirection, field: params.sortField}
+            );
+
+            this.updateSearchResults({
+              pagination: pagination,
+              sort: sort
+            });
+            if (isNotEmpty(this.scope)) {
+              this.scopeObjectRDObs = this.communityService.findById(this.scope);
+            } else {
+              this.scopeObjectRDObs = Observable.of(undefined);
             }
           }
-          if (isNotEmpty(params.view) && params.view === ViewMode.List) {
-            if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 10;
-            }
-          }
-
-          const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
-          const pagination = Object.assign({},
-            this.searchOptions.pagination,
-            { currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
-          );
-          const sort = Object.assign({},
-            this.searchOptions.sort,
-            { direction: sortDirection, field: params.sortField }
-          );
-
-          this.updateSearchResults({
-            pagination: pagination,
-            sort: sort
-          });
-          if (isNotEmpty(this.scope)) {
-            this.scopeObjectRDObs = this.communityService.findById(this.scope);
-          } else {
-            this.scopeObjectRDObs = Observable.of(undefined);
-          }
-        }
-      );
+        );
+    }
   }
 
   private updateSearchResults(searchOptions) {
@@ -128,7 +131,9 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 
   public closeSidebar(): void {

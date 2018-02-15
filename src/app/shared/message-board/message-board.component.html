@@ -60,19 +60,22 @@
 </div>
 
 <div class="modal-footer">
-  <input
-    [ngModel]="textSubject"
-    class="form-control"
-    placeholder="Subject..."
-  />
-  <textarea
-    [ngModel]="textDescription"
-    placeholder="Insert here your message..."
-    class="form-control"
-    rows="3"></textarea>
-    <button
-      id="btn-chat"
-      class="btn btn-warning btn-lg btn-block mt-3"
-      (click)="sendMessage()">Send
-    </button>
+  <form (ngSubmit)="sendMessage()" [formGroup]="messageForm" novalidate>
+    <input
+      formControlName="textSubject"
+      class="form-control mb-1"
+      placeholder="Subject..."
+    />
+    <textarea
+      formControlName="textDescription"
+      placeholder="Insert here your message..."
+      class="form-control"
+      rows="3"></textarea>
+    <br>
+      <button
+        id="btn-chat"
+        class="btn btn-warning btn-lg btn-block mt-3"
+        type="submit">Send
+      </button>
+  </form>
 </div>

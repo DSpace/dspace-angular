@@ -11,6 +11,7 @@ import { NormalizedLicense } from './normalized-license.model';
 import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
 import { NormalizedWorkspaceItem } from '../../submission/models/normalized-workspaceitem.model';
 import {NormalizedEpersonModel} from "../../eperson/models/NormalizedEperson.model";
+import { NormalizedGroupModel } from '../../eperson/models/NormalizedGroup.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
@@ -43,8 +44,11 @@ export class NormalizedObjectFactory {
         return NormalizedWorkspaceItem
       }
       case ResourceType.Eperson: {
-      return NormalizedEpersonModel
-    }
+       return NormalizedEpersonModel
+      }
+      case ResourceType.Group: {
+       return NormalizedGroupModel
+      }
       default: {
         return undefined;
       }
