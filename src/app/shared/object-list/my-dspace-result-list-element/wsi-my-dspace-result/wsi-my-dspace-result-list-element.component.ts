@@ -13,16 +13,14 @@ import {Metadatum} from '../../../../core/shared/metadatum.model';
 
 import * as data from '../../../../../backend/data/bitstream-messages.json';
 import {Bitstream} from '../../../../core/shared/bitstream.model';
-import {NgbActiveModal, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {ListableObject} from '../../../object-collection/shared/listable-object.model';
+import { ItemStatus } from '../../../../core/shared/item-status';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
   styleUrls: ['../my-dspace-result-list-element.component.scss', './wsi-my-dspace-result-list-element.component.scss'],
   templateUrl: './wsi-my-dspace-result-list-element.component.html',
-  // providers: [
-  //   NgbActiveModal,
-  // ]
 })
 
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
@@ -32,6 +30,9 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   public messages: Bitstream[] = [];
   public unRead = 0;
   public modalRef: NgbModalRef;
+  public status: string;
+  public statusString: string;
+  public ALL_STATUS = [];
 
   constructor(private modalService: NgbModal, @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
@@ -45,6 +46,10 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
         this.item = rd.payload[0];
       });
 
+    Object.keys(ItemStatus).forEach((s) => {
+      this.ALL_STATUS.push(ItemStatus[s]);
+    });
+
     // TODO REMOVE WHEN BACK-END WILL MANAGE MESSAGE
     const bitstreams = 'bitstreams';
     const messages: Bitstream[] = data[bitstreams];
@@ -54,10 +59,46 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       true,
       undefined,
       messages));
+
+    let i = Math.random() * 10 % Object.keys(ItemStatus).length;
+    console.log(i);
+    i = Math.round(i);
+    console.log('Rounded' + i);
+    switch (i) {
+      case 0: { this.status = ItemStatus.ACCEPTED; break;}
+      case 1: { this.status = ItemStatus.REJECTED; break;}
+      case 2: { this.status = ItemStatus.WAITING_CONTROLLER; break;}
+      case 3: { this.status = ItemStatus.VALIDATION; break;}
+      default: { this.status = ItemStatus.IN_PROGRESS; break;}
+    }
+
     // TODO END REMOVE
 
+    switch (this.status) {  // TODO switch on item.status or .getStatus()
+      case ItemStatus.ACCEPTED: {
+        this.statusString = 'Accepted';
+        break;
+      }
+      case ItemStatus.REJECTED: {
+        this.statusString = 'Rejected';
+        break;
+      }
+      case ItemStatus.WAITING_CONTROLLER: {
+        this.statusString = 'Waiting for controller';
+        break;
+      }
+      case ItemStatus.VALIDATION: {
+        this.statusString = 'Validation';
+        break;
+      }
+      case ItemStatus.IN_PROGRESS: {
+        this.statusString = 'In progress';
+        break;
+      }
+    }
+
     const messagesObs = this.item.getBitstreamsByBundleName('MESSAGE');
-    // TODO Test.... later here I must to create this.messages here
+    // TODO Test.... later I must to create this.messages here
     messagesObs
     // .filter()
       .take(1)
@@ -68,8 +109,8 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     messages.forEach((m) => {
       const b = Object.assign(new Bitstream(), m);
       this.messages.push(b);
-      const accepted = b.findMetadata('dc.date.accepted');
-      if (!accepted || accepted.length === 0) {
+      const accessioned = b.findMetadata('dc.date.accessioned');
+      if (!accessioned || accessioned.length === 0) {
         this.unRead++;
       }
     });

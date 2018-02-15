@@ -52,6 +52,7 @@ export class MessageBoardComponent {
 
   sendMessage() {
     // TODO
+
   }
 
 }
