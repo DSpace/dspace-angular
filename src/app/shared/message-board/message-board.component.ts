@@ -31,7 +31,8 @@ export class MessageBoardComponent {
   public textDescription: string;
   public isCreator: boolean;
   public creatorUuid: string;
-  public user: Observable<Eperson>;
+  public user: Eperson;
+  public showUnread = false;
 
   constructor(private msgService: MessageService, private store: Store<AppState>,) {
   }
@@ -43,14 +44,28 @@ export class MessageBoardComponent {
       this.show.push(false);
     });
 
-    this.user = this.store.select(getAuthenticatedUser);
+    this.store.select(getAuthenticatedUser).subscribe((user) => {
+      this.user = user;
+    });
 
-    console.log('User is');
-    console.log(this.user);
+    // console.log('User is');
+    // console.log(this.user);
+    //
+    // console.log('Submitter is');
+    // console.log(this.submitter);
 
-    console.log('Submitter is');
-    console.log(this.submitter);
-
+    if (this.messages && this.messages.length > 0) {
+      const lastMsg = this.messages[this.messages.length - 1];
+      if (this.user.uuid === this.submitter.uuid) {
+        if (lastMsg.findMetadata('dc.type') === 'outbound') {
+          this.showUnread = true;
+        }
+      } else {
+        if (lastMsg.findMetadata('dc.type') === 'inbound') {
+          this.showUnread = true;
+        }
+      }
+    }
     // TODO Check if actual user is the creator
 
     // TODO Mark as read only when other read, not the writer
@@ -75,7 +90,54 @@ export class MessageBoardComponent {
       subject: this.textSubject,
       description: this.textDescription
     };
-    this.msgService.createMessage(body);
+    const req = this.msgService.createMessage(body);
+    req.subscribe((res) => {
+      console.log('After message creation:');
+      console.log(res);
+    });
+    this.closeDashboard(null);
   }
 
+  unRead() {
+    const uuid = this.messages[this.messages.length - 1].uuid;
+    const body = {
+      uuid: uuid
+    }
+    const req = this.msgService.markAsUnread(body);
+    req.subscribe((res) => {
+      console.log('After message unRead:');
+      console.log(res);
+    });
+  }
+
+  read() {
+    const uuid = this.messages[this.messages.length - 1].uuid;
+    const body = {
+      uuid: uuid
+    }
+    const req = this.msgService.markAsRead(body);
+    req.subscribe((res) => {
+      console.log('After message read:');
+      console.log(res);
+    });
+  }
+
+
 }
+
+// CREAZIONE messaggio
+// - POST /api/messages
+// argomenti
+// - uuid item
+// - subject
+// - description
+//
+// PRESA visione
+// - POST /api/messages/read
+// argomenti
+// - uuid bitsream
+//
+// CANCELLA visione
+// - POST /api/messages/unread
+// argomenti
+// - uuid bitsream

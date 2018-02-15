@@ -35,9 +35,9 @@
                   <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued')}}
                 </small>
                 <small
-                  *ngIf="i == messages.length-1 && 1"
+                  *ngIf="i == messages.length-1 && showUnread"
                   [ngClass]="{'cr': type == 'outbound', 'cl': type == 'inbound', 'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-                  <span class="fa fa-envelope"></span> Set as unread
+                  <span class="fa fa-envelope" (click)="unRead()"> Set as unread </span>
                 </small>
               </div>
               <div (click)="toggleDescription(i)" class="title"

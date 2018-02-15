@@ -175,21 +175,4 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     // modalRef.componentInstance.name = 'test';
   }
 
-// CREAZIONE messaggio
-// - POST /api/messages
-// argomenti
-// - uuid item
-// - subject
-// - description
-//
-// PRESA visione
-// - POST /api/messages/read
-// argomenti
-// - uuid bitsream
-//
-// CANCELLA visione
-// - POST /api/messages/unread
-// argomenti
-// - uuid bitsream
-
 }
