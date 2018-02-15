@@ -22,6 +22,10 @@ import { FacetValue } from '../../+search-page/search-service/facet-value.model'
 import { Metadatum } from '../../core/shared/metadatum.model';
 import { Item } from '../../core/shared/item.model';
 import { ItemMyDSpaceResult } from '../../shared/object-collection/shared/item-my-dspace-result.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.reducer';
+import { Eperson } from '../../core/eperson/models/eperson.model';
+import { getAuthenticatedUser } from '../../core/auth/selectors';
 
 @Injectable()
 export class MyDspaceService extends SearchService implements OnDestroy {
@@ -59,14 +63,17 @@ export class MyDspaceService extends SearchService implements OnDestroy {
   // searchOptions: BehaviorSubject<SearchOptions>;
   searchOptions: SearchOptions;
   totalElements: number;
+  user: Observable<Eperson>;
 
   constructor(protected workspaceitemDataService: WorkspaceitemDataService,
               protected itemDataService: ItemDataService,
               protected routeService: RouteService,
               protected route: ActivatedRoute,
-              protected router: Router) {
+              protected router: Router,
+              protected store: Store<AppState>,) {
 
     super(itemDataService, routeService, route, router);
+    this.user = this.store.select(getAuthenticatedUser);
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<MyDSpaceResult<DSpaceObject>>>> {
@@ -105,24 +112,36 @@ export class MyDspaceService extends SearchService implements OnDestroy {
         let itemsObs: Observable<RemoteData<PaginatedList<Item>>>;
         let workspaceitemsObs: Observable<RemoteData<PaginatedList<Workspaceitem>>>;
         if ((isEmpty(status) || status.length > 1) && (returningPageInfo.currentPage * returningPageInfo.elementsPerPage < 41)) {
-          itemsObs = this.itemDataService.findAll({
-            scopeID: scopeId,
-            currentPage: returningPageInfo.currentPage,
-            elementsPerPage: (returningPageInfo.elementsPerPage / 2)
-          }).filter((rd) => rd.hasSucceeded);
+          itemsObs = this.user
+            .filter((user) => isNotEmpty(user))
+            .flatMap((user: Eperson) => {
+              return this.itemDataService.searchBySubmitter({
+                scopeID: user.uuid,
+                currentPage: returningPageInfo.currentPage,
+                elementsPerPage: (returningPageInfo.elementsPerPage / 2)
+              }).filter((rd) => rd.hasSucceeded);
+            });
 
-          workspaceitemsObs = this.workspaceitemDataService.findAll({
-            scopeID: scopeId,
-            currentPage: returningPageInfo.currentPage / 2,
-            elementsPerPage: returningPageInfo.elementsPerPage
-          }).filter((rd) => rd.hasSucceeded);
+          workspaceitemsObs = this.user
+            .filter((user) => isNotEmpty(user))
+            .flatMap((user: Eperson) => {
+              return this.workspaceitemDataService.searchBySubmitter({
+                scopeID: user.uuid,
+                currentPage: returningPageInfo.currentPage / 2,
+                elementsPerPage: returningPageInfo.elementsPerPage
+              }).filter((rd) => rd.hasSucceeded);
+            });
         } else if (status[0] === 'Accepted') {
           if ((returningPageInfo.currentPage * returningPageInfo.elementsPerPage < 41)) {
-            itemsObs = this.itemDataService.findAll({
-              scopeID: scopeId,
-              currentPage: returningPageInfo.currentPage,
-              elementsPerPage: (returningPageInfo.elementsPerPage)
-            }).filter((rd) => rd.hasSucceeded);
+            itemsObs = this.user
+              .filter((user) => isNotEmpty(user))
+              .flatMap((user: Eperson) => {
+                return this.itemDataService.searchBySubmitter({
+                  scopeID: user.uuid,
+                  currentPage: returningPageInfo.currentPage,
+                  elementsPerPage: (returningPageInfo.elementsPerPage)
+                }).filter((rd) => rd.hasSucceeded);
+              });
           } else {
             itemsObs = Observable.of(new RemoteData(
               false,
@@ -144,12 +163,15 @@ export class MyDspaceService extends SearchService implements OnDestroy {
             true,
             undefined,
             new PaginatedList(new PageInfo(), [])));
-
-          workspaceitemsObs = this.workspaceitemDataService.findAll({
-            scopeID: scopeId,
-            currentPage: returningPageInfo.currentPage,
-            elementsPerPage: returningPageInfo.elementsPerPage
-          }).filter((rd) => rd.hasSucceeded);
+          workspaceitemsObs = this.user
+            .filter((user) => isNotEmpty(user))
+            .flatMap((user: Eperson) => {
+              return this.workspaceitemDataService.searchBySubmitter({
+                scopeID: user.uuid,
+                currentPage: returningPageInfo.currentPage,
+                elementsPerPage: returningPageInfo.elementsPerPage
+              }).filter((rd) => rd.hasSucceeded);
+            });
         }
 
         return Observable.combineLatest(itemsObs, workspaceitemsObs)
@@ -201,17 +223,30 @@ export class MyDspaceService extends SearchService implements OnDestroy {
   }
 
   getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
+    this.user.subscribe((u) => {
+      console.log(u);
+    })
     const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
     return this.routeService.getQueryParameterValues(filterConfig.paramName)
       .flatMap((selectedValues: string[]) => {
-        const itemsObs = this.itemDataService.findAll({
-          currentPage: 1,
-          elementsPerPage: 1
-        });
-        const workspaceitemsObs = this.workspaceitemDataService.findAll({
-          currentPage: 1,
-          elementsPerPage: 1
-        });
+        const itemsObs = this.user
+          .filter((user) => isNotEmpty(user))
+          .flatMap((user: Eperson) => {
+            return this.itemDataService.searchBySubmitter({
+              scopeID: user.uuid,
+              currentPage: 1,
+              elementsPerPage: 1
+            })
+          });
+        const workspaceitemsObs = this.user
+          .filter((user) => isNotEmpty(user))
+          .flatMap((user: Eperson) => {
+            return this.workspaceitemDataService.searchBySubmitter({
+              scopeID: user.uuid,
+              currentPage: 1,
+              elementsPerPage: 1
+            })
+          });
         return Observable.combineLatest(itemsObs, workspaceitemsObs)
           .first()
           .map(([items, workspaceitem]) => {
@@ -224,7 +259,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                     value: value,
                     count: (value === 'In progress')
                       ? workspaceitem.payload.totalElements
-                      : 40,
+                      : ((items.payload.totalElements < 40) ? items.payload.totalElements : 40),
                     search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
                   })
                 }

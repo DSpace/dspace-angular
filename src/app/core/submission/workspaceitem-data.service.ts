@@ -16,7 +16,7 @@ import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import {
-  FindAllOptions, SubmissionFindAllRequest, SubmissionFindByIDRequest,
+  FindAllOptions, GetRequest, SubmissionFindAllRequest, SubmissionFindByIDRequest,
   SubmissionRequest
 } from '../data/request.models';
 
@@ -36,6 +36,7 @@ export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceIte
   public getScopedEndpoint(scopeID: string): Observable<string> {
     return this.getEndpoint();
   }
+
 /*
   findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Workspaceitem>>> {
     const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))

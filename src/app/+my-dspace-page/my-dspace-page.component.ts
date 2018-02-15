@@ -17,6 +17,10 @@ import { SearchService } from '../+search-page/search-service/search.service';
 import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
 import { MyDSpaceResult } from './my-dspace-result.model';
 import { MyDspaceService } from './my-dspace-service/my-dspace.service';
+import { getAuthenticatedUser } from '../core/auth/selectors';
+import { AppState } from '../app.reducer';
+import { Store } from '@ngrx/store';
+import { Eperson } from '../core/eperson/models/eperson.model';
 
 /**
  * This component renders a simple item page.
@@ -44,11 +48,13 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   sortConfig: SortOptions;
   scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
+  user: Observable<Eperson>;
 
   constructor(private service: MyDspaceService,
               private route: ActivatedRoute,
               private communityService: CommunityDataService,
               private sidebarService: SearchSidebarService,
+              private store: Store<AppState>,
               private windowService: HostWindowService) {
     this.isMobileView =  Observable.combineLatest(
       this.windowService.isXs(),
@@ -68,6 +74,8 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.user = this.store.select(getAuthenticatedUser);
+
     this.sub = this.route
       .queryParams
       .subscribe((params) => {

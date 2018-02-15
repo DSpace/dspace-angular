@@ -1,11 +1,9 @@
-
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { RouterReducerState } from '@ngrx/router-store';
 import { Store } from '@ngrx/store';
 
 import { fadeInOut, fadeOut } from '../animations/fade';
-import { CoreState } from '../../core/core.reducers';
 import { HostWindowService } from '../host-window.service';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { hasValue, isNotUndefined } from '../empty.util';
@@ -32,9 +30,8 @@ export class AuthNavMenuComponent implements OnDestroy, OnInit {
 
   protected subs: Subscription[] = [];
 
-  constructor(
-    private store: Store<AppState>,
-    public windowService: HostWindowService) {
+  constructor(private store: Store<AppState>,
+              public windowService: HostWindowService) {
   }
 
   ngOnInit(): void {

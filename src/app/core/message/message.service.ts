@@ -5,7 +5,7 @@ import { RequestService } from '../data/request.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { Observable } from 'rxjs/Observable';
-import { isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import {
   AuthGetRequest, AuthPostRequest, GetRequest, MessageGetRequest, MessagePostRequest, PostRequest,
   RestRequest
@@ -13,6 +13,7 @@ import {
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { AuthSuccessResponse, ErrorResponse, MessageResponse, RestResponse } from '../cache/response-cache.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class MessageService extends HALEndpointService {
@@ -66,14 +67,33 @@ export class MessageService extends HALEndpointService {
   }
 
   public createMessage(body: any, options?: HttpOptions): Observable<any> {
-    return this.postToEndpoint('', body, options);
+    return this.postToEndpoint('', this.prepareBody(body), this.makeHttpOptions());
   }
 
   public markAsRead(body: any, options?: HttpOptions): Observable<any> {
-    return this.postToEndpoint('read', body, options);
+    return this.postToEndpoint('read', this.prepareBody(body), this.makeHttpOptions());
   }
 
   public markAsUnread(body: any, options?: HttpOptions): Observable<any> {
-    return this.postToEndpoint('unread', body, options);
+    return this.postToEndpoint('unread', this.prepareBody(body), this.makeHttpOptions());
+  }
+
+  protected prepareBody(body: any) {
+    let queryParams = '';
+    if (isNotEmpty(body) && typeof body === 'object') {
+      Object.keys(body)
+        .forEach((param) => {
+          queryParams = isEmpty(queryParams) ? queryParams.concat(body[param]) : queryParams.concat('&', body[param]);
+        })
+    }
+    return encodeURI(queryParams);
+  }
+
+  protected makeHttpOptions() {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    options.headers = headers;
+    return options;
   }
 }

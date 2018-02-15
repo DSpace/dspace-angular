@@ -64,6 +64,40 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     }
   }
 
+  protected getSearchByHref(endpoint, searchByLink, options: FindAllOptions = {}): Observable<string> {
+    let result: Observable<string>;
+    const args = [];
+
+    if (hasValue(options.scopeID)) {
+      result = Observable.of(`${endpoint}/${searchByLink}?uuid=${options.scopeID}`);
+    } else {
+      result = Observable.of(endpoint);
+    }
+
+    if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
+      /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
+      args.push(`page=${options.currentPage - 1}`);
+    }
+
+    if (hasValue(options.elementsPerPage)) {
+      args.push(`size=${options.elementsPerPage}`);
+    }
+
+    if (hasValue(options.sort)) {
+      let direction = 'asc';
+      if (options.sort.direction === 1) {
+        direction = 'desc';
+      }
+      args.push(`sort=${options.sort.field},${direction}`);
+    }
+
+    if (isNotEmpty(args)) {
+      return result.map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString());
+    } else {
+      return result;
+    }
+  }
+
   findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
     const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
       .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
@@ -101,6 +135,21 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   findByHref(href: string): Observable<RemoteData<TDomain>> {
     this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href));
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
+  }
+
+  // TODO remove when search will be completed
+  public searchBySubmitter(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
+    const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
+      .flatMap((endpoint: string) => this.getSearchByHref(endpoint, 'search/findBySubmitter', options));
+    hrefObs
+      .filter((href: string) => hasValue(href))
+      .take(1)
+      .subscribe((href: string) => {
+        const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
+        this.requestService.configure(request);
+      });
+
+    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<TDomain>>>;
   }
 
   // TODO implement, after the structure of the REST server's POST response is finalized
