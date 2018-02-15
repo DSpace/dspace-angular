@@ -55,8 +55,14 @@
 </div>
 
 <div class="modal-footer">
+  <input
+    [ngModel]="textSubject"
+    class="form-control"
+    placeholder="Subject..."
+  />
   <textarea
-    [ngModel]="textMessage"
+    [ngModel]="textDescription"
+    placeholder="Insert here your message..."
     class="form-control"
     rows="3"></textarea>
     <button

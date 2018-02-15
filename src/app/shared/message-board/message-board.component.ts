@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Bitstream} from '../../core/shared/bitstream.model';
 import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {MessageService} from "../../core/message/message.service";
 
 @Component({
   selector: 'ds-message-board',
@@ -19,15 +20,17 @@ export class MessageBoardComponent {
   @Output()
   public close = new EventEmitter<any>();
   public show = [];
-  public textMessage: string;
+  public textSubject: string;
+  public textDescription: string;
   public isCreator: boolean;
   public creatorUuid: string;
 
-  // constructor(public activeModal: NgbActiveModal) {
-  // }
+  constructor(private msgService: MessageService) {
+  }
 
   ngOnInit() {
-    this.textMessage = '';
+    this.textSubject = '';
+    this.textDescription = '';
     this.messages.forEach((m) => {
       this.show.push(false);
     });
@@ -52,7 +55,12 @@ export class MessageBoardComponent {
 
   sendMessage() {
     // TODO
-
+    const body = {
+      uuid: '',
+      subject: this.textSubject,
+      description: this.textDescription
+    };
+    this.msgService.createMessage(body);
   }
 
 }

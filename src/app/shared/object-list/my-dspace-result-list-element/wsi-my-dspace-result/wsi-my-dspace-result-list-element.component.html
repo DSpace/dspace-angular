@@ -20,7 +20,8 @@
   [fake] {{statusString}}
 </span>
 </div>
-<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/edit/' + dso.id]" >Edit</button>
+<!--<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/edit/' + dso.id]" >Edit</button>-->
+<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/workspaceitems/' + dso.id] + '/edit'" >Edit</button>
 <button class="btn btn-primary mt-1 mb-3" (click)="openMessageBoard(content)">
   <i class="fa fa-envelope"></i>
   <span *ngIf="unRead > 0" class="badge badge-pill badge-danger">{{unRead}}</span>
