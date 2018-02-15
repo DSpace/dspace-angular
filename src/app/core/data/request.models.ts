@@ -294,6 +294,26 @@ export class IntegrationRequest extends GetRequest {
   }
 }
 
+export class MessagePostRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return DSOResponseParsingService;
+  }
+}
+
+export class MessageGetRequest extends GetRequest {
+  constructor(uuid: string, href: string, public options?: HttpOptions) {
+    super(uuid, href, null, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return DSOResponseParsingService;
+  }
+}
+
 export class RequestError extends Error {
   statusText: string;
 }

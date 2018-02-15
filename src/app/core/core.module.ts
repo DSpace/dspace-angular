@@ -59,6 +59,7 @@ import { CookieService } from '../shared/services/cookie.service';
 import { PlatformService } from '../shared/services/platform.service';
 import { JsonPatchOperationsService } from './json-patch/json-patch-operations.service';
 import { PostPatchDataService } from './data/postpatch-data.service';
+import { MessageService } from './message/message.service';
 
 const IMPORTS = [
   CommonModule,
@@ -117,6 +118,7 @@ const PROVIDERS = [
   IntegrationResponseParsingService,
   UUIDService,
   WorkspaceitemDataService,
+  MessageService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   // register AuthInterceptor as HttpInterceptor
   {
