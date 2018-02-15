@@ -2,6 +2,11 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Bitstream} from '../../core/shared/bitstream.model';
 import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {MessageService} from "../../core/message/message.service";
+import {Observable} from "rxjs/Observable";
+import {Eperson} from "../../core/eperson/models/eperson.model";
+import {getAuthenticatedUser} from "../../core/auth/selectors";
+import {AppState} from "../../app.reducer";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'ds-message-board',
@@ -16,6 +21,8 @@ export class MessageBoardComponent {
   @Input()
   public messages: Bitstream[];
   @Input()
+  public submitter: Eperson;
+  @Input()
   public modalRef: NgbModalRef;
   @Output()
   public close = new EventEmitter<any>();
@@ -24,8 +31,9 @@ export class MessageBoardComponent {
   public textDescription: string;
   public isCreator: boolean;
   public creatorUuid: string;
+  public user: Observable<Eperson>;
 
-  constructor(private msgService: MessageService) {
+  constructor(private msgService: MessageService, private store: Store<AppState>,) {
   }
 
   ngOnInit() {
@@ -35,6 +43,13 @@ export class MessageBoardComponent {
       this.show.push(false);
     });
 
+    this.user = this.store.select(getAuthenticatedUser);
+
+    console.log('User is');
+    console.log(this.user);
+
+    console.log('Submitter is');
+    console.log(this.submitter);
 
     // TODO Check if actual user is the creator
 

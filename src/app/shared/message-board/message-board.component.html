@@ -20,7 +20,7 @@
                        src="/assets/images/dspace-logo.png"
                        class="avatar img-rounded"/>
                  <img *ngIf="type == 'inbound'" alt="Avatar"
-                      src="/assets/images/dspace-logo-old.png"
+                      src="/assets/images/you.jpg"
                       class="avatar img-rounded"/>
               </span>
 
@@ -33,6 +33,11 @@
                 <small
                   [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
                   <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued')}}
+                </small>
+                <small
+                  *ngIf="i == messages.length-1 && 1"
+                  [ngClass]="{'cr': type == 'outbound', 'cl': type == 'inbound', 'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
+                  <span class="fa fa-envelope"></span> Set as unread
                 </small>
               </div>
               <div (click)="toggleDescription(i)" class="title"

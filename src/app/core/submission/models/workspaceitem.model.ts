@@ -27,7 +27,7 @@ export class Workspaceitem extends SubmissionObject {
 
   submissionDefinition: SubmissionDefinitionsModel;
 
-  submitter: Eperson;
+  submitter: Observable<RemoteData<Eperson[]>> | Eperson[];
 
   errors: WorkspaceItemError[];
 

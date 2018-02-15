@@ -16,6 +16,7 @@ import {Bitstream} from '../../../../core/shared/bitstream.model';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {ListableObject} from '../../../object-collection/shared/listable-object.model';
 import { ItemStatus } from '../../../../core/shared/item-status';
+import {Eperson} from '../../../../core/eperson/models/eperson.model';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -27,6 +28,7 @@ import { ItemStatus } from '../../../../core/shared/item-status';
 @renderElementsFor(Workspaceitem, ViewMode.List)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   public item: Item;
+  public submitter: Eperson;
   public messages: Bitstream[] = [];
   public unRead = 0;
   public modalRef: NgbModalRef;
@@ -46,24 +48,31 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
         this.item = rd.payload[0];
       });
 
+    (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
+      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .first()
+      .subscribe((rd: RemoteData<any>) => {
+        this.submitter = rd.payload[0];
+      });
+
     Object.keys(ItemStatus).forEach((s) => {
       this.ALL_STATUS.push(ItemStatus[s]);
     });
 
     // TODO REMOVE WHEN BACK-END WILL MANAGE MESSAGE
-    const bitstreams = 'bitstreams';
-    const messages: Bitstream[] = data[bitstreams];
-    this.item.bitstreams = Observable.of(new RemoteData(
-      false,
-      false,
-      true,
-      undefined,
-      messages));
+    // const bitstreams = 'bitstreams';
+    // const messages: Bitstream[] = data[bitstreams];
+    // this.item.bitstreams = Observable.of(new RemoteData(
+    //   false,
+    //   false,
+    //   true,
+    //   undefined,
+    //   messages));
 
     let i = Math.random() * 10 % Object.keys(ItemStatus).length;
-    console.log(i);
+    // console.log(i);
     i = Math.round(i);
-    console.log('Rounded' + i);
+    // console.log('Rounded' + i);
     switch (i) {
       case 0: { this.status = ItemStatus.ACCEPTED; break;}
       case 1: { this.status = ItemStatus.REJECTED; break;}
@@ -102,11 +111,12 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     messagesObs
     // .filter()
       .take(1)
-      .subscribe((m) => {
-        // console.log(m);
+      .subscribe((bitStreams) => {
+        console.log(bitStreams);
+        this.messages = bitStreams;
       });
 
-    messages.forEach((m) => {
+    this.messages.forEach((m) => {
       const b = Object.assign(new Bitstream(), m);
       this.messages.push(b);
       const accessioned = b.findMetadata('dc.date.accessioned');
