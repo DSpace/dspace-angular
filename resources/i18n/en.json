@@ -198,6 +198,12 @@
     }
   },
   "submission": {
+    "submit": {
+      "title": "Submit"
+    },
+    "edit": {
+      "title": "edit"
+    },
     "section": {
       "submit.progressbar.describe.stepone": "Describe",
       "submit.progressbar.describe.steptwo": "Describe",

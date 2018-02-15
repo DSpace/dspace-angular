@@ -160,6 +160,7 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @method submit
    */
   public submit() {
+    this.resetErrorOrMessage();
     // get email and password values
     const email: string = this.form.get('email').value;
     const password: string = this.form.get('password').value;

@@ -8,8 +8,6 @@ import { SectionDirective } from './section/section.directive';
 import { SectionHostDirective } from './section/section-host.directive';
 import { SectionService } from './section/section.service';
 import { DefaultSectionComponent } from './section/default/section-default.component';
-import { SubmissionRoutingModule } from './submission-routing.module';
-import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 import { SubmissionFormCollectionComponent } from './form/collection/submission-form-collection.component';
 import { SubmissionFormFooterComponent } from './form/footer/submission-form-footer.component';
 import { SubmissionFormComponent } from './form/submission-form.component';
@@ -42,7 +40,6 @@ import { AccessConditionsComponent } from './section/upload/accessConditions/acc
     SharedModule,
     StoreModule.forFeature('submission', submissionReducers, { }),
     EffectsModule.forFeature(submissionEffects),
-    SubmissionRoutingModule,
     TranslateModule
   ],
   declarations: [
@@ -56,7 +53,6 @@ import { AccessConditionsComponent } from './section/upload/accessConditions/acc
     SectionContainerComponent,
     SectionHostDirective,
     SubmissionEditComponent,
-    SubmissionSubmitComponent,
     SubmissionFormSectionAddComponent,
     SubmissionFormCollectionComponent,
     SubmissionFormComponent,
@@ -68,6 +64,8 @@ import { AccessConditionsComponent } from './section/upload/accessConditions/acc
   ],
   entryComponents: [ DefaultSectionComponent, FilesSectionComponent, FormSectionComponent, LicenseSectionComponent, SectionContainerComponent ],
   exports: [
+    SubmissionEditComponent,
+    SubmissionFormComponent
   ],
   providers: [
     SectionUploadService,

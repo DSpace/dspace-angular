@@ -1,19 +1,20 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { isPlatformServer } from '@angular/common';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
-import { SubmissionRestService } from '../submission-rest.service';
-import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
-import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue } from '../../shared/empty.util';
+
+import { hasValue } from '../shared/empty.util';
+import { SubmissionDefinitionsModel } from '../core/shared/config/config-submission-definitions.model';
+import { SubmissionRestService } from '../submission/submission-rest.service';
+import { Workspaceitem } from '../core/submission/models/workspaceitem.model';
+import { PlatformService } from '../shared/services/platform.service';
 
 @Component({
-  selector: 'ds-submission-submit',
-  styleUrls: ['./submission-submit.component.scss'],
-  templateUrl: './submission-submit.component.html'
+  selector: 'ds-submit-page',
+  styleUrls: ['./submit-page.component.scss'],
+  templateUrl: './submit-page.component.html'
 })
 
-export class SubmissionSubmitComponent implements OnDestroy, OnInit {
+export class SubmitPageComponent implements OnDestroy, OnInit {
 
   public collectionId: string;
   public model: any;
@@ -23,12 +24,12 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   protected subs: Subscription[] = [];
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              @Inject(PLATFORM_ID) private platformId: any,
+              private platform: PlatformService,
               private restService: SubmissionRestService) {
   }
 
   ngOnInit() {
-    if (!isPlatformServer(this.platformId)) {
+    if (this.platform.isBrowser) {
       // NOTE execute the code on the browser side only, otherwise it is executed twice
       this.subs.push(
         this.restService.postToEndpoint('workspaceitems', {})

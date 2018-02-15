@@ -58,7 +58,6 @@ if (!ENV_CONFIG.production) {
     CommonModule,
     SharedModule,
     HttpClientModule,
-    SubmissionModule,
     AppRoutingModule,
     CoreModule.forRoot(),
     SortablejsModule.forRoot({ animation: 150 }),

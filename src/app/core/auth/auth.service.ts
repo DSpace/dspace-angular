@@ -47,7 +47,7 @@ export class AuthService {
     // If current route is different from the one setted in authentication guard
     // and is not the login route, clear redirect url and messages
     this.store.select(routerStateSelector)
-      .filter((routerState: RouterReducerState) => isNotUndefined(routerState))
+      .filter((routerState: RouterReducerState) => isNotUndefined(routerState) && isNotUndefined(routerState.state) )
       .filter((routerState: RouterReducerState) =>
         (routerState.state.url !== LOGIN_ROUTE)
         && isNotEmpty(this._redirectUrl)
