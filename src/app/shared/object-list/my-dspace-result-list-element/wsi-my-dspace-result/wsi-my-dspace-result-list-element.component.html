@@ -10,7 +10,18 @@
   </span>
   <div class="item-list-abstract" [ngClass]="{'text-muted': !getFirstValue('dc.description.abstract')}" [innerHTML]="(getFirstValue('dc.description.abstract') | dsTruncate:[200]) || 'No Abstract'"></div>
 </div>
-<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/edit/' + dso.id]" >Edit</button>
+<div>
+  <span [ngClass]="{'badge': true,
+                  'badge-danger': status == ALL_STATUS[0],
+                  'badge-primary': status == ALL_STATUS[1],
+                  'badge-info': status == ALL_STATUS[2],
+                  'badge-warning': status == ALL_STATUS[3],
+                  'badge-success': status == ALL_STATUS[4]}">
+  [fake] {{statusString}}
+</span>
+</div>
+<!--<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/edit/' + dso.id]" >Edit</button>-->
+<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/workspaceitems/' + dso.id] + '/edit'" >Edit</button>
 <button class="btn btn-primary mt-1 mb-3" (click)="openMessageBoard(content)">
   <i class="fa fa-envelope"></i>
   <span *ngIf="unRead > 0" class="badge badge-pill badge-danger">{{unRead}}</span>
@@ -19,6 +30,7 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <ds-message-board
     [messages]="messages"
+    [submitter]="submitter"
     [modalRef]="modalRef">
   </ds-message-board>
 </ng-template>

@@ -1,6 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Bitstream} from '../../core/shared/bitstream.model';
 import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {MessageService} from "../../core/message/message.service";
+import {Observable} from "rxjs/Observable";
+import {Eperson} from "../../core/eperson/models/eperson.model";
+import {getAuthenticatedUser} from "../../core/auth/selectors";
+import {AppState} from "../../app.reducer";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'ds-message-board',
@@ -15,24 +21,51 @@ export class MessageBoardComponent {
   @Input()
   public messages: Bitstream[];
   @Input()
+  public submitter: Eperson;
+  @Input()
   public modalRef: NgbModalRef;
   @Output()
   public close = new EventEmitter<any>();
   public show = [];
-  public textMessage: string;
+  public textSubject: string;
+  public textDescription: string;
   public isCreator: boolean;
   public creatorUuid: string;
+  public user: Eperson;
+  public showUnread = false;
 
-  // constructor(public activeModal: NgbActiveModal) {
-  // }
+  constructor(private msgService: MessageService, private store: Store<AppState>,) {
+  }
 
   ngOnInit() {
-    this.textMessage = '';
+    this.textSubject = '';
+    this.textDescription = '';
     this.messages.forEach((m) => {
       this.show.push(false);
     });
 
+    this.store.select(getAuthenticatedUser).subscribe((user) => {
+      this.user = user;
+    });
 
+    // console.log('User is');
+    // console.log(this.user);
+    //
+    // console.log('Submitter is');
+    // console.log(this.submitter);
+
+    if (this.messages && this.messages.length > 0) {
+      const lastMsg = this.messages[this.messages.length - 1];
+      if (this.user.uuid === this.submitter.uuid) {
+        if (lastMsg.findMetadata('dc.type') === 'outbound') {
+          this.showUnread = true;
+        }
+      } else {
+        if (lastMsg.findMetadata('dc.type') === 'inbound') {
+          this.showUnread = true;
+        }
+      }
+    }
     // TODO Check if actual user is the creator
 
     // TODO Mark as read only when other read, not the writer
@@ -52,6 +85,59 @@ export class MessageBoardComponent {
 
   sendMessage() {
     // TODO
+    const body = {
+      uuid: '',
+      subject: this.textSubject,
+      description: this.textDescription
+    };
+    const req = this.msgService.createMessage(body);
+    req.subscribe((res) => {
+      console.log('After message creation:');
+      console.log(res);
+    });
+    this.closeDashboard(null);
   }
 
+  unRead() {
+    const uuid = this.messages[this.messages.length - 1].uuid;
+    const body = {
+      uuid: uuid
+    }
+    const req = this.msgService.markAsUnread(body);
+    req.subscribe((res) => {
+      console.log('After message unRead:');
+      console.log(res);
+    });
+  }
+
+  read() {
+    const uuid = this.messages[this.messages.length - 1].uuid;
+    const body = {
+      uuid: uuid
+    }
+    const req = this.msgService.markAsRead(body);
+    req.subscribe((res) => {
+      console.log('After message read:');
+      console.log(res);
+    });
+  }
+
+
 }
+
+// CREAZIONE messaggio
+// - POST /api/messages
+// argomenti
+// - uuid item
+// - subject
+// - description
+//
+// PRESA visione
+// - POST /api/messages/read
+// argomenti
+// - uuid bitsream
+//
+// CANCELLA visione
+// - POST /api/messages/unread
+// argomenti
+// - uuid bitsream

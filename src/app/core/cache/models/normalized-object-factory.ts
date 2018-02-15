@@ -10,6 +10,7 @@ import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { NormalizedLicense } from './normalized-license.model';
 import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
 import { NormalizedWorkspaceItem } from '../../submission/models/normalized-workspaceitem.model';
+import {NormalizedEpersonModel} from "../../eperson/models/NormalizedEperson.model";
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
@@ -41,6 +42,9 @@ export class NormalizedObjectFactory {
       case ResourceType.Workspaceitem: {
         return NormalizedWorkspaceItem
       }
+      case ResourceType.Eperson: {
+      return NormalizedEpersonModel
+    }
       default: {
         return undefined;
       }
