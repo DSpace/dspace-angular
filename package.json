@@ -66,8 +66,7 @@
     "webdriver:update": "node node_modules/protractor/bin/webdriver-manager update --standalone",
     "lint": "tslint \"src/**/*.ts\" && tslint \"e2e/**/*.ts\"",
     "docs": "typedoc --options typedoc.json ./src/",
-    "coverage": "http-server -c-1 -o -p 9875 ./coverage",
-    "script": "tsc -v"
+    "coverage": "http-server -c-1 -o -p 9875 ./coverage"
   },
   "dependencies": {
     "@angular/animations": "^5.2.5",
@@ -134,7 +133,7 @@
     "angular2-template-loader": "0.6.2",
     "autoprefixer": "^8.0.0",
     "awesome-typescript-loader": "3.4.1",
-    "caniuse-lite": "^1.0.30000808",
+    "caniuse-lite": "^1.0.30000697",
     "codelyzer": "^4.1.0",
     "compression-webpack-plugin": "^1.1.6",
     "copy-webpack-plugin": "^4.4.1",
@@ -192,8 +191,8 @@
     "ts-helpers": "1.1.2",
     "ts-node": "4.1.0",
     "tslint": "5.9.1",
-    "typedoc": "^0.10.0",
-    "typescript": "^2.7.2",
+    "typedoc": "^0.9.0",
+    "typescript": "2.6.2",
     "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.10.0",
     "webpack-dev-middleware": "^2.0.5",
