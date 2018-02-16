@@ -32,12 +32,12 @@
                 </strong>
                 <small
                   [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-                  <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued')}}
+                  <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued') | date:'short'}}
                 </small>
                 <small
                   *ngIf="i == messages.length-1 && showUnread"
                   [ngClass]="{'cr': type == 'outbound', 'cl': type == 'inbound', 'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-                  <span class="fa fa-envelope" (click)="unRead()"> Set as unread </span>
+                  <span class="fa fa-envelope pointer" (click)="unRead()"> Set as unread </span>
                 </small>
               </div>
               <div (click)="toggleDescription(i)" class="title"
@@ -48,13 +48,14 @@
               </div>
 
               <div *ngIf="show[i]" class="description">
-                {{m.findMetadata('dc.description')}}
+                {{description[i]}}
               </div>
             </div>
 
           </li>
         </ng-container>
       </ul>
+      <div *ngIf="messages.length == 0">No messages yet.</div>
     </div>
   </article>
 </div>

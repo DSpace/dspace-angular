@@ -1,22 +1,25 @@
-import {Component, Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
-import {renderElementsFor} from '../../../object-collection/shared/dso-element-decorator';
-import {MyDSpaceResultListElementComponent,} from '../my-dspace-result-list-element.component';
-import {ViewMode} from '../../../../+search-page/search-options.model';
-import {Workspaceitem} from '../../../../core/submission/models/workspaceitem.model';
-import {WorkspaceitemMyDSpaceResult} from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
-import {Item} from '../../../../core/shared/item.model';
-import {RemoteData} from '../../../../core/data/remote-data';
-import {Observable} from 'rxjs/Observable';
+import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
+import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
+import { ViewMode } from '../../../../+search-page/search-options.model';
+import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
+import { Item } from '../../../../core/shared/item.model';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue, hasNoValue, isEmpty, isNotEmpty } from '../../../empty.util';
-import {Metadatum} from '../../../../core/shared/metadatum.model';
+import { Metadatum } from '../../../../core/shared/metadatum.model';
 
 import * as data from '../../../../../backend/data/bitstream-messages.json';
-import {Bitstream} from '../../../../core/shared/bitstream.model';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {ListableObject} from '../../../object-collection/shared/listable-object.model';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { ItemStatus } from '../../../../core/shared/item-status';
-import {Eperson} from '../../../../core/eperson/models/eperson.model';
+import { Eperson } from '../../../../core/eperson/models/eperson.model';
+import { AppState } from '../../../../app.reducer';
+import { Store } from '@ngrx/store';
+import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -29,6 +32,7 @@ import {Eperson} from '../../../../core/eperson/models/eperson.model';
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   public item: Item;
   public submitter: Eperson;
+  public user: Eperson;
   public messages: Bitstream[] = [];
   public unRead = 0;
   public modalRef: NgbModalRef;
@@ -36,7 +40,9 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   public statusString: string;
   public ALL_STATUS = [];
 
-  constructor(private modalService: NgbModal, @Inject('objectElementProvider') public listable: ListableObject) {
+  constructor(private modalService: NgbModal,
+              private store: Store<AppState>,
+              @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
   }
 
@@ -54,6 +60,13 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .subscribe((rd: RemoteData<any>) => {
         console.log(rd);
         this.submitter = rd.payload[0];
+      });
+
+    this.store.select(getAuthenticatedUser)
+      .filter((user: Eperson) => isNotEmpty(user))
+      .take(1)
+      .subscribe((user: Eperson) => {
+        this.user = user;
       });
 
     Object.keys(ItemStatus).forEach((s) => {
@@ -97,9 +110,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
           .filter((bitStream: Bitstream) => bitStream.bundleName === 'MESSAGE')
           .forEach((bitStream: Bitstream) => {
             this.messages.push(bitStream);
-            const accessioned = bitStream.findMetadata('dc.date.accessioned');
-            // const accessioned = bitStream.findMetadata('dc.date.issued');
-            if (!accessioned || accessioned.length === 0) {
+            if (this.isUnread(bitStream)) {
               this.unRead++;
             }
           });
@@ -151,6 +162,21 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
 
   openMessageBoard(content) {
     this.modalRef = this.modalService.open(content);
+  }
+
+  isUnread(m: Bitstream): boolean {
+    const accessioned = m.findMetadata('dc.date.accessioned');
+    const type = m.findMetadata('dc.type');
+    if (this.user.uuid === this.submitter.uuid
+      && !accessioned
+      && type === 'outbound') {
+      return true;
+    } else if (this.user.uuid !== this.submitter.uuid
+      && !accessioned
+      && type === 'inbound') {
+      return true;
+    }
+    return false;
   }
 
 }

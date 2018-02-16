@@ -1,14 +1,15 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Bitstream} from '../../core/shared/bitstream.model';
-import {NgbActiveModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {MessageService} from "../../core/message/message.service";
-import {Observable} from "rxjs/Observable";
-import {Eperson} from "../../core/eperson/models/eperson.model";
-import {getAuthenticatedUser} from "../../core/auth/selectors";
-import {AppState} from "../../app.reducer";
-import {Store} from "@ngrx/store";
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {isNotEmpty} from '../empty.util';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { MessageService } from "../../core/message/message.service";
+import { Observable } from "rxjs/Observable";
+import { Eperson } from "../../core/eperson/models/eperson.model";
+import { getAuthenticatedUser } from "../../core/auth/selectors";
+import { AppState } from "../../app.reducer";
+import { Store } from "@ngrx/store";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { isNotEmpty } from '../empty.util';
+import { DSpaceRESTv2Service } from '../../core/dspace-rest-v2/dspace-rest-v2.service';
 
 @Component({
   selector: 'ds-message-board',
@@ -25,6 +26,8 @@ export class MessageBoardComponent {
   @Input()
   public submitter: Eperson;
   @Input()
+  public user: Eperson;
+  @Input()
   public modalRef: NgbModalRef;
   @Input()
   public itemUUID: string;
@@ -36,16 +39,12 @@ export class MessageBoardComponent {
    * The message form.
    * @type {FormGroup}
    */
-  public messageForm: FormGroup;
-
-  public isCreator: boolean;
-  public creatorUuid: string;
-  public user: Eperson;
+  public messageForm: FormGroup
   public showUnread = false;
+  public description = [];
 
   constructor(private formBuilder: FormBuilder,
-              private msgService: MessageService,
-              private store: Store<AppState>,) {
+              private msgService: MessageService) {
   }
 
   ngOnInit() {
@@ -57,18 +56,16 @@ export class MessageBoardComponent {
 
     this.messages.forEach((m: Bitstream) => {
       this.show.push(false);
-      // if (m._links.content.href) {
-      //
-      // }
+      if (m._links.content) {
+        const content = m._links.content;
+        // TODO !!! MAKE HTTP REQUEST FOR DESCRIPTION
+        // this.msgService.getRequest(content).subscribe( (desc) => {
+        //   console.log(desc);
+        //   this.description.push(desc);
+        // });
+      }
 
     });
-
-    this.store.select(getAuthenticatedUser)
-      .filter((user: Eperson) => isNotEmpty(user))
-      .take(1)
-      .subscribe((user: Eperson) => {
-        this.user = user;
-      });
 
     if (this.isLastMsgForMe()) {
       const lastMsg = this.messages[this.messages.length - 1];
@@ -77,8 +74,10 @@ export class MessageBoardComponent {
         this.read(); // Set as Read the last message
         this.showUnread = true;
       }
-    }
 
+      // TODO REMOVE... Use only for test the Set as Unread
+      // this.unRead();
+    }
   }
 
   isLastMsgForMe(): boolean {
@@ -126,6 +125,7 @@ export class MessageBoardComponent {
       console.log('After message unRead:');
       console.log(res);
     });
+    this.showUnread = false;
   }
 
   read() {
@@ -138,7 +138,6 @@ export class MessageBoardComponent {
       console.log(res);
     });
   }
-
 
 }
 
