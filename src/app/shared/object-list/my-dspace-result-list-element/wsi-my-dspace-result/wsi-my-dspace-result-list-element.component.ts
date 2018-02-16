@@ -61,26 +61,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     });
 
     // TODO REMOVE WHEN BACK-END WILL MANAGE MESSAGE
-    // const bitstreams = 'bitstreams';
-    // const messages: Bitstream[] = data[bitstreams];
-    // this.item.bitstreams = Observable.of(new RemoteData(
-    //   false,
-    //   false,
-    //   true,
-    //   undefined,
-    //   messages));
 
-    /*let i = Math.random() * 10 % Object.keys(ItemStatus).length;
-    // console.log(i);
-    i = Math.round(i);
-    // console.log('Rounded' + i);
-    switch (i) {
-      case 0: { this.status = ItemStatus.ACCEPTED; break;}
-      case 1: { this.status = ItemStatus.REJECTED; break;}
-      case 2: { this.status = ItemStatus.WAITING_CONTROLLER; break;}
-      case 3: { this.status = ItemStatus.VALIDATION; break;}
-      default: { this.status = ItemStatus.IN_PROGRESS; break;}
-    }*/
     this.status = ItemStatus.IN_PROGRESS;
     // TODO END REMOVE
 
@@ -107,8 +88,6 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       }
     }
 
-    // const messagesObs = this.item.getBitstreamsByBundleName('MESSAGE');
-    // TODO Test.... later I must to create this.messages here
     this.item.bitstreams
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .take(1)
@@ -118,8 +97,8 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
           .filter((bitStream: Bitstream) => bitStream.bundleName === 'MESSAGE')
           .forEach((bitStream: Bitstream) => {
             this.messages.push(bitStream);
-            // const accessioned = bistream.findMetadata('dc.date.accessioned');
-            const accessioned = bitStream.findMetadata('dc.date.issued');
+            const accessioned = bitStream.findMetadata('dc.date.accessioned');
+            // const accessioned = bitStream.findMetadata('dc.date.issued');
             if (!accessioned || accessioned.length === 0) {
               this.unRead++;
             }
@@ -171,9 +150,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   }
 
   openMessageBoard(content) {
-    // this.modalService.open(content, {windowClass: 'dark-modal'});
     this.modalRef = this.modalService.open(content);
-    // modalRef.componentInstance.name = 'test';
   }
 
 }

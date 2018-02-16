@@ -7,8 +7,8 @@ import {Eperson} from "../../core/eperson/models/eperson.model";
 import {getAuthenticatedUser} from "../../core/auth/selectors";
 import {AppState} from "../../app.reducer";
 import {Store} from "@ngrx/store";
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { isNotEmpty } from '../empty.util';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {isNotEmpty} from '../empty.util';
 
 @Component({
   selector: 'ds-message-board',
@@ -55,8 +55,12 @@ export class MessageBoardComponent {
       textDescription: ['', Validators.required]
     });
 
-    this.messages.forEach((m) => {
+    this.messages.forEach((m: Bitstream) => {
       this.show.push(false);
+      // if (m._links.content.href) {
+      //
+      // }
+
     });
 
     this.store.select(getAuthenticatedUser)
@@ -66,28 +70,31 @@ export class MessageBoardComponent {
         this.user = user;
       });
 
+    if (this.isLastMsgForMe()) {
+      const lastMsg = this.messages[this.messages.length - 1];
+      const accessioned = lastMsg.findMetadata('dc.date.accessioned');
+      if (!accessioned) {
+        this.read(); // Set as Read the last message
+        this.showUnread = true;
+      }
+    }
+
+  }
+
+  isLastMsgForMe(): boolean {
     if (this.messages && this.messages.length > 0) {
       const lastMsg = this.messages[this.messages.length - 1];
       if (this.user.uuid === this.submitter.uuid) {
         if (lastMsg.findMetadata('dc.type') === 'outbound') {
-          this.showUnread = true;
+          return true;
         }
       } else {
         if (lastMsg.findMetadata('dc.type') === 'inbound') {
-          this.showUnread = true;
+          return true;
         }
       }
     }
-    // TODO Check if actual user is the creator
-
-    // TODO Mark as read only when other read, not the writer
-
-    // TODO Remove, only for testing
-
-  }
-
-  closeDashboard($event) {
-    this.close.emit(event);
+    return false;
   }
 
   toggleDescription(i: number) {
@@ -103,13 +110,11 @@ export class MessageBoardComponent {
       subject,
       description
     };
-    const req = this.msgService.createMessage(body);
-    this.closeDashboard(null);
-    req.subscribe((res) => {
+    this.msgService.createMessage(body).subscribe((res) => {
       console.log('After message creation:');
       console.log(res);
     });
-
+    this.modalRef.dismiss('Send Message');
   }
 
   unRead() {
@@ -117,8 +122,7 @@ export class MessageBoardComponent {
     const body = {
       uuid: uuid
     }
-    const req = this.msgService.markAsUnread(body);
-    req.subscribe((res) => {
+    const req = this.msgService.markAsUnread(body).subscribe((res) => {
       console.log('After message unRead:');
       console.log(res);
     });
@@ -129,8 +133,7 @@ export class MessageBoardComponent {
     const body = {
       uuid: uuid
     }
-    const req = this.msgService.markAsRead(body);
-    req.subscribe((res) => {
+    const req = this.msgService.markAsRead(body).subscribe((res) => {
       console.log('After message read:');
       console.log(res);
     });
