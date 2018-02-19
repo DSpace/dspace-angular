@@ -34,7 +34,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   public submitter: Eperson;
   public user: Eperson;
   public messages: Bitstream[] = [];
-  public unRead = 0;
+  public unRead = [];
   public modalRef: NgbModalRef;
   public status: string;
   public statusString: string;
@@ -111,7 +111,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
           .forEach((bitStream: Bitstream) => {
             this.messages.push(bitStream);
             if (this.isUnread(bitStream)) {
-              this.unRead++;
+              this.unRead.push(this.item.uuid);
             }
           });
       });
@@ -177,6 +177,11 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       return true;
     }
     return false;
+  }
+
+  refresh() {
+    // TODO Call a rest api to refresh the item
+    // Wait some ms before, so previous call can be served
   }
 
 }

@@ -24,7 +24,7 @@
 <button class="btn btn-primary mt-1 mb-3" [routerLink]="['/workspaceitems/' + dso.id] + '/edit'" >Edit</button>
 <button class="btn btn-primary mt-1 mb-3" (click)="openMessageBoard(content)">
   <i class="fa fa-envelope"></i>
-  <span *ngIf="unRead > 0" class="badge badge-pill badge-danger">{{unRead}}</span>
+  <span *ngIf="unRead.length > 0" class="badge badge-pill badge-danger">{{unRead.length}}</span>
 </button>
 
 <ng-template #content let-c="close" let-d="dismiss">
@@ -32,7 +32,9 @@
     [messages]="messages"
     [submitter]="submitter"
     [user]="user"
+    [unRead]="unRead"
     [modalRef]="modalRef"
-    [itemUUID]="item.uuid">
+    [itemUUID]="item.uuid"
+    (refresh)="refresh()">
   </ds-message-board>
 </ng-template>
