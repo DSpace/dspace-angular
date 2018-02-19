@@ -104,6 +104,7 @@ export class AuthService {
     options.headers = headers;
     return this.authRequestService.getRequest('status', options)
       .map((status: AuthStatus) => {
+        console.log('authenticatedUser', status);
         if (status.authenticated) {
           return status.eperson[0];
         } else {
@@ -117,6 +118,7 @@ export class AuthService {
    */
   public checkAuthenticationToken(): Observable<AuthTokenInfo> {
     const token = this.getToken();
+    console.log('checkAuthenticationToken', token);
     return isNotEmpty(token) ? Observable.of(token) : Observable.throw(false);
   }
 
