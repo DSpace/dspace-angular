@@ -89,7 +89,7 @@ export class AuthEffects {
    * When the store is rehydrated in the browser,
    * clear a possible invalid token or authentication errors
    */
-  /*@Effect({dispatch: false})
+  @Effect({dispatch: false})
   public clearInvalidTokenOnRehydrate = this.actions$
     .ofType(StoreActionTypes.REHYDRATE)
     .switchMap(() => {
@@ -98,7 +98,7 @@ export class AuthEffects {
         .filter((authenticated) => !authenticated)
         .do(() => this.authService.removeToken())
         .do(() => this.authService.resetAuthenticationError());
-    });*/
+    });
 
   @Effect()
   public logOut: Observable<Action> = this.actions$

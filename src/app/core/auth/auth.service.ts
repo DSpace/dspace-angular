@@ -100,6 +100,7 @@ export class AuthService {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
+    consloe.log(`authenticatedUser: Authorization Bearer ${token.accessToken}`);
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     options.headers = headers;
     return this.authRequestService.getRequest('status', options)
