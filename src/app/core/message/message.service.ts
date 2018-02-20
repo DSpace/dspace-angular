@@ -105,7 +105,7 @@ export class MessageService extends HALEndpointService {
       options.observe = 'response';
       options.responseType = 'text';
       return this.http.request(RestRequestMethod.Get, url, null, options)
-        .map((res) => ({ payload: res.body }))
+        .map((res) => ({ payload: res.payload }))
         .catch((err) => Observable.of({ payload: '' }));
     } else {
       return Observable.of({ payload: '' });
