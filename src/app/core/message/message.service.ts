@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import {
   AuthGetRequest, AuthPostRequest, GetRequest, MessageGetRequest, MessagePostRequest, PostRequest,
-  RestRequest
+  RestRequest, RestRequestMethod
 } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { AuthSuccessResponse, ErrorResponse, MessageResponse, RestResponse } from '../cache/response-cache.models';
@@ -104,7 +104,7 @@ export class MessageService extends HALEndpointService {
       const options: HttpOptions = Object.create({});
       options.observe = 'response';
       options.responseType = 'text';
-      return this.http.request('GET', url, null, options)
+      return this.http.request(RestRequestMethod.Get, url, null, options)
         .map((res) => ({ payload: res.body }))
         .catch((err) => Observable.of({ payload: '' }));
     } else {
