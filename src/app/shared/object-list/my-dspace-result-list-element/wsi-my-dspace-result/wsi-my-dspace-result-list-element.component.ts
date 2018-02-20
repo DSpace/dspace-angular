@@ -47,12 +47,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   }
 
   ngOnInit() {
-    (this.dso.item as Observable<RemoteData<Item[]>>)
-      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .first()
-      .subscribe((rd: RemoteData<any>) => {
-        this.item = rd.payload[0];
-      });
+    this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
 
     (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
@@ -168,23 +163,39 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
 
   populateMessages() {
     this.item.getBitstreamsByBundleName('MESSAGE')
+      .filter((bitStreams) => bitStreams !== null && bitStreams.length > 0)
+      .first()
       .subscribe((bitStreams: Bitstream[]) => {
         this.messages = bitStreams;
+        this.unRead = [];
         bitStreams.forEach((b: Bitstream) => {
           if (this.isUnread(b)) {
-            this.unRead = [];
             this.unRead.push(b.uuid);
           }
         });
+        console.log('Now unRead has', this.unRead.length, ' messages');
+      });
+  }
+
+  initItem(itemObs: Observable<RemoteData<Item[]>>) {
+    itemObs
+      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .first()
+      .subscribe((rd: RemoteData<any>) => {
+        this.item = rd.payload[0];
       });
   }
 
   refresh() {
     // TODO Call a rest api to refresh the item
     // Wait some ms before, so previous call can be served
-    this.wsiDataService.findById(this.dso.id).subscribe((wi) => {
+    this.wsiDataService.findById(this.dso.id)
+      .filter( (wsi: RemoteData<Workspaceitem>) => wsi.hasSucceeded)
+      .first()
+      .subscribe((wsi) => {
       console.log('Refresh wsi...');
-      this.dso = wi.payload;
+      this.dso = wsi.payload;
+      this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
       this.populateMessages();
     });
   }
