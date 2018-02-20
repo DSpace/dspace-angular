@@ -31,8 +31,10 @@ export class MessageBoardComponent {
   public modalRef: NgbModalRef;
   @Input()
   public itemUUID: string;
+  @Input()
+  public unRead: string[];
   @Output()
-  public close = new EventEmitter<any>();
+  public refresh = new EventEmitter<any>();
   public show = [];
 
   /**
@@ -113,10 +115,15 @@ export class MessageBoardComponent {
       console.log('After message creation:');
       console.log(res);
     });
+
+    // Refresh event
+    this.refresh.emit('read');
+
     this.modalRef.dismiss('Send Message');
+
   }
 
-  unRead() {
+  unReadLastMsg() {
     const uuid = this.messages[this.messages.length - 1].uuid;
     const body = {
       uuid: uuid
@@ -126,34 +133,22 @@ export class MessageBoardComponent {
       console.log(res);
     });
     this.showUnread = false;
+    // Refresh event
+    this.refresh.emit('read');
   }
 
   read() {
-    const uuid = this.messages[this.messages.length - 1].uuid;
-    const body = {
-      uuid: uuid
-    }
-    const req = this.msgService.markAsRead(body).subscribe((res) => {
-      console.log('After message read:');
-      console.log(res);
+    this.unRead.forEach( (uuid) => {
+      const body = {
+        uuid: uuid
+      }
+      const req = this.msgService.markAsRead(body).subscribe((res) => {
+        console.log('After message read:');
+        console.log(res);
+      });
     });
+    // Refresh event
+    this.refresh.emit('read');
   }
 
 }
-
-// CREAZIONE messaggio
-// - POST /api/messages
-// argomenti
-// - uuid item
-// - subject
-// - description
-//
-// PRESA visione
-// - POST /api/messages/read
-// argomenti
-// - uuid bitsream
-//
-// CANCELLA visione
-// - POST /api/messages/unread
-// argomenti
-// - uuid bitsream

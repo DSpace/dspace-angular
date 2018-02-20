@@ -1,5 +1,5 @@
 <div class="modal-header rounded-top">
-  <i class="fa fa-envelope"></i> Messages
+  <i class="fa fa-envelope"></i> {{'mydspace.messages.title' | translate}}
   <div class="btn-group pull-right">
             <span (click)="modalRef.dismiss('Cross click')">
           <i class="fa fa-2x fa-times" style="color: white"></i>
@@ -21,7 +21,7 @@
                        class="avatar img-rounded"/>
                  <img *ngIf="type == 'inbound'" alt="Avatar"
                       src="/assets/images/you.jpg"
-                      class="avatar img-rounded"/>
+                      class="avatar rounded"/>
               </span>
 
             <div class="chat-body clearfix">
@@ -37,7 +37,7 @@
                 <small
                   *ngIf="i == messages.length-1 && showUnread"
                   [ngClass]="{'cr': type == 'outbound', 'cl': type == 'inbound', 'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-                  <span class="fa fa-envelope pointer" (click)="unRead()"> Set as unread </span>
+                  <span class="fa fa-envelope pointer" (click)="unReadLastMsg()"> Set as unread </span>
                 </small>
               </div>
               <div (click)="toggleDescription(i)" class="title"
@@ -55,7 +55,7 @@
           </li>
         </ng-container>
       </ul>
-      <div *ngIf="messages.length == 0">No messages yet.</div>
+      <div *ngIf="messages.length == 0">{{'mydspace.messages.no-messages' | translate}}</div>
     </div>
   </article>
 </div>
@@ -65,18 +65,18 @@
     <input
       formControlName="textSubject"
       class="form-control mb-1"
-      placeholder="Subject..."
+      placeholder="{{'mydspace.messages.subject-placeholder' | translate}}"
     />
     <textarea
       formControlName="textDescription"
-      placeholder="Insert here your message..."
+      placeholder="{{'mydspace.messages.description-placeholder' | translate}}"
       class="form-control"
       rows="3"></textarea>
     <br>
       <button
         id="btn-chat"
         class="btn btn-warning btn-lg btn-block mt-3"
-        type="submit">Send
+        type="submit">{{'mydspace.messages.send-btn' | translate}}
       </button>
   </form>
 </div>

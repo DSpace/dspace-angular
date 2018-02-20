@@ -78,8 +78,16 @@
   "mydspace": {
     "title": "MyDSpace",
     "description": "",
+    "new-submission-btn": "New submission",
     "results": {
       "head": "Your submissions"
+    },
+    "messages": {
+      "title": "Messages",
+      "no-messages": "No messages yet.",
+      "send-btn": "Send",
+      "subject-placeholder": "Subject...",
+      "description-placeholder": "Insert your message here..."
     }
   },
   "search": {
