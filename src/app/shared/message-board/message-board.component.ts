@@ -89,12 +89,10 @@ export class MessageBoardComponent {
     this.msgService.createMessage(body).subscribe((res) => {
       console.log('After message creation:');
       console.log(res);
+      // Refresh event
+      this.refresh.emit('read');
+      this.modalRef.dismiss('Send Message');
     });
-
-    // Refresh event
-    this.refresh.emit('read');
-    this.modalRef.dismiss('Send Message');
-
   }
 
   unReadLastMsg() {
@@ -105,10 +103,10 @@ export class MessageBoardComponent {
     const req = this.msgService.markAsUnread(body).subscribe((res) => {
       console.log('After message unRead:');
       console.log(res);
+      // Refresh event
+      this.refresh.emit('read');
+      this.showUnread = false;
     });
-    this.showUnread = false;
-    // Refresh event
-    this.refresh.emit('read');
   }
 
   read() {
@@ -119,10 +117,10 @@ export class MessageBoardComponent {
       const req = this.msgService.markAsRead(body).subscribe((res) => {
         console.log('After message read:');
         console.log(res);
+        // Refresh event
+        this.refresh.emit('read');
       });
     });
-    // Refresh event
-    this.refresh.emit('read');
   }
 
 }
