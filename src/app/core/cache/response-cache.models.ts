@@ -147,7 +147,6 @@ export class IntegrationSuccessResponse extends RestResponse {
 export class MessageResponse extends RestResponse {
   public toCache = false;
   constructor(
-    public response: NormalizedObject[],
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {

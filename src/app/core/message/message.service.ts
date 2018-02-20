@@ -36,8 +36,7 @@ export class MessageService extends HALEndpointService {
       errorResponse.flatMap((response: ErrorResponse) =>
         Observable.throw(new Error(response.errorMessage))),
       successResponse
-        .filter((response: MessageResponse) => isNotEmpty(response))
-        .map((response: MessageResponse) => response.response)
+        .map((response: MessageResponse) => response)
         .distinctUntilChanged());
   }
 

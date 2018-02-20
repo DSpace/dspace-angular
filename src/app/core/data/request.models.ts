@@ -13,6 +13,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
+import { MessageResponseParsingService } from '../message/message-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -300,7 +301,7 @@ export class MessagePostRequest extends PostRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return DSOResponseParsingService;
+    return MessageResponseParsingService;
   }
 }
 
@@ -310,7 +311,7 @@ export class MessageGetRequest extends GetRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return DSOResponseParsingService;
+    return MessageResponseParsingService;
   }
 }
 

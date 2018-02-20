@@ -60,6 +60,7 @@ import { PlatformService } from '../shared/services/platform.service';
 import { JsonPatchOperationsService } from './json-patch/json-patch-operations.service';
 import { PostPatchDataService } from './data/postpatch-data.service';
 import { MessageService } from './message/message.service';
+import { MessageResponseParsingService } from './message/message-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -119,6 +120,7 @@ const PROVIDERS = [
   UUIDService,
   WorkspaceitemDataService,
   MessageService,
+  MessageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   // register AuthInterceptor as HttpInterceptor
   {
