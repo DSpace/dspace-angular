@@ -1,9 +1,12 @@
 export const ROUTES: string[] = [
   'home',
-  'submit',
   'items/:id',
+  'login',
+  'logout',
   'collections/:id',
   'communities/:id',
   'search',
+  'submit',
+  'workspaceitems/:id/edit',
   '**'
 ];

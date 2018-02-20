@@ -60,7 +60,8 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
       .take(1)
       .subscribe((authenticated) => {
         if (!authenticated) {
-          this.authService.redirectUrl = url;
+          console.log('set redirect ', url);
+          this.authService.setRedirectUrl(url);
           this.store.dispatch(new RedirectWhenAuthenticationIsRequiredAction('Login required'));
         }
     });

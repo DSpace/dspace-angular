@@ -27,7 +27,7 @@ export const getAuthState = (state: any) => state.core.auth;
  * @param {any} props
  * @return {User}
  */
-export const getAuthenticatedUser = createSelector(getAuthState, auth.getAuthenticatedUser);
+export const getAuthenticatedUser = createSelector(getAuthState, auth._getAuthenticatedUser);
 
 /**
  * Returns the authentication error.
@@ -36,7 +36,7 @@ export const getAuthenticatedUser = createSelector(getAuthState, auth.getAuthent
  * @param {any} props
  * @return {Error}
  */
-export const getAuthenticationError = createSelector(getAuthState, auth.getAuthenticationError);
+export const getAuthenticationError = createSelector(getAuthState, auth._getAuthenticationError);
 
 /**
  * Returns the authentication info message.
@@ -45,7 +45,7 @@ export const getAuthenticationError = createSelector(getAuthState, auth.getAuthe
  * @param {any} props
  * @return {string}
  */
-export const getAuthenticationInfo = createSelector(getAuthState, auth.getAuthenticationInfo);
+export const getAuthenticationInfo = createSelector(getAuthState, auth._getAuthenticationInfo);
 
 /**
  * Returns true if the user is authenticated
@@ -54,7 +54,7 @@ export const getAuthenticationInfo = createSelector(getAuthState, auth.getAuthen
  * @param {any} props
  * @return {boolean}
  */
-export const isAuthenticated = createSelector(getAuthState, auth.isAuthenticated);
+export const isAuthenticated = createSelector(getAuthState, auth._isAuthenticated);
 
 /**
  * Returns true if the user is authenticated
@@ -63,7 +63,7 @@ export const isAuthenticated = createSelector(getAuthState, auth.isAuthenticated
  * @param {any} props
  * @return {boolean}
  */
-export const isAuthenticatedLoaded = createSelector(getAuthState, auth.isAuthenticatedLoaded);
+export const isAuthenticatedLoaded = createSelector(getAuthState, auth._isAuthenticatedLoaded);
 
 /**
  * Returns true if the authentication request is loading.
@@ -72,7 +72,7 @@ export const isAuthenticatedLoaded = createSelector(getAuthState, auth.isAuthent
  * @param {any} props
  * @return {boolean}
  */
-export const isAuthenticationLoading = createSelector(getAuthState, auth.isLoading);
+export const isAuthenticationLoading = createSelector(getAuthState, auth._isLoading);
 
 /**
  * Returns the log out error.
@@ -81,7 +81,7 @@ export const isAuthenticationLoading = createSelector(getAuthState, auth.isLoadi
  * @param {any} props
  * @return {Error}
  */
-export const getLogOutError = createSelector(getAuthState, auth.getLogOutError);
+export const getLogOutError = createSelector(getAuthState, auth._getLogOutError);
 
 /**
  * Returns the registration error.
@@ -90,4 +90,13 @@ export const getLogOutError = createSelector(getAuthState, auth.getLogOutError);
  * @param {any} props
  * @return {Error}
  */
-export const getRegistrationError = createSelector(getAuthState, auth.getRegistrationError);
+export const getRegistrationError = createSelector(getAuthState, auth._getRegistrationError);
+
+/**
+ * Returns the redirect url..
+ * @function getRedirectUrl
+ * @param {AuthState} state
+ * @param {any} props
+ * @return {string}
+ */
+export const getRedirectUrl = createSelector(getAuthState, auth._getRedirectUrl);

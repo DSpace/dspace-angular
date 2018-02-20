@@ -2,7 +2,7 @@
 import {
   AuthActions, AuthActionTypes, AuthenticatedSuccessAction, AuthenticationErrorAction,
   AuthenticationSuccessAction, LogOutErrorAction, RedirectWhenAuthenticationIsRequiredAction,
-  RedirectWhenTokenExpiredAction
+  RedirectWhenTokenExpiredAction, SetRedirectUrlAction
 } from './auth.actions';
 
 // import models
@@ -29,6 +29,9 @@ export interface AuthState {
   // info message
   info?: string;
 
+  // redirect url
+  redirectUrl?: string;
+
   // the authenticated user
   user?: Eperson;
 }
@@ -39,7 +42,7 @@ export interface AuthState {
 const initialState: AuthState = {
   authenticated: false,
   loaded: false,
-  loading: false
+  loading: false,
 };
 
 /**
@@ -144,6 +147,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         info: undefined,
       });
 
+    case AuthActionTypes.SET_REDIRECT_URL:
+      return Object.assign({}, state, {
+        redirectUrl: (action as SetRedirectUrlAction).payload,
+      });
+
     default:
       return state;
   }
@@ -155,7 +163,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
  * @param {State} state
  * @returns {boolean}
  */
-export const isAuthenticated = (state: AuthState) => state.authenticated;
+export const _isAuthenticated = (state: AuthState) => state.authenticated;
 
 /**
  * Returns true if the authenticated has loaded.
@@ -163,7 +171,7 @@ export const isAuthenticated = (state: AuthState) => state.authenticated;
  * @param {State} state
  * @returns {boolean}
  */
-export const isAuthenticatedLoaded = (state: AuthState) => state.loaded;
+export const _isAuthenticatedLoaded = (state: AuthState) => state.loaded;
 
 /**
  * Return the users state
@@ -171,23 +179,23 @@ export const isAuthenticatedLoaded = (state: AuthState) => state.loaded;
  * @param {State} state
  * @returns {User}
  */
-export const getAuthenticatedUser = (state: AuthState) => state.user;
+export const _getAuthenticatedUser = (state: AuthState) => state.user;
 
 /**
  * Returns the authentication error.
  * @function getAuthenticationError
  * @param {State} state
- * @returns {String}
+ * @returns {string}
  */
-export const getAuthenticationError = (state: AuthState) => state.error;
+export const _getAuthenticationError = (state: AuthState) => state.error;
 
 /**
  * Returns the authentication info message.
  * @function getAuthenticationInfo
  * @param {State} state
- * @returns {String}
+ * @returns {string}
  */
-export const getAuthenticationInfo = (state: AuthState) => state.info;
+export const _getAuthenticationInfo = (state: AuthState) => state.info;
 
 /**
  * Returns true if request is in progress.
@@ -195,20 +203,28 @@ export const getAuthenticationInfo = (state: AuthState) => state.info;
  * @param {State} state
  * @returns {boolean}
  */
-export const isLoading = (state: AuthState) => state.loading;
+export const _isLoading = (state: AuthState) => state.loading;
 
 /**
  * Returns the sign out error.
  * @function getLogOutError
  * @param {State} state
- * @returns {Error}
+ * @returns {string}
  */
-export const getLogOutError = (state: AuthState) => state.error;
+export const _getLogOutError = (state: AuthState) => state.error;
 
 /**
  * Returns the sign up error.
  * @function getRegistrationError
  * @param {State} state
- * @returns {Error}
+ * @returns {string}
  */
-export const getRegistrationError = (state: AuthState) => state.error;
+export const _getRegistrationError = (state: AuthState) => state.error;
+
+/**
+ * Returns the redirect url.
+ * @function getRedirectUrl
+ * @param {State} state
+ * @returns {string}
+ */
+export const _getRedirectUrl = (state: AuthState) => state.redirectUrl;
