@@ -10,8 +10,6 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue, hasNoValue, isEmpty, isNotEmpty } from '../../../empty.util';
 import { Metadatum } from '../../../../core/shared/metadatum.model';
-
-import * as data from '../../../../../backend/data/bitstream-messages.json';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
@@ -20,6 +18,7 @@ import { Eperson } from '../../../../core/eperson/models/eperson.model';
 import { AppState } from '../../../../app.reducer';
 import { Store } from '@ngrx/store';
 import { getAuthenticatedUser } from '../../../../core/auth/selectors';
+import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -42,6 +41,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
 
   constructor(private modalService: NgbModal,
               private store: Store<AppState>,
+              private wsiDataService: WorkspaceitemDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
   }
@@ -101,20 +101,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       }
     }
 
-    this.item.bitstreams
-      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .take(1)
-      .subscribe((bitStreams: RemoteData<Bitstream[]>) => {
-        console.log(bitStreams);
-        bitStreams.payload
-          .filter((bitStream: Bitstream) => bitStream.bundleName === 'MESSAGE')
-          .forEach((bitStream: Bitstream) => {
-            this.messages.push(bitStream);
-            if (this.isUnread(bitStream)) {
-              this.unRead.push(this.item.uuid);
-            }
-          });
-      });
+    this.populateMessages();
   }
 
   getTitle(): string {
@@ -179,9 +166,27 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     return false;
   }
 
+  populateMessages() {
+    this.item.getBitstreamsByBundleName('MESSAGE')
+      .subscribe((bitStreams: Bitstream[]) => {
+        this.messages = bitStreams;
+        bitStreams.forEach((b: Bitstream) => {
+          this.messages.push(b);
+          if (this.isUnread(b)) {
+            this.unRead.push(b.uuid);
+          }
+        });
+      });
+  }
+
   refresh() {
     // TODO Call a rest api to refresh the item
     // Wait some ms before, so previous call can be served
+    this.wsiDataService.findById(this.dso.id).subscribe((wi) => {
+      console.log('Refresh wsi...');
+      this.dso = wi.payload;
+      this.populateMessages();
+    });
   }
 
 }

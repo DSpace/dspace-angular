@@ -1,0 +1,66 @@
+li {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px dotted #B3A9A9;
+}
+
+li.left .chat-body
+{
+  margin-left: 60px;
+}
+
+li.right .chat-body
+{
+  margin-right: 60px;
+}
+
+li .chat-body p
+{
+  margin: 0;
+  color: #777777;
+}
+
+.title {
+  margin-top: -25px;
+}
+
+.description {
+  color: #555555;
+}
+
+.avatar {
+  height: 60px;
+}
+
+.chat-body {
+  padding: 5px;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+textarea {
+  resize: none;
+  margin-bottom: 15px;
+}
+
+.cr {
+  clear: right;
+}
+
+.cl {
+  clear: left;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.max250 {
+  max-width: 250px;
+}

@@ -1,15 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { MessageService } from "../../core/message/message.service";
-import { Observable } from "rxjs/Observable";
-import { Eperson } from "../../core/eperson/models/eperson.model";
-import { getAuthenticatedUser } from "../../core/auth/selectors";
-import { AppState } from "../../app.reducer";
-import { Store } from "@ngrx/store";
+import { MessageService } from '../../core/message/message.service';
+import { Eperson } from '../../core/eperson/models/eperson.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { isNotEmpty } from '../empty.util';
-import { DSpaceRESTv2Service } from '../../core/dspace-rest-v2/dspace-rest-v2.service';
 
 @Component({
   selector: 'ds-message-board',
@@ -35,18 +29,16 @@ export class MessageBoardComponent {
   public unRead: string[];
   @Output()
   public refresh = new EventEmitter<any>();
-  public show = [];
 
   /**
    * The message form.
    * @type {FormGroup}
    */
-  public messageForm: FormGroup
+  public messageForm: FormGroup;
   public showUnread = false;
-  public description = [];
 
   constructor(private formBuilder: FormBuilder,
-              private msgService: MessageService) {
+              public msgService: MessageService) {
   }
 
   ngOnInit() {
@@ -56,26 +48,13 @@ export class MessageBoardComponent {
       textDescription: ['', Validators.required]
     });
 
-    this.messages.forEach((m: Bitstream) => {
-      this.show.push(false);
-      if (m._links.content) {
-        const content = m._links.content;
-        // TODO !!! MAKE HTTP REQUEST FOR DESCRIPTION
-        // this.msgService.getRequest(content).subscribe( (desc) => {
-        //   console.log(desc);
-        //   this.description.push(desc);
-        // });
-      }
-
-    });
-
     if (this.isLastMsgForMe()) {
       const lastMsg = this.messages[this.messages.length - 1];
       const accessioned = lastMsg.findMetadata('dc.date.accessioned');
       if (!accessioned) {
         this.read(); // Set as Read the last message
-        this.showUnread = true;
       }
+      this.showUnread = true;
 
       // TODO REMOVE... Use only for test the Set as Unread
       // this.unRead();
@@ -98,10 +77,6 @@ export class MessageBoardComponent {
     return false;
   }
 
-  toggleDescription(i: number) {
-    this.show[i] = !this.show[i];
-  }
-
   sendMessage() {
     // get subject and description values
     const subject: string = this.messageForm.get('textSubject').value;
@@ -118,7 +93,6 @@ export class MessageBoardComponent {
 
     // Refresh event
     this.refresh.emit('read');
-
     this.modalRef.dismiss('Send Message');
 
   }
@@ -127,7 +101,7 @@ export class MessageBoardComponent {
     const uuid = this.messages[this.messages.length - 1].uuid;
     const body = {
       uuid: uuid
-    }
+    };
     const req = this.msgService.markAsUnread(body).subscribe((res) => {
       console.log('After message unRead:');
       console.log(res);
@@ -138,10 +112,10 @@ export class MessageBoardComponent {
   }
 
   read() {
-    this.unRead.forEach( (uuid) => {
+    this.unRead.forEach((uuid) => {
       const body = {
-        uuid: uuid
-      }
+        uuid
+      };
       const req = this.msgService.markAsRead(body).subscribe((res) => {
         console.log('After message read:');
         console.log(res);

@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<li *ngVar="m.findMetadata('dc.type') as type"
+    [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound', clearfix:1}">
+
+              <span [ngClass]="{'chat-img': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">
+                  <img *ngIf="type == 'outbound'" alt="Avatar"
+                       src="/assets/images/dspace-logo.png"
+                       class="avatar img-rounded"/>
+                 <img *ngIf="type == 'inbound'" alt="Avatar"
+                      src="/assets/images/you.jpg"
+                      class="avatar rounded"/>
+              </span>
+
+  <div class="chat-body clearfix">
+    <div class="header clearfix">
+      <strong
+        [ngClass]="{'primary-font': true, 'text-truncate': true, 'max250': true,
+        'pull-left': type == 'outbound',
+        'pull-right': type == 'inbound'}">
+        {{m.findMetadata('dc.creator')}}
+      </strong>
+      <small
+        [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
+        <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued') | date:'short'}}
+      </small>
+      <small
+        *ngIf="showUnread"
+        [ngClass]="{'cr': type == 'outbound', 'cl': type == 'inbound', 'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
+        <span class="fa fa-envelope pointer" (click)="unReadLastMsg()"> Set as unread </span>
+      </small>
+    </div>
+    <div (click)="toggleDescription()" class="title"
+         [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}">
+      <i *ngIf="!show" class="fa fa-angle-double-down"></i>
+      <i *ngIf="show" class="fa fa-angle-double-up"></i>
+      {{m.findMetadata('dc.title')}}
+    </div>
+
+    <div *ngIf="show" class="description">
+      {{description | async}}
+      <ds-loading *ngIf="loadingDescription" message="{{'loading.default' | translate}}"></ds-loading>
+    </div>
+  </div>
+
+</li>

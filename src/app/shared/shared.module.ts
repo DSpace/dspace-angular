@@ -76,6 +76,7 @@ import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-resu
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { Console } from 'inspector';
 import { MessageBoardComponent } from './message-board/message-board.component';
+import { MessageComponent } from './message-board/message.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -126,6 +127,7 @@ const COMPONENTS = [
   LogInComponent,
   LogOutComponent,
   MessageBoardComponent,
+  MessageComponent,
   NumberPickerComponent,
   ObjectListComponent,
   AbstractListableElementComponent,

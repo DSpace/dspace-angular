@@ -29,28 +29,6 @@
   padding: 0;
 }
 
-.chat li {
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  border-bottom: 1px dotted #B3A9A9;
-}
-
-.chat li.left .chat-body
-{
-  margin-left: 60px;
-}
-
-.chat li.right .chat-body
-{
-  margin-right: 60px;
-}
-
-.chat li .chat-body p
-{
-  margin: 0;
-  color: #777777;
-}
-
 ::-webkit-scrollbar-track
 {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -67,46 +45,4 @@
 {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: #555;
-}
-
-.title {
-  margin-top: -25px;
-}
-
-.description {
-  color: #555555;
-}
-
-.avatar {
-  height: 60px;
-  padding: 5px;
-}
-
-.chat-body {
-  padding: 5px;
-}
-
-.left {
-  text-align: left;
-}
-
-.right {
-  text-align: right;
-}
-
-textarea {
-  resize: none;
-  margin-bottom: 15px;
-}
-
-.cr {
-  clear: right;
-}
-
-.cl {
-  clear: left;
-}
-
-.pointer {
-  cursor: pointer;
 }

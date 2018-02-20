@@ -12,47 +12,11 @@
     <div id="list">
       <ul class="chat">
         <ng-container *ngFor="let m of messages; let i = index">
-          <li *ngVar="m.findMetadata('dc.type') as type"
-              [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound', clearfix:1}">
-
-              <span [ngClass]="{'chat-img': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">
-                  <img *ngIf="type == 'outbound'" alt="Avatar"
-                       src="/assets/images/dspace-logo.png"
-                       class="avatar img-rounded"/>
-                 <img *ngIf="type == 'inbound'" alt="Avatar"
-                      src="/assets/images/you.jpg"
-                      class="avatar rounded"/>
-              </span>
-
-            <div class="chat-body clearfix">
-              <div class="header clearfix">
-                <strong
-                  [ngClass]="{'primary-font': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">
-                  {{m.findMetadata('dc.creator')}}
-                </strong>
-                <small
-                  [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-                  <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued') | date:'short'}}
-                </small>
-                <small
-                  *ngIf="i == messages.length-1 && showUnread"
-                  [ngClass]="{'cr': type == 'outbound', 'cl': type == 'inbound', 'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-                  <span class="fa fa-envelope pointer" (click)="unReadLastMsg()"> Set as unread </span>
-                </small>
-              </div>
-              <div (click)="toggleDescription(i)" class="title"
-                   [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}">
-                <i *ngIf="!show[i]" class="fa fa-angle-double-down"></i>
-                <i *ngIf="show[i]" class="fa fa-angle-double-up"></i>
-                {{m.findMetadata('dc.title')}}
-              </div>
-
-              <div *ngIf="show[i]" class="description">
-                {{description[i]}}
-              </div>
-            </div>
-
-          </li>
+          <ds-message
+            [m]="m"
+            [showUnread]="i == messages.length-1 && showUnread"
+            (unRead)="unReadLastMsg()"
+          ></ds-message>
         </ng-container>
       </ul>
       <div *ngIf="messages.length == 0">{{'mydspace.messages.no-messages' | translate}}</div>
@@ -76,6 +40,7 @@
       <button
         id="btn-chat"
         class="btn btn-warning btn-lg btn-block mt-3"
+        [disabled]="!messageForm.valid"
         type="submit">{{'mydspace.messages.send-btn' | translate}}
       </button>
   </form>
