@@ -421,7 +421,6 @@ export class FormBuilderService extends DynamicFormService {
         });
 
     });
-    console.log(metadataValueMap);
     return metadataValueMap;
   }
 

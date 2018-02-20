@@ -13,6 +13,7 @@ import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 
 export abstract class DataService<TNormalized extends CacheableObject, TDomain> extends HALEndpointService {
   protected abstract responseCache: ResponseCacheService;
@@ -132,8 +133,8 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
   }
 
-  findByHref(href: string): Observable<RemoteData<TDomain>> {
-    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href));
+  findByHref(href: string, options?: HttpOptions): Observable<RemoteData<TDomain>> {
+    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options));
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 

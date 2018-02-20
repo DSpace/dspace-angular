@@ -100,12 +100,10 @@ export class AuthService {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
-    consloe.log(`authenticatedUser: Authorization Bearer ${token.accessToken}`);
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     options.headers = headers;
     return this.authRequestService.getRequest('status', options)
       .map((status: AuthStatus) => {
-        console.log('authenticatedUser', status);
         if (status.authenticated) {
           return status.eperson[0];
         } else {
@@ -119,7 +117,6 @@ export class AuthService {
    */
   public checkAuthenticationToken(): Observable<AuthTokenInfo> {
     const token = this.getToken();
-    console.log('checkAuthenticationToken', token);
     return isNotEmpty(token) ? Observable.of(token) : Observable.throw(false);
   }
 
@@ -230,7 +227,7 @@ export class AuthService {
     this.store.select(routerStateSelector)
       .take(1)
       .subscribe((router) => {
-        // TODO Chack a way to hard refresh the same route
+        // TODO Check a way to hard refresh the same route
         // this.router.navigate([router.state.url],  { replaceUrl: true });
         this.router.navigate(['/']);
       })

@@ -12,7 +12,7 @@ import {
 } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { AuthSuccessResponse, ErrorResponse, MessageResponse, RestResponse } from '../cache/response-cache.models';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { DSpaceRESTv2Service, HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
@@ -20,7 +20,8 @@ export class MessageService extends HALEndpointService {
   protected linkName = 'messages';
   protected browseEndpoint = '';
 
-  constructor(protected responseCache: ResponseCacheService,
+  constructor(protected http: DSpaceRESTv2Service,
+              protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
     super();
@@ -96,5 +97,18 @@ export class MessageService extends HALEndpointService {
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers = headers;
     return options;
+  }
+
+  public getMessageContent(url: string): Observable<any> {
+    if (isNotEmpty(url)) {
+      const options: HttpOptions = Object.create({});
+      options.observe = 'response';
+      options.responseType = 'text';
+      return this.http.request('GET', url, null, options)
+        .map((res) => ({ payload: res.body }))
+        .catch((err) => Observable.of({ payload: '' }));
+    } else {
+      return Observable.of({ payload: '' });
+    }
   }
 }

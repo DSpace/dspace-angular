@@ -157,7 +157,6 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   }
 
   onChange(event: DynamicFormControlEvent) {
-    console.log(event);
     this.formBuilderService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,

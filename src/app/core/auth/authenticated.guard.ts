@@ -59,7 +59,6 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
       // .filter(() => isEmpty(this.router.routerState.snapshot.url) || this.router.routerState.snapshot.url === url)
       .take(1)
       .subscribe((authenticated) => {
-        console.log('handleAuth', url, this.router.routerState.snapshot.url);
         if (!authenticated) {
           this.authService.redirectUrl = url;
           this.store.dispatch(new RedirectWhenAuthenticationIsRequiredAction('Login required'));

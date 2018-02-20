@@ -105,7 +105,6 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
     try {
       console.log(event);
       const i = Number.parseInt(event.target.value);
-      // console.log(i);
 
       if (i >= this.min && i <= this.max) {
         this.value = i;
@@ -120,7 +119,6 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
     } catch (e) {
       this.value = this.lastValue;
       this.emitChange();
-      console.log('Catch Not a number...');
     }
   }
 

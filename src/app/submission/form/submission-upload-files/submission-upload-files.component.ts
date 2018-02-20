@@ -67,7 +67,6 @@ export class SubmissionUploadFilesComponent implements OnChanges {
               Object.keys(sections)
                 .forEach((sectionId) => {
                   const sectionData = normalizeSectionData(sections[sectionId]);
-                  console.log(sectionData, sections[sectionId]);
                   this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData)
                 })
             }
