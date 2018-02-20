@@ -24,8 +24,14 @@
       </small>
       <small
         *ngIf="showUnread"
-        [ngClass]="{'cr': type == 'outbound', 'cl': type == 'inbound', 'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-        <span class="fa fa-envelope pointer" (click)="unReadLastMsg()"> Set as unread </span>
+        (click)="unReadLastMsg()"
+        [ngClass]="{'cr': type == 'outbound',
+        'cl': type == 'inbound',
+        'pull-right': type == 'outbound',
+        'pull-left': type == 'inbound',
+        'text-muted':1,
+        'pointer': 1}">
+        <span class="fa fa-envelope"></span> Set as unread
       </small>
     </div>
     <div (click)="toggleDescription()" class="title"

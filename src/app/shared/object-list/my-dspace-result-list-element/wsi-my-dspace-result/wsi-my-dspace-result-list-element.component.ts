@@ -171,8 +171,8 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .subscribe((bitStreams: Bitstream[]) => {
         this.messages = bitStreams;
         bitStreams.forEach((b: Bitstream) => {
-          this.messages.push(b);
           if (this.isUnread(b)) {
+            this.unRead = [];
             this.unRead.push(b.uuid);
           }
         });
