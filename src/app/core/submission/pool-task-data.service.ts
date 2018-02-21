@@ -14,7 +14,7 @@ import { PoolTask } from './models/tasks/pool-task-object.model';
 
 @Injectable()
 export class PoolTaskDataService extends DataService<NormalizedPoolTask, PoolTask> {
-  protected linkName = 'poolTask';
+  protected linkName = 'pooltasks';
   protected overrideRequest = true;
 
   constructor(protected responseCache: ResponseCacheService,

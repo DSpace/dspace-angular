@@ -15,7 +15,7 @@ import { ClaimedTask } from './models/tasks/claimed-task-object.model';
 
 @Injectable()
 export class ClaimedTaskDataService extends DataService<NormalizedClaimedTask, ClaimedTask> {
-  protected linkName = 'claimedTask';
+  protected linkName = 'claimedtasks';
   protected overrideRequest = true;
 
   constructor(protected responseCache: ResponseCacheService,
