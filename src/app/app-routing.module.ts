@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
       { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
       { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
       { path: 'workspaceitems', loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule' },
+      { path: 'workflowitems', loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowitemsEditPageModule' },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ],{ enableTracing: true })
   ],

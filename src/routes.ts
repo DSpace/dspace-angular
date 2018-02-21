@@ -8,5 +8,6 @@ export const ROUTES: string[] = [
   'search',
   'submit',
   'workspaceitems/:id/edit',
+  'workflowitems/:id/edit',
   '**'
 ];
