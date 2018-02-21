@@ -13,9 +13,9 @@ import { PoolTask } from '../../../../core/submission/models/tasks/pool-task-obj
 import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
 
 @Component({
-  selector: 'ds-claimtask-my-dspace-result-list-element',
+  selector: 'ds-pooltask-my-dspace-result-list-element',
   styleUrls: ['../my-dspace-result-list-element.component.scss'],
-  templateUrl: './ct-my-dspace-result-list-element.component.html',
+  templateUrl: './pt-my-dspace-result-list-element.component.html',
 })
 
 @renderElementsFor(PoolTaskMyDSpaceResult, ViewMode.List)
