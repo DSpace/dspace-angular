@@ -20,7 +20,7 @@
       </strong>
       <small
         [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-        <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued') | date:'short'}}
+        <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued') | date: 'dd/MM/yyyy HH:mm'}}
       </small>
       <small
         *ngIf="showUnread"
