@@ -14,6 +14,7 @@ import { RequestService } from './request.service';
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
   protected linkName = 'collections';
+  protected overrideRequest = false;
 
   constructor(
     protected responseCache: ResponseCacheService,

@@ -15,6 +15,7 @@ import { RequestService } from './request.service';
 export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {
   protected linkName = 'communities';
   protected cds = this;
+  protected overrideRequest = false;
 
   constructor(
     protected responseCache: ResponseCacheService,

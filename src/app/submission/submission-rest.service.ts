@@ -34,9 +34,10 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
     super();
   }
 
-  protected getData(request: RestRequest): Observable<SubmitDataResponseDefinitionObject> {
+  protected fetchRequest(request: RestRequest): Observable<SubmitDataResponseDefinitionObject> {
     const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
+      .do(() => this.responseCache.remove(request.href))
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
@@ -62,7 +63,7 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
     const request = new ConfigRequest(this.requestService.generateRequestId(), href);
     this.requestService.configure(request, true);
 
-    return this.getData(request);
+    return this.fetchRequest(request);
   }
 
   public getDataById(id: string): Observable<any> {
@@ -72,7 +73,7 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
       .distinctUntilChanged()
       .map((endpointURL: string) => new SubmissionRequest(this.requestService.generateRequestId(), endpointURL))
       .do((request: RestRequest) => this.requestService.configure(request, true))
-      .flatMap((request: RestRequest) => this.getData(request))
+      .flatMap((request: RestRequest) => this.fetchRequest(request))
       .distinctUntilChanged();
   }
 

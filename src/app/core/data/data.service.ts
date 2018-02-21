@@ -22,6 +22,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   protected abstract store: Store<CoreState>;
   protected abstract linkName: string;
   protected abstract EnvConfig: GlobalConfig;
+  protected abstract overrideRequest = false;
 
   constructor(
     protected normalizedResourceType: GenericConstructor<TNormalized>,
@@ -108,7 +109,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       .take(1)
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request);
+        this.requestService.configure(request, this.overrideRequest);
       });
 
     return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<TDomain>>>;
@@ -127,14 +128,14 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       .take(1)
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
-        this.requestService.configure(request);
+        this.requestService.configure(request, this.overrideRequest);
       });
 
     return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
   }
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<TDomain>> {
-    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options));
+    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options), this.overrideRequest);
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 
@@ -147,7 +148,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
       .take(1)
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request);
+        this.requestService.configure(request, this.overrideRequest);
       });
 
     return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<TDomain>>>;

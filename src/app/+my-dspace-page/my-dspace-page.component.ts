@@ -81,47 +81,47 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
-          // Save current parameters
-          this.currentParams = params;
-          this.query = params.query || '';
-          this.scope = params.scope;
-          const page = +params.page || this.searchOptions.pagination.currentPage;
-          let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
-          let pageSizeOptions: number[] = [5, 10, 20];
+        // Save current parameters
+        this.currentParams = params;
+        this.query = params.query || '';
+        this.scope = params.scope;
+        const page = +params.page || this.searchOptions.pagination.currentPage;
+        let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
+        let pageSizeOptions: number[] = [5, 10, 20];
 
-          if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
-            pageSizeOptions = [6, 12];
-            if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 6;
-            }
-          }
-          if (isNotEmpty(params.view) && params.view === ViewMode.List) {
-            if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 10;
-            }
-          }
-
-          const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
-          const pagination = Object.assign({},
-            this.searchOptions.pagination,
-            {currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
-          );
-          const sort = Object.assign({},
-            this.searchOptions.sort,
-            {direction: sortDirection, field: params.sortField}
-          );
-
-          this.updateSearchResults({
-            pagination: pagination,
-            sort: sort
-          });
-          if (isNotEmpty(this.scope)) {
-            this.scopeObjectRDObs = this.communityService.findById(this.scope);
-          } else {
-            this.scopeObjectRDObs = Observable.of(undefined);
+        if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
+          pageSizeOptions = [6, 12];
+          if (pageSizeOptions.indexOf(pageSize) === -1) {
+            pageSize = 6;
           }
         }
-      );
+        if (isNotEmpty(params.view) && params.view === ViewMode.List) {
+          if (pageSizeOptions.indexOf(pageSize) === -1) {
+            pageSize = 10;
+          }
+        }
+
+        const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
+        const pagination = Object.assign({},
+          this.searchOptions.pagination,
+          {currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
+        );
+        const sort = Object.assign({},
+          this.searchOptions.sort,
+          {direction: sortDirection, field: params.sortField}
+        );
+
+        this.updateSearchResults({
+          pagination: pagination,
+          sort: sort
+        });
+        if (isNotEmpty(this.scope)) {
+          this.scopeObjectRDObs = this.communityService.findById(this.scope);
+        } else {
+          this.scopeObjectRDObs = Observable.of(undefined);
+        }
+      }
+    );
 
   }
 

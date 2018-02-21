@@ -5,8 +5,6 @@ import { Store } from '@ngrx/store';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
 import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
-import { SubmissionRestService } from './submission-rest.service';
-import { SectionService } from './section/section.service';
 import { SaveSubmissionFormAction } from './objects/submission-objects.actions';
 import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';

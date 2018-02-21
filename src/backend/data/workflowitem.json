@@ -1,0 +1,670 @@
+{
+  "id": 34020,
+  "lastModified": "2018-02-20T15:37:47.480+0000",
+  "sections": {
+    "reference": {
+      "dc.bibliographicCitation.title": [
+        {
+          "value": "EUROPEAN HEART JOURNAL",
+          "language": "en",
+          "authority": "0195-668X",
+          "confidence": 600,
+          "place": 1
+        }
+      ],
+      "dc.identifier.citation": [
+        {
+          "value": "EUROPEAN HEART JOURNAL,",
+          "language": "en",
+          "authority": null,
+          "confidence": -1,
+          "place": 1
+        }
+      ],
+      "dc.type.refereed": [
+        {
+          "value": "Refereed",
+          "language": "en",
+          "authority": null,
+          "confidence": -1,
+          "place": 1
+        }
+      ]
+    },
+    "license": {
+      "url": null,
+      "acceptanceDate": null,
+      "granted": false
+    },
+    "upload": {
+      "files": []
+    },
+    "creators": {
+      "dc.contributor.author": [
+        {
+          "value": "Szilard, M",
+          "language": null,
+          "authority": null,
+          "confidence": 600,
+          "place": 1
+        },
+        {
+          "value": "Dimarkowski, D",
+          "language": null,
+          "authority": null,
+          "confidence": 600,
+          "place": 2
+        },
+        {
+          "value": "Liu, X",
+          "language": null,
+          "authority": null,
+          "confidence": 600,
+          "place": 3
+        },
+        {
+          "value": "Maes, A",
+          "language": null,
+          "authority": null,
+          "confidence": 600,
+          "place": 4
+        },
+        {
+          "value": "Huang, Y",
+          "language": null,
+          "authority": null,
+          "confidence": 600,
+          "place": 5
+        },
+        {
+          "value": "MESOTTEN, Liesbet",
+          "language": null,
+          "authority": "5984",
+          "confidence": 600,
+          "place": 6
+        },
+        {
+          "value": "Bogaert, J",
+          "language": null,
+          "authority": null,
+          "confidence": 600,
+          "place": 7
+        },
+        {
+          "value": "Verbeken, E",
+          "language": null,
+          "authority": null,
+          "confidence": 600,
+          "place": 8
+        },
+        {
+          "value": "Mortelmans, L",
+          "language": null,
+          "authority": null,
+          "confidence": 600,
+          "place": 9
+        },
+        {
+          "value": "De Scheerder, I",
+          "language": null,
+          "authority": null,
+          "confidence": 600,
+          "place": 10
+        }
+      ]
+    },
+    "collection": "815c98fd-ceca-4a7c-8251-64e54c4285f7",
+    "typearticle": {
+      "dc.type.specified": [
+        {
+          "value": "Meeting Abstract",
+          "language": "en",
+          "authority": null,
+          "confidence": -1,
+          "place": 1
+        }
+      ]
+    },
+    "titleinformation": {
+      "dc.title": [
+        {
+          "value": "Detection of myocardial viability with dual dose dobutamine MRI in correlation with histological changes in chronically dysfunctional myocardium. An experimental study",
+          "language": "en",
+          "authority": null,
+          "confidence": -1,
+          "place": 1
+        }
+      ]
+    }
+  },
+  "type": "workspaceitem",
+  "_links": {
+    "collection": {
+      "href": "http://localhost:8084/dspace-spring-rest/api/submission/workspaceitems/34020/collection"
+    },
+    "item": {
+      "href": "http://localhost:8084/dspace-spring-rest/api/submission/workspaceitems/34020/item"
+    },
+    "submissionDefinition": {
+      "href": "http://localhost:8084/dspace-spring-rest/api/submission/workspaceitems/34020/submissionDefinition"
+    },
+    "submitter": {
+      "href": "http://localhost:8084/dspace-spring-rest/api/submission/workspaceitems/34020/submitter"
+    },
+    "self": {
+      "href": "http://localhost:8084/dspace-spring-rest/api/submission/workspaceitems/34020"
+    }
+  },
+  "_embedded": {
+    "submitter": {
+      "id": "799f1949-87b8-4f7b-af7b-66558de49df7",
+      "uuid": "799f1949-87b8-4f7b-af7b-66558de49df7",
+      "name": "marleen.missotten@uhasselt.be",
+      "handle": null,
+      "metadata": [
+        {
+          "key": "eperson.firstname",
+          "value": "Marleen",
+          "language": null
+        },
+        {
+          "key": "eperson.lastname",
+          "value": "MISSOTTEN",
+          "language": null
+        },
+        {
+          "key": "eperson.phone",
+          "value": "+32(0)11268502",
+          "language": null
+        },
+        {
+          "key": "eperson.language",
+          "value": "en",
+          "language": null
+        }
+      ],
+      "netid": "lucp1217",
+      "lastActive": null,
+      "canLogIn": true,
+      "email": "marleen.missotten@uhasselt.be",
+      "requireCertificate": false,
+      "selfRegistered": false,
+      "groups": [
+        {
+          "id": "4a82abff-c224-4b73-830b-78eb280c11d4",
+          "uuid": "4a82abff-c224-4b73-830b-78eb280c11d4",
+          "name": "STAFF",
+          "handle": null,
+          "metadata": [
+            {
+              "key": "dc.title",
+              "value": "STAFF",
+              "language": null
+            }
+          ],
+          "permanent": false,
+          "type": "group"
+        }
+      ],
+      "type": "eperson",
+      "_links": {
+        "self": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/eperson/epersons/799f1949-87b8-4f7b-af7b-66558de49df7"
+        }
+      }
+    },
+    "item": {
+      "id": "0043215a-49ed-4731-84fd-04dcc57e7369",
+      "uuid": "0043215a-49ed-4731-84fd-04dcc57e7369",
+      "name": "Detection of myocardial viability with dual dose dobutamine MRI in correlation with histological changes in chronically dysfunctional myocardium. An experimental study",
+      "handle": null,
+      "metadata": [
+        {
+          "key": "dc.contributor.author",
+          "value": "Szilard, M",
+          "language": null
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "Dimarkowski, D",
+          "language": null
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "Liu, X",
+          "language": null
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "Maes, A",
+          "language": null
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "Huang, Y",
+          "language": null
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "MESOTTEN, Liesbet",
+          "language": null
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "Bogaert, J",
+          "language": null
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "Verbeken, E",
+          "language": null
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "Mortelmans, L",
+          "language": null
+        },
+        {
+          "key": "dc.contributor.author",
+          "value": "De Scheerder, I",
+          "language": null
+        },
+        {
+          "key": "dc.date.issued",
+          "value": "2001",
+          "language": "en"
+        },
+        {
+          "key": "dc.identifier.citation",
+          "value": "EUROPEAN HEART JOURNAL,",
+          "language": "en"
+        },
+        {
+          "key": "dc.identifier.issn",
+          "value": "0195-668X",
+          "language": null
+        },
+        {
+          "key": "dc.description.provenance",
+          "value": "Submitted by Marleen MISSOTTEN (marleen.missotten@uhasselt.be) on 2015-03-19T08:51:41Z\nNo. of bitstreams: 0",
+          "language": "en"
+        },
+        {
+          "key": "dc.description.provenance",
+          "value": "Rejected by Eline SCHOETERS (eline.schoeters@uhasselt.be), reason: Beste Marleen,\r\n\r\nDeze publicatie werd geweigerd, want het is geen UHasselt publicatie.\r\n\r\nMet vriendelijke groeten,\r\nEline Schoeters on 2015-03-23T09:09:48Z (GMT)",
+          "language": "en"
+        },
+        {
+          "key": "dc.description.provenance",
+          "value": "Submitted by Marleen MISSOTTEN (marleen.missotten@uhasselt.be) on 2017-04-12T15:09:35Z\nNo. of bitstreams: 0",
+          "language": "en"
+        },
+        {
+          "key": "dc.description.provenance",
+          "value": "Rejected by Jelle BREBAN (jelle.breban@uhasselt.be), reason: Beste Marleen,\r\n\r\nMevrouw Mesotten schreef dit artikel voor haar dienstjaren aan UHasselt en dus ook niet onder onze UH-affiliatie. Een pdf lijst met externe publicaties kan zij toevoegen aan haar Academisch Dossier (hoe: zie voorgaande mails). Bedankt voor uw begrip.\r\n\r\nMet vriendelijke groeten,\r\nJelle Breban\r\n on 2017-05-24T13:22:38Z (GMT)",
+          "language": "en"
+        },
+        {
+          "key": "dc.language.iso",
+          "value": "en",
+          "language": "en"
+        },
+        {
+          "key": "dc.title",
+          "value": "Detection of myocardial viability with dual dose dobutamine MRI in correlation with histological changes in chronically dysfunctional myocardium. An experimental study",
+          "language": "en"
+        },
+        {
+          "key": "dc.type",
+          "value": "Journal Contribution",
+          "language": null
+        },
+        {
+          "key": "dc.bibliographicCitation.title",
+          "value": "EUROPEAN HEART JOURNAL",
+          "language": "en"
+        },
+        {
+          "key": "dc.bibliographicCitation.jcat",
+          "value": "M",
+          "language": null
+        },
+        {
+          "key": "dc.type.refereed",
+          "value": "Refereed",
+          "language": "en"
+        },
+        {
+          "key": "dc.type.specified",
+          "value": "Meeting Abstract",
+          "language": "en"
+        },
+        {
+          "key": "uh.jcr.if",
+          "value": "5.153",
+          "language": null
+        }
+      ],
+      "inArchive": false,
+      "discoverable": true,
+      "withdrawn": false,
+      "lastModified": "2017-05-24T13:22:38.071+0000",
+      "type": "item",
+      "_links": {
+        "bitstreams": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/core/items/0043215a-49ed-4731-84fd-04dcc57e7369/bitstreams"
+        },
+        "owningCollection": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/core/items/0043215a-49ed-4731-84fd-04dcc57e7369/owningCollection"
+        },
+        "templateItemOf": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/core/items/0043215a-49ed-4731-84fd-04dcc57e7369/templateItemOf"
+        },
+        "self": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/core/items/0043215a-49ed-4731-84fd-04dcc57e7369"
+        }
+      },
+      "_embedded": {
+        "owningCollection": null,
+        "templateItemOf": null,
+        "bitstreams": null
+      }
+    },
+    "submissionDefinition": {
+      "id": "article",
+      "name": "article",
+      "type": "submissiondefinition",
+      "isDefault": false,
+      "_links": {
+        "collections": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/config/submissiondefinitions/article/collections"
+        },
+        "sections": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/config/submissiondefinitions/article/sections"
+        },
+        "self": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/config/submissiondefinitions/article"
+        }
+      },
+      "_embedded": {
+        "collections": {
+          "_embedded": [
+            {
+              "id": "815c98fd-ceca-4a7c-8251-64e54c4285f7",
+              "uuid": "815c98fd-ceca-4a7c-8251-64e54c4285f7",
+              "name": "Research publications",
+              "handle": "1942/12374",
+              "metadata": [
+                {
+                  "key": "dc.description.abstract",
+                  "value": "",
+                  "language": null
+                },
+                {
+                  "key": "dc.title",
+                  "value": "Research publications",
+                  "language": null
+                }
+              ],
+              "type": "collection",
+              "_links": {
+                "license": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7/license"
+                },
+                "defaultAccessConditions": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7/defaultAccessConditions"
+                },
+                "logo": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7/logo"
+                },
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7"
+                }
+              },
+              "_embedded": {
+                "logo": null,
+                "defaultAccessConditions": {
+                  "_embedded": [
+                    {
+                      "id": 191697,
+                      "name": null,
+                      "groupUUID": "c849bed6-5f55-49c3-a8bb-e998a1145e30",
+                      "action": "DEFAULT_BITSTREAM_READ",
+                      "type": "resourcePolicy",
+                      "_links": {
+                        "self": {
+                          "href": "http://localhost:8084/dspace-spring-rest/api/authz/resourcePolicies/191697"
+                        }
+                      }
+                    }
+                  ],
+                  "_links": {
+                    "self": {
+                      "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7/defaultAccessConditions"
+                    }
+                  },
+                  "page": {
+                    "number": 0,
+                    "size": 1,
+                    "totalPages": 1,
+                    "totalElements": 1
+                  }
+                }
+              }
+            }
+          ],
+          "_links": {
+            "self": {
+              "href": "http://localhost:8084/dspace-spring-rest/api/config/submissiondefinitions/article/collections"
+            }
+          },
+          "page": {
+            "number": 0,
+            "size": 1,
+            "totalPages": 1,
+            "totalElements": 1
+          }
+        },
+        "sections": {
+          "_embedded": [
+            {
+              "id": "extraction",
+              "mandatory": true,
+              "sectionType": "utils",
+              "visibility": {
+                "main": "HIDDEN",
+                "other": "HIDDEN"
+              },
+              "type": "submissionsection",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionsections/extraction"
+                }
+              }
+            },
+            {
+              "id": "collection",
+              "mandatory": true,
+              "sectionType": "collection",
+              "visibility": {
+                "main": "HIDDEN",
+                "other": "HIDDEN"
+              },
+              "type": "submissionsection",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionsections/collection"
+                }
+              }
+            },
+            {
+              "id": "typearticle",
+              "header": "submit.progressbar.describe.typearticle",
+              "mandatory": true,
+              "sectionType": "submission-form",
+              "type": "submissionsection",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionsections/typearticle"
+                },
+                "config": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionforms/typearticle"
+                }
+              }
+            },
+            {
+              "id": "creators",
+              "header": "submit.progressbar.describe.creators",
+              "mandatory": true,
+              "sectionType": "submission-form",
+              "type": "submissionsection",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionsections/creators"
+                },
+                "config": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionforms/creators"
+                }
+              }
+            },
+            {
+              "id": "titleinformation",
+              "header": "submit.progressbar.describe.titleinformation",
+              "mandatory": true,
+              "sectionType": "submission-form",
+              "type": "submissionsection",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionsections/titleinformation"
+                },
+                "config": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionforms/titleinformation"
+                }
+              }
+            },
+            {
+              "id": "reference",
+              "header": "submit.progressbar.describe.reference",
+              "mandatory": false,
+              "sectionType": "submission-form",
+              "type": "submissionsection",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionsections/reference"
+                },
+                "config": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionforms/reference"
+                }
+              }
+            },
+            {
+              "id": "upload",
+              "header": "submit.progressbar.upload",
+              "mandatory": true,
+              "sectionType": "upload",
+              "type": "submissionsection",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionsections/upload"
+                },
+                "config": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionuploads/upload"
+                }
+              }
+            },
+            {
+              "id": "license",
+              "header": "submit.progressbar.license",
+              "mandatory": true,
+              "sectionType": "license",
+              "visibility": {
+                "main": null,
+                "other": "READONLY"
+              },
+              "type": "submissionsection",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/config/submissionsections/license"
+                }
+              }
+            }
+          ],
+          "_links": {
+            "self": {
+              "href": "http://localhost:8084/dspace-spring-rest/api/config/submissiondefinitions/article/sections"
+            }
+          },
+          "page": {
+            "number": 0,
+            "size": 8,
+            "totalPages": 1,
+            "totalElements": 8
+          }
+        }
+      }
+    },
+    "collection": {
+      "id": "815c98fd-ceca-4a7c-8251-64e54c4285f7",
+      "uuid": "815c98fd-ceca-4a7c-8251-64e54c4285f7",
+      "name": "Research publications",
+      "handle": "1942/12374",
+      "metadata": [
+        {
+          "key": "dc.description.abstract",
+          "value": "",
+          "language": null
+        },
+        {
+          "key": "dc.title",
+          "value": "Research publications",
+          "language": null
+        }
+      ],
+      "type": "collection",
+      "_links": {
+        "license": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7/license"
+        },
+        "defaultAccessConditions": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7/defaultAccessConditions"
+        },
+        "logo": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7/logo"
+        },
+        "self": {
+          "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7"
+        }
+      },
+      "_embedded": {
+        "logo": null,
+        "defaultAccessConditions": {
+          "_embedded": [
+            {
+              "id": 191697,
+              "name": null,
+              "groupUUID": "c849bed6-5f55-49c3-a8bb-e998a1145e30",
+              "action": "DEFAULT_BITSTREAM_READ",
+              "type": "resourcePolicy",
+              "_links": {
+                "self": {
+                  "href": "http://localhost:8084/dspace-spring-rest/api/authz/resourcePolicies/191697"
+                }
+              }
+            }
+          ],
+          "_links": {
+            "self": {
+              "href": "http://localhost:8084/dspace-spring-rest/api/core/collections/815c98fd-ceca-4a7c-8251-64e54c4285f7/defaultAccessConditions"
+            }
+          },
+          "page": {
+            "number": 0,
+            "size": 1,
+            "totalPages": 1,
+            "totalElements": 1
+          }
+        }
+      }
+    }
+  }
+}

@@ -23,6 +23,7 @@ import {
 @Injectable()
 export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceItem, Workspaceitem> {
   protected linkName = 'workspaceitems';
+  protected overrideRequest = true;
 
   constructor(protected responseCache: ResponseCacheService,
               protected requestService: RequestService,

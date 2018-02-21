@@ -18,6 +18,7 @@ import { RequestService } from './request.service';
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
   protected linkName = 'items';
+  protected overrideRequest = false;
 
   constructor(
     protected responseCache: ResponseCacheService,

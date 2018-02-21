@@ -13,5 +13,8 @@ export enum ResourceType {
   Group = 'group',
   ResourcePolicy = 'resourcePolicy',
   License = 'license',
+  ClaimedTask = 'claimedtask',
+  PoolTask = 'pooltask',
+  Workflowitem = 'workflowitem',
   Workspaceitem = 'workspaceitem',
 }
