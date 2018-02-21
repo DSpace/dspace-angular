@@ -7,15 +7,14 @@ import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
-
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
-import { Workspaceitem } from './models/workspaceitem.model';
-import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
+import { NormalizedPoolTask } from './models/tasks/normalized-pool-task-object.model';
+import { PoolTask } from './models/tasks/pool-task-object.model';
 
 @Injectable()
-export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceItem, Workspaceitem> {
-  protected linkName = 'workspaceitems';
+export class PoolTaskDataService extends DataService<NormalizedPoolTask, PoolTask> {
+  protected linkName = 'poolTask';
   protected overrideRequest = true;
 
   constructor(protected responseCache: ResponseCacheService,
@@ -24,7 +23,7 @@ export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceIte
               protected store: Store<CoreState>,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private bs: BrowseService) {
-    super(NormalizedWorkspaceItem);
+    super(NormalizedPoolTask);
   }
 
   public getScopedEndpoint(scopeID: string): Observable<string> {
@@ -32,7 +31,7 @@ export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceIte
   }
 
 /*
-  findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Workspaceitem>>> {
+  findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<PoolTask>>> {
     const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
       .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
 
@@ -44,10 +43,10 @@ export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceIte
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<NormalizedWorkspaceItem, Workspaceitem>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<Workspaceitem>>>;
+    return this.rdbService.buildList<NormalizedPoolTask, PoolTask>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<PoolTask>>>;
   }
 
-  findById(id: string): Observable<RemoteData<Workspaceitem>> {
+  findById(id: string): Observable<RemoteData<PoolTask>> {
     const hrefObs = this.getEndpoint()
       .map((endpoint: string) => this.getFindByIDHref(endpoint, id));
 
@@ -59,11 +58,11 @@ export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceIte
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildSingle<NormalizedWorkspaceItem, Workspaceitem>(hrefObs, this.normalizedResourceType);
+    return this.rdbService.buildSingle<NormalizedPoolTask, PoolTask>(hrefObs, this.normalizedResourceType);
   }
 
-  findByHref(href: string): Observable<RemoteData<Workspaceitem>> {
+  findByHref(href: string): Observable<RemoteData<PoolTask>> {
     this.requestService.configure(new SubmissionRequest(this.requestService.generateRequestId(), href));
-    return this.rdbService.buildSingle<NormalizedWorkspaceItem, Workspaceitem>(href, this.normalizedResourceType);
+    return this.rdbService.buildSingle<NormalizedPoolTask, PoolTask>(href, this.normalizedResourceType);
   }*/
 }

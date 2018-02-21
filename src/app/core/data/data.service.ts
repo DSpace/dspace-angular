@@ -24,9 +24,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   protected abstract EnvConfig: GlobalConfig;
   protected abstract overrideRequest = false;
 
-  constructor(
-    protected normalizedResourceType: GenericConstructor<TNormalized>,
-  ) {
+  constructor(protected normalizedResourceType: GenericConstructor<TNormalized>,) {
     super();
   }
 
@@ -139,10 +137,30 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 
-  // TODO remove when search will be completed
   public searchBySubmitter(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
+    return this.searchBy('submitter', options);
+  }
+
+  searchByUser(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
+    return this.searchBy('user', options);
+  }
+
+  // TODO remove when search will be completed
+  public searchBy(searchBy: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
+    let url = null;
+    switch (searchBy) {
+      case 'user': {
+        url = 'search/findByUser';
+        break;
+      }
+      case 'submitter': {
+        url = 'search/findBySubmitter';
+        break;
+      }
+    }
+
     const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
-      .flatMap((endpoint: string) => this.getSearchByHref(endpoint, 'search/findBySubmitter', options));
+      .flatMap((endpoint: string) => this.getSearchByHref(endpoint, url, options));
     hrefObs
       .filter((href: string) => hasValue(href))
       .take(1)
@@ -154,21 +172,21 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<TDomain>>>;
   }
 
-  // TODO implement, after the structure of the REST server's POST response is finalized
-  // create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
-  //   const postHrefObs = this.getEndpoint();
-  //
-  //   // TODO ID is unknown at this point
-  //   const idHrefObs = postHrefObs.map((href: string) => this.getFindByIDHref(href, dso.id));
-  //
-  //   postHrefObs
-  //     .filter((href: string) => hasValue(href))
-  //     .take(1)
-  //     .subscribe((href: string) => {
-  //       const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.Post, dso);
-  //       this.requestService.configure(request);
-  //     });
-  //
-  //   return this.rdbService.buildSingle<TNormalized, TDomain>(idHrefObs, this.normalizedResourceType);
-  // }
+// TODO implement, after the structure of the REST server's POST response is finalized
+// create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
+//   const postHrefObs = this.getEndpoint();
+//
+//   // TODO ID is unknown at this point
+//   const idHrefObs = postHrefObs.map((href: string) => this.getFindByIDHref(href, dso.id));
+//
+//   postHrefObs
+//     .filter((href: string) => hasValue(href))
+//     .take(1)
+//     .subscribe((href: string) => {
+//       const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.Post, dso);
+//       this.requestService.configure(request);
+//     });
+//
+//   return this.rdbService.buildSingle<TNormalized, TDomain>(idHrefObs, this.normalizedResourceType);
+// }
 }

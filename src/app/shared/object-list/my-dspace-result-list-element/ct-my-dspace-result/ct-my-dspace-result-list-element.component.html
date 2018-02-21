@@ -1,0 +1,21 @@
+<ds-item-preview
+  [item]="workFlow.item | async"
+  [object]="object"
+  statusTxt="In progress"
+></ds-item-preview>
+
+<button class="btn mt-1 mb-3"
+        [routerLink]="['/workflow/claimedTasks/' + dso.id] + '/?action=returnToPool'" >
+  <i class="fa fa-undo"></i>{{'mydspace.task.return-to-pool-btn' | translate}}</button>
+
+<button class="btn btn-danger mt-1 mb-3"
+        [routerLink]="['/workflow/claimedTasks/' + dso.id] + '/?action=reject'" >
+  <i class="fa fa-trash"></i>{{'mydspace.task.reject-btn' | translate}}</button>
+
+<button class="btn btn-primary mt-1 mb-3"
+        [routerLink]="['/workspaceitems/' + workFlow.id] + '/edit'" >
+  <i class="fa fa-edit"></i>{{'mydspace.task.edit-btn' | translate}}</button>
+
+<button class="btn btn-success mt-1 mb-3"
+        [routerLink]="['/workflow/claimedTasks/' + dso.id] + '/?action=approve'" >
+  <i class="fa fa-thumbs-up"></i>{{'mydspace.task.approve-btn' | translate}}</button>

@@ -88,6 +88,13 @@
       "send-btn": "Send",
       "subject-placeholder": "Subject...",
       "description-placeholder": "Insert your message here..."
+    },
+    "task": {
+      "approve-btn": "Approve",
+      "reject-btn": "Reject",
+      "return-to-pool-btn": "Return to pool",
+      "edit": "Edit",
+      "claim": "Claim"
     }
   },
   "search": {

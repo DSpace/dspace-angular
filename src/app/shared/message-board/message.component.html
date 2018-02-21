@@ -34,11 +34,13 @@
         <span class="fa fa-envelope"></span> Set as unread
       </small>
     </div>
-    <div (click)="toggleDescription()" class="title"
+    <div class="title"
          [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}">
-      <i *ngIf="!show" class="fa fa-angle-double-down"></i>
-      <i *ngIf="show" class="fa fa-angle-double-up"></i>
-      {{m.findMetadata('dc.title')}}
+      <span (click)="toggleDescription()" class="pointer">
+        <i *ngIf="!show" class="fa fa-angle-double-down"></i>
+        <i *ngIf="show" class="fa fa-angle-double-up"></i>
+        {{m.findMetadata('dc.title')}}
+      </span>
     </div>
 
     <div *ngIf="show" class="description">

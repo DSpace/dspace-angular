@@ -77,6 +77,7 @@ import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/mode
 import { Console } from 'inspector';
 import { MessageBoardComponent } from './message-board/message-board.component';
 import { MessageComponent } from './message-board/message.component';
+import { ItemPreviewComponent } from './object-list/item-preview/item-preview.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -144,6 +145,7 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   DsDynamicGroupComponent,
   DsDatePickerComponent,
+  ItemPreviewComponent,
 ];
 
 const ENTRY_COMPONENTS = [

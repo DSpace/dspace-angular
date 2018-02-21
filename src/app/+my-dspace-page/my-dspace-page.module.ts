@@ -10,6 +10,9 @@ import { MyDSpaceResultsComponent } from './my-dspace-results/my-dspace-results.
 import { MyDspaceService } from './my-dspace-service/my-dspace.service';
 import { WorkspaceitemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/wsi-my-dspace-result/wsi-my-dspace-result-list-element.component';
 import { ItemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/item-my-dspace-result/item-my-dspace-result-list-element.component';
+import { WorkflowitemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/wfi-my-dspace-result/wfi-my-dspace-result-list-element.component';
+import { ClaimedTaskMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/ct-my-dspace-result/ct-my-dspace-result-list-element.component';
+import { PoolTaskMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/pt-my-dspace-result/pt-my-dspace-result-list-element.component';
 
 @NgModule({
   imports: [
@@ -22,7 +25,10 @@ import { ItemMyDSpaceResultListElementComponent } from '../shared/object-list/my
     ItemMyDSpaceResultListElementComponent,
     MyDSpacePageComponent,
     MyDSpaceResultsComponent,
-    WorkspaceitemMyDSpaceResultListElementComponent
+    WorkspaceitemMyDSpaceResultListElementComponent,
+    WorkflowitemMyDSpaceResultListElementComponent,
+    ClaimedTaskMyDSpaceResultListElementComponent,
+    PoolTaskMyDSpaceResultListElementComponent
   ],
   providers: [
     MyDspaceService
@@ -30,6 +36,9 @@ import { ItemMyDSpaceResultListElementComponent } from '../shared/object-list/my
   entryComponents: [
     ItemMyDSpaceResultListElementComponent,
     WorkspaceitemMyDSpaceResultListElementComponent,
+    WorkflowitemMyDSpaceResultListElementComponent,
+    ClaimedTaskMyDSpaceResultListElementComponent,
+    PoolTaskMyDSpaceResultListElementComponent
   ]
 })
 export class MyDSpacePageModule {
