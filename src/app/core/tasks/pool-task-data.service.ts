@@ -11,13 +11,10 @@ import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { NormalizedPoolTask } from './models/normalized-pool-task-object.model';
 import { PoolTask } from './models/pool-task-object.model';
-import {
-  MessagePostRequest, PostRequest, RestRequest, SubmissionPostRequest,
-  TaskPostRequest
-} from '../data/request.models';
+import { PostRequest, RestRequest, TaskPostRequest } from '../data/request.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { ErrorResponse, MessageResponse, RestResponse } from '../cache/response-cache.models';
+import { ErrorResponse, RestResponse, TaskResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -52,7 +49,7 @@ export class PoolTaskDataService extends DataService<NormalizedPoolTask, PoolTas
       errorResponse.flatMap((response: ErrorResponse) =>
         Observable.throw(new Error(response.errorMessage))),
       successResponse
-        .map((response: MessageResponse) => response)
+        .map((response: TaskResponse) => response)
         .distinctUntilChanged());
   }
 
@@ -94,40 +91,4 @@ export class PoolTaskDataService extends DataService<NormalizedPoolTask, PoolTas
     options.headers = headers;
     return options;
   }
-
-  /*
-    findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<PoolTask>>> {
-      const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
-        .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
-
-      hrefObs
-        .filter((href: string) => hasValue(href))
-        .take(1)
-        .subscribe((href: string) => {
-          const request = new SubmissionFindAllRequest(this.requestService.generateRequestId(), href, options);
-          this.requestService.configure(request);
-        });
-
-      return this.rdbService.buildList<NormalizedPoolTask, PoolTask>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<PoolTask>>>;
-    }
-
-    findById(id: string): Observable<RemoteData<PoolTask>> {
-      const hrefObs = this.getEndpoint()
-        .map((endpoint: string) => this.getFindByIDHref(endpoint, id));
-
-      hrefObs
-        .filter((href: string) => hasValue(href))
-        .take(1)
-        .subscribe((href: string) => {
-          const request = new SubmissionFindByIDRequest(this.requestService.generateRequestId(), href, id);
-          this.requestService.configure(request);
-        });
-
-      return this.rdbService.buildSingle<NormalizedPoolTask, PoolTask>(hrefObs, this.normalizedResourceType);
-    }
-
-    findByHref(href: string): Observable<RemoteData<PoolTask>> {
-      this.requestService.configure(new SubmissionRequest(this.requestService.generateRequestId(), href));
-      return this.rdbService.buildSingle<NormalizedPoolTask, PoolTask>(href, this.normalizedResourceType);
-    }*/
 }
