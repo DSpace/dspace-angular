@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClaimedTaskDataService } from '../core/submission/claimed-task-data.service';
+import { ClaimedTaskDataService } from '../core/tasks/claimed-task-data.service';
 import { PlatformService } from '../shared/services/platform.service';
 import { WorkflowitemDataService } from '../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';

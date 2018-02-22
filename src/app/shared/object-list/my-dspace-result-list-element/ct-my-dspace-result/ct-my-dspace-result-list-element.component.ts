@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue } from '../../../empty.util';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../core/submission/models/tasks/claimed-task-object.model';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 
 @Component({

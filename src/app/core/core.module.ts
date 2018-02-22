@@ -62,8 +62,8 @@ import { PostPatchDataService } from './data/postpatch-data.service';
 import { MessageService } from './message/message.service';
 import { MessageResponseParsingService } from './message/message-response-parsing.service';
 import { WorkflowitemDataService } from './submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from './submission/claimed-task-data.service';
-import { PoolTaskDataService } from './submission/pool-task-data.service';
+import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
+import { PoolTaskDataService } from './tasks/pool-task-data.service';
 
 const IMPORTS = [
   CommonModule,

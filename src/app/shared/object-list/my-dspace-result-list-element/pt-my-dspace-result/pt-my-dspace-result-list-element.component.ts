@@ -7,10 +7,9 @@ import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue } from '../../../empty.util';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../core/submission/models/tasks/claimed-task-object.model';
-import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
-import { PoolTask } from '../../../../core/submission/models/tasks/pool-task-object.model';
+import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
+import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 
 @Component({
   selector: 'ds-pooltask-my-dspace-result-list-element',
@@ -27,7 +26,7 @@ export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultLi
 
   constructor(
               // private store: Store<AppState>,
-              // private ctDataService: ClaimedTaskDataService,
+              private ptDataService: PoolTaskDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
   }
@@ -59,6 +58,16 @@ export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultLi
       .subscribe((rd: RemoteData<any>) => {
         this.workFlow = rd.payload[0];
       });
+  }
+
+  claim() {
+    const body = {
+      submit_take_task: true
+    }
+    this.ptDataService.claimTask(body, this.dso.id).subscribe((res) => {
+      console.log('Claim Task response:');
+      console.log(res);
+    });
   }
 
 }

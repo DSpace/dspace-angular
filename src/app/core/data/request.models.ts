@@ -9,11 +9,11 @@ import { BrowseResponseParsingService } from './browse-response-parsing.service'
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { HttpHeaders } from '@angular/common/http';
 import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { MessageResponseParsingService } from '../message/message-response-parsing.service';
+import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -37,13 +37,11 @@ export enum RestRequestMethod {
 }
 
 export abstract class RestRequest {
-  constructor(
-    public uuid: string,
-    public href: string,
-    public method: RestRequestMethod = RestRequestMethod.Get,
-    public body?: any,
-    public options?: HttpOptions
-  ) {
+  constructor(public uuid: string,
+              public href: string,
+              public method: RestRequestMethod = RestRequestMethod.Get,
+              public body?: any,
+              public options?: HttpOptions) {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -52,88 +50,72 @@ export abstract class RestRequest {
 }
 
 export class GetRequest extends RestRequest {
-  constructor(
-    public uuid: string,
-    public href: string,
-    public body?: any,
-    public options?: HttpOptions
-  )  {
-    super(uuid, href, RestRequestMethod.Get, body)
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, RestRequestMethod.Get, body);
   }
 }
 
 export class PostRequest extends RestRequest {
-  constructor(
-    public uuid: string,
-    public href: string,
-    public body?: any,
-    public options?: HttpOptions
-  )  {
-    super(uuid, href, RestRequestMethod.Post, body)
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, RestRequestMethod.Post, body);
   }
 }
 
 export class PutRequest extends RestRequest {
-  constructor(
-    public uuid: string,
-    public href: string,
-    public body?: any,
-    public options?: HttpOptions
-  )  {
-    super(uuid, href, RestRequestMethod.Put, body)
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, RestRequestMethod.Put, body);
   }
 }
 
 export class DeleteRequest extends RestRequest {
-  constructor(
-    public uuid: string,
-    public href: string,
-    public body?: any,
-    public options?: HttpOptions
-  )  {
-    super(uuid, href, RestRequestMethod.Delete, body)
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, RestRequestMethod.Delete, body);
   }
 }
 
 export class OptionsRequest extends RestRequest {
-  constructor(
-    public uuid: string,
-    public href: string,
-    public body?: any,
-    public options?: HttpOptions
-  )  {
-    super(uuid, href, RestRequestMethod.Options, body)
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, RestRequestMethod.Options, body);
   }
 }
 
 export class HeadRequest extends RestRequest {
-  constructor(
-    public uuid: string,
-    public href: string,
-    public body?: any,
-    public options?: HttpOptions
-  )  {
-    super(uuid, href, RestRequestMethod.Head, body)
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, RestRequestMethod.Head, body);
   }
 }
 
 export class PatchRequest extends RestRequest {
-  constructor(
-    public uuid: string,
-    public href: string,
-    public body?: any,
-    public options?: HttpOptions
-  )  {
-    super(uuid, href, RestRequestMethod.Patch, body)
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, RestRequestMethod.Patch, body);
   }
 }
 
 export class FindByIDRequest extends GetRequest {
-  constructor(
-    uuid: string,
-    href: string,
-    public resourceID: string
-  ) {
+  constructor(uuid: string,
+              href: string,
+              public resourceID: string) {
     super(uuid, href);
   }
 }
@@ -146,11 +128,9 @@ export class FindAllOptions {
 }
 
 export class FindAllRequest extends GetRequest {
-  constructor(
-    uuid: string,
-    href: string,
-    public body?: FindAllOptions,
-  ) {
+  constructor(uuid: string,
+              href: string,
+              public body?: FindAllOptions,) {
     super(uuid, href);
   }
 }
@@ -217,11 +197,9 @@ export class SubmissionFindAllRequest extends GetRequest {
 }
 
 export class SubmissionFindByIDRequest extends GetRequest {
-  constructor(
-    uuid: string,
-    href: string,
-    public resourceID: string
-  ) {
+  constructor(uuid: string,
+              href: string,
+              public resourceID: string) {
     super(uuid, href);
   }
 
@@ -316,7 +294,18 @@ export class MessageGetRequest extends GetRequest {
   }
 }
 
+export class TaskPostRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return TaskResponseParsingService;
+  }
+}
+
 export class RequestError extends Error {
   statusText: string;
 }
+
 /* tslint:enable:max-classes-per-file */
