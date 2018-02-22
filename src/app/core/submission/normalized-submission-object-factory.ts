@@ -15,6 +15,7 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { ConfigObject } from '../shared/config/config.model';
 import { SubmissionResourceType } from './submission-resource-type';
 import { NormalizedResourcePolicy } from '../cache/models/normalized-resource-policy.model';
+import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 
 export class NormalizedSubmissionObjectFactory {
   public static getConstructor(type: SubmissionResourceType): GenericConstructor<NormalizedObject|ConfigObject> {
@@ -45,6 +46,9 @@ export class NormalizedSubmissionObjectFactory {
       }
       case SubmissionResourceType.WorkspaceItem: {
         return NormalizedWorkspaceItem
+      }
+      case SubmissionResourceType.WorkflowItem: {
+        return NormalizedWorkflowItem
       }
       case SubmissionResourceType.SubmissionDefinition:
       case SubmissionResourceType.SubmissionDefinitions: {

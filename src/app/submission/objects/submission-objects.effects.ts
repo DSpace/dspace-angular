@@ -24,6 +24,7 @@ import { SubmitDataResponseDefinitionObject } from '../../core/shared/submit-dat
 import { SubmissionService } from '../submission.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
+import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -56,7 +57,7 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections')
-        .map((response: Workspaceitem[]) => {
+        .map((response: Workspaceitem[] | Workflowitem[]) => {
           return this.parseSaveResponse(response, action.payload.submissionId);
         });
     })
@@ -72,7 +73,7 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections',
         action.payload.sectionId)
-        .map((response: Workspaceitem[]) => {
+        .map((response: Workspaceitem[] | Workflowitem[]) => {
           return this.parseSaveResponse(response, action.payload.submissionId);
         });
     })
@@ -101,13 +102,13 @@ export class SubmissionObjectEffects {
               private submissionService: SubmissionService) {
   }
 
-  protected parseSaveResponse(response: Workspaceitem[], submissionId: string) {
+  protected parseSaveResponse(response: Workspaceitem[] | Workflowitem[], submissionId: string) {
     const mappedActions = [];
     if (isNotEmpty(response)) {
       const errorsList = {};
 
       // to avoid dispatching an action for every error, create an array of errors per section
-      response.forEach((item: Workspaceitem) => {
+      response.forEach((item: Workspaceitem | Workflowitem) => {
 
         const {errors} = item;
 

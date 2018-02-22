@@ -46,7 +46,7 @@ export class SubmissionService {
       .map((submissions: SubmissionState) => submissions.objects[submissionId]);
   }
 
-  getSubmissionObjectLinkName() {
+  getSubmissionObjectLinkName(): string {
     const url = this.router.routerState.snapshot.url;
     if (url.startsWith('/workspaceitems') || url.startsWith('/submit')) {
       return 'workspaceitems';

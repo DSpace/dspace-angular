@@ -67,8 +67,8 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
     return this.fetchRequest(request);
   }
 
-  public getDataById(id: string): Observable<any> {
-    return this.getEndpoint()
+  public getDataById(linkName: string, id: string): Observable<any> {
+    return this.getEndpoint(linkName)
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()

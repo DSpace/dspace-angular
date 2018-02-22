@@ -8,7 +8,10 @@ import { SubmissionRestService } from '../submission-rest.service';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { hasValue, isNotUndefined } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
+import { SubmissionService } from '../submission.service';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
+import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 
 @Component({
   selector: 'ds-submission-edit',
@@ -32,6 +35,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private restService: SubmissionRestService,
               private route: ActivatedRoute,
+              private submissionService: SubmissionService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
@@ -42,15 +46,15 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
         .subscribe((params: ParamMap) => {
           this.submissionId = params.get('id');
           this.subs.push(
-            this.restService.getDataById(this.submissionId)
-              .filter((workspaceitems: Workspaceitem) => isNotUndefined(workspaceitems))
+            this.restService.getDataById(this.submissionService.getSubmissionObjectLinkName(), this.submissionId)
+              .filter((submissionObjects: Workspaceitem[] | Workflowitem[]) => isNotUndefined(submissionObjects))
               .take(1)
-              .map((workspaceitems: Workspaceitem) => workspaceitems[0])
-              .subscribe((workspaceitems: Workspaceitem) => {
-                this.collectionId = workspaceitems.collection[0].id;
-                this.selfUrl = workspaceitems.self;
-                this.sections = workspaceitems.sections;
-                this.submissionDefinition = workspaceitems.submissionDefinition[0];
+              .map((submissionObjects: Workspaceitem[] | Workflowitem[]) => submissionObjects[0])
+              .subscribe((submissionObject: Workspaceitem | Workflowitem) => {
+                this.collectionId = submissionObject.collection[0].id;
+                this.selfUrl = submissionObject.self;
+                this.sections = submissionObject.sections;
+                this.submissionDefinition = submissionObject.submissionDefinition[0];
                 this.changeDetectorRef.detectChanges();
               })
           )
