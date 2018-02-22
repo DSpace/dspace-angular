@@ -25,7 +25,8 @@ export const AuthActionTypes = {
   LOG_OUT_SUCCESS: type('dspace/auth/LOG_OUT_SUCCESS'),
   REGISTRATION: type('dspace/auth/REGISTRATION'),
   REGISTRATION_ERROR: type('dspace/auth/REGISTRATION_ERROR'),
-  REGISTRATION_SUCCESS: type('dspace/auth/REGISTRATION_SUCCESS')
+  REGISTRATION_SUCCESS: type('dspace/auth/REGISTRATION_SUCCESS'),
+  SET_REDIRECT_URL: type('dspace/auth/SET_REDIRECT_URL'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -249,6 +250,20 @@ export class RegistrationSuccessAction implements Action {
  */
 export class ResetAuthenticationMessagesAction implements Action {
   public type: string = AuthActionTypes.RESET_MESSAGES;
+}
+
+/**
+ * Change the redirect url.
+ * @class SetRedirectUrlAction
+ * @implements {Action}
+ */
+export class SetRedirectUrlAction implements Action {
+  public type: string = AuthActionTypes.SET_REDIRECT_URL;
+  payload: string;
+
+  constructor(url: string) {
+    this.payload = url ;
+  }
 }
 
 /* tslint:enable:max-classes-per-file */

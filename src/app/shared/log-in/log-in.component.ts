@@ -23,6 +23,7 @@ import { CoreState } from '../../core/core.reducers';
 import { isNotEmpty } from '../empty.util';
 import { fadeOut } from '../animations/fade';
 import { AuthService } from '../../core/auth/auth.service';
+import { PlatformService } from '../services/platform.service';
 
 /**
  * /users/sign-in
@@ -87,6 +88,7 @@ export class LogInComponent implements OnDestroy, OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
+    private platform: PlatformService,
     private store: Store<CoreState>
   ) { }
 
@@ -160,6 +162,7 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @method submit
    */
   public submit() {
+    this.resetErrorOrMessage();
     // get email and password values
     const email: string = this.form.get('email').value;
     const password: string = this.form.get('password').value;

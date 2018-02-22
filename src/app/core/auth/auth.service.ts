@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { filter, map, withLatestFrom } from 'rxjs/operators';
 
 import { Eperson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
@@ -10,10 +11,10 @@ import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
-import { isAuthenticated } from './selectors';
+import { getRedirectUrl, isAuthenticated } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { Store } from '@ngrx/store';
-import { ResetAuthenticationMessagesAction } from './auth.actions';
+import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { RouterReducerState } from '@ngrx/router-store';
 import { Router } from '@angular/router';
 
@@ -30,12 +31,6 @@ export class AuthService {
    */
   private _authenticated: boolean;
 
-  /**
-   * The url to redirect after login
-   * @type string
-   */
-  private _redirectUrl: string;
-
   constructor(private authRequestService: AuthRequestService,
               private router: Router,
               private storage: CookieService,
@@ -46,16 +41,18 @@ export class AuthService {
 
     // If current route is different from the one setted in authentication guard
     // and is not the login route, clear redirect url and messages
-    this.store.select(routerStateSelector)
-      .filter((routerState: RouterReducerState) => isNotUndefined(routerState))
-      .filter((routerState: RouterReducerState) =>
-        (routerState.state.url !== LOGIN_ROUTE)
-        && isNotEmpty(this._redirectUrl)
-        && (routerState.state.url !== this._redirectUrl))
-      .distinctUntilChanged()
+    const routeUrlObs = this.store.select(routerStateSelector)
+      .filter((routerState: RouterReducerState) => isNotUndefined(routerState) && isNotUndefined(routerState.state) )
+      .filter((routerState: RouterReducerState) => (routerState.state.url !== LOGIN_ROUTE))
+      .map((routerState: RouterReducerState) => routerState.state.url);
+    const redirectUrlObs = this.getRedirectUrl();
+    routeUrlObs.pipe(
+      withLatestFrom(redirectUrlObs),
+      map(([routeUrl, redirectUrl]) => [routeUrl, redirectUrl])
+    ).filter(([routeUrl, redirectUrl]) => isNotEmpty(redirectUrl) && (routeUrl !== redirectUrl))
       .subscribe(() => {
-        this._redirectUrl = '';
-      })
+      this.setRedirectUrl('');
+    });
   }
 
   /**
@@ -135,7 +132,7 @@ export class AuthService {
     // Normally you would do an HTTP request to POST the user
     // details and then return the new user object
     // but, let's just return the new user for this example.
-    this._authenticated = true;
+    // this._authenticated = true;
     return Observable.of(user);
   }
 
@@ -210,14 +207,18 @@ export class AuthService {
    * Redirect to the route navigated before the login
    */
   public redirectToPreviousUrl() {
-    if (isNotEmpty(this._redirectUrl)) {
-      const url = this._redirectUrl;
-      // Clear url
-      this._redirectUrl = null;
-      this.router.navigate([url]);
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.getRedirectUrl()
+      .first()
+      .subscribe((redirectUrl) => {
+        if (isNotEmpty(redirectUrl)) {
+          // Clear url
+          this.setRedirectUrl(undefined);
+          this.router.navigate([decodeURI(redirectUrl)]);
+        } else {
+          this.router.navigate(['/']);
+        }
+      })
+
   }
 
   /**
@@ -227,7 +228,7 @@ export class AuthService {
     this.store.select(routerStateSelector)
       .take(1)
       .subscribe((router) => {
-        // TODO Chack a way to hard refresh the same route
+        // TODO Check a way to hard refresh the same route
         // this.router.navigate([router.state.url],  { replaceUrl: true });
         this.router.navigate(['/']);
       })
@@ -236,14 +237,14 @@ export class AuthService {
   /**
    * Get redirect url
    */
-  get redirectUrl(): string {
-    return this._redirectUrl;
+  getRedirectUrl(): Observable<string> {
+    return this.store.select(getRedirectUrl);
   }
 
   /**
    * Set redirect url
    */
-  set redirectUrl(value: string) {
-    this._redirectUrl = value;
+  setRedirectUrl(value: string) {
+    this.store.dispatch(new SetRedirectUrlAction(encodeURI(value)));
   }
 }
