@@ -19,7 +19,7 @@ export class RolesService {
     this.user
       .map((user: Eperson) => {
         if (isNotEmpty(user)) {
-          return (findIndex(users, { name: groupName }) !== -1);
+          return (findIndex(user.groups, { name: groupName }) !== -1);
         } else {
           return false;
         }
