@@ -1,5 +1,5 @@
 <ds-item-preview
-  [item]="workFlow.item | async"
+  [item]="(workFlow.item | async)?.payload[0]"
   [object]="object"
   statusTxt="In progress"
 ></ds-item-preview>

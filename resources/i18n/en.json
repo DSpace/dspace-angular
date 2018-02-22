@@ -93,8 +93,8 @@
       "approve-btn": "Approve",
       "reject-btn": "Reject",
       "return-to-pool-btn": "Return to pool",
-      "edit": "Edit",
-      "claim": "Claim"
+      "edit-btn": "Edit",
+      "claim-btn": "Claim"
     }
   },
   "search": {
