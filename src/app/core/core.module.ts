@@ -64,6 +64,7 @@ import { MessageResponseParsingService } from './message/message-response-parsin
 import { WorkflowitemDataService } from './submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
+import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -125,6 +126,7 @@ const PROVIDERS = [
   WorkflowitemDataService,
   ClaimedTaskDataService,
   PoolTaskDataService,
+  TaskResponseParsingService,
   MessageService,
   MessageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },

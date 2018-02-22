@@ -9,7 +9,7 @@
   <i class="fa fa-undo"></i>{{'mydspace.task.return-to-pool-btn' | translate}}</button>
 
 <button class="btn btn-danger mt-1 mb-3"
-        [routerLink]="['/workflow/claimedTasks/' + dso.id] + '/?action=reject'" >
+        (click)="openRejectModal(content)" >
   <i class="fa fa-trash"></i>{{'mydspace.task.reject-btn' | translate}}</button>
 
 <button class="btn btn-primary mt-1 mb-3"
@@ -19,3 +19,32 @@
 <button class="btn btn-success mt-1 mb-3"
         [routerLink]="['/workflow/claimedTasks/' + dso.id] + '/?action=approve'" >
   <i class="fa fa-thumbs-up"></i>{{'mydspace.task.approve-btn' | translate}}</button>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Reject confirm</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="reject(); c('Confirm click')" [formGroup]="rejectForm" >
+    <textarea
+      formControlName="reason"
+      rows="4"
+      placeholder="Describe the reason of reject..."></textarea>
+      <button type="button" class="btn btn-secondary" (click)="d('Cancel click')">Cancel</button>
+      <button
+        id="btn-chat"
+        class="btn btn-danger btn-lg btn-block mt-3"
+        [disabled]="!rejectForm.valid"
+        type="submit">{{'mydspace.messages.send-btn' | translate}}
+      </button>
+    </form>
+  </div>
+  <!--<div class="modal-footer">-->
+
+    <!--<button type="button" class="btn btn-secondary" (click)="c('Cancel click')">Cancel</button>-->
+    <!--<button type="button" class="btn btn-danger" (click)="reject(); c('Confirm click')">Confirm</button>-->
+  <!--</div>-->
+</ng-template>
