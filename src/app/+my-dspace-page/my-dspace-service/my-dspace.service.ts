@@ -120,124 +120,33 @@ export class MyDspaceService extends SearchService implements OnDestroy {
 
     const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === 'status');
     return this.routeService.getQueryParameterValues(filterConfig.paramName)
-      .flatMap((status) => {
+      .first()
+      .flatMap((statusArray) => {
         let itemsObs: Observable<RemoteData<PaginatedList<Item>>>;
         let workspaceitemsObs: Observable<RemoteData<PaginatedList<Workspaceitem>>>;
         let workflowitemsObs: Observable<RemoteData<PaginatedList<Workflowitem>>>;
         let claimedTasksObs: Observable<RemoteData<PaginatedList<ClaimedTask>>>;
         let poolTasksObs: Observable<RemoteData<PaginatedList<PoolTask>>>;
 
-        itemsObs = Observable.of(new RemoteData(
+        itemsObs = workspaceitemsObs = workflowitemsObs = claimedTasksObs = poolTasksObs = Observable.of(new RemoteData(
           false,
           false,
           true,
           undefined,
           new PaginatedList(new PageInfo(), [])));
 
-        workspaceitemsObs = Observable.of(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          new PaginatedList(new PageInfo(), [])));
-
-        workflowitemsObs = Observable.of(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          new PaginatedList(new PageInfo(), [])));
-
-        claimedTasksObs = Observable.of(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          new PaginatedList(new PageInfo(), [])));
-
-        poolTasksObs = Observable.of(new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          new PaginatedList(new PageInfo(), [])));
-
-        if ((isEmpty(status) || status.length > 1) && (returningPageInfo.currentPage * returningPageInfo.elementsPerPage < 41)) {
+        // if ((isEmpty(status) || status.length > 1) && (returningPageInfo.currentPage * returningPageInfo.elementsPerPage < 41)) {
+        if (isEmpty(statusArray)) {
           itemsObs = this.user
             .filter((user) => isNotEmpty(user))
             .flatMap((user: Eperson) => {
               return this.itemDataService.searchBySubmitter({
                 scopeID: user.uuid,
                 currentPage: returningPageInfo.currentPage,
-                elementsPerPage: 2
+                elementsPerPage: returningPageInfo.elementsPerPage
               }).filter((rd) => rd.hasSucceeded);
             });
 
-          workspaceitemsObs = this.user
-            .filter((user) => isNotEmpty(user))
-            .flatMap((user: Eperson) => {
-              return this.workspaceitemDataService.searchBySubmitter({
-                scopeID: user.uuid,
-                currentPage: returningPageInfo.currentPage,
-                elementsPerPage: 2
-              }).filter((rd) => rd.hasSucceeded);
-            });
-
-          workflowitemsObs = this.user
-            .filter((user) => isNotEmpty(user))
-            .flatMap((user: Eperson) => {
-              return this.workflowitemDataService.searchBySubmitter({
-                scopeID: user.uuid,
-                currentPage: returningPageInfo.currentPage,
-                elementsPerPage: 2
-              }).filter((rd) => rd.hasSucceeded);
-            });
-
-          claimedTasksObs = this.user
-            .filter((user) => isNotEmpty(user))
-            .flatMap((user: Eperson) => {
-              return this.claimedTasksDataService.searchByUser({
-                scopeID: user.uuid,
-                currentPage: returningPageInfo.currentPage,
-                elementsPerPage: 2
-              }).filter((rd) => rd.hasSucceeded);
-            });
-
-          poolTasksObs = this.user
-            .filter((user) => isNotEmpty(user))
-            .flatMap((user: Eperson) => {
-              return this.poolTaskDataService.searchByUser({
-                scopeID: user.uuid,
-                currentPage: returningPageInfo.currentPage,
-                elementsPerPage: 2
-              }).filter((rd) => rd.hasSucceeded);
-            });
-        } else if (status[0] === 'Accepted') {
-          if ((returningPageInfo.currentPage * returningPageInfo.elementsPerPage < 41)) {
-            itemsObs = this.user
-              .filter((user) => isNotEmpty(user))
-              .flatMap((user: Eperson) => {
-                return this.itemDataService.searchBySubmitter({
-                  scopeID: user.uuid,
-                  currentPage: returningPageInfo.currentPage,
-                  elementsPerPage: (returningPageInfo.elementsPerPage)
-                }).filter((rd) => rd.hasSucceeded);
-              });
-          } else {
-            itemsObs = Observable.of(new RemoteData(
-              false,
-              false,
-              true,
-              undefined,
-              new PaginatedList(new PageInfo(), [])));
-          }
-        } else {
-          itemsObs = Observable.of(new RemoteData(
-            false,
-            false,
-            true,
-            undefined,
-            new PaginatedList(new PageInfo(), [])));
           workspaceitemsObs = this.user
             .filter((user) => isNotEmpty(user))
             .flatMap((user: Eperson) => {
@@ -247,18 +156,129 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 elementsPerPage: returningPageInfo.elementsPerPage
               }).filter((rd) => rd.hasSucceeded);
             });
+
+          workflowitemsObs = this.user
+            .filter((user) => isNotEmpty(user))
+            .flatMap((user: Eperson) => {
+              return this.workflowitemDataService.searchBySubmitter({
+                scopeID: user.uuid,
+                currentPage: returningPageInfo.currentPage,
+                elementsPerPage: returningPageInfo.elementsPerPage
+              }).filter((rd) => rd.hasSucceeded);
+            });
+
+          claimedTasksObs = this.user
+            .filter((user) => isNotEmpty(user))
+            .flatMap((user: Eperson) => {
+              return this.claimedTasksDataService.searchByUser({
+                scopeID: user.uuid,
+                currentPage: returningPageInfo.currentPage,
+                elementsPerPage: returningPageInfo.elementsPerPage
+              }).filter((rd) => rd.hasSucceeded);
+            });
+
+          poolTasksObs = this.user
+            .filter((user) => isNotEmpty(user))
+            .flatMap((user: Eperson) => {
+              return this.poolTaskDataService.searchByUser({
+                scopeID: user.uuid,
+                currentPage: returningPageInfo.currentPage,
+                elementsPerPage: returningPageInfo.elementsPerPage
+              }).filter((rd) => rd.hasSucceeded);
+            });
+        } else {
+          statusArray.forEach((status) => {
+            switch (status) {
+              case 'In progress':
+                workspaceitemsObs = this.user
+                  .filter((user) => isNotEmpty(user))
+                  .flatMap((user: Eperson) => {
+                    return this.workspaceitemDataService.searchBySubmitter({
+                      scopeID: user.uuid,
+                      currentPage: returningPageInfo.currentPage,
+                      elementsPerPage: returningPageInfo.elementsPerPage
+                    }).filter((rd) => rd.hasSucceeded);
+                  });
+                break;
+              case 'Accepted':
+                itemsObs = this.user
+                  .filter((user) => isNotEmpty(user))
+                  .flatMap((user: Eperson) => {
+                    return this.itemDataService.searchBySubmitter({
+                      scopeID: user.uuid,
+                      currentPage: returningPageInfo.currentPage,
+                      elementsPerPage: (returningPageInfo.elementsPerPage)
+                    }).filter((rd) => rd.hasSucceeded);
+                  });
+                break;
+              case 'Validation':
+                claimedTasksObs = this.user
+                  .filter((user) => isNotEmpty(user))
+                  .flatMap((user: Eperson) => {
+                    return this.claimedTasksDataService.searchByUser({
+                      scopeID: user.uuid,
+                      currentPage: returningPageInfo.currentPage,
+                      elementsPerPage: returningPageInfo.elementsPerPage
+                    }).filter((rd) => rd.hasSucceeded);
+                  });
+                break;
+              case 'Waiting for controller':
+                poolTasksObs = this.user
+                  .filter((user) => isNotEmpty(user))
+                  .flatMap((user: Eperson) => {
+                    return this.poolTaskDataService.searchByUser({
+                      scopeID: user.uuid,
+                      currentPage: returningPageInfo.currentPage,
+                      elementsPerPage: returningPageInfo.elementsPerPage
+                    }).filter((rd) => rd.hasSucceeded);
+                  });
+                break;
+              case 'Workflow':
+                workflowitemsObs = this.user
+                  .filter((user) => isNotEmpty(user))
+                  .flatMap((user: Eperson) => {
+                    return this.workflowitemDataService.searchBySubmitter({
+                      scopeID: user.uuid,
+                      currentPage: returningPageInfo.currentPage,
+                      elementsPerPage: returningPageInfo.elementsPerPage
+                    }).filter((rd) => rd.hasSucceeded);
+                  });
+                break;
+            }
+          })
         }
 
         return Observable.combineLatest(itemsObs, workspaceitemsObs, workflowitemsObs, claimedTasksObs, poolTasksObs)
           .first()
           .map(([rdi, rdw, rdf, rct, rpt]) => {
 
-            const totelItems = (isUndefined(rdi.payload.totalElements)) ? 0 : ((rdi.payload.totalElements < 41) ? rdi.payload.totalElements : 40);
-            const totelWorkspace = (isNotUndefined(rdw.payload.totalElements)) ? rdw.payload.totalElements : 0;
-            const totelWorkflow = (isNotUndefined(rdf.payload.totalElements)) ? rdf.payload.totalElements : 0;
-            const totelClaimed = (isNotUndefined(rct.payload.totalElements)) ? rct.payload.totalElements : 0;
-            const totelpool = (isNotUndefined(rpt.payload.totalElements)) ? rpt.payload.totalElements : 0;
-            const totalElements = totelWorkspace + totelItems + totelWorkflow + totelClaimed + totelpool;
+            let countElementTypes = 0;
+            const totalItems = (isUndefined(rdi.payload.totalElements)) ? 0 : ((rdi.payload.totalElements < 41) ? rdi.payload.totalElements : 40);
+            if (totalItems > 0) {
+              countElementTypes++;
+            }
+            const totalWorkspace = (isNotUndefined(rdw.payload.totalElements)) ? rdw.payload.totalElements : 0;
+            if (totalWorkspace > 0) {
+              countElementTypes++;
+            }
+            const totalWorkflow = (isNotUndefined(rdf.payload.totalElements)) ? rdf.payload.totalElements : 0;
+            if (totalWorkflow > 0) {
+              countElementTypes++;
+            }
+            const totalClaimed = (isNotUndefined(rct.payload.totalElements)) ? rct.payload.totalElements : 0;
+            if (totalClaimed > 0) {
+              countElementTypes++;
+            }
+            const totalpool = (isNotUndefined(rpt.payload.totalElements)) ? rpt.payload.totalElements : 0;
+            if (totalpool > 0) {
+              countElementTypes++;
+            }
+            const totalElements = totalWorkspace + totalItems + totalWorkflow + totalClaimed + totalpool;
+
+            let limitPerPage = returningPageInfo.elementsPerPage;
+            if (totalElements > returningPageInfo.elementsPerPage) {
+              limitPerPage = Math.trunc(returningPageInfo.elementsPerPage / countElementTypes);
+            }
 
             const page = [];
             rdi.payload.page
@@ -267,7 +287,9 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 mockResult.dspaceObject = item;
                 const highlight = new Metadatum();
                 mockResult.hitHighlights = new Array(highlight);
-                page.push(mockResult);
+                if (index < limitPerPage) {
+                  page.push(mockResult);
+                }
               });
 
             rdw.payload.page
@@ -276,7 +298,9 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 mockResult.dspaceObject = item;
                 const highlight = new Metadatum();
                 mockResult.hitHighlights = new Array(highlight);
-                page.push(mockResult);
+                if (index < limitPerPage) {
+                  page.push(mockResult);
+                }
               });
 
             rdf.payload.page
@@ -285,7 +309,9 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 mockResult.dspaceObject = item;
                 const highlight = new Metadatum();
                 mockResult.hitHighlights = new Array(highlight);
-                page.push(mockResult);
+                if (index < limitPerPage) {
+                  page.push(mockResult);
+                }
               });
 
             rct.payload.page
@@ -294,7 +320,9 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 mockResult.dspaceObject = item;
                 const highlight = new Metadatum();
                 mockResult.hitHighlights = new Array(highlight);
-                page.push(mockResult);
+                if (index < limitPerPage) {
+                  page.push(mockResult);
+                }
               });
 
             rpt.payload.page
@@ -303,7 +331,9 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 mockResult.dspaceObject = item;
                 const highlight = new Metadatum();
                 mockResult.hitHighlights = new Array(highlight);
-                page.push(mockResult);
+                if (index < limitPerPage) {
+                  page.push(mockResult);
+                }
               });
 
             const shuffledPage = shuffle(page);
@@ -312,7 +342,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
             return new RemoteData(
               rdi.isRequestPending && rdw.isRequestPending && rdf.isRequestPending && rct.isRequestPending && rpt.isRequestPending,
               rdi.isResponsePending && rdw.isResponsePending && rdf.isResponsePending && rct.isResponsePending && rpt.isResponsePending,
-              rdi.hasSucceeded && rdw.hasSucceeded,
+              rdi.hasSucceeded && rdw.hasSucceeded && rdf.hasSucceeded && rct.hasSucceeded && rpt.hasSucceeded,
               error,
               payload
             )
@@ -349,19 +379,68 @@ export class MyDspaceService extends SearchService implements OnDestroy {
               elementsPerPage: 1
             })
           });
-        return Observable.combineLatest(itemsObs, workspaceitemsObs)
+        const workflowitemsObs = this.user
+          .filter((user) => isNotEmpty(user))
+          .flatMap((user: Eperson) => {
+            return this.workflowitemDataService.searchBySubmitter({
+              scopeID: user.uuid,
+              currentPage: 1,
+              elementsPerPage: 1
+            }).filter((rd) => rd.hasSucceeded);
+          });
+
+        const claimedTasksObs = this.user
+          .filter((user) => isNotEmpty(user))
+          .flatMap((user: Eperson) => {
+            return this.claimedTasksDataService.searchByUser({
+              scopeID: user.uuid,
+              currentPage: 1,
+              elementsPerPage: 1
+            }).filter((rd) => rd.hasSucceeded);
+          });
+
+        const poolTasksObs = this.user
+          .filter((user) => isNotEmpty(user))
+          .flatMap((user: Eperson) => {
+            return this.poolTaskDataService.searchByUser({
+              scopeID: user.uuid,
+              currentPage: 1,
+              elementsPerPage: 1
+            }).filter((rd) => rd.hasSucceeded);
+          });
+        return Observable.combineLatest(itemsObs, workspaceitemsObs, workflowitemsObs, claimedTasksObs, poolTasksObs)
           .first()
-          .map(([items, workspaceitem]) => {
+          .map(([items, workspaceitem, workflowitem, claimedTasks, poolTasks]) => {
             const payload: FacetValue[] = [];
             if (searchFilterConfigName === 'status') {
-              const statusFilters = ['Accepted', 'In progress'];
+              const statusFilters = ['Accepted', 'In progress', 'Validation', 'Waiting for controller', 'Workflow'];
               statusFilters.forEach((value) => {
                 if (!selectedValues.includes(value)) {
+
+                  let countFacet;
+                  switch (value) {
+                    case 'In progress':
+                      countFacet = workspaceitem.payload.totalElements;
+                      break;
+                    case 'Accepted':
+                      countFacet = (items.payload.totalElements < 40) ? items.payload.totalElements : 40;
+                      break;
+                    case 'Validation':
+                      countFacet = claimedTasks.payload.totalElements;
+                      break;
+                    case 'Waiting for controller':
+                      countFacet = poolTasks.payload.totalElements;
+                      break;
+                    case 'Workflow':
+                      countFacet = workflowitem.payload.totalElements;
+                      break;
+                    default:
+                      countFacet = 0;
+                  }
+
                   payload.push({
                     value: value,
-                    count: (value === 'In progress')
-                      ? workspaceitem.payload.totalElements
-                      : ((items.payload.totalElements < 40) ? items.payload.totalElements : 40),
+                    count: countFacet,
                     search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
                   })
                 }
