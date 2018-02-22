@@ -5,5 +5,5 @@
 ></ds-item-preview>
 
 <button class="btn btn-info mt-1 mb-3"
-        [routerLink]="['/workflow/pooledTasks/' + dso.id] + '/?action=claim'" >
+        (click)="claim()" >
   <i class="fa fa-hand-paper-o"></i> {{'mydspace.task.claim-btn' | translate}}</button>

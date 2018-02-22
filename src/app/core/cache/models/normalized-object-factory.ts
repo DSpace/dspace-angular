@@ -13,8 +13,8 @@ import { NormalizedWorkspaceItem } from '../../submission/models/normalized-work
 import { NormalizedEpersonModel } from '../../eperson/models/NormalizedEperson.model';
 import { NormalizedGroupModel } from '../../eperson/models/NormalizedGroup.model';
 import { NormalizedWorkflowItem } from '../../submission/models/normalized-workflowitem.model';
-import { NormalizedClaimedTask } from '../../submission/models/tasks/normalized-claimed-task-object.model';
-import { NormalizedPoolTask } from '../../submission/models/tasks/normalized-pool-task-object.model';
+import { NormalizedClaimedTask } from '../../tasks/models/normalized-claimed-task-object.model';
+import { NormalizedPoolTask } from '../../tasks/models/normalized-pool-task-object.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {

@@ -10,8 +10,8 @@ import { CoreState } from '../core.reducers';
 
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
-import { NormalizedClaimedTask } from './models/tasks/normalized-claimed-task-object.model';
-import { ClaimedTask } from './models/tasks/claimed-task-object.model';
+import { NormalizedClaimedTask } from './models/normalized-claimed-task-object.model';
+import { ClaimedTask } from './models/claimed-task-object.model';
 
 @Injectable()
 export class ClaimedTaskDataService extends DataService<NormalizedClaimedTask, ClaimedTask> {

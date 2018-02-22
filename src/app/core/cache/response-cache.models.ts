@@ -153,4 +153,14 @@ export class MessageResponse extends RestResponse {
     super(true, statusCode);
   }
 }
+
+export class TaskResponse extends RestResponse {
+  public toCache = false;
+  constructor(
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
 /* tslint:enable:max-classes-per-file */
