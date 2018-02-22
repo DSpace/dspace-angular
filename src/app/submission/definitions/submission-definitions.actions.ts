@@ -26,8 +26,9 @@ export class InitDefaultDefinitionAction implements Action {
   type = SubmissionDefinitionActionTypes.INIT_DEFAULT_DEFINITION;
   payload: {
     collectionId: string;
-    sections: WorkspaceitemSectionsObject;
     submissionId: string;
+    selfUrl: string;
+    sections: WorkspaceitemSectionsObject;
   };
 
   /**
@@ -38,8 +39,8 @@ export class InitDefaultDefinitionAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(collectionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
-    this.payload = { collectionId, submissionId, sections };
+  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, submissionId, selfUrl, sections };
   }
 }
 
@@ -48,8 +49,9 @@ export class CompleteInitAction implements Action {
   payload: {
     collectionId: string;
     definitionId: string;
-    sections: WorkspaceitemSectionsObject;
     submissionId: string;
+    selfUrl: string;
+    sections: WorkspaceitemSectionsObject;
   };
 
   /**
@@ -62,8 +64,8 @@ export class CompleteInitAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(collectionId: string, definitionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
-    this.payload = { collectionId, definitionId, submissionId, sections };
+  constructor(collectionId: string, definitionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, definitionId, submissionId, selfUrl, sections };
   }
 }
 

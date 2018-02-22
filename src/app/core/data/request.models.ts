@@ -266,8 +266,9 @@ export class SubmissionPatchRequest extends PatchRequest {
 export class SubmissionPostRequest extends PostRequest {
   constructor(public uuid: string,
               public href: string,
-              public body?: any) {
-    super(uuid, href, body);
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, body, options);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {

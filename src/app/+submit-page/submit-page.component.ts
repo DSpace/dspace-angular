@@ -18,6 +18,7 @@ export class SubmitPageComponent implements OnDestroy, OnInit {
 
   public collectionId: string;
   public model: any;
+  public selfUrl: string;
   public submissionDefinition: SubmissionDefinitionsModel;
   public submissionId: string;
 
@@ -36,6 +37,7 @@ export class SubmitPageComponent implements OnDestroy, OnInit {
           .map((workspaceitems) => workspaceitems[0])
           .subscribe((workspaceitems: Workspaceitem) => {
             this.collectionId = workspaceitems.collection[0].id;
+            this.selfUrl = workspaceitems.self;
             this.submissionDefinition = workspaceitems.submissionDefinition[0];
             this.submissionId = workspaceitems.id;
             this.changeDetectorRef.detectChanges();

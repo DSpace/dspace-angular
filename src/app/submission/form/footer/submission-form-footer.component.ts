@@ -5,7 +5,8 @@ import { SubmissionService } from '../../submission.service';
 import { SubmissionState } from '../../submission.reducers';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SaveSubmissionFormAction } from '../../objects/submission-objects.actions';
+import { DepositSubmissionAction, SaveSubmissionFormAction } from '../../objects/submission-objects.actions';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-submission-form-footer',
@@ -16,7 +17,8 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
   @Input() submissionId;
 
-  public saving = false;
+  public processingDepositStatus: Observable<boolean>;
+  public processingSaveStatus: Observable<boolean>;
   private submissionIsInvalid = true;
 
   constructor(private modalService: NgbModal,
@@ -32,24 +34,18 @@ export class SubmissionFormFooterComponent implements OnChanges {
         .subscribe((isValid) => {
           this.submissionIsInvalid = isValid === false;
         });
-      this.submissionService.getSubmissionSaveStatus(this.submissionId)
-        .subscribe((status: boolean) => {
-          this.saving = status
-        });
+
+      this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
+      this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
     }
   }
 
   saveLater(event) {
-    this.saving = true
     this.store.dispatch(new SaveSubmissionFormAction(this.submissionId));
   }
 
-  public resourceDeposit() {
-    alert('Feature is actually in development...');
-  }
-
-  protected resourceDiscard() {
-    this.router.navigate(['/mydspace']);
+  public deposit() {
+    this.store.dispatch(new DepositSubmissionAction(this.submissionId));
   }
 
   public confirmDiscard(content) {
@@ -58,7 +54,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
         if (result === 'ok') {
           this.restService.deleteById(this.submissionId)
             .subscribe((response) => {
-              this.resourceDiscard();
+              this.submissionService.redirectToMyDSpace();
             })
         }
       }

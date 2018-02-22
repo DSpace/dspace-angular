@@ -22,6 +22,7 @@ import { SubmitDataResponseDefinitionObject } from '../core/shared/submit-data-r
 import { GLOBAL_CONFIG } from '../../config';
 import { CoreState } from '../core/core.reducers';
 import { PostPatchDataService } from '../core/data/postpatch-data.service';
+import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 
 @Injectable()
 export class SubmissionRestService extends PostPatchDataService<SubmitDataResponseDefinitionObject> {
@@ -77,13 +78,13 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
       .distinctUntilChanged();
   }
 
-  public postToEndpoint(linkName: string, body: any, scopeId?: string): Observable<SubmitDataResponseDefinitionObject> {
+  public postToEndpoint(linkName: string, body: any, scopeId?: string, options?: HttpOptions): Observable<SubmitDataResponseDefinitionObject> {
     return this.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
       .distinctUntilChanged()
-      .map((endpointURL: string) => new SubmissionPostRequest(this.requestService.generateRequestId(), endpointURL, body))
-      .do((request: PostRequest) => this.requestService.configure(request))
+      .map((endpointURL: string) => new SubmissionPostRequest(this.requestService.generateRequestId(), endpointURL, body, options))
+      .do((request: PostRequest) => this.requestService.configure(request, true))
       .flatMap((request: PostRequest) => this.submitData(request))
       .distinctUntilChanged();
   }
@@ -94,7 +95,7 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
       .distinctUntilChanged()
       .map((endpointURL: string) => new SubmissionPatchRequest(this.requestService.generateRequestId(), endpointURL, body))
-      .do((request: PostRequest) => this.requestService.configure(request))
+      .do((request: PostRequest) => this.requestService.configure(request, true))
       .flatMap((request: PostRequest) => this.submitData(request))
       .distinctUntilChanged();
   }

@@ -10,6 +10,10 @@ import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
 import { GlobalConfig } from '../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../config';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
+import { SubmissionRestService } from './submission-rest.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class SubmissionService {
@@ -17,8 +21,18 @@ export class SubmissionService {
   protected autoSaveSub: Subscription;
   protected timerObs: Observable<any>;
 
-  constructor(private store: Store<SubmissionState>,
+  constructor(private router: Router,
+              private store: Store<SubmissionState>,
+              private restService: SubmissionRestService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
+  }
+
+  depositSubmission(selfUrl: string): Observable<any> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+    return this.restService.postToEndpoint('workflowitems', selfUrl, null, options);
   }
 
   getActiveSectionId(submissionId: string): Observable<string> {
@@ -33,6 +47,7 @@ export class SubmissionService {
   }
 
   getSubmissionObjectLinkName() {
+    console.log('getSubmissionObjectLinkName ', this.router.routerState.snapshot.url);
     return 'workspaceitems';
   }
 
@@ -56,11 +71,24 @@ export class SubmissionService {
       .startWith(false)
   }
 
-  getSubmissionSaveStatus(submissionId: string): Observable<boolean> {
+  getSubmissionSaveProcessingStatus(submissionId: string): Observable<boolean> {
     return this.store.select(submissionObjectFromIdSelector(submissionId))
       .filter((state: SubmissionObjectEntry) => isNotUndefined(state))
       .map((state: SubmissionObjectEntry) => state.savePending)
       .distinctUntilChanged()
+      .startWith(false)
+  }
+
+  getSubmissionDepositProcessingStatus(submissionId: string): Observable<boolean> {
+    return this.store.select(submissionObjectFromIdSelector(submissionId))
+      .filter((state: SubmissionObjectEntry) => isNotUndefined(state))
+      .map((state: SubmissionObjectEntry) => state.depositPending)
+      .distinctUntilChanged()
+      .startWith(false)
+  }
+
+  redirectToMyDSpace() {
+    this.router.navigate(['/mydspace']);
   }
 
   startAutoSave(submissionId) {

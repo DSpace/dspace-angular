@@ -137,16 +137,18 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
   }
 
+  // TODO remove when search will be completed
   public searchBySubmitter(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
     return this.searchBy('submitter', options);
   }
 
+  // TODO remove when search will be completed
   searchByUser(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
     return this.searchBy('user', options);
   }
 
   // TODO remove when search will be completed
-  public searchBy(searchBy: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
+  protected searchBy(searchBy: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
     let url = null;
     switch (searchBy) {
       case 'user': {

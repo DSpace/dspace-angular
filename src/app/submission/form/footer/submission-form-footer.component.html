@@ -6,12 +6,15 @@
     <button type="button"
             class="btn btn-info"
             id="load"
-            [disabled]="saving"
+            [disabled]="(processingSaveStatus | async)"
             (click)="saveLater($event)">
-      <span *ngIf="saving"><i class='fa fa-circle-o-notch fa-spin'></i> Saving...</span>
-      <span *ngIf="!saving">Save for later</span>
+      <span *ngIf="(processingSaveStatus | async)"><i class='fa fa-circle-o-notch fa-spin'></i> Saving...</span>
+      <span *ngIf="!(processingSaveStatus | async)">Save for later</span>
     </button>
-    <button type="button" class="btn btn-primary" [disabled]="submissionIsInvalid" (click)="resourceDeposit()">Deposit</button>
+    <button type="button" class="btn btn-primary" [disabled]="submissionIsInvalid || (processingDepositStatus | async)" (click)="deposit()">
+      <span *ngIf="(processingDepositStatus | async)"><i class='fa fa-circle-o-notch fa-spin'></i> Processing...</span>
+      <span *ngIf="!(processingDepositStatus | async)">Deposit</span>
+    </button>
   </div>
 </div>
 

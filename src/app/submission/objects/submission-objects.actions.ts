@@ -34,8 +34,9 @@ export const SubmissionObjectActionTypes = {
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
   SECTION_LOADING_STATUS_CHANGE: type('dspace/submission/SECTION_LOADING_STATUS_CHANGE'),
   UPLOAD_SECTION_DATA: type('dspace/submission/UPLOAD_SECTION_DATA'),
-  NEW_PATCH_OPERATION: type('dspace/submission/NEW_PATCH_OPERATION'),
-  FLUSH_PATCH_OPERATIONS: type('dspace/submission/FLUSH_PATCH_OPERATIONS'),
+  DEPOSIT_SUBMISSION: type('dspace/submission/DEPOSIT_SUBMISSION'),
+  DEPOSIT_SUBMISSION_SUCCESS: type('dspace/submission/DEPOSIT_SUBMISSION_SUCCESS'),
+  DEPOSIT_SUBMISSION_ERROR: type('dspace/submission/DEPOSIT_SUBMISSION_ERROR'),
 
   // Upload file types
   NEW_FILE: type('dspace/submission/NEW_FILE'),
@@ -186,6 +187,7 @@ export class InitSubmissionFormAction implements Action {
     collectionId: string;
     definitionId: string;
     submissionId: string;
+    selfUrl: string;
     sections: WorkspaceitemSectionsObject;
   };
 
@@ -199,10 +201,12 @@ export class InitSubmissionFormAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(collectionId: string, definitionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
-    this.payload = { collectionId, definitionId, submissionId, sections };
+  constructor(collectionId: string, definitionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, definitionId, submissionId, selfUrl, sections };
   }
 }
+
+// Submission actions
 
 export class CompleteInitSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.COMPLETE_INIT_SUBMISSION_FORM;
@@ -226,6 +230,7 @@ export class LoadSubmissionFormAction implements Action {
   payload: {
     collectionId: string;
     submissionId: string;
+    selfUrl: string;
     sections: WorkspaceitemSectionsObject;
   };
 
@@ -236,9 +241,13 @@ export class LoadSubmissionFormAction implements Action {
    *    the collection's Id where to deposit
    * @param submissionId
    *    the submission's ID
+   * @param selfUrl
+   *    the submission object url
+   * @param sections
+   *    the submission's sections
    */
-  constructor(collectionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
-    this.payload = { collectionId, submissionId, sections };
+  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, submissionId, selfUrl, sections };
   }
 }
 
@@ -301,6 +310,7 @@ export class ResetSubmissionFormAction implements Action {
   payload: {
     collectionId: string;
     submissionId: string;
+    selfUrl: string;
     sections: WorkspaceitemSectionsObject;
   };
 
@@ -311,9 +321,64 @@ export class ResetSubmissionFormAction implements Action {
    *    the collection's Id where to deposit
    * @param submissionId
    *    the submission's ID
+   * @param selfUrl
+   *    the submission object url
+   * @param sections
+   *    the submission's sections
    */
-  constructor(collectionId: string, submissionId: string, sections: WorkspaceitemSectionsObject) {
-    this.payload = { collectionId, submissionId, sections };
+  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject) {
+    this.payload = { collectionId, submissionId, selfUrl, sections };
+  }
+}
+
+export class DepositSubmissionAction implements Action {
+  type = SubmissionObjectActionTypes.DEPOSIT_SUBMISSION;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new DepositSubmissionFormAction
+   *
+   * @param submissionId
+   *    the submission's ID to deposit
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
+}
+
+export class DepositSubmissionSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new DepositSubmissionSuccessAction
+   *
+   * @param submissionId
+   *    the submission's ID to deposit
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
+}
+
+export class DepositSubmissionErrorAction implements Action {
+  type = SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_ERROR;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new DepositSubmissionErrorAction
+   *
+   * @param submissionId
+   *    the submission's ID to deposit
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
   }
 }
 
@@ -471,6 +536,9 @@ export type SubmissionObjectAction = DisableSectionAction
   | ResetSubmissionFormAction
   | InitSubmissionFormAction
   | CompleteInitSubmissionFormAction
+  | DepositSubmissionAction
+  | DepositSubmissionSuccessAction
+  | DepositSubmissionErrorAction
   | SectionStatusChangeAction
   | NewUploadedFileAction
   | EditFileDataAction

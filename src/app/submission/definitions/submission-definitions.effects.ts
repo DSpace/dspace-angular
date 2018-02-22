@@ -47,6 +47,7 @@ export class SubmissionDefinitionEffects {
             result.action.payload.collectionId,
             result.definition.name,
             result.action.payload.submissionId,
+            result.action.payload.selfUrl,
             result.action.payload.sections)
       ))
     });
@@ -58,6 +59,7 @@ export class SubmissionDefinitionEffects {
         action.payload.collectionId,
         action.payload.definitionId,
         action.payload.submissionId,
+        action.payload.selfUrl,
         action.payload.sections)
     );
 

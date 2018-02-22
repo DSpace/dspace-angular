@@ -19,6 +19,7 @@ import { Workspaceitem } from '../../core/submission/models/workspaceitem.model'
 export class SubmissionEditComponent implements OnDestroy, OnInit {
   public collectionId: string;
   public sections: WorkspaceitemSectionsObject;
+  public selfUrl: string;
   public submissionDefinition: SubmissionDefinitionsModel;
   public submissionId: string;
 
@@ -47,6 +48,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
               .map((workspaceitems: Workspaceitem) => workspaceitems[0])
               .subscribe((workspaceitems: Workspaceitem) => {
                 this.collectionId = workspaceitems.collection[0].id;
+                this.selfUrl = workspaceitems.self;
                 this.sections = workspaceitems.sections;
                 this.submissionDefinition = workspaceitems.submissionDefinition[0];
                 this.changeDetectorRef.detectChanges();

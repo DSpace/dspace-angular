@@ -1,4 +1,4 @@
-import { isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../empty.util';
+import { isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 
@@ -11,10 +11,7 @@ import {
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 import { FormFieldLanguageValueObject } from '../models/form-field-language-value.model';
-import {
-  DynamicFileControlModel, DynamicFormControlLayout, DynamicFormControlLayoutConfig,
-  DynamicFormControlModel
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 
 export abstract class FieldParser {
@@ -27,14 +24,10 @@ export abstract class FieldParser {
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject): any;
 
   public parse() {
-    const l = this.getInitValueCount();
-    if ((l > 1 && !this.configData.repeatable) ||
-      (
-        this.configData.repeatable &&
-        (this.configData.input.type !== 'list') &&
-        (this.configData.input.type !== 'tag') &&
-        (this.configData.input.type !== 'group')
-      )
+    if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
+      && (this.configData.input.type !== 'list')
+      && (this.configData.input.type !== 'tag')
+      && (this.configData.input.type !== 'group')
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;

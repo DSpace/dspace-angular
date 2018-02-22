@@ -26,6 +26,15 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { Eperson } from '../../core/eperson/models/eperson.model';
 import { getAuthenticatedUser } from '../../core/auth/selectors';
+import { WorkflowitemDataService } from '../../core/submission/workflowitem-data.service';
+import { Workflowitem } from '../../core/submission/models/workflowitem.model';
+import { ClaimedTask } from '../../core/submission/models/tasks/claimed-task-object.model';
+import { PoolTask } from '../../core/submission/models/tasks/pool-task-object.model';
+import { ClaimedTaskDataService } from '../../core/submission/claimed-task-data.service';
+import { PoolTaskDataService } from '../../core/submission/pool-task-data.service';
+import { WorkflowitemMyDSpaceResult } from '../../shared/object-collection/shared/workflowitem-my-dspace-result.model';
+import { ClaimedTaskMyDSpaceResult } from '../../shared/object-collection/shared/claimed-task-my-dspace-result.model';
+import { PoolTaskMyDSpaceResult } from '../../shared/object-collection/shared/pool-task-my-dspace-result.model';
 
 @Injectable()
 export class MyDspaceService extends SearchService implements OnDestroy {
@@ -65,7 +74,10 @@ export class MyDspaceService extends SearchService implements OnDestroy {
   totalElements: number;
   user: Observable<Eperson>;
 
-  constructor(protected workspaceitemDataService: WorkspaceitemDataService,
+  constructor(protected claimedTasksDataService: ClaimedTaskDataService,
+              protected poolTaskDataService: PoolTaskDataService,
+              protected workflowitemDataService: WorkflowitemDataService,
+              protected workspaceitemDataService: WorkspaceitemDataService,
               protected itemDataService: ItemDataService,
               protected routeService: RouteService,
               protected route: ActivatedRoute,
@@ -111,6 +123,45 @@ export class MyDspaceService extends SearchService implements OnDestroy {
       .flatMap((status) => {
         let itemsObs: Observable<RemoteData<PaginatedList<Item>>>;
         let workspaceitemsObs: Observable<RemoteData<PaginatedList<Workspaceitem>>>;
+        let workflowitemsObs: Observable<RemoteData<PaginatedList<Workflowitem>>>;
+        let claimedTasksObs: Observable<RemoteData<PaginatedList<ClaimedTask>>>;
+        let poolTasksObs: Observable<RemoteData<PaginatedList<PoolTask>>>;
+
+        itemsObs = Observable.of(new RemoteData(
+          false,
+          false,
+          true,
+          undefined,
+          new PaginatedList(new PageInfo(), [])));
+
+        workspaceitemsObs = Observable.of(new RemoteData(
+          false,
+          false,
+          true,
+          undefined,
+          new PaginatedList(new PageInfo(), [])));
+
+        workflowitemsObs = Observable.of(new RemoteData(
+          false,
+          false,
+          true,
+          undefined,
+          new PaginatedList(new PageInfo(), [])));
+
+        claimedTasksObs = Observable.of(new RemoteData(
+          false,
+          false,
+          true,
+          undefined,
+          new PaginatedList(new PageInfo(), [])));
+
+        poolTasksObs = Observable.of(new RemoteData(
+          false,
+          false,
+          true,
+          undefined,
+          new PaginatedList(new PageInfo(), [])));
+
         if ((isEmpty(status) || status.length > 1) && (returningPageInfo.currentPage * returningPageInfo.elementsPerPage < 41)) {
           itemsObs = this.user
             .filter((user) => isNotEmpty(user))
@@ -118,7 +169,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
               return this.itemDataService.searchBySubmitter({
                 scopeID: user.uuid,
                 currentPage: returningPageInfo.currentPage,
-                elementsPerPage: (returningPageInfo.elementsPerPage / 2)
+                elementsPerPage: 2
               }).filter((rd) => rd.hasSucceeded);
             });
 
@@ -127,8 +178,38 @@ export class MyDspaceService extends SearchService implements OnDestroy {
             .flatMap((user: Eperson) => {
               return this.workspaceitemDataService.searchBySubmitter({
                 scopeID: user.uuid,
-                currentPage: returningPageInfo.currentPage / 2,
-                elementsPerPage: returningPageInfo.elementsPerPage
+                currentPage: returningPageInfo.currentPage,
+                elementsPerPage: 2
+              }).filter((rd) => rd.hasSucceeded);
+            });
+
+          workflowitemsObs = this.user
+            .filter((user) => isNotEmpty(user))
+            .flatMap((user: Eperson) => {
+              return this.workflowitemDataService.searchBySubmitter({
+                scopeID: user.uuid,
+                currentPage: returningPageInfo.currentPage,
+                elementsPerPage: 2
+              }).filter((rd) => rd.hasSucceeded);
+            });
+
+          claimedTasksObs = this.user
+            .filter((user) => isNotEmpty(user))
+            .flatMap((user: Eperson) => {
+              return this.claimedTasksDataService.searchByUser({
+                scopeID: user.uuid,
+                currentPage: returningPageInfo.currentPage,
+                elementsPerPage: 2
+              }).filter((rd) => rd.hasSucceeded);
+            });
+
+          poolTasksObs = this.user
+            .filter((user) => isNotEmpty(user))
+            .flatMap((user: Eperson) => {
+              return this.poolTaskDataService.searchByUser({
+                scopeID: user.uuid,
+                currentPage: returningPageInfo.currentPage,
+                elementsPerPage: 2
               }).filter((rd) => rd.hasSucceeded);
             });
         } else if (status[0] === 'Accepted') {
@@ -150,12 +231,6 @@ export class MyDspaceService extends SearchService implements OnDestroy {
               undefined,
               new PaginatedList(new PageInfo(), [])));
           }
-          workspaceitemsObs = Observable.of(new RemoteData(
-            false,
-            false,
-            true,
-            undefined,
-            new PaginatedList(new PageInfo(), [])));
         } else {
           itemsObs = Observable.of(new RemoteData(
             false,
@@ -174,13 +249,16 @@ export class MyDspaceService extends SearchService implements OnDestroy {
             });
         }
 
-        return Observable.combineLatest(itemsObs, workspaceitemsObs)
+        return Observable.combineLatest(itemsObs, workspaceitemsObs, workflowitemsObs, claimedTasksObs, poolTasksObs)
           .first()
-          .map(([rdi, rdw]) => {
+          .map(([rdi, rdw, rdf, rct, rpt]) => {
 
             const totelItems = (isUndefined(rdi.payload.totalElements)) ? 0 : ((rdi.payload.totalElements < 41) ? rdi.payload.totalElements : 40);
             const totelWorkspace = (isNotUndefined(rdw.payload.totalElements)) ? rdw.payload.totalElements : 0;
-            const totalElements = totelWorkspace + totelItems;
+            const totelWorkflow = (isNotUndefined(rdf.payload.totalElements)) ? rdf.payload.totalElements : 0;
+            const totelClaimed = (isNotUndefined(rct.payload.totalElements)) ? rct.payload.totalElements : 0;
+            const totelpool = (isNotUndefined(rpt.payload.totalElements)) ? rpt.payload.totalElements : 0;
+            const totalElements = totelWorkspace + totelItems + totelWorkflow + totelClaimed + totelpool;
 
             const page = [];
             rdi.payload.page
@@ -201,12 +279,39 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 page.push(mockResult);
               });
 
+            rdf.payload.page
+              .forEach((item: Workflowitem, index) => {
+                const mockResult: MyDSpaceResult<DSpaceObject> = new WorkflowitemMyDSpaceResult();
+                mockResult.dspaceObject = item;
+                const highlight = new Metadatum();
+                mockResult.hitHighlights = new Array(highlight);
+                page.push(mockResult);
+              });
+
+            rct.payload.page
+              .forEach((item: ClaimedTask, index) => {
+                const mockResult: MyDSpaceResult<DSpaceObject> = new ClaimedTaskMyDSpaceResult();
+                mockResult.dspaceObject = item;
+                const highlight = new Metadatum();
+                mockResult.hitHighlights = new Array(highlight);
+                page.push(mockResult);
+              });
+
+            rpt.payload.page
+              .forEach((item: PoolTask, index) => {
+                const mockResult: MyDSpaceResult<DSpaceObject> = new PoolTaskMyDSpaceResult();
+                mockResult.dspaceObject = item;
+                const highlight = new Metadatum();
+                mockResult.hitHighlights = new Array(highlight);
+                page.push(mockResult);
+              });
+
             const shuffledPage = shuffle(page);
             const payload = Object.assign({}, rdw.payload, { totalElements: totalElements, page: shuffledPage });
 
             return new RemoteData(
-              rdi.isRequestPending && rdw.isRequestPending,
-              rdi.isResponsePending && rdw.isResponsePending,
+              rdi.isRequestPending && rdw.isRequestPending && rdf.isRequestPending && rct.isRequestPending && rpt.isRequestPending,
+              rdi.isResponsePending && rdw.isResponsePending && rdf.isResponsePending && rct.isResponsePending && rpt.isResponsePending,
               rdi.hasSucceeded && rdw.hasSucceeded,
               error,
               payload

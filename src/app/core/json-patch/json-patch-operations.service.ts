@@ -86,7 +86,7 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> extends HALEnd
       patchRequestObs
         .filter((request: PatchRequest) => isNotEmpty(request.body))
         .do(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime)))
-        .do((request: PatchRequest) => this.requestService.configure(request))
+        .do((request: PatchRequest) => this.requestService.configure(request, true))
         .flatMap((request: PatchRequest) => {
           const [successResponse, errorResponse] = this.responseCache.get(request.href)
             .filter((entry: ResponseCacheEntry) => startTransactionTime < entry.timeAdded)

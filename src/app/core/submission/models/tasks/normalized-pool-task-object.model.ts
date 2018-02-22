@@ -1,14 +1,30 @@
 import { NormalizedTaskObject } from './normalized-task-object.model';
-import { NormalizedDSpaceObject } from '../../../cache/models/normalized-dspace-object.model';
 import { PoolTask } from './pool-task-object.model';
-import { inheritSerialization } from 'cerialize';
-import { mapsTo } from '../../../cache/builders/build-decorators';
+import { autoserialize, inheritSerialization } from 'cerialize';
+import { mapsTo, relationship } from '../../../cache/builders/build-decorators';
+import { NormalizedDSpaceObject } from '../../../cache/models/normalized-dspace-object.model';
+import { ResourceType } from '../../../shared/resource-type';
 
 /**
  * A model class for a NormalizedClaimedtaskObject.
  */
 @mapsTo(PoolTask)
-@inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedPoolTask extends NormalizedTaskObject {
+@inheritSerialization(NormalizedTaskObject)
+export class NormalizedPoolTask extends NormalizedDSpaceObject {
 
+  /**
+   * The workflow step
+   */
+  @autoserialize
+  step: string;
+
+  /**
+   * The task action type
+   */
+  @autoserialize
+  action: string;
+
+  @autoserialize
+  @relationship(ResourceType.Workflowitem, true)
+  workflowitem: string[];
 }

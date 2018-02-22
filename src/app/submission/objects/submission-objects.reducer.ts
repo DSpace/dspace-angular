@@ -10,7 +10,8 @@ import {
   SubmissionObjectAction,
   SubmissionObjectActionTypes, ClearSectionErrorsAction, InertSectionErrorsAction,
   DeleteSectionErrorsAction, ResetSubmissionFormAction, UpdateSectionDataAction, SaveSubmissionFormAction,
-  CompleteSaveSubmissionFormAction, SetActiveSectionAction, SaveSubmissionSectionFormAction
+  CompleteSaveSubmissionFormAction, SetActiveSectionAction, SaveSubmissionSectionFormAction,
+  DepositSubmissionAction, DepositSubmissionSuccessAction, DepositSubmissionErrorAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
@@ -34,10 +35,12 @@ export interface SubmissionSectionEntry {
 }
 
 export interface SubmissionObjectEntry {
-  activeSection: string;
-  sections: SubmissionSectionEntry;
-  isLoading: boolean;
-  savePending: boolean;
+  selfUrl?: string;
+  activeSection?: string;
+  sections?: SubmissionSectionEntry;
+  isLoading?: boolean;
+  savePending?: boolean;
+  depositPending?: boolean;
 }
 
 /**
@@ -50,7 +53,7 @@ export interface SubmissionObjectState {
   [submissionId: string]: SubmissionObjectEntry;
 }
 
-const initialState: SubmissionObjectState = Object.create(null);
+const initialState: SubmissionObjectState = Object.create({});
 
 export function submissionObjectReducer(state = initialState, action: SubmissionObjectAction): SubmissionObjectState {
   switch (action.type) {
@@ -82,6 +85,18 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.COMPLETE_SAVE_SUBMISSION_FORM: {
       return completeSave(state, action as CompleteSaveSubmissionFormAction);
+    }
+
+    case SubmissionObjectActionTypes.DEPOSIT_SUBMISSION: {
+      return startDeposit(state, action as DepositSubmissionAction);
+    }
+
+    case SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS: {
+      return Object.create({});
+    }
+
+    case SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_ERROR: {
+      return endDeposit(state, action as DepositSubmissionAction);
     }
 
     case SubmissionObjectActionTypes.SET_ACTIVE_SECTION: {
@@ -136,6 +151,8 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
   }
 }
+
+// ------ Submission error functions ------ //
 
 const removeError = (state: SubmissionObjectState, action: DeleteSectionErrorsAction): SubmissionObjectState => {
   const { submissionId, sectionId, error } = action.payload;
@@ -221,13 +238,38 @@ const clearErrorsFromSection = (state: SubmissionObjectState, action: ClearSecti
   }
 };
 
+// ------ Submission functions ------ //
+
+/**
+ * Init a SubmissionObjectState.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an LoadSubmissionFormAction
+ * @return SubmissionObjectState
+ *    the new state, with the section removed.
+ */
+function initSubmission(state: SubmissionObjectState, action: LoadSubmissionFormAction | ResetSubmissionFormAction): SubmissionObjectState {
+
+  const newState = Object.assign({}, state);
+  newState[ action.payload.submissionId ] = {
+    selfUrl: action.payload.selfUrl,
+    activeSection: null,
+    sections: Object.create(null),
+    isLoading: true,
+    savePending: false
+  };
+  return newState;
+}
+
 /**
  * Set a section enabled.
  *
  * @param state
  *    the current state
  * @param action
- *    an EnableSectionAction
+ *    an CompleteInitSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section removed.
  */
@@ -239,6 +281,7 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
         sections: state[ action.payload.submissionId ].sections,
         isLoading: false,
         savePending: false,
+        depositPending: false,
       })
     });
   } else {
@@ -252,7 +295,7 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
  * @param state
  *    the current state
  * @param action
- *    an EnableSectionAction
+ *    an SaveSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section removed.
  */
@@ -277,7 +320,7 @@ function saveSubmission(state: SubmissionObjectState, action: SaveSubmissionForm
  * @param state
  *    the current state
  * @param action
- *    an EnableSectionAction
+ *    an CompleteSaveSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section removed.
  */
@@ -295,6 +338,52 @@ function completeSave(state: SubmissionObjectState, action: CompleteSaveSubmissi
     return state;
   }
 }
+
+/**
+ * Set deposit flag to true
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an DepositSubmissionAction
+ * @return SubmissionObjectState
+ *    the new state, with the deposit flag changed.
+ */
+function startDeposit(state: SubmissionObjectState, action: DepositSubmissionAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        depositPending: true,
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set deposit flag to false
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an DepositSubmissionSuccessAction or DepositSubmissionErrorAction
+ * @return SubmissionObjectState
+ *    the new state, with the deposit flag changed.
+ */
+function endDeposit(state: SubmissionObjectState, action: DepositSubmissionSuccessAction | DepositSubmissionErrorAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        depositPending: false,
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+// ------ Section functions ------ //
 
 /**
  * Set submission active section.
@@ -320,7 +409,6 @@ function setActiveSection(state: SubmissionObjectState, action: SetActiveSection
     return state;
   }
 }
-// ------ Section functions ------ //
 
 /**
  * Set a section enabled.
@@ -410,27 +498,6 @@ function disableSection(state: SubmissionObjectState, action: DisableSectionActi
   } else {
     return state;
   }
-}
-
-/**
- * Init a SubmissionObjectState.
- *
- * @param state
- *    the current state
- * @param action
- *    an LoadSubmissionFormAction
- * @return SubmissionObjectState
- *    the new state, with the section removed.
- */
-function initSubmission(state: SubmissionObjectState, action: LoadSubmissionFormAction | ResetSubmissionFormAction): SubmissionObjectState {
-  const newState = Object.assign({}, state);
-  newState[ action.payload.submissionId ] = {
-    activeSection: null,
-    sections: Object.create(null),
-    isLoading: true,
-    savePending: false
-  };
-  return newState;
 }
 
 /**

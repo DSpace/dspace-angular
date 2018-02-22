@@ -3,7 +3,8 @@ import { Actions, Effect } from '@ngrx/effects'
 
 import {
   CompleteInitSubmissionFormAction,
-  CompleteSaveSubmissionFormAction,
+  CompleteSaveSubmissionFormAction, DepositSubmissionAction, DepositSubmissionErrorAction,
+  DepositSubmissionSuccessAction,
   InitSubmissionFormAction,
   LoadSubmissionFormAction,
   ResetSubmissionFormAction,
@@ -21,6 +22,8 @@ import { Observable } from 'rxjs/Observable';
 import { JsonPatchOperationsService } from '../../core/json-patch/json-patch-operations.service';
 import { SubmitDataResponseDefinitionObject } from '../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../submission.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.reducer';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -28,13 +31,13 @@ export class SubmissionObjectEffects {
   @Effect() loadForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM)
     .map((action: LoadSubmissionFormAction) =>
-      new InitDefaultDefinitionAction(action.payload.collectionId, action.payload.submissionId, action.payload.sections));
+      new InitDefaultDefinitionAction(action.payload.collectionId, action.payload.submissionId, action.payload.selfUrl, action.payload.sections));
 
   @Effect() resetForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.RESET_SUBMISSION_FORM)
     .do((action: ResetSubmissionFormAction) => this.sectionService.removeAllSections(action.payload.submissionId))
     .map((action: ResetSubmissionFormAction) =>
-      new LoadSubmissionFormAction(action.payload.collectionId, action.payload.submissionId, action.payload.sections));
+      new LoadSubmissionFormAction(action.payload.collectionId, action.payload.submissionId, action.payload.selfUrl, action.payload.sections));
 
   @Effect() initForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)
@@ -77,9 +80,24 @@ export class SubmissionObjectEffects {
       return Observable.from(actions);
     });
 
+  @Effect() depositSubmission$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION)
+    .withLatestFrom(this.store$)
+    .switchMap(([action, state]: [DepositSubmissionAction, any]) => {
+      return this.submissionService.depositSubmission(state.submission.objects[action.payload.submissionId].selfUrl)
+        .map(() => new DepositSubmissionSuccessAction(action.payload.submissionId))
+        .catch((e) => Observable.of(new DepositSubmissionErrorAction(action.payload.submissionId)))
+    });
+
+  @Effect({dispatch: false}) depositSubmissionSuccess$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS)
+    .withLatestFrom(this.store$)
+    .do(() => this.submissionService.redirectToMyDSpace());
+
   constructor(private actions$: Actions,
               private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
               private sectionService: SectionService,
+              private store$: Store<AppState>,
               private submissionService: SubmissionService) {
   }
 

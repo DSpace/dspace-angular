@@ -34,6 +34,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class SubmissionFormComponent implements OnChanges, OnDestroy {
   @Input() collectionId: string;
   @Input() sections: WorkspaceitemSectionsObject;
+  @Input() selfUrl: string;
   @Input() submissionDefinition: SubmissionDefinitionsModel;
   @Input() submissionId: string;
 
@@ -65,7 +66,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           .subscribe((endpointURL) => {
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
-            this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
+            this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.selfUrl, this.sections));
           }),
 
         this.store.select(submissionObjectFromIdSelector(this.submissionId))
@@ -94,7 +95,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       this.sections = workspaceItemObject.sections;
       this.submissionDefinition = workspaceItemObject.submissionDefinition[0];
       this.definitionId = this.submissionDefinition.name;
-      this.store.dispatch(new ResetSubmissionFormAction(this.collectionId, this.submissionId, this.sections));
+      this.store.dispatch(new ResetSubmissionFormAction(this.collectionId, this.submissionId, workspaceItemObject.self, this.sections));
     } else {
       this.changeDetectorRef.detectChanges();
     }
