@@ -64,6 +64,8 @@ import { MessageResponseParsingService } from './message/message-response-parsin
 import { WorkflowitemDataService } from './submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
+import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { RolesService } from './roles/roles.service';
 
 const IMPORTS = [
   CommonModule,
@@ -127,6 +129,8 @@ const PROVIDERS = [
   PoolTaskDataService,
   MessageService,
   MessageResponseParsingService,
+  TaskResponseParsingService,
+  RolesService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   // register AuthInterceptor as HttpInterceptor
   {
