@@ -16,7 +16,7 @@ export class RolesService {
   }
 
   protected groupExists(groupName): Observable<boolean> {
-    this.user
+    return this.user
       .map((user: Eperson) => {
         if (isNotEmpty(user)) {
           return (findIndex(user.groups, { name: groupName }) !== -1);
