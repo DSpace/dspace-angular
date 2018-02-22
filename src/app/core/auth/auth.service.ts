@@ -51,7 +51,6 @@ export class AuthService {
       map(([routeUrl, redirectUrl]) => [routeUrl, redirectUrl])
     ).filter(([routeUrl, redirectUrl]) => isNotEmpty(redirectUrl) && (routeUrl !== redirectUrl))
       .subscribe(() => {
-      console.log(' change redirect to ');
       this.setRedirectUrl('');
     });
   }
@@ -133,7 +132,7 @@ export class AuthService {
     // Normally you would do an HTTP request to POST the user
     // details and then return the new user object
     // but, let's just return the new user for this example.
-    this._authenticated = true;
+    // this._authenticated = true;
     return Observable.of(user);
   }
 
@@ -214,7 +213,7 @@ export class AuthService {
         if (isNotEmpty(redirectUrl)) {
           // Clear url
           this.setRedirectUrl(undefined);
-          this.router.navigate([redirectUrl]);
+          this.router.navigate([decodeURI(redirectUrl)]);
         } else {
           this.router.navigate(['/']);
         }
@@ -246,6 +245,6 @@ export class AuthService {
    * Set redirect url
    */
   setRedirectUrl(value: string) {
-    this.store.dispatch(new SetRedirectUrlAction(value));
+    this.store.dispatch(new SetRedirectUrlAction(encodeURI(value)));
   }
 }

@@ -5,7 +5,7 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 import { EndpointMap, RootSuccessResponse } from '../cache/response-cache.models';
 import { RootEndpointRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 
 export abstract class HALEndpointService {
   protected abstract responseCache: ResponseCacheService;
@@ -35,6 +35,18 @@ export abstract class HALEndpointService {
       .map((map: EndpointMap) => isNotEmpty(map[this.linkName]))
       .startWith(undefined)
       .distinctUntilChanged();
+  }
+
+  protected prepareBody(body: any) {
+    let queryParams = '';
+    if (isNotEmpty(body) && typeof body === 'object') {
+      Object.keys(body)
+        .forEach((param) => {
+          const paramValue = `${param}=${body[param]}`;
+          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+        })
+    }
+    return encodeURI(queryParams);
   }
 
 }

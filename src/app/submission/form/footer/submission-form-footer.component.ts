@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DepositSubmissionAction, SaveSubmissionFormAction } from '../../objects/submission-objects.actions';
 import { Observable } from 'rxjs/Observable';
+import { RolesService } from '../../../core/roles/roles.service';
 
 @Component({
   selector: 'ds-submission-form-footer',
@@ -23,7 +24,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
   constructor(private modalService: NgbModal,
               private restService: SubmissionRestService,
-              private router: Router,
+              private roles: RolesService,
               private submissionService: SubmissionService,
               private store: Store<SubmissionState>) {
   }

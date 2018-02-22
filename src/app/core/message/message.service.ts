@@ -78,18 +78,6 @@ export class MessageService extends HALEndpointService {
     return this.postToEndpoint('unread', this.prepareBody(body), this.makeHttpOptions());
   }
 
-  protected prepareBody(body: any) {
-    let queryParams = '';
-    if (isNotEmpty(body) && typeof body === 'object') {
-      Object.keys(body)
-        .forEach((param) => {
-          const paramValue = `${param}=${body[param]}`;
-          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
-        })
-    }
-    return encodeURI(queryParams);
-  }
-
   protected makeHttpOptions() {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();

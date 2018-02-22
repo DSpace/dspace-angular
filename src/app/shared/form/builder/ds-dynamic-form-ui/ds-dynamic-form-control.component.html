@@ -352,16 +352,16 @@
       <ng-template #selectTemplate let-bindId="bindId" let-model="model"
                    let-showErrorMessages="showErrorMessages">
         <select class="form-control"
-                    [class.is-invalid]="showErrorMessages"
-                    [dynamicId]="bindId && model.id"
-                    [formControlName]="model.id"
-                    [name]="model.name"
-                    [ngClass]="getClass('element', 'control')"
-                    [required]="model.required"
-                    [tabindex]="model.tabIndex"
-                    (blur)="onBlur($event)"
-                    (change)="onValueChange($event)"
-                    (focus)="onFocus($event)">
+                [class.is-invalid]="showErrorMessages"
+                [dynamicId]="bindId && model.id"
+                [formControlName]="model.id"
+                [name]="model.name"
+                [ngClass]="getClass('element', 'control')"
+                [required]="model.required"
+                [tabindex]="model.tabIndex"
+                (blur)="onBlur($event)"
+                (change)="onValueChange($event)"
+                (focus)="onFocus($event)">
 
           <option *ngFor="let option of model.options$ | async"
                   [disabled]="option.disabled"

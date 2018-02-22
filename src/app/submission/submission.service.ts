@@ -47,8 +47,12 @@ export class SubmissionService {
   }
 
   getSubmissionObjectLinkName() {
-    console.log('getSubmissionObjectLinkName ', this.router.routerState.snapshot.url);
-    return 'workspaceitems';
+    const url = this.router.routerState.snapshot.url;
+    if (url.startsWith('/workspaceitems') || url.startsWith('/submit')) {
+      return 'workspaceitems';
+    } else {
+      return 'workflowitems';
+    }
   }
 
   getSectionsState(submissionId: string): Observable<boolean> {

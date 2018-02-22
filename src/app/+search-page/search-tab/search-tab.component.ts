@@ -1,9 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SearchService } from '../search-service/search.service';
-import { SearchOptions, ViewMode } from '../search-options.model';
-import { SortBy, SortDirection } from '../../core/cache/models/sort-options.model';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { MyDspaceService } from '../../+my-dspace-page/my-dspace-service/my-dspace.service';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 export enum SearchTabOptions {
   'Your submissions',
@@ -17,6 +13,14 @@ export enum SearchTabOptions {
 })
 export class SearchTabComponent {
 
+  constructor(private router: Router) {
+  }
+
   public tabOptions = SearchTabOptions;
 
+  onSelect(event: Event) {
+    /*const value = (event.target.selectedIndex === 0) ? 'submissions' : 'tasks';
+    console.log(event.target.value);
+    this.router.navigate(['/mydspace', {'f.show': value}]);*/
+  }
 }

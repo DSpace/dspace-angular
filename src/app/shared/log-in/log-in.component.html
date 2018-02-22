@@ -17,7 +17,7 @@
          formControlName="password"
          required
          type="password">
-  <div *ngIf="(error | async) && hasError" class="alert alert-danger" role="alert" @fadeOut>{{ error | async }}</div>
+  <div *ngIf="platform.isBrowser && (error | async) && hasError" class="alert alert-danger" role="alert" @fadeOut>{{ error | async }}</div>
   <div *ngIf="(message | async) && hasMessage" class="alert alert-info" role="alert" @fadeOut>{{ message | async }}</div>
   <button class="btn btn-lg btn-primary btn-block mt-3" type="submit" [disabled]="!form.valid">{{"login.form.submit" | translate}}</button>
   <div class="dropdown-divider"></div>

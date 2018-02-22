@@ -304,6 +304,16 @@ export class TaskPostRequest extends PostRequest {
   }
 }
 
+export class TaskDeleteRequest extends DeleteRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return TaskResponseParsingService;
+  }
+}
+
 export class RequestError extends Error {
   statusText: string;
 }
