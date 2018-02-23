@@ -47,7 +47,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .first()
       .subscribe((rd: RemoteData<any>) => {
-        console.log(rd);
+        // console.log(rd);
         this.submitter = rd.payload[0];
       });
 
@@ -112,7 +112,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .filter((wsi: RemoteData<Workspaceitem>) => wsi.hasSucceeded)
       .first()
       .subscribe((wsi) => {
-        console.log('Refresh wsi...');
+        // console.log('Refresh wsi...');
         this.dso = wsi.payload;
         this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
         this.populateMessages();
