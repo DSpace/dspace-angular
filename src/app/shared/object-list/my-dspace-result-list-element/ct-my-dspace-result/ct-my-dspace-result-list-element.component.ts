@@ -10,13 +10,16 @@ import { Workflowitem } from '../../../../core/submission/models/workflowitem.mo
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-claimtask-my-dspace-result-list-element',
   styleUrls: ['../my-dspace-result-list-element.component.scss'],
   templateUrl: './ct-my-dspace-result-list-element.component.html',
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 
 @renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.List)
@@ -31,6 +34,7 @@ export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResul
     private ctDataService: ClaimedTaskDataService,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
+    private router: Router,
     @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
 
@@ -41,22 +45,6 @@ export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResul
 
   ngOnInit() {
     this.initItem(this.dso.workflowitem as Observable<RemoteData<Workflowitem[]>>);
-
-    // (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
-    //   .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-    //   .first()
-    //   .subscribe((rd: RemoteData<any>) => {
-    //     // console.log(rd);
-    //     this.submitter = rd.payload[0];
-    //   });
-    //
-    // this.store.select(getAuthenticatedUser)
-    //   .filter((user: Eperson) => isNotEmpty(user))
-    //   .take(1)
-    //   .subscribe((user: Eperson) => {
-    //     this.user = user;
-    //   });
-
   }
 
   initItem(wfiObs: Observable<RemoteData<Workflowitem[]>>) {
@@ -73,8 +61,7 @@ export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResul
       submit_approve: true
     };
     this.ctDataService.approveTask(body, this.dso.id).subscribe((res) => {
-      console.log('Approve Task response:');
-      console.log(res);
+      this.reload();
     });
   }
 
@@ -84,15 +71,13 @@ export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResul
       reason: this.rejectForm.get('reason').value
     };
     this.ctDataService.rejectTask(body, this.dso.id).subscribe((res) => {
-      console.log('Reject Task response:');
-      console.log(res);
+      this.reload();
     });
   }
 
   returnToPool() {
     this.ctDataService.returnToPoolTask('', this.dso.id).subscribe((res) => {
-      console.log('ReturnToPool Task response:');
-      console.log(res);
+      this.reload();
     });
   }
 
@@ -104,14 +89,13 @@ export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResul
     });
   }
 
-  // private getDismissReason(reason: any): string {
-  //   if (reason === ModalDismissReasons.ESC) {
-  //     return 'by pressing ESC';
-  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-  //     return 'by clicking on a backdrop';
-  //   } else {
-  //     return  `with: ${reason}`;
-  //   }
-  // }
+  reload() {
+    // override the route reuse strategy
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+    this.router.navigated = false;
+    this.router.navigate([this.router.url]);
+  }
 
 }

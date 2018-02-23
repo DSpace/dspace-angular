@@ -10,6 +10,7 @@ import { Workflowitem } from '../../../../core/submission/models/workflowitem.mo
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-pooltask-my-dspace-result-list-element',
@@ -24,31 +25,15 @@ export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultLi
   // public submitter: Eperson;
   // public user: Eperson;
 
-  constructor(
-              // private store: Store<AppState>,
+  constructor(// private store: Store<AppState>,
               private ptDataService: PoolTaskDataService,
+              private router: Router,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
   }
 
   ngOnInit() {
     this.initItem(this.dso.workflowitem as Observable<RemoteData<Workflowitem[]>>);
-
-    // (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
-    //   .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-    //   .first()
-    //   .subscribe((rd: RemoteData<any>) => {
-    //     // console.log(rd);
-    //     this.submitter = rd.payload[0];
-    //   });
-    //
-    // this.store.select(getAuthenticatedUser)
-    //   .filter((user: Eperson) => isNotEmpty(user))
-    //   .take(1)
-    //   .subscribe((user: Eperson) => {
-    //     this.user = user;
-    //   });
-
   }
 
   initItem(wfiObs: Observable<RemoteData<Workflowitem[]>>) {
@@ -63,11 +48,19 @@ export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultLi
   claim() {
     const body = {
       submit_take_task: true
-    }
+    };
     this.ptDataService.claimTask(body, this.dso.id).subscribe((res) => {
-      console.log('Claim Task response:');
-      console.log(res);
+      this.reload();
     });
+  }
+
+  reload() {
+    // override the route reuse strategy
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+    this.router.navigated = false;
+    this.router.navigate([this.router.url]);
   }
 
 }
