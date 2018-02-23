@@ -22,6 +22,7 @@ import { AppState } from '../app.reducer';
 import { Store } from '@ngrx/store';
 import { Eperson } from '../core/eperson/models/eperson.model';
 import { PlatformService } from '../shared/services/platform.service';
+import { Workspaceitem } from '../core/submission/models/workspaceitem.model';
 
 /**
  * This component renders a simple item page.
@@ -50,6 +51,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
   user: Observable<Eperson>;
+  resultsLength: number;
 
   constructor(private service: MyDspaceService,
               private route: ActivatedRoute,
@@ -58,7 +60,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
               private sidebarService: SearchSidebarService,
               private store: Store<AppState>,
               private windowService: HostWindowService) {
-    this.isMobileView =  Observable.combineLatest(
+    this.isMobileView = Observable.combineLatest(
       this.windowService.isXs(),
       this.windowService.isSm(),
       ((isXs, isSm) => isXs || isSm)
@@ -81,47 +83,47 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
-        // Save current parameters
-        this.currentParams = params;
-        this.query = params.query || '';
-        this.scope = params.scope;
-        const page = +params.page || this.searchOptions.pagination.currentPage;
-        let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
-        let pageSizeOptions: number[] = [5, 10, 20];
+          // Save current parameters
+          this.currentParams = params;
+          this.query = params.query || '';
+          this.scope = params.scope;
+          const page = +params.page || this.searchOptions.pagination.currentPage;
+          let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
+          let pageSizeOptions: number[] = [5, 10, 20];
 
-        if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
-          pageSizeOptions = [6, 12];
-          if (pageSizeOptions.indexOf(pageSize) === -1) {
-            pageSize = 6;
+          if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
+            pageSizeOptions = [6, 12];
+            if (pageSizeOptions.indexOf(pageSize) === -1) {
+              pageSize = 6;
+            }
+          }
+          if (isNotEmpty(params.view) && params.view === ViewMode.List) {
+            if (pageSizeOptions.indexOf(pageSize) === -1) {
+              pageSize = 10;
+            }
+          }
+
+          const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
+          const pagination = Object.assign({},
+            this.searchOptions.pagination,
+            {currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
+          );
+          const sort = Object.assign({},
+            this.searchOptions.sort,
+            {direction: sortDirection, field: params.sortField}
+          );
+
+          this.updateSearchResults({
+            pagination: pagination,
+            sort: sort
+          });
+          if (isNotEmpty(this.scope)) {
+            this.scopeObjectRDObs = this.communityService.findById(this.scope);
+          } else {
+            this.scopeObjectRDObs = Observable.of(undefined);
           }
         }
-        if (isNotEmpty(params.view) && params.view === ViewMode.List) {
-          if (pageSizeOptions.indexOf(pageSize) === -1) {
-            pageSize = 10;
-          }
-        }
-
-        const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
-        const pagination = Object.assign({},
-          this.searchOptions.pagination,
-          {currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
-        );
-        const sort = Object.assign({},
-          this.searchOptions.sort,
-          {direction: sortDirection, field: params.sortField}
-        );
-
-        this.updateSearchResults({
-          pagination: pagination,
-          sort: sort
-        });
-        if (isNotEmpty(this.scope)) {
-          this.scopeObjectRDObs = this.communityService.findById(this.scope);
-        } else {
-          this.scopeObjectRDObs = Observable.of(undefined);
-        }
-      }
-    );
+      );
 
   }
 
@@ -137,7 +139,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   public closeSidebar(): void {
-    this.sidebarService.collapse()
+    this.sidebarService.collapse();
   }
 
   public openSidebar(): void {
@@ -146,5 +148,16 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
 
   public isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
+  }
+
+  public newSubmissionsEnd(workspaceitems: Workspaceitem[]) {
+    // TODO push to results
+    this.resultsRDObs.subscribe((results) => {
+      this.resultsLength = results.payload.length;
+    })
+
+    this.resultsRDObs.map( (item) => {
+      // TODO Replace first resultsLength items with items of newSubmission
+    });
   }
 }

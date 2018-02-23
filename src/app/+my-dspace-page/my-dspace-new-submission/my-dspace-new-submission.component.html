@@ -1,0 +1,16 @@
+<div class="row p-3">
+  <div class="col-sm-8 col-md-10 col-lg-11">
+    <ds-upload-files
+                     [onBeforeUpload]="onBeforeUpload"
+                     [uploadFilesOptions]="uploadFilesOptions"
+                     (onCompleteItem)="onCompleteItem($event)"></ds-upload-files>
+
+  </div>
+  <div class="col">
+    <button class="btn btn-link mt-1 mb-3"
+            [routerLink]="['/submit']" >
+      <i class="fa fa-plus-circle fa-2x" style="color: darkblue" aria-hidden="true"></i>
+    </button>
+  </div>
+
+</div>
