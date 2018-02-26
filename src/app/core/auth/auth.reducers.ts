@@ -32,6 +32,9 @@ export interface AuthState {
   // redirect url after login
   redirectUrl?: string;
 
+  // true when refreshing token
+  refreshing?: boolean;
+
   // the authenticated user
   user?: Eperson;
 }
@@ -108,12 +111,14 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       });
 
     case AuthActionTypes.LOG_OUT_SUCCESS:
+    case AuthActionTypes.REFRESH_TOKEN_ERROR:
       return Object.assign({}, state, {
         authenticated: false,
         error: undefined,
         loaded: false,
         loading: false,
         info: undefined,
+        refreshing: false,
         user: undefined
       });
 
@@ -138,6 +143,16 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.REGISTRATION_SUCCESS:
       return state;
 
+    case AuthActionTypes.REFRESH_TOKEN:
+      return Object.assign({}, state, {
+        refreshing: true,
+      });
+
+    case AuthActionTypes.REFRESH_TOKEN_SUCCESS:
+      return Object.assign({}, state, {
+        refreshing: false,
+      });
+
     case AuthActionTypes.RESET_MESSAGES:
       return Object.assign({}, state, {
         authenticated: state.authenticated,
@@ -159,7 +174,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
 
 /**
  * Returns true if the user is authenticated.
- * @function isAuthenticated
+ * @function _isAuthenticated
  * @param {State} state
  * @returns {boolean}
  */
@@ -167,7 +182,7 @@ export const _isAuthenticated = (state: AuthState) => state.authenticated;
 
 /**
  * Returns true if the authenticated has loaded.
- * @function isAuthenticatedLoaded
+ * @function _isAuthenticatedLoaded
  * @param {State} state
  * @returns {boolean}
  */
@@ -175,7 +190,7 @@ export const _isAuthenticatedLoaded = (state: AuthState) => state.loaded;
 
 /**
  * Return the users state
- * @function getAuthenticatedUser
+ * @function _getAuthenticatedUser
  * @param {State} state
  * @returns {User}
  */
@@ -183,7 +198,7 @@ export const _getAuthenticatedUser = (state: AuthState) => state.user;
 
 /**
  * Returns the authentication error.
- * @function getAuthenticationError
+ * @function _getAuthenticationError
  * @param {State} state
  * @returns {string}
  */
@@ -191,7 +206,7 @@ export const _getAuthenticationError = (state: AuthState) => state.error;
 
 /**
  * Returns the authentication info message.
- * @function getAuthenticationInfo
+ * @function _getAuthenticationInfo
  * @param {State} state
  * @returns {string}
  */
@@ -199,15 +214,23 @@ export const _getAuthenticationInfo = (state: AuthState) => state.info;
 
 /**
  * Returns true if request is in progress.
- * @function isLoading
+ * @function _isLoading
  * @param {State} state
  * @returns {boolean}
  */
 export const _isLoading = (state: AuthState) => state.loading;
 
 /**
+ * Returns true if a refresh token request is in progress.
+ * @function _isRefreshing
+ * @param {State} state
+ * @returns {boolean}
+ */
+export const _isRefreshing = (state: AuthState) => state.refreshing;
+
+/**
  * Returns the sign out error.
- * @function getLogOutError
+ * @function _getLogOutError
  * @param {State} state
  * @returns {string}
  */
@@ -215,7 +238,7 @@ export const _getLogOutError = (state: AuthState) => state.error;
 
 /**
  * Returns the sign up error.
- * @function getRegistrationError
+ * @function _getRegistrationError
  * @param {State} state
  * @returns {string}
  */
@@ -223,7 +246,7 @@ export const _getRegistrationError = (state: AuthState) => state.error;
 
 /**
  * Returns the redirect url.
- * @function getRedirectUrl
+ * @function _getRedirectUrl
  * @param {State} state
  * @returns {string}
  */

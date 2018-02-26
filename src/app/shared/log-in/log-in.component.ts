@@ -1,18 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-// @ngrx
 import { Store } from '@ngrx/store';
-
-// rxjs
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/takeWhile';
 
-// actions
 import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../core/auth/auth.actions';
 
-// reducers
 import {
   getAuthenticationError, getAuthenticationInfo,
   isAuthenticated,

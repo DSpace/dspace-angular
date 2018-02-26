@@ -75,6 +75,15 @@ export const isAuthenticatedLoaded = createSelector(getAuthState, auth._isAuthen
 export const isAuthenticationLoading = createSelector(getAuthState, auth._isLoading);
 
 /**
+ * Returns true if the refresh token request is loading.
+ * @function isTokenRefreshing
+ * @param {AuthState} state
+ * @param {any} props
+ * @return {boolean}
+ */
+export const isTokenRefreshing = createSelector(getAuthState, auth._isRefreshing);
+
+/**
  * Returns the log out error.
  * @function getLogOutError
  * @param {AuthState} state

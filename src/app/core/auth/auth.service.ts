@@ -11,12 +11,13 @@ import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
-import { getRedirectUrl, isAuthenticated } from './selectors';
+import { getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { Store } from '@ngrx/store';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { RouterReducerState } from '@ngrx/router-store';
 import { Router } from '@angular/router';
+import { CookieAttributes } from 'js-cookie';
 
 export const LOGIN_ROUTE = '/login';
 /**
@@ -110,11 +111,30 @@ export class AuthService {
   }
 
   /**
-   * Checks if token is present into storage
+   * Checks if token is present into storage and is not expired
    */
   public checkAuthenticationToken(): Observable<AuthTokenInfo> {
     const token = this.getToken();
-    return isNotEmpty(token) ? Observable.of(token) : Observable.throw(false);
+    return isNotEmpty(token) && !this.isTokenExpired() ? Observable.of(token) : Observable.throw(false);
+  }
+
+  /**
+   * Checks if token is present into storage
+   */
+  public refreshAuthenticationToken(token: AuthTokenInfo): Observable<AuthTokenInfo> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Accept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
+    options.headers = headers;
+    return this.authRequestService.postToEndpoint('login', {}, options)
+      .map((status: AuthStatus) => {
+        if (status.authenticated) {
+          return status.token;
+        } else {
+          throw(new Error('Not authenticated'));
+        }
+      });
   }
 
   /**
@@ -160,8 +180,7 @@ export class AuthService {
    * Retrieve authentication token info and make authorization header
    * @returns {string}
    */
-  public getAuthHeader(): string {
-    const token = this.getToken();
+  public buildAuthHeader(token): string {
     return (this._authenticated && isNotNull(token)) ? `Bearer ${token.accessToken}` : '';
   }
 
@@ -180,13 +199,40 @@ export class AuthService {
   }
 
   /**
+   * Check if a token is about to expire
+   * @returns {boolean}
+   */
+  public isTokenExpiring(): Observable<boolean> {
+    return this.store.select(isTokenRefreshing)
+      .first()
+      .map((isRefreshing: boolean) => {
+        if (this.isTokenExpired() || isRefreshing) {
+          return false;
+        } else {
+          const token = this.getToken();
+          return token.expires - (60 * 5 * 1000) < Date.now();
+        }
+      })
+  }
+
+  /**
+   * Check if a token is expired
+   * @returns {boolean}
+   */
+  public isTokenExpired(): boolean {
+    const token = this.getToken();
+    return token && token.expires < Date.now();
+  }
+  /**
    * Save authentication token info
    *
    * @param {AuthTokenInfo} token The token to save
    * @returns {AuthTokenInfo}
    */
   public storeToken(token: AuthTokenInfo) {
-    return this.storage.set(TOKENITEM, token);
+    const expires = new Date(token.expires);
+    const options: CookieAttributes = { expires: expires };
+    return this.storage.set(TOKENITEM, token, options);
   }
 
   /**
@@ -194,6 +240,14 @@ export class AuthService {
    */
   public removeToken() {
     return this.storage.remove(TOKENITEM);
+  }
+
+  /**
+   * Replace authentication token info with a new one
+   */
+  public replaceToken(token: AuthTokenInfo) {
+    this.removeToken();
+    return this.storeToken(token);
   }
 
   /**

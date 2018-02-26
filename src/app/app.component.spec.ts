@@ -30,6 +30,8 @@ import { NativeWindowRef, NativeWindowService } from './shared/services/window.s
 
 import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
 import { MockMetadataService } from './shared/mocks/mock-metadata-service';
+import { PlatformServiceStub } from './shared/testing/platform-service-stub';
+import { PlatformService } from './shared/services/platform.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -56,6 +58,7 @@ describe('App component', () => {
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MockMetadataService() },
+        { provide: PlatformService, useValue: new PlatformServiceStub() },
         AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
