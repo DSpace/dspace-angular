@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { map, tap } from 'rxjs/operators';
+import { NormalizedSearchResult } from '../../../+search-page/normalized-search-result.model';
+import { SearchResult } from '../../../+search-page/search-result.model';
+import { SearchQueryResponse } from '../../../+search-page/search-service/search-query-response.model';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
-import { GetRequest } from '../../data/request.models';
+import { GetRequest, RestRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
+import { NormalizedDSpaceObject } from '../models/normalized-dspace-object.model';
 import { NormalizedObjectFactory } from '../models/normalized-object-factory';
 
 import { CacheableObject } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
-import { DSOSuccessResponse, ErrorResponse } from '../response-cache.models';
+import { DSOSuccessResponse, ErrorResponse, SearchSuccessResponse } from '../response-cache.models';
 import { ResponseCacheEntry } from '../response-cache.reducer';
 import { ResponseCacheService } from '../response-cache.service';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
@@ -37,7 +43,7 @@ export class RemoteDataBuildService {
     const requestHrefObs = hrefObs.flatMap((href: string) =>
       this.objectCache.getRequestHrefBySelfLink(href));
 
-    const requestObs = Observable.race(
+    const requestEntryObs = Observable.race(
       hrefObs.flatMap((href: string) => this.requestService.getByHref(href))
         .filter((entry) => hasValue(entry)),
       requestHrefObs.flatMap((requestHref) =>
@@ -80,20 +86,22 @@ export class RemoteDataBuildService {
         })
         .startWith(undefined)
         .distinctUntilChanged();
-    return this.toRemoteDataObservable(hrefObs, requestObs, responseCacheObs, payloadObs);
+    return this.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
-  private toRemoteDataObservable<T>(hrefObs: Observable<string>, requestObs: Observable<RequestEntry>, responseCacheObs: Observable<ResponseCacheEntry>, payloadObs: Observable<T>) {
-    return Observable.combineLatest(hrefObs, requestObs, responseCacheObs.startWith(undefined), payloadObs,
-      (href: string, reqEntry: RequestEntry, resEntry: ResponseCacheEntry, payload: T) => {
+  toRemoteDataObservable<T>(requestEntryObs: Observable<RequestEntry>, responseCacheObs: Observable<ResponseCacheEntry>, payloadObs: Observable<T>) {
+    return Observable.combineLatest(requestEntryObs, responseCacheObs.startWith(undefined), payloadObs,
+      (reqEntry: RequestEntry, resEntry: ResponseCacheEntry, payload: T) => {
         const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
         const responsePending = hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
         let isSuccessful: boolean;
         let error: RemoteDataError;
         if (hasValue(resEntry) && hasValue(resEntry.response)) {
-          isSuccessful = resEntry.response.isSuccessful;
+          isSuccessful = !responsePending && resEntry.response.isSuccessful;
           const errorMessage = isSuccessful === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
-          error = new RemoteDataError(resEntry.response.statusCode, errorMessage);
+          if (hasValue(errorMessage)) {
+            error = new RemoteDataError(resEntry.response.statusCode, errorMessage);
+          }
         }
 
         return new RemoteData(
@@ -114,7 +122,7 @@ export class RemoteDataBuildService {
       hrefObs = Observable.of(hrefObs);
     }
 
-    const requestObs = hrefObs.flatMap((href: string) => this.requestService.getByHref(href))
+    const requestEntryObs = hrefObs.flatMap((href: string) => this.requestService.getByHref(href))
       .filter((entry) => hasValue(entry));
     const responseCacheObs = hrefObs.flatMap((href: string) => this.responseCache.get(href))
       .filter((entry) => hasValue(entry));
@@ -154,10 +162,10 @@ export class RemoteDataBuildService {
       }
     });
 
-    return this.toRemoteDataObservable(hrefObs, requestObs, responseCacheObs, payloadObs);
+    return this.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
-  build<TNormalized extends CacheableObject, TDomain>(normalized: TNormalized): TDomain {
+  build<TNormalized, TDomain>(normalized: TNormalized): TDomain {
     const links: any = {};
 
     const relationships = getRelationships(normalized.constructor) || [];
