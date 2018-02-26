@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnChanges } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {SectionModelComponent} from '../section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
@@ -13,6 +13,9 @@ import { Observable } from 'rxjs/Observable';
 import { Group } from '../../../core/eperson/models/group.model';
 import { EpersonData } from '../../../core/eperson/eperson-data';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import { SectionType } from '../section-type';
+import { renderSectionFor } from '../section-decorator';
+import { SectionDataObject } from '../section-data.model';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -22,6 +25,7 @@ export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
   styleUrls: ['./section-upload.component.scss'],
   templateUrl: './section-upload.component.html',
 })
+@renderSectionFor(SectionType.Upload)
 export class FilesSectionComponent extends SectionModelComponent implements OnChanges {
 
   public fileIndexes = [];
@@ -59,8 +63,10 @@ export class FilesSectionComponent extends SectionModelComponent implements OnCh
               private store:Store<SubmissionState>,
               private uploadsConfigService: SubmissionUploadsConfigService,
               private groupService: GroupEpersonService,
-              ) {
-    super();
+              @Inject('collectionIdProvider') public injectedCollectionId: string,
+              @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
+              @Inject('submissionIdProvider') public injectedSubmissionId: string) {
+    super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
   ngOnChanges() {

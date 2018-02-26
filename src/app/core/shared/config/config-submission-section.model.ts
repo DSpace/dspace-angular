@@ -1,5 +1,6 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { ConfigObject } from './config.model';
+import { SectionType } from '../../../submission/section/section-type';
 
 @inheritSerialization(ConfigObject)
 export class SubmissionSectionModel extends ConfigObject {
@@ -11,7 +12,7 @@ export class SubmissionSectionModel extends ConfigObject {
   mandatory: boolean;
 
   @autoserialize
-  sectionType: string;
+  sectionType: SectionType;
 
   @autoserialize
   visibility: {

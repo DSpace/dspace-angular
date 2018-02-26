@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { Store } from '@ngrx/store';
@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { SectionDirective } from '../section.directive';
 import { SectionDataObject } from '../section-data.model';
 import { SubmissionState } from '../../submission.reducers';
+import { rendersSectionType } from '../section-decorator';
+import { SectionType } from '../section-type';
 
 @Component({
   templateUrl: './section-container.component.html',
@@ -29,20 +31,39 @@ import { SubmissionState } from '../../submission.reducers';
     ])
   ]
 })
-export class SectionContainerComponent {
+export class SectionContainerComponent implements OnInit {
   @Input() collectionId: string;
   @Input() sectionData: SectionDataObject;
   @Input() store: Store<SubmissionState>;
   @Input() submissionId: string;
 
   public active = true;
-  public sectionComponentType: string;
+  public objectInjector: Injector;
+  public sectionComponentType: SectionType;
 
   @ViewChild('sectionRef') sectionRef: SectionDirective;
+
+  constructor(private injector: Injector) {
+  }
+
+  ngOnInit() {
+    this.objectInjector = Injector.create({
+      providers: [
+        { provide: 'collectionIdProvider', useFactory: () => (this.collectionId), deps:[] },
+        { provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps:[] },
+        { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps:[] },
+      ],
+      parent: this.injector
+    });
+  }
 
   public removeSection(event) {
     event.preventDefault();
     event.stopPropagation();
     this.sectionRef.removeSection(this.submissionId, this.sectionData.id);
+  }
+
+  getSectionContent(): string {
+    return rendersSectionType(this.sectionComponentType);
   }
 }

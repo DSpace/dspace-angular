@@ -46,9 +46,9 @@ export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultLi
   }
 
   claim() {
-    const body = {
-      submit_take_task: true
-    };
+    // const body = {
+    //   submit_take_task: true
+    // };
     this.ptDataService.claimTask(body, this.dso.id).subscribe((res) => {
       this.reload();
     });

@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { Inject, Input } from '@angular/core';
 import { SectionDataObject } from './section-data.model';
 
 export interface SectionDataModel {
@@ -9,9 +9,17 @@ export interface SectionDataModel {
  * An abstract model class for a submission edit form section.
  */
 export abstract class SectionModelComponent implements SectionDataModel {
-  @Input() collectionId: string;
-  @Input() sectionData: SectionDataObject;
-  @Input() submissionId: string;
+  collectionId: string;
+  sectionData: SectionDataObject;
+  submissionId: string;
 
   protected valid: boolean;
+
+  public constructor(@Inject('collectionIdProvider') public injectedCollectionId: string,
+                     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
+                     @Inject('submissionIdProvider') public injectedSubmissionId: string) {
+    this.collectionId = injectedCollectionId;
+    this.sectionData = injectedSectionData;
+    this.submissionId = injectedSubmissionId;
+  }
 }

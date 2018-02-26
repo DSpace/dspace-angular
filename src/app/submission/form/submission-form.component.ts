@@ -1,16 +1,8 @@
-import {
-  ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnDestroy, OnInit, SimpleChanges,
-  ViewChild
-} from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { SectionHostDirective } from '../section/section-host.directive';
-import {
-  LoadSubmissionFormAction, ResetSubmissionFormAction,
-  SaveSubmissionFormAction
-} from '../objects/submission-objects.actions';
+import { LoadSubmissionFormAction, ResetSubmissionFormAction } from '../objects/submission-objects.actions';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
@@ -20,8 +12,6 @@ import { WorkspaceitemSectionsObject } from '../../core/submission/models/worksp
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SubmissionState } from '../submission.reducers';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../config';
 import { SubmissionService } from '../submission.service';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -30,7 +20,6 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./submission-form.component.scss'],
   templateUrl: './submission-form.component.html',
 })
-
 export class SubmissionFormComponent implements OnChanges, OnDestroy {
   @Input() collectionId: string;
   @Input() sections: WorkspaceitemSectionsObject;

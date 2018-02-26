@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { SectionModelComponent } from '../section.model';
 import { Store } from '@ngrx/store';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -15,12 +15,16 @@ import { SectionStatusChangeAction } from '../../objects/submission-objects.acti
 import { FormService } from '../../../shared/form/form.service';
 import { SubmissionState } from '../../submission.reducers';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { SectionType } from '../section-type';
+import { renderSectionFor } from '../section-decorator';
+import { SectionDataObject } from '../section-data.model';
 
 @Component({
   selector: 'ds-submission-section-license',
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
 })
+@renderSectionFor(SectionType.License)
 export class LicenseSectionComponent extends SectionModelComponent implements OnDestroy, OnInit {
 
   public formId;
@@ -36,8 +40,11 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
               protected formBuilderService: FormBuilderService,
               protected formService: FormService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
-              protected store:Store<SubmissionState>) {
-    super();
+              protected store:Store<SubmissionState>,
+              @Inject('collectionIdProvider') public injectedCollectionId: string,
+              @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
+              @Inject('submissionIdProvider') public injectedSubmissionId: string) {
+    super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
   ngOnInit() {

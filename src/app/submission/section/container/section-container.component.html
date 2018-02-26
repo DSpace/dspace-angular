@@ -42,33 +42,9 @@
         </div>
         <div id="sectionContent_{{sectionData.id}}"
              (click)="sectionRef.setFocus($event)">
-          <ng-container
-            *ngTemplateOutlet="sectionContentTemplate">
-          </ng-container>
+          <ng-container *ngComponentOutlet="getSectionContent(); injector: objectInjector;"></ng-container>
         </div>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
 </div>
-
-<ng-template #sectionContentTemplate>
-  <ng-container [ngSwitch]="sectionComponentType">
-    <ds-submission-section-form *ngSwitchCase="'submission-form'" [collectionId]="collectionId"
-                                [sectionData]="sectionData"
-                                [submissionId]="submissionId"></ds-submission-section-form>
-    <ds-submission-section-files *ngSwitchCase="'upload'" [collectionId]="collectionId"
-                                 [sectionData]="sectionData"
-                                 [submissionId]="submissionId"></ds-submission-section-files>
-    <ds-submission-section-license *ngSwitchCase="'license'" [collectionId]="collectionId"
-                                   [sectionData]="sectionData"
-                                   [submissionId]="submissionId"></ds-submission-section-license>
-    <ds-submission-section-default *ngSwitchCase="'cclicense'" [collectionId]="collectionId"
-                                   [sectionData]="sectionData"
-                                   [submissionId]="submissionId"></ds-submission-section-default>
-    <ds-submission-section-default *ngSwitchCase="'collection'" [collectionId]="collectionId"
-                                   [sectionData]="sectionData"
-                                   [submissionId]="submissionId"></ds-submission-section-default>
-  </ng-container>
-</ng-template>
-
-<ng-container *ngComponentOutlet="getListElement(); injector: objectInjector;"></ng-container>

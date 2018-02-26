@@ -29,12 +29,16 @@ import { WorkspaceitemSectionDataType } from '../../../core/submission/models/wo
 import { Subscription } from 'rxjs/Subscription';
 import { GLOBAL_CONFIG } from '../../../../config';
 import { GlobalConfig } from '../../../../config/global-config.interface';
+import { SectionDataObject } from '../section-data.model';
+import { renderSectionFor } from '../section-decorator';
+import { SectionType } from '../section-type';
 
 @Component({
   selector: 'ds-submission-section-form',
   styleUrls: ['./section-form.component.scss'],
   templateUrl: './section-form.component.html',
 })
+@renderSectionFor(SectionType.SubmissionForm)
 export class FormSectionComponent extends SectionModelComponent implements OnDestroy {
 
   public formId;
@@ -52,8 +56,11 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
               protected store: Store<SubmissionState>,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
-    super();
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              @Inject('collectionIdProvider') public injectedCollectionId: string,
+              @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
+              @Inject('submissionIdProvider') public injectedSubmissionId: string) {
+    super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
   ngOnInit() {
