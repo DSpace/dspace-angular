@@ -106,6 +106,7 @@
     "js.clone": "0.0.3",
     "jsonschema": "1.2.2",
     "lodash": "^4.17.4",
+    "jwt-decode": "^2.2.0",
     "methods": "1.1.2",
     "morgan": "1.9.0",
     "ng2-file-upload": "1.2.1",

@@ -6,6 +6,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { bootloader } from '@angularclass/bootloader';
 
 import { load as loadWebFont } from 'webfontloader';
+import { hasValue } from './app/shared/empty.util';
 
 import { BrowserAppModule } from './modules/app/browser-app.module';
 
@@ -28,4 +29,8 @@ export function main() {
 }
 
 // support async tag or hmr
-document.addEventListener('DOMContentLoaded', () => bootloader(main));
+if (hasValue(ENV_CONFIG.universal) && ENV_CONFIG.universal.preboot === false) {
+  bootloader(main);
+} else {
+  document.addEventListener('DOMContentLoaded', () => bootloader(main));
+}

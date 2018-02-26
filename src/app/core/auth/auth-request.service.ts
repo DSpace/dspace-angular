@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { isNotEmpty } from '../../shared/empty.util';
 import { AuthGetRequest, AuthPostRequest, PostRequest, RestRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { AuthSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { AuthStatusResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 
 @Injectable()
@@ -37,8 +37,8 @@ export class AuthRequestService extends HALEndpointService {
       errorResponse.flatMap((response: ErrorResponse) =>
         Observable.throw(new Error(response.errorMessage))),
       successResponse
-        .filter((response: AuthSuccessResponse) => isNotEmpty(response))
-        .map((response: AuthSuccessResponse) => response.response)
+        .filter((response: AuthStatusResponse) => isNotEmpty(response))
+        .map((response: AuthStatusResponse) => response.response)
         .distinctUntilChanged());
   }
 

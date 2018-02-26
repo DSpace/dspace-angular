@@ -5,6 +5,8 @@ export const ROUTES: string[] = [
   'logout',
   'collections/:id',
   'communities/:id',
+  'login',
+  'logout',
   'search',
   'submit',
   'workspaceitems/:id/edit',

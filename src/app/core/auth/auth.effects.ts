@@ -18,7 +18,7 @@ import {
   AuthenticationErrorAction,
   AuthenticationSuccessAction, CheckAuthenticationTokenErrorAction,
   LogOutErrorAction,
-  LogOutSuccessAction, RegistrationAction,
+  LogOutSuccessAction, RefreshTokenAction, RefreshTokenErrorAction, RefreshTokenSuccessAction, RegistrationAction,
   RegistrationErrorAction,
   RegistrationSuccessAction
 } from './auth.actions';
@@ -41,11 +41,11 @@ export class AuthEffects {
     .ofType(AuthActionTypes.AUTHENTICATE)
     .switchMap((action: AuthenticateAction) => {
       return this.authService.authenticate(action.payload.email, action.payload.password)
+        .first()
         .map((response: AuthStatus) => new AuthenticationSuccessAction(response.token))
         .catch((error) => Observable.of(new AuthenticationErrorAction(error)));
     });
 
-  // It means "reacts to this action but don't send another"
   @Effect()
   public authenticateSuccess: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.AUTHENTICATE_SUCCESS)
@@ -61,6 +61,7 @@ export class AuthEffects {
         .catch((error) => Observable.of(new AuthenticatedErrorAction(error)));
     });
 
+  // It means "reacts to this action but don't send another"
   @Effect({dispatch: false})
   public authenticatedError: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.AUTHENTICATED_ERROR)
@@ -84,6 +85,21 @@ export class AuthEffects {
         .map((user: Eperson) => new RegistrationSuccessAction(user))
         .catch((error) => Observable.of(new RegistrationErrorAction(error)));
     });
+
+  @Effect()
+  public refreshToken: Observable<Action> = this.actions$
+    .ofType(AuthActionTypes.REFRESH_TOKEN)
+    .switchMap((action: RefreshTokenAction) => {
+      return this.authService.refreshAuthenticationToken(action.payload)
+        .map((token: AuthTokenInfo) => new RefreshTokenSuccessAction(token))
+        .catch((error) => Observable.of(new RefreshTokenErrorAction()));
+    });
+
+  // It means "reacts to this action but don't send another"
+  @Effect({dispatch: false})
+  public refreshTokenSuccess: Observable<Action> = this.actions$
+    .ofType(AuthActionTypes.REFRESH_TOKEN_SUCCESS)
+    .do((action: RefreshTokenSuccessAction) => this.authService.replaceToken(action.payload));
 
   /**
    * When the store is rehydrated in the browser,

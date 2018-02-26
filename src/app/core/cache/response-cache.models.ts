@@ -84,25 +84,6 @@ export class AuthStatusResponse extends RestResponse {
   }
 }
 
-export class AuthSuccessResponse extends RestResponse {
-  public toCache = false;
-  constructor(
-    public response: AuthTokenInfo,
-    public statusCode: string
-  ) {
-    super(true, statusCode);
-  }
-}
-
-export class AuthErrorResponse extends RestResponse {
-  public toCache = false;
-  constructor(
-    public response: any,
-    public statusCode: string,
-  ) {
-    super(true, statusCode);
-  }
-}
 
 export class PostPatchSuccessResponse extends RestResponse {
   constructor(

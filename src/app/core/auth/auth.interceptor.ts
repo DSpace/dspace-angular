@@ -1,40 +1,55 @@
 import { Injectable, Injector } from '@angular/core';
 import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse,
-  HttpErrorResponse
+  HttpErrorResponse, HttpResponseBase
 } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/throw'
 import 'rxjs/add/operator/catch';
 
+import { find } from 'lodash';
+
 import { AppState } from '../../app.reducer';
-import { AuthError } from './models/auth-error.model';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { isNotEmpty } from '../../shared/empty.util';
-import { RedirectWhenTokenExpiredAction } from './auth.actions';
+import { isNotEmpty, isUndefined } from '../../shared/empty.util';
+import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
 import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+
+  // Intercetor is called twice per request,
+  // so to prevent RefreshTokenAction is dispatched twice
+  // we're creating a refresh token request list
+  protected refreshTokenRequestUrls = [];
+
   constructor(private inj: Injector, private store: Store<AppState>) { }
 
-  private isUnauthorized(status: number): boolean {
-    return status === 401 || status === 403;
+  private isUnauthorized(response: HttpResponseBase): boolean {
+    // invalid_token The access token provided is expired, revoked, malformed, or invalid for other reasons
+    return response.status === 401;
   }
 
-  private isAuthRequest(url: string): boolean {
-    return url.endsWith('/authn/login') || url.endsWith('/authn/logout') || url.endsWith('/authn/status');
+  private isSuccess(response: HttpResponseBase): boolean {
+    return response.status === 200;
   }
 
-  private isLoginResponse(url: string): boolean {
-    return url.endsWith('/authn/login');
+  private isAuthRequest(http: HttpRequest<any> | HttpResponseBase): boolean {
+    return http.url
+      && (http.url.endsWith('/authn/login')
+        || http.url.endsWith('/authn/logout')
+        || http.url.endsWith('/authn/status'));
   }
 
-  private isLogoutResponse(url: string): boolean {
-    return url.endsWith('/authn/logout');
+  private isLoginResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
+    return http.url && http.url.endsWith('/authn/login');
+  }
+
+  private isLogoutResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
+    return http.url && http.url.endsWith('/authn/logout');
   }
 
   private makeAuthStatusObject(authenticated:boolean, accessToken?: string, error?: string): AuthStatus {
@@ -55,27 +70,45 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const authService = this.inj.get(AuthService);
 
-    // Get the auth header from the service.
-    const Authorization = authService.getAuthHeader();
+    const token = authService.getToken();
 
-    let authReq;
-    if (!this.isAuthRequest(req.url) && isNotEmpty(Authorization)) {
+    let newReq;
+    // Intercept a request that is not to the authentication endpoint
+    if (!this.isAuthRequest(req) && isNotEmpty(token)) {
+      authService.isTokenExpiring()
+        .filter((isExpiring) => isExpiring)
+        .subscribe(() => {
+          // If the current request url is already in the refresh token request list, skip it
+          if (isUndefined(find(this.refreshTokenRequestUrls, req.url))) {
+            // When a token is about to expire, refresh it
+            this.store.dispatch(new RefreshTokenAction(token));
+            this.refreshTokenRequestUrls.push(req.url);
+          }
+        });
+      // Get the auth header from the service.
+      const Authorization = authService.buildAuthHeader(token);
       // Clone the request to add the new header.
-       authReq = req.clone({headers: req.headers.set('authorization', Authorization)});
+      newReq = req.clone({headers: req.headers.set('authorization', Authorization)});
     } else {
-       authReq = req;
+      newReq = req;
     }
 
-    // Pass on the cloned request instead of the original request.
-    return next.handle(authReq)
+    // Pass on the new request instead of the original request.
+    return next.handle(newReq)
       .map((response) => {
-        if (response instanceof HttpResponse && response.status === 200 && (this.isLoginResponse(response.url) || this.isLogoutResponse(response.url))) {
+        // Intercept a Login/Logout response
+        if (response instanceof HttpResponse && this.isSuccess(response) && (this.isLoginResponse(response) || this.isLogoutResponse(response))) {
+          // It's a success Login/Logout response
           let authRes: HttpResponse<any>;
-          if (this.isLoginResponse(response.url)) {
-            const token = response.headers.get('authorization');
-            const expires = response.headers.get('expires');
-            authRes = response.clone({body: this.makeAuthStatusObject(true, token)});
+          if (this.isLoginResponse(response)) {
+            // login successfully
+            const newToken = response.headers.get('authorization');
+            authRes = response.clone({body: this.makeAuthStatusObject(true, newToken)});
+
+            // clean eventually refresh Requests list
+            this.refreshTokenRequestUrls = [];
           } else {
+            // logout successfully
             authRes = response.clone({body: this.makeAuthStatusObject(false)});
           }
           return authRes;
@@ -84,10 +117,12 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       })
       .catch((error, caught) => {
-        // Intercept an unauthorized error response
-        if (error instanceof HttpErrorResponse && this.isUnauthorized(error.status)) {
+        // Intercept an error response
+        if (error instanceof HttpErrorResponse) {
           // Checks if is a response from a request to an authentication endpoint
-          if (this.isAuthRequest(error.url)) {
+          if (this.isAuthRequest(error)) {
+            // clean eventually refresh Requests list
+            this.refreshTokenRequestUrls = [];
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
               body: this.makeAuthStatusObject(false, null, error.error),
@@ -97,14 +132,15 @@ export class AuthInterceptor implements HttpInterceptor {
               url: error.url
             });
             return Observable.of(authResponse);
-          } else {
+          } else if (this.isUnauthorized(error)) {
+            // The access token provided is expired, revoked, malformed, or invalid for other reasons
             // Redirect to the login route
             this.store.dispatch(new RedirectWhenTokenExpiredAction('Your session has expired. Please log in again.'));
           }
-        } else {
-          // Return error response as is.
-          return Observable.throw(error);
         }
+        // Return error response as is.
+        return Observable.throw(error);
       }) as any;
+
   }
 }

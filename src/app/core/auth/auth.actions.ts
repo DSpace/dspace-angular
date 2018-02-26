@@ -19,6 +19,9 @@ export const AuthActionTypes = {
   CHECK_AUTHENTICATION_TOKEN_ERROR: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN_ERROR'),
   REDIRECT_TOKEN_EXPIRED: type('dspace/auth/REDIRECT_TOKEN_EXPIRED'),
   REDIRECT_AUTHENTICATION_REQUIRED: type('dspace/auth/REDIRECT_AUTHENTICATION_REQUIRED'),
+  REFRESH_TOKEN: type('dspace/auth/REFRESH_TOKEN'),
+  REFRESH_TOKEN_SUCCESS: type('dspace/auth/REFRESH_TOKEN_SUCCESS'),
+  REFRESH_TOKEN_ERROR: type('dspace/auth/REFRESH_TOKEN_ERROR'),
   RESET_MESSAGES: type('dspace/auth/RESET_MESSAGES'),
   LOG_OUT: type('dspace/auth/LOG_OUT'),
   LOG_OUT_ERROR: type('dspace/auth/LOG_OUT_ERROR'),
@@ -199,6 +202,43 @@ export class RedirectWhenTokenExpiredAction implements Action {
   constructor(message: string) {
     this.payload = message ;
   }
+}
+
+/**
+ * Refresh authentication token.
+ * @class RefreshTokenAction
+ * @implements {Action}
+ */
+export class RefreshTokenAction implements Action {
+  public type: string = AuthActionTypes.REFRESH_TOKEN;
+  payload: AuthTokenInfo;
+
+  constructor(token: AuthTokenInfo) {
+    this.payload = token;
+  }
+}
+
+/**
+ * Refresh authentication token success.
+ * @class RefreshTokenSuccessAction
+ * @implements {Action}
+ */
+export class RefreshTokenSuccessAction implements Action {
+  public type: string = AuthActionTypes.REFRESH_TOKEN_SUCCESS;
+  payload: AuthTokenInfo;
+
+  constructor(token: AuthTokenInfo) {
+    this.payload = token;
+  }
+}
+
+/**
+ * Refresh authentication token error.
+ * @class RefreshTokenErrorAction
+ * @implements {Action}
+ */
+export class RefreshTokenErrorAction implements Action {
+  public type: string = AuthActionTypes.REFRESH_TOKEN_ERROR;
 }
 
 /**

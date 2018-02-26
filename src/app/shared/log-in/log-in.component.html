@@ -1,4 +1,4 @@
-<ds-loading *ngIf="(loading | async)"></ds-loading>
+<ds-loading *ngIf="(loading | async)" class="m-5"></ds-loading>
 <form *ngIf="!(loading | async)" class="form-login px-4 py-3" (ngSubmit)="submit()" [formGroup]="form" novalidate>
   <label for="inputEmail" class="sr-only">{{"login.form.email" | translate}}</label>
   <input id="inputEmail"
