@@ -71,7 +71,6 @@ export class DSpaceRESTv2Service {
         console.log(res);
         return ({ payload: res.body, headers: res.headers, statusCode: res.statusText })
       })
-      .share()
       .catch((err) => {
         console.log('Error: ', err);
         return Observable.throw(err);
