@@ -1,19 +1,17 @@
 <div class="container">
-  <ds-my-dspace-new-submission
-    (wsiUploaded)="newSubmissionsEnd($event)"
-  ></ds-my-dspace-new-submission>
+  <ds-my-dspace-new-submission (wsiUploaded)="newSubmissionsEnd($event)"></ds-my-dspace-new-submission>
   <div class="search-page row">
-        <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-md-sticky"
-                         id="search-sidebar"
-                         [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"></ds-search-sidebar>
-        <div class="col-12 col-md-9">
-        <ds-search-form id="search-form"
-                        [query]="query"
-                        [scope]="(scopeObjectRDObs | async)?.payload"
-                        [currentParams]="currentParams"
-                        [scopes]="(scopeListRDObs | async)?.payload?.page"
-                        [searchLink]="'mydspace'">
-        </ds-search-form>
+    <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-md-sticky"
+                     id="search-sidebar"
+                     [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"></ds-search-sidebar>
+    <div class="col-12 col-md-9">
+      <ds-search-form id="search-form"
+                      [query]="query"
+                      [scope]="(scopeObjectRDObs | async)?.payload"
+                      [currentParams]="currentParams"
+                      [scopes]="(scopeListRDObs | async)?.payload?.page"
+                      [searchLink]="'mydspace'">
+      </ds-search-form>
       <div class="row">
         <div id="search-body"
              class="row-offcanvas row-offcanvas-left"

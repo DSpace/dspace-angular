@@ -11,7 +11,7 @@ import {
   RestRequest, RestRequestMethod
 } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { AuthSuccessResponse, ErrorResponse, MessageResponse, RestResponse } from '../cache/response-cache.models';
+import { ErrorResponse, MessageResponse, RestResponse } from '../cache/response-cache.models';
 import { DSpaceRESTv2Service, HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
 

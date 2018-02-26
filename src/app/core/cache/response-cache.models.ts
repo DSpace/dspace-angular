@@ -2,16 +2,10 @@ import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { ConfigObject } from '../shared/config/config.model';
-import { AuthTokenInfo } from '../auth/models/auth-token-info.model';
-import { NormalizedAuthStatus } from '../auth/models/normalized-auth-status.model';
 import { AuthStatus } from '../auth/models/auth-status.model';
-import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
-import { NormalizedDSpaceObject } from './models/normalized-dspace-object.model';
 import { NormalizedObject } from './models/normalized-object.model';
 
 import { IntegrationModel } from '../integration/models/integration.model';
-import { Eperson } from '../eperson/models/eperson.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -83,7 +77,6 @@ export class AuthStatusResponse extends RestResponse {
     super(true, statusCode);
   }
 }
-
 
 export class PostPatchSuccessResponse extends RestResponse {
   constructor(
