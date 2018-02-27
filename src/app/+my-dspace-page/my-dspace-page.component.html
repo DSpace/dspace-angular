@@ -2,8 +2,8 @@
   <ds-my-dspace-new-submission (wsiUploaded)="newSubmissionsEnd($event)"></ds-my-dspace-new-submission>
   <div class="search-page row">
     <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-md-sticky"
-                     id="search-sidebar"
-                     [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"></ds-search-sidebar>
+                       id="search-sidebar"
+                       [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"></ds-search-sidebar>
     <div class="col-12 col-md-9">
       <ds-search-form id="search-form"
                       [query]="query"

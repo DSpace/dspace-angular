@@ -3,12 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {
-  NgbDatepickerModule,
-  NgbModule,
-  NgbTimepickerModule,
-  NgbTypeaheadModule
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -31,11 +26,11 @@ import { SearchResultListElementComponent } from './object-list/search-result-li
 import { WrapperListElementComponent } from './object-list/wrapper-list-element/wrapper-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
 
-import { CollectionGridElementComponent} from './object-grid/collection-grid-element/collection-grid-element.component'
-import { CommunityGridElementComponent} from './object-grid/community-grid-element/community-grid-element.component'
-import { ItemGridElementComponent} from './object-grid/item-grid-element/item-grid-element.component'
-import { AbstractListableElementComponent} from './object-collection/shared/object-collection-element/abstract-listable-element.component'
-import { WrapperGridElementComponent} from './object-grid/wrapper-grid-element/wrapper-grid-element.component'
+import { CollectionGridElementComponent } from './object-grid/collection-grid-element/collection-grid-element.component';
+import { CommunityGridElementComponent } from './object-grid/community-grid-element/community-grid-element.component';
+import { ItemGridElementComponent } from './object-grid/item-grid-element/item-grid-element.component';
+import { AbstractListableElementComponent } from './object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { WrapperGridElementComponent } from './object-grid/wrapper-grid-element/wrapper-grid-element.component';
 import { ObjectGridComponent } from './object-grid/object-grid.component';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
@@ -74,10 +69,24 @@ import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/
 
 import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
-import { Console } from 'inspector';
 import { MessageBoardComponent } from './message-board/message-board.component';
 import { MessageComponent } from './message-board/message.component';
-import { ItemPreviewComponent } from './object-list/item-preview/item-preview.component';
+import { ItemListPreviewComponent } from './object-list/item-list-preview/item-list-preview.component';
+import { ItemGridPreviewComponent } from './object-grid/item-grid-preview/item-grid-preview.component';
+import { MyDSpaceResultGridElementComponent } from './object-grid/my-dspace-result-grid-element/my-dspace-result-grid-element.component';
+import { FullFileSectionComponent } from '../+item-page/full/field-components/file-section/full-file-section.component';
+import { MetadataUriValuesComponent } from '../+item-page/field-components/metadata-uri-values/metadata-uri-values.component';
+import { FileSectionComponent } from '../+item-page/simple/field-components/file-section/file-section.component';
+import { FullItemPageComponent } from '../+item-page/full/full-item-page.component';
+import { ItemPageAbstractFieldComponent } from '../+item-page/simple/field-components/specific-field/abstract/item-page-abstract-field.component';
+import { ItemPageTitleFieldComponent } from '../+item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+import { ItemPageSpecificFieldComponent } from '../+item-page/simple/field-components/specific-field/item-page-specific-field.component';
+import { MetadataFieldWrapperComponent } from '../+item-page/field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { ItemPageUriFieldComponent } from '../+item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
+import { CollectionsComponent } from '../+item-page/field-components/collections/collections.component';
+import { ItemPageDateFieldComponent } from '../+item-page/simple/field-components/specific-field/date/item-page-date-field.component';
+import { MetadataValuesComponent } from '../+item-page/field-components/metadata-values/metadata-values.component';
+import { ItemPageAuthorFieldComponent } from '../+item-page/simple/field-components/specific-field/author/item-page-author-field.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -96,7 +105,7 @@ const MODULES = [
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,
-  TextMaskModule,
+  TextMaskModule
 ];
 
 const PIPES = [
@@ -145,7 +154,24 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   DsDynamicGroupComponent,
   DsDatePickerComponent,
-  ItemPreviewComponent,
+  ItemListPreviewComponent,
+  ItemGridPreviewComponent,
+];
+
+const COMPONENTS_ITEM_PAGE = [
+  FullItemPageComponent,
+  MetadataValuesComponent,
+  MetadataUriValuesComponent,
+  MetadataFieldWrapperComponent,
+  ItemPageAuthorFieldComponent,
+  ItemPageDateFieldComponent,
+  ItemPageAbstractFieldComponent,
+  ItemPageUriFieldComponent,
+  ItemPageTitleFieldComponent,
+  ItemPageSpecificFieldComponent,
+  FileSectionComponent,
+  CollectionsComponent,
+  FullFileSectionComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -158,6 +184,7 @@ const ENTRY_COMPONENTS = [
   ItemGridElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
+  MyDSpaceResultGridElementComponent,
   SearchResultGridElementComponent
 ];
 
@@ -172,6 +199,7 @@ const DIRECTIVES = [
   declarations: [
     ...PIPES,
     ...COMPONENTS,
+    ...COMPONENTS_ITEM_PAGE,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES
@@ -180,6 +208,7 @@ const DIRECTIVES = [
     ...MODULES,
     ...PIPES,
     ...COMPONENTS,
+    ...COMPONENTS_ITEM_PAGE,
     ...DIRECTIVES
   ],
   entryComponents: [

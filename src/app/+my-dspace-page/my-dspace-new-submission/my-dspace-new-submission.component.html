@@ -1,15 +1,15 @@
-<div class="row p-3">
-  <div class="col-sm-8 col-md-10 col-lg-11">
+<div class="parent">
+  <div class="upload">
     <ds-upload-files
-                     [onBeforeUpload]="onBeforeUpload"
-                     [uploadFilesOptions]="uploadFilesOptions"
-                     (onCompleteItem)="onCompleteItem($event)"></ds-upload-files>
+      [onBeforeUpload]="onBeforeUpload"
+      [uploadFilesOptions]="uploadFilesOptions"
+      (onCompleteItem)="onCompleteItem($event)"></ds-upload-files>
 
   </div>
-  <div class="col">
-    <button class="btn btn-link mt-1 mb-3"
+  <div class="add">
+    <button class="btn btn-primary mt-3 ml-2"
             [routerLink]="['/submit']" >
-      <i class="fa fa-plus-circle fa-2x" style="color: darkblue" aria-hidden="true"></i>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> New submission
     </button>
   </div>
 

@@ -1,8 +1,8 @@
-<ds-item-preview
+<ds-item-list-preview
   [item]="(workFlow.item | async)?.payload[0]"
   [object]="object"
   statusTxt="In progress"
-></ds-item-preview>
+></ds-item-list-preview>
 
 <button class="btn btn-primary mt-1 mb-3"
         [routerLink]="['/workflowitems/' + workFlow.id] + '/edit'" >

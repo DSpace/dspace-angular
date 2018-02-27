@@ -3,19 +3,14 @@ import { hasNoValue, isEmpty } from '../../empty.util';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { Item } from '../../../core/shared/item.model';
 import { ItemStatus } from '../../../core/shared/item-status';
-import { MyDSpaceResultListElementComponent } from '../my-dspace-result-list-element/my-dspace-result-list-element.component';
-import { WorkspaceitemMyDSpaceResult } from '../../object-collection/shared/workspaceitem-my-dspace-result.model';
-import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @Component({
-  selector: 'ds-item-preview',
-  styleUrls: ['item.preview.component.scss'],
-  templateUrl: 'item-preview.component.html'
+  selector: 'ds-item-list-preview',
+  styleUrls: ['item-list-preview.component.scss'],
+  templateUrl: 'item-list-preview.component.html'
 })
 
-export class ItemPreviewComponent<T> {
+export class ItemListPreviewComponent<T> {
   @Input()
   item: Item;
   @Input()
