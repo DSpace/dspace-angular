@@ -92,9 +92,9 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
           let pageSizeOptions: number[] = [5, 10, 20];
 
           if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
-            pageSizeOptions = [6, 12];
+            pageSizeOptions = [1];
             if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 6;
+              pageSize = 1;
             }
           }
           if (isNotEmpty(params.view) && params.view === ViewMode.List) {

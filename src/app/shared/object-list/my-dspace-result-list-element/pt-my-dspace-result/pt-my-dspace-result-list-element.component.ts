@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../+search-page/search-options.model';
@@ -11,6 +11,7 @@ import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { Router } from '@angular/router';
+import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 
 @Component({
   selector: 'ds-pooltask-my-dspace-result-list-element',
@@ -22,10 +23,9 @@ import { Router } from '@angular/router';
 @renderElementsFor(PoolTask, ViewMode.List)
 export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<PoolTaskMyDSpaceResult, PoolTask> {
   public workFlow: Workflowitem;
-  // public submitter: Eperson;
-  // public user: Eperson;
+  public processingClaim = false;
 
-  constructor(// private store: Store<AppState>,
+  constructor(private cd: ChangeDetectorRef,
               private ptDataService: PoolTaskDataService,
               private router: Router,
               @Inject('objectElementProvider') public listable: ListableObject) {
@@ -46,12 +46,15 @@ export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultLi
   }
 
   claim() {
-    // const body = {
-    //   submit_take_task: true
-    // };
-    this.ptDataService.claimTask({}, this.dso.id).subscribe((res) => {
-      this.reload();
-    });
+    this.processingClaim = true;
+    this.ptDataService.claimTask(this.dso.id)
+      .subscribe((res: ProcessTaskResponse) => {
+        this.processingClaim = false;
+        this.cd.detectChanges();
+        if (res.hasSucceeded) {
+          this.reload();
+        }
+      });
   }
 
   reload() {
