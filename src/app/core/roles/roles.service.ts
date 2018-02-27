@@ -24,6 +24,7 @@ export class RolesService {
           return false;
         }
       })
+      .distinctUntilChanged()
   }
 
   isSubmitter(): Observable<boolean> {

@@ -6,6 +6,7 @@ import { Eperson } from './eperson.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { Group } from './group.model';
+import { NormalizedGroupModel } from './NormalizedGroup.model';
 
 @mapsTo(Eperson)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -14,7 +15,7 @@ export class NormalizedEpersonModel extends NormalizedDSpaceObject implements Ca
   @autoserialize
   public handle: string;
 
-  @autoserializeAs(Group)
+  @autoserializeAs(NormalizedGroupModel)
   groups: Group[];
 
   @autoserialize
