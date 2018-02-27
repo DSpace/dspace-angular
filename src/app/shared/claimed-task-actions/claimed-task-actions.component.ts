@@ -9,7 +9,7 @@ import { ProcessTaskResponse } from '../../core/tasks/models/process-task-respon
 
 @Component({
   selector: 'ds-claimed-task-actions',
-  styleUrls: ['../claimed-task-actions.component.scss'],
+  styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
 })
 
