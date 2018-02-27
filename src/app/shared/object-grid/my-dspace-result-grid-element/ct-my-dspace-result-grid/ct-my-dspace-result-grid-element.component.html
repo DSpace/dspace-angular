@@ -1,8 +1,10 @@
-<ds-item-list-preview
+<p>CT</p>
+
+<ds-item-grid-preview
   [item]="(workFlow.item | async)?.payload[0]"
   [object]="object"
   statusTxt="In progress"
-></ds-item-list-preview>
+></ds-item-grid-preview>
 
 <button class="btn mt-1 mb-3"
         (click)="returnToPool()" >

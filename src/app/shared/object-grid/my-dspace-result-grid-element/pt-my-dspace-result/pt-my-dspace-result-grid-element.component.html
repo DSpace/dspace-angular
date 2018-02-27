@@ -1,8 +1,10 @@
-<ds-item-list-preview
+<p>PT</p>
+
+<ds-item-grid-preview
   [item]="(workFlow.item | async)?.payload[0]"
   [object]="object"
   statusTxt="In progress"
-></ds-item-list-preview>
+></ds-item-grid-preview>
 
 <span *ngIf="processingClaim"><i class='fa fa-circle-o-notch fa-spin'></i> Processing...</span>
 <button *ngIf="!processingClaim"

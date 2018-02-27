@@ -1,7 +1,4 @@
 import { Component, Inject } from '@angular/core';
-
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 import { MyDSpaceResult } from '../../../+my-dspace-page/my-dspace-result.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';

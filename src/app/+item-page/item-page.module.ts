@@ -21,25 +21,27 @@ import { FullFileSectionComponent } from './full/field-components/file-section/f
 
 @NgModule({
   imports: [
+    // ALL WAS MOVED IN SHARED MODULE
     CommonModule,
     SharedModule,
     ItemPageRoutingModule
   ],
   declarations: [
+    // ALL WAS MOVED IN SHARED MODULE
     ItemPageComponent,
-    FullItemPageComponent,
-    MetadataValuesComponent,
-    MetadataUriValuesComponent,
-    MetadataFieldWrapperComponent,
-    ItemPageAuthorFieldComponent,
-    ItemPageDateFieldComponent,
-    ItemPageAbstractFieldComponent,
-    ItemPageUriFieldComponent,
-    ItemPageTitleFieldComponent,
-    ItemPageSpecificFieldComponent,
-    FileSectionComponent,
-    CollectionsComponent,
-    FullFileSectionComponent
+    // FullItemPageComponent,
+    // MetadataValuesComponent,
+    // MetadataUriValuesComponent,
+    // MetadataFieldWrapperComponent,
+    // ItemPageAuthorFieldComponent,
+    // ItemPageDateFieldComponent,
+    // ItemPageAbstractFieldComponent,
+    // ItemPageUriFieldComponent,
+    // ItemPageTitleFieldComponent,
+    // ItemPageSpecificFieldComponent,
+    // FileSectionComponent,
+    // CollectionsComponent,
+    // FullFileSectionComponent
   ]
 })
 export class ItemPageModule {

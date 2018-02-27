@@ -14,6 +14,11 @@ import { WorkflowitemMyDSpaceResultListElementComponent } from '../shared/object
 import { ClaimedTaskMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/ct-my-dspace-result/ct-my-dspace-result-list-element.component';
 import { PoolTaskMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/pt-my-dspace-result/pt-my-dspace-result-list-element.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
+import { ItemMyDSpaceResultGridElementComponent } from '../shared/object-grid/my-dspace-result-grid-element/item-my-dspace-result/item-my-dspace-result-grid-element.component';
+import { WorkspaceitemMyDSpaceResultGridElementComponent } from '../shared/object-grid/my-dspace-result-grid-element/wsi-my-dspace-result/wsi-my-dspace-result-grid-element.component';
+import { WorkflowitemMyDSpaceResultGridElementComponent } from '../shared/object-grid/my-dspace-result-grid-element/wfi-my-dspace-result/wfi-my-dspace-result-grid-element.component';
+import { PoolTaskMyDSpaceResultGridElementComponent } from '../shared/object-grid/my-dspace-result-grid-element/pt-my-dspace-result/pt-my-dspace-result-grid-lement.component';
+import { ClaimedTaskMyDSpaceResultGridElementComponent } from '../shared/object-grid/my-dspace-result-grid-element/ct-my-dspace-result-grid/ct-my-dspace-result-grid-element.component';
 
 @NgModule({
   imports: [
@@ -24,12 +29,17 @@ import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-ds
   ],
   declarations: [
     ItemMyDSpaceResultListElementComponent,
+    ItemMyDSpaceResultGridElementComponent,
     MyDSpacePageComponent,
     MyDSpaceResultsComponent,
     WorkspaceitemMyDSpaceResultListElementComponent,
     WorkflowitemMyDSpaceResultListElementComponent,
     ClaimedTaskMyDSpaceResultListElementComponent,
     PoolTaskMyDSpaceResultListElementComponent,
+    WorkspaceitemMyDSpaceResultGridElementComponent,
+    WorkflowitemMyDSpaceResultGridElementComponent,
+    ClaimedTaskMyDSpaceResultGridElementComponent,
+    PoolTaskMyDSpaceResultGridElementComponent,
     MyDSpaceNewSubmissionComponent
   ],
   providers: [
@@ -40,7 +50,14 @@ import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-ds
     WorkspaceitemMyDSpaceResultListElementComponent,
     WorkflowitemMyDSpaceResultListElementComponent,
     ClaimedTaskMyDSpaceResultListElementComponent,
-    PoolTaskMyDSpaceResultListElementComponent
+    PoolTaskMyDSpaceResultListElementComponent,
+
+
+    ItemMyDSpaceResultGridElementComponent,
+    WorkspaceitemMyDSpaceResultGridElementComponent,
+    WorkflowitemMyDSpaceResultGridElementComponent,
+    ClaimedTaskMyDSpaceResultGridElementComponent,
+    PoolTaskMyDSpaceResultGridElementComponent,
   ]
 })
 export class MyDSpacePageModule {
