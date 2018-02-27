@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../+search-page/search-options.model';
@@ -14,6 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
 
 @Component({
   selector: 'ds-claimtask-my-dspace-result-list-element',
@@ -26,11 +27,15 @@ import { Router } from '@angular/router';
 @renderElementsFor(ClaimedTask, ViewMode.List)
 export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
   public workFlow: Workflowitem;
+  public processingApprove = false;
+  public processingReject = false;
+  public processingReturnToPool = false;
   public rejectForm: FormGroup;
   // public submitter: Eperson;
   // public user: Eperson;
 
   constructor(// private store: Store<AppState>,
+    private cd: ChangeDetectorRef,
     private ctDataService: ClaimedTaskDataService,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
@@ -57,28 +62,40 @@ export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResul
   }
 
   approve() {
-    const body = {
-      submit_approve: 'true'
-    };
-    this.ctDataService.approveTask(body, this.dso.id).subscribe((res) => {
-      this.reload();
-    });
+    this.processingApprove = true;
+    this.ctDataService.approveTask(this.dso.id)
+      .subscribe((res: ProcessTaskResponse) => {
+        this.processingApprove = false;
+        this.cd.detectChanges();
+        if (res.hasSucceeded) {
+          this.reload();
+        }
+      });
   }
 
   reject() {
-    const body = {
-      submit_reject: 'true',
-      reason: this.rejectForm.get('reason').value
-    };
-    this.ctDataService.rejectTask(body, this.dso.id).subscribe((res) => {
-      this.reload();
-    });
+    this.processingReject = true;
+    const reason = this.rejectForm.get('reason').value;
+    this.ctDataService.rejectTask(reason, this.dso.id)
+      .subscribe((res: ProcessTaskResponse) => {
+        this.processingReject = false;
+        this.cd.detectChanges();
+        if (res.hasSucceeded) {
+          this.reload();
+        }
+      });
   }
 
   returnToPool() {
-    this.ctDataService.returnToPoolTask('', this.dso.id).subscribe((res) => {
-      this.reload();
-    });
+    this.processingReturnToPool = true;
+    this.ctDataService.returnToPoolTask(this.dso.id)
+      .subscribe((res: ProcessTaskResponse) => {
+        this.processingReturnToPool = false;
+        this.cd.detectChanges();
+        if (res.hasSucceeded) {
+          this.reload();
+        }
+      });
   }
 
   openRejectModal(content) {

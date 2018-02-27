@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SubmissionRestService } from '../../submission-rest.service';
-import { SubmissionService } from '../../submission.service';
+import { SUBMISSION_SCOPE, SubmissionService } from '../../submission.service';
 import { SubmissionState } from '../../submission.reducers';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -20,11 +20,11 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
   public processingDepositStatus: Observable<boolean>;
   public processingSaveStatus: Observable<boolean>;
+  public showDeposit: Observable<boolean>
   private submissionIsInvalid = true;
 
   constructor(private modalService: NgbModal,
               private restService: SubmissionRestService,
-              private roles: RolesService,
               private submissionService: SubmissionService,
               private store: Store<SubmissionState>) {
   }
@@ -38,6 +38,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
       this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
       this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
+      this.showDeposit = Observable.of(this.submissionService.getSubmissionScope() === SUBMISSION_SCOPE);
     }
   }
 

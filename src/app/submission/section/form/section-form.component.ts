@@ -32,6 +32,7 @@ import { GlobalConfig } from '../../../../config/global-config.interface';
 import { SectionDataObject } from '../section-data.model';
 import { renderSectionFor } from '../section-decorator';
 import { SectionType } from '../section-type';
+import { SubmissionService } from '../../submission.service';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -56,6 +57,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
               protected store: Store<SubmissionState>,
+              protected submissionService: SubmissionService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
@@ -91,11 +93,19 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   }
 
   initForm(sectionData: WorkspaceitemSectionDataType) {
-    this.formModel = this.formBuilderService.modelFromConfiguration(this.formConfig, this.collectionId, sectionData);
+    this.formModel = this.formBuilderService.modelFromConfiguration(
+      this.formConfig,
+      this.collectionId,
+      sectionData,
+      this.submissionService.getSubmissionScope());
   }
 
   updateForm(sectionData: WorkspaceitemSectionDataType, errors: SubmissionSectionError[]) {
-    this.formModel = this.formBuilderService.modelFromConfiguration(this.formConfig, this.collectionId, sectionData);
+    this.formModel = this.formBuilderService.modelFromConfiguration(
+      this.formConfig,
+      this.collectionId,
+      sectionData,
+      this.submissionService.getSubmissionScope())
     this.isLoading = false;
     this.checksForErrors(errors);
   }

@@ -166,13 +166,13 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any, submissionScope?: string): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, JSONUtils.parseReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = new RowParser(currentRow, scopeUUID, initFormValues).parse();
+        const rowParsed = new RowParser(currentRow, scopeUUID, initFormValues, submissionScope).parse();
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);

@@ -18,13 +18,14 @@ import { LookupFieldParser } from './lookup-field-parser';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
 import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { setLayout } from './parser.utils';
+import { FormFieldModel } from '../models/form-field.model';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
 export class RowParser {
   protected authorityOptions: IntegrationSearchOptions;
 
-  constructor(protected rowData, protected scopeUUID, protected initFormValues: any) {
+  constructor(protected rowData, protected scopeUUID, protected initFormValues: any, protected submissionScope) {
     this.authorityOptions = new IntegrationSearchOptions(scopeUUID);
   }
 
@@ -36,9 +37,12 @@ export class RowParser {
       group: [],
     };
 
-    const layoutGridClass = ' col-sm-' + Math.trunc(12 / this.rowData.fields.length);
+    const scopedFields: FormFieldModel[] = this.filterScopedFields(this.rowData.fields);
 
-    this.rowData.fields.forEach((fieldData) => {
+    const layoutGridClass = ' col-sm-' + Math.trunc(12 / scopedFields.length);
+
+    // Iterate over row's fields
+    scopedFields.forEach((fieldData: FormFieldModel) => {
 
       switch (fieldData.input.type) {
         case 'date':
@@ -133,4 +137,18 @@ export class RowParser {
     return parsedResult;
   }
 
+  checksFieldScope(fieldScope) {
+    return (isEmpty(fieldScope) || isEmpty(this.submissionScope) || fieldScope === this.submissionScope);
+  }
+
+  filterScopedFields(fields: FormFieldModel[]): FormFieldModel[] {
+    const filteredFields: FormFieldModel[] = [];
+    fields.forEach((field: FormFieldModel) => {
+      // Whether field scope doesn't match the submission scope, skip it
+      if (this.checksFieldScope(field.scope)) {
+        filteredFields.push(field);
+      }
+    });
+    return filteredFields;
+  }
 }

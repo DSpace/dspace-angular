@@ -15,6 +15,9 @@ import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionRestService } from './submission-rest.service';
 import { Router } from '@angular/router';
 
+export const SUBMISSION_SCOPE = 'SUBMISSION';
+export const WORKFLOW_SCOPE = 'WORKFLOW';
+
 @Injectable()
 export class SubmissionService {
 
@@ -53,6 +56,10 @@ export class SubmissionService {
     } else {
       return 'workflowitems';
     }
+  }
+
+  getSubmissionScope(): string {
+    return  (this.getSubmissionObjectLinkName() === 'workspaceitems') ? SUBMISSION_SCOPE : WORKFLOW_SCOPE;
   }
 
   getSectionsState(submissionId: string): Observable<boolean> {
