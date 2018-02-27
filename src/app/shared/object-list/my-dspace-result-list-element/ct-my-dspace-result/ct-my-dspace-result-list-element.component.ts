@@ -58,7 +58,7 @@ export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResul
 
   approve() {
     const body = {
-      submit_approve: true
+      submit_approve: 'true'
     };
     this.ctDataService.approveTask(body, this.dso.id).subscribe((res) => {
       this.reload();
@@ -67,7 +67,7 @@ export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResul
 
   reject() {
     const body = {
-      submit_reject: true,
+      submit_reject: 'true',
       reason: this.rejectForm.get('reason').value
     };
     this.ctDataService.rejectTask(body, this.dso.id).subscribe((res) => {
