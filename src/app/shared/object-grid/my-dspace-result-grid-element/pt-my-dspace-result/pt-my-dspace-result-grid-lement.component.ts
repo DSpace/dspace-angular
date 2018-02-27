@@ -51,7 +51,7 @@ export class PoolTaskMyDSpaceResultGridElementComponent extends MyDSpaceResultGr
     //   submit_take_task: true
     // };
     this.processingClaim = true;
-    this.ptDataService.claimTask({}, this.dso.id).subscribe((res) => {
+    this.ptDataService.claimTask(this.dso.id).subscribe((res) => {
       this.processingClaim = false;
       this.reload();
     });

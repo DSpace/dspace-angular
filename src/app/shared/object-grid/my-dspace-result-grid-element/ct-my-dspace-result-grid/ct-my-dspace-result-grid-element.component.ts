@@ -56,46 +56,4 @@ export class ClaimedTaskMyDSpaceResultGridElementComponent extends MyDSpaceResul
       });
   }
 
-  approve() {
-    const body = {
-      submit_approve: 'true'
-    };
-    this.ctDataService.approveTask(body, this.dso.id).subscribe((res) => {
-      this.reload();
-    });
-  }
-
-  reject() {
-    const body = {
-      submit_reject: 'true',
-      reason: this.rejectForm.get('reason').value
-    };
-    this.ctDataService.rejectTask(body, this.dso.id).subscribe((res) => {
-      this.reload();
-    });
-  }
-
-  returnToPool() {
-    this.ctDataService.returnToPoolTask('', this.dso.id).subscribe((res) => {
-      this.reload();
-    });
-  }
-
-  openRejectModal(content) {
-    this.modalService.open(content).result.then((result) => {
-      // this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  reload() {
-    // override the route reuse strategy
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
-    };
-    this.router.navigated = false;
-    this.router.navigate([this.router.url]);
-  }
-
 }
