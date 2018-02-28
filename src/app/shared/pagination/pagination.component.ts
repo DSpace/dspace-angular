@@ -172,7 +172,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.subs.push(this.route.queryParams
       .subscribe((queryParams) => {
         if (this.isEmptyPaginationParams(queryParams)) {
-          this.initializeConfig();
+          this.initializeConfig(queryParams);
         } else {
           this.currentQueryParams = queryParams;
           const fixedProperties = this.validateParams(queryParams);
@@ -201,7 +201,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Initializes all default variables
    */
-  private initializeConfig() {
+  private initializeConfig(queryParams: any) {
     // Set initial values
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
@@ -209,13 +209,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.pageSize = this.paginationOptions.pageSize;
     this.sortDirection = this.sortOptions.direction;
     this.sortField = this.sortOptions.field;
-    this.currentQueryParams = {
+    this.currentQueryParams = Object.assign({}, queryParams, {
       pageId: this.id,
       page: this.currentPage,
       pageSize: this.pageSize,
       sortDirection: this.sortDirection,
       sortField: this.sortField
-    };
+    });
   }
 
   /**
