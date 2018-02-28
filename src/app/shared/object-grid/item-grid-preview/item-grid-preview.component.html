@@ -2,7 +2,7 @@
   <!--<div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>-->
     <!--<div *ngIf="itemRD?.payload as item">-->
       <ds-item-page-title-field [item]="item"></ds-item-page-title-field>
-      <div class="row">
+      <div class="row mb-1">
         <div class="col-xs-12 col-md-4">
           <ds-metadata-field-wrapper>
             <ds-thumbnail [thumbnail]="item.getThumbnail()"></ds-thumbnail>
@@ -19,6 +19,8 @@
             <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">
               {{"item.page.link.full" | translate}}
             </a>
+
+            <ng-content></ng-content>
           </div>
         </div>
       </div>

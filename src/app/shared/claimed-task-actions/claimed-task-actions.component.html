@@ -1,21 +1,21 @@
-<button *ngIf="(workflowitemObs | async)?.hasSucceeded" class="btn btn-primary mt-1 mb-3"
+<button *ngIf="(workflowitemObs | async)?.hasSucceeded" class="btn btn-primary"
         [routerLink]="['/workflowitems/' + (workflowitemObs | async)?.payload[0].id] + '/edit'" >
   <i class="fa fa-edit"></i> {{'mydspace.task.edit-btn' | translate}}</button>
 
 <button type="button"
-        class="btn btn-success mt-1 mb-3"
+        class="btn btn-success"
         [disabled]="processingApprove"
         (click)="approve()">
   <span *ngIf="processingApprove"><i class='fa fa-circle-o-notch fa-spin'></i> Processing...</span>
   <span *ngIf="!processingApprove"><i class="fa fa-thumbs-up"></i> {{'mydspace.task.approve-btn' | translate}}</span>
 </button>
 
-<button class="btn btn-danger mt-1 mb-3"
+<button class="btn btn-danger"
         (click)="openRejectModal(rejectModal)" >
   <i class="fa fa-trash"></i> {{'mydspace.task.reject-btn' | translate}}</button>
 
 <button type="button"
-        class="btn mt-1 mb-3"
+        class="btn"
         [disabled]="processingReturnToPool"
         (click)="returnToPool()">
   <span *ngIf="processingReturnToPool"><i class='fa fa-circle-o-notch fa-spin'></i> Processing...</span>
