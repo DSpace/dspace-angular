@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClaimedTaskDataService } from '../../core/tasks/claimed-task-data.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ClaimedTask } from '../../core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
@@ -23,13 +23,13 @@ export class ClaimedTaskActionsComponent implements OnInit {
   public processingReturnToPool = false;
   public rejectForm: FormGroup;
   public workflowitemObs: Observable<RemoteData<Workflowitem[]>>;
+  public modalRef: NgbModalRef;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private ctDataService: ClaimedTaskDataService,
-    private modalService: NgbModal,
-    private formBuilder: FormBuilder,
-    private router: Router) {
+  constructor(private cd: ChangeDetectorRef,
+              private ctDataService: ClaimedTaskDataService,
+              private modalService: NgbModal,
+              private formBuilder: FormBuilder,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -59,7 +59,9 @@ export class ClaimedTaskActionsComponent implements OnInit {
         this.processingReject = false;
         this.cd.detectChanges();
         if (res.hasSucceeded) {
+          this.modalRef.close('Send Button');
           this.reload();
+          console.log('');
         }
       });
   }
@@ -71,7 +73,6 @@ export class ClaimedTaskActionsComponent implements OnInit {
         this.processingReturnToPool = false;
         this.cd.detectChanges();
         if (res.hasSucceeded) {
-          this.modalService.open(rejectModal).close();
           this.reload();
         }
       });
@@ -79,7 +80,7 @@ export class ClaimedTaskActionsComponent implements OnInit {
 
   openRejectModal(rejectModal) {
     this.rejectForm.reset();
-    this.modalService.open(rejectModal);
+    this.modalRef = this.modalService.open(rejectModal);
   }
 
   reload() {
