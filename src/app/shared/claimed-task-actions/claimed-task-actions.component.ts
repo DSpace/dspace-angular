@@ -6,6 +6,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ClaimedTask } from '../../core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
+import { RemoteData } from '../../core/data/remote-data';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-claimed-task-actions',
@@ -15,12 +17,12 @@ import { ProcessTaskResponse } from '../../core/tasks/models/process-task-respon
 
 export class ClaimedTaskActionsComponent implements OnInit {
   @Input() task: ClaimedTask;
-  @Input() workflowitem: Workflowitem;
 
   public processingApprove = false;
   public processingReject = false;
   public processingReturnToPool = false;
   public rejectForm: FormGroup;
+  public workflowitemObs: Observable<RemoteData<Workflowitem[]>>;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -34,6 +36,7 @@ export class ClaimedTaskActionsComponent implements OnInit {
     this.rejectForm = this.formBuilder.group({
       reason: ['', Validators.required]
     });
+    this.workflowitemObs = this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>;
   }
 
   approve() {

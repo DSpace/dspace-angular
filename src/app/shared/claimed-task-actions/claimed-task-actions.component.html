@@ -1,5 +1,5 @@
-<button class="btn btn-primary mt-1 mb-3"
-        [routerLink]="['/workflowitems/' + workflowitem.id] + '/edit'" >
+<button *ngIf="(workflowitemObs | async)?.hasSucceeded" class="btn btn-primary mt-1 mb-3"
+        [routerLink]="['/workflowitems/' + (workflowitemObs | async)?.payload[0].id] + '/edit'" >
   <i class="fa fa-edit"></i> {{'mydspace.task.edit-btn' | translate}}</button>
 
 <button type="button"
