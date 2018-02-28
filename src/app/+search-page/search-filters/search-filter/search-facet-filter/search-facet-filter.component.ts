@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit  } from '@angular/core';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { Router } from '@angular/router';
@@ -20,13 +20,10 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ds-search-facet-filter',
-  styleUrls: ['./search-facet-filter.component.scss'],
-  templateUrl: './search-facet-filter.component.html'
+  template: ``,
 })
 
 export class SearchFacetFilterComponent implements OnInit, OnDestroy {
-  @Input() filterConfig: SearchFilterConfig;
-  @Input() selectedValues: string[];
   filterValues: Array<Observable<RemoteData<PaginatedList<FacetValue>>>> = [];
   filterValues$: BehaviorSubject<any> = new BehaviorSubject(this.filterValues);
   currentPage: Observable<number>;
@@ -35,7 +32,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   pageChange = false;
   sub: Subscription;
 
-  constructor(private searchService: SearchService, private filterService: SearchFilterService, private router: Router) {
+  constructor(private searchService: SearchService,
+              private filterService: SearchFilterService,
+              private router: Router,
+              @Inject('filterConfig') public filterConfig: SearchFilterConfig,
+              @Inject('selectedValues') public selectedValues: string[]) {
   }
 
   ngOnInit(): void {

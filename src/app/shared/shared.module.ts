@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NouisliderModule } from 'ng2-nouislider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -54,7 +54,8 @@ const MODULES = [
   NgxPaginationModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule
+  TranslateModule,
+  NouisliderModule
 ];
 
 const PIPES = [

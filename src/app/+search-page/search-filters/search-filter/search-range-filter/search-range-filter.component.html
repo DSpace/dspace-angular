@@ -1,0 +1,21 @@
+<div>
+    <div class="filters">
+        <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter row"
+              [action]="getCurrentUrl()">
+            <input type="text" [(ngModel)]="min" [name]="filterConfig.paramName + 'min'" class="form-control col-6"
+                   aria-label="Mininum value"
+                   [placeholder]="'search.filters.filter.' + filterConfig.name + '.min.placeholder'| translate"/>
+            <input type="text" [(ngModel)]="max" [name]="filterConfig.paramName + 'max'" class="form-control col-6"
+                   aria-label="Maximum value"
+                   [placeholder]="'search.filters.filter.' + filterConfig.name + '.max.placeholder'| translate"/>
+            <input type="submit" class="d-none"/>
+        </form>
+        <nouislider [connect]="true" [min]="rangeMin" [max]="rangeMax" [step]="1" [(ngModel)]="range"></nouislider>
+        <a *ngFor="let value of selectedValues" class="d-block"
+           [routerLink]="[getSearchLink()]"
+           [queryParams]="getQueryParamsWithout(value) | async">
+            <input type="checkbox" [checked]="true"/>
+            <span class="filter-value">{{value}}</span>
+        </a>
+    </div>
+</div>
