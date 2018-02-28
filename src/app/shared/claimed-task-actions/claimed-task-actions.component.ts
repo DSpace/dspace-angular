@@ -64,24 +64,22 @@ export class ClaimedTaskActionsComponent implements OnInit {
       });
   }
 
-  returnToPool() {
+  returnToPool(rejectModal) {
     this.processingReturnToPool = true;
     this.ctDataService.returnToPoolTask(this.task.id)
       .subscribe((res: ProcessTaskResponse) => {
         this.processingReturnToPool = false;
         this.cd.detectChanges();
         if (res.hasSucceeded) {
+          this.modalService.open(rejectModal).close();
           this.reload();
         }
       });
   }
 
-  openRejectModal(content) {
-    this.modalService.open(content).result.then((result) => {
-      // this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  openRejectModal(rejectModal) {
+    this.rejectForm.reset();
+    this.modalService.open(rejectModal);
   }
 
   reload() {

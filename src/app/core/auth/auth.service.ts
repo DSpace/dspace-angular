@@ -9,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import { isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
 import { getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
@@ -180,7 +180,10 @@ export class AuthService {
    * Retrieve authentication token info and make authorization header
    * @returns {string}
    */
-  public buildAuthHeader(token): string {
+  public buildAuthHeader(token?: AuthTokenInfo): string {
+    if (isEmpty(token)) {
+      token = this.getToken();
+    }
     return (this._authenticated && isNotNull(token)) ? `Bearer ${token.accessToken}` : '';
   }
 

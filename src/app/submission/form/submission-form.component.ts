@@ -14,6 +14,8 @@ import { SubmissionState } from '../submission.reducers';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionService } from '../submission.service';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -40,7 +42,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
   @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef,
+  constructor(private authService: AuthService,
+              private changeDetectorRef: ChangeDetectorRef,
               private store: Store<SubmissionState>,
               private submissionRestService: SubmissionRestService,
               private submissionService: SubmissionService) {
@@ -53,6 +56,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           .filter((href: string) => isNotEmpty(href))
           .distinctUntilChanged()
           .subscribe((endpointURL) => {
+            this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
             this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.selfUrl, this.sections));
