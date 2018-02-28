@@ -201,7 +201,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Initializes all default variables
    */
-  private initializeConfig(queryParams: any) {
+  private initializeConfig(queryParams?: any = {}) {
     // Set initial values
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
