@@ -16,6 +16,9 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-operations.service';
 import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../../submission.service';
+import { SubmissionState } from '../../submission.reducers';
+import { Store } from '@ngrx/store';
+import { ChangeSubmissionCollectionAction } from '../../objects/submission-objects.actions';
 
 @Component({
   selector: 'ds-submission-form-collection',
@@ -57,6 +60,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   constructor(private communityDataService: CommunityDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
+              private store: Store<SubmissionState>,
               private submissionService: SubmissionService) {}
 
   onScroll(event) {
@@ -135,6 +139,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         this.selectedCollectionId = event.collection.id;
         this.selectedCollectionName = event.collection.name;
         this.collectionChange.emit(workspaceitems[0]);
+        this.store.dispatch(new ChangeSubmissionCollectionAction(this.submissionId, event.collection.id));
         this.disabled = false;
       })
   }

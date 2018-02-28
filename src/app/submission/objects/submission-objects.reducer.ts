@@ -11,7 +11,8 @@ import {
   SubmissionObjectActionTypes, ClearSectionErrorsAction, InertSectionErrorsAction,
   DeleteSectionErrorsAction, ResetSubmissionFormAction, UpdateSectionDataAction, SaveSubmissionFormAction,
   CompleteSaveSubmissionFormAction, SetActiveSectionAction, SaveSubmissionSectionFormAction,
-  DepositSubmissionAction, DepositSubmissionSuccessAction, DepositSubmissionErrorAction
+  DepositSubmissionAction, DepositSubmissionSuccessAction, DepositSubmissionErrorAction,
+  ChangeSubmissionCollectionAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
@@ -35,6 +36,7 @@ export interface SubmissionSectionEntry {
 }
 
 export interface SubmissionObjectEntry {
+  collection?: string,
   selfUrl?: string;
   activeSection?: string;
   sections?: SubmissionSectionEntry;
@@ -81,6 +83,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM: {
       return saveSubmission(state, action as SaveSubmissionSectionFormAction);
+    }
+
+    case SubmissionObjectActionTypes.CHANGE_SUBMISSION_COLLECTION: {
+      return changeCollection(state, action as ChangeSubmissionCollectionAction);
     }
 
     case SubmissionObjectActionTypes.COMPLETE_SAVE_SUBMISSION_FORM: {
@@ -254,6 +260,7 @@ function initSubmission(state: SubmissionObjectState, action: LoadSubmissionForm
 
   const newState = Object.assign({}, state);
   newState[ action.payload.submissionId ] = {
+    collection: action.payload.collectionId,
     selfUrl: action.payload.selfUrl,
     activeSection: null,
     sections: Object.create(null),
@@ -381,6 +388,24 @@ function endDeposit(state: SubmissionObjectState, action: DepositSubmissionSucce
   } else {
     return state;
   }
+}
+
+/**
+ * Init a SubmissionObjectState.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an LoadSubmissionFormAction
+ * @return SubmissionObjectState
+ *    the new state, with the section removed.
+ */
+function changeCollection(state: SubmissionObjectState, action: ChangeSubmissionCollectionAction): SubmissionObjectState {
+  return Object.assign({}, state, {
+    [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+      collection: action.payload.collectionId
+    })
+  });
 }
 
 // ------ Section functions ------ //

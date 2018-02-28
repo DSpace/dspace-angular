@@ -1,17 +1,17 @@
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Eperson } from './models/eperson.model';
 import { EpersonType } from './eperson-type';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { Group } from './models/group.model';
+import { NormalizedEpersonModel } from './models/NormalizedEperson.model';
+import { NormalizedGroupModel } from './models/NormalizedGroup.model';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
 
 export class EpersonObjectFactory {
-  public static getConstructor(type): GenericConstructor<DSpaceObject> {
+  public static getConstructor(type): GenericConstructor<NormalizedObject> {
     switch (type) {
       case EpersonType.EpersonsModel: {
-        return Eperson
+        return NormalizedEpersonModel
       }
       case EpersonType.GroupsModel: {
-        return Group
+        return NormalizedGroupModel
       }
       default: {
         return undefined;

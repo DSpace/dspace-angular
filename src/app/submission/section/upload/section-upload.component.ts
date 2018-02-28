@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnChanges, OnInit } from '@angular/core';
 import {Store} from '@ngrx/store';
 import {SectionModelComponent} from '../section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
@@ -16,6 +16,8 @@ import { SubmissionFormsModel } from '../../../core/shared/config/config-submiss
 import { SectionType } from '../section-type';
 import { renderSectionFor } from '../section-decorator';
 import { SectionDataObject } from '../section-data.model';
+import { submissionObjectFromIdSelector } from '../../selectors';
+import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -26,7 +28,7 @@ export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
   templateUrl: './section-upload.component.html',
 })
 @renderSectionFor(SectionType.Upload)
-export class FilesSectionComponent extends SectionModelComponent implements OnChanges {
+export class FilesSectionComponent extends SectionModelComponent implements OnChanges, OnInit {
 
   public fileIndexes = [];
   public fileList = [];
@@ -63,105 +65,111 @@ export class FilesSectionComponent extends SectionModelComponent implements OnCh
               private store:Store<SubmissionState>,
               private uploadsConfigService: SubmissionUploadsConfigService,
               private groupService: GroupEpersonService,
-              @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
-    super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
+    super(undefined, injectedSectionData, injectedSubmissionId);
+  }
+
+  ngOnInit() {
+    this.subs.push(
+      this.store.select(submissionObjectFromIdSelector(this.submissionId))
+        .filter((submissionObject: SubmissionObjectEntry) => !submissionObject.isLoading)
+        .filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection)
+        .subscribe((submissionObject: SubmissionObjectEntry) => {
+          this.collectionId = submissionObject.collection;
+          this.collectionDataService.findById(this.collectionId)
+            .filter((collectionData) => isNotUndefined((collectionData.payload)))
+            .take(1)
+            .subscribe((collectionData) => {
+              this.collectionName = collectionData.payload.name;
+
+              // Default Access Conditions
+              this.subs.push(collectionData.payload.defaultAccessConditions
+                .filter((accessConditions) => isNotUndefined((accessConditions.payload)))
+                .take(1)
+                .subscribe((defaultAccessConditions) => {
+
+                  if (isNotEmpty(defaultAccessConditions.payload)) {
+                    this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditions.payload)
+                      ? defaultAccessConditions.payload : [defaultAccessConditions.payload];
+                  }
+
+                  // Edit Form Configuration, access policy list
+                  this.subs.push(this.uploadsConfigService.getConfigByHref(this.sectionData.config)
+                    .flatMap((config) => config.payload)
+                    .take(1)
+                    .subscribe((config: SubmissionUploadsModel) => {
+                      this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
+
+                      this.configMetadataForm = config.metadata[0];
+                      this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
+                        ? POLICY_DEFAULT_WITH_LIST
+                        : POLICY_DEFAULT_NO_LIST;
+
+                      this.availableGroups = new Map();
+                      const groupsObs = [];
+                      // Retrieve Groups for accessConditionPolicies
+                      this.availableAccessConditionOptions.forEach((accessCondition) => {
+                        if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
+                          groupsObs.push(this.groupService.getDataByUuid(accessCondition.groupUUID)
+                          );
+                        }
+                      });
+                      let obsCounter = 1;
+                      Observable.merge(groupsObs)
+                        .flatMap((group) => group)
+                        .take(groupsObs.length)
+                        .subscribe((data: EpersonData) => {
+                          const group = data.payload[0] as Group;
+                          if (isUndefined(this.availableGroups.get(group.uuid))) {
+                            if (Array.isArray(group.groups)) {
+                              const groupArrayData = [];
+                              for (const groupData of group.groups) {
+                                groupArrayData.push({name: groupData.name, uuid: groupData.uuid});
+                              }
+                              this.availableGroups.set(group.uuid, groupArrayData);
+                            } else {
+                              this.availableGroups.set(group.uuid, {name: group.name, uuid: group.uuid});
+                            }
+                          }
+                          if (obsCounter++ === groupsObs.length) {
+                            this.changeDetectorRef.detectChanges();
+                          }
+                        })
+                    })
+                  );
+                })
+              );
+            })
+        })
+      ,
+      this.bitstreamService
+        .getUploadedFileList(this.submissionId, this.sectionData.id)
+        .filter((bitstreamList) => isNotUndefined(bitstreamList))
+        .distinctUntilChanged()
+        .subscribe((fileList) => {
+            let sectionStatus = false;
+            this.fileList = [];
+            this.fileIndexes = [];
+            if (isNotUndefined(fileList) && Object.keys(fileList).length > 0) {
+              Object.keys(fileList)
+                .forEach((key) => {
+                  this.fileList.push(fileList[key]);
+                  this.fileIndexes.push(fileList[key].uuid);
+                });
+              sectionStatus = true;
+            }
+            this.store.dispatch(new SectionStatusChangeAction(this.submissionId,
+              this.sectionData.id,
+              sectionStatus));
+            // this.changeDetectorRef.detectChanges();
+          }
+        )
+    );
   }
 
   ngOnChanges() {
-    if (this.collectionId) {
-      this.subs.push(
-        this.collectionDataService.findById(this.collectionId)
-          .filter((collectionData) => isNotUndefined((collectionData.payload)))
-          .take(1)
-          .subscribe((collectionData) => {
-            this.collectionName = collectionData.payload.name;
 
-            // Default Access Conditions
-            this.subs.push(collectionData.payload.defaultAccessConditions
-              .filter((accessConditions) => isNotUndefined((accessConditions.payload)))
-              .take(1)
-              .subscribe((defaultAccessConditions) => {
-
-                if (isNotEmpty(defaultAccessConditions.payload)) {
-                  this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditions.payload)
-                    ? defaultAccessConditions.payload : [defaultAccessConditions.payload];
-                }
-
-                // Edit Form Configuration, access policy list
-                this.subs.push(this.uploadsConfigService.getConfigByHref(this.sectionData.config)
-                  .flatMap((config) => config.payload)
-                  .take(1)
-                  .subscribe((config: SubmissionUploadsModel) => {
-                    this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
-
-                    this.configMetadataForm = config.metadata[0];
-                    this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
-                      ? POLICY_DEFAULT_WITH_LIST
-                      : POLICY_DEFAULT_NO_LIST;
-
-                    this.availableGroups = new Map();
-                    const groupsObs = [];
-                    // Retrieve Groups for accessConditionPolicies
-                    this.availableAccessConditionOptions.forEach((accessCondition) => {
-                      if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
-                        groupsObs.push(this.groupService.getDataByUuid(accessCondition.groupUUID)
-                        );
-                      }
-                    });
-                    let obsCounter = 1;
-                    Observable.merge(groupsObs)
-                      .flatMap((group) => group)
-                      .take(groupsObs.length)
-                      .subscribe((data: EpersonData) => {
-                        const group = data.payload[0] as Group;
-                        if (isUndefined(this.availableGroups.get(group.uuid))) {
-                          if (Array.isArray(group.groups)) {
-                            const groupArrayData = [];
-                            for (const groupData of group.groups) {
-                              groupArrayData.push({name: groupData.name, uuid: groupData.uuid});
-                            }
-                            this.availableGroups.set(group.uuid, groupArrayData);
-                          } else {
-                            this.availableGroups.set(group.uuid, {name: group.name, uuid: group.uuid});
-                          }
-                        }
-                        if (obsCounter++ === groupsObs.length) {
-                          this.changeDetectorRef.detectChanges();
-                        }
-                      })
-                  })
-                );
-              })
-            );
-          })
-        ,
-        this.bitstreamService
-          .getUploadedFileList(this.submissionId, this.sectionData.id)
-          .filter((bitstreamList) => isNotUndefined(bitstreamList))
-          .distinctUntilChanged()
-          .subscribe((fileList) => {
-              let sectionStatus = false;
-              this.fileList = [];
-              this.fileIndexes = [];
-              if (isNotUndefined(fileList) && Object.keys(fileList).length > 0) {
-                Object.keys(fileList)
-                  .forEach((key) => {
-                    this.fileList.push(fileList[key]);
-                    this.fileIndexes.push(fileList[key].uuid);
-                  });
-                sectionStatus = true;
-              }
-              this.store.dispatch(new SectionStatusChangeAction(this.submissionId,
-                this.sectionData.id,
-                sectionStatus));
-              // this.changeDetectorRef.detectChanges();
-            }
-          )
-      );
-
-    }
   }
 
   /**

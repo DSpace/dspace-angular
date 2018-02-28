@@ -2,20 +2,19 @@ import {
   DynamicDatePickerModelConfig,
   DynamicFormArrayModelConfig,
   DynamicSelectModelConfig,
-  DynamicFormGroupModelConfig,
+  DynamicFormGroupModelConfig, DynamicFormControlLayout,
 } from '@ng-dynamic-forms/core';
 
 export const BITSTREAM_METADATA_FORM_GROUP_CONFIG: DynamicFormGroupModelConfig = {
   id: 'metadata',
   group: []
 };
-export const BITSTREAM_METADATA_FORM_GROUP_CLS: any = {
+export const BITSTREAM_METADATA_FORM_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    container: 'row',
+    container: 'form-group',
       label: 'col-form-label'
   },
   grid: {
-    control: 'col-sm-12',
       label: 'col-sm-3'
   }
 };
@@ -24,7 +23,7 @@ export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayMode
   id: 'accessConditions',
   groupFactory: null,
 };
-export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CLS: any = {
+export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT: DynamicFormControlLayout = {
   grid: {
     group: 'form-row'
   }
@@ -35,7 +34,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG: DynamicSelectModelConf
   label: 'Access condition type',
   options: []
 };
-export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CLS: any = {
+export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayout = {
   element: {
     container: 'p-0',
     label: 'col-form-label'
@@ -59,7 +58,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
     }
   ]
 };
-export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CLS: any = {
+export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
     container: 'p-0',
     label: 'col-form-label'
@@ -83,7 +82,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
     }
   ]
 };
-export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CLS: any = {
+export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
     container: 'p-0',
     label: 'col-form-label'
@@ -105,7 +104,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelCo
     }
   ]
 };
-export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CLS: any = {
+export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT: DynamicFormControlLayout = {
   element: {
     container: 'p-0',
       label: 'col-form-label'

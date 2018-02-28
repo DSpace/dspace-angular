@@ -28,6 +28,7 @@ export const SubmissionObjectActionTypes = {
   SAVE_SUBMISSION_FORM: type('dspace/submission/SAVE_SUBMISSION_FORM'),
   SAVE_SUBMISSION_SECTION_FORM: type('dspace/submission/SAVE_SUBMISSION_SECTION_FORM'),
   COMPLETE_SAVE_SUBMISSION_FORM: type('dspace/submission/COMPLETE_SAVE_SUBMISSION_FORM'),
+  CHANGE_SUBMISSION_COLLECTION: type('dspace/submission/CHANGE_SUBMISSION_COLLECTION'),
   SET_ACTIVE_SECTION: type('dspace/submission/SET_ACTIVE_SECTION'),
   ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
@@ -331,6 +332,24 @@ export class ResetSubmissionFormAction implements Action {
   }
 }
 
+export class ChangeSubmissionCollectionAction implements Action {
+  type = SubmissionObjectActionTypes.CHANGE_SUBMISSION_COLLECTION;
+  payload: {
+    submissionId: string;
+    collectionId: string;
+  };
+
+  /**
+   * Create a new ChangeSubmissionCollectionAction
+   *
+   * @param collectionId
+   *    the new collection's ID
+   */
+  constructor(submissionId: string, collectionId: string) {
+    this.payload = { submissionId, collectionId };
+  }
+}
+
 export class DepositSubmissionAction implements Action {
   type = SubmissionObjectActionTypes.DEPOSIT_SUBMISSION;
   payload: {
@@ -536,6 +555,7 @@ export type SubmissionObjectAction = DisableSectionAction
   | ResetSubmissionFormAction
   | InitSubmissionFormAction
   | CompleteInitSubmissionFormAction
+  | ChangeSubmissionCollectionAction
   | DepositSubmissionAction
   | DepositSubmissionSuccessAction
   | DepositSubmissionErrorAction

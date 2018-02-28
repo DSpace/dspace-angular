@@ -64,17 +64,19 @@ export class SubmissionService {
 
   getSectionsState(submissionId: string): Observable<boolean> {
     return this.getSectionsEnabled(submissionId)
-      .filter((item) => isNotUndefined(item))
+      .filter((item) => isNotUndefined(item) && isNotUndefined(item.sections))
       .map((item) => item.sections)
       .map((sections) => {
         const states = [];
 
-        Object.keys(sections)
-          .filter((property) => sections.hasOwnProperty(property))
-          .filter((property) => sections[property].isValid === false)
-          .forEach((property) => {
-            states.push(sections[property].isValid)
-          });
+        if (isNotUndefined(sections)) {
+          Object.keys(sections)
+            .filter((property) => sections.hasOwnProperty(property))
+            .filter((property) => sections[property].isValid === false)
+            .forEach((property) => {
+              states.push(sections[property].isValid)
+            });
+        }
 
         return !isEmpty(sections) && isEmpty(states);
       })

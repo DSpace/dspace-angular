@@ -75,6 +75,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
     }
   }
+
   ngOnDestroy() {
     this.subs
       .filter((subscription) => hasValue(subscription))
