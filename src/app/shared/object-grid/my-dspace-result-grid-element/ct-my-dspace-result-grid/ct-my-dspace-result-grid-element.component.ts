@@ -30,11 +30,10 @@ export class ClaimedTaskMyDSpaceResultGridElementComponent extends MyDSpaceResul
   // public submitter: Eperson;
   // public user: Eperson;
 
-  constructor(// private store: Store<AppState>,
+  constructor(
     private ctDataService: ClaimedTaskDataService,
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
-    private router: Router,
     @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
 
