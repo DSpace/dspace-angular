@@ -66,7 +66,7 @@ export class ClaimedTaskActionsComponent implements OnInit {
       });
   }
 
-  returnToPool(rejectModal) {
+  returnToPool() {
     this.processingReturnToPool = true;
     this.ctDataService.returnToPoolTask(this.task.id)
       .subscribe((res: ProcessTaskResponse) => {
