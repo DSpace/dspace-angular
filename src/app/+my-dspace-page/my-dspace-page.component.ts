@@ -165,12 +165,13 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
           mockResult.hitHighlights = new Array(highlight);
           page.splice(index, 1, mockResult);
         });
-        const payload = {
-          page,
-          pageInfo,
-          totalElements
-        };
-        return Object.assign({}, rd, {payload});
+
+
+        const payload = Object.assign( {}, rd.payload, {'payload.page': page});
+        const rd2 = Object.assign({}, rd, {payload});
+        console.log('rd:', rd);
+        console.log('rd2', rd2);
+        return rd2;
         // return new RemoteData(false, false, true, undefined, payload as Array<MyDSpaceResult>);
       });
   }
