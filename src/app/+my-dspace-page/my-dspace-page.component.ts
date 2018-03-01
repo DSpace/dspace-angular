@@ -152,7 +152,9 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   public newSubmissionsEnd(workspaceitems: Workspaceitem[]) {
-    this.resultsRDObs = this.resultsRDObs.map((rd: RemoteData<Array<MyDSpaceResult<DSpaceObject>>>) => {
+    this.resultsRDObs = this.resultsRDObs
+      .filter( (rd) => rd.hasSucceeded)
+      .map((rd: RemoteData<Array<MyDSpaceResult<DSpaceObject>>>) => {
       const page = rd.payload;
       workspaceitems.forEach((item: Workspaceitem, index) => {
         const mockResult: MyDSpaceResult<DSpaceObject> = new WorkspaceitemMyDSpaceResult();
