@@ -12,7 +12,6 @@ export abstract class SectionModelComponent implements SectionDataModel {
   collectionId: string;
   sectionData: SectionDataObject;
   submissionId: string;
-
   protected valid: boolean;
 
   public constructor(@Inject('collectionIdProvider') public injectedCollectionId: string,

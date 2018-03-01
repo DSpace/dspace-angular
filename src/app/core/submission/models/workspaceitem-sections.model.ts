@@ -5,6 +5,7 @@ import { isNotEmpty, isNotNull } from '../../../shared/empty.util';
 import { AuthorityModel } from '../../integration/models/authority.model';
 import { LanguageCode } from '../../../shared/form/builder/models/form-field-language-value.model';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
+import { WorkspaceitemSectionRecycleObject } from './workspaceitem-section-recycle.model';
 
 export class WorkspaceitemSectionsObject {
   [name: string]: WorkspaceitemSectionDataType;
@@ -64,4 +65,5 @@ export type WorkspaceitemSectionDataType
   = WorkspaceitemSectionUploadObject
   | WorkspaceitemSectionFormObject
   | WorkspaceitemSectionLicenseObject
+  | WorkspaceitemSectionRecycleObject
   | string;

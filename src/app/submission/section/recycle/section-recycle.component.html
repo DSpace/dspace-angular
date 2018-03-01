@@ -1,1 +1,19 @@
 <ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
+
+Following data are not valid:
+<div>
+  <div class="row">
+    <ng-container *ngFor="let m of metadata">
+      <div class="col">
+      {{m.value}}
+      </div>
+      <!--<div class="col-3">-->
+        <!--<button class="btn btn-primary"></button>-->
+      <!--</div>-->
+    </ng-container>
+
+    <button class="btn btn-danger"><i class="fa fa-times"></i> Remove All</button>
+  </div>
+
+
+</div>
