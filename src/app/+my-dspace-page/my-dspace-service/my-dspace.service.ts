@@ -128,12 +128,14 @@ export class MyDspaceService extends SearchService implements OnDestroy {
         let claimedTasksObs: Observable<RemoteData<PaginatedList<ClaimedTask>>>;
         let poolTasksObs: Observable<RemoteData<PaginatedList<PoolTask>>>;
 
-        itemsObs = workspaceitemsObs = workflowitemsObs = claimedTasksObs = poolTasksObs = Observable.of(new RemoteData(
+        const emptyRD = new RemoteData(
           false,
           false,
           true,
           undefined,
-          new PaginatedList(new PageInfo(), [])));
+          new PaginatedList(new PageInfo(), []));
+
+        itemsObs = workspaceitemsObs = workflowitemsObs = claimedTasksObs = poolTasksObs = Observable.of(emptyRD);
 
         // if ((isEmpty(status) || status.length > 1) && (returningPageInfo.currentPage * returningPageInfo.elementsPerPage < 41)) {
         if (isEmpty(statusArray)) {
@@ -144,7 +146,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 scopeID: user.uuid,
                 currentPage: returningPageInfo.currentPage,
                 elementsPerPage: returningPageInfo.elementsPerPage
-              }).filter((rd) => rd.hasSucceeded);
+              }).map((rd) => !rd.hasSucceeded ? emptyRD : rd);
             });
 
           workspaceitemsObs = this.user
@@ -154,7 +156,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 scopeID: user.uuid,
                 currentPage: returningPageInfo.currentPage,
                 elementsPerPage: returningPageInfo.elementsPerPage
-              }).filter((rd) => rd.hasSucceeded);
+              }).map((rd) => !rd.hasSucceeded ? emptyRD : rd);
             });
 
           workflowitemsObs = this.user
@@ -164,7 +166,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 scopeID: user.uuid,
                 currentPage: returningPageInfo.currentPage,
                 elementsPerPage: returningPageInfo.elementsPerPage
-              }).filter((rd) => rd.hasSucceeded);
+              }).map((rd) => !rd.hasSucceeded ? emptyRD : rd);
             });
 
           claimedTasksObs = this.user
@@ -174,7 +176,10 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 scopeID: user.uuid,
                 currentPage: returningPageInfo.currentPage,
                 elementsPerPage: returningPageInfo.elementsPerPage
-              }).filter((rd) => rd.hasSucceeded);
+              }).map((rd) => {
+                console.log(rd);
+                return !rd.hasSucceeded ? emptyRD : rd
+              });
             });
 
           poolTasksObs = this.user
@@ -184,7 +189,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 scopeID: user.uuid,
                 currentPage: returningPageInfo.currentPage,
                 elementsPerPage: returningPageInfo.elementsPerPage
-              }).filter((rd) => rd.hasSucceeded);
+              }).map((rd) => !rd.hasSucceeded ? emptyRD : rd);
             });
         } else {
           statusArray.forEach((status) => {
@@ -197,7 +202,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                       scopeID: user.uuid,
                       currentPage: returningPageInfo.currentPage,
                       elementsPerPage: returningPageInfo.elementsPerPage
-                    }).filter((rd) => rd.hasSucceeded);
+                    }).map((rd) => !rd.hasSucceeded ? emptyRD : rd);
                   });
                 break;
               case 'Accepted':
@@ -208,7 +213,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                       scopeID: user.uuid,
                       currentPage: returningPageInfo.currentPage,
                       elementsPerPage: (returningPageInfo.elementsPerPage)
-                    }).filter((rd) => rd.hasSucceeded);
+                    }).map((rd) => !rd.hasSucceeded ? emptyRD : rd);
                   });
                 break;
               case 'Validation':
@@ -219,7 +224,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                       scopeID: user.uuid,
                       currentPage: returningPageInfo.currentPage,
                       elementsPerPage: returningPageInfo.elementsPerPage
-                    }).filter((rd) => rd.hasSucceeded);
+                    }).map((rd) => !rd.hasSucceeded ? emptyRD : rd);
                   });
                 break;
               case 'Waiting for controller':
@@ -230,7 +235,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                       scopeID: user.uuid,
                       currentPage: returningPageInfo.currentPage,
                       elementsPerPage: returningPageInfo.elementsPerPage
-                    }).filter((rd) => rd.hasSucceeded);
+                    }).map((rd) => !rd.hasSucceeded ? emptyRD : rd);
                   });
                 break;
               case 'Workflow':
@@ -241,7 +246,7 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                       scopeID: user.uuid,
                       currentPage: returningPageInfo.currentPage,
                       elementsPerPage: returningPageInfo.elementsPerPage
-                    }).filter((rd) => rd.hasSucceeded);
+                    }).map((rd) => !rd.hasSucceeded ? emptyRD : rd);
                   });
                 break;
             }
@@ -336,8 +341,8 @@ export class MyDspaceService extends SearchService implements OnDestroy {
                 }
               });
 
-            const shuffledPage = shuffle(page);
-            const payload = Object.assign({}, rdw.payload, { totalElements: totalElements, page: shuffledPage });
+            // const shuffledPage = shuffle(page);
+            const payload = Object.assign({}, rdw.payload, { totalElements: totalElements, page: page });
 
             return new RemoteData(
               rdi.isRequestPending && rdw.isRequestPending && rdf.isRequestPending && rct.isRequestPending && rpt.isRequestPending,

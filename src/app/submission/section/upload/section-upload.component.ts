@@ -73,7 +73,7 @@ export class FilesSectionComponent extends SectionModelComponent implements OnCh
   ngOnInit() {
     this.subs.push(
       this.store.select(submissionObjectFromIdSelector(this.submissionId))
-        .filter((submissionObject: SubmissionObjectEntry) => !submissionObject.isLoading)
+        .filter((submissionObject: SubmissionObjectEntry) => isNotUndefined(submissionObject) && !submissionObject.isLoading)
         .filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection)
         .subscribe((submissionObject: SubmissionObjectEntry) => {
           this.collectionId = submissionObject.collection;

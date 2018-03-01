@@ -26,6 +26,7 @@ import { Workspaceitem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemMyDSpaceResult } from '../shared/object-collection/shared/workspaceitem-my-dspace-result.model';
 import { Subject } from 'rxjs/Subject';
 import { Metadatum } from '../core/shared/metadatum.model';
+import { RolesService } from '../core/roles/roles.service';
 
 /**
  * This component renders a simple item page.
@@ -58,6 +59,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   constructor(private service: MyDspaceService,
               private route: ActivatedRoute,
               private communityService: CommunityDataService,
+              public rolesService: RolesService,
               private platform: PlatformService,
               private sidebarService: SearchSidebarService,
               private store: Store<AppState>,
@@ -115,10 +117,11 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
             {direction: sortDirection, field: params.sortField}
           );
 
-          this.updateSearchResults({
+          this.searchOptions = {
             pagination: pagination,
             sort: sort
-          });
+          };
+          this.updateSearchResults(this.searchOptions);
           if (isNotEmpty(this.scope)) {
             this.scopeObjectRDObs = this.communityService.findById(this.scope);
           } else {
@@ -152,26 +155,21 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   public newSubmissionsEnd(workspaceitems: Workspaceitem[]) {
-    this.resultsRDObs = this.resultsRDObs
-      .filter((rd) => rd.hasSucceeded)
+    /*this.resultsRDObs = this.resultsRDObs
+      .filter((rd) => isNotEmpty(rd.payload))
+      .first()
       .map((rd: RemoteData<Array<MyDSpaceResult<DSpaceObject>>>) => {
-        const page = (rd.payload as any).page;
-        const pageInfo = (rd.payload as any).pageInfo;
-        const totalElements = (rd.payload as any).totalElements;
-        workspaceitems.forEach((item: Workspaceitem, index) => {
+        workspaceitems
+          .filter((item: Workspaceitem) => isNotUndefined(item))
+          .forEach((item: Workspaceitem, index) => {
           const mockResult: MyDSpaceResult<DSpaceObject> = new WorkspaceitemMyDSpaceResult();
           mockResult.dspaceObject = item;
           const highlight = new Metadatum();
           mockResult.hitHighlights = new Array(highlight);
-          page.splice(index, 1, mockResult);
+          (rd.payload as any).page.splice(index, 1, mockResult);
         });
-        const payload = {
-          page,
-          pageInfo,
-          totalElements
-        };
-        return Object.assign({}, rd, {payload});
-        // return new RemoteData(false, false, true, undefined, payload as Array<MyDSpaceResult>);
-      });
+        return rd;
+      });*/
+    this.resultsRDObs = this.service.search(this.query, this.scope, this.searchOptions);
   }
 }

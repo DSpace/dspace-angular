@@ -1,19 +1,20 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { hasValue } from '../shared/empty.util';
+import { hasValue, isEmpty } from '../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../core/shared/config/config-submission-definitions.model';
 import { SubmissionRestService } from '../submission/submission-rest.service';
 import { Workspaceitem } from '../core/submission/models/workspaceitem.model';
 import { PlatformService } from '../shared/services/platform.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-submit-page',
   styleUrls: ['./submit-page.component.scss'],
   templateUrl: './submit-page.component.html'
 })
-
 export class SubmitPageComponent implements OnDestroy, OnInit {
 
   public collectionId: string;
@@ -26,7 +27,8 @@ export class SubmitPageComponent implements OnDestroy, OnInit {
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private platform: PlatformService,
-              private restService: SubmissionRestService) {
+              private restService: SubmissionRestService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -35,12 +37,17 @@ export class SubmitPageComponent implements OnDestroy, OnInit {
       this.subs.push(
         this.restService.postToEndpoint('workspaceitems', {})
           .map((workspaceitems) => workspaceitems[0])
+          .catch((Error) => Observable.of({}))
           .subscribe((workspaceitems: Workspaceitem) => {
-            this.collectionId = workspaceitems.collection[0].id;
-            this.selfUrl = workspaceitems.self;
-            this.submissionDefinition = workspaceitems.submissionDefinition[0];
-            this.submissionId = workspaceitems.id;
-            this.changeDetectorRef.detectChanges();
+            if (isEmpty(workspaceitems)) {
+              this.router.navigate(['/mydspace']);
+            } else {
+              this.collectionId = workspaceitems.collection[0].id;
+              this.selfUrl = workspaceitems.self;
+              this.submissionDefinition = workspaceitems.submissionDefinition[0];
+              this.submissionId = workspaceitems.id;
+              this.changeDetectorRef.detectChanges();
+            }
           })
       )
     }

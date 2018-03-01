@@ -17,6 +17,7 @@ import { AuthTokenInfo } from './models/auth-token-info.model';
 import { isNotEmpty, isUndefined } from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -26,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
   // we're creating a refresh token request list
   protected refreshTokenRequestUrls = [];
 
-  constructor(private inj: Injector, private store: Store<AppState>) { }
+  constructor(private inj: Injector, private store: Store<AppState>, private router: Router) { }
 
   private isUnauthorized(response: HttpResponseBase): boolean {
     // invalid_token The access token provided is expired, revoked, malformed, or invalid for other reasons
