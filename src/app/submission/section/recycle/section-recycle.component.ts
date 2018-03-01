@@ -5,9 +5,6 @@ import { renderSectionFor } from '../section-decorator';
 import { SectionDataObject } from '../section-data.model';
 import { SubmissionState } from '../../submission.reducers';
 import { Store } from '@ngrx/store';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { FormFieldChangedObject } from '../../../shared/form/builder/models/form-field-unexpected-object.model';
-import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { WorkspaceitemSectionRecycleObject } from '../../../core/submission/models/workspaceitem-section-recycle.model';
 
 @Component({

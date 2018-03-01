@@ -151,6 +151,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   public newSubmissionsEnd(workspaceitems: Workspaceitem[]) {
+    console.log('GOAL');
     // TODO push to results
     this.resultsRDObs.subscribe((results) => {
       this.resultsLength = results.payload.length;

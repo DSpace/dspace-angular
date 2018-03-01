@@ -4,6 +4,7 @@ import { Workspaceitem } from '../../core/submission/models/workspaceitem.model'
 import { SubmissionState } from '../../submission/submission.reducers';
 import { Store } from '@ngrx/store';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'ds-my-dspace-new-submission',
@@ -24,13 +25,15 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private store: Store<SubmissionState>,
-              private wsiDataService: WorkspaceitemDataService) {
+              private wsiDataService: WorkspaceitemDataService,
+              private authService: AuthService,) {
   }
 
   ngOnInit() {
-    this.wsiDataService.getEndpoint('workspace').subscribe( (url) => {
+    this.wsiDataService.getEndpoint().subscribe( (url) => {
         this.uploadFilesOptions.url = url;
-        console.log('Url is ', url);
+        this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+        console.log('Url option is ', url);
       }
     );
   }
@@ -40,6 +43,8 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
   };
 
   public onCompleteItem(workspaceitems: Workspaceitem[]) {
+    console.log('Emit workspaceitems');
+    console.log(workspaceitems);
     this.wsiUploaded.emit(workspaceitems);
   }
 
