@@ -8,7 +8,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchOptions, ViewMode } from '../+search-page/search-options.model';
@@ -23,6 +23,9 @@ import { Store } from '@ngrx/store';
 import { Eperson } from '../core/eperson/models/eperson.model';
 import { PlatformService } from '../shared/services/platform.service';
 import { Workspaceitem } from '../core/submission/models/workspaceitem.model';
+import { WorkspaceitemMyDSpaceResult } from '../shared/object-collection/shared/workspaceitem-my-dspace-result.model';
+import { Subject } from 'rxjs/Subject';
+import { Metadatum } from '../core/shared/metadatum.model';
 
 /**
  * This component renders a simple item page.
@@ -51,7 +54,6 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
   user: Observable<Eperson>;
-  resultsLength: number;
 
   constructor(private service: MyDspaceService,
               private route: ActivatedRoute,
@@ -129,7 +131,6 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
 
   private updateSearchResults(searchOptions) {
     this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions);
-    this.searchOptions = searchOptions;
   }
 
   ngOnDestroy() {
@@ -151,14 +152,16 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   public newSubmissionsEnd(workspaceitems: Workspaceitem[]) {
-    console.log('GOAL');
-    // TODO push to results
-    this.resultsRDObs.subscribe((results) => {
-      this.resultsLength = results.payload.length;
-    })
-
-    this.resultsRDObs.map( (item) => {
-      // TODO Replace first resultsLength items with items of newSubmission
+    this.resultsRDObs = this.resultsRDObs.map((rd: RemoteData<Array<MyDSpaceResult<DSpaceObject>>>) => {
+      const page = rd.payload;
+      workspaceitems.forEach((item: Workspaceitem, index) => {
+        const mockResult: MyDSpaceResult<DSpaceObject> = new WorkspaceitemMyDSpaceResult();
+        mockResult.dspaceObject = item;
+        const highlight = new Metadatum();
+        mockResult.hitHighlights = new Array(highlight);
+        page.splice(index, 1, mockResult);
+      });
+      return new RemoteData(false, false, true, undefined, page);
     });
   }
 }

@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
-import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionState } from '../../submission/submission.reducers';
 import { Store } from '@ngrx/store';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { AuthService } from '../../core/auth/auth.service';
+import { MyDSpaceResult } from '../my-dspace-result.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-my-dspace-new-submission',
@@ -14,7 +15,7 @@ import { AuthService } from '../../core/auth/auth.service';
 
 export class MyDSpaceNewSubmissionComponent implements OnInit {
   @Output()
-  wsiUploaded = new EventEmitter<Workspaceitem[]>();
+  wsiUploaded = new EventEmitter<Array<MyDSpaceResult<DSpaceObject>>>();
 
   public uploadFilesOptions: UploadFilesComponentOptions = {
     url: '',
@@ -42,10 +43,16 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
     // Nothing
   };
 
-  public onCompleteItem(workspaceitems: Workspaceitem[]) {
+  public onCompleteItem(res) {
     console.log('Emit workspaceitems');
-    console.log(workspaceitems);
-    this.wsiUploaded.emit(workspaceitems);
+    console.log(res);
+
+    if (res && res._embedded && res._embedded.workspaceitems && res._embedded.workspaceitems.length > 0) {
+      const workspaceitems = res._embedded.workspaceitems;
+      this.wsiUploaded.emit(workspaceitems);
+    } else {
+      console.log('OnCompleteItem without workspacesitems');
+    }
   }
 
 }
