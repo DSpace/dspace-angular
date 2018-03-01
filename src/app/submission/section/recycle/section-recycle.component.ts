@@ -15,8 +15,9 @@ import { WorkspaceitemSectionRecycleObject } from '../../../core/submission/mode
   styleUrls: ['./section-recycle.component.scss'],
   templateUrl: './section-recycle.component.html',
 })
-// @renderSectionFor(SectionType.Recycle)
-export class TrashSectionComponent extends SectionModelComponent {
+
+@renderSectionFor(SectionType.Recycle)
+export class RecycleSectionComponent extends SectionModelComponent {
   public isLoading = true;
 
   public unexpected: any[]; // FormFieldChangedObject[];

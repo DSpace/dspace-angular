@@ -32,6 +32,7 @@ import { UploadSectionFileComponent } from './section/upload/file/file.component
 import { UploadSectionFileEditComponent } from './section/upload/file/edit/file-edit.component';
 import { UploadSectionFileViewComponent } from './section/upload/file/view/file-view.component';
 import { AccessConditionsComponent } from './section/upload/accessConditions/accessConditions.component';
+import { RecycleSectionComponent } from './section/recycle/section-recycle.component';
 
 @NgModule({
   imports: [
@@ -60,9 +61,10 @@ import { AccessConditionsComponent } from './section/upload/accessConditions/acc
     SubmissionUploadFilesComponent,
     UploadSectionFileComponent,
     UploadSectionFileEditComponent,
-    UploadSectionFileViewComponent
+    UploadSectionFileViewComponent,
+    RecycleSectionComponent
   ],
-  entryComponents: [ DefaultSectionComponent, FilesSectionComponent, FormSectionComponent, LicenseSectionComponent, SectionContainerComponent ],
+  entryComponents: [ DefaultSectionComponent, FilesSectionComponent, FormSectionComponent, LicenseSectionComponent, SectionContainerComponent, RecycleSectionComponent ],
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent
