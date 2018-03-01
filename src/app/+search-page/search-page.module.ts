@@ -20,7 +20,7 @@ import { SearchFiltersComponent } from './search-filters/search-filters.componen
 import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
-import { SearchDateFilterComponent } from './search-filters/search-filter/search-date-filter/search-date-filter.component';
+import { SearchRangeFilterComponent } from './search-filters/search-filter/search-range-filter/search-range-filter.component';
 import { SearchTextFilterComponent } from './search-filters/search-filter/search-text-filter/search-text-filter.component';
 import { SearchFacetFilterWrapperComponent } from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 
@@ -51,7 +51,7 @@ const effects = [
     SearchFilterComponent,
     SearchFacetFilterComponent,
     SearchFacetFilterWrapperComponent,
-    SearchDateFilterComponent,
+    SearchRangeFilterComponent,
     SearchTextFilterComponent,
   ],
   providers: [
@@ -66,7 +66,7 @@ const effects = [
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
-    SearchDateFilterComponent,
+    SearchRangeFilterComponent,
     SearchTextFilterComponent,
   ]
 })
