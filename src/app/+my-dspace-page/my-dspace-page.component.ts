@@ -153,17 +153,25 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
 
   public newSubmissionsEnd(workspaceitems: Workspaceitem[]) {
     this.resultsRDObs = this.resultsRDObs
-      .filter( (rd) => rd.hasSucceeded)
+      .filter((rd) => rd.hasSucceeded)
       .map((rd: RemoteData<Array<MyDSpaceResult<DSpaceObject>>>) => {
-      const page = rd.payload;
-      workspaceitems.forEach((item: Workspaceitem, index) => {
-        const mockResult: MyDSpaceResult<DSpaceObject> = new WorkspaceitemMyDSpaceResult();
-        mockResult.dspaceObject = item;
-        const highlight = new Metadatum();
-        mockResult.hitHighlights = new Array(highlight);
-        page.splice(index, 1, mockResult);
+        const page = (rd.payload as any).page;
+        const pageInfo = (rd.payload as any).pageInfo;
+        const totalElements = (rd.payload as any).totalElements;
+        workspaceitems.forEach((item: Workspaceitem, index) => {
+          const mockResult: MyDSpaceResult<DSpaceObject> = new WorkspaceitemMyDSpaceResult();
+          mockResult.dspaceObject = item;
+          const highlight = new Metadatum();
+          mockResult.hitHighlights = new Array(highlight);
+          page.splice(index, 1, mockResult);
+        });
+        const payload = {
+          page,
+          pageInfo,
+          totalElements
+        };
+        return Object.assign({}, rd, {payload});
+        // return new RemoteData(false, false, true, undefined, payload as Array<MyDSpaceResult>);
       });
-      return new RemoteData(false, false, true, undefined, page);
-    });
   }
 }
