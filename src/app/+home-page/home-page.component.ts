@@ -11,9 +11,10 @@ export class HomePageComponent {
   public notificationOptions: Options = {
     position: ['top', 'right'],
     timeOut: 0,
-    lastOnBottom: true,
-    clickIconToClose: false,
-    showProgressBar: true,
+    animate: 'fromLeft'
+    // lastOnBottom: true,
+    // clickIconToClose: false,
+    // showProgressBar: true,
   };
 
   @ViewChild('example') example: TemplateRef<any>;
@@ -24,11 +25,11 @@ export class HomePageComponent {
   createNotification() {
     const n1 = this.notificationsService.success('Welcome in DSpace', 'Good choice!',
       {
-        showProgressBar: false,
         animate: 'rotate',
         timeout: 2000});
-    const n2 = this.notificationsService.error('Error in DSpace', 'This is a fake error!');
-    const n3 = this.notificationsService.info(this.example);
+    const n2 = this.notificationsService.info('Info in DSpace', 'For your info...!');
+    const n3 = this.notificationsService.warn('Warning in DSpace', 'This is a fake alert!');
+    const n4 = this.notificationsService.error(this.example);
     console.log('Notifications pushed');
     console.log(n1);
     console.log(n2);

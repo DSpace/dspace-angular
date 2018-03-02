@@ -37,12 +37,12 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
   // Sent values
   public timeOut = 0;
-  public maxLength = 0;
-  public clickToClose = true;
-  public clickIconToClose = false;
-  public showProgressBar = true;
-  public pauseOnHover = true;
-  public theClass = '';
+  // public maxLength = 0;
+  // public clickToClose = true;
+  // public clickIconToClose = false;
+  // public showProgressBar = true;
+  // public pauseOnHover = true;
+  // public theClass = '';
   public rtl = false;
   public animate: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale' = 'fromRight';
 
@@ -54,7 +54,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Listen for changes in the service
     this.listener = this.service.emitter
-      .subscribe((item) => {
+      .subscribe((item) => { // Subscribe a stato di redux
         switch (item.command) {
           case 'cleanAll':
             this.notifications = [];
