@@ -88,6 +88,7 @@ import { ItemPageDateFieldComponent } from '../+item-page/simple/field-component
 import { MetadataValuesComponent } from '../+item-page/field-components/metadata-values/metadata-values.component';
 import { ItemPageAuthorFieldComponent } from '../+item-page/simple/field-components/specific-field/author/item-page-author-field.component';
 import { ClaimedTaskActionsComponent } from './claimed-task-actions/claimed-task-actions.component';
+import { PoolTaskActionsComponent } from './pool-task-actions/pool-task-actions.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -157,7 +158,8 @@ const COMPONENTS = [
   DsDatePickerComponent,
   ItemListPreviewComponent,
   ItemGridPreviewComponent,
-  ClaimedTaskActionsComponent
+  ClaimedTaskActionsComponent,
+  PoolTaskActionsComponent
 ];
 
 const COMPONENTS_ITEM_PAGE = [

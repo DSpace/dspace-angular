@@ -90,11 +90,20 @@
       "description-placeholder": "Insert your message here..."
     },
     "task": {
-      "approve-btn": "Approve",
-      "reject-btn": "Reject",
-      "return-to-pool-btn": "Return to pool",
-      "edit-btn": "Edit",
-      "claim-btn": "Claim"
+      "processing": "Processing...",
+      "claimed": {
+        "approve": "Approve",
+        "edit": "Edit",
+        "reject": {
+          "btn": "Reject",
+          "title": "Reject confirm",
+          "placeholder": "Describe the reason of reject"
+        },
+        "return-to-pool": "Return to pool"
+      },
+      "pool": {
+        "claim": "Claim"
+      }
     }
   },
   "search": {

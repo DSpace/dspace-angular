@@ -7,6 +7,7 @@ export const ROUTES: string[] = [
   'communities/:id',
   'login',
   'logout',
+  'mydspace',
   'search',
   'submit',
   'workspaceitems/:id/edit',

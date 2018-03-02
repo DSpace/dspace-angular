@@ -23,12 +23,8 @@ import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-
 @renderElementsFor(PoolTask, ViewMode.List)
 export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<PoolTaskMyDSpaceResult, PoolTask> {
   public workFlow: Workflowitem;
-  public processingClaim = false;
 
-  constructor(private cd: ChangeDetectorRef,
-              private ptDataService: PoolTaskDataService,
-              private router: Router,
-              @Inject('objectElementProvider') public listable: ListableObject) {
+  constructor(@Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
   }
 
@@ -43,27 +39,6 @@ export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultLi
       .subscribe((rd: RemoteData<any>) => {
         this.workFlow = rd.payload[0];
       });
-  }
-
-  claim() {
-    this.processingClaim = true;
-    this.ptDataService.claimTask(this.dso.id)
-      .subscribe((res: ProcessTaskResponse) => {
-        this.processingClaim = false;
-        this.cd.detectChanges();
-        if (res.hasSucceeded) {
-          this.reload();
-        }
-      });
-  }
-
-  reload() {
-    // override the route reuse strategy
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
-    };
-    this.router.navigated = false;
-    this.router.navigate([this.router.url]);
   }
 
 }

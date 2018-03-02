@@ -72,7 +72,7 @@ export class JsonPatchOperationsBuilder {
   }
 
   protected prepareObjectValue(value: any) {
-    let operationValue = Object.create(null);
+    let operationValue = Object.create({});
     if (value instanceof FormFieldMetadataValueObject) {
       operationValue = value;
     } else if (value instanceof Date) {

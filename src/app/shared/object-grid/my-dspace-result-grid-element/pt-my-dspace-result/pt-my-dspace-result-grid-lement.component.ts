@@ -22,9 +22,6 @@ import { MyDSpaceResultGridElementComponent } from '../my-dspace-result-grid-ele
 @renderElementsFor(PoolTask, ViewMode.Grid)
 export class PoolTaskMyDSpaceResultGridElementComponent extends MyDSpaceResultGridElementComponent<PoolTaskMyDSpaceResult, PoolTask> {
   public workFlow: Workflowitem;
-  public processingClaim = false;
-  // public submitter: Eperson;
-  // public user: Eperson;
 
   constructor(// private store: Store<AppState>,
     private ptDataService: PoolTaskDataService,
@@ -44,26 +41,6 @@ export class PoolTaskMyDSpaceResultGridElementComponent extends MyDSpaceResultGr
       .subscribe((rd: RemoteData<any>) => {
         this.workFlow = rd.payload[0];
       });
-  }
-
-  claim() {
-    // const body = {
-    //   submit_take_task: true
-    // };
-    this.processingClaim = true;
-    this.ptDataService.claimTask(this.dso.id).subscribe((res) => {
-      this.processingClaim = false;
-      this.reload();
-    });
-  }
-
-  reload() {
-    // override the route reuse strategy
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
-    };
-    this.router.navigated = false;
-    this.router.navigate([this.router.url]);
   }
 
 }

@@ -3,4 +3,5 @@ import { FormFieldMetadataValueObject } from '../../../shared/form/builder/model
 export interface WorkspaceitemSectionLicenseObject {
   url: string;
   acceptanceDate: string;
+  granted: boolean;
 }

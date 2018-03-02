@@ -91,8 +91,9 @@ export class SectionService {
 
   public isSectionLoaded(submissionId, sectionId): Observable<boolean> {
     return this.store.select(submissionObjectFromIdSelector(submissionId))
+      .filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState))
       .map((submissionState: SubmissionObjectEntry) => {
-        return !isUndefined(submissionState.sections[sectionId])
+        return isNotUndefined(submissionState.sections) && isNotUndefined(submissionState.sections[sectionId]);
       })
       .distinctUntilChanged();
   }

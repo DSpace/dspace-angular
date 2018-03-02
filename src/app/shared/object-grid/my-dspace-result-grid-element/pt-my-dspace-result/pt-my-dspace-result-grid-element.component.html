@@ -6,8 +6,4 @@
   statusTxt="In progress"
 ></ds-item-grid-preview>
 
-<span *ngIf="processingClaim"><i class='fa fa-circle-o-notch fa-spin'></i> Processing...</span>
-<button *ngIf="!processingClaim"
-        class="btn btn-info mt-1 mb-3"
-        (click)="claim()" >
-  <i class="fa fa-hand-paper-o"></i> {{'mydspace.task.claim-btn' | translate}}</button>
+<ds-pool-task-actions [task]="dso"></ds-pool-task-actions>

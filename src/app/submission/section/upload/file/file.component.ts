@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SectionUploadService } from '../section-upload.service';
-import { isNotEmpty, isNotUndefined } from '../../../../shared/empty.util';
+import { isNotEmpty, isNotNull, isNotUndefined } from '../../../../shared/empty.util';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 
 import { FormService } from '../../../../shared/form/form.service';
@@ -107,7 +107,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
             .forEach((accessCondition, index) => {
               let accessConditionOpt;
               this.availableAccessConditionOptions
-                .filter((element) => element.name === accessCondition.name[0])
+                .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0])
                 .forEach((element) => accessConditionOpt = element);
               if (accessConditionOpt) {
                 const path = `accessConditions/${index}`;
