@@ -3,3 +3,17 @@
   <ds-search-form></ds-search-form>
   <ds-top-level-community-list></ds-top-level-community-list>
 </div>
+
+<button (click)="createNotification()">Notify!</button>
+
+<!--<ds-notifications-board-->
+  <!--[options]="notificationOptions"-->
+  <!--(onCreate)="notificationCreated($event)"-->
+  <!--(onDestroy)="notificationDestroyed($event)">-->
+<!--</ds-notifications-board>-->
+
+
+<ng-template #example>
+  <p>Simple example</p>
+  <button [routerLink]="['/mydspace']">Go to mydspace</button>
+</ng-template>

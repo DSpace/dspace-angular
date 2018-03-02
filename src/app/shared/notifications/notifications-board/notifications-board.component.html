@@ -1,0 +1,16 @@
+<div class="simple-notification-wrapper" [ngClass]="position">
+  <ds-notification
+    *ngFor="let a of notifications; let i = index"
+    [item]="a"
+    [timeOut]="timeOut"
+    [clickToClose]="clickToClose"
+    [clickIconToClose]="clickIconToClose"
+    [maxLength]="maxLength"
+    [showProgressBar]="showProgressBar"
+    [pauseOnHover]="pauseOnHover"
+    [theClass]="theClass"
+    [rtl]="rtl"
+    [animate]="animate"
+    [position]="i">
+  </ds-notification>
+</div>

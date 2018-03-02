@@ -17,6 +17,7 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './shared/window.service';
+import { Options } from './shared/notifications/interfaces/options.type';
 
 @Component({
   selector: 'ds-app',
@@ -26,6 +27,24 @@ import { NativeWindowRef, NativeWindowService } from './shared/window.service';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
+
+  public notificationOptions: Options = {
+    position: ['top', 'right'],
+    timeOut: 5000,
+    lastOnBottom: true,
+    clickIconToClose: true,
+    showProgressBar: true
+  };
+
+  notificationCreated(event) {
+    console.log('Notification created');
+    console.log(event);
+  }
+
+  notificationDestroyed() {
+    console.log('Notification destroyed');
+    console.log(event);
+  }
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,

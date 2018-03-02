@@ -1,7 +1,6 @@
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserTransferStateModule } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -29,6 +28,9 @@ import { HeaderComponent } from './header/header.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
+import { NotificationsService } from './shared/notifications/notifications.service';
+import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
+import { NotificationComponent } from './shared/notifications/notification/notification.component';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -85,7 +87,9 @@ if (!ENV_CONFIG.production) {
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NotificationComponent,
+    NotificationsBoardComponent
   ],
   exports: [AppComponent]
 })
