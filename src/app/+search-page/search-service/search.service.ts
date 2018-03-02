@@ -1,35 +1,27 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { map, flatMap, tap, filter } from 'rxjs/operators';
+import { flatMap, map, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { NormalizedDSpaceObject } from '../../core/cache/models/normalized-dspace-object.model';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { RestResponse, SearchSuccessResponse } from '../../core/cache/response-cache.models';
+import { SearchSuccessResponse } from '../../core/cache/response-cache.models';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { ResponseCacheService } from '../../core/cache/response-cache.service';
-import { DebugResponseParsingService } from '../../core/data/debug-response-parsing.service';
-import { DSOResponseParsingService } from '../../core/data/dso-response-parsing.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ResponseParsingService } from '../../core/data/parsing.service';
 import { RemoteData } from '../../core/data/remote-data';
-import { GetRequest, EndpointMapRequest, RestRequest } from '../../core/data/request.models';
-import { RequestEntry } from '../../core/data/request.reducer';
+import { GetRequest, RestRequest } from '../../core/data/request.models';
 import { RequestService } from '../../core/data/request.service';
-import { DSpaceRESTV2Response } from '../../core/dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
-import { Metadatum } from '../../core/shared/metadatum.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RouteService } from '../../shared/route.service';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
@@ -40,6 +32,10 @@ import { FilterType } from './filter-type.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { SearchResponseParsingService } from '../../core/data/search-response-parsing.service';
 import { SearchQueryResponse } from './search-query-response.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { getSearchResultFor } from './search-result-element-decorator';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { NormalizedItem } from '../../core/cache/models/normalized-item.model';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -95,16 +91,14 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   // searchOptions: BehaviorSubject<SearchOptions>;
   searchOptions: SearchOptions;
 
-  constructor(
-    protected responseCache: ResponseCacheService,
-    protected requestService: RequestService,
-    private itemDataService: ItemDataService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    private routeService: RouteService,
-    private route: ActivatedRoute,
-    private rdb: RemoteDataBuildService,
-    private router: Router
-  ) {
+  constructor(protected responseCache: ResponseCacheService,
+              protected requestService: RequestService,
+              private itemDataService: ItemDataService,
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              private routeService: RouteService,
+              private route: ActivatedRoute,
+              private rdb: RemoteDataBuildService,
+              private router: Router) {
     super();
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
     pagination.id = 'search-results-pagination';
@@ -115,7 +109,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
   }
 
-  search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
+  search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
     const requestObs = this.getEndpoint().pipe(
       map((url: string) => {
         const args: string[] = [];
@@ -150,25 +144,57 @@ export class SearchService extends HALEndpointService implements OnDestroy {
       flatMap((request: RestRequest) => this.responseCache.get(request.href))
     );
 
-    const sqrObs = responseCacheObs.pipe(
+    // get search results from response cache
+    const sqrObs: Observable<SearchQueryResponse> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
       map((response: SearchSuccessResponse) => response.results)
     );
 
-    const dsoObs = sqrObs.pipe(
+    // turn dspace href from search results to effective list of DSpaceObjects
+    // Turn list of observable remote data DSO's into observable remote data object with list of DSO
+    const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
       map((sqr: SearchQueryResponse) => {
         return sqr.objects.map((nsr: NormalizedSearchResult) =>
-          this.rdb.buildSingle(nsr.dspaceObject, NormalizedDSpaceObject));
+          this.rdb.buildSingle(nsr.dspaceObject));
       }),
       flatMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input))
     );
 
-    const payloadObs = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
+    // Create search results again with the correct dso objects linked to each result
+    const tDomainListObs: Observable<Array<SearchResult<DSpaceObject>>> = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
       return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
-        return Object.assign({}, object, {
-          dspaceObject: dsos.payload[index]
-        });
-      })
+        let co = DSpaceObject;
+        if (dsos.payload[index]) {
+          const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
+          co = getSearchResultFor(constructor);
+          return Object.assign(new co(), object, {
+            dspaceObject: dsos.payload[index]
+          });
+        } else {
+          return undefined;
+        }
+      });
+    });
+
+    const pageInfoObs: Observable<PageInfo> = responseCacheObs
+      .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
+      .map((entry: ResponseCacheEntry) => {
+        if (hasValue((entry.response as SearchSuccessResponse).pageInfo)) {
+          const resPageInfo = (entry.response as SearchSuccessResponse).pageInfo;
+          if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
+            return Object.assign({}, resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
+          } else {
+            return resPageInfo;
+          }
+        }
+      });
+
+    const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
+      if (hasValue(pageInfo)) {
+        return new PaginatedList(pageInfo, tDomainList);
+      } else {
+        return tDomainList;
+      }
     });
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);

@@ -13,8 +13,9 @@ import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
 
-export abstract class DataService<TNormalized extends CacheableObject, TDomain> extends HALEndpointService {
+export abstract class DataService<TNormalized extends NormalizedObject, TDomain> extends HALEndpointService {
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
@@ -22,9 +23,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
   protected abstract linkPath: string;
   protected abstract EnvConfig: GlobalConfig;
 
-  constructor(
-    protected normalizedResourceType: GenericConstructor<TNormalized>,
-  ) {
+  constructor(protected normalizedResourceType: GenericConstructor<TNormalized>,) {
     super();
   }
 
@@ -95,12 +94,12 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
+    return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs);
   }
 
   findByHref(href: string): Observable<RemoteData<TDomain>> {
     this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href));
-    return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
+    return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
   // TODO implement, after the structure of the REST server's POST response is finalized

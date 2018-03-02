@@ -4,6 +4,7 @@ import {
 } from './object-cache.actions';
 import { hasValue } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
+import { ResourceType } from '../shared/resource-type';
 
 export enum DirtyType {
   Created = 'Created',
@@ -19,6 +20,7 @@ export enum DirtyType {
 export interface CacheableObject {
   uuid?: string;
   self: string;
+  type: ResourceType;
   // isNew: boolean;
   // dirtyType: DirtyType;
   // hasDirtyAttributes: boolean;

@@ -36,7 +36,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   query: string;
   scopeObjectRDObs: Observable<RemoteData<DSpaceObject>>;
-  resultsRDObs: Observable<RemoteData<Array<SearchResult<DSpaceObject>>>>;
+  resultsRDObs:  Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>>;
   currentParams = {};
   searchOptions: SearchOptions;
   sortConfig: SortOptions;

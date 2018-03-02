@@ -9,8 +9,9 @@ import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
 import { FindByIDRequest } from './request.models';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
 
-export abstract class ComColDataService<TNormalized extends CacheableObject, TDomain>  extends DataService<TNormalized, TDomain> {
+export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain>  extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
 
@@ -47,7 +48,7 @@ export abstract class ComColDataService<TNormalized extends CacheableObject, TDo
         errorResponse.flatMap((response: ErrorResponse) =>
           Observable.throw(new Error(`The Community with scope ${scopeID} couldn't be retrieved`))),
         successResponse
-          .flatMap((response: DSOSuccessResponse) => this.objectCache.getByUUID(scopeID, NormalizedCommunity))
+          .flatMap((response: DSOSuccessResponse) => this.objectCache.getByUUID(scopeID))
           .map((nc: NormalizedCommunity) => nc._links[this.linkPath])
           .filter((href) => isNotEmpty(href))
       ).distinctUntilChanged();

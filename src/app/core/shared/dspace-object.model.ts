@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 /**
  * An abstract model class for a DSpaceObject.
  */
-export class DSpaceObject implements CacheableObject, ListableObject {
+export class  DSpaceObject implements CacheableObject, ListableObject {
 
   self: string;
 

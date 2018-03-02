@@ -22,24 +22,19 @@ import { DSOSuccessResponse, ErrorResponse, SearchSuccessResponse } from '../res
 import { ResponseCacheEntry } from '../response-cache.reducer';
 import { ResponseCacheService } from '../response-cache.service';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
+import { NormalizedObject } from '../models/normalized-object.model';
 
 @Injectable()
 export class RemoteDataBuildService {
-  constructor(
-    protected objectCache: ObjectCacheService,
-    protected responseCache: ResponseCacheService,
-    protected requestService: RequestService
-  ) {
+  constructor(protected objectCache: ObjectCacheService,
+              protected responseCache: ResponseCacheService,
+              protected requestService: RequestService) {
   }
 
-  buildSingle<TNormalized extends CacheableObject, TDomain>(
-    hrefObs: string | Observable<string>,
-    normalizedType: GenericConstructor<TNormalized>
-  ): Observable<RemoteData<TDomain>> {
+  buildSingle<TNormalized extends NormalizedObject, TDomain>(hrefObs: string | Observable<string>): Observable<RemoteData<TDomain>> {
     if (typeof hrefObs === 'string') {
       hrefObs = Observable.of(hrefObs);
     }
-
     const requestHrefObs = hrefObs.flatMap((href: string) =>
       this.objectCache.getRequestHrefBySelfLink(href));
 
@@ -59,14 +54,14 @@ export class RemoteDataBuildService {
     // always use self link if that is cached, only if it isn't, get it via the response.
     const payloadObs =
       Observable.combineLatest(
-        hrefObs.flatMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href, normalizedType))
+        hrefObs.flatMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href))
           .startWith(undefined),
         responseCacheObs
           .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
           .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks)
           .flatMap((resourceSelfLinks: string[]) => {
             if (isNotEmpty(resourceSelfLinks)) {
-              return this.objectCache.getBySelfLink(resourceSelfLinks[0], normalizedType);
+              return this.objectCache.getBySelfLink(resourceSelfLinks[0]);
             } else {
               return Observable.of(undefined);
             }
@@ -97,7 +92,7 @@ export class RemoteDataBuildService {
         let isSuccessful: boolean;
         let error: RemoteDataError;
         if (hasValue(resEntry) && hasValue(resEntry.response)) {
-          isSuccessful = !responsePending && resEntry.response.isSuccessful;
+          isSuccessful = resEntry.response.isSuccessful;
           const errorMessage = isSuccessful === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
             error = new RemoteDataError(resEntry.response.statusCode, errorMessage);
@@ -114,10 +109,8 @@ export class RemoteDataBuildService {
       });
   }
 
-  buildList<TNormalized extends CacheableObject, TDomain>(
-    hrefObs: string | Observable<string>,
-    normalizedType: GenericConstructor<TNormalized>
-  ): Observable<RemoteData<TDomain[] | PaginatedList<TDomain>>> {
+  buildList<TNormalized extends NormalizedObject, TDomain>(hrefObs: string | Observable<string>,
+                                                           normalizedType: GenericConstructor<TNormalized>): Observable<RemoteData<TDomain[] | PaginatedList<TDomain>>> {
     if (typeof hrefObs === 'string') {
       hrefObs = Observable.of(hrefObs);
     }
@@ -181,7 +174,7 @@ export class RemoteDataBuildService {
 
           const rdArr = [];
           normalized[relationship].forEach((href: string) => {
-            rdArr.push(this.buildSingle(href, resourceConstructor));
+            rdArr.push(this.buildSingle(href));
           });
 
           if (isList) {
@@ -198,7 +191,7 @@ export class RemoteDataBuildService {
           if (isList) {
             links[relationship] = this.buildList(normalized[relationship], resourceConstructor);
           } else {
-            links[relationship] = this.buildSingle(normalized[relationship], resourceConstructor);
+            links[relationship] = this.buildSingle(normalized[relationship]);
           }
         }
       }
