@@ -24,10 +24,11 @@ export class NotificationsEffects {
    * Authenticate user.
    * @method authenticate
    */
-  /*@Effect()
+  @Effect()
   public timer: Observable<Action> = this.actions$
     .ofType(NotificationsActionTypes.NEW_NOTIFICATION_WITH_TIMER)
-    .debounceTime((action) => action.payload.options.timeOut as number)
+    // .debounceTime((action: any) => action.payload.options.timeOut)
+    .debounceTime(3000)
     .map(() => new RemoveNotificationAction());
      .switchMap((action: NewNotificationWithTimerAction) => Observable
       .timer(30000)
