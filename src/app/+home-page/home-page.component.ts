@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { Options } from '../shared/notifications/interfaces/options.type';
+import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-home-page',
@@ -24,11 +25,9 @@ export class HomePageComponent {
 
   createNotification() {
     const n1 = this.notificationsService.success('Welcome in DSpace', 'Good choice!',
-      {
-        animate: 'rotate',
-        timeout: 2000});
+      new NotificationOptions(2000, false, 'fromLeft'));
     const n2 = this.notificationsService.info('Info in DSpace', 'For your info...!');
-    const n3 = this.notificationsService.warn('Warning in DSpace', 'This is a fake alert!');
+    const n3 = this.notificationsService.warning('Warning in DSpace', 'This is a fake alert!');
     const n4 = this.notificationsService.danger(this.example);
     console.log('Notifications pushed');
     console.log(n1);

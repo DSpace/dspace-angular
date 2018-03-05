@@ -246,7 +246,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
     //   this.notificationService.set(this.item, false);
     // }
 
-    this.notificationService.set(this.item, false);
+    // this.notificationService.set(this.item, false);
+    this.notificationService.remove(this.item);
   }
 
   private contentType(item: any, key: string) {

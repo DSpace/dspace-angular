@@ -23,7 +23,7 @@ export class Notification implements INotification {
               type: NotificationType,
               title?: any,
               content?: any,
-              options?: INotificationOptions) {
+              options?: NotificationOptions) {
 
     this.id = id;
     this.type = type;

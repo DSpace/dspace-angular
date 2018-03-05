@@ -2,10 +2,14 @@ import {
   Component, EventEmitter, OnInit, OnDestroy, ViewEncapsulation, Input, Output,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
-import {Options} from '../interfaces/options.type';
-import {Notification} from '../interfaces/notification.type';
-import {NotificationsService} from '../notifications.service';
+import { Subscription } from 'rxjs/Subscription';
+import { Options } from '../interfaces/options.type';
+import { Notification } from '../interfaces/notification.type';
+import { NotificationsService } from '../notifications.service';
+import { Store } from '@ngrx/store';
+import { NotificationsActions, NotificationsActionTypes } from '../notifications.actions';
+import { notificationsReducer } from '../notifications.reducers';
+import { AppState } from '../../../app.reducer';
 
 @Component({
   selector: 'ds-notifications-board',
@@ -30,10 +34,10 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   private listener: Subscription;
 
   // Received values
-  private lastOnBottom = true;
+  private lastOnBottom = false;
   private maxStack = 8;
-  private preventLastDuplicates: any = false;
-  private preventDuplicates = false;
+  // private preventLastDuplicates: any = true;
+  // private preventDuplicates = true;
 
   // Sent values
   public timeOut = 0;
@@ -46,39 +50,59 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   public rtl = false;
   public animate: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale' = 'fromRight';
 
-  constructor(
-    private service: NotificationsService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private service: NotificationsService,
+              private store: Store<AppState>,
+              private cdr: ChangeDetectorRef) {
+  }
 
   ngOnInit(): void {
-    // Listen for changes in the service
-    this.listener = this.service.emitter
-      .subscribe((item) => { // Subscribe a stato di redux
-        switch (item.command) {
-          case 'cleanAll':
-            this.notifications = [];
-            break;
+    this.listener = this.store.select()
+      (action: NotificationsActions) => {
+        notificationsReducer(this.notifications, action);
 
-          case 'clean':
-            this.cleanSingle(item.id!);
-            break;
-
-          case 'set':
-            if (item.add) {
-              this.add(item.notification!);
-            } else {
-              this.defaultBehavior(item);
-            }
-            break;
-
-          default:
-            this.defaultBehavior(item);
-            break;
-        }
-
-        this.cdr.markForCheck();
+        // switch (action.type) {
+        //   case NotificationsActionTypes.NEW_NOTIFICATION:
+        //
+        //     break;
+        //   case NotificationsActionTypes.NEW_NOTIFICATION_WITH_TIMER:
+        //
+        //     break;
+        //   case NotificationsActionTypes.REMOVE_NOTIFICATION:
+        //
+        //     break;
+        //   case NotificationsActionTypes.REMOVE_ALL_NOTIFICATIONS:
+        //
+        //     break;
+        // }
       });
+
+    // Listen for changes in the service
+    // this.listener = this.service.emitter
+    //   .subscribe((item) => { // Subscribe a stato di redux
+    //     switch (item.command) {
+    //       case 'cleanAll':
+    //         this.notifications = [];
+    //         break;
+    //
+    //       case 'clean':
+    //         this.cleanSingle(item.id!);
+    //         break;
+    //
+    //       case 'set':
+    //         if (item.add) {
+    //           this.add(item.notification!);
+    //         } else {
+    //           this.defaultBehavior(item);
+    //         }
+    //         break;
+    //
+    //       default:
+    //         this.defaultBehavior(item);
+    //         break;
+    //     }
+    //
+    //     this.cdr.markForCheck();
+    //   });
   }
 
   // Default behavior on event
@@ -91,7 +115,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   add(item: Notification): void {
     item.createdOn = new Date();
 
-    const toBlock: boolean = this.preventLastDuplicates || this.preventDuplicates ? this.block(item) : false;
+    // const toBlock: boolean = this.preventLastDuplicates || this.preventDuplicates ? this.block(item) : false;
 
     // Save this as the last created notification
     this.lastNotificationCreated = item;
@@ -100,24 +124,24 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
       item.icon = item.override.icons[item.type];
     }
 
-    if (!toBlock) {
-      // Check if the notification should be added at the start or the end of the array
-      if (this.lastOnBottom) {
-        if (this.notifications.length >= this.maxStack) {
-          this.notifications.splice(0, 1);
-        }
-
-        this.notifications.push(item);
-      } else {
-        if (this.notifications.length >= this.maxStack) {
-          this.notifications.splice(this.notifications.length - 1, 1);
-        }
-
-        this.notifications.splice(0, 0, item);
-      }
-
-      this.onCreate.emit(this.buildEmit(item, true));
-    }
+    // if (!toBlock) {
+    //   // Check if the notification should be added at the start or the end of the array
+    //   if (this.lastOnBottom) {
+    //     if (this.notifications.length >= this.maxStack) {
+    //       this.notifications.splice(0, 1);
+    //     }
+    //
+    //     this.notifications.push(item);
+    //   } else {
+    //     if (this.notifications.length >= this.maxStack) {
+    //       this.notifications.splice(this.notifications.length - 1, 1);
+    //     }
+    //
+    //     this.notifications.splice(0, 0, item);
+    //   }
+    //
+    //   this.onCreate.emit(this.buildEmit(item, true));
+    // }
   }
 
   // Check if notifications should be prevented
@@ -125,31 +149,37 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
     const toCheck = item.html ? this.checkHtml : this.checkStandard;
 
-    if (this.preventDuplicates && this.notifications.length > 0) {
-      for (let i = 0; i < this.notifications.length; i++) {
-        if (toCheck(this.notifications[i], item)) {
-          return true;
-        }
+    this.notifications.forEach((notification) => {
+      if (toCheck(notification, item)) {
+        return true;
       }
-    }
+    });
 
-    if (this.preventLastDuplicates) {
-
-      let comp: Notification;
-
-      if (this.preventLastDuplicates === 'visible' && this.notifications.length > 0) {
-        if (this.lastOnBottom) {
-          comp = this.notifications[this.notifications.length - 1];
-        } else {
-          comp = this.notifications[0];
-        }
-      } else if (this.preventLastDuplicates === 'all' && this.lastNotificationCreated) {
-        comp = this.lastNotificationCreated;
-      } else {
-        return false;
-      }
-      return toCheck(comp, item);
-    }
+    // if (this.notifications.length > 0) {
+    //   for (let i = 0; i < this.notifications.length; i++) {
+    //     if (toCheck(this.notifications[i], item)) {
+    //       return true;
+    //     }
+    //   }
+    // }
+    //
+    // if (this.preventLastDuplicates) {
+    //
+    //   let comp: Notification;
+    //
+    //   if (this.preventLastDuplicates === 'visible' && this.notifications.length > 0) {
+    //     if (this.lastOnBottom) {
+    //       comp = this.notifications[this.notifications.length - 1];
+    //     } else {
+    //       comp = this.notifications[0];
+    //     }
+    //   } else if (this.preventLastDuplicates === 'all' && this.lastNotificationCreated) {
+    //     comp = this.lastNotificationCreated;
+    //   } else {
+    //     return false;
+    //   }
+    //   return toCheck(comp, item);
+    // }
 
     return false;
   }
@@ -164,11 +194,11 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
   // Attach all the changes received in the options object
   attachChanges(options: any): void {
-      Object.keys(options).forEach((a) => {
+    Object.keys(options).forEach((a) => {
       if (this.hasOwnProperty(a)) {
         (this as any)[a] = options[a];
       } else if (a === 'icons') {
-        this.service.icons = options[a];
+        // this.service.icons = options[a];
       }
     });
   }
