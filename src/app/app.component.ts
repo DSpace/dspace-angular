@@ -30,10 +30,11 @@ export class AppComponent implements OnInit {
 
   public notificationOptions: Options = {
     position: ['top', 'right'],
-    timeOut: 5000,
-    lastOnBottom: true,
-    clickIconToClose: true,
-    showProgressBar: true
+    timeOut: 0,
+    animate: 'fromLeft'
+    // lastOnBottom: true,
+    // clickIconToClose: false,
+    // showProgressBar: true,
   };
 
   notificationCreated(event) {

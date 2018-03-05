@@ -2,13 +2,11 @@
   <div class="inner-wrapper">
     <ds-header></ds-header>
 
-    <p>Inizio notifiche</p>
     <ds-notifications-board
       [options]="notificationOptions"
       (onCreate)="notificationCreated($event)"
       (onDestroy)="notificationDestroyed($event)">
     </ds-notifications-board>
-    <p>Fine notifiche</p>
 
     <main class="main-content">
       <router-outlet></router-outlet>

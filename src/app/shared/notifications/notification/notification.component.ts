@@ -113,12 +113,12 @@ import { NotificationsService } from '../notifications.service';
 export class NotificationComponent implements OnInit, OnDestroy {
 
   @Input() public timeOut: number;
-  @Input() public showProgressBar: boolean;
-  @Input() public pauseOnHover: boolean;
-  @Input() public clickToClose: boolean;
-  @Input() public clickIconToClose: boolean;
-  @Input() public maxLength: number;
-  @Input() public theClass: string;
+  // @Input() public showProgressBar: boolean;
+  // @Input() public pauseOnHover: boolean;
+  // @Input() public clickToClose: boolean;
+  // @Input() public clickIconToClose: boolean;
+  // @Input() public maxLength: number;
+  // @Input() public theClass: string;
   @Input() public rtl: boolean;
   @Input() public animate: string;
   @Input() public position: number;
@@ -179,32 +179,32 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   onEnter(): void {
-    if (this.pauseOnHover) {
-      this.stopTime = true;
-    }
+    // if (this.pauseOnHover) {
+    //   this.stopTime = true;
+    // }
   }
 
   onLeave(): void {
-    if (this.pauseOnHover) {
-      this.stopTime = false;
-      this.zone.runOutsideAngular(() => setTimeout(this.instance, (this.speed - this.diff)));
-    }
+    // if (this.pauseOnHover) {
+    //   this.stopTime = false;
+    //   this.zone.runOutsideAngular(() => setTimeout(this.instance, (this.speed - this.diff)));
+    // }
   }
 
   onClick($e: MouseEvent): void {
     this.item.click!.emit($e);
 
-    if (this.clickToClose) {
-      this.remove();
-    }
+    // if (this.clickToClose) {
+    //   this.remove();
+    // }
   }
 
   onClickIcon($e: MouseEvent): void {
     this.item.clickIcon!.emit($e);
 
-    if (this.clickIconToClose) {
-      this.remove();
-    }
+    // if (this.clickIconToClose) {
+    //   this.remove();
+    // }
   }
 
   // Attach all the overrides
@@ -227,9 +227,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.remove();
       this.item.timeoutEnd!.emit();
     } else if (!this.stopTime) {
-      if (this.showProgressBar) {
-        this.progressWidth += 100 / this.steps;
-      }
+      // if (this.showProgressBar) {
+      //   this.progressWidth += 100 / this.steps;
+      // }
 
       this.timer = setTimeout(this.instance, (this.speed - this.diff));
     }

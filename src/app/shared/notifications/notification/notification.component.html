@@ -1,13 +1,12 @@
-<div class="simple-notification"
+<div class="alert" role="alert"
      [@enterLeave]="item.state"
      (click)="onClick($event)"
      [class]="theClass"
      [ngClass]="{
-            'alert': item.type === 'alert',
-            'error': item.type === 'error',
-            'warn': item.type === 'warn',
-            'success': item.type === 'success',
-            'info': item.type === 'info',
+            'alert-info': item.type === 'info',
+            'alert-danger': item.type === 'error',
+            'alert-warning': item.type === 'warn',
+            'alert-success': item.type === 'success',
             'bare': item.type === 'bare',
             'rtl-mode': rtl,
             'has-icon': item.icon !== 'bare'
@@ -33,7 +32,16 @@
       <div class="sn-content" [innerHTML]="content"></div>
     </ng-template>
 
-    <div class="icon" *ngIf="item.icon !== 'bare'" [innerHTML]="safeSvg"></div>
+    <!--<div class="icon" *ngIf="item.icon !== 'bare'" [innerHTML]="safeSvg"></div>-->
+    {{icon}}
+    <div class="icon"><i
+      [ngClass]="{'fa': true,
+      'fa-check': icon == 'success',
+      'fa-times-circle': icon == 'error',
+      'fa-exclamation-triangle': icon == 'warn',
+      'fa-info': icon == 'info'
+      }"></i></div>
+
   </div>
   <div *ngIf="item.html">
     <div class="sn-html" *ngIf="htmlIsTemplate; else regularHtml">
@@ -44,11 +52,21 @@
       <div class="sn-content" [innerHTML]="item.html"></div>
     </ng-template>
 
-    <div class="icon" [class.icon-hover]="clickIconToClose" *ngIf="item.icon" [innerHTML]="safeSvg" (click)="onClickIcon($event)"></div>
+    <!--<div class="icon" [class.icon-hover]="clickIconToClose" *ngIf="item.icon" [innerHTML]="safeSvg" (click)="onClickIcon($event)"></div>-->
+    {{icon}}
+    <div class="icon"><i
+      [ngClass]="{'fa': true,
+      'fa-check': icon == 'success',
+      'fa-times-circle': icon == 'error',
+      'fa-exclamation-triangle': icon == 'warning',
+      'fa-info': icon == 'info'
+      }"></i></div>
   </div>
 
   <div class="sn-progress-loader" *ngIf="showProgressBar">
     <span [ngStyle]="{'width': progressWidth + '%'}"></span>
   </div>
+
+  <div class="close"><i class="fa fa-times" (click)="remove()"></i></div>
 
 </div>
