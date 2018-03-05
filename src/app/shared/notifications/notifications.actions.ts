@@ -10,6 +10,7 @@ import { Notification } from './models/notification.model';
 export const NotificationsActionTypes = {
   NEW_NOTIFICATION: type('dspace/notifications/NEW_NOTIFICATION'),
   NEW_NOTIFICATION_WITH_TIMER: type('dspace/notifications/NEW_NOTIFICATION_WITH_TIMER'),
+  REMOVE_ALL_NOTIFICATIONS: type('dspace/notifications/REMOVE_ALL_NOTIFICATIONS'),
   REMOVE_NOTIFICATION: type('dspace/notifications/REMOVE_NOTIFICATION'),
 };
 
@@ -44,14 +45,28 @@ export class NewNotificationWithTimerAction implements Action {
 }
 
 /**
- * New notification.
- * @class NewNotificationAction
+ * Remove all notifications.
+ * @class RemoveAllNotificationsAction
+ * @implements {Action}
+ */
+export class RemoveAllNotificationsAction implements Action {
+  public type: string = NotificationsActionTypes.REMOVE_ALL_NOTIFICATIONS;
+
+  constructor(public payload?: any) { }
+}
+
+/**
+ * Remove a notification.
+ * @class RemoveNotificationAction
  * @implements {Action}
  */
 export class RemoveNotificationAction implements Action {
   public type: string = NotificationsActionTypes.REMOVE_NOTIFICATION;
+  payload: any;
 
-  constructor(public payload?: any) { }
+  constructor(notificationId: any) {
+    this.payload = notificationId;
+  }
 }
 
 /* tslint:enable:max-classes-per-file */
@@ -63,4 +78,5 @@ export class RemoveNotificationAction implements Action {
 export type NotificationsActions
   = NewNotificationAction
   | NewNotificationWithTimerAction
+  | RemoveAllNotificationsAction
   | RemoveNotificationAction;
