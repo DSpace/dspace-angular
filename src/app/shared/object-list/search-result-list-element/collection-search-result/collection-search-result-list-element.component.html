@@ -1,2 +1,2 @@
 <a [routerLink]="['/collections/' + dso.id]" class="lead" [innerHTML]="getFirstValue('dc.title')"></a>
-<div *ngIf="dso.shortDescription" class="text-muted" [innerHTML]="getFirstValue('dc.description.abstract')"></div>
+<div *ngIf="dso.shortDescription" class="text-muted abstract-text" [innerHTML]="getFirstValue('dc.description.abstract')"></div>

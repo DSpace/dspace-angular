@@ -1,4 +1,4 @@
-import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
+import { CollectionSearchResultListElementComponent } from './collection-search-result-list-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -8,8 +8,8 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 
-let collectionSearchResultGridElementComponent: CollectionSearchResultGridElementComponent;
-let fixture: ComponentFixture<CollectionSearchResultGridElementComponent>;
+let collectionSearchResultListElementComponent: CollectionSearchResultListElementComponent;
+let fixture: ComponentFixture<CollectionSearchResultListElementComponent>;
 
 const truncatableServiceStub: any = {
   isCollapsed: (id: number) => Observable.of(true),
@@ -37,46 +37,46 @@ mockCollectionWithoutAbstract.dspaceObject = Object.assign(new Collection(), {
     } ]
 });
 
-describe('CollectionSearchResultGridElementComponent', () => {
+describe('CollectionSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CollectionSearchResultGridElementComponent, TruncatePipe ],
+      declarations: [ CollectionSearchResultListElementComponent, TruncatePipe ],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) }
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(CollectionSearchResultGridElementComponent, {
+    }).overrideComponent(CollectionSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(CollectionSearchResultGridElementComponent);
-    collectionSearchResultGridElementComponent = fixture.componentInstance;
+    fixture = TestBed.createComponent(CollectionSearchResultListElementComponent);
+    collectionSearchResultListElementComponent = fixture.componentInstance;
   }));
 
   describe('When the collection has an abstract', () => {
     beforeEach(() => {
-      collectionSearchResultGridElementComponent.dso = mockCollectionWithAbstract.dspaceObject;
+      collectionSearchResultListElementComponent.dso = mockCollectionWithAbstract.dspaceObject;
       fixture.detectChanges();
     });
 
     it('should show the description paragraph', () => {
-      const collectionAbstractField = fixture.debugElement.query(By.css('p.card-text'));
+      const collectionAbstractField = fixture.debugElement.query(By.css('div.abstract-text'));
       expect(collectionAbstractField).not.toBeNull();
     });
   });
 
   describe('When the collection has no abstract', () => {
     beforeEach(() => {
-      collectionSearchResultGridElementComponent.dso = mockCollectionWithoutAbstract.dspaceObject;
+      collectionSearchResultListElementComponent.dso = mockCollectionWithoutAbstract.dspaceObject;
       fixture.detectChanges();
     });
 
     it('should not show the description paragraph', () => {
-      const collectionAbstractField = fixture.debugElement.query(By.css('p.card-text'));
+      const collectionAbstractField = fixture.debugElement.query(By.css('div.abstract-text'));
       expect(collectionAbstractField).toBeNull();
     });
   });

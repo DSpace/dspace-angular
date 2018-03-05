@@ -1,11 +1,11 @@
-import { CommunityGridElementComponent } from './community-grid-element.component';
+import { CommunityListElementComponent } from './community-list-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Community } from '../../../core/shared/community.model';
 
-let communityGridElementComponent: CommunityGridElementComponent;
-let fixture: ComponentFixture<CommunityGridElementComponent>;
+let communityListElementComponent: CommunityListElementComponent;
+let fixture: ComponentFixture<CommunityListElementComponent>;
 
 const mockCommunityWithAbstract: Community = Object.assign(new Community(), {
   metadata: [
@@ -25,45 +25,45 @@ const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
     }]
 });
 
-describe('CommunityGridElementComponent', () => {
+describe('CommunityListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunityGridElementComponent ],
+      declarations: [ CommunityListElementComponent ],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract)}
       ],
 
-    schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(CommunityGridElementComponent, {
+      schemas: [ NO_ERRORS_SCHEMA ]
+    }).overrideComponent(CommunityListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(CommunityGridElementComponent);
-    communityGridElementComponent = fixture.componentInstance;
+    fixture = TestBed.createComponent(CommunityListElementComponent);
+    communityListElementComponent = fixture.componentInstance;
   }));
 
   describe('When the community has an abstract', () => {
     beforeEach(() => {
-      communityGridElementComponent.object = mockCommunityWithAbstract;
+      communityListElementComponent.object = mockCommunityWithAbstract;
       fixture.detectChanges();
     });
 
     it('should show the description paragraph', () => {
-      const communityAbstractField = fixture.debugElement.query(By.css('p.card-text'));
+      const communityAbstractField = fixture.debugElement.query(By.css('div.abstract-text'));
       expect(communityAbstractField).not.toBeNull();
     });
   });
 
   describe('When the community has no abstract', () => {
     beforeEach(() => {
-      communityGridElementComponent.object = mockCommunityWithoutAbstract;
+      communityListElementComponent.object = mockCommunityWithoutAbstract;
       fixture.detectChanges();
     });
 
     it('should not show the description paragraph', () => {
-      const communityAbstractField = fixture.debugElement.query(By.css('p.card-text'));
+      const communityAbstractField = fixture.debugElement.query(By.css('div.abstract-text'));
       expect(communityAbstractField).toBeNull();
     });
   });

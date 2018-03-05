@@ -1,4 +1,4 @@
-import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
+import { CommunitySearchResultListElementComponent } from './community-search-result-list-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -8,8 +8,8 @@ import { Community } from '../../../../core/shared/community.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 
-let communitySearchResultGridElementComponent: CommunitySearchResultGridElementComponent;
-let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
+let communitySearchResultListElementComponent: CommunitySearchResultListElementComponent;
+let fixture: ComponentFixture<CommunitySearchResultListElementComponent>;
 
 const truncatableServiceStub: any = {
   isCollapsed: (id: number) => Observable.of(true),
@@ -37,46 +37,46 @@ mockCommunityWithoutAbstract.dspaceObject = Object.assign(new Community(), {
     } ]
 });
 
-describe('CommunitySearchResultGridElementComponent', () => {
+describe('CommunitySearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommunitySearchResultGridElementComponent, TruncatePipe ],
+      declarations: [ CommunitySearchResultListElementComponent, TruncatePipe ],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) }
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(CommunitySearchResultGridElementComponent, {
+    }).overrideComponent(CommunitySearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(CommunitySearchResultGridElementComponent);
-    communitySearchResultGridElementComponent = fixture.componentInstance;
+    fixture = TestBed.createComponent(CommunitySearchResultListElementComponent);
+    communitySearchResultListElementComponent = fixture.componentInstance;
   }));
 
   describe('When the community has an abstract', () => {
     beforeEach(() => {
-      communitySearchResultGridElementComponent.dso = mockCommunityWithAbstract.dspaceObject;
+      communitySearchResultListElementComponent.dso = mockCommunityWithAbstract.dspaceObject;
       fixture.detectChanges();
     });
 
     it('should show the description paragraph', () => {
-      const communityAbstractField = fixture.debugElement.query(By.css('p.card-text'));
+      const communityAbstractField = fixture.debugElement.query(By.css('div.abstract-text'));
       expect(communityAbstractField).not.toBeNull();
     });
   });
 
   describe('When the community has no abstract', () => {
     beforeEach(() => {
-      communitySearchResultGridElementComponent.dso = mockCommunityWithoutAbstract.dspaceObject;
+      communitySearchResultListElementComponent.dso = mockCommunityWithoutAbstract.dspaceObject;
       fixture.detectChanges();
     });
 
     it('should not show the description paragraph', () => {
-      const communityAbstractField = fixture.debugElement.query(By.css('p.card-text'));
+      const communityAbstractField = fixture.debugElement.query(By.css('div.abstract-text'));
       expect(communityAbstractField).toBeNull();
     });
   });

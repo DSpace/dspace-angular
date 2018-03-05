@@ -1,4 +1,4 @@
-import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
+import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
@@ -9,8 +9,8 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 
-let itemSearchResultGridElementComponent: ItemSearchResultGridElementComponent;
-let fixture: ComponentFixture<ItemSearchResultGridElementComponent>;
+let itemSearchResultListElementComponent: ItemSearchResultListElementComponent;
+let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
 
 const truncatableServiceStub: any = {
   isCollapsed: (id: number) => Observable.of(true),
@@ -50,70 +50,70 @@ mockItemWithoutAuthorAndDate.dspaceObject = Object.assign(new Item(), {
     }]
 });
 
-describe('ItemSearchResultGridElementComponent', () => {
+describe('ItemSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
-      declarations: [ItemSearchResultGridElementComponent, TruncatePipe],
+      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: 'objectElementProvider', useValue: (mockItemWithoutAuthorAndDate) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(ItemSearchResultGridElementComponent, {
+    }).overrideComponent(ItemSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(ItemSearchResultGridElementComponent);
-    itemSearchResultGridElementComponent = fixture.componentInstance;
+    fixture = TestBed.createComponent(ItemSearchResultListElementComponent);
+    itemSearchResultListElementComponent = fixture.componentInstance;
   }));
 
   describe('When the item has an author', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
+      itemSearchResultListElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
       fixture.detectChanges();
     });
 
     it('should show the author paragraph', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('p.item-authors'));
+      const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
       expect(itemAuthorField).not.toBeNull();
     });
   });
 
   describe('When the item has no author', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      itemSearchResultListElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
       fixture.detectChanges();
     });
 
     it('should not show the author paragraph', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('p.item-authors'));
+      const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
       expect(itemAuthorField).toBeNull();
     });
   });
 
   describe('When the item has an issuedate', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
+      itemSearchResultListElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
       fixture.detectChanges();
     });
 
     it('should show the issuedate span', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('span.item-date'));
+      const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-date'));
       expect(itemAuthorField).not.toBeNull();
     });
   });
 
   describe('When the item has no issuedate', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      itemSearchResultListElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
       fixture.detectChanges();
     });
 
     it('should not show the issuedate span', () => {
-      const dateField = fixture.debugElement.query(By.css('span.item-date'));
+      const dateField = fixture.debugElement.query(By.css('span.item-list-date'));
       expect(dateField).toBeNull();
     });
   });
