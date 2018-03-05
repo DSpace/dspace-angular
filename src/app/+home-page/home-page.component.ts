@@ -29,10 +29,12 @@ export class HomePageComponent {
         timeout: 2000});
     const n2 = this.notificationsService.info('Info in DSpace', 'For your info...!');
     const n3 = this.notificationsService.warn('Warning in DSpace', 'This is a fake alert!');
-    const n4 = this.notificationsService.error(this.example);
+    const n4 = this.notificationsService.danger(this.example);
     console.log('Notifications pushed');
     console.log(n1);
     console.log(n2);
+    console.log(n3);
+    console.log(n4);
   }
 
   notificationCreated(event) {

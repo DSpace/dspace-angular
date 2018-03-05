@@ -109,16 +109,19 @@
 
 
 .close {
-  position: absolute;
-  top: 5px;
-  right: 5px;
+  //position: absolute;
+  //top: 5px;
+  //right: 5px;
+  float: right;
+  padding-right: 5px;
 }
 
 .icon {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  color: black;
+  //position: absolute;
+  //top: 5px;
+  //left: 5px;
+  float: left;
+  padding: 5px;
 }
 //
 //.icon > fa-times-circle {

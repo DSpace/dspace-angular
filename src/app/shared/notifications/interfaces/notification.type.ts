@@ -3,7 +3,7 @@ import {EventEmitter} from '@angular/core';
 export interface Notification {
   id?: string
   type: string
-  icon: string
+  icon?: string
   title?: any
   content?: any
   override?: any

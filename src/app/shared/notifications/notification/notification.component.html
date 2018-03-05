@@ -1,20 +1,37 @@
+<!--<div class="icon" *ngIf="item.icon !== 'bare'" [innerHTML]="safeSvg"></div>-->
+<div class="icon"><i
+  [ngClass]="{'fa': true,
+      'fa-check': item.type == 'success',
+      'fa-times-circle': item.type == 'danger',
+      'fa-exclamation-triangle': item.type == 'warning',
+      'fa-info': item.type == 'info'
+      }"></i></div>
+
+<div class="close"><i class="fa fa-times" (click)="remove()"></i></div>
+
+
 <div class="alert" role="alert"
      [@enterLeave]="item.state"
      (click)="onClick($event)"
      [class]="theClass"
      [ngClass]="{
-            'alert-info': item.type === 'info',
-            'alert-danger': item.type === 'error',
-            'alert-warning': item.type === 'warn',
-            'alert-success': item.type === 'success',
-            'bare': item.type === 'bare',
+            'alert-success': item.type == 'success',
+            'alert-info': item.type == 'info',
+            'alert-warning': item.type == 'warning',
+            'alert-danger': item.type == 'danger',
+            'alert-error': item.type == 'error',
             'rtl-mode': rtl,
             'has-icon': item.icon !== 'bare'
         }"
      (mouseenter)="onEnter()"
      (mouseleave)="onLeave()">
 
+
+
+
+
   <div *ngIf="!item.html">
+
 
     <div class="sn-title" *ngIf="titleIsTemplate; else regularTitle">
       <ng-container *ngTemplateOutlet="title"></ng-container>
@@ -32,41 +49,24 @@
       <div class="sn-content" [innerHTML]="content"></div>
     </ng-template>
 
-    <!--<div class="icon" *ngIf="item.icon !== 'bare'" [innerHTML]="safeSvg"></div>-->
-    {{icon}}
-    <div class="icon"><i
-      [ngClass]="{'fa': true,
-      'fa-check': icon == 'success',
-      'fa-times-circle': icon == 'error',
-      'fa-exclamation-triangle': icon == 'warn',
-      'fa-info': icon == 'info'
-      }"></i></div>
+
 
   </div>
+
   <div *ngIf="item.html">
-    <div class="sn-html" *ngIf="htmlIsTemplate; else regularHtml">
-      <ng-container *ngTemplateOutlet="item.html"></ng-container>
-    </div>
+
 
     <ng-template #regularHtml>
       <div class="sn-content" [innerHTML]="item.html"></div>
     </ng-template>
 
-    <!--<div class="icon" [class.icon-hover]="clickIconToClose" *ngIf="item.icon" [innerHTML]="safeSvg" (click)="onClickIcon($event)"></div>-->
-    {{icon}}
-    <div class="icon"><i
-      [ngClass]="{'fa': true,
-      'fa-check': icon == 'success',
-      'fa-times-circle': icon == 'error',
-      'fa-exclamation-triangle': icon == 'warning',
-      'fa-info': icon == 'info'
-      }"></i></div>
+
   </div>
 
   <div class="sn-progress-loader" *ngIf="showProgressBar">
     <span [ngStyle]="{'width': progressWidth + '%'}"></span>
   </div>
 
-  <div class="close"><i class="fa fa-times" (click)="remove()"></i></div>
+
 
 </div>

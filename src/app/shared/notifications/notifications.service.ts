@@ -3,6 +3,7 @@ import {Subject} from 'rxjs/Subject';
 import {NotificationEvent} from './interfaces/notification-event.type';
 import {Notification} from './interfaces/notification.type';
 import {Icons, defaultIcons} from './interfaces/icons';
+import { NotificationType } from './models/notification-type';
 
 @Injectable()
 export class NotificationsService {
@@ -20,28 +21,28 @@ export class NotificationsService {
     };
 
     success(title: any = '', content: any = '', override?: any): Notification {
-        return this.set({title: title, content: content || '', type: 'success', icon: this.icons.success, override: override}, true);
+        return this.set({title: title, content: content || '', type: NotificationType.Success, override: override}, true);
     }
 
-    error(title: any = '', content: any = '', override?: any): Notification {
-        return this.set({title: title, content: content || '', type: 'error', icon: this.icons.error, override: override}, true);
-    }
+    // error(title: any = '', content: any = '', override?: any): Notification {
+    //     return this.set({title: title, content: content || '', type: NotificationType.Error, override: override}, true);
+    // }
 
-    alert(title: any = '', content: any = '', override?: any): Notification {
-        return this.set({title: title, content: content || '', type: 'alert', icon: this.icons.alert, override: override}, true);
+    danger(title: any = '', content: any = '', override?: any): Notification {
+        return this.set({title: title, content: content || '', type: NotificationType.Danger, override: override}, true);
     }
 
     info(title: any = '', content: any = '', override?: any): Notification {
-        return this.set({title: title, content: content || '', type: 'info', icon: this.icons.info, override: override}, true);
+        return this.set({title: title, content: content || '', type: NotificationType.Info, override: override}, true);
     }
 
     warn(title: any = '', content: any = '', override?: any): Notification {
-        return this.set({title: title, content: content || '', type: 'warn', icon: this.icons.warn, override: override}, true);
+        return this.set({title: title, content: content || '', type: NotificationType.Warning, override: override}, true);
     }
 
-    bare(title: any = '', content: any = '', override?: any): Notification {
-        return this.set({title: title, content: content || '', type: 'bare', icon: 'bare', override: override}, true);
-    }
+    // bare(title: any = '', content: any = '', override?: any): Notification {
+    //     return this.set({title: title, content: content || '', type: 'bare', icon: 'bare', override: override}, true);
+    // }
 
     // With type method
     create(title: any = '', content: any = '', type = 'success', override?: any): Notification {

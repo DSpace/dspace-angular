@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Notification } from '../interfaces/notification.type';
 import { NotificationsService } from '../notifications.service';
+import { INotification } from '../models/notification.model';
 
 @Component({
   selector: 'ds-notification',
@@ -122,7 +122,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   @Input() public rtl: boolean;
   @Input() public animate: string;
   @Input() public position: number;
-  @Input() public item: Notification;
+  @Input() public item: INotification;
 
   // Progress bar variables
   public title: any;
@@ -152,13 +152,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.item.override) {
-      this.attachOverrides();
-    }
-
-    if (this.animate) {
-      this.item.state = this.animate;
-    }
+    // if (this.item.override) {
+    //   this.attachOverrides();
+    // }
+    //
+    // if (this.animate) {
+    //   this.item.state = this.animate;
+    // }
 
     if (this.timeOut !== 0) {
       this.startTimeOut();
@@ -168,7 +168,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.contentType(this.item.content, 'content');
     this.contentType(this.item.html, 'html');
 
-    this.safeSvg = this.domSanitizer.bypassSecurityTrustHtml(this.icon || this.item.icon);
+    // this.safeSvg = this.domSanitizer.bypassSecurityTrustHtml(this.icon || this.item.icon);
   }
 
   startTimeOut(): void {
@@ -191,30 +191,30 @@ export class NotificationComponent implements OnInit, OnDestroy {
     // }
   }
 
-  onClick($e: MouseEvent): void {
-    this.item.click!.emit($e);
+  // onClick($e: MouseEvent): void {
+  //   this.item.click!.emit($e);
+  //
+  //   // if (this.clickToClose) {
+  //   //   this.remove();
+  //   // }
+  // }
 
-    // if (this.clickToClose) {
-    //   this.remove();
-    // }
-  }
-
-  onClickIcon($e: MouseEvent): void {
-    this.item.clickIcon!.emit($e);
-
-    // if (this.clickIconToClose) {
-    //   this.remove();
-    // }
-  }
+  // onClickIcon($e: MouseEvent): void {
+  //   this.item.clickIcon!.emit($e);
+  //
+  //   // if (this.clickIconToClose) {
+  //   //   this.remove();
+  //   // }
+  // }
 
   // Attach all the overrides
-  attachOverrides(): void {
-    Object.keys(this.item.override).forEach((a) => {
-      if (this.hasOwnProperty(a)) {
-        (this as any)[a] = this.item.override[a];
-      }
-    });
-  }
+  // attachOverrides(): void {
+  //   Object.keys(this.item.override).forEach((a) => {
+  //     if (this.hasOwnProperty(a)) {
+  //       (this as any)[a] = this.item.override[a];
+  //     }
+  //   });
+  // }
 
   ngOnDestroy(): void {
     clearTimeout(this.timer);
@@ -225,7 +225,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
     if (this.count++ === this.steps) {
       this.remove();
-      this.item.timeoutEnd!.emit();
+      // this.item.timeoutEnd!.emit();
     } else if (!this.stopTime) {
       // if (this.showProgressBar) {
       //   this.progressWidth += 100 / this.steps;
@@ -237,14 +237,16 @@ export class NotificationComponent implements OnInit, OnDestroy {
   };
 
   private remove() {
-    if (this.animate) {
-      this.item.state = this.animate + 'Out';
-      setTimeout(() => {
-        this.notificationService.set(this.item, false);
-      }, 310);
-    } else {
-      this.notificationService.set(this.item, false);
-    }
+    // if (this.animate) {
+    //   this.item.state = this.animate + 'Out';
+    //   setTimeout(() => {
+    //     this.notificationService.set(this.item, false);
+    //   }, 310);
+    // } else {
+    //   this.notificationService.set(this.item, false);
+    // }
+
+    this.notificationService.set(this.item, false);
   }
 
   private contentType(item: any, key: string) {

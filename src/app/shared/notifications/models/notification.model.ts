@@ -8,6 +8,7 @@ export interface INotification {
   title?: any
   content?: any
   options?: INotificationOptions
+  html?: any;
 }
 
 export class Notification implements INotification {
@@ -16,6 +17,7 @@ export class Notification implements INotification {
   public title: any;
   public content: any;
   public options: INotificationOptions;
+  public html?: any;
 
   constructor(id: string,
               type: NotificationType,
