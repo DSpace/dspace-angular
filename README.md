@@ -340,8 +340,8 @@ Install your library via `yarn add lib-name --save` and import it in your code. 
 If the library does not include typings, you can install them using yarn:
 
 ```bash
-yarn add d3 --save
-yarn add @types/d3 --save-dev
+yarn add d3
+yarn add @types/d3 --dev
 ```
 
 If the library doesn't have typings available at `@types/`, you can still use it by manually adding typings for it:
@@ -373,8 +373,8 @@ Managing Dependencies (via yarn)
 This project makes use of [`yarn`](https://yarnpkg.com/en/) to ensure that the exact same dependency versions are used every time you install it.
 
 * `yarn` creates a [`yarn.lock`](https://yarnpkg.com/en/docs/yarn-lock) to track those versions. That file is updated automatically by whenever dependencies are added/updated/removed via yarn.
-* **Adding new dependencies**: To install/add a new dependency (third party library), use [`yarn add`](https://yarnpkg.com/en/docs/cli/add). For example: `yarn add some-lib --save`.
-    * If it's a development-only dependency (not for production), use `yarn add some-lib --save-dev`
+* **Adding new dependencies**: To install/add a new dependency (third party library), use [`yarn add`](https://yarnpkg.com/en/docs/cli/add). For example: `yarn add some-lib`.
+    * If you are adding a new build tool dependency (to `devDependencies`), use `yarn add some-lib --dev`
 * **Upgrading existing dependencies**: To upgrade existing dependencies, you can use [`yarn upgrade`](https://yarnpkg.com/en/docs/cli/upgrade).  For example: `yarn upgrade some-lib` or `yarn upgrade some-lib@version`
 * **Removing dependencies**: If a dependency is no longer needed, or replaced, use [`yarn remove`](https://yarnpkg.com/en/docs/cli/remove) to remove it.
 
