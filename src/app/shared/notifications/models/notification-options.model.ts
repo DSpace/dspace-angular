@@ -26,3 +26,10 @@ export class NotificationOptions implements INotificationOptions {
     this.rtl = rtl;
   }
 }
+
+export interface INotificationBoardOptions {
+  rtl: boolean;
+  position: ['top' | 'bottom' | 'middle', 'right' | 'left' | 'center'];
+  maxStack: number;
+  maxLength?: number;
+}

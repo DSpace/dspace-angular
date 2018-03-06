@@ -1,7 +1,9 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { Options } from '../shared/notifications/interfaces/options.type';
-import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
+import {
+  INotificationBoardOptions,
+  NotificationOptions
+} from '../shared/notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-home-page',
@@ -9,15 +11,6 @@ import { NotificationOptions } from '../shared/notifications/models/notification
   templateUrl: './home-page.component.html'
 })
 export class HomePageComponent {
-  public notificationOptions: Options = {
-    position: ['top', 'right'],
-    timeOut: 0,
-    animate: 'fromLeft'
-    // lastOnBottom: true,
-    // clickIconToClose: false,
-    // showProgressBar: true,
-  };
-
   @ViewChild('example') example: TemplateRef<any>;
 
   constructor(private notificationsService: NotificationsService) {
@@ -25,24 +18,40 @@ export class HomePageComponent {
 
   createNotification() {
     const n1 = this.notificationsService.success('Welcome in DSpace', 'Good choice!',
-      new NotificationOptions(2000, false, 'fromLeft'));
-    const n2 = this.notificationsService.info('Info in DSpace', 'For your info...!');
-    const n3 = this.notificationsService.warning('Warning in DSpace', 'This is a fake alert!');
-    const n4 = this.notificationsService.danger(this.example);
-    console.log('Notifications pushed');
-    console.log(n1);
-    console.log(n2);
-    console.log(n3);
-    console.log(n4);
+      new NotificationOptions(10000, false, 'fromLeft', ['bottom', 'left']));
+    // const n2 = this.notificationsService.info('Info in DSpace', 'For your info...!');
+    // const n3 = this.notificationsService.warning('Warning in DSpace', 'This is a fake alert!');
+    // // const n4 = this.notificationsService.danger(this.example);
+    // console.log('Notifications pushed');
+    // console.log(n1);
+    // console.log(n2);
+    // console.log(n3);
+    // // console.log(n4);
   }
 
-  notificationCreated(event) {
-    console.log('Notification created');
-    console.log(event);
+  createNotification1() {
+    const n1 = this.notificationsService.warning('Welcome in DSpace', 'Good choice!',
+      new NotificationOptions(10000, false, 'fromLeft', ['bottom', 'left']));
+    // const n2 = this.notificationsService.info('Info in DSpace', 'For your info...!');
+    // const n3 = this.notificationsService.warning('Warning in DSpace', 'This is a fake alert!');
+    // // const n4 = this.notificationsService.danger(this.example);
+    // console.log('Notifications pushed');
+    // console.log(n1);
+    // console.log(n2);
+    // console.log(n3);
+    // // console.log(n4);
   }
 
-  notificationDestroyed() {
-    console.log('Notification destroyed');
-    console.log(event);
+  createNotification2() {
+    // const n1 = this.notificationsService.error('Welcome in DSpace', 'Good choice!',
+    //   new NotificationOptions(100000, false, 'fromLeft', ['bottom', 'left']));
+    // const n2 = this.notificationsService.info('Info in DSpace', 'For your info...!');
+    // const n3 = this.notificationsService.warning('Warning in DSpace', 'This is a fake alert!');
+    const n4 = this.notificationsService.html(this.example);
+    // console.log('Notifications pushed');
+    // console.log(n1);
+    // console.log(n2);
+    // console.log(n3);
+    // // console.log(n4);
   }
 }

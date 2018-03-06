@@ -1,32 +1,18 @@
-<!--<div class="icon" *ngIf="item.icon !== 'bare'" [innerHTML]="safeSvg"></div>-->
-<div class="icon"><i
-  [ngClass]="{'fa': true,
-      'fa-check': item.type == 'success',
-      'fa-times-circle': item.type == 'danger',
-      'fa-exclamation-triangle': item.type == 'warning',
-      'fa-info': item.type == 'info'
+<div class="alert {{item.type}}" role="alert"
+     [@enterLeave]="animate"
+     [ngClass]="{
+            'rtl-mode': rtl
+        }" >
+
+  <div class="icon"><i
+    [ngClass]="{'fa fa-2x': true,
+      'fa-check': item.type == 'alert-success',
+      'fa-times-circle': item.type == 'alert-danger',
+      'fa-exclamation-triangle': item.type == 'alert-warning',
+      'fa-info': item.type == 'alert-info'
       }"></i></div>
 
-<div class="close"><i class="fa fa-times" (click)="remove()"></i></div>
-
-
-<div class="alert" role="alert"
-     [@enterLeave]="item.state"
-     (click)="onClick($event)"
-     [class]="theClass"
-     [ngClass]="{
-            'alert-success': item.type == 'success',
-            'alert-info': item.type == 'info',
-            'alert-warning': item.type == 'warning',
-            'alert-danger': item.type == 'danger',
-            'alert-error': item.type == 'error',
-            'rtl-mode': rtl,
-            'has-icon': item.icon !== 'bare'
-        }"
-     (mouseenter)="onEnter()"
-     (mouseleave)="onLeave()">
-
-
+  <div class="close" (click)="remove()"><i class="fa fa-times"></i></div>
 
 
 
@@ -55,10 +41,14 @@
 
   <div *ngIf="item.html">
 
+    <div class="sn-html" *ngIf="htmlIsTemplate; else regularHtml">
+      <ng-container *ngTemplateOutlet="item.html"></ng-container>
+    </div>
 
     <ng-template #regularHtml>
       <div class="sn-content" [innerHTML]="item.html"></div>
     </ng-template>
+
 
 
   </div>

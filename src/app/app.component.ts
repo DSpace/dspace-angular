@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  Inject,
-  OnInit,
-  ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
@@ -17,7 +10,7 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './shared/window.service';
-import { Options } from './shared/notifications/interfaces/options.type';
+import { INotificationBoardOptions } from './shared/notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-app',
@@ -28,13 +21,10 @@ import { Options } from './shared/notifications/interfaces/options.type';
 })
 export class AppComponent implements OnInit {
 
-  public notificationOptions: Options = {
+  public boardOptions: INotificationBoardOptions = {
     position: ['top', 'right'],
-    timeOut: 0,
-    animate: 'fromLeft'
-    // lastOnBottom: true,
-    // clickIconToClose: false,
-    // showProgressBar: true,
+    maxStack: 5,
+    rtl: false
   };
 
   notificationCreated(event) {
@@ -47,13 +37,11 @@ export class AppComponent implements OnInit {
     console.log(event);
   }
 
-  constructor(
-    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
-    @Inject(NativeWindowService) private _window: NativeWindowRef,
-    private translate: TranslateService,
-    private store: Store<HostWindowState>,
-    private metadata: MetadataService
-  ) {
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+              @Inject(NativeWindowService) private _window: NativeWindowRef,
+              private translate: TranslateService,
+              private store: Store<HostWindowState>,
+              private metadata: MetadataService) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them

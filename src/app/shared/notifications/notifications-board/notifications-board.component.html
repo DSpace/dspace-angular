@@ -1,11 +1,7 @@
 <div class="simple-notification-wrapper" [ngClass]="position">
   <ds-notification
     *ngFor="let a of notifications; let i = index"
-    [item]="a"
-    [timeOut]="timeOut"
-    [rtl]="rtl"
-    [animate]="animate"
-    [position]="i">
+    [item]="a">
 
     <!--[clickToClose]="clickToClose"-->
     <!--[clickIconToClose]="clickIconToClose"-->
