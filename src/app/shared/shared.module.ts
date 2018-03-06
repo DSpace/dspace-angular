@@ -16,7 +16,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
-import { TruncatePipe } from './utils/truncate.pipe';
 import { ConsolePipe } from './utils/console.pipe';
 
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
@@ -57,6 +56,11 @@ import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dyn
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
+import { DragClickDirective } from './utils/drag-click.directive';
+import { TruncatePipe } from './utils/truncate.pipe';
+import { TruncatableComponent } from './truncatable/truncatable.component';
+import { TruncatableService } from './truncatable/truncatable.service';
+import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
 
 import { UploadFilesComponent } from './upload-files/upload-files.component';
 import { ChipsComponent } from './chips/chips.component';
@@ -72,8 +76,7 @@ import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/mode
 import { MessageBoardComponent } from './message-board/message-board.component';
 import { MessageComponent } from './message-board/message.component';
 import { ItemListPreviewComponent } from './object-list/item-list-preview/item-list-preview.component';
-import { ItemGridPreviewComponent } from './object-grid/item-grid-preview/item-grid-preview.component';
-import { MyDSpaceResultGridElementComponent } from './object-grid/my-dspace-result-grid-element/my-dspace-result-grid-element.component';
+import { MyDSpaceResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/my-dspace-result-detail-element.component';
 import { FullFileSectionComponent } from '../+item-page/full/field-components/file-section/full-file-section.component';
 import { MetadataUriValuesComponent } from '../+item-page/field-components/metadata-uri-values/metadata-uri-values.component';
 import { FileSectionComponent } from '../+item-page/simple/field-components/file-section/file-section.component';
@@ -153,13 +156,15 @@ const COMPONENTS = [
   GridThumbnailComponent,
   UploadFilesComponent,
   WrapperListElementComponent,
-  ViewModeSwitchComponent,
   DsDynamicGroupComponent,
   DsDatePickerComponent,
   ItemListPreviewComponent,
-  ItemGridPreviewComponent,
+
   ClaimedTaskActionsComponent,
-  PoolTaskActionsComponent
+  PoolTaskActionsComponent,
+  ViewModeSwitchComponent,
+  TruncatableComponent,
+  TruncatablePartComponent,
 ];
 
 const COMPONENTS_ITEM_PAGE = [
@@ -188,12 +193,17 @@ const ENTRY_COMPONENTS = [
   ItemGridElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
-  MyDSpaceResultGridElementComponent,
+  MyDSpaceResultDetailElementComponent,
   SearchResultGridElementComponent
 ];
 
+const PROVIDERS = [
+  TruncatableService
+];
+
 const DIRECTIVES = [
-  VarDirective
+  VarDirective,
+  DragClickDirective
 ];
 
 @NgModule({
@@ -207,6 +217,9 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES
+  ],
+  providers: [
+    ...PROVIDERS
   ],
   exports: [
     ...MODULES,

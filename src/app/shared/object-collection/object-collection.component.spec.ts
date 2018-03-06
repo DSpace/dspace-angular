@@ -42,6 +42,7 @@ describe('ObjectCollectionComponent', () => {
 
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-object-detail'))).toBeNull();
   });
 
   it('should only show the list component when the viewmode is set to list', () => {
@@ -49,6 +50,15 @@ describe('ObjectCollectionComponent', () => {
 
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-object-detail'))).toBeNull();
+  })
+
+  it('should only show the list component when the viewmode is set to detail', () => {
+    objectCollectionComponent.currentMode = ViewMode.Detail;
+
+    expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-object-detail'))).toBeDefined();
   })
 
 });

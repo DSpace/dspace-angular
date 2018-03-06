@@ -95,7 +95,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
           let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
           let pageSizeOptions: number[] = [5, 10, 20];
 
-          if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
+            if (isNotEmpty(params.view) && params.view === ViewMode.Detail) {
             pageSizeOptions = [1];
             if (pageSizeOptions.indexOf(pageSize) === -1) {
               pageSize = 1;

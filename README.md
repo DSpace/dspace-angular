@@ -137,17 +137,32 @@ yarn run clean:dist
 Testing
 -------
 
-### Unit Test
+### Test a Pull Request
 
-Unit tests use Karma. You can find the configuration file at the same level of this README file:`./karma.conf.js` If you are going to use a remote test enviroment you need to edit the './karma.conf.js'. Follow the instructions you will find inside it. To executing tests whenever any file changes you can modify the 'autoWatch' option to 'true' and 'singleRun' option to 'false'. A coverage report is also available at: http://localhost:9876/ after you run:`yarn run coverage`.
+If you would like to contribute by testing a Pull Request (PR), here's how to do so. Keep in mind, you **do not need to have a DSpace backend / REST API installed locally to test a PR**. By default, the dspace-angular project points at our demo REST API
 
-To correctly run the tests you need to run the build once with:`yarn run build`.
+1. Pull down the branch that the Pull Request was built from.  Easy instructions for doing so can be found on the Pull Request itself.
+	* Next to the "Merge" button, you'll see a link that says "command line instructions".
+	* Click it, and follow "Step 1" of those instructions to checkout the pull down the PR branch.
+2. `yarn run clean`  (This resets your local dependencies to ensure you are up-to-date with this PR)
+3. `yarn install` (Updates your local dependencies to those in the PR)
+4. `yarn start` (Rebuilds the project, and deploys to localhost:3000, by default)
+5. At this point, the code from the PR will be deployed to http://localhost:3000.  Test it out, and ensure that it does what is described in the PR (or fixes the bug described in the ticket linked to the PR).
+
+Once you have tested the Pull Request, please add a comment and/or approval to the PR to let us know whether you found it to be successful (or not). Thanks!
+
+
+### Unit Tests
+
+Unit tests use Karma. You can find the configuration file at the same level of this README file:`./karma.conf.js` If you are going to use a remote test enviroment you need to edit the `./karma.conf.js`. Follow the instructions you will find inside it. To executing tests whenever any file changes you can modify the 'autoWatch' option to 'true' and 'singleRun' option to 'false'. A coverage report is also available at: http://localhost:9876/ after you run: `yarn run coverage`.
+
+To correctly run the tests you need to run the build once with: `yarn run build`.
 
 The default browser is Google Chrome.
 
 Place your tests in the same location of the application source code files that they test.
 
-and run:`yarn run test`
+and run: `yarn run test`
 
 ### E2E test
 
@@ -161,15 +176,18 @@ Protractor needs a functional instance of the DSpace interface to run the E2E te
 
 or any command that bring up the DSpace interface.
 
-Place your tests at the following path:`./e2e`
+Place your tests at the following path: `./e2e`
 
-and run:`yarn run e2e`
+and run: `yarn run e2e`
 
 ### Continuous Integration (CI) Test
 
 To run all the tests (e.g.: to run tests with Continuous Integration software) you can execute:`yarn run ci` Keep in mind that this command prerequisites are the sum of unit test and E2E tests.
 
-##Documentation To build the code documentation we use [TYPEDOC](http://typedoc.org). TYPEDOC is a documentation generator for TypeScript projects. It extracts informations from properly formatted comments that can be written within the code files. Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
+Documentation
+--------------
+
+To build the code documentation we use [TYPEDOC](http://typedoc.org). TYPEDOC is a documentation generator for TypeScript projects. It extracts informations from properly formatted comments that can be written within the code files. Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
 
 Run:`yarn run docs` to produce the documentation that will be available in the 'doc' folder.
 
@@ -322,8 +340,8 @@ Install your library via `yarn add lib-name --save` and import it in your code. 
 If the library does not include typings, you can install them using yarn:
 
 ```bash
-yarn add d3 --save
-yarn add @types/d3 --save-dev
+yarn add d3
+yarn add @types/d3 --dev
 ```
 
 If the library doesn't have typings available at `@types/`, you can still use it by manually adding typings for it:
@@ -349,14 +367,18 @@ If you're importing a module that uses CommonJS you need to import as
 import * as _ from 'lodash';
 ```
 
-yarn lockfile
+Managing Dependencies (via yarn)
 -------------
 
-This project makes use of yarn to ensure that the exact same dependency versions are used every time you install it.
+This project makes use of [`yarn`](https://yarnpkg.com/en/) to ensure that the exact same dependency versions are used every time you install it.
 
-yarn creates the file [`yarn.lock`](https://yarnpkg.com/en/docs/yarn-lock) to track those versions. That file is updated automatically every time you install a new dependency from the commandline (by using `yarn add some-lib --save` or `yarn add some-lib --save-dev`).
+* `yarn` creates a [`yarn.lock`](https://yarnpkg.com/en/docs/yarn-lock) to track those versions. That file is updated automatically by whenever dependencies are added/updated/removed via yarn.
+* **Adding new dependencies**: To install/add a new dependency (third party library), use [`yarn add`](https://yarnpkg.com/en/docs/cli/add). For example: `yarn add some-lib`.
+    * If you are adding a new build tool dependency (to `devDependencies`), use `yarn add some-lib --dev`
+* **Upgrading existing dependencies**: To upgrade existing dependencies, you can use [`yarn upgrade`](https://yarnpkg.com/en/docs/cli/upgrade).  For example: `yarn upgrade some-lib` or `yarn upgrade some-lib@version`
+* **Removing dependencies**: If a dependency is no longer needed, or replaced, use [`yarn remove`](https://yarnpkg.com/en/docs/cli/remove) to remove it.
 
-If you manually add a package or change a version in `package.json` you'll have to update yarn's lock file as well. You can do so by running `yarn upgrade`
+As you can see above, using `yarn` commandline tools means that you should never need to modify the `package.json` manually. *We recommend always using `yarn` to keep dependencies updated / in sync.*
 
 Frequently asked questions
 --------------------------

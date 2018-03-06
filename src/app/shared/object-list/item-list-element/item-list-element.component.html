@@ -3,12 +3,16 @@
 </a>
 <div>
   <span class="text-muted">
-    <span *ngIf="object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);" class="item-list-authors">
+    <span *ngIf="object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"
+          class="item-list-authors">
         <span *ngFor="let authorMd of object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
             <span *ngIf="!last">; </span>
         </span>
     </span>
-    (<span *ngIf="object.findMetadata('dc.publisher')" class="item-list-publisher">{{object.findMetadata("dc.publisher")}}, </span><span *ngIf="object.findMetadata('dc.date.issued')" class="item-list-date">{{object.findMetadata("dc.date.issued")}}</span>)
+    (<span *ngIf="object.findMetadata('dc.publisher')" class="item-list-publisher">{{object.findMetadata("dc.publisher")}}, </span><span
+          *ngIf="object.findMetadata('dc.date.issued')" class="item-list-date">{{object.findMetadata("dc.date.issued")}}</span>)
   </span>
-  <div *ngIf="object.findMetadata('dc.description.abstract')" class="item-list-abstract">{{object.findMetadata("dc.description.abstract") | dsTruncate:[200] }}</div>
+    <div *ngIf="object.findMetadata('dc.description.abstract')" class="item-list-abstract">
+        {{object.findMetadata("dc.description.abstract") | dsTruncate:[200] }}
+    </div>
 </div>

@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { isNotEmpty, hasValue, isEmpty } from '../empty.util';
-import { Observable } from 'rxjs/Observable';
 
 /**
  * This component renders a simple item page.

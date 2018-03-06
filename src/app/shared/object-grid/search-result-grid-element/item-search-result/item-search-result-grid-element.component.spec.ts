@@ -1,24 +1,25 @@
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../../testing/router-stub';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Item } from '../../../../core/shared/item.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 
 let itemSearchResultGridElementComponent: ItemSearchResultGridElementComponent;
 let fixture: ComponentFixture<ItemSearchResultGridElementComponent>;
-const queryParam = 'test query';
-const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-const activatedRouteStub = {
-  queryParams: Observable.of({
-    query: queryParam,
-    scope: scopeParam
-  })
+
+const truncatableServiceStub: any = {
+  isCollapsed: (id: number) => Observable.of(true),
 };
-const mockItem: Item = Object.assign(new Item(), {
+
+const mockItemWithAuthorAndDate: ItemSearchResult = new ItemSearchResult();
+mockItemWithAuthorAndDate.hitHighlights = [];
+mockItemWithAuthorAndDate.dspaceObject = Object.assign(new Item(), {
+  bitstreams: Observable.of({}),
   metadata: [
     {
       key: 'dc.contributor.author',
@@ -28,53 +29,92 @@ const mockItem: Item = Object.assign(new Item(), {
     {
       key: 'dc.date.issued',
       language: null,
-      value: '1650-06-26'
+      value: '2015-06-26'
     }]
 });
-const createdGridElementComponent:ItemSearchResultGridElementComponent= new ItemSearchResultGridElementComponent(mockItem);
+
+const mockItemWithoutAuthorAndDate: ItemSearchResult = new ItemSearchResult();
+mockItemWithoutAuthorAndDate.hitHighlights = [];
+mockItemWithoutAuthorAndDate.dspaceObject = Object.assign(new Item(), {
+  bitstreams: Observable.of({}),
+  metadata: [
+    {
+      key: 'dc.title',
+      language: 'en_US',
+      value: 'This is just another title'
+    },
+    {
+      key: 'dc.type',
+      language: null,
+      value: 'Article'
+    }]
+});
 
 describe('ItemSearchResultGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemSearchResultGridElementComponent, TruncatePipe ],
+      imports: [NoopAnimationsModule],
+      declarations: [ItemSearchResultGridElementComponent, TruncatePipe],
       providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useValue: (createdGridElementComponent) }
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: 'objectElementProvider', useValue: (mockItemWithoutAuthorAndDate) }
       ],
-
-      schemas: [ NO_ERRORS_SCHEMA ]
-    }).compileComponents();  // compile template and css
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ItemSearchResultGridElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
   }));
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(ItemSearchResultGridElementComponent);
     itemSearchResultGridElementComponent = fixture.componentInstance;
-
   }));
 
-  it('should show the item result cards in the grid element',() => {
-    expect(fixture.debugElement.query(By.css('ds-item-search-result-grid-element'))).toBeDefined();
+  describe('When the item has an author', () => {
+    beforeEach(() => {
+      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
+      fixture.detectChanges();
+    });
+
+    it('should show the author paragraph', () => {
+      const itemAuthorField = fixture.debugElement.query(By.css('p.item-authors'));
+      expect(itemAuthorField).not.toBeNull();
+    });
   });
 
-  it('should only show the author span if the author metadata is present',() => {
-    const itemAuthorField = expect(fixture.debugElement.query(By.css('p.item-authors')));
+  describe('When the item has no author', () => {
+    beforeEach(() => {
+      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      fixture.detectChanges();
+    });
 
-    if (mockItem.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0) {
-      expect(itemAuthorField).toBeDefined();
-    } else {
-      expect(itemAuthorField).not.toBeDefined();
-    }
+    it('should not show the author paragraph', () => {
+      const itemAuthorField = fixture.debugElement.query(By.css('p.item-authors'));
+      expect(itemAuthorField).toBeNull();
+    });
   });
 
-  it('should only show the date span if the issuedate is present',() => {
-    const dateField = expect(fixture.debugElement.query(By.css('span.item-list-date')));
+  describe('When the item has an issuedate', () => {
+    beforeEach(() => {
+      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
+      fixture.detectChanges();
+    });
 
-    if (mockItem.findMetadata('dc.date.issued').length > 0) {
-      expect(dateField).toBeDefined();
-    } else {
-      expect(dateField).not.toBeDefined();
-    }
+    it('should show the issuedate span', () => {
+      const itemAuthorField = fixture.debugElement.query(By.css('span.item-date'));
+      expect(itemAuthorField).not.toBeNull();
+    });
   });
 
+  describe('When the item has no issuedate', () => {
+    beforeEach(() => {
+      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      fixture.detectChanges();
+    });
+
+    it('should not show the issuedate span', () => {
+      const dateField = fixture.debugElement.query(By.css('span.item-date'));
+      expect(dateField).toBeNull();
+    });
+  });
 });

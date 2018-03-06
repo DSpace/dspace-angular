@@ -1,25 +1,13 @@
 import { CommunityGridElementComponent } from './community-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../testing/router-stub';
-import { Observable } from 'rxjs/Observable';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { Community } from '../../../core/shared/community.model';
 
 let communityGridElementComponent: CommunityGridElementComponent;
 let fixture: ComponentFixture<CommunityGridElementComponent>;
-const queryParam = 'test query';
-const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-const activatedRouteStub = {
-  queryParams: Observable.of({
-    query: queryParam,
-    scope: scopeParam
-  })
-};
 
-const mockCommunity: Community = Object.assign(new Community(), {
+const mockCommunityWithAbstract: Community = Object.assign(new Community(), {
   metadata: [
     {
       key: 'dc.description.abstract',
@@ -28,39 +16,55 @@ const mockCommunity: Community = Object.assign(new Community(), {
     }]
 });
 
-const createdGridElementComponent:CommunityGridElementComponent= new CommunityGridElementComponent(mockCommunity);
+const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
+  metadata: [
+    {
+      key: 'dc.title',
+      language: 'en_US',
+      value: 'Test title'
+    }]
+});
 
 describe('CommunityGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CommunityGridElementComponent ],
       providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useValue: (createdGridElementComponent)}
+        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract)}
       ],
 
     schemas: [ NO_ERRORS_SCHEMA ]
-    }).compileComponents();  // compile template and css
+    }).overrideComponent(CommunityGridElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
   }));
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(CommunityGridElementComponent);
     communityGridElementComponent = fixture.componentInstance;
-
   }));
 
-  it('should show the community cards in the grid element',() => {
-    expect(fixture.debugElement.query(By.css('ds-community-grid-element'))).toBeDefined();
-  })
+  describe('When the community has an abstract', () => {
+    beforeEach(() => {
+      communityGridElementComponent.object = mockCommunityWithAbstract;
+      fixture.detectChanges();
+    });
 
-  it('should only show the description if "short description" metadata is present',() => {
-    const descriptionText = expect(fixture.debugElement.query(By.css('p.card-text')));
+    it('should show the description paragraph', () => {
+      const communityAbstractField = fixture.debugElement.query(By.css('p.card-text'));
+      expect(communityAbstractField).not.toBeNull();
+    });
+  });
 
-    if (mockCommunity.shortDescription.length > 0) {
-      expect(descriptionText).toBeDefined();
-    } else {
-      expect(descriptionText).not.toBeDefined();
-    }
+  describe('When the community has no abstract', () => {
+    beforeEach(() => {
+      communityGridElementComponent.object = mockCommunityWithoutAbstract;
+      fixture.detectChanges();
+    });
+
+    it('should not show the description paragraph', () => {
+      const communityAbstractField = fixture.debugElement.query(By.css('p.card-text'));
+      expect(communityAbstractField).toBeNull();
+    });
   });
 });

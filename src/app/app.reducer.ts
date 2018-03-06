@@ -12,6 +12,7 @@ import {
   filterReducer,
   SearchFiltersState
 } from './+search-page/search-filters/search-filter/search-filter.reducer';
+import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -20,6 +21,7 @@ export interface AppState {
   forms: FormState;
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
+  truncatable: TruncatablesState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -28,7 +30,8 @@ export const appReducers: ActionReducerMap<AppState> = {
   header: headerReducer,
   forms: formReducer,
   searchSidebar: sidebarReducer,
-  searchFilter: filterReducer
+  searchFilter: filterReducer,
+  truncatable: truncatableReducer
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

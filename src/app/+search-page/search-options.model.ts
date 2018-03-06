@@ -3,7 +3,8 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 
 export enum ViewMode {
   List = 'list',
-  Grid = 'grid'
+  Grid = 'grid',
+  Detail = 'detail'
 }
 
 export class SearchOptions {

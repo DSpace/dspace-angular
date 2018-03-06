@@ -1,34 +1,33 @@
-<div class="card">
-  <a [routerLink]="['/items/' + dso.id]" class="card-img-top full-width">
-    <ds-grid-thumbnail [thumbnail]="dso.getThumbnail()">
-    </ds-grid-thumbnail>
-  </a>
-  <div class="card-body">
-    <h4 class="card-title" [innerHTML]="dso.findMetadata('dc.title')"></h4>
-
-    <p *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])"
-       class="item-authors card-text text-muted">
-        <span
-          *ngFor="let authorMd of dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let first=first;">
-          <span *ngIf="first" [innerHTML]="authorMd.value">
-          <span
-            *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length>1">, ...</span>
-          </span>
-        </span>
-      <span *ngIf="dso.findMetadata('dc.date.issued')"
-            class="item-list-date">
-      <span *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length>1">,</span>
-      {{dso.findMetadata("dc.date.issued")}}</span>
-
-
-    </p>
-    <p class="item-abstract card-text" [innerHTML]="getFirstValue('dc.description.abstract') | dsTruncate:[200]">
-    </p>
-
-    <div class="text-center">
-      <a [routerLink]="['/items/' + dso.id]" class="lead btn btn-primary viewButton">View</a>
+<ds-truncatable [id]="dso.id">
+    <div class="card mt-1" [@focusShadow]="(isCollapsed() | async)?'blur':'focus'">
+        <a [routerLink]="['/items/' + dso.id]" class="card-img-top full-width">
+            <div>
+                <ds-grid-thumbnail [thumbnail]="dso.getThumbnail()">
+                </ds-grid-thumbnail>
+            </div>
+        </a>
+        <div class="card-body">
+            <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="3" type="h4">
+                <h4 class="card-title" [innerHTML]="dso.findMetadata('dc.title')"></h4>
+            </ds-truncatable-part>
+            <p *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"
+               class="item-authors card-text text-muted">
+                <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="1">
+                    <span *ngIf="dso.findMetadata('dc.date.issued').length > 0" class="item-date">{{dso.findMetadata("dc.date.issued")}}</span>
+                    <span *ngFor="let authorMd of dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);">,
+                        <span [innerHTML]="authorMd.value"></span>
+                    </span>
+                </ds-truncatable-part>
+            </p>
+            <p class="item-abstract card-text">
+                <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="3">
+                    <span [innerHTML]="getFirstValue('dc.description.abstract')"></span>
+                </ds-truncatable-part>
+            </p>
+            <div class="text-center">
+                <a [routerLink]="['/items/' + dso.id]"
+                   class="lead btn btn-primary viewButton">View</a>
+            </div>
+        </div>
     </div>
-  </div>
-
-</div>
-
+</ds-truncatable>
