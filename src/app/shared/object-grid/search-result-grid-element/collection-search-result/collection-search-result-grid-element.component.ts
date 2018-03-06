@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { renderElementsFor} from '../../../object-collection/shared/dso-element-decorator';
 
-import { CollectionSearchResult } from './collection-search-result.model';
+import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ViewMode } from '../../../../+search-page/search-options.model';

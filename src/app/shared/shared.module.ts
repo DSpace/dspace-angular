@@ -12,7 +12,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
-import { TruncatePipe } from './utils/truncate.pipe';
 
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './object-list/community-list-element/community-list-element.component';
@@ -43,6 +42,11 @@ import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbn
 import { VarDirective } from './utils/var.directive';
 import { NotificationComponent } from './notifications/notification/notification.component';
 import { NotificationsBoardComponent } from './notifications/notifications-board/notifications-board.component';
+import { DragClickDirective } from './utils/drag-click.directive';
+import { TruncatePipe } from './utils/truncate.pipe';
+import { TruncatableComponent } from './truncatable/truncatable.component';
+import { TruncatableService } from './truncatable/truncatable.service';
+import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -82,8 +86,8 @@ const COMPONENTS = [
   GridThumbnailComponent,
   WrapperListElementComponent,
   ViewModeSwitchComponent,
-  // NotificationComponent,
-  // NotificationsBoardComponent
+  TruncatableComponent,
+  TruncatablePartComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -96,11 +100,15 @@ const ENTRY_COMPONENTS = [
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
-  // NotificationComponent,
+];
+
+const PROVIDERS = [
+  TruncatableService
 ];
 
 const DIRECTIVES = [
-  VarDirective
+  VarDirective,
+  DragClickDirective
 ];
 
 @NgModule({
@@ -113,6 +121,9 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES
+  ],
+  providers: [
+    ...PROVIDERS
   ],
   exports: [
     ...MODULES,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
-import { CommunitySearchResult } from './community-search-result.model';
+import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 import { Community } from '../../../../core/shared/community.model';
 import { ViewMode } from '../../../../+search-page/search-options.model';
