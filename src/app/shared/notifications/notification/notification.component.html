@@ -1,4 +1,4 @@
-<div class="alert {{item.type}}" role="alert"
+<div class="alert {{item.type}} alert-dismissible" role="alert"
      [@enterLeave]="animate"
      [ngClass]="{
             'rtl-mode': rtl
@@ -12,12 +12,18 @@
       'fa-info': item.type == 'alert-info'
       }"></i></div>
 
-  <div class="close" (click)="remove()"><i class="fa fa-times"></i></div>
+  <!--<div class="close" (click)="remove()">-->
+  <button *ngIf="item.options.clickToClose"
+          (click)="remove()"
+          type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+
 
 
 
   <div *ngIf="!item.html">
-
 
     <div class="sn-title" *ngIf="titleIsTemplate; else regularTitle">
       <ng-container *ngTemplateOutlet="title"></ng-container>
@@ -42,11 +48,11 @@
   <div *ngIf="item.html">
 
     <div class="sn-html" *ngIf="htmlIsTemplate; else regularHtml">
-      <ng-container *ngTemplateOutlet="item.html"></ng-container>
+      <ng-container *ngTemplateOutlet="html"></ng-container>
     </div>
 
     <ng-template #regularHtml>
-      <div class="sn-content" [innerHTML]="item.html"></div>
+      <div class="sn-content" [innerHTML]="html"></div>
     </ng-template>
 
 

@@ -1,7 +1,11 @@
-.close {
-  float: right;
-  margin-right: -15px;
-  margin-top: -10px;
+//.close {
+//  float: right;
+//  margin-right: -15px;
+//  margin-top: -10px;
+//}
+
+close:active {
+  border: 0;
 }
 
 .icon {

@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -11,7 +10,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NotificationsService } from '../notifications.service';
 import { INotification } from '../models/notification.model';
 
@@ -103,7 +102,7 @@ import { INotification } from '../models/notification.model';
       transition('rotate => rotateOut', [
         style({opacity: 1, transform: 'rotate(0deg)'}),
         animate('400ms ease-in-out')
-      ])
+      ]),
     ])
   ],
   templateUrl: './notification.component.html',
@@ -129,7 +128,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   public title: any;
   public content: any;
   public html: any;
-
   public titleIsTemplate = false;
   public contentIsTemplate = false;
   public htmlIsTemplate = false;
@@ -195,7 +193,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   private remove() {
     if (this.animate) {
-      this.animate = this.animate + 'Out';
+      // this.animate = this.animate + 'Out';
       setTimeout(() => {
         this.notificationService.remove(this.item);
       }, 310);
@@ -213,4 +211,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
     this[key + 'IsTemplate'] = item instanceof TemplateRef;
   }
+
+  // setAnimationOut() {
+  //   this.animate = this.animate + 'Out';
+  // }
 }

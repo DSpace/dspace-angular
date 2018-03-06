@@ -73,8 +73,6 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
           });
         }
-
-        console.log(this.notifications);
         this.cdr.markForCheck();
       });
   }
@@ -87,49 +85,37 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
         this.notifications.splice(this.notifications.length - 1, 1);
       }
       this.notifications.splice(0, 0, item);
+    } else {
+      // Remove the notification from the store
+      // This notification was in the store, but not in this.notifications
+      // because it was a blocked duplicate
+      this.service.remove(item);
     }
   }
 
-  //
-  // // Check if notifications should be prevented
   block(item: INotification): boolean {
+    const toCheck = item.html ? this.checkHtml : this.checkStandard;
+    this.notifications.forEach((notification) => {
+      if (toCheck(notification, item)) {
+        return true;
+      }
+    });
 
-    // const toCheck = item.html ? this.checkHtml : this.checkStandard;
-    //
-    // this.notifications.forEach((notification) => {
-    //   if (toCheck(notification, item)) {
-    //     return true;
-    //   }
-    // });
-    //
-    // if (this.notifications.length > 0) {
-    //   for (let i = 0; i < this.notifications.length; i++) {
-    //     if (toCheck(this.notifications[i], item)) {
-    //       return true;
-    //     }
-    //   }
-    // }
-    //
-    // // if (this.preventLastDuplicates) {
-    //
-    //   let comp: Notification;
-    //
-    //   if ( this.notifications.length > 0) {
-    //   //   if (this.lastOnBottom) {
-    //   //     comp = this.notifications[this.notifications.length - 1];
-    //   //   }
-    //   //   else {
-    //       comp = this.notifications[0];
-    //     // }
-    //   // } else if (this.preventLastDuplicates === 'all' && this.lastNotificationCreated) {
-    //   //   comp = this.lastNotificationCreated;
-    //   } else {
-    //     return false;
-    //   }
-    //   return toCheck(comp, item);
-    // // }
-    //
-    return false;
+    if (this.notifications.length > 0) {
+        this.notifications.forEach( (notification) => {
+          if (toCheck(notification, item)) {
+            return true;
+          }
+        });
+      }
+
+    let comp: INotification;
+    if (this.notifications.length > 0) {
+      comp = this.notifications[0];
+    } else {
+      return false;
+    }
+    return toCheck(comp, item);
   }
 
   checkStandard(checker: INotification, item: INotification): boolean {
