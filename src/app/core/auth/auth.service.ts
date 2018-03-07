@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { map, withLatestFrom } from 'rxjs/operators';
@@ -16,7 +17,6 @@ import { AppState, routerStateSelector } from '../../app.reducer';
 import { Store } from '@ngrx/store';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { RouterReducerState } from '@ngrx/router-store';
-import { Router } from '@angular/router';
 import { CookieAttributes } from 'js-cookie';
 
 export const LOGIN_ROUTE = '/login';
@@ -53,7 +53,7 @@ export class AuthService {
       map(([routeUrl, redirectUrl]) => [routeUrl, redirectUrl])
     ).filter(([routeUrl, redirectUrl]) => isNotEmpty(redirectUrl) && (routeUrl !== redirectUrl))
       .subscribe(() => {
-        this.setRedirectUrl('');
+        this.setRedirectUrl(undefined);
       });
   }
 
@@ -272,7 +272,14 @@ export class AuthService {
         if (isNotEmpty(redirectUrl)) {
           // Clear url
           this.setRedirectUrl(undefined);
-          this.router.navigate([decodeURI(redirectUrl)]);
+          const urlTree: UrlTree = this.router.parseUrl(redirectUrl);
+          const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
+          const segment = '/' + g.toString();
+          const navigationExtras: NavigationExtras = {
+            queryParams: urlTree.queryParams,
+            queryParamsHandling: 'merge'
+          };
+          this.router.navigate([segment], navigationExtras);
         } else {
           this.router.navigate(['/']);
         }
@@ -304,6 +311,6 @@ export class AuthService {
    * Set redirect url
    */
   setRedirectUrl(value: string) {
-    this.store.dispatch(new SetRedirectUrlAction(encodeURI(value)));
+    this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
 }
