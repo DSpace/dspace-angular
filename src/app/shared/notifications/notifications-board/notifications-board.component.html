@@ -1,0 +1,6 @@
+<div class="simple-notification-wrapper" [ngClass]="position">
+  <ds-notification
+    *ngFor="let a of notifications; let i = index"
+    [item]="a">
+  </ds-notification>
+</div>

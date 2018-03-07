@@ -64,6 +64,7 @@ import { MessageResponseParsingService } from './message/message-response-parsin
 import { WorkflowitemDataService } from './submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 import { RolesService } from './roles/roles.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
@@ -124,6 +125,7 @@ const PROVIDERS = [
   AuthorityService,
   IntegrationResponseParsingService,
   UUIDService,
+  NotificationsService,  
   WorkspaceitemDataService,
   WorkflowitemDataService,
   ClaimedTaskDataService,
@@ -139,6 +141,7 @@ const PROVIDERS = [
     useClass: AuthInterceptor,
     multi: true
   }
+
 ];
 
 @NgModule({

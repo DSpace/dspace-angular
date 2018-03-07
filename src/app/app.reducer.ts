@@ -12,6 +12,7 @@ import {
   filterReducer,
   SearchFiltersState
 } from './+search-page/search-filters/search-filter/search-filter.reducer';
+import { notificationsReducer, NotificationsState } from './shared/notifications/notifications.reducers';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 
 export interface AppState {
@@ -19,6 +20,7 @@ export interface AppState {
   hostWindow: HostWindowState;
   header: HeaderState;
   forms: FormState;
+  notifications: NotificationsState;
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
@@ -29,6 +31,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   hostWindow: hostWindowReducer,
   header: headerReducer,
   forms: formReducer,
+  notifications: notificationsReducer,
   searchSidebar: sidebarReducer,
   searchFilter: filterReducer,
   truncatable: truncatableReducer

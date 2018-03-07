@@ -2,6 +2,12 @@
   <div class="inner-wrapper">
     <ds-header></ds-header>
 
+    <ds-notifications-board
+      [options]="boardOptions"
+      (onCreate)="notificationCreated($event)"
+      (onDestroy)="notificationDestroyed($event)">
+    </ds-notifications-board>
+
     <main class="main-content">
       <router-outlet></router-outlet>
     </main>
@@ -9,3 +15,4 @@
     <ds-footer></ds-footer>
   </div>
 </div>
+
