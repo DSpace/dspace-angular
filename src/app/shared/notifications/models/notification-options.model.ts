@@ -1,8 +1,10 @@
+import { NotificationAnimationsType } from './notification-animations-type';
+
 export interface INotificationOptions {
   timeOut: number;
   clickToClose: boolean;
   rtl: boolean;
-  animate: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale';
+  animate: NotificationAnimationsType;
   position: ['top' | 'bottom' | 'middle', 'right' | 'left' | 'center'];
 }
 
@@ -15,7 +17,7 @@ export class NotificationOptions implements INotificationOptions {
 
   constructor(timeOut = 0,
               clickToClose = true,
-              animate = 'scale',
+              animate = NotificationAnimationsType.Scale,
               position = ['top' , 'right'],
               rtl = false) {
 

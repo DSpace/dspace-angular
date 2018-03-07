@@ -17,6 +17,7 @@ import { difference } from 'lodash';
 import { INotification } from '../models/notification.model';
 import { NotificationsState } from '../notifications.reducers';
 import { INotificationBoardOptions } from '../models/notification-options.model';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ds-notifications-board',
@@ -27,7 +28,8 @@ import { INotificationBoardOptions } from '../models/notification-options.model'
 })
 export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
-  @Input() set options(opt: INotificationBoardOptions) {
+  @Input()
+  set options(opt: INotificationBoardOptions) {
     this.attachChanges(opt);
   }
 
@@ -37,10 +39,9 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   public notifications: INotification[] = [];
   public position: ['top' | 'bottom' | 'middle', 'right' | 'left' | 'center'] = ['bottom', 'right'];
 
-  // private listener: Subscription;
-
   // Received values
   private maxStack = 8;
+  private sub: Subscription;
 
   // Sent values
   public rtl = false;
@@ -52,8 +53,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.listener =
-    this.store.select(notificationsStateSelector)
+    this.sub = this.store.select(notificationsStateSelector)
       .subscribe((state: NotificationsState) => {
         if (state.length === 0) {
           this.notifications = [];
@@ -73,7 +73,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
           });
         }
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       });
   }
 
@@ -102,12 +102,12 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
     });
 
     if (this.notifications.length > 0) {
-        this.notifications.forEach( (notification) => {
-          if (toCheck(notification, item)) {
-            return true;
-          }
-        });
-      }
+      this.notifications.forEach((notification) => {
+        if (toCheck(notification, item)) {
+          return true;
+        }
+      });
+    }
 
     let comp: INotification;
     if (this.notifications.length > 0) {
@@ -136,8 +136,8 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // if (this.listener) {
-    //   this.listener.unsubscribe();
-    // }
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
