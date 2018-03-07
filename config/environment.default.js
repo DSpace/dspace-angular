@@ -21,6 +21,12 @@ module.exports = {
     msToLive: 15 * 60 * 1000, // 15 minute
     control: 'max-age=60' // revalidate browser
   },
+  // Notifications
+  notifications: {
+    rtl: false,
+    position: ['top', 'right'],
+    maxStack: 8
+  },
   // Submission settings
   submission: {
     autosave: {

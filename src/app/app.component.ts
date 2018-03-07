@@ -13,32 +13,15 @@ import { NativeWindowRef, NativeWindowService } from './shared/services/window.s
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticated } from './core/auth/selectors';
 import { PlatformService } from './shared/services/platform.service';
-import { INotificationBoardOptions } from './shared/notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-
-  public boardOptions: INotificationBoardOptions = {
-    position: ['top', 'right'],
-    maxStack: 5,
-    rtl: false
-  };
-
-  notificationCreated(event) {
-    console.log('Notification created');
-    console.log(event);
-  }
-
-  notificationDestroyed() {
-    console.log('Notification destroyed');
-    console.log(event);
-  }
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,

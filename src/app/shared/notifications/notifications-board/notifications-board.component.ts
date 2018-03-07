@@ -2,11 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
-  Output,
   ViewEncapsulation
 } from '@angular/core';
 import { NotificationsService } from '../notifications.service';
@@ -16,8 +14,8 @@ import { notificationsStateSelector } from '../selectors';
 import { difference } from 'lodash';
 import { INotification } from '../models/notification.model';
 import { NotificationsState } from '../notifications.reducers';
-import { INotificationBoardOptions } from '../models/notification-options.model';
 import { Subscription } from 'rxjs/Subscription';
+import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 
 @Component({
   selector: 'ds-notifications-board',
@@ -32,9 +30,6 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   set options(opt: INotificationBoardOptions) {
     this.attachChanges(opt);
   }
-
-  @Output() onCreate = new EventEmitter();
-  @Output() onDestroy = new EventEmitter();
 
   public notifications: INotification[] = [];
   public position: ['top' | 'bottom' | 'middle', 'right' | 'left' | 'center'] = ['bottom', 'right'];
@@ -60,8 +55,6 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
         } else if (state.length > this.notifications.length) {
           // Add
           const newElem = difference(state, this.notifications);
-          console.log('new Elements #', newElem.length);
-
           newElem.forEach((notification) => {
             this.add(notification);
           });
