@@ -61,11 +61,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private steps: number;
   private speed: number;
   private count = 0;
-
   private start: any;
   private diff: any;
-
-  // 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale' ;
   public animate: string;
 
   constructor(private notificationService: NotificationsService,

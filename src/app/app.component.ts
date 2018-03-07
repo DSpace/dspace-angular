@@ -10,7 +10,6 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './shared/window.service';
-import { INotificationBoardOptions } from './shared/notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-app',
@@ -20,22 +19,6 @@ import { INotificationBoardOptions } from './shared/notifications/models/notific
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-
-  public boardOptions: INotificationBoardOptions = {
-    position: ['top', 'right'],
-    maxStack: 5,
-    rtl: false
-  };
-
-  notificationCreated(event) {
-    console.log('Notification created');
-    console.log(event);
-  }
-
-  notificationDestroyed() {
-    console.log('Notification destroyed');
-    console.log(event);
-  }
 
   constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
               @Inject(NativeWindowService) private _window: NativeWindowRef,
