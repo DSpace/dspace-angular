@@ -399,8 +399,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
     }
 
     const sortDirection = this.currentQueryParams.sortDirection;
-    if (this.sortDirection !== +sortDirection) {
-      this.setSortDirection(+sortDirection);
+    if (this.sortDirection !== sortDirection) {
+      this.setSortDirection(sortDirection);
     }
 
     const sortField = this.currentQueryParams.sortField;

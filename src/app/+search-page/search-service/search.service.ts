@@ -35,7 +35,6 @@ import { SearchQueryResponse } from './search-query-response.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { getSearchResultFor } from './search-result-element-decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { NormalizedItem } from '../../core/cache/models/normalized-item.model';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -93,7 +92,6 @@ export class SearchService extends HALEndpointService implements OnDestroy {
 
   constructor(protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
-              private itemDataService: ItemDataService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private routeService: RouteService,
               private route: ActivatedRoute,
@@ -120,6 +118,16 @@ export class SearchService extends HALEndpointService implements OnDestroy {
 
         if (isNotEmpty(scopeId)) {
           args.push(`scope=${scopeId}`);
+        }
+
+        if (isNotEmpty(searchOptions)) {
+          if (isNotEmpty(searchOptions.sort)) {
+            args.push(`sort=${searchOptions.sort.field},${searchOptions.sort.direction}`);
+          }
+          if (isNotEmpty(searchOptions.pagination)) {
+            args.push(`page=${searchOptions.pagination.currentPage}`);
+            args.push(`size=${searchOptions.pagination.pageSize}`);
+          }
         }
 
         if (isNotEmpty(args)) {

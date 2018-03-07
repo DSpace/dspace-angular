@@ -121,7 +121,7 @@ export class ObjectCacheService {
    *    The type of the objects to get
    * @return Observable<Array<T>>
    */
-  getList<T extends NormalizedObject>(selfLinks: string[], type: GenericConstructor<T>): Observable<T[]> {
+  getList<T extends NormalizedObject>(selfLinks: string[]): Observable<T[]> {
     return Observable.combineLatest(
       selfLinks.map((selfLink: string) => this.getBySelfLink<T>(selfLink))
     );

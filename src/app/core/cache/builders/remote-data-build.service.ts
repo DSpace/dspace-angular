@@ -109,8 +109,7 @@ export class RemoteDataBuildService {
       });
   }
 
-  buildList<TNormalized extends NormalizedObject, TDomain>(hrefObs: string | Observable<string>,
-                                                           normalizedType: GenericConstructor<TNormalized>): Observable<RemoteData<TDomain[] | PaginatedList<TDomain>>> {
+  buildList<TNormalized extends NormalizedObject, TDomain>(hrefObs: string | Observable<string>): Observable<RemoteData<TDomain[] | PaginatedList<TDomain>>> {
     if (typeof hrefObs === 'string') {
       hrefObs = Observable.of(hrefObs);
     }
@@ -124,7 +123,7 @@ export class RemoteDataBuildService {
       .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
       .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks)
       .flatMap((resourceUUIDs: string[]) => {
-        return this.objectCache.getList(resourceUUIDs, normalizedType)
+        return this.objectCache.getList(resourceUUIDs)
           .map((normList: TNormalized[]) => {
             return normList.map((normalized: TNormalized) => {
               return this.build<TNormalized, TDomain>(normalized);
@@ -166,7 +165,6 @@ export class RemoteDataBuildService {
     relationships.forEach((relationship: string) => {
       if (hasValue(normalized[relationship])) {
         const { resourceType, isList } = getRelationMetadata(normalized, relationship);
-        const resourceConstructor = NormalizedObjectFactory.getConstructor(resourceType);
         if (Array.isArray(normalized[relationship])) {
           normalized[relationship].forEach((href: string) => {
             this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href))
@@ -189,7 +187,7 @@ export class RemoteDataBuildService {
           // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
           // but it should still be built as a list
           if (isList) {
-            links[relationship] = this.buildList(normalized[relationship], resourceConstructor);
+            links[relationship] = this.buildList(normalized[relationship]);
           } else {
             links[relationship] = this.buildSingle(normalized[relationship]);
           }

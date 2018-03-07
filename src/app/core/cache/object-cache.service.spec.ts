@@ -5,11 +5,13 @@ import { ObjectCacheService } from './object-cache.service';
 import { CacheableObject } from './object-cache.reducer';
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
 import { CoreState } from '../core.reducers';
+import { ResourceType } from '../shared/resource-type';
 
 class TestClass implements CacheableObject {
   constructor(
     public self: string,
-    public foo: string
+    public foo: string,
+    public type = ResourceType.Item
   ) { }
 
   test(): string {
@@ -65,7 +67,7 @@ describe('ObjectCacheService', () => {
 
       let testObj: any;
       // due to the implementation of spyOn above, this subscribe will be synchronous
-      service.getBySelfLink(selfLink, TestClass).take(1).subscribe((o) => testObj = o);
+      service.getBySelfLink(selfLink).take(1).subscribe((o) => testObj = o);
       expect(testObj.self).toBe(selfLink);
       expect(testObj.foo).toBe('bar');
       // this only works if testObj is an instance of TestClass
@@ -76,7 +78,7 @@ describe('ObjectCacheService', () => {
       spyOn(store, 'select').and.returnValue(Observable.of(invalidCacheEntry));
 
       let getObsHasFired = false;
-      const subscription = service.getBySelfLink(selfLink, TestClass).subscribe((o) => getObsHasFired = true);
+      const subscription = service.getBySelfLink(selfLink).subscribe((o) => getObsHasFired = true);
       expect(getObsHasFired).toBe(false);
       subscription.unsubscribe();
     });
@@ -87,7 +89,7 @@ describe('ObjectCacheService', () => {
       spyOn(service, 'getBySelfLink').and.returnValue(Observable.of(new TestClass(selfLink, 'bar')));
 
       let testObjs: any[];
-      service.getList([selfLink, selfLink], TestClass).take(1).subscribe((arr) => testObjs = arr);
+      service.getList([selfLink, selfLink]).take(1).subscribe((arr) => testObjs = arr);
       expect(testObjs[0].self).toBe(selfLink);
       expect(testObjs[0].foo).toBe('bar');
       expect(testObjs[0].test()).toBe('bar' + selfLink);

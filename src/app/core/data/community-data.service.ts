@@ -24,6 +24,6 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected objectCache: ObjectCacheService
   ) {
-    super(NormalizedCommunity);
+    super();
   }
 }

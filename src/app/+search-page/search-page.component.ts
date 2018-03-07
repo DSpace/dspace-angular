@@ -89,14 +89,15 @@ export class SearchPageComponent implements OnInit, OnDestroy {
             }
           }
 
-          const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
+          const sortDirection = params.sortDirection || this.searchOptions.sort.direction;
+          const sortField = params.sortField || this.searchOptions.sort.field;
           const pagination = Object.assign({},
             this.searchOptions.pagination,
             { currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
           );
           const sort = Object.assign({},
             this.searchOptions.sort,
-            { direction: sortDirection, field: params.sortField }
+            { direction: sortDirection, field: sortField }
           );
 
           this.updateSearchResults({

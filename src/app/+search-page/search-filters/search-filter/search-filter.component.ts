@@ -6,8 +6,6 @@ import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
-import { RouteService } from '../../../shared/route.service';
-import { first } from 'rxjs/operator/first';
 
 /**
  * This component renders a simple item page.

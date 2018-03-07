@@ -24,6 +24,6 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService
   ) {
-    super(NormalizedCollection);
+    super();
   }
 }

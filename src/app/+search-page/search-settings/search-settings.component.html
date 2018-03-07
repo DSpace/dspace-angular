@@ -2,21 +2,21 @@
 <div *ngIf="[searchOptions].sort" class="setting-option result-order-settings mb-3 p-3">
     <h5>{{ 'search.sidebar.settings.sort-by' | translate}}</h5>
     <select class="form-control" (change)="reloadOrder($event)">
-        <option *ngFor="let direction of (sortDirections | dsKeys); let currentElementIndex = index"
-                [value]="currentElementIndex"
-                [selected]="direction === searchOptions.sort? 'selected': null">
-            {{direction.value}}
+        <option *ngFor="let sortDirection of (sortDirections | dsKeys)"
+                [value]="sortDirection.value"
+                [selected]="sortDirection.value === direction? 'selected': null">
+            {{sortDirection.key}}
         </option>
     </select>
 </div>
 
-<div *ngIf="searchOptions.pagination.pageSize" class="setting-option page-size-settings mb-3 p-3">
+<div class="setting-option page-size-settings mb-3 p-3">
     <h5>{{ 'search.sidebar.settings.rpp' | translate}}</h5>
 
     <select class="form-control" (change)="reloadRPP($event)">
-        <option *ngFor="let item of pageSizeOptions" [value]="item"
-                [selected]="item === searchOptions.pagination.pageSize ? 'selected': null">
-            {{item}}
+        <option *ngFor="let pageSizeOption of pageSizeOptions" [value]="pageSizeOption"
+                [selected]="pageSizeOption === pageSize ? 'selected': null">
+            {{pageSizeOption}}
         </option>
     </select>
 </div>

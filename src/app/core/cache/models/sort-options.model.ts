@@ -1,11 +1,10 @@
 export enum SortDirection {
-  Ascending,
-  Descending
+  Ascending = 'ASC',
+  Descending = 'DESC'
 }
 
 export class SortOptions {
-
-  constructor(public field: string = 'name', public direction: SortDirection = SortDirection.Ascending) {
+  constructor(public field: string = 'dc.title', public direction: SortDirection = SortDirection.Ascending) {
 
   }
 }

@@ -27,7 +27,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     private bs: BrowseService
   ) {
-    super(NormalizedItem);
+    super();
   }
 
   public getScopedEndpoint(scopeID: string): Observable<string> {

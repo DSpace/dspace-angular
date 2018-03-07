@@ -20,7 +20,7 @@ export enum DirtyType {
 export interface CacheableObject {
   uuid?: string;
   self: string;
-  type: ResourceType;
+  type?: ResourceType;
   // isNew: boolean;
   // dirtyType: DirtyType;
   // hasDirtyAttributes: boolean;
