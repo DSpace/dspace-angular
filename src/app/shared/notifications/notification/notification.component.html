@@ -37,7 +37,6 @@
   </div>
 
   <div *ngIf="item.html">
-
     <div class="sn-html" *ngIf="htmlIsTemplate; else regularHtml">
       <ng-container *ngTemplateOutlet="html"></ng-container>
     </div>
@@ -45,9 +44,6 @@
     <ng-template #regularHtml>
       <div class="sn-content" [innerHTML]="html"></div>
     </ng-template>
-
-
-
   </div>
 
   <div class="sn-progress-loader" *ngIf="showProgressBar">

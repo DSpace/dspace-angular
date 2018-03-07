@@ -12,19 +12,22 @@
   left: 20px;
 }
 
-//.simple-notification.error { background: #F44336; }
-//.simple-notification.success { background: #8BC34A; }
-//.simple-notification.alert { background: #ffdb5b; }
-//.simple-notification.info { background: #03A9F4; }
-//.simple-notification.warn { background: #ffdb5b; }
-//
-//.simple-notification.success .sn-progress-loader span { background: #689F38; }
-//.simple-notification.error .sn-progress-loader span { background: #D32F2F; }
-//.simple-notification.alert .sn-progress-loader span { background: #edc242; }
-//.simple-notification.info .sn-progress-loader span { background: #0288D1; }
-//.simple-notification.warn .sn-progress-loader span { background: #edc242; }
-//.simple-notification.bare .sn-progress-loader span { background: #ccc; }
+.sn-progress-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  margin: 0 2px;
+}
 
-//.simple-notification.warn div .sn-title,
-//.simple-notification.warn div .sn-content,
-//.simple-notification.warn div .sn-html { color: #444; }
+.sn-progress-loader span {
+  float: left;
+  height: 100%;
+  background: black;
+}
+
+.alert-success .sn-progress-loader span { background: green; }
+.alert-danger .sn-progress-loader span { background: red; }
+.alert-info .sn-progress-loader span { background: blue; }
+.alert-warning .sn-progress-loader span { background: orange; }

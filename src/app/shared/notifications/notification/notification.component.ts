@@ -19,7 +19,7 @@ import { fromBottomEnter, fromBottomInState, fromBottomLeave, fromBottomOutState
 import { fromRightEnter, fromRightInState, fromRightLeave, fromRightOutState } from '../../animations/fromRight';
 import { fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState } from '../../animations/fromLeft';
 import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../../animations/fromTop';
-import { fadeEnter, fadeInEnter, fadeInState, fadeLeave, fadeOutLeave, fadeOutState } from '../../animations/fade';
+import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../animations/fade';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
 
 @Component({
@@ -49,11 +49,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
   public title: any;
   public content: any;
   public html: any;
+  public showProgressBar = false;
   public titleIsTemplate = false;
   public contentIsTemplate = false;
   public htmlIsTemplate = false;
 
-  // public progressWidth = 0;
+  public progressWidth = 0;
 
   private stopTime = false;
   private timer: any;
@@ -78,6 +79,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
     if (this.item.options.timeOut !== 0) {
       this.startTimeOut();
+      this.showProgressBar = true;
     }
 
     this.contentType(this.item.title, 'title');
@@ -103,9 +105,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.remove();
       // this.item.timeoutEnd!.emit();
     } else if (!this.stopTime) {
-      // if (this.showProgressBar) {
-      //   this.progressWidth += 100 / this.steps;
-      // }
+      if (this.showProgressBar) {
+        this.progressWidth += 100 / this.steps;
+      }
 
       this.timer = setTimeout(this.instance, (this.speed - this.diff));
     }
