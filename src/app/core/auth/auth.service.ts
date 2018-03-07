@@ -310,7 +310,7 @@ export class AuthService {
   /**
    * Set redirect url
    */
-  setRedirectUrl(value: string) {
+  setRedirectUrl(url: string) {
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
 }
