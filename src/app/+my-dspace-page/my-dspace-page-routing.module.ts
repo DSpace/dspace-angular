@@ -8,10 +8,8 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
   imports: [
     RouterModule.forChild([
       {
-        canActivate: [AuthenticatedGuard],
         path: '',
         component: MyDSpacePageComponent,
-        pathMatch: 'full',
         data: {title: 'mydspace.title'}}
     ])
   ]

@@ -37,7 +37,6 @@ import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-head
 import { ComcolPageLogoComponent } from './comcol-page-logo/comcol-page-logo.component';
 import { ErrorComponent } from './error/error.component';
 import { LoadingComponent } from './loading/loading.component';
-
 import { PaginationComponent } from './pagination/pagination.component';
 import { ThumbnailComponent } from '../thumbnail/thumbnail.component';
 import { SearchFormComponent } from './search-form/search-form.component';
@@ -61,7 +60,6 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
-
 import { UploadFilesComponent } from './upload-files/upload-files.component';
 import { ChipsComponent } from './chips/chips.component';
 import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
@@ -70,7 +68,6 @@ import { DsDynamicGroupComponent } from './form/builder/ds-dynamic-form-ui/model
 import { SortablejsModule } from 'angular-sortablejs';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/ds-date-picker/ds-date-picker.component';
-
 import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MessageBoardComponent } from './message-board/message-board.component';
@@ -92,6 +89,9 @@ import { MetadataValuesComponent } from '../+item-page/field-components/metadata
 import { ItemPageAuthorFieldComponent } from '../+item-page/simple/field-components/specific-field/author/item-page-author-field.component';
 import { ClaimedTaskActionsComponent } from './claimed-task-actions/claimed-task-actions.component';
 import { PoolTaskActionsComponent } from './pool-task-actions/pool-task-actions.component';
+import { ObjectDetailComponent } from './object-detail/object-detail.component';
+import { WrapperDetailElementComponent } from './object-detail/wrapper-detail-element/wrapper-detail-element.component';
+import { ItemDetailPreviewComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -145,9 +145,11 @@ const COMPONENTS = [
   MessageComponent,
   NumberPickerComponent,
   ObjectListComponent,
+  ObjectDetailComponent,
+  ObjectGridComponent,
   AbstractListableElementComponent,
   WrapperListElementComponent,
-  ObjectGridComponent,
+  WrapperDetailElementComponent,
   WrapperGridElementComponent,
   ObjectCollectionComponent,
   PaginationComponent,
@@ -159,7 +161,7 @@ const COMPONENTS = [
   DsDynamicGroupComponent,
   DsDatePickerComponent,
   ItemListPreviewComponent,
-
+  ItemDetailPreviewComponent,
   ClaimedTaskActionsComponent,
   PoolTaskActionsComponent,
   ViewModeSwitchComponent,

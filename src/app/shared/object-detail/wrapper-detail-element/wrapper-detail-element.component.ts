@@ -9,7 +9,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
   styleUrls: ['./wrapper-detail-element.component.scss'],
   templateUrl: './wrapper-detail-element.component.html'
 })
-export class WrapperGridElementComponent implements OnInit {
+export class WrapperDetailElementComponent implements OnInit {
   @Input() object: ListableObject;
   objectInjector: Injector;
 

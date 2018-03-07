@@ -6,8 +6,8 @@ import { hasNoValue, isEmpty } from '../../../empty.util';
 
 @Component({
   selector: 'ds-item-detail-preview',
-  styleUrls: ['src/app/shared/object-detail/my-dspace-result-detail-element/item-grid-preview/item-grid-preview.component.scss'],
-  templateUrl: 'src/app/shared/object-detail/my-dspace-result-detail-element/item-grid-preview/item-grid-preview.component.html'
+  styleUrls: ['./item-detail-preview.component.scss'],
+  templateUrl: './item-detail-preview.component.html'
 })
 export class ItemDetailPreviewComponent<T> {
 

@@ -25,7 +25,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   animations: [fadeIn]
 })
 
-export class ObjectGridComponent {
+export class ObjectDetailComponent {
 
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
