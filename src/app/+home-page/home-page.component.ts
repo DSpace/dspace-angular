@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { GroupEpersonService } from '../core/eperson/group-eperson.service';
-import { PlatformService } from '../shared/services/platform.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ds-home-page',
@@ -8,4 +6,5 @@ import { PlatformService } from '../shared/services/platform.service';
   templateUrl: './home-page.component.html'
 })
 export class HomePageComponent {
+
 }
