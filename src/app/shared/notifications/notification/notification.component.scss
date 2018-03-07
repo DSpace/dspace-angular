@@ -15,19 +15,17 @@
 .sn-progress-loader {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  margin: 0 2px;
+  left: 1px;
+  width: 99%;
+  height: 1px;
 }
 
 .sn-progress-loader span {
   float: left;
   height: 100%;
-  background: black;
 }
 
-.alert-success .sn-progress-loader span { background: green; }
-.alert-danger .sn-progress-loader span { background: red; }
-.alert-info .sn-progress-loader span { background: blue; }
-.alert-warning .sn-progress-loader span { background: orange; }
+.alert-success .sn-progress-loader span { background: #CBC1AD;  }
+.alert-danger .sn-progress-loader span { background: #D5BABA; }
+.alert-info .sn-progress-loader span { background: #B4C9CF; }
+.alert-warning .sn-progress-loader span { background: #DBD1BD; }
