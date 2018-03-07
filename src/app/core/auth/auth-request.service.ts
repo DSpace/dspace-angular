@@ -16,12 +16,6 @@ export class AuthRequestService extends HALEndpointService {
   protected linkName = 'authn';
   protected browseEndpoint = '';
 
-  /**
-   * True if authenticated
-   * @type
-   */
-  private _authenticated = false;
-
   constructor(protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
@@ -31,6 +25,7 @@ export class AuthRequestService extends HALEndpointService {
   protected fetchRequest(request: RestRequest): Observable<any> {
     const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
+      // TODO to review when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
       .do(() => this.responseCache.remove(request.href))
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 
 import { Eperson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
@@ -16,10 +17,10 @@ import { AppState, routerStateSelector } from '../../app.reducer';
 import { Store } from '@ngrx/store';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { RouterReducerState } from '@ngrx/router-store';
-import { Router } from '@angular/router';
 import { CookieAttributes } from 'js-cookie';
 
 export const LOGIN_ROUTE = '/login';
+
 /**
  * The auth service.
  */
@@ -43,7 +44,7 @@ export class AuthService {
     // If current route is different from the one setted in authentication guard
     // and is not the login route, clear redirect url and messages
     const routeUrlObs = this.store.select(routerStateSelector)
-      .filter((routerState: RouterReducerState) => isNotUndefined(routerState) && isNotUndefined(routerState.state) )
+      .filter((routerState: RouterReducerState) => isNotUndefined(routerState) && isNotUndefined(routerState.state))
       .filter((routerState: RouterReducerState) => (routerState.state.url !== LOGIN_ROUTE))
       .map((routerState: RouterReducerState) => routerState.state.url);
     const redirectUrlObs = this.getRedirectUrl();
@@ -52,8 +53,8 @@ export class AuthService {
       map(([routeUrl, redirectUrl]) => [routeUrl, redirectUrl])
     ).filter(([routeUrl, redirectUrl]) => isNotEmpty(redirectUrl) && (routeUrl !== redirectUrl))
       .subscribe(() => {
-      this.setRedirectUrl('');
-    });
+        this.setRedirectUrl(undefined);
+      });
   }
 
   /**
@@ -202,7 +203,7 @@ export class AuthService {
   }
 
   /**
-   * Check if a token is about to expire
+   * Check if a token is next to be expired
    * @returns {boolean}
    */
   public isTokenExpiring(): Observable<boolean> {
@@ -226,6 +227,7 @@ export class AuthService {
     const token = this.getToken();
     return token && token.expires < Date.now();
   }
+
   /**
    * Save authentication token info
    *
@@ -234,7 +236,7 @@ export class AuthService {
    */
   public storeToken(token: AuthTokenInfo) {
     const expires = new Date(token.expires);
-    const options: CookieAttributes = { expires: expires };
+    const options: CookieAttributes = {expires: expires};
     return this.storage.set(TOKENITEM, token, options);
   }
 
@@ -270,7 +272,14 @@ export class AuthService {
         if (isNotEmpty(redirectUrl)) {
           // Clear url
           this.setRedirectUrl(undefined);
-          this.router.navigate([decodeURI(redirectUrl)]);
+          const urlTree: UrlTree = this.router.parseUrl(redirectUrl);
+          const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
+          const segment = '/' + g.toString();
+          const navigationExtras: NavigationExtras = {
+            queryParams: urlTree.queryParams,
+            queryParamsHandling: 'merge'
+          };
+          this.router.navigate([segment], navigationExtras);
         } else {
           this.router.navigate(['/']);
         }
@@ -302,6 +311,6 @@ export class AuthService {
    * Set redirect url
    */
   setRedirectUrl(value: string) {
-    this.store.dispatch(new SetRedirectUrlAction(encodeURI(value)));
+    this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
 }

@@ -67,6 +67,7 @@ export class RequestService {
       .flatMap((uuid: string) => this.getByUUID(uuid));
   }
 
+  // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, overrideRequest: boolean = false): void {
     if (overrideRequest || request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
       this.dispatchRequest(request, overrideRequest);
