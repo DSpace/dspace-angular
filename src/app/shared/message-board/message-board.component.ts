@@ -4,6 +4,9 @@ import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from '../../core/message/message.service';
 import { Eperson } from '../../core/eperson/models/eperson.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NotificationsService } from '../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationOptions } from '../notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-message-board',
@@ -38,7 +41,9 @@ export class MessageBoardComponent {
   public showUnread = false;
 
   constructor(private formBuilder: FormBuilder,
-              public msgService: MessageService) {
+              public msgService: MessageService,
+              private notificationsService: NotificationsService,
+              private translate: TranslateService,) {
   }
 
   ngOnInit() {
@@ -87,11 +92,20 @@ export class MessageBoardComponent {
       description
     };
     this.msgService.createMessage(body).subscribe((res) => {
-      console.log('After message creation:');
-      console.log(res);
-      // Refresh event
-      this.refresh.emit('read');
-      this.modalRef.dismiss('Send Message');
+      if (res.isSuccessful) {
+        console.log('After message creation:');
+        console.log(res);
+        // Refresh event
+        this.refresh.emit('read');
+        this.modalRef.dismiss('Send Message');
+        this.notificationsService.success(null,
+          this.translate.get('submission.workflow.tasks.generic.success'),
+          new NotificationOptions(5000, false));
+      } else {
+        this.notificationsService.error(null,
+          this.translate.get('submission.workflow.tasks.generic.error'),
+          new NotificationOptions(20000, true));
+      }
     });
   }
 

@@ -8,6 +8,10 @@ import { ClaimedTask } from '../../core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
+import { NotificationsService } from '../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationAnimationsType } from '../notifications/models/notification-animations-type';
+import { NotificationOptions } from '../notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-claimed-task-actions',
@@ -26,6 +30,8 @@ export class ClaimedTaskActionsComponent implements OnInit {
   public modalRef: NgbModalRef;
 
   constructor(private cd: ChangeDetectorRef,
+              private notificationsService: NotificationsService,
+              private translate: TranslateService,
               private ctDataService: ClaimedTaskDataService,
               private modalService: NgbModal,
               private formBuilder: FormBuilder,
@@ -47,6 +53,13 @@ export class ClaimedTaskActionsComponent implements OnInit {
         this.cd.detectChanges();
         if (res.hasSucceeded) {
           this.reload();
+          this.notificationsService.success(null,
+            this.translate.get('submission.workflow.tasks.generic.success'),
+            new NotificationOptions(5000, false));
+        } else {
+          this.notificationsService.error(null,
+            this.translate.get('submission.workflow.tasks.generic.error'),
+            new NotificationOptions(20000, true));
         }
       });
   }
@@ -61,7 +74,13 @@ export class ClaimedTaskActionsComponent implements OnInit {
         if (res.hasSucceeded) {
           this.modalRef.close('Send Button');
           this.reload();
-          console.log('');
+          this.notificationsService.success(null,
+            this.translate.get('submission.workflow.tasks.generic.success'),
+            new NotificationOptions(5000, false));
+        } else {
+          this.notificationsService.error(null,
+            this.translate.get('submission.workflow.tasks.generic.error'),
+            new NotificationOptions(20000, true));
         }
       });
   }
@@ -74,6 +93,13 @@ export class ClaimedTaskActionsComponent implements OnInit {
         this.cd.detectChanges();
         if (res.hasSucceeded) {
           this.reload();
+          this.notificationsService.success(null,
+            this.translate.get('submission.workflow.tasks.generic.success'),
+            new NotificationOptions(5000, false));
+        } else {
+          this.notificationsService.error(null,
+            this.translate.get('submission.workflow.tasks.generic.error'),
+            new NotificationOptions(20000, true));
         }
       });
   }
@@ -91,5 +117,4 @@ export class ClaimedTaskActionsComponent implements OnInit {
     this.router.navigated = false;
     this.router.navigate([this.router.url]);
   }
-
 }
