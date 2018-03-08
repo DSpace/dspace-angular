@@ -22,6 +22,7 @@ import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../
 import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../animations/fade';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
 import { Observable } from 'rxjs/Observable';
+import { isNotEmpty } from '../../empty.util';
 
 @Component({
   selector: 'ds-notification',
@@ -126,8 +127,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private contentType(item: any, key: string) {
     if (item instanceof TemplateRef) {
       this[key] = item;
-    } else if (item instanceof Observable) {
-      this[key] = item;
+    } else if (key === 'title' || key === 'content' ) {
+      this[key] = isNotEmpty(item) ? item : Observable.of('');
     } else {
       this[key] = this.domSanitizer.bypassSecurityTrustHtml(item);
     }
