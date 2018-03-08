@@ -11,7 +11,7 @@ export class NotificationOptions implements INotificationOptions {
   public clickToClose: boolean;
   public animate: any;
 
-  constructor(timeOut = 0,
+  constructor(timeOut = 5000,
               clickToClose = true,
               animate = NotificationAnimationsType.Scale) {
 
