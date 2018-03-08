@@ -11,6 +11,12 @@ import { ItemDataService } from './../../core/data/item-data.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { RouteService } from '../route.service';
+import { ResponseCacheService } from '../../core/cache/response-cache.service';
+import { RequestService } from '../../core/data/request.service';
+import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
+import { ActivatedRoute } from '@angular/router';
+import { GLOBAL_CONFIG } from '../../../config';
+import { ActivatedRouteStub } from '../testing/active-router-stub';
 
 @Component({ template: '' })
 class DummyComponent { }
@@ -21,7 +27,7 @@ describe('ViewModeSwitchComponent', () => {
   let searchService: SearchService;
   let listButton: HTMLElement;
   let gridButton: HTMLElement;
-
+  let route = new ActivatedRouteStub();
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -42,6 +48,11 @@ describe('ViewModeSwitchComponent', () => {
       providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: RouteService, useValue: {} },
+        { provide: ResponseCacheService, useValue: {} },
+        { provide: RequestService, useValue: {} },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: GLOBAL_CONFIG, useValue: {} },
         SearchService
       ],
     }).compileComponents();
@@ -59,6 +70,7 @@ describe('ViewModeSwitchComponent', () => {
 
   it('should set list button as active when on list mode', fakeAsync(() => {
     searchService.setViewMode(ViewMode.List);
+    route = new ActivatedRouteStub([{view: ViewMode.List}])
     tick();
     fixture.detectChanges();
     expect(comp.currentMode).toBe(ViewMode.List);
@@ -68,6 +80,7 @@ describe('ViewModeSwitchComponent', () => {
 
   it('should set grid button as active when on grid mode', fakeAsync(() => {
     searchService.setViewMode(ViewMode.Grid);
+    route = new ActivatedRouteStub([{view: ViewMode.Grid}])
     tick();
     fixture.detectChanges();
     expect(comp.currentMode).toBe(ViewMode.Grid);

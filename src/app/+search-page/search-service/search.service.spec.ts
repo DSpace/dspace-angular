@@ -8,6 +8,12 @@ import { SearchService } from './search.service';
 import { ItemDataService } from './../../core/data/item-data.service';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { RouteService } from '../../shared/route.service';
+import { GLOBAL_CONFIG } from '../../../config';
+import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
+import { ActivatedRoute } from '@angular/router';
+import { RequestService } from '../../core/data/request.service';
+import { ResponseCacheService } from '../../core/cache/response-cache.service';
+import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 
 @Component({ template: '' })
 class DummyComponent { }
@@ -29,6 +35,11 @@ describe('SearchService', () => {
       providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: RouteService, useValue: {} },
+        { provide: ResponseCacheService, useValue: {} },
+        { provide: RequestService, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: RemoteDataBuildService, useValue: {} },
+        { provide: GLOBAL_CONFIG, useValue: {} },
         SearchService
       ],
     });

@@ -126,7 +126,7 @@ describe('ComColDataService', () => {
       it('should fetch the scope Community from the cache', () => {
         scheduler.schedule(() => service.getScopedEndpoint(scopeID).subscribe());
         scheduler.flush();
-        expect(objectCache.getByUUID).toHaveBeenCalledWith(scopeID, NormalizedCommunity);
+        expect(objectCache.getByUUID).toHaveBeenCalledWith(scopeID);
       });
 
       it('should return the endpoint to fetch resources within the given scope', () => {

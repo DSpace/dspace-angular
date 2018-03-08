@@ -6,12 +6,10 @@ import { ViewMode } from '../../+search-page/search-options.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { NormalizedDSpaceObject } from '../../core/cache/models/normalized-dspace-object.model';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { SearchSuccessResponse } from '../../core/cache/response-cache.models';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { ResponseCacheService } from '../../core/cache/response-cache.service';
-import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ResponseParsingService } from '../../core/data/parsing.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -125,11 +123,10 @@ export class SearchService extends HALEndpointService implements OnDestroy {
             args.push(`sort=${searchOptions.sort.field},${searchOptions.sort.direction}`);
           }
           if (isNotEmpty(searchOptions.pagination)) {
-            args.push(`page=${searchOptions.pagination.currentPage}`);
+            args.push(`page=${searchOptions.pagination.currentPage - 1}`);
             args.push(`size=${searchOptions.pagination.pageSize}`);
           }
         }
-
         if (isNotEmpty(args)) {
           url = new URLCombiner(url, `?${args.join('&')}`).toString();
         }
@@ -233,8 +230,8 @@ export class SearchService extends HALEndpointService implements OnDestroy {
             payload.push({
               value: value,
               count: Math.floor(Math.random() * 20) + 20 * (totalFilters - i), // make sure first results have the highest (random) count
-              search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
-            });
+              search: (decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value)}
+            );
           }
         }
         const requestPending = false;

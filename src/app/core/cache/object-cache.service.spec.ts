@@ -2,22 +2,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { ObjectCacheService } from './object-cache.service';
-import { CacheableObject } from './object-cache.reducer';
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
 import { CoreState } from '../core.reducers';
 import { ResourceType } from '../shared/resource-type';
-
-class TestClass implements CacheableObject {
-  constructor(
-    public self: string,
-    public foo: string,
-    public type = ResourceType.Item
-  ) { }
-
-  test(): string {
-    return this.foo + this.self;
-  }
-}
+import { NormalizedItem } from './models/normalized-item.model';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
@@ -28,7 +16,7 @@ describe('ObjectCacheService', () => {
   const msToLive = 900000;
   const objectToCache = {
     self: selfLink,
-    foo: 'bar'
+    type: ResourceType.Item
   };
   const cacheEntry = {
     data: objectToCache,
@@ -65,13 +53,13 @@ describe('ObjectCacheService', () => {
     it('should return an observable of the cached object with the specified self link and type', () => {
       spyOn(store, 'select').and.returnValue(Observable.of(cacheEntry));
 
-      let testObj: any;
       // due to the implementation of spyOn above, this subscribe will be synchronous
-      service.getBySelfLink(selfLink).take(1).subscribe((o) => testObj = o);
-      expect(testObj.self).toBe(selfLink);
-      expect(testObj.foo).toBe('bar');
-      // this only works if testObj is an instance of TestClass
-      expect(testObj.test()).toBe('bar' + selfLink);
+      service.getBySelfLink(selfLink).take(1).subscribe((o) => {
+          expect(o.self).toBe(selfLink);
+          // this only works if testObj is an instance of TestClass
+          expect(o instanceof NormalizedItem).toBeTruthy();
+        }
+      );
     });
 
     it('should not return a cached object that has exceeded its time to live', () => {
@@ -86,16 +74,14 @@ describe('ObjectCacheService', () => {
 
   describe('getList', () => {
     it('should return an observable of the array of cached objects with the specified self link and type', () => {
-      spyOn(service, 'getBySelfLink').and.returnValue(Observable.of(new TestClass(selfLink, 'bar')));
+      const item = new NormalizedItem();
+      item.self = selfLink;
+      spyOn(service, 'getBySelfLink').and.returnValue(Observable.of(item));
 
-      let testObjs: any[];
-      service.getList([selfLink, selfLink]).take(1).subscribe((arr) => testObjs = arr);
-      expect(testObjs[0].self).toBe(selfLink);
-      expect(testObjs[0].foo).toBe('bar');
-      expect(testObjs[0].test()).toBe('bar' + selfLink);
-      expect(testObjs[1].self).toBe(selfLink);
-      expect(testObjs[1].foo).toBe('bar');
-      expect(testObjs[1].test()).toBe('bar' + selfLink);
+      service.getList([selfLink, selfLink]).take(1).subscribe((arr) => {
+        expect(arr[0].self).toBe(selfLink);
+        expect(arr[0] instanceof NormalizedItem).toBeTruthy();
+      });
     });
   });
 

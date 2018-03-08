@@ -46,7 +46,7 @@ describe('SearchFilterService', () => {
   };
 
   const searchServiceStub: any = {
-    searchLink: '/search'
+    uiSearchRoute: '/search'
   };
 
   beforeEach(() => {
@@ -199,7 +199,7 @@ describe('SearchFilterService', () => {
     });
 
     it('should return the value of uiSearchRoute in the search service', () => {
-      expect(link).toEqual(searchServiceStub.searchLink);
+      expect(link).toEqual(searchServiceStub.uiSearchRoute);
     });
   });
 });
