@@ -22,7 +22,7 @@
     </div>
 
     <ng-template #regularTitle>
-      <div class="sn-title" [innerHTML]="title"></div>
+      <div class="sn-title" [innerHTML]="(title | async)"></div>
     </ng-template>
 
     <div class="sn-content" *ngIf="contentIsTemplate; else regularContent">
@@ -30,7 +30,7 @@
     </div>
 
     <ng-template #regularContent>
-      <div class="sn-content" [innerHTML]="content"></div>
+      <div class="sn-content" [innerHTML]="(content | async)"></div>
     </ng-template>
 
   </div>

@@ -1,32 +1,29 @@
 import { INotificationOptions, NotificationOptions } from './notification-options.model';
 import { NotificationType } from './notification-type';
 import { isEmpty } from '../../empty.util';
-import { ElementRef, TemplateRef } from '@angular/core';
-import { Deserialize, Serialize, serialize } from 'cerialize';
-import { deserialize } from 'cerialize';
-import { NotificationsService } from '../notifications.service';
+import { Observable } from 'rxjs/Observable';
 
 export interface INotification {
-  id: string
-  type: NotificationType
-  title?: any
-  content?: any
-  options?: INotificationOptions
+  id: string;
+  type: NotificationType;
+  title?: Observable<string>;
+  content?: Observable<string>;
+  options?: INotificationOptions;
   html?: any;
 }
 
 export class Notification implements INotification {
   public id: string;
   public type: NotificationType;
-  public title: any;
-  public content: any;
+  public title: Observable<string>;
+  public content: Observable<string>;
   public options: INotificationOptions;
   public html: any;
 
   constructor(id: string,
               type: NotificationType,
-              title?: any,
-              content?: any,
+              title?: Observable<string>,
+              content?: Observable<string>,
               options?: NotificationOptions,
               html?: any) {
 
@@ -37,14 +34,5 @@ export class Notification implements INotification {
     this.options = isEmpty(options) ? new NotificationOptions() : options;
     this.html = html;
   }
-
-  // get html() {
-    // if (this.title === '' && this.content === '') {
-    //   return NotificationsService.htmlArray.get(this.id);
-    // } else {
-    //   return null;
-    // }
-  // }
-
 
 }
