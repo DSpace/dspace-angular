@@ -224,12 +224,16 @@
   },
   "submission": {
     "submit": {
-      "title": "Submit"
+      "title": "Submission"
     },
     "edit": {
-      "title": "edit"
+      "title": "Edit Submission"
     },
     "section": {
+
+      "general": {
+        "sections_not_valid": "There are incomplete sections."
+      },
       "submit.progressbar.describe.stepone": "Describe",
       "submit.progressbar.describe.steptwo": "Describe",
       "submit.progressbar.describe.stepcustom": "Describe",

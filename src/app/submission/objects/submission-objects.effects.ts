@@ -28,6 +28,8 @@ import { AppState } from '../../app.reducer';
 import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -119,7 +121,8 @@ export class SubmissionObjectEffects {
               private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
               private sectionService: SectionService,
               private store$: Store<AppState>,
-              private submissionService: SubmissionService) {
+              private submissionService: SubmissionService,
+              private translate: TranslateService) {
   }
 
   protected parseSaveResponse(response: SubmissionObject[], submissionId: string) {
@@ -144,7 +147,8 @@ export class SubmissionObjectEffects {
               errorsList[path.sectionId].push(sectionError);
             });
           });
-          this.notificationsService.warning()
+          const notificationOptions = new NotificationOptions(5000)
+          this.notificationsService.warning('', this.translate.get('submission.section.general.sections_not_valid'), notificationOptions);
         }
 
         // and now dispatch an action to update section's data and errors
