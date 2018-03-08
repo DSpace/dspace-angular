@@ -61,11 +61,10 @@
 
         <!-- CHECKBOX --------------------------------------------------------------------------------------------->
         <div *ngSwitchCase="3" class="custom-control custom-checkbox" [class.disabled]="model.disabled">
-
-          <label class="custom-control-label">
             <input type="checkbox" class="custom-control-input"
                    [checked]="model.checked"
                    [class.is-invalid]="showErrorMessages"
+                   [id]="bindId && model.id"
                    [dynamicId]="bindId && model.id"
                    [formControlName]="model.id"
                    [indeterminate]="model.indeterminate"
@@ -76,9 +75,11 @@
                    [value]="model.value"
                    (blur)="onBlur($event)"
                    (change)="onValueChange($event)"
-                   (focus)="onFocus($event)"/>
+                   (focus)="onFocus($event)" >
+          <label class="custom-control-label" [for]="bindId && model.id">
             <span [innerHTML]="model.label"
-                  [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></span>
+                  [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
+            </span>
           </label>
         </div>
 
