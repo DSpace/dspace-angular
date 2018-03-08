@@ -11,6 +11,7 @@ import {
   RemoveNotificationAction
 } from './notifications.actions';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class NotificationsService {
@@ -28,25 +29,37 @@ export class NotificationsService {
     this.store.dispatch(notificationAction);
   }
 
-  success(title: any = '', content: any = '',  options = new NotificationOptions(), html?: any): INotification {
+  success(title: any = Observable.of(''),
+          content: any = Observable.of(''),
+          options = new NotificationOptions(),
+          html?: any): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Success, title, content, options, html);
     this.add(notification);
     return notification;
   }
 
-  error(title: any = '', content: any = '',  options = new NotificationOptions(), html?: any): INotification {
+  error(title: any = Observable.of(''),
+        content: any = Observable.of(''),
+        options = new NotificationOptions(),
+        html?: any): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Error, title, content, options, html);
     this.add(notification);
     return notification;
   }
 
-  info(title: any = '', content: any = '', options = new NotificationOptions(), html?: any): INotification {
+  info(title: any = Observable.of(''),
+       content: any = Observable.of(''),
+       options = new NotificationOptions(),
+       html?: any): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Info, title, content, options, html);
     this.add(notification);
     return notification;
   }
 
-  warning(title: any = '', content: any = '', options = new NotificationOptions(), html?: any): INotification {
+  warning(title: any = Observable.of(''),
+          content: any = Observable.of(''),
+          options = new NotificationOptions(),
+          html?: any): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Warning, title, content, options, html);
     this.add(notification);
     return notification;

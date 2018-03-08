@@ -21,6 +21,7 @@ import { fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState } from 
 import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../../animations/fromTop';
 import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../animations/fade';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-notification',
@@ -46,8 +47,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   @Input() public item: INotification;
 
   // Progress bar variables
-  public title: any;
-  public content: any;
+  public title: Observable<string>;
+  public content: Observable<string>;
   public html: any;
   public showProgressBar = false;
   public titleIsTemplate = false;
@@ -124,6 +125,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   private contentType(item: any, key: string) {
     if (item instanceof TemplateRef) {
+      this[key] = item;
+    } else if (item instanceof Observable) {
       this[key] = item;
     } else {
       this[key] = this.domSanitizer.bypassSecurityTrustHtml(item);
