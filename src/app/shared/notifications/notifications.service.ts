@@ -15,8 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Injectable()
 export class NotificationsService {
 
-  constructor(private store: Store<Notification>,
-              private domSanitizer: DomSanitizer,) {
+  constructor(private store: Store<Notification>) {
   }
 
   private add(notification: Notification) {
