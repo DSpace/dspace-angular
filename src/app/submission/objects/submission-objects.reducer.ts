@@ -12,7 +12,8 @@ import {
   DeleteSectionErrorsAction, ResetSubmissionFormAction, UpdateSectionDataAction, SaveSubmissionFormAction,
   CompleteSaveSubmissionFormAction, SetActiveSectionAction, SaveSubmissionSectionFormAction,
   DepositSubmissionAction, DepositSubmissionSuccessAction, DepositSubmissionErrorAction,
-  ChangeSubmissionCollectionAction, SaveSubmissionFormSuccessAction, SaveSubmissionFormErrorAction
+  ChangeSubmissionCollectionAction, SaveSubmissionFormSuccessAction, SaveSubmissionFormErrorAction,
+  SaveSubmissionSectionFormSuccessAction, SaveSubmissionSectionFormErrorAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
@@ -91,6 +92,14 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM: {
       return saveSubmission(state, action as SaveSubmissionSectionFormAction);
+    }
+
+    case SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS: {
+      return completeSave(state, action as SaveSubmissionSectionFormSuccessAction);
+    }
+
+    case SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR: {
+      return completeSave(state, action as SaveSubmissionSectionFormErrorAction);
     }
 
     case SubmissionObjectActionTypes.CHANGE_SUBMISSION_COLLECTION: {
@@ -342,7 +351,9 @@ function saveSubmission(state: SubmissionObjectState, action: SaveSubmissionForm
 function completeSave(state: SubmissionObjectState,
                       action: CompleteSaveSubmissionFormAction
                         | SaveSubmissionFormSuccessAction
-                        | SaveSubmissionFormErrorAction): SubmissionObjectState {
+                        | SaveSubmissionFormErrorAction
+                        | SaveSubmissionSectionFormSuccessAction
+                        | SaveSubmissionSectionFormErrorAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {

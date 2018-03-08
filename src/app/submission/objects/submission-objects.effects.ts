@@ -67,7 +67,7 @@ export class SubmissionObjectEffects {
     });
 
   @Effect() saveSubmissionSuccess$ = this.actions$
-    .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS || SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS)
+    .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS, SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS)
     .map((action: SaveSubmissionFormSuccessAction | SaveSubmissionSectionFormSuccessAction) => {
       return this.parseSaveResponse(action.payload.submissionObject, action.payload.submissionId)
     })
@@ -128,6 +128,8 @@ export class SubmissionObjectEffects {
   protected parseSaveResponse(response: SubmissionObject[], submissionId: string) {
     const mappedActions = [];
     if (isNotEmpty(response)) {
+      this.notificationsService.success(null, this.translate.get('submission.section.general.save_success_notice'));
+
       const errorsList = {};
 
       // to avoid dispatching an action for every error, create an array of errors per section
@@ -147,8 +149,7 @@ export class SubmissionObjectEffects {
               errorsList[path.sectionId].push(sectionError);
             });
           });
-          const notificationOptions = new NotificationOptions(5000)
-          this.notificationsService.warning('', this.translate.get('submission.section.general.sections_not_valid'), notificationOptions);
+          this.notificationsService.warning(null, this.translate.get('submission.section.general.sections_not_valid'));
         }
 
         // and now dispatch an action to update section's data and errors
