@@ -9,6 +9,8 @@ import { SubmissionRestService } from '../submission/submission-rest.service';
 import { Workspaceitem } from '../core/submission/models/workspaceitem.model';
 import { PlatformService } from '../shared/services/platform.service';
 import { Observable } from 'rxjs/Observable';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-submit-page',
@@ -26,9 +28,11 @@ export class SubmitPageComponent implements OnDestroy, OnInit {
   protected subs: Subscription[] = [];
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
+              private notificationsService: NotificationsService,
               private platform: PlatformService,
               private restService: SubmissionRestService,
-              private router: Router) {
+              private router: Router,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -40,6 +44,7 @@ export class SubmitPageComponent implements OnDestroy, OnInit {
           .catch((Error) => Observable.of({}))
           .subscribe((workspaceitems: Workspaceitem) => {
             if (isEmpty(workspaceitems)) {
+              this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
               this.router.navigate(['/mydspace']);
             } else {
               this.collectionId = workspaceitems.collection[0].id;

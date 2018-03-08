@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -8,7 +9,6 @@ import {
 } from '@angular/core'
 import { FileUploader } from 'ng2-file-upload';
 import { UploadFilesComponentOptions } from './upload-files-component-options.model';
-import { isNotEmpty } from '../empty.util';
 
 @Component({
   selector: 'ds-upload-files',
@@ -23,20 +23,23 @@ export class UploadFilesComponent {
   /**
    * The function to call before an upload
    */
-  @Input()  onBeforeUpload: () => void;
+  @Input() onBeforeUpload: () => void;
 
   /**
    * Configuration for the ng2-file-upload component.
    */
-  @Input()  uploadFilesOptions: UploadFilesComponentOptions;
+  @Input() uploadFilesOptions: UploadFilesComponentOptions;
 
   /**
    * The function to call when upload is completed
    */
   @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();
 
-  public uploader:FileUploader;
+  public uploader: FileUploader;
   public hasBaseDropZoneOver = false;
+
+  constructor(private cdr: ChangeDetectorRef) {
+  }
 
   /**
    * Method provided by Angular. Invoked after the constructor.
@@ -63,12 +66,14 @@ export class UploadFilesComponent {
       const responsePath = JSON.parse(response);
       this.onCompleteItem.emit(responsePath);
     };
+    this.uploader.onProgressAll = () => this.cdr.detectChanges();
+    this.uploader.onProgressItem = () => this.cdr.detectChanges();
   }
 
   /**
    * Called when files are dragged on the drop area.
    */
-  public fileOverBase(e:any):void {
+  public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
 
@@ -78,7 +83,7 @@ export class UploadFilesComponent {
    * @param fileUploadOptions
    *    The upload-files options object.
    */
-  private checkConfig(fileUploadOptions:any) {
+  private checkConfig(fileUploadOptions: any) {
     const required = ['url', 'authToken', 'disableMultipart', 'itemAlias'];
     const missing = required.filter((prop) => {
       return !((prop in fileUploadOptions) && fileUploadOptions[prop] !== '');

@@ -21,7 +21,8 @@
                 <i class="fa fa-trash" aria-hidden="true"></i>
               </button>
             </div>
-            <span class="ds-my-drop-zone-float-right ds-my-drop-zone-progress-data">{{ uploader.progress }}%</span>
+            <span *ngIf="uploader.progress < 100" class="ds-my-drop-zone-float-right ds-my-drop-zone-progress-data">{{ uploader.progress }}%</span>
+            <span *ngIf="uploader.progress === 100" class="ds-my-drop-zone-float-right ds-my-drop-zone-progress-data">Processing...</span>
           </div>
           <div class="ds-my-drop-zone-progress">
             <div class="progress-bar"

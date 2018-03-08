@@ -219,7 +219,8 @@
 
       "general": {
         "sections_not_valid": "There are incomplete sections.",
-        "save_success_notice": "Submission saved successfully"
+        "save_success_notice": "Submission saved successfully",
+        "metadata_extracted": "New metadata have been extracted and added to the item."
       },
       "submit.progressbar.describe.stepone": "Describe",
       "submit.progressbar.describe.steptwo": "Describe",

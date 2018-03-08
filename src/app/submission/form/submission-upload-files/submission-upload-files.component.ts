@@ -1,15 +1,15 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { SectionService } from '../../section/section.service';
-import { SectionUploadService } from '../../section/upload/section-upload.service';
 import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload-files-component-options.model';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
-import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionRestService } from '../../submission-rest.service';
 import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 import { normalizeSectionData } from '../../../core/submission/models/workspaceitem-sections.model';
 import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-operations.service';
 import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../../submission.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationOptions } from '../../../shared/notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -21,7 +21,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   @Input() submissionId;
   @Input() definitionId;
   @Input() sectionId;
-  @Input() uploadFilesOptions:UploadFilesComponentOptions;
+  @Input() uploadFilesOptions: UploadFilesComponentOptions;
 
   private subs = [];
   private uploadEnabled: boolean;
@@ -34,10 +34,12 @@ export class SubmissionUploadFilesComponent implements OnChanges {
       .subscribe();
   };
 
-  constructor(private sectionUploadService: SectionUploadService,
+  constructor(private notificationsService: NotificationsService,
+              private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
               private sectionService: SectionService,
               private submissionService: SubmissionService,
-              private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>) { }
+              private translate: TranslateService) {
+  }
 
   ngOnChanges() {
     this.uploadEnabled = false;
@@ -48,7 +50,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
         .take(1)
         .subscribe((state) => {
           this.uploadEnabled = true;
-      }));
+        }));
     }
   }
 
@@ -58,12 +60,15 @@ export class SubmissionUploadFilesComponent implements OnChanges {
       this.subs.push(
         this.sectionService.isSectionLoaded(this.submissionId, this.sectionId)
           .subscribe((isSectionLoaded) => {
+            this.notificationsService.success(null, this.translate.get('submission.section.upload.upload_successful'));
+
             // Whether upload section is not yet loaded add it
             if (!isSectionLoaded) {
               this.sectionService.addSection(this.collectionId, this.submissionId, this.definitionId, this.sectionId)
             }
-            const { sections } = workspaceitem;
+            const {sections} = workspaceitem;
             if (sections && isNotEmpty(sections)) {
+              this.notificationsService.info(null, this.translate.get('submission.section.general.metadata_extracted'));
               Object.keys(sections)
                 .forEach((sectionId) => {
                   const sectionData = normalizeSectionData(sections[sectionId]);
