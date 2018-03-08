@@ -7,6 +7,7 @@ import { NotificationsBoardComponent } from './notifications-board/notifications
 import { NotificationComponent } from './notification/notification.component';
 import { StoreModule } from '@ngrx/store';
 import { notificationsReducer } from './notifications.reducers';
+import { Observable } from 'rxjs/Observable';
 
 describe('NotificationsService', () => {
   beforeEach(async () => {
@@ -21,18 +22,18 @@ describe('NotificationsService', () => {
 
   it('Default options',
     inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.success('Title', 'Content');
+      const notification = service.success('Title', Observable.of('Content'));
       expect(notification.options.clickToClose).toBe(true);
     })
   );
 
   it('Success method',
     inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.success('Title', 'Content');
+      const notification = service.success(Observable.of('Title'), Observable.of('Content'));
       expect(notification.id !== undefined).toBeTruthy();
       expect(notification.type).toBe(NotificationType.Success);
-      expect(notification.title).toBe('Title');
-      expect(notification.content).toBe('Content');
+      expect(notification.title).toBe(Observable.of('Title'));
+      expect(notification.content).toBe(Observable.of('Content'));
       expect(notification.html).toBeUndefined();
       expect(notification.options.timeOut).toBe(0);
       expect(notification.options.clickToClose).toBeTruthy();
@@ -42,11 +43,11 @@ describe('NotificationsService', () => {
 
   it('Error method',
     inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.error('Title', 'Content');
+      const notification = service.error(Observable.of('Title'), Observable.of('Content'));
       expect(notification.id !== undefined).toBeTruthy();
       expect(notification.type).toBe(NotificationType.Error);
-      expect(notification.title).toBe('Title');
-      expect(notification.content).toBe('Content');
+      expect(notification.title).toBe(Observable.of('Title'));
+      expect(notification.content).toBe(Observable.of('Content'));
       expect(notification.html).toBeUndefined();
       expect(notification.options.timeOut).toBe(0);
       expect(notification.options.clickToClose).toBeTruthy();
@@ -56,11 +57,11 @@ describe('NotificationsService', () => {
 
   it('Warning method',
     inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.warning('Title', 'Content');
+      const notification = service.warning(Observable.of('Title'), Observable.of('Content'));
       expect(notification.id !== undefined).toBeTruthy();
       expect(notification.type).toBe(NotificationType.Warning);
-      expect(notification.title).toBe('Title');
-      expect(notification.content).toBe('Content');
+      expect(notification.title).toBe(Observable.of('Title'));
+      expect(notification.content).toBe(Observable.of('Content'));
       expect(notification.html).toBeUndefined();
       expect(notification.options.timeOut).toBe(0);
       expect(notification.options.clickToClose).toBeTruthy();
@@ -70,11 +71,11 @@ describe('NotificationsService', () => {
 
   it('Info method',
     inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.info('Title', 'Content');
+      const notification = service.info(Observable.of('Title'), Observable.of('Content'));
       expect(notification.id !== undefined).toBeTruthy();
       expect(notification.type).toBe(NotificationType.Info);
-      expect(notification.title).toBe('Title');
-      expect(notification.content).toBe('Content');
+      expect(notification.title).toBe(Observable.of('Title'));
+      expect(notification.content).toBe(Observable.of(Observable.of('Content')));
       expect(notification.html).toBeUndefined();
       expect(notification.options.timeOut).toBe(0);
       expect(notification.options.clickToClose).toBeTruthy();
