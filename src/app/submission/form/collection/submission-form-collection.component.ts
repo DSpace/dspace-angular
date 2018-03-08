@@ -1,4 +1,7 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output,
+  SimpleChanges
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -57,7 +60,8 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     }
   }
 
-  constructor(private communityDataService: CommunityDataService,
+  constructor(protected cdr: ChangeDetectorRef,
+              private communityDataService: CommunityDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
               private store: Store<SubmissionState>,
@@ -95,6 +99,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
               this.listCollection.push(collectionEntry);
               this.searchListCollection.push(collectionEntry);
               this.disabled = false;
+              this.cdr.detectChanges();
             }))
         }));
     }
@@ -141,6 +146,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         this.collectionChange.emit(workspaceitems[0]);
         this.store.dispatch(new ChangeSubmissionCollectionAction(this.submissionId, event.collection.id));
         this.disabled = false;
+        this.cdr.detectChanges();
       })
   }
 

@@ -97,6 +97,7 @@
         "reject": {
           "btn": "Reject",
           "title": "Reject confirm",
+          "info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
           "placeholder": "Describe the reason of reject"
         },
         "return-to-pool": "Return to pool"
@@ -254,6 +255,36 @@
         "last_name": "Last name",
         "loading": "Loading...",
         "no_results": "No results found"
+      }
+    },
+    "workflow": {
+      "tasks": {
+        "generic": {
+          "processing": "Processing..."
+        },
+        "claimed": {
+          "approve": "Approve",
+          "approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+          "edit": "Edit",
+          "edit_help": "Select this option to change the item's metadata.",
+          "reject": {
+            "submit": "Reject",
+            "reason": {
+              "submit": "Reject item",
+              "title": "Reason",
+              "info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
+              "placeholder": "Describe the reason of reject"
+            }
+          },
+          "reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+          "return": "Return to pool",
+          "return_help": "Return the task to the pool so that another user may perform the task."
+
+        },
+        "pool": {
+          "claim": "Claim",
+          "claim_help": "Assign this task to yourself."
+        }
       }
     }
   }

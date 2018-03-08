@@ -1,6 +1,8 @@
 <div>
-  <div ngbDropdown #collectionControls="ngbDropdown" class="btn-group">
-    <span class="input-group-addon" id="collectionControlsMenuLabel">Collection</span>
+  <div ngbDropdown #collectionControls="ngbDropdown" class="btn-group input-group">
+    <div class="input-group-prepend">
+      <span id="collectionControlsMenuLabel" class="input-group-text">Collection</span>
+    </div>
     <button aria-describedby="collectionControlsMenuLabel"
             id="collectionControlsMenuButton"
             class="btn btn-outline-primary"

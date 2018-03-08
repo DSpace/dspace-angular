@@ -9,9 +9,10 @@ import {
   LoadSubmissionFormAction,
   ResetSubmissionFormAction,
   SaveSubmissionFormAction,
-  SaveSubmissionSectionFormAction,
+  SaveSubmissionSectionFormAction, SaveSubmissionFormSuccessAction,
   SubmissionObjectActionTypes,
-  UpdateSectionDataAction
+  UpdateSectionDataAction, SaveSubmissionFormErrorAction, SaveSubmissionSectionFormSuccessAction,
+  SaveSubmissionSectionFormErrorAction
 } from './submission-objects.actions';
 import { SectionService } from '../section/section.service';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
@@ -25,6 +26,8 @@ import { SubmissionService } from '../submission.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { Workflowitem } from '../../core/submission/models/workflowitem.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -57,13 +60,33 @@ export class SubmissionObjectEffects {
         this.submissionService.getSubmissionObjectLinkName(),
         action.payload.submissionId,
         'sections')
-        .map((response: Workspaceitem[] | Workflowitem[]) => {
-          return this.parseSaveResponse(response, action.payload.submissionId);
-        });
+        .map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response))
+        .catch(() => Observable.of(new SaveSubmissionFormErrorAction(action.payload.submissionId)))
+    });
+
+  @Effect() saveSubmissionSuccess$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS || SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS)
+    .map((action: SaveSubmissionFormSuccessAction | SaveSubmissionSectionFormSuccessAction) => {
+      return this.parseSaveResponse(action.payload.submissionObject, action.payload.submissionId)
     })
     .mergeMap((actions) => {
-      return Observable.from(actions);
-    });
+       return Observable.from(actions);
+     });
+
+  // @Effect() saveSubmission$ = this.actions$
+  //   .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM)
+  //   .switchMap((action: SaveSubmissionFormAction) => {
+  //     return this.operationsService.jsonPatchByResourceType(
+  //       this.submissionService.getSubmissionObjectLinkName(),
+  //       action.payload.submissionId,
+  //       'sections')
+  //       .map((response: Workspaceitem[] | Workflowitem[]) => {
+  //         return this.parseSaveResponse(response, action.payload.submissionId);
+  //       });
+  //   })
+  //   .mergeMap((actions) => {
+  //     return Observable.from(actions);
+  //   });
 
   @Effect() saveSection$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM)
@@ -73,12 +96,8 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections',
         action.payload.sectionId)
-        .map((response: Workspaceitem[] | Workflowitem[]) => {
-          return this.parseSaveResponse(response, action.payload.submissionId);
-        });
-    })
-    .mergeMap((actions) => {
-      return Observable.from(actions);
+        .map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response))
+        .catch(() => Observable.of(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId)))
     });
 
   @Effect() depositSubmission$ = this.actions$
@@ -96,13 +115,14 @@ export class SubmissionObjectEffects {
     .do(() => this.submissionService.redirectToMyDSpace());
 
   constructor(private actions$: Actions,
+              private notificationsService: NotificationsService,
               private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
               private sectionService: SectionService,
               private store$: Store<AppState>,
               private submissionService: SubmissionService) {
   }
 
-  protected parseSaveResponse(response: Workspaceitem[] | Workflowitem[], submissionId: string) {
+  protected parseSaveResponse(response: SubmissionObject[], submissionId: string) {
     const mappedActions = [];
     if (isNotEmpty(response)) {
       const errorsList = {};
@@ -124,6 +144,7 @@ export class SubmissionObjectEffects {
               errorsList[path.sectionId].push(sectionError);
             });
           });
+          this.notificationsService.warning()
         }
 
         // and now dispatch an action to update section's data and errors
@@ -137,7 +158,7 @@ export class SubmissionObjectEffects {
         }
       });
     }
-    mappedActions.push(new CompleteSaveSubmissionFormAction(submissionId));
+    // mappedActions.push(new CompleteSaveSubmissionFormAction(submissionId));
     return mappedActions;
   }
 }

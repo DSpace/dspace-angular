@@ -10,6 +10,7 @@ import {
   WorkspaceitemSectionsObject
 } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -26,7 +27,11 @@ export const SubmissionObjectActionTypes = {
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
   SAVE_SUBMISSION_FORM: type('dspace/submission/SAVE_SUBMISSION_FORM'),
+  SAVE_SUBMISSION_FORM_SUCCESS: type('dspace/submission/SAVE_SUBMISSION_FORM_SUCCESS'),
+  SAVE_SUBMISSION_FORM_ERROR: type('dspace/submission/SAVE_SUBMISSION_FORM_ERROR'),
   SAVE_SUBMISSION_SECTION_FORM: type('dspace/submission/SAVE_SUBMISSION_SECTION_FORM'),
+  SAVE_SUBMISSION_SECTION_FORM_SUCCESS: type('dspace/submission/SAVE_SUBMISSION_SECTION_FORM_SUCCESS'),
+  SAVE_SUBMISSION_SECTION_FORM_ERROR: type('dspace/submission/SAVE_SUBMISSION_SECTION_FORM_ERROR'),
   COMPLETE_SAVE_SUBMISSION_FORM: type('dspace/submission/COMPLETE_SAVE_SUBMISSION_FORM'),
   CHANGE_SUBMISSION_COLLECTION: type('dspace/submission/CHANGE_SUBMISSION_COLLECTION'),
   SET_ACTIVE_SECTION: type('dspace/submission/SET_ACTIVE_SECTION'),
@@ -269,6 +274,43 @@ export class SaveSubmissionFormAction implements Action {
   }
 }
 
+export class SaveSubmissionFormSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS;
+  payload: {
+    submissionId: string;
+    submissionObject: SubmissionObject[];
+  };
+
+  /**
+   * Create a new SaveSubmissionFormSuccessAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param submissionObjects
+   *    the submission's Object
+   */
+  constructor(submissionId: string, submissionObject: SubmissionObject[]) {
+    this.payload = { submissionId, submissionObject };
+  }
+}
+
+export class SaveSubmissionFormErrorAction implements Action {
+  type = SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new SaveSubmissionFormErrorAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
+}
+
 export class SaveSubmissionSectionFormAction implements Action {
   type = SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM;
   payload: {
@@ -286,6 +328,43 @@ export class SaveSubmissionSectionFormAction implements Action {
    */
   constructor(submissionId: string, sectionId: string) {
     this.payload = { submissionId, sectionId };
+  }
+}
+
+export class SaveSubmissionSectionFormSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS;
+  payload: {
+    submissionId: string;
+    submissionObject: SubmissionObject[];
+  };
+
+  /**
+   * Create a new SaveSubmissionSectionFormSuccessAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param submissionObjects
+   *    the submission's Object
+   */
+  constructor(submissionId: string, submissionObject: SubmissionObject[]) {
+    this.payload = { submissionId, submissionObject };
+  }
+}
+
+export class SaveSubmissionSectionFormErrorAction implements Action {
+  type = SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new SaveSubmissionFormErrorAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
   }
 }
 
@@ -568,6 +647,8 @@ export type SubmissionObjectAction = DisableSectionAction
   | ClearSectionErrorsAction
   | UpdateSectionDataAction
   | SaveSubmissionFormAction
+  | SaveSubmissionFormSuccessAction
+  | SaveSubmissionFormErrorAction
   | SaveSubmissionSectionFormAction
   | CompleteSaveSubmissionFormAction
   | SetActiveSectionAction;

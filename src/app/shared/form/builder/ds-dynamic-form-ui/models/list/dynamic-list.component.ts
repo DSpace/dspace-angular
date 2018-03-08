@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { findKey, pull } from 'lodash';
 
@@ -42,7 +42,9 @@ export class DsDynamicListComponent implements OnInit {
   protected authorityList: AuthorityModel[];
   protected searchOptions: IntegrationSearchOptions;
 
-  constructor(private authorityService: AuthorityService, private formBuilderService: FormBuilderService) {
+  constructor(private authorityService: AuthorityService,
+              private cdr: ChangeDetectorRef,
+              private formBuilderService: FormBuilderService) {
   }
 
   ngOnInit() {
@@ -122,6 +124,7 @@ export class DsDynamicListComponent implements OnInit {
             tempList = [];
           }
         });
+        this.cdr.detectChanges();
       });
 
     }

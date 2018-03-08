@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
@@ -53,7 +53,8 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
 
   @ViewChild('formRef') private formRef: FormComponent;
 
-  constructor(protected formBuilderService: FormBuilderService,
+  constructor(protected cdr: ChangeDetectorRef,
+              protected formBuilderService: FormBuilderService,
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
               protected store: Store<SubmissionState>,
@@ -81,6 +82,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
               this.initForm(sectionData);
               this.subscriptions();
               this.isLoading = false;
+              this.cdr.detectChanges();
             }
           })
       });
@@ -105,9 +107,10 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
       this.formConfig,
       this.collectionId,
       sectionData,
-      this.submissionService.getSubmissionScope())
+      this.submissionService.getSubmissionScope());
     this.isLoading = false;
     this.checksForErrors(errors);
+    this.cdr.detectChanges();
   }
 
   checksForErrors(errors: SubmissionSectionError[]) {
@@ -133,6 +136,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
         const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionData.id, errors);
         this.store.dispatch(removeAction);
         this.sectionData.errors = errors;
+        this.cdr.detectChanges();
       });
   }
 

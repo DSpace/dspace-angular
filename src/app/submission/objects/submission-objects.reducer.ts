@@ -12,7 +12,7 @@ import {
   DeleteSectionErrorsAction, ResetSubmissionFormAction, UpdateSectionDataAction, SaveSubmissionFormAction,
   CompleteSaveSubmissionFormAction, SetActiveSectionAction, SaveSubmissionSectionFormAction,
   DepositSubmissionAction, DepositSubmissionSuccessAction, DepositSubmissionErrorAction,
-  ChangeSubmissionCollectionAction
+  ChangeSubmissionCollectionAction, SaveSubmissionFormSuccessAction, SaveSubmissionFormErrorAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
@@ -79,6 +79,14 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM: {
       return saveSubmission(state, action as SaveSubmissionFormAction);
+    }
+
+    case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS: {
+      return completeSave(state, action as SaveSubmissionFormSuccessAction);
+    }
+
+    case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR: {
+      return completeSave(state, action as SaveSubmissionFormErrorAction);
     }
 
     case SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM: {
@@ -304,7 +312,7 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
  * @param action
  *    an SaveSubmissionFormAction
  * @return SubmissionObjectState
- *    the new state, with the section removed.
+ *    the new state, with the flag set to true.
  */
 function saveSubmission(state: SubmissionObjectState, action: SaveSubmissionFormAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ])) {
@@ -327,17 +335,17 @@ function saveSubmission(state: SubmissionObjectState, action: SaveSubmissionForm
  * @param state
  *    the current state
  * @param action
- *    an CompleteSaveSubmissionFormAction
+ *    an CompleteSaveSubmissionFormAction | SaveSubmissionFormSuccessAction | SaveSubmissionFormErrorAction
  * @return SubmissionObjectState
- *    the new state, with the section removed.
+ *    the new state, with the flag set to false.
  */
-function completeSave(state: SubmissionObjectState, action: CompleteSaveSubmissionFormAction): SubmissionObjectState {
+function completeSave(state: SubmissionObjectState,
+                      action: CompleteSaveSubmissionFormAction
+                        | SaveSubmissionFormSuccessAction
+                        | SaveSubmissionFormErrorAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
-        activeSection: state[ action.payload.submissionId ].activeSection,
-        sections: state[ action.payload.submissionId ].sections,
-        isLoading: state[ action.payload.submissionId ].isLoading,
         savePending: false,
       })
     });
