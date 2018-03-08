@@ -12,7 +12,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
 import { SafeUrlPipe } from './utils/safe-url-pipe';
-import { TruncatePipe } from './utils/truncate.pipe';
 
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './object-list/community-list-element/community-list-element.component';
@@ -44,6 +43,11 @@ import { VarDirective } from './utils/var.directive';
 import { LogInComponent } from './log-in/log-in.component';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
+import { DragClickDirective } from './utils/drag-click.directive';
+import { TruncatePipe } from './utils/truncate.pipe';
+import { TruncatableComponent } from './truncatable/truncatable.component';
+import { TruncatableService } from './truncatable/truncatable.service';
+import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -85,7 +89,9 @@ const COMPONENTS = [
   ThumbnailComponent,
   GridThumbnailComponent,
   WrapperListElementComponent,
-  ViewModeSwitchComponent
+  ViewModeSwitchComponent,
+  TruncatableComponent,
+  TruncatablePartComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -100,8 +106,13 @@ const ENTRY_COMPONENTS = [
   SearchResultGridElementComponent
 ];
 
+const PROVIDERS = [
+  TruncatableService
+];
+
 const DIRECTIVES = [
-  VarDirective
+  VarDirective,
+  DragClickDirective
 ];
 
 @NgModule({
@@ -114,6 +125,9 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...DIRECTIVES
+  ],
+  providers: [
+    ...PROVIDERS
   ],
   exports: [
     ...MODULES,

@@ -1,7 +1,11 @@
 sudo: required
 dist: trusty
 addons:
-  - chrome: stable
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
 language: node_js
 
@@ -21,6 +25,8 @@ install:
   - travis_retry yarn install
 
 script:
+  # Use Chromium instead of Chrome.
+  - export CHROME_BIN=chromium-browser
   - yarn run build
   - yarn run ci
   - cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
