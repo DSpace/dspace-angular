@@ -75,7 +75,7 @@ describe('NotificationsService', () => {
       expect(notification.id !== undefined).toBeTruthy();
       expect(notification.type).toBe(NotificationType.Info);
       expect(notification.title).toBe(Observable.of('Title'));
-      expect(notification.content).toBe(Observable.of(Observable.of('Content')));
+      expect(notification.content).toBe(Observable.of('Content'));
       expect(notification.html).toBeUndefined();
       expect(notification.options.timeOut).toBe(0);
       expect(notification.options.clickToClose).toBeTruthy();
