@@ -88,23 +88,6 @@
       "send-btn": "Send",
       "subject-placeholder": "Subject...",
       "description-placeholder": "Insert your message here..."
-    },
-    "task": {
-      "processing": "Processing...",
-      "claimed": {
-        "approve": "Approve",
-        "edit": "Edit",
-        "reject": {
-          "btn": "Reject",
-          "title": "Reject confirm",
-          "info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-          "placeholder": "Describe the reason of reject"
-        },
-        "return-to-pool": "Return to pool"
-      },
-      "pool": {
-        "claim": "Claim"
-      }
     }
   },
   "search": {
@@ -223,6 +206,9 @@
     }
   },
   "submission": {
+    "general":{
+      "cannot_submit": "You have not the privilege to make a new submission."
+    },
     "submit": {
       "title": "Submission"
     },
@@ -232,7 +218,8 @@
     "section": {
 
       "general": {
-        "sections_not_valid": "There are incomplete sections."
+        "sections_not_valid": "There are incomplete sections.",
+        "save_success_notice": "Submission saved successfully"
       },
       "submit.progressbar.describe.stepone": "Describe",
       "submit.progressbar.describe.steptwo": "Describe",
