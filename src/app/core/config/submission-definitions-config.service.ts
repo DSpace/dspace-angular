@@ -17,5 +17,4 @@ export class SubmissionDefinitionsConfigService extends ConfigService {
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
     super();
   }
-
 }

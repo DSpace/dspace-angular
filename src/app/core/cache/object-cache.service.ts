@@ -32,7 +32,7 @@ export class ObjectCacheService {
    * Add an object to the cache
    *
    * @param objectToCache
-   *    The object to add
+   *    The object to panel-add
    * @param msToLive
    *    The number of milliseconds it should be cached for
    * @param requestHref

@@ -1,0 +1,45 @@
+@import '../../../styles/_variables.scss';
+
+.ds-my-drop-zone {
+  border: 2px dashed $gray-600;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.ds-nv-file-over {
+  border: 2px dashed map-get($theme-colors, primary);
+} /* Default class applied to drop zones on over */
+
+.ds-my-drop-zone p {
+  text-align: center;
+  margin: 0;
+}
+
+.ds-my-drop-zone .ds-my-drop-zone-upload-button {
+  text-decoration: underline;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.ds-my-drop-zone .ds-my-drop-zone-upload-button input {
+  display: none;
+}
+
+.ds-my-drop-zone-float-right {
+  float: right;
+}
+
+.ds-my-drop-zone-upload-item {
+  margin: 4px;
+}
+
+.ds-my-drop-zone-progress-data {
+  margin-right: 10px;
+}
+
+.ds-my-drop-zone-progress {
+  clear: both;
+  margin-top: 6px;
+}

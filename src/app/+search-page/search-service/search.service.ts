@@ -13,14 +13,18 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { RouteService } from '../../shared/route.service';
+import { RouteService } from '../../shared/services/route.service';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { FacetValue } from './facet-value.model';
 import { FilterType } from './filter-type.model';
 import { SearchFilterConfig } from './search-filter-config.model';
+import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { MyDSpaceResult } from '../../+my-dspace-page/my-dspace-result.model';
+import { WorkspaceitemMyDSpaceResult } from '../../shared/object-collection/shared/workspaceitem-my-dspace-result.model';
 
-function shuffle(array: any[]) {
+export function shuffle(array: any[]) {
   let i = 0;
   let j = 0;
   let temp = null;
@@ -51,7 +55,7 @@ export class SearchService implements OnDestroy {
     '<em>The QSAR DataBank (QsarDB) repository</em>',
   );
   private sub;
-  searchLink = '/search';
+  searchLink: string;
 
   config: SearchFilterConfig[] = [
     Object.assign(new SearchFilterConfig(),
@@ -86,18 +90,20 @@ export class SearchService implements OnDestroy {
   // searchOptions: BehaviorSubject<SearchOptions>;
   searchOptions: SearchOptions;
 
-  constructor(private itemDataService: ItemDataService,
-              private routeService: RouteService,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor(protected itemDataService: ItemDataService,
+              protected routeService: RouteService,
+              protected route: ActivatedRoute,
+              protected router: Router) {
 
+    this.searchLink = this.getSearchLink();
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'search-results-pagination';
+    pagination.id = `${this.searchLink}-results-pagination`;
     pagination.currentPage = 1;
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
     this.searchOptions = { pagination: pagination, sort: sort };
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
+
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
@@ -168,7 +174,7 @@ export class SearchService implements OnDestroy {
         undefined,
         undefined,
         undefined
-      ));
+      ))
   }
 
   getConfig(): Observable<RemoteData<SearchFilterConfig[]>> {
@@ -249,7 +255,8 @@ export class SearchService implements OnDestroy {
   }
 
   getSearchLink() {
-    return this.searchLink;
+    const urlTree = this.router.parseUrl(this.router.url);
+    return `/${urlTree.root.children.primary.segments[0].path}`;
   }
 
   ngOnDestroy(): void {

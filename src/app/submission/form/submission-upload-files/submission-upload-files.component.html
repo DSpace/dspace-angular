@@ -1,0 +1,4 @@
+<ds-upload-files *ngIf="uploadFilesOptions.url"
+                 [onBeforeUpload]="onBeforeUpload"
+                 [uploadFilesOptions]="uploadFilesOptions"
+                 (onCompleteItem)="onCompleteItem($event)"></ds-upload-files>

@@ -27,6 +27,15 @@ module.exports = {
     position: ['top', 'right'],
     maxStack: 8
   },
+  // Submission settings
+  submission: {
+    autosave: {
+      // NOTE: which metadata trigger an autosave
+      metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
+      // NOTE: every how many minutes submission is saved automatically
+      timer: 5
+    }
+  },
   // Angular Universal settings
   universal: {
     preboot: true,

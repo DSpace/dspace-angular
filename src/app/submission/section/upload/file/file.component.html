@@ -1,0 +1,57 @@
+<ng-container *ngIf="fileData">
+  <div class="row">
+    <div class="col-md-2">
+      <!--ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].url | async"></ds-thumbnail-->
+      <ds-thumbnail [thumbnail]="fileData?.thumbnail"></ds-thumbnail>
+    </div>
+    <div class="col-md-10">
+      <div class="float-left w-75">
+        <h3>{{fileId}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span>
+        </h3>
+      </div>
+      <div class="float-right w-15">
+        <h3 class="text-right">
+          <ng-container *ngIf="readMode">
+            <a href="{{fileData.url}}"  title="Download file" target="_blank"><i class="fa fa-download text-normal mr-3" aria-hidden="true"></i></a>
+            <a href="#" (click)="$event.preventDefault();switchMode();" title="Edit metadata"><i class="fa fa-pencil-square-o text-normal mr-3"></i></a>
+            <a href="#" (click)="$event.preventDefault();confirmDelete(content);" title="Delete bitstream"><i class="fa fa-trash text-danger"></i></a>
+          </ng-container>
+          <ng-container *ngIf="!readMode">
+            <a href="#" (click)="saveBitstreamData($event);" title="Save metadata"><i class="fa fa-floppy-o text-success mr-3"></i></a>
+            <a href="#" (click)="$event.preventDefault();switchMode();" title="Cancel"><i class="fa fa-ban text-warning mr-3"></i></a>
+            <a href="#" (click)="$event.preventDefault();confirmDelete(content);" title="Delete bitstream"><i class="fa fa-trash text-danger"></i></a>
+          </ng-container>
+        </h3>
+      </div>
+      <div class="clearfix"></div>
+      <ds-submission-upload-section-file-view *ngIf="readMode"
+                                              [fileData]="fileData"></ds-submission-upload-section-file-view>
+      <ds-submission-upload-section-file-edit *ngIf="!readMode"
+                                              [availableAccessConditionGroups]="availableAccessConditionGroups"
+                                              [availableAccessConditionOptions]="availableAccessConditionOptions"
+                                              [collectionPolicyType]="collectionPolicyType"
+                                              [configMetadataForm]="configMetadataForm"
+                                              [fileData]="fileData"
+                                              [fileId]="fileId"
+                                              [fileIndex]="fileIndex"
+                                              [formId]="formId"
+                                              [sectionId]="sectionId"></ds-submission-upload-section-file-edit>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">Delete file</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>This operation can't be undone. Are you sure?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="c('ok')">Yes, I'm sure</button>
+  </div>
+</ng-template>

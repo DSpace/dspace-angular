@@ -236,7 +236,7 @@ describe('RequestService', () => {
 
         it('should dispatch the request', () => {
           service.configure(request);
-          expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(request);
+          expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(request, false);
         });
       });
       describe('and it is already cached or pending', () => {
@@ -254,22 +254,22 @@ describe('RequestService', () => {
     describe('when the request isn\'t a GET request', () => {
       it('should dispatch the request', () => {
         service.configure(testPostRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPostRequest);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPostRequest, false);
 
         service.configure(testPutRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPutRequest);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPutRequest, false);
 
         service.configure(testDeleteRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testDeleteRequest);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testDeleteRequest, false);
 
         service.configure(testOptionsRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testOptionsRequest);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testOptionsRequest, false);
 
         service.configure(testHeadRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testHeadRequest);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testHeadRequest, false);
 
         service.configure(testPatchRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPatchRequest);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPatchRequest, false);
       });
     });
   });

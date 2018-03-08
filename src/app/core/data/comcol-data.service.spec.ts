@@ -23,6 +23,7 @@ class NormalizedTestObject implements CacheableObject {
 
 class TestService extends ComColDataService<NormalizedTestObject, any> {
   protected linkName = LINK_NAME;
+  protected overrideRequest = false;
 
   constructor(
     protected responseCache: ResponseCacheService,

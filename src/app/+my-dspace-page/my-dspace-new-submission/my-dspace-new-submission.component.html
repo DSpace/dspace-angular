@@ -1,0 +1,16 @@
+<div class="parent">
+  <div class="upload">
+    <ds-upload-files
+      [onBeforeUpload]="onBeforeUpload"
+      [uploadFilesOptions]="uploadFilesOptions"
+      (onCompleteItem)="onCompleteItem($event)"></ds-upload-files>
+
+  </div>
+  <div class="add">
+    <button class="btn btn-primary mt-3 ml-2"
+            [routerLink]="['/submit']" >
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> New submission
+    </button>
+  </div>
+
+</div>

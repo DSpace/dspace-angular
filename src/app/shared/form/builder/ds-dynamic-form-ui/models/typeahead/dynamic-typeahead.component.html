@@ -1,0 +1,24 @@
+<ng-template #rt let-r="result" let-t="term">
+  {{ r.display}}
+</ng-template>
+<div class="spinner-addon right-addon">
+  <i *ngIf="searching" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
+  <input class="form-control"
+         [attr.autoComplete]="model.autoComplete"
+         [class.is-invalid]="showErrorMessages"
+         [dynamicId]="bindId && model.id"
+         [inputFormatter]="formatter"
+         [name]="model.name"
+         [ngbTypeahead]="search"
+         [placeholder]="model.label"
+         [resultTemplate]="rt"
+         [type]="model.inputType"
+         [(ngModel)]="currentValue"
+         (blur)="onBlurEvent($event)"
+         (focus)="onFocusEvent($event)"
+         (change)="onChangeEvent($event)"
+         (input)="onInput($event)"
+         (selectItem)="onSelectItem($event)">
+
+  <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+</div>

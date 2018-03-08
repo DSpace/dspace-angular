@@ -1,0 +1,126 @@
+<div #sdRef="ngbDropdown"
+     ngbDropdown
+     (click)="$event.stopPropagation();"
+>
+
+  <!--Simple lookup, only 1 field -->
+  <div class="form-row" *ngIf="!lookupName">
+    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+      <div class="row">
+        <div class="col">
+          <input class="form-control"
+                 [attr.autoComplete]="model.autoComplete"
+                 [class.is-invalid]="showErrorMessages"
+                 [dynamicId]="bindId && model.id"
+                 [name]="model.name"
+                 [type]="model.inputType"
+                 [value]="formatItemForInput(model.value, 1)"
+                 [(ngModel)]="model.currentValue"
+                 [disabled]="model.value != null"
+                 [placeholder]="model.placeholder"
+                 (change)="$event.preventDefault()"
+                 (blur)="onBlurEvent($event); sdRef.close();"
+                 (focus)="onFocusEvent($event); sdRef.close();"
+                 (click)="$event.stopPropagation(); sdRef.close();">
+        </div>
+
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 text-center">
+      <button
+        *ngIf="model.value == null" class="btn btn-secondary"
+        type="button"
+        [disabled]="isSearchDisabled()"
+        (click)="search($event); sdRef.open();">Search
+      </button>
+      <button
+        *ngIf="model.value != null" class="btn btn-secondary"
+        type="button"
+        (click)="remove($event)">Remove
+      </button>
+    </div>
+  </div>
+
+  <!--Lookup-name, 2 fields-->
+  <div class="form-row" *ngIf="lookupName">
+    <div class="col-xs-12 col-md-8 col-lg-9">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <input class="form-control"
+                 [attr.autoComplete]="model.autoComplete"
+                 [class.is-invalid]="showErrorMessages"
+                 [dynamicId]="bindId && model.id"
+                 [name]="model.name"
+                 [type]="model.inputType"
+                 [value]="formatItemForInput(model.value, 1)"
+                 [(ngModel)]="model.currentValue"
+                 [disabled]="model.value != null"
+                 [placeholder]="model.placeholder | translate"
+                 (change)="$event.preventDefault()"
+                 (blur)="onBlurEvent($event); sdRef.close();"
+                 (focus)="onFocusEvent($event); sdRef.close();"
+                 (click)="$event.stopPropagation(); sdRef.close();">
+        </div>
+
+        <div *ngIf="lookupName" class="col-xs-12 col-md-6 pl-md-0" >
+          <input  class="form-control"
+                  [ngClass]="{}"
+                  [attr.autoComplete]="model.autoComplete"
+                  [class.is-invalid]="showErrorMessages"
+                  [dynamicId]="bindId && model.id"
+                  [name]="name2"
+                  [type]="model.inputType"
+                  [value]="formatItemForInput(model.value, 2)"
+                  [(ngModel)]="model.currentValue2"
+                  [disabled]="model.value != null"
+                  [placeholder]="model.placeholder2 | translate"
+                  (change)="$event.preventDefault()"
+                  (blur)="onBlurEvent($event); sdRef.close();"
+                  (focus)="onFocusEvent($event); sdRef.close();"
+                  (click)="$event.stopPropagation(); sdRef.close();">
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3 col-lg-2 text-center">
+      <button
+        *ngIf="model.value == null" class="btn btn-secondary"
+        type="button"
+        [disabled]="isSearchDisabled()"
+        (click)="search($event); sdRef.open();"> {{'submission.section.form.search' | translate}}
+      </button>
+      <button
+        *ngIf="model.value != null" class="btn btn-secondary"
+        type="button"
+        (click)="remove($event)"> {{'submission.section.form.remove' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <div ngbDropdownMenu
+       class="dropdown-menu scrollable-dropdown-menu w-100"
+       aria-haspopup="true"
+       aria-expanded="false"
+       aria-labelledby="scrollableDropdownMenuButton">
+    <div class="scrollable-menu"
+         aria-labelledby="scrollableDropdownMenuButton"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         (scrolled)="onScroll()"
+         [scrollWindow]="false">
+
+      <button class="dropdown-item disabled"
+              *ngIf="optionsList && optionsList.length == 0"
+              (click)="noResults(); sdRef.close();">{{'submission.section.form.no_results' | translate}}
+      </button>
+      <button class="dropdown-item collection-item"
+              *ngFor="let listEntry of optionsList"
+              (click)="onSelect(listEntry); sdRef.close();"
+              title="{{ listEntry.display }}">
+        {{listEntry.value}}
+      </button>
+      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'submission.section.form.loading' | translate}}</p></div>
+    </div>
+  </div>
+
+</div>

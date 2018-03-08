@@ -12,4 +12,11 @@
                 *ngIf="getViewMode()===viewModeEnum.Grid">
 </ds-object-grid>
 
+<ds-object-detail [config]="config"
+                  [sortConfig]="sortConfig"
+                  [objects]="objects"
+                  [hideGear]="true"
+                  *ngIf="getViewMode()===viewModeEnum.Detail">
+</ds-object-detail>
+
 

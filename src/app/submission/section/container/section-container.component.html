@@ -1,0 +1,50 @@
+<div dsSection #sectionRef="sectionRef"
+     [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() }"
+     [mandatory]="sectionData.mandatory"
+     [submissionId]="submissionId"
+     [sectionId]="sectionData.id">
+  <ngb-accordion #acc="ngbAccordion"
+                 (panelChange)="sectionRef.sectionChange($event)"
+                 activeIds="{{ sectionData.id }}"
+                 [destroyOnHide]="false">
+    <ngb-panel id="{{ sectionData.id }}">
+      <ng-template ngbPanelTitle>
+        <span>{{ 'submission.section.'+sectionData.header | translate }}</span>
+        <div class="d-inline-block float-right">
+          <i *ngIf="!sectionRef.isValid()" class="fa fa-exclamation-circle text-warning mr-3"
+             aria-hidden="true"></i>
+          <i *ngIf="sectionRef.isValid()" class="fa fa-check-circle text-success mr-3"
+             aria-hidden="true"></i>
+          <a class="close" aria-label="Close">
+            <span *ngIf="sectionRef.isOpen()" class="fa fa-angle-up fa-fw"
+                  aria-hidden="true"></span>
+            <span *ngIf="!sectionRef.isOpen()" class="fa fa-angle-down fa-fw"
+                  aria-hidden="true"></span>
+          </a>
+          <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory()"
+             (click)="removeSection($event)">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </div>
+      </ng-template>
+      <ng-template ngbPanelContent>
+
+        <div *ngIf="sectionRef.hasErrors()"
+          [ngClass]="{ 'alert alert-danger alert-dismissible fade': true,'show': sectionRef.hasErrors(), 'hide': !sectionRef.hasErrors() }"
+          role="alert">
+          <span *ngFor="let error of sectionRef.getErrors()">
+            {{error}}
+          </span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                  (click)="sectionRef.resetErrors()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="sectionContent_{{sectionData.id}}"
+             (click)="sectionRef.setFocus($event)">
+          <ng-container *ngComponentOutlet="getSectionContent(); injector: objectInjector;"></ng-container>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

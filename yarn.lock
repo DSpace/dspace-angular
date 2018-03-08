@@ -81,6 +81,14 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0.tgz#8f2ae70db2fe1dcbf5e0acb49dc2b1bbba2be8d2"
 
+"@ng-dynamic-forms/core@5.4.4":
+  version "5.4.4"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-5.4.4.tgz#1f29c460005ed08a034db3224fc013fc9a509dff"
+
+"@ng-dynamic-forms/ui-ng-bootstrap@5.4.4":
+  version "5.4.4"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-5.4.4.tgz#812036d2a4cefdc5f7e4af40084c3cb627040038"
+
 "@ngrx/effects@^5.1.0":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-5.1.0.tgz#cef84576b2d0333f19188aedfe156fd301bff70a"
@@ -192,6 +200,10 @@
 "@types/jasmine@^2.8.6":
   version "2.8.6"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.8.6.tgz#14445b6a1613cf4e05dd61c3c3256d0e95c0421e"
+
+"@types/js-cookie@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-2.1.0.tgz#a8916246aa994db646c66d54c854916213300a51"
 
 "@types/lodash@4.14.74":
   version "4.14.74"
@@ -411,11 +423,21 @@ angular-idle-preload@2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/angular-idle-preload/-/angular-idle-preload-2.0.4.tgz#7b177c0f52918c090e5c345480b922297cd59a0d"
 
+angular-sortablejs@^2.5.0:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/angular-sortablejs/-/angular-sortablejs-2.5.1.tgz#e4e83d90598271ae22a99a87e7a3278bde7f7c7f"
+
 angular2-template-loader@0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/angular2-template-loader/-/angular2-template-loader-0.6.2.tgz#c0d44e90fff0fac95e8b23f043acda7fd1c51d7c"
   dependencies:
     loader-utils "^0.2.15"
+
+angular2-text-mask@8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/angular2-text-mask/-/angular2-text-mask-8.0.4.tgz#07e485746cfb9f27e710b27b2785eac4cc4871fc"
+  dependencies:
+    text-mask-core "^5.0.0"
 
 ansi-align@^2.0.0:
   version "2.0.0"
@@ -4460,6 +4482,10 @@ js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.3.2.tgz#a79a923666372b580f8e27f51845c6f7e8fbfbaf"
 
+js-cookie@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
+
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
@@ -4580,6 +4606,10 @@ jszip@^3.1.3:
     lie "~3.1.0"
     pako "~1.0.2"
     readable-stream "~2.0.6"
+
+jwt-decode@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
 
 karma-chrome-launcher@2.2.0:
   version "2.2.0"
@@ -5571,11 +5601,19 @@ netmask@~1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
 
+ng2-file-upload@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/ng2-file-upload/-/ng2-file-upload-1.2.1.tgz#5563c5dfd6f43fbfbe815c206e343464a0a6a197"
+
 ngrx-store-freeze@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/ngrx-store-freeze/-/ngrx-store-freeze-0.2.1.tgz#04fb29db33cafda0f2d6ea32adeaac4891b1b27b"
   dependencies:
     deep-freeze-strict "^1.1.1"
+
+ngx-infinite-scroll@0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-0.8.2.tgz#9cc615c01fbb6307599453c9d9cfb5c1db4fd3e8"
 
 ngx-pagination@3.0.3:
   version "3.0.3"
@@ -8135,6 +8173,10 @@ sort-keys@^1.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
+sortablejs@1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.7.0.tgz#80a2b2370abd568e1cec8c271131ef30a904fa28"
+
 source-list-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
@@ -8573,6 +8615,10 @@ term-size@^1.2.0:
   resolved "https://registry.yarnpkg.com/term-size/-/term-size-1.2.0.tgz#458b83887f288fc56d6fffbfad262e26638efa69"
   dependencies:
     execa "^0.7.0"
+
+text-mask-core@5.0.1, text-mask-core@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.0.1.tgz#86db742bdfe3b4c383bb51a3b4ca342c86110639"
 
 throttleit@^1.0.0:
   version "1.0.0"

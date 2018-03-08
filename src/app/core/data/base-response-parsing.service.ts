@@ -17,7 +17,7 @@ function isPaginatedResponse(halObj: any) {
 
 /* tslint:disable:max-classes-per-file */
 
-class ProcessRequestDTO<ObjectDomain> {
+export class ProcessRequestDTO<ObjectDomain> {
   [key: string]: ObjectDomain[]
 }
 
@@ -131,5 +131,13 @@ export abstract class BaseResponseParsingService {
       throw new Error(`Expected an object with a single key, got: ${JSON.stringify(obj)}`);
     }
     return obj[keys[0]];
+  }
+
+  protected isSuccessStatus(statusCode) {
+    return (statusCode === '201'
+      || statusCode === '200'
+      || statusCode === '204'
+      || statusCode === 'OK'
+      || statusCode === 'Created')
   }
 }

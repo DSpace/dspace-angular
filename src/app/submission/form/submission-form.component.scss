@@ -1,0 +1,20 @@
+@import '../../../styles/variables';
+
+.submission-submit-form-header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.submission-submit-form-header-item {
+  flex-grow: 1;
+}
+
+.submission-submit-form-footer {
+  border-radius: $card-border-radius;
+  position: sticky;
+  bottom: 0;
+  background-color: $gray-400;
+  padding: 0.5rem;
+  z-index: 1000;
+}
+

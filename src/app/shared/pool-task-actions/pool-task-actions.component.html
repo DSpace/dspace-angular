@@ -1,0 +1,9 @@
+<div class="mb-3">
+  <button type="button"
+          class="btn btn-info mt-1"
+          [disabled]="processingClaim"
+          (click)="claim()">
+    <span *ngIf="processingClaim"><i class='fa fa-circle-o-notch fa-spin'></i> {{'mydspace.task.processing' | translate}}</span>
+    <span *ngIf="!processingClaim"><i class="fa fa fa-hand-paper-o"></i> {{'mydspace.task.pool.claim' | translate}}</span>
+  </button>
+</div>

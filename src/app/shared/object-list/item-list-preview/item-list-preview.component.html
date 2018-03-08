@@ -1,0 +1,22 @@
+<h3 [innerHTML]="getTitle() || 'No Title'" [ngClass]="{'text-muted': !getTitle()}"></h3>
+<div>
+  <span class="text-muted">
+    <span *ngIf="item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);" class="item-list-authors">
+        <span *ngFor="let author of getValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
+          <span [innerHTML]="author"><span [innerHTML]="author"></span><span *ngIf="!author" >No Authors</span></span>
+        </span>
+    </span>
+    (<span *ngIf="item.findMetadata('dc.publisher')" class="item-list-publisher" [innerHTML]="getFirstValue('dc.publisher')">, </span><span class="item-list-date" [innerHTML]="item.findMetadata('dc.date.issued') || 'No Date'"></span>)
+  </span>
+  <div class="item-list-abstract" [ngClass]="{'text-muted': !getFirstValue('dc.description.abstract')}" [innerHTML]="(getFirstValue('dc.description.abstract') | dsTruncate:[200]) || 'No Abstract'"></div>
+</div>
+<div>
+  <span [ngClass]="{'badge': true,
+                  'badge-danger': statusTxt == ALL_STATUS[0],
+                  'badge-primary': statusTxt == ALL_STATUS[1],
+                  'badge-info': statusTxt == ALL_STATUS[2],
+                  'badge-warning': statusTxt == ALL_STATUS[3],
+                  'badge-success': statusTxt == ALL_STATUS[4]}">
+  {{statusTxt}}
+</span>
+</div>

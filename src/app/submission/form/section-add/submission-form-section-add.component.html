@@ -1,0 +1,13 @@
+<div ngbDropdown #sectionAdd="ngbDropdown" placement="bottom-right" class="d-inline-block" [ngClass]="{'w-100': windowService.isXs()}">
+  <button class="btn btn-outline-primary dropdown-toggle"
+          id="sectionControls"
+          [ngClass]="{'w-100': (windowService.isXs() | async)}"
+          ngbDropdownToggle>
+          Add more <i class="fa fa-plus" aria-hidden="true"></i>
+  </button>
+  <div ngbDropdownMenu aria-labelledby="sectionControls" [ngClass]="{'w-100': (windowService.isXs() | async)}">
+    <button class="dropdown-item disabled" *ngIf="sectionList?.length == 0">No options available</button>
+    <button class="dropdown-item" *ngFor="let listItem of sectionList" (click)="addSection(listItem.id)">{{
+      'submission.section.'+listItem.header | translate }}</button>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+.chips-box {
+  border: 0;
+  padding: 0;
+  width: 100%;
+  display: inline;
+  overflow: auto;
+}
+
+.chips-container {
+  opacity:0; /* Transparent Background */
+}
+
+.chips {
+  margin: 2px;
+  padding: 5px;
+  max-width: 500px;
+  float: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: white;
+  background-color: #1682bb;
+  -moz-border-radius:7px;  /* for Firefox */
+  -webkit-border-radius:7px; /* for Webkit-Browsers */
+  border-radius:7px; /* regular */
+}
+.chips-item {
+  margin: 2px;
+}
+
+.selected {
+  background-color: #56C2Eb;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.fa {
+  padding-right: 3px;
+}
+
+.fa-times {
+  padding-left: 10px;
+}
+
+.dragged {
+  background-color: #44dbce !important;
+}

@@ -88,8 +88,10 @@ export class Item extends DSpaceObject {
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
     return this.bitstreams
+      .filter((rd: RemoteData<Bitstream[]>) => rd.hasSucceeded)
       .map((rd: RemoteData<Bitstream[]>) => rd.payload)
       .filter((bitstreams: Bitstream[]) => hasValue(bitstreams))
+      .first()
       .startWith([])
       .map((bitstreams) => {
         return bitstreams

@@ -3,6 +3,7 @@ import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 import { Observable } from 'rxjs/Observable';
+import { MyDspaceService } from '../../+my-dspace-page/my-dspace-service/my-dspace.service';
 
 /**
  * This component renders a simple item page.
@@ -18,7 +19,7 @@ import { Observable } from 'rxjs/Observable';
 
 export class SearchFiltersComponent {
   filters: Observable<RemoteData<SearchFilterConfig[]>>;
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: MyDspaceService) {
     this.filters = searchService.getConfig();
   }
 

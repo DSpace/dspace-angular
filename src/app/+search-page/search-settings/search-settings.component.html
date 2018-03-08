@@ -2,11 +2,19 @@
 <div *ngIf="[searchOptions].sort" class="setting-option result-order-settings mb-3 p-3">
     <h5>{{ 'search.sidebar.settings.sort-by' | translate}}</h5>
     <select class="form-control" (change)="reloadOrder($event)">
-        <option *ngFor="let direction of (sortDirections | dsKeys); let currentElementIndex = index"
-                [value]="currentElementIndex"
-                [selected]="direction === searchOptions.sort? 'selected': null">
+        <option *ngFor="let direction of (sortBy | dsKeys); let currentElementIndex = index"
+                [value]="currentElementIndex">
             {{direction.value}}
         </option>
+    </select>
+    <div class="clearfix mb-2"></div>
+    <h5>{{ 'search.sidebar.settings.order' | translate}}</h5>
+    <select class="form-control" (change)="reloadOrder($event)">
+      <option *ngFor="let direction of (sortDirections | dsKeys); let currentElementIndex = index"
+              [value]="currentElementIndex"
+              [selected]="direction === searchOptions.sort? 'selected': null">
+        {{direction.value}}
+      </option>
     </select>
 </div>
 

@@ -16,6 +16,7 @@ import { isNotEmpty, hasValue, isEmpty } from '../empty.util';
 })
 export class SearchFormComponent {
   @Input() query: string;
+  @Input() searchLink: string;
   selectedId = '';
   // Optional existing search parameters
   @Input() currentParams: {};
@@ -36,7 +37,7 @@ export class SearchFormComponent {
   }
 
   updateSearch(data: any) {
-    this.router.navigate(['/search'], {
+    this.router.navigate([`/${this.searchLink}`], {
       queryParams: Object.assign({}, this.currentParams,
         {
           query: data.query,

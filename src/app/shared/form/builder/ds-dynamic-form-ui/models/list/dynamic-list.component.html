@@ -1,0 +1,61 @@
+<div [formGroup]="group">
+  <div *ngIf="model.repeatable"
+       class="form-row"
+       [attr.tabindex]="model.tabIndex"
+       [dynamicId]="bindId && model.id"
+       [formGroupName]="model.id"
+       [ngClass]="model.layout.element?.control">
+
+    <div *ngFor="let columnItems of items" class="col-sm ml-4 form-check">
+
+      <label *ngFor="let item of columnItems" class="d-block custom-control custom-checkbox"
+             [class.disabled]="model.disabled"
+             [ngClass]="model.layout.element?.control" >
+
+        <input type="checkbox" class="custom-control-input"
+               [attr.tabindex]="item.index"
+               [checked]="item.value"
+               [dynamicId]="item.id"
+               [formControlName]="item.id"
+               [name]="model.name"
+               [required]="model.required"
+               [value]="item.value"
+               (blur)="onBlurEvent($event)"
+               (change)="onChangeEvent($event)"
+               (focus)="onFocusEvent($event)"/>
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description" [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
+      </label>
+      <br>
+    </div>
+
+  </div>
+
+  <div *ngIf="!model.repeatable"
+       class="form-row"
+       ngbRadioGroup
+       [attr.tabindex]="model.tabIndex"
+       [dynamicId]="bindId && model.id"
+       [ngClass]="model.layout.element?.control"
+       (change)="onChangeEvent($event)">
+
+    <div *ngFor="let columnItems of items" class="col-sm ml-4 form-check">
+
+      <label *ngFor="let item of columnItems" class="d-block custom-control custom-radio"
+             [class.disabled]="model.disabled"
+             [ngClass]="model.layout.element?.control">
+        <input type="radio" class="custom-control-input"
+               [checked]="item.value"
+               [dynamicId]="item.id"
+               [name]="model.id"
+               [required]="model.required"
+               [value]="item.index"
+               (blur)="onBlurEvent($event)"
+               (focus)="onFocusEvent($event)"/>
+        <span class="custom-control-indicator"></span>
+        <span class="custom-control-description" [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
+      </label>
+    </div>
+
+  </div>
+</div>

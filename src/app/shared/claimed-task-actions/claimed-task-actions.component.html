@@ -1,0 +1,51 @@
+<div class="mb-3">
+  <button *ngIf="(workflowitemObs | async)?.hasSucceeded" class="btn btn-primary"
+          [routerLink]="['/workflowitems/' + (workflowitemObs | async)?.payload[0].id] + '/edit'" >
+    <i class="fa fa-edit"></i> {{'mydspace.task.claimed.edit' | translate}}</button>
+
+  <button type="button"
+          class="btn btn-success"
+          [disabled]="processingApprove"
+          (click)="approve()">
+    <span *ngIf="processingApprove"><i class='fa fa-circle-o-notch fa-spin'></i> {{'mydspace.task.processing' | translate}}</span>
+    <span *ngIf="!processingApprove"><i class="fa fa-thumbs-up"></i> {{'mydspace.task.claimed.approve' | translate}}</span>
+  </button>
+
+  <button class="btn btn-danger"
+          (click)="openRejectModal(rejectModal)" >
+    <i class="fa fa-trash"></i> {{'mydspace.task.claimed.reject.btn' | translate}}</button>
+
+  <button type="button"
+          class="btn"
+          [disabled]="processingReturnToPool"
+          (click)="returnToPool()">
+    <span *ngIf="processingReturnToPool"><i class='fa fa-circle-o-notch fa-spin'></i> {{'mydspace.task.processing' | translate}}</span>
+    <span *ngIf="!processingReturnToPool"><i class="fa fa-undo"></i> {{'mydspace.task.claimed.return-to-pool' | translate}}</span>
+  </button>
+</div>
+
+<ng-template #rejectModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'mydspace.task.claimed.reject.title' | translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="reject(rejectModal);" [formGroup]="rejectForm" >
+    <textarea
+      style="width: 100%"
+      formControlName="reason"
+      rows="4"
+      placeholder="{{'mydspace.task.claimed.reject.placeholder' | translate}}"></textarea>
+      <button
+        id="btn-chat"
+        class="btn btn-danger btn-lg btn-block mt-3"
+        [disabled]="!rejectForm.valid || processingReject"
+        type="submit">
+        <span *ngIf="processingReject"><i class='fa fa-circle-o-notch fa-spin'></i> {{'mydspace.task.processing' | translate}}</span>
+        <span *ngIf="!processingReject">{{'mydspace.messages.send-btn' | translate}}</span>
+      </button>
+    </form>
+  </div>
+</ng-template>

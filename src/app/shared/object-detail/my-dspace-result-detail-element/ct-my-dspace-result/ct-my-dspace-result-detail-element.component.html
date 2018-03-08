@@ -1,0 +1,7 @@
+<ds-item-detail-preview
+  [item]="(workFlow.item | async)?.payload[0]"
+  [object]="object"
+  statusTxt="In progress">
+  <ds-claimed-task-actions [task]="dso"></ds-claimed-task-actions>
+
+</ds-item-detail-preview>

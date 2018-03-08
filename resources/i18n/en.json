@@ -46,7 +46,10 @@
     }
   },
   "nav": {
-    "home": "Home"
+    "home": "Home",
+    "login": "Log In",
+    "logout": "Log Out",
+    "mydspace": "MyDSpace"
   },
   "pagination": {
     "results-per-page": "Results Per Page",
@@ -72,6 +75,37 @@
       "help": "Select a community to browse its collections."
     }
   },
+  "mydspace": {
+    "title": "MyDSpace",
+    "description": "",
+    "new-submission-btn": "New submission",
+    "results": {
+      "head": "Your submissions"
+    },
+    "messages": {
+      "title": "Messages",
+      "no-messages": "No messages yet.",
+      "send-btn": "Send",
+      "subject-placeholder": "Subject...",
+      "description-placeholder": "Insert your message here..."
+    },
+    "task": {
+      "processing": "Processing...",
+      "claimed": {
+        "approve": "Approve",
+        "edit": "Edit",
+        "reject": {
+          "btn": "Reject",
+          "title": "Reject confirm",
+          "placeholder": "Describe the reason of reject"
+        },
+        "return-to-pool": "Return to pool"
+      },
+      "pool": {
+        "claim": "Claim"
+      }
+    }
+  },
   "search": {
     "title": "DSpace Angular :: Search",
     "description": "",
@@ -92,7 +126,11 @@
       "settings":{
         "title":"Settings",
         "sort-by":"Sort By",
+        "order":"Order",
         "rpp":"Results per page"
+      },
+      "tab":{
+        "title":"Show"
       }
     },
     "view-switch": {
@@ -120,7 +158,25 @@
         "date": {
           "placeholder": "Date",
           "head": "Date"
+        },
+        "status": {
+          "placeholder": "Status",
+          "head": "Status"
+        },
+        "date_submitted": {
+          "placeholder": "Date submitted",
+          "head": "Date issued"
+        },
+        "date_issued": {
+          "placeholder": "Date issued",
+          "head": "Date issued"
+        },
+        "type": {
+          "placeholder": "Type",
+          "head": "Type"
         }
+
+
       }
     }
   },
@@ -133,7 +189,8 @@
     "recent-submissions": "Loading recent submissions...",
     "item": "Loading item...",
     "objects": "Loading...",
-    "search-results": "Loading search results..."
+    "search-results": "Loading search results...",
+    "mydspace-results": "Loading your submissions..."
   },
   "error": {
     "default": "Error",
@@ -145,5 +202,59 @@
     "item": "Error fetching item",
     "objects": "Error fetching objects",
     "search-results": "Error fetching search results"
+  },
+  "login": {
+    "title": "Login",
+    "form": {
+      "header": "Please log in to DSpace",
+      "email": "Email address",
+      "forgot-password": "Have you forgotten your password?",
+      "new-user": "New user? Click here to register.",
+      "password": "Password",
+      "submit": "Log in"
+    }
+  },
+  "logout": {
+    "title": "Logout",
+    "form": {
+      "header": "Log out from DSpace",
+      "submit": "Log out"
+    }
+  },
+  "submission": {
+    "submit": {
+      "title": "Submit"
+    },
+    "edit": {
+      "title": "edit"
+    },
+    "section": {
+      "submit.progressbar.describe.stepone": "Describe",
+      "submit.progressbar.describe.steptwo": "Describe",
+      "submit.progressbar.describe.stepcustom": "Describe",
+      "submit.progressbar.describe.basicinformation": "Basic Information",
+      "submit.progressbar.describe.additionalfields": "Additional Fields",
+      "submit.progressbar.describe.documenttype": "Document Type",
+      "submit.progressbar.describe.typearticle": "Type",
+      "submit.progressbar.describe.creators": "Creators",
+      "submit.progressbar.describe.titleinformation": "Title Information",
+      "submit.progressbar.describe.reference": "Reference",
+      "submit.progressbar.upload": "Upload files",
+      "submit.progressbar.license": "Deposit license",
+      "submit.progressbar.cclicense": "Creative commons license",
+
+      "upload": {
+        "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following policies:",
+        "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicity decided for the single file, with the following policies:"
+      },
+      "form": {
+        "search": "Search",
+        "remove": "Remove",
+        "first_name": "First name",
+        "last_name": "Last name",
+        "loading": "Loading...",
+        "no_results": "No results found"
+      }
+    }
   }
 }

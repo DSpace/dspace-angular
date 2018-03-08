@@ -46,7 +46,7 @@ describe('ObjectCacheService', () => {
   });
 
   describe('add', () => {
-    it('should dispatch an ADD action with the object to add, the time to live, and the current timestamp', () => {
+    it('should dispatch an ADD action with the object to panel-add, the time to live, and the current timestamp', () => {
       service.add(objectToCache, msToLive, selfLink);
       expect(store.dispatch).toHaveBeenCalledWith(new AddToObjectCacheAction(objectToCache, timestamp, msToLive, selfLink));
     });

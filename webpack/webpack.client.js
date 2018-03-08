@@ -11,6 +11,10 @@ module.exports = {
     filename: 'client.js'
   },
   target: 'web',
+  watchOptions: {
+    poll: true,
+    ignored: [/node_modules/, /dist/]
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: root('./src/index.html'),

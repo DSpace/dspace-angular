@@ -13,7 +13,8 @@ import {
 import { hasValue, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchService } from '../../search-service/search.service';
-import { RouteService } from '../../../shared/route.service';
+import { RouteService } from '../../../shared/services/route.service';
+import { MyDspaceService } from '../../../+my-dspace-page/my-dspace-service/my-dspace.service';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
@@ -22,7 +23,7 @@ export class SearchFilterService {
 
   constructor(private store: Store<SearchFiltersState>,
               private routeService: RouteService,
-              private searchService: SearchService) {
+              private searchService: MyDspaceService) {
   }
 
   isFilterActiveWithValue(paramName: string, filterValue: string): Observable<boolean> {
@@ -46,7 +47,7 @@ export class SearchFilterService {
   }
 
   get searchLink() {
-    return this.searchService.searchLink;
+    return this.searchService.getSearchLink();
   }
 
   isCollapsed(filterName: string): Observable<boolean> {

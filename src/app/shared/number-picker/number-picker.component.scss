@@ -1,0 +1,44 @@
+.ngb-tp {
+  display: flex;
+  align-items: center;
+}
+.ngb-tp-hour, .ngb-tp-minute, .ngb-tp-second, .ngb-tp-meridian {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.ngb-tp-spacer {
+  width: 1em;
+  text-align: center;
+}
+.chevron::before {
+  border-style: solid;
+  border-width: 0.29em 0.29em 0 0;
+  content: '';
+  display: inline-block;
+  height: 0.69em;
+  left: 0.05em;
+  position: relative;
+  top: 0.15em;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  vertical-align: middle;
+  width: 0.71em;
+}
+.chevron.bottom:before {
+  top: -.3em;
+  -webkit-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+input {
+  text-align: center;
+  display: inline-block;
+  max-width: 80px !important;
+}
+
+//.error {
+//  border-color: red;
+//}
