@@ -9,12 +9,11 @@
     <div *ngFor="let columnItems of items" class="col-sm ml-3">
 
       <div  *ngFor="let item of columnItems" class="custom-control custom-checkbox">
-        <label class="custom-control-label"
-               [class.disabled]="model.disabled"
-               [ngClass]="model.layout.element?.control" >
+
           <input type="checkbox" class="custom-control-input"
                  [attr.tabindex]="item.index"
                  [checked]="item.value"
+                 [id]="item.id"
                  [dynamicId]="item.id"
                  [formControlName]="item.id"
                  [name]="model.name"
@@ -23,6 +22,10 @@
                  (blur)="onBlurEvent($event)"
                  (change)="onChangeEvent($event)"
                  (focus)="onFocusEvent($event)"/>
+        <label class="custom-control-label"
+               [class.disabled]="model.disabled"
+               [ngClass]="model.layout.element?.control"
+               [for]="item.id">
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
         </label>
       </div>
