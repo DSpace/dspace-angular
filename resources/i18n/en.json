@@ -264,7 +264,9 @@
     "workflow": {
       "tasks": {
         "generic": {
-          "processing": "Processing..."
+          "processing": "Processing...",
+          "success": "Operation successful",
+          "error": "Error occurred during operation..."
         },
         "claimed": {
           "approve": "Approve",

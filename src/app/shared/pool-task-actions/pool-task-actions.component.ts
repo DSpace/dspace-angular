@@ -9,6 +9,9 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { PoolTask } from '../../core/tasks/models/pool-task-object.model';
 import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationOptions } from '../notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-pool-task-actions',
@@ -24,6 +27,8 @@ export class PoolTaskActionsComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef,
               private ptDataService: PoolTaskDataService,
+              private notificationsService: NotificationsService,
+              private translate: TranslateService,
               private router: Router) {
   }
 
@@ -39,6 +44,13 @@ export class PoolTaskActionsComponent implements OnInit {
         this.cd.detectChanges();
         if (res.hasSucceeded) {
           this.reload();
+          this.notificationsService.success(null,
+            this.translate.get('submission.workflow.tasks.generic.success'),
+            new NotificationOptions(5000, false));
+        } else {
+          this.notificationsService.error(null,
+            this.translate.get('submission.workflow.tasks.generic.error'),
+            new NotificationOptions(20000, true));
         }
       });
   }
