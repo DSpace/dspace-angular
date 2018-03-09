@@ -127,8 +127,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private contentType(item: any, key: string) {
     if (item instanceof TemplateRef) {
       this[key] = item;
-    } else if (key === 'title' || key === 'content' ) {
-      this[key] = isNotEmpty(item) ? item : Observable.of('');
+    } else if (key === 'title' || key === 'content') {
+      this[key] = isNotEmpty(item) ?
+        typeof item === 'string' ?
+          Observable.of(item)
+          : typeof item === 'object' && isNotEmpty(item.payload) ? Observable.of(item.payload) : null
+        : null;
     } else {
       this[key] = this.domSanitizer.bypassSecurityTrustHtml(item);
     }
