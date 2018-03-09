@@ -15,7 +15,8 @@
 
     <div ngbDropdownMenu class="dropdown-menu" id="collectionControlsDropdownMenu" aria-labelledby="collectionControlsMenuButton">
       <div class="form-group w-100 pr-2 pl-2">
-        <input type="search"
+        <input *ngIf="searchField"
+               type="search"
                class="form-control w-100"
                (click)="$event.stopPropagation();"
                placeholder="Search for a collection"
