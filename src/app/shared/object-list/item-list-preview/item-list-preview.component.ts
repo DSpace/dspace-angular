@@ -37,13 +37,15 @@ export class ItemListPreviewComponent<T> {
 
   getValues(keys: string[]): string[] {
     const results: string[] = new Array<string>();
-    this.object.hitHighlights.forEach(
-      (md: Metadatum) => {
-        if (keys.indexOf(md.key) > -1) {
-          results.push(md.value);
+    if (this.object && this.object.hitHighlights) {
+      this.object.hitHighlights.forEach(
+        (md: Metadatum) => {
+          if (keys.indexOf(md.key) > -1) {
+            results.push(md.value);
+          }
         }
-      }
-    );
+      );
+    }
     if (isEmpty(results)) {
       this.item.filterMetadata(keys).forEach(
         (md: Metadatum) => {
