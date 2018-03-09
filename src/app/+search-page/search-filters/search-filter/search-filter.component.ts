@@ -6,9 +6,6 @@ import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
-import { RouteService } from '../../../shared/services/route.service';
-import { first } from 'rxjs/operator/first';
-import { MyDspaceService } from '../../../+my-dspace-page/my-dspace-service/my-dspace.service';
 
 /**
  * This component renders a simple item page.
@@ -27,7 +24,7 @@ export class SearchFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
   filterValues: Observable<RemoteData<FacetValue[]>>;
 
-  constructor(private searchService: MyDspaceService, private filterService: SearchFilterService) {
+  constructor(private searchService: SearchService, private filterService: SearchFilterService) {
   }
 
   ngOnInit() {

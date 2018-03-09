@@ -26,7 +26,8 @@ import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 
 @Injectable()
 export class SubmissionRestService extends PostPatchDataService<SubmitDataResponseDefinitionObject> {
-  protected linkName = 'workspaceitems';
+  protected linkPath = 'workspaceitems';
+  protected overrideRequest = true;
 
   constructor(protected responseCache: ResponseCacheService,
               protected requestService: RequestService,

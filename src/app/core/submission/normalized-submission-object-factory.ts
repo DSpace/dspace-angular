@@ -4,7 +4,6 @@ import { SubmissionSectionModel } from '../shared/config/config-submission-secti
 import { ConfigAuthorityModel } from '../shared/config/config-authority.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { NormalizedBitstream } from '../cache/models/normalized-bitstream.model';
-import { NormalizedBitstreamFormat } from '../cache/models/normalized-bitstream-format.model';
 import { NormalizedBundle } from '../cache/models/normalized-bundle.model';
 import { NormalizedCollection } from '../cache/models/normalized-collection.model';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
@@ -22,9 +21,6 @@ export class NormalizedSubmissionObjectFactory {
     switch (type) {
       case SubmissionResourceType.Bitstream: {
         return NormalizedBitstream
-      }
-      case SubmissionResourceType.BitstreamFormat: {
-        return NormalizedBitstreamFormat
       }
       case SubmissionResourceType.Bundle: {
         return NormalizedBundle

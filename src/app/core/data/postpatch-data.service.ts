@@ -5,7 +5,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { ErrorResponse, PostPatchSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { PostRequest, RestRequest, SubmissionPostRequest } from '../data/request.models';
+import { RestRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { CoreState } from '../core.reducers';
@@ -15,9 +15,10 @@ import { Store } from '@ngrx/store';
 export abstract class PostPatchDataService<ResponseDefinitionDomain> extends HALEndpointService {
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
-  protected abstract linkName: string;
-  protected abstract EnvConfig: GlobalConfig;
   protected abstract store: Store<CoreState>;
+  protected abstract linkPath: string;
+  protected abstract EnvConfig: GlobalConfig;
+  protected abstract overrideRequest = false;
 
   protected submitData(request: RestRequest): Observable<ResponseDefinitionDomain> {
     const [successResponse, errorResponse] = this.responseCache.get(request.href)

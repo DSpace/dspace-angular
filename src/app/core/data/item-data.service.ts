@@ -17,7 +17,7 @@ import { RequestService } from './request.service';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
-  protected linkName = 'items';
+  protected linkPath = 'items';
   protected overrideRequest = false;
 
   constructor(
@@ -28,14 +28,14 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     private bs: BrowseService
   ) {
-    super(NormalizedItem);
+    super();
   }
 
   public getScopedEndpoint(scopeID: string): Observable<string> {
     if (isEmpty(scopeID)) {
       return this.getEndpoint();
     } else {
-      return this.bs.getBrowseURLFor('dc.date.issued', this.linkName)
+      return this.bs.getBrowseURLFor('dc.date.issued', this.linkPath)
         .filter((href: string) => isNotEmpty(href))
         .map((href: string) => new URLCombiner(href, `?scope=${scopeID}`).toString())
         .distinctUntilChanged();

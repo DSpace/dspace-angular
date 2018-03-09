@@ -8,7 +8,7 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 
 @Injectable()
 export class GroupEpersonService extends EpersonService {
-  protected linkName = 'groups';
+  protected linkPath = 'groups';
   protected browseEndpoint = '';
 
   constructor(

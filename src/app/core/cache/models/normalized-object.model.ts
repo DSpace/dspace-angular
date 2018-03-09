@@ -1,5 +1,6 @@
 import { CacheableObject } from '../object-cache.reducer';
 import { autoserialize } from 'cerialize';
+import { ResourceType } from '../../shared/resource-type';
 /**
  * An abstract model class for a NormalizedObject.
  */
@@ -16,6 +17,9 @@ export abstract class NormalizedObject implements CacheableObject {
    */
   @autoserialize
   uuid: string;
+
+  @autoserialize
+  type: ResourceType;
 
   @autoserialize
   _links: {

@@ -13,7 +13,7 @@ import { RequestService } from './request.service';
 
 @Injectable()
 export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {
-  protected linkName = 'communities';
+  protected linkPath = 'communities';
   protected cds = this;
   protected overrideRequest = false;
 
@@ -25,6 +25,6 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected objectCache: ObjectCacheService
   ) {
-    super(NormalizedCommunity);
+    super();
   }
 }

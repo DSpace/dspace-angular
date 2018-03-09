@@ -20,7 +20,6 @@ import { SearchFiltersComponent } from './search-filters/search-filters.componen
 import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
-import { SearchTabComponent } from './search-tab/search-tab.component';
 
 const effects = [
   SearchSidebarEffects
@@ -41,7 +40,6 @@ const components = [
   SearchFiltersComponent,
   SearchFilterComponent,
   SearchFacetFilterComponent,
-  SearchTabComponent
 ];
 
 @NgModule({

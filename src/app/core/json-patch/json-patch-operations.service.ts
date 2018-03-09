@@ -22,7 +22,7 @@ import { GLOBAL_CONFIG } from '../../../config';
 
 @Injectable()
 export class JsonPatchOperationsService<ResponseDefinitionDomain> extends HALEndpointService {
-  protected linkName;
+  protected linkPath;
 
   constructor(protected responseCache: ResponseCacheService,
               protected requestService: RequestService,

@@ -1,3 +1,4 @@
+import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
 import { BrowseDefinition } from '../shared/browse-definition.model';
@@ -26,11 +27,21 @@ export class DSOSuccessResponse extends RestResponse {
   }
 }
 
-export class EndpointMap {
-  [linkName: string]: string
+export class SearchSuccessResponse extends RestResponse {
+  constructor(
+    public results: SearchQueryResponse,
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
 }
 
-export class RootSuccessResponse extends RestResponse {
+export class EndpointMap {
+  [linkPath: string]: string
+}
+
+export class EndpointMapSuccessResponse extends RestResponse {
   constructor(
     public endpointMap: EndpointMap,
     public statusCode: string,

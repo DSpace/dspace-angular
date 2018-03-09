@@ -14,7 +14,7 @@ export abstract class IntegrationService extends HALEndpointService {
   protected request: EpersonRequest;
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
-  protected abstract linkName: string;
+  protected abstract linkPath: string;
   protected abstract EnvConfig: GlobalConfig;
   protected abstract browseEndpoint: string;
 
@@ -63,11 +63,7 @@ export abstract class IntegrationService extends HALEndpointService {
     }
 
     if (hasValue(options.sort)) {
-      let direction = 'asc';
-      if (options.sort.direction === 1) {
-        direction = 'desc';
-      }
-      args.push(`sort=${options.sort.field},${direction}`);
+      args.push(`sort=${options.sort.field},${options.sort.direction}`);
     }
 
     if (isNotEmpty(args)) {

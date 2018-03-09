@@ -13,7 +13,7 @@ import { RequestService } from './request.service';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
-  protected linkName = 'collections';
+  protected linkPath = 'collections';
   protected overrideRequest = false;
 
   constructor(
@@ -25,6 +25,6 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService
   ) {
-    super(NormalizedCollection);
+    super();
   }
 }

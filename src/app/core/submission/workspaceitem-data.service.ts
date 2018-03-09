@@ -15,7 +15,7 @@ import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model
 
 @Injectable()
 export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceItem, Workspaceitem> {
-  protected linkName = 'workspaceitems';
+  protected linkPath = 'workspaceitems';
   protected overrideRequest = true;
 
   constructor(protected responseCache: ResponseCacheService,
@@ -24,7 +24,7 @@ export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceIte
               protected store: Store<CoreState>,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private bs: BrowseService) {
-    super(NormalizedWorkspaceItem);
+    super();
   }
 
   public getScopedEndpoint(scopeID: string): Observable<string> {

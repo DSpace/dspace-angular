@@ -10,17 +10,12 @@ import { CoreState } from '../core.reducers';
 import { RequestService } from '../data/request.service';
 import { NormalizedClaimedTask } from './models/normalized-claimed-task-object.model';
 import { ClaimedTask } from './models/claimed-task-object.model';
-import { ErrorResponse, RestResponse, TaskResponse } from '../cache/response-cache.models';
-import { HttpHeaders } from '@angular/common/http';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { DeleteRequest, PostRequest, RestRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { isNotEmpty } from '../../shared/empty.util';
 import { TasksService } from './tasks.service';
 
 @Injectable()
 export class ClaimedTaskDataService extends TasksService<NormalizedClaimedTask, ClaimedTask> {
-  protected linkName = 'claimedtasks';
+  protected linkPath = 'claimedtasks';
   protected overrideRequest = true;
 
   constructor(protected responseCache: ResponseCacheService,
@@ -28,17 +23,17 @@ export class ClaimedTaskDataService extends TasksService<NormalizedClaimedTask, 
               protected rdbService: RemoteDataBuildService,
               protected store: Store<CoreState>,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
-    super(NormalizedClaimedTask);
+    super();
   }
 
-  public approveTask(scopeId: string ): Observable<any> {
+  public approveTask(scopeId: string): Observable<any> {
     const body = {
       submit_approve: 'true'
     };
     return this.postToEndpoint('', this.prepareBody(body), scopeId, this.makeHttpOptions());
   }
 
-  public rejectTask(reason: string, scopeId: string ): Observable<any> {
+  public rejectTask(reason: string, scopeId: string): Observable<any> {
     const body = {
       submit_reject: 'true',
       reason
@@ -46,7 +41,7 @@ export class ClaimedTaskDataService extends TasksService<NormalizedClaimedTask, 
     return this.postToEndpoint('', this.prepareBody(body), scopeId, this.makeHttpOptions());
   }
 
-  public returnToPoolTask(scopeId: string ): Observable<any> {
+  public returnToPoolTask(scopeId: string): Observable<any> {
     return this.deleteToEndpoint('', {}, scopeId, this.makeHttpOptions());
   }
 

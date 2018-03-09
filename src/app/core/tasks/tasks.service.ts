@@ -17,19 +17,16 @@ import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ProcessTaskResponse } from './models/process-task-response';
 import { RemoteDataError } from '../data/remote-data-error';
 import { HttpHeaders } from '@angular/common/http';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
 
-export abstract class TasksService<TNormalized extends CacheableObject, TDomain> extends DataService<TNormalized, TDomain> {
+export abstract class TasksService<TNormalized extends NormalizedObject, TDomain> extends DataService<TNormalized, TDomain> {
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract store: Store<CoreState>;
-  protected abstract linkName: string;
+  protected abstract linkPath: string;
   protected abstract EnvConfig: GlobalConfig;
   protected abstract overrideRequest = false;
-
-  constructor(protected normalizedResourceType: GenericConstructor<TNormalized>,) {
-    super(normalizedResourceType);
-  }
 
   protected fetchRequest(request: RestRequest): Observable<any> {
     const [successResponse, errorResponse] = this.responseCache.get(request.href)

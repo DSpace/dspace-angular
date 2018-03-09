@@ -15,7 +15,7 @@ import { Workflowitem } from './models/workflowitem.model';
 
 @Injectable()
 export class WorkflowitemDataService extends DataService<NormalizedWorkflowItem, Workflowitem> {
-  protected linkName = 'workflowitems';
+  protected linkPath = 'workflowitems';
   protected overrideRequest = true;
 
   constructor(protected responseCache: ResponseCacheService,
@@ -24,7 +24,7 @@ export class WorkflowitemDataService extends DataService<NormalizedWorkflowItem,
               protected store: Store<CoreState>,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private bs: BrowseService) {
-    super(NormalizedWorkflowItem);
+    super();
   }
 
   public getScopedEndpoint(scopeID: string): Observable<string> {

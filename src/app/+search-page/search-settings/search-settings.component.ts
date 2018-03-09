@@ -1,14 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { SearchOptions, ViewMode } from '../search-options.model';
-import { SortBy, SortDirection } from '../../core/cache/models/sort-options.model';
+import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { MyDspaceService } from '../../+my-dspace-page/my-dspace-service/my-dspace.service';
 
 @Component({
   selector: 'ds-search-settings',
   styleUrls: ['./search-settings.component.scss'],
-  templateUrl: './search-settings.component.html',
+  templateUrl: './search-settings.component.html'
 })
 export class SearchSettingsComponent implements OnInit {
 
@@ -17,7 +16,6 @@ export class SearchSettingsComponent implements OnInit {
    * Declare SortDirection enumeration to use it in the template
    */
   public sortDirections = SortDirection;
-  public sortBy = SortBy;
   /**
    * Number of items per page.
    */
@@ -33,7 +31,7 @@ export class SearchSettingsComponent implements OnInit {
   direction: SortDirection;
   currentParams = {};
 
-  constructor(private service: MyDspaceService,
+  constructor(private service: SearchService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -50,7 +48,7 @@ export class SearchSettingsComponent implements OnInit {
         this.scope = params.scope;
         this.page  = +params.page || this.searchOptions.pagination.currentPage;
         this.pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
-        this.direction = +params.sortDirection || this.searchOptions.sort.direction;
+        this.direction = params.sortDirection || this.searchOptions.sort.direction;
         if (params.view === ViewMode.Grid) {
           this.pageSizeOptions = this.gridPageSizeOptions;
         } else {
@@ -66,7 +64,7 @@ export class SearchSettingsComponent implements OnInit {
         pageSize: value
       })
     };
-    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
+    this.router.navigate([ '/search' ], navigationExtras);
   }
 
   reloadOrder(event: Event) {
@@ -76,6 +74,6 @@ export class SearchSettingsComponent implements OnInit {
         sortDirection: value
       })
     };
-    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
+    this.router.navigate([ '/search' ], navigationExtras);
   }
 }

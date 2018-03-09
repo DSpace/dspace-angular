@@ -13,7 +13,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
 export class BrowseService extends HALEndpointService {
-  protected linkName = 'browses';
+  protected linkPath = 'browses';
 
   private static toSearchKeyArray(metadatumKey: string): string[] {
     const keyParts = metadatumKey.split('.');
@@ -35,7 +35,7 @@ export class BrowseService extends HALEndpointService {
     super();
   }
 
-  getBrowseURLFor(metadatumKey: string, linkName: string): Observable<string> {
+  getBrowseURLFor(metadatumKey: string, linkPath: string): Observable<string> {
     const searchKeyArray = BrowseService.toSearchKeyArray(metadatumKey);
     return this.getEndpoint()
       .filter((href: string) => isNotEmpty(href))
@@ -59,10 +59,10 @@ export class BrowseService extends HALEndpointService {
                 return isNotEmpty(matchingKeys);
               })
             ).map((def: BrowseDefinition) => {
-            if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkName])) {
-              throw new Error(`A browse endpoint for ${linkName} on ${metadatumKey} isn't configured`);
+            if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
+              throw new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`);
             } else {
-              return def._links[linkName];
+              return def._links[linkPath];
             }
           })
         );

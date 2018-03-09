@@ -16,7 +16,6 @@ import { SearchResult } from '../+search-page/search-result.model';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
 import { MyDSpaceResult } from './my-dspace-result.model';
-import { MyDspaceService } from './my-dspace-service/my-dspace.service';
 import { getAuthenticatedUser } from '../core/auth/selectors';
 import { AppState } from '../app.reducer';
 import { Store } from '@ngrx/store';
@@ -48,7 +47,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
 
   query: string;
   scopeObjectRDObs: Observable<RemoteData<DSpaceObject>>;
-  resultsRDObs: Observable<RemoteData<Array<MyDSpaceResult<DSpaceObject>>>>;
+  resultsRDObs: Observable<RemoteData<Array<MyDSpaceResult<DSpaceObject>> | PaginatedList<MyDSpaceResult<DSpaceObject>>>>;
   currentParams = {};
   searchOptions: SearchOptions;
   sortConfig: SortOptions;
@@ -56,11 +55,10 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   isMobileView: Observable<boolean>;
   user: Observable<Eperson>;
 
-  constructor(private service: MyDspaceService,
+  constructor(private service: SearchService,
               private route: ActivatedRoute,
               private communityService: CommunityDataService,
               public rolesService: RolesService,
-              private platform: PlatformService,
               private sidebarService: SearchSidebarService,
               private store: Store<AppState>,
               private windowService: HostWindowService) {

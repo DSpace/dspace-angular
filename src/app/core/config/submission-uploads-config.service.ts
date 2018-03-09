@@ -7,7 +7,7 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 
 @Injectable()
 export class SubmissionUploadsConfigService extends ConfigService {
-  protected linkName = 'submissionuploads';
+  protected linkPath = 'submissionuploads';
   protected browseEndpoint = '';
 
   constructor(
