@@ -1,5 +1,6 @@
-.notificationContainer {
-  min-height: 65px;
+.alert-dismissible .close {
+  top: -13px;
+  right: -15px;
 }
 
 .notificationClose:focus {
@@ -7,8 +8,12 @@
 }
 
 .icon {
-  float: left;
-  padding: 5px;
+  //float: left;
+  //padding: 5px;
+}
+
+.alert-dismissible {
+  padding: 10px;
 }
 
 .sn-title, .sn-content, .sn-html {

@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 export interface INotification {
   id: string;
   type: NotificationType;
-  title?: Observable<string>;
-  content?: Observable<string>;
+  title?: Observable<string> | string;
+  content?: Observable<string> | string;
   options?: INotificationOptions;
   html?: any;
 }
@@ -15,15 +15,15 @@ export interface INotification {
 export class Notification implements INotification {
   public id: string;
   public type: NotificationType;
-  public title: Observable<string>;
-  public content: Observable<string>;
+  public title: Observable<string>  | string;
+  public content: Observable<string>  | string;
   public options: INotificationOptions;
   public html: any;
 
   constructor(id: string,
               type: NotificationType,
-              title?: Observable<string>,
-              content?: Observable<string>,
+              title?: Observable<string>  | string,
+              content?: Observable<string>  | string,
               options?: NotificationOptions,
               html?: any) {
 
