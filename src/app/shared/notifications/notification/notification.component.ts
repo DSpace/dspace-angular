@@ -129,15 +129,17 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this[key] = item;
     } else if (key === 'title' || key === 'content') {
       let value = null;
-      if (typeof item === 'string') {
-        value = Observable.of(item);
-      } else if (item instanceof Observable) {
-        value = item;
-      } else if (typeof item === 'object' && isNotEmpty(item.value)) {
-        // when notifications state is transferred from SSR to CSR,
-        // Observables Object loses the instance type and become simply object,
-        // so converts it again to Observable
-        value = Observable.of(item.value);
+      if (isNotEmpty(item)) {
+        if (typeof item === 'string') {
+          value = Observable.of(item);
+        } else if (item instanceof Observable) {
+          value = item;
+        } else if (typeof item === 'object' && isNotEmpty(item.value)) {
+          // when notifications state is transferred from SSR to CSR,
+          // Observables Object loses the instance type and become simply object,
+          // so converts it again to Observable
+          value = Observable.of(item.value);
+        }
       }
       this[key] = value
     } else {
