@@ -94,7 +94,6 @@ import { PoolTaskActionsComponent } from './pool-task-actions/pool-task-actions.
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
 import { WrapperDetailElementComponent } from './object-detail/wrapper-detail-element/wrapper-detail-element.component';
 import { ItemDetailPreviewComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
-import { DuplicatedComponent } from './duplicated/duplicated.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -170,7 +169,6 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  DuplicatedComponent,
 ];
 
 const COMPONENTS_ITEM_PAGE = [

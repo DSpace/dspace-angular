@@ -1,16 +1,11 @@
-import {
-  ComponentFactoryResolver,
-  Injectable,
-  ReflectiveInjector,
-  Type,
-  ViewContainerRef
-} from '@angular/core';
+import { ComponentFactoryResolver, Injectable, ReflectiveInjector, Type, ViewContainerRef } from '@angular/core';
 
 import { SectionContainerComponent } from './container/section-container.component';
 import { SectionDataModel } from './section.model';
 import { SectionDataObject } from './section-data.model';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
-import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
+import { SectionType } from './section-type';
 
 export interface FactoryDataModel {
   component: Type<any>;
@@ -19,9 +14,6 @@ export interface FactoryDataModel {
 
 @Injectable()
 export class SectionFactoryComponent {
-  // @TODO retrieve from app configuration
-  typeToComponentMapping = [ 'submission-form', 'upload', 'license', 'cclicense', 'collection' ];
-
   constructor(private resolver: ComponentFactoryResolver) {
   }
 
@@ -36,7 +28,8 @@ export class SectionFactoryComponent {
     if (!factoryData) {
       return;
     }
-    if (!this.typeToComponentMapping.includes(factoryData.sectionType)) {
+
+    if (!(Object.values(SectionType).includes(factoryData.sectionType))) {
       throw  Error(`Section '${factoryData.sectionType}' is not available. Please checks form configuration file.`);
     }
 
@@ -49,9 +42,9 @@ export class SectionFactoryComponent {
 
     // Inputs need to be in the following format to be resolved properly
     const inputProviders = [
-      {provide: 'collectionId',  useValue: collectionId},
-      {provide: 'sectionData',  useValue: inputs},
-      {provide: 'submissionId',  useValue: submissionId}
+      {provide: 'collectionId', useValue: collectionId},
+      {provide: 'sectionData', useValue: inputs},
+      {provide: 'submissionId', useValue: submissionId}
     ];
     const resolvedInputs = ReflectiveInjector.resolve(inputProviders);
 

@@ -232,6 +232,8 @@
       "submit.progressbar.describe.creators": "Creators",
       "submit.progressbar.describe.titleinformation": "Title Information",
       "submit.progressbar.describe.reference": "Reference",
+      "submit.progressbar.describe.deduplication": "Deduplication",
+      "submit.progressbar.describe.recycle": "Recycle",
       "submit.progressbar.upload": "Upload files",
       "submit.progressbar.license": "Deposit license",
       "submit.progressbar.cclicense": "Creative commons license",

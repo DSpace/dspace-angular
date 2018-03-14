@@ -4,5 +4,6 @@ export enum SectionType {
   License = 'license',
   CcLicense = 'cclicense',
   collection = 'collection',
-  Recycle = 'recycle'
+  Recycle = 'recycle',
+  Deduplication = 'deduplication'
 }

@@ -33,13 +33,15 @@ import { UploadSectionFileEditComponent } from './section/upload/file/edit/file-
 import { UploadSectionFileViewComponent } from './section/upload/file/view/file-view.component';
 import { AccessConditionsComponent } from './section/upload/accessConditions/accessConditions.component';
 import { RecycleSectionComponent } from './section/recycle/section-recycle.component';
+import { DeduplicationSectionComponent } from './section/deduplication/section-deduplication.component';
+import { DeduplicationMatchComponent } from './section/deduplication/match/deduplication-match.component';
 
 @NgModule({
   imports: [
     CommonModule,
     CoreModule,
     SharedModule,
-    StoreModule.forFeature('submission', submissionReducers, { }),
+    StoreModule.forFeature('submission', submissionReducers, {}),
     EffectsModule.forFeature(submissionEffects),
     TranslateModule
   ],
@@ -62,9 +64,18 @@ import { RecycleSectionComponent } from './section/recycle/section-recycle.compo
     UploadSectionFileComponent,
     UploadSectionFileEditComponent,
     UploadSectionFileViewComponent,
-    RecycleSectionComponent
+    RecycleSectionComponent,
+    DeduplicationSectionComponent,
+    DeduplicationMatchComponent,
   ],
-  entryComponents: [ DefaultSectionComponent, FilesSectionComponent, FormSectionComponent, LicenseSectionComponent, SectionContainerComponent, RecycleSectionComponent ],
+  entryComponents: [
+    DefaultSectionComponent,
+    FilesSectionComponent,
+    FormSectionComponent,
+    LicenseSectionComponent,
+    SectionContainerComponent,
+    RecycleSectionComponent,
+    DeduplicationSectionComponent],
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent
@@ -78,4 +89,5 @@ import { RecycleSectionComponent } from './section/recycle/section-recycle.compo
     SubmissionUploadsConfigService
   ]
 })
-export class SubmissionModule {}
+export class SubmissionModule {
+}
