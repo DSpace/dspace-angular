@@ -8,7 +8,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchOptions, ViewMode } from '../+search-page/search-options.model';
@@ -17,6 +17,11 @@ import { SearchService } from '../+search-page/search-service/search.service';
 import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
 import { Workspaceitem } from '../core/submission/models/workspaceitem.model';
 import { RolesService } from '../core/roles/roles.service';
+import { Store } from '@ngrx/store';
+import { Eperson } from '../core/eperson/models/eperson.model';
+import { AppState } from '../app.reducer';
+import { getAuthenticatedUser } from '../core/auth/selectors';
+import { MyDSpaceConfigurationType } from './mydspace-configuration-type';
 
 /**
  * This component renders a simple item page.
@@ -36,7 +41,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   private sub;
   private scope: string;
 
-  configuration: string;
+  configuration: MyDSpaceConfigurationType;
   query: string;
   scopeObjectRDObs: Observable<RemoteData<DSpaceObject>>;
   resultsRDObs:  Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>>;
@@ -46,13 +51,16 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   sortConfig: SortOptions;
   scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
+  user: Observable<Eperson>;
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
               private communityService: CommunityDataService,
               public rolesService: RolesService,
               private sidebarService: SearchSidebarService,
+              private store: Store<AppState>,
               private windowService: HostWindowService) {
+
     this.isMobileView =  Observable.combineLatest(
       this.windowService.isXs(),
       this.windowService.isSm(),
@@ -71,20 +79,21 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.user = this.store.select(getAuthenticatedUser);
+
     this.sub = this.route
       .queryParams
       .subscribe((params) => {
           // Save current parameters
           this.currentParams = params;
-          this.configuration = params.configuration || 'submission';
+          this.configuration = this.getSearchConfiguration(params.configuration);
           this.query = params.query || '';
           this.scope = params.scope;
           const page = +params.page || this.searchOptions.pagination.currentPage;
           let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
           let pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
 
-          if (isNotEmpty(params.view) && (params.view === ViewMode.Detail || params.view === ViewMode.Grid)) {
-            params.view = ViewMode.Detail;
+          if (isNotEmpty(params.view) && (params.view === ViewMode.Detail)) {
             pageSizeOptions = [1];
             if (pageSizeOptions.indexOf(pageSize) === -1) {
               pageSize = 1;
@@ -132,6 +141,16 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
           }
         }
       );
+  }
+
+  private getSearchConfiguration(configurationParam) {
+    let configuration: MyDSpaceConfigurationType;
+    if (isEmpty(configurationParam)) {
+      configuration = this.rolesService.isSubmitter() ?
+        MyDSpaceConfigurationType.Workspace :
+        MyDSpaceConfigurationType.Workflow;
+    }
+    return configuration
   }
 
   private isFilterParamKey(key: string) {

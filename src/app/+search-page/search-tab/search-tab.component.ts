@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { RolesService } from '../../core/roles/roles.service';
 import { isEmpty } from '../../shared/empty.util';
-
-export enum SearchTabOptions {
-  Workspace = 'workspace',
-  Workflow = 'workflow'
-}
+import { MyDSpaceConfigurationType } from '../../+my-dspace-page/mydspace-configuration-type';
 
 @Component({
   selector: 'ds-search-tab',
@@ -16,27 +12,26 @@ export enum SearchTabOptions {
 export class SearchTabComponent implements OnInit {
 
   public tabOptions = [];
-  public selectedOption: SearchTabOptions;
+  public selectedOption: MyDSpaceConfigurationType;
 
   constructor(private rolesService: RolesService, private router: Router) {
   }
 
   ngOnInit() {
 
-    Object.keys(SearchTabOptions)
-      // .filter((key) => !isNaN(Number(SearchTabOptions[key])))
+    Object.keys(MyDSpaceConfigurationType)
       .forEach((key) => {
-        const label = `mydspace.show.${SearchTabOptions[key]}`;
-        // if (SearchTabOptions[key] === SearchTabOptions.Workspace && this.rolesService.isSubmitter()) {
-        if (SearchTabOptions[key] === SearchTabOptions.Workspace && true) {
-          this.tabOptions.push({value: SearchTabOptions[key], label});
-          this.selectedOption = SearchTabOptions.Workspace;
+        const label = `mydspace.show.${MyDSpaceConfigurationType[key]}`;
+        // if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workspace && this.rolesService.isSubmitter()) {
+        if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workspace && true) {
+          this.tabOptions.push({value: MyDSpaceConfigurationType[key], label});
+          this.selectedOption = MyDSpaceConfigurationType.Workspace;
         }
-        // if (SearchTabOptions[key] === SearchTabOptions.Workflow && this.rolesService.isController()) {
-        if (SearchTabOptions[key] === SearchTabOptions.Workflow && true) {
-          this.tabOptions.push({value: SearchTabOptions[key], label});
+        // if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workflow && this.rolesService.isController()) {
+        if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workflow && true) {
+          this.tabOptions.push({value: MyDSpaceConfigurationType[key], label});
           if (isEmpty(this.selectedOption)) {
-            this.selectedOption = SearchTabOptions.Workflow;
+            this.selectedOption = MyDSpaceConfigurationType.Workflow;
           }
         }
       });
@@ -51,7 +46,7 @@ export class SearchTabComponent implements OnInit {
     this.router.navigate(['/mydspace'], navigationExtras);
   }
 
-  compare(item1: SearchTabOptions, item2: SearchTabOptions) {
+  compare(item1: MyDSpaceConfigurationType, item2: MyDSpaceConfigurationType) {
     return item1 === item2;
   }
 }
