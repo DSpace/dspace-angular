@@ -128,11 +128,20 @@ export class NotificationComponent implements OnInit, OnDestroy {
     if (item instanceof TemplateRef) {
       this[key] = item;
     } else if (key === 'title' || key === 'content') {
-      this[key] = isNotEmpty(item) ?
-        typeof item === 'string' ?
-          Observable.of(item)
-          : typeof item === 'object' && isNotEmpty(item.payload) ? Observable.of(item.payload) : null
-        : null;
+      let value = null;
+      if (isNotEmpty(item)) {
+        if (typeof item === 'string') {
+          value = Observable.of(item);
+        } else if (item instanceof Observable) {
+          value = item;
+        } else if (typeof item === 'object' && isNotEmpty(item.value)) {
+          // when notifications state is transferred from SSR to CSR,
+          // Observables Object loses the instance type and become simply object,
+          // so converts it again to Observable
+          value = Observable.of(item.value);
+        }
+      }
+      this[key] = value
     } else {
       this[key] = this.domSanitizer.bypassSecurityTrustHtml(item);
     }
