@@ -129,7 +129,7 @@ const PROVIDERS = [
   AuthorityService,
   IntegrationResponseParsingService,
   UUIDService,
-  NotificationsService,  
+  NotificationsService,
   WorkspaceitemDataService,
   WorkflowitemDataService,
   ClaimedTaskDataService,

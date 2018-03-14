@@ -53,6 +53,19 @@ export class SearchResponseParsingService implements ResponseParsingService {
         _embedded: undefined
       }));
     payload.objects = objects;
+
+    const facets = payload._embedded.facets
+      .map((facet) => {
+        const values = facet._embedded.values
+          .map((value) => {
+            return Object.assign({}, value, {search: value._links.search.href})
+          })
+          .reduce((combined, thisElement) => [...combined, ...thisElement], [])
+        return Object.assign({}, facet, {values: values})
+      })
+      .reduce((combined, thisElement) => [...combined, ...thisElement], []);
+    payload.facets = facets;
+
     const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
     return new SearchSuccessResponse(deserialized, data.statusCode, this.processPageInfo(data.payload.page));
   }

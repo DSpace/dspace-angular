@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { RolesService } from '../../core/roles/roles.service';
+import { isEmpty } from '../../shared/empty.util';
 
 export enum SearchTabOptions {
-  'Your submissions',
-  'All tasks'
+  Workspace = 'workspace',
+  Workflow = 'workflow'
 }
 
 @Component({
@@ -11,16 +13,45 @@ export enum SearchTabOptions {
   styleUrls: ['./search-tab.component.scss'],
   templateUrl: './search-tab.component.html',
 })
-export class SearchTabComponent {
+export class SearchTabComponent implements OnInit {
 
-  constructor(private router: Router) {
+  public tabOptions = [];
+  public selectedOption: SearchTabOptions;
+
+  constructor(private rolesService: RolesService, private router: Router) {
   }
 
-  public tabOptions = SearchTabOptions;
+  ngOnInit() {
+
+    Object.keys(SearchTabOptions)
+      // .filter((key) => !isNaN(Number(SearchTabOptions[key])))
+      .forEach((key) => {
+        const label = `mydspace.show.${SearchTabOptions[key]}`;
+        // if (SearchTabOptions[key] === SearchTabOptions.Workspace && this.rolesService.isSubmitter()) {
+        if (SearchTabOptions[key] === SearchTabOptions.Workspace && true) {
+          this.tabOptions.push({value: SearchTabOptions[key], label});
+          this.selectedOption = SearchTabOptions.Workspace;
+        }
+        // if (SearchTabOptions[key] === SearchTabOptions.Workflow && this.rolesService.isController()) {
+        if (SearchTabOptions[key] === SearchTabOptions.Workflow && true) {
+          this.tabOptions.push({value: SearchTabOptions[key], label});
+          if (isEmpty(this.selectedOption)) {
+            this.selectedOption = SearchTabOptions.Workflow;
+          }
+        }
+      });
+  }
 
   onSelect(event: Event) {
-    /*const value = (event.target.selectedIndex === 0) ? 'submissions' : 'tasks';
-    console.log(event.target.value);
-    this.router.navigate(['/mydspace', {'f.show': value}]);*/
+    const navigationExtras: NavigationExtras = {
+      queryParams: {configuration: this.selectedOption},
+      queryParamsHandling: 'merge'
+    };
+
+    this.router.navigate(['/mydspace'], navigationExtras);
+  }
+
+  compare(item1: SearchTabOptions, item2: SearchTabOptions) {
+    return item1 === item2;
   }
 }

@@ -1,6 +1,7 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
+import { SearchFilterConfig } from './search-filter-config.model';
 
 export class SearchQueryResponse {
   @autoserialize
@@ -27,8 +28,8 @@ export class SearchQueryResponse {
   @autoserializeAs(NormalizedSearchResult)
   objects: NormalizedSearchResult[];
 
-  @autoserialize
-  facets: any; // TODO
+  @autoserializeAs(SearchFilterConfig)
+  facets: SearchFilterConfig[];
 
   @autoserialize
   self: string;

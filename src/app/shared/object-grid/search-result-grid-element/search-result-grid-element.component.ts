@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
-import { isEmpty, hasNoValue } from '../../empty.util';
+import { isEmpty, hasNoValue, isNotEmpty } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
@@ -43,14 +43,16 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
 
   getFirstValue(key: string): string {
     let result: string;
-    this.object.hitHighlights.some(
-      (md: Metadatum) => {
-        if (key === md.key) {
-          result = md.value;
-          return true;
+    if (isNotEmpty(this.object.hitHighlights)) {
+      this.object.hitHighlights.some(
+        (md: Metadatum) => {
+          if (key === md.key) {
+            result = md.value;
+            return true;
+          }
         }
-      }
-    );
+      );
+    }
     if (hasNoValue(result)) {
       result = this.dso.findMetadata(key);
     }

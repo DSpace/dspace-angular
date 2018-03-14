@@ -6,12 +6,12 @@
             <input type="checkbox" [checked]="true"/>
             <span class="filter-value">{{value}}</span>
         </a>
-        <a *ngFor="let value of filterValues; let i=index" class="d-block clearfix"
+        <a *ngFor="let value of getFilters(); let i=index" class="d-block clearfix"
            [routerLink]="[getSearchLink()]"
-           [queryParams]="getQueryParamsWith(value.value) | async">
+           [queryParams]="getQueryParamsWith(value.label) | async">
             <ng-template [ngIf]="i < (facetCount | async)">
                     <input type="checkbox" [checked]="false"/>
-                    <span class="filter-value">{{value.value}}</span>
+                    <span class="filter-value">{{value.label}}</span>
                 <span class="float-right filter-value-count">
                     <span class="badge badge-secondary badge-pill">{{value.count}}</span>
                 </span>

@@ -1,11 +1,13 @@
 <div class="setting-option result-order-settings mb-3 p-3">
-    <h5>{{ 'search.sidebar.tab.title' | translate}}</h5>
-    <select class="form-control"
-            (change)="onSelect($event)">
-        <option *ngFor="let tab of (tabOptions | dsKeys); let currentElementIndex = index"
-                [value]="currentElementIndex"
-                [selected]="currentElementIndex === 0">
-            {{tab.value}}
-        </option>
-    </select>
+  <h5>{{ 'search.sidebar.tab.title' | translate}}</h5>
+
+  <select class="form-control"
+          [compareWith]="compare"
+          [(ngModel)]="selectedOption"
+          (change)="onSelect($event)">
+    <option *ngFor="let tab of tabOptions;" [ngValue]="tab.value">
+      {{tab.label | translate}}
+    </option>
+  </select>
+
 </div>
