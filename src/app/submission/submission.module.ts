@@ -35,6 +35,7 @@ import { AccessConditionsComponent } from './section/upload/accessConditions/acc
 import { RecycleSectionComponent } from './section/recycle/section-recycle.component';
 import { DeduplicationSectionComponent } from './section/deduplication/section-deduplication.component';
 import { DeduplicationMatchComponent } from './section/deduplication/match/deduplication-match.component';
+import { DeduplicationService } from './section/deduplication/deduplication.service';
 
 @NgModule({
   imports: [
@@ -86,7 +87,8 @@ import { DeduplicationMatchComponent } from './section/deduplication/match/dedup
     SectionService,
     SubmissionService,
     SubmissionRestService,
-    SubmissionUploadsConfigService
+    SubmissionUploadsConfigService,
+    DeduplicationService
   ]
 })
 export class SubmissionModule {

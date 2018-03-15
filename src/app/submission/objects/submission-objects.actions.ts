@@ -43,6 +43,12 @@ export const SubmissionObjectActionTypes = {
   DEPOSIT_SUBMISSION: type('dspace/submission/DEPOSIT_SUBMISSION'),
   DEPOSIT_SUBMISSION_SUCCESS: type('dspace/submission/DEPOSIT_SUBMISSION_SUCCESS'),
   DEPOSIT_SUBMISSION_ERROR: type('dspace/submission/DEPOSIT_SUBMISSION_ERROR'),
+  SET_WORKSPACE_DUPLICATION: type('/sections/deduplication/SET_WORKSPACE_DUPLICATION'),
+  SET_WORKSPACE_DUPLICATION_SUCCESS: type('/sections/deduplication/SET_WORKSPACE_DUPLICATION_SUCCESS'),
+  SET_WORKSPACE_DUPLICATION_ERROR: type('/sections/deduplication/SET_WORKSPACE_DUPLICATION_ERROR'),
+  SET_WORKFLOW_DUPLICATION: type('/sections/deduplication/SET_WORKFLOW_DUPLICATION'),
+  SET_WORKFLOW_DUPLICATION_SUCCESS: type('/sections/deduplication/SET_WORKFLOW_DUPLICATION_SUCCESS'),
+  SET_WORKFLOW_DUPLICATION_ERROR: type('/sections/deduplication/SET_WORKFLOW_DUPLICATION_ERROR'),
 
   // Upload file types
   NEW_FILE: type('dspace/submission/NEW_FILE'),
@@ -622,6 +628,132 @@ export class DeleteUploadedFileAction implements Action {
   }
 }
 
+export class SetWorkspaceDuplicatedAction implements Action {
+  type = SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION;
+  payload: {
+    index: number;
+    decision: string;
+    note?: string
+  };
+
+  /**
+   * Create a new SetWorkspaceDuplicatedAction
+   *
+   * @param index
+   *    the index in matches array
+   * @param decision
+   *    the submitter's decision ('verify'|'reject'|null)
+   * @param note
+   *    the submitter's note, for 'verify' decision only
+   */
+  constructor(payload: any) {
+    this.payload = payload;
+  }
+}
+
+export class SetWorkspaceDuplicatedSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION_SUCCESS;
+  payload: {
+    index: number;
+    decision: string;
+    note?: string
+  };
+
+  /**
+   * Create a new SetWorkspaceDuplicatedSuccessAction
+   *
+   * @param index
+   *    the index in matches array
+   * @param decision
+   *    the submitter's decision ('verify'|'reject'|null)
+   * @param note
+   *    the submitter's note, for 'verify' decision only
+   */
+  constructor(payload: any) {
+    this.payload = payload;
+  }
+}
+
+export class SetWorkspaceDuplicatedErrorAction implements Action {
+  type = SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION_ERROR;
+  payload: {
+    index: number;
+  };
+
+  /**
+   * Create a new SetWorkspaceDuplicatedErrorAction
+   *
+   * @param index
+   *    the index in matches array
+   */
+  constructor(index: number) {
+    this.payload = { index };
+  }
+}
+
+export class SetWorkflowDuplicatedAction implements Action {
+  type = SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION;
+  payload: {
+    index: number;
+    decision: string;
+    note?: string
+  };
+
+  /**
+   * Create a new SetWorkflowDuplicatedAction
+   *
+   * @param index
+   *    the index in matches array
+   * @param decision
+   *    the controller's decision ('verify'|'reject'|null)
+   * @param note
+   *    the controller's note, for 'verify' decision only
+   */
+  constructor(payload: any) {
+    this.payload = payload;
+  }
+}
+
+export class SetWorkflowDuplicatedSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION_SUCCESS;
+  payload: {
+    index: number;
+    decision: string;
+    note?: string
+  };
+
+  /**
+   * Create a new SetWorkflowDuplicatedSuccessAction
+   *
+   * @param index
+   *    the index in matches array
+   * @param decision
+   *    the controller's decision ('verify'|'reject'|null)
+   * @param note
+   *    the controller's note, for 'verify' decision only
+   */
+  constructor(payload: any) {
+    this.payload = payload;
+  }
+}
+
+export class SetWorkflowDuplicatedErrorAction implements Action {
+  type = SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION_ERROR;
+  payload: {
+    index: number;
+  };
+
+  /**
+   * Create a new SetWorkflowDuplicatedErrorAction
+   *
+   * @param index
+   *    the index in matches array
+   */
+  constructor(index: number) {
+    this.payload = { index };
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -651,4 +783,10 @@ export type SubmissionObjectAction = DisableSectionAction
   | SaveSubmissionFormErrorAction
   | SaveSubmissionSectionFormAction
   | CompleteSaveSubmissionFormAction
-  | SetActiveSectionAction;
+  | SetActiveSectionAction
+  | SetWorkspaceDuplicatedAction
+  | SetWorkspaceDuplicatedSuccessAction
+  | SetWorkspaceDuplicatedErrorAction
+  | SetWorkflowDuplicatedAction
+  | SetWorkflowDuplicatedSuccessAction
+  | SetWorkflowDuplicatedErrorAction;

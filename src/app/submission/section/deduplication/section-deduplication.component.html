@@ -17,10 +17,14 @@
   [hidePagerWhenSinglePage]="false"
   (pageChange)="setPage($event)">
   <ul class="list-unstyled">
-    <li *ngFor="let match of (sectionDataObs | async)?.matches | paginate: {id: config.id, itemsPerPage: config.pageSize, currentPage: config.currentPage }" class="mt-4 mb-4">
+    <li *ngFor="let match of (sectionDataObs | async)?.matches
+    | paginate: {id: config.id, itemsPerPage: config.pageSize, currentPage: config.currentPage}; let i = index" class="mt-4 mb-4">
+
       <ds-deduplication-match
+        *ngVar="(i + (config.currentPage-1)*config.pageSize) as totalIndex"
         [match]="match"
-        [submissionId]="submissionId"></ds-deduplication-match>
+        [submissionId]="submissionId"
+        [index]=totalIndex></ds-deduplication-match>
     </li>
   </ul>
 </ds-pagination>

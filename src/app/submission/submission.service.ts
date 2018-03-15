@@ -15,7 +15,7 @@ import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionRestService } from './submission-rest.service';
 import { Router } from '@angular/router';
 
-export const SUBMISSION_SCOPE = 'SUBMISSION';
+export const WORKSPACE_SCOPE = 'WORKSPACE';
 export const WORKFLOW_SCOPE = 'WORKFLOW';
 
 @Injectable()
@@ -59,7 +59,7 @@ export class SubmissionService {
   }
 
   getSubmissionScope(): string {
-    return  (this.getSubmissionObjectLinkName() === 'workspaceitems') ? SUBMISSION_SCOPE : WORKFLOW_SCOPE;
+    return (this.getSubmissionObjectLinkName() === 'workspaceitems') ? WORKSPACE_SCOPE : WORKFLOW_SCOPE;
   }
 
   getSectionsState(submissionId: string): Observable<boolean> {
@@ -74,14 +74,14 @@ export class SubmissionService {
             .filter((property) => sections.hasOwnProperty(property))
             .filter((property) => sections[property].isValid === false)
             .forEach((property) => {
-              states.push(sections[property].isValid)
+              states.push(sections[property].isValid);
             });
         }
 
         return !isEmpty(sections) && isEmpty(states);
       })
       .distinctUntilChanged()
-      .startWith(false)
+      .startWith(false);
   }
 
   getSubmissionSaveProcessingStatus(submissionId: string): Observable<boolean> {
@@ -89,7 +89,7 @@ export class SubmissionService {
       .filter((state: SubmissionObjectEntry) => isNotUndefined(state))
       .map((state: SubmissionObjectEntry) => state.savePending)
       .distinctUntilChanged()
-      .startWith(false)
+      .startWith(false);
   }
 
   getSubmissionDepositProcessingStatus(submissionId: string): Observable<boolean> {
@@ -97,8 +97,9 @@ export class SubmissionService {
       .filter((state: SubmissionObjectEntry) => isNotUndefined(state))
       .map((state: SubmissionObjectEntry) => state.depositPending)
       .distinctUntilChanged()
-      .startWith(false)
+      .startWith(false);
   }
+
 
   redirectToMyDSpace() {
     this.router.navigate(['/mydspace']);

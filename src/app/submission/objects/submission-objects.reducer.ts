@@ -13,7 +13,8 @@ import {
   CompleteSaveSubmissionFormAction, SetActiveSectionAction, SaveSubmissionSectionFormAction,
   DepositSubmissionAction, DepositSubmissionSuccessAction, DepositSubmissionErrorAction,
   ChangeSubmissionCollectionAction, SaveSubmissionFormSuccessAction, SaveSubmissionFormErrorAction,
-  SaveSubmissionSectionFormSuccessAction, SaveSubmissionSectionFormErrorAction
+  SaveSubmissionSectionFormSuccessAction, SaveSubmissionSectionFormErrorAction, SetWorkspaceDuplicatedAction,
+  SetWorkflowDuplicatedAction
 } from './submission-objects.actions';
 import { deleteProperty } from '../../shared/object.util';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
@@ -154,6 +155,15 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.DELETE_FILE: {
       return deleteFile(state, action as DeleteUploadedFileAction);
+    }
+
+    // deduplication
+    case SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION: {
+      return updateDeduplication(state, action as SetWorkspaceDuplicatedAction);
+    }
+
+    case SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION: {
+      return updateDeduplication(state, action as SetWorkflowDuplicatedAction);
     }
 
     // errors actions
@@ -728,4 +738,28 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
     }
   }
   return state;
+}
+
+/**
+ * Update a Workspace deduplication match.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a SetWorkspaceDuplicatedAction or SetWorkflowDuplicatedAction
+ * @return SubmissionObjectState
+ *    the new state, with the match parameter changed.
+ */
+function updateDeduplication(state: SubmissionObjectState, action: SetWorkspaceDuplicatedAction|SetWorkflowDuplicatedAction): SubmissionObjectState {
+  const matches = Object.assign([], (state[(action.payload as any).submissionId].sections.deduplication.data as any).matches);
+  const newMatch = (action.payload as any).data;
+  matches.forEach( (match, i) => {
+    if (i === action.payload.index) {
+      matches.splice(i, 1, Object.assign({}, match, newMatch));
+      return;
+    }
+  });
+  // const updatedMatches = Object.assign({}, matches, newMatch);
+  const newState = Object.assign({}, state, {[(action.payload as any).submissionId]: {sections: {deduplication: {data: {matches}}}}});
+  return newState;
 }

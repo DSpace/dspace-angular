@@ -232,7 +232,7 @@
       "submit.progressbar.describe.creators": "Creators",
       "submit.progressbar.describe.titleinformation": "Title Information",
       "submit.progressbar.describe.reference": "Reference",
-      "submit.progressbar.describe.deduplication": "Deduplication",
+      "submit.progressbar.describe.deduplication": "Potential Matches",
       "submit.progressbar.describe.recycle": "Recycle",
       "submit.progressbar.upload": "Upload files",
       "submit.progressbar.license": "Deposit license",
@@ -254,7 +254,13 @@
       },
       "deduplication": {
         "duplicated": "It's a duplicate",
-        "not_duplicated": "It is not a duplicate"
+        "not_duplicated": "It is not a duplicate",
+        "duplicated_help": "Click here if this is a duplicate of your item",
+        "not_duplicated_help": "Click here if this is not a duplicate of your item",
+        "note_help": "Please enter your reason for the duplication into the box below.",
+        "note_placeholder": "Describe the reason of duplication",
+        "clear_decision": "Clear decision",
+        "clear_decision_help": "Click for clear the decision about this pontential duplicate"
       }
     },
     "workflow": {

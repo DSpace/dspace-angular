@@ -1,25 +1,73 @@
 <ds-item-list-preview
   [item]="item"
   [object]="object"
-  statusTxt="In progress"
 ></ds-item-list-preview>
 
-<div class="mb-3">
+
+<button (click)="toggleSubmitterDecision()"
+        class="btn btn-link">
+ <span *ngIf="isWorkFlow && !showSubmitterDecision"> <i class="fa fa-angle-double-down"></i> Show submitter decision</span>
+  <span *ngIf="isWorkFlow && showSubmitterDecision"> <i class="fa fa-angle-double-up"></i> Hide submitter decision</span>
+</button>
+
+<div *ngIf="showSubmitterDecision">
+  <label>Submitter decision: {{match.submitterDecision}} </label>
+</div>
+
+<div class="mb-3" *ngIf="!decidedYet">
   <button type="button"
           class="btn btn-warning"
-          ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
-          [disabled]="processingApprove"
-          (click)="setAsDuplicated()">
+          ngbTooltip="{{'submission.section.deduplication.duplicated_help' | translate}}"
+          (click)="openModal(modal)">
     <span> {{'submission.section.deduplication.duplicated' | translate}}</span>
   </button>
 
   <button type="button"
           class="btn btn-success"
-          ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
-          [disabled]="processingApprove"
+          ngbTooltip="{{'submission.section.deduplication.not_duplicated_help' | translate}}"
           (click)="setAsNotDuplicated()">
     <span> {{'submission.section.deduplication.not_duplicated' | translate}}</span>
   </button>
 </div>
+
+<div class="mb-3" *ngIf="decidedYet">
+  <button type="button"
+          class="btn btn-danger"
+          ngbTooltip="{{'submission.section.deduplication.clear_decision_help' | translate}}"
+          (click)="clearDecision()">
+    <span> {{'submission.section.deduplication.clear_decision' | translate}}</span>
+  </button>
+</div>
+
+<ng-template #modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{'submission.workflow.tasks.claimed.reject.reason.title' | translate}}</h4>
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-info" role="alert">
+      {{'submission.section.deduplication.note_help' | translate}}
+    </div>
+    <form (ngSubmit)="setAsDuplicated();" [formGroup]="rejectForm" >
+    <textarea
+      style="width: 100%"
+      formControlName="reason"
+      rows="4"
+      placeholder="{{'submission.section.deduplication.note_placeholder' | translate}}"></textarea>
+      <button
+        id="btn-chat"
+        class="btn btn-danger btn-lg btn-block mt-3"
+        [disabled]="!rejectForm.valid"
+        type="submit">
+        <span>{{'submission.section.deduplication.duplicated' | translate}}</span>
+      </button>
+    </form>
+  </div>
+</ng-template>
 
 

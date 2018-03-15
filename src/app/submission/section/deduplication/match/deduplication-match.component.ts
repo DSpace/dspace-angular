@@ -1,6 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../core/shared/item.model';
+import { DeduplicationSchema } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
+import { SubmissionService, WORKFLOW_SCOPE, WORKSPACE_SCOPE } from '../../../submission.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { SubmissionState } from '../../../submission.reducers';
+import { DeduplicationService } from '../deduplication.service';
+import { SetWorkflowDuplicatedAction, SetWorkspaceDuplicatedAction } from '../../../objects/submission-objects.actions';
 
 @Component({
   selector: 'ds-deduplication-match',
@@ -9,29 +17,106 @@ import { Item } from '../../../../core/shared/item.model';
 
 export class DeduplicationMatchComponent implements OnInit {
   @Input()
-  match: DSpaceObject;
+  match: DeduplicationSchema;
   @Input()
   submissionId: string;
+  @Input()
+  index: string;
+
   object = {hitHighlights: []};
   item: Item;
+  isWorkFlow = false;
+  showSubmitterDecision = false;
+
+  decidedYet: boolean;
+
+  closeResult: string; // for modal
+  rejectForm: FormGroup;
+  modalRef: NgbModalRef;
+
+  constructor(private deduplicationService: DeduplicationService,
+              private submissionService: SubmissionService,
+              private modalService: NgbModal,
+              private formBuilder: FormBuilder,
+              private store: Store<SubmissionState>) {
+  }
 
   ngOnInit(): void {
-    if ((this.match as any).item) {
+    if ((this.match.matchObject as any).item) {
       // WSI & WFI
-      this.item = Object.assign(new Item(), (this.match as any).item);
+      this.item = Object.assign(new Item(), (this.match.matchObject as any).item);
     } else {
       // Item
-      this.item = Object.assign(new Item(), this.item);
+      this.item = Object.assign(new Item(), this.match.matchObject);
+    }
+
+    this.isWorkFlow = this.submissionService.getSubmissionScope() === WORKFLOW_SCOPE ? true : false;
+
+    this.rejectForm = this.formBuilder.group({
+      reason: ['', Validators.required]
+    });
+
+    this.decidedYet = this.isWorkFlow ?
+      this.match.workflowDecision !== null ? true : false
+      : this.match.submitterDecision !== null ? true : false;
+  }
+
+  setAsDuplicated() {
+    console.log('Setting item #' + this.item.uuid + ' as duplicated...');
+    this.dispatchAction(true);
+    this.modalRef.dismiss();
+  }
+
+  setAsNotDuplicated() {
+    console.log('Setting item #' + this.item.uuid + ' as not duplicated...');
+    this.dispatchAction(false);
+  }
+
+  clearDecision() {
+    console.log('Clearing item #' + this.item.uuid + ' from previous decision...');
+
+  }
+
+  private dispatchAction(duplicated: boolean, clear?: boolean): void {
+    const payload = {
+      submissionId: this.submissionId,
+      index: this.index,
+      data: {} as DeduplicationSchema
+    };
+
+    const now = new Date();
+    const time = now.getUTCFullYear() + '/' + now.getUTCMonth() + 1 + '/' + now.getDay();
+
+    if (this.isWorkFlow) {
+      // Call workflow action
+      payload.data.workflowDecision = clear ? null : duplicated ? 'verify' : 'reject';
+      payload.data.workflowTime = time;
+      if (!clear && duplicated) {
+        const note = this.rejectForm.get('reason').value;
+        payload.data.workflowNote = note;
+      }
+      // Dispatch WorkFLOW action
+      this.store.dispatch(new SetWorkflowDuplicatedAction(payload));
+    } else {
+      // Call workspace action
+      payload.data.submitterDecision = clear ? null : duplicated ? 'verify' : 'reject';
+      payload.data.submitterTime = time;
+      if (!clear && duplicated) {
+        const note = this.rejectForm.get('reason').value;
+        payload.data.submitterNote = note;
+      }
+      // Dispatch workSPACE action
+      this.store.dispatch(new SetWorkspaceDuplicatedAction(payload));
     }
   }
 
-  setAsDuplicated(index: number) {
-    console.log('Setting item #' + this.item.uuid + ' as duplicated...');
+  toggleSubmitterDecision() {
+    this.showSubmitterDecision = !this.showSubmitterDecision;
   }
 
-  setAsNotDuplicated(index: number) {
-    console.log('Setting item #' + this.item.uuid + ' as not duplicated...');
+  openModal(modal) {
+    this.rejectForm.reset();
+    this.modalRef = this.modalService.open(modal);
   }
-
 
 }
