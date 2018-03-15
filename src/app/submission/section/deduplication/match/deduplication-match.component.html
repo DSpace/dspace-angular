@@ -11,7 +11,14 @@
 </button>
 
 <div *ngIf="showSubmitterDecision">
-  <label>Submitter decision: {{match.submitterDecision}} </label>
+  <label>{{'submission.section.deduplication.submitter_decision' | translate}}
+    <span [ngClass]="{'label': true,
+              'label-warning': match.submitterDecision == 'verify',
+              'label-success': match.submitterDecision == 'reject',
+              'label-default': (match.submitterDecision == undefined || match.submitterDecision == null)}">
+      {{submitterDecisionTxt}}
+    </span>
+  </label>
 </div>
 
 <div class="mb-3" *ngIf="!decidedYet">

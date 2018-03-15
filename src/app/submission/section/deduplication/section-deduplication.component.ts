@@ -35,9 +35,6 @@ export class DeduplicationSectionComponent extends SectionModelComponent impleme
   }
 
   ngOnInit() {
-    console.log('DATA');
-    console.log(this.sectionData);
-
     this.config = new PaginationComponentOptions();
     this.config.id = 'duplicated_items';
     this.config.pageSize = 2;

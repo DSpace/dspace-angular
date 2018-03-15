@@ -260,7 +260,8 @@
         "note_help": "Please enter your reason for the duplication into the box below.",
         "note_placeholder": "Describe the reason of duplication",
         "clear_decision": "Clear decision",
-        "clear_decision_help": "Click for clear the decision about this pontential duplicate"
+        "clear_decision_help": "Click for clear the decision about this pontential duplicate",
+        "submitter_decision": "Submitter decision:"
       }
     },
     "workflow": {

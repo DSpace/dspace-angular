@@ -27,6 +27,7 @@ export class DeduplicationMatchComponent implements OnInit {
   item: Item;
   isWorkFlow = false;
   showSubmitterDecision = false;
+  submitterDecisionTxt: string;
 
   decidedYet: boolean;
 
@@ -59,6 +60,16 @@ export class DeduplicationMatchComponent implements OnInit {
     this.decidedYet = this.isWorkFlow ?
       this.match.workflowDecision !== null ? true : false
       : this.match.submitterDecision !== null ? true : false;
+
+    if (this.match.submitterDecision) {
+      if (this.match.submitterDecision === 'verify') {
+        this.submitterDecisionTxt = 'It\'s a duplicate';
+      } else {
+        this.submitterDecisionTxt = 'It\'s not a duplicate';
+      }
+    } else {
+      this.submitterDecisionTxt = 'Not decided';
+    }
   }
 
   setAsDuplicated() {
