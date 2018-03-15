@@ -22,6 +22,7 @@
 
       <ds-deduplication-match
         *ngVar="(i + (config.currentPage-1)*config.pageSize) as totalIndex"
+        [sectionId]="sectionData.id"
         [match]="match"
         [submissionId]="submissionId"
         [index]=totalIndex></ds-deduplication-match>

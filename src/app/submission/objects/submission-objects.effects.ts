@@ -201,8 +201,7 @@ export class SubmissionObjectEffects {
               private store$: Store<AppState>,
               private submissionService: SubmissionService,
               private deduplicationService: DeduplicationService,
-              private translate: TranslateService,
-              private operationsBuilder: JsonPatchOperationsBuilder) {
+              private translate: TranslateService) {
   }
 
   protected parseSaveResponse(response: SubmissionObject[], submissionId: string) {

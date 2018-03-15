@@ -9,6 +9,8 @@ import { Store } from '@ngrx/store';
 import { SubmissionState } from '../../../submission.reducers';
 import { DeduplicationService } from '../deduplication.service';
 import { SetWorkflowDuplicatedAction, SetWorkspaceDuplicatedAction } from '../../../objects/submission-objects.actions';
+import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
+import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 
 @Component({
   selector: 'ds-deduplication-match',
@@ -16,6 +18,8 @@ import { SetWorkflowDuplicatedAction, SetWorkspaceDuplicatedAction } from '../..
 })
 
 export class DeduplicationMatchComponent implements OnInit {
+  @Input()
+  sectionId: string;
   @Input()
   match: DeduplicationSchema;
   @Input()
@@ -34,12 +38,14 @@ export class DeduplicationMatchComponent implements OnInit {
   closeResult: string; // for modal
   rejectForm: FormGroup;
   modalRef: NgbModalRef;
+  pathCombiner: JsonPatchOperationPathCombiner;
 
   constructor(private deduplicationService: DeduplicationService,
               private submissionService: SubmissionService,
               private modalService: NgbModal,
               private formBuilder: FormBuilder,
-              private store: Store<SubmissionState>) {
+              private store: Store<SubmissionState>,
+              protected operationsBuilder: JsonPatchOperationsBuilder,) {
   }
 
   ngOnInit(): void {
@@ -70,6 +76,8 @@ export class DeduplicationMatchComponent implements OnInit {
     } else {
       this.submitterDecisionTxt = 'Not decided';
     }
+
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'matches', this.index);
   }
 
   setAsDuplicated() {
@@ -95,30 +103,44 @@ export class DeduplicationMatchComponent implements OnInit {
       data: {} as DeduplicationSchema
     };
 
-    const now = new Date();
-    const time = now.getUTCFullYear() + '/' + now.getUTCMonth() + 1 + '/' + now.getDay();
+    // Call workflow action
+    const decision = clear ? null : duplicated ? 'verify' : 'reject';
+    const pathDecision = this.isWorkFlow ? 'workflowDecision' : 'submitterDecision';
+    this.operationsBuilder.add(this.pathCombiner.getPath(pathDecision), decision, false, true);
 
-    if (this.isWorkFlow) {
-      // Call workflow action
-      payload.data.workflowDecision = clear ? null : duplicated ? 'verify' : 'reject';
-      payload.data.workflowTime = time;
-      if (!clear && duplicated) {
-        const note = this.rejectForm.get('reason').value;
-        payload.data.workflowNote = note;
-      }
-      // Dispatch WorkFLOW action
-      this.store.dispatch(new SetWorkflowDuplicatedAction(payload));
-    } else {
-      // Call workspace action
-      payload.data.submitterDecision = clear ? null : duplicated ? 'verify' : 'reject';
-      payload.data.submitterTime = time;
-      if (!clear && duplicated) {
-        const note = this.rejectForm.get('reason').value;
-        payload.data.submitterNote = note;
-      }
-      // Dispatch workSPACE action
-      this.store.dispatch(new SetWorkspaceDuplicatedAction(payload));
+    if (!clear && duplicated) {
+      const note = this.rejectForm.get('reason').value;
+      const pathNote = this.isWorkFlow ? 'workflowNote' : 'submitterNote';
+      this.operationsBuilder.add(this.pathCombiner.getPath(pathNote), note, false, true);
     }
+
+    // const now = new Date();
+    // const time = now.getUTCFullYear() + '/' + now.getUTCMonth() + 1 + '/' + now.getDay();
+
+    // if (this.isWorkFlow) {
+    //   // Call workflow action
+    //   payload.data.workflowDecision = clear ? null : duplicated ? 'verify' : 'reject';
+    //   // payload.data.workflowTime = time;
+    //   if (!clear && duplicated) {
+    //     const note = this.rejectForm.get('reason').value;
+    //     payload.data.workflowNote = note;
+    //   }
+    //   // Dispatch WorkFLOW action
+    //   // this.store.dispatch(new SetWorkflowDuplicatedAction(payload));
+    //   const path = 'workflowDecision'
+    //   this.operationsBuilder.add(this.pathCombiner.getPath(path), payload.data.workflowDecision, false, true);
+    //
+    // } else {
+    //   // Call workspace action
+    //   payload.data.submitterDecision = clear ? null : duplicated ? 'verify' : 'reject';
+    //   // payload.data.submitterTime = time;
+    //   if (!clear && duplicated) {
+    //     const note = this.rejectForm.get('reason').value;
+    //     payload.data.submitterNote = note;
+    //   }
+    //   // Dispatch workSPACE action
+    //   this.store.dispatch(new SetWorkspaceDuplicatedAction(payload));
+    // }
   }
 
   toggleSubmitterDecision() {
