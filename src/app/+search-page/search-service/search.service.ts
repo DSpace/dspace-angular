@@ -88,13 +88,13 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   // searchOptions: BehaviorSubject<SearchOptions>;
   searchOptions: SearchOptions;
 
-  constructor(protected responseCache: ResponseCacheService,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private routeService: RouteService,
-              private route: ActivatedRoute,
-              private rdb: RemoteDataBuildService,
-              private router: Router) {
+              private rdb: RemoteDataBuildService,) {
     super();
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
     pagination.id = 'search-results-pagination';
@@ -228,9 +228,10 @@ export class SearchService extends HALEndpointService implements OnDestroy {
           const value = searchFilterConfigName + ' ' + (i + 1);
           if (!selectedValues.includes(value)) {
             payload.push({
-              value: value,
-              count: Math.floor(Math.random() * 20) + 20 * (totalFilters - i), // make sure first results have the highest (random) count
-              search: (decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value)}
+                value: value,
+                count: Math.floor(Math.random() * 20) + 20 * (totalFilters - i), // make sure first results have the highest (random) count
+                search: (decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value)
+              }
             );
           }
         }
@@ -271,12 +272,12 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   getClearFiltersQueryParams(): any {
     const params = {};
     this.sub = this.route.queryParamMap
-      .subscribe((map) => {
-        map.keys
+      .subscribe((pmap) => {
+        pmap.keys
           .filter((key) => this.config
             .findIndex((conf: SearchFilterConfig) => conf.paramName === key) < 0)
           .forEach((key) => {
-            params[key] = map.get(key);
+            params[key] = pmap.get(key);
           })
       });
     return params;

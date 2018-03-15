@@ -154,13 +154,6 @@ export class EndpointMapRequest extends GetRequest {
   }
 }
 
-export class RootEndpointRequest extends EndpointMapRequest {
-  constructor(uuid: string, EnvConfig: GlobalConfig) {
-    const href = new RESTURLCombiner(EnvConfig, '/').toString();
-    super(uuid, href);
-  }
-}
-
 export class BrowseEndpointRequest extends GetRequest {
   constructor(uuid: string, href: string) {
     super(uuid, href);

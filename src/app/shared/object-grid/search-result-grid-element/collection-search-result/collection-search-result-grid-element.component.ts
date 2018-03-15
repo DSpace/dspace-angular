@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 
 import { renderElementsFor} from '../../../object-collection/shared/dso-element-decorator';
-
-
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ViewMode } from '../../../../+search-page/search-options.model';

@@ -2,9 +2,9 @@ import { cold, hot } from 'jasmine-marbles';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { RootEndpointRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from './hal-endpoint.service';
+import { EndpointMapRequest } from '../data/request.models';
 
 describe('HALEndpointService', () => {
   let service: HALEndpointService;
@@ -32,7 +32,7 @@ describe('HALEndpointService', () => {
   describe('getRootEndpointMap', () => {
     beforeEach(() => {
       responseCache = jasmine.createSpyObj('responseCache', {
-        get: hot('--a-', {
+        get: hot('a-', {
           a: {
             response: { endpointMap: endpointMap }
           }
@@ -52,45 +52,51 @@ describe('HALEndpointService', () => {
       );
     });
 
-    it('should configure a new RootEndpointRequest', () => {
+    it('should configure a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
-      const expected = new RootEndpointRequest(requestService.generateRequestId(), envConfig);
+      const expected = new EndpointMapRequest(requestService.generateRequestId(), envConfig.rest.baseUrl);
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
     it('should return an Observable of the endpoint map', () => {
       const result = (service as any).getRootEndpointMap();
-      const expected = cold('--b-', { b: endpointMap });
+      const expected = cold('b-', { b: endpointMap });
       expect(result).toBeObservable(expected);
     });
 
   });
 
   describe('getEndpoint', () => {
+
     beforeEach(() => {
+      envConfig = {
+        rest: { baseUrl: 'https://rest.api/' }
+      } as any;
+
       service = new TestService(
         responseCache,
         requestService,
         envConfig
       );
-
-      spyOn(service as any, 'getRootEndpointMap').and
-        .returnValue(hot('--a-', { a: endpointMap }));
     });
 
     it('should return the endpoint URL for the service\'s linkPath', () => {
+      spyOn(service as any, 'getEndpointAt').and
+        .returnValue(hot('a-', { a: 'https://rest.api/test' }));
       const result = service.getEndpoint();
-      const expected = cold('--b-', { b: endpointMap.test });
+
+      const expected = cold('b-', { b: endpointMap.test });
       expect(result).toBeObservable(expected);
     });
 
     it('should return undefined for a linkPath that isn\'t in the endpoint map', () => {
       (service as any).linkPath = 'unknown';
+      spyOn(service as any, 'getEndpointAt').and
+        .returnValue(hot('a-', { a: undefined }));
       const result = service.getEndpoint();
-      const expected = cold('--b-', { b: undefined });
+      const expected = cold('b-', { b: undefined });
       expect(result).toBeObservable(expected);
     });
-
   });
 
   describe('isEnabledOnRestApi', () => {
@@ -127,7 +133,7 @@ describe('HALEndpointService', () => {
 
       (service as any).linkPath = 'unknown';
       const result = service.isEnabledOnRestApi();
-      const expected = cold('b-c-', { b: undefined, c: false  });
+      const expected = cold('b-c-', { b: undefined, c: false });
       expect(result).toBeObservable(expected);
     });
 

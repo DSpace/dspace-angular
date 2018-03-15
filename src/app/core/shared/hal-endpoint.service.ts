@@ -4,7 +4,7 @@ import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response-cache.models';
-import { EndpointMapRequest, RootEndpointRequest } from '../data/request.models';
+import { EndpointMapRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
