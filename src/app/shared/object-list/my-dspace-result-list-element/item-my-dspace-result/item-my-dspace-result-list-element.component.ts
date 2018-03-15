@@ -10,6 +10,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
 import { ItemMyDSpaceResult } from '../../../object-collection/shared/item-my-dspace-result.model';
+import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',

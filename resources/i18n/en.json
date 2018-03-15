@@ -144,23 +144,23 @@
           "placeholder": "Subject",
           "head": "Subject"
         },
-        "dateIssued": {
+        "date": {
           "placeholder": "Date",
           "head": "Date"
         },
-        "status": {
+        "namedresourcetype": {
           "placeholder": "Status",
           "head": "Status"
         },
-        "date_submitted": {
+        "dateSubmitted": {
           "placeholder": "Date submitted",
           "head": "Date issued"
         },
-        "date_issued": {
+        "dateIssued": {
           "placeholder": "Date issued",
           "head": "Date issued"
         },
-        "type": {
+        "itemtype": {
           "placeholder": "Type",
           "head": "Type"
         },

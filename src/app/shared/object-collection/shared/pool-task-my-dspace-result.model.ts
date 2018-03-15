@@ -1,5 +1,8 @@
-import { MyDSpaceResult } from '../../../+my-dspace-page/my-dspace-result.model';
 import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
+import { SearchResult } from '../../../+search-page/search-result.model';
+import { MyDSpaceConfigurationType } from '../../../+my-dspace-page/mydspace-configuration-type';
+import { searchResultFor } from '../../../+search-page/search-service/search-result-element-decorator';
 
-export class PoolTaskMyDSpaceResult extends MyDSpaceResult<PoolTask> {
+@searchResultFor(PoolTask, MyDSpaceConfigurationType.Workflow)
+export class PoolTaskMyDSpaceResult extends SearchResult<PoolTask> {
 }

@@ -168,7 +168,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
         let co = DSpaceObject;
         if (dsos.payload[index]) {
           const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
-          co = getSearchResultFor(constructor);
+          co = getSearchResultFor(constructor, configuration);
           return Object.assign(new co(), object, {
             dspaceObject: dsos.payload[index]
           });
@@ -203,30 +203,6 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   }
 
   getConfig(): BehaviorSubject<SearchFilterConfig[]> {
-    // return this.configObs.pipe(
-    //   map((filtersConfig: SearchFilterConfig[]) => {
-    //     let requestPending: boolean;
-    //     let responsePending: boolean;
-    //     let isSuccessful: boolean;
-    //     const error = undefined;
-    //     if (isUndefined(filtersConfig)) {
-    //       requestPending = false;
-    //       responsePending = true;
-    //       isSuccessful = false;
-    //     } else {
-    //       requestPending = false;
-    //       responsePending = false;
-    //       isSuccessful = true;
-    //     }
-    //     return new RemoteData(
-    //       requestPending,
-    //       responsePending,
-    //       isSuccessful,
-    //       error,
-    //       filtersConfig
-    //     )
-    //   })
-    // );
     return this.configSubject;
   }
 
@@ -249,33 +225,6 @@ export class SearchService extends HALEndpointService implements OnDestroy {
         )
       })
     );
-    // const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
-    // return this.routeService.getQueryParameterValues(filterConfig.paramName).map((selectedValues: string[]) => {
-    //     const payload: FacetValue[] = [];
-    //     const totalFilters = 13;
-    //     for (let i = 0; i < totalFilters; i++) {
-    //       const value = searchFilterConfigName + ' ' + (i + 1);
-    //       if (!selectedValues.includes(value)) {
-    //         payload.push({
-    //           value: value,
-    //           count: Math.floor(Math.random() * 20) + 20 * (totalFilters - i), // make sure first results have the highest (random) count
-    //           search: (decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value)}
-    //         );
-    //       }
-    //     }
-    //     const requestPending = false;
-    //     const responsePending = false;
-    //     const isSuccessful = true;
-    //     const error = undefined;
-    //     return new RemoteData(
-    //       requestPending,
-    //       responsePending,
-    //       isSuccessful,
-    //       error,
-    //       payload
-    //     )
-    //   }
-    // )
   }
 
   getViewMode(): Observable<ViewMode> {
