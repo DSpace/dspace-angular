@@ -17,15 +17,6 @@ export class ItemListPreviewComponent<T> {
   object: any;
   @Input()
   statusTxt: string = ItemStatus.IN_PROGRESS; // Default value
-  public ALL_STATUS = [];
-
-  ngOnInit() {
-
-    Object.keys(ItemStatus).forEach((s) => {
-      this.ALL_STATUS.push(ItemStatus[s]);
-    });
-
-  }
 
   getTitle(): string {
     return this.item.findMetadata('dc.title');
