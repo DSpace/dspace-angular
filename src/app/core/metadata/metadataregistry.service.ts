@@ -32,6 +32,12 @@ export class MetadataRegistryService {
     return Observable.of(remoteData);
   }
 
+  public getMetadataSchemaByName(schemaName: string): Observable<RemoteData<MetadataSchema>> {
+    let payload = this.metadataSchemas.filter((value) => value.prefix == schemaName)[0];
+    let remoteData = new RemoteData(false, false, true, undefined, payload);
+    return Observable.of(remoteData);
+  }
+
   constructor() {
     this.metadataSchemas = [
       {
@@ -64,7 +70,7 @@ export class MetadataRegistryService {
         "self": "https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10",
         "element": "contributor",
         "qualifier": "editor",
-        "scopenote": null,
+        "scopenote": "test scope note",
         "schema": this.metadataSchemas[0]
       },
       {
@@ -435,7 +441,7 @@ export class MetadataRegistryService {
         "self": "https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/53",
         "element": "relation",
         "qualifier": "isbasedon",
-        "scopenote": null,
+        "scopenote": "a scope note",
         "schema": this.metadataSchemas[1]
       },
       {
@@ -449,7 +455,7 @@ export class MetadataRegistryService {
         "self": "https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/48",
         "element": "relation",
         "qualifier": "ispartof",
-        "scopenote": null,
+        "scopenote": "another scope note",
         "schema": this.metadataSchemas[1]
       },
       {
