@@ -17,6 +17,7 @@ import { Store } from '@ngrx/store';
 import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { ItemStatusType } from '../../item-list-status/item-status-type';
+import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -25,7 +26,6 @@ import { ItemStatusType } from '../../item-list-status/item-status-type';
 })
 
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
-@renderElementsFor(Workspaceitem, ViewMode.List)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   public item: Item;
   public submitter: Eperson;
@@ -62,7 +62,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
         this.user = user;
       });
 
-    this.populateMessages();
+    // this.populateMessages();
   }
 
   initItem(itemObs: Observable<RemoteData<Item[]>>) {
@@ -71,7 +71,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .first()
       .subscribe((rd: RemoteData<any>) => {
         this.item = rd.payload[0];
-        this.cdr.detectChanges();
+        // this.populateMessages();
       });
   }
 
@@ -98,7 +98,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     this.item.getBitstreamsByBundleName('MESSAGE')
       .filter((bitStreams) => bitStreams !== null && bitStreams.length > 0)
       .first()
-      .subscribe((bitStreams: Bitstream[]) => {
+      .map((bitStreams: Bitstream[]) => {
         this.messages = bitStreams;
         this.unRead = [];
         bitStreams.forEach((b: Bitstream) => {
@@ -106,7 +106,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
             this.unRead.push(b.uuid);
           }
         });
-        // console.log('Now unRead has', this.unRead.length, ' messages');
+        console.log('Now unRead has', this.unRead.length, ' messages');
       });
   }
 

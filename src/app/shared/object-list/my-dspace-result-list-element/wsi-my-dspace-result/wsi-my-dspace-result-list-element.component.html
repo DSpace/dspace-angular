@@ -13,7 +13,7 @@
 </sup>
 
 <ng-template #content let-c="close" let-d="dismiss">
-  <ds-message-board
+  <ds-message-board *ngIf="messages.length > 0"
     [messages]="messages"
     [submitter]="submitter"
     [user]="user"
