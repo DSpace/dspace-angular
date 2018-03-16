@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
@@ -55,6 +55,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
 
   constructor(private service: SearchService,
               private route: ActivatedRoute,
+              private router: Router,
               private communityService: CommunityDataService,
               public rolesService: RolesService,
               private sidebarService: SearchSidebarService,
@@ -143,14 +144,23 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
       );
   }
 
-  private getSearchConfiguration(configurationParam) {
-    let configuration: MyDSpaceConfigurationType;
+  private getSearchConfiguration(configurationParam: MyDSpaceConfigurationType) {
+    const configurationDefault: MyDSpaceConfigurationType = this.rolesService.isSubmitter() ?
+      MyDSpaceConfigurationType.Workspace :
+      MyDSpaceConfigurationType.Workflow;
     if (isEmpty(configurationParam)) {
-      configuration = this.rolesService.isSubmitter() ?
-        MyDSpaceConfigurationType.Workspace :
-        MyDSpaceConfigurationType.Workflow;
+      return configurationDefault;
+    } else if (!Object.values(MyDSpaceConfigurationType).includes(configurationParam)) {
+      // If configuration param is not included in MyDSpaceConfigurationType redirect to a default configuration value
+      const navigationExtras: NavigationExtras = {
+        queryParams: {configuration: configurationDefault},
+        queryParamsHandling: 'merge'
+      };
+
+      this.router.navigate(['/mydspace'], navigationExtras);
+    } else {
+      return configurationParam;
     }
-    return configuration
   }
 
   private isFilterParamKey(key: string) {
@@ -160,6 +170,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   private updateSearchResults(searchOptions, filters) {
     this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions, this.configuration, filters);
     this.searchOptions = searchOptions;
+    this.filters = this.filters;
     this.filters = this.filters;
   }
 

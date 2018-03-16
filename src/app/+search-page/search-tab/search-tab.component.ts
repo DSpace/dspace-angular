@@ -22,13 +22,11 @@ export class SearchTabComponent implements OnInit {
     Object.keys(MyDSpaceConfigurationType)
       .forEach((key) => {
         const label = `mydspace.show.${MyDSpaceConfigurationType[key]}`;
-        // if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workspace && this.rolesService.isSubmitter()) {
-        if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workspace && true) {
+        if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workspace && this.rolesService.isSubmitter()) {
           this.tabOptions.push({value: MyDSpaceConfigurationType[key], label});
           this.selectedOption = MyDSpaceConfigurationType.Workspace;
         }
-        // if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workflow && this.rolesService.isController()) {
-        if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workflow && true) {
+        if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workflow && this.rolesService.isController()) {
           this.tabOptions.push({value: MyDSpaceConfigurationType[key], label});
           if (isEmpty(this.selectedOption)) {
             this.selectedOption = MyDSpaceConfigurationType.Workflow;

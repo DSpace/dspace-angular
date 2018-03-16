@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
 
+import { remove } from 'lodash';
+
 import { Observable } from 'rxjs/Observable';
 import { hasValue } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -69,7 +71,11 @@ export class RequestService {
 
   // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, overrideRequest: boolean = false): void {
-    if (overrideRequest || request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
+    if (overrideRequest) {
+      this.responseCache.remove(request.href);
+      remove(this.requestsOnTheirWayToTheStore, (item) => item === request.href);
+    }
+    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
       this.dispatchRequest(request, overrideRequest);
     }
   }
@@ -106,11 +112,8 @@ export class RequestService {
   private dispatchRequest(request: RestRequest, overrideRequest: boolean = false) {
     this.store.dispatch(new RequestConfigureAction(request));
     this.store.dispatch(new RequestExecuteAction(request.uuid));
-    if (request.method === RestRequestMethod.Get && !overrideRequest) {
+    if (request.method === RestRequestMethod.Get) {
       this.trackRequestsOnTheirWayToTheStore(request);
-    }
-    if (overrideRequest) {
-      this.store.dispatch(new ResponseCacheRemoveAction(request.href));
     }
   }
 

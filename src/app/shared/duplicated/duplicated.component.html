@@ -1,0 +1,39 @@
+<ds-pagination
+  [paginationOptions]="config"
+  [pageInfoState]="items"
+  [collectionSize]="items?.length"
+  [sortOptions]="sortConfig"
+  [hideGear]="true"
+  [hidePagerWhenSinglePage]="false"
+  (pageChange)="setPage($event)">
+  <ul class="list-unstyled">
+    <li *ngFor="let item of items | paginate: {id: config.id, itemsPerPage: itemsPerPage, currentPage: currentPage }" class="mt-4 mb-4">
+      <ds-item-list-preview
+        [item]="item"
+        [object]="object"
+        statusTxt="In progress"
+      ></ds-item-list-preview>
+
+      <div class="mb-3">
+        <button type="button"
+                       class="btn btn-warning"
+                       ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
+                       [disabled]="processingApprove"
+                       (click)="setAsDuplicated()">
+        <span> {{'submission.section.deduplication.duplicated' | translate}}</span>
+      </button>
+      <button type="button"
+              class="btn btn-success"
+              ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
+              [disabled]="processingApprove"
+              (click)="setAsNotDuplicated()">
+        <span> {{'submission.section.deduplication.not_duplicated' | translate}}</span>
+      </button>
+      </div>
+    </li>
+  </ul>
+</ds-pagination>
+
+
+
+

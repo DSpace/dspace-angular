@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ItemStatus } from '../../../core/shared/item-status';
+import { ItemStatusType } from '../../../core/shared/item-status';
 
 @Component({
   selector: 'ds-item-list-status',
@@ -13,8 +13,8 @@ export class ItemListStatusComponent implements OnInit {
   public ALL_STATUS = [];
 
   ngOnInit() {
-    Object.keys(ItemStatus).forEach((s) => {
-      this.ALL_STATUS.push(ItemStatus[s]);
+    Object.keys(ItemStatusType).forEach((s) => {
+      this.ALL_STATUS.push(ItemStatusType[s]);
     });
   }
 

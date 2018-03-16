@@ -4,7 +4,7 @@ import { SearchFilterConfig } from '../../../search-service/search-filter-config
 import { Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SearchFilterService } from '../search-filter.service';
-import { isNotEmpty } from '../../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -85,7 +85,9 @@ export class SearchFacetFilterComponent implements OnInit {
         }
       );
       this.filter = '';
-      sub.unsubscribe();
+      if (hasValue(sub)) {
+        sub.unsubscribe();
+      }
     }
   }
 }

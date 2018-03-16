@@ -6,6 +6,7 @@ import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -36,7 +37,9 @@ export class SearchFilterComponent implements OnInit {
         this.initialCollapse();
       }
     });
-    sub.unsubscribe();
+    if (hasValue(sub)) {
+      sub.unsubscribe();
+    }
   }
 
   toggle() {

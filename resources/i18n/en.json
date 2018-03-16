@@ -258,6 +258,10 @@
         "last_name": "Last name",
         "loading": "Loading...",
         "no_results": "No results found"
+      },
+      "deduplication": {
+        "duplicated": "It's a duplicate",
+        "not_duplicated": "It is not a duplicate"
       }
     },
     "workflow": {

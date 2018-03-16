@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { filter, flatMap, map, tap } from 'rxjs/operators';
+import { filter, first, flatMap, map, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -80,6 +80,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions, configuration?: string, filters?: any): Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
     const requestObs = this.getEndpoint().pipe(
+      first(),
       map((url: string) => {
         const args: string[] = [];
 
@@ -123,7 +124,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
           }
         });
       }),
-      tap((request: RestRequest) => this.requestService.configure(request)),
+      tap((request: RestRequest) => this.requestService.configure(request, true)),
     );
 
     const requestEntryObs = requestObs.pipe(
@@ -137,16 +138,10 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     // get search results from response cache
     const sqrObs: Observable<SearchQueryResponse> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
+      first(),
       map((response: SearchSuccessResponse) => {
+        console.log(response);
         return response.results
-      })
-    );
-
-    this.configObs = sqrObs.pipe(
-      map((sqr: SearchQueryResponse) => {
-        this.config = sqr.facets;
-        this.configSubject.next(sqr.facets);
-        return sqr.facets
       })
     );
 
@@ -199,7 +194,12 @@ export class SearchService extends HALEndpointService implements OnDestroy {
       }
     });
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+    const rd = this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+    responseCacheObs
+      .subscribe((r) => {
+        console.log(r, rd);
+      });
+    return rd;
   }
 
   getConfig(): BehaviorSubject<SearchFilterConfig[]> {
@@ -207,7 +207,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   }
 
   getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
-    return this.configObs.pipe(
+    return this.getConfig().pipe(
       filter((config: SearchFilterConfig[]) => isNotUndefined(config)),
       flatMap((config: SearchFilterConfig[]) => config),
       filter((config: SearchFilterConfig) => config.name === searchFilterConfigName),

@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { MessageService } from '../../core/message/message.service';
+
 import { Observable } from 'rxjs/Observable';
+
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { MessageService } from '../../../core/message/message.service';
 
 @Component({
   selector: 'ds-message',
