@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { hasNoValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { Item } from '../../../core/shared/item.model';
-import { ItemStatusType } from '../../../core/shared/item-status';
 import { fadeInOut } from '../../animations/fade';
+import { ItemStatusType } from '../item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-item-list-preview',
@@ -12,13 +12,13 @@ import { fadeInOut } from '../../animations/fade';
   animations: [fadeInOut]
 })
 
-export class ItemListPreviewComponent<T> {
+export class ItemListPreviewComponent {
   @Input()
   item: Item;
   @Input()
   object: any;
   @Input()
-  statusTxt: string = ItemStatusType.IN_PROGRESS; // Default value
+  status: ItemStatusType;
 
   getTitle(): string {
     return this.item.findMetadata('dc.title');

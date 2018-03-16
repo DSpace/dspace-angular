@@ -15,6 +15,7 @@ import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 import { WorkflowitemMyDSpaceResult } from '../../../object-collection/shared/workflowitem-my-dspace-result.model';
 import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
 import { WorkflowitemDataService } from '../../../../core/submission/workflowitem-data.service';
+import { ItemStatusType } from '../../item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-workflowitem-my-dspace-result-list-element',
@@ -26,6 +27,7 @@ import { WorkflowitemDataService } from '../../../../core/submission/workflowite
 @renderElementsFor(Workflowitem, ViewMode.List)
 export class WorkflowitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkflowitemMyDSpaceResult, Workflowitem> {
   public item: Item;
+  public status = ItemStatusType.WORKFLOW;
   public submitter: Eperson;
   public user: Eperson;
 

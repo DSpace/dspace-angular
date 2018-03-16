@@ -12,6 +12,7 @@ import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-t
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { Router } from '@angular/router';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
+import { ItemStatusType } from '../../item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-pooltask-my-dspace-result-list-element',
@@ -22,6 +23,7 @@ import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-
 @renderElementsFor(PoolTaskMyDSpaceResult, ViewMode.List)
 @renderElementsFor(PoolTask, ViewMode.List)
 export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<PoolTaskMyDSpaceResult, PoolTask> {
+  public status = ItemStatusType.WAITING_CONTROLLER;
   public workFlow: Workflowitem;
 
   constructor(@Inject('objectElementProvider') public listable: ListableObject) {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ItemStatusType } from '../../../core/shared/item-status';
+import { ItemStatusType } from './item-status-type';
 
 @Component({
   selector: 'ds-item-list-status',
@@ -8,14 +8,32 @@ import { ItemStatusType } from '../../../core/shared/item-status';
 
 export class ItemListStatusComponent implements OnInit {
 
-  @Input()
-  statusTxt: string;
-  public ALL_STATUS = [];
+  @Input() status: ItemStatusType;
+  public badgeClass: string;
+  public badgeContent: string;
 
   ngOnInit() {
-    Object.keys(ItemStatusType).forEach((s) => {
-      this.ALL_STATUS.push(ItemStatusType[s]);
-    });
+    this.badgeContent = this.status;
+    switch (this.status) {
+      case ItemStatusType.REJECTED:
+        this.badgeClass = 'badge-danger';
+        break;
+      case ItemStatusType.VALIDATION:
+        this.badgeClass = 'badge-warning';
+        break;
+      case ItemStatusType.WAITING_CONTROLLER:
+        this.badgeClass = 'badge-info';
+        break;
+      case ItemStatusType.IN_PROGRESS:
+        this.badgeClass = 'badge-primary';
+        break;
+      case ItemStatusType.ACCEPTED:
+        this.badgeClass = 'badge-success';
+        break;
+      case ItemStatusType.WORKFLOW:
+        this.badgeClass = 'badge-info';
+        break;
+    }
   }
 
 }

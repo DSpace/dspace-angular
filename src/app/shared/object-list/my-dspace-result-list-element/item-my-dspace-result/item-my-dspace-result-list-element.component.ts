@@ -21,7 +21,4 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 @renderElementsFor(ItemMyDSpaceResult, ViewMode.List)
 export class ItemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ItemMyDSpaceResult, Item> {
 
-  isInProgress(): boolean {
-    return (!this.dso.isArchived) && (!this.dso.isWithdrawn);
-  }
 }

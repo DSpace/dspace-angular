@@ -10,6 +10,7 @@ import { Workflowitem } from '../../../../core/submission/models/workflowitem.mo
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { ItemStatusType } from '../../item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-claimtask-my-dspace-result-list-element',
@@ -21,6 +22,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 @renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.List)
 @renderElementsFor(ClaimedTask, ViewMode.List)
 export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
+  public status = ItemStatusType.VALIDATION;
   public workFlow: Workflowitem;
 
   constructor(@Inject('objectElementProvider') public listable: ListableObject) {

@@ -23,6 +23,6 @@
     </ds-truncatable>
   </div>
 </ng-container>
-<div>
-  <ds-item-list-status [statusTxt]="statusTxt"></ds-item-list-status>
-</div>
+<ng-container *ngIf="status">
+  <ds-item-list-status [status]="status"></ds-item-list-status>
+</ng-container>

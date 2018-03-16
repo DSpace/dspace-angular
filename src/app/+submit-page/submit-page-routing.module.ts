@@ -10,6 +10,7 @@ import { SubmitPageComponent } from './submit-page.component';
       {
         canActivate: [AuthenticatedGuard],
         path: '',
+        pathMatch: 'full',
         component: SubmitPageComponent,
         data: { title: 'submission.submit.title' }
       }

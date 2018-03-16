@@ -1,9 +1,8 @@
-<ds-item-list-preview
-[item]="item"
-[object]="object"
-statusTxt="In progress"
-></ds-item-list-preview>
-<!--<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/edit/' + dso.id]" >Edit</button>-->
+<ds-item-list-preview *ngIf="status"
+  [item]="item"
+  [object]="object"
+  [status]="status"></ds-item-list-preview>
+
 <button class="btn btn-primary mt-1 mb-3" [routerLink]="['/workspaceitems/' + dso.id] + '/edit'" >Edit</button>
 <button class="btn btn-primary mt-1 mb-3" (click)="openMessageBoard(content)">
   <i class="fa fa-envelope"></i>

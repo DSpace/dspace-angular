@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { ItemStatusType } from '../../../../core/shared/item-status';
+import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
 import { Metadatum } from '../../../../core/shared/metadatum.model';
 import { hasNoValue, isEmpty } from '../../../empty.util';
 
