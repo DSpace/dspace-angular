@@ -33,7 +33,7 @@ export class SearchFacetFilterComponent implements OnInit {
   }
 
   isChecked(value: FacetValue): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, value.label);
+    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, value.value);
   }
 
   getSearchLink() {

@@ -8,7 +8,7 @@
         </a>
         <a *ngFor="let value of getFilters(); let i=index" class="d-block clearfix"
            [routerLink]="[getSearchLink()]"
-           [queryParams]="getQueryParamsWith(value.label) | async">
+           [queryParams]="getQueryParamsWith(value.value) | async">
             <ng-template [ngIf]="i < (facetCount | async)">
                     <input type="checkbox" [checked]="false"/>
                     <span class="filter-value">{{value.label}}</span>
