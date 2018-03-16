@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from '../../core/message/message.service';
@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
+import { Subscription } from 'rxjs/Subscription';
+import { hasValue } from '../empty.util';
 
 @Component({
   selector: 'ds-message-board',
@@ -17,7 +19,7 @@ import { NotificationOptions } from '../notifications/models/notification-option
   ]
 })
 
-export class MessageBoardComponent {
+export class MessageBoardComponent implements OnDestroy {
   @Input()
   public messages: Bitstream[];
   @Input()
@@ -39,6 +41,8 @@ export class MessageBoardComponent {
    */
   public messageForm: FormGroup;
   public showUnread = false;
+
+  private sub: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               public msgService: MessageService,
@@ -91,7 +95,7 @@ export class MessageBoardComponent {
       subject,
       description
     };
-    this.msgService.createMessage(body)
+    this.sub = this.msgService.createMessage(body)
       .take(1)
       .subscribe((res) => {
       if (res.isSuccessful) {
@@ -139,4 +143,9 @@ export class MessageBoardComponent {
     });
   }
 
+  ngOnDestroy() {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
+  }
 }
