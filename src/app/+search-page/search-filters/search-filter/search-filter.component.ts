@@ -58,7 +58,13 @@ export class SearchFilterComponent implements OnInit {
     this.filterService.initialExpand(this.filter.name);
   }
 
-  getSelectedValues(): Observable<string[]> {
-    return this.filterService.getSelectedValuesForFilter(this.filter);
+  getSelectedValues(): Observable<FacetValue[]> {
+    const selectedValuesObs: Observable<string[]> = this.filterService.getSelectedValuesForFilter(this.filter);
+    return Observable.combineLatest(selectedValuesObs, this.filterValues)
+      .filter(([sv, fv]) => fv.hasSucceeded)
+      .first()
+      .map(([sv, fv]) => {
+        return fv.payload.filter((facetValue: FacetValue) => sv.includes(facetValue.value))
+    });
   }
 }
