@@ -1,17 +1,19 @@
 li {
   margin-bottom: 10px;
   padding-bottom: 5px;
-  border-bottom: 1px dotted #B3A9A9;
+  //border-bottom: 1px dotted #B3A9A9;
 }
 
 li.left .chat-body
 {
-  margin-left: 60px;
+  //margin-left: 60px;
+  background: #f5f5f5;
 }
 
 li.right .chat-body
 {
-  margin-right: 60px;
+  //margin-right: 60px;
+  background: #EFEFEF;
 }
 
 li .chat-body p
@@ -21,7 +23,7 @@ li .chat-body p
 }
 
 .title {
-  margin-top: -25px;
+  //margin-top: -25px;
 }
 
 .description {
@@ -32,8 +34,13 @@ li .chat-body p
   height: 60px;
 }
 
+.chat {
+  margin: 0;
+}
+
 .chat-body {
   padding: 5px;
+  border-radius: 5px;
 }
 
 .left {

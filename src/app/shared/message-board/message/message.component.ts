@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -22,11 +22,13 @@ export class MessageComponent {
   private _description = '';
   private loadingDescription = false;
 
-  constructor(public msgService: MessageService) {
+  constructor(public msgService: MessageService,
+              private cdr: ChangeDetectorRef) {
   }
 
   toggleDescription() {
     this.show = !this.show;
+    this.cdr.detectChanges();
   }
 
   get description(): Observable<string> {
