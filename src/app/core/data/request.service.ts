@@ -85,7 +85,7 @@ export class RequestService {
     if (overrideRequest) {
       this.clearRequestsOnTheirWayToTheStore(request.href);
     }
-    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
+    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request) || (overrideRequest && !this.isPending(request.href))) {
       this.dispatchRequest(request, overrideRequest);
     }
   }

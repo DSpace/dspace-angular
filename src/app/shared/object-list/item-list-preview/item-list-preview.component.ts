@@ -3,11 +3,13 @@ import { hasNoValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { Item } from '../../../core/shared/item.model';
 import { ItemStatusType } from '../../../core/shared/item-status';
+import { fadeInOut } from '../../animations/fade';
 
 @Component({
   selector: 'ds-item-list-preview',
   styleUrls: ['item-list-preview.component.scss'],
-  templateUrl: 'item-list-preview.component.html'
+  templateUrl: 'item-list-preview.component.html',
+  animations: [fadeInOut]
 })
 
 export class ItemListPreviewComponent<T> {
