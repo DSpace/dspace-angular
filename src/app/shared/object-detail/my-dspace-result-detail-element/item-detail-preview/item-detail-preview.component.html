@@ -14,7 +14,7 @@
         <div class="col-xs-12 col-md-6">
           <ds-item-page-abstract-field [item]="item"></ds-item-page-abstract-field>
           <ds-item-page-uri-field [item]="item"></ds-item-page-uri-field>
-          <ds-item-page-collections [item]="item"></ds-item-page-collections>
+          <ds-item-page-collections [item]="item" *ngIf="item.owner"></ds-item-page-collections>
           <div>
             <!--<a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">-->
               <!--{{"item.page.link.full" | translate}}-->
