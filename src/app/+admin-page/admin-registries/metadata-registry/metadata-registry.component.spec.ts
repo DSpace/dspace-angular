@@ -49,17 +49,14 @@ describe('MetadataRegistryComponent', () => {
 
   it('should contain two schemas', () => {
     let tbody: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas>tbody')).nativeElement;
-    // Expecting 3 rows, because one row is invisible
-    expect(tbody.children.length).toBe(3);
+    expect(tbody.children.length).toBe(2);
   });
 
   it('should contain the correct schemas', () => {
-    // Second row, because one row is invisible
-    let dcName: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas tr:nth-child(2) td:nth-child(2)')).nativeElement;
+    let dcName: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas tr:nth-child(1) td:nth-child(2)')).nativeElement;
     expect(dcName.textContent).toBe('dc');
 
-    // Third row, because one row is invisible
-    let mockName: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas tr:nth-child(3) td:nth-child(2)')).nativeElement;
+    let mockName: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas tr:nth-child(2) td:nth-child(2)')).nativeElement;
     expect(mockName.textContent).toBe('mock');
   });
 

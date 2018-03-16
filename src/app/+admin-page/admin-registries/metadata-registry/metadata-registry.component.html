@@ -9,14 +9,13 @@
       <div class="table-responsive">
         <table id="metadata-schemas" class="table table-striped table-hover">
           <caption>{{'admin.registries.metadata.schemas.table.caption' | translate}}</caption>
-          <thead class="thead-light">
+          <thead>
             <tr>
               <th scope="col">{{'admin.registries.metadata.schemas.table.namespace' | translate}}</th>
               <th scope="col">{{'admin.registries.metadata.schemas.table.name' | translate}}</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="invisible"></tr>
             <tr *ngFor="let schema of (metadataSchemas | async)?.payload?.page">
               <td><a [routerLink]="[schema.prefix]">{{schema.namespace}}</a></td>
               <td><a [routerLink]="[schema.prefix]">{{schema.prefix}}</a></td>

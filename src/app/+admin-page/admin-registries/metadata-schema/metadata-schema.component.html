@@ -13,14 +13,13 @@
       <div class="table-responsive">
         <table id="metadata-fields" class="table table-striped table-hover">
           <caption>{{'admin.registries.schema.fields.table.caption' | translate}}</caption>
-          <thead class="thead-light">
+          <thead>
             <tr>
               <th scope="col">{{'admin.registries.schema.fields.table.field' | translate}}</th>
               <th scope="col">{{'admin.registries.schema.fields.table.scopenote' | translate}}</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="invisible"></tr>
             <tr *ngFor="let field of (metadataFields | async)?.payload?.page">
               <td>{{(metadataSchema | async)?.payload?.prefix}}.{{field.element}}<label *ngIf="field.qualifier">.</label>{{field.qualifier}}</td>
               <td>{{field.scopenote}}</td>
