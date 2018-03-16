@@ -37,8 +37,7 @@ export class SearchTabComponent implements OnInit {
 
   onSelect(event: Event) {
     const navigationExtras: NavigationExtras = {
-      queryParams: {configuration: this.selectedOption},
-      queryParamsHandling: 'merge'
+      queryParams: {configuration: this.selectedOption}
     };
 
     this.router.navigate(['/mydspace'], navigationExtras);

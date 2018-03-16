@@ -154,7 +154,7 @@
         },
         "dateSubmitted": {
           "placeholder": "Date submitted",
-          "head": "Date issued"
+          "head": "Date submitted"
         },
         "dateIssued": {
           "placeholder": "Date issued",

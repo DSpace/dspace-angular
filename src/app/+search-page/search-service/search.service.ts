@@ -53,7 +53,6 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   protected linkPath = 'discover/search/objects';
 
   private sub;
-  uiSearchRoute = '/search';
 
   configObs: Observable<SearchFilterConfig[]>;
   config: SearchFilterConfig[] = [];
