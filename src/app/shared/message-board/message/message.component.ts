@@ -32,7 +32,8 @@ export class MessageComponent {
   get description(): Observable<string> {
     if (this._description === '' && !this.loadingDescription) {
       this.loadingDescription = true;
-      this.msgService.getMessageContent(this.m.content).subscribe((res) => {
+      this.msgService.getMessageContent(this.m.content)
+        .subscribe((res) => {
         this._description = res.payload || 'No content.';
         console.log('description=', this._description);
         this.loadingDescription = false;
