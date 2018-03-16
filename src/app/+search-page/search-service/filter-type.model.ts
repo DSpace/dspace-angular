@@ -2,5 +2,6 @@ export enum FilterType {
   text,
   range,
   hierarchy,
-  date
+  date,
+  authority
 }
