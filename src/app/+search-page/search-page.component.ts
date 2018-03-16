@@ -8,7 +8,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
-import { isNotEmpty } from '../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchOptions, ViewMode } from './search-options.model';
@@ -34,10 +34,12 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   private sub;
   private scope: string;
 
+  configuration: string;
   query: string;
   scopeObjectRDObs: Observable<RemoteData<DSpaceObject>>;
-  resultsRDObs: Observable<RemoteData<Array<SearchResult<DSpaceObject>>>>;
+  resultsRDObs:  Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>>;
   currentParams = {};
+  filters = {};
   searchOptions: SearchOptions;
   sortConfig: SortOptions;
   scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
@@ -71,6 +73,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
       .subscribe((params) => {
           // Save current parameters
           this.currentParams = params;
+          this.configuration = params.configuration;
           this.query = params.query || '';
           this.scope = params.scope;
           const page = +params.page || this.searchOptions.pagination.currentPage;
@@ -89,20 +92,35 @@ export class SearchPageComponent implements OnInit, OnDestroy {
             }
           }
 
-          const sortDirection = +params.sortDirection || this.searchOptions.sort.direction;
+          const sortDirection = params.sortDirection || this.searchOptions.sort.direction;
+          const sortField = params.sortField || this.searchOptions.sort.field;
           const pagination = Object.assign({},
             this.searchOptions.pagination,
             { currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
           );
           const sort = Object.assign({},
             this.searchOptions.sort,
-            { direction: sortDirection, field: params.sortField }
+            { direction: sortDirection, field: sortField }
           );
 
-          this.updateSearchResults({
-            pagination: pagination,
-            sort: sort
-          });
+          const filters = Object.create({});
+          Object.keys(this.currentParams)
+            .filter((key) => this.isFilterParamKey(key))
+            .forEach((key) => {
+              if (Array.isArray(this.currentParams[key])) {
+                filters[key] = this.currentParams[key];
+              } else {
+                filters[key] = [this.currentParams[key]]
+              }
+            });
+
+          this.updateSearchResults(
+            {
+              pagination: pagination,
+              sort: sort
+            },
+            filters
+          );
           if (isNotEmpty(this.scope)) {
             this.scopeObjectRDObs = this.communityService.findById(this.scope);
           } else {
@@ -112,17 +130,24 @@ export class SearchPageComponent implements OnInit, OnDestroy {
       );
   }
 
-  private updateSearchResults(searchOptions) {
-    this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions);
+  private isFilterParamKey(key: string) {
+    return key.startsWith('f.');
+  }
+
+  private updateSearchResults(searchOptions, filters) {
+    this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions, this.configuration, filters);
     this.searchOptions = searchOptions;
+    this.filters = this.filters;
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 
   public closeSidebar(): void {
-    this.sidebarService.collapse()
+    this.sidebarService.collapse();
   }
 
   public openSidebar(): void {

@@ -28,14 +28,17 @@ describe('SearchFacetFilterComponent', () => {
   const values: FacetValue[] = [
     {
       value: value1,
+      label: value1,
       count: 52,
       search: ''
     }, {
       value: value2,
+      label: value2,
       count: 20,
       search: ''
     }, {
       value: value3,
+      label: value3,
       count: 5,
       search: ''
     }

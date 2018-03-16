@@ -6,7 +6,6 @@ import { GenericConstructor } from '../../shared/generic-constructor';
 import { NormalizedCommunity } from './normalized-community.model';
 import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from './normalized-object.model';
-import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { NormalizedLicense } from './normalized-license.model';
 import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
 import { NormalizedWorkspaceItem } from '../../submission/models/normalized-workspaceitem.model';
@@ -21,9 +20,6 @@ export class NormalizedObjectFactory {
     switch (type) {
       case ResourceType.Bitstream: {
         return NormalizedBitstream
-      }
-      case ResourceType.BitstreamFormat: {
-        return NormalizedBitstreamFormat
       }
       case ResourceType.Bundle: {
         return NormalizedBundle

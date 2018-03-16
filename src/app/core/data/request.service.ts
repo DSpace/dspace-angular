@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
+import { MemoizedSelector, Store } from '@ngrx/store';
+
+import { remove } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
 import { hasValue } from '../../shared/empty.util';
@@ -16,8 +18,7 @@ import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
 
-import { RequestEntry, RequestState } from './request.reducer';
-import { ResponseCacheRemoveAction } from '../cache/response-cache.actions';
+import { RequestEntry } from './request.reducer';
 
 @Injectable()
 export class RequestService {
@@ -67,9 +68,24 @@ export class RequestService {
       .flatMap((uuid: string) => this.getByUUID(uuid));
   }
 
+  private clearRequestsOnTheirWayToTheStore(href) {
+    this.getByHref(href)
+      .filter((re: RequestEntry) => hasValue(re))
+      .take(1)
+      .subscribe((re: RequestEntry) => {
+        if (!re.responsePending) {
+          this.responseCache.remove(href);
+          remove(this.requestsOnTheirWayToTheStore, (item) => item === href);
+        }
+      });
+  }
+
   // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, overrideRequest: boolean = false): void {
-    if (overrideRequest || request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
+    if (overrideRequest) {
+      this.clearRequestsOnTheirWayToTheStore(request.href);
+    }
+    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request) || (overrideRequest && !this.isPending(request))) {
       this.dispatchRequest(request, overrideRequest);
     }
   }
@@ -106,11 +122,8 @@ export class RequestService {
   private dispatchRequest(request: RestRequest, overrideRequest: boolean = false) {
     this.store.dispatch(new RequestConfigureAction(request));
     this.store.dispatch(new RequestExecuteAction(request.uuid));
-    if (request.method === RestRequestMethod.Get && !overrideRequest) {
+    if (request.method === RestRequestMethod.Get) {
       this.trackRequestsOnTheirWayToTheStore(request);
-    }
-    if (overrideRequest) {
-      this.store.dispatch(new ResponseCacheRemoveAction(request.href));
     }
   }
 

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { ItemStatus } from '../../../../core/shared/item-status';
+import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
 import { Metadatum } from '../../../../core/shared/metadatum.model';
 import { hasNoValue, isEmpty } from '../../../empty.util';
 
@@ -13,12 +13,12 @@ export class ItemDetailPreviewComponent<T> {
 
   @Input() item: Item;
   @Input() object: any;
-  @Input() statusTxt: string = ItemStatus.IN_PROGRESS; // Default value
+  @Input() statusTxt: string = ItemStatusType.IN_PROGRESS; // Default value
   public ALL_STATUS = [];
 
   ngOnInit() {
-    Object.keys(ItemStatus).forEach((s) => {
-      this.ALL_STATUS.push(ItemStatus[s]);
+    Object.keys(ItemStatusType).forEach((s) => {
+      this.ALL_STATUS.push(ItemStatusType[s]);
     });
 
   }

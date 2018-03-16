@@ -10,6 +10,9 @@ import { hasNoValue } from '../../shared/empty.util';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { coreSelector, CoreState } from '../core.reducers';
 import { pathSelector } from '../shared/selectors';
+import { Item } from '../shared/item.model';
+import { NormalizedObjectFactory } from './models/normalized-object-factory';
+import { NormalizedObject } from './models/normalized-object.model';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
   return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);
@@ -24,9 +27,8 @@ function entryFromSelfLinkSelector(selfLink: string): MemoizedSelector<CoreState
  */
 @Injectable()
 export class ObjectCacheService {
-  constructor(
-    private store: Store<CoreState>
-  ) { }
+  constructor(private store: Store<CoreState>) {
+  }
 
   /**
    * Add an object to the cache
@@ -70,14 +72,17 @@ export class ObjectCacheService {
    * @return Observable<T>
    *    An observable of the requested object
    */
-  getByUUID<T extends CacheableObject>(uuid: string, type: GenericConstructor<T>): Observable<T> {
+  getByUUID<T extends NormalizedObject>(uuid: string): Observable<T> {
     return this.store.select(selfLinkFromUuidSelector(uuid))
-      .flatMap((selfLink: string) => this.getBySelfLink(selfLink, type))
+      .flatMap((selfLink: string) => this.getBySelfLink(selfLink))
   }
 
-  getBySelfLink<T extends CacheableObject>(selfLink: string, type: GenericConstructor<T>): Observable<T> {
+  getBySelfLink<T extends NormalizedObject>(selfLink: string): Observable<T> {
     return this.getEntry(selfLink)
-      .map((entry: ObjectCacheEntry) => Object.assign(new type(), entry.data) as T);
+      .map((entry: ObjectCacheEntry) => {
+        const type: GenericConstructor<NormalizedObject>= NormalizedObjectFactory.getConstructor(entry.data.type);
+        return Object.assign(new type(), entry.data) as T
+      });
   }
 
   private getEntry(selfLink: string): Observable<ObjectCacheEntry> {
@@ -116,9 +121,9 @@ export class ObjectCacheService {
    *    The type of the objects to get
    * @return Observable<Array<T>>
    */
-  getList<T extends CacheableObject>(selfLinks: string[], type: GenericConstructor<T>): Observable<T[]> {
+  getList<T extends NormalizedObject>(selfLinks: string[]): Observable<T[]> {
     return Observable.combineLatest(
-      selfLinks.map((selfLink: string) => this.getBySelfLink<T>(selfLink, type))
+      selfLinks.map((selfLink: string) => this.getBySelfLink<T>(selfLink))
     );
   }
 

@@ -1,14 +1,14 @@
 <li *ngVar="m.findMetadata('dc.type') as type"
     [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound', clearfix:1}">
 
-              <span [ngClass]="{'chat-img': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">
-                  <img *ngIf="type == 'outbound'" alt="Avatar"
-                       src="/assets/images/dspace-logo.png"
-                       class="avatar img-rounded"/>
-                 <img *ngIf="type == 'inbound'" alt="Avatar"
-                      src="/assets/images/you.jpg"
-                      class="avatar rounded"/>
-              </span>
+              <!--<span [ngClass]="{'chat-img': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">-->
+                  <!--<img *ngIf="type == 'outbound'" alt="Avatar"-->
+                       <!--src="/assets/images/dspace-logo.png"-->
+                       <!--class="avatar img-rounded"/>-->
+                 <!--<img *ngIf="type == 'inbound'" alt="Avatar"-->
+                      <!--src="/assets/images/you.jpg"-->
+                      <!--class="avatar rounded"/>-->
+              <!--</span>-->
 
   <div class="chat-body clearfix">
     <div class="header clearfix">

@@ -271,7 +271,7 @@ describe('Pagination component', () => {
 
     changePage(testFixture, 3);
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 0, sortField: 'name' } });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 'ASC', sortField: 'dc.title' } });
 
   }));
 
@@ -282,7 +282,7 @@ describe('Pagination component', () => {
 
     changePageSize(testFixture, '20');
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 1, pageSize: 20, sortDirection: 0, sortField: 'name' } });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 1, pageSize: 20, sortDirection: 'ASC', sortField: 'dc.title' } });
   }));
 
   it('should set correct values', fakeAsync(() => {

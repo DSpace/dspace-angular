@@ -13,7 +13,7 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 
 @Injectable()
 export class AuthRequestService extends HALEndpointService {
-  protected linkName = 'authn';
+  protected linkPath = 'authn';
   protected browseEndpoint = '';
 
   constructor(protected responseCache: ResponseCacheService,

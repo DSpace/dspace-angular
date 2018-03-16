@@ -4,7 +4,7 @@ import { SearchFilterConfig } from '../../../search-service/search-filter-config
 import { Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SearchFilterService } from '../search-filter.service';
-import { isNotEmpty } from '../../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -33,7 +33,7 @@ export class SearchFacetFilterComponent implements OnInit {
   }
 
   isChecked(value: FacetValue): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, value.value);
+    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, value.label);
   }
 
   getSearchLink() {
@@ -72,6 +72,11 @@ export class SearchFacetFilterComponent implements OnInit {
     return this.router.url;
   }
 
+  getFilters(): FacetValue[] {
+    // filter selected values
+    return this.filterValues.filter((value: FacetValue) => !this.selectedValues.includes(value.label))
+  }
+
   onSubmit(data: any) {
     if (isNotEmpty(data)) {
       const sub = this.getQueryParamsWith(data[this.filterConfig.paramName]).first().subscribe((params) => {
@@ -80,7 +85,9 @@ export class SearchFacetFilterComponent implements OnInit {
         }
       );
       this.filter = '';
-      sub.unsubscribe();
+      if (hasValue(sub)) {
+        sub.unsubscribe();
+      }
     }
   }
 }

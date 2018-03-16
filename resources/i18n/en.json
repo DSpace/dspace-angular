@@ -88,6 +88,10 @@
       "send-btn": "Send",
       "subject-placeholder": "Subject...",
       "description-placeholder": "Insert your message here..."
+    },
+    "show": {
+      "workspace": "Your Submissions",
+      "workflow": "All tasks"
     }
   },
   "search": {
@@ -119,7 +123,8 @@
     },
     "view-switch": {
       "show-list": "Show as list",
-      "show-grid": "Show as grid"
+      "show-grid": "Show as grid",
+      "show-detail": "Show detail"
     },
     "filters": {
       "head": "Filters",
@@ -143,21 +148,25 @@
           "placeholder": "Date",
           "head": "Date"
         },
-        "status": {
+        "namedresourcetype": {
           "placeholder": "Status",
           "head": "Status"
         },
-        "date_submitted": {
+        "dateSubmitted": {
           "placeholder": "Date submitted",
-          "head": "Date issued"
+          "head": "Date submitted"
         },
-        "date_issued": {
+        "dateIssued": {
           "placeholder": "Date issued",
           "head": "Date issued"
         },
-        "type": {
+        "itemtype": {
           "placeholder": "Type",
           "head": "Type"
+        },
+        "has_content_in_original_bundle": {
+          "placeholder": "Has Content",
+          "head": "Has Content"
         }
 
 

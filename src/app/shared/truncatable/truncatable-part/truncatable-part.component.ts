@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { TruncatableService } from '../truncatable.service';
+import { hasValue } from '../../empty.util';
 
 @Component({
   selector: 'ds-truncatable-part',
@@ -34,6 +35,8 @@ export class TruncatablePartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 }

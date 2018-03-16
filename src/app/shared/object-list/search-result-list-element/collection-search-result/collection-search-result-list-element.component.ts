@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
+
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ViewMode } from '../../../../+search-page/search-options.model';

@@ -5,7 +5,6 @@ import { GlobalConfig } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
@@ -13,16 +12,16 @@ import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
 
 const LINK_NAME = 'test';
 
 /* tslint:disable:max-classes-per-file */
-class NormalizedTestObject implements CacheableObject {
-  self: string;
+class NormalizedTestObject extends NormalizedObject {
 }
 
 class TestService extends ComColDataService<NormalizedTestObject, any> {
-  protected linkName = LINK_NAME;
+  protected linkPath = LINK_NAME;
   protected overrideRequest = false;
 
   constructor(
@@ -34,7 +33,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService
   ) {
-    super(NormalizedTestObject);
+    super();
   }
 }
 /* tslint:enable:max-classes-per-file */
@@ -128,7 +127,7 @@ describe('ComColDataService', () => {
       it('should fetch the scope Community from the cache', () => {
         scheduler.schedule(() => service.getScopedEndpoint(scopeID).subscribe());
         scheduler.flush();
-        expect(objectCache.getByUUID).toHaveBeenCalledWith(scopeID, NormalizedCommunity);
+        expect(objectCache.getByUUID).toHaveBeenCalledWith(scopeID);
       });
 
       it('should return the endpoint to fetch resources within the given scope', () => {

@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
-import { isEmpty, hasNoValue } from '../../empty.util';
+import { isEmpty, hasNoValue, isNotEmpty } from '../../empty.util';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { Observable } from 'rxjs/Observable';
@@ -24,13 +24,15 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
 
   getValues(keys: string[]): string[] {
     const results: string[] = new Array<string>();
-    this.object.hitHighlights.forEach(
-      (md: Metadatum) => {
-        if (keys.indexOf(md.key) > -1) {
-          results.push(md.value);
+    if (isNotEmpty(this.object.hitHighlights)) {
+      this.object.hitHighlights.forEach(
+        (md: Metadatum) => {
+          if (keys.indexOf(md.key) > -1) {
+            results.push(md.value);
+          }
         }
-      }
-    );
+      );
+    }
     if (isEmpty(results)) {
       this.dso.filterMetadata(keys).forEach(
         (md: Metadatum) => {
@@ -43,14 +45,16 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
 
   getFirstValue(key: string): string {
     let result: string;
-    this.object.hitHighlights.some(
-      (md: Metadatum) => {
-        if (key === md.key) {
-          result =  md.value;
-          return true;
+    if (isNotEmpty(this.object.hitHighlights)) {
+      this.object.hitHighlights.some(
+        (md: Metadatum) => {
+          if (key === md.key) {
+            result = md.value;
+            return true;
+          }
         }
-      }
-    );
+      );
+    }
     if (hasNoValue(result)) {
       result = this.dso.findMetadata(key);
     }

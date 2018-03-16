@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 import { Observable } from 'rxjs/Observable';
-import { MyDspaceService } from '../../+my-dspace-page/my-dspace-service/my-dspace.service';
+import { Subscription } from 'rxjs/Subscription';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -17,10 +18,28 @@ import { MyDspaceService } from '../../+my-dspace-page/my-dspace-service/my-dspa
   templateUrl: './search-filters.component.html',
 })
 
-export class SearchFiltersComponent {
-  filters: Observable<RemoteData<SearchFilterConfig[]>>;
-  constructor(private searchService: MyDspaceService) {
-    this.filters = searchService.getConfig();
+export class SearchFiltersComponent implements OnDestroy, OnInit {
+  filters: SearchFilterConfig[] = [];
+  sub: Subscription;
+  constructor(private searchService: SearchService) {
+  }
+
+  ngOnInit() {
+    this.sub = this.searchService.getConfig()
+      .distinctUntilChanged()
+      .subscribe((filtersConfig) => {
+        console.log('filters', filtersConfig);
+        const filters = [];
+        filtersConfig.forEach((filter) => {
+          let newFilter = filter;
+          // Force instance of the facet object to SearchFilterConfig
+          if (!(filter instanceof SearchFilterConfig)) {
+            newFilter = Object.assign(new SearchFilterConfig(), filter);
+          }
+          filters.push(newFilter);
+        });
+        this.filters = filters
+      });
   }
 
   getClearFiltersQueryParams(): any {
@@ -29,5 +48,11 @@ export class SearchFiltersComponent {
 
   getSearchLink() {
     return this.searchService.getSearchLink();
+  }
+
+  ngOnDestroy() {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 }

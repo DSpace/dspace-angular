@@ -4,7 +4,7 @@ import { MyDSpaceResult } from '../../../+my-dspace-page/my-dspace-result.model'
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
-import { hasNoValue, isEmpty } from '../../empty.util';
+import { hasNoValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 
 @Component({
@@ -22,13 +22,15 @@ public constructor(@Inject('objectElementProvider') public gridable: ListableObj
 
   getValues(keys: string[]): string[] {
     const results: string[] = new Array<string>();
-    this.object.hitHighlights.forEach(
-      (md: Metadatum) => {
-        if (keys.indexOf(md.key) > -1) {
-          results.push(md.value);
+    if (isNotEmpty(this.object.hitHighlights)) {
+      this.object.hitHighlights.forEach(
+        (md: Metadatum) => {
+          if (keys.indexOf(md.key) > -1) {
+            results.push(md.value);
+          }
         }
-      }
-    );
+      );
+    }
     if (isEmpty(results)) {
       this.dso.filterMetadata(keys).forEach(
         (md: Metadatum) => {
@@ -41,14 +43,16 @@ public constructor(@Inject('objectElementProvider') public gridable: ListableObj
 
   getFirstValue(key: string): string {
     let result: string;
-    this.object.hitHighlights.some(
-      (md: Metadatum) => {
-        if (key === md.key) {
-          result =  md.value;
-          return true;
+    if (isNotEmpty(this.object.hitHighlights)) {
+      this.object.hitHighlights.some(
+        (md: Metadatum) => {
+          if (key === md.key) {
+            result = md.value;
+            return true;
+          }
         }
-      }
-    );
+      );
+    }
     if (hasNoValue(result)) {
       result = this.dso.findMetadata(key);
     }

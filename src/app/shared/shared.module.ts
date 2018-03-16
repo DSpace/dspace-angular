@@ -73,7 +73,7 @@ import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MessageBoardComponent } from './message-board/message-board.component';
-import { MessageComponent } from './message-board/message.component';
+import { MessageComponent } from './message-board/message/message.component';
 import { ItemListPreviewComponent } from './object-list/item-list-preview/item-list-preview.component';
 import { MyDSpaceResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/my-dspace-result-detail-element.component';
 import { FullFileSectionComponent } from '../+item-page/full/field-components/file-section/full-file-section.component';

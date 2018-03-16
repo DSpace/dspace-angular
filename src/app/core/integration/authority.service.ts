@@ -8,7 +8,7 @@ import { IntegrationService } from './integration.service';
 
 @Injectable()
 export class AuthorityService extends IntegrationService {
-  protected linkName = 'authorities';
+  protected linkPath = 'authorities';
   protected browseEndpoint = 'entries';
 
   constructor(

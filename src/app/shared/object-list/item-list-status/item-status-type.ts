@@ -1,4 +1,5 @@
-export enum ItemStatus {
+export enum ItemStatusType {
+  WORKFLOW = 'Workflow', // rosso
   REJECTED = 'Rejected', // rosso
   VALIDATION = 'Validation', // azzurro
   WAITING_CONTROLLER = 'Waiting controller', // blu

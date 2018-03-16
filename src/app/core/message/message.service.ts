@@ -17,7 +17,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class MessageService extends HALEndpointService {
-  protected linkName = 'messages';
+  protected linkPath = 'messages';
   protected browseEndpoint = '';
 
   constructor(protected http: DSpaceRESTv2Service,

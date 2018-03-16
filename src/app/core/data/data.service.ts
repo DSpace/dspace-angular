@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import { GlobalConfig } from '../../../config';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { GenericConstructor } from '../shared/generic-constructor';
@@ -14,19 +13,16 @@ import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
 
-export abstract class DataService<TNormalized extends CacheableObject, TDomain> extends HALEndpointService {
+export abstract class DataService<TNormalized extends NormalizedObject, TDomain> extends HALEndpointService {
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract store: Store<CoreState>;
-  protected abstract linkName: string;
+  protected abstract linkPath: string;
   protected abstract EnvConfig: GlobalConfig;
   protected abstract overrideRequest = false;
-
-  constructor(protected normalizedResourceType: GenericConstructor<TNormalized>,) {
-    super();
-  }
 
   public abstract getScopedEndpoint(scope: string): Observable<string>
 
@@ -50,11 +46,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     }
 
     if (hasValue(options.sort)) {
-      let direction = 'asc';
-      if (options.sort.direction === 1) {
-        direction = 'desc';
-      }
-      args.push(`sort=${options.sort.field},${direction}`);
+      args.push(`sort=${options.sort.field},${options.sort.direction}`);
     }
 
     if (isNotEmpty(args)) {
@@ -84,11 +76,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
     }
 
     if (hasValue(options.sort)) {
-      let direction = 'asc';
-      if (options.sort.direction === 1) {
-        direction = 'desc';
-      }
-      args.push(`sort=${options.sort.field},${direction}`);
+      args.push(`sort=${options.sort.field},${options.sort.direction}`);
     }
 
     if (isNotEmpty(args)) {
@@ -110,7 +98,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
         this.requestService.configure(request, this.overrideRequest);
       });
 
-    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<TDomain>>>;
+    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs) as Observable<RemoteData<PaginatedList<TDomain>>>;
   }
 
   getFindByIDHref(endpoint, resourceID): string {
@@ -129,12 +117,12 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
         this.requestService.configure(request, this.overrideRequest);
       });
 
-    return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs, this.normalizedResourceType);
+    return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs);
   }
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<TDomain>> {
     this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options), this.overrideRequest);
-    return this.rdbService.buildSingle<TNormalized, TDomain>(href, this.normalizedResourceType);
+    return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
   // TODO remove when search will be completed
@@ -171,7 +159,7 @@ export abstract class DataService<TNormalized extends CacheableObject, TDomain> 
         this.requestService.configure(request, this.overrideRequest);
       });
 
-    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs, this.normalizedResourceType) as Observable<RemoteData<PaginatedList<TDomain>>>;
+    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs) as Observable<RemoteData<PaginatedList<TDomain>>>;
   }
 
 // TODO implement, after the structure of the REST server's POST response is finalized

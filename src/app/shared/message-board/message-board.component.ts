@@ -91,7 +91,9 @@ export class MessageBoardComponent {
       subject,
       description
     };
-    this.msgService.createMessage(body).subscribe((res) => {
+    this.msgService.createMessage(body)
+      .take(1)
+      .subscribe((res) => {
       if (res.isSuccessful) {
         console.log('After message creation:');
         console.log(res);

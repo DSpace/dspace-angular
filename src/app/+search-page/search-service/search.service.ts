@@ -1,30 +1,40 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { filter, first, flatMap, map, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
+import { GLOBAL_CONFIG } from '../../../config';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { ItemDataService } from '../../core/data/item-data.service';
+import { SearchSuccessResponse } from '../../core/cache/response-cache.models';
+import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
+import { ResponseCacheService } from '../../core/cache/response-cache.service';
 import { PaginatedList } from '../../core/data/paginated-list';
+import { ResponseParsingService } from '../../core/data/parsing.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { GetRequest, RestRequest } from '../../core/data/request.models';
+import { RequestService } from '../../core/data/request.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { Metadatum } from '../../core/shared/metadatum.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RouteService } from '../../shared/services/route.service';
+import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { FacetValue } from './facet-value.model';
-import { FilterType } from './filter-type.model';
 import { SearchFilterConfig } from './search-filter-config.model';
-import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { MyDSpaceResult } from '../../+my-dspace-page/my-dspace-result.model';
-import { WorkspaceitemMyDSpaceResult } from '../../shared/object-collection/shared/workspaceitem-my-dspace-result.model';
+import { SearchResponseParsingService } from '../../core/data/search-response-parsing.service';
+import { SearchQueryResponse } from './search-query-response.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { getSearchResultFor } from './search-result-element-decorator';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-export function shuffle(array: any[]) {
+function shuffle(array: any[]) {
   let i = 0;
   let j = 0;
   let temp = null;
@@ -39,173 +49,168 @@ export function shuffle(array: any[]) {
 }
 
 @Injectable()
-export class SearchService implements OnDestroy {
+export class SearchService extends HALEndpointService implements OnDestroy {
+  protected linkPath = 'discover/search/objects';
 
-  totalPages = 5;
-  mockedHighlights: string[] = new Array(
-    'This is a <em>sample abstract</em>.',
-    'This is a sample abstract. But, to fill up some space, here\'s <em>"Hello"</em> in several different languages : ',
-    'This is a Sample HTML webpage including several <em>images</em> and styles (CSS).',
-    'This is <em>really</em> just a sample abstract. But, Í’vé thrown ïn a cõuple of spëciâl charactèrs för êxtrå fuñ!',
-    'This abstract is <em>really quite great</em>',
-    'The solution structure of the <em>bee</em> venom neurotoxin',
-    'BACKGROUND: The <em>Open Archive Initiative (OAI)</em> refers to a movement started around the \'90 s to guarantee free access to scientific information',
-    'The collision fault detection of a <em>XXY</em> stage is proposed for the first time in this paper',
-    '<em>This was blank in the actual item, no abstract</em>',
-    '<em>The QSAR DataBank (QsarDB) repository</em>',
-  );
   private sub;
-  searchLink: string;
 
-  config: SearchFilterConfig[] = [
-    Object.assign(new SearchFilterConfig(),
-      {
-        name: 'scope',
-        type: FilterType.hierarchy,
-        hasFacets: true,
-        isOpenByDefault: true
-      }),
-    Object.assign(new SearchFilterConfig(),
-      {
-        name: 'author',
-        type: FilterType.text,
-        hasFacets: true,
-        isOpenByDefault: false
-      }),
-    Object.assign(new SearchFilterConfig(),
-      {
-        name: 'date',
-        type: FilterType.range,
-        hasFacets: true,
-        isOpenByDefault: false
-      }),
-    Object.assign(new SearchFilterConfig(),
-      {
-        name: 'subject',
-        type: FilterType.text,
-        hasFacets: false,
-        isOpenByDefault: false
-      })
-  ];
-  // searchOptions: BehaviorSubject<SearchOptions>;
+  configObs: Observable<SearchFilterConfig[]>;
+  config: SearchFilterConfig[] = [];
+  configSubject: BehaviorSubject<SearchFilterConfig[]>;
   searchOptions: SearchOptions;
 
-  constructor(protected itemDataService: ItemDataService,
-              protected routeService: RouteService,
-              protected route: ActivatedRoute,
-              protected router: Router) {
-
-    this.searchLink = this.getSearchLink();
+  constructor(protected responseCache: ResponseCacheService,
+              protected requestService: RequestService,
+              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              private routeService: RouteService,
+              private route: ActivatedRoute,
+              private rdb: RemoteDataBuildService,
+              private router: Router) {
+    super();
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = `${this.searchLink}-results-pagination`;
+    pagination.id = 'search-results-pagination';
     pagination.currentPage = 1;
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
-    this.searchOptions = { pagination: pagination, sort: sort };
+    this.searchOptions = {pagination: pagination, sort: sort};
+    this.configSubject = new BehaviorSubject<SearchFilterConfig[]>(this.config)
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
-
   }
 
-  search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>>>> {
-    this.searchOptions = searchOptions;
-    let self = `https://dspace7.4science.it/dspace-spring-rest/api/search?query=${query}`;
-    if (hasValue(scopeId)) {
-      self += `&scope=${scopeId}`;
-    }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.currentPage)) {
-      self += `&page=${searchOptions.pagination.currentPage}`;
-    }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.pagination.pageSize)) {
-      self += `&pageSize=${searchOptions.pagination.pageSize}`;
-    }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.direction)) {
-      self += `&sortDirection=${searchOptions.sort.direction}`;
-    }
-    if (isNotEmpty(searchOptions) && hasValue(searchOptions.sort.field)) {
-      self += `&sortField=${searchOptions.sort.field}`;
-    }
+  search(query: string, scopeId?: string, searchOptions?: SearchOptions, configuration?: string, filters?: any): Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
+    const requestObs = this.getEndpoint().pipe(
+      first(),
+      map((url: string) => {
+        const args: string[] = [];
 
-    const error = undefined;
-    const returningPageInfo = new PageInfo();
+        if (isNotEmpty(query)) {
+          args.push(`query=${query}`);
+        }
 
-    if (isNotEmpty(searchOptions)) {
-      returningPageInfo.elementsPerPage = searchOptions.pagination.pageSize;
-      returningPageInfo.currentPage = searchOptions.pagination.currentPage;
-    } else {
-      returningPageInfo.elementsPerPage = 10;
-      returningPageInfo.currentPage = 1;
-    }
+        if (isNotEmpty(scopeId)) {
+          args.push(`scope=${scopeId}`);
+        }
 
-    const itemsObs = this.itemDataService.findAll({
-      scopeID: scopeId,
-      currentPage: returningPageInfo.currentPage,
-      elementsPerPage: returningPageInfo.elementsPerPage
+        if (isNotEmpty(searchOptions)) {
+          if (isNotEmpty(searchOptions.sort)) {
+            args.push(`sort=${searchOptions.sort.field},${searchOptions.sort.direction}`);
+          }
+          if (isNotEmpty(searchOptions.pagination)) {
+            args.push(`page=${searchOptions.pagination.currentPage - 1}`);
+            args.push(`size=${searchOptions.pagination.pageSize}`);
+          }
+        }
+
+        if (isNotEmpty(configuration)) {
+          args.push(`configuration=${configuration}`);
+        }
+
+        if (isNotEmpty(filters)) {
+          Object.keys(filters)
+            .forEach((key) => {
+              filters[key].forEach((value) => args.push(`${key}=${value}`))
+            });
+        }
+
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+
+        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return SearchResponseParsingService;
+          }
+        });
+      }),
+      tap((request: RestRequest) => this.requestService.configure(request, true)),
+    );
+
+    const requestEntryObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    const responseCacheObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.responseCache.get(request.href))
+    );
+
+    // get search results from response cache
+    const sqrObs: Observable<SearchQueryResponse> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      first(),
+      map((response: SearchSuccessResponse) => {
+        console.log(response);
+        return response.results
+      })
+    );
+
+    // turn dspace href from search results to effective list of DSpaceObjects
+    // Turn list of observable remote data DSO's into observable remote data object with list of DSO
+    const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
+      map((sqr: SearchQueryResponse) => {
+        return sqr.objects.map((nsr: NormalizedSearchResult) =>
+          this.rdb.buildSingle(nsr.dspaceObject));
+      }),
+      flatMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input))
+    );
+
+    // Create search results again with the correct dso objects linked to each result
+    const tDomainListObs: Observable<Array<SearchResult<DSpaceObject>>> = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
+      // emit new facets value
+      this.configSubject.next(sqr.facets);
+      return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
+        let co = DSpaceObject;
+        if (dsos.payload[index]) {
+          const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
+          co = getSearchResultFor(constructor, configuration);
+          return Object.assign(new co(), object, {
+            dspaceObject: dsos.payload[index]
+          });
+        } else {
+          return undefined;
+        }
+      });
     });
 
-    return itemsObs
-      .filter((rd: RemoteData<PaginatedList<Item>>) => rd.hasSucceeded)
-      .map((rd: RemoteData<PaginatedList<Item>>) => {
+    const pageInfoObs: Observable<PageInfo> = responseCacheObs
+      .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
+      .map((entry: ResponseCacheEntry) => {
+        if (hasValue((entry.response as SearchSuccessResponse).pageInfo)) {
+          const resPageInfo = (entry.response as SearchSuccessResponse).pageInfo;
+          if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
+            return Object.assign({}, resPageInfo, {currentPage: resPageInfo.currentPage + 1});
+          } else {
+            return resPageInfo;
+          }
+        }
+      });
 
-        const totalElements = rd.payload.totalElements > 20 ? 20 : rd.payload.totalElements;
+    const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
+      if (hasValue(pageInfo)) {
+        return new PaginatedList(pageInfo, tDomainList);
+      } else {
+        return tDomainList;
+      }
+    });
 
-        const page = shuffle(rd.payload.page)
-          .map((item: Item, index: number) => {
-            const mockResult: SearchResult<DSpaceObject> = new ItemSearchResult();
-            mockResult.dspaceObject = item;
-            const highlight = new Metadatum();
-            highlight.key = 'dc.description.abstract';
-            highlight.value = this.mockedHighlights[index % this.mockedHighlights.length];
-            mockResult.hitHighlights = new Array(highlight);
-            return mockResult;
-          });
-
-        const payload = Object.assign({}, rd.payload, { totalElements: totalElements, page });
-
-        return new RemoteData(
-          rd.isRequestPending,
-          rd.isResponsePending,
-          rd.hasSucceeded,
-          error,
-          payload
-        )
-      }).startWith(new RemoteData(
-        true,
-        false,
-        undefined,
-        undefined,
-        undefined
-      ))
+    const rd = this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+    responseCacheObs
+      .subscribe((r) => {
+        console.log(r, rd);
+      });
+    return rd;
   }
 
-  getConfig(): Observable<RemoteData<SearchFilterConfig[]>> {
-    const requestPending = false;
-    const responsePending = false;
-    const isSuccessful = true;
-    const error = undefined;
-    return Observable.of(new RemoteData(
-      requestPending,
-      responsePending,
-      isSuccessful,
-      error,
-      this.config
-    ));
+  getConfig(): BehaviorSubject<SearchFilterConfig[]> {
+    return this.configSubject;
   }
 
   getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
-    const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
-    return this.routeService.getQueryParameterValues(filterConfig.paramName).map((selectedValues: string[]) => {
-        const payload: FacetValue[] = [];
-        const totalFilters = 13;
-        for (let i = 0; i < totalFilters; i++) {
-          const value = searchFilterConfigName + ' ' + (i + 1);
-          if (!selectedValues.includes(value)) {
-            payload.push({
-              value: value,
-              count: Math.floor(Math.random() * 20) + 20 * (totalFilters - i), // make sure first results have the highest (random) count
-              search: decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value
-            });
-          }
-        }
+    return this.getConfig().pipe(
+      filter((config: SearchFilterConfig[]) => isNotUndefined(config)),
+      flatMap((config: SearchFilterConfig[]) => config),
+      filter((config: SearchFilterConfig) => config.name === searchFilterConfigName),
+      map((config: SearchFilterConfig) => {
         const requestPending = false;
         const responsePending = false;
         const isSuccessful = true;
@@ -215,10 +220,10 @@ export class SearchService implements OnDestroy {
           responsePending,
           isSuccessful,
           error,
-          payload
+          config.values
         )
-      }
-    )
+      })
+    );
   }
 
   getViewMode(): Observable<ViewMode> {
@@ -233,22 +238,22 @@ export class SearchService implements OnDestroy {
 
   setViewMode(viewMode: ViewMode) {
     const navigationExtras: NavigationExtras = {
-      queryParams: { view: viewMode },
+      queryParams: {view: viewMode},
       queryParamsHandling: 'merge'
     };
 
-    this.router.navigate([this.searchLink], navigationExtras);
+    this.router.navigate([this.getSearchLink()], navigationExtras);
   }
 
   getClearFiltersQueryParams(): any {
     const params = {};
     this.sub = this.route.queryParamMap
-      .subscribe((map) => {
-        map.keys
+      .subscribe((paramsMap) => {
+        paramsMap.keys
           .filter((key) => this.config
             .findIndex((conf: SearchFilterConfig) => conf.paramName === key) < 0)
           .forEach((key) => {
-            params[key] = map.get(key);
+            params[key] = paramsMap.get(key);
           })
       });
     return params;
@@ -256,7 +261,8 @@ export class SearchService implements OnDestroy {
 
   getSearchLink() {
     const urlTree = this.router.parseUrl(this.router.url);
-    return `/${urlTree.root.children.primary.segments[0].path}`;
+    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
+    return '/' + g.toString();
   }
 
   ngOnDestroy(): void {

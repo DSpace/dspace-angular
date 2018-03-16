@@ -8,7 +8,7 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 
 @Injectable()
 export class SubmissionDefinitionsConfigService extends ConfigService {
-  protected linkName = 'submissiondefinitions';
+  protected linkPath = 'submissiondefinitions';
   protected browseEndpoint = 'search/findByCollection';
 
   constructor(

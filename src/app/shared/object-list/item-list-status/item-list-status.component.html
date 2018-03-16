@@ -1,8 +1,6 @@
-<span [ngClass]="{'badge': true,
-                  'badge-danger': statusTxt == ALL_STATUS[0],
-                  'badge-primary': statusTxt == ALL_STATUS[1],
-                  'badge-info': statusTxt == ALL_STATUS[2],
-                  'badge-warning': statusTxt == ALL_STATUS[3],
-                  'badge-success': statusTxt == ALL_STATUS[4]}">
-  {{statusTxt}}
-</span>
+<div>
+  <span class="badge p-1"
+        [className]="badgeClass">
+    {{badgeContent}}
+  </span>
+</div>

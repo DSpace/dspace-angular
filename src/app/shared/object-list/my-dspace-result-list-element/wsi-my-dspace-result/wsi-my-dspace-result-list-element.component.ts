@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../+search-page/search-options.model';
@@ -16,6 +16,7 @@ import { AppState } from '../../../../app.reducer';
 import { Store } from '@ngrx/store';
 import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { ItemStatusType } from '../../item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -32,12 +33,15 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   public messages: Bitstream[] = [];
   public unRead = [];
   public modalRef: NgbModalRef;
+  public status = ItemStatusType.IN_PROGRESS;
 
-  constructor(private modalService: NgbModal,
+  constructor(private cdr: ChangeDetectorRef,
+              private modalService: NgbModal,
               private store: Store<AppState>,
               private wsiDataService: WorkspaceitemDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
+    this.status = ItemStatusType.IN_PROGRESS;
   }
 
   ngOnInit() {
@@ -67,6 +71,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .first()
       .subscribe((rd: RemoteData<any>) => {
         this.item = rd.payload[0];
+        this.cdr.detectChanges();
       });
   }
 

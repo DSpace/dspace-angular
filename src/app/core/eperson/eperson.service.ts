@@ -16,7 +16,7 @@ export abstract class EpersonService extends HALEndpointService {
   protected request: EpersonRequest;
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
-  protected abstract linkName: string;
+  protected abstract linkPath: string;
   protected abstract EnvConfig: GlobalConfig;
   protected abstract browseEndpoint: string;
 

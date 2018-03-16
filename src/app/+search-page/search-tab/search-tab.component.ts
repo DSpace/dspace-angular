@@ -1,26 +1,49 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-
-export enum SearchTabOptions {
-  'Your submissions',
-  'All tasks'
-}
+import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { RolesService } from '../../core/roles/roles.service';
+import { isEmpty } from '../../shared/empty.util';
+import { MyDSpaceConfigurationType } from '../../+my-dspace-page/mydspace-configuration-type';
 
 @Component({
   selector: 'ds-search-tab',
   styleUrls: ['./search-tab.component.scss'],
   templateUrl: './search-tab.component.html',
 })
-export class SearchTabComponent {
+export class SearchTabComponent implements OnInit {
 
-  constructor(private router: Router) {
+  public tabOptions = [];
+  public selectedOption: MyDSpaceConfigurationType;
+
+  constructor(private rolesService: RolesService, private router: Router) {
   }
 
-  public tabOptions = SearchTabOptions;
+  ngOnInit() {
+
+    Object.keys(MyDSpaceConfigurationType)
+      .forEach((key) => {
+        const label = `mydspace.show.${MyDSpaceConfigurationType[key]}`;
+        if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workspace && this.rolesService.isSubmitter()) {
+          this.tabOptions.push({value: MyDSpaceConfigurationType[key], label});
+          this.selectedOption = MyDSpaceConfigurationType.Workspace;
+        }
+        if (MyDSpaceConfigurationType[key] === MyDSpaceConfigurationType.Workflow && this.rolesService.isController()) {
+          this.tabOptions.push({value: MyDSpaceConfigurationType[key], label});
+          if (isEmpty(this.selectedOption)) {
+            this.selectedOption = MyDSpaceConfigurationType.Workflow;
+          }
+        }
+      });
+  }
 
   onSelect(event: Event) {
-    /*const value = (event.target.selectedIndex === 0) ? 'submissions' : 'tasks';
-    console.log(event.target.value);
-    this.router.navigate(['/mydspace', {'f.show': value}]);*/
+    const navigationExtras: NavigationExtras = {
+      queryParams: {configuration: this.selectedOption}
+    };
+
+    this.router.navigate(['/mydspace'], navigationExtras);
+  }
+
+  compare(item1: MyDSpaceConfigurationType, item2: MyDSpaceConfigurationType) {
+    return item1 === item2;
   }
 }

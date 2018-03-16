@@ -1,5 +1,8 @@
-import { MyDSpaceResult } from '../../../+my-dspace-page/my-dspace-result.model';
 import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
+import { SearchResult } from '../../../+search-page/search-result.model';
+import { MyDSpaceConfigurationType } from '../../../+my-dspace-page/mydspace-configuration-type';
+import { searchResultFor } from '../../../+search-page/search-service/search-result-element-decorator';
 
-export class WorkflowitemMyDSpaceResult extends MyDSpaceResult<Workflowitem> {
+@searchResultFor(Workflowitem, MyDSpaceConfigurationType.Workflow)
+export class WorkflowitemMyDSpaceResult extends SearchResult<Workflowitem> {
 }
