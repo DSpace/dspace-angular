@@ -156,12 +156,25 @@ export class AuthService {
       .map((status: AuthStatus) => {
         let url = '';
         if (isNotEmpty(status.ssoLoginUrl)) {
-          const urldec = decodeURI(status.ssoLoginUrl);
-          console.log(urldec);
-          url = status.ssoLoginUrl.replace('%2Fhome', '%2Flogin');
+          url = this.parseSSOLocation(status.ssoLoginUrl);
+          console.log(url);
         }
         return url;
       });
+  }
+
+  private parseSSOLocation(url: string): string {
+    const parseUrl = decodeURIComponent(url);
+    // const urlTree: UrlTree = this.router.parseUrl(url);
+    // this.router.parseUrl(url);
+    // if (url.endsWith('/')) {
+    //   url += 'login';
+    // } else {
+    //   url = url.replace('/?target=http(.+)/g', 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
+    // }
+    // console.log(url);
+
+    return parseUrl.replace(/\?target=http.+/g, '?target=https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
   }
 
   /**
