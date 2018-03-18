@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
@@ -9,7 +10,7 @@ import 'rxjs/add/operator/takeWhile';
 import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../core/auth/auth.actions';
 
 import {
-  getAuthenticationError, getAuthenticationInfo,
+  getAuthenticationError, getAuthenticationInfo, getSSOLoginUrl,
   isAuthenticated,
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
@@ -19,6 +20,7 @@ import { isNotEmpty } from '../empty.util';
 import { fadeOut } from '../animations/fade';
 import { AuthService } from '../../core/auth/auth.service';
 import { PlatformService } from '../services/platform.service';
+import { Router } from '@angular/router';
 
 /**
  * /users/sign-in
@@ -75,6 +77,12 @@ export class LogInComponent implements OnDestroy, OnInit {
   private alive = true;
 
   /**
+   * The redirect url to login with sso.
+   * @type {Observable<string>}
+   */
+  public ssoLoginUrl: Observable<string>;
+
+  /**
    * @constructor
    * @param {AuthService} authService
    * @param {FormBuilder} formBuilder
@@ -83,7 +91,8 @@ export class LogInComponent implements OnDestroy, OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private platform: PlatformService,
+    private location: Location,
+    public platform: PlatformService,
     private store: Store<CoreState>
   ) { }
 
@@ -115,6 +124,9 @@ export class LogInComponent implements OnDestroy, OnInit {
     // set loading
     this.loading = this.store.select(isAuthenticationLoading);
 
+    // set sso login url
+    this.ssoLoginUrl = this.store.select(getSSOLoginUrl);
+
     // subscribe to success
     this.store.select(isAuthenticated)
       .takeWhile(() => this.alive)
@@ -141,6 +153,16 @@ export class LogInComponent implements OnDestroy, OnInit {
       this.hasError = false;
       this.hasMessage = false;
     }
+  }
+
+  public redirectToSSO() {
+    this.ssoLoginUrl
+      .filter((url) => isNotEmpty(url))
+      .first()
+      .subscribe((url) => {
+        console.log(url);
+        this.location.go(url);
+    })
   }
 
   /**

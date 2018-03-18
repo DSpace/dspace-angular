@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -34,6 +35,7 @@ export class AuthService {
   private _authenticated: boolean;
 
   constructor(private authRequestService: AuthRequestService,
+              private location: Location,
               private router: Router,
               private storage: CookieService,
               private store: Store<AppState>) {
@@ -143,6 +145,23 @@ export class AuthService {
    */
   public resetAuthenticationError(): void {
     this.store.dispatch(new ResetAuthenticationMessagesAction());
+  }
+
+  /**
+   * Retrieve authentication methods available
+   * @returns {User}
+   */
+  public retrieveAuthMethods(): Observable<string> {
+    return this.authRequestService.getRequest('login')
+      .map((status: AuthStatus) => {
+        let url = '';
+        if (isNotEmpty(status.ssoLoginUrl)) {
+          const urldec = decodeURI(status.ssoLoginUrl);
+          console.log(urldec);
+          url = status.ssoLoginUrl.replace('%2Fhome', '%2Flogin');
+        }
+        return url;
+      });
   }
 
   /**

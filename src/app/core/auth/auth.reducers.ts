@@ -2,7 +2,7 @@
 import {
   AuthActions, AuthActionTypes, AuthenticatedSuccessAction, AuthenticationErrorAction,
   AuthenticationSuccessAction, LogOutErrorAction, RedirectWhenAuthenticationIsRequiredAction,
-  RedirectWhenTokenExpiredAction, SetRedirectUrlAction
+  RedirectWhenTokenExpiredAction, RetrieveAuthMethodsSuccessAction, SetRedirectUrlAction
 } from './auth.actions';
 
 // import models
@@ -35,6 +35,9 @@ export interface AuthState {
   // true when refreshing token
   refreshing?: boolean;
 
+  // sso login url
+  ssoLoginUrl?: string;
+
   // the authenticated user
   user?: Eperson;
 }
@@ -46,6 +49,7 @@ const initialState: AuthState = {
   authenticated: false,
   loaded: false,
   loading: false,
+  ssoLoginUrl: ''
 };
 
 /**
@@ -162,6 +166,22 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         info: undefined,
       });
 
+    case AuthActionTypes.RETRIEVE_AUTH_METHODS:
+      return Object.assign({}, state, {
+        loading: true
+      });
+
+    case AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        ssoLoginUrl: (action as RetrieveAuthMethodsSuccessAction).payload
+      });
+
+    case AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR:
+      return Object.assign({}, state, {
+        loading: false
+      });
+
     case AuthActionTypes.SET_REDIRECT_URL:
       return Object.assign({}, state, {
         redirectUrl: (action as SetRedirectUrlAction).payload,
@@ -251,3 +271,11 @@ export const _getRegistrationError = (state: AuthState) => state.error;
  * @returns {string}
  */
 export const _getRedirectUrl = (state: AuthState) => state.redirectUrl;
+
+/**
+ * Returns the sso login url.
+ * @function _getSSOLoginUrl
+ * @param {State} state
+ * @returns {string}
+ */
+export const _getSSOLoginUrl = (state: AuthState) => state.ssoLoginUrl;

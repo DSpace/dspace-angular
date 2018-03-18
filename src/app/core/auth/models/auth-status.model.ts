@@ -13,5 +13,7 @@ export class AuthStatus extends DSpaceObject {
 
   eperson: Eperson[];
 
+  ssoLoginUrl?: string;
+
   token?: AuthTokenInfo
 }
