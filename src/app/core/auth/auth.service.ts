@@ -157,7 +157,6 @@ export class AuthService {
         let url = '';
         if (isNotEmpty(status.ssoLoginUrl)) {
           url = this.parseSSOLocation(status.ssoLoginUrl);
-          console.log(url);
         }
         return url;
       });

@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { ActivatedRoute } from '@angular/router';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
+import { Observable } from 'rxjs/Observable';
+import { isAuthenticated } from '../core/auth/selectors';
 
 @Component({
   selector: 'ds-login-page',
@@ -21,15 +23,15 @@ export class LoginPageComponent implements OnDestroy, OnInit {
               private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.sub = this.route
-      .queryParams
-      .subscribe((params) => {
+    const queryParamsObs = this.route.queryParams;
+    const authenticated = this.store.select(isAuthenticated)
+    this.sub = Observable.combineLatest(queryParamsObs, authenticated)
+      .filter(([params, auth]) => !auth && isNotEmpty(params.token))
+      .first()
+      .subscribe(([params, auth]) => {
         const token = params.token;
-        console.log(token);
-        if (isNotEmpty(token)) {
-          const authToken = new AuthTokenInfo(token);
-          this.store.dispatch(new AuthenticatedAction(authToken));
-        }
+        const authToken = new AuthTokenInfo(token);
+        this.store.dispatch(new AuthenticatedAction(authToken));
       })
   }
 
