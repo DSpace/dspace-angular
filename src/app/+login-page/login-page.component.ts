@@ -7,6 +7,7 @@ import { AuthenticatedAction, ResetAuthenticationMessagesAction } from '../core/
 import { Subscription } from 'rxjs/Subscription';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { ActivatedRoute } from '@angular/router';
+import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 
 @Component({
   selector: 'ds-login-page',
@@ -26,7 +27,8 @@ export class LoginPageComponent implements OnDestroy, OnInit {
         const token = params.token;
         console.log(token);
         if (isNotEmpty(token)) {
-          this.store.dispatch(new AuthenticatedAction(token));
+          const authToken = new AuthTokenInfo(token);
+          this.store.dispatch(new AuthenticatedAction(authToken));
         }
       })
   }
