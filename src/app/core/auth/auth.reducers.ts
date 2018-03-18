@@ -68,6 +68,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         info: undefined
       });
 
+    case AuthActionTypes.AUTHENTICATED:
+      return Object.assign({}, state, {
+        loading: true
+      });
+
     case AuthActionTypes.AUTHENTICATED_ERROR:
       return Object.assign({}, state, {
         authenticated: false,
