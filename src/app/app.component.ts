@@ -48,12 +48,12 @@ export class AppComponent implements OnInit {
     const color: string = this.config.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
-    if (this.platformService.isServer) {
-      this.store.select(isAuthenticated)
-        .take(1)
-        .filter((authenticated) => !authenticated)
-        .subscribe((authenticated) => this.store.dispatch(new CheckAuthenticationTokenAction()));
-    }
+    // if (this.platformService.isBrowser) {
+    this.store.select(isAuthenticated)
+      .take(1)
+      .filter((authenticated) => !authenticated)
+      .subscribe((authenticated) => this.store.dispatch(new CheckAuthenticationTokenAction()));
+    // }
   }
 
   @HostListener('window:resize', ['$event'])

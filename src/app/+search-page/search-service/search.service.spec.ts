@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 import { SearchService } from './search.service';
 import { ItemDataService } from './../../core/data/item-data.service';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { RouteService } from '../../shared/route.service';
+import { RouteService } from '../../shared/services/route.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { ActivatedRoute } from '@angular/router';

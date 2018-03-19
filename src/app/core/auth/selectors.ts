@@ -102,10 +102,19 @@ export const getLogOutError = createSelector(getAuthState, auth._getLogOutError)
 export const getRegistrationError = createSelector(getAuthState, auth._getRegistrationError);
 
 /**
- * Returns the redirect url..
+ * Returns the redirect url.
  * @function getRedirectUrl
  * @param {AuthState} state
  * @param {any} props
  * @return {string}
  */
 export const getRedirectUrl = createSelector(getAuthState, auth._getRedirectUrl);
+
+/**
+ * Returns the sso login url.
+ * @function getSSOLoginUrl
+ * @param {AuthState} state
+ * @param {any} props
+ * @return {string}
+ */
+export const getSSOLoginUrl = createSelector(getAuthState, auth._getSSOLoginUrl);
