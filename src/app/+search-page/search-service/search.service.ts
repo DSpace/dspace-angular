@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, filter, first, flatMap, map, reduce, startWith, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, flatMap, map, startWith, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -19,9 +19,8 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { RouteService } from '../../shared/services/route.service';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
@@ -64,7 +63,6 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   constructor(protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              private routeService: RouteService,
               private route: ActivatedRoute,
               private rdb: RemoteDataBuildService,
               private router: Router) {
