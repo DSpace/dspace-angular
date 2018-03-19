@@ -28,7 +28,6 @@ export class SearchFiltersComponent implements OnDestroy, OnInit {
     this.sub = this.searchService.getConfig()
       .distinctUntilChanged()
       .subscribe((filtersConfig) => {
-        console.log('filters', filtersConfig);
         const filters = [];
         filtersConfig.forEach((filter) => {
           let newFilter = filter;

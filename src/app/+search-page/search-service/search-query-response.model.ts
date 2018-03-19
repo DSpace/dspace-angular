@@ -2,6 +2,7 @@ import { autoserialize, autoserializeAs } from 'cerialize';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchFilterConfig } from './search-filter-config.model';
+import { SearchAppliedFilter } from './search-applied-filter.model';
 
 export class SearchQueryResponse {
   @autoserialize
@@ -10,8 +11,8 @@ export class SearchQueryResponse {
   @autoserialize
   query: string;
 
-  @autoserialize
-  appliedFilters: any[]; // TODO
+  @autoserializeAs(SearchAppliedFilter)
+  appliedFilters: SearchAppliedFilter[]; // TODO
 
   @autoserialize
   sort: any; // TODO
