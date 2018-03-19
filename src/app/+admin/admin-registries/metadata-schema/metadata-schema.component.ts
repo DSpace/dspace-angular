@@ -13,6 +13,8 @@ import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 })
 export class MetadataSchemaComponent implements OnInit {
 
+  namespace;
+
   metadataSchema: Observable<RemoteData<MetadataSchema>>;
   metadataFields: Observable<RemoteData<PaginatedList<MetadataField>>>;
 
@@ -29,8 +31,9 @@ export class MetadataSchemaComponent implements OnInit {
   initialize(params) {
     this.metadataSchema = this.metadataRegistryService.getMetadataSchemaByName(params.schemaName);
     this.metadataSchema.subscribe((value) => {
-      let schema = value.payload;
+      const schema = value.payload;
       this.metadataFields = this.metadataRegistryService.getMetadataFieldsBySchema(schema);
+      this.namespace = { namespace: value.payload.namespace };
     });
   }
 

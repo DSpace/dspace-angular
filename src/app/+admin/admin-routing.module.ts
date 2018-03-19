@@ -8,6 +8,6 @@ import { NgModule } from '@angular/core';
     ])
   ]
 })
-export class AdminPageRoutingModule {
+export class AdminRoutingModule {
 
 }

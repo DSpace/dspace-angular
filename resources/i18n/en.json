@@ -129,28 +129,23 @@
       "metadata": {
         "title": "DSpace Angular :: Metadata Registry",
         "head": "Metadata Registry",
-        "description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema. You may extend the Dublin Core schema with additional fields or add new schemas to the registry.",
+        "description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
         "schemas": {
           "table": {
             "namespace": "Namespace",
-            "name": "Name",
-            "caption": "List of metadata schemas"
+            "name": "Name"
           }
         }
       },
       "schema": {
         "title": "DSpace Angular :: Metadata Schema",
         "head": "Metadata Schema",
-        "description": {
-          "part1": "This is the metadata schema for",
-          "part2": "You may add new or update existing metadata fields to this schema. Fields may also be selected for deletion or be moved to another schema."
-        },
+        "description": "This is the metadata schema for \"{{namespace}}\".",
         "fields": {
           "head": "Schema metadata fields",
           "table": {
             "field": "Field",
-            "scopenote": "Scope Note",
-            "caption": "List of metadata fields"
+            "scopenote": "Scope Note"
           }
         }
       }

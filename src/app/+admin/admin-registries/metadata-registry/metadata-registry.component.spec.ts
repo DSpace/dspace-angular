@@ -15,14 +15,14 @@ describe('MetadataRegistryComponent', () => {
   let metadataRegistryService: MetadataRegistryService;
   const mockSchemasList = [
     {
-      "self": "https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1",
-      "prefix": "dc",
-      "namespace": "http://dublincore.org/documents/dcmi-terms/"
+      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
+      prefix: 'dc',
+      namespace: 'http://dublincore.org/documents/dcmi-terms/'
     },
     {
-      "self": "https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2",
-      "prefix": "mock",
-      "namespace": "http://dspace.org/mockschema"
+      self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
+      prefix: 'mock',
+      namespace: 'http://dspace.org/mockschema'
     }
   ];
   const mockSchemas = Observable.of(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
@@ -48,15 +48,15 @@ describe('MetadataRegistryComponent', () => {
   });
 
   it('should contain two schemas', () => {
-    let tbody: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas>tbody')).nativeElement;
+    const tbody: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas>tbody')).nativeElement;
     expect(tbody.children.length).toBe(2);
   });
 
   it('should contain the correct schemas', () => {
-    let dcName: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas tr:nth-child(1) td:nth-child(2)')).nativeElement;
+    const dcName: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas tr:nth-child(1) td:nth-child(2)')).nativeElement;
     expect(dcName.textContent).toBe('dc');
 
-    let mockName: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas tr:nth-child(2) td:nth-child(2)')).nativeElement;
+    const mockName: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas tr:nth-child(2) td:nth-child(2)')).nativeElement;
     expect(mockName.textContent).toBe('mock');
   });
 
