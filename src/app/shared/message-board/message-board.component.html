@@ -11,11 +11,11 @@
   <article id="content" class="rounded-bottom">
     <div id="list">
       <ul class="chat">
-        <ng-container *ngFor="let m of messages; let i = index">
+        <ng-container *ngFor="let m of messages | async; let i = index">
           <ds-message
             [m]="m"
             [showUnread]="i == messages.length-1 && showUnread"
-            (unRead)="unReadLastMsg()"
+            (unRead)="unReadLastMsg(m.uuid)"
           ></ds-message>
         </ng-container>
       </ul>

@@ -6,18 +6,17 @@
 <button class="btn btn-primary mt-1 mb-3" [routerLink]="['/workspaceitems/' + dso.id] + '/edit'" >Edit</button>
 <button class="btn btn-primary mt-1 mb-3" (click)="openMessageBoard(content)">
   <i class="fa fa-envelope"></i>
-  <span *ngIf="messages.length > 0" class="badge badge-pill badge-secondary">{{messages.length}}</span>
+  <span *ngIf="(messages | async).length > 0" class="badge badge-pill badge-secondary">{{messages.length}}</span>
 </button>
-<sup class="notification">
-  <span *ngIf="unRead.length > 0" class="badge badge-pill badge-danger font-italic">New</span>
-</sup>
+<!--<sup class="notification">-->
+  <!--<span *ngIf="unRead.length > 0" class="badge badge-pill badge-danger font-italic">New</span>-->
+<!--</sup>-->
 
 <ng-template #content let-c="close" let-d="dismiss">
   <ds-message-board
     [messages]="messages"
     [submitter]="submitter"
     [user]="user"
-    [unRead]="unRead"
     [modalRef]="modalRef"
     [itemUUID]="item.uuid"
     (refresh)="refresh()">

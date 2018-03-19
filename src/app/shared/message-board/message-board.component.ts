@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-message-board',
@@ -19,17 +20,17 @@ import { NotificationOptions } from '../notifications/models/notification-option
 
 export class MessageBoardComponent {
   @Input()
-  public messages: Bitstream[];
+  public messages: Observable<Bitstream[]>;
   @Input()
-  public submitter: Eperson;
+  public submitter: Observable<Eperson>;
   @Input()
-  public user: Eperson;
+  public user: Observable<Eperson>;
   @Input()
   public modalRef: NgbModalRef;
   @Input()
   public itemUUID: string;
-  @Input()
-  public unRead: string[];
+  // @Input()
+  public unRead: Bitstream[] = [];
   @Output()
   public refresh = new EventEmitter<any>();
 
@@ -53,23 +54,36 @@ export class MessageBoardComponent {
       textDescription: ['', Validators.required]
     });
 
-    if (this.isLastMsgForMe()) {
-      const lastMsg = this.messages[this.messages.length - 1];
-      const accessioned = lastMsg.findMetadata('dc.date.accessioned');
-      if (!accessioned) {
-        this.read(); // Set as Read the last message
-      }
-      this.showUnread = true;
+    this.messages
+      .filter((msgs) => msgs !== null && msgs.length > 0)
+      .subscribe((msgs) => {
+        this.unRead = [];
+        msgs.forEach((m) => {
+          if (this.isUnread(m)) {
+            this.unRead.push(m);
+          }
+        });
 
-      // TODO REMOVE... Use only for test the Set as Unread
-      // this.unRead();
-    }
+        if (this.isLastMsgForMe(msgs)) {
+          const lastMsg = msgs[msgs.length - 1];
+          const accessioned = lastMsg.findMetadata('dc.date.accessioned');
+          if (!accessioned) {
+            this.read(); // Set as Read the last message
+          }
+          this.showUnread = true;
+
+          // TODO REMOVE... Use only for test the Set as Unread
+          // this.unRead();
+        }
+
+      });
+
   }
 
-  isLastMsgForMe(): boolean {
-    if (this.messages && this.messages.length > 0) {
-      const lastMsg = this.messages[this.messages.length - 1];
-      if (this.user.uuid === this.submitter.uuid) {
+  isLastMsgForMe(msgs): boolean {
+    if (msgs && msgs.length > 0) {
+      const lastMsg = this.messages[msgs.length - 1];
+      if (this.user.sequenceEqual(this.submitter)) {
         if (lastMsg.findMetadata('dc.type') === 'outbound') {
           return true;
         }
@@ -91,9 +105,7 @@ export class MessageBoardComponent {
       subject,
       description
     };
-    this.msgService.createMessage(body)
-      .take(1)
-      .subscribe((res) => {
+    this.msgService.createMessage(body).subscribe((res) => {
       if (res.isSuccessful) {
         console.log('After message creation:');
         console.log(res);
@@ -111,10 +123,10 @@ export class MessageBoardComponent {
     });
   }
 
-  unReadLastMsg() {
-    const uuid = this.messages[this.messages.length - 1].uuid;
+  unReadLastMsg(msgUuid) {
+    // const uuid = this.messages[this.messages.length - 1].uuid;
     const body = {
-      uuid: uuid
+      uuid: msgUuid
     };
     const req = this.msgService.markAsUnread(body).subscribe((res) => {
       console.log('After message unRead:');
@@ -137,6 +149,21 @@ export class MessageBoardComponent {
         this.refresh.emit('read');
       });
     });
+  }
+
+  isUnread(m: Bitstream): boolean {
+    const accessioned = m.findMetadata('dc.date.accessioned');
+    const type = m.findMetadata('dc.type');
+    if (this.user.sequenceEqual(this.submitter)
+      && !accessioned
+      && type === 'outbound') {
+      return true;
+    } else if (this.user.sequenceEqual(this.submitter)
+      && !accessioned
+      && type === 'inbound') {
+      return true;
+    }
+    return false;
   }
 
 }

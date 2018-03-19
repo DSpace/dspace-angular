@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../+search-page/search-options.model';
@@ -16,7 +16,6 @@ import { AppState } from '../../../../app.reducer';
 import { Store } from '@ngrx/store';
 import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
-import { ItemStatusType } from '../../item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -28,20 +27,17 @@ import { ItemStatusType } from '../../item-list-status/item-status-type';
 @renderElementsFor(Workspaceitem, ViewMode.List)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   public item: Item;
-  public submitter: Eperson;
-  public user: Eperson;
-  public messages: Bitstream[] = [];
-  public unRead = [];
+  public submitter: Observable<Eperson>;
+  public user: Observable<Eperson>;
+  public messages: Observable<Bitstream[]> = Observable.of([]);
+  // public unRead = [];
   public modalRef: NgbModalRef;
-  public status = ItemStatusType.IN_PROGRESS;
 
-  constructor(private cdr: ChangeDetectorRef,
-              private modalService: NgbModal,
+  constructor(private modalService: NgbModal,
               private store: Store<AppState>,
               private wsiDataService: WorkspaceitemDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
-    this.status = ItemStatusType.IN_PROGRESS;
   }
 
   ngOnInit() {
@@ -59,7 +55,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .filter((user: Eperson) => isNotEmpty(user))
       .take(1)
       .subscribe((user: Eperson) => {
-        this.user = user;
+        this.user = Observable.of(user);
       });
 
     this.populateMessages();
@@ -71,7 +67,6 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .first()
       .subscribe((rd: RemoteData<any>) => {
         this.item = rd.payload[0];
-        this.cdr.detectChanges();
       });
   }
 
@@ -79,33 +74,18 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     this.modalRef = this.modalService.open(content);
   }
 
-  isUnread(m: Bitstream): boolean {
-    const accessioned = m.findMetadata('dc.date.accessioned');
-    const type = m.findMetadata('dc.type');
-    if (this.user.uuid === this.submitter.uuid
-      && !accessioned
-      && type === 'outbound') {
-      return true;
-    } else if (this.user.uuid !== this.submitter.uuid
-      && !accessioned
-      && type === 'inbound') {
-      return true;
-    }
-    return false;
-  }
-
   populateMessages() {
     this.item.getBitstreamsByBundleName('MESSAGE')
       .filter((bitStreams) => bitStreams !== null && bitStreams.length > 0)
       .first()
       .subscribe((bitStreams: Bitstream[]) => {
-        this.messages = bitStreams;
-        this.unRead = [];
-        bitStreams.forEach((b: Bitstream) => {
-          if (this.isUnread(b)) {
-            this.unRead.push(b.uuid);
-          }
-        });
+        this.messages = Observable.of(bitStreams);
+        // this.unRead = [];
+        // bitStreams.forEach((b: Bitstream) => {
+        //   if (this.isUnread(b)) {
+        //     this.unRead.push(b.uuid);
+        //   }
+        // });
         // console.log('Now unRead has', this.unRead.length, ' messages');
       });
   }
