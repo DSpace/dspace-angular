@@ -17,6 +17,9 @@ export const AuthActionTypes = {
   AUTHENTICATED_SUCCESS: type('dspace/auth/AUTHENTICATED_SUCCESS'),
   CHECK_AUTHENTICATION_TOKEN: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN'),
   CHECK_AUTHENTICATION_TOKEN_ERROR: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN_ERROR'),
+  RETRIEVE_AUTH_METHODS: type('dspace/auth/RETRIEVE_AUTH_METHODS'),
+  RETRIEVE_AUTH_METHODS_SUCCESS: type('dspace/auth/RETRIEVE_AUTH_METHODS_SUCCESS'),
+  RETRIEVE_AUTH_METHODS_ERROR: type('dspace/auth/RETRIEVE_AUTH_METHODS_ERROR'),
   REDIRECT_TOKEN_EXPIRED: type('dspace/auth/REDIRECT_TOKEN_EXPIRED'),
   REDIRECT_AUTHENTICATION_REQUIRED: type('dspace/auth/REDIRECT_AUTHENTICATION_REQUIRED'),
   REFRESH_TOKEN: type('dspace/auth/REFRESH_TOKEN'),
@@ -293,6 +296,38 @@ export class ResetAuthenticationMessagesAction implements Action {
 }
 
 /**
+ * Check if token is already present upon initial load.
+ * @class CheckAuthenticationTokenAction
+ * @implements {Action}
+ */
+export class RetrieveAuthMethodsAction implements Action {
+  public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS;
+}
+
+/**
+ * Check if token is already present upon initial load.
+ * @class CheckAuthenticationTokenAction
+ * @implements {Action}
+ */
+export class RetrieveAuthMethodsSuccessAction implements Action {
+  public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS;
+  payload: string;
+
+  constructor(location: string) {
+    this.payload = location;
+  }
+}
+
+/**
+ * Check if token is already present upon initial load.
+ * @class CheckAuthenticationTokenAction
+ * @implements {Action}
+ */
+export class RetrieveAuthMethodsErrorAction implements Action {
+  public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR;
+}
+
+/**
  * Change the redirect url.
  * @class SetRedirectUrlAction
  * @implements {Action}
@@ -326,4 +361,7 @@ export type AuthActions
   | RedirectWhenTokenExpiredAction
   | RegistrationAction
   | RegistrationErrorAction
-  | RegistrationSuccessAction;
+  | RegistrationSuccessAction
+  | RetrieveAuthMethodsAction
+  | RetrieveAuthMethodsSuccessAction
+  | RetrieveAuthMethodsErrorAction;

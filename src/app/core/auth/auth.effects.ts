@@ -20,7 +20,7 @@ import {
   LogOutErrorAction,
   LogOutSuccessAction, RefreshTokenAction, RefreshTokenErrorAction, RefreshTokenSuccessAction, RegistrationAction,
   RegistrationErrorAction,
-  RegistrationSuccessAction
+  RegistrationSuccessAction, RetrieveAuthMethodsAction, RetrieveAuthMethodsErrorAction, RetrieveAuthMethodsSuccessAction
 } from './auth.actions';
 import { Eperson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -75,6 +75,11 @@ export class AuthEffects {
         .map((token: AuthTokenInfo) => new AuthenticatedAction(token))
         .catch((error) => Observable.of(new CheckAuthenticationTokenErrorAction()));
     });
+
+  @Effect()
+  public checkTokenError: Observable<Action> = this.actions$
+    .ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_ERROR)
+    .map(() => new RetrieveAuthMethodsAction());
 
   @Effect()
   public createUser: Observable<Action> = this.actions$
@@ -135,6 +140,15 @@ export class AuthEffects {
   public redirectToLogin: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED, AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED)
     .do(() => this.authService.redirectToLogin());
+
+  @Effect()
+  public retrieveMethods: Observable<Action> = this.actions$
+    .ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS)
+    .switchMap(() => {
+      return this.authService.retrieveAuthMethods()
+        .map((location: any) => new RetrieveAuthMethodsSuccessAction(location))
+        .catch((error) => Observable.of(new RetrieveAuthMethodsErrorAction()));
+    });
 
   /**
    * @constructor

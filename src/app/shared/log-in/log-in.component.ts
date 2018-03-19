@@ -9,7 +9,9 @@ import 'rxjs/add/operator/takeWhile';
 import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../core/auth/auth.actions';
 
 import {
-  getAuthenticationError, getAuthenticationInfo,
+  getAuthenticationError,
+  getAuthenticationInfo,
+  getSSOLoginUrl,
   isAuthenticated,
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
@@ -75,17 +77,22 @@ export class LogInComponent implements OnDestroy, OnInit {
   private alive = true;
 
   /**
+   * The redirect url to login with sso.
+   * @type {Observable<string>}
+   */
+  public ssoLoginUrl: Observable<string>;
+
+  /**
    * @constructor
    * @param {AuthService} authService
    * @param {FormBuilder} formBuilder
    * @param {Store<State>} store
    */
-  constructor(
-    private authService: AuthService,
-    private formBuilder: FormBuilder,
-    private platform: PlatformService,
-    private store: Store<CoreState>
-  ) { }
+  constructor(private authService: AuthService,
+              private formBuilder: FormBuilder,
+              public platform: PlatformService,
+              private store: Store<CoreState>) {
+  }
 
   /**
    * Lifecycle hook that is called after data-bound properties of a directive are initialized.
@@ -114,6 +121,9 @@ export class LogInComponent implements OnDestroy, OnInit {
 
     // set loading
     this.loading = this.store.select(isAuthenticationLoading);
+
+    // set sso login url
+    this.ssoLoginUrl = this.store.select(getSSOLoginUrl);
 
     // subscribe to success
     this.store.select(isAuthenticated)
