@@ -28,13 +28,11 @@ export class MessageBoardComponent implements OnDestroy {
   @Input()
   public user: Observable<Eperson>;
   @Input()
-  public modalRef: NgbModalRef;
-  @Input()
-  public itemUUID: string;
+  public itemUUID: Observable<string>;
   public unRead: Bitstream[] = [];
+  public modalRef: NgbModalRef;
   @Output()
   public refresh = new EventEmitter<any>();
-  clicked = false;
 
   /**
    * The message form.
@@ -99,33 +97,33 @@ export class MessageBoardComponent implements OnDestroy {
     return false;
   }
 
-  sendMessage() {
+  sendMessage(itemUuid) {
     // get subject and description values
     const subject: string = this.messageForm.get('textSubject').value;
     const description: string = this.messageForm.get('textDescription').value;
     const body = {
-      uuid: this.itemUUID,
+      uuid: itemUuid,
       subject,
       description
     };
     this.sub = this.msgService.createMessage(body)
       .take(1)
       .subscribe((res) => {
-      if (res.isSuccessful) {
-        console.log('After message creation:');
-        console.log(res);
-        // Refresh event
-        this.refresh.emit('read');
-        this.modalRef.dismiss('Send Message');
-        this.notificationsService.success(null,
-          this.translate.get('submission.workflow.tasks.generic.success'),
-          new NotificationOptions(5000, false));
-      } else {
-        this.notificationsService.error(null,
-          this.translate.get('submission.workflow.tasks.generic.error'),
-          new NotificationOptions(20000, true));
-      }
-    });
+        if (res.isSuccessful) {
+          console.log('After message creation:');
+          console.log(res);
+          // Refresh event
+          this.refresh.emit('read');
+          this.modalRef.dismiss('Send Message');
+          this.notificationsService.success(null,
+            this.translate.get('submission.workflow.tasks.generic.success'),
+            new NotificationOptions(5000, false));
+        } else {
+          this.notificationsService.error(null,
+            this.translate.get('submission.workflow.tasks.generic.error'),
+            new NotificationOptions(20000, true));
+        }
+      });
   }
 
   unReadLastMsg(msgUuid) {
@@ -162,7 +160,7 @@ export class MessageBoardComponent implements OnDestroy {
       && !accessioned
       && type === 'outbound') {
       return true;
-    } else if (this.user.sequenceEqual(this.submitter)
+    } else if (!this.user.sequenceEqual(this.submitter)
       && !accessioned
       && type === 'inbound') {
       return true;
