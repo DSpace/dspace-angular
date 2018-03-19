@@ -115,6 +115,7 @@ export class ClaimedTaskActionsComponent implements OnInit {
       return false;
     };
     this.router.navigated = false;
-    this.router.navigate([this.router.url]);
+    const url = decodeURIComponent(this.router.url);
+    this.router.navigateByUrl(url);
   }
 }
