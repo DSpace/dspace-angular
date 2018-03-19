@@ -58,8 +58,6 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
       .subscribe((user: Eperson) => {
         this.user = Observable.of(user);
       });
-
-    this.populateMessages();
   }
 
   initItem(itemObs: Observable<RemoteData<Item[]>>) {
@@ -68,16 +66,6 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
       .take(1)
       .subscribe((rd: RemoteData<any>) => {
         this.item = rd.payload[0];
-        this.itemUuid = Observable.of(this.item.uuid);
-      });
-  }
-
-  populateMessages() {
-    this.item.getBitstreamsByBundleName('MESSAGE')
-      .filter((bitStreams) => bitStreams !== null && bitStreams.length > 0)
-      .take(1)
-      .subscribe((bitStreams: Bitstream[]) => {
-        this.messages = Observable.of(bitStreams);
       });
   }
 
@@ -91,7 +79,6 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
         // console.log('Refresh wsi...');
         this.dso = wsi.payload;
         this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
-        this.populateMessages();
       });
   }
 

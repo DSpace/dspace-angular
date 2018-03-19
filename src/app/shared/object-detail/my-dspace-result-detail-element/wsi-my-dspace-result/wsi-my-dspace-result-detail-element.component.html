@@ -7,9 +7,8 @@
 <button class="btn btn-primary mt-1 mb-3" [routerLink]="['/workspaceitems/' + dso.id] + '/edit'" >Edit</button>
 
 <ds-message-board
-  [messages]="messages"
+  [itemObs]="dso.item"
   [submitter]="submitter"
   [user]="user"
-  [itemUUID]="itemUuid"
   (refresh)="refresh()">
 </ds-message-board>

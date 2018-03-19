@@ -28,6 +28,7 @@
     <span *ngIf="processingReturnToPool"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
     <span *ngIf="!processingReturnToPool"><i class="fa fa-undo"></i> {{'submission.workflow.tasks.claimed.return' | translate}}</span>
   </button>
+
 </div>
 
 <ng-template #rejectModal let-c="close" let-d="dismiss">

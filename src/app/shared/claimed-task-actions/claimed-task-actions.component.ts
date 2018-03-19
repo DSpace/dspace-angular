@@ -12,6 +12,8 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationAnimationsType } from '../notifications/models/notification-animations-type';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
+import { Item } from '../../core/shared/item.model';
+import { hasNoUndefinedValue } from '../empty.util';
 
 @Component({
   selector: 'ds-claimed-task-actions',
@@ -22,6 +24,7 @@ import { NotificationOptions } from '../notifications/models/notification-option
 export class ClaimedTaskActionsComponent implements OnInit {
   @Input() task: ClaimedTask;
 
+  public itemObs: Observable<RemoteData<Item[]>>;
   public processingApprove = false;
   public processingReject = false;
   public processingReturnToPool = false;
@@ -43,6 +46,17 @@ export class ClaimedTaskActionsComponent implements OnInit {
       reason: ['', Validators.required]
     });
     this.workflowitemObs = this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>;
+    this.itemObs = this.workflowitemObs
+      .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .map((rd: RemoteData<Workflowitem[]>) => {
+        return new RemoteData(
+          false,
+          false,
+          true,
+          undefined,
+          [rd.payload[0].item]
+        );
+      })
   }
 
   approve() {

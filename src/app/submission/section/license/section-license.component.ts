@@ -78,8 +78,8 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
   }
 
   onChange(event: DynamicFormControlEvent) {
-    // const path = this.formBuilderService.getFieldPathSegmentedFromChangeEvent(event);
-    const path = 'granted/0';
+    const path = this.formBuilderService.getFieldPathSegmentedFromChangeEvent(event);
+    // const path = 'granted/0';
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
     this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, value));
     if (value) {

@@ -9,7 +9,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue } from '../empty.util';
+import { hasNoUndefinedValue, hasValue, isNotEmpty } from '../empty.util';
+import { Item } from '../../core/shared/item.model';
+import { RemoteData } from '../../core/data/remote-data';
 
 @Component({
   selector: 'ds-message-board',
@@ -21,19 +23,16 @@ import { hasValue } from '../empty.util';
 })
 
 export class MessageBoardComponent implements OnDestroy {
-  @Input()
-  public messages: Observable<Bitstream[]>;
-  @Input()
-  public submitter: Observable<Eperson>;
-  @Input()
-  public user: Observable<Eperson>;
-  @Input()
-  public itemUUID: Observable<string>;
+  @Input() itemObs: Observable<RemoteData<Item[]>>;
+  @Output() public refresh = new EventEmitter<any>();
+  @Input() public submitter: Observable<Eperson>;
+  @Input() public user: Observable<Eperson>;
+
   public unRead: Bitstream[] = [];
   public modalRef: NgbModalRef;
-  @Output()
-  public refresh = new EventEmitter<any>();
 
+  public itemUUIDObs: Observable<string>;
+  public messagesObs: Observable<Bitstream[]>;
   /**
    * The message form.
    * @type {FormGroup}
@@ -50,13 +49,29 @@ export class MessageBoardComponent implements OnDestroy {
   }
 
   ngOnInit() {
+    this.messagesObs = this.itemObs
+      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .take(1)
+      .flatMap((rd: RemoteData<Item[]>) => {
+        const item = rd.payload[0];
+        return item.getBitstreamsByBundleName('MESSAGE')
+          .filter((bitStreams: Bitstream[]) => isNotEmpty(bitStreams))
+          .take(1)
+          .map((bitStreams: Bitstream[]) => {
+            console.log(bitStreams);
+            return bitStreams;
+          });
+      })
+      .startWith([])
+      .distinctUntilChanged();
+
     // set formGroup
     this.messageForm = this.formBuilder.group({
       textSubject: ['', Validators.required],
       textDescription: ['', Validators.required]
     });
 
-    this.messages
+    this.messagesObs
       .filter((msgs) => msgs !== null && msgs.length > 0)
       .subscribe((msgs) => {
         this.unRead = [];
@@ -79,6 +94,14 @@ export class MessageBoardComponent implements OnDestroy {
         }
 
       });
+
+    this.itemUUIDObs = this.itemObs
+      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .take(1)
+      .map((rd: RemoteData<Item[]>) => {
+        const item = rd.payload[0];
+        return item.uuid;
+      })
   }
 
   isLastMsgForMe(msgs): boolean {

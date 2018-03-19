@@ -29,47 +29,16 @@ export class SubmissionDefinitionEffects {
         .map((definition: SubmissionDefinitionsModel) => {
           const mappedActions = [];
           mappedActions.push(new NewDefinitionAction(definition));
-
-          // START MODIFY
-          const deduplication: SubmissionSectionModel = new SubmissionSectionModel();
-          deduplication.name = 'Name';
-          deduplication.type = 'submissionsection';
-          deduplication.header = 'submit.progressbar.describe.deduplication';
-          deduplication.mandatory = true;
-          deduplication.sectionType = SectionType.Deduplication;
-          deduplication.visibility = {
-            main: null,
-            other: 'READONLY'
-          };
-          deduplication.self = 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/config/submissionsections/deduplication';
-          deduplication._links = {self: deduplication.self};
-
-          const sectionsss = [...definition.sections, deduplication];
-          const definitionnn = Object.assign({}, definition, {sections: sectionsss});
-
-          definitionnn.sections.forEach((section) => {
-            console.log(section);
+          definition.sections.forEach((section) => {
             mappedActions.push(
               new NewSectionDefinitionAction(
-                definitionnn.name,
+                definition.name,
                 section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
                 section as SubmissionSectionModel)
-            );
+            )
           });
-          return {action: action, definition: definitionnn, mappedActions: mappedActions};
-        });
-      // END MODIFY
-
-        //   definition.sections.forEach((section) => {
-        //     mappedActions.push(
-        //       new NewSectionDefinitionAction(
-        //         definition.name,
-        //         section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
-        //         section as SubmissionSectionModel)
-        //     );
-        //   });
-        //   return {action: action, definition: definition, mappedActions: mappedActions};
-        // });
+          return {action: action, definition: definition, mappedActions: mappedActions};
+        })
     })
     // .flatMap((result) => result)
     .mergeMap((result) => {
