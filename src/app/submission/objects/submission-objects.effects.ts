@@ -256,7 +256,7 @@ export class SubmissionObjectEffects {
       //         mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionss[sectionId], sectionErrors));
       //       });
       //   }
-      });
+      // });
       // End Deduplication Modify
 
     }
