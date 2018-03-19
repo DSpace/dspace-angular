@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../+search-page/search-options.model';
@@ -31,12 +31,9 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   public submitter: Observable<Eperson>;
   public user: Observable<Eperson>;
   public messages: Observable<Bitstream[]> = Observable.of([]);
-  // public unRead = [];
-  public modalRef: NgbModalRef;
   public status = ItemStatusType.IN_PROGRESS;
 
   constructor(private cdr: ChangeDetectorRef,
-              private modalService: NgbModal,
               private store: Store<AppState>,
               private wsiDataService: WorkspaceitemDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
@@ -62,7 +59,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
         this.user = Observable.of(user);
       });
 
-     this.populateMessages();
+    this.populateMessages();
   }
 
   initItem(itemObs: Observable<RemoteData<Item[]>>) {
@@ -74,23 +71,12 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       });
   }
 
-  openMessageBoard(content) {
-    this.modalRef = this.modalService.open(content);
-  }
-
   populateMessages() {
     this.item.getBitstreamsByBundleName('MESSAGE')
       .filter((bitStreams) => bitStreams !== null && bitStreams.length > 0)
       .first()
       .subscribe((bitStreams: Bitstream[]) => {
         this.messages = Observable.of(bitStreams);
-        // this.unRead = [];
-        // bitStreams.forEach((b: Bitstream) => {
-        //   if (this.isUnread(b)) {
-        //     this.unRead.push(b.uuid);
-        //   }
-        // });
-        // console.log('Now unRead has', this.unRead.length, ' messages');
       });
   }
 

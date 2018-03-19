@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from '../../core/message/message.service';
 import { Eperson } from '../../core/eperson/models/eperson.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -31,10 +31,10 @@ export class MessageBoardComponent implements OnDestroy {
   public modalRef: NgbModalRef;
   @Input()
   public itemUUID: string;
-  // @Input()
   public unRead: Bitstream[] = [];
   @Output()
   public refresh = new EventEmitter<any>();
+  clicked = false;
 
   /**
    * The message form.
@@ -42,11 +42,11 @@ export class MessageBoardComponent implements OnDestroy {
    */
   public messageForm: FormGroup;
   public showUnread = false;
-
   private sub: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               public msgService: MessageService,
+              private modalService: NgbModal,
               private notificationsService: NotificationsService,
               private translate: TranslateService,) {
   }
@@ -81,12 +81,11 @@ export class MessageBoardComponent implements OnDestroy {
         }
 
       });
-
   }
 
   isLastMsgForMe(msgs): boolean {
     if (msgs && msgs.length > 0) {
-      const lastMsg = this.messages[msgs.length - 1];
+      const lastMsg = msgs[msgs.length - 1];
       if (this.user.sequenceEqual(this.submitter)) {
         if (lastMsg.findMetadata('dc.type') === 'outbound') {
           return true;
@@ -130,7 +129,6 @@ export class MessageBoardComponent implements OnDestroy {
   }
 
   unReadLastMsg(msgUuid) {
-    // const uuid = this.messages[this.messages.length - 1].uuid;
     const body = {
       uuid: msgUuid
     };
@@ -170,6 +168,10 @@ export class MessageBoardComponent implements OnDestroy {
       return true;
     }
     return false;
+  }
+
+  openMessageBoard(content) {
+    this.modalRef = this.modalService.open(content);
   }
 
   ngOnDestroy() {
