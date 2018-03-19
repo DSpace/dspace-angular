@@ -43,7 +43,7 @@ export class AuthNavMenuComponent implements OnDestroy, OnInit {
     this.subs.push(this.store.select(routerStateSelector)
       .filter((router: RouterReducerState) => isNotUndefined(router) && isNotUndefined(router.state))
       .subscribe((router: RouterReducerState) => {
-        this.showAuth = router.state.url !== '/login';
+        this.showAuth = !router.state.url.startsWith('/login');
       }));
   }
 

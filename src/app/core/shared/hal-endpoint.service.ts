@@ -35,7 +35,7 @@ export abstract class HALEndpointService {
 
   public getEndpoint(linkName?: string): Observable<string> {
     const mapLinkName = isNotEmpty(linkName) ? linkName : this.linkPath;
-    return this.getEndpointAt(...this.linkPath.split('/'));
+    return this.getEndpointAt(...mapLinkName.split('/'));
   }
 
   private getEndpointAt(...path: string[]): Observable<string> {

@@ -21,7 +21,7 @@ import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 export class SearchFacetFilterComponent implements OnInit {
   @Input() filterValues: FacetValue[];
   @Input() filterConfig: SearchFilterConfig;
-  @Input() selectedValues: string[];
+  @Input() selectedValues: FacetValue[];
   currentPage: Observable<number>;
   filter: string;
 
@@ -74,7 +74,7 @@ export class SearchFacetFilterComponent implements OnInit {
 
   getFilters(): FacetValue[] {
     // filter selected values
-    return this.filterValues.filter((value: FacetValue) => !this.selectedValues.includes(value.label))
+    return this.filterValues.filter((value: FacetValue) => !this.selectedValues.includes(value))
   }
 
   onSubmit(data: any) {

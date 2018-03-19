@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { filter, first, flatMap, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, flatMap, map, startWith, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -19,9 +19,8 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { RouteService } from '../../shared/services/route.service';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
@@ -33,6 +32,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { getSearchResultFor } from './search-result-element-decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SearchAppliedFilter } from './search-applied-filter.model';
 
 function shuffle(array: any[]) {
   let i = 0;
@@ -54,7 +54,8 @@ export class SearchService extends HALEndpointService implements OnDestroy {
 
   private sub;
 
-  configObs: Observable<SearchFilterConfig[]>;
+  appliedFilters: SearchAppliedFilter[] = [];
+  appliedFiltersSubject: BehaviorSubject<SearchAppliedFilter[]>;
   config: SearchFilterConfig[] = [];
   configSubject: BehaviorSubject<SearchFilterConfig[]>;
   searchOptions: SearchOptions;
@@ -62,7 +63,6 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   constructor(protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              private routeService: RouteService,
               private route: ActivatedRoute,
               private rdb: RemoteDataBuildService,
               private router: Router) {
@@ -74,12 +74,12 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     const sort: SortOptions = new SortOptions();
     this.searchOptions = {pagination: pagination, sort: sort};
     this.configSubject = new BehaviorSubject<SearchFilterConfig[]>(this.config)
+    this.appliedFiltersSubject = new BehaviorSubject<SearchAppliedFilter[]>(this.appliedFilters)
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions, configuration?: string, filters?: any): Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
-    const requestObs = this.getEndpoint().pipe(
-      first(),
+    const requestObs = this.getEndpoint().first().pipe(
       map((url: string) => {
         const args: string[] = [];
 
@@ -139,7 +139,13 @@ export class SearchService extends HALEndpointService implements OnDestroy {
       map((entry: ResponseCacheEntry) => entry.response),
       first(),
       map((response: SearchSuccessResponse) => {
-        console.log(response);
+        // emit new facets value
+        this.configSubject.next(response.results.facets);
+        this.config = response.results.facets;
+
+        // emit new applied filters value
+        this.appliedFiltersSubject.next(response.results.appliedFilters);
+        this.appliedFilters = response.results.appliedFilters;
         return response.results
       })
     );
@@ -156,8 +162,6 @@ export class SearchService extends HALEndpointService implements OnDestroy {
 
     // Create search results again with the correct dso objects linked to each result
     const tDomainListObs: Observable<Array<SearchResult<DSpaceObject>>> = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
-      // emit new facets value
-      this.configSubject.next(sqr.facets);
       return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
         let co = DSpaceObject;
         if (dsos.payload[index]) {
@@ -193,16 +197,40 @@ export class SearchService extends HALEndpointService implements OnDestroy {
       }
     });
 
-    const rd = this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
-    responseCacheObs
-      .subscribe((r) => {
-        console.log(r, rd);
-      });
-    return rd;
+    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
   getConfig(): BehaviorSubject<SearchFilterConfig[]> {
     return this.configSubject;
+  }
+
+  getAppliedFiltersFor(searchFilterConfigName: string): Observable<RemoteData<SearchAppliedFilter[]>> {
+    return this.appliedFiltersSubject.pipe(
+      filter((appliedFilters: SearchAppliedFilter[]) => isNotEmpty(appliedFilters)),
+      map((appliedFilters: SearchAppliedFilter[]) => appliedFilters
+        .filter((appliedFilter: SearchAppliedFilter) => appliedFilter.filter === searchFilterConfigName)),
+      map((appliedFilters: SearchAppliedFilter[]) => {
+        const requestPending = false;
+        const responsePending = false;
+        const isSuccessful = true;
+        const error = undefined;
+        return new RemoteData(
+          requestPending,
+          responsePending,
+          isSuccessful,
+          error,
+          appliedFilters
+        )
+      }),
+      startWith(new RemoteData(
+        false,
+        true,
+        true,
+        undefined,
+        []
+      )),
+      distinctUntilChanged()
+    )
   }
 
   getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
@@ -222,7 +250,15 @@ export class SearchService extends HALEndpointService implements OnDestroy {
           error,
           config.values
         )
-      })
+      }),
+      startWith(new RemoteData(
+        false,
+        true,
+        true,
+        undefined,
+        []
+      )),
+      distinctUntilChanged()
     );
   }
 

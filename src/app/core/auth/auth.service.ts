@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -34,6 +35,7 @@ export class AuthService {
   private _authenticated: boolean;
 
   constructor(private authRequestService: AuthRequestService,
+              private location: Location,
               private router: Router,
               private storage: CookieService,
               private store: Store<AppState>) {
@@ -143,6 +145,35 @@ export class AuthService {
    */
   public resetAuthenticationError(): void {
     this.store.dispatch(new ResetAuthenticationMessagesAction());
+  }
+
+  /**
+   * Retrieve authentication methods available
+   * @returns {User}
+   */
+  public retrieveAuthMethods(): Observable<string> {
+    return this.authRequestService.getRequest('login')
+      .map((status: AuthStatus) => {
+        let url = '';
+        if (isNotEmpty(status.ssoLoginUrl)) {
+          url = this.parseSSOLocation(status.ssoLoginUrl);
+        }
+        return url;
+      });
+  }
+
+  private parseSSOLocation(url: string): string {
+    const parseUrl = decodeURIComponent(url);
+    // const urlTree: UrlTree = this.router.parseUrl(url);
+    // this.router.parseUrl(url);
+    // if (url.endsWith('/')) {
+    //   url += 'login';
+    // } else {
+    //   url = url.replace('/?target=http(.+)/g', 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
+    // }
+    // console.log(url);
+
+    return parseUrl.replace(/\?target=http.+/g, '?target=https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
   }
 
   /**

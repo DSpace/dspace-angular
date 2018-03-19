@@ -16,6 +16,7 @@ import { Store } from '@ngrx/store';
 import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
+import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-detail-element',
@@ -27,11 +28,11 @@ import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail
 @renderElementsFor(Workspaceitem, ViewMode.Detail)
 export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   public item: Item;
-  public submitter: Eperson;
-  public user: Eperson;
-  public messages: Bitstream[] = [];
-  public unRead = [];
-  public modalRef: NgbModalRef;
+  submitter: Observable<Eperson>;
+  user: Observable<Eperson>;
+  itemUuid: Observable<string>;
+  messages: Observable<Bitstream[]> = Observable.of([]);
+  status = ItemStatusType.IN_PROGRESS;
 
   constructor(private modalService: NgbModal,
               private store: Store<AppState>,
@@ -45,7 +46,7 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
 
     (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .first()
+      .take(1)
       .subscribe((rd: RemoteData<any>) => {
         // console.log(rd);
         this.submitter = rd.payload[0];
@@ -55,7 +56,7 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
       .filter((user: Eperson) => isNotEmpty(user))
       .take(1)
       .subscribe((user: Eperson) => {
-        this.user = user;
+        this.user = Observable.of(user);
       });
 
     this.populateMessages();
@@ -64,44 +65,19 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
   initItem(itemObs: Observable<RemoteData<Item[]>>) {
     itemObs
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .first()
+      .take(1)
       .subscribe((rd: RemoteData<any>) => {
         this.item = rd.payload[0];
+        this.itemUuid = Observable.of(this.item.uuid);
       });
-  }
-
-  openMessageBoard(content) {
-    this.modalRef = this.modalService.open(content);
-  }
-
-  isUnread(m: Bitstream): boolean {
-    const accessioned = m.findMetadata('dc.date.accessioned');
-    const type = m.findMetadata('dc.type');
-    if (this.user.uuid === this.submitter.uuid
-      && !accessioned
-      && type === 'outbound') {
-      return true;
-    } else if (this.user.uuid !== this.submitter.uuid
-      && !accessioned
-      && type === 'inbound') {
-      return true;
-    }
-    return false;
   }
 
   populateMessages() {
     this.item.getBitstreamsByBundleName('MESSAGE')
       .filter((bitStreams) => bitStreams !== null && bitStreams.length > 0)
-      .first()
+      .take(1)
       .subscribe((bitStreams: Bitstream[]) => {
-        this.messages = bitStreams;
-        this.unRead = [];
-        bitStreams.forEach((b: Bitstream) => {
-          if (this.isUnread(b)) {
-            this.unRead.push(b.uuid);
-          }
-        });
-        // console.log('Now unRead has', this.unRead.length, ' messages');
+        this.messages = Observable.of(bitStreams);
       });
   }
 

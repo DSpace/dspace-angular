@@ -31,17 +31,17 @@ describe('SearchFacetFilterComponent', () => {
       label: value1,
       count: 52,
       search: ''
-    }, {
+    } as FacetValue, {
       value: value2,
       label: value2,
       count: 20,
       search: ''
-    }, {
+    } as FacetValue, {
       value: value3,
       label: value3,
       count: 5,
       search: ''
-    }
+    } as FacetValue
   ];
   let filterService;
   const page = Observable.of(0)

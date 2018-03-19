@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+
+import { find } from 'lodash';
+
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchService } from '../../search-service/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -6,7 +9,8 @@ import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { SearchAppliedFilter } from '../../search-service/search-applied-filter.model';
 
 /**
  * This component renders a simple item page.
@@ -58,7 +62,20 @@ export class SearchFilterComponent implements OnInit {
     this.filterService.initialExpand(this.filter.name);
   }
 
-  getSelectedValues(): Observable<string[]> {
-    return this.filterService.getSelectedValuesForFilter(this.filter);
+  getSelectedValues(): Observable<FacetValue[]> {
+    const selectedFilterValues = this.searchService.getAppliedFiltersFor(this.filter.name);
+    return selectedFilterValues
+      .filter((appliedFiltersRD: RemoteData<SearchAppliedFilter[]>) => isNotEmpty(appliedFiltersRD.payload))
+      .first()
+      .map((appliedFiltersRD: RemoteData<SearchAppliedFilter[]>) => appliedFiltersRD.payload)
+      .map((appliedFilters: SearchAppliedFilter[]) => {
+        return this.filter.values
+          .filter((facetValue: FacetValue) =>
+            (find(appliedFilters, (sel: SearchAppliedFilter) => sel.appliedValue === facetValue.value))
+        );
+      }
+    )
+    .startWith([])
+    .distinctUntilChanged();
   }
 }

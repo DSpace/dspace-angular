@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects'
+import { Actions, Effect } from '@ngrx/effects';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -9,12 +9,13 @@ import {
   NewDefinitionAction,
   NewSectionDefinitionAction,
   SubmissionDefinitionActionTypes
-} from './submission-definitions.actions'
+} from './submission-definitions.actions';
 import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import { InitSubmissionFormAction } from '../objects/submission-objects.actions';
 import { ConfigData } from '../../core/config/config-data';
+import { SectionType } from '../section/section-type';
 
 @Injectable()
 export class SubmissionDefinitionEffects {
@@ -28,16 +29,47 @@ export class SubmissionDefinitionEffects {
         .map((definition: SubmissionDefinitionsModel) => {
           const mappedActions = [];
           mappedActions.push(new NewDefinitionAction(definition));
-          definition.sections.forEach((section) => {
+
+          // START MODIFY
+          const deduplication: SubmissionSectionModel = new SubmissionSectionModel();
+          deduplication.name = 'Name';
+          deduplication.type = 'submissionsection';
+          deduplication.header = 'submit.progressbar.describe.deduplication';
+          deduplication.mandatory = true;
+          deduplication.sectionType = SectionType.Deduplication;
+          deduplication.visibility = {
+            main: null,
+            other: 'READONLY'
+          };
+          deduplication.self = 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/config/submissionsections/deduplication';
+          deduplication._links = {self: deduplication.self};
+
+          const sectionsss = [...definition.sections, deduplication];
+          const definitionnn = Object.assign({}, definition, {sections: sectionsss});
+
+          definitionnn.sections.forEach((section) => {
+            console.log(section);
             mappedActions.push(
               new NewSectionDefinitionAction(
-                definition.name,
+                definitionnn.name,
                 section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
                 section as SubmissionSectionModel)
-            )
+            );
           });
-          return {action: action, definition: definition, mappedActions: mappedActions};
-        })
+          return {action: action, definition: definitionnn, mappedActions: mappedActions};
+        });
+      // END MODIFY
+
+        //   definition.sections.forEach((section) => {
+        //     mappedActions.push(
+        //       new NewSectionDefinitionAction(
+        //         definition.name,
+        //         section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
+        //         section as SubmissionSectionModel)
+        //     );
+        //   });
+        //   return {action: action, definition: definition, mappedActions: mappedActions};
+        // });
     })
     // .flatMap((result) => result)
     .mergeMap((result) => {
@@ -49,7 +81,7 @@ export class SubmissionDefinitionEffects {
             result.action.payload.submissionId,
             result.action.payload.selfUrl,
             result.action.payload.sections)
-      ))
+        ));
     });
 
   @Effect() complete$ = this.actions$
@@ -64,5 +96,6 @@ export class SubmissionDefinitionEffects {
     );
 
   constructor(private actions$: Actions,
-              private definitionsConfigService: SubmissionDefinitionsConfigService) {}
+              private definitionsConfigService: SubmissionDefinitionsConfigService) {
+  }
 }

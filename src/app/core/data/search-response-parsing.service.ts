@@ -6,7 +6,7 @@ import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { PageInfo } from '../shared/page-info.model';
-import { isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty, isNotNull } from '../../shared/empty.util';
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { Metadatum } from '../shared/metadatum.model';
 
@@ -31,7 +31,8 @@ export class SearchResponseParsingService implements ResponseParsingService {
       });
 
     const dsoSelfLinks = payload._embedded.objects
-      .map((object) => object._embedded.dspaceObject)
+      .filter((object) => isNotEmpty(object._embedded) && isNotEmpty(object._embedded.rObject))
+      .map((object) => object._embedded.rObject)
       // we don't need embedded collections, bitstreamformats, etc for search results.
       // And parsing them all takes up a lot of time. Throw them away to improve performance
       // until objs until partial results are supported by the rest api
@@ -47,13 +48,14 @@ export class SearchResponseParsingService implements ResponseParsingService {
       .reduce((combined, thisElement) => [...combined, ...thisElement], []);
 
     const objects = payload._embedded.objects
+      .filter((object, index) => isNotEmpty(object._embedded) && isNotEmpty(object._embedded.rObject))
       .map((object, index) => Object.assign({}, object, {
         dspaceObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
         // we don't need embedded collections, bitstreamformats, etc for search results.
         // And parsing them all takes up a lot of time. Throw them away to improve performance
         // until objs until partial results are supported by the rest api
-        _embedded: undefined
+        // _embedded: undefined
       }));
     payload.objects = objects;
 

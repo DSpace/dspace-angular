@@ -1,47 +1,63 @@
-<div class="modal-header rounded-top">
-  <i class="fa fa-envelope"></i> {{'mydspace.messages.title' | translate}}
-  <div class="btn-group pull-right">
-            <span (click)="modalRef.dismiss('Cross click')">
-          <i class="fa fa-2x fa-times" style="color: white"></i>
-          </span>
-  </div>
-</div>
+<button
+  class="btn btn-primary mt-1 mb-3"
+  (click)="openMessageBoard(content)">
+  <i class="fa fa-envelope"></i>
+  <span *ngIf="(messages | async).length > 0"
+        class="badge badge-pill badge-secondary">{{(messages | async).length}}</span>
+</button>
+<sup class="notification">
+  <span *ngIf="unRead.length > 0" class="badge badge-pill badge-danger font-italic">New</span>
+</sup>
 
-<div class="modal-body">
-  <article id="content" class="rounded-bottom">
-    <div id="list">
-      <ul class="chat">
-        <ng-container *ngFor="let m of messages; let i = index">
-          <ds-message
-            [m]="m"
-            [showUnread]="i == messages.length-1 && showUnread"
-            (unRead)="unReadLastMsg()"
-          ></ds-message>
-        </ng-container>
-      </ul>
-      <div *ngIf="messages.length == 0">{{'mydspace.messages.no-messages' | translate}}</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header rounded-top">
+    <i class="fa fa-envelope"></i> {{'mydspace.messages.title' | translate}}
+    <div class="btn-group pull-right">
+              <span (click)="modalRef.dismiss('Cross click')">
+            <i class="fa fa-2x fa-times" style="color: white"></i>
+            </span>
     </div>
-  </article>
-</div>
+  </div>
 
-<div class="modal-footer">
-  <form (ngSubmit)="sendMessage()" [formGroup]="messageForm" >
-    <input
-      formControlName="textSubject"
-      class="form-control mb-1"
-      placeholder="{{'mydspace.messages.subject-placeholder' | translate}}"
-    />
-    <textarea
-      formControlName="textDescription"
-      placeholder="{{'mydspace.messages.description-placeholder' | translate}}"
-      class="form-control"
-      rows="3"></textarea>
-    <br>
+  <div class="modal-body">
+    <article id="content" class="rounded-bottom">
+      <div id="list">
+        <ul class="chat">
+          <ng-container *ngFor="let m of messages | async; let i = index">
+            <ds-message
+              [m]="m"
+              [showUnread]="i == messages.length-1 && showUnread"
+              (unRead)="unReadLastMsg(m.uuid)"
+            ></ds-message>
+          </ng-container>
+        </ul>
+        <div *ngIf="messages.length == 0">{{'mydspace.messages.no-messages' | translate}}</div>
+      </div>
+    </article>
+  </div>
+
+  <div class="modal-footer">
+    <form
+      *ngVar="(itemUUID | async) as itemUuid"
+      (ngSubmit)="sendMessage(itemUuid)" [formGroup]="messageForm">
+      <input
+        formControlName="textSubject"
+        class="form-control mb-1"
+        placeholder="{{'mydspace.messages.subject-placeholder' | translate}}"
+      />
+      <textarea
+        formControlName="textDescription"
+        placeholder="{{'mydspace.messages.description-placeholder' | translate}}"
+        class="form-control"
+        rows="3"></textarea>
+      <br>
       <button
         id="btn-chat"
         class="btn btn-warning btn-lg btn-block mt-3"
         [disabled]="!messageForm.valid"
         type="submit">{{'mydspace.messages.send-btn' | translate}}
       </button>
-  </form>
-</div>
+    </form>
+  </div>
+</ng-template>

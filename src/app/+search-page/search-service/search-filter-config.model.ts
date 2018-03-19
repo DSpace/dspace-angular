@@ -10,9 +10,6 @@ export class SearchFilterConfig {
   query: string;
 
   @autoserialize
-  appliedFilters: any[]; // TODO
-
-  @autoserialize
   sort: any; // TODO
 
   @autoserialize

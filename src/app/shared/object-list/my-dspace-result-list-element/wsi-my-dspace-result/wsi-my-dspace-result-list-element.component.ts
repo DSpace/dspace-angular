@@ -9,7 +9,6 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue, isNotEmpty } from '../../../empty.util';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { Eperson } from '../../../../core/eperson/models/eperson.model';
 import { AppState } from '../../../../app.reducer';
@@ -25,18 +24,15 @@ import { ItemStatusType } from '../../item-list-status/item-status-type';
 })
 
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
-@renderElementsFor(Workspaceitem, ViewMode.List)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
-  public item: Item;
-  public submitter: Eperson;
-  public user: Eperson;
-  public messages: Bitstream[] = [];
-  public unRead = [];
-  public modalRef: NgbModalRef;
-  public status = ItemStatusType.IN_PROGRESS;
+  item: Item;
+  submitter: Observable<Eperson>;
+  user: Observable<Eperson>;
+  itemUuid: Observable<string>;
+  messages: Observable<Bitstream[]> = Observable.of([]);
+  status = ItemStatusType.IN_PROGRESS;
 
   constructor(private cdr: ChangeDetectorRef,
-              private modalService: NgbModal,
               private store: Store<AppState>,
               private wsiDataService: WorkspaceitemDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
@@ -49,7 +45,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
 
     (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .first()
+      .take(1)
       .subscribe((rd: RemoteData<any>) => {
         // console.log(rd);
         this.submitter = rd.payload[0];
@@ -59,7 +55,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .filter((user: Eperson) => isNotEmpty(user))
       .take(1)
       .subscribe((user: Eperson) => {
-        this.user = user;
+        this.user = Observable.of(user);
       });
 
     this.populateMessages();
@@ -68,45 +64,19 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   initItem(itemObs: Observable<RemoteData<Item[]>>) {
     itemObs
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .first()
+      .take(1)
       .subscribe((rd: RemoteData<any>) => {
         this.item = rd.payload[0];
-        this.cdr.detectChanges();
+        this.itemUuid = Observable.of(this.item.uuid);
       });
-  }
-
-  openMessageBoard(content) {
-    this.modalRef = this.modalService.open(content);
-  }
-
-  isUnread(m: Bitstream): boolean {
-    const accessioned = m.findMetadata('dc.date.accessioned');
-    const type = m.findMetadata('dc.type');
-    if (this.user.uuid === this.submitter.uuid
-      && !accessioned
-      && type === 'outbound') {
-      return true;
-    } else if (this.user.uuid !== this.submitter.uuid
-      && !accessioned
-      && type === 'inbound') {
-      return true;
-    }
-    return false;
   }
 
   populateMessages() {
     this.item.getBitstreamsByBundleName('MESSAGE')
       .filter((bitStreams) => bitStreams !== null && bitStreams.length > 0)
-      .first()
+      .take(1)
       .subscribe((bitStreams: Bitstream[]) => {
-        this.messages = bitStreams;
-        this.unRead = [];
-        bitStreams.forEach((b: Bitstream) => {
-          if (this.isUnread(b)) {
-            this.unRead.push(b.uuid);
-          }
-        });
-        // console.log('Now unRead has', this.unRead.length, ' messages');
+        this.messages = Observable.of(bitStreams);
       });
   }
 
@@ -115,7 +85,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
     // Wait some ms before, so previous call can be served
     this.wsiDataService.findById(this.dso.id)
       .filter((wsi: RemoteData<Workspaceitem>) => wsi.hasSucceeded)
-      .first()
+      .take(1)
       .subscribe((wsi) => {
         // console.log('Refresh wsi...');
         this.dso = wsi.payload;
