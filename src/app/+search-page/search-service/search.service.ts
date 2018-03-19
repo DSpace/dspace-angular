@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { filter, first, flatMap, map, tap } from 'rxjs/operators';
+import { filter, first, flatMap, map, startWith, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -149,23 +149,29 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
       map((sqr: SearchQueryResponse) => {
         return sqr.objects
-          .filter((nsr: NormalizedSearchResult) => isNotEmpty(nsr))
-          .map((nsr: NormalizedSearchResult) =>
-          this.rdb.buildSingle(nsr.dspaceObject));
+          .filter((nsr: NormalizedSearchResult) => {
+            console.log(nsr);
+            return isNotEmpty(nsr)
+          })
+          .map((nsr: NormalizedSearchResult) => this.rdb.buildSingle(nsr.dspaceObject))
+          .map((rdss) => {
+            console.log(rdss);
+            return rdss;
+          });
       }),
-      flatMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => {
-        console.log(input);
-        return this.rdb.aggregate(input)
-      })
+      flatMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input))
+    );
+
+    this.configObs = sqrObs.pipe(
+      map((sqr: SearchQueryResponse) => sqr.facets),
+      startWith([])
     );
 
     // Create search results again with the correct dso objects linked to each result
     const tDomainListObs: Observable<Array<SearchResult<DSpaceObject>>> = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
       // emit new facets value
       this.configSubject.next(sqr.facets);
-      return sqr.objects
-        .filter((object: NormalizedSearchResult) => isNotUndefined(object))
-        .map((object: NormalizedSearchResult, index: number) => {
+      return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
         let co = DSpaceObject;
         if (dsos.payload[index]) {
           const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
@@ -208,8 +214,9 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     return rd;
   }
 
-  getConfig(): BehaviorSubject<SearchFilterConfig[]> {
-    return this.configSubject;
+  getConfig(): Observable<SearchFilterConfig[]> {
+    // return this.configSubject;
+    return this.configObs;
   }
 
   getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
@@ -229,7 +236,14 @@ export class SearchService extends HALEndpointService implements OnDestroy {
           error,
           config.values
         )
-      })
+      }),
+      startWith(new RemoteData(
+        false,
+        true,
+        true,
+        undefined,
+        []
+      ))
     );
   }
 
