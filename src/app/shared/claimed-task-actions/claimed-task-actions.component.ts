@@ -54,7 +54,7 @@ export class ClaimedTaskActionsComponent implements OnInit {
           false,
           true,
           undefined,
-          [rd.payload[0].item]
+          (rd.payload[0].item as Item[])
         );
       })
   }
