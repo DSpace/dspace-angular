@@ -70,10 +70,11 @@ export class RequestService {
 
   private clearRequestsOnTheirWayToTheStore(href) {
     this.getByHref(href)
-      .filter((re: RequestEntry) => hasValue(re))
       .take(1)
       .subscribe((re: RequestEntry) => {
-        if (!re.responsePending) {
+        if (!hasValue(re)) {
+          this.responseCache.remove(href);
+        } else if (!re.responsePending) {
           this.responseCache.remove(href);
           remove(this.requestsOnTheirWayToTheStore, (item) => item === href);
         }
