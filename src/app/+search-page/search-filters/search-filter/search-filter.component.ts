@@ -65,6 +65,7 @@ export class SearchFilterComponent implements OnInit {
       .first()
       .map(([sv, fv]) => {
         return fv.payload.filter((facetValue: FacetValue) => sv.includes(facetValue.value))
-    });
+      })
+      .startWith([]);
   }
 }

@@ -48,14 +48,17 @@ export class SearchResponseParsingService implements ResponseParsingService {
       .reduce((combined, thisElement) => [...combined, ...thisElement], []);
 
     const objects = payload._embedded.objects
-      .map((object, index) => Object.assign({}, object, {
-        dspaceObject: dsoSelfLinks[index],
-        hitHighlights: hitHighlights[index],
-        // we don't need embedded collections, bitstreamformats, etc for search results.
-        // And parsing them all takes up a lot of time. Throw them away to improve performance
-        // until objs until partial results are supported by the rest api
-        // _embedded: undefined
-      }));
+      .filter((object, index) => isNotNull(object.robject))
+      .map((object, index) => {
+        console.log(object);
+        return Object.assign({}, object, {
+          dspaceObject: dsoSelfLinks[index],
+          hitHighlights: hitHighlights[index],
+          // we don't need embedded collections, bitstreamformats, etc for search results.
+          // And parsing them all takes up a lot of time. Throw them away to improve performance
+          // until objs until partial results are supported by the rest api
+          // _embedded: undefined
+      })});
     payload.objects = objects;
 
     const facets = payload._embedded.facets
