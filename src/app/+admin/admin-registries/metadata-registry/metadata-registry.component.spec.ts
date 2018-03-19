@@ -8,11 +8,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RegistryService } from '../../../core/registry/registry.service';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
   let fixture: ComponentFixture<MetadataRegistryComponent>;
-  let metadataRegistryService: MetadataRegistryService;
+  let registryService: RegistryService;
   const mockSchemasList = [
     {
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
@@ -26,7 +27,7 @@ describe('MetadataRegistryComponent', () => {
     }
   ];
   const mockSchemas = Observable.of(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
-  const metadataRegistryServiceStub = {
+  const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas
   };
 
@@ -35,16 +36,16 @@ describe('MetadataRegistryComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot()],
       declarations: [MetadataRegistryComponent],
       providers: [
-        { provide: MetadataRegistryService, useValue: metadataRegistryServiceStub }
+        { provide: RegistryService, useValue: registryServiceStub }
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MetadataRegistryComponent);
-    comp = fixture.componentInstance; // SearchPageComponent test instance
+    comp = fixture.componentInstance;
     fixture.detectChanges();
-    metadataRegistryService = (comp as any).service;
+    registryService = (comp as any).service;
   });
 
   it('should contain two schemas', () => {

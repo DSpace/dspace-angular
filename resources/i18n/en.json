@@ -138,7 +138,7 @@
         }
       },
       "schema": {
-        "title": "DSpace Angular :: Metadata Schema",
+        "title": "DSpace Angular :: Metadata Schema Registry",
         "head": "Metadata Schema",
         "description": "This is the metadata schema for \"{{namespace}}\".",
         "fields": {
@@ -146,6 +146,24 @@
           "table": {
             "field": "Field",
             "scopenote": "Scope Note"
+          }
+        }
+      },
+      "bitstream-formats": {
+        "title": "DSpace Angular :: Bitstream Format Registry",
+        "head": "Bitstream Format Registry",
+        "description": "This list of bitstream formats provides information about known formats and their support level.",
+        "formats": {
+          "table": {
+            "name": "Name",
+            "mimetype": "MIME Type",
+            "supportLevel": {
+              "head": "Support Level",
+              "0": "Unknown",
+              "1": "Known",
+              "2": "Support"
+            },
+            "internal": "internal"
           }
         }
       }

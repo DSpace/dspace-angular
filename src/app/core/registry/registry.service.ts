@@ -5,12 +5,14 @@ import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
+import { BitstreamFormat } from './mock-bitstream-format.model';
 
 Injectable()
 export class RegistryService {
 
   metadataSchemas: MetadataSchema[];
   metadataFields: MetadataField[];
+  bitstreamFormats: BitstreamFormat[];
 
   public getMetadataSchemas(): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
     const pageInfo = new PageInfo();
@@ -34,6 +36,16 @@ export class RegistryService {
 
   public getMetadataSchemaByName(schemaName: string): Observable<RemoteData<MetadataSchema>> {
     const payload = this.metadataSchemas.filter((value) => value.prefix === schemaName)[0];
+    const remoteData = new RemoteData(false, false, true, undefined, payload);
+    return Observable.of(remoteData);
+  }
+
+  public getBitstreamFormats(): Observable<RemoteData<PaginatedList<BitstreamFormat>>> {
+    const pageInfo = new PageInfo();
+    pageInfo.elementsPerPage = 10;
+    pageInfo.currentPage = 1;
+
+    const payload = new PaginatedList(pageInfo, this.bitstreamFormats);
     const remoteData = new RemoteData(false, false, true, undefined, payload);
     return Observable.of(remoteData);
   }
@@ -1018,7 +1030,169 @@ export class RegistryService {
         scopenote: null,
         schema: this.metadataSchemas[1]
       }
-    ]
+    ];
+    this.bitstreamFormats = [
+      {
+        shortDescription: 'Unknown',
+        description: 'Unknown data format',
+        mimetype: 'application/octet-stream',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'License',
+        description: 'Item-specific license agreed upon to submission',
+        mimetype: 'text/plain; charset=utf-8',
+        supportLevel: 1,
+        internal: true,
+        extensions: null
+      },
+      {
+        shortDescription: 'CC License',
+        description: 'Item-specific Creative Commons license agreed upon to submission',
+        mimetype: 'text/html; charset=utf-8',
+        supportLevel: 2,
+        internal: true,
+        extensions: null
+      },
+      {
+        shortDescription: 'Adobe PDF',
+        description: 'Adobe Portable Document Format',
+        mimetype: 'application/pdf',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'XML',
+        description: 'Extensible Markup Language',
+        mimetype: 'text/xml',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'Text',
+        description: 'Plain Text',
+        mimetype: 'text/plain',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'HTML',
+        description: 'Hypertext Markup Language',
+        mimetype: 'text/html',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'CSS',
+        description: 'Cascading Style Sheets',
+        mimetype: 'text/css',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'Microsoft Word',
+        description: 'Microsoft Word',
+        mimetype: 'application/msword',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'Microsoft Word XML',
+        description: 'Microsoft Word XML',
+        mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'Microsoft Powerpoint',
+        description: 'Microsoft Powerpoint',
+        mimetype: 'application/vnd.ms-powerpoint',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'Microsoft Powerpoint XML',
+        description: 'Microsoft Powerpoint XML',
+        mimetype: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'Microsoft Excel',
+        description: 'Microsoft Excel',
+        mimetype: 'application/vnd.ms-excel',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'Microsoft Excel XML',
+        description: 'Microsoft Excel XML',
+        mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'MARC',
+        description: 'Machine-Readable Cataloging records',
+        mimetype: 'application/marc',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'JPEG',
+        description: 'Joint Photographic Experts Group/JPEG File Interchange Format (JFIF)',
+        mimetype: 'image/jpeg',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'GIF',
+        description: 'Graphics Interchange Format',
+        mimetype: 'image/gif',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'image/png',
+        description: 'Portable Network Graphics',
+        mimetype: 'image/png',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'TIFF',
+        description: 'Tag Image File Format',
+        mimetype: 'image/tiff',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      },
+      {
+        shortDescription: 'AIFF',
+        description: 'Audio Interchange File Format',
+        mimetype: 'audio/x-aiff',
+        supportLevel: 0,
+        internal: false,
+        extensions: null
+      }
+    ];
   }
 
 }

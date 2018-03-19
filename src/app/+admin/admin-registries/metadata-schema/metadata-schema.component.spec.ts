@@ -10,11 +10,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { MockTranslateLoader } from '../../../shared/testing/mock-translate-loader';
+import { RegistryService } from '../../../core/registry/registry.service';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
   let fixture: ComponentFixture<MetadataSchemaComponent>;
-  let metadataRegistryService: MetadataRegistryService;
+  let registryService: RegistryService;
   const mockSchemasList = [
     {
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
@@ -58,7 +59,7 @@ describe('MetadataSchemaComponent', () => {
     }
   ];
   const mockSchemas = Observable.of(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
-  const metadataRegistryServiceStub = {
+  const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
     getMetadataFieldsBySchema: (schema: MetadataSchema) => Observable.of(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFieldsList.filter((value) => value.schema === schema)))),
     getMetadataSchemaByName: (schemaName: string) => Observable.of(new RemoteData(false, false, true, undefined, mockSchemasList.filter((value) => value.prefix === schemaName)[0]))
@@ -75,7 +76,7 @@ describe('MetadataSchemaComponent', () => {
       imports: [CommonModule, TranslateModule.forRoot()],
       declarations: [MetadataSchemaComponent],
       providers: [
-        { provide: MetadataRegistryService, useValue: metadataRegistryServiceStub },
+        { provide: RegistryService, useValue: registryServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub }
       ]
     }).compileComponents();
@@ -83,9 +84,9 @@ describe('MetadataSchemaComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MetadataSchemaComponent);
-    comp = fixture.componentInstance; // SearchPageComponent test instance
+    comp = fixture.componentInstance;
     fixture.detectChanges();
-    metadataRegistryService = (comp as any).service;
+    registryService = (comp as any).service;
   });
 
   it('should contain the schema prefix in the header', () => {

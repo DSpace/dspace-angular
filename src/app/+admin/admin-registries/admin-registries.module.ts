@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.component';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { BitstreamFormatsComponent } from './bitstream-formats/bitstream-formats.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   declarations: [
     MetadataRegistryComponent,
-    MetadataSchemaComponent
+    MetadataSchemaComponent,
+    BitstreamFormatsComponent
   ]
 })
 export class AdminRegistriesModule {
