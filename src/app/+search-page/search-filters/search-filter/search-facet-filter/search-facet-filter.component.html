@@ -2,9 +2,9 @@
     <div class="filters">
         <a *ngFor="let value of selectedValues" class="d-block"
            [routerLink]="[getSearchLink()]"
-           [queryParams]="getQueryParamsWithout(value) | async">
+           [queryParams]="getQueryParamsWithout(value.value) | async">
             <input type="checkbox" [checked]="true"/>
-            <span class="filter-value">{{value}}</span>
+            <span class="filter-value">{{value.label}}</span>
         </a>
         <a *ngFor="let value of getFilters(); let i=index" class="d-block clearfix"
            [routerLink]="[getSearchLink()]"

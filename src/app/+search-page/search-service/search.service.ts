@@ -148,17 +148,24 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     // Turn list of observable remote data DSO's into observable remote data object with list of DSO
     const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
       map((sqr: SearchQueryResponse) => {
-        return sqr.objects.map((nsr: NormalizedSearchResult) =>
+        return sqr.objects
+          .filter((nsr: NormalizedSearchResult) => isNotEmpty(nsr))
+          .map((nsr: NormalizedSearchResult) =>
           this.rdb.buildSingle(nsr.dspaceObject));
       }),
-      flatMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input))
+      flatMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => {
+        console.log(input);
+        return this.rdb.aggregate(input)
+      })
     );
 
     // Create search results again with the correct dso objects linked to each result
     const tDomainListObs: Observable<Array<SearchResult<DSpaceObject>>> = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
       // emit new facets value
       this.configSubject.next(sqr.facets);
-      return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
+      return sqr.objects
+        .filter((object: NormalizedSearchResult) => isNotUndefined(object))
+        .map((object: NormalizedSearchResult, index: number) => {
         let co = DSpaceObject;
         if (dsos.payload[index]) {
           const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;

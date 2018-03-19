@@ -16,6 +16,8 @@ import { AppState } from '../../../../app.reducer';
 import { Store } from '@ngrx/store';
 import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { ItemStatusType } from '../../item-list-status/item-status-type';
+import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -24,7 +26,6 @@ import { WorkspaceitemDataService } from '../../../../core/submission/workspacei
 })
 
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
-@renderElementsFor(Workspaceitem, ViewMode.List)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   public item: Item;
   public submitter: Observable<Eperson>;
@@ -32,12 +33,15 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   public messages: Observable<Bitstream[]> = Observable.of([]);
   // public unRead = [];
   public modalRef: NgbModalRef;
+  public status = ItemStatusType.IN_PROGRESS;
 
-  constructor(private modalService: NgbModal,
+  constructor(private cdr: ChangeDetectorRef,
+              private modalService: NgbModal,
               private store: Store<AppState>,
               private wsiDataService: WorkspaceitemDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
+    this.status = ItemStatusType.IN_PROGRESS;
   }
 
   ngOnInit() {
@@ -58,7 +62,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
         this.user = Observable.of(user);
       });
 
-    this.populateMessages();
+     this.populateMessages();
   }
 
   initItem(itemObs: Observable<RemoteData<Item[]>>) {
