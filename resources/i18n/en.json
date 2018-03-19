@@ -167,6 +167,10 @@
         "has_content_in_original_bundle": {
           "placeholder": "Has Content",
           "head": "Has Content"
+        },
+        "submitter": {
+          "placeholder": "Submitter",
+          "head": "Submitter"
         }
 
 

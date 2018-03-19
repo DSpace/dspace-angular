@@ -82,12 +82,12 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user = this.store.select(getAuthenticatedUser);
 
-    this.sub = this.route
-      .queryParams
-      .subscribe((params) => {
+    const queryParamsObs = this.route.queryParams;
+    this.sub = Observable.combineLatest(queryParamsObs, this.rolesService.isSubmitter(), this.rolesService.isController())
+      .subscribe(([params, isSubmitter, isController]) => {
           // Save current parameters
           this.currentParams = params;
-          this.configuration = this.getSearchConfiguration(params.configuration);
+          this.configuration = this.getSearchConfiguration(params.configuration, isSubmitter, isController);
           this.query = params.query || '';
           this.scope = params.scope;
           const page = +params.page || this.searchOptions.pagination.currentPage;
@@ -144,14 +144,25 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
       );
   }
 
-  private getSearchConfiguration(configurationParam: MyDSpaceConfigurationType) {
-    const configurationDefault: MyDSpaceConfigurationType = this.rolesService.isSubmitter() ?
+  private getAvailableConfiguration(isSubmitter: boolean, isController: boolean): MyDSpaceConfigurationType[] {
+    const availableConf: MyDSpaceConfigurationType[] = [];
+    if (isSubmitter || (!isSubmitter && !isController)) {
+      availableConf.push(MyDSpaceConfigurationType.Workspace);
+    }
+    if (isController || (!isSubmitter && !isController)) {
+      availableConf.push(MyDSpaceConfigurationType.Workflow);
+    }
+    return availableConf;
+  }
+
+  private getSearchConfiguration(configurationParam: MyDSpaceConfigurationType, isSubmitter: boolean, isController: boolean) {
+    const configurationDefault: MyDSpaceConfigurationType = (isSubmitter || (!isSubmitter && !isController)) ?
       MyDSpaceConfigurationType.Workspace :
       MyDSpaceConfigurationType.Workflow;
     if (isEmpty(configurationParam)) {
       return configurationDefault;
-    } else if (!Object.values(MyDSpaceConfigurationType).includes(configurationParam)) {
-      // If configuration param is not included in MyDSpaceConfigurationType redirect to a default configuration value
+    } else if (!this.getAvailableConfiguration(isSubmitter, isController).includes(configurationParam)) {
+      // If configuration param is not included in available configurations redirect to a default configuration value
       const navigationExtras: NavigationExtras = {
         queryParams: {configuration: configurationDefault},
         queryParamsHandling: 'merge'
