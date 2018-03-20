@@ -9,6 +9,7 @@ export interface GlobalConfig extends Config {
   production: boolean;
   cache: CacheConfig;
   universal: UniversalConfig;
+  gaTrackingId: string;
   logDirectory: string;
   debug: boolean;
 }

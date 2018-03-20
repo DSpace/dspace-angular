@@ -14,6 +14,8 @@ import { AppComponent } from '../../app/app.component';
 import { AppModule } from '../../app/app.module';
 import { DSpaceBrowserTransferStateModule } from '../transfer-state/dspace-browser-transfer-state.module';
 import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -34,6 +36,7 @@ export function createTranslateLoader(http: HttpClient) {
       preloadingStrategy:
       IdlePreload
     }),
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
     BrowserAnimationsModule,
     DSpaceBrowserTransferStateModule,
     TranslateModule.forRoot({

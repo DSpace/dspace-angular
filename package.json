@@ -87,6 +87,7 @@
     "@ngx-translate/core": "9.1.1",
     "@ngx-translate/http-loader": "2.0.1",
     "angular-idle-preload": "2.0.4",
+    "angulartics2": "^5.2.0",
     "body-parser": "1.18.2",
     "bootstrap": "^4.0.0",
     "cerialize": "0.1.18",
