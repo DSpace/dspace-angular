@@ -6,6 +6,7 @@ import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
+import { PaginatedList } from '../../../core/data/paginated-list';
 
 /**
  * This component renders a simple item page.
@@ -22,13 +23,13 @@ import { slide } from '../../../shared/animations/slide';
 
 export class SearchFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
-  filterValues: Observable<RemoteData<FacetValue[]>>;
+  filterValues: Observable<RemoteData<FacetValue[] | PaginatedList<FacetValue>>>;
 
   constructor(private searchService: SearchService, private filterService: SearchFilterService) {
   }
 
   ngOnInit() {
-    this.filterValues = this.searchService.getFacetValuesFor(this.filter.name);
+    this.filterValues = this.searchService.getFacetValuesFor(this.filter.name, '', '');
     const sub = this.filterService.isFilterActive(this.filter.paramName).first().subscribe((isActive) => {
       if (this.filter.isOpenByDefault || isActive) {
         this.initialExpand();

@@ -40,6 +40,8 @@ import { SubmissionDefinitionsConfigService } from './config/submission-definiti
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
 import { UUIDService } from './shared/uuid.service';
+import { HALEndpointService } from './shared/hal-endpoint.service';
+import { FacetResponseParsingService } from './data/facet-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -61,6 +63,7 @@ const PROVIDERS = [
   CollectionDataService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
+  HALEndpointService,
   HostWindowService,
   ItemDataService,
   MetadataService,
@@ -70,6 +73,7 @@ const PROVIDERS = [
   RequestService,
   ResponseCacheService,
   EndpointMapResponseParsingService,
+  FacetResponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
   ServerResponseService,

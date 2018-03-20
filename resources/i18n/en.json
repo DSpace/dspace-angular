@@ -117,7 +117,7 @@
           "placeholder": "Subject",
           "head": "Subject"
         },
-        "date": {
+        "dateIssued": {
           "placeholder": "Date",
           "head": "Date"
         }

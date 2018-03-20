@@ -8,13 +8,19 @@ import { EndpointMapRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { Inject, Injectable } from '@angular/core';
+import { GLOBAL_CONFIG } from '../../../config';
 
-export abstract class HALEndpointService {
-  protected abstract responseCache: ResponseCacheService;
-  protected abstract requestService: RequestService;
-  protected abstract linkPath: string;
-  protected abstract EnvConfig: GlobalConfig;
+@Injectable()
+export class HALEndpointService {
 
+  protected linkPath: string;
+
+  constructor(private responseCache: ResponseCacheService,
+              private requestService: RequestService,
+              @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
+
+  }
   protected getRootHref(): string {
     return new RESTURLCombiner(this.EnvConfig, '/').toString();
   }
@@ -33,8 +39,8 @@ export abstract class HALEndpointService {
       .distinctUntilChanged();
   }
 
-  public getEndpoint(): Observable<string> {
-    return this.getEndpointAt(...this.linkPath.split('/'));
+  public getEndpoint(linkPath: string): Observable<string> {
+    return this.getEndpointAt(...linkPath.split('/'));
   }
 
   private getEndpointAt(...path: string[]): Observable<string> {
@@ -50,10 +56,10 @@ export abstract class HALEndpointService {
     return Observable.of(this.getRootHref()).pipe(...pipeArguments, distinctUntilChanged());
   }
 
-  public isEnabledOnRestApi(): Observable<boolean> {
+  public isEnabledOnRestApi(linkPath: string): Observable<boolean> {
     return this.getRootEndpointMap().pipe(
       // TODO this only works when there's no / in linkPath
-      map((endpointMap: EndpointMap) => isNotEmpty(endpointMap[this.linkPath])),
+      map((endpointMap: EndpointMap) => isNotEmpty(endpointMap[linkPath])),
       startWith(undefined),
       distinctUntilChanged()
     )
