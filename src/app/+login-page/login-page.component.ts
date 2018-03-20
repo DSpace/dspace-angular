@@ -3,7 +3,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../app.reducer';
-import { AuthenticatedAction, ResetAuthenticationMessagesAction } from '../core/auth/auth.actions';
+import {
+  AuthenticatedAction, AuthenticationSuccessAction,
+  ResetAuthenticationMessagesAction
+} from '../core/auth/auth.actions';
 import { Subscription } from 'rxjs/Subscription';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { ActivatedRoute } from '@angular/router';
@@ -24,17 +27,18 @@ export class LoginPageComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     const queryParamsObs = this.route.queryParams;
-    const authenticated = this.store.select(isAuthenticated)
+    const authenticated = this.store.select(isAuthenticated);
     this.sub = Observable.combineLatest(queryParamsObs, authenticated)
-      .filter(([params, auth]) => {
-        const token = params.token;
-        return !auth && isNotEmpty(token);
-      })
+      .filter(([params, auth]) => isNotEmpty(params.token))
       .first()
       .subscribe(([params, auth]) => {
         const token = params.token;
         const authToken = new AuthTokenInfo(token);
-        this.store.dispatch(new AuthenticatedAction(authToken));
+        if (!auth) {
+          this.store.dispatch(new AuthenticatedAction(authToken));
+        } else {
+          this.store.dispatch(new AuthenticationSuccessAction(authToken));
+        }
       })
   }
 
