@@ -104,14 +104,12 @@ export class ClaimedTaskActionsComponent implements OnInit {
 
   private responseHandle(res: ProcessTaskResponse) {
     if (res.hasSucceeded) {
-      setTimeout(() => {
-        this.processingReturnToPool = false;
-        this.cd.detectChanges();
-        this.reload();
-        this.notificationsService.success(null,
-          this.translate.get('submission.workflow.tasks.generic.success'),
-          new NotificationOptions(5000, false));
-      }, 2000)
+      this.processingReturnToPool = false;
+      this.cd.detectChanges();
+      this.reload();
+      this.notificationsService.success(null,
+        this.translate.get('submission.workflow.tasks.generic.success'),
+        new NotificationOptions(5000, false));
     } else {
       this.processingReturnToPool = false;
       this.cd.detectChanges();
