@@ -1,8 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Workflowitem } from '../../core/submission/models/workflowitem.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ClaimedTaskDataService } from '../../core/tasks/claimed-task-data.service';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
 import { RemoteData } from '../../core/data/remote-data';
