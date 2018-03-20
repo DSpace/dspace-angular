@@ -10,10 +10,13 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationAnimationsType } from '../notifications/models/notification-animations-type';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { Item } from '../../core/shared/item.model';
-import { hasNoUndefinedValue } from '../empty.util';
+import { hasNoUndefinedValue, isNotEmpty } from '../empty.util';
+import { Eperson } from '../../core/eperson/models/eperson.model';
+import { getAuthenticatedUser } from '../../core/auth/selectors';
+import { AppState } from '../../app.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'ds-claimed-task-actions',
@@ -32,11 +35,15 @@ export class ClaimedTaskActionsComponent implements OnInit {
   public workflowitemObs: Observable<RemoteData<Workflowitem[]>>;
   public modalRef: NgbModalRef;
 
+  submitter: Observable<Eperson>;
+  user: Observable<Eperson>;
+
   constructor(private cd: ChangeDetectorRef,
               private notificationsService: NotificationsService,
               private translate: TranslateService,
               private ctDataService: ClaimedTaskDataService,
               private modalService: NgbModal,
+              private store: Store<AppState>,
               private formBuilder: FormBuilder,
               private router: Router) {
   }
@@ -48,15 +55,22 @@ export class ClaimedTaskActionsComponent implements OnInit {
     this.workflowitemObs = this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>;
     this.itemObs = this.workflowitemObs
       .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .map((rd: RemoteData<Workflowitem[]>) => {
-        return new RemoteData(
-          false,
-          false,
-          true,
-          undefined,
-          (rd.payload[0].item as Item[])
-        );
-      })
+      .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].item as Observable<RemoteData<Item[]>>)
+      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .map((i: RemoteData<Item[]>) => i);
+
+    this.submitter = this.workflowitemObs
+      .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].submitter as Observable<RemoteData<Eperson[]>>)
+      .filter((rd: RemoteData<Eperson[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .map((s: RemoteData<Eperson[]>) => s.payload[0]);
+
+
+    this.user = this.store.select(getAuthenticatedUser)
+      .filter((user: Eperson) => isNotEmpty(user))
+      .take(1)
+      .map((user: Eperson) => user);
+
   }
 
   approve() {

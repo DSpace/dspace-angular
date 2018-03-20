@@ -231,8 +231,6 @@ export class SubmissionObjectEffects {
           this.notificationsService.warning(null, this.translate.get('submission.section.general.sections_not_valid'));
         }
 
-        // Original Code
-        // and now dispatch an action to update section's data and errors
         const {sections} = item;
         if (sections && isNotEmpty(sections)) {
           Object.keys(sections)
@@ -242,22 +240,6 @@ export class SubmissionObjectEffects {
             });
         }
       });
-      // End Original Code
-
-      // Deduplication Modify
-      //   const {sections} = item;
-      //   if (sections && isNotEmpty(sections)) {
-      //     // const sectionss = Object.assign({}, sections, Object.assign({}, sections.deduplication, {data: DEDUPLICATION_SECTION}) );
-      //     const sectionss = Object.assign({}, sections, {deduplication: DEDUPLICATION_SECTION});
-      //     console.log(sectionss);
-      //     Object.keys(sectionss)
-      //       .forEach((sectionId) => {
-      //         const sectionErrors = errorsList[sectionId] || [];
-      //         mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionss[sectionId], sectionErrors));
-      //       });
-      //   }
-      // });
-      // End Deduplication Modify
 
     }
     // mappedActions.push(new CompleteSaveSubmissionFormAction(submissionId));
