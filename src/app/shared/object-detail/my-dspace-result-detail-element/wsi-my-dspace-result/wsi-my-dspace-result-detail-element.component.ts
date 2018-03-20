@@ -49,7 +49,7 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
       .take(1)
       .subscribe((rd: RemoteData<any>) => {
         // console.log(rd);
-        this.submitter = rd.payload[0];
+        this.submitter = Observable.of(rd.payload[0]);
       });
 
     this.store.select(getAuthenticatedUser)

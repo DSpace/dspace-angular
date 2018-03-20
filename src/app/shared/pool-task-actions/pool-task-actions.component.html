@@ -10,8 +10,8 @@
 
   <ds-message-board
     [itemObs]="itemObs"
-    [submitter]="submitter"
-    [user]="user"
+    [submitter]="submitter | async"
+    [user]="user | async"
     (refresh)="reload()">
   </ds-message-board>
 </div>
