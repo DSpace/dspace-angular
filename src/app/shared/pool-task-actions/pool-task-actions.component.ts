@@ -12,6 +12,12 @@ import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
+import { getAuthenticatedUser } from '../../core/auth/selectors';
+import { hasNoUndefinedValue, isNotEmpty } from '../empty.util';
+import { Item } from '../../core/shared/item.model';
+import { Eperson } from '../../core/eperson/models/eperson.model';
+import { AppState } from '../../app.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'ds-pool-task-actions',
@@ -25,15 +31,37 @@ export class PoolTaskActionsComponent implements OnInit {
   public processingClaim = false;
   public workflowitemObs: Observable<RemoteData<Workflowitem[]>>;
 
+  public itemObs: Observable<RemoteData<Item[]>>;
+  submitter: Observable<Eperson>;
+  user: Observable<Eperson>;
+
   constructor(private cd: ChangeDetectorRef,
               private ptDataService: PoolTaskDataService,
               private notificationsService: NotificationsService,
               private translate: TranslateService,
+              private store: Store<AppState>,
               private router: Router) {
   }
 
   ngOnInit() {
     this.workflowitemObs = this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>;
+
+    this.itemObs = this.workflowitemObs
+      .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].item as Observable<RemoteData<Item[]>>)
+      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .map((i: RemoteData<Item[]>) => i);
+
+    this.submitter = this.workflowitemObs
+      .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].submitter as Observable<RemoteData<Eperson[]>>)
+      .filter((rd: RemoteData<Eperson[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .map((s: RemoteData<Eperson[]>) => s.payload[0]);
+
+    this.user = this.store.select(getAuthenticatedUser)
+      .filter((user: Eperson) => isNotEmpty(user))
+      .take(1)
+      .map((user: Eperson) => user);
   }
 
   claim() {

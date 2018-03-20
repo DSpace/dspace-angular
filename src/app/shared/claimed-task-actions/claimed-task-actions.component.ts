@@ -27,7 +27,6 @@ import { Store } from '@ngrx/store';
 export class ClaimedTaskActionsComponent implements OnInit {
   @Input() task: ClaimedTask;
 
-  public itemObs: Observable<RemoteData<Item[]>>;
   public processingApprove = false;
   public processingReject = false;
   public processingReturnToPool = false;
@@ -35,6 +34,7 @@ export class ClaimedTaskActionsComponent implements OnInit {
   public workflowitemObs: Observable<RemoteData<Workflowitem[]>>;
   public modalRef: NgbModalRef;
 
+  public itemObs: Observable<RemoteData<Item[]>>;
   submitter: Observable<Eperson>;
   user: Observable<Eperson>;
 
@@ -52,7 +52,9 @@ export class ClaimedTaskActionsComponent implements OnInit {
     this.rejectForm = this.formBuilder.group({
       reason: ['', Validators.required]
     });
+
     this.workflowitemObs = this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>;
+
     this.itemObs = this.workflowitemObs
       .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].item as Observable<RemoteData<Item[]>>)
@@ -65,12 +67,10 @@ export class ClaimedTaskActionsComponent implements OnInit {
       .filter((rd: RemoteData<Eperson[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .map((s: RemoteData<Eperson[]>) => s.payload[0]);
 
-
     this.user = this.store.select(getAuthenticatedUser)
       .filter((user: Eperson) => isNotEmpty(user))
       .take(1)
       .map((user: Eperson) => user);
-
   }
 
   approve() {

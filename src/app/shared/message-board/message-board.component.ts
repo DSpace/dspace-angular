@@ -40,6 +40,7 @@ export class MessageBoardComponent implements OnDestroy {
   public messageForm: FormGroup;
   public showUnread = false;
   private sub: Subscription;
+  private readSub: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               public msgService: MessageService,
@@ -49,6 +50,12 @@ export class MessageBoardComponent implements OnDestroy {
   }
 
   ngOnInit() {
+    // set formGroup
+    this.messageForm = this.formBuilder.group({
+      textSubject: ['', Validators.required],
+      textDescription: ['', Validators.required]
+    });
+
     this.messagesObs = this.itemObs
       .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .take(1)
@@ -65,12 +72,6 @@ export class MessageBoardComponent implements OnDestroy {
       .startWith([])
       .distinctUntilChanged();
 
-    // set formGroup
-    this.messageForm = this.formBuilder.group({
-      textSubject: ['', Validators.required],
-      textDescription: ['', Validators.required]
-    });
-
     this.messagesObs
       .filter((msgs) => msgs !== null && msgs.length > 0)
       .subscribe((msgs) => {
@@ -80,19 +81,6 @@ export class MessageBoardComponent implements OnDestroy {
             this.unRead.push(m);
           }
         });
-
-        if (this.isLastMsgForMe(msgs)) {
-          const lastMsg = msgs[msgs.length - 1];
-          const accessioned = lastMsg.findMetadata('dc.date.accessioned');
-          if (!accessioned) {
-            this.read(); // Set as Read the last message
-          }
-          this.showUnread = true;
-
-          // TODO REMOVE... Use only for test the Set as Unread
-          // this.unRead();
-        }
-
       });
 
     this.itemUUIDObs = this.itemObs
@@ -101,23 +89,26 @@ export class MessageBoardComponent implements OnDestroy {
       .map((rd: RemoteData<Item[]>) => {
         const item = rd.payload[0];
         return item.uuid;
-      })
+      });
   }
 
-  isLastMsgForMe(msgs): boolean {
-    if (msgs && msgs.length > 0) {
-      const lastMsg = msgs[msgs.length - 1];
-      if (this.user.sequenceEqual(this.submitter)) {
-        if (lastMsg.findMetadata('dc.type') === 'outbound') {
-          return true;
+  readMessages() {
+    this.readSub = this.messagesObs
+      .filter((msgs) => msgs !== null && msgs.length > 0)
+      .subscribe((msgs) => {
+        const lastMsg = msgs[msgs.length - 1];
+        const type = lastMsg.findMetadata('dc.type');
+        if (
+          (this.user.sequenceEqual(this.submitter) && type === 'outbound')
+          || (!this.user.sequenceEqual(this.submitter) && type === 'inbound')
+        ) {
+          const accessioned = lastMsg.findMetadata('dc.date.accessioned');
+          if (!accessioned) {
+            this.read(); // Set as Read the last message
+          }
+          this.showUnread = true;
         }
-      } else {
-        if (lastMsg.findMetadata('dc.type') === 'inbound') {
-          return true;
-        }
-      }
-    }
-    return false;
+      });
   }
 
   sendMessage(itemUuid) {
@@ -163,9 +154,9 @@ export class MessageBoardComponent implements OnDestroy {
   }
 
   read() {
-    this.unRead.forEach((uuid) => {
+    this.unRead.forEach((m) => {
       const body = {
-        uuid
+        uuid: m.uuid
       };
       const req = this.msgService.markAsRead(body).subscribe((res) => {
         console.log('After message read:');
@@ -193,11 +184,15 @@ export class MessageBoardComponent implements OnDestroy {
 
   openMessageBoard(content) {
     this.modalRef = this.modalService.open(content);
+    this.readMessages();
   }
 
   ngOnDestroy() {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
+    }
+    if (hasValue(this.readSub)) {
+      this.readSub.unsubscribe();
     }
   }
 
