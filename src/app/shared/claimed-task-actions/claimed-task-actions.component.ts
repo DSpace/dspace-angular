@@ -10,7 +10,6 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationAnimationsType } from '../notifications/models/notification-animations-type';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { Item } from '../../core/shared/item.model';
 import { hasNoUndefinedValue, isNotEmpty } from '../empty.util';
@@ -38,7 +37,6 @@ export class ClaimedTaskActionsComponent implements OnInit {
 
   submitter: Observable<Eperson>;
   user: Observable<Eperson>;
-  item: Observable<RemoteData<Item[]>>;
 
   constructor(private cd: ChangeDetectorRef,
               private notificationsService: NotificationsService,
@@ -57,12 +55,16 @@ export class ClaimedTaskActionsComponent implements OnInit {
     this.workflowitemObs = this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>;
     this.itemObs = this.workflowitemObs
       .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].item)
-      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)));
+      .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].item as Observable<RemoteData<Item[]>>)
+      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .map((i: RemoteData<Item[]>) => i);
 
     this.submitter = this.workflowitemObs
       .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].submitter);
+      .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].submitter as Observable<RemoteData<Eperson[]>>)
+      .filter((rd: RemoteData<Eperson[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .map((s: RemoteData<Eperson[]>) => s.payload[0]);
+
 
     this.user = this.store.select(getAuthenticatedUser)
       .filter((user: Eperson) => isNotEmpty(user))
