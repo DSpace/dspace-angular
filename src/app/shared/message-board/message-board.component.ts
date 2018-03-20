@@ -25,8 +25,8 @@ import { RemoteData } from '../../core/data/remote-data';
 export class MessageBoardComponent implements OnDestroy {
   @Input() itemObs: Observable<RemoteData<Item[]>>;
   @Output() public refresh = new EventEmitter<any>();
-  @Input() public submitter: Observable<Eperson>;
-  @Input() public user: Observable<Eperson>;
+  @Input() public submitter: Eperson;
+  @Input() public user: Eperson;
 
   public unRead: Bitstream[] = [];
   public modalRef: NgbModalRef;
@@ -90,6 +90,22 @@ export class MessageBoardComponent implements OnDestroy {
         const item = rd.payload[0];
         return item.uuid;
       });
+
+    // this.submitter
+    //   // .filter((s) => s !== null && s.uuid !== null)
+    //   // .take(1)
+    //   .map((s) => {
+    //     console.log('Submitter uuid=' + s.uuid);
+    //     return s;
+    //   });
+    //
+    // this.user
+    //   // .filter((u) => u !== null && u.uuid !== null)
+    //   // .take(1)
+    //   .map((u) => {
+    //     console.log('User uuid=' + u.uuid);
+    //     return u;
+    //   });
   }
 
   readMessages() {
@@ -99,8 +115,10 @@ export class MessageBoardComponent implements OnDestroy {
         const lastMsg = msgs[msgs.length - 1];
         const type = lastMsg.findMetadata('dc.type');
         if (
-          (this.user.sequenceEqual(this.submitter) && type === 'outbound')
-          || (!this.user.sequenceEqual(this.submitter) && type === 'inbound')
+          // (this.user.sequenceEqual(this.submitter) && type === 'outbound')
+          // || (!this.user.sequenceEqual(this.submitter) && type === 'inbound')
+        (this.user.uuid === this.submitter.uuid && type === 'outbound')
+        || (this.user.uuid !== this.submitter.uuid && type === 'inbound')
         ) {
           const accessioned = lastMsg.findMetadata('dc.date.accessioned');
           if (!accessioned) {
@@ -170,11 +188,13 @@ export class MessageBoardComponent implements OnDestroy {
   isUnread(m: Bitstream): boolean {
     const accessioned = m.findMetadata('dc.date.accessioned');
     const type = m.findMetadata('dc.type');
-    if (this.user.sequenceEqual(this.submitter)
+    // if (this.user.sequenceEqual(this.submitter)
+    if (this.user.uuid === this.submitter.uuid
       && !accessioned
       && type === 'outbound') {
       return true;
-    } else if (!this.user.sequenceEqual(this.submitter)
+    // } else if (!this.user.sequenceEqual(this.submitter)
+    } else if (this.user.uuid !== this.submitter.uuid
       && !accessioned
       && type === 'inbound') {
       return true;

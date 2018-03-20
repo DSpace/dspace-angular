@@ -26,8 +26,8 @@ import { ItemStatusType } from '../../item-list-status/item-status-type';
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   item: Item;
-  submitter: Observable<Eperson>;
-  user: Observable<Eperson>;
+  submitter: Eperson;
+  user: Eperson;
   status = ItemStatusType.IN_PROGRESS;
 
   constructor(private cdr: ChangeDetectorRef,
@@ -53,7 +53,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
       .filter((user: Eperson) => isNotEmpty(user))
       .take(1)
       .subscribe((user: Eperson) => {
-        this.user = Observable.of(user);
+        this.user = user;
       });
   }
 

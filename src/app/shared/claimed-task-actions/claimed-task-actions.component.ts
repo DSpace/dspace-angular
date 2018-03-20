@@ -70,7 +70,10 @@ export class ClaimedTaskActionsComponent implements OnInit {
     this.user = this.store.select(getAuthenticatedUser)
       .filter((user: Eperson) => isNotEmpty(user))
       .take(1)
-      .map((user: Eperson) => user);
+      .map((user: Eperson) => {
+        console.log(user);
+        return user;
+      });
   }
 
   approve() {
