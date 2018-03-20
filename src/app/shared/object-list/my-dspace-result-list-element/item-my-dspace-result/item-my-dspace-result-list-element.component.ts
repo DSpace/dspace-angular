@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
@@ -19,6 +19,12 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 })
 
 @renderElementsFor(ItemMyDSpaceResult, ViewMode.List)
-export class ItemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ItemMyDSpaceResult, Item> {
+export class ItemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ItemMyDSpaceResult, Item> implements OnInit {
+
+  public itemUrl: string;
+
+  ngOnInit() {
+    this.itemUrl = this.dso.findMetadata('dc.identifier.uri');
+  }
 
 }

@@ -38,6 +38,10 @@ export class SectionService {
     this.viewContainerRef = viewContainerRef;
   }
 
+  clearViewContainer() {
+    this.viewContainerRef.clear();
+  }
+
   /*private getDefinitionSections(definitionId: string) {
     return this.store.select(submissionDefinitionFromIdSelector(definitionId))
       .filter((state) => !isUndefined(state))

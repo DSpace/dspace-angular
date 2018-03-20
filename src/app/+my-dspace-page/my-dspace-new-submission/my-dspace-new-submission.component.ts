@@ -35,6 +35,7 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
         this.uploadFilesOptions.url = url;
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
         console.log('Url option is ', url);
+        this.changeDetectorRef.detectChanges();
       }
     );
   }

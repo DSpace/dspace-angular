@@ -24,6 +24,7 @@ export const SubmissionObjectActionTypes = {
   // Section types
   LOAD_SUBMISSION_FORM: type('dspace/submission/LOAD_SUBMISSION_FORM'),
   RESET_SUBMISSION_FORM: type('dspace/submission/RESET_SUBMISSION_FORM'),
+  CANCEL_SUBMISSION_FORM: type('dspace/submission/CANCEL_SUBMISSION_FORM'),
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
   SAVE_SUBMISSION_FORM: type('dspace/submission/SAVE_SUBMISSION_FORM'),
@@ -417,6 +418,10 @@ export class ResetSubmissionFormAction implements Action {
   }
 }
 
+export class CancelSubmissionFormAction implements Action {
+  type = SubmissionObjectActionTypes.CANCEL_SUBMISSION_FORM;
+}
+
 export class ChangeSubmissionCollectionAction implements Action {
   type = SubmissionObjectActionTypes.CHANGE_SUBMISSION_COLLECTION;
   payload: {
@@ -764,6 +769,7 @@ export type SubmissionObjectAction = DisableSectionAction
   | EnableSectionAction
   | LoadSubmissionFormAction
   | ResetSubmissionFormAction
+  | CancelSubmissionFormAction
   | InitSubmissionFormAction
   | CompleteInitSubmissionFormAction
   | ChangeSubmissionCollectionAction

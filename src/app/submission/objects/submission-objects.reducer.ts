@@ -79,6 +79,10 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return state;
     }
 
+    case SubmissionObjectActionTypes.CANCEL_SUBMISSION_FORM: {
+      return initialState;
+    }
+
     case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM: {
       return saveSubmission(state, action as SaveSubmissionFormAction);
     }

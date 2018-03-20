@@ -3,4 +3,4 @@
   [object]="object"
 ></ds-item-list-preview>
 
-<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/items/' + dso.id]">View</button>
+<a class="btn btn-primary mt-1 mb-3" [href]="itemUrl" role="button">{{"mydspace.view-btn" | translate}}</a>

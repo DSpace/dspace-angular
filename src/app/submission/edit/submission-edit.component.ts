@@ -1,17 +1,18 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { isPlatformServer } from '@angular/common';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
 
 import { SubmissionRestService } from '../submission-rest.service';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { hasValue, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotUndefined } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SubmissionService } from '../submission.service';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { Workflowitem } from '../../core/submission/models/workflowitem.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { PlatformService } from '../../shared/services/platform.service';
 
 @Component({
   selector: 'ds-submission-edit',
@@ -33,14 +34,17 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   private subs: Subscription[] = [];
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
+              private notificationsService: NotificationsService,
+              private platform: PlatformService,
               private restService: SubmissionRestService,
               private route: ActivatedRoute,
+              private router: Router,
               private submissionService: SubmissionService,
-              @Inject(PLATFORM_ID) private platformId: any) {
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
-    if (!isPlatformServer(this.platformId)) {
+    if (this.platform.isBrowser) {
       // NOTE execute the code on the browser side only, otherwise it is executed twice
       this.subs.push(this.route.paramMap
         .subscribe((params: ParamMap) => {
@@ -51,11 +55,16 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
               .take(1)
               .map((submissionObjects: Workspaceitem[] | Workflowitem[]) => submissionObjects[0])
               .subscribe((submissionObject: Workspaceitem | Workflowitem) => {
-                this.collectionId = submissionObject.collection[0].id;
-                this.selfUrl = submissionObject.self;
-                this.sections = submissionObject.sections;
-                this.submissionDefinition = submissionObject.submissionDefinition[0];
-                this.changeDetectorRef.detectChanges();
+                if (isEmpty(submissionObject)) {
+                  this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
+                  this.router.navigate(['/mydspace']);
+                } else {
+                  this.collectionId = submissionObject.collection[0].id;
+                  this.selfUrl = submissionObject.self;
+                  this.sections = submissionObject.sections;
+                  this.submissionDefinition = submissionObject.submissionDefinition[0];
+                  this.changeDetectorRef.detectChanges();
+                }
               })
           )
         }));

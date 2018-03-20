@@ -2,7 +2,10 @@ import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChange
 import { Store } from '@ngrx/store';
 
 import { SectionHostDirective } from '../section/section-host.directive';
-import { LoadSubmissionFormAction, ResetSubmissionFormAction } from '../objects/submission-objects.actions';
+import {
+  CancelSubmissionFormAction, LoadSubmissionFormAction,
+  ResetSubmissionFormAction
+} from '../objects/submission-objects.actions';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
@@ -38,6 +41,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     itemAlias: null
   };
 
+  protected isActive: boolean;
   protected subs: Subscription[] = [];
 
   @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
@@ -51,6 +55,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.collectionId && this.submissionId) {
+      this.isActive = true;
       this.subs.push(
         this.submissionRestService.getEndpoint('workspaceitems')
           .filter((href: string) => isNotEmpty(href))
@@ -63,7 +68,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           }),
 
         this.store.select(submissionObjectFromIdSelector(this.submissionId))
-          .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))
+          .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission) && this.isActive)
           .subscribe((submission: SubmissionObjectEntry) => {
             if (this.loading !== submission.isLoading) {
               this.loading = submission.isLoading;
@@ -71,12 +76,14 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             }
           })
       );
-      this.submissionService.startAutoSave(this.submissionId)
+      this.submissionService.startAutoSave(this.submissionId);
     }
   }
 
   ngOnDestroy() {
+    this.isActive = false;
     this.submissionService.stopAutoSave();
+    this.store.dispatch(new CancelSubmissionFormAction());
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());

@@ -92,7 +92,8 @@
     "show": {
       "workspace": "Your Submissions",
       "workflow": "All tasks"
-    }
+    },
+    "view-btn": "View"
   },
   "search": {
     "title": "DSpace Angular :: Search",

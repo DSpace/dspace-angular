@@ -26,6 +26,7 @@ const parseSectionErrorPaths = (path: string | string[]): SectionErrorPath[] => 
       } else {
         return {
           sectionId: item.match(regexShort)[1],
+          fieldId: 'granted',
           originalPath: item,
         };
       }

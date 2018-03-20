@@ -1,6 +1,6 @@
 <div class="parent">
   <div class="upload">
-    <ds-upload-files
+    <ds-upload-files *ngIf="uploadFilesOptions.url !== ''"
       [onBeforeUpload]="onBeforeUpload"
       [uploadFilesOptions]="uploadFilesOptions"
       (onCompleteItem)="onCompleteItem($event)"></ds-upload-files>

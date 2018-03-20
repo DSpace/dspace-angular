@@ -1,4 +1,7 @@
-import { ComponentFactoryResolver, Injectable, ReflectiveInjector, Type, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectorRef, ComponentFactoryResolver, Injectable, ReflectiveInjector, Type,
+  ViewContainerRef
+} from '@angular/core';
 
 import { SectionContainerComponent } from './container/section-container.component';
 import { SectionDataModel } from './section.model';
