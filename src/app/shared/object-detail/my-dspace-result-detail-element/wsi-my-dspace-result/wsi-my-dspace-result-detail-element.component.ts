@@ -74,7 +74,7 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
     // Wait some ms before, so previous call can be served
     this.wsiDataService.findById(this.dso.id)
       .filter((wsi: RemoteData<Workspaceitem>) => wsi.hasSucceeded)
-      .first()
+      .take(1)
       .subscribe((wsi) => {
         // console.log('Refresh wsi...');
         this.dso = wsi.payload;

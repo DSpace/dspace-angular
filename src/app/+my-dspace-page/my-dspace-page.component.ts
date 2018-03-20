@@ -206,7 +206,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   public newSubmissionsEnd(workspaceitems: Workspaceitem[]) {
     /*this.resultsRDObs = this.resultsRDObs
       .filter((rd) => isNotEmpty(rd.payload))
-      .first()
+      .take(1)
       .map((rd: RemoteData<Array<MyDSpaceResult<DSpaceObject>>>) => {
         workspaceitems
           .filter((item: Workspaceitem) => isNotUndefined(item))

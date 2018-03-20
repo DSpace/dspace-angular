@@ -49,7 +49,7 @@ export class ClaimedTaskMyDSpaceResultDetailElementComponent extends MyDSpaceRes
   initItem(wfiObs: Observable<RemoteData<Workflowitem[]>>) {
     wfiObs
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .first()
+      .take(1)
       .subscribe((rd: RemoteData<any>) => {
         this.workFlow = rd.payload[0];
       });

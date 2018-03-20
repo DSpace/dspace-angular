@@ -41,7 +41,7 @@ export class WorkflowitemMyDSpaceResultDetailElementComponent extends MyDSpaceRe
 
     (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .first()
+      .take(1)
       .subscribe((rd: RemoteData<any>) => {
         // console.log(rd);
         this.submitter = rd.payload[0];
@@ -59,7 +59,7 @@ export class WorkflowitemMyDSpaceResultDetailElementComponent extends MyDSpaceRe
   initItem(itemObs: Observable<RemoteData<Item[]>>) {
     itemObs
       .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .first()
+      .take(1)
       .subscribe((rd: RemoteData<any>) => {
         this.item = rd.payload[0];
       });
