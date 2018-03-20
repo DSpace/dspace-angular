@@ -14,6 +14,8 @@ import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ErrorResponse, MessageResponse, RestResponse } from '../cache/response-cache.models';
 import { DSpaceRESTv2Service, HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
+import { MessageDataResponse } from './message-data-response';
+import { RemoteDataError } from '../data/remote-data-error';
 
 @Injectable()
 export class MessageService extends HALEndpointService {
@@ -27,16 +29,17 @@ export class MessageService extends HALEndpointService {
     super();
   }
 
-  protected fetchRequest(request: RestRequest): Observable<any> {
+  protected fetchRequest(request: RestRequest): Observable<MessageDataResponse> {
     const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .do(() => this.responseCache.remove(request.href))
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
-      errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(response.errorMessage))),
+      errorResponse.flatMap((response: ErrorResponse) => {
+        return Observable.of(new MessageDataResponse(response.isSuccessful, new RemoteDataError(response.statusCode, response.errorMessage)))
+      }),
       successResponse
-        .map((response: MessageResponse) => response)
+        .map((response: MessageResponse) => new MessageDataResponse(response.isSuccessful))
         .distinctUntilChanged());
   }
 
@@ -44,7 +47,7 @@ export class MessageService extends HALEndpointService {
     return isNotEmpty(method) ? `${endpoint}/${method}` : `${endpoint}`;
   }
 
-  protected postToEndpoint(method: string, body: any, options?: HttpOptions): Observable<any> {
+  protected postToEndpoint(method: string, body: any, options?: HttpOptions): Observable<MessageDataResponse> {
     return this.getEndpoint()
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL) => this.getEndpointByMethod(endpointURL, method))
@@ -66,15 +69,15 @@ export class MessageService extends HALEndpointService {
       .distinctUntilChanged();
   }
 
-  public createMessage(body: any, options?: HttpOptions): Observable<any> {
+  public createMessage(body: any, options?: HttpOptions): Observable<MessageDataResponse> {
     return this.postToEndpoint('', this.prepareBody(body), this.makeHttpOptions());
   }
 
-  public markAsRead(body: any, options?: HttpOptions): Observable<any> {
+  public markAsRead(body: any, options?: HttpOptions): Observable<MessageDataResponse> {
     return this.postToEndpoint('read', this.prepareBody(body), this.makeHttpOptions());
   }
 
-  public markAsUnread(body: any, options?: HttpOptions): Observable<any> {
+  public markAsUnread(body: any, options?: HttpOptions): Observable<MessageDataResponse> {
     return this.postToEndpoint('unread', this.prepareBody(body), this.makeHttpOptions());
   }
 

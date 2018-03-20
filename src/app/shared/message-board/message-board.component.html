@@ -52,11 +52,12 @@
         class="form-control"
         rows="3"></textarea>
       <br>
-      <button
-        id="btn-chat"
-        class="btn btn-warning btn-lg btn-block mt-3"
-        [disabled]="!messageForm.valid"
-        type="submit">{{'mydspace.messages.send-btn' | translate}}
+      <button id="btn-chat"
+              class="btn btn-warning btn-lg btn-block mt-3"
+              [disabled]="!messageForm.valid || processingMessage"
+              type="submit">
+        <span *ngIf="processingMessage"><i class='fa fa-circle-o-notch fa-spin'></i> {{'mydspace.messages.send-btn' | translate}}</span>
+        <span *ngIf="!processingMessage">{{'mydspace.messages.send-btn' | translate}}</span>
       </button>
     </form>
   </div>

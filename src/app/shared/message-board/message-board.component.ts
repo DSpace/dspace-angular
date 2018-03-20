@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { hasNoUndefinedValue, hasValue, isNotEmpty } from '../empty.util';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { MessageDataResponse } from '../../core/message/message-data-response';
 
 @Component({
   selector: 'ds-message-board',
@@ -38,6 +39,7 @@ export class MessageBoardComponent implements OnDestroy {
    * @type {FormGroup}
    */
   public messageForm: FormGroup;
+  public processingMessage = false;
   public showUnread = false;
   private sub: Subscription;
   private readSub: Subscription;
@@ -130,6 +132,7 @@ export class MessageBoardComponent implements OnDestroy {
   }
 
   sendMessage(itemUuid) {
+    this.processingMessage = true;
     // get subject and description values
     const subject: string = this.messageForm.get('textSubject').value;
     const description: string = this.messageForm.get('textDescription').value;
@@ -140,13 +143,15 @@ export class MessageBoardComponent implements OnDestroy {
     };
     this.sub = this.msgService.createMessage(body)
       .take(1)
-      .subscribe((res) => {
-        if (res.isSuccessful) {
+      .subscribe((res: MessageDataResponse) => {
+        this.processingMessage = false;
+        this.modalRef.dismiss('Send Message');
+        if (res.hasSucceeded) {
           console.log('After message creation:');
           console.log(res);
           // Refresh event
           this.refresh.emit('read');
-          this.modalRef.dismiss('Send Message');
+
           this.notificationsService.success(null,
             this.translate.get('submission.workflow.tasks.generic.success'),
             new NotificationOptions(5000, false));
@@ -162,12 +167,13 @@ export class MessageBoardComponent implements OnDestroy {
     const body = {
       uuid: msgUuid
     };
-    const req = this.msgService.markAsUnread(body).subscribe((res) => {
-      console.log('After message unRead:');
-      console.log(res);
-      // Refresh event
-      this.refresh.emit('read');
-      this.showUnread = false;
+    this.msgService.markAsUnread(body)
+      .subscribe((res: MessageDataResponse) => {
+        console.log('After message unRead:');
+        console.log(res);
+        // Refresh event
+        this.refresh.emit('read');
+        this.showUnread = false;
     });
   }
 
@@ -176,11 +182,12 @@ export class MessageBoardComponent implements OnDestroy {
       const body = {
         uuid: m.uuid
       };
-      const req = this.msgService.markAsRead(body).subscribe((res) => {
-        console.log('After message read:');
-        console.log(res);
-        // Refresh event
-        this.refresh.emit('read');
+      this.msgService.markAsRead(body)
+        .subscribe((res: MessageDataResponse) => {
+          console.log('After message read:');
+          console.log(res);
+          // Refresh event
+          this.refresh.emit('read');
       });
     });
   }
