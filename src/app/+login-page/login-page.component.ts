@@ -26,7 +26,10 @@ export class LoginPageComponent implements OnDestroy, OnInit {
     const queryParamsObs = this.route.queryParams;
     const authenticated = this.store.select(isAuthenticated)
     this.sub = Observable.combineLatest(queryParamsObs, authenticated)
-      .filter(([params, auth]) => !auth && isNotEmpty(params.token))
+      .filter(([params, auth]) => {
+        const token = params.token;
+        return !auth && isNotEmpty(token);
+      })
       .first()
       .subscribe(([params, auth]) => {
         const token = params.token;
