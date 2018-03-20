@@ -26,7 +26,7 @@ export function main() {
   });
 
   // Add google analytics key
-  var script = document.createElement('script');
+  const script = document.createElement('script');
   script.innerHTML = 'ga(\'create\', \'' + ENV_CONFIG.gaTrackingId + '\', \'auto\');';
   document.body.appendChild(script);
 

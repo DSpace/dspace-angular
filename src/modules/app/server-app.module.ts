@@ -22,10 +22,6 @@ export function createTranslateLoader() {
   return new TranslateUniversalLoader('dist/assets/i18n/', '.json');
 }
 
-class AngularticsMock {
-  public eventTrack(action, properties) { }
-}
-
 @NgModule({
   bootstrap: [AppComponent],
   imports: [
