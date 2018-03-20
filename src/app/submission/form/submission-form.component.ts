@@ -65,6 +65,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
             this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.selfUrl, this.sections));
+            this.changeDetectorRef.detectChanges();
           }),
 
         this.store.select(submissionObjectFromIdSelector(this.submissionId))

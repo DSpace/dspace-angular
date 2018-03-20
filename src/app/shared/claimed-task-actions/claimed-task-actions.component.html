@@ -1,9 +1,11 @@
 <div class="mb-3">
-  <button *ngIf="(workflowitemObs | async)?.hasSucceeded"
-          class="btn btn-primary"
-          ngbTooltip="{{'submission.workflow.tasks.claimed.edit_help' | translate}}"
-          [routerLink]="['/workflowitems/' + (workflowitemObs | async)?.payload[0].id] + '/edit'" >
-    <i class="fa fa-edit"></i> {{'submission.workflow.tasks.claimed.edit' | translate}}</button>
+  <a *ngIf="(workflowitemObs | async)?.hasSucceeded"
+     class="btn btn-primary"
+     ngbTooltip="{{'submission.workflow.tasks.claimed.edit_help' | translate}}"
+     [href]="'/workflowitems/' + (workflowitemObs | async)?.payload[0].id + '/edit'"
+     role="button">
+    <i class="fa fa-edit"></i> {{'submission.workflow.tasks.claimed.edit' | translate}}
+  </a>
 
   <button type="button"
           class="btn btn-success"
