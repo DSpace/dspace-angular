@@ -1,3 +1,4 @@
+@import '../../../styles/variables';
 
 .modal-header {
   background-color: #2B4E72;
@@ -23,9 +24,6 @@ textarea {
   //resize: none;
   margin-bottom: 15px;
 }
-
-@import url("http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
-@import '../../../styles/variables';
 
 .chat
 {
