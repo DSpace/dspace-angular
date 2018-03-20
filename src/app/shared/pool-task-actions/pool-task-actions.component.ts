@@ -68,19 +68,27 @@ export class PoolTaskActionsComponent implements OnInit {
     this.processingClaim = true;
     this.ptDataService.claimTask(this.task.id)
       .subscribe((res: ProcessTaskResponse) => {
+        this.responseHandle(res);
+      });
+  }
+
+  private responseHandle(res: ProcessTaskResponse) {
+    if (res.hasSucceeded) {
+      setTimeout(() => {
         this.processingClaim = false;
         this.cd.detectChanges();
-        if (res.hasSucceeded) {
-          this.reload();
-          this.notificationsService.success(null,
-            this.translate.get('submission.workflow.tasks.generic.success'),
-            new NotificationOptions(5000, false));
-        } else {
-          this.notificationsService.error(null,
-            this.translate.get('submission.workflow.tasks.generic.error'),
-            new NotificationOptions(20000, true));
-        }
-      });
+        this.reload();
+        this.notificationsService.success(null,
+          this.translate.get('submission.workflow.tasks.generic.success'),
+          new NotificationOptions(5000, false));
+      }, 2000)
+    } else {
+      this.processingClaim = false;
+      this.cd.detectChanges();
+      this.notificationsService.error(null,
+        this.translate.get('submission.workflow.tasks.generic.error'),
+        new NotificationOptions(20000, true));
+    }
   }
 
   reload() {

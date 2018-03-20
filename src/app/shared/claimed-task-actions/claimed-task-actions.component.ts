@@ -77,39 +77,17 @@ export class ClaimedTaskActionsComponent implements OnInit {
     this.processingApprove = true;
     this.ctDataService.approveTask(this.task.id)
       .subscribe((res: ProcessTaskResponse) => {
-        this.processingApprove = false;
-        this.cd.detectChanges();
-        if (res.hasSucceeded) {
-          this.reload();
-          this.notificationsService.success(null,
-            this.translate.get('submission.workflow.tasks.generic.success'),
-            new NotificationOptions(5000, false));
-        } else {
-          this.notificationsService.error(null,
-            this.translate.get('submission.workflow.tasks.generic.error'),
-            new NotificationOptions(20000, true));
-        }
+        this.responseHandle(res);
       });
   }
 
   reject() {
     this.processingReject = true;
+    this.modalRef.close('Send Button');
     const reason = this.rejectForm.get('reason').value;
     this.ctDataService.rejectTask(reason, this.task.id)
       .subscribe((res: ProcessTaskResponse) => {
-        this.processingReject = false;
-        this.cd.detectChanges();
-        if (res.hasSucceeded) {
-          this.modalRef.close('Send Button');
-          this.reload();
-          this.notificationsService.success(null,
-            this.translate.get('submission.workflow.tasks.generic.success'),
-            new NotificationOptions(5000, false));
-        } else {
-          this.notificationsService.error(null,
-            this.translate.get('submission.workflow.tasks.generic.error'),
-            new NotificationOptions(20000, true));
-        }
+        this.responseHandle(res);
       });
   }
 
@@ -117,19 +95,27 @@ export class ClaimedTaskActionsComponent implements OnInit {
     this.processingReturnToPool = true;
     this.ctDataService.returnToPoolTask(this.task.id)
       .subscribe((res: ProcessTaskResponse) => {
+        this.responseHandle(res);
+      });
+  }
+
+  private responseHandle(res: ProcessTaskResponse) {
+    if (res.hasSucceeded) {
+      setTimeout(() => {
         this.processingReturnToPool = false;
         this.cd.detectChanges();
-        if (res.hasSucceeded) {
-          this.reload();
-          this.notificationsService.success(null,
-            this.translate.get('submission.workflow.tasks.generic.success'),
-            new NotificationOptions(5000, false));
-        } else {
-          this.notificationsService.error(null,
-            this.translate.get('submission.workflow.tasks.generic.error'),
-            new NotificationOptions(20000, true));
-        }
-      });
+        this.reload();
+        this.notificationsService.success(null,
+          this.translate.get('submission.workflow.tasks.generic.success'),
+          new NotificationOptions(5000, false));
+      }, 2000)
+    } else {
+      this.processingReturnToPool = false;
+      this.cd.detectChanges();
+      this.notificationsService.error(null,
+        this.translate.get('submission.workflow.tasks.generic.error'),
+        new NotificationOptions(20000, true));
+    }
   }
 
   openRejectModal(rejectModal) {

@@ -34,7 +34,7 @@ export class SearchFilterComponent implements OnInit {
 
   ngOnInit() {
     this.filterValues = this.searchService.getFacetValuesFor(this.filter.name);
-    const sub = this.filterService.isFilterActive(this.filter.paramName).first().subscribe((isActive) => {
+    const sub = this.filterService.isFilterActive(this.filter.paramName).take(1).subscribe((isActive) => {
       if (this.filter.isOpenByDefault || isActive) {
         this.initialExpand();
       } else {
@@ -66,7 +66,7 @@ export class SearchFilterComponent implements OnInit {
     const selectedFilterValues = this.searchService.getAppliedFiltersFor(this.filter.name);
     return selectedFilterValues
       .filter((appliedFiltersRD: RemoteData<SearchAppliedFilter[]>) => isNotEmpty(appliedFiltersRD.payload))
-      .first()
+      .take(1)
       .map((appliedFiltersRD: RemoteData<SearchAppliedFilter[]>) => appliedFiltersRD.payload)
       .map((appliedFilters: SearchAppliedFilter[]) => {
         return this.filter.values

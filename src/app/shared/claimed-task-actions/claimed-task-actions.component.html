@@ -19,8 +19,11 @@
   <ng-template #rejectTipContent><p [innerHTML]="'submission.workflow.tasks.claimed.reject_help' | translate"></p></ng-template>
   <button class="btn btn-danger mt-1 mb-3"
           [ngbTooltip]="rejectTipContent"
+          [disabled]="processingReject"
           (click)="openRejectModal(rejectModal)" >
-    <i class="fa fa-trash"></i> {{'submission.workflow.tasks.claimed.reject.submit' | translate}}</button>
+    <span *ngIf="processingReject"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+    <span *ngIf="!processingReject"><i class="fa fa-trash"></i> {{'submission.workflow.tasks.claimed.reject.submit' | translate}}</span>
+  </button>
 
   <button type="button"
           class="btn mt-1 mb-3"

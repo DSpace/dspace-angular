@@ -79,7 +79,7 @@ export class SearchFacetFilterComponent implements OnInit {
 
   onSubmit(data: any) {
     if (isNotEmpty(data)) {
-      const sub = this.getQueryParamsWith(data[this.filterConfig.paramName]).first().subscribe((params) => {
+      const sub = this.getQueryParamsWith(data[this.filterConfig.paramName]).take(1).subscribe((params) => {
           this.router.navigate([this.getSearchLink()], { queryParams: params }
           );
         }

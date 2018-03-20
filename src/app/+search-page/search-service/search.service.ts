@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, filter, first, flatMap, map, startWith, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, flatMap, map, startWith, take, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -73,13 +73,15 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
     this.searchOptions = {pagination: pagination, sort: sort};
-    this.configSubject = new BehaviorSubject<SearchFilterConfig[]>(this.config)
-    this.appliedFiltersSubject = new BehaviorSubject<SearchAppliedFilter[]>(this.appliedFilters)
+    this.configSubject = new BehaviorSubject<SearchFilterConfig[]>(this.config);
+    this.appliedFiltersSubject = new BehaviorSubject<SearchAppliedFilter[]>(this.appliedFilters);
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
   }
 
   search(query: string, scopeId?: string, searchOptions?: SearchOptions, configuration?: string, filters?: any): Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
-    const requestObs = this.getEndpoint().first().pipe(
+    this.configSubject = new BehaviorSubject<SearchFilterConfig[]>([]);
+    this.appliedFiltersSubject = new BehaviorSubject<SearchAppliedFilter[]>([]);
+    const requestObs = this.getEndpoint().take(1).pipe(
       map((url: string) => {
         const args: string[] = [];
 
@@ -137,7 +139,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     // get search results from response cache
     const sqrObs: Observable<SearchQueryResponse> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
-      first(),
+      take(1),
       map((response: SearchSuccessResponse) => {
         // emit new facets value
         this.configSubject.next(response.results.facets);
