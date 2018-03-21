@@ -59,7 +59,7 @@ export class MessageBoardComponent implements OnDestroy {
     this.isSubmitter = this.user.uuid === this.submitter.uuid;
 
     this.messagesObs = this.itemObs
-      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
       .take(1)
       .flatMap((rd: RemoteData<Item[]>) => {
         const item = rd.payload[0];
@@ -67,26 +67,20 @@ export class MessageBoardComponent implements OnDestroy {
           .filter((bitStreams: Bitstream[]) => isNotEmpty(bitStreams))
           .take(1)
           .map((bitStreams: Bitstream[]) => {
-            console.log(bitStreams);
+            this.unRead = [];
+            bitStreams.forEach((m) => {
+              if (this.isUnread(m)) {
+                this.unRead.push(m);
+              }
+            });
             return bitStreams;
           });
       })
       .startWith([])
       .distinctUntilChanged();
 
-    this.messagesObs
-      .filter((msgs) => msgs !== null && msgs.length > 0)
-      .subscribe((msgs) => {
-        this.unRead = [];
-        msgs.forEach((m) => {
-          if (this.isUnread(m)) {
-            this.unRead.push(m);
-          }
-        });
-      });
-
     this.itemUUIDObs = this.itemObs
-      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
       .take(1)
       .map((rd: RemoteData<Item[]>) => {
         const item = rd.payload[0];

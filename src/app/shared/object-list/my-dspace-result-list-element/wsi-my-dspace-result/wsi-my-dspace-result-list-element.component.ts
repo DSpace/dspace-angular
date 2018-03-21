@@ -26,8 +26,8 @@ import { ItemStatusType } from '../../item-list-status/item-status-type';
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   item: Item;
-  submitter: Eperson;
-  user: Eperson;
+  submitter: Observable<Eperson>;
+  user: Observable<Eperson>;
   status = ItemStatusType.IN_PROGRESS;
 
   constructor(private cdr: ChangeDetectorRef,
@@ -41,25 +41,20 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
 
-    (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
-      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+    this.submitter = (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
+      .filter((rd: RemoteData<Eperson[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
       .take(1)
-      .subscribe((rd: RemoteData<any>) => {
-        // console.log(rd);
-        this.submitter = rd.payload[0];
-      });
+      .map((rd: RemoteData<Eperson[]>) => rd.payload[0]);
 
-    this.store.select(getAuthenticatedUser)
+    this.user = this.store.select(getAuthenticatedUser)
       .filter((user: Eperson) => isNotEmpty(user))
       .take(1)
-      .subscribe((user: Eperson) => {
-        this.user = user;
-      });
+      .map((user: Eperson) => user);
   }
 
   initItem(itemObs: Observable<RemoteData<Item[]>>) {
     itemObs
-      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .filter((rd: RemoteData<any>) => rd.hasSucceeded && isNotEmpty(rd.payload))
       .take(1)
       .subscribe((rd: RemoteData<any>) => {
         this.item = rd.payload[0];
