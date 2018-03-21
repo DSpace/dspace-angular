@@ -59,7 +59,7 @@ export class MessageBoardComponent implements OnDestroy {
     });
 
     this.messagesObs = this.itemObs
-      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
       .take(1)
       .flatMap((rd: RemoteData<Item[]>) => {
         const item = rd.payload[0];
@@ -67,47 +67,26 @@ export class MessageBoardComponent implements OnDestroy {
           .filter((bitStreams: Bitstream[]) => isNotEmpty(bitStreams))
           .take(1)
           .map((bitStreams: Bitstream[]) => {
-            console.log(bitStreams);
+            this.unRead = [];
+            bitStreams.forEach((m) => {
+              if (this.isUnread(m)) {
+                this.unRead.push(m);
+              }
+            });
             return bitStreams;
           });
       })
       .startWith([])
       .distinctUntilChanged();
 
-    this.messagesObs
-      .filter((msgs) => msgs !== null && msgs.length > 0)
-      .subscribe((msgs) => {
-        this.unRead = [];
-        msgs.forEach((m) => {
-          if (this.isUnread(m)) {
-            this.unRead.push(m);
-          }
-        });
-      });
-
     this.itemUUIDObs = this.itemObs
-      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
       .take(1)
       .map((rd: RemoteData<Item[]>) => {
+        console.log(rd);
         const item = rd.payload[0];
         return item.uuid;
       });
-
-    // this.submitter
-    //   // .filter((s) => s !== null && s.uuid !== null)
-    //   // .take(1)
-    //   .map((s) => {
-    //     console.log('Submitter uuid=' + s.uuid);
-    //     return s;
-    //   });
-    //
-    // this.user
-    //   // .filter((u) => u !== null && u.uuid !== null)
-    //   // .take(1)
-    //   .map((u) => {
-    //     console.log('User uuid=' + u.uuid);
-    //     return u;
-    //   });
   }
 
   readMessages() {
@@ -118,7 +97,7 @@ export class MessageBoardComponent implements OnDestroy {
         const type = lastMsg.findMetadata('dc.type');
         if (
           // (this.user.sequenceEqual(this.submitter) && type === 'outbound')
-          // || (!this.user.sequenceEqual(this.submitter) && type === 'inbound')
+        // || (!this.user.sequenceEqual(this.submitter) && type === 'inbound')
         (this.user.uuid === this.submitter.uuid && type === 'outbound')
         || (this.user.uuid !== this.submitter.uuid && type === 'inbound')
         ) {
@@ -174,7 +153,7 @@ export class MessageBoardComponent implements OnDestroy {
         // Refresh event
         this.refresh.emit('read');
         this.showUnread = false;
-    });
+      });
   }
 
   read() {
@@ -188,7 +167,7 @@ export class MessageBoardComponent implements OnDestroy {
           console.log(res);
           // Refresh event
           this.refresh.emit('read');
-      });
+        });
     });
   }
 
@@ -200,7 +179,7 @@ export class MessageBoardComponent implements OnDestroy {
       && !accessioned
       && type === 'outbound') {
       return true;
-    // } else if (!this.user.sequenceEqual(this.submitter)
+      // } else if (!this.user.sequenceEqual(this.submitter)
     } else if (this.user.uuid !== this.submitter.uuid
       && !accessioned
       && type === 'inbound') {

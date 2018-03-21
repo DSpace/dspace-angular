@@ -2,8 +2,8 @@
   class="btn btn-primary mt-1 mb-3"
   (click)="openMessageBoard(content)">
   <i class="fa fa-envelope"></i>
-  <span *ngIf="(messagesObs | async).length > 0"
-        class="badge badge-pill badge-secondary">{{(messagesObs | async).length}}</span>
+  <span *ngIf="(messagesObs | async)?.length > 0"
+        class="badge badge-pill badge-secondary">{{(messagesObs | async)?.length}}</span>
 </button>
 <sup class="notification">
   <span *ngIf="unRead.length > 0" class="badge badge-pill badge-danger font-italic">New</span>
