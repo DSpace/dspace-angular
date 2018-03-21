@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 
@@ -19,6 +19,8 @@ import { Store } from '@ngrx/store';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { RouterReducerState } from '@ngrx/router-store';
 import { CookieAttributes } from 'js-cookie';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../config';
 
 export const LOGIN_ROUTE = '/login';
 
@@ -34,8 +36,8 @@ export class AuthService {
    */
   private _authenticated: boolean;
 
-  constructor(private authRequestService: AuthRequestService,
-              private location: Location,
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+              private authRequestService: AuthRequestService,
               private router: Router,
               private storage: CookieService,
               private store: Store<AppState>) {
@@ -172,8 +174,8 @@ export class AuthService {
     //   url = url.replace('/?target=http(.+)/g', 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
     // }
     // console.log(url);
-
-    return parseUrl.replace(/\?target=http.+/g, '?target=https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
+    const target = `?target=${this.config.auth.target.host}${this.config.auth.target.page}`;
+    return parseUrl.replace(/\?target=http.+/g, target);
   }
 
   /**
