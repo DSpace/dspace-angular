@@ -1,23 +1,23 @@
 li {
   margin-bottom: 10px;
   padding-bottom: 5px;
+  width: 80%;
   //border-bottom: 1px dotted #B3A9A9;
 }
 
-li.left .chat-body
-{
+li.left .chat-body {
   //margin-left: 60px;
   background: #f5f5f5;
+  float: left;
 }
 
-li.right .chat-body
-{
+li.right .chat-body {
   //margin-right: 60px;
   background: #EFEFEF;
+  float: right;
 }
 
-li .chat-body p
-{
+li .chat-body p {
   margin: 0;
   color: #777777;
 }
@@ -44,11 +44,11 @@ li .chat-body p
 }
 
 .left {
-  text-align: left;
+  //text-align: left;
 }
 
 .right {
-  text-align: right;
+  //text-align: right;
 }
 
 .cr {
@@ -65,4 +65,10 @@ li .chat-body p
 
 .max250 {
   max-width: 250px;
+}
+
+/deep/ .content {
+  &:after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #efefef 70%) !important;
+  }
 }

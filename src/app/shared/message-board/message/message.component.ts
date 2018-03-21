@@ -16,6 +16,8 @@ export class MessageComponent {
   public m: Bitstream;
   @Input()
   public showUnread: boolean;
+  @Input()
+  public isSubmitter: boolean;
   @Output()
   private unRead = new EventEmitter<any>();
   public show = false;

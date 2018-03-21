@@ -1,5 +1,7 @@
 <li *ngVar="m.findMetadata('dc.type') as type"
-    [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound', clearfix:1}">
+    [ngClass]="{'left': (type == 'outbound' && isSubmitter) || (type == 'inbound' && !isSubmitter),
+     'right': (type == 'outbound' && !isSubmitter) || (type == 'inbound' && isSubmitter),
+      'clearfix':1}">
 
               <!--<span [ngClass]="{'chat-img': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">-->
                   <!--<img *ngIf="type == 'outbound'" alt="Avatar"-->
@@ -12,12 +14,17 @@
 
   <div class="chat-body clearfix">
     <div class="header clearfix">
-      <strong
-        [ngClass]="{'primary-font': true, 'text-truncate': true, 'max250': true,
-        'pull-left': type == 'outbound',
-        'pull-right': type == 'inbound'}">
-        {{m.findMetadata('dc.creator')}}
-      </strong>
+
+        <!--[ngClass]="{'primary-font': true, 'text-truncate': true, 'max250': true,-->
+        <!--'pull-left': type == 'outbound',-->
+        <!--'pull-right': type == 'inbound'}">-->
+        <ds-truncatable [id]="m.uuid">
+          <ds-truncatable-part [id]="m.uuid" [minLines]="1">
+          <span>From: <strong>{{m.findMetadata('dc.creator')}}</strong></span>
+          </ds-truncatable-part>
+        </ds-truncatable>
+
+
       <small
         [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
         <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued') | date: 'dd/MM/yyyy HH:mm'}}
@@ -34,8 +41,8 @@
         <span class="fa fa-envelope"></span> Set as unread
       </small>
     </div>
-    <div class="title"
-         [ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}">
+    <div class="title">
+         <!--[ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}" >-->
       <span (click)="toggleDescription()" class="pointer">
         <i *ngIf="!show" class="fa fa-angle-double-down"></i>
         <i *ngIf="show" class="fa fa-angle-double-up"></i>

@@ -34,10 +34,8 @@ export class MessageBoardComponent implements OnDestroy {
 
   public itemUUIDObs: Observable<string>;
   public messagesObs: Observable<Bitstream[]>;
-  /**
-   * The message form.
-   * @type {FormGroup}
-   */
+
+  isSubmitter: boolean;
   public messageForm: FormGroup;
   public processingMessage = false;
   public showUnread = false;
@@ -57,6 +55,8 @@ export class MessageBoardComponent implements OnDestroy {
       textSubject: ['', Validators.required],
       textDescription: ['', Validators.required]
     });
+
+    this.isSubmitter = this.user.uuid === this.submitter.uuid;
 
     this.messagesObs = this.itemObs
       .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
@@ -93,21 +93,7 @@ export class MessageBoardComponent implements OnDestroy {
         return item.uuid;
       });
 
-    // this.submitter
-    //   // .filter((s) => s !== null && s.uuid !== null)
-    //   // .take(1)
-    //   .map((s) => {
-    //     console.log('Submitter uuid=' + s.uuid);
-    //     return s;
-    //   });
-    //
-    // this.user
-    //   // .filter((u) => u !== null && u.uuid !== null)
-    //   // .take(1)
-    //   .map((u) => {
-    //     console.log('User uuid=' + u.uuid);
-    //     return u;
-    //   });
+
   }
 
   readMessages() {
@@ -117,10 +103,8 @@ export class MessageBoardComponent implements OnDestroy {
         const lastMsg = msgs[msgs.length - 1];
         const type = lastMsg.findMetadata('dc.type');
         if (
-          // (this.user.sequenceEqual(this.submitter) && type === 'outbound')
-          // || (!this.user.sequenceEqual(this.submitter) && type === 'inbound')
-        (this.user.uuid === this.submitter.uuid && type === 'outbound')
-        || (this.user.uuid !== this.submitter.uuid && type === 'inbound')
+        (this.isSubmitter && type === 'outbound')
+        || (!this.isSubmitter && type === 'inbound')
         ) {
           const accessioned = lastMsg.findMetadata('dc.date.accessioned');
           if (!accessioned) {
@@ -196,14 +180,9 @@ export class MessageBoardComponent implements OnDestroy {
     const accessioned = m.findMetadata('dc.date.accessioned');
     const type = m.findMetadata('dc.type');
     // if (this.user.sequenceEqual(this.submitter)
-    if (this.user.uuid === this.submitter.uuid
-      && !accessioned
-      && type === 'outbound') {
-      return true;
-    // } else if (!this.user.sequenceEqual(this.submitter)
-    } else if (this.user.uuid !== this.submitter.uuid
-      && !accessioned
-      && type === 'inbound') {
+    if (!accessioned &&
+      ( (this.isSubmitter && type === 'outbound') || (!this.isSubmitter && type === 'inbound') )
+    ) {
       return true;
     }
     return false;
