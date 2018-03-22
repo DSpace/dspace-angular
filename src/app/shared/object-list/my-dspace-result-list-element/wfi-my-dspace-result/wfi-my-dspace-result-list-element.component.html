@@ -3,3 +3,9 @@
   [object]="object"
   [status]="status"></ds-item-list-preview>
 
+<ds-message-board
+  [itemObs]="dso.item"
+  [submitter]="submitter"
+  (refresh)="refresh()">
+</ds-message-board>
+

@@ -30,13 +30,11 @@ export class PoolTaskActionsComponent implements OnInit {
 
   public itemObs: Observable<RemoteData<Item[]>>;
   submitter: Observable<Eperson>;
-  user: Observable<Eperson>;
 
   constructor(private cd: ChangeDetectorRef,
               private ptDataService: PoolTaskDataService,
               private notificationsService: NotificationsService,
               private translate: TranslateService,
-              private store: Store<AppState>,
               private router: Router) {
   }
 
@@ -54,11 +52,6 @@ export class PoolTaskActionsComponent implements OnInit {
       .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].submitter as Observable<RemoteData<Eperson[]>>)
       .filter((rd: RemoteData<Eperson[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .map((s: RemoteData<Eperson[]>) => s.payload[0]);
-
-    this.user = this.store.select(getAuthenticatedUser)
-      .filter((user: Eperson) => isNotEmpty(user))
-      .take(1)
-      .map((user: Eperson) => user);
   }
 
   claim() {

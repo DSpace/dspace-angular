@@ -4,11 +4,9 @@ import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-el
 import { ViewMode } from '../../../../+search-page/search-options.model';
 import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
-import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue, isNotEmpty } from '../../../empty.util';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { Eperson } from '../../../../core/eperson/models/eperson.model';
 import { AppState } from '../../../../app.reducer';
@@ -16,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { ItemStatusType } from '../../item-list-status/item-status-type';
+import { Item } from '../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -27,11 +26,9 @@ import { ItemStatusType } from '../../item-list-status/item-status-type';
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   item: Item;
   submitter: Observable<Eperson>;
-  user: Observable<Eperson>;
   status = ItemStatusType.IN_PROGRESS;
 
   constructor(private cdr: ChangeDetectorRef,
-              private store: Store<AppState>,
               private wsiDataService: WorkspaceitemDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
@@ -40,28 +37,24 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
 
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
+  }
+
+  initItem(itemObs: Observable<RemoteData<Item[]>>) {
+    itemObs
+      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .take(1)
+      .subscribe((rd: RemoteData<any>) => {
+        this.item = rd.payload[0];
+      });
 
     this.submitter = (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
       .filter((rd: RemoteData<Eperson[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
       .take(1)
       .map((rd: RemoteData<Eperson[]>) => rd.payload[0]);
-
-    this.user = this.store.select(getAuthenticatedUser)
-      .filter((user: Eperson) => isNotEmpty(user))
-      .take(1)
-      .map((user: Eperson) => user);
-  }
-
-  initItem(itemObs: Observable<RemoteData<Item[]>>) {
-    itemObs
-      .filter((rd: RemoteData<any>) => rd.hasSucceeded && isNotEmpty(rd.payload))
-      .take(1)
-      .subscribe((rd: RemoteData<any>) => {
-        this.item = rd.payload[0];
-      });
   }
 
   refresh() {
+    this.item = undefined;
     // TODO Call a rest api to refresh the item
     // Wait some ms before, so previous call can be served
     this.wsiDataService.findById(this.dso.id)

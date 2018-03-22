@@ -6,10 +6,9 @@
 
 <a class="btn btn-primary mt-1 mb-3" [href]="'/workspaceitems/' + dso.id + '/edit'" role="button">Edit</a>
 
-<ds-message-board *ngIf="item"
-  [itemObs]="item"
-  [submitter]="submitter | async"
-  [user]="user | async"
+<ds-message-board *ngIf="item && submitter"
+  [itemObs]="dso.item"
+  [submitter]="submitter"
   (refresh)="refresh()">
 </ds-message-board>
 

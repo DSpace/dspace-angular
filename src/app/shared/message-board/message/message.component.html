@@ -1,54 +1,41 @@
 <li *ngVar="m.findMetadata('dc.type') as type"
-    [ngClass]="{'left': (type == 'outbound' && isSubmitter) || (type == 'inbound' && !isSubmitter),
-     'right': (type == 'outbound' && !isSubmitter) || (type == 'inbound' && isSubmitter),
+    [ngClass]="{'float-left': (type == 'outbound' && isSubmitter) || (type == 'inbound' && !isSubmitter),
+     'float-right': (type == 'outbound' && !isSubmitter) || (type == 'inbound' && isSubmitter),
       'clearfix':1}">
-
-              <!--<span [ngClass]="{'chat-img': true, 'pull-left': type == 'outbound', 'pull-right': type == 'inbound'}">-->
-                  <!--<img *ngIf="type == 'outbound'" alt="Avatar"-->
-                       <!--src="/assets/images/dspace-logo.png"-->
-                       <!--class="avatar img-rounded"/>-->
-                 <!--<img *ngIf="type == 'inbound'" alt="Avatar"-->
-                      <!--src="/assets/images/you.jpg"-->
-                      <!--class="avatar rounded"/>-->
-              <!--</span>-->
 
   <div class="chat-body clearfix">
     <div class="header clearfix">
 
-        <!--[ngClass]="{'primary-font': true, 'text-truncate': true, 'max250': true,-->
-        <!--'pull-left': type == 'outbound',-->
-        <!--'pull-right': type == 'inbound'}">-->
-        <ds-truncatable [id]="m.uuid">
-          <ds-truncatable-part [id]="m.uuid" [minLines]="1">
-          <span>From: <strong>{{m.findMetadata('dc.creator')}}</strong></span>
-          </ds-truncatable-part>
-        </ds-truncatable>
-
-
-      <small
-        [ngClass]="{'pull-right': type == 'outbound', 'pull-left': type == 'inbound',  'text-muted':1}">
-        <span class="fa fa-clock"></span>{{m.findMetadata('dc.date.issued') | date: 'dd/MM/yyyy HH:mm'}}
+      <small class="float-left">
+        <span class="fa fa-clock text-muted ">{{m.findMetadata('dc.date.issued') | date: 'dd/MM/yyyy HH:mm'}}</span>
       </small>
+
       <small
         *ngIf="showUnread"
         (click)="unReadLastMsg()"
-        [ngClass]="{'cr': type == 'outbound',
-        'cl': type == 'inbound',
-        'pull-right': type == 'outbound',
-        'pull-left': type == 'inbound',
-        'text-muted':1,
-        'pointer': 1}">
+        class="text-muted pointer float-right ml-3">
         <span class="fa fa-envelope"></span> Set as unread
       </small>
+
+      <div class="truncatable">
+        <ds-truncatable [id]="m.uuid">
+          <ds-truncatable-part [id]="m.uuid" [minLines]="1">
+            <label>From: <span><strong>{{isSubmitter && type == 'inbound' ? 'You' : m.findMetadata('dc.creator')}}</strong></span></label>
+          </ds-truncatable-part>
+        </ds-truncatable>
+      </div>
+
+      <div class="truncatable" *ngVar="'obj_'.concat(m.uuid) as obj_id">
+        <ds-truncatable [id]="obj_id">
+          <ds-truncatable-part [id]="obj_id" [minLines]="1">
+            <label>Object: <span>{{m.findMetadata('dc.title')}}</span></label>
+          </ds-truncatable-part>
+        </ds-truncatable>
+      </div>
+
     </div>
-    <div class="title">
-         <!--[ngClass]="{'left': type == 'outbound', 'right': type == 'inbound'}" >-->
-      <span (click)="toggleDescription()" class="pointer">
-        <i *ngIf="!show" class="fa fa-angle-double-down"></i>
-        <i *ngIf="show" class="fa fa-angle-double-up"></i>
-        {{m.findMetadata('dc.title')}}
-      </span>
-    </div>
+
+    <button class="btn btn-link" (click)="toggleDescription()"><small>{{readMessageTxt}}</small></button>
 
     <div *ngIf="show" class="description">
       {{description | async}}

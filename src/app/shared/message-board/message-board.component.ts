@@ -13,6 +13,9 @@ import { hasNoUndefinedValue, hasValue, isNotEmpty } from '../empty.util';
 import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { MessageDataResponse } from '../../core/message/message-data-response';
+import { AppState } from '../../app.reducer';
+import { Store } from '@ngrx/store';
+import { getAuthenticatedUser } from '../../core/auth/selectors';
 
 @Component({
   selector: 'ds-message-board',
@@ -24,10 +27,13 @@ import { MessageDataResponse } from '../../core/message/message-data-response';
 })
 
 export class MessageBoardComponent implements OnDestroy {
-  @Input() itemObs: Observable<RemoteData<Item[]>>;
-  @Output() public refresh = new EventEmitter<any>();
-  @Input() public submitter: Eperson;
-  @Input() public user: Eperson;
+  @Input()
+  itemObs: Observable<RemoteData<Item[]>>;
+  @Input()
+  submitter: Observable<Eperson>;
+  user: Observable<Eperson>;
+  @Output()
+  refresh = new EventEmitter<any>();
 
   public unRead: Bitstream[] = [];
   public modalRef: NgbModalRef;
@@ -35,17 +41,20 @@ export class MessageBoardComponent implements OnDestroy {
   public itemUUIDObs: Observable<string>;
   public messagesObs: Observable<Bitstream[]>;
 
-  isSubmitter: boolean;
+  isSubmitter: Observable<boolean>;
   public messageForm: FormGroup;
   public processingMessage = false;
   public showUnread = false;
   private sub: Subscription;
   private readSub: Subscription;
 
+  private rememberEmitUnread = false;
+
   constructor(private formBuilder: FormBuilder,
               public msgService: MessageService,
               private modalService: NgbModal,
               private notificationsService: NotificationsService,
+              private store: Store<AppState>,
               private translate: TranslateService,) {
   }
 
@@ -56,10 +65,20 @@ export class MessageBoardComponent implements OnDestroy {
       textDescription: ['', Validators.required]
     });
 
-    this.isSubmitter = this.user.uuid === this.submitter.uuid;
+    this.user = this.store.select(getAuthenticatedUser)
+      .filter((user: Eperson) => isNotEmpty(user))
+      .take(1)
+      .map((user: Eperson) => user);
+
+    this.isSubmitter = Observable.combineLatest(this.user, this.submitter)
+      .filter(([user, submitter]) =>
+        isNotEmpty(user) && isNotEmpty(submitter))
+      .map(([user, submitter]) => {
+        return user.uuid === submitter.uuid;
+      });
 
     this.messagesObs = this.itemObs
-      .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
+      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .take(1)
       .flatMap((rd: RemoteData<Item[]>) => {
         const item = rd.payload[0];
@@ -69,9 +88,12 @@ export class MessageBoardComponent implements OnDestroy {
           .map((bitStreams: Bitstream[]) => {
             this.unRead = [];
             bitStreams.forEach((m) => {
-              if (this.isUnread(m)) {
-                this.unRead.push(m);
-              }
+              this.isUnread(m)
+                .take(1)
+                .filter( (isUnread) => isUnread)
+                .subscribe( (isUnread) => {
+                    this.unRead.push(m);
+                });
             });
             return bitStreams;
           });
@@ -86,19 +108,17 @@ export class MessageBoardComponent implements OnDestroy {
         const item = rd.payload[0];
         return item.uuid;
       });
-
-
   }
 
   readMessages() {
-    this.readSub = this.messagesObs
-      .filter((msgs) => msgs !== null && msgs.length > 0)
-      .subscribe((msgs) => {
+    this.readSub = Observable.combineLatest(this.messagesObs, this.isSubmitter)
+      .filter(([msgs, isSubmitter]) => msgs !== null && msgs.length > 0)
+      .subscribe(([msgs, isSubmitter]) => {
         const lastMsg = msgs[msgs.length - 1];
         const type = lastMsg.findMetadata('dc.type');
         if (
-        (this.isSubmitter && type === 'outbound')
-        || (!this.isSubmitter && type === 'inbound')
+          (isSubmitter && type === 'outbound')
+          || (!isSubmitter && type === 'inbound')
         ) {
           const accessioned = lastMsg.findMetadata('dc.date.accessioned');
           if (!accessioned) {
@@ -142,17 +162,25 @@ export class MessageBoardComponent implements OnDestroy {
   }
 
   unReadLastMsg(msgUuid) {
-    const body = {
-      uuid: msgUuid
-    };
-    this.msgService.markAsUnread(body)
-      .subscribe((res: MessageDataResponse) => {
-        console.log('After message unRead:');
-        console.log(res);
-        // Refresh event
-        this.refresh.emit('read');
-        this.showUnread = false;
-    });
+    if (msgUuid) {
+      const body = {
+        uuid: msgUuid
+      };
+      this.msgService.markAsUnread(body)
+        .subscribe((res: MessageDataResponse) => {
+          console.log('After message unRead:');
+          console.log(res);
+          this.rememberEmitUnread = true;
+          this.showUnread = false;
+        });
+    }
+  }
+
+  emitUnread() {
+    if (this.rememberEmitUnread) {
+      // Refresh event
+      this.refresh.emit('unread');
+    }
   }
 
   read() {
@@ -162,28 +190,42 @@ export class MessageBoardComponent implements OnDestroy {
       };
       this.msgService.markAsRead(body)
         .subscribe((res: MessageDataResponse) => {
-          console.log('After message read:');
-          console.log(res);
-          // Refresh event
-          this.refresh.emit('read');
-      });
+          if (res.hasSucceeded) {
+            console.log('After message read:');
+            console.log(res);
+            // Refresh event
+            this.refresh.emit('read');
+          } else {
+            this.notificationsService.warning(null, 'Cannot mark messages as read...');
+          }
+        });
     });
   }
 
-  isUnread(m: Bitstream): boolean {
+  isUnread(m: Bitstream): Observable<boolean> {
     const accessioned = m.findMetadata('dc.date.accessioned');
     const type = m.findMetadata('dc.type');
-    // if (this.user.sequenceEqual(this.submitter)
-    if (!accessioned &&
-      ( (this.isSubmitter && type === 'outbound') || (!this.isSubmitter && type === 'inbound') )
-    ) {
-      return true;
-    }
-    return false;
+    return this.isSubmitter.map((isSubmitter) => {
+      if (!accessioned &&
+        ((isSubmitter && type === 'outbound') || (!isSubmitter && type === 'inbound'))
+      ) {
+        return true;
+      }
+      return false;
+    });
+
   }
 
   openMessageBoard(content) {
     this.modalRef = this.modalService.open(content);
+    this.modalRef.result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+      this.emitUnread();
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.emitUnread();
+    });
+
     this.readMessages();
   }
 

@@ -36,14 +36,12 @@ export class ClaimedTaskActionsComponent implements OnInit {
 
   public itemObs: Observable<RemoteData<Item[]>>;
   submitter: Observable<Eperson>;
-  user: Observable<Eperson>;
 
   constructor(private cd: ChangeDetectorRef,
               private notificationsService: NotificationsService,
               private translate: TranslateService,
               private ctDataService: ClaimedTaskDataService,
               private modalService: NgbModal,
-              private store: Store<AppState>,
               private formBuilder: FormBuilder,
               private router: Router) {
   }
@@ -66,14 +64,6 @@ export class ClaimedTaskActionsComponent implements OnInit {
       .flatMap((rd: RemoteData<Workflowitem[]>) => rd.payload[0].submitter as Observable<RemoteData<Eperson[]>>)
       .filter((rd: RemoteData<Eperson[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
       .map((s: RemoteData<Eperson[]>) => s.payload[0]);
-
-    this.user = this.store.select(getAuthenticatedUser)
-      .filter((user: Eperson) => isNotEmpty(user))
-      .take(1)
-      .map((user: Eperson) => {
-        console.log(user);
-        return user;
-      });
   }
 
   approve() {

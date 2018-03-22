@@ -27,7 +27,7 @@
           <ng-container *ngFor="let m of (messagesObs | async); let i = index">
             <ds-message
               [m]="m"
-              [isSubmitter]="isSubmitter"
+              [isSubmitter]="isSubmitter | async"
               [showUnread]="i == (messagesObs | async)?.length-1 && showUnread"
               (unRead)="unReadLastMsg(m.uuid)"
             ></ds-message>

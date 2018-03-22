@@ -23,6 +23,7 @@ export class MessageComponent {
   public show = false;
   private _description = '';
   private loadingDescription = false;
+  readMessageTxt = 'Show message...';
 
   constructor(public msgService: MessageService,
               private cdr: ChangeDetectorRef) {
@@ -30,6 +31,7 @@ export class MessageComponent {
 
   toggleDescription() {
     this.show = !this.show;
+    this.readMessageTxt = this.show ? 'Hide message...' : 'Show message...';
     this.cdr.detectChanges();
   }
 
@@ -38,10 +40,10 @@ export class MessageComponent {
       this.loadingDescription = true;
       this.msgService.getMessageContent(this.m.content)
         .subscribe((res) => {
-        this._description = res.payload || 'No content.';
-        console.log('description=', this._description);
-        this.loadingDescription = false;
-      });
+          this._description = res.payload || 'No content.';
+          console.log('description=', this._description);
+          this.loadingDescription = false;
+        });
     }
 
     return Observable.of(this._description);

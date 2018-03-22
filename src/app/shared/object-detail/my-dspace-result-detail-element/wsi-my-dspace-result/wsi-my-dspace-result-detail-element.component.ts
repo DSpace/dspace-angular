@@ -29,13 +29,11 @@ import { ItemStatusType } from '../../../object-list/item-list-status/item-statu
 export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
   public item: Item;
   submitter: Observable<Eperson>;
-  user: Observable<Eperson>;
   itemUuid: Observable<string>;
   messages: Observable<Bitstream[]> = Observable.of([]);
   status = ItemStatusType.IN_PROGRESS;
 
   constructor(private modalService: NgbModal,
-              private store: Store<AppState>,
               private wsiDataService: WorkspaceitemDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
@@ -50,13 +48,6 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
       .subscribe((rd: RemoteData<any>) => {
         // console.log(rd);
         this.submitter = Observable.of(rd.payload[0]);
-      });
-
-    this.store.select(getAuthenticatedUser)
-      .filter((user: Eperson) => isNotEmpty(user))
-      .take(1)
-      .subscribe((user: Eperson) => {
-        this.user = Observable.of(user);
       });
   }
 

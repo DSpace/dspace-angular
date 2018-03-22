@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../+search-page/search-options.model';
-import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue, isNotEmpty } from '../../../empty.util';
@@ -16,6 +15,7 @@ import { WorkflowitemMyDSpaceResult } from '../../../object-collection/shared/wo
 import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
 import { WorkflowitemDataService } from '../../../../core/submission/workflowitem-data.service';
 import { ItemStatusType } from '../../item-list-status/item-status-type';
+import { Item } from '../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-workflowitem-my-dspace-result-list-element',
@@ -28,11 +28,9 @@ import { ItemStatusType } from '../../item-list-status/item-status-type';
 export class WorkflowitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkflowitemMyDSpaceResult, Workflowitem> {
   public item: Item;
   public status = ItemStatusType.WORKFLOW;
-  public submitter: Eperson;
-  public user: Eperson;
+  public submitter: Observable<Eperson>;
 
   constructor(private modalService: NgbModal,
-              private store: Store<AppState>,
               private wfiDataService: WorkflowitemDataService,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
@@ -41,21 +39,23 @@ export class WorkflowitemMyDSpaceResultListElementComponent extends MyDSpaceResu
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
 
-    (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
-      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+    this.submitter = (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
+      .filter((rd: RemoteData<Eperson[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
       .take(1)
-      .subscribe((rd: RemoteData<any>) => {
-        // console.log(rd);
-        this.submitter = rd.payload[0];
-      });
+      .map((rd: RemoteData<Eperson[]>) => rd.payload[0]);
+  }
 
-    this.store.select(getAuthenticatedUser)
-      .filter((user: Eperson) => isNotEmpty(user))
+  refresh() {
+    // TODO Call a rest api to refresh the item
+    // Wait some ms before, so previous call can be served
+    this.wfiDataService.findById(this.dso.id)
+      .filter((wfi: RemoteData<Workflowitem>) => wfi.hasSucceeded)
       .take(1)
-      .subscribe((user: Eperson) => {
-        this.user = user;
+      .subscribe((wfi) => {
+        // console.log('Refresh wsi...');
+        this.dso = wfi.payload;
+        this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
       });
-
   }
 
   initItem(itemObs: Observable<RemoteData<Item[]>>) {
