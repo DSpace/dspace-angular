@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="d-flex flex-column justify-content-center align-content-stretch">
-      <div class="p-2"  *ngIf="title">
+      <div class="p-2 mr-3"  *ngIf="title">
         <strong>
           <div class="sn-title" *ngIf="titleIsTemplate; else regularTitle">
             <ng-container *ngTemplateOutlet="title"></ng-container>
@@ -37,7 +37,7 @@
         </strong>
       </div>
 
-      <div class="p-2"  *ngIf="content">
+      <div class="p-2 mr-3"  *ngIf="content">
         <div class="sn-content" *ngIf="contentIsTemplate; else regularContent">
           <ng-container *ngTemplateOutlet="content"></ng-container>
         </div>
@@ -46,7 +46,7 @@
         </ng-template>
       </div>
 
-      <div class="p-2" *ngIf="item.html">
+      <div class="p-2 mr-3" *ngIf="item.html">
         <div class="sn-html" *ngIf="htmlIsTemplate; else regularHtml">
           <ng-container *ngTemplateOutlet="html"></ng-container>
         </div>
@@ -56,63 +56,5 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-  <!--<div class="icon"><i-->
-    <!--[ngClass]="{'fa fa-2x': true,-->
-      <!--'fa-check': item.type == 'alert-success',-->
-      <!--'fa-times-circle': item.type == 'alert-danger',-->
-      <!--'fa-exclamation-triangle': item.type == 'alert-warning',-->
-      <!--'fa-info': item.type == 'alert-info'-->
-      <!--}"></i></div>-->
-
-  <!--<button *ngIf="item.options.clickToClose"-->
-          <!--(click)="remove()"-->
-          <!--type="button" class="notificationClose close" data-dismiss="alert" aria-label="Close">-->
-    <!--<span aria-hidden="true">&times;</span>-->
-  <!--</button>-->
-
-  <!--<div *ngIf="!item.html">-->
-
-    <!--<div class="sn-title" *ngIf="titleIsTemplate; else regularTitle">-->
-      <!--<ng-container *ngTemplateOutlet="title"></ng-container>-->
-    <!--</div>-->
-
-    <!--<ng-template #regularTitle>-->
-      <!--<div class="sn-title" [innerHTML]="(title | async)"></div>-->
-    <!--</ng-template>-->
-
-    <!--<div class="sn-content" *ngIf="contentIsTemplate; else regularContent">-->
-      <!--<ng-container *ngTemplateOutlet="content"></ng-container>-->
-    <!--</div>-->
-
-    <!--<ng-template #regularContent>-->
-      <!--<div class="sn-content" [innerHTML]="(content | async)"></div>-->
-    <!--</ng-template>-->
-
-  <!--</div>-->
-
-  <!--<div *ngIf="item.html">-->
-    <!--<div class="sn-html" *ngIf="htmlIsTemplate; else regularHtml">-->
-      <!--<ng-container *ngTemplateOutlet="html"></ng-container>-->
-    <!--</div>-->
-
-    <!--<ng-template #regularHtml>-->
-      <!--<div class="sn-content" [innerHTML]="html"></div>-->
-    <!--</ng-template>-->
-  <!--</div>-->
-
-  <!--<div class="sn-progress-loader" *ngIf="showProgressBar">-->
-    <!--<span [ngStyle]="{'width': progressWidth + '%'}"></span>-->
-  <!--</div>-->
-
-
-
 
 </div>

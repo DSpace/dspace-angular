@@ -54,7 +54,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   }
 
   refresh() {
-    this.item = undefined;
+    // this.item = undefined;
     // TODO Call a rest api to refresh the item
     // Wait some ms before, so previous call can be served
     this.wsiDataService.findById(this.dso.id)

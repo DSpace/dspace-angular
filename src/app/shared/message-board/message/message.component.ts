@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -11,10 +11,11 @@ import { MessageService } from '../../../core/message/message.service';
   templateUrl: './message.component.html'
 })
 
-export class MessageComponent {
+export class MessageComponent implements OnInit {
   @Input()
   public m: Bitstream;
   @Input()
+  isLast: boolean;
   public showUnread: boolean;
   @Input()
   public isSubmitter: boolean;
@@ -27,6 +28,19 @@ export class MessageComponent {
 
   constructor(public msgService: MessageService,
               private cdr: ChangeDetectorRef) {
+  }
+
+  ngOnInit() {
+    const type = this.m.findMetadata('dc.type');
+
+    if (this.isLast &&
+      ((this.isSubmitter && type === 'outbound')
+        || (!this.isSubmitter && type === 'inbound'))
+    ) {
+      this.showUnread = true;
+    } else {
+      this.showUnread = false;
+    }
   }
 
   toggleDescription() {

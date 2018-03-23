@@ -9,8 +9,7 @@
   </button>
 
   <ds-message-board
-    [itemObs]="itemObs"
-    [submitter]="submitter"
+    [dso]="workflowitemObs | async"
     (refresh)="reload()">
   </ds-message-board>
 </div>

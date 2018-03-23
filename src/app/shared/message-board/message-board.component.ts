@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MessageService } from '../../core/message/message.service';
@@ -16,6 +16,10 @@ import { MessageDataResponse } from '../../core/message/message-data-response';
 import { AppState } from '../../app.reducer';
 import { Store } from '@ngrx/store';
 import { getAuthenticatedUser } from '../../core/auth/selectors';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemMyDSpaceResult } from '../object-collection/shared/workspaceitem-my-dspace-result.model';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'ds-message-board',
@@ -28,12 +32,12 @@ import { getAuthenticatedUser } from '../../core/auth/selectors';
 
 export class MessageBoardComponent implements OnDestroy {
   @Input()
-  itemObs: Observable<RemoteData<Item[]>>;
-  @Input()
-  submitter: Observable<Eperson>;
-  user: Observable<Eperson>;
+  dso: any;
   @Output()
   refresh = new EventEmitter<any>();
+  item: Observable<Item>;
+  submitter: Observable<Eperson>;
+  user: Observable<Eperson>;
 
   public unRead: Bitstream[] = [];
   public modalRef: NgbModalRef;
@@ -44,9 +48,9 @@ export class MessageBoardComponent implements OnDestroy {
   isSubmitter: Observable<boolean>;
   public messageForm: FormGroup;
   public processingMessage = false;
-  public showUnread = false;
+  // public showUnread: boolean;
   private sub: Subscription;
-  private readSub: Subscription;
+  // private readSub: Subscription;
 
   private rememberEmitUnread = false;
 
@@ -55,7 +59,8 @@ export class MessageBoardComponent implements OnDestroy {
               private modalService: NgbModal,
               private notificationsService: NotificationsService,
               private store: Store<AppState>,
-              private translate: TranslateService,) {
+              private translate: TranslateService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -70,19 +75,28 @@ export class MessageBoardComponent implements OnDestroy {
       .take(1)
       .map((user: Eperson) => user);
 
+    this.item = this.dso.item
+      .filter((rd: RemoteData<any>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .take(1)
+      .map((rd: RemoteData<Eperson[]>) => rd.payload[0]);
+
+    this.submitter = (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
+      .filter((rd: RemoteData<Eperson[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
+      .take(1)
+      .map((rd: RemoteData<Eperson[]>) => rd.payload[0]);
+
     this.isSubmitter = Observable.combineLatest(this.user, this.submitter)
       .filter(([user, submitter]) =>
         isNotEmpty(user) && isNotEmpty(submitter))
       .map(([user, submitter]) => {
         return user.uuid === submitter.uuid;
-      });
+      }) as Observable<boolean>;
 
-    this.messagesObs = this.itemObs
-      .filter((rd: RemoteData<Item[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+    this.messagesObs = this.item
+      .filter((item: Item) => isNotEmpty(item))
       .take(1)
-      .flatMap((rd: RemoteData<Item[]>) => {
-        const item = rd.payload[0];
-        return item.getBitstreamsByBundleName('MESSAGE')
+      .flatMap((item: Item) =>
+        item.getBitstreamsByBundleName('MESSAGE')
           .filter((bitStreams: Bitstream[]) => isNotEmpty(bitStreams))
           .take(1)
           .map((bitStreams: Bitstream[]) => {
@@ -90,48 +104,28 @@ export class MessageBoardComponent implements OnDestroy {
             bitStreams.forEach((m) => {
               this.isUnread(m)
                 .take(1)
-                .filter( (isUnread) => isUnread)
-                .subscribe( (isUnread) => {
-                    this.unRead.push(m);
+                .filter((isUnread) => isUnread)
+                .subscribe((isUnread) => {
+                  this.unRead.push(m);
                 });
             });
             return bitStreams;
-          });
-      })
+          })
+      )
       .startWith([])
       .distinctUntilChanged();
 
-    this.itemUUIDObs = this.itemObs
-      .filter((rd: RemoteData<Item[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
+    this.itemUUIDObs = this.item
+      .filter((item: Item) => isNotEmpty(item))
       .take(1)
-      .map((rd: RemoteData<Item[]>) => {
-        const item = rd.payload[0];
+      .map((item: Item) => {
         return item.uuid;
       });
-  }
 
-  readMessages() {
-    this.readSub = Observable.combineLatest(this.messagesObs, this.isSubmitter)
-      .filter(([msgs, isSubmitter]) => msgs !== null && msgs.length > 0)
-      .subscribe(([msgs, isSubmitter]) => {
-        const lastMsg = msgs[msgs.length - 1];
-        const type = lastMsg.findMetadata('dc.type');
-        if (
-          (isSubmitter && type === 'outbound')
-          || (!isSubmitter && type === 'inbound')
-        ) {
-          const accessioned = lastMsg.findMetadata('dc.date.accessioned');
-          if (!accessioned) {
-            this.read(); // Set as Read the last message
-          }
-          this.showUnread = true;
-        }
-      });
   }
 
   sendMessage(itemUuid) {
     this.processingMessage = true;
-    // get subject and description values
     const subject: string = this.messageForm.get('textSubject').value;
     const description: string = this.messageForm.get('textDescription').value;
     const body = {
@@ -149,7 +143,6 @@ export class MessageBoardComponent implements OnDestroy {
           console.log(res);
           // Refresh event
           this.refresh.emit('read');
-
           this.notificationsService.success(null,
             this.translate.get('submission.workflow.tasks.generic.success'),
             new NotificationOptions(5000, false));
@@ -167,11 +160,17 @@ export class MessageBoardComponent implements OnDestroy {
         uuid: msgUuid
       };
       this.msgService.markAsUnread(body)
-        .subscribe((res: MessageDataResponse) => {
+        .filter( (res) => res.hasSucceeded)
+        .take(1)
+        .subscribe((res) => {
           console.log('After message unRead:');
           console.log(res);
-          this.rememberEmitUnread = true;
-          this.showUnread = false;
+          if (!res.error) {
+            this.rememberEmitUnread = true;
+            this.notificationsService.success(null, 'Message marked as not read');
+          } else {
+            this.notificationsService.warning(null, 'Impossible mark the message as not read');
+          }
         });
     }
   }
@@ -205,18 +204,21 @@ export class MessageBoardComponent implements OnDestroy {
   isUnread(m: Bitstream): Observable<boolean> {
     const accessioned = m.findMetadata('dc.date.accessioned');
     const type = m.findMetadata('dc.type');
-    return this.isSubmitter.map((isSubmitter) => {
-      if (!accessioned &&
-        ((isSubmitter && type === 'outbound') || (!isSubmitter && type === 'inbound'))
-      ) {
-        return true;
-      }
-      return false;
-    });
-
+    return this.isSubmitter
+      .filter((isSubmitter) => isNotEmpty(isSubmitter))
+      .map((isSubmitter) => {
+        if (!accessioned &&
+          ((isSubmitter && type === 'outbound') || (!isSubmitter && type === 'inbound'))
+        ) {
+          return true;
+        }
+        return false;
+      });
   }
 
   openMessageBoard(content) {
+    this.read();
+    // this.setShowUnread();
     this.modalRef = this.modalService.open(content);
     this.modalRef.result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
@@ -225,16 +227,11 @@ export class MessageBoardComponent implements OnDestroy {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       this.emitUnread();
     });
-
-    this.readMessages();
   }
 
   ngOnDestroy() {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
-    }
-    if (hasValue(this.readSub)) {
-      this.readSub.unsubscribe();
     }
   }
 

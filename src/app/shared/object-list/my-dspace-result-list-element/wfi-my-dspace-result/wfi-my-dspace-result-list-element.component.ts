@@ -4,13 +4,10 @@ import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-el
 import { ViewMode } from '../../../../+search-page/search-options.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
-import { hasNoUndefinedValue, isNotEmpty } from '../../../empty.util';
+import { hasNoUndefinedValue } from '../../../empty.util';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { Eperson } from '../../../../core/eperson/models/eperson.model';
-import { AppState } from '../../../../app.reducer';
-import { Store } from '@ngrx/store';
-import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 import { WorkflowitemMyDSpaceResult } from '../../../object-collection/shared/workflowitem-my-dspace-result.model';
 import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
 import { WorkflowitemDataService } from '../../../../core/submission/workflowitem-data.service';
@@ -38,11 +35,6 @@ export class WorkflowitemMyDSpaceResultListElementComponent extends MyDSpaceResu
 
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
-
-    this.submitter = (this.dso.submitter as Observable<RemoteData<Eperson[]>>)
-      .filter((rd: RemoteData<Eperson[]>) => rd.hasSucceeded && isNotEmpty(rd.payload))
-      .take(1)
-      .map((rd: RemoteData<Eperson[]>) => rd.payload[0]);
   }
 
   refresh() {

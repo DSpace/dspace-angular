@@ -87,7 +87,8 @@
       "no-messages": "No messages yet.",
       "send-btn": "Send",
       "subject-placeholder": "Subject...",
-      "description-placeholder": "Insert your message here..."
+      "description-placeholder": "Insert your message here...",
+      "mark-as-unread": "Mark as unread"
     },
     "show": {
       "workspace": "Your Submissions",

@@ -9,7 +9,6 @@
   <span *ngIf="unRead.length > 0" class="badge badge-pill badge-danger font-italic">New</span>
 </sup>
 
-
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header rounded-top">
     <i class="fa fa-envelope"></i> {{'mydspace.messages.title' | translate}}
@@ -28,7 +27,7 @@
             <ds-message
               [m]="m"
               [isSubmitter]="isSubmitter | async"
-              [showUnread]="i == (messagesObs | async)?.length-1 && showUnread"
+              [isLast]="i == (messagesObs | async)?.length-1"
               (unRead)="unReadLastMsg(m.uuid)"
             ></ds-message>
           </ng-container>

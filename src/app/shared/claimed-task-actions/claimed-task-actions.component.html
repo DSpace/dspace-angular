@@ -1,8 +1,8 @@
 <div class="mb-3">
-  <a *ngIf="(workflowitemObs | async)?.hasSucceeded"
+  <a *ngIf="(task.workflowitem | async)?.hasSucceeded"
      class="btn btn-primary mt-1 mb-3"
      ngbTooltip="{{'submission.workflow.tasks.claimed.edit_help' | translate}}"
-     [href]="'/workflowitems/' + (workflowitemObs | async)?.payload[0].id + '/edit'"
+     [href]="'/workflowitems/' + (task.workflowitem | async)?.payload[0].id + '/edit'"
      role="button">
     <i class="fa fa-edit"></i> {{'submission.workflow.tasks.claimed.edit' | translate}}
   </a>
@@ -35,8 +35,7 @@
   </button>
 
   <ds-message-board
-    [itemObs]="itemObs"
-    [submitter]="submitter"
+    [dso]="workflowitemObs | async"
     (refresh)="reload()">
   </ds-message-board>
 
