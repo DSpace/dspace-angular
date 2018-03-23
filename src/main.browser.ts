@@ -6,7 +6,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { bootloader } from '@angularclass/bootloader';
 
 import { load as loadWebFont } from 'webfontloader';
-import { hasValue } from './app/shared/empty.util';
+import { hasValue, isNotEmpty } from './app/shared/empty.util';
 
 import { BrowserAppModule } from './modules/app/browser-app.module';
 
@@ -33,7 +33,7 @@ export function main() {
 function addGoogleAnalytics() {
   // Add google analytics if key is present in config
   const trackingId = ENV_CONFIG.gaTrackingId;
-  if (trackingId !== '' && trackingId !== null) {
+  if (isNotEmpty(trackingId)) {
     const keyScript = document.createElement('script');
     keyScript.innerHTML =   `(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
