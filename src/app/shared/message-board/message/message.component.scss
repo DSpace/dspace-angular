@@ -1,41 +1,10 @@
+$user_bg: #e6f2ff;
+$other_bg: #EFEFEF;
+
 li {
   margin-bottom: 10px;
   padding-bottom: 5px;
-  //border-bottom: 1px dotted #B3A9A9;
-}
-
-li.left .chat-body
-{
-  //margin-left: 60px;
-  background: #f5f5f5;
-}
-
-li.right .chat-body
-{
-  //margin-right: 60px;
-  background: #EFEFEF;
-}
-
-li .chat-body p
-{
-  margin: 0;
-  color: #777777;
-}
-
-.title {
-  //margin-top: -25px;
-}
-
-.description {
-  color: #555555;
-}
-
-.avatar {
-  height: 60px;
-}
-
-.chat {
-  margin: 0;
+  width: 80%;
 }
 
 .chat-body {
@@ -43,20 +12,23 @@ li .chat-body p
   border-radius: 5px;
 }
 
-.left {
-  text-align: left;
+li.float-left .chat-body {
+  background: $other_bg;
 }
 
-.right {
-  text-align: right;
+li.float-right .chat-body {
+  background: $user_bg;
 }
 
-.cr {
-  clear: right;
+li .chat-body p {
+  margin: 0;
+  color: #777777;
 }
 
-.cl {
-  clear: left;
+.description {
+  color: #666666;
+  font-style: italic;
+  padding: 0 15px;
 }
 
 .pointer {
@@ -65,4 +37,18 @@ li .chat-body p
 
 .max250 {
   max-width: 250px;
+}
+
+/deep/ .float-right div[class^="clamp-"]
+.content:after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), $user_bg 70%) !important;
+}
+
+/deep/ .float-left div[class^="clamp-"]
+.content:after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), $other_bg 70%) !important;
+}
+
+.truncatable {
+  clear: both;
 }

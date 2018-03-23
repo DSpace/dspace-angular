@@ -1,15 +1,13 @@
 <ds-item-list-preview
-  *ngIf="status"
+  *ngIf="status && item"
   [item]="item"
   [object]="object"
   [status]="status"></ds-item-list-preview>
 
 <a class="btn btn-primary mt-1 mb-3" [href]="'/workspaceitems/' + dso.id + '/edit'" role="button">Edit</a>
 
-<ds-message-board
-  [itemObs]="dso.item"
-  [submitter]="submitter | async"
-  [user]="user | async"
+<ds-message-board *ngIf="dso && dso.item && dso.submitter"
+  [dso]="dso"
   (refresh)="refresh()">
 </ds-message-board>
 

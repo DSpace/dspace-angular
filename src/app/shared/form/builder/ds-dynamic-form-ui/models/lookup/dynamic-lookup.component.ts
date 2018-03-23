@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -32,7 +32,8 @@ export class DsDynamicLookupComponent implements OnInit {
   lookupName: boolean;
   name2: string;
 
-  constructor(private authorityService: AuthorityService) {
+  constructor(private authorityService: AuthorityService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -98,10 +99,11 @@ export class DsDynamicLookupComponent implements OnInit {
     this.loading = true;
     this.authorityService.getEntriesByName(this.searchOptions)
       .distinctUntilChanged()
-      .do(() => this.loading = false)
       .subscribe((object: IntegrationData) => {
         this.optionsList = object.payload;
         this.pageInfo = object.pageInfo;
+        this.loading = false
+        this.cdr.detectChanges();
       });
   }
 
