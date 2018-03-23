@@ -58,7 +58,7 @@ describe('App component', () => {
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MockMetadataService() },
-        { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() }
+        { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() },
         AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
