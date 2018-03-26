@@ -218,7 +218,7 @@ export class MessageBoardComponent implements OnDestroy {
 
   openMessageBoard(content) {
     this.read();
-    // this.setShowUnread();
+    this.rememberEmitUnread = true;
     this.modalRef = this.modalService.open(content);
     this.modalRef.result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
