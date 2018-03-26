@@ -139,8 +139,8 @@ export class MessageBoardComponent implements OnDestroy {
         this.processingMessage = false;
         this.modalRef.dismiss('Send Message');
         if (res.hasSucceeded) {
-          console.log('After message creation:');
-          console.log(res);
+          // console.log('After message creation:');
+          // console.log(res);
           // Refresh event
           this.refresh.emit('read');
           this.notificationsService.success(null,
@@ -163,8 +163,8 @@ export class MessageBoardComponent implements OnDestroy {
         .filter( (res) => res.hasSucceeded)
         .take(1)
         .subscribe((res) => {
-          console.log('After message unRead:');
-          console.log(res);
+          // console.log('After message unRead:');
+          // console.log(res);
           if (!res.error) {
             this.rememberEmitUnread = true;
             this.notificationsService.success(null, 'Message marked as not read');
@@ -190,8 +190,8 @@ export class MessageBoardComponent implements OnDestroy {
       this.msgService.markAsRead(body)
         .subscribe((res: MessageDataResponse) => {
           if (res.hasSucceeded) {
-            console.log('After message read:');
-            console.log(res);
+            // console.log('After message read:');
+            // console.log(res);
             // Refresh event
             this.refresh.emit('read');
           } else {

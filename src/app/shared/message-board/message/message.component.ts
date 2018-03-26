@@ -55,7 +55,7 @@ export class MessageComponent implements OnInit {
       this.msgService.getMessageContent(this.m.content)
         .subscribe((res) => {
           this._description = res.payload || 'No content.';
-          console.log('description=', this._description);
+          // console.log('description=', this._description);
           this.loadingDescription = false;
         });
     }
