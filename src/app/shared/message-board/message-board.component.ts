@@ -48,11 +48,10 @@ export class MessageBoardComponent implements OnDestroy {
   isSubmitter: Observable<boolean>;
   public messageForm: FormGroup;
   public processingMessage = false;
-  // public showUnread: boolean;
   private sub: Subscription;
-  // private readSub: Subscription;
 
   private rememberEmitUnread = false;
+  private rememberEmitRead = false;
 
   constructor(private formBuilder: FormBuilder,
               public msgService: MessageService,
@@ -139,8 +138,6 @@ export class MessageBoardComponent implements OnDestroy {
         this.processingMessage = false;
         this.modalRef.dismiss('Send Message');
         if (res.hasSucceeded) {
-          // console.log('After message creation:');
-          // console.log(res);
           // Refresh event
           this.refresh.emit('read');
           this.notificationsService.success(null,
@@ -163,8 +160,6 @@ export class MessageBoardComponent implements OnDestroy {
         .filter( (res) => res.hasSucceeded)
         .take(1)
         .subscribe((res) => {
-          // console.log('After message unRead:');
-          // console.log(res);
           if (!res.error) {
             this.rememberEmitUnread = true;
             this.notificationsService.success(null, 'Message marked as not read');
@@ -175,25 +170,27 @@ export class MessageBoardComponent implements OnDestroy {
     }
   }
 
-  emitUnread() {
-    if (this.rememberEmitUnread) {
-      // Refresh event
+  emitRefresh() {
+    if (this.rememberEmitUnread && !this.rememberEmitRead) {
+      // Refresh event for Unread
       this.refresh.emit('unread');
+    } else if (!this.rememberEmitUnread && this.rememberEmitRead) {
+      // Refresh event for Read
+      this.refresh.emit('read');
     }
   }
 
   read() {
-    this.unRead.forEach((m) => {
+    this.unRead.forEach((m, i) => {
       const body = {
         uuid: m.uuid
       };
+      if (i === 0) {
+        this.rememberEmitRead = true;
+      }
       this.msgService.markAsRead(body)
         .subscribe((res: MessageDataResponse) => {
           if (res.hasSucceeded) {
-            // console.log('After message read:');
-            // console.log(res);
-            // Refresh event
-            this.refresh.emit('read');
           } else {
             this.notificationsService.warning(null, 'Cannot mark messages as read...');
           }
@@ -217,15 +214,16 @@ export class MessageBoardComponent implements OnDestroy {
   }
 
   openMessageBoard(content) {
+    this.rememberEmitUnread = false;
+    this.rememberEmitRead = false;
     this.read();
-    this.rememberEmitUnread = true;
     this.modalRef = this.modalService.open(content);
     this.modalRef.result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
-      this.emitUnread();
+      this.emitRefresh();
     }, (reason) => {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      this.emitUnread();
+      this.emitRefresh();
     });
   }
 

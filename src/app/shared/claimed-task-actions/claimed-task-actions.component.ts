@@ -12,6 +12,7 @@ import { hasNoUndefinedValue } from '../empty.util';
 import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
+import { PoolTask } from '../../core/tasks/models/pool-task-object.model';
 
 @Component({
   selector: 'ds-claimed-task-actions',
@@ -43,9 +44,7 @@ export class ClaimedTaskActionsComponent implements OnInit {
       reason: ['', Validators.required]
     });
 
-    this.workflowitemObs = (this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>)
-      .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .map((rd: RemoteData<Workflowitem[]>) => (rd.payload[0] as Workflowitem));
+    this.initWorkflow();
   }
 
   approve() {
@@ -97,12 +96,19 @@ export class ClaimedTaskActionsComponent implements OnInit {
   }
 
   reload() {
-    // override the route reuse strategy
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
-    };
-    this.router.navigated = false;
-    const url = decodeURIComponent(this.router.url);
-    this.router.navigateByUrl(url);
+    // console.log('ct-reload');
+    this.ctDataService.findById(this.task.id)
+      .filter((task: RemoteData<PoolTask>) => task.hasSucceeded)
+      .take(1)
+      .subscribe((task) => {
+        // console.log('ct-reload-subscribe');
+        this.initWorkflow();
+      });
+  }
+
+  initWorkflow() {
+    this.workflowitemObs = (this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>)
+      .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .map((rd: RemoteData<Workflowitem[]>) => (rd.payload[0] as Workflowitem));
   }
 }

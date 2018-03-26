@@ -9,8 +9,6 @@ import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
-import { Item } from '../../core/shared/item.model';
-import { Eperson } from '../../core/eperson/models/eperson.model';
 import { hasNoUndefinedValue } from '../empty.util';
 
 @Component({
@@ -25,26 +23,14 @@ export class PoolTaskActionsComponent implements OnInit {
   public processingClaim = false;
   public workflowitemObs: Observable<Workflowitem>;
 
-  public itemObs: Observable<RemoteData<Item[]>>;
-  submitter: Observable<Eperson>;
-
   constructor(private cd: ChangeDetectorRef,
               private ptDataService: PoolTaskDataService,
               private notificationsService: NotificationsService,
-              private translate: TranslateService,
-              private router: Router) {
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
-    // this.workflowitemObs = (this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>)
-    //   .filter( (rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-    //   .take(1)
-    //   .map( (rd: RemoteData<Workflowitem[]>) => rd.payload[0]);
-
-    this.workflowitemObs = (this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>)
-      .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
-      .map((rd: RemoteData<Workflowitem[]>) => (rd.payload[0] as Workflowitem));
-
+    this.initWorkflow();
   }
 
   claim() {
@@ -73,12 +59,20 @@ export class PoolTaskActionsComponent implements OnInit {
   }
 
   reload() {
-    // override the route reuse strategy
-    this.router.routeReuseStrategy.shouldReuseRoute = () => {
-      return false;
-    };
-    this.router.navigated = false;
-    this.router.navigate([this.router.url]);
+    // console.log('pt-reload');
+    this.ptDataService.findById(this.task.id)
+      .filter((task: RemoteData<PoolTask>) => task.hasSucceeded)
+      .take(1)
+      .subscribe((task) => {
+        // console.log('pt-reload-subscribe');
+        this.initWorkflow();
+      });
+  }
+
+  initWorkflow() {
+    this.workflowitemObs = (this.task.workflowitem as Observable<RemoteData<Workflowitem[]>>)
+      .filter((rd: RemoteData<Workflowitem[]>) => ((!rd.isRequestPending) && hasNoUndefinedValue(rd.payload)))
+      .map((rd: RemoteData<Workflowitem[]>) => (rd.payload[0] as Workflowitem));
   }
 
 }
