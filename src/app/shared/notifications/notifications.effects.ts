@@ -38,7 +38,6 @@ export class NotificationsEffects {
   /**
    * @constructor
    * @param {Actions} actions$
-   * @param {AuthService} authService
    * @param {Store} store
    */
   constructor(private actions$: Actions,
