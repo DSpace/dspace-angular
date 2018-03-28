@@ -23,10 +23,10 @@ fdescribe('Notification reducers', () => {
     });
   });
 
-  it('should handle state for add, remove and removeAll', fakeAsync((inject([NotificationsService], (service: NotificationsService) => {
+  it('should handle state for add, remove and removeAll', (inject([NotificationsService], (service: NotificationsService) => {
       const options = new NotificationOptions(
-        10000,
-        false,
+        0,
+        true,
         NotificationAnimationsType.Rotate);
       const notification1 = new Notification(uniqueId(), NotificationType.Success, 'title1', 'content', options, null);
       const notification2 = new Notification(uniqueId(), NotificationType.Success, 'title2', 'content', options, null);
@@ -41,30 +41,28 @@ fdescribe('Notification reducers', () => {
       console.log(notification4.id);
       console.log(notification5.id);
 
+      const state1 = notificationsReducer(undefined, new NewNotificationAction(notification1));
+      // tick(2000);
+      console.log('Length: #' + state1.length);
+      expect(state1.length).toEqual(1);
 
+      const state2 = notificationsReducer(undefined, new NewNotificationAction(notification2));
+      // tick(2000);
+      console.log('Length: #' + state2.length);
+      expect(state2.length).toEqual(2);
 
-      let state = notificationsReducer(undefined, new NewNotificationAction(notification1));
-      tick(2000);
-      console.log('Length: #' + state.length);
-      expect(state.length).toEqual(1);
-
-      state = notificationsReducer(undefined, new NewNotificationAction(notification2));
-      tick(2000);
-      console.log('Length: #' + state.length);
-      expect(state.length).toEqual(2);
-
-      state = notificationsReducer(undefined, new NewNotificationAction(notification3));
-      tick(2000);
+      let state = notificationsReducer(undefined, new NewNotificationAction(notification3));
+      // tick(2000);
       console.log('Length: #' + state.length);
       expect(state.length).toEqual(3);
 
       state = notificationsReducer(undefined, new NewNotificationAction(notification4));
-      tick(2000);
+      // tick(2000);
       console.log('Length: #' + state.length);
       expect(state.length).toEqual(4);
 
       state = notificationsReducer(undefined, new NewNotificationAction(notification5));
-      tick(2000);
+      // tick(2000);
       console.log('Length: #' + state.length);
       expect(state.length).toEqual(5);
 
@@ -76,6 +74,6 @@ fdescribe('Notification reducers', () => {
       state = notificationsReducer(undefined, new RemoveAllNotificationsAction());
       expect(state.length).toEqual(0);
     })
-    ))
+    )
   );
 });
