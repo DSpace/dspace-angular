@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 import {Observable} from 'rxjs/Observable';
@@ -67,7 +67,8 @@ export class DsDynamicTagComponent implements OnInit {
       .do(() => this.searching = false)
       .merge(this.hideSearchingWhenUnsubscribed);
 
-  constructor(private authorityService: AuthorityService) {
+  constructor(private authorityService: AuthorityService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -119,6 +120,7 @@ export class DsDynamicTagComponent implements OnInit {
     if (event.data) {
       this.group.markAsDirty();
     }
+    this.cdr.detectChanges();
   }
 
   onBlurEvent(event: Event) {

@@ -264,8 +264,8 @@
       "upload": {
         "upload_successful": "Upload successful",
         "upload_failed": "Upload failed",
-        "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following policies:",
-        "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicity decided for the single file, with the following policies:"
+        "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
+        "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicity decided for the single file, with the following group(s):"
       },
       "form": {
         "search": "Search",

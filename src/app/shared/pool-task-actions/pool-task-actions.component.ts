@@ -25,6 +25,7 @@ export class PoolTaskActionsComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef,
               private ptDataService: PoolTaskDataService,
+              private router: Router,
               private notificationsService: NotificationsService,
               private translate: TranslateService) {
   }
@@ -59,6 +60,16 @@ export class PoolTaskActionsComponent implements OnInit {
   }
 
   reload() {
+    // override the route reuse strategy
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+    this.router.navigated = false;
+    const url = decodeURIComponent(this.router.url);
+    this.router.navigateByUrl(url);
+  }
+
+  refresh() {
     // console.log('pt-reload');
     this.ptDataService.findById(this.task.id)
       .filter((task: RemoteData<PoolTask>) => task.hasSucceeded)
