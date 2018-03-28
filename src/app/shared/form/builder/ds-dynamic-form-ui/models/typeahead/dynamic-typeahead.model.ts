@@ -4,6 +4,7 @@ import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-in
 export const DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD = 'TYPEAHEAD';
 
 export interface DsDynamicTypeaheadModelConfig extends DsDynamicInputModelConfig {
+  authorityClosed: string;
   authorityMetadata: string;
   authorityName: string;
   authorityScope: string;
@@ -13,6 +14,7 @@ export interface DsDynamicTypeaheadModelConfig extends DsDynamicInputModelConfig
 
 export class DynamicTypeaheadModel extends DsDynamicInputModel {
 
+  @serializable() authorityClosed: string;
   @serializable() authorityMetadata: string;
   @serializable() authorityName: string;
   @serializable() authorityScope: string;
@@ -24,6 +26,7 @@ export class DynamicTypeaheadModel extends DsDynamicInputModel {
     super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
+    this.authorityClosed = config.authorityClosed;
     this.authorityMetadata = config.authorityMetadata;
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;

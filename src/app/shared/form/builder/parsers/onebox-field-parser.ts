@@ -86,6 +86,7 @@ export class OneboxFieldParser extends FieldParser {
       const typeaheadModelConfig: DsDynamicTypeaheadModelConfig = this.initModel();
       typeaheadModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
       typeaheadModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
+      typeaheadModelConfig.authorityClosed = this.configData.selectableMetadata[0].closed;
 
       this.setValues(typeaheadModelConfig, fieldValue, true);
       typeaheadModelConfig.authorityScope = this.authorityUuid;

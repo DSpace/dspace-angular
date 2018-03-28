@@ -101,7 +101,7 @@
     "description": "",
     "form": {
       "search": "Search",
-      "search_dspace": "Search DSpace"
+      "search_dspace": "Search MyDSpace"
     },
     "results": {
       "head": "Search Results"
@@ -232,12 +232,15 @@
     "edit": {
       "title": "Edit Submission"
     },
+    "mydspace": {
+      "upload_workspace_success": "New workspace item created."
+    },
     "section": {
 
       "general": {
         "sections_not_valid": "There are incomplete sections.",
-        "deposit_success_notice": "Submission deposited successfully",
-        "save_success_notice": "Submission saved successfully",
+        "deposit_success_notice": "Submission deposited successfully.",
+        "save_success_notice": "Submission saved successfully.",
         "metadata_extracted": "New metadata have been extracted and added to the item."
       },
       "submit.progressbar.describe.stepone": "Describe",
@@ -256,8 +259,8 @@
       "submit.progressbar.describe.keyinformation": "Main information",
       "submit.progressbar.describe.references": "References",
       "submit.progressbar.describe.publicationchannel": "Publication channels",
-      "submit.progressbar.describe.acknowledgement ": "Acknowledgements",
-      "submit.progressbar.describe.identifiers  ": "Identifiers",
+      "submit.progressbar.describe.acknowledgement": "Acknowledgements",
+      "submit.progressbar.describe.identifiers": "Identifiers",
       "submit.progressbar.upload": "Upload files",
       "submit.progressbar.license": "Deposit license",
       "submit.progressbar.cclicense": "Creative commons license",

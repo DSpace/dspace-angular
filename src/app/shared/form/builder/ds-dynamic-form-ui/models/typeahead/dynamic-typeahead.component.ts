@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +8,8 @@ import { AuthorityService } from '../../../../../../core/integration/authority.s
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { isEmpty, isNotEmpty } from '../../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
@@ -27,7 +29,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   searching = false;
   searchOptions: IntegrationSearchOptions;
   searchFailed = false;
-  hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
+  hideSearchingWhenUnsubscribed = new Observable(() => () => this.changeSerachingStatus(false));
   currentValue: any;
 
   formatter = (x: { display: string }) => {
@@ -38,7 +40,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
     text$
       .debounceTime(300)
       .distinctUntilChanged()
-      .do(() => this.searching = true)
+      .do(() => this.changeSerachingStatus(true))
       .switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
           return Observable.of({list: []});
@@ -60,10 +62,10 @@ export class DsDynamicTypeaheadComponent implements OnInit {
         }
       })
       .map((results) => results.list)
-      .do(() => this.searching = false)
+      .do(() => this.changeSerachingStatus(false))
       .merge(this.hideSearchingWhenUnsubscribed);
 
-  constructor(private authorityService: AuthorityService) {
+  constructor(private authorityService: AuthorityService, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -79,7 +81,21 @@ export class DsDynamicTypeaheadComponent implements OnInit {
       });
   }
 
+  changeSerachingStatus(status: boolean) {
+    this.searching = status;
+    this.cdr.detectChanges();
+  }
+
   onInput(event) {
+    if (!this.model.authorityClosed && isNotEmpty(event.target.value)) {
+      console.log(event.target.value);
+      const value = new AuthorityModel();
+      value.value = event.target.value;
+      value.display = event.target.value;
+      this.currentValue = value;
+      this.model.valueUpdates.next(value as any);
+      this.change.emit(value);
+    }
     if (event.data) {
       // this.group.markAsDirty();
     }

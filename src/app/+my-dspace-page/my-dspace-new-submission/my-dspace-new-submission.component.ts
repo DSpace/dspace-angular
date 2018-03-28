@@ -6,6 +6,8 @@ import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-da
 import { AuthService } from '../../core/auth/auth.service';
 import { MyDSpaceResult } from '../my-dspace-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-my-dspace-new-submission',
@@ -24,10 +26,12 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
     itemAlias: null
   };
 
-  constructor(private changeDetectorRef: ChangeDetectorRef,
+  constructor(private authService: AuthService,
+              private changeDetectorRef: ChangeDetectorRef,
+              private notificationsService: NotificationsService,
               private store: Store<SubmissionState>,
               private wsiDataService: WorkspaceitemDataService,
-              private authService: AuthService,) {
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -45,12 +49,10 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
   };
 
   public onCompleteItem(res) {
-    console.log('Emit workspaceitems');
-    console.log(res);
-
     if (res && res._embedded && res._embedded.workspaceitems && res._embedded.workspaceitems.length > 0) {
       const workspaceitems = res._embedded.workspaceitems;
       this.wsiUploaded.emit(workspaceitems);
+      this.notificationsService.success(null, this.translate.get('submission.mydspace.upload_workspace_success'))
     } else {
       console.log('OnCompleteItem without workspacesitems');
     }
