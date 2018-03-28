@@ -95,6 +95,8 @@ import { ObjectDetailComponent } from './object-detail/object-detail.component';
 import { WrapperDetailElementComponent } from './object-detail/wrapper-detail-element/wrapper-detail-element.component';
 import { ItemDetailPreviewComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
 import { ItemListStatusComponent } from './object-list/item-list-status/item-list-status.component';
+import { SubmissionService } from '../submission/submission.service';
+import { SubmissionRestService } from '../submission/submission-rest.service';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -204,7 +206,9 @@ const ENTRY_COMPONENTS = [
 ];
 
 const PROVIDERS = [
-  TruncatableService
+  TruncatableService,
+  SubmissionService,
+  SubmissionRestService,
 ];
 
 const DIRECTIVES = [

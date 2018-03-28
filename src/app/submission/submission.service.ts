@@ -100,7 +100,6 @@ export class SubmissionService {
       .startWith(false);
   }
 
-
   redirectToMyDSpace() {
     this.router.navigate(['/mydspace']);
   }

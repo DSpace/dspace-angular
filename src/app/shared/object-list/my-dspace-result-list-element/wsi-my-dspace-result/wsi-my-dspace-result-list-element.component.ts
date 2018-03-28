@@ -15,6 +15,10 @@ import { getAuthenticatedUser } from '../../../../core/auth/selectors';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { ItemStatusType } from '../../item-list-status/item-status-type';
 import { Item } from '../../../../core/shared/item.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SubmissionRestService } from '../../../../submission/submission-rest.service';
+import { SubmissionService } from '../../../../submission/submission.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -30,6 +34,9 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
 
   constructor(private cdr: ChangeDetectorRef,
               private wsiDataService: WorkspaceitemDataService,
+              private modalService: NgbModal,
+              private restService: SubmissionRestService,
+              private router: Router,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
     this.status = ItemStatusType.IN_PROGRESS;
@@ -65,6 +72,19 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
         this.dso = wsi.payload;
         this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
       });
+  }
+
+  public confirmDiscard(content) {
+    this.modalService.open(content).result.then(
+      (result) => {
+        if (result === 'ok') {
+          this.restService.deleteById(this.dso.id)
+            .subscribe((response) => {
+              this.router.navigate(['/mydspace']);
+            })
+        }
+      }
+    );
   }
 
 }
