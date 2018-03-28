@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
@@ -21,7 +21,7 @@ import { hasValue } from '../../shared/empty.util';
 export class SearchFiltersComponent implements OnDestroy, OnInit {
   filters: SearchFilterConfig[] = [];
   sub: Subscription;
-  constructor(private searchService: SearchService) {
+  constructor(private cdr: ChangeDetectorRef, private searchService: SearchService) {
   }
 
   ngOnInit() {
@@ -37,7 +37,8 @@ export class SearchFiltersComponent implements OnDestroy, OnInit {
           }
           filters.push(newFilter);
         });
-        this.filters = filters
+        this.filters = filters;
+        this.cdr.detectChanges();
       });
   }
 
