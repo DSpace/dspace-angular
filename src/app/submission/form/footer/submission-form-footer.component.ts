@@ -1,16 +1,15 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SubmissionRestService } from '../../submission-rest.service';
-import { WORKSPACE_SCOPE, SubmissionService } from '../../submission.service';
+import { SubmissionService, WORKSPACE_SCOPE } from '../../submission.service';
 import { SubmissionState } from '../../submission.reducers';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  DepositSubmissionAction, SaveForLaterSubmissionFormAction,
+  SaveAndDepositSubmissionAction,
+  SaveForLaterSubmissionFormAction,
   SaveSubmissionFormAction
 } from '../../objects/submission-objects.actions';
 import { Observable } from 'rxjs/Observable';
-import { RolesService } from '../../../core/roles/roles.service';
 
 @Component({
   selector: 'ds-submission-form-footer',
@@ -54,7 +53,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
   }
 
   public deposit(event) {
-    this.store.dispatch(new DepositSubmissionAction(this.submissionId));
+    this.store.dispatch(new SaveAndDepositSubmissionAction(this.submissionId));
   }
 
   public confirmDiscard(content) {

@@ -44,6 +44,7 @@ export const SubmissionObjectActionTypes = {
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
   SECTION_LOADING_STATUS_CHANGE: type('dspace/submission/SECTION_LOADING_STATUS_CHANGE'),
   UPLOAD_SECTION_DATA: type('dspace/submission/UPLOAD_SECTION_DATA'),
+  SAVE_AND_DEPOSIT_SUBMISSION: type('dspace/submission/SAVE_AND_DEPOSIT_SUBMISSION'),
   DEPOSIT_SUBMISSION: type('dspace/submission/DEPOSIT_SUBMISSION'),
   DEPOSIT_SUBMISSION_SUCCESS: type('dspace/submission/DEPOSIT_SUBMISSION_SUCCESS'),
   DEPOSIT_SUBMISSION_ERROR: type('dspace/submission/DEPOSIT_SUBMISSION_ERROR'),
@@ -497,6 +498,23 @@ export class ChangeSubmissionCollectionAction implements Action {
   }
 }
 
+export class SaveAndDepositSubmissionAction implements Action {
+  type = SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new SaveAndDepositSubmissionAction
+   *
+   * @param submissionId
+   *    the submission's ID to deposit
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
+}
+
 export class DepositSubmissionAction implements Action {
   type = SubmissionObjectActionTypes.DEPOSIT_SUBMISSION;
   payload: {
@@ -830,6 +848,7 @@ export type SubmissionObjectAction = DisableSectionAction
   | InitSubmissionFormAction
   | CompleteInitSubmissionFormAction
   | ChangeSubmissionCollectionAction
+  | SaveAndDepositSubmissionAction
   | DepositSubmissionAction
   | DepositSubmissionSuccessAction
   | DepositSubmissionErrorAction

@@ -84,7 +84,8 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM:
-    case SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM: {
+    case SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM:
+    case SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION: {
       return saveSubmission(state, action as SaveSubmissionFormAction);
     }
 
@@ -396,6 +397,7 @@ function startDeposit(state: SubmissionObjectState, action: DepositSubmissionAct
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        savePending: false,
         depositPending: true,
       })
     });

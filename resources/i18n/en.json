@@ -236,6 +236,7 @@
 
       "general": {
         "sections_not_valid": "There are incomplete sections.",
+        "deposit_success_notice": "Submission deposited successfully",
         "save_success_notice": "Submission saved successfully",
         "metadata_extracted": "New metadata have been extracted and added to the item."
       },

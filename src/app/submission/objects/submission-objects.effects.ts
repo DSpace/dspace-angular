@@ -16,7 +16,8 @@ import {
   UpdateSectionDataAction, SaveSubmissionFormErrorAction, SaveSubmissionSectionFormSuccessAction,
   SaveSubmissionSectionFormErrorAction, SetWorkspaceDuplicatedAction, SetWorkspaceDuplicatedSuccessAction,
   SetWorkspaceDuplicatedErrorAction, SetWorkflowDuplicatedAction, SetWorkflowDuplicatedSuccessAction,
-  SetWorkflowDuplicatedErrorAction, SaveForLaterSubmissionFormAction, SaveForLaterSubmissionFormSuccessAction
+  SetWorkflowDuplicatedErrorAction, SaveForLaterSubmissionFormAction, SaveForLaterSubmissionFormSuccessAction,
+  SaveAndDepositSubmissionAction
 } from './submission-objects.actions';
 import { SectionService } from '../section/section.service';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
@@ -110,6 +111,17 @@ export class SubmissionObjectEffects {
         .catch(() => Observable.of(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId)));
     });
 
+  @Effect() saveAndDepositSection$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION)
+    .switchMap((action: SaveAndDepositSubmissionAction) => {
+      return this.operationsService.jsonPatchByResourceType(
+        this.submissionService.getSubmissionObjectLinkName(),
+        action.payload.submissionId,
+        'sections')
+        .map((response: SubmissionObject[]) => new DepositSubmissionAction(action.payload.submissionId))
+        .catch(() => Observable.of(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId)));
+    });
+
   @Effect() depositSubmission$ = this.actions$
     .ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION)
     .withLatestFrom(this.store$)
@@ -119,8 +131,14 @@ export class SubmissionObjectEffects {
         .catch((e) => Observable.of(new DepositSubmissionErrorAction(action.payload.submissionId)));
     });
 
+  @Effect({dispatch: false}) SaveForLaterSubmissionSuccess$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS)
+    .do(() => this.notificationsService.success(null, this.translate.get('submission.section.general.save_success_notice')))
+    .do(() => this.submissionService.redirectToMyDSpace());
+
   @Effect({dispatch: false}) depositSubmissionSuccess$ = this.actions$
-    .ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS, SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS)
+    .ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS)
+    .do(() => this.notificationsService.success(null, this.translate.get('submission.section.general.deposit_success_notice')))
     .do(() => this.submissionService.redirectToMyDSpace());
 
   @Effect()
