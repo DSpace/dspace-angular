@@ -4,11 +4,11 @@
   [object]="object"
   [status]="status"></ds-item-list-preview>
 
+<a class="btn btn-primary mt-1 mb-3" [href]="'/workspaceitems/' + dso.id + '/edit'" role="button">Edit</a>
+
 <button type="button" class="btn btn-danger mt-1 mb-3" (click)="$event.preventDefault();confirmDiscard(content)">
   <i class="fa fa-trash"></i> Delete
 </button>
-
-<a class="btn btn-primary mt-1 mb-3" [href]="'/workspaceitems/' + dso.id + '/edit'" role="button">Edit</a>
 
 <ds-message-board *ngIf="dso && dso.item && dso.submitter"
   [dso]="dso"
