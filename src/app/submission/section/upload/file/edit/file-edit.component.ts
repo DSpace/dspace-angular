@@ -224,14 +224,24 @@ export class UploadSectionFileEditComponent implements OnChanges {
             'startDate',
             (model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
 
-          startDateModel.min = new Date(accessCondition.maxStartDate);
+          const min = new Date(accessCondition.maxStartDate);
+          startDateModel.min = {
+            year: min.getFullYear(),
+            month: min.getMonth() + 1,
+            day: min.getDate()
+          };
         }
         if (accessCondition.hasEndDate) {
           const endDateModel = this.formBuilderService.findById(
             'endDate',
             (model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
 
-          endDateModel.max = new Date(accessCondition.maxEndDate);
+          const max = new Date(accessCondition.maxEndDate);
+          endDateModel.max = {
+            year: max.getFullYear(),
+            month: max.getMonth() + 1,
+            day: max.getDate()
+          };
         }
       }
     }
