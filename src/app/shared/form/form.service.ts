@@ -58,7 +58,7 @@ export class FormService {
     Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
       }
@@ -82,7 +82,7 @@ export class FormService {
       const errorKey = uniqueId('error-'); // create a single key for the error
       const error = {}; // create the error object
 
-      error[ errorKey ] = message; // assign message
+      error[errorKey] = message; // assign message
 
       // if form control model has errorMessages object, create it
       if (!model.errorMessages) {
@@ -90,7 +90,17 @@ export class FormService {
       }
 
       // put the error in the form control model
-      model.errorMessages[ errorKey ] = message;
+      model.errorMessages[errorKey] = message;
+
+      // Use correct error messages from the model
+      const lastArray = message.split('.');
+      if (lastArray && lastArray.length > 0) {
+        const last = lastArray[lastArray.length - 1];
+        const modelMsg = model.errorMessages[last];
+        if (modelMsg && modelMsg.length > 0) {
+          model.errorMessages[errorKey] = modelMsg;
+        }
+      }
 
       // add the error in the form control
       field.setErrors(error);
