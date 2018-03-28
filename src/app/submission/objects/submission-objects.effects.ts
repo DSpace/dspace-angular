@@ -16,7 +16,7 @@ import {
   UpdateSectionDataAction, SaveSubmissionFormErrorAction, SaveSubmissionSectionFormSuccessAction,
   SaveSubmissionSectionFormErrorAction, SetWorkspaceDuplicatedAction, SetWorkspaceDuplicatedSuccessAction,
   SetWorkspaceDuplicatedErrorAction, SetWorkflowDuplicatedAction, SetWorkflowDuplicatedSuccessAction,
-  SetWorkflowDuplicatedErrorAction
+  SetWorkflowDuplicatedErrorAction, SaveForLaterSubmissionFormAction, SaveForLaterSubmissionFormSuccessAction
 } from './submission-objects.actions';
 import { SectionService } from '../section/section.service';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
@@ -78,6 +78,17 @@ export class SubmissionObjectEffects {
         .catch(() => Observable.of(new SaveSubmissionFormErrorAction(action.payload.submissionId)));
     });
 
+  @Effect() saveForLaterSubmission$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM)
+    .switchMap((action: SaveForLaterSubmissionFormAction) => {
+      return this.operationsService.jsonPatchByResourceType(
+        this.submissionService.getSubmissionObjectLinkName(),
+        action.payload.submissionId,
+        'sections')
+        .map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response))
+        .catch(() => Observable.of(new SaveSubmissionFormErrorAction(action.payload.submissionId)));
+    });
+
   @Effect() saveSubmissionSuccess$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS, SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS)
     .map((action: SaveSubmissionFormSuccessAction | SaveSubmissionSectionFormSuccessAction) => {
@@ -86,21 +97,6 @@ export class SubmissionObjectEffects {
     .mergeMap((actions) => {
       return Observable.from(actions);
     });
-
-  // @Effect() saveSubmission$ = this.actions$
-  //   .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM)
-  //   .switchMap((action: SaveSubmissionFormAction) => {
-  //     return this.operationsService.jsonPatchByResourceType(
-  //       this.submissionService.getSubmissionObjectLinkName(),
-  //       action.payload.submissionId,
-  //       'sections')
-  //       .map((response: Workspaceitem[] | Workflowitem[]) => {
-  //         return this.parseSaveResponse(response, action.payload.submissionId);
-  //       });
-  //   })
-  //   .mergeMap((actions) => {
-  //     return Observable.from(actions);
-  //   });
 
   @Effect() saveSection$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM)
@@ -124,8 +120,7 @@ export class SubmissionObjectEffects {
     });
 
   @Effect({dispatch: false}) depositSubmissionSuccess$ = this.actions$
-    .ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS)
-    .withLatestFrom(this.store$)
+    .ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS, SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS)
     .do(() => this.submissionService.redirectToMyDSpace());
 
   @Effect()

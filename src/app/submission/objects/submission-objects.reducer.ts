@@ -83,15 +83,18 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return initialState;
     }
 
-    case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM: {
+    case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM:
+    case SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM: {
       return saveSubmission(state, action as SaveSubmissionFormAction);
     }
 
-    case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS: {
+    case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS:
+    case SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS: {
       return completeSave(state, action as SaveSubmissionFormSuccessAction);
     }
 
-    case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR: {
+    case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR:
+    case SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_ERROR: {
       return completeSave(state, action as SaveSubmissionFormErrorAction);
     }
 

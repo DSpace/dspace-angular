@@ -5,7 +5,10 @@ import { WORKSPACE_SCOPE, SubmissionService } from '../../submission.service';
 import { SubmissionState } from '../../submission.reducers';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DepositSubmissionAction, SaveSubmissionFormAction } from '../../objects/submission-objects.actions';
+import {
+  DepositSubmissionAction, SaveForLaterSubmissionFormAction,
+  SaveSubmissionFormAction
+} from '../../objects/submission-objects.actions';
 import { Observable } from 'rxjs/Observable';
 import { RolesService } from '../../../core/roles/roles.service';
 
@@ -20,7 +23,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
   public processingDepositStatus: Observable<boolean>;
   public processingSaveStatus: Observable<boolean>;
-  public showDeposit: Observable<boolean>
+  public showDepositAndDiscard: Observable<boolean>;
   private submissionIsInvalid = true;
 
   constructor(private modalService: NgbModal,
@@ -38,15 +41,19 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
       this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
       this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
-      this.showDeposit = Observable.of(this.submissionService.getSubmissionScope() === WORKSPACE_SCOPE);
+      this.showDepositAndDiscard = Observable.of(this.submissionService.getSubmissionScope() === WORKSPACE_SCOPE);
     }
   }
 
-  saveLater(event) {
+  save(event) {
     this.store.dispatch(new SaveSubmissionFormAction(this.submissionId));
   }
 
-  public deposit() {
+  saveLater(event) {
+    this.store.dispatch(new SaveForLaterSubmissionFormAction(this.submissionId));
+  }
+
+  public deposit(event) {
     this.store.dispatch(new DepositSubmissionAction(this.submissionId));
   }
 

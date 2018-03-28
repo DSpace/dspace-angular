@@ -1,17 +1,33 @@
 <div class="row" *ngIf="!!submissionId">
-  <div class="col-6">
-    <button type="button" class="btn btn-secondary" (click)="$event.preventDefault();confirmDiscard(content)">Discard</button>
+  <div class="col">
+    <button *ngIf="(showDepositAndDiscard | async)" type="button" class="btn btn-danger" (click)="$event.preventDefault();confirmDiscard(content)">Discard</button>
   </div>
   <div class="col text-right">
+    <!--<div class="progress">-->
+      <!--<div class="progress-bar progress-bar-striped bg-info w-100" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">Saving...</div>-->
+    <!--</div>-->
+  </div>
+  <div *ngIf="(processingSaveStatus | async)" class="col d-flex justify-content-center align-items-center">
+    <div class="progress w-50">
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Saving...</div>
+    </div>
+  </div>
+  <div *ngIf="!(processingSaveStatus | async)" class="col text-right">
     <button type="button"
             class="btn btn-info"
-            id="load"
+            id="save"
+            [disabled]="(processingSaveStatus | async)"
+            (click)="save($event)">
+      <span>Save</span>
+    </button>
+    <button type="button"
+            class="btn btn-info"
+            id="saveForLater"
             [disabled]="(processingSaveStatus | async)"
             (click)="saveLater($event)">
-      <span *ngIf="(processingSaveStatus | async)"><i class='fa fa-circle-o-notch fa-spin'></i> Saving...</span>
-      <span *ngIf="!(processingSaveStatus | async)">Save for later</span>
+      <span>Save for later</span>
     </button>
-    <button *ngIf="(showDeposit | async)" type="button" class="btn btn-primary" [disabled]="submissionIsInvalid || (processingDepositStatus | async)" (click)="deposit()">
+    <button *ngIf="(showDepositAndDiscard | async)" type="button" class="btn btn-primary" [disabled]="submissionIsInvalid || (processingDepositStatus | async)" (click)="deposit()">
       <span *ngIf="(processingDepositStatus | async)"><i class='fa fa-circle-o-notch fa-spin'></i> Processing...</span>
       <span *ngIf="!(processingDepositStatus | async)">Deposit</span>
     </button>

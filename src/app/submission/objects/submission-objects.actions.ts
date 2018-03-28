@@ -27,6 +27,9 @@ export const SubmissionObjectActionTypes = {
   CANCEL_SUBMISSION_FORM: type('dspace/submission/CANCEL_SUBMISSION_FORM'),
   INIT_SUBMISSION_FORM: type('dspace/submission/INIT_SUBMISSION_FORM'),
   COMPLETE_INIT_SUBMISSION_FORM: type('dspace/submission/COMPLETE_INIT_SUBMISSION_FORM'),
+  SAVE_FOR_LATER_SUBMISSION_FORM: type('dspace/submission/SAVE_FOR_LATER_SUBMISSION_FORM'),
+  SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS: type('dspace/submission/SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS'),
+  SAVE_FOR_LATER_SUBMISSION_FORM_ERROR: type('dspace/submission/SAVE_FOR_LATER_SUBMISSION_FORM_ERROR'),
   SAVE_SUBMISSION_FORM: type('dspace/submission/SAVE_SUBMISSION_FORM'),
   SAVE_SUBMISSION_FORM_SUCCESS: type('dspace/submission/SAVE_SUBMISSION_FORM_SUCCESS'),
   SAVE_SUBMISSION_FORM_ERROR: type('dspace/submission/SAVE_SUBMISSION_FORM_ERROR'),
@@ -261,6 +264,60 @@ export class LoadSubmissionFormAction implements Action {
    */
   constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject) {
     this.payload = { collectionId, submissionId, selfUrl, sections };
+  }
+}
+
+export class SaveForLaterSubmissionFormAction implements Action {
+  type = SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new SaveForLaterSubmissionFormAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
+}
+
+export class SaveForLaterSubmissionFormSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS;
+  payload: {
+    submissionId: string;
+    submissionObject: SubmissionObject[];
+  };
+
+  /**
+   * Create a new SaveForLaterSubmissionFormSuccessAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   * @param submissionObjects
+   *    the submission's Object
+   */
+  constructor(submissionId: string, submissionObject: SubmissionObject[]) {
+    this.payload = { submissionId, submissionObject };
+  }
+}
+
+export class SaveForLaterSubmissionFormErrorAction implements Action {
+  type = SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_ERROR;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new SaveForLaterSubmissionFormErrorAction
+   *
+   * @param submissionId
+   *    the submission's ID
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
   }
 }
 
@@ -784,10 +841,15 @@ export type SubmissionObjectAction = DisableSectionAction
   | DeleteSectionErrorsAction
   | ClearSectionErrorsAction
   | UpdateSectionDataAction
+  | SaveForLaterSubmissionFormAction
+  | SaveForLaterSubmissionFormSuccessAction
+  | SaveForLaterSubmissionFormErrorAction
   | SaveSubmissionFormAction
   | SaveSubmissionFormSuccessAction
   | SaveSubmissionFormErrorAction
   | SaveSubmissionSectionFormAction
+  | SaveSubmissionSectionFormSuccessAction
+  | SaveSubmissionSectionFormErrorAction
   | CompleteSaveSubmissionFormAction
   | SetActiveSectionAction
   | SetWorkspaceDuplicatedAction
