@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
 
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
+  DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicDateControlModel,
   DynamicDatePickerModel,
   DynamicFormArrayGroupModel,
@@ -51,12 +52,13 @@ export class UploadSectionFileEditComponent implements OnChanges {
 
   public formModel: DynamicFormControlModel[];
 
-  constructor(private formBuilderService: FormBuilderService) {
+  constructor(private cdr: ChangeDetectorRef, private formBuilderService: FormBuilderService) {
   }
 
   ngOnChanges() {
     if (this.fileData && this.formId) {
       this.formModel = this.buildFileEditForm();
+      this.cdr.detectChanges();
     }
   }
 
@@ -150,7 +152,16 @@ export class UploadSectionFileEditComponent implements OnChanges {
                 })
               });
             }
-            metadataModel.value = accessCondition[key];
+            if (metadataModel.type === DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER) {
+              const date = new Date(accessCondition[key]);
+              metadataModel.value = {
+                year: date.getFullYear(),
+                month: date.getMonth() + 1,
+                day: date.getDate()
+              }
+            } else {
+              metadataModel.value = accessCondition[key];
+            }
           }
         });
     });

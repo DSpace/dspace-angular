@@ -162,7 +162,7 @@ export class FilesSectionComponent extends SectionModelComponent implements OnCh
             this.store.dispatch(new SectionStatusChangeAction(this.submissionId,
               this.sectionData.id,
               sectionStatus));
-            // this.changeDetectorRef.detectChanges();
+            this.changeDetectorRef.detectChanges();
           }
         )
     );

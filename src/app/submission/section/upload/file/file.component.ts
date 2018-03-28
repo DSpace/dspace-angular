@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SectionUploadService } from '../section-upload.service';
 import { isNotEmpty, isNotNull, isNotUndefined } from '../../../../shared/empty.util';
@@ -34,18 +34,20 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
   public fileData: WorkspaceitemSectionUploadFileObject;
   public formId;
   public formState;
-  public readMode = true;
+  public readMode;
   public formModel: DynamicFormControlModel[];
 
   protected pathCombiner: JsonPatchOperationPathCombiner;
   protected subscriptions = [];
 
-  constructor(private formService: FormService,
+  constructor(private cdr: ChangeDetectorRef,
+              private formService: FormService,
               private modalService: NgbModal,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
               private submissionService: SubmissionService,
               private uploadService: SectionUploadService) {
+    this.readMode = true;
   }
 
   ngOnChanges() {
@@ -117,12 +119,18 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
                   accessConditionOpt = deleteProperty(accessConditionOpt, 'hasEndDate');
                   accessConditionsToSave.push(accessConditionOpt);
                 } else {
-                  accessConditionOpt = Object.assign({}, accessCondition)
+                  accessConditionOpt = Object.assign({}, accessCondition);
+                  accessConditionOpt.name = Array.isArray(accessCondition.name) ? accessCondition.name[0] : accessCondition.name;
+                  accessConditionOpt.groupUUID = Array.isArray(accessCondition.groupUUID) ? accessCondition.groupUUID[0] : accessCondition.groupUUID;
                   if (accessCondition.startDate) {
-                    accessConditionOpt.startDate = dateToGMTString(accessCondition.startDate);
+                    const startDate = Array.isArray(accessCondition.startDate) ? accessCondition.startDate[0] : accessCondition.startDate;
+                    accessConditionOpt.startDate = dateToGMTString(startDate);
+                    accessConditionOpt = deleteProperty(accessConditionOpt, 'endDate');
                   }
                   if (accessCondition.endDate) {
-                    accessConditionOpt.endDate = dateToGMTString(accessCondition.endDate);
+                    const endDate = Array.isArray(accessCondition.endDate) ? accessCondition.endDate[0] : accessCondition.endDate;
+                    accessConditionOpt.endDate = dateToGMTString(endDate);
+                    accessConditionOpt = deleteProperty(accessConditionOpt, 'startDate');
                   }
                   accessConditionsToSave.push(accessConditionOpt);
                 }
@@ -150,5 +158,6 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
 
   public switchMode() {
     this.readMode = !this.readMode;
+    this.cdr.detectChanges();
   }
 }

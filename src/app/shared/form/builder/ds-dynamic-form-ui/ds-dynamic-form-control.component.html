@@ -129,9 +129,15 @@
                  (change)="onValueChange($event)"
                  (focus)="onFocus($event)">
 
-          <div class="input-group-addon" (click)="datepicker.toggle()">
-            <i *ngIf="model.toggleIcon" class="{{model.toggleIcon}}" aria-hidden="true"></i>
-            <span *ngIf="model.toggleLabel">{{ model.toggleLabel }}</span>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    [class.disabled]="model.disabled"
+                    [disabled]="model.disabled"
+                    (click)="datepicker.toggle()">
+              <i *ngIf="model.toggleIcon" class="{{model.toggleIcon}}" aria-hidden="true"></i>
+              <span *ngIf="model.toggleLabel">{{ model.toggleLabel }}</span>
+            </button>
           </div>
         </div>
 
