@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { ViewMode } from '../../../../+search-page/search-options.model';
 import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
@@ -11,6 +11,9 @@ import { ListableObject } from '../../../object-collection/shared/listable-objec
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
+import { Router } from '@angular/router';
+import { SubmissionRestService } from '../../../../submission/submission-rest.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-detail-element',
@@ -24,7 +27,11 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
   public item: Item;
   status = ItemStatusType.IN_PROGRESS;
 
-  constructor(private wsiDataService: WorkspaceitemDataService,
+  constructor(private cdr: ChangeDetectorRef,
+              private wsiDataService: WorkspaceitemDataService,
+              private modalService: NgbModal,
+              private restService: SubmissionRestService,
+              private router: Router,
               @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
   }
@@ -51,6 +58,29 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
         this.dso = wsi.payload;
         this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
       });
+  }
+
+  public confirmDiscard(content) {
+    this.modalService.open(content).result.then(
+      (result) => {
+        if (result === 'ok') {
+          this.restService.deleteById(this.dso.id)
+            .subscribe((response) => {
+              this.reload();
+            })
+        }
+      }
+    );
+  }
+
+  reload() {
+    // override the route reuse strategy
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+    this.router.navigated = false;
+    const url = decodeURIComponent(this.router.url);
+    this.router.navigateByUrl(url);
   }
 
 }

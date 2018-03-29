@@ -11,8 +11,8 @@ export class FormFieldMetadataValueObject {
   constructor(value: string,
               language: any = null,
               authority: string = null,
-              confidence: number = null,
-              place: number = null,
+              confidence: number = -1,
+              place: number = -1,
               metadata: string = null) {
     this.value = value;
     this.language = language;
@@ -26,6 +26,8 @@ export class FormFieldMetadataValueObject {
     }
 
     this.place = place;
-    this.metadata = metadata;
+    if (isNotEmpty(metadata)) {
+      this.metadata = metadata;
+    }
   }
 }

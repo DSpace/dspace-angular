@@ -1,3 +1,8 @@
 .dropdown-toggle::after {
   display:none
 }
+
+.sections-dropdown-menu {
+  z-index: 1001;
+}
+

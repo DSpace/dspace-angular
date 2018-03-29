@@ -29,6 +29,7 @@
   <ng-container *ngFor="let fileEntry of fileList">
     <ds-submission-upload-section-file [availableAccessConditionGroups]="availableGroups"
                                        [availableAccessConditionOptions]="availableAccessConditionOptions"
+                                       [collectionId]="collectionId"
                                        [collectionPolicyType]="collectionPolicyType"
                                        [configMetadataForm]="configMetadataForm"
                                        [fileId]="fileIndexes[fileList.indexOf(fileEntry)]"

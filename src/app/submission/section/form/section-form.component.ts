@@ -182,7 +182,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
       this.pathCombiner,
       event,
       this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model)));
+      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formBuilderService.getArrayIndexFromEvent(event)));
     const metadata = this.formBuilderService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
 
@@ -208,11 +208,11 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
       this.pathCombiner,
       event,
       this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model)));
+      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formBuilderService.getArrayIndexFromEvent(event)));
   }
 
-  hasStoredValue(fieldId) {
-    if (isNotEmpty(this.sectionData.data)) {
+  hasStoredValue(fieldId, index) {
+    if (isNotEmpty(this.sectionData.data) && isNotEmpty(this.sectionData.data[index])) {
       return this.sectionData.data.hasOwnProperty(fieldId);
     } else {
       return false;

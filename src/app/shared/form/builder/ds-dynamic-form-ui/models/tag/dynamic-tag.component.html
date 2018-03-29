@@ -13,8 +13,9 @@
   *ngIf="!searchOptions"
   type="text"
   placeholder="Enter a tag..."
+  (keypress)="preventEventsPropagation($event)"
+  (keydown)="preventEventsPropagation($event)"
   (keyup)="onKeyUp($event)"
-  (change)="$event.stopPropagation()"
   [(ngModel)]="inputText"
 />
 
