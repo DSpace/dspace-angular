@@ -15,10 +15,17 @@
         "metadata": [
           {
             "key": "dc.title",
-            "value": "ciaoo",
+            "value": "Low temperature magnetic properties of NpNi5",
             "language": null,
             "authority": null,
             "confidence": 0
+          }
+          , {
+            "key" : "dc.description.abstract",
+            "value" : "We present the result of an extended experimental characterization of the hexagonal intermetallicHaucke compound NpNi5.",
+            "language" : null,
+            "authority" : null,
+            "confidence" : 0
           }
         ],
         "inArchive": false,

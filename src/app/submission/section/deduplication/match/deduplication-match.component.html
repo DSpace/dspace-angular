@@ -4,14 +4,15 @@
 ></ds-item-list-preview>
 
 
-<button (click)="toggleSubmitterDecision()"
-        class="btn btn-link">
- <span *ngIf="isWorkFlow && !showSubmitterDecision"> <i class="fa fa-angle-double-down"></i> Show submitter decision</span>
-  <span *ngIf="isWorkFlow && showSubmitterDecision"> <i class="fa fa-angle-double-up"></i> Hide submitter decision</span>
-</button>
+<!--<button (click)="toggleSubmitterDecision()"-->
+        <!--class="btn btn-link">-->
+ <!--<span *ngIf="isWorkFlow && !showSubmitterDecision"> <i class="fa fa-angle-double-down"></i> Show submitter decision</span>-->
+  <!--<span *ngIf="isWorkFlow && showSubmitterDecision"> <i class="fa fa-angle-double-up"></i> Hide submitter decision</span>-->
+<!--</button>-->
 
-<div *ngIf="showSubmitterDecision">
-  <label>{{'submission.section.deduplication.submitter_decision' | translate}}
+<!--<div *ngIf="showSubmitterDecision">-->
+<div>
+  <label><strong> {{submitterDecisionLabel | async}} </strong>
     <span [ngClass]="{'label': true,
               'label-warning': match.submitterDecision == 'verify',
               'label-success': match.submitterDecision == 'reject',
@@ -20,19 +21,27 @@
     </span>
   </label>
 </div>
+<!--<div>-->
+  <!--<label><strong> Explaination: </strong>-->
+    <!--<span class="label">-->
+      <!--I want to provide the fulltext of this article-->
+    <!--</span>-->
+  <!--</label>-->
+<!--</div>-->
 
 <div class="mb-3" *ngIf="!decidedYet">
   <button type="button"
           class="btn btn-warning"
           ngbTooltip="{{'submission.section.deduplication.duplicated_help' | translate}}"
           (click)="openModal(modal)">
-    <span> {{'submission.section.deduplication.duplicated' | translate}}</span>
+    <span> {{duplicatedBtnLabel | async}}</span>
   </button>
 
   <button type="button"
           class="btn btn-success"
           ngbTooltip="{{'submission.section.deduplication.not_duplicated_help' | translate}}"
           (click)="setAsNotDuplicated()">
+
     <span> {{'submission.section.deduplication.not_duplicated' | translate}}</span>
   </button>
 </div>

@@ -11,6 +11,8 @@ import { DeduplicationService } from '../deduplication.service';
 import { SetWorkflowDuplicatedAction, SetWorkspaceDuplicatedAction } from '../../../objects/submission-objects.actions';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-deduplication-match',
@@ -40,12 +42,16 @@ export class DeduplicationMatchComponent implements OnInit {
   modalRef: NgbModalRef;
   pathCombiner: JsonPatchOperationPathCombiner;
 
+  duplicatedBtnLabel: Observable<string>;
+  submitterDecisionLabel: Observable<string>;
+
   constructor(private deduplicationService: DeduplicationService,
               private submissionService: SubmissionService,
               private modalService: NgbModal,
               private formBuilder: FormBuilder,
               private store: Store<SubmissionState>,
-              protected operationsBuilder: JsonPatchOperationsBuilder,) {
+              protected operationsBuilder: JsonPatchOperationsBuilder,
+              private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -78,6 +84,15 @@ export class DeduplicationMatchComponent implements OnInit {
     }
 
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'matches', this.index);
+
+    this.duplicatedBtnLabel = this.isWorkFlow ?
+      this.translate.get('submission.section.deduplication.duplicated_ctrl')
+      : this.translate.get('submission.section.deduplication.duplicated');
+
+    this.submitterDecisionLabel = this.isWorkFlow ?
+      this.translate.get('submission.section.deduplication.submitter_decision')
+      : this.translate.get('submission.section.deduplication.your_decision');
+
   }
 
   setAsDuplicated() {

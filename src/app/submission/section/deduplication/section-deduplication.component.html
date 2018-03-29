@@ -8,24 +8,32 @@
   </div>
 </ng-container>
 
-<ds-pagination
-  *ngIf="(sectionDataObs | async)?.matches.length > 0"
-  [paginationOptions]="config"
-  [collectionSize]="(sectionDataObs | async)?.matches.length"
-  [sortOptions]="sortConfig"
-  [hideGear]="true"
-  [hidePagerWhenSinglePage]="false"
-  (pageChange)="setPage($event)">
-  <ul class="list-unstyled">
-    <li *ngFor="let match of (sectionDataObs | async)?.matches
-    | paginate: {id: config.id, itemsPerPage: config.pageSize, currentPage: config.currentPage}; let i = index" class="mt-4 mb-4">
+<ng-container
+  *ngIf="(sectionDataObs | async)?.matches.length > 0">
+  <div class="alert alert-danger" role="alert">
+    {{ disclaimer | async }}
+  </div>
 
-      <ds-deduplication-match
-        *ngVar="(i + (config.currentPage-1)*config.pageSize) as totalIndex"
-        [sectionId]="sectionData.id"
-        [match]="match"
-        [submissionId]="submissionId"
-        [index]=totalIndex></ds-deduplication-match>
-    </li>
-  </ul>
-</ds-pagination>
+  <ds-pagination
+    [paginationOptions]="config"
+    [collectionSize]="(sectionDataObs | async)?.matches.length"
+    [sortOptions]="sortConfig"
+    [hideGear]="true"
+    [hidePagerWhenSinglePage]="false"
+    (pageChange)="setPage($event)">
+
+    <ul class="list-unstyled">
+      <li *ngFor="let match of (sectionDataObs | async)?.matches
+    | paginate: {id: config.id, itemsPerPage: config.pageSize, currentPage: config.currentPage}; let i = index"
+          class="mt-4 mb-4">
+
+        <ds-deduplication-match
+          *ngVar="(i + (config.currentPage-1)*config.pageSize) as totalIndex"
+          [sectionId]="sectionData.id"
+          [match]="match"
+          [submissionId]="submissionId"
+          [index]=totalIndex></ds-deduplication-match>
+      </li>
+    </ul>
+  </ds-pagination>
+</ng-container>

@@ -10,6 +10,8 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { Observable } from 'rxjs/Observable';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { TranslateService } from '@ngx-translate/core';
+import { SubmissionService, WORKFLOW_SCOPE } from '../../submission.service';
 
 @Component({
   selector: 'ds-deduplication-section',
@@ -27,7 +29,12 @@ export class DeduplicationSectionComponent extends SectionModelComponent impleme
   config: PaginationComponentOptions;
   sortConfig: SortOptions;
 
+  isWorkFlow = false;
+  disclaimer: Observable<string>;
+
   constructor(protected store: Store<SubmissionState>,
+              private translate: TranslateService,
+              private submissionService: SubmissionService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
@@ -47,6 +54,12 @@ export class DeduplicationSectionComponent extends SectionModelComponent impleme
       .map( (sd) => {
         return sd;
       });
+
+    this.isWorkFlow = this.submissionService.getSubmissionScope() === WORKFLOW_SCOPE ? true : false;
+
+    this.disclaimer = this.isWorkFlow ?
+      this.translate.get('submission.section.deduplication.disclaimer_ctrl')
+      : this.translate.get('submission.section.deduplication.disclaimer');
 
     this.isLoading = false;
   }

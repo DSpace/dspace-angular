@@ -253,7 +253,7 @@
       "submit.progressbar.describe.creators": "Creators",
       "submit.progressbar.describe.titleinformation": "Title information",
       "submit.progressbar.describe.reference": "Reference",
-      "submit.progressbar.describe.deduplication": "Potential matches",
+      "submit.progressbar.describe.deduplication": "Potential duplicates",
       "submit.progressbar.describe.recycle": "Recycle",
       "submit.progressbar.describe.indexing": "Indexing",
       "submit.progressbar.describe.keyinformation": "Main information",
@@ -281,14 +281,21 @@
       },
       "deduplication": {
         "duplicated": "It's a duplicate",
-        "not_duplicated": "It is not a duplicate",
+        "not_duplicated": "It's not a duplicate",
+        "duplicated_ctrl": "Mark the record to merge",
         "duplicated_help": "Click here if this is a duplicate of your item",
         "not_duplicated_help": "Click here if this is not a duplicate of your item",
         "note_help": "Please enter your reason for the duplication into the box below.",
         "note_placeholder": "Describe the reason of duplication",
-        "clear_decision": "Clear decision",
+        "clear_decision": "Undo",
         "clear_decision_help": "Click for clear the decision about this pontential duplicate",
-        "submitter_decision": "Submitter decision:"
+        "your_decision": "Your choice:",
+        "submitter_decision": "Submitter choice:",
+        "disclaimer": "The system has identified some potential duplicates. Please carefully review the list and flag each occurency with the appropriate choice or discard this submission.",
+        "disclaimer_ctrl": "The system has identified some potential duplicates. Please carefully review the list and the submitter comments and perform the appropriate action."
+      },
+      "recycle": {
+        "disclaimer": "The following existent information are not valid within the selected collection. Please copy them to the appropriate metadata if applicable. Use the discard button to remove these information when done."
       }
     },
     "workflow": {
