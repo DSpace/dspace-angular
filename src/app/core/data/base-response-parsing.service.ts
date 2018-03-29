@@ -117,9 +117,13 @@ export abstract class BaseResponseParsingService {
     this.objectCache.add(co, this.EnvConfig.cache.msToLive, requestHref);
   }
 
-  protected processPageInfo(pageObj: any): PageInfo {
+  processPageInfo(pageObj: any): PageInfo {
     if (isNotEmpty(pageObj)) {
-      return new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
+      const pageInfoObject = new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
+      if (pageInfoObject.currentPage >= 0) {
+        Object.assign(pageInfoObject, { currentPage: pageInfoObject.currentPage + 1 });
+      }
+      return pageInfoObject
     } else {
       return undefined;
     }

@@ -3,6 +3,7 @@ import { SearchService } from '../search-service/search.service';
 import { SearchOptions, ViewMode } from '../search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
 
 @Component({
   selector: 'ds-search-settings',
@@ -11,7 +12,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 })
 export class SearchSettingsComponent implements OnInit {
 
-  @Input() searchOptions: SearchOptions;
+  @Input() searchOptions: PaginatedSearchOptions;
   /**
    * Declare SortDirection enumeration to use it in the template
    */

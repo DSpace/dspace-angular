@@ -6,7 +6,8 @@ import { ViewMode } from '../../+search-page/search-options.model';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import {
-  FacetValueMapSuccessResponse, FacetValueSuccessResponse,
+  FacetConfigSuccessResponse,
+  FacetValueSuccessResponse,
   SearchSuccessResponse
 } from '../../core/cache/response-cache.models';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
@@ -34,26 +35,17 @@ import { SearchQueryResponse } from './search-query-response.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { getSearchResultFor } from './search-result-element-decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { FacetResponseParsingService } from '../../core/data/facet-response-parsing.service';
-
-function shuffle(array: any[]) {
-  let i = 0;
-  let j = 0;
-  let temp = null;
-
-  for (i = array.length - 1; i > 0; i -= 1) {
-    j = Math.floor(Math.random() * (i + 1));
-    temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  return array;
-}
+import { FacetValueResponseParsingService } from '../../core/data/facet-value-response-parsing.service';
+import { FacetConfigResponseParsingService } from '../../core/data/facet-config-response-parsing.service';
+import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
 
 @Injectable()
 export class SearchService implements OnDestroy {
   private searchLinkPath = 'discover/search/objects';
-  private facetLinkPath = 'discover/search/facets';
+  private facetValueLinkPath = 'discover/search/facets';
+  private facetValueLinkPathPrefix = 'discover/facets/';
+  private facetConfigLinkPath = 'discover/facets';
 
   private sub;
   uiSearchRoute = '/search';
@@ -62,7 +54,7 @@ export class SearchService implements OnDestroy {
     // Object.assign(new SearchFilterConfig(),
     //   {
     //     name: 'scope',
-    //     type: FilterType.hierarchy,
+    //     type: FilterType.hierarchical,
     //     hasFacets: true,
     //     isOpenByDefault: true
     //   }),
@@ -76,7 +68,7 @@ export class SearchService implements OnDestroy {
     Object.assign(new SearchFilterConfig(),
       {
         name: 'dateIssued',
-        type: FilterType.range,
+        type: FilterType.date,
         hasFacets: true,
         isOpenByDefault: false
       }),
@@ -95,7 +87,6 @@ export class SearchService implements OnDestroy {
               private route: ActivatedRoute,
               protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
-              private routeService: RouteService,
               private rdb: RemoteDataBuildService,
               private halService: HALEndpointService) {
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
@@ -103,36 +94,15 @@ export class SearchService implements OnDestroy {
     pagination.currentPage = 1;
     pagination.pageSize = 10;
     const sort: SortOptions = new SortOptions();
-    this.searchOptions = { pagination: pagination, sort: sort };
-    // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
+    this.searchOptions = Object.assign(new SearchOptions(), { pagination: pagination, sort: sort });
   }
 
-  search(query: string, scopeId?: string, searchOptions?: SearchOptions): Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
+  search(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     const requestObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
-        const args: string[] = [];
-
-        if (isNotEmpty(query)) {
-          args.push(`query=${query}`);
+        if (hasValue(searchOptions)) {
+          url = searchOptions.toRestUrl(url);
         }
-
-        if (isNotEmpty(scopeId)) {
-          args.push(`scope=${scopeId}`);
-        }
-
-        if (isNotEmpty(searchOptions)) {
-          if (isNotEmpty(searchOptions.sort)) {
-            args.push(`sort=${searchOptions.sort.field},${searchOptions.sort.direction}`);
-          }
-          if (isNotEmpty(searchOptions.pagination)) {
-            args.push(`page=${searchOptions.pagination.currentPage - 1}`);
-            args.push(`size=${searchOptions.pagination.pageSize}`);
-          }
-        }
-        if (isNotEmpty(args)) {
-          url = new URLCombiner(url, `?${args.join('&')}`).toString();
-        }
-
         const request = new GetRequest(this.requestService.generateRequestId(), url);
         return Object.assign(request, {
           getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -183,55 +153,25 @@ export class SearchService implements OnDestroy {
       });
     });
 
-    const pageInfoObs: Observable<PageInfo> = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-      .map((entry: ResponseCacheEntry) => {
-        if (hasValue((entry.response as SearchSuccessResponse).pageInfo)) {
-          const resPageInfo = (entry.response as SearchSuccessResponse).pageInfo;
-          if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
-            return Object.assign({}, resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
-          } else {
-            return resPageInfo;
-          }
-        }
-      });
+    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: FacetValueSuccessResponse) => response.pageInfo)
+    );
 
     const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
-      if (hasValue(pageInfo)) {
-        return new PaginatedList(pageInfo, tDomainList);
-      } else {
-        return tDomainList;
-      }
+      return new PaginatedList(pageInfo, tDomainList);
     });
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
-  getConfig(): Observable<RemoteData<SearchFilterConfig[]>> {
-    const requestPending = false;
-    const responsePending = false;
-    const isSuccessful = true;
-    const error = undefined;
-    return Observable.of(new RemoteData(
-      requestPending,
-      responsePending,
-      isSuccessful,
-      error,
-      this.config
-    ));
-  }
-
-  getFacetValuesFor(searchFilterConfigName: string, query: string, scopeId: string): Observable<RemoteData<FacetValue[] | PaginatedList<FacetValue>>> {
-    const requestObs = this.halService.getEndpoint(this.facetLinkPath).pipe(
+  getConfig(scope?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+    const requestObs = this.halService.getEndpoint(this.facetConfigLinkPath).pipe(
       map((url: string) => {
         const args: string[] = [];
 
-        if (isNotEmpty(query)) {
-          args.push(`query=${query}`);
-        }
-
-        if (isNotEmpty(scopeId)) {
-          args.push(`scope=${scopeId}`);
+        if (isNotEmpty(scope)) {
+          args.push(`scope=${scope}`);
         }
 
         if (isNotEmpty(args)) {
@@ -241,7 +181,7 @@ export class SearchService implements OnDestroy {
         const request = new GetRequest(this.requestService.generateRequestId(), url);
         return Object.assign(request, {
           getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return FacetResponseParsingService;
+            return FacetConfigResponseParsingService;
           }
         });
       }),
@@ -257,56 +197,56 @@ export class SearchService implements OnDestroy {
     );
 
     // get search results from response cache
-    const facetValueResponseObs: Observable<FacetValueSuccessResponse> = responseCacheObs.pipe(
+    const facetConfigObs: Observable<SearchFilterConfig[]> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
-      map((response: FacetValueMapSuccessResponse) => response.results[searchFilterConfigName])
+      map((response: FacetConfigSuccessResponse) => response.results)
+    );
+
+    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, facetConfigObs);
+  }
+
+  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions): Observable<RemoteData<PaginatedList<FacetValue>>> {
+    console.log('facetvalues');
+    const requestObs = this.halService.getEndpoint(this.facetValueLinkPathPrefix + filterConfig.name).pipe(
+      map((url: string) => {
+        const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
+        if (hasValue(searchOptions)) {
+          url = searchOptions.toRestUrl(url, args);
+        }
+        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return FacetValueResponseParsingService;
+          }
+        });
+      }),
+      tap((request: RestRequest) => this.requestService.configure(request)),
+    );
+
+    const requestEntryObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    const responseCacheObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.responseCache.get(request.href))
     );
 
     // get search results from response cache
-    const facetValueObs: Observable<FacetValue[]> = facetValueResponseObs.pipe(
+    const facetValueObs: Observable<FacetValue[]> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
       map((response: FacetValueSuccessResponse) => response.results)
     );
 
-    const pageInfoObs: Observable<PageInfo> = facetValueResponseObs.pipe(
-      map((response: FacetValueSuccessResponse) => { console.log(response); return response.pageInfo})
+    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: FacetValueSuccessResponse) => response.pageInfo)
     );
-    const payloadObs = Observable.combineLatest(facetValueObs, pageInfoObs, (facetValue, pageInfo) => {
-      if (hasValue(pageInfo)) {
-        return new PaginatedList(pageInfo, facetValue);
-      } else {
-        return facetValue;
-      }
-    });
-    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
 
-    // const filterConfig = this.config.find((config: SearchFilterConfig) => config.name === searchFilterConfigName);
-    // return this.routeService.getQueryParameterValues(filterConfig.paramName).map((selectedValues: string[]) => {
-    //     const payload: FacetValue[] = [];
-    //     const totalFilters = 13;
-    //     for (let i = 0; i < totalFilters; i++) {
-    //       const value = searchFilterConfigName + ' ' + (i + 1);
-    //       if (!selectedValues.includes(value)) {
-    //         payload.push({
-    //             value: value,
-    //             count: Math.floor(Math.random() * 20) + 20 * (totalFilters - i), // make sure first results have the highest (random) count
-    //             search: (decodeURI(this.router.url) + (this.router.url.includes('?') ? '&' : '?') + filterConfig.paramName + '=' + value)
-    //           }
-    //         );
-    //       }
-    //     }
-    //     const requestPending = false;
-    //     const responsePending = false;
-    //     const isSuccessful = true;
-    //     const error = undefined;
-    //     return new RemoteData(
-    //       requestPending,
-    //       responsePending,
-    //       isSuccessful,
-    //       error,
-    //       payload
-    //     )
-    //   }
-    // )
+    const payloadObs = Observable.combineLatest(facetValueObs, pageInfoObs, (facetValue, pageInfo) => {
+      return new PaginatedList(pageInfo, facetValue);
+    });
+
+    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
   getViewMode(): Observable<ViewMode> {

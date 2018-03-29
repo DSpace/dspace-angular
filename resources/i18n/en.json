@@ -120,6 +120,10 @@
         "dateIssued": {
           "placeholder": "Date",
           "head": "Date"
+        },
+        "has_content_in_original_bundle": {
+          "placeholder": "Has files",
+          "head": "Has files"
         }
       }
     }

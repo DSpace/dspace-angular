@@ -56,14 +56,6 @@ export class SearchResponseParsingService implements ResponseParsingService {
       }));
     payload.objects = objects;
     const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
-    return new SearchSuccessResponse(deserialized, data.statusCode, this.processPageInfo(data.payload.page));
-  }
-
-  protected processPageInfo(pageObj: any): PageInfo {
-    if (isNotEmpty(pageObj)) {
-      return new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
-    } else {
-      return undefined;
-    }
+    return new SearchSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload.page));
   }
 }

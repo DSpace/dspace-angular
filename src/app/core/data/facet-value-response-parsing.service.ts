@@ -1,0 +1,38 @@
+import { Inject, Injectable } from '@angular/core';
+import {
+  FacetValueMap,
+  FacetValueMapSuccessResponse,
+  FacetValueSuccessResponse,
+  RestResponse
+} from '../cache/response-cache.models';
+import { ResponseParsingService } from './parsing.service';
+import { RestRequest } from './request.models';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { PageInfo } from '../shared/page-info.model';
+import { isNotEmpty } from '../../shared/empty.util';
+import { FacetValue } from '../../+search-page/search-service/facet-value.model';
+import { BaseResponseParsingService } from './base-response-parsing.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { GLOBAL_CONFIG } from '../../../config';
+import { GlobalConfig } from '../../../config/global-config.interface';
+
+@Injectable()
+export class FacetValueResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
+  objectFactory = {};
+  toCache = false;
+  constructor(
+    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+    protected objectCache: ObjectCacheService,
+  ) { super();
+  }
+  parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+    const payload = data.payload;
+
+    const serializer = new DSpaceRESTv2Serializer(FacetValue);
+    const values = payload._embedded.values.map((value) => {value.search = value._links.search.href; return value;});
+
+    const facetValues = serializer.deserializeArray(values);
+    return new FacetValueSuccessResponse(facetValues, data.statusCode, this.processPageInfo(data.payload.page));
+  }
+}

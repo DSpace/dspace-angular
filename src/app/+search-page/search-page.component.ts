@@ -15,6 +15,7 @@ import { SearchOptions, ViewMode } from './search-options.model';
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 
 /**
  * This component renders a simple item page.
@@ -36,85 +37,43 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   query: string;
   scopeObjectRDObs: Observable<RemoteData<DSpaceObject>>;
-  resultsRDObs:  Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>>;
+  resultsRDObs: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
   currentParams = {};
   searchOptions: SearchOptions;
   sortConfig: SortOptions;
   scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
+  pageSize;
+  pageSizeOptions;
+  defaults = {
+    pagination: {
+      id: 'search-results-pagination',
+      pageSize: 10
+    },
+    query: ''
+  };
 
   constructor(private service: SearchService,
-              private route: ActivatedRoute,
               private communityService: CommunityDataService,
               private sidebarService: SearchSidebarService,
-              private windowService: HostWindowService) {
-    this.isMobileView =  Observable.combineLatest(
+              private windowService: HostWindowService,
+              private filterService: SearchFilterService) {
+    this.isMobileView = Observable.combineLatest(
       this.windowService.isXs(),
       this.windowService.isSm(),
       ((isXs, isSm) => isXs || isSm)
     );
     this.scopeListRDObs = communityService.findAll();
-    // Initial pagination config
-    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'search-results-pagination';
-    pagination.currentPage = 1;
-    pagination.pageSize = 10;
-
-    const sort: SortOptions = new SortOptions();
-    this.sortConfig = sort;
-    this.searchOptions = this.service.searchOptions;
   }
 
   ngOnInit(): void {
-    this.sub = this.route
-      .queryParams
-      .subscribe((params) => {
-          // Save current parameters
-          this.currentParams = params;
-          this.query = params.query || '';
-          this.scope = params.scope;
-          const page = +params.page || this.searchOptions.pagination.currentPage;
-          let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
-          let pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
-
-          if (isNotEmpty(params.view) && params.view === ViewMode.Grid) {
-            pageSizeOptions = [12, 24, 36, 48 , 50, 62, 74, 84];
-            if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 12;
-            }
-          }
-          if (isNotEmpty(params.view) && params.view === ViewMode.List) {
-            if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 10;
-            }
-          }
-
-          const sortDirection = params.sortDirection || this.searchOptions.sort.direction;
-          const sortField = params.sortField || this.searchOptions.sort.field;
-          const pagination = Object.assign({},
-            this.searchOptions.pagination,
-            { currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
-          );
-          const sort = Object.assign({},
-            this.searchOptions.sort,
-            { direction: sortDirection, field: sortField }
-          );
-
-          this.updateSearchResults({
-            pagination: pagination,
-            sort: sort
-          });
-          if (isNotEmpty(this.scope)) {
-            this.scopeObjectRDObs = this.communityService.findById(this.scope);
-          } else {
-            this.scopeObjectRDObs = Observable.of(undefined);
-          }
-        }
-      );
+    this.sub = this.filterService.getPaginatedSearchOptions(this.defaults).subscribe((options) => {
+      this.updateSearchResults(options);
+    });
   }
 
   private updateSearchResults(searchOptions) {
-    this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions);
+    this.resultsRDObs = this.service.search(searchOptions);
     this.searchOptions = searchOptions;
   }
 

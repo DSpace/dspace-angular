@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import {
   FacetValueMap,
   FacetValueMapSuccessResponse,
@@ -12,9 +12,22 @@ import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.seriali
 import { PageInfo } from '../shared/page-info.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { FacetValue } from '../../+search-page/search-service/facet-value.model';
+import { BaseResponseParsingService } from './base-response-parsing.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../config';
 
 @Injectable()
-export class FacetResponseParsingService implements ResponseParsingService {
+export class FacetValueMapResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
+  objectFactory = {};
+  toCache = false;
+
+  constructor(
+    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+    protected objectCache: ObjectCacheService,
+  ) { super();
+  }
+
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
 
     const payload = data.payload;
@@ -29,13 +42,5 @@ export class FacetResponseParsingService implements ResponseParsingService {
     });
 
     return new FacetValueMapSuccessResponse(facetMap, data.statusCode);
-  }
-
-  protected processPageInfo(pageObj: any): PageInfo {
-    if (isNotEmpty(pageObj)) {
-      return new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
-    } else {
-      return undefined;
-    }
   }
 }
