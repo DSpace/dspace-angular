@@ -15,6 +15,8 @@ import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail
 @renderElementsFor(ItemMyDSpaceResult, ViewMode.Detail)
 export class ItemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ItemMyDSpaceResult, Item> {
 
+  public itemUrl: string;
+
   isInProgress(): boolean {
     return (!this.dso.isArchived) && (!this.dso.isWithdrawn);
   }
