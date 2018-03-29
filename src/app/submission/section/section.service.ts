@@ -113,7 +113,7 @@ export class SectionService {
       .take(1)
       .subscribe((state) => {
         Object.keys(state.sections)
-          .filter((sectionId) => state.sections[sectionId].mandatory)
+          .filter((sectionId) => state.sections[sectionId].mandatory || sections.hasOwnProperty(sectionId))
           .filter((sectionId) => !this.isSectionHidden(state.sections[sectionId]))
           .map((sectionId) => {
             const sectionData = (isNotUndefined(sections) && isNotUndefined(sections[sectionId])) ? sections[sectionId] : Object.create(null);
