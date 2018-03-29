@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
-import { MetadataSchema } from './metadataschema.model';
-import { MetadataField } from './metadatafield.model';
 import { PageInfo } from '../shared/page-info.model';
+import { MetadataSchema } from '../metadata/metadataschema.model';
+import { MetadataField } from '../metadata/metadatafield.model';
 
 Injectable()
-export class MetadataRegistryService {
+export class RegistryService {
 
   metadataSchemas: MetadataSchema[];
   metadataFields: MetadataField[];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MetadataRegistryService } from '../../../core/metadata/metadataregistry.service';
+import { RegistryService } from '../../../core/registry/registry.service';
 import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -13,8 +13,8 @@ export class MetadataRegistryComponent {
 
   metadataSchemas: Observable<RemoteData<PaginatedList<MetadataSchema>>>;
 
-  constructor(private metadataRegistryService: MetadataRegistryService) {
-    this.metadataSchemas = this.metadataRegistryService.getMetadataSchemas();
+  constructor(private registryService: RegistryService) {
+    this.metadataSchemas = this.registryService.getMetadataSchemas();
   }
 
 }

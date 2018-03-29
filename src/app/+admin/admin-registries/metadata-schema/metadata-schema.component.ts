@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MetadataRegistryService } from '../../../core/metadata/metadataregistry.service';
+import { RegistryService } from '../../../core/registry/registry.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -18,7 +18,7 @@ export class MetadataSchemaComponent implements OnInit {
   metadataSchema: Observable<RemoteData<MetadataSchema>>;
   metadataFields: Observable<RemoteData<PaginatedList<MetadataField>>>;
 
-  constructor(private metadataRegistryService: MetadataRegistryService, private route: ActivatedRoute) {
+  constructor(private registryService: RegistryService, private route: ActivatedRoute) {
 
   }
 
@@ -29,10 +29,10 @@ export class MetadataSchemaComponent implements OnInit {
   }
 
   initialize(params) {
-    this.metadataSchema = this.metadataRegistryService.getMetadataSchemaByName(params.schemaName);
+    this.metadataSchema = this.registryService.getMetadataSchemaByName(params.schemaName);
     this.metadataSchema.subscribe((value) => {
       const schema = value.payload;
-      this.metadataFields = this.metadataRegistryService.getMetadataFieldsBySchema(schema);
+      this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema);
       this.namespace = { namespace: value.payload.namespace };
     });
   }
