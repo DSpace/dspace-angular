@@ -153,9 +153,19 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onKeyUp(event) {
+    event.preventDefault();
     if (event.keyCode === 13 || event.keyCode === 188) {
       // Key: Enter or , or ;
       this.addTagsToChips();
+      event.stopPropagation();
+    }
+  }
+
+  preventEventsPropagation(event) {
+    event.stopPropagation();
+    if (event.keyCode === 13) {
+      // Key: Enter or , or ;
+      event.preventDefault()
     }
   }
 
