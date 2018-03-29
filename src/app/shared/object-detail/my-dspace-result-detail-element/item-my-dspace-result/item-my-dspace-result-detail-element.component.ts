@@ -18,4 +18,8 @@ export class ItemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDeta
   isInProgress(): boolean {
     return (!this.dso.isArchived) && (!this.dso.isWithdrawn);
   }
+
+  ngOnInit() {
+    this.itemUrl = this.dso.findMetadata('dc.identifier.uri');
+  }
 }
