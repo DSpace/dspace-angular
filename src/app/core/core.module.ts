@@ -42,6 +42,7 @@ import { SubmissionSectionsConfigService } from './config/submission-sections-co
 import { UUIDService } from './shared/uuid.service';
 import { HALEndpointService } from './shared/hal-endpoint.service';
 import { FacetResponseParsingService } from './data/facet-response-parsing.service';
+import { MetadataRegistryService } from './metadata/metadataregistry.service';
 
 const IMPORTS = [
   CommonModule,
@@ -67,6 +68,7 @@ const PROVIDERS = [
   HostWindowService,
   ItemDataService,
   MetadataService,
+  MetadataRegistryService,
   ObjectCacheService,
   PaginationComponentOptions,
   RemoteDataBuildService,
