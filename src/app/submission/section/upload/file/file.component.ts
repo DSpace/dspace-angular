@@ -24,6 +24,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
 
   @Input() availableAccessConditionOptions: any[];
   @Input() availableAccessConditionGroups: Map<string, any>;
+  @Input() collectionId;
   @Input() collectionPolicyType;
   @Input() configMetadataForm: SubmissionFormsModel;
   @Input() fileId;

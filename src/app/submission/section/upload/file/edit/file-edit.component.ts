@@ -32,6 +32,7 @@ import { isNotEmpty, isNotUndefined } from '../../../../../shared/empty.util';
 import { SubmissionFormsModel } from '../../../../../core/shared/config/config-submission-forms.model';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { AccessConditionOption } from '../../../../../core/shared/config/config-access-condition-option.model';
+import { SubmissionService } from '../../../../submission.service';
 
 @Component({
   selector: 'ds-submission-upload-section-file-edit',
@@ -41,6 +42,7 @@ export class UploadSectionFileEditComponent implements OnChanges {
 
   @Input() availableAccessConditionOptions: any[];
   @Input() availableAccessConditionGroups: Map<string, any>;
+  @Input() collectionId;
   @Input() collectionPolicyType;
   @Input() configMetadataForm: SubmissionFormsModel;
   @Input() fileData: WorkspaceitemSectionUploadFileObject;
@@ -52,7 +54,9 @@ export class UploadSectionFileEditComponent implements OnChanges {
 
   public formModel: DynamicFormControlModel[];
 
-  constructor(private cdr: ChangeDetectorRef, private formBuilderService: FormBuilderService) {
+  constructor(private cdr: ChangeDetectorRef,
+              private formBuilderService: FormBuilderService,
+              private submissionService: SubmissionService) {
   }
 
   ngOnChanges() {
@@ -74,7 +78,12 @@ export class UploadSectionFileEditComponent implements OnChanges {
     });
     const formModel: DynamicFormControlModel[] = [];
     const metadataGroupModelConfig = Object.assign({}, BITSTREAM_METADATA_FORM_GROUP_CONFIG);
-    metadataGroupModelConfig.group = this.formBuilderService.modelFromConfiguration(configForm, '', this.fileData.metadata);
+    metadataGroupModelConfig.group = this.formBuilderService.modelFromConfiguration(
+      configForm,
+      this.collectionId,
+      this.fileData.metadata,
+      this.submissionService.getSubmissionScope()
+    );
     formModel.push(new DynamicFormGroupModel(metadataGroupModelConfig, BITSTREAM_METADATA_FORM_GROUP_LAYOUT));
     const accessConditionTypeModelConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG);
     const accessConditionsArrayConfig = Object.assign({}, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG);
