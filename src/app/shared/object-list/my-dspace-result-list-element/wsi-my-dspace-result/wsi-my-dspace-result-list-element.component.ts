@@ -80,11 +80,21 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
         if (result === 'ok') {
           this.restService.deleteById(this.dso.id)
             .subscribe((response) => {
-              this.router.navigate(['/mydspace']);
+              this.reload();
             })
         }
       }
     );
+  }
+
+  reload() {
+    // override the route reuse strategy
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+    this.router.navigated = false;
+    const url = decodeURIComponent(this.router.url);
+    this.router.navigateByUrl(url);
   }
 
 }
