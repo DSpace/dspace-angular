@@ -67,6 +67,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
           // Retrieve license accepted status
           if ((this.sectionData.data as WorkspaceitemSectionLicenseObject).granted) {
             (model as DynamicCheckboxModel).checked = true;
+            this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, true));
           }
           // Disable checkbox whether it's in workflow scope
           if (this.submissionService.getSubmissionScope() === WORKFLOW_SCOPE ) {
