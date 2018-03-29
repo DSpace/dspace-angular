@@ -192,20 +192,22 @@ export class FormBuilderService extends DynamicFormService {
 
   getArrayIndexFromEvent(event: DynamicFormControlEvent) {
     let fieldIndex: number;
-    if (isNull(event.context)) {
-      if (isNotNull(event.model.parent)) {
-        if ((event.model.parent as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP) {
-          if ((event.model.parent as any).parent) {
-            if ((event.model.parent as any).parent.context) {
-              if ((event.model.parent as any).parent.context.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY) {
-                fieldIndex = (event.model.parent as any).parent.index;
+    if (isNotEmpty(event)) {
+      if (isNull(event.context)) {
+        if (isNotNull(event.model.parent)) {
+          if ((event.model.parent as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP) {
+            if ((event.model.parent as any).parent) {
+              if ((event.model.parent as any).parent.context) {
+                if ((event.model.parent as any).parent.context.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY) {
+                  fieldIndex = (event.model.parent as any).parent.index;
+                }
               }
             }
           }
         }
+      } else {
+        fieldIndex = event.context.index;
       }
-    } else {
-      fieldIndex = event.context.index;
     }
     return isNotUndefined(fieldIndex) ? fieldIndex : 0;
   }
