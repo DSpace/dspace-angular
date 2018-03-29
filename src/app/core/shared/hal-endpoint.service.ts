@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, map, flatMap, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, map, flatMap, startWith, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response-cache.models';
 import { EndpointMapRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { Inject, Injectable } from '@angular/core';
 import { GLOBAL_CONFIG } from '../../../config';
@@ -21,6 +21,7 @@ export class HALEndpointService {
               @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
 
   }
+
   protected getRootHref(): string {
     return new RESTURLCombiner(this.EnvConfig, '/').toString();
   }
@@ -34,23 +35,35 @@ export class HALEndpointService {
     this.requestService.configure(request);
     return this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
-      .filter((response: EndpointMapSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.endpointMap))
+      .filter((response: EndpointMapSuccessResponse) => isNotEmpty(response))
       .map((response: EndpointMapSuccessResponse) => response.endpointMap)
       .distinctUntilChanged();
   }
 
   public getEndpoint(linkPath: string): Observable<string> {
-    return this.getEndpointAt(...linkPath.split('/'));
+    const test = this.getEndpointAt(...linkPath.split('/'));
+    // test.subscribe((test) => console.log(linkPath, test));
+    return test;
   }
 
   private getEndpointAt(...path: string[]): Observable<string> {
     if (isEmpty(path)) {
       path = ['/'];
     }
+    let currentPath;
     const pipeArguments = path
-      .map((subPath: string) => [
+      .map((subPath: string, index: number) => [
         flatMap((href: string) => this.getEndpointMapAt(href)),
-        map((endpointMap: EndpointMap) => endpointMap[subPath]),
+        map((endpointMap: EndpointMap) => {
+          if (hasValue(endpointMap) && hasValue(endpointMap[subPath])) {
+            currentPath = endpointMap[subPath];
+            return endpointMap[subPath];
+          } else {
+            /*TODO remove if/else block once the rest response contains _links for facets*/
+            currentPath += '/' + subPath;
+            return currentPath;
+          }
+        }),
       ])
       .reduce((combined, thisElement) => [...combined, ...thisElement], []);
     return Observable.of(this.getRootHref()).pipe(...pipeArguments, distinctUntilChanged());

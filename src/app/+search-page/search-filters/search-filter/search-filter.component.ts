@@ -23,13 +23,11 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 
 export class SearchFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
-  filterValues: Observable<RemoteData<FacetValue[] | PaginatedList<FacetValue>>>;
 
-  constructor(private searchService: SearchService, private filterService: SearchFilterService) {
+  constructor(private filterService: SearchFilterService) {
   }
 
   ngOnInit() {
-    this.filterValues = this.searchService.getFacetValuesFor(this.filter.name, '', '');
     const sub = this.filterService.isFilterActive(this.filter.paramName).first().subscribe((isActive) => {
       if (this.filter.isOpenByDefault || isActive) {
         this.initialExpand();

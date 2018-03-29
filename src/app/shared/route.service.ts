@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, convertToParamMap, Params, } from '@angular/router';
+import {
+  ActivatedRoute, convertToParamMap, NavigationExtras, Params,
+  Router,
+} from '@angular/router';
 import { isNotEmpty } from './empty.util';
 
 @Injectable()
@@ -10,7 +13,7 @@ export class RouteService {
   }
 
   getQueryParameterValues(paramName: string): Observable<string[]> {
-    return this.route.queryParamMap.map((map) => map.getAll(paramName));
+    return this.route.queryParamMap.map((map) => [...map.getAll(paramName)]);
   }
 
   getQueryParameterValue(paramName: string): Observable<string> {
@@ -25,31 +28,16 @@ export class RouteService {
     return this.route.queryParamMap.map((map) => map.getAll(paramName).indexOf(paramValue) > -1);
   }
 
-  addQueryParameterValue(paramName: string, paramValue: string): Observable<Params> {
-    return this.route.queryParams.map((currentParams) => {
-      const newParam = {};
-      newParam[paramName] = [...convertToParamMap(currentParams).getAll(paramName), paramValue];
-      return Object.assign({}, currentParams, newParam);
-    });
-  }
-
-  removeQueryParameterValue(paramName: string, paramValue: string): Observable<Params> {
-    return this.route.queryParams.map((currentParams) => {
-      const newParam = {};
-      const currentFilterParams = convertToParamMap(currentParams).getAll(paramName);
-      if (isNotEmpty(currentFilterParams)) {
-        newParam[paramName] = currentFilterParams.filter((param) => (param !== paramValue));
-      }
-      return Object.assign({}, currentParams, newParam);
-    });
-  }
-
-  removeQueryParameter(paramName: string): Observable<Params> {
-    return this.route.queryParams.map((currentParams) => {
-      const newParam = {};
-      newParam[paramName] = {};
-      return Object.assign({}, currentParams, newParam);
-    });
-
+  getQueryParamsWithPrefix(prefix: string): Observable<Params> {
+    return this.route.queryParamMap
+      .map((map) => {
+          const params = {};
+          map.keys
+            .filter((key) => key.startsWith(prefix))
+            .forEach((key) => {
+              params[key] = [...map.getAll(key)];
+            });
+          return params;
+        });
   }
 }

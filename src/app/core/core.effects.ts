@@ -8,5 +8,5 @@ export const coreEffects = [
   ResponseCacheEffects,
   RequestEffects,
   ObjectCacheEffects,
-  UUIDIndexEffects,
+  UUIDIndexEffects
 ];
