@@ -36,6 +36,7 @@ export class Chips {
     const index = _.findKey(this.chipsItems, {id: chipsItem.id});
     const chipsItemTarget = this.chipsItems[index];
     chipsItemTarget.item = chipsItem.item;
+    chipsItemTarget.display = this.getDisplayText(chipsItemTarget.item);
     chipsItemTarget.editMode = false;
   }
 
@@ -71,7 +72,11 @@ export class Chips {
         value = obj;
       }
     }
-    const textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
+
+    let textToDisplay = ''; // !Important for chips changes, value can be undefined
+    if (value) {
+      textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
+    }
     return textToDisplay;
 
   }

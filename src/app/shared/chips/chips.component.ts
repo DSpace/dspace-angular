@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, OnChanges, Output, SimpleChanges, } from '@angular/core';
-import { Chips, ChipsItem } from './chips.model';
-import * as _ from 'lodash';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
+import { Chips } from './chips.model';
 
 @Component({
   selector: 'ds-chips',

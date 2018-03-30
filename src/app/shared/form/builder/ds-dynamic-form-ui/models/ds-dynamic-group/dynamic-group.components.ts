@@ -1,12 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {DynamicGroupModel} from './dynamic-group.model';
-import {FormBuilderService} from '../../../form-builder.service';
-import {DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel, serializable} from '@ng-dynamic-forms/core';
-import {SubmissionFormsModel} from '../../../../../../core/shared/config/config-submission-forms.model';
-import {FormService} from '../../../../form.service';
-import {FormComponent} from '../../../../form.component';
-import {Chips, ChipsItem} from '../../../../../chips/chips.model';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { DynamicGroupModel } from './dynamic-group.model';
+import { FormBuilderService } from '../../../form-builder.service';
+import {
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicInputModel,
+  serializable
+} from '@ng-dynamic-forms/core';
+import { SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
+import { FormService } from '../../../../form.service';
+import { FormComponent } from '../../../../form.component';
+import { Chips, ChipsItem } from '../../../../../chips/chips.model';
 import { DynamicLookupModel } from '../lookup/dynamic-lookup.model';
+import { NotificationsService } from '../../../../../notifications/notifications.service';
 
 const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
@@ -30,13 +36,16 @@ export class DsDynamicGroupComponent implements OnInit {
 
   @ViewChild('formRef') private formRef: FormComponent;
 
-  constructor(private formBuilderService: FormBuilderService, private formService: FormService) {
+  constructor(private formBuilderService: FormBuilderService,
+              private formService: FormService,
+              private notificationService: NotificationsService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
     this.formId = this.formService.getUniqueId(this.model.id);
-    this.formModel = this.formBuilderService.modelFromConfiguration(config, this.model.scopeUUID,{});
+    this.formModel = this.formBuilderService.modelFromConfiguration(config, this.model.scopeUUID, {});
     this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);
   }
 
@@ -57,6 +66,7 @@ export class DsDynamicGroupComponent implements OnInit {
 
   addChips(event) {
     if (!this.formRef.formGroup.valid) {
+      this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
       this.formService.validateAllFormFields(this.formRef.formGroup);
       return;
     }
@@ -103,15 +113,39 @@ export class DsDynamicGroupComponent implements OnInit {
   }
 
   modifyChips() {
-    const item = this.readFormItem();
-    this.selectedChips.item = item;
-    this.chips.update(this.selectedChips);
+    if (!this.formRef.formGroup.valid) {
+      this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
+      this.formService.validateAllFormFields(this.formRef.formGroup);
+      return;
+    }
 
-    this.editMode = false;
-    this.resetForm();
+    // const oldChipsItem = this.selectedChips.item;
+    //
+    // const item = this.readFormItem();
+    // this.selectedChips.item = item;
+    // this.chips.update(this.selectedChips);
+    // this.model.valueUpdates.next(this.chips.getItems());
 
-    this.model.valueUpdates.next(this.chips.getItems());
-    this.change.emit(event);
+    if (!this.isMandatoryFieldEmpty()) {
+      const item = this.readFormItem();
+      this.selectedChips.item = item;
+      this.chips.update(this.selectedChips);
+      this.model.valueUpdates.next(this.chips.getItems());
+
+      this.editMode = false;
+      this.change.emit(event);
+      this.resetForm();
+      this.cdr.detectChanges();
+    } else {
+      const oldChipsItem = this.selectedChips.item;
+      this.selectedChips.item = oldChipsItem;
+      this.chips.update(this.selectedChips);
+      this.model.valueUpdates.next(this.chips.getItems());
+      this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
+
+      this.change.emit(event);
+      this.cdr.detectChanges();
+    }
   }
 
   private readFormItem() {
