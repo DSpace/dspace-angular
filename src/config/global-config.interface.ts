@@ -5,6 +5,7 @@ import { UniversalConfig } from './universal-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { SubmissionConfig } from './submission-config.interface';
 import { AuthConfig } from './auth-config.interfaces';
+import { FiltersConfig } from './filters-config.interfaces';
 
 export interface GlobalConfig extends Config {
   ui: ServerConfig;
@@ -12,6 +13,7 @@ export interface GlobalConfig extends Config {
   production: boolean;
   cache: CacheConfig;
   auth: AuthConfig;
+  filters: FiltersConfig;
   notifications: INotificationBoardOptions;
   submission: SubmissionConfig;
   universal: UniversalConfig;

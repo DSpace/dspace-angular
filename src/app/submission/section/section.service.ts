@@ -114,11 +114,10 @@ export class SectionService {
       .subscribe((state) => {
         Object.keys(state.sections)
           .filter((sectionId) => state.sections[sectionId].mandatory || (isNotEmpty(sections) && sections.hasOwnProperty(sectionId)))
-          .filter((sectionId) => state.sections[sectionId].mandatory || (isNotEmpty(sections) && sections.hasOwnProperty(sectionId)))
           .filter((sectionId) => !this.isSectionHidden(state.sections[sectionId]))
           .map((sectionId) => {
             const sectionData = (isNotUndefined(sections) && isNotUndefined(sections[sectionId])) ? sections[sectionId] : Object.create(null);
-            this.loadSection(collectionId, submissionId, definitionId, sectionId, sectionData);
+            this.loadSection(collectionId, submissionId, definitionId, sectionId, sectionData, null);
           })
       })
   }
@@ -134,19 +133,25 @@ export class SectionService {
                       submissionId: string,
                       definitionId: string,
                       sectionId: string,
-                      data: WorkspaceitemSectionDataType) {
+                      sectionData: WorkspaceitemSectionDataType,
+                      sectionErrors: SubmissionSectionError[]) {
     this.getSectionDefinition(definitionId, sectionId)
       .filter((sectionObj: SubmissionSectionModel) => isNotUndefined(sectionObj))
       .take(1)
       .subscribe((sectionObj: SubmissionSectionModel) => {
-        const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, data, sectionObj, this.viewContainerRef);
+        const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, sectionData, sectionObj, this.viewContainerRef);
         const viewIndex = this.viewContainerRef.indexOf(componentRef.hostView);
-        this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex, data));
+        this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex, sectionData, sectionErrors));
       });
   }
 
-  public addSection(collectionId, submissionId, definitionId, sectionId) {
-    this.loadSection(collectionId, submissionId, definitionId, sectionId, null);
+  public addSection(collectionId: string,
+                    submissionId: string,
+                    definitionId: string,
+                    sectionId: string,
+                    sectionData: WorkspaceitemSectionDataType = null,
+                    sectionErrors: SubmissionSectionError[] = []) {
+    this.loadSection(collectionId, submissionId, definitionId, sectionId, sectionData, sectionErrors);
   }
 
   public removeSection(submissionId, sectionId) {
