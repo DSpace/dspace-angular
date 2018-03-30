@@ -1,8 +1,8 @@
 export enum ItemStatusType {
-  WORKFLOW = 'Workflow', // rosso
-  REJECTED = 'Rejected', // rosso
-  VALIDATION = 'Validation', // azzurro
-  WAITING_CONTROLLER = 'Waiting controller', // blu
-  IN_PROGRESS = 'In progress', // arancione
-  ACCEPTED = 'Accepted' // verde
+  WORKFLOW = 'mydspace.status.workflow',
+  REJECTED = 'mydspace.status.rejected',
+  VALIDATION = 'mydspace.status.validation',
+  WAITING_CONTROLLER = 'mydspace.status.waiting-for-controller',
+  IN_PROGRESS = 'mydspace.status.in-progress',
+  ACCEPTED = 'mydspace.status.accepted'
 }
