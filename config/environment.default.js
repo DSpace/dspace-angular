@@ -28,6 +28,9 @@ module.exports = {
       page: '/dspace-spring-rest/shib.html'
     }
   },
+  filters: {
+    loadOpened: []
+  },
   // Notifications
   notifications: {
     rtl: false,
