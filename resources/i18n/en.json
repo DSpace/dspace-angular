@@ -136,6 +136,7 @@
         "description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
         "schemas": {
           "table": {
+            "id": "ID",
             "namespace": "Namespace",
             "name": "Name"
           }

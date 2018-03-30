@@ -32,7 +32,7 @@ export class MetadataSchemaComponent implements OnInit {
     this.metadataSchema = this.registryService.getMetadataSchemaByName(params.schemaName);
     this.metadataSchema.subscribe((value) => {
       const schema = value.payload;
-      this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema);
+      // this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema);
       this.namespace = { namespace: value.payload.namespace };
     });
   }
