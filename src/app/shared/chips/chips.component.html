@@ -19,7 +19,7 @@
          aria-hidden="true"></i>
     </ng-container>
 
-    <span class="chips-item">
+    <span class="d-inline-block chips-item text-truncate m-0 p-0">
       {{c.display}}
     </span>
     <span [ngClass]="{'invisible': editable&&c.editMode}" class="fa fa-times" (click)="removeChips(i)"></span>

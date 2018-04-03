@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { findIndex, uniqueId } from 'lodash';
 
 export class Chips {
   chipsItems: ChipsItem[];
@@ -15,15 +15,14 @@ export class Chips {
 
   public add(item: any) {
     const chipsItem = {
-      id: _.uniqueId(),
-      // order: this.chipsItems.length,
+      id: uniqueId(),
       display: this.getDisplayText(item),
       editMode: false,
       item: item,
     };
 
-    const duplicated = _.findKey(this.chipsItems, {item: item});
-    if (!duplicated) {
+    const duplicated = findIndex(this.chipsItems, {display: chipsItem.display.trim()});
+    if (duplicated === -1) {
       this.chipsItems.push(chipsItem);
     }
   }
@@ -33,7 +32,7 @@ export class Chips {
   }
 
   public update(chipsItem: ChipsItem) {
-    const index = _.findKey(this.chipsItems, {id: chipsItem.id});
+    const index = findIndex(this.chipsItems, {id: chipsItem.id});
     const chipsItemTarget = this.chipsItems[index];
     chipsItemTarget.item = chipsItem.item;
     chipsItemTarget.display = this.getDisplayText(chipsItemTarget.item);
@@ -47,7 +46,7 @@ export class Chips {
     this.chipsItems = [];
     items.forEach((item, index) => {
       const chipsItem = {
-        id: _.uniqueId(),
+        id: uniqueId(),
         // order: this.chipsItems.length,
         display: this.getDisplayText(item),
         editMode: false,
@@ -73,11 +72,12 @@ export class Chips {
       }
     }
 
-    let textToDisplay = ''; // !Important for chips changes, value can be undefined
-    if (value) {
-      textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
-    }
-    return textToDisplay;
+    // let textToDisplay = ''; // !Important for chips changes, value can be undefined
+    // if (value) {
+    //   textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
+    // }
+    // return textToDisplay;
+    return value;
 
   }
 
