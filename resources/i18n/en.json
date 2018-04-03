@@ -94,6 +94,14 @@
       "workspace": "Your Submissions",
       "workflow": "All tasks"
     },
+    "status": {
+      "workflow": "Under review",
+      "rejected": "Rejected",
+      "validation": "Validate",
+      "waiting-for-controller": "Claim",
+      "in-progress": "To do",
+      "accepted": "Finalized"
+    },
     "view-btn": "View"
   },
   "search": {

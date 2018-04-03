@@ -4,29 +4,4 @@
   [object]="object"
   [status]="status"></ds-item-list-preview>
 
-<a class="btn btn-primary mt-1 mb-3" [href]="'/workspaceitems/' + dso.id + '/edit'" role="button">Edit</a>
-
-<button type="button" class="btn btn-danger mt-1 mb-3" (click)="$event.preventDefault();confirmDiscard(content)">
-  <i class="fa fa-trash"></i> Delete
-</button>
-
-<ds-message-board *ngIf="dso && dso.item && dso.submitter"
-  [dso]="dso"
-  (refresh)="refresh()">
-</ds-message-board>
-
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title text-danger">Discard submission</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>This operation can't be undone. Are you sure?</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('cancel')">Cancel</button>
-    <button type="button" class="btn btn-danger" (click)="c('ok')">Yes, I'm sure</button>
-  </div>
-</ng-template>
+<ds-workspaceitem-actions [object]="dso"></ds-workspaceitem-actions>

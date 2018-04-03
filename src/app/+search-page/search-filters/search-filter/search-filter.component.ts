@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { find } from 'lodash';
 
@@ -11,6 +11,8 @@ import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { SearchAppliedFilter } from '../../search-service/search-applied-filter.model';
+import { GlobalConfig } from '../../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../../config';
 
 /**
  * This component renders a simple item page.
@@ -29,13 +31,16 @@ export class SearchFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
   filterValues: Observable<RemoteData<FacetValue[]>>;
 
-  constructor(private searchService: SearchService, private filterService: SearchFilterService) {
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+              private searchService: SearchService,
+              private filterService: SearchFilterService) {
   }
 
   ngOnInit() {
     this.filterValues = this.searchService.getFacetValuesFor(this.filter.name);
     const sub = this.filterService.isFilterActive(this.filter.paramName).take(1).subscribe((isActive) => {
-      if (this.filter.isOpenByDefault || isActive) {
+      const isOpenByConfig = this.config.filters.loadOpened.includes(this.filter.name);
+      if (this.filter.isOpenByDefault || isActive || isOpenByConfig) {
         this.initialExpand();
       } else {
         this.initialCollapse();

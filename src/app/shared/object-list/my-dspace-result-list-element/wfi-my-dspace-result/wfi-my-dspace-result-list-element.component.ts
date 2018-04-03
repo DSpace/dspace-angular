@@ -25,29 +25,13 @@ import { Item } from '../../../../core/shared/item.model';
 export class WorkflowitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkflowitemMyDSpaceResult, Workflowitem> {
   public item: Item;
   public status = ItemStatusType.WORKFLOW;
-  public submitter: Observable<Eperson>;
 
-  constructor(private modalService: NgbModal,
-              private wfiDataService: WorkflowitemDataService,
-              @Inject('objectElementProvider') public listable: ListableObject) {
+  constructor(@Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
   }
 
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
-  }
-
-  refresh() {
-    // TODO Call a rest api to refresh the item
-    // Wait some ms before, so previous call can be served
-    this.wfiDataService.findById(this.dso.id)
-      .filter((wfi: RemoteData<Workflowitem>) => wfi.hasSucceeded)
-      .take(1)
-      .subscribe((wfi) => {
-        // console.log('Refresh wsi...');
-        this.dso = wfi.payload;
-        this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
-      });
   }
 
   initItem(itemObs: Observable<RemoteData<Item[]>>) {

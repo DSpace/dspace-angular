@@ -39,6 +39,7 @@ export interface SubmissionSectionEntry {
 
 export interface SubmissionObjectEntry {
   collection?: string,
+  definition?: string,
   selfUrl?: string;
   activeSection?: string;
   sections?: SubmissionSectionEntry;
@@ -296,6 +297,7 @@ function initSubmission(state: SubmissionObjectState, action: LoadSubmissionForm
   const newState = Object.assign({}, state);
   newState[ action.payload.submissionId ] = {
     collection: action.payload.collectionId,
+    definition: action.payload.definitionId,
     selfUrl: action.payload.selfUrl,
     activeSection: null,
     sections: Object.create(null),
@@ -493,7 +495,7 @@ function enableSection(state: SubmissionObjectState, action: EnableSectionAction
             sectionViewIndex: action.payload.sectionViewIndex,
             data: action.payload.data,
             isValid: false,
-            errors: []
+            errors: action.payload.errors
           }
         }),
         isLoading: state[ action.payload.submissionId ].isLoading,

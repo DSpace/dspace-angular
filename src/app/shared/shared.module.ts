@@ -89,14 +89,16 @@ import { CollectionsComponent } from '../+item-page/field-components/collections
 import { ItemPageDateFieldComponent } from '../+item-page/simple/field-components/specific-field/date/item-page-date-field.component';
 import { MetadataValuesComponent } from '../+item-page/field-components/metadata-values/metadata-values.component';
 import { ItemPageAuthorFieldComponent } from '../+item-page/simple/field-components/specific-field/author/item-page-author-field.component';
-import { ClaimedTaskActionsComponent } from './claimed-task-actions/claimed-task-actions.component';
-import { PoolTaskActionsComponent } from './pool-task-actions/pool-task-actions.component';
+import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
+import { PoolTaskActionsComponent } from './mydspace-actions/pool-task/pool-task-actions.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
 import { WrapperDetailElementComponent } from './object-detail/wrapper-detail-element/wrapper-detail-element.component';
 import { ItemDetailPreviewComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
 import { ItemListStatusComponent } from './object-list/item-list-status/item-list-status.component';
 import { SubmissionService } from '../submission/submission.service';
 import { SubmissionRestService } from '../submission/submission-rest.service';
+import { WorkspaceitemActionsComponent } from './mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import { WorkflowitemActionsComponent } from './mydspace-actions/workflowitem/workflowitem-actions.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -170,6 +172,8 @@ const COMPONENTS = [
   ItemDetailPreviewComponent,
   ClaimedTaskActionsComponent,
   PoolTaskActionsComponent,
+  WorkflowitemActionsComponent,
+  WorkspaceitemActionsComponent,
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
