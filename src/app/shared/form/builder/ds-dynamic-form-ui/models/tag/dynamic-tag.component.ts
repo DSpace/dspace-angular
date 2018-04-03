@@ -11,7 +11,7 @@ import { Chips } from '../../../../../chips/chips.model';
 
 @Component({
   selector: 'ds-dynamic-tag',
-  styleUrls: ['./dynamic-tag.component.scss'],
+  styleUrls: ['./dynamic-tag.component.scss', '../typeahead/dynamic-typeahead.component.scss'],
   templateUrl: './dynamic-tag.component.html'
 })
 export class DsDynamicTagComponent implements OnInit {
@@ -31,7 +31,7 @@ export class DsDynamicTagComponent implements OnInit {
   searching = false;
   searchOptions: IntegrationSearchOptions;
   searchFailed = false;
-  hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
+  hideSearchingWhenUnsubscribed = new Observable(() => () => this.changeSearchingStatus(false));
   currentValue: any;
 
   formatter = (x: { display: string }) => x.display;
@@ -40,7 +40,7 @@ export class DsDynamicTagComponent implements OnInit {
     text$
       .debounceTime(300)
       .distinctUntilChanged()
-      .do(() => this.searching = true)
+      .do(() => this.changeSearchingStatus(true))
       .switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
           return Observable.of({list: []});
@@ -62,7 +62,7 @@ export class DsDynamicTagComponent implements OnInit {
         }
       })
       .map((results) => results.list)
-      .do(() => this.searching = false)
+      .do(() => this.changeSearchingStatus(false))
       .merge(this.hideSearchingWhenUnsubscribed);
 
   constructor(private authorityService: AuthorityService,
@@ -85,6 +85,10 @@ export class DsDynamicTagComponent implements OnInit {
     }
   }
 
+  changeSearchingStatus(status: boolean) {
+    this.searching = status;
+    this.cdr.detectChanges();
+  }
   onInput(event) {
     if (event.data) {
       this.group.markAsDirty();

@@ -72,13 +72,7 @@ export class Chips {
       }
     }
 
-    // let textToDisplay = ''; // !Important for chips changes, value can be undefined
-    // if (value) {
-    //   textToDisplay = value.length > 20 ? value.substr(0, 17).concat('...') : value;
-    // }
-    // return textToDisplay;
     return value;
-
   }
 
   /**

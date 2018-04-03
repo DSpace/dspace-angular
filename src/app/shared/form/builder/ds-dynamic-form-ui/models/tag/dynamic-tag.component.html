@@ -9,6 +9,7 @@
   (change)="changeChips($event)"
 ></ds-chips>
 
+
 <input
   *ngIf="!searchOptions"
   type="text"
@@ -19,29 +20,32 @@
   (keyup)="onKeyUp($event)"
 />
 
-<input
-  *ngIf="searchOptions"
-  type="text"
-  [(ngModel)]="currentValue"
-  [attr.autoComplete]="model.autoComplete"
-  [class.is-invalid]="showErrorMessages"
-  [dynamicId]="bindId && model.id"
-  [inputFormatter]="formatter"
-  [name]="model.name"
-  [ngbTypeahead]="search"
-  [placeholder]="model.label"
-  [resultTemplate]="rt"
-  [type]="model.inputType"
-  (blur)="onBlurEvent($event)"
-  (focus)="onFocusEvent($event)"
-  (change)="$event.stopPropagation()"
-  (input)="onInput($event)"
-  (selectItem)="onSelectItem($event)"
-  (keypress)="preventEventsPropagation($event)"
-  (keydown)="preventEventsPropagation($event)"
-  (keyup)="onKeyUp($event)"
-/>
+<div class="spinner-addon right-addon"
+     *ngIf="searchOptions">
+  <i *ngIf="searching" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
 
+  <input
+    type="text"
+    [(ngModel)]="currentValue"
+    [attr.autoComplete]="model.autoComplete"
+    [class.is-invalid]="showErrorMessages"
+    [dynamicId]="bindId && model.id"
+    [inputFormatter]="formatter"
+    [name]="model.name"
+    [ngbTypeahead]="search"
+    [placeholder]="model.label"
+    [resultTemplate]="rt"
+    [type]="model.inputType"
+    (blur)="onBlurEvent($event)"
+    (focus)="onFocusEvent($event)"
+    (change)="$event.stopPropagation()"
+    (input)="onInput($event)"
+    (selectItem)="onSelectItem($event)"
+    (keypress)="preventEventsPropagation($event)"
+    (keydown)="preventEventsPropagation($event)"
+    (keyup)="onKeyUp($event)"
+  />
+</div>
 <hr/>
 
 <br/>
