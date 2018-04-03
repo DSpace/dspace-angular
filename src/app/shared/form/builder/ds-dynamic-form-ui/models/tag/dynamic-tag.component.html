@@ -13,15 +13,16 @@
   *ngIf="!searchOptions"
   type="text"
   placeholder="Enter a tag..."
+  [(ngModel)]="currentValue"
   (keypress)="preventEventsPropagation($event)"
   (keydown)="preventEventsPropagation($event)"
   (keyup)="onKeyUp($event)"
-  [(ngModel)]="currentValue"
 />
 
 <input
   *ngIf="searchOptions"
   type="text"
+  [(ngModel)]="currentValue"
   [attr.autoComplete]="model.autoComplete"
   [class.is-invalid]="showErrorMessages"
   [dynamicId]="bindId && model.id"
@@ -31,13 +32,14 @@
   [placeholder]="model.label"
   [resultTemplate]="rt"
   [type]="model.inputType"
-  [(ngModel)]="currentValue"
   (blur)="onBlurEvent($event)"
   (focus)="onFocusEvent($event)"
   (change)="$event.stopPropagation()"
   (input)="onInput($event)"
   (selectItem)="onSelectItem($event)"
-  (keyup)="onKeyUpClosed($event)"
+  (keypress)="preventEventsPropagation($event)"
+  (keydown)="preventEventsPropagation($event)"
+  (keyup)="onKeyUp($event)"
 />
 
 <hr/>

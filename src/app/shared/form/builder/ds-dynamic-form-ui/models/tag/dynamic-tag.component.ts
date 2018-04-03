@@ -26,7 +26,7 @@ export class DsDynamicTagComponent implements OnInit {
 
   chips: Chips;
   placeholder = 'Enter tags...';
-  // inputText: string;
+  withAuthority: boolean;
 
   searching = false;
   searchOptions: IntegrationSearchOptions;
@@ -34,7 +34,7 @@ export class DsDynamicTagComponent implements OnInit {
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.searching = false);
   currentValue: any;
 
-  formatter = (x: {display: string}) => x.display;
+  formatter = (x: { display: string }) => x.display;
 
   search = (text$: Observable<string>) =>
     text$
@@ -52,13 +52,13 @@ export class DsDynamicTagComponent implements OnInit {
               return {
                 list: authorities.payload,
                 pageInfo: authorities.pageInfo
-              }
+              };
             })
             .do(() => this.searchFailed = false)
             .catch(() => {
               this.searchFailed = true;
               return Observable.of({list: []});
-            })
+            });
         }
       })
       .map((results) => results.list)
@@ -70,15 +70,15 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   ngOnInit() {
-    const withAuthority = this.model.authorityName && this.model.authorityName.length > 0;
-    if (withAuthority) {
+    this.withAuthority = this.model.authorityName && this.model.authorityName.length > 0;
+    if (this.withAuthority) {
       this.searchOptions = new IntegrationSearchOptions(
         this.model.authorityScope,
         this.model.authorityName,
         this.model.authorityMetadata);
     }
 
-    if (withAuthority) {
+    if (this.withAuthority) {
       this.chips = new Chips(this.model.value, 'display');
     } else {
       this.chips = new Chips(this.model.value, 'display');
@@ -113,6 +113,7 @@ export class DsDynamicTagComponent implements OnInit {
     setTimeout(() => {
       // Reset the input text after x ms, mandatory or the formatter overwrite it
       this.currentValue = null;
+      this.cdr.detectChanges();
     }, 50);
   }
 
@@ -122,26 +123,11 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onKeyUp(event) {
-    event.preventDefault();
     if (event.keyCode === 13 || event.keyCode === 188) {
-      // Key: Enter or , or ;
-      this.addTagsToChips();
-      event.stopPropagation();
-    }
-  }
-
-  onKeyUpClosed(event) {
-    if (!this.model.authorityClosed &&  (event.keyCode === 13 || event.keyCode === 188) ) {
-
       event.preventDefault();
       // Key: Enter or , or ;
       this.addTagsToChips();
       event.stopPropagation();
-
-      setTimeout(() => {
-        // Reset the input text after x ms, mandatory or the formatter overwrite it
-        this.currentValue = null;
-      }, 50);
     }
   }
 
@@ -149,31 +135,37 @@ export class DsDynamicTagComponent implements OnInit {
     event.stopPropagation();
     if (event.keyCode === 13) {
       // Key: Enter or , or ;
-      event.preventDefault()
+      event.preventDefault();
     }
   }
 
   private addTagsToChips() {
-    let res: string[] = [];
-    res = this.currentValue.split(',');
+    if (!this.withAuthority || !this.model.authorityClosed) {
+      let res: string[] = [];
+      res = this.currentValue.split(',');
 
-    const res1 = [];
-    res.forEach((item) => {
-      item.split(';').forEach((i) => {
-        res1.push(i);
+      const res1 = [];
+      res.forEach((item) => {
+        item.split(';').forEach((i) => {
+          res1.push(i);
+        });
       });
-    });
 
-    res1.forEach((c) => {
-      c = c.trim();
-      if (c.length > 0) {
-        this.chips.add(c);
-      }
-    });
+      res1.forEach((c) => {
+        c = c.trim();
+        if (c.length > 0) {
+          this.chips.add(c);
+        }
+      });
 
-    this.currentValue = '';
-    this.updateModel(event);
-
+      // this.currentValue = '';
+      setTimeout(() => {
+        // Reset the input text after x ms, mandatory or the formatter overwrite it
+        this.currentValue = null;
+        this.cdr.detectChanges();
+      }, 50);
+      this.updateModel(event);
+    }
   }
 
   chipsSelected(event) {
