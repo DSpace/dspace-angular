@@ -16,7 +16,7 @@
   (keypress)="preventEventsPropagation($event)"
   (keydown)="preventEventsPropagation($event)"
   (keyup)="onKeyUp($event)"
-  [(ngModel)]="inputText"
+  [(ngModel)]="currentValue"
 />
 
 <input
@@ -37,6 +37,7 @@
   (change)="$event.stopPropagation()"
   (input)="onInput($event)"
   (selectItem)="onSelectItem($event)"
+  (keyup)="onKeyUpClosed($event)"
 />
 
 <hr/>

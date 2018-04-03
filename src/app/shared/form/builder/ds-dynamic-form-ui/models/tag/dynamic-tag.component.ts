@@ -1,15 +1,13 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
-import {Observable} from 'rxjs/Observable';
-import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
+import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
-import {AuthorityService} from '../../../../../../core/integration/authority.service';
-import {DynamicTagModel} from './dynamic-tag.model';
-import {IntegrationSearchOptions} from '../../../../../../core/integration/models/integration-options.model';
-import {isNotEmpty} from '../../../../../empty.util';
-import {Chips} from '../../../../../chips/chips.model';
-import {AuthorityModel} from '../../../../../../core/integration/models/authority.model';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { DynamicTagModel } from './dynamic-tag.model';
+import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { Chips } from '../../../../../chips/chips.model';
 
 @Component({
   selector: 'ds-dynamic-tag',
@@ -28,7 +26,7 @@ export class DsDynamicTagComponent implements OnInit {
 
   chips: Chips;
   placeholder = 'Enter tags...';
-  inputText: string;
+  // inputText: string;
 
   searching = false;
   searchOptions: IntegrationSearchOptions;
@@ -82,38 +80,9 @@ export class DsDynamicTagComponent implements OnInit {
 
     if (withAuthority) {
       this.chips = new Chips(this.model.value, 'display');
-      // this.model.value.forEach( (v) => {
-      //       let item;
-      //       if (withAuthority) {
-      //         item = {
-      //           id: v.authority || v.value,
-      //           value: v.value,
-      //           display: v.value
-      //         } as AuthorityModel;
-      //       } else {
-      //         item = v;
-      //       }
-      //       this.chips.add(item);
-      //     });
     } else {
       this.chips = new Chips(this.model.value, 'display');
     }
-    // if (this.model.storedValue && this.model.storedValue.length > 0) {
-    //   // Values found in edit
-    //   this.model.storedValue.forEach( (v) => {
-    //     let item;
-    //     if (withAuthority) {
-    //       item = {
-    //         id: v.authority || v.value,
-    //         value: v.value,
-    //         display: v.value
-    //       } as AuthorityModel;
-    //     } else {
-    //       item = v;
-    //     }
-    //     this.model.chips.add(item);
-    //   });
-    // }
   }
 
   onInput(event) {
@@ -125,7 +94,7 @@ export class DsDynamicTagComponent implements OnInit {
 
   onBlurEvent(event: Event) {
     if (this.chips.displayObj === null) {
-      if (this.inputText != null && this.inputText.length > 0) {
+      if (this.currentValue != null && this.currentValue.length > 0) {
         this.addTagsToChips();
       }
     }
@@ -161,6 +130,21 @@ export class DsDynamicTagComponent implements OnInit {
     }
   }
 
+  onKeyUpClosed(event) {
+    if (!this.model.authorityClosed &&  (event.keyCode === 13 || event.keyCode === 188) ) {
+
+      event.preventDefault();
+      // Key: Enter or , or ;
+      this.addTagsToChips();
+      event.stopPropagation();
+
+      setTimeout(() => {
+        // Reset the input text after x ms, mandatory or the formatter overwrite it
+        this.currentValue = null;
+      }, 50);
+    }
+  }
+
   preventEventsPropagation(event) {
     event.stopPropagation();
     if (event.keyCode === 13) {
@@ -171,7 +155,7 @@ export class DsDynamicTagComponent implements OnInit {
 
   private addTagsToChips() {
     let res: string[] = [];
-    res = this.inputText.split(',');
+    res = this.currentValue.split(',');
 
     const res1 = [];
     res.forEach((item) => {
@@ -187,7 +171,7 @@ export class DsDynamicTagComponent implements OnInit {
       }
     });
 
-    this.inputText = '';
+    this.currentValue = '';
     this.updateModel(event);
 
   }
