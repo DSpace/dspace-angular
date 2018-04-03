@@ -72,12 +72,14 @@ export class DsDynamicGroupComponent implements OnInit {
     }
 
     // Item to add
-    const item = this.readFormItem();
+    if (!this.isMandatoryFieldEmpty()) {
+      const item = this.readFormItem();
 
-    this.chips.add(item);
-    this.model.valueUpdates.next(this.chips.getItems());
-    this.change.emit(event);
-    this.resetForm();
+      this.chips.add(item);
+      this.model.valueUpdates.next(this.chips.getItems());
+      this.change.emit(event);
+      this.resetForm();
+    }
   }
 
   chipsSelected(event) {
@@ -119,13 +121,6 @@ export class DsDynamicGroupComponent implements OnInit {
       return;
     }
 
-    // const oldChipsItem = this.selectedChips.item;
-    //
-    // const item = this.readFormItem();
-    // this.selectedChips.item = item;
-    // this.chips.update(this.selectedChips);
-    // this.model.valueUpdates.next(this.chips.getItems());
-
     if (!this.isMandatoryFieldEmpty()) {
       const item = this.readFormItem();
       this.selectedChips.item = item;
@@ -135,15 +130,6 @@ export class DsDynamicGroupComponent implements OnInit {
       this.editMode = false;
       this.change.emit(event);
       this.resetForm();
-      this.cdr.detectChanges();
-    } else {
-      const oldChipsItem = this.selectedChips.item;
-      this.selectedChips.item = oldChipsItem;
-      this.chips.update(this.selectedChips);
-      this.model.valueUpdates.next(this.chips.getItems());
-      this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
-
-      this.change.emit(event);
       this.cdr.detectChanges();
     }
   }
