@@ -20,11 +20,9 @@
   (keyup)="onKeyUp($event)"
 />
 
-<div class="spinner-addon right-addon"
-     *ngIf="searchOptions">
-  <i *ngIf="searching" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
 
   <input
+    *ngIf="searchOptions"
     type="text"
     [(ngModel)]="currentValue"
     [attr.autoComplete]="model.autoComplete"
@@ -45,7 +43,8 @@
     (keydown)="preventEventsPropagation($event)"
     (keyup)="onKeyUp($event)"
   />
-</div>
+  <i *ngIf="searching" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
+
 <hr/>
 
 <br/>

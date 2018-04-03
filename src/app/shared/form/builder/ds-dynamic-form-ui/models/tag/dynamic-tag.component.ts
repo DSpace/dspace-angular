@@ -11,7 +11,7 @@ import { Chips } from '../../../../../chips/chips.model';
 
 @Component({
   selector: 'ds-dynamic-tag',
-  styleUrls: ['./dynamic-tag.component.scss', '../typeahead/dynamic-typeahead.component.scss'],
+  styleUrls: ['./dynamic-tag.component.scss'],
   templateUrl: './dynamic-tag.component.html'
 })
 export class DsDynamicTagComponent implements OnInit {
