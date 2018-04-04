@@ -66,12 +66,6 @@ export class AuthService {
       });
   }
 
-  protected isLoginRoute(url: string) {
-    const urlTree: UrlTree = this.router.parseUrl(url);
-    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
-    const segment = '/' + g.toString();
-    return segment === LOGIN_ROUTE;
-  }
   /**
    * Check if is a login page route
    *

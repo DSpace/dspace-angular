@@ -50,7 +50,7 @@ export class ConcatFieldParser extends FieldParser {
     const input1ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_FIRST_INPUT_SUFFIX, true, false, false);
     const input2ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_SECOND_INPUT_SUFFIX, true, true, false);
 
-    if (concatGroup.required) {
+    if (this.configData.mandatory) {
       input1ModelConfig.required = true;
     }
 
