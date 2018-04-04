@@ -144,7 +144,7 @@ export class AuthInterceptor implements HttpInterceptor {
           } else if (this.isUnauthorized(error)) {
             // The access token provided is expired, revoked, malformed, or invalid for other reasons
             // Redirect to the login route
-            this.store.dispatch(new RedirectWhenTokenExpiredAction('Your session has expired. Please log in again.'));
+            this.store.dispatch(new RedirectWhenTokenExpiredAction('auth.messages.expired'));
           }
         }
         // Return error response as is.

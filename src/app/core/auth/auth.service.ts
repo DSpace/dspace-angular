@@ -70,6 +70,19 @@ export class AuthService {
     return segment === LOGIN_ROUTE;
   }
   /**
+   * Check if is a login page route
+   *
+   * @param {string} url
+   * @returns {Boolean}.
+   */
+  protected isLoginRoute(url: string) {
+    const urlTree: UrlTree = this.router.parseUrl(url);
+    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
+    const segment = '/' + g.toString();
+    return segment === LOGIN_ROUTE;
+  }
+
+  /**
    * Authenticate the user
    *
    * @param {string} user The user name
@@ -212,7 +225,7 @@ export class AuthService {
         if (!status.authenticated) {
           return true;
         } else {
-          throw(new Error('Invalid email or password'));
+          throw(new Error('auth.errors.invalid-user'));
         }
       })
 
