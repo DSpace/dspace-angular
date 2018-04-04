@@ -129,7 +129,7 @@ export class AuthEffects {
   public logOutSuccess: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.LOG_OUT_SUCCESS)
     .do(() => this.authService.removeToken())
-    .do(() => this.authService.refreshPage());
+    .do(() => this.authService.refreshAfterLogout());
 
   @Effect({dispatch: false})
   public redirectToLogin: Observable<Action> = this.actions$

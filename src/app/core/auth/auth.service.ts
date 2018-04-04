@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -18,6 +18,7 @@ import { Store } from '@ngrx/store';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { RouterReducerState } from '@ngrx/router-store';
 import { CookieAttributes } from 'js-cookie';
+import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
 
 export const LOGIN_ROUTE = '/login';
 
@@ -33,7 +34,8 @@ export class AuthService {
    */
   private _authenticated: boolean;
 
-  constructor(private authRequestService: AuthRequestService,
+  constructor(@Inject(NativeWindowService) private _window: NativeWindowRef,
+              private authRequestService: AuthRequestService,
               private router: Router,
               private storage: CookieService,
               private store: Store<AppState>) {
@@ -290,14 +292,9 @@ export class AuthService {
   /**
    * Refresh route navigated
    */
-  public refreshPage() {
-    this.store.select(routerStateSelector)
-      .take(1)
-      .subscribe((router) => {
-        // TODO Check a way to hard refresh the same route
-        // this.router.navigate([router.state.url],  { replaceUrl: true });
-        this.router.navigate(['/']);
-      })
+  public refreshAfterLogout() {
+    // Hard redirect to home page, so that all state is definitely lost
+    this._window.nativeWindow.location.href = '/home';
   }
 
   /**
