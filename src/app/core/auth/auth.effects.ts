@@ -138,7 +138,7 @@ export class AuthEffects {
     .do(() => this.authService.redirectToLogin());
 
   @Effect({dispatch: false})
-  public redirectToLogin: Observable<Action> = this.actions$
+  public redirectToLoginTokenExpired: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED)
     .do(() => this.authService.removeToken())
     .do(() => this.authService.redirectToLoginWhenTokenExpired());
