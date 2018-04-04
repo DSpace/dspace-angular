@@ -15,6 +15,7 @@ import { RequestService } from '../../core/data/request.service';
 import { ResponseCacheService } from '../../core/cache/response-cache.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { RouterStub } from '../../shared/testing/router-stub';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -37,14 +38,12 @@ describe('SearchService', () => {
           DummyComponent
         ],
         providers: [
-          { provide: ItemDataService, useValue: {} },
-          { provide: RouteService, useValue: {} },
+          { provide: Router, useValue: router },
+          { provide: ActivatedRoute, useValue: route },
           { provide: ResponseCacheService, useValue: {} },
           { provide: RequestService, useValue: {} },
-          { provide: ActivatedRoute, useValue: route },
           { provide: RemoteDataBuildService, useValue: {} },
-          { provide: GLOBAL_CONFIG, useValue: {} },
-          { provide: Router, useValue: router },
+          { provide: HALEndpointService, useValue: {} },
           SearchService
         ],
       });
@@ -73,14 +72,12 @@ describe('SearchService', () => {
           DummyComponent
         ],
         providers: [
-          { provide: ItemDataService, useValue: {} },
-          { provide: RouteService, useValue: {} },
+          { provide: Router, useValue: router },
+          { provide: ActivatedRoute, useValue: route },
           { provide: ResponseCacheService, useValue: {} },
           { provide: RequestService, useValue: {} },
-          { provide: ActivatedRoute, useValue: route },
           { provide: RemoteDataBuildService, useValue: {} },
-          { provide: GLOBAL_CONFIG, useValue: {} },
-          { provide: Router, useValue: router },
+          { provide: HALEndpointService, useValue: {} },
           SearchService
         ],
       });

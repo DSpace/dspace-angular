@@ -1,24 +1,23 @@
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/Rx';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
   let service: ItemDataService;
   let bs: BrowseService;
-
   const requestService = {} as RequestService;
   const responseCache = {} as ResponseCacheService;
   const rdbService = {} as RemoteDataBuildService;
   const store = {} as Store<CoreState>;
-  const EnvConfig = {} as GlobalConfig;
+  const halEndpointService = {} as HALEndpointService;
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
   const browsesEndpoint = 'https://rest.api/discover/browses';
@@ -42,8 +41,8 @@ describe('ItemDataService', () => {
       requestService,
       rdbService,
       store,
-      EnvConfig,
-      bs
+      bs,
+      halEndpointService
     );
   }
 
@@ -74,21 +73,5 @@ describe('ItemDataService', () => {
         expect(result).toBeObservable(expected);
       });
     });
-
-    describe('if the scope is not specified', () => {
-      beforeEach(() => {
-        bs = initMockBrowseService(true);
-        service = initTestService();
-        spyOn(service, 'getEndpoint').and.returnValue(cold('--b-', { b: serviceEndpoint }))
-      });
-
-      it('should return this.getEndpoint()', () => {
-        const result = service.getScopedEndpoint(undefined);
-        const expected = cold('--c-', { c: serviceEndpoint });
-
-        expect(result).toBeObservable(expected);
-      });
-    });
-
   });
 });

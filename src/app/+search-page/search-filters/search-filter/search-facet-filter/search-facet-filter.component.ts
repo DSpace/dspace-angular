@@ -102,7 +102,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   isLastPage(): Observable<boolean> {
     return Observable.of(false);
-    // return this.filterValues.flatMap((map) => map.pop().map((rd: RemoteData<PaginatedList<FacetValue>>) => rd.payload.currentPage >= rd.payload.totalPages));
+    // return this.filterValues$.flatMap((map) => map.pop().map((rd: RemoteData<PaginatedList<FacetValue>>) => rd.payload.currentPage >= rd.payload.totalPages));
   }
 
   getRemoveParams(value: string) {

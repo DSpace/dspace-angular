@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 
 describe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
@@ -88,6 +89,10 @@ describe('SearchPageComponent', () => {
         {
           provide: SearchSidebarService,
           useValue: sidebarService
+        },
+        {
+          provide: SearchFilterService,
+          useValue: {}
         },
       ],
       schemas: [NO_ERRORS_SCHEMA]

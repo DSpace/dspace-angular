@@ -67,50 +67,36 @@ describe('RouteService', () => {
     });
   });
 
-  describe('addQueryParameterValue', () => {
-    it('should return a list of values that contains the added value when a new value is added and the parameter did not exist yet', () => {
-      service.resolveRouteWithParameterValue(nonExistingParamName, nonExistingParamValue).subscribe((params) => {
-        expect(params[nonExistingParamName]).toContain(nonExistingParamValue);
+  describe('getQueryParameterValues', () => {
+    it('should return a list of values when the parameter exists', () => {
+      service.getQueryParameterValues(paramName2).subscribe((params) => {
+        expect(params).toEqual([paramValue2a, paramValue2b]);
       });
     });
-    it('should return a list of values that contains the existing values and the added value when a new value is added and the parameter already has values', () => {
-      service.resolveRouteWithParameterValue(paramName1, nonExistingParamValue).subscribe((params) => {
-        const values = params[paramName1];
-        expect(values).toContain(paramValue1);
-        expect(values).toContain(nonExistingParamValue);
+
+    it('should return an empty array when the parameter does not exists', () => {
+      service.getQueryParameterValues(nonExistingParamName).subscribe((params) => {
+        expect(params).toEqual([]);
       });
     });
   });
 
-  describe('removeQueryParameterValue', () => {
-    it('should return a list of values that does not contain the removed value when the parameter value exists', () => {
-      service.resolveRouteWithoutParameterValue(paramName2, paramValue2a).subscribe((params) => {
-        const values = params[paramName2];
-        expect(values).toContain(paramValue2b);
-        expect(values).not.toContain(paramValue2a);
+  describe('getQueryParameterValue', () => {
+    it('should return a single value when the parameter exists', () => {
+      service.getQueryParameterValue(paramName1).subscribe((params) => {
+        expect(params).toEqual(paramValue1);
       });
     });
 
-    it('should return a list of values that does contain all existing values when the removed parameter does not exist', () => {
-      service.resolveRouteWithoutParameterValue(paramName2, nonExistingParamValue).subscribe((params) => {
-        const values = params[paramName2];
-        expect(values).toContain(paramValue2a);
-        expect(values).toContain(paramValue2b);
+    it('should return only the first value when the parameter exists', () => {
+      service.getQueryParameterValue(paramName2).subscribe((params) => {
+        expect(params).toEqual(paramValue2a);
       });
     });
-  });
 
-  describe('getWithoutParameter', () => {
-    it('should return a list of values that does not contain any values for the parameter anymore when the parameter exists', () => {
-      service.resolveRouteWithoutParameter(paramName2).subscribe((params) => {
-        const values = params[paramName2];
-        expect(values).toEqual({});
-      });
-    });
-    it('should return a list of values that does not contain any values for the parameter when the parameter does not exist', () => {
-      service.resolveRouteWithoutParameter(nonExistingParamName).subscribe((params) => {
-        const values = params[nonExistingParamName];
-        expect(values).toEqual({});
+    it('should return undefined when the parameter exists', () => {
+      service.getQueryParameterValue(nonExistingParamName).subscribe((params) => {
+        expect(params).toBeNull();
       });
     });
   });

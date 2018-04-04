@@ -14,12 +14,9 @@ import { GLOBAL_CONFIG } from '../../../config';
 @Injectable()
 export class HALEndpointService {
 
-  protected linkPath: string;
-
   constructor(private responseCache: ResponseCacheService,
               private requestService: RequestService,
               @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
-
   }
 
   protected getRootHref(): string {
@@ -41,9 +38,7 @@ export class HALEndpointService {
   }
 
   public getEndpoint(linkPath: string): Observable<string> {
-    const test = this.getEndpointAt(...linkPath.split('/'));
-    // test.subscribe((test) => console.log(linkPath, test));
-    return test;
+    return this.getEndpointAt(...linkPath.split('/'));
   }
 
   private getEndpointAt(...path: string[]): Observable<string> {

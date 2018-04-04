@@ -3,11 +3,11 @@ import { getMockResponseCacheService } from '../../shared/mocks/mock-response-ca
 import { BrowseService } from './browse.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
-import { GlobalConfig } from '../../../config';
 import { hot, cold, getTestScheduler } from 'jasmine-marbles';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEndpointRequest } from '../data/request.models';
 import { TestScheduler } from 'rxjs/Rx';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
@@ -15,8 +15,8 @@ describe('BrowseService', () => {
   let responseCache: ResponseCacheService;
   let requestService: RequestService;
 
-  const envConfig = {} as GlobalConfig;
   const browsesEndpointURL = 'https://rest.api/browses';
+  const halService: any = new HALEndpointServiceStub(browsesEndpointURL);
   const browseDefinitions = [
     Object.assign(new BrowseDefinition(), {
       metadataBrowse: false,
@@ -91,7 +91,7 @@ describe('BrowseService', () => {
     return new BrowseService(
       responseCache,
       requestService,
-      envConfig
+      halService
     );
   }
 
@@ -106,7 +106,7 @@ describe('BrowseService', () => {
         responseCache = initMockResponseCacheService(true);
         requestService = getMockRequestService();
         service = initTestService();
-        spyOn(service, 'getEndpoint').and
+        spyOn(halService, 'getEndpoint').and
           .returnValue(hot('--a-', { a: browsesEndpointURL }));
       });
 
@@ -171,7 +171,7 @@ describe('BrowseService', () => {
         responseCache = initMockResponseCacheService(true);
         requestService = getMockRequestService();
         service = initTestService();
-        spyOn(service, 'getEndpoint').and
+        spyOn(halService, 'getEndpoint').and
           .returnValue(hot('----'));
 
         const metadatumKey = 'dc.date.issued';
@@ -188,7 +188,7 @@ describe('BrowseService', () => {
         responseCache = initMockResponseCacheService(false);
         requestService = getMockRequestService();
         service = initTestService();
-        spyOn(service, 'getEndpoint').and
+        spyOn(halService, 'getEndpoint').and
           .returnValue(hot('--a-', { a: browsesEndpointURL }));
 
         const metadatumKey = 'dc.date.issued';

@@ -23,7 +23,6 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { RouteService } from '../../shared/route.service';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
@@ -37,7 +36,6 @@ import { getSearchResultFor } from './search-result-element-decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { FacetValueResponseParsingService } from '../../core/data/facet-value-response-parsing.service';
 import { FacetConfigResponseParsingService } from '../../core/data/facet-config-response-parsing.service';
-import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 
 @Injectable()
@@ -206,7 +204,6 @@ export class SearchService implements OnDestroy {
   }
 
   getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions): Observable<RemoteData<PaginatedList<FacetValue>>> {
-    console.log('facetvalues');
     const requestObs = this.halService.getEndpoint(this.facetValueLinkPathPrefix + filterConfig.name).pipe(
       map((url: string) => {
         const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
@@ -266,20 +263,6 @@ export class SearchService implements OnDestroy {
     };
 
     this.router.navigate([this.uiSearchRoute], navigationExtras);
-  }
-
-  getClearFiltersQueryParams(): any {
-    const params = {};
-    this.sub = this.route.queryParamMap
-      .subscribe((pmap) => {
-        pmap.keys
-          .filter((key) => this.config
-            .findIndex((conf: SearchFilterConfig) => conf.paramName === key) < 0)
-          .forEach((key) => {
-            params[key] = pmap.get(key);
-          })
-      });
-    return params;
   }
 
   getSearchLink() {

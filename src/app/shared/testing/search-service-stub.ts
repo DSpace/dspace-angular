@@ -9,7 +9,7 @@ export class SearchServiceStub {
 
   viewMode = this.subject.asObservable();
 
-  constructor() {
+  constructor(private searchLink: string = '/search') {
     this.setViewMode(ViewMode.List);
   }
 
@@ -21,6 +21,10 @@ export class SearchServiceStub {
     this.testViewMode = viewMode;
   }
 
+  getFacetValuesFor() {
+    return null;
+  }
+
   get testViewMode(): ViewMode {
     return this._viewMode;
   }
@@ -28,5 +32,9 @@ export class SearchServiceStub {
   set testViewMode(viewMode: ViewMode) {
     this._viewMode = viewMode;
     this.subject.next(viewMode);
+  }
+
+  getSearchLink() {
+    return this.searchLink;
   }
 }

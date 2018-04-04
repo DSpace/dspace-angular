@@ -10,6 +10,10 @@ import { FilterType } from '../../../search-service/filter-type.model';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { SearchService } from '../../../search-service/search.service';
+import { SearchServiceStub } from '../../../../shared/testing/search-service-stub';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -40,29 +44,31 @@ describe('SearchFacetFilterComponent', () => {
       search: ''
     }
   ];
+
+  const searchLink = '/search';
+  const selectedValues = [value1, value2];
   let filterService;
-  const page = Observable.of(0)
+  const page = Observable.of(0);
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
       declarations: [SearchFacetFilterComponent],
       providers: [
+        { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         {
-          provide: SearchFilterService,
-          useValue: {
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-            getQueryParamsWith: (paramName: string, filterValue: string) => '',
-            getQueryParamsWithout: (paramName: string, filterValue: string) => '',
-            getPage: (paramName: string) => page,
-            /* tslint:disable:no-empty */
-            incrementPage: (filterName: string) => {
-            },
-            resetPage: (filterName: string) => {
-            },
-            /* tslint:enable:no-empty */
-            searchLink: '/search',
-          }
-        },
+          provide: SearchFilterService, useValue: {
+          isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
+          getPage: (paramName: string) => page,
+          /* tslint:disable:no-empty */
+          incrementPage: (filterName: string) => {
+          },
+          resetPage: (filterName: string) => {
+          },
+          getSearchOptions: () => Observable.of({}),
+
+          /* tslint:enable:no-empty */
+        }
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchFacetFilterComponent, {
@@ -74,7 +80,8 @@ describe('SearchFacetFilterComponent', () => {
     fixture = TestBed.createComponent(SearchFacetFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.filterConfig = mockFilterConfig;
-    comp.filterValues = values;
+    comp.filterValues = [Observable.of(new RemoteData(false, false, true, null, new PaginatedList(null, values)))];
+    comp.selectedValues = selectedValues;
     filterService = (comp as any).filterService;
     fixture.detectChanges();
   });
@@ -97,64 +104,24 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should return the value of the searchLink variable in the filter service', () => {
-      expect(link).toEqual(filterService.searchLink);
+      expect(link).toEqual(searchLink);
     });
   });
 
-  describe('when the getQueryParamsWith method is called wih a value', () => {
-    beforeEach(() => {
-      spyOn(filterService, 'getQueryParamsWith');
-      comp.getQueryParamsWith(values[1].value);
-    });
-
-    it('should call getQueryParamsWith on the filterService with the correct filter parameter name and the passed value', () => {
-      expect(filterService.getQueryParamsWith).toHaveBeenCalledWith(mockFilterConfig, values[1].value)
+  describe('when the getAddParams method is called wih a value', () => {
+    it('should return the selectedValueq list with the new parameter value', () => {
+      const result = comp.getAddParams(value3);
+      expect(result).toEqual({[mockFilterConfig.paramName]: [value1, value2, value3]});
     });
   });
 
-  describe('when the getQueryParamsWithout method is called wih a value', () => {
-    beforeEach(() => {
-      spyOn(filterService, 'getQueryParamsWithout');
-      comp.getQueryParamsWithout(values[1].value);
-    });
-
-    it('should call getQueryParamsWithout on the filterService with the correct filter parameter name and the passed value', () => {
-      expect(filterService.getQueryParamsWithout).toHaveBeenCalledWith(mockFilterConfig, values[1].value)
+  describe('when the getRemoveParams method is called wih a value', () => {
+    it('should return the selectedValueq list with the parameter value left out', () => {
+      const result = comp.getRemoveParams(value1);
+      expect(result).toEqual({[mockFilterConfig.paramName]: [value2]});
     });
   });
 
-  describe('when the facetCount method is triggered when there are less items than the amount of pages should display', () => {
-    let count: Observable<number>;
-    beforeEach(() => {
-      comp.currentPage = Observable.of(3);
-      // 2 x 3 = 6, there are only 3 values
-      count = comp.facetCount;
-    });
-
-    it('should return the correct number of items shown (this equals the total amount of values for this filter)', () => {
-      const sub = count.subscribe((c) => expect(c).toBe(values.length));
-      sub.unsubscribe();
-    });
-  });
-
-  describe('when the facetCount method is triggered when there are more items than the amount of pages should display', () => {
-    let count: Observable<number>;
-    beforeEach(() => {
-      comp.currentPage = Observable.of(1);
-      // 2 x 1 = 2, there are more than 2 (3) items
-      count = comp.facetCount;
-    });
-
-    it('should return the correct number of items shown (this equals the page count x page size)', () => {
-      const sub = count.subscribe((c) => {
-        const subsub = comp.currentPage.subscribe((currentPage) => {
-          expect(c).toBe(currentPage * mockFilterConfig.pageSize);
-        });
-        subsub.unsubscribe()
-      });
-      sub.unsubscribe();
-    });
-  });
 
   describe('when the showMore method is called', () => {
     beforeEach(() => {

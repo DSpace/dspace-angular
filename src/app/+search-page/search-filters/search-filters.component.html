@@ -4,4 +4,4 @@
         <ds-search-filter class="d-block mb-3 p-3" [filter]="filter"></ds-search-filter>
     </div>
 </div>
-<a class="btn btn-primary" [routerLink]="[getSearchLink()]" [queryParams]="getClearFiltersQueryParams()" role="button">{{"search.filters.reset" | translate}}</a>
+<a class="btn btn-primary" [routerLink]="[getSearchLink()]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">{{"search.filters.reset" | translate}}</a>
