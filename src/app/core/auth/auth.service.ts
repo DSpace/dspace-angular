@@ -276,7 +276,7 @@ export class AuthService {
    * Redirect to the login route
    */
   public redirectToLogin() {
-    this.router.navigate(LOGIN_ROUTE);
+    this.router.navigate([LOGIN_ROUTE]);
   }
 
   /**
