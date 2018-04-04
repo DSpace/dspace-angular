@@ -6,10 +6,12 @@ import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.compo
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BitstreamFormatsComponent } from './bitstream-formats/bitstream-formats.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule,
     TranslateModule,
     AdminRegistriesRoutingModule

@@ -6,6 +6,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataField } from '../../../core/metadata/metadatafield.model';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 
 @Component({
   selector: 'ds-metadata-schema',
@@ -17,6 +19,10 @@ export class MetadataSchemaComponent implements OnInit {
 
   metadataSchema: Observable<RemoteData<MetadataSchema>>;
   metadataFields: Observable<RemoteData<PaginatedList<MetadataField>>>;
+  config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'registry-metadatafields-pagination',
+    pageSize: 20
+  });
 
   constructor(private registryService: RegistryService, private route: ActivatedRoute) {
 
@@ -30,10 +36,19 @@ export class MetadataSchemaComponent implements OnInit {
 
   initialize(params) {
     this.metadataSchema = this.registryService.getMetadataSchemaByName(params.schemaName);
-    this.metadataSchema.subscribe((value) => {
-      const schema = value.payload;
-      // this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema);
-      this.namespace = { namespace: value.payload.namespace };
+    this.updateFields();
+  }
+
+  onPageChange(event) {
+    this.config.currentPage = event;
+    this.updateFields();
+  }
+
+  private updateFields() {
+    this.metadataSchema.subscribe((schemaData) => {
+      const schema = schemaData.payload;
+      this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema, this.config);
+      this.namespace = { namespace: schemaData.payload.namespace };
     });
   }
 

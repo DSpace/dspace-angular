@@ -47,6 +47,8 @@ import { FacetConfigResponseParsingService } from './data/facet-config-response-
 import { RegistryService } from './registry/registry.service';
 import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
 import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
+import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
+import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -83,6 +85,8 @@ const PROVIDERS = [
   FacetValueMapResponseParsingService,
   FacetConfigResponseParsingService,
   RegistryMetadataschemasResponseParsingService,
+  RegistryMetadatafieldsResponseParsingService,
+  RegistryBitstreamformatsResponseParsingService,
   MetadataschemaParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,

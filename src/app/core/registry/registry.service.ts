@@ -16,18 +16,27 @@ import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { MetadataschemaSuccessResponse, RegistryMetadataschemasSuccessResponse } from '../cache/response-cache.models';
+import {
+  MetadataschemaSuccessResponse, RegistryBitstreamformatsSuccessResponse, RegistryMetadatafieldsSuccessResponse,
+  RegistryMetadataschemasSuccessResponse
+} from '../cache/response-cache.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { MetadataschemaParsingService } from '../data/metadataschema-parsing.service';
+import { Res } from 'awesome-typescript-loader/dist/checker/protocol';
+import { RegistryMetadatafieldsResponseParsingService } from '../data/registry-metadatafields-response-parsing.service';
+import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
+import { isNotEmpty } from '../../shared/empty.util';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { RegistryBitstreamformatsResponseParsingService } from '../data/registry-bitstreamformats-response-parsing.service';
+import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
 
 @Injectable()
 export class RegistryService {
 
   private metadataSchemasPath = 'metadataschemas';
-
-  metadataSchemas: MetadataSchema[];
-  metadataFields: MetadataField[];
-  bitstreamFormats: BitstreamFormat[];
+  private metadataFieldsPath = 'metadatafields';
+  private bitstreamFormatsPath = 'bitstreamformats';
 
   constructor(protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
@@ -36,18 +45,8 @@ export class RegistryService {
 
   }
 
-  public getMetadataSchemas(): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
-    const requestObs = this.halService.getEndpoint(this.metadataSchemasPath).pipe(
-      map((url: string) => {
-        const request = new GetRequest(this.requestService.generateRequestId(), url);
-        return Object.assign(request, {
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return RegistryMetadataschemasResponseParsingService;
-          }
-        });
-      }),
-      tap((request: RestRequest) => this.requestService.configure(request)),
-    );
+  public getMetadataSchemas(pagination: PaginationComponentOptions): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
+    const requestObs = this.getMetadataSchemasRequestObs(pagination);
 
     const requestEntryObs = requestObs.pipe(
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
@@ -79,17 +78,12 @@ export class RegistryService {
   }
 
   public getMetadataSchemaByName(schemaName: string): Observable<RemoteData<MetadataSchema>> {
-    const requestObs = this.halService.getEndpoint(this.metadataSchemasPath).pipe(
-      map((url: string) => {
-        const request = new GetRequest(this.requestService.generateRequestId(), url);
-        return Object.assign(request, {
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return RegistryMetadataschemasResponseParsingService;
-          }
-        });
-      }),
-      tap((request: RestRequest) => this.requestService.configure(request)),
-    );
+    // Temporary pagination to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
+    const pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+      id: 'all-metadatafields-pagination',
+      pageSize: 10000
+    });
+    const requestObs = this.getMetadataSchemasRequestObs(pagination);
 
     const requestEntryObs = requestObs.pipe(
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
@@ -112,24 +106,129 @@ export class RegistryService {
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, metadataschemaObs);
   }
 
-  public getMetadataFieldsBySchema(schema: MetadataSchema): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    const pageInfo = new PageInfo();
-    pageInfo.elementsPerPage = 10;
-    pageInfo.currentPage = 1;
+  public getMetadataFieldsBySchema(schema: MetadataSchema, pagination: PaginationComponentOptions): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    const requestObs = this.getMetadataFieldsRequestObs(pagination);
 
-    const payload = new PaginatedList(pageInfo, this.metadataFields.filter((value) => value.schema === schema));
-    const remoteData = new RemoteData(false, false, true, undefined, payload);
-    return Observable.of(remoteData);
+    const requestEntryObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    const responseCacheObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.responseCache.get(request.href))
+    );
+
+    const rmrObs: Observable<RegistryMetadatafieldsResponse> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: RegistryMetadatafieldsSuccessResponse) => response.metadatafieldsResponse)
+    );
+
+    const metadatafieldsObs: Observable<MetadataField[]> = rmrObs.pipe(
+      map((rmr: RegistryMetadatafieldsResponse) => rmr.metadatafields),
+      map((metadataFields: MetadataField[]) => metadataFields.filter((field) => field.schema.id === schema.id))
+    );
+
+    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: RegistryMetadatafieldsSuccessResponse) => response.pageInfo)
+    );
+
+    const payloadObs = Observable.combineLatest(metadatafieldsObs, pageInfoObs, (metadatafields, pageInfo) => {
+      return new PaginatedList(pageInfo, metadatafields);
+    });
+
+    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
-  public getBitstreamFormats(): Observable<RemoteData<PaginatedList<BitstreamFormat>>> {
-    const pageInfo = new PageInfo();
-    pageInfo.elementsPerPage = 10;
-    pageInfo.currentPage = 1;
+  public getBitstreamFormats(pagination: PaginationComponentOptions): Observable<RemoteData<PaginatedList<BitstreamFormat>>> {
+    const requestObs = this.getBitstreamFormatsRequestObs(pagination);
 
-    const payload = new PaginatedList(pageInfo, this.bitstreamFormats);
-    const remoteData = new RemoteData(false, false, true, undefined, payload);
-    return Observable.of(remoteData);
+    const requestEntryObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    const responseCacheObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.responseCache.get(request.href))
+    );
+
+    const rbrObs: Observable<RegistryBitstreamformatsResponse> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: RegistryBitstreamformatsSuccessResponse) => response.bitstreamformatsResponse)
+    );
+
+    const bitstreamformatsObs: Observable<BitstreamFormat[]> = rbrObs.pipe(
+      map((rbr: RegistryBitstreamformatsResponse) => rbr.bitstreamformats)
+    );
+
+    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: RegistryBitstreamformatsSuccessResponse) => response.pageInfo)
+    );
+
+    const payloadObs = Observable.combineLatest(bitstreamformatsObs, pageInfoObs, (bitstreamformats, pageInfo) => {
+      return new PaginatedList(pageInfo, bitstreamformats);
+    });
+
+    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+  }
+
+  private getMetadataSchemasRequestObs(pagination: PaginationComponentOptions): Observable<RestRequest> {
+    return this.halService.getEndpoint(this.metadataSchemasPath).pipe(
+      map((url: string) => {
+        const args: string[] = [];
+        args.push(`size=${pagination.pageSize}`);
+        args.push(`page=${pagination.currentPage - 1}`);
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return RegistryMetadataschemasResponseParsingService;
+          }
+        });
+      }),
+      tap((request: RestRequest) => this.requestService.configure(request)),
+    );
+  }
+
+  private getMetadataFieldsRequestObs(pagination: PaginationComponentOptions): Observable<RestRequest> {
+    return this.halService.getEndpoint(this.metadataFieldsPath).pipe(
+      map((url: string) => {
+        const args: string[] = [];
+        args.push(`size=${pagination.pageSize}`);
+        args.push(`page=${pagination.currentPage - 1}`);
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return RegistryMetadatafieldsResponseParsingService;
+          }
+        });
+      }),
+      tap((request: RestRequest) => this.requestService.configure(request)),
+    );
+  }
+
+  private getBitstreamFormatsRequestObs(pagination: PaginationComponentOptions): Observable<RestRequest> {
+    return this.halService.getEndpoint(this.bitstreamFormatsPath).pipe(
+      map((url: string) => {
+        const args: string[] = [];
+        args.push(`size=${pagination.pageSize}`);
+        args.push(`page=${pagination.currentPage - 1}`);
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return RegistryBitstreamformatsResponseParsingService;
+          }
+        });
+      }),
+      tap((request: RestRequest) => this.requestService.configure(request)),
+    );
   }
 
 }
