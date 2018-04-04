@@ -51,7 +51,7 @@ export class AuthService {
     // and is not the login route, clear redirect url and messages
     const routeUrlObs = this.store.select(routerStateSelector)
       .filter((routerState: RouterReducerState) => isNotUndefined(routerState) && isNotUndefined(routerState.state))
-      .filter((routerState: RouterReducerState) => (routerState.state.url !== LOGIN_ROUTE))
+      .filter((routerState: RouterReducerState) => !this.isLoginRoute(routerState.state.url))
       .map((routerState: RouterReducerState) => routerState.state.url);
     const redirectUrlObs = this.getRedirectUrl();
     routeUrlObs.pipe(
@@ -59,10 +59,16 @@ export class AuthService {
       map(([routeUrl, redirectUrl]) => [routeUrl, redirectUrl])
     ).filter(([routeUrl, redirectUrl]) => isNotEmpty(redirectUrl) && (routeUrl !== redirectUrl))
       .subscribe(() => {
-        this.setRedirectUrl(undefined);
+        this.clearRedirectUrl();
       });
   }
 
+  protected isLoginRoute(url: string) {
+    const urlTree: UrlTree = this.router.parseUrl(url);
+    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
+    const segment = '/' + g.toString();
+    return segment === LOGIN_ROUTE;
+  }
   /**
    * Authenticate the user
    *
@@ -295,7 +301,7 @@ export class AuthService {
    */
   public redirectToLogin() {
     // Hard redirect to login page, so that all state is definitely lost
-    this._window.nativeWindow.location.href = LOGIN_ROUTE;
+    this._window.nativeWindow.location.href = LOGIN_ROUTE + '?expired=true';
   }
 
   /**
@@ -306,9 +312,7 @@ export class AuthService {
       .first()
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
-          // Clear redirect url
-          this.setRedirectUrl(undefined);
-          this.storage.remove(REDIRECT_COOKIE);
+          this.clearRedirectUrl();
 
           const urlTree: UrlTree = this.router.parseUrl(redirectUrl);
           const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
@@ -357,5 +361,13 @@ export class AuthService {
   setRedirectUrl(url: string) {
     this.storage.set(REDIRECT_COOKIE, url);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
+  }
+
+  /**
+   * Clear redirect url
+   */
+  clearRedirectUrl() {
+    this.store.dispatch(new SetRedirectUrlAction(''));
+    this.storage.remove(REDIRECT_COOKIE);
   }
 }
