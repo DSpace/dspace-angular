@@ -22,6 +22,8 @@ import { NativeWindowRef, NativeWindowService } from '../../shared/services/wind
 
 export const LOGIN_ROUTE = '/login';
 
+export const REDIRECT_COOKIE = 'dsRedirectUrl';
+
 /**
  * The auth service.
  */
@@ -261,7 +263,8 @@ export class AuthService {
    * Redirect to the login route
    */
   public redirectToLogin() {
-    this.router.navigate(['/login']);
+    // Hard redirect to login page, so that all state is definitely lost
+    this._window.nativeWindow.location.href = LOGIN_ROUTE;
   }
 
   /**
@@ -272,8 +275,10 @@ export class AuthService {
       .first()
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
-          // Clear url
+          // Clear redirect url
           this.setRedirectUrl(undefined);
+          this.storage.remove(REDIRECT_COOKIE);
+
           const urlTree: UrlTree = this.router.parseUrl(redirectUrl);
           const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
           const segment = '/' + g.toString();
@@ -283,7 +288,13 @@ export class AuthService {
           };
           this.router.navigate([segment], navigationExtras);
         } else {
-          this.router.navigate(['/']);
+          // override the route reuse strategy
+          this.router.routeReuseStrategy.shouldReuseRoute = () => {
+            return false;
+          };
+          this.router.navigated = false;
+          const url = decodeURIComponent(this.router.url);
+          this.router.navigateByUrl(url);
         }
       })
 
@@ -301,13 +312,19 @@ export class AuthService {
    * Get redirect url
    */
   getRedirectUrl(): Observable<string> {
-    return this.store.select(getRedirectUrl);
+    const redirectUrl = this.storage.get(REDIRECT_COOKIE);
+    if (isNotEmpty(redirectUrl)) {
+      return Observable.of(redirectUrl);
+    } else {
+      return this.store.select(getRedirectUrl);
+    }
   }
 
   /**
    * Set redirect url
    */
   setRedirectUrl(url: string) {
+    this.storage.set(REDIRECT_COOKIE, url);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
 }
