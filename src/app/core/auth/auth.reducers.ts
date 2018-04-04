@@ -1,5 +1,6 @@
 // import actions
 import {
+  AddAuthenticationMessageAction,
   AuthActions, AuthActionTypes, AuthenticatedSuccessAction, AuthenticationErrorAction,
   AuthenticationSuccessAction, LogOutErrorAction, RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction, SetRedirectUrlAction
@@ -151,6 +152,11 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.REFRESH_TOKEN_SUCCESS:
       return Object.assign({}, state, {
         refreshing: false,
+      });
+
+    case AuthActionTypes.ADD_MESSAGE:
+      return Object.assign({}, state, {
+        info: (action as AddAuthenticationMessageAction).payload,
       });
 
     case AuthActionTypes.RESET_MESSAGES:
