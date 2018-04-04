@@ -276,6 +276,13 @@ export class AuthService {
    * Redirect to the login route
    */
   public redirectToLogin() {
+    this.router.navigate(LOGIN_ROUTE);
+  }
+
+  /**
+   * Redirect to the login route when token has expired
+   */
+  public redirectToLoginWhenTokenExpired() {
     // Hard redirect to login page, so that all state is definitely lost
     this._window.nativeWindow.location.href = LOGIN_ROUTE + '?expired=true';
   }
