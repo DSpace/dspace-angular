@@ -165,5 +165,13 @@
       "header": "Log out from DSpace",
       "submit": "Log out"
     }
+  },
+  "auth": {
+    "messages": {
+      "expired": "Your session has expired. Please log in again."
+    },
+    "errors": {
+      "invalid-user": "Invalid email or password."
+    }
   }
 }
