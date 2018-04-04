@@ -20,6 +20,8 @@ import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.
 import { RouterReducerState } from '@ngrx/router-store';
 import { CookieAttributes } from 'js-cookie';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../config';
 
 export const LOGIN_ROUTE = '/login';
 
@@ -38,6 +40,7 @@ export class AuthService {
   private _authenticated: boolean;
 
   constructor(@Inject(NativeWindowService) private _window: NativeWindowRef,
+              @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
               private authRequestService: AuthRequestService,
               private location: Location,
               private router: Router,
@@ -195,8 +198,8 @@ export class AuthService {
     //   url = url.replace('/?target=http(.+)/g', 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
     // }
     // console.log(url);
-
-    return parseUrl.replace(/\?target=http.+/g, '?target=https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
+    const target = `?target=${this.config.auth.target.host}${this.config.auth.target.page}`;
+    return parseUrl.replace(/\?target=http.+/g, target);
   }
 
   /**
@@ -262,7 +265,7 @@ export class AuthService {
    */
   public isTokenExpiring(): Observable<boolean> {
     return this.store.select(isTokenRefreshing)
-      .first()
+      .take(1)
       .map((isRefreshing: boolean) => {
         if (this.isTokenExpired() || isRefreshing) {
           return false;
@@ -322,7 +325,7 @@ export class AuthService {
    */
   public redirectToPreviousUrl() {
     this.getRedirectUrl()
-      .first()
+      .take(1)
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
           this.clearRedirectUrl();

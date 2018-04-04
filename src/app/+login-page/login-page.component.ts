@@ -37,7 +37,7 @@ export class LoginPageComponent implements OnDestroy, OnInit {
           const authToken = new AuthTokenInfo(token);
           this.store.dispatch(new AuthenticatedAction(authToken));
         } else if (isNotEmpty(params.expired)) {
-          this.store.dispatch(new AddAuthenticationMessageAction('Your session has expired. Please log in again.'));
+          this.store.dispatch(new AddAuthenticationMessageAction('auth.messages.expired'));
         }
       })
   }
