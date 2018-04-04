@@ -6,22 +6,33 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { MockTranslateLoader } from '../../../shared/testing/mock-translate-loader';
 import { RegistryService } from '../../../core/registry/registry.service';
+import { SharedModule } from '../../../shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { RouterStub } from '../../../shared/testing/router-stub';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
 
-describe('MetadataSchemaComponent', () => {
+fdescribe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
   let fixture: ComponentFixture<MetadataSchemaComponent>;
   let registryService: RegistryService;
   const mockSchemasList = [
     {
+      id: 1,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
       prefix: 'dc',
       namespace: 'http://dublincore.org/documents/dcmi-terms/'
     },
     {
+      id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
       prefix: 'mock',
       namespace: 'http://dspace.org/mockschema'
@@ -64,19 +75,21 @@ describe('MetadataSchemaComponent', () => {
     getMetadataSchemaByName: (schemaName: string) => Observable.of(new RemoteData(false, false, true, undefined, mockSchemasList.filter((value) => value.prefix === schemaName)[0]))
   };
   const schemaNameParam = 'mock';
-  const activatedRouteStub = {
+  const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: Observable.of({
       schemaName: schemaNameParam
     })
-  };
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot()],
-      declarations: [MetadataSchemaComponent],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      declarations: [MetadataSchemaComponent, PaginationComponent, EnumKeysPipe],
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
-        { provide: ActivatedRoute, useValue: activatedRouteStub }
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: Router, useValue: new RouterStub() }
       ]
     }).compileComponents();
   }));

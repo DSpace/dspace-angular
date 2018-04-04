@@ -8,8 +8,14 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
+import { SharedModule } from '../../../shared/shared.module';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
 
-describe('BitstreamFormatsComponent', () => {
+fdescribe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
   let fixture: ComponentFixture<BitstreamFormatsComponent>;
   let registryService: RegistryService;
@@ -54,10 +60,11 @@ describe('BitstreamFormatsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot()],
-      declarations: [BitstreamFormatsComponent],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
       providers: [
-        { provide: RegistryService, useValue: registryServiceStub }
+        { provide: RegistryService, useValue: registryServiceStub },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
       ]
     }).compileComponents();
   }));
