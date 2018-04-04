@@ -33,7 +33,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   }
 
   set value(value: string) {
-    const values = value.split(this.separator);
+    const values =  value ? value.split(this.separator) : [null, null];
 
     if (values.length > 1) {
       (this.get(0) as DsDynamicInputModel).valueUpdates.next(values[0]);

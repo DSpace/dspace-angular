@@ -1,19 +1,39 @@
 <ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
 
-Following data are not valid:
-<div>
+<ng-container *ngIf="!(sectionDataObs | async)?.metadata || (sectionDataObs | async)?.metadata?.length == 0">
   <div class="row">
-    <ng-container *ngFor="let m of metadata">
-      <div class="col">
-      {{m.value}}
-      </div>
-      <!--<div class="col-3">-->
-        <!--<button class="btn btn-primary"></button>-->
-      <!--</div>-->
-    </ng-container>
-
-    <button class="btn btn-danger"><i class="fa fa-times"></i>Discard All</button>
+    <div class="col-md-12">
+      <h3 class="text-center"><span class="text-muted">No recycled elements yet.</span></h3>
+    </div>
   </div>
+</ng-container>
+
+
+<div *ngIf="(sectionDataObs | async)?.metadata?.length > 0">
+  <div class="alert alert-danger" role="alert">
+    {{ 'submission.section.recycle.disclaimer' | translate }}
+  </div>
+
+  <!--<div class="row">-->
+    <!--<ul>-->
+      <!--<ng-container *ngFor="let mmm of (sectionDataObs | async)?.metadata">-->
+        <!--&lt;!&ndash;<div *ngFor="let mm of mmm">&ndash;&gt;-->
+          <!--&lt;!&ndash;<div *ngVar="Object.keys(mmm)[0] as type">&ndash;&gt;-->
+            <!--&lt;!&ndash;<strong>Title {{type}}</strong>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div *ngFor="let m of mmm[type]">&ndash;&gt;-->
+              <!--&lt;!&ndash;<li>&ndash;&gt;-->
+                <!--&lt;!&ndash;{{m.value}}&ndash;&gt;-->
+              <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="col-3">&ndash;&gt;-->
+        <!--&lt;!&ndash;<button class="btn btn-primary"></button>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--</ng-container>-->
+    <!--</ul>-->
+  <!--</div>-->
+  <button class="btn btn-danger"><i class="fa fa-times"></i> Discard All</button>
 
 
 </div>

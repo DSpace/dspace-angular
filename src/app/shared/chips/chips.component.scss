@@ -12,7 +12,7 @@
 
 .chips {
   margin: 2px;
-  padding: 5px;
+  padding: 5px 5px 0;
   max-width: 500px;
   float: left;
   white-space: nowrap;
@@ -24,7 +24,8 @@
   border-radius:7px; /* regular */
 }
 .chips-item {
-  margin: 2px;
+  //margin: 2px;
+  max-width: 180px;
 }
 
 .selected {
@@ -45,4 +46,9 @@
 
 .dragged {
   background-color: #44dbce !important;
+}
+
+.fa-times {
+  top: -5px;
+  position: relative;
 }
