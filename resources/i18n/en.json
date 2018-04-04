@@ -230,6 +230,14 @@
       "submit": "Log out"
     }
   },
+  "auth": {
+    "messages": {
+      "expired": "Your session has expired. Please log in again."
+    },
+    "errors": {
+      "invalid-user": "Invalid email or password."
+    }
+  },
   "submission": {
     "general":{
       "cannot_submit": "You have not the privilege to make a new submission."

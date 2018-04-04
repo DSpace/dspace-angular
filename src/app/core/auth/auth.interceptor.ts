@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
   // we're creating a refresh token request list
   protected refreshTokenRequestUrls = [];
 
-  constructor(private inj: Injector, private store: Store<AppState>, private router: Router) { }
+  constructor(private inj: Injector, private router: Router, private store: Store<AppState>) { }
 
   private isUnauthorized(response: HttpResponseBase): boolean {
     // invalid_token The access token provided is expired, revoked, malformed, or invalid for other reasons
@@ -39,7 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private isAuthRequest(http: HttpRequest<any> | HttpResponseBase): boolean {
-    return http.url
+    return http && http.url
       && (http.url.endsWith('/authn/login')
         || http.url.endsWith('/authn/logout')
         || http.url.endsWith('/authn/status'));
@@ -73,10 +73,16 @@ export class AuthInterceptor implements HttpInterceptor {
     const authService = this.inj.get(AuthService);
 
     const token = authService.getToken();
-
     let newReq;
-    // Intercept a request that is not to the authentication endpoint
-    if (!this.isAuthRequest(req) && isNotEmpty(token)) {
+
+    if (authService.isTokenExpired()) {
+      authService.setRedirectUrl(this.router.url);
+      // The access token is expired
+      // Redirect to the login route
+      this.store.dispatch(new RedirectWhenTokenExpiredAction('Your session has expired. Please log in again.'));
+      return Observable.of(null);
+    } else if (!this.isAuthRequest(req) && isNotEmpty(token)) {
+      // Intercept a request that is not to the authentication endpoint
       authService.isTokenExpiring()
         .filter((isExpiring) => isExpiring)
         .subscribe(() => {
@@ -138,7 +144,7 @@ export class AuthInterceptor implements HttpInterceptor {
           } else if (this.isUnauthorized(error)) {
             // The access token provided is expired, revoked, malformed, or invalid for other reasons
             // Redirect to the login route
-            this.store.dispatch(new RedirectWhenTokenExpiredAction('Your session has expired. Please log in again.'));
+            this.store.dispatch(new RedirectWhenTokenExpiredAction('auth.messages.expired'));
           }
         }
         // Return error response as is.

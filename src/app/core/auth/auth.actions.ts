@@ -25,6 +25,7 @@ export const AuthActionTypes = {
   REFRESH_TOKEN: type('dspace/auth/REFRESH_TOKEN'),
   REFRESH_TOKEN_SUCCESS: type('dspace/auth/REFRESH_TOKEN_SUCCESS'),
   REFRESH_TOKEN_ERROR: type('dspace/auth/REFRESH_TOKEN_ERROR'),
+  ADD_MESSAGE: type('dspace/auth/ADD_MESSAGE'),
   RESET_MESSAGES: type('dspace/auth/RESET_MESSAGES'),
   LOG_OUT: type('dspace/auth/LOG_OUT'),
   LOG_OUT_ERROR: type('dspace/auth/LOG_OUT_ERROR'),
@@ -287,6 +288,20 @@ export class RegistrationSuccessAction implements Action {
 }
 
 /**
+ * Add uthentication message.
+ * @class AddAuthenticationMessageAction
+ * @implements {Action}
+ */
+export class AddAuthenticationMessageAction implements Action {
+  public type: string = AuthActionTypes.ADD_MESSAGE;
+  payload: string;
+
+  constructor(message: string) {
+    this.payload = message;
+  }
+}
+
+/**
  * Reset error.
  * @class ResetAuthenticationMessagesAction
  * @implements {Action}
@@ -362,6 +377,9 @@ export type AuthActions
   | RegistrationAction
   | RegistrationErrorAction
   | RegistrationSuccessAction
+  | RegistrationSuccessAction
+  | AddAuthenticationMessageAction
+  | ResetAuthenticationMessagesAction
   | RetrieveAuthMethodsAction
   | RetrieveAuthMethodsSuccessAction
   | RetrieveAuthMethodsErrorAction;
