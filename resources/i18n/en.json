@@ -342,7 +342,9 @@
         },
         "pool": {
           "claim": "Claim",
-          "claim_help": "Assign this task to yourself."
+          "claim_help": "Assign this task to yourself.",
+          "show-detail": "Show detail",
+          "hide-detail": "Hide detail"
         }
       }
     }

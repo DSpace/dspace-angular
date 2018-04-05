@@ -1,7 +1,18 @@
-<ds-item-list-preview
-  [item]="(workFlow.item | async)?.payload[0]"
-  [object]="object"
-  [status]="status"
-></ds-item-list-preview>
+<ds-item-list-preview *ngIf="viewMode === viewModeEnum.List"
+                      [item]="(workFlow.item | async)?.payload[0]"
+                      [object]="object"
+                      [status]="status"></ds-item-list-preview>
+
+<ds-item-detail-preview *ngIf="viewMode === viewModeEnum.Detail"
+                        [item]="(workFlow.item | async)?.payload[0]"
+                        [object]="object"
+                        [status]="status"></ds-item-detail-preview>
+
+<button type="button"
+        class="btn btn-link"
+        (click)="switchView()">
+  <span *ngIf="viewMode === viewModeEnum.List"><i class='fa fa-search-plus'></i> {{'submission.workflow.tasks.pool.show-detail' | translate}}</span>
+  <span *ngIf="viewMode === viewModeEnum.Detail"><i class='fa fa-search-minus'></i> {{'submission.workflow.tasks.pool.hide-detail' | translate}}</span>
+</button>
 
 <ds-pool-task-actions [object]="dso"></ds-pool-task-actions>

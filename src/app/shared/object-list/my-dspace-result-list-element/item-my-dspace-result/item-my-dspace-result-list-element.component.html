@@ -1,7 +1,6 @@
-<ds-item-list-preview
-  [item]="dso"
-  [object]="object"
-></ds-item-list-preview>
+<ds-item-list-preview [item]="dso"
+                      [object]="object"
+                      [status]="status"></ds-item-list-preview>
 
 <a class="btn btn-primary mt-1 mb-3" [href]="itemUrl" role="button">{{"mydspace.view-btn" | translate}}</a>
 <!--<button class="btn btn-primary mt-1 mb-3" [routerLink]="['/items/' + dso.id]">View</button>-->

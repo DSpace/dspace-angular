@@ -25,6 +25,8 @@ import { ItemStatusType } from '../../item-list-status/item-status-type';
 export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<PoolTaskMyDSpaceResult, PoolTask> {
   public status = ItemStatusType.WAITING_CONTROLLER;
   public workFlow: Workflowitem;
+  public viewMode: ViewMode = ViewMode.List;
+  public viewModeEnum = ViewMode;
 
   constructor(@Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
@@ -41,6 +43,10 @@ export class PoolTaskMyDSpaceResultListElementComponent extends MyDSpaceResultLi
       .subscribe((rd: RemoteData<any>) => {
         this.workFlow = rd.payload[0];
       });
+  }
+
+  switchView() {
+    this.viewMode = (this.viewMode === ViewMode.List) ? ViewMode.Detail : ViewMode.List;
   }
 
 }
