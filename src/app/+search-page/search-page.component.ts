@@ -43,7 +43,8 @@ export class SearchPageComponent implements OnInit {
       id: 'search-results-pagination',
       pageSize: 10
     },
-    query: ''
+    query: '',
+    scope: ''
   };
 
   constructor(private service: SearchService,

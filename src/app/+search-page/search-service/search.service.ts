@@ -99,7 +99,7 @@ export class SearchService implements OnDestroy {
     const requestObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
         if (hasValue(searchOptions)) {
-          url = searchOptions.toRestUrl(url);
+          url = (searchOptions as PaginatedSearchOptions).toRestUrl(url);
         }
         const request = new GetRequest(this.requestService.generateRequestId(), url);
         return Object.assign(request, {

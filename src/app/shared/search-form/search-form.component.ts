@@ -50,11 +50,4 @@ export class SearchFormComponent {
     return isNotEmpty(object);
   }
 
-  byId(id1: string, id2: string) {
-    if (isEmpty(id1) && isEmpty(id2)) {
-      return true;
-    }
-    return id1 === id2;
-  }
-
 }
