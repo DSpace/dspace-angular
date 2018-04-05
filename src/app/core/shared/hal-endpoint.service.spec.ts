@@ -17,18 +17,6 @@ describe('HALEndpointService', () => {
   };
   const linkPath = 'test';
 
-  /* tslint:disable:no-shadowed-variable */
-  class TestService extends HALEndpointService {
-
-    constructor(private responseCache: ResponseCacheService,
-                private requestService: RequestService,
-                private EnvConfig: GlobalConfig) {
-      super(responseCache, requestService, EnvConfig);
-    }
-  }
-
-  /* tslint:enable:no-shadowed-variable */
-
   describe('getRootEndpointMap', () => {
     beforeEach(() => {
       responseCache = jasmine.createSpyObj('responseCache', {
@@ -45,7 +33,7 @@ describe('HALEndpointService', () => {
         rest: { baseUrl: 'https://rest.api/' }
       } as any;
 
-      service = new TestService(
+      service = new HALEndpointService(
         responseCache,
         requestService,
         envConfig
@@ -73,7 +61,7 @@ describe('HALEndpointService', () => {
         rest: { baseUrl: 'https://rest.api/' }
       } as any;
 
-      service = new TestService(
+      service = new HALEndpointService(
         responseCache,
         requestService,
         envConfig
@@ -100,7 +88,7 @@ describe('HALEndpointService', () => {
 
   describe('isEnabledOnRestApi', () => {
     beforeEach(() => {
-      service = new TestService(
+      service = new HALEndpointService(
         responseCache,
         requestService,
         envConfig

@@ -159,28 +159,6 @@ describe('SearchFilterService', () => {
     });
   });
 
-  describe('when the getQueryParamsWithout method is called', () => {
-    beforeEach(() => {
-      spyOn(routeServiceStub, 'removeQueryParameterValue');
-      service.getQueryParamsWithout(mockFilterConfig, value1);
-    });
-
-    it('should call removeQueryParameterValue on the route service with the same parameters', () => {
-      expect(routeServiceStub.removeQueryParameterValue).toHaveBeenCalledWith(mockFilterConfig.paramName, value1);
-    });
-  });
-
-  describe('when the getQueryParamsWith method is called', () => {
-    beforeEach(() => {
-      spyOn(routeServiceStub, 'addQueryParameterValue');
-      service.getQueryParamsWith(mockFilterConfig, value1);
-    });
-
-    it('should call addQueryParameterValue on the route service with the same parameters', () => {
-      expect(routeServiceStub.addQueryParameterValue).toHaveBeenCalledWith(mockFilterConfig.paramName, value1);
-    });
-  });
-
   describe('when the getSelectedValuesForFilter method is called', () => {
     beforeEach(() => {
       spyOn(routeServiceStub, 'getQueryParameterValues');
@@ -192,14 +170,4 @@ describe('SearchFilterService', () => {
     });
   });
 
-  describe('when the uiSearchRoute method is called', () => {
-    let link: string;
-    beforeEach(() => {
-      link = service.searchLink;
-    });
-
-    it('should return the value of uiSearchRoute in the search service', () => {
-      expect(link).toEqual(searchServiceStub.uiSearchRoute);
-    });
-  });
 });

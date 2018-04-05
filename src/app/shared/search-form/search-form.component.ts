@@ -22,10 +22,8 @@ export class SearchFormComponent {
   @Input() scopes: DSpaceObject[];
 
   @Input()
-  set scope(dso: DSpaceObject) {
-    if (hasValue(dso)) {
-      this.selectedId = dso.id;
-    }
+  set scope(id: string) {
+    this.selectedId = id;
   }
 
   constructor(private router: Router) {
