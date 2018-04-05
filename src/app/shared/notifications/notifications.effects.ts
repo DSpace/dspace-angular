@@ -1,21 +1,7 @@
 import { Injectable } from '@angular/core';
-
-// import @ngrx
-import { Effect, Actions } from '@ngrx/effects';
-import { Action, Store } from '@ngrx/store';
-
-// import rxjs
-import { Observable } from 'rxjs/Observable';
-
-// import services
-
-// import actions
-
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
-import {
-  NewNotificationWithTimerAction, NotificationsActionTypes,
-  RemoveNotificationAction
-} from './notifications.actions';
 
 @Injectable()
 export class NotificationsEffects {

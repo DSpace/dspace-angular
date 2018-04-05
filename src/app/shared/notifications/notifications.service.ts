@@ -4,13 +4,7 @@ import { NotificationType } from './models/notification-type';
 import { NotificationOptions } from './models/notification-options.model';
 import { uniqueId } from 'lodash';
 import { Store } from '@ngrx/store';
-import {
-  NewNotificationAction,
-  NewNotificationWithTimerAction,
-  RemoveAllNotificationsAction,
-  RemoveNotificationAction
-} from './notifications.actions';
-import { DomSanitizer } from '@angular/platform-browser';
+import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -21,11 +15,7 @@ export class NotificationsService {
 
   private add(notification: Notification) {
     let notificationAction;
-    if (notification.options.timeOut > 0) {
-      notificationAction = new NewNotificationWithTimerAction(notification);
-    } else {
-      notificationAction = new NewNotificationAction(notification);
-    }
+    notificationAction = new NewNotificationAction(notification);
     this.store.dispatch(notificationAction);
   }
 

@@ -1,13 +1,9 @@
-// import @ngrx
 import { Action } from '@ngrx/store';
-// import type function
 import { type } from '../../shared/ngrx/type';
-// import models
 import { INotification } from './models/notification.model';
 
 export const NotificationsActionTypes = {
   NEW_NOTIFICATION: type('dspace/notifications/NEW_NOTIFICATION'),
-  NEW_NOTIFICATION_WITH_TIMER: type('dspace/notifications/NEW_NOTIFICATION_WITH_TIMER'),
   REMOVE_ALL_NOTIFICATIONS: type('dspace/notifications/REMOVE_ALL_NOTIFICATIONS'),
   REMOVE_NOTIFICATION: type('dspace/notifications/REMOVE_NOTIFICATION'),
 };
@@ -21,20 +17,6 @@ export const NotificationsActionTypes = {
  */
 export class NewNotificationAction implements Action {
   public type: string = NotificationsActionTypes.NEW_NOTIFICATION;
-  payload: INotification;
-
-  constructor(notification: INotification) {
-    this.payload = notification;
-  }
-}
-
-/**
- * New notification.
- * @class NewNotificationAction
- * @implements {Action}
- */
-export class NewNotificationWithTimerAction implements Action {
-  public type: string = NotificationsActionTypes.NEW_NOTIFICATION_WITH_TIMER;
   payload: INotification;
 
   constructor(notification: INotification) {
@@ -75,6 +57,5 @@ export class RemoveNotificationAction implements Action {
  */
 export type NotificationsActions
   = NewNotificationAction
-  | NewNotificationWithTimerAction
   | RemoveAllNotificationsAction
   | RemoveNotificationAction;
