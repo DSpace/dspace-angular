@@ -22,6 +22,7 @@ import { CookieAttributes } from 'js-cookie';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
+import { PlatformService } from '../../shared/services/platform.service';
 
 export const LOGIN_ROUTE = '/login';
 
@@ -42,7 +43,7 @@ export class AuthService {
   constructor(@Inject(NativeWindowService) private _window: NativeWindowRef,
               @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
               private authRequestService: AuthRequestService,
-              private location: Location,
+              private platform: PlatformService,
               private router: Router,
               private storage: CookieService,
               private store: Store<AppState>) {
@@ -335,24 +336,20 @@ export class AuthService {
       .take(1)
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
-          this.clearRedirectUrl();
+          if (this.platform.isBrowser) {
+            console.log('CLEAR REDIRECT!!!!')
+            this.clearRedirectUrl();
+          }
 
-          const urlTree: UrlTree = this.router.parseUrl(redirectUrl);
-          const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
-          const segment = '/' + g.toString();
-          const navigationExtras: NavigationExtras = {
-            queryParams: urlTree.queryParams,
-            queryParamsHandling: 'merge'
-          };
-          this.router.navigate([segment], navigationExtras);
-        } else {
           // override the route reuse strategy
           this.router.routeReuseStrategy.shouldReuseRoute = () => {
             return false;
           };
           this.router.navigated = false;
-          const url = decodeURIComponent(this.router.url);
+          const url = decodeURIComponent(redirectUrl);
           this.router.navigateByUrl(url);
+        } else {
+          this.router.navigate(['/']);
         }
       })
 
@@ -382,7 +379,13 @@ export class AuthService {
    * Set redirect url
    */
   setRedirectUrl(url: string) {
-    this.storage.set(REDIRECT_COOKIE, url);
+    // Add 1 day to the current date
+    const expireDate = Date.now() + (1000 * 60 * 60 * 24 * 1);
+
+    // Set the cookie expire date
+    const expires = new Date(expireDate);
+    const options: CookieAttributes = {expires: expires};
+    this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
 

@@ -55,8 +55,6 @@ import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dyn
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
-import { NotificationComponent } from './notifications/notification/notification.component';
-import { NotificationsBoardComponent } from './notifications/notifications-board/notifications-board.component';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';

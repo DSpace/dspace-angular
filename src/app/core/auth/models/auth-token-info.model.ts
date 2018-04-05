@@ -12,6 +12,7 @@ export class AuthTokenInfo {
       const tokenClaims = decode(this.accessToken);
       // exp claim is in seconds, convert it se to milliseconds
       this.expires = tokenClaims.exp * 1000;
+      console.log(new Date(this.expires));
     } catch (err) {
       this.expires = 0;
     }
