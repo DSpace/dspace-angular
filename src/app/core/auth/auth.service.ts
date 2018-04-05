@@ -286,8 +286,14 @@ export class AuthService {
    * @returns {AuthTokenInfo}
    */
   public storeToken(token: AuthTokenInfo) {
-    const expires = new Date(token.expires);
+    // Add 1 day to the current date
+    const expireDate = Date.now() + (1000 * 60 * 60 * 24 * 1);
+
+    // Set the cookie expire date
+    const expires = new Date(expireDate);
     const options: CookieAttributes = {expires: expires};
+
+    // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
   }
 
