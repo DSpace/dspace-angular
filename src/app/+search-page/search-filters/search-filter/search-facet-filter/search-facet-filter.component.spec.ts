@@ -122,7 +122,6 @@ describe('SearchFacetFilterComponent', () => {
     });
   });
 
-
   describe('when the showMore method is called', () => {
     beforeEach(() => {
       spyOn(filterService, 'incrementPage');
