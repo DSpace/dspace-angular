@@ -13,7 +13,7 @@
         [pageInfoState]="(metadataFields | async)?.payload"
         [collectionSize]="(metadataFields | async)?.payload?.totalElements"
         [hideGear]="true"
-        [hidePagerWhenSinglePage]="false"
+        [hidePagerWhenSinglePage]="true"
         (pageChange)="onPageChange($event)">
         <div class="table-responsive">
           <table id="metadata-fields" class="table table-striped table-hover">

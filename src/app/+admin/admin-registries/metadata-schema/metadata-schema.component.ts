@@ -21,7 +21,7 @@ export class MetadataSchemaComponent implements OnInit {
   metadataFields: Observable<RemoteData<PaginatedList<MetadataField>>>;
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-metadatafields-pagination',
-    pageSize: 20
+    pageSize: 10000
   });
 
   constructor(private registryService: RegistryService, private route: ActivatedRoute) {
