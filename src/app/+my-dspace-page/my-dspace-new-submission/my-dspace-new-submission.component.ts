@@ -8,6 +8,7 @@ import { MyDSpaceResult } from '../my-dspace-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 
 @Component({
   selector: 'ds-my-dspace-new-submission',
@@ -52,9 +53,24 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
     if (res && res._embedded && res._embedded.workspaceitems && res._embedded.workspaceitems.length > 0) {
       const workspaceitems = res._embedded.workspaceitems;
       this.wsiUploaded.emit(workspaceitems);
-      this.notificationsService.success(null, this.translate.get('submission.mydspace.upload_workspace_success'))
+
+        if (workspaceitems.length === 1) {
+          const options = new NotificationOptions();
+          options.timeOut = 0;
+          const link = '/workspaceitems/' + workspaceitems[0].id + '/edit';
+          const here = `<button class="btn btn-link p-0 m-0 pb-1" routerLink="${link}" >HERE</button>`;
+          const message = this.translate.get('submission.mydspace.upload_workspace_success', {here});
+          message
+            .take(1)
+            .subscribe( (m) => {
+              this.notificationsService.success(null, null, options, m);
+          });
+        } else if (workspaceitems.length > 1) {
+          this.notificationsService.success(null, this.translate.get('submission.mydspace.upload_workspace_success_more', {qty: workspaceitems.length}))
+        }
+
     } else {
-      console.log('OnCompleteItem without workspacesitems');
+      this.notificationsService.error(null, this.translate.get('submission.mydspace.upload_workspace_error'))
     }
   }
 

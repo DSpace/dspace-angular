@@ -22,19 +22,19 @@
     <button *ngIf="editMode"
             type="button"
             class="btn btn-link align-middle"
-            [disabled]="isMandatoryFieldEmpty()">
+            [disabled]="isMandatoryFieldEmpty()"
+            (click)="modifyChips()">
       <i class="fa fa-save fa-2x"
          style="color: darkcyan"
-         aria-hidden="true"
-         (click)="modifyChips()"></i>
+         aria-hidden="true"></i>
     </button>
     <button *ngIf="editMode"
             type="button"
-            class="btn btn-link align-middle">
+            class="btn btn-link align-middle"
+            (click)="exitEditMode()">
       <i class="fa fa-undo fa-2x"
          style="color: gray"
-         aria-hidden="true"
-         (click)="exitEditMode()"></i>
+         aria-hidden="true"></i>
     </button>
   </div>
 </div>
