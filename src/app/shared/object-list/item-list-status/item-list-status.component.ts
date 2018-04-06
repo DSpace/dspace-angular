@@ -3,6 +3,7 @@ import { ItemStatusType } from './item-status-type';
 
 @Component({
   selector: 'ds-item-list-status',
+  styleUrls: ['./item-list-status.component.scss'],
   templateUrl: 'item-list-status.component.html'
 })
 
@@ -14,7 +15,7 @@ export class ItemListStatusComponent implements OnInit {
 
   ngOnInit() {
     this.badgeContent = this.status;
-    this.badgeClass = 'badge ';
+    this.badgeClass = 'text-light badge ';
     switch (this.status) {
       case ItemStatusType.REJECTED:
         this.badgeClass += 'badge-danger';

@@ -4,16 +4,16 @@ import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-in
 export const DYNAMIC_FORM_CONTROL_TYPE_TAG = 'TYPETAG';
 
 export interface DynamicTagModelConfig extends DsDynamicInputModelConfig {
+  authorityClosed: boolean;
   authorityMetadata: string;
   authorityName: string;
   authorityScope: string;
   minChars: number;
   value?: any;
-  // chips: Chips;
 }
 
 export class DynamicTagModel extends DsDynamicInputModel {
-
+  @serializable() authorityClosed: boolean;
   @serializable() authorityMetadata: string;
   @serializable() authorityName: string;
   @serializable() authorityScope: string;
@@ -26,6 +26,7 @@ export class DynamicTagModel extends DsDynamicInputModel {
     super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
+    this.authorityClosed = config.authorityClosed;
     this.authorityMetadata = config.authorityMetadata;
     this.authorityName = config.authorityName;
     this.authorityScope = config.authorityScope;
@@ -33,18 +34,5 @@ export class DynamicTagModel extends DsDynamicInputModel {
     const value = config.value || [];
     this.valueUpdates.next(value)
   }
-
-  // get value() {
-  //   const out = [];
-  //   this.chips.chipsItems.forEach((item) => {
-  //     out.push(item.item);
-  //   });
-  //
-  //   return out;
-  // }
-
-  // set value(value: any[]) {
-  //   // this.chips.chipsItems = value;
-  // }
 
 }

@@ -1,17 +1,12 @@
 @import "../../../../../../../styles/variables";
 
-/* enable absolute positioning */
-.spinner-addon {
-  position: relative;
-}
-
 /* style fa-spin */
-.spinner-addon .fa-spin {
+.fa-spin {
   color: map-get($theme-colors, primary);
   position: absolute;
-  margin-top: 3px;
   padding: 0;
   pointer-events: none;
+  right: 0;
 }
 
 /* align fa-spin */
@@ -43,4 +38,9 @@ input {
 }
 input:focus{
   outline: none;
+}
+
+/deep/ .dropdown-menu {
+  left: 0 !important;
+  margin-top: 15px !important;
 }

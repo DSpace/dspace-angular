@@ -9,6 +9,7 @@ import { ListableObject } from '../../../object-collection/shared/listable-objec
 import { WorkflowitemMyDSpaceResult } from '../../../object-collection/shared/workflowitem-my-dspace-result.model';
 import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
+import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-workflowitem-my-dspace-result-detail-element',
@@ -19,7 +20,9 @@ import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail
 @renderElementsFor(WorkflowitemMyDSpaceResult, ViewMode.Detail)
 @renderElementsFor(Workflowitem, ViewMode.Detail)
 export class WorkflowitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkflowitemMyDSpaceResult, Workflowitem> {
+
   public item: Item;
+  public status = ItemStatusType.WORKFLOW;
 
   constructor(@Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);

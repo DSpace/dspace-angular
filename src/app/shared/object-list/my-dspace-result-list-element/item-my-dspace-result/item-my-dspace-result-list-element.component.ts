@@ -3,14 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../+search-page/search-options.model';
-import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Observable } from 'rxjs/Observable';
-import { hasNoUndefinedValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
 import { ItemMyDSpaceResult } from '../../../object-collection/shared/item-my-dspace-result.model';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { ItemStatusType } from '../../item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
@@ -22,6 +17,7 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 export class ItemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ItemMyDSpaceResult, Item> implements OnInit {
 
   public itemUrl: string;
+  public status = ItemStatusType.ACCEPTED;
 
   ngOnInit() {
     this.itemUrl = this.dso.findMetadata('dc.identifier.uri');

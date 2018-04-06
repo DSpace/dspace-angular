@@ -5,7 +5,7 @@
           [disabled]="processingClaim"
           (click)="claim()">
     <span *ngIf="processingClaim"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-    <span *ngIf="!processingClaim"><i class="fa fa fa-hand-paper-o"></i> {{'submission.workflow.tasks.pool.claim' | translate}}</span>
+    <span *ngIf="!processingClaim"><i class="fa fa-hand-paper-o"></i> {{'submission.workflow.tasks.pool.claim' | translate}}</span>
   </button>
 
   <ds-message-board

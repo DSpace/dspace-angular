@@ -9,35 +9,41 @@
   (change)="changeChips($event)"
 ></ds-chips>
 
+
 <input
   *ngIf="!searchOptions"
   type="text"
   placeholder="Enter a tag..."
+  [(ngModel)]="currentValue"
   (keypress)="preventEventsPropagation($event)"
   (keydown)="preventEventsPropagation($event)"
   (keyup)="onKeyUp($event)"
-  [(ngModel)]="inputText"
 />
 
-<input
-  *ngIf="searchOptions"
-  type="text"
-  [attr.autoComplete]="model.autoComplete"
-  [class.is-invalid]="showErrorMessages"
-  [dynamicId]="bindId && model.id"
-  [inputFormatter]="formatter"
-  [name]="model.name"
-  [ngbTypeahead]="search"
-  [placeholder]="model.label"
-  [resultTemplate]="rt"
-  [type]="model.inputType"
-  [(ngModel)]="currentValue"
-  (blur)="onBlurEvent($event)"
-  (focus)="onFocusEvent($event)"
-  (change)="$event.stopPropagation()"
-  (input)="onInput($event)"
-  (selectItem)="onSelectItem($event)"
-/>
+
+  <input
+    *ngIf="searchOptions"
+    type="text"
+    [(ngModel)]="currentValue"
+    [attr.autoComplete]="model.autoComplete"
+    [class.is-invalid]="showErrorMessages"
+    [dynamicId]="bindId && model.id"
+    [inputFormatter]="formatter"
+    [name]="model.name"
+    [ngbTypeahead]="search"
+    [placeholder]="model.label"
+    [resultTemplate]="rt"
+    [type]="model.inputType"
+    (blur)="onBlurEvent($event)"
+    (focus)="onFocusEvent($event)"
+    (change)="$event.stopPropagation()"
+    (input)="onInput($event)"
+    (selectItem)="onSelectItem($event)"
+    (keypress)="preventEventsPropagation($event)"
+    (keydown)="preventEventsPropagation($event)"
+    (keyup)="onKeyUp($event)"
+  />
+  <i *ngIf="searching" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
 
 <hr/>
 

@@ -6,9 +6,8 @@ import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.
 import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
-import { hasNoUndefinedValue, isNotEmpty } from '../../../empty.util';
+import { hasNoUndefinedValue } from '../../../empty.util';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
-import { Eperson } from '../../../../core/eperson/models/eperson.model';
 import { ItemStatusType } from '../../item-list-status/item-status-type';
 import { Item } from '../../../../core/shared/item.model';
 
@@ -20,6 +19,7 @@ import { Item } from '../../../../core/shared/item.model';
 
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
+
   item: Item;
   status = ItemStatusType.IN_PROGRESS;
 

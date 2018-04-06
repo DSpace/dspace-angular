@@ -1,24 +1,40 @@
 <hr class="mt-0">
 <div class="ds-dynamic-group-component row">
   <ds-form #formRef="formComponent"
-           class="col-sm-11 pl-0"
+           class="col-sm-9 pl-0"
            [formId]="formId"
            [formModel]="formModel"
            [displaySubmit]="false"></ds-form>
-  <button *ngIf="!editMode"
-          type="button"
-          class="btn btn-link col pr-0 align-middle"
-          [disabled]="isMandatoryFieldEmpty()"
-          (click)="addChips()">
-    <i class="fa fa-plus-circle fa-2x" style="color: gray" aria-hidden="true"></i>
-  </button>
 
-  <div *ngIf="editMode" class="col pr-0 d-flex">
-    <button type="button" class="btn btn-link align-middle" (click)="modifyChips()">
-      <i class="fa fa-save fa-2x" style="color: darkcyan" aria-hidden="true"></i>
+
+
+  <div class="col p-0 m-0 d-flex justify-content-center">
+    <button *ngIf="!editMode"
+            type="button"
+            class="btn btn-link pr-0 align-middle"
+            [disabled]="isMandatoryFieldEmpty()">
+      <i class="fa fa-plus-circle fa-3x"
+         style="color: gray"
+         aria-hidden="true"
+         (click)="addChips()"></i>
     </button>
-    <button type="button" class="btn btn-link align-middle" (click)="exitEditMode()">
-      <i class="fa fa-undo fa-2x" style="color: gray" aria-hidden="true"></i>
+
+    <button *ngIf="editMode"
+            type="button"
+            class="btn btn-link align-middle"
+            [disabled]="isMandatoryFieldEmpty()">
+      <i class="fa fa-save fa-2x"
+         style="color: darkcyan"
+         aria-hidden="true"
+         (click)="modifyChips()"></i>
+    </button>
+    <button *ngIf="editMode"
+            type="button"
+            class="btn btn-link align-middle">
+      <i class="fa fa-undo fa-2x"
+         style="color: gray"
+         aria-hidden="true"
+         (click)="exitEditMode()"></i>
     </button>
   </div>
 </div>

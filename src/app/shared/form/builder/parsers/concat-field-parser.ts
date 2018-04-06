@@ -14,10 +14,16 @@ import { isNotEmpty } from '../../../empty.util';
 
 export class ConcatFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel, protected initFormValues, private separator: string) {
+  constructor(protected configData: FormFieldModel,
+              protected initFormValues,
+              private separator: string,
+              protected firstPlaceholder: string = null,
+              protected secondPlaceholder: string = null) {
     super(configData, initFormValues);
 
     this.separator = separator;
+    this.firstPlaceholder = firstPlaceholder;
+    this.secondPlaceholder = secondPlaceholder;
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
@@ -43,6 +49,18 @@ export class ConcatFieldParser extends FieldParser {
 
     const input1ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_FIRST_INPUT_SUFFIX, true, false, false);
     const input2ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_SECOND_INPUT_SUFFIX, true, true, false);
+
+    if (this.configData.mandatory) {
+      input1ModelConfig.required = true;
+    }
+
+    if (isNotEmpty(this.firstPlaceholder)) {
+      input1ModelConfig.placeholder = this.firstPlaceholder;
+    }
+
+    if (isNotEmpty(this.secondPlaceholder)) {
+      input2ModelConfig.placeholder = this.secondPlaceholder;
+    }
 
     // Init values
     if (isNotEmpty(fieldValue)) {

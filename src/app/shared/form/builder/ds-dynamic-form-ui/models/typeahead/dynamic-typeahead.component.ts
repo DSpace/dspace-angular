@@ -29,7 +29,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   searching = false;
   searchOptions: IntegrationSearchOptions;
   searchFailed = false;
-  hideSearchingWhenUnsubscribed = new Observable(() => () => this.changeSerachingStatus(false));
+  hideSearchingWhenUnsubscribed = new Observable(() => () => this.changeSearchingStatus(false));
   currentValue: any;
 
   formatter = (x: { display: string }) => {
@@ -40,7 +40,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
     text$
       .debounceTime(300)
       .distinctUntilChanged()
-      .do(() => this.changeSerachingStatus(true))
+      .do(() => this.changeSearchingStatus(true))
       .switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
           return Observable.of({list: []});
@@ -62,7 +62,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
         }
       })
       .map((results) => results.list)
-      .do(() => this.changeSerachingStatus(false))
+      .do(() => this.changeSearchingStatus(false))
       .merge(this.hideSearchingWhenUnsubscribed);
 
   constructor(private authorityService: AuthorityService, private cdr: ChangeDetectorRef) {
@@ -81,7 +81,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
       });
   }
 
-  changeSerachingStatus(status: boolean) {
+  changeSearchingStatus(status: boolean) {
     this.searching = status;
     this.cdr.detectChanges();
   }

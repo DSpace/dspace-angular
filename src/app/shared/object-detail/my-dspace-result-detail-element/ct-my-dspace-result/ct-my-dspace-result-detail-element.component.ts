@@ -12,8 +12,8 @@ import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { Router } from '@angular/router';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
+import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-claimtask-my-dspace-result-detail-element',
@@ -25,16 +25,14 @@ import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail
 @renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.Detail)
 @renderElementsFor(ClaimedTask, ViewMode.Detail)
 export class ClaimedTaskMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
+  public status = ItemStatusType.VALIDATION;
   public workFlow: Workflowitem;
   public rejectForm: FormGroup;
-  // public submitter: Eperson;
-  // public user: Eperson;
 
-  constructor(
-    private ctDataService: ClaimedTaskDataService,
-    private modalService: NgbModal,
-    private formBuilder: FormBuilder,
-    @Inject('objectElementProvider') public listable: ListableObject) {
+  constructor(private ctDataService: ClaimedTaskDataService,
+              private modalService: NgbModal,
+              private formBuilder: FormBuilder,
+              @Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
 
     this.rejectForm = this.formBuilder.group({

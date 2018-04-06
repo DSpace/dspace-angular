@@ -5,6 +5,7 @@ import { ViewMode } from '../../../../+search-page/search-options.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemMyDSpaceResult } from '../../../object-collection/shared/item-my-dspace-result.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
+import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-detail-element',
@@ -16,6 +17,7 @@ import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail
 export class ItemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ItemMyDSpaceResult, Item> {
 
   public itemUrl: string;
+  public status = ItemStatusType.ACCEPTED;
 
   isInProgress(): boolean {
     return (!this.dso.isArchived) && (!this.dso.isWithdrawn);

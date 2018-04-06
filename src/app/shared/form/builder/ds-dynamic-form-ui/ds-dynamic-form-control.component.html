@@ -4,7 +4,7 @@
 
   <label *ngIf="type !== 3 && model.label"
            [for]="model.id"
-           [innerHTML]="(model.required && model.label) ? model.label + ' *' : model.label"
+           [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
            [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
 
     <ng-container *ngTemplateOutlet="templates[0]?.templateRef; context: model"></ng-container>
@@ -120,7 +120,7 @@
                  [navigation]="getAdditional('navigation', 'select')"
                  [ngClass]="getClass('element', 'control')"
                  [outsideDays]="getAdditional('outsideDays', 'visible')"
-                 [placeholder]="model.placeholder"
+                 [placeholder]="(model.placeholder | translate)"
                  [placement]="getAdditional('placement', 'bottom-left')"
                  [showWeekdays]="getAdditional('showWeekdays', true)"
                  [showWeekNumbers]="getAdditional('showWeekNumbers', false)"
@@ -222,7 +222,7 @@
                   [minlength]="model.minLength"
                   [name]="model.name"
                   [ngClass]="getClass('element', 'control')"
-                  [placeholder]="model.placeholder"
+                  [placeholder]="(model.placeholder | translate)"
                   [readonly]="model.readOnly"
                   [required]="model.required"
                   [rows]="model.rows"
@@ -338,7 +338,7 @@
                [name]="model.name"
                [ngClass]="getClass('element', 'control')"
                [pattern]="model.pattern"
-               [placeholder]="model.placeholder"
+               [placeholder]="(model.placeholder | translate)"
                [readonly]="model.readOnly"
                [required]="model.required"
                [spellcheck]="model.spellCheck"
