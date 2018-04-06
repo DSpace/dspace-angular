@@ -12,11 +12,11 @@
     <button *ngIf="!editMode"
             type="button"
             class="btn btn-link pr-0 align-middle"
-            [disabled]="isMandatoryFieldEmpty()">
+            [disabled]="isMandatoryFieldEmpty()"
+            (click)="addChips()">
       <i class="fa fa-plus-circle fa-3x"
          style="color: gray"
-         aria-hidden="true"
-         (click)="addChips()"></i>
+         aria-hidden="true"></i>
     </button>
 
     <button *ngIf="editMode"
