@@ -249,6 +249,9 @@
       "title": "Edit Submission"
     },
     "mydspace": {
+      "general": {
+        "text_here": "HERE"
+      },
       "upload_workspace_success": "New workspace item created. Click {{here}} for edit it.",
       "upload_workspace_success_more": "{{qty}} new workspace items created.",
       "upload_workspace_error": "Error creating new workspace. Please verify the content uploaded before retry."

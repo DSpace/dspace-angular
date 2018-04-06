@@ -36,7 +36,7 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.wsiDataService.getEndpoint().subscribe( (url) => {
+    this.wsiDataService.getEndpoint().subscribe((url) => {
         this.uploadFilesOptions.url = url;
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
         console.log('Url option is ', url);
@@ -54,23 +54,28 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
       const workspaceitems = res._embedded.workspaceitems;
       this.wsiUploaded.emit(workspaceitems);
 
-        if (workspaceitems.length === 1) {
-          const options = new NotificationOptions();
-          options.timeOut = 0;
-          const link = '/workspaceitems/' + workspaceitems[0].id + '/edit';
-          const here = `<button class="btn btn-link p-0 m-0 pb-1" routerLink="${link}" >HERE</button>`;
-          const message = this.translate.get('submission.mydspace.upload_workspace_success', {here});
-          message
-            .take(1)
-            .subscribe( (m) => {
-              this.notificationsService.success(null, null, options, m);
+      if (workspaceitems.length === 1) {
+        const options = new NotificationOptions();
+        options.timeOut = 0;
+        const link = '/workspaceitems/' + workspaceitems[0].id + '/edit';
+        this.translate.get('submission.mydspace.general.text_here')
+          .take(1)
+          .subscribe((textHere) => {
+            const here = `<button class="btn btn-link p-0 m-0 pb-1" routerLink="${link}" >
+                        <strong>${textHere}</strong>
+                      </button>`;
+            this.translate.get('submission.mydspace.upload_workspace_success', {here})
+              .take(1)
+              .subscribe((m) => {
+                this.notificationsService.success(null, null, options, m);
+              });
           });
-        } else if (workspaceitems.length > 1) {
-          this.notificationsService.success(null, this.translate.get('submission.mydspace.upload_workspace_success_more', {qty: workspaceitems.length}))
-        }
+      } else if (workspaceitems.length > 1) {
+        this.notificationsService.success(null, this.translate.get('submission.mydspace.upload_workspace_success_more', {qty: workspaceitems.length}));
+      }
 
     } else {
-      this.notificationsService.error(null, this.translate.get('submission.mydspace.upload_workspace_error'))
+      this.notificationsService.error(null, this.translate.get('submission.mydspace.upload_workspace_error'));
     }
   }
 

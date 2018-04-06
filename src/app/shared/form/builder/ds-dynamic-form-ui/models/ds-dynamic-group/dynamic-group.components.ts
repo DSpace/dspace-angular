@@ -66,7 +66,7 @@ export class DsDynamicGroupComponent implements OnInit {
 
   addChips(event) {
     if (!this.formRef.formGroup.valid) {
-      this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
+      // this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
       this.formService.validateAllFormFields(this.formRef.formGroup);
       return;
     }
