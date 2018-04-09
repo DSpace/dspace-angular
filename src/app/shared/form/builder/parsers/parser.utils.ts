@@ -12,6 +12,6 @@ export function setLayout(model: any, controlLayout: string, controlLayoutConfig
   } else if (isUndefined(model.layout[controlLayout][controlLayoutConfig])) {
     model.layout[controlLayout][controlLayoutConfig] = style;
   } else {
-    model.layout[controlLayout][controlLayoutConfig].concat(` ${style}`);
+    model.layout[controlLayout][controlLayoutConfig] = model.layout[controlLayout][controlLayoutConfig].concat(` ${style}`);
   }
 }

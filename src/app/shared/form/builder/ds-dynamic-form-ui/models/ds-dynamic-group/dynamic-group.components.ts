@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { DynamicGroupModel } from './dynamic-group.model';
+import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import {
   DynamicFormControlModel,
@@ -13,8 +13,6 @@ import { FormComponent } from '../../../../form.component';
 import { Chips, ChipsItem } from '../../../../../chips/chips.model';
 import { DynamicLookupModel } from '../lookup/dynamic-lookup.model';
 import { NotificationsService } from '../../../../../notifications/notifications.service';
-
-const PLACEHOLDER = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -87,7 +85,7 @@ export class DsDynamicGroupComponent implements OnInit {
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((model: DynamicInputModel) => {
-        const value = this.selectedChips.item[model.name] === PLACEHOLDER ? null : this.selectedChips.item[model.name];
+        const value = this.selectedChips.item[model.name] === PLACEHOLDER_PARENT_METADATA ? null : this.selectedChips.item[model.name];
         if (model instanceof DynamicLookupModel) {
           (model as DynamicLookupModel).valueUpdates.next(value);
         } else if (model instanceof DynamicInputModel) {
@@ -139,7 +137,7 @@ export class DsDynamicGroupComponent implements OnInit {
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((control: DynamicInputModel) => {
-        item[control.name] = control.value || PLACEHOLDER;
+        item[control.name] = control.value || PLACEHOLDER_PARENT_METADATA;
       });
     });
     return item;

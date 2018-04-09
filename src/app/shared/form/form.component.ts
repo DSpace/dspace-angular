@@ -14,7 +14,7 @@ import { FormChangeAction, FormInitAction, FormRemoveAction, FormStatusChangeAct
 import { FormBuilderService } from './builder/form-builder.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue } from '../empty.util';
+import { hasValue, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { formObjectFromIdSelector } from './selectors';
 import { FormEntry, FormError } from './form.reducers';
@@ -252,7 +252,15 @@ export class FormComponent implements OnDestroy, OnInit {
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {
     const context = arrayContext.groups[index];
     const itemGroupModel = context.context;
-    const group = this.formGroup.get(itemGroupModel.id) as FormGroup;
+    let group = this.formGroup.get(itemGroupModel.id) as FormGroup;
+    if (isNull(group)) {
+      for (const key of Object.keys(this.formGroup.controls)) {
+        group = this.formGroup.controls[key].get(itemGroupModel.id) as FormGroup;
+        if (isNotNull(group)) {
+          break;
+        }
+      }
+    }
     const model = context.group[0] as DynamicFormControlModel;
     const control = group.controls[index] as FormControl;
     return {$event, context, control, group, model, type};

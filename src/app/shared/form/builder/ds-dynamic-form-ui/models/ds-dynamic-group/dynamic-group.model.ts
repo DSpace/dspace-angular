@@ -3,6 +3,7 @@ import { FormRowModel } from '../../../../../../core/shared/config/config-submis
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_RELATION = 'RELATION';
+export const PLACEHOLDER_PARENT_METADATA = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
 /**
  * Dynamic Group Model configuration interface

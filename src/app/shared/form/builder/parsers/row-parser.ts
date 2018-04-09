@@ -39,7 +39,7 @@ export class RowParser {
 
     const scopedFields: FormFieldModel[] = this.filterScopedFields(this.rowData.fields);
 
-    const layoutGridClass = ' col-sm-' + Math.trunc(12 / scopedFields.length);
+    const layoutGridClass = ' col-sm-' + Math.trunc(12 / scopedFields.length) + ' d-flex flex-column justify-content-start';
 
     // Iterate over row's fields
     scopedFields.forEach((fieldData: FormFieldModel) => {
@@ -101,7 +101,11 @@ export class RowParser {
         if (fieldModel instanceof DynamicFormArrayModel || fieldModel instanceof DynamicGroupModel) {
           if (this.rowData.fields.length > 1) {
             setLayout(fieldModel, 'grid', 'host', layoutGridClass);
-            parsedResult = [fieldModel]
+            config.group.push(fieldModel);
+            // if (isEmpty(parsedResult)) {
+            //   parsedResult = [];
+            // }
+            // parsedResult.push(fieldModel);
           } else {
             parsedResult = fieldModel;
           }

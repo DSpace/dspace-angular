@@ -1,15 +1,12 @@
-import { uniqueId } from 'lodash';
-
 import { FieldParser } from './field-parser';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FormFieldModel } from '../models/form-field.model';
 import {
   DynamicGroupModel,
-  DynamicGroupModelConfig
+  DynamicGroupModelConfig, PLACEHOLDER_PARENT_METADATA
 } from '../ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.model';
 import { isNotEmpty } from '../../../empty.util';
 import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
-import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 
 export class GroupFieldParser extends FieldParser {
 
@@ -48,9 +45,7 @@ export class GroupFieldParser extends FieldParser {
         const listFields = modelConfiguration.relationFields.concat(modelConfiguration.mandatoryField);
         listFields.forEach((fieldId) => {
           const value = this.getInitFieldValue(0, index, [fieldId]);
-          if (value) {
-            item[fieldId] = value;
-          }
+          item[fieldId] = isNotEmpty(value) ? value : PLACEHOLDER_PARENT_METADATA;
         });
         modelConfiguration.value.push(item);
       })
