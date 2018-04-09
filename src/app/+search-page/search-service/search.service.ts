@@ -96,6 +96,7 @@ export class SearchService implements OnDestroy {
   }
 
   search(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    // this.halService.getEndpoint(this.searchLinkPath).subscribe((t) => console.log(t));
     const requestObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
         if (hasValue(searchOptions)) {
@@ -110,7 +111,6 @@ export class SearchService implements OnDestroy {
       }),
       tap((request: RestRequest) => this.requestService.configure(request)),
     );
-
     const requestEntryObs = requestObs.pipe(
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
