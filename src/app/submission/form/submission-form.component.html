@@ -6,26 +6,28 @@
                                 [sectionId]="'upload'"
                                 [uploadFilesOptions]="uploadFilesOptions"></ds-submission-upload-files>
     <div class="clearfix"></div>
-    <div class="submission-submit-form-header mb-3">
-        <div class="submission-submit-form-header-item mb-3 mb-sm-0">
-          <ds-submission-form-collection [currentCollectionId]="collectionId"
-                                                [submissionId]="submissionId"
-                                                (collectionChange)="onCollectionChange($event)">
-          </ds-submission-form-collection>
-        </div>
-        <div class="submission-submit-form-header-item text-right">
-          <ds-submission-form-section-add [collectionId]="collectionId"
-                                                 [submissionId]="submissionId"
-                                                 [definitionId]="definitionId">
-          </ds-submission-form-section-add>
-        </div>
-    </div>
   </div>
-  <div class="submission-submit-form-content">
+  <div class="submission-form-header mb-3">
+      <div class="submission-form-header-item mb-3 mb-sm-0">
+        <ds-submission-form-collection [currentCollectionId]="collectionId"
+                                              [submissionId]="submissionId"
+                                              (collectionChange)="onCollectionChange($event)">
+        </ds-submission-form-collection>
+        <a href="#license">license</a>
+      </div>
+      <div class="submission-form-header-item text-right">
+        <ds-submission-form-section-add [collectionId]="collectionId"
+                                               [submissionId]="submissionId"
+                                               [definitionId]="definitionId">
+        </ds-submission-form-section-add>
+      </div>
+  </div>
+
+  <div class="submission-form-content">
     <ds-loading *ngIf="isLoading()" message="Loading..."></ds-loading>
     <ng-template dsSectionsHost></ng-template>
   </div>
-  <div *ngIf="loading !== true" class="submission-submit-form-footer mt-3 mb-3">
+  <div *ngIf="loading !== true" class="submission-form-footer mt-3 mb-3">
     <ds-submission-form-footer
       [submissionId]="submissionId"></ds-submission-form-footer>
   </div>
