@@ -130,6 +130,10 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-2.0.1.tgz#aa67788e64bfa8652691a77b022b3b4031209113"
 
+"@nicky-lenaers/ngx-scroll-to@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@nicky-lenaers/ngx-scroll-to/-/ngx-scroll-to-0.6.0.tgz#6d2922f5765a472e3c86499d9e53df5ca210e637"
+
 "@types/body-parser@*":
   version "1.16.8"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.16.8.tgz#687ec34140624a3bec2b1a8ea9268478ae8f3be3"
