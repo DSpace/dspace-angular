@@ -14,6 +14,10 @@ import { SearchService } from '../../../search-service/search.service';
 import { SearchServiceStub } from '../../../../shared/testing/search-service-stub';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
+import { SearchOptions } from '../../../search-options.model';
+import { RouterStub } from '../../../../shared/testing/router-stub';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -48,13 +52,18 @@ describe('SearchFacetFilterComponent', () => {
   const searchLink = '/search';
   const selectedValues = [value1, value2];
   let filterService;
+  let searchService;
+  let router;
   const page = Observable.of(0);
+
+  const mockValues = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(null, values)));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
       declarations: [SearchFacetFilterComponent],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
+        { provide: Router, useValue: new RouterStub() },
         {
           provide: SearchFilterService, useValue: {
           isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
@@ -65,7 +74,6 @@ describe('SearchFacetFilterComponent', () => {
           resetPage: (filterName: string) => {
           },
           getSearchOptions: () => Observable.of({}),
-
           /* tslint:enable:no-empty */
         }
         }
@@ -80,9 +88,13 @@ describe('SearchFacetFilterComponent', () => {
     fixture = TestBed.createComponent(SearchFacetFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.filterConfig = mockFilterConfig;
-    comp.filterValues = [Observable.of(new RemoteData(false, false, true, null, new PaginatedList(null, values)))];
+    comp.filterValues = [mockValues];
+    comp.filterValues$ = new BehaviorSubject(comp.filterValues);
     comp.selectedValues = selectedValues;
     filterService = (comp as any).filterService;
+    searchService = (comp as any).searchService;
+    spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
+    router = (comp as any).router;
     fixture.detectChanges();
   });
 
@@ -111,14 +123,14 @@ describe('SearchFacetFilterComponent', () => {
   describe('when the getAddParams method is called wih a value', () => {
     it('should return the selectedValueq list with the new parameter value', () => {
       const result = comp.getAddParams(value3);
-      expect(result).toEqual({[mockFilterConfig.paramName]: [value1, value2, value3]});
+      expect(result).toEqual({ [mockFilterConfig.paramName]: [value1, value2, value3] });
     });
   });
 
   describe('when the getRemoveParams method is called wih a value', () => {
     it('should return the selectedValueq list with the parameter value left out', () => {
       const result = comp.getRemoveParams(value1);
-      expect(result).toEqual({[mockFilterConfig.paramName]: [value2]});
+      expect(result).toEqual({ [mockFilterConfig.paramName]: [value2] });
     });
   });
 
@@ -140,7 +152,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call resetPage on the filterService with the correct filter parameter name', () => {
-      expect(filterService.resetPage).toHaveBeenCalledWith(mockFilterConfig.name)
+      expect(filterService.resetPage).toHaveBeenCalledWith(mockFilterConfig.name);
     });
   });
 
@@ -152,6 +164,78 @@ describe('SearchFacetFilterComponent', () => {
 
     it('should call getPage on the filterService with the correct filter parameter name', () => {
       expect(filterService.getPage).toHaveBeenCalledWith(mockFilterConfig.name)
+    });
+  });
+
+  describe('when the getCurrentUrl method is called', () => {
+    const url = 'test.url/test'
+    beforeEach(() => {
+      router.navigateByUrl(url);
+    });
+
+    it('should call getPage on the filterService with the correct filter parameter name', () => {
+      expect(router.url).toEqual(url);
+    });
+  });
+
+  describe('when the onSubmit method is called with data', () => {
+    const searchUrl = '/search/path';
+    const testValue = 'test';
+    const data = { [mockFilterConfig.paramName]: testValue };
+    beforeEach(() => {
+      spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
+      comp.onSubmit(data);
+    });
+
+    it('should call navigate on the router with the right searchlink and parameters', () => {
+      expect(router.navigate).toHaveBeenCalledWith([searchUrl], {
+        queryParams: { [mockFilterConfig.paramName]: [...selectedValues, testValue] },
+        queryParamsHandling: 'merge'
+      });
+    });
+  });
+
+  describe('when updateFilterValueList is called', () => {
+    const cPage = 10;
+    const searchOptions = new SearchOptions();
+    beforeEach(() => {
+      // spyOn(searchService, 'getFacetValuesFor'); Already spied upon
+      comp.currentPage = Observable.of(cPage);
+      comp.updateFilterValueList(searchOptions);
+    });
+
+    it('should call getFacetValuesFor on the searchService with the correct parameters', () => {
+      expect(searchService.getFacetValuesFor).toHaveBeenCalledWith(mockFilterConfig, cPage, searchOptions);
+    });
+  });
+
+  describe('when updateFilterValueList is called and pageChange is set to true', () => {
+    const searchOptions = new SearchOptions();
+    beforeEach(() => {
+      comp.pageChange = true;
+      spyOn(comp, 'showFirstPageOnly');
+      comp.updateFilterValueList(searchOptions);
+    });
+
+    it('should not call showFirstPageOnly on the component', () => {
+      expect(comp.showFirstPageOnly).not.toHaveBeenCalled();
+    });
+
+    it('should set pageChange to false', () => {
+      expect(comp.pageChange).toBeFalsy();
+    });
+  });
+
+  describe('when updateFilterValueList is called and pageChange is set to false', () => {
+    const searchOptions = new SearchOptions();
+    beforeEach(() => {
+      comp.pageChange = false;
+      spyOn(comp, 'showFirstPageOnly');
+      comp.updateFilterValueList(searchOptions);
+    });
+
+    it('should call showFirstPageOnly on the component', () => {
+      expect(comp.showFirstPageOnly).toHaveBeenCalled();
     });
   });
 });

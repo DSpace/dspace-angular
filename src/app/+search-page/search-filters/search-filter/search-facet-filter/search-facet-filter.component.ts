@@ -57,7 +57,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.filterValues = [...this.filterValues, newValues$];
       this.filterValues$.next(this.filterValues);
     });
-    // this.filterValues.subscribe((c) => c.map((a) => a.subscribe((b) => console.log(b))));
   }
 
   isChecked(value: FacetValue): Observable<boolean> {
@@ -101,8 +100,14 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   isLastPage(): Observable<boolean> {
-    return Observable.of(false);
-    // return this.filterValues$.flatMap((map) => map.pop().map((rd: RemoteData<PaginatedList<FacetValue>>) => rd.payload.currentPage >= rd.payload.totalPages));
+    return this.filterValues$.flatMap((map) => {
+
+      if (isNotEmpty(map)) {
+        return map.pop().map((rd: RemoteData<PaginatedList<FacetValue>>) => rd.payload.currentPage >= rd.payload.totalPages);
+      } else {
+        return false;
+      }
+    });
   }
 
   getRemoveParams(value: string) {
