@@ -61,9 +61,9 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
         this.translate.get('submission.mydspace.general.text_here')
           .take(1)
           .subscribe((textHere) => {
-            const here = `<button class="btn btn-link p-0 m-0 pb-1" routerLink="${link}" >
+            const here = `<a class="btn btn-link p-0 m-0 pb-1" href="${link}" >
                         <strong>${textHere}</strong>
-                      </button>`;
+                      </a>`;
             this.translate.get('submission.mydspace.upload_workspace_success', {here})
               .take(1)
               .subscribe((m) => {
