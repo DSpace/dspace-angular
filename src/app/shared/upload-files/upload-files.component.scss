@@ -44,3 +44,20 @@
   clear: both;
   margin-top: 6px;
 }
+
+#ds-body-drop-zone {
+  z-index: 1021;
+  top: 0;
+  left: 0;
+  background-color: rgba($black, 0.7);
+}
+
+#ds-body-drop-zone-content {
+  border: 4px dashed #818181;
+}
+
+#ds-body-drop-zone span {
+
+  font-size: 36px;
+  //color: #818181;
+}

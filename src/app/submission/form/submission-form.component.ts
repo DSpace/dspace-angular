@@ -3,7 +3,8 @@ import { Store } from '@ngrx/store';
 
 import { SectionHostDirective } from '../section/section-host.directive';
 import {
-  CancelSubmissionFormAction, LoadSubmissionFormAction,
+  CancelSubmissionFormAction,
+  LoadSubmissionFormAction,
   ResetSubmissionFormAction
 } from '../objects/submission-objects.actions';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
@@ -18,7 +19,6 @@ import { Workspaceitem } from '../../core/submission/models/workspaceitem.model'
 import { SubmissionService } from '../submission.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../core/auth/auth.service';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 
 @Component({
   selector: 'ds-submission-submit-form',

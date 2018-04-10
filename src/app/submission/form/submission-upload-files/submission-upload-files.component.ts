@@ -23,10 +23,14 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   @Input() sectionId;
   @Input() uploadFilesOptions: UploadFilesComponentOptions;
 
+  public enableDragOverDocument = true;
+  public dropOverDocumentMsg = 'submission.section.upload.drop-message';
+  public dropMsg = 'submission.section.upload.drop-message';
+
   private subs = [];
   private uploadEnabled: boolean;
 
-  onBeforeUpload = () => {
+  public onBeforeUpload = () => {
     this.operationsService.jsonPatchByResourceType(
       this.submissionService.getSubmissionObjectLinkName(),
       this.submissionId,

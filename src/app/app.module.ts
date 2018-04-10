@@ -32,6 +32,7 @@ import { NotificationsBoardComponent } from './shared/notifications/notification
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { SharedModule } from './shared/shared.module';
 import { SortablejsModule } from 'angular-sortablejs';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -60,6 +61,7 @@ if (!ENV_CONFIG.production) {
     AppRoutingModule,
     CoreModule.forRoot(),
     SortablejsModule.forRoot({ animation: 150 }),
+    ScrollToModule.forRoot(),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
     EffectsModule.forRoot(appEffects),

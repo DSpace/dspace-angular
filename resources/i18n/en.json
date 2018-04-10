@@ -75,6 +75,13 @@
       "help": "Select a community to browse its collections."
     }
   },
+  "uploader": {
+    "drag-message": "Drag & Drop your files here",
+    "or": ", or",
+    "browse": "browse",
+    "queue-lenght": "Queue length",
+    "processing": "Processing"
+  },
   "mydspace": {
     "title": "MyDSpace",
     "description": "",
@@ -267,7 +274,7 @@
       "submit.progressbar.describe.stepone": "Describe",
       "submit.progressbar.describe.steptwo": "Describe",
       "submit.progressbar.describe.stepcustom": "Describe",
- "submit.progressbar.describe.basicinformation": "Basic Information",
+      "submit.progressbar.describe.basicinformation": "Basic Information",
       "submit.progressbar.describe.description": "Description",
       "submit.progressbar.describe.documenttype": "Document Type",
       "submit.progressbar.describe.sourcejournal": "Journal Info",
@@ -289,6 +296,7 @@
       "submit.progressbar.cclicense": "Creative commons license",
 
       "upload": {
+        "drop-message": "Drop files to attach them to the item",
         "upload_successful": "Upload successful",
         "upload_failed": "Upload failed",
         "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
