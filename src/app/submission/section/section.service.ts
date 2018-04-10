@@ -8,31 +8,39 @@ import { submissionSelector, SubmissionState } from '../submission.reducers';
 
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import {
-  DisableSectionAction, EnableSectionAction, InertSectionErrorsAction,
+  DisableSectionAction,
+  EnableSectionAction,
+  InertSectionErrorsAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
-import { SubmissionSectionError, SubmissionObjectEntry, SubmissionSectionObject } from '../objects/submission-objects.reducer';
+import {
+  SubmissionObjectEntry,
+  SubmissionSectionError,
+  SubmissionSectionObject
+} from '../objects/submission-objects.reducer';
 import {
   sectionDefinitionFromIdSelector,
-  submissionDefinitionFromIdSelector, submissionObjectFromIdSelector,
+  submissionDefinitionFromIdSelector,
+  submissionObjectFromIdSelector,
   submissionSectionFromIdSelector
 } from '../selectors';
-
-import { SubmissionDefinitionsConfigService } from '../../core/config/submission-definitions-config.service';
-import { SubmissionSectionsConfigService } from '../../core/config/submission-sections-config.service';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import { SectionDataObject } from './section-data.model';
-import { WorkspaceitemSectionDataType, WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import {
+  WorkspaceitemSectionDataType,
+  WorkspaceitemSectionsObject
+} from '../../core/submission/models/workspaceitem-sections.model';
+import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 @Injectable()
 export class SectionService {
 
   private viewContainerRef: ViewContainerRef;
 
-  constructor(private definitionsConfigService: SubmissionDefinitionsConfigService,
-              private sectionsConfigService: SubmissionSectionsConfigService,
+  constructor(private scrollToService: ScrollToService,
               private sectionFactory: SectionFactoryComponent,
-              private store: Store<SubmissionState>) {}
+              private store: Store<SubmissionState>) {
+  }
 
   initViewContainer(viewContainerRef: ViewContainerRef) {
     this.viewContainerRef = viewContainerRef;
@@ -64,7 +72,10 @@ export class SectionService {
                   && Object.keys(submissionState[submissionId].sections).length !== 0
                   && !submissionState[submissionId].sections.hasOwnProperty(sectionId)
                   && !this.isSectionHidden(definition.sections[sectionId])) {
-                  availableSections.push({id: sectionId, header: definition.sections[sectionId].header} as SectionDataObject);
+                  availableSections.push({
+                    id: sectionId,
+                    header: definition.sections[sectionId].header
+                  } as SectionDataObject);
                 }
               });
             }
@@ -134,13 +145,21 @@ export class SectionService {
                       definitionId: string,
                       sectionId: string,
                       sectionData: WorkspaceitemSectionDataType,
-                      sectionErrors: SubmissionSectionError[]) {
+                      sectionErrors: SubmissionSectionError[],
+                      scrollTo: boolean = false) {
     this.getSectionDefinition(definitionId, sectionId)
       .filter((sectionObj: SubmissionSectionModel) => isNotUndefined(sectionObj))
       .take(1)
       .subscribe((sectionObj: SubmissionSectionModel) => {
         const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, sectionData, sectionObj, this.viewContainerRef);
         const viewIndex = this.viewContainerRef.indexOf(componentRef.hostView);
+        if (scrollTo) {
+          const config: ScrollToConfigOptions = {
+            target: sectionId
+          };
+
+          this.scrollToService.scrollTo(config);
+        }
         this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex, sectionData, sectionErrors));
       });
   }
@@ -151,7 +170,7 @@ export class SectionService {
                     sectionId: string,
                     sectionData: WorkspaceitemSectionDataType = null,
                     sectionErrors: SubmissionSectionError[] = []) {
-    this.loadSection(collectionId, submissionId, definitionId, sectionId, sectionData, sectionErrors);
+    this.loadSection(collectionId, submissionId, definitionId, sectionId, sectionData, sectionErrors, true);
   }
 
   public removeSection(submissionId, sectionId) {
@@ -186,7 +205,7 @@ export class SectionService {
     }
   }
 
-  public setSectionError(submissionId:string, sectionId: string, errors: SubmissionSectionError[]) {
+  public setSectionError(submissionId: string, sectionId: string, errors: SubmissionSectionError[]) {
     this.store.dispatch(new InertSectionErrorsAction(submissionId, sectionId, errors));
   }
 }

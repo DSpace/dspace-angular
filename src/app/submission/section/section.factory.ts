@@ -68,6 +68,8 @@ export class SectionFactoryComponent {
     // We insert the component into the dom container
     sectionsHost.insert(containerRef.hostView);
 
+    containerRef.changeDetectorRef.detectChanges();
+
     return containerRef;
   }
 }
