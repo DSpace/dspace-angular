@@ -57,7 +57,7 @@ export class AuthEffects {
     .ofType(AuthActionTypes.AUTHENTICATED)
     .switchMap((action: AuthenticatedAction) => {
       return this.authService.authenticatedUser(action.payload)
-        .map((user: Eperson) => new AuthenticatedSuccessAction((user !== null), user))
+        .map((user: Eperson) => new AuthenticatedSuccessAction((user !== null), action.payload, user))
         .catch((error) => Observable.of(new AuthenticatedErrorAction(error)));
     });
 

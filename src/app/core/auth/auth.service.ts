@@ -13,13 +13,14 @@ import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
-import { getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
+import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { Store } from '@ngrx/store';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { RouterReducerState } from '@ngrx/router-store';
 import { CookieAttributes } from 'js-cookie';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
+import { PlatformService } from '../../shared/services/platform.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
 import { PlatformService } from '../../shared/services/platform.service';
@@ -43,6 +44,7 @@ export class AuthService {
   constructor(@Inject(NativeWindowService) private _window: NativeWindowRef,
               @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
               private authRequestService: AuthRequestService,
+              private platform: PlatformService,
               private platform: PlatformService,
               private router: Router,
               private storage: CookieService,
@@ -245,13 +247,16 @@ export class AuthService {
    * @returns {AuthTokenInfo}
    */
   public getToken(): AuthTokenInfo {
-    // Retrieve authentication token info and check if is valid
-    const token = this.storage.get(TOKENITEM);
-    if (isNotEmpty(token) && token.hasOwnProperty('accessToken') && isNotEmpty(token.accessToken)) {
-      return token;
-    } else {
-      return null;
-    }
+    let token: AuthTokenInfo;
+    this.store.select(getAuthenticationToken)
+      .subscribe((authTokenInfo: AuthTokenInfo) => {
+        // Retrieve authentication token info and check if is valid
+        token = isNotEmpty(authTokenInfo) ? authTokenInfo : this.storage.get(TOKENITEM);
+        if (isEmpty(token) || !token.hasOwnProperty('accessToken') || isEmpty(token.accessToken)) {
+          token = null;
+        }
+      });
+    return token;
   }
 
   /**
