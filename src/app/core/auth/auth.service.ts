@@ -139,8 +139,17 @@ export class AuthService {
    * Checks if token is present into storage and is not expired
    */
   public checkAuthenticationToken(): Observable<AuthTokenInfo> {
-    const token = this.getToken();
-    return isNotEmpty(token) && !this.isTokenExpired() ? Observable.of(token) : Observable.throw(false);
+    return this.store.select(getAuthenticationToken)
+      .map((authTokenInfo: AuthTokenInfo) => {
+        let token: AuthTokenInfo;
+        // Retrieve authentication token info and check if is valid
+        token = isNotEmpty(authTokenInfo) ? authTokenInfo : this.storage.get(TOKENITEM);
+        if (isNotEmpty(token) && token.hasOwnProperty('accessToken') && isNotEmpty(token.accessToken) && !this.isTokenExpired(token)) {
+          return token;
+        } else {
+          throw false;
+        }
+      });
   }
 
   /**
@@ -250,10 +259,7 @@ export class AuthService {
     this.store.select(getAuthenticationToken)
       .subscribe((authTokenInfo: AuthTokenInfo) => {
         // Retrieve authentication token info and check if is valid
-        token = isNotEmpty(authTokenInfo) ? authTokenInfo : this.storage.get(TOKENITEM);
-        if (isEmpty(token) || !token.hasOwnProperty('accessToken') || isEmpty(token.accessToken)) {
-          token = null;
-        }
+        token = authTokenInfo || null;
       });
     return token;
   }
@@ -279,8 +285,8 @@ export class AuthService {
    * Check if a token is expired
    * @returns {boolean}
    */
-  public isTokenExpired(): boolean {
-    const token = this.getToken();
+  public isTokenExpired(token?: AuthTokenInfo): boolean {
+    token = token || this.getToken();
     return token && token.expires < Date.now();
   }
 
@@ -346,7 +352,6 @@ export class AuthService {
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
           if (this.platform.isBrowser) {
-            console.log('CLEAR REDIRECT!!!!')
             this.clearRedirectUrl();
           }
 
