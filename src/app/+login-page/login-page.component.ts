@@ -4,7 +4,9 @@ import { Store } from '@ngrx/store';
 
 import { AppState } from '../app.reducer';
 import {
-  AddAuthenticationMessageAction, AuthenticatedAction,
+  AddAuthenticationMessageAction,
+  AuthenticatedAction,
+  AuthenticationSuccessAction,
   ResetAuthenticationMessagesAction
 } from '../core/auth/auth.actions';
 import { Subscription } from 'rxjs/Subscription';
@@ -27,17 +29,25 @@ export class LoginPageComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     const queryParamsObs = this.route.queryParams;
-    const authenticated = this.store.select(isAuthenticated)
+    const authenticated = this.store.select(isAuthenticated);
     this.sub = Observable.combineLatest(queryParamsObs, authenticated)
-      .filter(([params, auth]) => !auth && (isNotEmpty(params.token) || isNotEmpty(params.expired)))
-      .first()
+      .filter(([params, auth]) => isNotEmpty(params.token) || isNotEmpty(params.expired))
+      .take(1)
       .subscribe(([params, auth]) => {
         const token = params.token;
-        if (isNotEmpty(params.token)) {
-          const authToken = new AuthTokenInfo(token);
-          this.store.dispatch(new AuthenticatedAction(authToken));
-        } else if (isNotEmpty(params.expired)) {
-          this.store.dispatch(new AddAuthenticationMessageAction('auth.messages.expired'));
+        let authToken: AuthTokenInfo;
+        if (!auth) {
+          if (isNotEmpty(token)) {
+            authToken = new AuthTokenInfo(token);
+            this.store.dispatch(new AuthenticatedAction(authToken));
+          } else if (isNotEmpty(params.expired)) {
+            this.store.dispatch(new AddAuthenticationMessageAction('auth.messages.expired'));
+          }
+        } else {
+          if (isNotEmpty(token)) {
+            authToken = new AuthTokenInfo(token);
+            this.store.dispatch(new AuthenticationSuccessAction(authToken));
+          }
         }
       })
   }

@@ -78,11 +78,12 @@ export class AuthenticatedSuccessAction implements Action {
   public type: string = AuthActionTypes.AUTHENTICATED_SUCCESS;
   payload: {
     authenticated: boolean;
+    authToken: AuthTokenInfo;
     user: Eperson
   };
 
-  constructor(authenticated: boolean, user: Eperson) {
-    this.payload = { authenticated, user };
+  constructor(authenticated: boolean, authToken: AuthTokenInfo, user: Eperson) {
+    this.payload = { authenticated, authToken, user };
   }
 }
 

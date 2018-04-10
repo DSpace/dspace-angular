@@ -3,11 +3,12 @@ import {
   AddAuthenticationMessageAction,
   AuthActions, AuthActionTypes, AuthenticatedSuccessAction, AuthenticationErrorAction,
   AuthenticationSuccessAction, LogOutErrorAction, RedirectWhenAuthenticationIsRequiredAction,
-  RedirectWhenTokenExpiredAction, RetrieveAuthMethodsSuccessAction, SetRedirectUrlAction
+  RedirectWhenTokenExpiredAction, RefreshTokenSuccessAction, RetrieveAuthMethodsSuccessAction, SetRedirectUrlAction
 } from './auth.actions';
 
 // import models
 import { Eperson } from '../eperson/models/eperson.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 /**
  * The auth state.
@@ -17,6 +18,9 @@ export interface AuthState {
 
   // boolean if user is authenticated
   authenticated: boolean;
+
+  // the authentication token
+  authToken?: AuthTokenInfo;
 
   // error message
   error?: string;
@@ -77,6 +81,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.AUTHENTICATED_ERROR:
       return Object.assign({}, state, {
         authenticated: false,
+        authToken: undefined,
         error: (action as AuthenticationErrorAction).payload.message,
         loaded: true,
         loading: false
@@ -85,6 +90,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.AUTHENTICATED_SUCCESS:
       return Object.assign({}, state, {
         authenticated: true,
+        authToken: (action as AuthenticatedSuccessAction).payload.authToken,
         loaded: true,
         error: undefined,
         loading: false,
@@ -96,6 +102,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.REGISTRATION_ERROR:
       return Object.assign({}, state, {
         authenticated: false,
+        authToken: undefined,
         error: (action as AuthenticationErrorAction).payload.message,
         loading: false
       });
@@ -124,6 +131,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.REFRESH_TOKEN_ERROR:
       return Object.assign({}, state, {
         authenticated: false,
+        authToken: undefined,
         error: undefined,
         loaded: false,
         loading: false,
@@ -136,6 +144,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.REDIRECT_TOKEN_EXPIRED:
       return Object.assign({}, state, {
         authenticated: false,
+        authToken: undefined,
         loaded: false,
         loading: false,
         info: (action as RedirectWhenTokenExpiredAction as RedirectWhenAuthenticationIsRequiredAction).payload,
@@ -145,6 +154,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.REGISTRATION:
       return Object.assign({}, state, {
         authenticated: false,
+        authToken: undefined,
         error: undefined,
         loading: true,
         info: undefined
@@ -160,6 +170,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
 
     case AuthActionTypes.REFRESH_TOKEN_SUCCESS:
       return Object.assign({}, state, {
+        authToken: (action as RefreshTokenSuccessAction).payload,
         refreshing: false,
       });
 
@@ -170,10 +181,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
 
     case AuthActionTypes.RESET_MESSAGES:
       return Object.assign({}, state, {
-        authenticated: state.authenticated,
         error: undefined,
-        loaded: state.loaded,
-        loading: state.loading,
         info: undefined,
       });
 
@@ -258,6 +266,14 @@ export const _isLoading = (state: AuthState) => state.loading;
  * @returns {boolean}
  */
 export const _isRefreshing = (state: AuthState) => state.refreshing;
+
+/**
+ * Returns the authentication token.
+ * @function _getAuthenticationToken
+ * @param {State} state
+ * @returns {AuthToken}
+ */
+export const _getAuthenticationToken = (state: AuthState) => state.authToken;
 
 /**
  * Returns the sign out error.
