@@ -149,9 +149,6 @@ export class AuthService {
           throw false;
         }
       });
-    // return token;
-    // const token = this.getToken();
-    // return isNotEmpty(token) && !this.isTokenExpired() ? Observable.of(token) : Observable.throw(false);
   }
 
   /**
@@ -261,10 +258,6 @@ export class AuthService {
     this.store.select(getAuthenticationToken)
       .subscribe((authTokenInfo: AuthTokenInfo) => {
         // Retrieve authentication token info and check if is valid
-        // token = isNotEmpty(authTokenInfo) ? authTokenInfo : this.storage.get(TOKENITEM);
-        // if (isEmpty(token) || !token.hasOwnProperty('accessToken') || isEmpty(token.accessToken)) {
-        //   token = null;
-        // }
         token = authTokenInfo || null;
       });
     return token;
@@ -358,7 +351,6 @@ export class AuthService {
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
           if (this.platform.isBrowser) {
-            console.log('CLEAR REDIRECT!!!!')
             this.clearRedirectUrl();
           }
 
