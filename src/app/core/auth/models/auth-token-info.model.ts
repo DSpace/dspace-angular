@@ -8,8 +8,12 @@ export class AuthTokenInfo {
 
   constructor(token: string) {
     this.accessToken = token.replace('Bearer ', '');
-    const tokenClaims = decode(this.accessToken);
-    // exp claim is in seconds, convert it se to milliseconds
-    this.expires = tokenClaims.exp * 1000;
+    try {
+      const tokenClaims = decode(this.accessToken);
+      // exp claim is in seconds, convert it se to milliseconds
+      this.expires = tokenClaims.exp * 1000;
+    } catch (err) {
+      this.expires = 0;
+    }
   }
 }

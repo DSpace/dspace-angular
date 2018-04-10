@@ -19,6 +19,7 @@ import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.
 import { RouterReducerState } from '@ngrx/router-store';
 import { CookieAttributes } from 'js-cookie';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
+import { PlatformService } from '../../shared/services/platform.service';
 
 export const LOGIN_ROUTE = '/login';
 
@@ -38,6 +39,7 @@ export class AuthService {
 
   constructor(@Inject(NativeWindowService) private _window: NativeWindowRef,
               private authRequestService: AuthRequestService,
+              private platform: PlatformService,
               private router: Router,
               private storage: CookieService,
               private store: Store<AppState>) {
@@ -289,8 +291,13 @@ export class AuthService {
    * Redirect to the login route when token has expired
    */
   public redirectToLoginWhenTokenExpired() {
-    // Hard redirect to login page, so that all state is definitely lost
-    this._window.nativeWindow.location.href = LOGIN_ROUTE + '?expired=true';
+    const redirectUrl = LOGIN_ROUTE + '?expired=true';
+    if (this._window.nativeWindow.location) {
+      // Hard redirect to login page, so that all state is definitely lost
+      this._window.nativeWindow.location.href = redirectUrl;
+    } else {
+      this.router.navigateByUrl(redirectUrl);
+    }
   }
 
   /**
@@ -301,24 +308,20 @@ export class AuthService {
       .first()
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
-          this.clearRedirectUrl();
+          if (this.platform.isBrowser) {
+            console.log('CLEAR REDIRECT!!!!')
+            this.clearRedirectUrl();
+          }
 
-          const urlTree: UrlTree = this.router.parseUrl(redirectUrl);
-          const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
-          const segment = '/' + g.toString();
-          const navigationExtras: NavigationExtras = {
-            queryParams: urlTree.queryParams,
-            queryParamsHandling: 'merge'
-          };
-          this.router.navigate([segment], navigationExtras);
-        } else {
           // override the route reuse strategy
           this.router.routeReuseStrategy.shouldReuseRoute = () => {
             return false;
           };
           this.router.navigated = false;
-          const url = decodeURIComponent(this.router.url);
+          const url = decodeURIComponent(redirectUrl);
           this.router.navigateByUrl(url);
+        } else {
+          this.router.navigate(['/']);
         }
       })
 
@@ -328,6 +331,7 @@ export class AuthService {
    * Refresh route navigated
    */
   public refreshAfterLogout() {
+    this.router.navigate(['/home']);
     // Hard redirect to home page, so that all state is definitely lost
     this._window.nativeWindow.location.href = '/home';
   }
@@ -348,7 +352,13 @@ export class AuthService {
    * Set redirect url
    */
   setRedirectUrl(url: string) {
-    this.storage.set(REDIRECT_COOKIE, url);
+    // Add 1 day to the current date
+    const expireDate = Date.now() + (1000 * 60 * 60 * 24 * 1);
+
+    // Set the cookie expire date
+    const expires = new Date(expireDate);
+    const options: CookieAttributes = {expires: expires};
+    this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
 
