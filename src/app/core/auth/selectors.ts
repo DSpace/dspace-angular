@@ -84,6 +84,14 @@ export const isAuthenticationLoading = createSelector(getAuthState, auth._isLoad
 export const isTokenRefreshing = createSelector(getAuthState, auth._isRefreshing);
 
 /**
+ * Returns the authentication token.
+ * @function getAuthenticationToken
+ * @param {State} state
+ * @returns {AuthToken}
+ */
+export const getAuthenticationToken = createSelector(getAuthState, auth._getAuthenticationToken);
+
+/**
  * Returns the log out error.
  * @function getLogOutError
  * @param {AuthState} state

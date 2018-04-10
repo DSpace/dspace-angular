@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
+import { PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { map, withLatestFrom } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
-import { getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
+import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { Store } from '@ngrx/store';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
@@ -212,13 +212,16 @@ export class AuthService {
    * @returns {AuthTokenInfo}
    */
   public getToken(): AuthTokenInfo {
-    // Retrieve authentication token info and check if is valid
-    const token = this.storage.get(TOKENITEM);
-    if (isNotEmpty(token) && token.hasOwnProperty('accessToken') && isNotEmpty(token.accessToken)) {
-      return token;
-    } else {
-      return null;
-    }
+    let token: AuthTokenInfo;
+    this.store.select(getAuthenticationToken)
+      .subscribe((authTokenInfo: AuthTokenInfo) => {
+        // Retrieve authentication token info and check if is valid
+        token = isNotEmpty(authTokenInfo) ? authTokenInfo : this.storage.get(TOKENITEM);
+        if (isEmpty(token) || !token.hasOwnProperty('accessToken') || isEmpty(token.accessToken)) {
+          token = null;
+        }
+      });
+    return token;
   }
 
   /**
