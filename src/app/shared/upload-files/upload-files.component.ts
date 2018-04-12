@@ -59,30 +59,16 @@ export class UploadFilesComponent {
 
   public uploader: FileUploader;
   public uploaderId: string;
-  public hasBaseDropZoneOver = false;
-  public dragOverDocument = Observable.of(false);
+  public isOverBaseDropZone = Observable.of(false);
+  public isOverDocumentDropZone = Observable.of(false);
 
-  @HostListener('window:dragenter', ['$event'])
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
     if (this.enableDragOverDocument) {
       // Show drop area on the page
       event.preventDefault();
-      this.dragOverDocument = Observable.of(true);
-    }
-  }
-
-  @HostListener('window:dragleave', ['$event'])
-  onDragLeave(event: any) {
-    if (this.enableDragOverDocument) {
-      console.log('leave', event);
-      // onDragleave event is fired by many elements,
-      // so intercept only those are fired by window document or drop zones
-      if ((event.target as any).tagName === 'HTML'
-        || (event.target as any).id === 'ds-body-drop-zone-content'
-        || (event.target as any).id === 'ds-body-drop-zone') {
-        // Hide drop area
-        this.dragOverDocument = Observable.of(false);
+      if ((event.target as any).tagName !== 'HTML') {
+        this.isOverDocumentDropZone = Observable.of(true);
       }
     }
   }
@@ -123,8 +109,9 @@ export class UploadFilesComponent {
     });
     this.uploader.onBeforeUploadItem = () => {
       this.onBeforeUpload();
-      this.dragOverDocument = Observable.of(false);
+      this.isOverDocumentDropZone = Observable.of(false);
 
+      // Move page target to the uploader
       const config: ScrollToConfigOptions = {
         target: this.uploaderId
       };
@@ -139,11 +126,19 @@ export class UploadFilesComponent {
   }
 
   /**
-   * Called when files are dragged on the drop area.
+   * Called when files are dragged on the base drop area.
    */
-  public fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
-    this.dragOverDocument = Observable.of(false);
+  public fileOverBase(isOver: boolean): void {
+    this.isOverBaseDropZone = Observable.of(isOver);
+  }
+
+  /**
+   * Called when files are dragged on the window document drop area.
+   */
+  public fileOverDocument(isOver: boolean) {
+    if (!isOver) {
+      this.isOverDocumentDropZone = Observable.of(isOver);
+    }
   }
 
   private onProgress() {
@@ -166,9 +161,4 @@ export class UploadFilesComponent {
     }
   }
 
-  // @HostListener('window:drop', ['$event'])
-  onDrop(ev: any) {
-    console.log(`Drop end`, ev);
-    this.dragOverDocument = Observable.of(false);
-  }
 }
