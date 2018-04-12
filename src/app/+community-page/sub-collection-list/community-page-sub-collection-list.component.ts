@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
 
 import { fadeIn } from '../../shared/animations/fade';
 
@@ -15,13 +14,10 @@ import { fadeIn } from '../../shared/animations/fade';
   animations:[fadeIn]
 })
 export class CommunityPageSubCollectionListComponent implements OnInit {
-  subCollectionsRDObs: Observable<RemoteData<PaginatedList<Collection>>>;
-
-  constructor(private cds: CollectionDataService) {
-
-  }
+  @Input() community: Community;
+  subCollectionsRDObs: Observable<RemoteData<Collection[]>>;
 
   ngOnInit(): void {
-    this.subCollectionsRDObs = this.cds.findAll();
+    this.subCollectionsRDObs = this.community.collections;
   }
 }
