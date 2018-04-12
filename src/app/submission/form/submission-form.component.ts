@@ -19,6 +19,7 @@ import { Workspaceitem } from '../../core/submission/models/workspaceitem.model'
 import { SubmissionService } from '../submission.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../core/auth/auth.service';
+import { RemoveDefinitionsAction } from '../definitions/submission-definitions.actions';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -51,6 +52,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
               private store: Store<SubmissionState>,
               private submissionRestService: SubmissionRestService,
               private submissionService: SubmissionService) {
+    this.isActive = true;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -64,7 +66,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
-            this.store.dispatch(new LoadSubmissionFormAction(this.definitionId, this.collectionId, this.submissionId, this.selfUrl, this.sections));
+            this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.selfUrl, this.sections, this.submissionDefinition));
             this.changeDetectorRef.detectChanges();
           }),
 
@@ -85,6 +87,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     this.isActive = false;
     this.submissionService.stopAutoSave();
     this.store.dispatch(new CancelSubmissionFormAction());
+    this.store.dispatch(new RemoveDefinitionsAction());
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
@@ -96,7 +99,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       this.sections = workspaceItemObject.sections;
       this.submissionDefinition = workspaceItemObject.submissionDefinition[0];
       this.definitionId = this.submissionDefinition.name;
-      this.store.dispatch(new ResetSubmissionFormAction(this.definitionId, this.collectionId, this.submissionId, workspaceItemObject.self, this.sections));
+      this.store.dispatch(new ResetSubmissionFormAction(this.collectionId, this.submissionId, workspaceItemObject.self, this.sections, this.submissionDefinition));
     } else {
       this.changeDetectorRef.detectChanges();
     }

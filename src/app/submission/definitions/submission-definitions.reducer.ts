@@ -54,6 +54,10 @@ export function submissionDefinitionReducer(state = initialState, action: Defini
       return state;
     }
 
+    case SubmissionDefinitionActionTypes.REMOVE_DEFINITIONS: {
+      return initialState;
+    }
+
     default: {
       return state;
     }

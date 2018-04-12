@@ -11,6 +11,7 @@ import {
 } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -254,18 +255,16 @@ export class CompleteInitSubmissionFormAction implements Action {
 export class LoadSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM;
   payload: {
-    definitionId: string;
     collectionId: string;
     submissionId: string;
     selfUrl: string;
     sections: WorkspaceitemSectionsObject;
+    submissionDefinition: SubmissionDefinitionsModel;
   };
 
   /**
    * Create a new LoadSubmissionFormAction
    *
-   * @param definitionId
-   *    the form definition's Id
    * @param collectionId
    *    the collection's Id where to deposit
    * @param submissionId
@@ -275,8 +274,8 @@ export class LoadSubmissionFormAction implements Action {
    * @param sections
    *    the submission's sections
    */
-  constructor(definitionId: string, collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject) {
-    this.payload = { definitionId, collectionId, submissionId, selfUrl, sections };
+  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel) {
+    this.payload = { collectionId, submissionId, selfUrl, sections, submissionDefinition };
   }
 }
 
@@ -465,18 +464,16 @@ export class CompleteSaveSubmissionFormAction implements Action {
 export class ResetSubmissionFormAction implements Action {
   type = SubmissionObjectActionTypes.RESET_SUBMISSION_FORM;
   payload: {
-    definitionId: string;
     collectionId: string;
     submissionId: string;
     selfUrl: string;
     sections: WorkspaceitemSectionsObject;
+    submissionDefinition: SubmissionDefinitionsModel;
   };
 
   /**
    * Create a new LoadSubmissionFormAction
    *
-   * @param definitionId
-   *    the form definition's Id
    * @param collectionId
    *    the collection's Id where to deposit
    * @param submissionId
@@ -485,9 +482,11 @@ export class ResetSubmissionFormAction implements Action {
    *    the submission object url
    * @param sections
    *    the submission's sections
+   * @param submissionDefinition
+   *    the submission's form definition
    */
-  constructor(definitionId: string, collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject) {
-    this.payload = { definitionId, collectionId, submissionId, selfUrl, sections };
+  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel) {
+    this.payload = { collectionId, submissionId, selfUrl, sections, submissionDefinition };
   }
 }
 

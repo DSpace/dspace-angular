@@ -53,18 +53,23 @@ export class SubmissionObjectEffects {
   @Effect() loadForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM)
     .map((action: LoadSubmissionFormAction) =>
-      new InitDefaultDefinitionAction(action.payload.collectionId, action.payload.submissionId, action.payload.selfUrl, action.payload.sections));
+      new InitDefaultDefinitionAction(
+        action.payload.collectionId,
+        action.payload.submissionId,
+        action.payload.selfUrl,
+        action.payload.sections,
+        action.payload.submissionDefinition));
 
   @Effect() resetForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.RESET_SUBMISSION_FORM)
     .do((action: ResetSubmissionFormAction) => this.sectionService.removeAllSections(action.payload.submissionId))
     .map((action: ResetSubmissionFormAction) =>
       new LoadSubmissionFormAction(
-        action.payload.definitionId,
         action.payload.collectionId,
         action.payload.submissionId,
         action.payload.selfUrl,
-        action.payload.sections));
+        action.payload.sections,
+        action.payload.submissionDefinition));
 
   @Effect() initForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)

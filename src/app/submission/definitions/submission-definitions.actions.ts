@@ -18,6 +18,7 @@ export const SubmissionDefinitionActionTypes = {
   NEW_SECTION_DEFINITION: type('dspace/submission/definition/NEW_SECTION_DEFINITION'),
   INIT_DEFAULT_DEFINITION: type('dspace/submission/definition/INIT_DEFAULT_DEFINITION'),
   COMPLETE_INIT_DEFAULT_DEFINITION: type('dspace/submission/definition/COMPLETE_INIT_DEFAULT_DEFINITION'),
+  REMOVE_DEFINITIONS: type('dspace/submission/definition/REMOVE_DEFINITIONS'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -29,6 +30,7 @@ export class InitDefaultDefinitionAction implements Action {
     submissionId: string;
     selfUrl: string;
     sections: WorkspaceitemSectionsObject;
+    submissionDefinition: SubmissionDefinitionsModel;
   };
 
   /**
@@ -39,8 +41,8 @@ export class InitDefaultDefinitionAction implements Action {
    * @param submissionId
    *    the submission's ID
    */
-  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject) {
-    this.payload = { collectionId, submissionId, selfUrl, sections };
+  constructor(collectionId: string, submissionId: string, selfUrl: string, sections: WorkspaceitemSectionsObject, submissionDefinition: SubmissionDefinitionsModel ) {
+    this.payload = { collectionId, submissionId, selfUrl, sections, submissionDefinition };
   }
 }
 
@@ -109,6 +111,10 @@ export class NewSectionDefinitionAction implements Action {
   }
 }
 
+export class RemoveDefinitionsAction implements Action {
+  type = SubmissionDefinitionActionTypes.REMOVE_DEFINITIONS;
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -120,3 +126,4 @@ export type DefinitionsAction
   | CompleteInitAction
   | NewDefinitionAction
   | NewSectionDefinitionAction
+  | RemoveDefinitionsAction;

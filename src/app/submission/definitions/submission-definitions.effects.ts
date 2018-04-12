@@ -22,23 +22,36 @@ export class SubmissionDefinitionEffects {
 
   @Effect() init$ = this.actions$
     .ofType(SubmissionDefinitionActionTypes.INIT_DEFAULT_DEFINITION)
-    .switchMap((action: InitDefaultDefinitionAction) => {
-      return this.definitionsConfigService.getConfigBySearch({scopeID: action.payload.collectionId})
-        .flatMap((definitions: ConfigData) => definitions.payload)
-        // .filter((definition: SubmissionDefinitionsModel) => definition.isDefault)
-        .map((definition: SubmissionDefinitionsModel) => {
-          const mappedActions = [];
-          mappedActions.push(new NewDefinitionAction(definition));
-          definition.sections.forEach((section) => {
-            mappedActions.push(
-              new NewSectionDefinitionAction(
-                definition.name,
-                section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
-                section as SubmissionSectionModel)
-            )
-          });
-          return {action: action, definition: definition, mappedActions: mappedActions};
-        })
+    .map((action: InitDefaultDefinitionAction) => {
+      console.log(action.payload.submissionDefinition);
+      const definition = action.payload.submissionDefinition;
+      const mappedActions = [];
+      mappedActions.push(new NewDefinitionAction(definition));
+      definition.sections.forEach((section) => {
+        mappedActions.push(
+          new NewSectionDefinitionAction(
+            definition.name,
+            section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
+            section as SubmissionSectionModel)
+        )
+      });
+      return {action: action, definition: definition, mappedActions: mappedActions};
+      // return this.definitionsConfigService.getConfigBySearch({scopeID: action.payload.collectionId})
+      //   .flatMap((definitions: ConfigData) => definitions.payload)
+      //   // .filter((definition: SubmissionDefinitionsModel) => definition.isDefault)
+      //   .map((definition: SubmissionDefinitionsModel) => {
+      //     const mappedActions = [];
+      //     mappedActions.push(new NewDefinitionAction(definition));
+      //     definition.sections.forEach((section) => {
+      //       mappedActions.push(
+      //         new NewSectionDefinitionAction(
+      //           definition.name,
+      //           section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
+      //           section as SubmissionSectionModel)
+      //       )
+      //     });
+      //     return {action: action, definition: definition, mappedActions: mappedActions};
+      //   })
     })
     // .flatMap((result) => result)
     .mergeMap((result) => {

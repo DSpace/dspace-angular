@@ -297,7 +297,7 @@ function initSubmission(state: SubmissionObjectState, action: LoadSubmissionForm
   const newState = Object.assign({}, state);
   newState[ action.payload.submissionId ] = {
     collection: action.payload.collectionId,
-    definition: action.payload.definitionId,
+    definition: action.payload.submissionDefinition.name,
     selfUrl: action.payload.selfUrl,
     activeSection: null,
     sections: Object.create(null),
