@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { SubmitPageComponent } from './submit-page.component';
+import { SubmissionSubmitComponent } from '../submission/submit/submission-submit.component';
 
 @NgModule({
   imports: [
@@ -11,7 +11,7 @@ import { SubmitPageComponent } from './submit-page.component';
         canActivate: [AuthenticatedGuard],
         path: '',
         pathMatch: 'full',
-        component: SubmitPageComponent,
+        component: SubmissionSubmitComponent,
         data: { title: 'submission.submit.title' }
       }
     ])

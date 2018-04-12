@@ -36,6 +36,7 @@ import { RecycleSectionComponent } from './section/recycle/section-recycle.compo
 import { DeduplicationSectionComponent } from './section/deduplication/section-deduplication.component';
 import { DeduplicationMatchComponent } from './section/deduplication/match/deduplication-match.component';
 import { DeduplicationService } from './section/deduplication/deduplication.service';
+import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { DeduplicationService } from './section/deduplication/deduplication.serv
     SubmissionFormCollectionComponent,
     SubmissionFormComponent,
     SubmissionFormFooterComponent,
+    SubmissionSubmitComponent,
     SubmissionUploadFilesComponent,
     UploadSectionFileComponent,
     UploadSectionFileEditComponent,
@@ -79,7 +81,8 @@ import { DeduplicationService } from './section/deduplication/deduplication.serv
     DeduplicationSectionComponent],
   exports: [
     SubmissionEditComponent,
-    SubmissionFormComponent
+    SubmissionFormComponent,
+    SubmissionSubmitComponent
   ],
   providers: [
     SectionUploadService,
