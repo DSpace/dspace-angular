@@ -13,7 +13,7 @@ import { Notification } from '../models/notification.model';
 import { NotificationType } from '../models/notification-type';
 import { uniqueId } from 'lodash';
 
-describe('LoadingComponent (inline template)', () => {
+describe('NotificationsBoardComponent', () => {
   let comp: NotificationsBoardComponent;
   let fixture: ComponentFixture<NotificationsBoardComponent>;
 
@@ -51,11 +51,11 @@ describe('LoadingComponent (inline template)', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(comp).toBeTruthy();
   });
 
-  it('should be 2 notifications', () => {
+  it('should have two notifications', () => {
     expect(comp.notifications.length).toBe(2);
   });
 

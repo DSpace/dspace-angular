@@ -10,7 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { NotificationOptions } from '../models/notification-options.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('LoadingComponent (inline template)', () => {
+describe('NotificationComponent', () => {
 
   let comp: NotificationComponent;
   let fixture: ComponentFixture<NotificationComponent>;
@@ -53,7 +53,7 @@ describe('LoadingComponent (inline template)', () => {
     elType = fixture.debugElement.query(By.css('.fa-info')).nativeElement;
   });
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(comp).toBeTruthy();
   });
 
