@@ -27,6 +27,8 @@ module.exports = {
     async: true,
     time: false
   },
+  // Google Analytics tracking id
+  gaTrackingId: '',
   // Log directory
   logDirectory: '.',
   // NOTE: will log all redux actions and transfers in console
