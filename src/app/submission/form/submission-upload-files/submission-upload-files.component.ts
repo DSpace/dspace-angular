@@ -10,6 +10,7 @@ import { SubmissionService } from '../../submission.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationOptions } from '../../../shared/notifications/models/notification-options.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -19,16 +20,15 @@ export class SubmissionUploadFilesComponent implements OnChanges {
 
   @Input() collectionId;
   @Input() submissionId;
-  @Input() definitionId;
   @Input() sectionId;
   @Input() uploadFilesOptions: UploadFilesComponentOptions;
 
   public enableDragOverDocument = true;
-  public dropOverDocumentMsg = 'submission.section.upload.drop-message';
-  public dropMsg = 'submission.section.upload.drop-message';
+  public dropOverDocumentMsg = 'submission.sections.upload.drop-message';
+  public dropMsg = 'submission.sections.upload.drop-message';
 
   private subs = [];
-  private uploadEnabled: boolean;
+  private uploadEnabled: Observable<boolean> = Observable.of(false);
 
   public onBeforeUpload = () => {
     this.operationsService.jsonPatchByResourceType(
@@ -46,42 +46,29 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.uploadEnabled = false;
-    if (this.definitionId && this.sectionId) {
-      // Checks if upload section is present in the form definition
-      this.subs.push(this.sectionService.getSectionDefinition(this.definitionId, this.sectionId)
-        .filter((state) => isNotUndefined(state))
-        .take(1)
-        .subscribe((state) => {
-          this.uploadEnabled = true;
-        }));
-    }
+    this.uploadEnabled = this.sectionService.isSectionAvailable(this.submissionId, this.sectionId);
   }
 
   public onCompleteItem(workspaceitem: Workspaceitem) {
     // Checks if upload section is enabled so do upload
-    if (this.uploadEnabled) {
-      this.subs.push(
-        this.sectionService.isSectionLoaded(this.submissionId, this.sectionId)
-          .subscribe((isSectionLoaded) => {
-            this.notificationsService.success(null, this.translate.get('submission.section.upload.upload_successful'));
+    this.subs.push(
+      this.uploadEnabled
+        .subscribe((isUploadEnabled) => {
+          if (isUploadEnabled) {
+            this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload_successful'));
 
-            // Whether upload section is not yet loaded add it
-            if (!isSectionLoaded) {
-              this.sectionService.addSection(this.collectionId, this.submissionId, this.definitionId, this.sectionId)
-            }
             const {sections} = workspaceitem;
             if (sections && isNotEmpty(sections)) {
-              this.notificationsService.info(null, this.translate.get('submission.section.general.metadata_extracted'));
+              this.notificationsService.info(null, this.translate.get('submission.sections.general.metadata_extracted'));
               Object.keys(sections)
                 .forEach((sectionId) => {
                   const sectionData = normalizeSectionData(sections[sectionId]);
                   this.sectionService.updateSectionData(this.submissionId, sectionId, sectionData)
                 })
             }
-          })
-      );
-    }
+          }
+        })
+    );
   }
 
   /**

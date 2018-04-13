@@ -263,9 +263,10 @@
       "upload_workspace_success_more": "{{qty}} new workspace items created.",
       "upload_workspace_error": "Error creating new workspace. Please verify the content uploaded before retry."
     },
-    "section": {
+    "sections": {
 
       "general": {
+        "add-more": "Add more",
         "sections_not_valid": "There are incomplete sections.",
         "deposit_success_notice": "Submission deposited successfully.",
         "save_success_notice": "Submission saved successfully.",

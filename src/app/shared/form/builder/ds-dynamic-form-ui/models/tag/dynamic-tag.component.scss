@@ -22,6 +22,8 @@
   max-height: 200px;
   overflow-y: scroll;
   overflow-x: hidden;
+  left: 0 !important;
+  margin-top: 15px !important;
 }
 
 :host /deep/ .dropdown-item.active,
@@ -38,9 +40,4 @@ input {
 }
 input:focus{
   outline: none;
-}
-
-/deep/ .dropdown-menu {
-  left: 0 !important;
-  margin-top: 15px !important;
 }

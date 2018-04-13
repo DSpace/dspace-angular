@@ -5,16 +5,18 @@
      [submissionId]="submissionId"
      [sectionId]="sectionData.id">
   <ngb-accordion #acc="ngbAccordion"
+                 *ngIf="(sectionRef.isEnabled() | async)"
                  (panelChange)="sectionRef.sectionChange($event)"
                  activeIds="{{ sectionData.id }}"
-                 [destroyOnHide]="false">
+                 [destroyOnHide]="false"
+                 @flyInOut>
     <ngb-panel id="{{ sectionData.id }}">
       <ng-template ngbPanelTitle>
-        <span>{{ 'submission.section.'+sectionData.header | translate }}</span>
+        <span>{{ 'submission.sections.'+sectionData.header | translate }}</span>
         <div class="d-inline-block float-right">
-          <i *ngIf="!sectionRef.isValid()" class="fa fa-exclamation-circle text-warning mr-3"
+          <i *ngIf="!(sectionRef.isValid() | async)" class="fa fa-exclamation-circle text-warning mr-3"
              aria-hidden="true"></i>
-          <i *ngIf="sectionRef.isValid()" class="fa fa-check-circle text-success mr-3"
+          <i *ngIf="(sectionRef.isValid() | async)" class="fa fa-check-circle text-success mr-3"
              aria-hidden="true"></i>
           <a class="close" aria-label="Close">
             <span *ngIf="sectionRef.isOpen()" class="fa fa-angle-up fa-fw"

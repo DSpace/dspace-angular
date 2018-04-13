@@ -80,6 +80,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
               this.sectionData.errors = [];
               // Is the first loading so init form
               this.initForm(sectionData);
+              this.sectionData.data = sectionData;
               this.subscriptions();
               this.isLoading = false;
               this.cdr.detectChanges();

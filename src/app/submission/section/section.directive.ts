@@ -14,6 +14,7 @@ import {
   SetActiveSectionAction
 } from '../objects/submission-objects.actions';
 import { SubmissionService } from '../submission.service';
+import { Observable } from 'rxjs/Observable';
 
 @Directive({
   selector: '[dsSection]',
@@ -26,29 +27,27 @@ export class SectionDirective implements OnDestroy, OnInit {
 
   private active = true;
   private animation = !this.mandatory;
+  private enabled: Observable<boolean>;
   private sectionState = this.mandatory;
   private subs: Subscription[] = [];
-  private valid: boolean;
+  private valid: Observable<boolean>;
 
   public sectionErrors: string[] = [];
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private store: Store<SubmissionState>,
-              private sectionService: SectionService,
-              private submissionService: SubmissionService) {
+              private submissionService: SubmissionService,
+              private sectionService: SectionService) {
   }
 
   ngOnInit() {
-    this.subs.push(this.sectionService.isSectionValid(this.submissionId, this.sectionId)
-    // Avoid 'ExpressionChangedAfterItHasBeenCheckedError' using debounceTime
-      .debounceTime(1)
-      .subscribe((valid: boolean) => {
-        this.valid = valid;
+    this.valid = this.sectionService.isSectionValid(this.submissionId, this.sectionId)
+      .map((valid: boolean) => {
         if (valid) {
           this.resetErrors();
         }
-        this.changeDetectorRef.detectChanges();
-      }));
+        return valid;
+      });
 
     this.subs.push(
       this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionId))
@@ -87,6 +86,8 @@ export class SectionDirective implements OnDestroy, OnInit {
           }
         })
     );
+
+    this.enabled = this.sectionService.isSectionEnabled(this.submissionId, this.sectionId);
   }
 
   ngOnDestroy() {
@@ -115,11 +116,15 @@ export class SectionDirective implements OnDestroy, OnInit {
     return this.animation;
   }
 
-  public isSectionActive() {
+  public isSectionActive(): boolean {
     return this.active;
   }
 
-  public isValid() {
+  public isEnabled(): Observable<boolean> {
+    return this.enabled;
+  }
+
+  public isValid(): Observable<boolean> {
     return this.valid;
   }
 

@@ -30,6 +30,7 @@ import { ChangeSubmissionCollectionAction } from '../../objects/submission-objec
 })
 export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @Input() currentCollectionId: string;
+  @Input() currentDefinition: string;
   @Input() submissionId;
 
   /**

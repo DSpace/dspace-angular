@@ -1,4 +1,6 @@
-<a class="btn btn-primary mt-1 mb-3" [href]="'/workspaceitems/' + object.id + '/edit'" role="button">Edit</a>
+<a class="btn btn-primary mt-1 mb-3" [routerLink]="['/workspaceitems/' + object.id + '/edit']" role="button">
+  <i class="fa fa-edit"></i> {{'submission.workflow.tasks.claimed.edit' | translate}}
+</a>
 
 <button type="button" class="btn btn-danger mt-1 mb-3" (click)="$event.preventDefault();confirmDiscard(content)">
   <i class="fa fa-trash"></i> Delete

@@ -10,7 +10,7 @@ import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/
 import {
   DisableSectionAction,
   EnableSectionAction,
-  InertSectionErrorsAction,
+  InertSectionErrorsAction, InitSectionAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
 import {
@@ -57,31 +57,33 @@ export class SectionService {
       .distinctUntilChanged();
   }*/
 
-  public getAvailableSectionList(submissionId, definitionId): Observable<any> {
-    const submissionObjectsSelector = createSelector(submissionSelector, (state: SubmissionState) => state.objects);
-    return this.store.select(submissionDefinitionFromIdSelector(definitionId))
-      .flatMap((definition) => {
-        let availableSections: any[] = [];
-        return this.store.select(submissionObjectsSelector)
-          .map((submissionState) => {
-            if (!isUndefined(definition)) {
-              availableSections = [];
-              Object.keys(definition.sections).forEach((sectionId) => {
-                if (!isUndefined(submissionState[submissionId])
-                  && !isUndefined(submissionState[submissionId].sections)
-                  && Object.keys(submissionState[submissionId].sections).length !== 0
-                  && !submissionState[submissionId].sections.hasOwnProperty(sectionId)
-                  && !this.isSectionHidden(definition.sections[sectionId])) {
-                  availableSections.push({
-                    id: sectionId,
-                    header: definition.sections[sectionId].header
-                  } as SectionDataObject);
-                }
-              });
-            }
-            return availableSections;
-          })
-      })
+  public getDisabledSectionsList(submissionId, definitionId): Observable<any> {
+    // const submissionObjectsSelector = createSelector(submissionSelector, (state: SubmissionState) => state.objects);
+    // return this.store.select(submissionDefinitionFromIdSelector(definitionId))
+    //   .flatMap((definition) => {
+    //     let availableSections: any[] = [];
+    //     return this.store.select(submissionObjectsSelector)
+    //       .map((submissionState) => {
+    //         if (!isUndefined(definition)) {
+    //           availableSections = [];
+    //           Object.keys(definition.sections).forEach((sectionId) => {
+    //             if (!isUndefined(submissionState[submissionId])
+    //               && !isUndefined(submissionState[submissionId].sections)
+    //               && Object.keys(submissionState[submissionId].sections).length !== 0
+    //               && submissionState[submissionId].sections.hasOwnProperty(sectionId)
+    //               && !submissionState[submissionId].sections[sectionId].enabled
+    //               && !this.isSectionHidden(definition.sections[sectionId])) {
+    //               availableSections.push({
+    //                 id: sectionId,
+    //                 header: definition.sections[sectionId].header
+    //               } as SectionDataObject);
+    //             }
+    //           });
+    //         }
+    //         return availableSections;
+    //       })
+    //   })
+    return Observable.of([]);
   }
 
   public getSectionDefinition(definitionId, sectionId): Observable<SubmissionSectionModel> {
@@ -104,7 +106,14 @@ export class SectionService {
       .distinctUntilChanged();
   }
 
-  public isSectionLoaded(submissionId, sectionId): Observable<boolean> {
+  public isSectionEnabled(submissionId, sectionId): Observable<boolean> {
+    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
+      .filter((sectionObj) => hasValue(sectionObj))
+      .map((sectionObj: SubmissionSectionObject) => sectionObj.enabled)
+      .distinctUntilChanged();
+  }
+
+  public isSectionAvailable(submissionId, sectionId): Observable<boolean> {
     return this.store.select(submissionObjectFromIdSelector(submissionId))
       .filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState))
       .map((submissionState: SubmissionObjectEntry) => {
@@ -113,90 +122,58 @@ export class SectionService {
       .distinctUntilChanged();
   }
 
-  public loadDefaultSections(collectionId: string,
-                             submissionId: string,
-                             definitionId: string,
-                             sections: WorkspaceitemSectionsObject) {
-    this.store.select(submissionDefinitionFromIdSelector(definitionId))
-      .distinctUntilChanged()
-      .filter((state) => !isUndefined(state))
-      .filter((state) => !isUndefined(state.sections))
-      .take(1)
-      .subscribe((state) => {
-        Object.keys(state.sections)
-          .filter((sectionId) => state.sections[sectionId].mandatory || (isNotEmpty(sections) && sections.hasOwnProperty(sectionId)))
-          .filter((sectionId) => !this.isSectionHidden(state.sections[sectionId]))
-          .map((sectionId) => {
-            const sectionData = (isNotUndefined(sections) && isNotUndefined(sections[sectionId])) ? sections[sectionId] : Object.create(null);
-            this.loadSection(collectionId, submissionId, definitionId, sectionId, sectionData, null);
-          })
-      })
+  public loadSections(collectionId: string,
+                      submissionId: string,
+                      definitionId: string,
+                      sections: WorkspaceitemSectionsObject) {
+    // this.store.select(submissionDefinitionFromIdSelector(definitionId))
+    //   .distinctUntilChanged()
+    //   .filter((state) => !isUndefined(state))
+    //   .filter((state) => !isUndefined(state.sections))
+    //   .take(1)
+    //   .subscribe((state) => {
+    //     Object.keys(state.sections)
+    //       // .filter((sectionId) => state.sections[sectionId].mandatory || (isNotEmpty(sections) && sections.hasOwnProperty(sectionId)))
+    //       .filter((sectionId) => !this.isSectionHidden(state.sections[sectionId]))
+    //       .map((sectionId) => {
+    //         const enabled = state.sections[sectionId].mandatory || (isNotEmpty(sections) && sections.hasOwnProperty(sectionId));
+    //         const sectionData = (isNotUndefined(sections) && isNotUndefined(sections[sectionId])) ? sections[sectionId] : Object.create(null);
+    //         this.loadSection(collectionId, submissionId, definitionId, sectionId, enabled, sectionData, null);
+    //       })
+    //   })
   }
 
-  protected isSectionHidden(sectionData: SubmissionSectionModel) {
+  public isSectionHidden(sectionData: SubmissionSectionObject) {
     return (isNotUndefined(sectionData.visibility)
       && sectionData.visibility.main === 'HIDDEN'
       && sectionData.visibility.other === 'HIDDEN');
 
   }
 
-  private loadSection(collectionId: string,
-                      submissionId: string,
-                      definitionId: string,
-                      sectionId: string,
-                      sectionData: WorkspaceitemSectionDataType,
-                      sectionErrors: SubmissionSectionError[],
-                      scrollTo: boolean = false) {
-    this.getSectionDefinition(definitionId, sectionId)
-      .filter((sectionObj: SubmissionSectionModel) => isNotUndefined(sectionObj))
-      .take(1)
-      .subscribe((sectionObj: SubmissionSectionModel) => {
-        const componentRef = this.sectionFactory.get(collectionId, submissionId, sectionId, sectionData, sectionObj, this.viewContainerRef);
-        const viewIndex = this.viewContainerRef.indexOf(componentRef.hostView);
-        if (scrollTo) {
-          const config: ScrollToConfigOptions = {
-            target: sectionId
-          };
+  public addSection(submissionId: string,
+                    sectionId: string) {
+    this.store.dispatch(new EnableSectionAction(submissionId, sectionId));
+    const config: ScrollToConfigOptions = {
+      target: sectionId,
+      offset: -70
+    };
 
-          this.scrollToService.scrollTo(config);
-        }
-        this.store.dispatch(new EnableSectionAction(submissionId, sectionId, viewIndex, sectionData, sectionErrors));
-      });
-  }
-
-  public addSection(collectionId: string,
-                    submissionId: string,
-                    definitionId: string,
-                    sectionId: string,
-                    sectionData: WorkspaceitemSectionDataType = null,
-                    sectionErrors: SubmissionSectionError[] = []) {
-    this.loadSection(collectionId, submissionId, definitionId, sectionId, sectionData, sectionErrors, true);
+    this.scrollToService.scrollTo(config);
   }
 
   public removeSection(submissionId, sectionId) {
-    this.getSectionState(submissionId, sectionId)
-      .take(1)
-      .subscribe((sectionObject: SubmissionSectionObject) => {
-        this.viewContainerRef.remove(sectionObject.sectionViewIndex);
-        this.store.dispatch(new DisableSectionAction(submissionId, sectionId));
-      });
-  }
-
-  public removeAllSections(submissionId) {
-    this.store.select(submissionObjectFromIdSelector(submissionId))
-      .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))
-      .take(1)
-      .subscribe((submission: SubmissionObjectEntry) => {
-        Object.keys(submission.sections)
-          .forEach((sectionId) => {
-            this.viewContainerRef.remove(submission.sections[sectionId].sectionViewIndex);
-          });
-      });
+    // this.getSectionState(submissionId, sectionId)
+    //   .take(1)
+    //   .subscribe((sectionObject: SubmissionSectionObject) => {
+    //     this.viewContainerRef.remove(sectionObject.sectionViewIndex);
+    //     this.store.dispatch(new DisableSectionAction(submissionId, sectionId));
+    //   });
+    this.store.dispatch(new DisableSectionAction(submissionId, sectionId))
   }
 
   public updateSectionData(submissionId, sectionId, data) {
     if (isNotEmpty(data)) {
-      this.isSectionLoaded(submissionId, sectionId)
+      this.isSectionAvailable(submissionId, sectionId)
         .take(1)
         .filter((loaded) => loaded)
         .subscribe((loaded: boolean) => {

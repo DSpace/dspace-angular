@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
@@ -29,7 +29,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
 
   protected searchOptions: IntegrationSearchOptions;
 
-  constructor(private authorityService: AuthorityService) {}
+  constructor(private authorityService: AuthorityService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.searchOptions = new IntegrationSearchOptions(
@@ -43,6 +43,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
       .subscribe((object: IntegrationData) => {
         this.optionsList = object.payload;
         this.pageInfo = object.pageInfo;
+        this.cdr.detectChanges();
       })
   }
 

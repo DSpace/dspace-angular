@@ -14,11 +14,11 @@
         <!-- no def , no banner -->
         <ng-container *ngIf="collectionPolicyType === 1">
           <!-- def e no scelta -->
-          {{ 'submission.section.upload.header.policy.default.nolist' | translate:{ "collectionName": collectionName } }}
+          {{ 'submission.sections.upload.header.policy.default.nolist' | translate:{ "collectionName": collectionName } }}
         </ng-container>
         <ng-container *ngIf="collectionPolicyType === 2">
           <!-- def e scelta -->
-          {{ 'submission.section.upload.header.policy.default.withlist' | translate:{ "collectionName": collectionName } }}
+          {{ 'submission.sections.upload.header.policy.default.withlist' | translate:{ "collectionName": collectionName } }}
         </ng-container>
         <span class="clearfix"></span>
         <ds-access-conditions [accessConditions]="collectionDefaultAccessConditions"></ds-access-conditions>

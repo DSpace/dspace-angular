@@ -66,16 +66,16 @@ export class SubmissionDefinitionEffects {
         ));
     });
 
-  @Effect() complete$ = this.actions$
-    .ofType(SubmissionDefinitionActionTypes.COMPLETE_INIT_DEFAULT_DEFINITION)
-    .map((action: CompleteInitAction) =>
-      new InitSubmissionFormAction(
-        action.payload.collectionId,
-        action.payload.definitionId,
-        action.payload.submissionId,
-        action.payload.selfUrl,
-        action.payload.sections)
-    );
+  // @Effect() complete$ = this.actions$
+  //   .ofType(SubmissionDefinitionActionTypes.COMPLETE_INIT_DEFAULT_DEFINITION)
+  //   .map((action: CompleteInitAction) =>
+  //     new InitSubmissionFormAction(
+  //       action.payload.collectionId,
+  //       action.payload.definitionId,
+  //       action.payload.submissionId,
+  //       action.payload.selfUrl,
+  //       action.payload.sections)
+  //   );
 
   constructor(private actions$: Actions,
               private definitionsConfigService: SubmissionDefinitionsConfigService) {

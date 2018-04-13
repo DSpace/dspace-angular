@@ -18,11 +18,11 @@ import {
   SaveSubmissionSectionFormErrorAction, SetWorkspaceDuplicatedAction, SetWorkspaceDuplicatedSuccessAction,
   SetWorkspaceDuplicatedErrorAction, SetWorkflowDuplicatedAction, SetWorkflowDuplicatedSuccessAction,
   SetWorkflowDuplicatedErrorAction, SaveForLaterSubmissionFormAction, SaveForLaterSubmissionFormSuccessAction,
-  SaveAndDepositSubmissionAction, EnableSectionAction
+  SaveAndDepositSubmissionAction, EnableSectionAction, InitSectionAction
 } from './submission-objects.actions';
 import { SectionService } from '../section/section.service';
 import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Workspaceitem, WorkspaceItemError } from '../../core/submission/models/workspaceitem.model';
 import { default as parseSectionErrorPaths, SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { Observable } from 'rxjs/Observable';
@@ -46,35 +46,100 @@ import { JsonPatchOperationsBuilder } from '../../core/json-patch/builder/json-p
 import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
+import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 
 @Injectable()
 export class SubmissionObjectEffects {
 
   @Effect() loadForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM)
-    .map((action: LoadSubmissionFormAction) =>
-      new InitDefaultDefinitionAction(
-        action.payload.collectionId,
-        action.payload.submissionId,
-        action.payload.selfUrl,
-        action.payload.sections,
-        action.payload.submissionDefinition));
+    .map((action: LoadSubmissionFormAction) => {
+      console.log(action.payload.submissionDefinition);
+      const definition = action.payload.submissionDefinition;
+      const mappedActions = [];
+      // mappedActions.push(new NewDefinitionAction(definition));
+      definition.sections.forEach((sectionDefinition: SubmissionSectionModel, index: number) => {
+        const sectionId = sectionDefinition._links.self.substr(sectionDefinition._links.self.lastIndexOf('/') + 1);
+        const config = sectionDefinition._links.config || '';
+        const enabled = sectionDefinition.mandatory || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
+        const sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
+        const sectionErrors = null;
+        mappedActions.push(
+          new InitSectionAction(
+            action.payload.submissionId,
+            sectionId,
+            sectionDefinition.header,
+            config,
+            sectionDefinition.mandatory,
+            sectionDefinition.sectionType,
+            sectionDefinition.visibility,
+            enabled,
+            sectionData,
+            sectionErrors
+          )
+        )
+        // this.loadSection(action.payload.collectionId, submissionId, definitionId, sectionId, enabled, sectionData, null);
+        // mappedActions.push(
+        //   new NewSectionDefinitionAction(
+        //     definition.name,
+        //     section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
+        //     section as SubmissionSectionModel)
+        // )
+      });
+      return {action: action, definition: definition, mappedActions: mappedActions};
+      // return this.definitionsConfigService.getConfigBySearch({scopeID: action.payload.collectionId})
+      //   .flatMap((definitions: ConfigData) => definitions.payload)
+      //   // .filter((definition: SubmissionDefinitionsModel) => definition.isDefault)
+      //   .map((definition: SubmissionDefinitionsModel) => {
+      //     const mappedActions = [];
+      //     mappedActions.push(new NewDefinitionAction(definition));
+      //     definition.sections.forEach((section) => {
+      //       mappedActions.push(
+      //         new NewSectionDefinitionAction(
+      //           definition.name,
+      //           section._links.self.substr(section._links.self.lastIndexOf('/') + 1),
+      //           section as SubmissionSectionModel)
+      //       )
+      //     });
+      //     return {action: action, definition: definition, mappedActions: mappedActions};
+      //   })
+    })
+    // .flatMap((result) => result)
+    .mergeMap((result) => {
+      return Observable.from(
+        result.mappedActions.concat(
+          new CompleteInitSubmissionFormAction(result.action.payload.submissionId)
+          // new CompleteInitAction(
+          //   result.action.payload.collectionId,
+          //   result.definition.name,
+          //   result.action.payload.submissionId,
+          //   result.action.payload.selfUrl,
+          //   result.action.payload.sections)
+        ));
+    });
+      // new InitDefaultDefinitionAction(
+      //   action.payload.collectionId,
+      //   action.payload.submissionId,
+      //   action.payload.selfUrl,
+      //   action.payload.sections,
+      //   action.payload.submissionDefinition));
 
   @Effect() resetForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.RESET_SUBMISSION_FORM)
-    .do((action: ResetSubmissionFormAction) => this.sectionService.removeAllSections(action.payload.submissionId))
     .map((action: ResetSubmissionFormAction) =>
       new LoadSubmissionFormAction(
         action.payload.collectionId,
         action.payload.submissionId,
         action.payload.selfUrl,
+        action.payload.submissionDefinition,
         action.payload.sections,
-        action.payload.submissionDefinition));
+        null
+      ));
 
   @Effect() initForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)
     .do((action: InitSubmissionFormAction) => {
-      this.sectionService.loadDefaultSections(action.payload.collectionId,
+      this.sectionService.loadSections(action.payload.collectionId,
         action.payload.submissionId,
         action.payload.definitionId,
         action.payload.sections);
@@ -138,7 +203,7 @@ export class SubmissionObjectEffects {
           if (this.canDeposit(response)) {
             return new DepositSubmissionAction(action.payload.submissionId);
           } else {
-            this.notificationsService.warning(null, this.translate.get('submission.section.general.sections_not_valid'))
+            this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));
             return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], response, action.payload.submissionId);
           }
         })
@@ -156,12 +221,12 @@ export class SubmissionObjectEffects {
 
   @Effect({dispatch: false}) SaveForLaterSubmissionSuccess$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS)
-    .do(() => this.notificationsService.success(null, this.translate.get('submission.section.general.save_success_notice')))
+    .do(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice')))
     .do(() => this.submissionService.redirectToMyDSpace());
 
   @Effect({dispatch: false}) depositSubmissionSuccess$ = this.actions$
     .ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS)
-    .do(() => this.notificationsService.success(null, this.translate.get('submission.section.general.deposit_success_notice')))
+    .do(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.deposit_success_notice')))
     .do(() => this.submissionService.redirectToMyDSpace());
 
   @Effect()
@@ -259,7 +324,7 @@ export class SubmissionObjectEffects {
     const mappedActions = [];
 
     if (isNotEmpty(response)) {
-      this.notificationsService.success(null, this.translate.get('submission.section.general.save_success_notice'));
+      this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'));
 
       const errorsList = {};
 
@@ -280,7 +345,7 @@ export class SubmissionObjectEffects {
               errorsList[path.sectionId].push(sectionError);
             });
           });
-          this.notificationsService.warning(null, this.translate.get('submission.section.general.sections_not_valid'));
+          this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));
         }
 
         const sections = (item.sections && isNotEmpty(item.sections)) ? item.sections : {};
@@ -292,17 +357,17 @@ export class SubmissionObjectEffects {
           .forEach((sectionId) => {
             const sectionErrors = errorsList[sectionId] || [];
             const sectionData = sections[sectionId] || {};
-            if (currentState.sections[sectionId]) {
-              mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
-            } else {
-              this.sectionService.addSection(
-                currentState.collection,
-                submissionId,
-                currentState.definition,
-                sectionId,
-                sectionData,
-                sectionErrors);
-            }
+            // if (currentState.sections[sectionId]) {
+            mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
+            // } else {
+            //   this.sectionService.addSection(
+            //     currentState.collection,
+            //     submissionId,
+            //     currentState.definition,
+            //     sectionId,
+            //     sectionData,
+            //     sectionErrors);
+            // }
           });
 
       });

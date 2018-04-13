@@ -86,12 +86,12 @@ export class DeduplicationMatchComponent implements OnInit {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'matches', this.index);
 
     this.duplicatedBtnLabel = this.isWorkFlow ?
-      this.translate.get('submission.section.deduplication.duplicated_ctrl')
-      : this.translate.get('submission.section.deduplication.duplicated');
+      this.translate.get('submission.sections.deduplication.duplicated_ctrl')
+      : this.translate.get('submission.sections.deduplication.duplicated');
 
     this.submitterDecisionLabel = this.isWorkFlow ?
-      this.translate.get('submission.section.deduplication.submitter_decision')
-      : this.translate.get('submission.section.deduplication.your_decision');
+      this.translate.get('submission.sections.deduplication.submitter_decision')
+      : this.translate.get('submission.sections.deduplication.your_decision');
 
   }
 

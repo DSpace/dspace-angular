@@ -58,8 +58,8 @@ export class DeduplicationSectionComponent extends SectionModelComponent impleme
     this.isWorkFlow = this.submissionService.getSubmissionScope() === WORKFLOW_SCOPE ? true : false;
 
     this.disclaimer = this.isWorkFlow ?
-      this.translate.get('submission.section.deduplication.disclaimer_ctrl')
-      : this.translate.get('submission.section.deduplication.disclaimer');
+      this.translate.get('submission.sections.deduplication.disclaimer_ctrl')
+      : this.translate.get('submission.sections.deduplication.disclaimer');
 
     this.isLoading = false;
   }

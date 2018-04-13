@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { Store } from '@ngrx/store';
@@ -8,8 +8,10 @@ import { SectionDataObject } from '../section-data.model';
 import { SubmissionState } from '../../submission.reducers';
 import { rendersSectionType } from '../section-decorator';
 import { SectionType } from '../section-type';
+import { fadeInOut } from '../../../shared/animations/fade';
 
 @Component({
+  selector: 'ds-submission-form-section-container',
   templateUrl: './section-container.component.html',
   styleUrls: ['./section-container.component.scss'],
   /* The element here always has the state "in" when it
@@ -34,7 +36,6 @@ import { SectionType } from '../section-type';
 export class SectionContainerComponent implements OnInit {
   @Input() collectionId: string;
   @Input() sectionData: SectionDataObject;
-  @Input() store: Store<SubmissionState>;
   @Input() submissionId: string;
 
   public active = true;
@@ -43,15 +44,15 @@ export class SectionContainerComponent implements OnInit {
 
   @ViewChild('sectionRef') sectionRef: SectionDirective;
 
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector, private store: Store<SubmissionState>) {
   }
 
   ngOnInit() {
     this.objectInjector = Injector.create({
       providers: [
-        { provide: 'collectionIdProvider', useFactory: () => (this.collectionId), deps:[] },
-        { provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps:[] },
-        { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps:[] },
+        {provide: 'collectionIdProvider', useFactory: () => (this.collectionId), deps: []},
+        {provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: []},
+        {provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: []},
       ],
       parent: this.injector
     });
@@ -64,6 +65,6 @@ export class SectionContainerComponent implements OnInit {
   }
 
   getSectionContent(): string {
-    return rendersSectionType(this.sectionComponentType);
+    return rendersSectionType(this.sectionData.sectionType);
   }
 }
