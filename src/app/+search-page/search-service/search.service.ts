@@ -120,7 +120,7 @@ export class SearchService implements OnDestroy {
         }
       });
     });
-    
+
     const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
       map((response: FacetValueSuccessResponse) => response.pageInfo)
