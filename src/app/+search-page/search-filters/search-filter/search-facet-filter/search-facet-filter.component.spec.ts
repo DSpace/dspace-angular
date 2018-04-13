@@ -18,6 +18,7 @@ import { SearchOptions } from '../../../search-options.model';
 import { RouterStub } from '../../../../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { PageInfo } from '../../../../core/shared/page-info.model';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -56,7 +57,7 @@ describe('SearchFacetFilterComponent', () => {
   let router;
   const page = Observable.of(0);
 
-  const mockValues = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(null, values)));
+  const mockValues = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), values)));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
@@ -121,14 +122,14 @@ describe('SearchFacetFilterComponent', () => {
   });
 
   describe('when the getAddParams method is called wih a value', () => {
-    it('should return the selectedValueq list with the new parameter value', () => {
+    it('should return the selectedValue list with the new parameter value', () => {
       const result = comp.getAddParams(value3);
       expect(result).toEqual({ [mockFilterConfig.paramName]: [value1, value2, value3] });
     });
   });
 
   describe('when the getRemoveParams method is called wih a value', () => {
-    it('should return the selectedValueq list with the parameter value left out', () => {
+    it('should return the selectedValue list with the parameter value left out', () => {
       const result = comp.getRemoveParams(value1);
       expect(result).toEqual({ [mockFilterConfig.paramName]: [value2] });
     });

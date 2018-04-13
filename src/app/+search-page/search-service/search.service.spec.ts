@@ -10,7 +10,7 @@ import { ViewMode } from '../../+search-page/search-options.model';
 import { RouteService } from '../../shared/route.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
 import { ResponseCacheService } from '../../core/cache/response-cache.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
@@ -79,7 +79,8 @@ describe('SearchService', () => {
 
     const halService = {
       /* tslint:disable:no-empty */
-      getEndpoint: () => {}
+      getEndpoint: () => {
+      }
       /* tslint:enable:no-empty */
 
     };
@@ -118,6 +119,8 @@ describe('SearchService', () => {
         ],
       });
       searchService = TestBed.get(SearchService);
+      const urlTree = Object.assign(new UrlTree(), { root: { children: { primary: 'search' } } });
+      router.parseUrl.and.returnValue(urlTree);
     });
 
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
@@ -160,7 +163,8 @@ describe('SearchService', () => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(Observable.of(endPoint));
         (searchService as any).responseCache.get.and.returnValue(Observable.of(responseEntry));
         /* tslint:disable:no-empty */
-        searchService.search(searchOptions).subscribe((t) => {}); // subscribe to make sure all methods are called
+        searchService.search(searchOptions).subscribe((t) => {
+        }); // subscribe to make sure all methods are called
         /* tslint:enable:no-empty */
       });
 
@@ -189,7 +193,8 @@ describe('SearchService', () => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(Observable.of(endPoint));
         (searchService as any).responseCache.get.and.returnValue(Observable.of(responseEntry));
         /* tslint:disable:no-empty */
-        searchService.getConfig(null).subscribe((t) => {}); // subscribe to make sure all methods are called
+        searchService.getConfig(null).subscribe((t) => {
+        }); // subscribe to make sure all methods are called
         /* tslint:enable:no-empty */
       });
 
@@ -220,7 +225,8 @@ describe('SearchService', () => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(Observable.of(endPoint));
         (searchService as any).responseCache.get.and.returnValue(Observable.of(responseEntry));
         /* tslint:disable:no-empty */
-        searchService.getConfig(scope).subscribe((t) => {}); // subscribe to make sure all methods are called
+        searchService.getConfig(scope).subscribe((t) => {
+        }); // subscribe to make sure all methods are called
         /* tslint:enable:no-empty */
       });
 

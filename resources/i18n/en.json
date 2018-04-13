@@ -80,7 +80,8 @@
       "search_dspace": "Search DSpace"
     },
     "results": {
-      "head": "Search Results"
+      "head": "Search Results",
+      "no-results": "There were no results for this search"
     },
     "sidebar": {
       "close": "Back to results",

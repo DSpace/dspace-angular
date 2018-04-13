@@ -65,6 +65,8 @@ export class SearchPageComponent implements OnInit {
     this.resultsRD$ = this.searchOptions$.pipe(
       flatMap((searchOptions) => this.service.search(searchOptions))
     );
+    this.resultsRD$.subscribe((t) => console.log(t));
+
   }
 
   public closeSidebar(): void {

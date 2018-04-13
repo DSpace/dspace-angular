@@ -30,9 +30,9 @@ export class FacetValueResponseParsingService extends BaseResponseParsingService
     const payload = data.payload;
 
     const serializer = new DSpaceRESTv2Serializer(FacetValue);
-    const values = payload._embedded.values.map((value) => {value.search = value._links.search.href; return value;});
+    // const values = payload._embedded.values.map((value) => {value.search = value._links.search.href; return value;});
 
-    const facetValues = serializer.deserializeArray(values);
-    return new FacetValueSuccessResponse(facetValues, data.statusCode, this.processPageInfo(data.payload.page));
+    const facetValues = serializer.deserializeArray(payload._embedded.values);
+    return new FacetValueSuccessResponse(facetValues, data.statusCode, this.processPageInfo(data.payload));
   }
 }
