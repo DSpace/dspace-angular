@@ -26,9 +26,9 @@ export class WorkflowitemMyDSpaceResultListElementComponent extends MyDSpaceResu
   public item: Item;
   public status = ItemStatusType.WORKFLOW;
 
-  constructor(@Inject('objectElementProvider') public listable: ListableObject) {
-    super(listable);
-  }
+  // constructor(@Inject('objectElementProvider') public listable: ListableObject) {
+  //   super(listable);
+  // }
 
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);

@@ -14,5 +14,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export class SearchSidebarComponent {
   @Input() resultCount;
+  @Input() hideOptions;
   @Output() toggleSidebar = new EventEmitter<boolean>();
+
 }

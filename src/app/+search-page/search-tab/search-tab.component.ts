@@ -13,19 +13,24 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class SearchTabComponent implements OnDestroy, OnInit {
 
-  public tabOptions = [];
+  public isController: Observable<boolean>;
+  public isSubmitter: Observable<boolean>;
   public selectedOption: MyDSpaceConfigurationType;
+  public tabOptions = [];
 
   private sub: Subscription;
 
   constructor(private rolesService: RolesService,
               private route: ActivatedRoute,
               private router: Router) {
+    this.isSubmitter = this.rolesService.isSubmitter();
+    this.isController = this.rolesService.isController();
   }
 
   ngOnInit() {
     const queryParamsObs = this.route.queryParams;
-    this.sub = Observable.combineLatest(queryParamsObs, this.rolesService.isSubmitter(), this.rolesService.isController())
+    this.sub = Observable.combineLatest(queryParamsObs, this.isSubmitter, this.isController)
+      .filter(([params, isSubmitter, isController]) => isNotEmpty(isSubmitter) && isNotEmpty(isController))
       .subscribe(([params, isSubmitter, isController]) => {
         this.tabOptions = [];
         let isCleaningUrl = false;

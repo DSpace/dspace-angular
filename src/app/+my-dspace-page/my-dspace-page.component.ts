@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SortOptions } from '../core/cache/models/sort-options.model';
@@ -42,6 +42,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   private scope: string;
 
   configuration: MyDSpaceConfigurationType;
+  hideOptions = true;
   query: string;
   scopeObjectRDObs: Observable<RemoteData<DSpaceObject>>;
   resultsRDObs:  Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>>;
@@ -51,9 +52,12 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   sortConfig: SortOptions;
   scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView: Observable<boolean>;
+  isController: Observable<boolean>;
+  isSubmitter: Observable<boolean>;
   user: Observable<Eperson>;
 
-  constructor(private service: SearchService,
+  constructor(private cdr: ChangeDetectorRef,
+              private service: SearchService,
               private route: ActivatedRoute,
               private router: Router,
               private communityService: CommunityDataService,
@@ -77,21 +81,24 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
     const sort: SortOptions = new SortOptions();
     this.sortConfig = sort;
     this.searchOptions = this.service.searchOptions;
+    this.isSubmitter = this.rolesService.isSubmitter();
+    this.isController = this.rolesService.isController();
   }
 
   ngOnInit(): void {
     this.user = this.store.select(getAuthenticatedUser);
 
     const queryParamsObs = this.route.queryParams;
-    this.sub = Observable.combineLatest(queryParamsObs, this.rolesService.isSubmitter(), this.rolesService.isController())
+    this.sub = Observable.combineLatest(queryParamsObs, this.isSubmitter, this.isController)
+      .filter(([params, isSubmitter, isController]) => isNotEmpty(isSubmitter) && isNotEmpty(isController))
       .subscribe(([params, isSubmitter, isController]) => {
           // Save current parameters
           this.currentParams = params;
           this.configuration = this.getSearchConfiguration(params.configuration, isSubmitter, isController);
           this.query = params.query || '';
           this.scope = params.scope;
-          const page = +params.page || this.searchOptions.pagination.currentPage;
-          let pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
+          const page = +params.page || this.service.searchOptions.pagination.currentPage;
+          let pageSize = +params.pageSize || this.service.searchOptions.pagination.pageSize;
           let pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
 
           if (isNotEmpty(params.view) && (params.view === ViewMode.Detail)) {
@@ -106,14 +113,14 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
             }
           }
 
-          const sortDirection = params.sortDirection || this.searchOptions.sort.direction;
-          const sortField = params.sortField || this.searchOptions.sort.field;
+          const sortDirection = params.sortDirection || this.service.searchOptions.sort.direction;
+          const sortField = params.sortField || this.service.searchOptions.sort.field;
           const pagination = Object.assign({},
-            this.searchOptions.pagination,
+            this.service.searchOptions.pagination,
             { currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
           );
           const sort = Object.assign({},
-            this.searchOptions.sort,
+            this.service.searchOptions.sort,
             { direction: sortDirection, field: sortField }
           );
 
@@ -179,10 +186,11 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   private updateSearchResults(searchOptions, filters) {
+    console.log(searchOptions);
     this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions, this.configuration, filters);
     this.searchOptions = searchOptions;
     this.filters = this.filters;
-    this.filters = this.filters;
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
@@ -204,22 +212,6 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   public newSubmissionsEnd(workspaceitems: Workspaceitem[]) {
-    /*this.resultsRDObs = this.resultsRDObs
-      .filter((rd) => isNotEmpty(rd.payload))
-      .take(1)
-      .map((rd: RemoteData<Array<MyDSpaceResult<DSpaceObject>>>) => {
-        workspaceitems
-          .filter((item: Workspaceitem) => isNotUndefined(item))
-          .forEach((item: Workspaceitem, index) => {
-          const mockResult: MyDSpaceResult<DSpaceObject> = new WorkspaceitemMyDSpaceResult();
-          mockResult.dspaceObject = item;
-          const highlight = new Metadatum();
-          mockResult.hitHighlights = new Array(highlight);
-          (rd.payload as any).page.splice(index, 1, mockResult);
-        });
-        return rd;
-      });*/
-
     this.updateSearchResults(this.searchOptions, this.filters);
   }
 }

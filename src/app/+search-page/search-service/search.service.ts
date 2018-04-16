@@ -67,12 +67,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
               private rdb: RemoteDataBuildService,
               private router: Router) {
     super();
-    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'search-results-pagination';
-    pagination.currentPage = 1;
-    pagination.pageSize = 10;
-    const sort: SortOptions = new SortOptions();
-    this.searchOptions = {pagination: pagination, sort: sort};
+    this.initSearchOptions();
     this.configSubject = new BehaviorSubject<SearchFilterConfig[]>(this.config);
     this.appliedFiltersSubject = new BehaviorSubject<SearchAppliedFilter[]>(this.appliedFilters);
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
@@ -275,12 +270,25 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   }
 
   setViewMode(viewMode: ViewMode) {
-    const navigationExtras: NavigationExtras = {
-      queryParams: {view: viewMode},
-      queryParamsHandling: 'merge'
-    };
+    // Clear search options
+    this.initSearchOptions();
 
-    this.router.navigate([this.getSearchLink()], navigationExtras);
+    this.sub = this.route.queryParams
+      .take(1)
+      .subscribe((params) => {
+        const newParams = Object.create({});
+        Object.keys(params)
+          .filter((paramKey) => paramKey !== 'pageId' && paramKey !== 'page' && paramKey !== 'pageSize')
+          .forEach((paramKey) => newParams[paramKey] = params[paramKey]);
+
+        newParams.view = viewMode;
+
+        const navigationExtras: NavigationExtras = {
+          queryParams: newParams
+        };
+        console.log(this.searchOptions);
+        this.router.navigate([this.getSearchLink()], navigationExtras);
+      });
   }
 
   getClearFiltersQueryParams(): any {
@@ -301,6 +309,15 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     const urlTree = this.router.parseUrl(this.router.url);
     const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
     return '/' + g.toString();
+  }
+
+  protected initSearchOptions() {
+    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
+    pagination.id = 'search-results-pagination';
+    pagination.currentPage = 1;
+    pagination.pageSize = 10;
+    const sort: SortOptions = new SortOptions();
+    this.searchOptions = {pagination: pagination, sort: sort};
   }
 
   ngOnDestroy(): void {

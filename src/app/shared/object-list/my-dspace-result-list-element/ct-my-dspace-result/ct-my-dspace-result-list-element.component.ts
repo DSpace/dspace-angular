@@ -25,10 +25,10 @@ export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResul
   public status = ItemStatusType.VALIDATION;
   public workFlow: Workflowitem;
 
-  constructor(@Inject('objectElementProvider') public listable: ListableObject) {
-
-    super(listable);
-  }
+  // constructor(@Inject('objectElementProvider') public listable: ListableObject) {
+  //
+  //   super(listable);
+  // }
 
   ngOnInit() {
     this.initItem(this.dso.workflowitem as Observable<RemoteData<Workflowitem[]>>);

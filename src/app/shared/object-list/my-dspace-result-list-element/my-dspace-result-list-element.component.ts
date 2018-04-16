@@ -13,10 +13,13 @@ import { SubmissionObject } from '../../../core/submission/models/submission-obj
 
 export class MyDSpaceResultListElementComponent<T extends MyDSpaceResult<K>, K extends SubmissionObject> extends AbstractListableElementComponent<T> {
   dso: K;
+  dsoIndex: number;
 
-public constructor(@Inject('objectElementProvider') public listable: ListableObject) {
+public constructor(@Inject('objectElementProvider') public listable: ListableObject,
+                   @Inject('indexElementProvider') public index: number) {
     super(listable);
     this.dso = this.object.dspaceObject;
+    this.dsoIndex = this.index;
   }
 
   getValues(keys: string[]): string[] {

@@ -23,10 +23,6 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   item: Item;
   status = ItemStatusType.IN_PROGRESS;
 
-  constructor(@Inject('objectElementProvider') public listable: ListableObject) {
-    super(listable);
-  }
-
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item[]>>);
   }

@@ -8,14 +8,14 @@
 <ds-object-grid [config]="config"
                 [sortConfig]="sortConfig"
                 [objects]="objects"
-                [hideGear]="true"
+                [hideGear]="hideGear"
                 *ngIf="getViewMode()===viewModeEnum.Grid">
 </ds-object-grid>
 
 <ds-object-detail [config]="config"
                   [sortConfig]="sortConfig"
                   [objects]="objects"
-                  [hideGear]="true"
+                  [hideGear]="hideGear"
                   *ngIf="getViewMode()===viewModeEnum.Detail">
 </ds-object-detail>
 

@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { SearchService } from './../../+search-page/search-service/search.service';
 

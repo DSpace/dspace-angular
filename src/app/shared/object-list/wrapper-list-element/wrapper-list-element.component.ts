@@ -11,13 +11,17 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 })
 export class WrapperListElementComponent implements OnInit {
   @Input() object: ListableObject;
+  @Input() index: number;
   objectInjector: Injector;
 
   constructor(private injector: Injector) {}
 
   ngOnInit(): void {
     this.objectInjector = Injector.create({
-        providers: [{ provide: 'objectElementProvider', useFactory: () => (this.object), deps:[] }],
+        providers: [
+          { provide: 'objectElementProvider', useFactory: () => (this.object), deps:[] },
+          { provide: 'indexElementProvider', useFactory: () => (this.index), deps:[] }
+        ],
         parent: this.injector
     });
   }

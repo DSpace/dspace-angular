@@ -1,9 +1,10 @@
 <div class="container">
-  <ds-my-dspace-new-submission *ngIf="(rolesService.isSubmitter() | async)"
+  <ds-my-dspace-new-submission *ngIf="(isSubmitter | async)"
     (wsiUploaded)="newSubmissionsEnd($event)"></ds-my-dspace-new-submission>
   <div class="search-page row">
     <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-md-sticky"
                        id="search-sidebar"
+                       [hideOptions]="hideOptions"
                        [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"></ds-search-sidebar>
     <div class="col-12 col-md-9">
       <ds-search-form id="search-form"
@@ -19,6 +20,7 @@
              [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
           <ds-search-sidebar *ngIf="(isMobileView | async)" class="col-12"
                              id="search-sidebar-sm"
+                             [hideOptions]="hideOptions"
                              [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"
                              (toggleSidebar)="closeSidebar()"
                              [ngClass]="{'active': !(isSidebarCollapsed() | async)}">
