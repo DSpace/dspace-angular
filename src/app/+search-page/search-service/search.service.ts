@@ -81,7 +81,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   search(query: string, scopeId?: string, searchOptions?: SearchOptions, configuration?: string, filters?: any): Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
     this.configSubject.next([]);
     this.appliedFiltersSubject.next([]);
-    const requestObs = this.getEndpoint().take(1).pipe(
+    const requestObs = this.getEndpoint().pipe(
       map((url: string) => {
         const args: string[] = [];
 

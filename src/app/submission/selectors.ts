@@ -35,10 +35,6 @@ export function submissionObjectSectionsFromIdSelector(submissionId: string): Me
   return subStateSelector<SubmissionState, SubmissionObjectEntry>(submissionObjectSelector, 'sections');
 }
 
-export function submissionDefinitionFromIdSelector(definitionId: string): MemoizedSelector<SubmissionState, SubmissionDefinitionEntry> {
-  return keySelector<SubmissionState, SubmissionDefinitionEntry>(submissionSelector, 'definitions', definitionId);
-}
-
 export function submissionUploadedFilesFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
   const sectionDataSelector = submissionSectionDataFromIdSelector(submissionId, sectionId);
   return subStateSelector<SubmissionState, SubmissionObjectEntry>(sectionDataSelector, 'files');
@@ -47,11 +43,6 @@ export function submissionUploadedFilesFromIdSelector(submissionId: string, sect
 export function submissionUploadedFileFromUuidSelector(submissionId: string, sectionId: string, uuid: string): MemoizedSelector<SubmissionState, any> {
   const filesSelector  = submissionSectionDataFromIdSelector(submissionId, sectionId);
   return keySelector<SubmissionState, any>(filesSelector, 'files', uuid);
-}
-
-export function sectionDefinitionFromIdSelector(definitionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
-  const definitionIdSelector  = submissionDefinitionFromIdSelector(definitionId);
-  return keySelector<SubmissionState, SubmissionObjectEntry>(definitionIdSelector, 'sections', sectionId);
 }
 
 export function submissionSectionFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {

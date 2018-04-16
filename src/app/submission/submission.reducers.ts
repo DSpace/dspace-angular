@@ -10,12 +10,10 @@ import {
 } from './objects/submission-objects.reducer';
 
 export interface SubmissionState {
-  'definitions': SubmissionDefinitionState,
   'objects': SubmissionObjectState
 }
 
 export const submissionReducers: ActionReducerMap<SubmissionState> = {
-  definitions: submissionDefinitionReducer,
   objects: submissionObjectReducer,
 };
 

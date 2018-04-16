@@ -2,26 +2,35 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 
 import { union } from 'lodash';
-import * as DEDUPLICATION_SECTION from '../../../backend/data/section-deduplication.json';
 
 import {
   CompleteInitSubmissionFormAction,
-  CompleteSaveSubmissionFormAction, DepositSubmissionAction, DepositSubmissionErrorAction,
+  DepositSubmissionAction,
+  DepositSubmissionErrorAction,
   DepositSubmissionSuccessAction,
+  InitSectionAction,
   InitSubmissionFormAction,
   LoadSubmissionFormAction,
   ResetSubmissionFormAction,
+  SaveAndDepositSubmissionAction,
+  SaveForLaterSubmissionFormAction,
+  SaveForLaterSubmissionFormSuccessAction,
   SaveSubmissionFormAction,
-  SaveSubmissionSectionFormAction, SaveSubmissionFormSuccessAction,
+  SaveSubmissionFormErrorAction,
+  SaveSubmissionFormSuccessAction,
+  SaveSubmissionSectionFormAction,
+  SaveSubmissionSectionFormErrorAction,
+  SaveSubmissionSectionFormSuccessAction,
+  SetWorkflowDuplicatedAction,
+  SetWorkflowDuplicatedErrorAction,
+  SetWorkflowDuplicatedSuccessAction,
+  SetWorkspaceDuplicatedAction,
+  SetWorkspaceDuplicatedErrorAction,
+  SetWorkspaceDuplicatedSuccessAction,
   SubmissionObjectActionTypes,
-  UpdateSectionDataAction, SaveSubmissionFormErrorAction, SaveSubmissionSectionFormSuccessAction,
-  SaveSubmissionSectionFormErrorAction, SetWorkspaceDuplicatedAction, SetWorkspaceDuplicatedSuccessAction,
-  SetWorkspaceDuplicatedErrorAction, SetWorkflowDuplicatedAction, SetWorkflowDuplicatedSuccessAction,
-  SetWorkflowDuplicatedErrorAction, SaveForLaterSubmissionFormAction, SaveForLaterSubmissionFormSuccessAction,
-  SaveAndDepositSubmissionAction, EnableSectionAction, InitSectionAction
+  UpdateSectionDataAction
 } from './submission-objects.actions';
 import { SectionService } from '../section/section.service';
-import { InitDefaultDefinitionAction } from '../definitions/submission-definitions.actions';
 import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Workspaceitem, WorkspaceItemError } from '../../core/submission/models/workspaceitem.model';
 import { default as parseSectionErrorPaths, SectionErrorPath } from '../utils/parseSectionErrorPaths';
@@ -30,20 +39,11 @@ import { JsonPatchOperationsService } from '../../core/json-patch/json-patch-ope
 import { SubmitDataResponseDefinitionObject } from '../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../submission.service';
 import { Action, Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
 import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { AuthStatus } from '../../core/auth/models/auth-status.model';
-import {
-  AuthActionTypes, AuthenticateAction, AuthenticatedAction, AuthenticationErrorAction,
-  AuthenticationSuccessAction, LogOutSuccessAction
-} from '../../core/auth/auth.actions';
 import { DeduplicationService } from '../section/deduplication/deduplication.service';
-import { JsonPatchOperationsBuilder } from '../../core/json-patch/builder/json-patch-operations-builder';
-import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
@@ -117,12 +117,12 @@ export class SubmissionObjectEffects {
           //   result.action.payload.sections)
         ));
     });
-      // new InitDefaultDefinitionAction(
-      //   action.payload.collectionId,
-      //   action.payload.submissionId,
-      //   action.payload.selfUrl,
-      //   action.payload.sections,
-      //   action.payload.submissionDefinition));
+  // new InitDefaultDefinitionAction(
+  //   action.payload.collectionId,
+  //   action.payload.submissionId,
+  //   action.payload.selfUrl,
+  //   action.payload.sections,
+  //   action.payload.submissionDefinition));
 
   @Effect() resetForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.RESET_SUBMISSION_FORM)

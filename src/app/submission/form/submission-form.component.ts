@@ -1,13 +1,11 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
-
-import { SectionHostDirective } from '../section/section-host.directive';
 import {
   CancelSubmissionFormAction,
   LoadSubmissionFormAction,
   ResetSubmissionFormAction
 } from '../objects/submission-objects.actions';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
 import { submissionObjectFromIdSelector } from '../selectors';
@@ -19,7 +17,6 @@ import { Workspaceitem } from '../../core/submission/models/workspaceitem.model'
 import { SubmissionService } from '../submission.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../core/auth/auth.service';
-import { RemoveDefinitionsAction } from '../definitions/submission-definitions.actions';
 import { Observable } from 'rxjs/Observable';
 import { SectionDataObject } from '../section/section-data.model';
 
@@ -47,8 +44,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
   protected isActive: boolean;
   protected subs: Subscription[] = [];
-
-  @ViewChild(SectionHostDirective) public sectionsHost: SectionHostDirective;
 
   constructor(private authService: AuthService,
               private changeDetectorRef: ChangeDetectorRef,
@@ -109,7 +104,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     this.isActive = false;
     this.submissionService.stopAutoSave();
     this.store.dispatch(new CancelSubmissionFormAction());
-    this.store.dispatch(new RemoveDefinitionsAction());
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());

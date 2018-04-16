@@ -5,16 +5,13 @@ import { SharedModule } from '../shared/shared.module';
 
 import { FormSectionComponent } from './section/form/section-form.component';
 import { SectionDirective } from './section/section.directive';
-import { SectionHostDirective } from './section/section-host.directive';
 import { SectionService } from './section/section.service';
 import { DefaultSectionComponent } from './section/default/section-default.component';
 import { SubmissionFormCollectionComponent } from './form/collection/submission-form-collection.component';
 import { SubmissionFormFooterComponent } from './form/footer/submission-form-footer.component';
 import { SubmissionFormComponent } from './form/submission-form.component';
 import { SubmissionFormSectionAddComponent } from './form/section-add/submission-form-section-add.component';
-import { SectionFactoryComponent } from './section/section.factory';
 import { SectionContainerComponent } from './section/container/section-container.component';
-import { InjectPanelTemplateDirective } from './section/section-inject.directive';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -52,11 +49,9 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
     DefaultSectionComponent,
     FilesSectionComponent,
     FormSectionComponent,
-    InjectPanelTemplateDirective,
     LicenseSectionComponent,
     SectionDirective,
     SectionContainerComponent,
-    SectionHostDirective,
     SubmissionEditComponent,
     SubmissionFormSectionAddComponent,
     SubmissionFormCollectionComponent,
@@ -86,7 +81,6 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
   ],
   providers: [
     SectionUploadService,
-    SectionFactoryComponent,
     SectionService,
     SubmissionService,
     SubmissionRestService,
