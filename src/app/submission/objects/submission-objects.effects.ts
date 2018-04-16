@@ -136,15 +136,15 @@ export class SubmissionObjectEffects {
         null
       ));
 
-  @Effect() initForm$ = this.actions$
-    .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)
-    .do((action: InitSubmissionFormAction) => {
-      this.sectionService.loadSections(action.payload.collectionId,
-        action.payload.submissionId,
-        action.payload.definitionId,
-        action.payload.sections);
-    })
-    .map((action: InitSubmissionFormAction) => new CompleteInitSubmissionFormAction(action.payload.submissionId));
+  // @Effect() initForm$ = this.actions$
+  //   .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)
+  //   .do((action: InitSubmissionFormAction) => {
+  //     this.sectionService.loadSections(action.payload.collectionId,
+  //       action.payload.submissionId,
+  //       action.payload.definitionId,
+  //       action.payload.sections);
+  //   })
+  //   .map((action: InitSubmissionFormAction) => new CompleteInitSubmissionFormAction(action.payload.submissionId));
 
   @Effect() saveSubmission$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM)
