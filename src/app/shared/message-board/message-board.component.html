@@ -28,7 +28,8 @@
               [m]="m"
               [isSubmitter]="isSubmitter | async"
               [isLast]="i == (messagesObs | async)?.length-1"
-              (unRead)="unReadLastMsg(m.uuid)"
+              (emitRead)="markAsRead()"
+              (emitUnread)="markAsUnread(m.uuid)"
             ></ds-message>
           </ng-container>
         </ul>

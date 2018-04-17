@@ -91,10 +91,14 @@
     },
     "messages": {
       "title": "Messages",
+      "hide-msg": "Hide message",
+      "show-msg": "Show message",
       "no-messages": "No messages yet.",
+      "no-content": "No content.",
       "send-btn": "Send",
       "subject-placeholder": "Subject...",
       "description-placeholder": "Insert your message here...",
+      "mark-as-read": "Mark as read",
       "mark-as-unread": "Mark as unread"
     },
     "show": {
@@ -109,7 +113,15 @@
       "in-progress": "To do",
       "accepted": "Finalized"
     },
-    "view-btn": "View"
+    "view-btn": "View",
+    "general": {
+      "text-here": "HERE"
+    },
+    "upload": {
+      "upload-successful": "New workspace item created. Click {{here}} for edit it.",
+      "upload-multiple-successful": "{{qty}} new workspace items created.",
+      "upload-failed": "Error creating new workspace. Please verify the content uploaded before retry."
+    }
   },
   "search": {
     "title": "DSpace Angular :: Search",
@@ -119,7 +131,8 @@
       "search_dspace": "Search MyDSpace"
     },
     "results": {
-      "head": "Search Results"
+      "head": "Search Results",
+      "no-results": "There were no items to show"
     },
     "sidebar": {
       "close": "Back to results",
@@ -182,8 +195,8 @@
           "head": "Type"
         },
         "has_content_in_original_bundle": {
-          "placeholder": "Has Content",
-          "head": "Has Content"
+          "placeholder": "Has files",
+          "head": "Has files"
         },
         "submitter": {
           "placeholder": "Submitter",
@@ -204,7 +217,7 @@
     "item": "Loading item...",
     "objects": "Loading...",
     "search-results": "Loading search results...",
-    "mydspace-results": "Loading your submissions..."
+    "mydspace-results": "Loading items..."
   },
   "error": {
     "default": "Error",
@@ -268,12 +281,7 @@
       "title": "Edit Submission"
     },
     "mydspace": {
-      "general": {
-        "text_here": "HERE"
-      },
-      "upload_workspace_success": "New workspace item created. Click {{here}} for edit it.",
-      "upload_workspace_success_more": "{{qty}} new workspace items created.",
-      "upload_workspace_error": "Error creating new workspace. Please verify the content uploaded before retry."
+
     },
     "sections": {
 
@@ -343,6 +351,12 @@
       }
     },
     "workflow": {
+      "workspaceitems": {
+        "delete": "Delete",
+        "delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
+        "edit": "Edit",
+        "edit-help": "Select this option to change the item's metadata."
+      },
       "tasks": {
         "generic": {
           "processing": "Processing...",

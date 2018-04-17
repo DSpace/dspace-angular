@@ -12,9 +12,16 @@
 
       <small
         *ngIf="showUnread"
-        (click)="unReadLastMsg()"
+        (click)="markAsUnread()"
         class="text-muted pointer float-right ml-3">
         <span class="fa fa-envelope"></span> {{'mydspace.messages.mark-as-unread' | translate}}
+      </small>
+
+      <small
+        *ngIf="showRead"
+        (click)="markAsRead()"
+        class="text-muted pointer float-right ml-3">
+        <span class="fa fa-envelope-open"></span> {{'mydspace.messages.mark-as-read' | translate}}
       </small>
 
       <div class="truncatable">
@@ -35,10 +42,13 @@
 
     </div>
 
-    <button class="btn btn-link" (click)="toggleDescription()"><small>{{readMessageTxt}}</small></button>
+    <button class="btn btn-link" (click)="toggleDescription()">
+      <small *ngIf="showMessage">{{'mydspace.messages.hide-msg' | translate}}</small>
+      <small *ngIf="!showMessage">{{'mydspace.messages.show-msg' | translate}}</small>
+    </button>
 
-    <div *ngIf="show" class="description">
-      {{description | async}}
+    <div *ngIf="showMessage" class="description">
+      {{messageContent | async}}
       <ds-loading *ngIf="loadingDescription" message="{{'loading.default' | translate}}"></ds-loading>
     </div>
   </div>

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { MessageService } from '../../../core/message/message.service';
+import { isNull } from '../../empty.util';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-message',
@@ -12,22 +14,23 @@ import { MessageService } from '../../../core/message/message.service';
 })
 
 export class MessageComponent implements OnInit {
-  @Input()
-  public m: Bitstream;
-  @Input()
-  isLast: boolean;
-  public showUnread: boolean;
-  @Input()
-  public isSubmitter: boolean;
-  @Output()
-  private unRead = new EventEmitter<any>();
-  public show = false;
-  private _description = '';
-  private loadingDescription = false;
-  readMessageTxt = 'Show message...';
+  @Input() m: Bitstream;
+  @Input() isLast: boolean;
+  @Input() isSubmitter: boolean;
 
-  constructor(public msgService: MessageService,
-              private cdr: ChangeDetectorRef) {
+  @Output() emitUnread = new EventEmitter<any>();
+  @Output() emitRead = new EventEmitter<any>();
+
+  public showUnread: boolean;
+  public showRead: boolean;
+  public showMessage = false;
+
+  private _messageContent: Observable<string> = null;
+  private loadingDescription = false;
+
+  constructor(private cdr: ChangeDetectorRef,
+              private msgService: MessageService,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -38,34 +41,45 @@ export class MessageComponent implements OnInit {
         || (!this.isSubmitter && type === 'inbound'))
     ) {
       this.showUnread = true;
+      this.showRead = false;
+    } else if (this.isLast) {
+      this.showUnread = false;
+      this.showRead = true;
     } else {
       this.showUnread = false;
+      this.showRead = false;
     }
   }
 
   toggleDescription() {
-    this.show = !this.show;
-    this.readMessageTxt = this.show ? 'Hide message...' : 'Show message...';
+    this.showMessage = !this.showMessage;
     this.cdr.detectChanges();
   }
 
-  get description(): Observable<string> {
-    if (this._description === '' && !this.loadingDescription) {
+  get messageContent(): Observable<string> {
+    if (isNull(this._messageContent) && !this.loadingDescription) {
       this.loadingDescription = true;
-      this.msgService.getMessageContent(this.m.content)
-        .subscribe((res) => {
-          this._description = res.payload || 'No content.';
-          // console.log('description=', this._description);
+      this._messageContent = this.msgService.getMessageContent(this.m.content)
+        .take(1)
+        .flatMap((res) => {
+          this._messageContent = res.payload ? Observable.of(res.payload) : this.translate.get('mydspace.messages.no-content');
           this.loadingDescription = false;
+          return this._messageContent;
         });
     }
-
-    return Observable.of(this._description);
+    return this._messageContent;
   }
 
-  unReadLastMsg() {
-    this.unRead.emit('unRead');
+  markAsRead() {
+    this.emitRead.emit(true);
+    this.showUnread = true;
+    this.showRead = false;
+  }
+
+  markAsUnread() {
+    this.emitUnread.emit(true);
     this.showUnread = false;
+    this.showRead = true;
   }
 
 }
