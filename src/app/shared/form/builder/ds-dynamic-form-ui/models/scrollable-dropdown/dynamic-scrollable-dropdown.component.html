@@ -30,7 +30,7 @@
 
       <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">No results found</button>
       <button class="dropdown-item collection-item" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry)" title="{{ listEntry.display }}">
-        {{listEntry.value}}
+        {{inputFormatter(listEntry)}}
       </button>
       <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>Loading...</p></div>
     </div>

@@ -87,16 +87,16 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
   }
 
   private responseHandle(res: ProcessTaskResponse) {
+    this.processingApprove = false;
+    this.processingReject = false;
+    this.processingReturnToPool = false;
+    this.cd.detectChanges();
     if (res.hasSucceeded) {
-      this.processingReturnToPool = false;
-      this.cd.detectChanges();
       this.reload();
       this.notificationsService.success(null,
         this.translate.get('submission.workflow.tasks.generic.success'),
         new NotificationOptions(5000, false));
     } else {
-      this.processingReturnToPool = false;
-      this.cd.detectChanges();
       this.notificationsService.error(null,
         this.translate.get('submission.workflow.tasks.generic.error'),
         new NotificationOptions(20000, true));

@@ -63,6 +63,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
         .subscribe((object: IntegrationData) => {
           this.optionsList = this.optionsList.concat(object.payload);
           this.pageInfo = object.pageInfo;
+          this.cdr.detectChanges();
         })
     }
   }
