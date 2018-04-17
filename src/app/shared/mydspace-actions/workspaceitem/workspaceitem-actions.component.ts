@@ -7,6 +7,7 @@ import { NormalizedWorkspaceItem } from '../../../core/submission/models/normali
 import { SubmissionRestService } from '../../../submission/submission-rest.service';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { ResourceType } from '../../../core/shared/resource-type';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-workspaceitem-actions',
@@ -16,7 +17,8 @@ import { ResourceType } from '../../../core/shared/resource-type';
 
 export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Workspaceitem, NormalizedWorkspaceItem, WorkspaceitemDataService> {
   @Input() object: Workspaceitem;
-  public modalRef: NgbModalRef;
+
+  public processingDelete = Observable.of(false);
 
   constructor(protected injector: Injector,
               protected router: Router,
@@ -29,8 +31,10 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
+          this.processingDelete = Observable.of(true);
           this.restService.deleteById(this.object.id)
             .subscribe((response) => {
+              this.processingDelete = Observable.of(false);
               this.reload();
             })
         }
