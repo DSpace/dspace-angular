@@ -45,7 +45,7 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   hideOptions = true;
   query: string;
   scopeObjectRDObs: Observable<RemoteData<DSpaceObject>>;
-  resultsRDObs:  Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>>;
+  resultsRDObs:  Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
   currentParams = {};
   filters = {};
   searchOptions: SearchOptions;
@@ -186,10 +186,10 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
   }
 
   private updateSearchResults(searchOptions, filters) {
-    console.log(searchOptions);
     this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions, this.configuration, filters);
     this.searchOptions = searchOptions;
     this.filters = this.filters;
+    console.log(this.resultsRDObs);
     this.cdr.detectChanges();
   }
 

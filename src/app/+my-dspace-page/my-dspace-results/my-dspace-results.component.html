@@ -1,9 +1,9 @@
-<div *ngIf="searchResults?.hasSucceeded" @fadeIn>
-  <h2 *ngIf="searchResults?.payload ?.length > 0">{{ 'search.results.head' | translate }}</h2>
+<div *ngIf="searchResults?.hasSucceeded && !searchResults?.isLoading" @fadeIn>
 <ds-viewable-collection
   [config]="searchConfig.pagination"
   [sortConfig]="searchConfig.sort"
   [objects]="searchResults">
 </ds-viewable-collection></div>
-<ds-loading *ngIf="searchResults?.isLoading" message="{{'loading.mydspace-results' | translate}}"></ds-loading>
+<ds-loading *ngIf="!searchResults || searchResults?.isLoading" message="{{'loading.mydspace-results' | translate}}"></ds-loading>
 <ds-error *ngIf="searchResults?.hasFailed" message="{{'error.search-results' | translate}}"></ds-error>
+<h3 *ngIf="searchResults?.payload?.page.length == 0" class="text-center text-muted" ><span>{{'search.results.no-results' | translate}}</span></h3>

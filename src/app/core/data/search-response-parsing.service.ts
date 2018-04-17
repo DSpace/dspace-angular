@@ -6,7 +6,7 @@ import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { PageInfo } from '../shared/page-info.model';
-import { isNotEmpty, isNotNull } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { Metadatum } from '../shared/metadatum.model';
 
@@ -31,7 +31,8 @@ export class SearchResponseParsingService implements ResponseParsingService {
       });
 
     const dsoSelfLinks = payload._embedded.objects
-      .filter((object) => isNotEmpty(object._embedded) && isNotEmpty(object._embedded.rObject))
+      // .filter((object) => isNotEmpty(object._embedded) && isNotEmpty(object._embedded.rObject))
+      .filter((object) => hasValue(object._embedded))
       .map((object) => object._embedded.rObject)
       // we don't need embedded collections, bitstreamformats, etc for search results.
       // And parsing them all takes up a lot of time. Throw them away to improve performance
@@ -48,7 +49,8 @@ export class SearchResponseParsingService implements ResponseParsingService {
       .reduce((combined, thisElement) => [...combined, ...thisElement], []);
 
     const objects = payload._embedded.objects
-      .filter((object, index) => isNotEmpty(object._embedded) && isNotEmpty(object._embedded.rObject))
+      // .filter((object, index) => isNotEmpty(object._embedded) && isNotEmpty(object._embedded.rObject))
+      .filter((object, index) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
         dspaceObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
@@ -72,12 +74,17 @@ export class SearchResponseParsingService implements ResponseParsingService {
     payload.facets = facets;
 
     const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
-    return new SearchSuccessResponse(deserialized, data.statusCode, this.processPageInfo(data.payload.page));
+    return new SearchSuccessResponse(deserialized, data.statusCode, this.processPageInfo(data.payload));
   }
 
-  protected processPageInfo(pageObj: any): PageInfo {
-    if (isNotEmpty(pageObj)) {
-      return new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
+  processPageInfo(payload: any): PageInfo {
+    if (isNotEmpty(payload.page)) {
+      const pageObj = Object.assign({}, payload.page, {_links: payload._links});
+      const pageInfoObject = new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
+      if (pageInfoObject.currentPage >= 0) {
+        Object.assign(pageInfoObject, { currentPage: pageInfoObject.currentPage + 1 });
+      }
+      return pageInfoObject
     } else {
       return undefined;
     }

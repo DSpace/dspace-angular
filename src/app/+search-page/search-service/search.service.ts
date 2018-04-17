@@ -34,20 +34,6 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SearchAppliedFilter } from './search-applied-filter.model';
 
-function shuffle(array: any[]) {
-  let i = 0;
-  let j = 0;
-  let temp = null;
-
-  for (i = array.length - 1; i > 0; i -= 1) {
-    j = Math.floor(Math.random() * (i + 1));
-    temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  return array;
-}
-
 @Injectable()
 export class SearchService extends HALEndpointService implements OnDestroy {
   protected linkPath = 'discover/search/objects';
@@ -73,7 +59,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
   }
 
-  search(query: string, scopeId?: string, searchOptions?: SearchOptions, configuration?: string, filters?: any): Observable<RemoteData<Array<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
+  search(query: string, scopeId?: string, searchOptions?: SearchOptions, configuration?: string, filters?: any): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
     this.configSubject.next([]);
     this.appliedFiltersSubject.next([]);
     const requestObs = this.getEndpoint().pipe(
@@ -134,7 +120,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     // get search results from response cache
     const sqrObs: Observable<SearchQueryResponse> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
-      take(1),
+      // take(1),
       map((response: SearchSuccessResponse) => {
         // emit new facets value
         this.configSubject.next(response.results.facets);
@@ -158,7 +144,8 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     );
 
     // Create search results again with the correct dso objects linked to each result
-    const tDomainListObs: Observable<Array<SearchResult<DSpaceObject>>> = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
+    const tDomainListObs = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
+
       return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
         let co = DSpaceObject;
         if (dsos.payload[index]) {
@@ -187,11 +174,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
       });
 
     const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
-      if (hasValue(pageInfo)) {
-        return new PaginatedList(pageInfo, tDomainList);
-      } else {
-        return tDomainList;
-      }
+      return new PaginatedList(pageInfo, tDomainList);
     });
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
@@ -270,12 +253,11 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   }
 
   setViewMode(viewMode: ViewMode) {
-    // Clear search options
-    this.initSearchOptions();
-
     this.sub = this.route.queryParams
       .take(1)
       .subscribe((params) => {
+        // Clear search options
+        this.initSearchOptions();
         const newParams = Object.create({});
         Object.keys(params)
           .filter((paramKey) => paramKey !== 'pageId' && paramKey !== 'page' && paramKey !== 'pageSize')

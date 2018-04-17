@@ -7,6 +7,7 @@ import { SortOptions } from '../../core/cache/models/sort-options.model';
 
 import { MyDSpaceResult } from '../my-dspace-result.model';
 import { SearchOptions, ViewMode } from '../../+search-page/search-options.model';
+import { PaginatedList } from '../../core/data/paginated-list';
 
 /**
  * This component renders a simple item page.
@@ -22,8 +23,17 @@ import { SearchOptions, ViewMode } from '../../+search-page/search-options.model
   ]
 })
 export class MyDSpaceResultsComponent {
-  @Input() searchResults: RemoteData<Array<MyDSpaceResult<DSpaceObject>>>;
+  @Input() searchResults: RemoteData<PaginatedList<MyDSpaceResult<DSpaceObject>>>;
   @Input() searchConfig: SearchOptions;
   @Input() sortConfig: SortOptions;
   @Input() viewMode: ViewMode;
+
+  ngOnInit() {
+    console.log(this.searchResults);
+  }
+
+  ngOnChanges(changes) {
+    console.log(changes);
+  }
 }
+

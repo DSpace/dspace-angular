@@ -58,24 +58,24 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
         const options = new NotificationOptions();
         options.timeOut = 0;
         const link = '/workspaceitems/' + workspaceitems[0].id + '/edit';
-        this.translate.get('submission.mydspace.general.text_here')
+        this.translate.get('mydspace.general.text-here')
           .take(1)
           .subscribe((textHere) => {
             const here = `<a class="btn btn-link p-0 m-0 pb-1" href="${link}" >
                         <strong>${textHere}</strong>
                       </a>`;
-            this.translate.get('submission.mydspace.upload_workspace_success', {here})
+            this.translate.get('mydspace.upload.upload-successful', {here})
               .take(1)
               .subscribe((m) => {
                 this.notificationsService.success(null, null, options, m);
               });
           });
       } else if (workspaceitems.length > 1) {
-        this.notificationsService.success(null, this.translate.get('submission.mydspace.upload_workspace_success_more', {qty: workspaceitems.length}));
+        this.notificationsService.success(null, this.translate.get('mydspace.upload.upload-multiple-successful', {qty: workspaceitems.length}));
       }
 
     } else {
-      this.notificationsService.error(null, this.translate.get('submission.mydspace.upload_workspace_error'));
+      this.notificationsService.error(null, this.translate.get('mydspace.upload.upload-failed'));
     }
   }
 
