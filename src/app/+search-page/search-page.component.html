@@ -1,22 +1,22 @@
 <div class="container">
   <div class="search-page row">
-        <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-md-sticky"
+        <ds-search-sidebar *ngIf="!(isMobileView$ | async)" class="col-3 sidebar-md-sticky"
                          id="search-sidebar"
-                         [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"></ds-search-sidebar>
+                         [resultCount]="(resultsRD$ | async)?.pageInfo?.totalElements"></ds-search-sidebar>
         <div class="col-12 col-md-9">
         <ds-search-form id="search-form"
-                        [query]="query"
-                        [scope]="(scopeObjectRDObs | async)?.payload"
+                        [query]="(searchOptions$ | async)?.query"
+                        [scope]="(searchOptions$ | async)?.scope"
                         [currentParams]="currentParams"
-                        [scopes]="(scopeListRDObs | async)?.payload?.page">
+                        [scopes]="(scopeListRD$ | async)?.payload?.page">
         </ds-search-form>
       <div class="row">
         <div id="search-body"
              class="row-offcanvas row-offcanvas-left"
              [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
-          <ds-search-sidebar *ngIf="(isMobileView | async)" class="col-12"
+          <ds-search-sidebar *ngIf="(isMobileView$ | async)" class="col-12"
                              id="search-sidebar-sm"
-                             [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"
+                             [resultCount]="(resultsRD$ | async)?.pageInfo?.totalElements"
                              (toggleSidebar)="closeSidebar()"
                              [ngClass]="{'active': !(isSidebarCollapsed() | async)}">
           </ds-search-sidebar>
@@ -29,13 +29,11 @@
                 | translate}}
               </button>
             </div>
-            <ds-search-results [searchResults]="resultsRDObs | async"
-                               [searchConfig]="searchOptions" [sortConfig]="sortConfig"></ds-search-results>
+            <ds-search-results [searchResults]="resultsRD$ | async"
+                               [searchConfig]="searchOptions$ | async" [sortConfig]="sortConfig"></ds-search-results>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-

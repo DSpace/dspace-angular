@@ -20,7 +20,7 @@
             </ng-container>
         </ng-container>
         <div class="clearfix toggle-more-filters">
-            <a class="float-left" *ngIf="!(isLastPage() | async)"
+            <a class="float-left" *ngIf="!(isLastPage$ | async)"
                (click)="showMore()">{{"search.filters.filter.show-more"
                 | translate}}</a>
             <a class="float-right" *ngIf="(currentPage | async) > 1"
@@ -32,7 +32,7 @@
           [action]="getCurrentUrl()">
         <input type="text" [(ngModel)]="filter" [name]="filterConfig.paramName" class="form-control"
                aria-label="New filter input"
-               [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"/>
+               [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"  [ngModelOptions]="{standalone: true}"/>
         <input type="submit" class="d-none"/>
     </form>
 </div>

@@ -69,7 +69,7 @@ describe('SearchFormComponent', () => {
     fixture.detectChanges();
 
     const testCommunity = objects[1];
-    comp.scope = testCommunity;
+    comp.scope = testCommunity.id;
 
     fixture.detectChanges();
     tick();

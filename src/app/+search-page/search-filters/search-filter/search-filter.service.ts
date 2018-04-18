@@ -79,13 +79,13 @@ export class SearchFilterService {
       this.getCurrentQuery(),
       this.getCurrentFilters(),
       (pagination, sort, view, scope, query, filters) => {
-        return Object.assign(new SearchOptions(),
+        return Object.assign(new PaginatedSearchOptions(),
           defaults,
           {
             pagination: pagination,
             sort: sort,
             view: view,
-            scope: scope,
+            scope: scope || defaults.scope,
             query: query,
             filters: filters
           })

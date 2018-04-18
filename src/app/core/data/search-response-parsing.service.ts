@@ -56,6 +56,6 @@ export class SearchResponseParsingService implements ResponseParsingService {
       }));
     payload.objects = objects;
     const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
-    return new SearchSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload.page));
+    return new SearchSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload));
   }
 }

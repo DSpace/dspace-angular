@@ -4,7 +4,7 @@ import { SearchFilterConfig } from '../../../search-service/search-filter-config
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SearchFilterService } from '../search-filter.service';
-import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { SearchService } from '../../../search-service/search.service';
@@ -30,6 +30,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   filterValues: Array<Observable<RemoteData<PaginatedList<FacetValue>>>> = [];
   filterValues$: BehaviorSubject<any> = new BehaviorSubject(this.filterValues);
   currentPage: Observable<number>;
+  isLastPage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   filter: string;
   pageChange = false;
   sub: Subscription;
@@ -50,14 +51,13 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.pageChange = false;
 
     this.unsubscribe();
-
     this.sub = this.currentPage.distinctUntilChanged().map((page) => {
       return this.searchService.getFacetValuesFor(this.filterConfig, page, options);
     }).subscribe((newValues$) => {
       this.filterValues = [...this.filterValues, newValues$];
       this.filterValues$.next(this.filterValues);
+      newValues$.first().subscribe((rd) => this.isLastPage$.next(hasNoValue(rd.payload.next)));
     });
-    // this.filterValues.subscribe((c) => c.map((a) => a.subscribe((b) => console.log(b))));
   }
 
   isChecked(value: FacetValue): Observable<boolean> {
@@ -99,12 +99,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   hasValue(o: any): boolean {
     return hasValue(o);
   }
-
-  isLastPage(): Observable<boolean> {
-    return Observable.of(false);
-    // return this.filterValues.flatMap((map) => map.pop().map((rd: RemoteData<PaginatedList<FacetValue>>) => rd.payload.currentPage >= rd.payload.totalPages));
-  }
-
   getRemoveParams(value: string) {
     return { [this.filterConfig.paramName]: this.selectedValues.filter((v) => v !== value) };
   }
@@ -118,7 +112,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   unsubscribe(): void {
-    if (this.sub !== undefined) {
+    if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
   }

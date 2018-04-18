@@ -45,10 +45,40 @@ export class PaginatedList<T> {
       return this.pageInfo.currentPage;
     }
     return 1;
-
   }
 
   set currentPage(value: number) {
     this.pageInfo.currentPage = value;
+  }
+
+  get first(): string {
+    return this.pageInfo.first;
+  }
+
+  set first(first: string) {
+    this.pageInfo.first = first;
+  }
+
+  get prev(): string {
+    return this.pageInfo.prev;
+  }
+  set prev(prev: string) {
+    this.pageInfo.prev = prev;
+  }
+
+  get next(): string {
+    return this.pageInfo.next;
+  }
+
+  set next(next: string) {
+    this.pageInfo.next = next;
+  }
+
+  get last(): string {
+    return this.pageInfo.last;
+  }
+
+  set last(last: string) {
+    this.pageInfo.last = last;
   }
 }

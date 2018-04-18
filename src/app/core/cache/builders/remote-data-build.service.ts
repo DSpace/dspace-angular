@@ -4,7 +4,7 @@ import { map, tap } from 'rxjs/operators';
 import { NormalizedSearchResult } from '../../../+search-page/normalized-search-result.model';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { SearchQueryResponse } from '../../../+search-page/search-service/search-query-response.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
@@ -200,6 +200,11 @@ export class RemoteDataBuildService {
   }
 
   aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {
+
+    if (isEmpty(input)) {
+      return Observable.of(new RemoteData(false, false, true, null, []));
+    }
+
     return Observable.combineLatest(
       ...input,
       (...arr: Array<RemoteData<T>>) => {

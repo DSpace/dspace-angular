@@ -338,7 +338,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   private updateRoute(params: {}) {
     this.router.navigate([], {
-      queryParams: Object.assign({}, this.currentQueryParams, params)
+      queryParams: Object.assign({}, this.currentQueryParams, params),
+      queryParamsHandling: 'merge'
     });
   }
 

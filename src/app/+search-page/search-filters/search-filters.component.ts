@@ -3,6 +3,7 @@ import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 import { Observable } from 'rxjs/Observable';
+import { SearchFilterService } from './search-filter/search-filter.service';
 
 /**
  * This component renders a simple item page.
@@ -18,12 +19,10 @@ import { Observable } from 'rxjs/Observable';
 
 export class SearchFiltersComponent {
   filters: Observable<RemoteData<SearchFilterConfig[]>>;
-  constructor(private searchService: SearchService) {
+  clearParams;
+  constructor(private searchService: SearchService, private filterService: SearchFilterService) {
     this.filters = searchService.getConfig();
-  }
-
-  getClearFiltersQueryParams(): any {
-    return this.searchService.getClearFiltersQueryParams();
+    this.clearParams = filterService.getCurrentFilters().map((filters) => {Object.keys(filters).forEach((f) => filters[f] = null); return filters;});
   }
 
   getSearchLink() {

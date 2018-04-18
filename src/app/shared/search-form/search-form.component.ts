@@ -22,10 +22,8 @@ export class SearchFormComponent {
   @Input() scopes: DSpaceObject[];
 
   @Input()
-  set scope(dso: DSpaceObject) {
-    if (hasValue(dso)) {
-      this.selectedId = dso.id;
-    }
+  set scope(id: string) {
+    this.selectedId = id;
   }
 
   constructor(private router: Router) {
@@ -50,13 +48,6 @@ export class SearchFormComponent {
 
   isNotEmpty(object: any) {
     return isNotEmpty(object);
-  }
-
-  byId(id1: string, id2: string) {
-    if (isEmpty(id1) && isEmpty(id2)) {
-      return true;
-    }
-    return id1 === id2;
   }
 
 }

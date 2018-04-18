@@ -1,5 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import {
+  ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router,
+  UrlSegmentGroup
+} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { flatMap, map, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
@@ -21,14 +24,12 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { RouteService } from '../../shared/route.service';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { FacetValue } from './facet-value.model';
-import { FilterType } from './filter-type.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { SearchResponseParsingService } from '../../core/data/search-response-parsing.service';
 import { SearchQueryResponse } from './search-query-response.model';
@@ -37,50 +38,17 @@ import { getSearchResultFor } from './search-result-element-decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { FacetValueResponseParsingService } from '../../core/data/facet-value-response-parsing.service';
 import { FacetConfigResponseParsingService } from '../../core/data/facet-config-response-parsing.service';
-import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { observable } from 'rxjs/symbol/observable';
 
 @Injectable()
 export class SearchService implements OnDestroy {
   private searchLinkPath = 'discover/search/objects';
-  private facetValueLinkPath = 'discover/search/facets';
   private facetValueLinkPathPrefix = 'discover/facets/';
   private facetConfigLinkPath = 'discover/facets';
 
   private sub;
-  uiSearchRoute = '/search';
 
-  config: SearchFilterConfig[] = [
-    // Object.assign(new SearchFilterConfig(),
-    //   {
-    //     name: 'scope',
-    //     type: FilterType.hierarchical,
-    //     hasFacets: true,
-    //     isOpenByDefault: true
-    //   }),
-    Object.assign(new SearchFilterConfig(),
-      {
-        name: 'author',
-        type: FilterType.text,
-        hasFacets: true,
-        isOpenByDefault: false
-      }),
-    Object.assign(new SearchFilterConfig(),
-      {
-        name: 'dateIssued',
-        type: FilterType.date,
-        hasFacets: true,
-        isOpenByDefault: false
-      }),
-    Object.assign(new SearchFilterConfig(),
-      {
-        name: 'subject',
-        type: FilterType.text,
-        hasFacets: false,
-        isOpenByDefault: false
-      })
-  ];
-  // searchOptions: BehaviorSubject<SearchOptions>;
   searchOptions: SearchOptions;
 
   constructor(private router: Router,
@@ -101,7 +69,7 @@ export class SearchService implements OnDestroy {
     const requestObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
         if (hasValue(searchOptions)) {
-          url = searchOptions.toRestUrl(url);
+          url = (searchOptions as PaginatedSearchOptions).toRestUrl(url);
         }
         const request = new GetRequest(this.requestService.generateRequestId(), url);
         return Object.assign(request, {
@@ -112,7 +80,6 @@ export class SearchService implements OnDestroy {
       }),
       tap((request: RestRequest) => this.requestService.configure(request)),
     );
-
     const requestEntryObs = requestObs.pipe(
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
@@ -138,7 +105,8 @@ export class SearchService implements OnDestroy {
     );
 
     // Create search results again with the correct dso objects linked to each result
-    const tDomainListObs: Observable<Array<SearchResult<DSpaceObject>>> = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
+    const tDomainListObs = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
+
       return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
         let co = DSpaceObject;
         if (dsos.payload[index]) {
@@ -206,7 +174,6 @@ export class SearchService implements OnDestroy {
   }
 
   getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions): Observable<RemoteData<PaginatedList<FacetValue>>> {
-    console.log('facetvalues');
     const requestObs = this.halService.getEndpoint(this.facetValueLinkPathPrefix + filterConfig.name).pipe(
       map((url: string) => {
         const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
@@ -265,25 +232,13 @@ export class SearchService implements OnDestroy {
       queryParamsHandling: 'merge'
     };
 
-    this.router.navigate([this.uiSearchRoute], navigationExtras);
-  }
-
-  getClearFiltersQueryParams(): any {
-    const params = {};
-    this.sub = this.route.queryParamMap
-      .subscribe((pmap) => {
-        pmap.keys
-          .filter((key) => this.config
-            .findIndex((conf: SearchFilterConfig) => conf.paramName === key) < 0)
-          .forEach((key) => {
-            params[key] = pmap.get(key);
-          })
-      });
-    return params;
+    this.router.navigate([this.getSearchLink()], navigationExtras);
   }
 
   getSearchLink() {
-    return this.uiSearchRoute;
+    const urlTree = this.router.parseUrl(this.router.url);
+    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
+    return '/' + g.toString();
   }
 
   ngOnDestroy(): void {

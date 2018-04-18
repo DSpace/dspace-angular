@@ -4,12 +4,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { Community } from '../core/shared/community.model';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SearchPageComponent } from './search-page.component';
 import { SearchService } from './search-service/search.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 
 describe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
@@ -34,12 +37,17 @@ describe('SearchPageComponent', () => {
   pagination.pageSize = 10;
   const sort: SortOptions = new SortOptions();
   const mockResults = Observable.of(['test', 'data']);
-  const searchServiceStub = {
-    searchOptions:{ pagination: pagination, sort: sort },
-    search: () => mockResults
-  };
+  const searchServiceStub = jasmine.createSpyObj('SearchService', {
+    search: mockResults
+  });
   const queryParam = 'test query';
   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
+  const paginatedSearchOptions = {
+    query: queryParam,
+    scope: scopeParam,
+    pagination,
+    sort
+  };
   const activatedRouteStub = {
     queryParams: Observable.of({
       query: queryParam,
@@ -50,19 +58,7 @@ describe('SearchPageComponent', () => {
     isCollapsed: Observable.of(true),
     collapse: () => this.isCollapsed = Observable.of(true),
     expand: () => this.isCollapsed = Observable.of(false)
-  }
-
-  const mockCommunityList = [];
-  const communityDataServiceStub = {
-    findAll: () => Observable.of(mockCommunityList),
-    findById: () => Observable.of(new Community())
   };
-
-  class RouterStub {
-    navigateByUrl(url: string) {
-      return url;
-    }
-  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -89,6 +85,14 @@ describe('SearchPageComponent', () => {
           provide: SearchSidebarService,
           useValue: sidebarService
         },
+        {
+          provide: SearchFilterService,
+          useValue: jasmine.createSpyObj('SearchFilterService', {
+            getPaginatedSearchOptions: hot('a', {
+              a: paginatedSearchOptions
+            })
+          })
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchPageComponent, {
@@ -103,54 +107,10 @@ describe('SearchPageComponent', () => {
     searchServiceObject = (comp as any).service;
   });
 
-  it('should set the scope and query based on the route parameters', () => {
-    expect(comp.query).toBe(queryParam);
-    expect((comp as any).scope).toBe(scopeParam);
-  });
-
-  describe('when update search results is called', () => {
-    let paginationUpdate;
-    let sortUpdate;
-    beforeEach(() => {
-      paginationUpdate = Object.assign(
-        {},
-        new PaginationComponentOptions(),
-        {
-          currentPage: 5,
-          pageSize: 15
-        }
-      );
-      sortUpdate = Object.assign({},
-        new SortOptions(),
-        {
-          direction: SortDirection.Ascending,
-          field: 'test-field'
-        }
-      );
-    });
-
-    it('should call the search function of the search service with the right parameters', () => {
-      spyOn(searchServiceObject, 'search').and.callThrough();
-
-      (comp as any).updateSearchResults({
-        pagination: pagination,
-        sort: sort
-      });
-
-      expect(searchServiceObject.search).toHaveBeenCalledWith(queryParam, scopeParam, {
-        pagination: pagination,
-        sort: sort
-      });
-    });
-
-    it('should update the results', () => {
-      spyOn(searchServiceObject, 'search').and.callThrough();
-
-      (comp as any).updateSearchResults({});
-
-      expect(comp.resultsRDObs as any).toBe(mockResults);
-    });
-
+  it('should get the scope and query from the route parameters', () => {
+    expect(comp.searchOptions$).toBeObservable(cold('b', {
+      b: paginatedSearchOptions
+    }));
   });
 
   describe('when the closeSidebar event is emitted clicked in mobile view', () => {
