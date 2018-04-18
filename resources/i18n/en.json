@@ -140,7 +140,8 @@
             "id": "ID",
             "namespace": "Namespace",
             "name": "Name"
-          }
+          },
+          "no-items": "No metadata schemas to show."
         }
       },
       "schema": {
@@ -152,7 +153,8 @@
           "table": {
             "field": "Field",
             "scopenote": "Scope Note"
-          }
+          },
+          "no-items": "No metadata fields to show."
         }
       },
       "bitstream-formats": {
@@ -170,7 +172,8 @@
               "2": "Support"
             },
             "internal": "internal"
-          }
+          },
+          "no-items": "No bitstream formats to show."
         }
       }
     }

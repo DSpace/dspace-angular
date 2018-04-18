@@ -8,7 +8,7 @@
 
       <h3>{{'admin.registries.schema.fields.head' | translate}}</h3>
       <ds-pagination
-        *ngIf="(metadataFields | async)?.payload"
+        *ngIf="(metadataFields | async)?.payload?.totalElements > 0"
         [paginationOptions]="config"
         [pageInfoState]="(metadataFields | async)?.payload"
         [collectionSize]="(metadataFields | async)?.payload?.totalElements"
@@ -32,6 +32,9 @@
           </table>
         </div>
       </ds-pagination>
+      <div *ngIf="(metadataFields | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
+        {{'admin.registries.schema.fields.no-items' | translate}}
+      </div>
 
     </div>
   </div>

@@ -7,7 +7,7 @@
       <p id="description" class="pb-2">{{'admin.registries.metadata.description' | translate}}</p>
 
       <ds-pagination
-        *ngIf="(metadataSchemas | async)?.payload"
+        *ngIf="(metadataSchemas | async)?.payload?.totalElements > 0"
         [paginationOptions]="config"
         [pageInfoState]="(metadataSchemas | async)?.payload"
         [collectionSize]="(metadataSchemas | async)?.payload?.totalElements"
@@ -33,6 +33,9 @@
           </table>
         </div>
       </ds-pagination>
+      <div *ngIf="(metadataFields | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
+        {{'admin.registries.metadata.schemas.no-items' | translate}}
+      </div>
 
     </div>
   </div>
