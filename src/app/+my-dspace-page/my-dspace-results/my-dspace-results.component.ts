@@ -28,12 +28,6 @@ export class MyDSpaceResultsComponent {
   @Input() sortConfig: SortOptions;
   @Input() viewMode: ViewMode;
 
-  ngOnInit() {
-    console.log(this.searchResults);
-  }
+  public hasBorder = true;
 
-  ngOnChanges(changes) {
-    console.log(changes);
-  }
 }
-

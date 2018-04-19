@@ -1,45 +1,44 @@
-<div class="mb-3">
-  <a [class.disabled]="!(object.workflowitem | async)?.hasSucceeded"
-     class="btn btn-primary mt-1 mb-3"
-     ngbTooltip="{{'submission.workflow.tasks.claimed.edit_help' | translate}}"
-     [routerLink]="['/workflowitems/' + (object.workflowitem | async)?.payload[0].id + '/edit']"
-     role="button">
-    <i class="fa fa-edit"></i> {{'submission.workflow.tasks.claimed.edit' | translate}}
-  </a>
 
-  <button type="button"
-          class="btn btn-success mt-1 mb-3"
-          ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
-          [disabled]="processingApprove"
-          (click)="approve()">
-    <span *ngIf="processingApprove"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-    <span *ngIf="!processingApprove"><i class="fa fa-thumbs-up"></i> {{'submission.workflow.tasks.claimed.approve' | translate}}</span>
-  </button>
+<a [class.disabled]="!(object.workflowitem | async)?.hasSucceeded"
+   class="btn btn-primary mt-1 mb-3"
+   ngbTooltip="{{'submission.workflow.tasks.claimed.edit_help' | translate}}"
+   [routerLink]="['/workflowitems/' + (object.workflowitem | async)?.payload[0].id + '/edit']"
+   role="button">
+  <i class="fa fa-edit"></i> {{'submission.workflow.tasks.claimed.edit' | translate}}
+</a>
 
-  <ng-template #rejectTipContent><p [innerHTML]="'submission.workflow.tasks.claimed.reject_help' | translate"></p></ng-template>
-  <button class="btn btn-danger mt-1 mb-3"
-          [ngbTooltip]="rejectTipContent"
-          [disabled]="processingReject"
-          (click)="openRejectModal(rejectModal)" >
-    <span *ngIf="processingReject"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-    <span *ngIf="!processingReject"><i class="fa fa-trash"></i> {{'submission.workflow.tasks.claimed.reject.submit' | translate}}</span>
-  </button>
+<button type="button"
+        class="btn btn-success mt-1 mb-3"
+        ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
+        [disabled]="processingApprove"
+        (click)="approve()">
+  <span *ngIf="processingApprove"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  <span *ngIf="!processingApprove"><i class="fa fa-thumbs-up"></i> {{'submission.workflow.tasks.claimed.approve' | translate}}</span>
+</button>
 
-  <button type="button"
-          class="btn mt-1 mb-3"
-          ngbTooltip="{{'submission.workflow.tasks.claimed.return_help' | translate}}"
-          [disabled]="processingReturnToPool"
-          (click)="returnToPool()">
-    <span *ngIf="processingReturnToPool"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-    <span *ngIf="!processingReturnToPool"><i class="fa fa-undo"></i> {{'submission.workflow.tasks.claimed.return' | translate}}</span>
-  </button>
+<ng-template #rejectTipContent><p [innerHTML]="'submission.workflow.tasks.claimed.reject_help' | translate"></p></ng-template>
+<button class="btn btn-danger mt-1 mb-3"
+        [ngbTooltip]="rejectTipContent"
+        [disabled]="processingReject"
+        (click)="openRejectModal(rejectModal)" >
+  <span *ngIf="processingReject"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  <span *ngIf="!processingReject"><i class="fa fa-trash"></i> {{'submission.workflow.tasks.claimed.reject.submit' | translate}}</span>
+</button>
+
+<button type="button"
+        class="btn mt-1 mb-3"
+        ngbTooltip="{{'submission.workflow.tasks.claimed.return_help' | translate}}"
+        [disabled]="processingReturnToPool"
+        (click)="returnToPool()">
+  <span *ngIf="processingReturnToPool"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  <span *ngIf="!processingReturnToPool"><i class="fa fa-undo"></i> {{'submission.workflow.tasks.claimed.return' | translate}}</span>
+</button>
 
   <ds-message-board
     [dso]="workflowitemObs | async"
     (refresh)="refresh()">
   </ds-message-board>
 
-</div>
 
 <ng-template #rejectModal let-c="close" let-d="dismiss">
   <div class="modal-header">

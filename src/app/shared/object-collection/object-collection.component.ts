@@ -27,6 +27,7 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   @Input() objects: RemoteData<ListableObject[]>;
   @Input() config?: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
+  @Input() hasBorder = false;
   @Input() hideGear = false;
   pageInfo: Observable<PageInfo>;
   private sub;

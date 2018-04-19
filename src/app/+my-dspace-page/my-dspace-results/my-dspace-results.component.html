@@ -1,6 +1,7 @@
 <div *ngIf="searchResults?.hasSucceeded && !searchResults?.isLoading" @fadeIn>
 <ds-viewable-collection
   [config]="searchConfig.pagination"
+  [hasBorder]="hasBorder"
   [sortConfig]="searchConfig.sort"
   [objects]="searchResults">
 </ds-viewable-collection></div>
