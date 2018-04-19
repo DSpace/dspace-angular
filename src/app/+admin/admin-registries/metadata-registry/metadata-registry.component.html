@@ -33,7 +33,7 @@
           </table>
         </div>
       </ds-pagination>
-      <div *ngIf="(metadataFields | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
+      <div *ngIf="(metadataSchemas | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
         {{'admin.registries.metadata.schemas.no-items' | translate}}
       </div>
 
