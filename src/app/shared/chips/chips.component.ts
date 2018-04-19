@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-import { Chips } from './chips.model';
+import { Chips, ChipsItem } from './chips.model';
+import { UploadFilesService } from '../upload-files/upload-files.service';
+import { SortablejsOptions } from 'angular-sortablejs';
 
 @Component({
   selector: 'ds-chips',
@@ -8,25 +10,25 @@ import { Chips } from './chips.model';
 })
 
 export class ChipsComponent implements OnChanges {
-  @Output()
-  selected = new EventEmitter<number>();
-  @Output()
-  remove = new EventEmitter<number>();
-  @Output()
-  change = new EventEmitter<any>();
-  @Input()
-  chips: Chips;
-  @Input()
-  editable;
-  options;
+  @Input() chips: Chips;
+  @Input() editable: boolean;
+
+  @Output() selected: EventEmitter<number> = new EventEmitter<number>();
+  @Output() remove: EventEmitter<number> = new EventEmitter<number>();
+  @Output() change: EventEmitter<any> = new EventEmitter<any>();
+
+  options: SortablejsOptions;
   dragged = -1;
 
-  constructor() {
+  constructor(private uploadFilesService: UploadFilesService) {
     this.options = {
       onUpdate: (event: any) => {
         this.onDrop(event);
       },
       animation: 300,
+      dragClass: 'm-0',
+      ghostClass: 'm-0',
+      chosenClass: 'm-0'
     };
   }
 
@@ -37,32 +39,29 @@ export class ChipsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    // console.log(changes);
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
-      // this.sortChips();
     }
   }
 
-  chipsSelected(index) {
-    this.chips.chipsItems.forEach((item, i) => {
-      if (i === index) {
-        item.editMode = true;
-      } else {
-        item.editMode = false;
-      }
-    });
-    ;
-    this.selected.emit(index);
-  }
-
-  chipsBlur(index) {
-    if (!this.editable) {
-      // Case not editable, set different color and go back on blur
-      this.chips.chipsItems[index].editMode = false;
+  chipsSelected(event: Event, index: number) {
+    event.preventDefault();
+    if (this.editable) {
+      this.chips.chipsItems.forEach((item: ChipsItem, i: number) => {
+        if (i === index) {
+          item.editMode = true;
+        } else {
+          item.editMode = false;
+        }
+      });
+      this.selected.emit(index);
     }
   }
 
-  removeChips(index) {
+  removeChips(event: Event, index: number) {
+    event.preventDefault();
+    event.stopPropagation();
     // Can't remove if this element is in editMode
     if (!this.chips.chipsItems[index].editMode) {
       this.chips.remove(index);
@@ -71,10 +70,12 @@ export class ChipsComponent implements OnChanges {
   }
 
   onDrag(event) {
+    this.uploadFilesService.overrideDragOverPage();
     this.dragged = event;
   }
 
   onDragEnd(event) {
+    this.uploadFilesService.allowDragOverPage();
     this.dragged = -1;
     this.change.emit(event);
   }

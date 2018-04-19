@@ -93,5 +93,6 @@ export interface ChipsItem {
   id: string,
   display: string,
   editMode?: boolean,
-  item: any
+  item: any,
+  icons?: string[]
 }

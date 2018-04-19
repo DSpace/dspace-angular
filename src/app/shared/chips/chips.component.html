@@ -1,30 +1,28 @@
-<div class="chips-box">
-  <div
-    id="chips-container"
-    [sortablejs]="chips.chipsItems"
-    [sortablejsOptions]="options">
+<div class="float-left">
 
-  <span *ngFor="let c of chips.chipsItems; let i = index"
-        class="chips"
-        [ngClass]="{'selected': c.editMode, 'dragged': dragged == i}"
-        (click)="chipsSelected(i)"
-        (mouseout)="chipsBlur(i)"
-        draggable="true"
+  <ul class="nav nav-pills flex-column flex-sm-row mb-3" [sortablejs]="chips.chipsItems" [sortablejsOptions]="options">
+    <li *ngFor="let c of chips.chipsItems; let i = index"
+        class="nav-item mr-2 mb-1"
         (drag)="onDrag(i)"
-        (dragend)="onDragEnd(i)"
-        [ngbTooltip]="c.display">
+        (dragend)="onDragEnd(i)">
+      <a class="flex-sm-fill text-sm-center nav-link active"
+         href="#"
+         [ngClass]="{'bg-info disabled': (editable && c.editMode) || dragged == i}"
 
-    <ng-container *ngIf="c.item.icons && c.item.icons.length > 0">
-      <i *ngFor="let icon of c.item.icons"
-         class="fa {{icon}}"
-         aria-hidden="true"></i>
-    </ng-container>
-
-    <span class="d-inline-block chips-item text-truncate m-0 p-0">
-      {{c.display}}
-    </span>
-    <span [ngClass]="{'invisible': editable&&c.editMode}" class="fa fa-times" (click)="removeChips(i)"></span>
-  </span>
-  </div>
+         (click)="chipsSelected($event, i);"
+         (drag)="onDrag(i)"
+         (dragend)="onDragEnd(i)">
+        <span>
+          <ng-container *ngIf="c.item.icons && c.item.icons.length > 0">
+            <i *ngFor="let icon of c.item.icons; let i = index; let l = last"
+               class="fa {{icon}}"
+               [class.mr-2]="l"
+               aria-hidden="true"></i>
+          </ng-container>
+          {{c.display}}<i class="fa fa-times ml-2" (click)="removeChips($event, i)"></i>
+        </span>
+      </a>
+    </li>
+  </ul>
 
 </div>

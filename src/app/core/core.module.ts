@@ -70,6 +70,7 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 
 import { RolesService } from './roles/roles.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { UploadFilesService } from '../shared/upload-files/upload-files.service';
 
 const IMPORTS = [
   CommonModule,
@@ -138,6 +139,7 @@ const PROVIDERS = [
   MessageResponseParsingService,
   TaskResponseParsingService,
   RolesService,
+  UploadFilesService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   // register AuthInterceptor as HttpInterceptor
   {

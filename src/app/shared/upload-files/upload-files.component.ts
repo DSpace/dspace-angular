@@ -16,6 +16,7 @@ import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scrol
 
 import { UploadFilesComponentOptions } from './upload-files-component-options.model';
 import { isUndefined } from '../empty.util';
+import { UploadFilesService } from './upload-files.service';
 
 @Component({
   selector: 'ds-upload-files',
@@ -64,7 +65,8 @@ export class UploadFilesComponent {
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
-    if (this.enableDragOverDocument) {
+
+    if (this.enableDragOverDocument && this.uploadFilesService.isAllowedDragOverPage()) {
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {
@@ -73,7 +75,7 @@ export class UploadFilesComponent {
     }
   }
 
-  constructor(private cdr: ChangeDetectorRef, private scrollToService: ScrollToService,) {
+  constructor(private cdr: ChangeDetectorRef, private scrollToService: ScrollToService, private uploadFilesService: UploadFilesService) {
   }
 
   /**
