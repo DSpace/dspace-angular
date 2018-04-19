@@ -131,7 +131,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     return this.submissionService.getSubmissionSections(this.submissionId)
       .filter((sections: SectionDataObject[]) => isNotEmpty(sections))
       .map((sections: SectionDataObject[]) => {
-        console.log(sections);
         return sections;
       });
   }

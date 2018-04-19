@@ -54,7 +54,6 @@ export class SubmissionObjectEffects {
   @Effect() loadForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM)
     .map((action: LoadSubmissionFormAction) => {
-      console.log(action.payload.submissionDefinition);
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
       // mappedActions.push(new NewDefinitionAction(definition));

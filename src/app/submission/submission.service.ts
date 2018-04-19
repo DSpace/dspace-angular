@@ -93,7 +93,6 @@ export class SubmissionService {
             sectionObject.id = sectionId;
             disabledSections.push(sectionObject);
           });
-        console.log(disabledSections);
         return disabledSections;
       })
       .startWith([])
