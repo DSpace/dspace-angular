@@ -15,7 +15,7 @@ import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
 
-fdescribe('BitstreamFormatsComponent', () => {
+describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
   let fixture: ComponentFixture<BitstreamFormatsComponent>;
   let registryService: RegistryService;

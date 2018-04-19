@@ -20,7 +20,7 @@ import { RouterStub } from '../../../shared/testing/router-stub';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
 
-fdescribe('MetadataSchemaComponent', () => {
+describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
   let fixture: ComponentFixture<MetadataSchemaComponent>;
   let registryService: RegistryService;

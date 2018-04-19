@@ -13,7 +13,7 @@ import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
 
-fdescribe('RegistryService', () => {
+describe('RegistryService', () => {
   let registryService: RegistryService;
   const pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-service-spec-pagination',

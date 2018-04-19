@@ -15,7 +15,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
 import { HostWindowService } from '../../../shared/host-window.service';
 
-fdescribe('MetadataRegistryComponent', () => {
+describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
   let fixture: ComponentFixture<MetadataRegistryComponent>;
   let registryService: RegistryService;
