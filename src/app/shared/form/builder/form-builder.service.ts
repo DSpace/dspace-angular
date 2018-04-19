@@ -166,6 +166,16 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
+  modelFromArray(model: DynamicFormControlModel[]): DynamicFormControlModel[] {
+    const newModel: DynamicFormControlModel[] = [];
+
+    if (isNotEmpty(model)) {
+      model.forEach((entry) => newModel.push(Object.assign({}, entry)));
+    }
+
+    return newModel;
+  }
+
   modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any, submissionScope?: string): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, JSONUtils.parseReviver) : json;

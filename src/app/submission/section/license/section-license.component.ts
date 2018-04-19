@@ -62,7 +62,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
         .subscribe((licenseData: RemoteData<License>) => {
           this.licenseText = licenseData.payload.text;
           this.formId = this.formService.getUniqueId(this.sectionData.id);
-          this.formModel = SECTION_LICENSE_FORM_MODEL;
+          this.formModel = this.formBuilderService.modelFromArray(SECTION_LICENSE_FORM_MODEL);
           const model = this.formBuilderService.findById('granted', this.formModel);
           // Retrieve license accepted status
           if ((this.sectionData.data as WorkspaceitemSectionLicenseObject).granted) {
