@@ -1,6 +1,7 @@
 import { autoserialize } from 'cerialize';
 import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
 import { LanguageCode } from './form-field-language-value.model';
+import { FormFieldMetadataValueObject } from './form-field-metadata-value.model';
 
 export class FormFieldModel {
 
@@ -28,12 +29,7 @@ export class FormFieldModel {
   };
 
   @autoserialize
-  selectableMetadata: Array<{
-    metadata: string;
-    label?: string;
-    authority?: string;
-    [name: string]: any;
-  }>;
+  selectableMetadata: FormFieldMetadataValueObject[];
 
   @autoserialize
   rows: FormRowModel[];

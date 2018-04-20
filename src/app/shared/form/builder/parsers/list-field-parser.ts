@@ -36,9 +36,7 @@ export class ListFieldParser extends FieldParser {
           }
         });
       }
-      listModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
-      listModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
-      listModelConfig.authorityScope = this.authorityUuid;
+      this.setAuthorityOptions(listModelConfig, this.authorityUuid);
     }
 
     let listModel;

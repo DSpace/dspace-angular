@@ -14,9 +14,8 @@ export class LookupFieldParser extends FieldParser {
   public modelFactory(fieldValue: any): any {
     if (this.configData.selectableMetadata[0].authority) {
       const lookupModelConfig: DynamicLookupModelConfig = this.initModel();
-      lookupModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
-      lookupModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
-      lookupModelConfig.authorityScope = this.authorityUuid;
+
+      this.setAuthorityOptions(lookupModelConfig, this.authorityUuid);
       lookupModelConfig.maxOptions = 10;
 
       this.setValues(lookupModelConfig, fieldValue, true);

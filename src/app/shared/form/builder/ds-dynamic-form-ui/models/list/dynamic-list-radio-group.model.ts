@@ -4,11 +4,10 @@ import {
   DynamicRadioGroupModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
+import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
-  authorityMetadata: string;
-  authorityName: string;
-  authorityScope: string;
+  authorityOptions: AuthorityOptions;
   groupLength: number;
   repeatable: boolean;
   value?: any;
@@ -16,18 +15,14 @@ export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any
 
 export class DynamicListRadioGroupModel extends DynamicRadioGroupModel<any> {
 
-  @serializable() authorityMetadata: string;
-  @serializable() authorityName: string;
-  @serializable() authorityScope: string;
+  @serializable() authorityOptions: AuthorityOptions;
   @serializable() repeatable: boolean;
   @serializable() groupLength: number;
 
   constructor(config: DynamicListModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
 
-    this.authorityMetadata = config.authorityMetadata;
-    this.authorityName = config.authorityName;
-    this.authorityScope = config.authorityScope;
+    this.authorityOptions = config.authorityOptions;
     this.groupLength = config.groupLength || 5;
     this.repeatable = config.repeatable;
     this.valueUpdates.next(config.value);

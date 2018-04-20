@@ -51,9 +51,9 @@ export class DsDynamicListComponent implements OnInit {
     if (this.hasAuthorityOptions()) {
       // TODO Replace max elements 1000 with a paginated request when pagination bug is resolved
       this.searchOptions = new IntegrationSearchOptions(
-        this.model.authorityScope,
-        this.model.authorityName,
-        this.model.authorityMetadata,
+        this.model.authorityOptions.scope,
+        this.model.authorityOptions.name,
+        this.model.authorityOptions.metadata,
         '',
         1000, // Max elements
         1);// Current Page
@@ -90,7 +90,7 @@ export class DsDynamicListComponent implements OnInit {
   }
 
   protected setOptionsFromAuthority() {
-    if (this.model.authorityName && this.model.authorityName.length > 0) {
+    if (this.model.authorityOptions.name && this.model.authorityOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as FormGroup;
       this.authorityService.getEntriesByName(this.searchOptions).subscribe((authorities: ConfigData) => {
         let groupCounter = 0;
@@ -131,8 +131,8 @@ export class DsDynamicListComponent implements OnInit {
   }
 
   protected hasAuthorityOptions() {
-    return (hasValue(this.model.authorityScope)
-      && hasValue(this.model.authorityName)
-      && hasValue(this.model.authorityMetadata));
+    return (hasValue(this.model.authorityOptions.scope)
+      && hasValue(this.model.authorityOptions.name)
+      && hasValue(this.model.authorityOptions.metadata));
   }
 }

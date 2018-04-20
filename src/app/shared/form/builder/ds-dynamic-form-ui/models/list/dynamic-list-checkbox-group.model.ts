@@ -6,11 +6,10 @@ import {
   serializable
 } from '@ng-dynamic-forms/core';
 import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 
 export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupModelConfig {
-  authorityMetadata: string;
-  authorityName: string;
-  authorityScope: string;
+  authorityOptions: AuthorityOptions;
   groupLength: number;
   repeatable: boolean;
   value?: any;
@@ -18,9 +17,7 @@ export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupMod
 
 export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
 
-  @serializable() authorityMetadata: string;
-  @serializable() authorityName: string;
-  @serializable() authorityScope: string;
+  @serializable() authorityOptions: AuthorityOptions;
   @serializable() repeatable: boolean;
   @serializable() groupLength: number;
   @serializable() _value: AuthorityModel[];
@@ -29,9 +26,7 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
   constructor(config: DynamicListCheckboxGroupModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
 
-    this.authorityMetadata = config.authorityMetadata;
-    this.authorityName = config.authorityName;
-    this.authorityScope = config.authorityScope;
+    this.authorityOptions = config.authorityOptions;
     this.groupLength = config.groupLength || 5;
     this._value = [];
     this.repeatable = config.repeatable;

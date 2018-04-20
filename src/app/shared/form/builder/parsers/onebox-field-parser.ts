@@ -84,12 +84,8 @@ export class OneboxFieldParser extends FieldParser {
       return new DynamicComboboxModel(inputSelectGroup, clsGroup);
     } else if (this.configData.selectableMetadata[0].authority) {
       const typeaheadModelConfig: DsDynamicTypeaheadModelConfig = this.initModel();
-      typeaheadModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
-      typeaheadModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
-      typeaheadModelConfig.authorityClosed = this.configData.selectableMetadata[0].closed;
-
+      this.setAuthorityOptions(typeaheadModelConfig, this.authorityUuid);
       this.setValues(typeaheadModelConfig, fieldValue, true);
-      typeaheadModelConfig.authorityScope = this.authorityUuid;
       typeaheadModelConfig.minChars = 3;
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
       return typeaheadModel;

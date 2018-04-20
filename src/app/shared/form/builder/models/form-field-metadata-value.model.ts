@@ -7,6 +7,8 @@ export class FormFieldMetadataValueObject {
   authority: string;
   confidence: number;
   place: number;
+  closed: boolean;
+  label: string;
 
   constructor(value: string,
               language: any = null,
@@ -29,5 +31,9 @@ export class FormFieldMetadataValueObject {
     if (isNotEmpty(metadata)) {
       this.metadata = metadata;
     }
+  }
+
+  hasAuthority(): boolean {
+    return isNotEmpty(this.authority);
   }
 }

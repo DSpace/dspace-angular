@@ -13,6 +13,7 @@ import { AuthorityModel } from '../../../../core/integration/models/authority.mo
 import { FormFieldLanguageValueObject } from '../models/form-field-language-value.model';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
+import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 
 export abstract class FieldParser {
 
@@ -216,13 +217,15 @@ export abstract class FieldParser {
     }
   }
 
-  public getAuthorityOptionsObj(uuid, name, metadata): IntegrationSearchOptions {
-    const authorityOptions: IntegrationSearchOptions = new IntegrationSearchOptions(uuid);
-
-    authorityOptions.name = name;
-    authorityOptions.metadata = metadata;
-
-    return authorityOptions;
+  public setAuthorityOptions(controlModel, authorityUuid) {
+    if (isNotEmpty(this.configData.selectableMetadata[0].authority)) {
+      controlModel.authorityOptions = new AuthorityOptions(
+        this.configData.selectableMetadata[0].authority,
+        this.configData.selectableMetadata[0].metadata,
+        authorityUuid,
+        this.configData.selectableMetadata[0].closed
+        )
+    }
   }
 
   public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceAuthority: boolean = false, groupModel?: boolean) {

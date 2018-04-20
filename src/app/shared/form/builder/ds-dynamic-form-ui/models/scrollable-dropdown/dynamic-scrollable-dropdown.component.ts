@@ -33,9 +33,9 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
 
   ngOnInit() {
     this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityScope,
-      this.model.authorityName,
-      this.model.authorityMetadata,
+      this.model.authorityOptions.scope,
+      this.model.authorityOptions.name,
+      this.model.authorityOptions.metadata,
       '',
       this.model.maxOptions,
       1);

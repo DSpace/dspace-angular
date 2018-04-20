@@ -21,9 +21,7 @@ export class DropdownFieldParser extends FieldParser {
     let layout: DynamicFormControlLayout;
 
     if (isNotEmpty(this.configData.selectableMetadata[0].authority)) {
-      dropdownModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
-      dropdownModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
-      dropdownModelConfig.authorityScope = this.authorityUuid;
+      this.setAuthorityOptions(dropdownModelConfig, this.authorityUuid);
       dropdownModelConfig.maxOptions = 10;
       if (isNotEmpty(fieldValue)) {
         dropdownModelConfig.value = fieldValue;

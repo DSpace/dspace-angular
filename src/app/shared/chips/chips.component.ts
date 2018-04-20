@@ -69,6 +69,9 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
+  onBlur(event, index) {
+    console.log("blur ", event, index);
+  }
   onDrag(event) {
     this.uploadFilesService.overrideDragOverPage();
     this.dragged = event;

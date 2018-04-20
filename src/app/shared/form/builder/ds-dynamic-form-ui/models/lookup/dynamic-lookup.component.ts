@@ -4,9 +4,10 @@ import { FormGroup } from '@angular/forms';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicLookupModel } from './dynamic-lookup.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { isNull, isUndefined } from '../../../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../../empty.util';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 
 @Component({
   selector: 'ds-dynamic-lookup',
@@ -23,13 +24,15 @@ export class DsDynamicLookupComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
+  public firstInputValue = '';
+  public secondInputValue = '';
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: any;
   protected searchOptions: IntegrationSearchOptions;
 
   // Only for LookupName
-  lookupName: boolean;
+  isLookupName: boolean;
   name2: string;
 
   constructor(private authorityService: AuthorityService,
@@ -37,22 +40,21 @@ export class DsDynamicLookupComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.model.currentValue = '';
     this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityScope,
-      this.model.authorityName,
-      this.model.authorityMetadata,
+      this.model.authorityOptions.scope,
+      this.model.authorityOptions.name,
+      this.model.authorityOptions.metadata,
       '',
       this.model.maxOptions,
       1);
 
     // Switch Lookup/LookupName
     if (this.model.separator) {
-      this.lookupName = true;
+      this.isLookupName = true;
       this.name2 = this.model.name + '2';
     }
 
-    this.model.assignCurrentValues();
+    this.setInputsValue(this.model.value);
 
   }
 
@@ -66,9 +68,22 @@ export class DsDynamicLookupComponent implements OnInit {
   // inputFormatter = (x: { display: string }) => x.display;
   inputFormatter = (x: { display: string }, y: number) => {
     // this.splitValues();
-    const out = y === 1 ? this.model.currentValue : this.model.currentValue2;
-    return out;
+    return y === 1 ? this.firstInputValue : this.secondInputValue;
   };
+
+  onInput(event) {
+    console.log(this.getCurrentValue(), this.firstInputValue, this.secondInputValue);
+    if (!this.model.authorityOptions.closed) {
+      if (isNotEmpty(this.getCurrentValue())) {
+        const currentValue = new AuthorityModel();
+        currentValue.value = this.getCurrentValue();
+        currentValue.display = this.getCurrentValue();
+        this.onSelect(currentValue);
+      } else {
+        this.remove();
+      }
+    }
+  }
 
   onScroll() {
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
@@ -77,24 +92,49 @@ export class DsDynamicLookupComponent implements OnInit {
     }
   }
 
+  protected setInputsValue(value) {
+    if (hasValue(value)) {
+      let displayValue = value;
+      if (value instanceof AuthorityModel) {
+        displayValue = value.display;
+      }
+
+      if (hasValue(displayValue)) {
+        if (this.isLookupName) {
+          const values = displayValue.split(this.model.separator);
+
+          this.firstInputValue = values[0].trim() || '';
+          this.secondInputValue = values[1].trim() || '';
+        } else {
+          this.firstInputValue = displayValue || '';
+        }
+      }
+    }
+  }
+
+  protected getCurrentValue(): string {
+    let result = '';
+    if (!this.isLookupName) {
+      result = this.firstInputValue;
+    } else {
+      if (isNotEmpty(this.firstInputValue)) {
+        result = this.firstInputValue;
+      }
+      if (isNotEmpty(this.secondInputValue)) {
+        result = isEmpty(result)
+          ? this.secondInputValue
+          : this.firstInputValue + this.model.separator + ' ' + this.secondInputValue;
+      }
+    }
+    return result;
+  }
+
   search() {
     this.optionsList = null;
     this.pageInfo = null;
 
     // Query
-    this.searchOptions.query = '';
-    if (!this.lookupName) {
-      this.searchOptions.query = this.model.currentValue;
-    } else {
-      if (this.model.currentValue !== '') {
-        this.searchOptions.query = this.model.currentValue;
-      }
-      if (this.model.currentValue2 !== '') {
-        this.searchOptions.query = this.searchOptions.query === ''
-          ? this.model.currentValue2
-          : this.model.currentValue + this.model.separator + ' ' + this.model.currentValue2;
-      }
-    }
+    this.searchOptions.query = this.getCurrentValue();
 
     this.loading = true;
     this.authorityService.getEntriesByName(this.searchOptions)
@@ -102,38 +142,48 @@ export class DsDynamicLookupComponent implements OnInit {
       .subscribe((object: IntegrationData) => {
         this.optionsList = object.payload;
         this.pageInfo = object.pageInfo;
-        this.loading = false
+        this.loading = false;
         this.cdr.detectChanges();
       });
   }
 
-  noResults() {
-    this.model.currentValue = '';
-    if (this.lookupName) {
-      this.model.currentValue2 = '';
+  clearFields() {
+    // Clear inputs whether there is no results and authority is closed
+    if (this.model.authorityOptions.closed) {
+      this.firstInputValue = '';
+      if (this.isLookupName) {
+        this.secondInputValue = '';
+      }
     }
   }
 
   onSelect(event) {
     this.group.markAsDirty();
     this.model.valueUpdates.next(event);
+    this.setInputsValue(event);
     this.change.emit(event);
     this.optionsList = null;
     this.pageInfo = null;
   }
 
+  isInputDisabled() {
+    return this.model.authorityOptions.closed && hasValue(this.model.value);
+  }
+
   isSearchDisabled() {
-    if (this.model.currentValue === ''
-      && (this.lookupName ? this.model.currentValue2 === '' : true)) {
-      return true;
-    }
+    // if (this.firstInputValue === ''
+    //   && (this.isLookupName ? this.secondInputValue === '' : true)) {
+    //   return true;
+    // }
+    // return false;
+    // return !hasValue(this.model.value);
     return false;
   }
 
-  remove(event) {
+  remove() {
     this.group.markAsPristine();
     this.model.valueUpdates.next(null);
-    this.change.emit(event);
+    this.change.emit(null);
   }
 
   onBlurEvent(event: Event) {

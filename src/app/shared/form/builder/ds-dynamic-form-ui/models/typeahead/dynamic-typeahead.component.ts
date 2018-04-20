@@ -71,9 +71,9 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   ngOnInit() {
     this.currentValue = this.model.value;
     this.searchOptions = new IntegrationSearchOptions(
-      this.model.authorityScope,
-      this.model.authorityName,
-      this.model.authorityMetadata);
+      this.model.authorityOptions.scope,
+      this.model.authorityOptions.name,
+      this.model.authorityOptions.metadata);
     this.group.get(this.model.id).valueChanges
       .filter((value) => this.currentValue !== value)
       .subscribe((value) => {
@@ -87,7 +87,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   }
 
   onInput(event) {
-    if (!this.model.authorityClosed && isNotEmpty(event.target.value)) {
+    if (!this.model.authorityOptions.closed && isNotEmpty(event.target.value)) {
       console.log(event.target.value);
       const value = new AuthorityModel();
       value.value = event.target.value;

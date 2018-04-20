@@ -15,10 +15,7 @@ export class TagFieldParser extends FieldParser {
     const tagModelConfig: DynamicTagModelConfig = this.initModel();
     if (this.configData.selectableMetadata[0].authority
       && this.configData.selectableMetadata[0].authority.length > 0) {
-      tagModelConfig.authorityClosed = this.configData.selectableMetadata[0].closed;
-      tagModelConfig.authorityMetadata = this.configData.selectableMetadata[0].metadata;
-      tagModelConfig.authorityName = this.configData.selectableMetadata[0].authority;
-      tagModelConfig.authorityScope = this.authorityUuid;
+      this.setAuthorityOptions(tagModelConfig, this.authorityUuid);
     }
 
     tagModelConfig.minChars = 3;

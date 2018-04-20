@@ -8,6 +8,7 @@ import { AuthorityService } from '../../../../../../core/integration/authority.s
 import { DynamicTagModel } from './dynamic-tag.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { Chips } from '../../../../../chips/chips.model';
+import { hasValue } from '../../../../../empty.util';
 
 @Component({
   selector: 'ds-dynamic-tag',
@@ -26,7 +27,7 @@ export class DsDynamicTagComponent implements OnInit {
 
   chips: Chips;
   placeholder = 'Enter tags...';
-  withAuthority: boolean;
+  hasAuthority: boolean;
 
   searching = false;
   searchOptions: IntegrationSearchOptions;
@@ -70,15 +71,15 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.withAuthority = this.model.authorityName && this.model.authorityName.length > 0;
-    if (this.withAuthority) {
+    this.hasAuthority = this.model.authorityOptions && hasValue(this.model.authorityOptions.name);
+    if (this.hasAuthority) {
       this.searchOptions = new IntegrationSearchOptions(
-        this.model.authorityScope,
-        this.model.authorityName,
-        this.model.authorityMetadata);
+        this.model.authorityOptions.scope,
+        this.model.authorityOptions.name,
+        this.model.authorityOptions.metadata);
     }
 
-    if (this.withAuthority) {
+    if (this.hasAuthority) {
       this.chips = new Chips(this.model.value, 'display');
     } else {
       this.chips = new Chips(this.model.value, 'display');
@@ -144,7 +145,7 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   private addTagsToChips() {
-    if (!this.withAuthority || !this.model.authorityClosed) {
+    if (!this.hasAuthority || !this.model.authorityOptions.closed) {
       let res: string[] = [];
       res = this.currentValue.split(',');
 
@@ -170,10 +171,6 @@ export class DsDynamicTagComponent implements OnInit {
       }, 50);
       this.updateModel(event);
     }
-  }
-
-  chipsSelected(event) {
-    // console.log("Selected chips : "+JSON.stringify(this.chips.chipsItems[event]));
   }
 
   removeChips(event) {
