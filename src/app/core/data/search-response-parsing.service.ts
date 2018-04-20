@@ -26,7 +26,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
             value: hhObject[key].join('...')
           }))
         } else {
-          return undefined;
+          return [];
         }
       });
 
