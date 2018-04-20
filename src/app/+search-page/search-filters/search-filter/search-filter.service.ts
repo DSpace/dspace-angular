@@ -10,7 +10,7 @@ import {
   SearchFilterInitialExpandAction, SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
-import { hasValue, } from '../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchService } from '../../search-service/search.service';
 import { RouteService } from '../../../shared/route.service';
@@ -59,7 +59,9 @@ export class SearchFilterService {
   getCurrentSort(): Observable<SortOptions> {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
-    return Observable.combineLatest(sortDirection$, sortField$, (sortDirection, sortField) => new SortOptions(sortField || undefined, SortDirection[sortDirection]));
+    return Observable.combineLatest(sortDirection$, sortField$, (sortDirection, sortField) =>
+      new SortOptions(isNotEmpty(sortField) ? sortField : undefined, SortDirection[sortDirection])
+    );
   }
 
   getCurrentFilters() {

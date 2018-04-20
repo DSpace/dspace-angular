@@ -13,19 +13,19 @@ export class RouteService {
   }
 
   getQueryParameterValues(paramName: string): Observable<string[]> {
-    return this.route.queryParamMap.map((map) => [...map.getAll(paramName)]);
+    return this.route.queryParamMap.map((map) => [...map.getAll(paramName)]).distinctUntilChanged();
   }
 
   getQueryParameterValue(paramName: string): Observable<string> {
-    return this.route.queryParamMap.map((map) => map.get(paramName));
+    return this.route.queryParamMap.map((map) => map.get(paramName)).distinctUntilChanged();
   }
 
   hasQueryParam(paramName: string): Observable<boolean> {
-    return this.route.queryParamMap.map((map) => map.has(paramName));
+    return this.route.queryParamMap.map((map) => map.has(paramName)).distinctUntilChanged();
   }
 
   hasQueryParamWithValue(paramName: string, paramValue: string): Observable<boolean> {
-    return this.route.queryParamMap.map((map) => map.getAll(paramName).indexOf(paramValue) > -1);
+    return this.route.queryParamMap.map((map) => map.getAll(paramName).indexOf(paramValue) > -1).distinctUntilChanged();
   }
 
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
@@ -38,6 +38,6 @@ export class RouteService {
               params[key] = [...map.getAll(key)];
             });
           return params;
-        });
+        }).distinctUntilChanged();
   }
 }
