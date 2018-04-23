@@ -13,6 +13,8 @@ import { FormComponent } from '../../../../form.component';
 import { Chips, ChipsItem } from '../../../../../chips/chips.model';
 import { DynamicLookupModel } from '../lookup/dynamic-lookup.model';
 import { NotificationsService } from '../../../../../notifications/notifications.service';
+import { isEmpty } from '../../../../../empty.util';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -148,7 +150,17 @@ export class DsDynamicGroupComponent implements OnInit {
   }
 
   private removeChips(event) {
-    this.model.valueUpdates.next(this.chips.getItems());
+    console.log(this.chips.getItems(), this.model.value);
+    const items = this.chips.getItems();
+    if (isEmpty(items)) {
+      const emptyItem = Object.create({});
+      Object.keys(this.model.value[0])
+        .forEach((key) => {
+          emptyItem[key] = null;
+        });
+      items.push(emptyItem);
+    }
+    this.model.valueUpdates.next(items);
     this.change.emit(event);
   }
 
