@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -8,13 +8,14 @@ import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ds-dynamic-lookup',
   styleUrls: ['./dynamic-lookup.component.scss'],
   templateUrl: './dynamic-lookup.component.html'
 })
-export class DsDynamicLookupComponent implements OnInit {
+export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicLookupModel;
@@ -29,11 +30,11 @@ export class DsDynamicLookupComponent implements OnInit {
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: any;
-  protected searchOptions: IntegrationSearchOptions;
+  public isLookupName: boolean;
+  public name2: string;
 
-  // Only for LookupName
-  isLookupName: boolean;
-  name2: string;
+  protected searchOptions: IntegrationSearchOptions;
+  protected sub: Subscription;
 
   constructor(private authorityService: AuthorityService,
               private cdr: ChangeDetectorRef) {
@@ -56,6 +57,15 @@ export class DsDynamicLookupComponent implements OnInit {
 
     this.setInputsValue(this.model.value);
 
+    this.model.valueUpdates
+      .subscribe((value) => {
+        if (isEmpty(value)) {
+          this.resetFields();
+        } else {
+          this.setInputsValue(this.model.value);
+        }
+        console.log('subscribe', value);
+    });
   }
 
   public formatItemForInput(item: any, field: number): string {
@@ -103,8 +113,8 @@ export class DsDynamicLookupComponent implements OnInit {
         if (this.isLookupName) {
           const values = displayValue.split(this.model.separator);
 
-          this.firstInputValue = values[0].trim() || '';
-          this.secondInputValue = values[1].trim() || '';
+          this.firstInputValue = (values[0] || '').trim() ;
+          this.secondInputValue = (values[1] || '').trim();
         } else {
           this.firstInputValue = displayValue || '';
         }
@@ -150,10 +160,14 @@ export class DsDynamicLookupComponent implements OnInit {
   clearFields() {
     // Clear inputs whether there is no results and authority is closed
     if (this.model.authorityOptions.closed) {
-      this.firstInputValue = '';
-      if (this.isLookupName) {
-        this.secondInputValue = '';
-      }
+      this.resetFields();
+    }
+  }
+
+  protected resetFields() {
+    this.firstInputValue = '';
+    if (this.isLookupName) {
+      this.secondInputValue = '';
     }
   }
 
@@ -176,8 +190,7 @@ export class DsDynamicLookupComponent implements OnInit {
     //   return true;
     // }
     // return false;
-    // return !hasValue(this.model.value);
-    return false;
+    return isEmpty(this.model.value);
   }
 
   remove() {
@@ -194,4 +207,9 @@ export class DsDynamicLookupComponent implements OnInit {
     this.focus.emit(event);
   }
 
+  ngOnDestroy() {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
+  }
 }
