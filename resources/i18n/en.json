@@ -91,6 +91,7 @@
     },
     "messages": {
       "title": "Messages",
+      "to": "To",
       "hide-msg": "Hide message",
       "show-msg": "Show message",
       "no-messages": "No messages yet.",
