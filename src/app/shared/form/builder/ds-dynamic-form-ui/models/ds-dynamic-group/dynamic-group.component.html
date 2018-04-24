@@ -1,5 +1,15 @@
+<a class="close position-relative" aria-label="Close">
+  <span *ngIf="!(formCollapsed | async)"
+        class="fa fa-angle-up fa-fw"
+        aria-hidden="true"
+        (click)="collapseForm()"></span>
+  <span *ngIf="(formCollapsed | async)"
+        class="fa fa-angle-down fa-fw"
+        aria-hidden="true"
+        (click)="expandForm()"></span>
+</a>
 <hr class="mt-0">
-<div class="ds-dynamic-group-component row">
+<div *ngIf="!(formCollapsed | async)" class="ds-dynamic-group-component row"  @shrinkInOut>
   <ds-form #formRef="formComponent"
            class="col-sm-9 pl-0"
            [formId]="formId"
@@ -7,44 +17,46 @@
            [displaySubmit]="false"></ds-form>
 
 
+  <div *ngIf="!(formCollapsed | async)" class="col p-0 m-0 d-flex justify-content-center">
+    <!--<button *ngIf="!editMode"-->
+            <!--type="button"-->
+            <!--class="btn btn-link pr-0 align-middle"-->
+            <!--[disabled]="isMandatoryFieldEmpty()"-->
+            <!--(click)="addChips()">-->
+      <!--<i class="fa fa-plus-circle fa-3x"-->
+         <!--style="color: gray"-->
+         <!--aria-hidden="true"></i>-->
+    <!--</button>-->
 
-  <div class="col p-0 m-0 d-flex justify-content-center">
-    <button *ngIf="!editMode"
-            type="button"
-            class="btn btn-link pr-0 align-middle"
-            [disabled]="isMandatoryFieldEmpty()"
-            (click)="addChips()">
-      <i class="fa fa-plus-circle fa-3x"
-         style="color: gray"
-         aria-hidden="true"></i>
-    </button>
-
-    <button *ngIf="editMode"
-            type="button"
+    <button type="button"
             class="btn btn-link align-middle"
             [disabled]="isMandatoryFieldEmpty()"
-            (click)="modifyChips()">
-      <i class="fa fa-save fa-2x"
-         style="color: darkcyan"
+            (click)="save()">
+      <i class="fa fa-save text-primary fa-2x"
          aria-hidden="true"></i>
     </button>
-    <button *ngIf="editMode"
-            type="button"
+    <button type="button"
             class="btn btn-link align-middle"
-            (click)="exitEditMode()">
+            [disabled]="!editMode"
+            (click)="delete()">
+      <i class="fa fa-trash text-danger fa-2x"
+         aria-hidden="true"></i>
+    </button>
+    <button type="button"
+            class="btn btn-link align-middle"
+            [disabled]="isMandatoryFieldEmpty()"
+            (click)="clear()">
       <i class="fa fa-undo fa-2x"
-         style="color: gray"
          aria-hidden="true"></i>
     </button>
   </div>
 </div>
 <div class="clearfix"></div>
 <div class="d-inline-flex">
+  <h4 *ngIf="!chips.hasItems()" class="text-muted mb-3">No Element</h4>
   <ds-chips
-    *ngIf="chips.chipsItems.length > 0"
+    *ngIf="chips.hasItems()"
     [chips]="chips"
     [editable]="true"
-    (selected)="chipsSelected($event)"
-    (remove)="removeChips($event)"
-    (change)="changeChips($event)"></ds-chips>
+    (selected)="onChipSelected($event)"></ds-chips>
 </div>

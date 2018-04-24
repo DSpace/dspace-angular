@@ -123,7 +123,7 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   updateModel(event) {
-    this.model.valueUpdates.next(this.chips.getItems());
+    this.model.valueUpdates.next(this.chips.getChipsItems());
     this.change.emit(event);
   }
 
@@ -175,12 +175,12 @@ export class DsDynamicTagComponent implements OnInit {
 
   removeChips(event) {
     // console.log("Removed chips index: "+event);
-    this.model.valueUpdates.next(this.chips.getItems());
+    this.model.valueUpdates.next(this.chips.getChipsItems());
     this.change.emit(event);
   }
 
   changeChips(event) {
-    this.model.valueUpdates.next(this.chips.getItems());
+    this.model.valueUpdates.next(this.chips.getChipsItems());
     this.change.emit(event);
   }
 }

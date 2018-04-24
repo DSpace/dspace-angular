@@ -64,7 +64,6 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
         } else {
           this.setInputsValue(this.model.value);
         }
-        console.log('subscribe', value);
     });
   }
 
@@ -82,7 +81,6 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   };
 
   onInput(event) {
-    console.log(this.getCurrentValue(), this.firstInputValue, this.secondInputValue);
     if (!this.model.authorityOptions.closed) {
       if (isNotEmpty(this.getCurrentValue())) {
         const currentValue = new AuthorityModel();

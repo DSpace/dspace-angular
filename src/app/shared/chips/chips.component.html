@@ -1,14 +1,13 @@
-<div *ngIf="chips && chips.chipsItems" class="float-left">
+<div *ngIf="chips && chips.hasItems()" class="float-left">
 
-  <ul class="nav nav-pills flex-column flex-sm-row mb-3" [sortablejs]="chips.chipsItems" [sortablejsOptions]="options">
-    <li *ngFor="let c of chips.chipsItems; let i = index"
+  <ul class="nav nav-pills flex-column flex-sm-row mb-3" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
+    <li *ngFor="let c of chips.getChips(); let i = index"
         class="nav-item mr-2 mb-1"
         (drag)="onDrag(i)"
         (dragend)="onDragEnd(i)">
       <a class="flex-sm-fill text-sm-center nav-link active"
          href="#"
          [ngClass]="{'bg-info disabled': (editable && c.editMode) || dragged == i}"
-         (blur)="onBlur($event, i)"
          (click)="chipsSelected($event, i);"
          (drag)="onDrag(i)"
          (dragend)="onDragEnd(i)">

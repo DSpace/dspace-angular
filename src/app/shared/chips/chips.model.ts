@@ -1,9 +1,14 @@
-import { findIndex, uniqueId } from 'lodash';
+import { findIndex } from 'lodash';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ChipsItem } from './chips-item.model';
 
 export class Chips {
-  chipsItems: ChipsItem[];
+  // chipsItems: ChipsItem[];
   displayField: string;
   displayObj: string;
+  chipsItems: BehaviorSubject<ChipsItem[]>;
+
+  private _items: ChipsItem[];
 
   constructor(items: any[] = [], displayField: string = 'display', displayObj?: string) {
     this.displayField = displayField;
@@ -13,86 +18,72 @@ export class Chips {
     }
   }
 
-  public add(item: any) {
-    const chipsItem = {
-      id: uniqueId(),
-      display: this.getDisplayText(item),
-      editMode: false,
-      item: item,
-    };
+  public add(item: any): void {
+    const chipsItem = new ChipsItem(item, this.displayField, this.displayObj);
 
-    const duplicated = findIndex(this.chipsItems, {display: chipsItem.display.trim()});
+    const duplicated = findIndex(this._items, {display: chipsItem.display.trim()});
     if (duplicated === -1) {
-      this.chipsItems.push(chipsItem);
+      this._items.push(chipsItem);
+      this.chipsItems.next(this._items);
     }
   }
 
-  public remove(index) {
-    this.chipsItems.splice(index, 1);
-  }
-
-  public update(chipsItem: ChipsItem) {
-    const index = findIndex(this.chipsItems, {id: chipsItem.id});
-    const chipsItemTarget = this.chipsItems[index];
-    chipsItemTarget.item = chipsItem.item;
-    chipsItemTarget.display = this.getDisplayText(chipsItemTarget.item);
-    chipsItemTarget.editMode = false;
-  }
-
-  /**
-   * Sets initial items, used in edit mode
-   */
-  private setInitialItems(items: any[]) {
-    this.chipsItems = [];
-    items.forEach((item, index) => {
-      const chipsItem = {
-        id: uniqueId(),
-        // order: this.chipsItems.length,
-        display: this.getDisplayText(item),
-        editMode: false,
-        item: item,
-      };
-      this.chipsItems.push(chipsItem);
-    })
-  }
-
-  private getDisplayText(item: any) {
-    let value = item;
-    if ( typeof item === 'object') {
-      // Check If displayField is in an internal object
-      const obj = this.displayObj ? item[this.displayObj] : item;
-      const displayFieldBkp = 'value';
-
-      if (obj instanceof Object && obj && obj[this.displayField]) {
-        value = obj[this.displayField];
-      } else if (obj instanceof Object && obj && obj[displayFieldBkp]) {
-        value = obj[displayFieldBkp];
-      } else {
-        value = obj;
-      }
+  public getChipByIndex(index): ChipsItem {
+    if (this._items.length > 0 && this._items[index]) {
+      return this._items[index];
+    } else {
+      return null;
     }
+  }
 
-    return value;
+  public getChips(): ChipsItem[] {
+    return this._items;
   }
 
   /**
    * To use to get items before to store it
    * @returns {any[]}
    */
-  public getItems(): any[] {
+  public getChipsItems(): any[] {
     const out = [];
-    this.chipsItems.forEach((item) => {
+    this._items.forEach((item) => {
       out.push(item.item);
     });
     return out;
   }
 
-}
+  public hasItems(): boolean {
+    return this._items.length > 0;
+  }
 
-export interface ChipsItem {
-  id: string,
-  display: string,
-  editMode?: boolean,
-  item: any,
-  icons?: string[]
+  public remove(chipsItem: ChipsItem): void {
+    const index = findIndex(this._items, {id: chipsItem.id});
+    this._items.splice(index, 1);
+    this.chipsItems.next(this._items);
+  }
+
+  public update(chipsItem: ChipsItem): void {
+    const index = findIndex(this._items, {id: chipsItem.id});
+    const chipsItemTarget = this.getChipByIndex(index);
+    chipsItemTarget.updateItem(chipsItem.item);
+    chipsItemTarget.unsetEditMode();
+    this.chipsItems.next(this._items);
+  }
+
+  public updateOrder(): void {
+    this.chipsItems.next(this._items);
+  }
+
+  /**
+   * Sets initial items, used in edit mode
+   */
+  private setInitialItems(items: any[]): void {
+    this._items = [];
+    items.forEach((item, index) => {
+      const chipsItem = new ChipsItem(item, this.displayField, this.displayObj);
+      this._items.push(chipsItem);
+    });
+
+    this.chipsItems = new BehaviorSubject<ChipsItem[]>(this._items);
+  }
 }

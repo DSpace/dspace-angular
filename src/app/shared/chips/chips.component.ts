@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-import { Chips, ChipsItem } from './chips.model';
+import { Chips} from './chips.model';
 import { UploadFilesService } from '../upload-files/upload-files.service';
 import { SortablejsOptions } from 'angular-sortablejs';
+import { ChipsItem } from './chips-item.model';
 
 @Component({
   selector: 'ds-chips',
@@ -22,9 +23,6 @@ export class ChipsComponent implements OnChanges {
 
   constructor(private uploadFilesService: UploadFilesService) {
     this.options = {
-      onUpdate: (event: any) => {
-        this.onDrop(event);
-      },
       animation: 300,
       dragClass: 'm-0',
       ghostClass: 'm-0',
@@ -48,11 +46,11 @@ export class ChipsComponent implements OnChanges {
   chipsSelected(event: Event, index: number) {
     event.preventDefault();
     if (this.editable) {
-      this.chips.chipsItems.forEach((item: ChipsItem, i: number) => {
+      this.chips.getChips().forEach((item: ChipsItem, i: number) => {
         if (i === index) {
-          item.editMode = true;
+          item.setEditMode();
         } else {
-          item.editMode = false;
+          item.unsetEditMode();
         }
       });
       this.selected.emit(index);
@@ -63,15 +61,11 @@ export class ChipsComponent implements OnChanges {
     event.preventDefault();
     event.stopPropagation();
     // Can't remove if this element is in editMode
-    if (!this.chips.chipsItems[index].editMode) {
-      this.chips.remove(index);
-      this.remove.emit(index);
+    if (!this.chips.getChipByIndex(index).editMode) {
+      this.chips.remove(this.chips.getChipByIndex(index));
     }
   }
 
-  onBlur(event, index) {
-    console.log("blur ", event, index);
-  }
   onDrag(event) {
     this.uploadFilesService.overrideDragOverPage();
     this.dragged = event;
@@ -80,11 +74,7 @@ export class ChipsComponent implements OnChanges {
   onDragEnd(event) {
     this.uploadFilesService.allowDragOverPage();
     this.dragged = -1;
-    this.change.emit(event);
-  }
-
-  onDrop(event) {
-    this.change.emit(event);
+    this.chips.updateOrder();
   }
 
 }

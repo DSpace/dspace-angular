@@ -8,8 +8,7 @@
                  *ngIf="(sectionRef.isEnabled() | async)"
                  (panelChange)="sectionRef.sectionChange($event)"
                  activeIds="{{ sectionData.id }}"
-                 [destroyOnHide]="false"
-                 @flyInOut>
+                 [destroyOnHide]="false">
     <ngb-panel id="{{ sectionData.id }}">
       <ng-template ngbPanelTitle>
         <span>{{ 'submission.sections.'+sectionData.header | translate }}</span>
