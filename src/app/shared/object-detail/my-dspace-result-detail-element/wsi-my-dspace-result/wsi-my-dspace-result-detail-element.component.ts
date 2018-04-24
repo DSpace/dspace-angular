@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { hasNoUndefinedValue } from '../../../empty.util';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
-import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
+import { ItemStatusType } from '../../../object-collection/shared/mydspace-item-status/item-status-type';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-detail-element',

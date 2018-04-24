@@ -5,7 +5,7 @@ import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-el
 import { ViewMode } from '../../../../+search-page/search-options.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemMyDSpaceResult } from '../../../object-collection/shared/item-my-dspace-result.model';
-import { ItemStatusType } from '../../item-list-status/item-status-type';
+import { ItemStatusType } from '../../../object-collection/shared/mydspace-item-status/item-status-type';
 
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',

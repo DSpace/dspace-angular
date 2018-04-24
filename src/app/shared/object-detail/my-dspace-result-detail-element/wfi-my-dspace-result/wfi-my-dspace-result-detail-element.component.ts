@@ -9,7 +9,7 @@ import { ListableObject } from '../../../object-collection/shared/listable-objec
 import { WorkflowitemMyDSpaceResult } from '../../../object-collection/shared/workflowitem-my-dspace-result.model';
 import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
-import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
+import { ItemStatusType } from '../../../object-collection/shared/mydspace-item-status/item-status-type';
 
 @Component({
   selector: 'ds-workflowitem-my-dspace-result-detail-element',

@@ -1,12 +1,9 @@
 import { Router } from '@angular/router';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { Injector, Input } from '@angular/core';
+
 import { MydspaceActionsServiceFactory } from './mydspace-actions-service.factory';
 import { RemoteData } from '../../core/data/remote-data';
 import { NormalizedObject } from '../../core/cache/models/normalized-object.model';
-import { WorkflowitemDataService } from '../../core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../core/tasks/claimed-task-data.service';
-import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
 import { DataService } from '../../core/data/data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ResourceType } from '../../core/shared/resource-type';
@@ -20,7 +17,7 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TNormaliz
     this.objectDataService = injector.get(factory.getConstructor(objectType));
   }
 
-  abstract initObjects(object:T): void;
+  abstract initObjects(object: T): void;
 
   reload() {
     // override the route reuse strategy

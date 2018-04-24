@@ -3,7 +3,7 @@ import { hasNoValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { Item } from '../../../core/shared/item.model';
 import { fadeInOut } from '../../animations/fade';
-import { ItemStatusType } from '../item-list-status/item-status-type';
+import { ItemStatusType } from '../../object-collection/shared/mydspace-item-status/item-status-type';
 
 @Component({
   selector: 'ds-item-list-preview',
@@ -13,12 +13,10 @@ import { ItemStatusType } from '../item-list-status/item-status-type';
 })
 
 export class ItemListPreviewComponent {
-  @Input()
-  item: Item;
-  @Input()
-  object: any;
-  @Input()
-  status: ItemStatusType;
+  @Input() item: Item;
+  @Input() object: any;
+  @Input() status: ItemStatusType;
+  @Input() showSubmitter = false;
 
   getTitle(): string {
     return this.item.findMetadata('dc.title');
