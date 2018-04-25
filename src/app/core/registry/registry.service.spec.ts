@@ -12,6 +12,24 @@ import { RequestEntry } from '../data/request.reducer';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
+import { GetRequest } from '../data/request.models';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
+import {
+  RegistryBitstreamformatsSuccessResponse,
+  RegistryMetadatafieldsSuccessResponse, RegistryMetadataschemasSuccessResponse,
+  SearchSuccessResponse
+} from '../cache/response-cache.models';
+import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
+import { Component } from '@angular/core';
+import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
+import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
+import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
+
+@Component({ template: '' })
+class DummyComponent {
+}
 
 describe('RegistryService', () => {
   let registryService: RegistryService;
@@ -100,101 +118,164 @@ describe('RegistryService', () => {
   ];
 
   const pageInfo = new PageInfo();
-  pageInfo.elementsPerPage = 10;
+  pageInfo.elementsPerPage = 20;
   pageInfo.currentPage = 1;
 
+  const endpoint = 'path';
+  const endpointWithParams = `${endpoint}?size=${pageInfo.elementsPerPage}&page=${pageInfo.currentPage - 1}`;
+
   const halServiceStub = {
-    getEndpoint: () => Observable.of('path')
+    getEndpoint: (link: string) => Observable.of(endpoint)
   };
 
-  const rdbMetadataschemasStub = {
-    toRemoteDataObservable: () => {
-      const payload = new PaginatedList(pageInfo, mockSchemasList);
-      const remoteData = new RemoteData(false, false, true, undefined, payload);
-      return Observable.of(remoteData);
+  const rdbStub = {
+    toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, responseCacheObs: Observable<ResponseCacheEntry>, payloadObs: Observable<any>) => {
+      return Observable.combineLatest(requestEntryObs,
+        responseCacheObs, payloadObs, (req, res, pay) => {
+          return { req, res, pay };
+        });
+    },
+    aggregate: (input: Array<Observable<RemoteData<any>>>): Observable<RemoteData<any[]>> => {
+      return Observable.of(new RemoteData(false, false, true, null, []));
     }
   };
-  const rdbMetadatafieldsStub = {
-    toRemoteDataObservable: () => {
-      const payload = new PaginatedList(pageInfo, mockFieldsList);
-      const remoteData = new RemoteData(false, false, true, undefined, payload);
-      return Observable.of(remoteData);
-    }
-  };
-  const rdbBitstreamformatsStub = {
-    toRemoteDataObservable: () => {
-      const payload = new PaginatedList(pageInfo, mockFormatsList);
-      const remoteData = new RemoteData(false, false, true, undefined, payload);
-      return Observable.of(remoteData);
-    }
-  };
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ CommonModule ],
+      declarations: [
+        DummyComponent
+      ],
+      providers: [
+        { provide: ResponseCacheService, useValue: getMockResponseCacheService() },
+        { provide: RequestService, useValue: getMockRequestService() },
+        { provide: RemoteDataBuildService, useValue: rdbStub },
+        { provide: HALEndpointService, useValue: halServiceStub },
+        RegistryService
+      ]
+    });
+    registryService = TestBed.get(RegistryService);
+
+    spyOn((registryService as any).halService, 'getEndpoint').and.returnValue(Observable.of(endpoint));
+  });
 
   describe('when requesting metadataschemas', () => {
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [ CommonModule ],
-        providers: [
-          { provide: ResponseCacheService, useValue: {} },
-          { provide: RequestService, useValue: {} },
-          { provide: RemoteDataBuildService, useValue: rdbMetadataschemasStub },
-          { provide: HALEndpointService, useValue: halServiceStub },
-          RegistryService
-        ]
-      });
+    const queryResponse = Object.assign(new RegistryMetadataschemasResponse(), { metadataschemas: mockSchemasList, page: pageInfo });
+    const response = new RegistryMetadataschemasSuccessResponse(queryResponse, '200', pageInfo);
+    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
 
-      registryService = TestBed.get(RegistryService);
+    beforeEach(() => {
+      (registryService as any).responseCache.get.and.returnValue(Observable.of(responseEntry));
+      /* tslint:disable:no-empty */
+      registryService.getMetadataSchemas(pagination).subscribe((value) => {
+      });
+      /* tslint:enable:no-empty */
     });
 
-    it('should recieve the correct data', () => {
-      registryService.getMetadataSchemas(pagination).subscribe((value) => {
-        expect(value.payload.page[0].prefix).toEqual('dc');
+    it('should call getEndpoint on the halService', () => {
+      expect((registryService as any).halService.getEndpoint).toHaveBeenCalled();
+    });
+
+    it('should send out the request on the request service', () => {
+      expect((registryService as any).requestService.configure).toHaveBeenCalled();
+    });
+
+    it('should call getByHref on the request service with the correct request url', () => {
+      expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
+    });
+
+    it('should call get on the request service with the correct request url', () => {
+      expect((registryService as any).responseCache.get).toHaveBeenCalledWith(endpointWithParams);
+    });
+  });
+
+  describe('when requesting metadataschema by name', () => {
+    const queryResponse = Object.assign(new RegistryMetadataschemasResponse(), { metadataschemas: mockSchemasList, page: pageInfo });
+    const response = new RegistryMetadataschemasSuccessResponse(queryResponse, '200', pageInfo);
+    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
+
+    beforeEach(() => {
+      (registryService as any).responseCache.get.and.returnValue(Observable.of(responseEntry));
+      /* tslint:disable:no-empty */
+      registryService.getMetadataSchemaByName(mockSchemasList[0].prefix).subscribe((value) => {
       });
+      /* tslint:enable:no-empty */
+    });
+
+    it('should call getEndpoint on the halService', () => {
+      expect((registryService as any).halService.getEndpoint).toHaveBeenCalled();
+    });
+
+    it('should send out the request on the request service', () => {
+      expect((registryService as any).requestService.configure).toHaveBeenCalled();
+    });
+
+    it('should call getByHref on the request service with the correct request url', () => {
+      expect((registryService as any).requestService.getByHref.calls.argsFor(0)[0]).toContain(endpoint);
+    });
+
+    it('should call get on the request service with the correct request url', () => {
+      expect((registryService as any).responseCache.get.calls.argsFor(0)[0]).toContain(endpoint);
     });
   });
 
   describe('when requesting metadatafields', () => {
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [ CommonModule ],
-        providers: [
-          { provide: ResponseCacheService, useValue: {} },
-          { provide: RequestService, useValue: {} },
-          { provide: RemoteDataBuildService, useValue: rdbMetadatafieldsStub },
-          { provide: HALEndpointService, useValue: halServiceStub },
-          RegistryService
-        ]
-      });
+    const queryResponse = Object.assign(new RegistryMetadatafieldsResponse(), { metadatafields: mockFieldsList, page: pageInfo });
+    const response = new RegistryMetadatafieldsSuccessResponse(queryResponse, '200', pageInfo);
+    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
 
-      registryService = TestBed.get(RegistryService);
+    beforeEach(() => {
+      (registryService as any).responseCache.get.and.returnValue(Observable.of(responseEntry));
+      /* tslint:disable:no-empty */
+      registryService.getMetadataFieldsBySchema(mockSchemasList[0], pagination).subscribe((value) => {
+      });
+      /* tslint:enable:no-empty */
     });
 
-    it('should recieve the correct data', () => {
-      registryService.getMetadataFieldsBySchema(mockSchemasList[0], pagination).subscribe((value) => {
-        expect(value.payload.page[0].element).toEqual('contributor');
-      });
+    it('should call getEndpoint on the halService', () => {
+      expect((registryService as any).halService.getEndpoint).toHaveBeenCalled();
+    });
+
+    it('should send out the request on the request service', () => {
+      expect((registryService as any).requestService.configure).toHaveBeenCalled();
+    });
+
+    it('should call getByHref on the request service with the correct request url', () => {
+      expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
+    });
+
+    it('should call get on the request service with the correct request url', () => {
+      expect((registryService as any).responseCache.get).toHaveBeenCalledWith(endpointWithParams);
     });
   });
 
   describe('when requesting bitstreamformats', () => {
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [ CommonModule ],
-        providers: [
-          { provide: ResponseCacheService, useValue: {} },
-          { provide: RequestService, useValue: {} },
-          { provide: RemoteDataBuildService, useValue: rdbBitstreamformatsStub },
-          { provide: HALEndpointService, useValue: halServiceStub },
-          RegistryService
-        ]
-      });
+    const queryResponse = Object.assign(new RegistryBitstreamformatsResponse(), { bitstreamformats: mockFieldsList, page: pageInfo });
+    const response = new RegistryBitstreamformatsSuccessResponse(queryResponse, '200', pageInfo);
+    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
 
-      registryService = TestBed.get(RegistryService);
+    beforeEach(() => {
+      (registryService as any).responseCache.get.and.returnValue(Observable.of(responseEntry));
+      /* tslint:disable:no-empty */
+      registryService.getBitstreamFormats(pagination).subscribe((value) => {
+      });
+      /* tslint:enable:no-empty */
     });
 
-    it('should recieve the correct data', () => {
-      registryService.getBitstreamFormats(pagination).subscribe((value) => {
-        expect(value.payload.page[0].shortDescription).toEqual('Unknown');
-      });
+    it('should call getEndpoint on the halService', () => {
+      expect((registryService as any).halService.getEndpoint).toHaveBeenCalled();
+    });
+
+    it('should send out the request on the request service', () => {
+      expect((registryService as any).requestService.configure).toHaveBeenCalled();
+    });
+
+    it('should call getByHref on the request service with the correct request url', () => {
+      expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
+    });
+
+    it('should call get on the request service with the correct request url', () => {
+      expect((registryService as any).responseCache.get).toHaveBeenCalledWith(endpointWithParams);
     });
   });
 });
