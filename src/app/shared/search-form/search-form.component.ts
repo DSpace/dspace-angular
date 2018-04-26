@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
-import { isNotEmpty, hasValue, isEmpty } from '../empty.util';
+import { isNotEmpty, hasValue, isEmpty, hasNoValue } from '../empty.util';
 
 /**
  * This component renders a simple item page.
@@ -34,7 +34,8 @@ export class SearchFormComponent {
   }
 
   updateSearch(data: any) {
-    this.router.navigate([this.currentUrl], {
+    const newUrl = hasValue(this.currentUrl) ? this.currentUrl : 'search';
+    this.router.navigate([newUrl], {
       queryParams: {
         query: data.query,
         scope: data.scope || undefined,
