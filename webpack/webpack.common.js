@@ -14,7 +14,7 @@ module.exports = {
     path: root('dist')
   },
   watchOptions: {
-    aggregateTimeout: 500,
+    aggregateTimeout: 50,
   },
   module: {
     rules: [{
