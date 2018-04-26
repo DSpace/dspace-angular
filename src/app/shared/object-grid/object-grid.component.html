@@ -10,8 +10,8 @@
   (sortDirectionChange)="onSortDirectionChange($event)"
   (sortFieldChange)="onSortFieldChange($event)"
   (paginationChange)="onPaginationChange($event)">
-    <div class="card-columns" *ngIf="objects?.hasSucceeded">
-      <div class="card-column" *ngFor="let column of (columns$ | async)" @fadeIn>
+    <div class="card-columns row" *ngIf="objects?.hasSucceeded">
+      <div class="card-column col col-sm-6 col-lg-4" *ngFor="let column of (columns$ | async)" @fadeIn>
         <div class="card-element" *ngFor="let object of column">
           <ds-wrapper-grid-element [object]="object"></ds-wrapper-grid-element>
         </div>
