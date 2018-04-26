@@ -167,7 +167,8 @@ export class SearchService implements OnDestroy {
     // get search results from response cache
     const facetConfigObs: Observable<SearchFilterConfig[]> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
-      map((response: FacetConfigSuccessResponse) => response.results)
+      map((response: FacetConfigSuccessResponse) =>
+        response.results.map((result: any) => Object.assign(new SearchFilterConfig(), result)))
     );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, facetConfigObs);

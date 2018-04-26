@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -79,20 +80,21 @@ export class SearchFilterService {
       this.getCurrentView(),
       this.getCurrentScope(),
       this.getCurrentQuery(),
-      this.getCurrentFilters(),
-      (pagination, sort, view, scope, query, filters) => {
-        return Object.assign(new PaginatedSearchOptions(),
-          defaults,
-          {
-            pagination: pagination,
-            sort: sort,
-            view: view,
-            scope: scope || defaults.scope,
-            query: query,
-            filters: filters
-          })
-      }
-    )
+      this.getCurrentFilters()).pipe(
+        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+        map(([pagination, sort, view, scope, query, filters]) => {
+            return Object.assign(new PaginatedSearchOptions(),
+              defaults,
+              {
+                pagination: pagination,
+                sort: sort,
+                view: view,
+                scope: scope || defaults.scope,
+                query: query,
+                filters: filters
+              })
+        })
+      )
   }
 
  getSearchOptions(defaults: any = {}): Observable<SearchOptions> {

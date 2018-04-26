@@ -23,6 +23,8 @@ export class SearchFiltersComponent {
   constructor(private searchService: SearchService, private filterService: SearchFilterService) {
     this.filters = searchService.getConfig();
     this.clearParams = filterService.getCurrentFilters().map((filters) => {Object.keys(filters).forEach((f) => filters[f] = null); return filters;});
+
+    this.filters.subscribe((v) => console.log('this.filters', v));
   }
 
   getSearchLink() {

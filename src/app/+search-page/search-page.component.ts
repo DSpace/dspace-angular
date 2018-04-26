@@ -31,7 +31,6 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 export class SearchPageComponent implements OnInit {
 
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
-  currentParams = {};
   searchOptions$: Observable<PaginatedSearchOptions>;
   sortConfig: SortOptions;
   scopeListRD$: Observable<RemoteData<PaginatedList<Community>>>;

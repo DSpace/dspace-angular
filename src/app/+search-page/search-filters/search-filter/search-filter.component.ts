@@ -28,14 +28,13 @@ export class SearchFilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    const sub = this.filterService.isFilterActive(this.filter.paramName).first().subscribe((isActive) => {
+    this.filterService.isFilterActive(this.filter.paramName).first().subscribe((isActive) => {
       if (this.filter.isOpenByDefault || isActive) {
         this.initialExpand();
       } else {
         this.initialCollapse();
       }
     });
-    sub.unsubscribe();
   }
 
   toggle() {

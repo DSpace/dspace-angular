@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { isNotEmpty, hasValue, isEmpty } from '../empty.util';
@@ -17,8 +18,7 @@ import { isNotEmpty, hasValue, isEmpty } from '../empty.util';
 export class SearchFormComponent {
   @Input() query: string;
   selectedId = '';
-  // Optional existing search parameters
-  @Input() currentParams: {};
+  @Input() currentUrl: string;
   @Input() scopes: DSpaceObject[];
 
   @Input()
@@ -34,16 +34,14 @@ export class SearchFormComponent {
   }
 
   updateSearch(data: any) {
-    this.router.navigate(['/search'], {
-      queryParams: Object.assign({}, this.currentParams,
-        {
-          query: data.query,
-          scope: data.scope || undefined,
-          page: data.page || 1
-        }
-      )
-    })
-    ;
+    this.router.navigate([this.currentUrl], {
+      queryParams: {
+        query: data.query,
+        scope: data.scope || undefined,
+        page: data.page || 1
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
   isNotEmpty(object: any) {
