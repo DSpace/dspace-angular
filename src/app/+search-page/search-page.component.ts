@@ -77,4 +77,8 @@ export class SearchPageComponent implements OnInit {
   public isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
   }
+
+  public getSearchLink(): string {
+    return this.service.getSearchLink();
+  }
 }

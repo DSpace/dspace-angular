@@ -7,7 +7,7 @@
         <ds-search-form id="search-form"
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
-                        [currentUrl]="service.getSearchLink()"
+                        [currentUrl]="getSearchLink()"
                         [scopes]="(scopeListRD$ | async)?.payload?.page">
         </ds-search-form>
       <div class="row">

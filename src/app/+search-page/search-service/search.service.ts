@@ -236,7 +236,7 @@ export class SearchService implements OnDestroy {
     this.router.navigate([this.getSearchLink()], navigationExtras);
   }
 
-  getSearchLink() {
+  getSearchLink(): string {
     const urlTree = this.router.parseUrl(this.router.url);
     const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
     return '/' + g.toString();
