@@ -32,9 +32,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   pageChange = false;
   sub: Subscription;
 
-  constructor(private searchService: SearchService,
-              private filterService: SearchFilterService,
-              private router: Router,
+  constructor(protected searchService: SearchService,
+              protected filterService: SearchFilterService,
+              protected router: Router,
               @Inject('filterConfig') public filterConfig: SearchFilterConfig,
               @Inject('selectedValues') public selectedValues: string[]) {
   }

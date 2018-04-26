@@ -21,31 +21,5 @@ import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-
 export class SearchTextFilterComponent extends SearchFacetFilterComponent implements OnInit {
   currentPage: Observable<number>;
 
-  ngOnInit(): void {
-    this.currentPage = this.filterService.getPage(this.filterConfig.name);
-  }
 
-  isChecked(value: FacetValue): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, value.value);
-  }
-
-  get facetCount(): Observable<number> {
-    const resultCount = this.filterValues.length;
-    return this.currentPage.map((page: number) => {
-      const max = page * this.filterConfig.pageSize;
-      return max > resultCount ? resultCount : max;
-    });
-  }
-
-  showMore() {
-    this.filterService.incrementPage(this.filterConfig.name);
-  }
-
-  showFirstPageOnly() {
-    this.filterService.resetPage(this.filterConfig.name);
-  }
-
-  getCurrentPage(): Observable<number> {
-    return this.filterService.getPage(this.filterConfig.name);
-  }
 }
