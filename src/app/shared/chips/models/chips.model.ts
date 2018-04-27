@@ -1,9 +1,9 @@
-import { findIndex } from 'lodash';
+import { findIndex, isEqual } from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ChipsItem } from './chips-item.model';
 
 export class Chips {
-  // chipsItems: ChipsItem[];
+
   displayField: string;
   displayObj: string;
   chipsItems: BehaviorSubject<ChipsItem[]>;
@@ -21,8 +21,8 @@ export class Chips {
   public add(item: any): void {
     const chipsItem = new ChipsItem(item, this.displayField, this.displayObj);
 
-    const duplicated = findIndex(this._items, {display: chipsItem.display.trim()});
-    if (duplicated === -1) {
+    const duplicatedIndex = findIndex(this._items, {display: chipsItem.display.trim()});
+    if (duplicatedIndex === -1 || !isEqual(item, this.getChipByIndex(duplicatedIndex).item)) {
       this._items.push(chipsItem);
       this.chipsItems.next(this._items);
     }

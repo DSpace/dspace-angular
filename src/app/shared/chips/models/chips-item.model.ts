@@ -7,19 +7,19 @@ export class ChipsItem {
   public editMode?: boolean;
   public icons?: string[];
 
-  private displayField: string;
-  private displayObj: string;
+  private fieldToDisplay: string;
+  private objToDisplay: string;
 
   constructor(item: any,
-              displayField: string,
-              displayObj: string,
+              fieldToDisplay: string,
+              objToDisplay: string,
               icons?: string[],
               editMode?: boolean) {
 
     this.id = uniqueId();
     this.item = item;
-    this.displayField = displayField;
-    this.displayObj = displayObj;
+    this.fieldToDisplay = fieldToDisplay;
+    this.objToDisplay = objToDisplay;
     this.setDisplayText();
     this.editMode = editMode || false;
     this.icons = icons || [];
@@ -41,11 +41,11 @@ export class ChipsItem {
     let value = this.item;
     if ( typeof this.item === 'object') {
       // Check If displayField is in an internal object
-      const obj = this.displayObj ? this.item[this.displayObj] : this.item;
+      const obj = this.objToDisplay ? this.item[this.objToDisplay] : this.item;
       const displayFieldBkp = 'value';
 
-      if (obj instanceof Object && obj && obj[this.displayField]) {
-        value = obj[this.displayField];
+      if (obj instanceof Object && obj && obj[this.fieldToDisplay]) {
+        value = obj[this.fieldToDisplay];
       } else if (obj instanceof Object && obj && obj[displayFieldBkp]) {
         value = obj[displayFieldBkp];
       } else {

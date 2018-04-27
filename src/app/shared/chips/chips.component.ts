@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-import { Chips} from './chips.model';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, } from '@angular/core';
+import { Chips} from './models/chips.model';
 import { UploadFilesService } from '../upload-files/upload-files.service';
 import { SortablejsOptions } from 'angular-sortablejs';
-import { ChipsItem } from './chips-item.model';
+import { ChipsItem } from './models/chips-item.model';
+import { SectionDirective } from '../../submission/section/section.directive';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-chips',
@@ -12,6 +14,7 @@ import { ChipsItem } from './chips-item.model';
 
 export class ChipsComponent implements OnChanges {
   @Input() chips: Chips;
+  @Input() wrapperClass: string;
   @Input() editable: boolean;
 
   @Output() selected: EventEmitter<number> = new EventEmitter<number>();
@@ -24,9 +27,9 @@ export class ChipsComponent implements OnChanges {
   constructor(private uploadFilesService: UploadFilesService) {
     this.options = {
       animation: 300,
+      chosenClass: 'm-0',
       dragClass: 'm-0',
-      ghostClass: 'm-0',
-      chosenClass: 'm-0'
+      ghostClass: 'm-0'
     };
   }
 
@@ -37,7 +40,6 @@ export class ChipsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(changes);
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
     }
@@ -66,15 +68,22 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
-  onDrag(event) {
+  onDragStart(tooltip, index) {
+    tooltip.close();
     this.uploadFilesService.overrideDragOverPage();
-    this.dragged = event;
+    this.dragged = index;
   }
 
   onDragEnd(event) {
     this.uploadFilesService.allowDragOverPage();
     this.dragged = -1;
     this.chips.updateOrder();
+  }
+
+  showTooltip(tooltip, index) {
+    if (!this.chips.getChipByIndex(index).editMode && this.dragged === -1) {
+      tooltip.open();
+    }
   }
 
 }

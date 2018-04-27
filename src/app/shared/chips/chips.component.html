@@ -1,16 +1,19 @@
-<div *ngIf="chips && chips.hasItems()" class="float-left">
-
-  <ul class="nav nav-pills flex-column flex-sm-row mb-3" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
-    <li *ngFor="let c of chips.getChips(); let i = index"
+<div [className]="'float-left ' + wrapperClass">
+  <ul class="nav nav-pills flex-column flex-sm-row" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
+    <ng-container *ngFor="let c of chips.getChips(); let i = index">
+    <li [ngbTooltip]="c.display"
+        triggers="manual"
+        #t="ngbTooltip"
         class="nav-item mr-2 mb-1"
-        (drag)="onDrag(i)"
-        (dragend)="onDragEnd(i)">
+        (click)="t.close()"
+        (dragstart)="onDragStart(t, i)"
+        (dragend)="onDragEnd(i)"
+        (mouseover)="showTooltip(t, i)"
+        (mouseout)="t.close()">
       <a class="flex-sm-fill text-sm-center nav-link active"
          href="#"
          [ngClass]="{'bg-info disabled': (editable && c.editMode) || dragged == i}"
-         (click)="chipsSelected($event, i);"
-         (drag)="onDrag(i)"
-         (dragend)="onDragEnd(i)">
+         (click)="t.close();chipsSelected($event, i);">
         <span>
           <ng-container *ngIf="c.item.icons && c.item.icons.length > 0">
             <i *ngFor="let icon of c.item.icons; let i = index; let l = last"
@@ -22,6 +25,8 @@
         </span>
       </a>
     </li>
-  </ul>
+    </ng-container>
 
+    <ng-content></ng-content>
+  </ul>
 </div>
