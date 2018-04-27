@@ -71,7 +71,7 @@
                   [name]="name2"
                   [type]="model.inputType"
                   [(ngModel)]="secondInputValue"
-                  [disabled]="isInputDisabled()"
+                  [disabled]="firstInputValue.length === 0 || isInputDisabled()"
                   [placeholder]="model.placeholder2 | translate"
                   (change)="$event.preventDefault()"
                   (blur)="onBlurEvent($event); sdRef.close();"

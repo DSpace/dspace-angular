@@ -1,7 +1,19 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-import { Chips, ChipsItem } from './chips.model';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { Chips} from './models/chips.model';
 import { UploadFilesService } from '../upload-files/upload-files.service';
 import { SortablejsOptions } from 'angular-sortablejs';
+import { ChipsItem } from './models/chips-item.model';
+import { SectionDirective } from '../../submission/section/section.directive';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-chips',
@@ -11,6 +23,7 @@ import { SortablejsOptions } from 'angular-sortablejs';
 
 export class ChipsComponent implements OnChanges {
   @Input() chips: Chips;
+  @Input() wrapperClass: string;
   @Input() editable: boolean;
 
   @Output() selected: EventEmitter<number> = new EventEmitter<number>();
@@ -19,16 +32,14 @@ export class ChipsComponent implements OnChanges {
 
   options: SortablejsOptions;
   dragged = -1;
+  tipText: string;
 
-  constructor(private uploadFilesService: UploadFilesService) {
+  constructor(private cdr: ChangeDetectorRef, private uploadFilesService: UploadFilesService) {
     this.options = {
-      onUpdate: (event: any) => {
-        this.onDrop(event);
-      },
       animation: 300,
+      chosenClass: 'm-0',
       dragClass: 'm-0',
-      ghostClass: 'm-0',
-      chosenClass: 'm-0'
+      ghostClass: 'm-0'
     };
   }
 
@@ -39,7 +50,6 @@ export class ChipsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(changes);
     if (changes.chips && !changes.chips.isFirstChange()) {
       this.chips = changes.chips.currentValue;
     }
@@ -48,11 +58,11 @@ export class ChipsComponent implements OnChanges {
   chipsSelected(event: Event, index: number) {
     event.preventDefault();
     if (this.editable) {
-      this.chips.chipsItems.forEach((item: ChipsItem, i: number) => {
+      this.chips.getChips().forEach((item: ChipsItem, i: number) => {
         if (i === index) {
-          item.editMode = true;
+          item.setEditMode();
         } else {
-          item.editMode = false;
+          item.unsetEditMode();
         }
       });
       this.selected.emit(index);
@@ -63,28 +73,30 @@ export class ChipsComponent implements OnChanges {
     event.preventDefault();
     event.stopPropagation();
     // Can't remove if this element is in editMode
-    if (!this.chips.chipsItems[index].editMode) {
-      this.chips.remove(index);
-      this.remove.emit(index);
+    if (!this.chips.getChipByIndex(index).editMode) {
+      this.chips.remove(this.chips.getChipByIndex(index));
     }
   }
 
-  onBlur(event, index) {
-    console.log("blur ", event, index);
-  }
-  onDrag(event) {
+  onDragStart(tooltip: NgbTooltip, index) {
+    tooltip.close();
     this.uploadFilesService.overrideDragOverPage();
-    this.dragged = event;
+    this.dragged = index;
   }
 
   onDragEnd(event) {
     this.uploadFilesService.allowDragOverPage();
     this.dragged = -1;
-    this.change.emit(event);
+    this.chips.updateOrder();
   }
 
-  onDrop(event) {
-    this.change.emit(event);
+  showTooltip(tooltip: NgbTooltip, index, content) {
+    tooltip.close();
+    if (!this.chips.getChipByIndex(index).editMode && this.dragged === -1) {
+      this.tipText = content;
+      this.cdr.detectChanges();
+      tooltip.open();
+    }
   }
 
 }

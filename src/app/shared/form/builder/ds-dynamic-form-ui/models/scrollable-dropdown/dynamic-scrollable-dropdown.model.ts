@@ -12,7 +12,6 @@ export interface DynamicScrollableDropdownModelConfig extends DsDynamicInputMode
 
 export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
 
-  @serializable() authorityOptions: AuthorityOptions;
   @serializable() maxOptions: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN;
 

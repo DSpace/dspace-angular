@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
+import { ItemStatusType } from '../../../object-collection/shared/mydspace-item-status/item-status-type';
 import { Metadatum } from '../../../../core/shared/metadatum.model';
 import { hasNoValue, isEmpty } from '../../../empty.util';
 import { fadeInOut } from '../../../animations/fade';

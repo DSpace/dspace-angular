@@ -5,14 +5,19 @@ import {
 import { Subject } from 'rxjs/Subject';
 import { LanguageCode } from '../../models/form-field-language-value.model';
 import { AuthorityModel } from '../../../../../core/integration/models/authority.model';
+import { AuthorityOptions } from '../../../../../core/integration/models/authority-options.model';
+import { hasValue } from '../../../../empty.util';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
+  authorityOptions: AuthorityOptions;
   languageCodes: LanguageCode[];
   language?: string;
   value?: any;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
+
+  @serializable() authorityOptions: AuthorityOptions;
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
@@ -39,6 +44,12 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.languageUpdates.subscribe((lang: string) => {
       this.language = lang;
     });
+
+    this.authorityOptions = config.authorityOptions;
+  }
+
+  get hasAuthority(): boolean {
+    return this.authorityOptions && hasValue(this.authorityOptions.name);
   }
 
   get hasLanguages(): boolean {

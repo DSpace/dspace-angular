@@ -96,10 +96,6 @@ export class SectionDirective implements OnDestroy, OnInit {
       .forEach((subscription) => subscription.unsubscribe());
   }
 
-  protected checkActiveSection(activeSection:string) {
-    console.log(activeSection);
-  }
-
   public sectionChange(event) {
     this.sectionState = event.nextState;
   }

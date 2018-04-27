@@ -454,8 +454,13 @@ export class FormBuilderService extends DynamicFormService {
         }
       });
     }
-    currentValueMap.forEach((entry, index) => {
-      this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
+    currentValueMap.forEach((entry: any[], index) => {
+      if (entry.length === 1 && isNull(entry[0])) {
+        // The last item of the group has been deleted so make a remove op
+        this.operationsBuilder.remove(pathCombiner.getPath(index));
+      } else {
+        this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
+      }
     });
 
     previousValue.delete();

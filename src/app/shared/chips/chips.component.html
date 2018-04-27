@@ -1,28 +1,33 @@
-<div *ngIf="chips && chips.chipsItems" class="float-left">
+<div [className]="'float-left ' + wrapperClass">
+  <ul class="nav nav-pills flex-column flex-sm-row" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
+    <ng-container *ngFor="let c of chips.getChips(); let i = index">
+      <ng-template #tipContent>{{tipText}}</ng-template>
+      <li [ngbTooltip]="tipContent"
+          triggers="manual"
+          #t="ngbTooltip"
+          class="nav-item mr-2 mb-1"
+          (click)="t.close()"
+          (dragstart)="onDragStart(t, i)"
+          (dragend)="onDragEnd(i)"
+          (mouseover)="showTooltip(t, i, c.display)"
+          (mouseout)="t.close()">
+        <a class="flex-sm-fill text-sm-center nav-link active"
+           href="#"
+           [ngClass]="{'btn-info disabled': (editable && c.editMode) || dragged == i}"
+           (click)="t.close();chipsSelected($event, i);">
+          <span>
+            <ng-container *ngIf="c.hasIcons()">
+              <i *ngFor="let icon of c.icons; let i = index; let l = last"
+                 class="fa {{icon.style}}"
+                 [class.mr-2]="l"
+                 aria-hidden="true"></i>
+            </ng-container>
+            {{c.display}}<i class="fa fa-times ml-2" (click)="removeChips($event, i)"></i>
+          </span>
+        </a>
+      </li>
+    </ng-container>
 
-  <ul class="nav nav-pills flex-column flex-sm-row mb-3" [sortablejs]="chips.chipsItems" [sortablejsOptions]="options">
-    <li *ngFor="let c of chips.chipsItems; let i = index"
-        class="nav-item mr-2 mb-1"
-        (drag)="onDrag(i)"
-        (dragend)="onDragEnd(i)">
-      <a class="flex-sm-fill text-sm-center nav-link active"
-         href="#"
-         [ngClass]="{'bg-info disabled': (editable && c.editMode) || dragged == i}"
-         (blur)="onBlur($event, i)"
-         (click)="chipsSelected($event, i);"
-         (drag)="onDrag(i)"
-         (dragend)="onDragEnd(i)">
-        <span>
-          <ng-container *ngIf="c.item.icons && c.item.icons.length > 0">
-            <i *ngFor="let icon of c.item.icons; let i = index; let l = last"
-               class="fa {{icon}}"
-               [class.mr-2]="l"
-               aria-hidden="true"></i>
-          </ng-container>
-          {{c.display}}<i class="fa fa-times ml-2" (click)="removeChips($event, i)"></i>
-        </span>
-      </a>
-    </li>
+    <ng-content></ng-content>
   </ul>
-
 </div>

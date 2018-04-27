@@ -10,7 +10,7 @@ import { Workflowitem } from '../../../../core/submission/models/workflowitem.mo
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { ItemStatusType } from '../../item-list-status/item-status-type';
+import { ItemStatusType } from '../../../object-collection/shared/mydspace-item-status/item-status-type';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({

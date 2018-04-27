@@ -268,7 +268,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
         const navigationExtras: NavigationExtras = {
           queryParams: newParams
         };
-        console.log(this.searchOptions);
+
         this.router.navigate([this.getSearchLink()], navigationExtras);
       });
   }

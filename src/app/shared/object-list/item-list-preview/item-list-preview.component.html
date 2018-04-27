@@ -1,6 +1,6 @@
 <ng-container *ngIf="item" @fadeInOut>
   <ng-container *ngIf="status">
-    <ds-item-list-status [status]="status"></ds-item-list-status>
+    <ds-item-status [status]="status"></ds-item-status>
   </ng-container>
   <ds-truncatable [id]="item.id">
     <h3 [innerHTML]="getTitle() || 'No Title'" [ngClass]="{'lead': true,'text-muted': !getTitle()}"></h3>
@@ -30,5 +30,6 @@
 
     </div>
   </ds-truncatable>
+  <ds-item-submitter *ngIf="showSubmitter" [object]="object.dspaceObject"></ds-item-submitter>
 </ng-container>
 

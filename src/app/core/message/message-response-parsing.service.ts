@@ -28,7 +28,6 @@ export class MessageResponseParsingService extends BaseResponseParsingService im
     if (this.isSuccessStatus(data.statusCode)) {
       return new MessageResponse( data.statusCode);
     } else {
-      console.log(data);
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from server'),

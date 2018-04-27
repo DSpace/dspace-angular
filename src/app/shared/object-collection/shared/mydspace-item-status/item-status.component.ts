@@ -2,12 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ItemStatusType } from './item-status-type';
 
 @Component({
-  selector: 'ds-item-list-status',
-  styleUrls: ['./item-list-status.component.scss'],
-  templateUrl: 'item-list-status.component.html'
+  selector: 'ds-item-status',
+  styleUrls: ['./item-status.component.scss'],
+  templateUrl: './item-status.component.html'
 })
 
-export class ItemListStatusComponent implements OnInit {
+export class ItemStatusComponent implements OnInit {
 
   @Input() status: ItemStatusType;
   public badgeClass: string;

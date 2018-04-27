@@ -39,7 +39,6 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
     this.wsiDataService.getEndpoint().subscribe((url) => {
         this.uploadFilesOptions.url = url;
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
-        console.log('Url option is ', url);
         this.changeDetectorRef.detectChanges();
       }
     );

@@ -1,29 +1,31 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+
+import { Observable } from 'rxjs/Observable';
+import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import { isEqual } from 'lodash';
+
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
-import {
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicInputModel,
-  serializable
-} from '@ng-dynamic-forms/core';
 import { SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
-import { Chips, ChipsItem } from '../../../../../chips/chips.model';
+import { Chips} from '../../../../../chips/models/chips.model';
 import { DynamicLookupModel } from '../lookup/dynamic-lookup.model';
 import { NotificationsService } from '../../../../../notifications/notifications.service';
+import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
+import { shrinkInOut } from '../../../../../animations/shrink';
+import { ChipsItem, ChipsItemIcon } from '../../../../../chips/models/chips-item.model';
+import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { GlobalConfig } from '../../../../../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../../../../../config';
 
 @Component({
   selector: 'ds-dynamic-group',
+  styleUrls: ['./dynamic-group.component.scss'],
   templateUrl: './dynamic-group.component.html',
+  animations: [shrinkInOut]
 })
 export class DsDynamicGroupComponent implements OnInit {
-  public formModel: DynamicFormControlModel[];
-  public editMode = false;
-  private selectedChips: ChipsItem;
-
-  @serializable() chips: Chips;
 
   @Input() formId: string;
   @Input() model: DynamicGroupModel;
@@ -32,9 +34,17 @@ export class DsDynamicGroupComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
+  public chips: Chips;
+  public formCollapsed = Observable.of(false);
+  public formModel: DynamicFormControlModel[];
+  public editMode = false;
+
+  private selectedChipItem: ChipsItem;
+
   @ViewChild('formRef') private formRef: FormComponent;
 
-  constructor(private formBuilderService: FormBuilderService,
+  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              private formBuilderService: FormBuilderService,
               private formService: FormService,
               private notificationService: NotificationsService,
               private cdr: ChangeDetectorRef) {
@@ -42,9 +52,33 @@ export class DsDynamicGroupComponent implements OnInit {
 
   ngOnInit() {
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
+    if (isNotEmpty(this.model.value)) {
+      this.formCollapsed = Observable.of(true);
+    }
     this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(config, this.model.scopeUUID, {});
-    this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);
+    this.chips = new Chips(this.EnvConfig, this.model.value, 'value', this.model.mandatoryField);
+    this.chips.chipsItems
+      .subscribe((subItems: any[]) => {
+        const items = this.chips.getChipsItems();
+        // Does not emit change if model value is equal to the current value
+        if (!isEqual(items, this.model.value)) {
+          if (isEmpty(items)) {
+            // If items is empty, last element has been removed
+            // so emit an empty value that allows to dispatch
+            // a remove JSON PATCH operation
+            const emptyItem = Object.create({});
+            Object.keys(this.model.value[0])
+              .forEach((key) => {
+                emptyItem[key] = null;
+              });
+            items.push(emptyItem);
+          }
+
+          this.model.valueUpdates.next(items);
+          this.change.emit();
+        }
+      })
   }
 
   isMandatoryFieldEmpty() {
@@ -62,30 +96,13 @@ export class DsDynamicGroupComponent implements OnInit {
     return res;
   }
 
-  addChips(event) {
-    if (!this.formRef.formGroup.valid) {
-      // this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
-      this.formService.validateAllFormFields(this.formRef.formGroup);
-      return;
-    }
-
-    // Item to add
-    if (!this.isMandatoryFieldEmpty()) {
-      const item = this.readFormItem();
-
-      this.chips.add(item);
-      this.model.valueUpdates.next(this.chips.getItems());
-      this.change.emit(event);
-      this.resetForm();
-    }
-  }
-
-  chipsSelected(event) {
-    this.selectedChips = this.chips.chipsItems[event];
+  onChipSelected(event) {
+    this.expandForm();
+    this.selectedChipItem = this.chips.getChipByIndex(event);
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((model: DynamicInputModel) => {
-        const value = this.selectedChips.item[model.name] === PLACEHOLDER_PARENT_METADATA ? null : this.selectedChips.item[model.name];
+        const value = this.selectedChipItem.item[model.name] === PLACEHOLDER_PARENT_METADATA ? null : this.selectedChipItem.item[model.name];
         if (model instanceof DynamicLookupModel) {
           (model as DynamicLookupModel).valueUpdates.next(value);
         } else if (model instanceof DynamicInputModel) {
@@ -99,41 +116,70 @@ export class DsDynamicGroupComponent implements OnInit {
     this.editMode = true;
   }
 
-  changeChips(event) {
-    this.model.valueUpdates.next(this.chips.getItems());
-    this.change.emit(event);
+  collapseForm() {
+    this.formCollapsed = Observable.of(true);
+    this.clear();
   }
 
-  exitEditMode() {
-    this.selectedChips.editMode = false;
-    this.selectedChips = null;
-    this.editMode = false;
+  expandForm() {
+    this.formCollapsed = Observable.of(false);
+  }
+
+  clear() {
+    if (this.editMode) {
+      this.selectedChipItem.editMode = false;
+      this.selectedChipItem = null;
+      this.editMode = false;
+    }
     this.resetForm();
-    this.change.emit(event);
+    // this.change.emit(event);
   }
 
-  modifyChips() {
+  save() {
+    if (this.editMode) {
+      this.modifyChip();
+    } else {
+      this.addToChips();
+    }
+  }
+
+  delete() {
+    this.chips.remove(this.selectedChipItem);
+    this.clear();
+  }
+
+  private addToChips() {
     if (!this.formRef.formGroup.valid) {
-      this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
+      // this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
+      this.formService.validateAllFormFields(this.formRef.formGroup);
+      return;
+    }
+
+    // Item to add
+    if (!this.isMandatoryFieldEmpty()) {
+      const item = this.buildChipItem();
+      this.chips.add(item);
+
+      this.resetForm();
+    }
+  }
+
+  private modifyChip() {
+    if (!this.formRef.formGroup.valid) {
       this.formService.validateAllFormFields(this.formRef.formGroup);
       return;
     }
 
     if (!this.isMandatoryFieldEmpty()) {
-      const item = this.readFormItem();
-      this.selectedChips.item = item;
-      this.chips.update(this.selectedChips);
-      this.model.valueUpdates.next(this.chips.getItems());
-
-      this.editMode = false;
-      this.change.emit(event);
+      const item = this.buildChipItem();
+      this.chips.update(this.selectedChipItem.id, item);
       this.resetForm();
       this.cdr.detectChanges();
     }
   }
 
-  private readFormItem() {
-    const item = {};
+  private buildChipItem() {
+    const item = Object.create({});
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((control: DynamicInputModel) => {
@@ -145,11 +191,6 @@ export class DsDynamicGroupComponent implements OnInit {
 
   private resetForm() {
     this.formService.resetForm(this.formRef.formGroup, this.formModel, this.formId);
-  }
-
-  private removeChips(event) {
-    this.model.valueUpdates.next(this.chips.getItems());
-    this.change.emit(event);
   }
 
 }

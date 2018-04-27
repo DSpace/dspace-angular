@@ -7,6 +7,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
+import { hasValue } from '../../../../../empty.util';
 
 export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupModelConfig {
   authorityOptions: AuthorityOptions;
@@ -34,6 +35,10 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
     this.valueUpdates = new Subject<any>();
     this.valueUpdates.subscribe((value: AuthorityModel | AuthorityModel[]) => this.value = value);
     this.valueUpdates.next(config.value);
+  }
+
+  get hasAuthority(): boolean {
+    return this.authorityOptions && hasValue(this.authorityOptions.name);
   }
 
   get value() {

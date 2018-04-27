@@ -189,7 +189,6 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
     this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions, this.configuration, filters);
     this.searchOptions = searchOptions;
     this.filters = this.filters;
-    console.log(this.resultsRDObs);
     this.cdr.detectChanges();
   }
 

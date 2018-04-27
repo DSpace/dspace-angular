@@ -11,7 +11,7 @@ import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-t
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { Router } from '@angular/router';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
-import { ItemStatusType } from '../../../object-list/item-list-status/item-status-type';
+import { ItemStatusType } from '../../../object-collection/shared/mydspace-item-status/item-status-type';
 
 @Component({
   selector: 'ds-pooltask-my-dspace-result-detail-element',

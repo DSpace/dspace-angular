@@ -6,14 +6,13 @@ import { AuthorityOptions } from '../../../../../../core/integration/models/auth
 export const DYNAMIC_FORM_CONTROL_TYPE_LOOKUP = 'LOOKUP';
 
 export interface DynamicLookupModelConfig extends DsDynamicInputModelConfig {
-  authorityOptions: AuthorityOptions;
   maxOptions: number;
   value: any;
   separator: string;
 }
 
 export class DynamicLookupModel extends DsDynamicInputModel {
-  @serializable() authorityOptions: AuthorityOptions;
+
   @serializable() maxOptions: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_LOOKUP;
   @serializable() value: any;
@@ -27,7 +26,6 @@ export class DynamicLookupModel extends DsDynamicInputModel {
     super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
-    this.authorityOptions = config.authorityOptions;
     this.maxOptions = config.maxOptions;
     this.separator = config.separator; // Defined only for lookup-name
 

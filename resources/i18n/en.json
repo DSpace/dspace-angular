@@ -91,6 +91,7 @@
     },
     "messages": {
       "title": "Messages",
+      "to": "To",
       "hide-msg": "Hide message",
       "show-msg": "Show message",
       "no-messages": "No messages yet.",
@@ -328,7 +329,8 @@
         "first_name": "First name",
         "last_name": "Last name",
         "loading": "Loading...",
-        "no_results": "No results found"
+        "no_results": "No results found",
+        "no-value": "No value entered"
       },
       "deduplication": {
         "duplicated": "It's a duplicate",

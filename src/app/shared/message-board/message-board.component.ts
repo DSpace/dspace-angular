@@ -31,10 +31,9 @@ import { Subject } from 'rxjs/Subject';
 })
 
 export class MessageBoardComponent implements OnDestroy {
-  @Input()
-  dso: any;
-  @Output()
-  refresh = new EventEmitter<any>();
+  @Input() dso: any;
+  @Output() refresh = new EventEmitter<any>();
+
   item: Observable<Item>;
   submitter: Observable<Eperson>;
   user: Observable<Eperson>;

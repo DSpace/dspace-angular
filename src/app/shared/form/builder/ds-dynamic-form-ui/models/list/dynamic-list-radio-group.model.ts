@@ -5,6 +5,7 @@ import {
   serializable
 } from '@ng-dynamic-forms/core';
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
+import { hasValue } from '../../../../../empty.util';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   authorityOptions: AuthorityOptions;
@@ -28,4 +29,7 @@ export class DynamicListRadioGroupModel extends DynamicRadioGroupModel<any> {
     this.valueUpdates.next(config.value);
   }
 
+  get hasAuthority(): boolean {
+    return this.authorityOptions && hasValue(this.authorityOptions.name);
+  }
 }

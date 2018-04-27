@@ -2,20 +2,13 @@
 
 /* style fa-spin */
 .fa-spin {
-  color: map-get($theme-colors, primary);
-  position: absolute;
-  padding: 0;
   pointer-events: none;
   right: 0;
 }
-
-/* align fa-spin */
-.left-addon .fa-spin  { left:  0px;}
-.right-addon .fa-spin { right: 0px;}
-
-/* add padding  */
-.left-addon input  { padding-left:  30px; }
-.right-addon input { padding-right: 30px; }
+.chips-left {
+  left: 0;
+  padding-right: 100%;
+}
 
 :host /deep/ .dropdown-menu {
   width: 100% !important;
@@ -34,10 +27,7 @@
   background-color: $dropdown-link-hover-bg !important;
 }
 
-input {
-  border: 0;
-  margin-left: 10px;
-}
-input:focus{
+.tag-input {
   outline: none;
+  width: auto !important;
 }
