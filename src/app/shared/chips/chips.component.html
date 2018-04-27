@@ -13,7 +13,7 @@
           (mouseout)="t.close()">
         <a class="flex-sm-fill text-sm-center nav-link active"
            href="#"
-           [ngClass]="{'btn-info disabled': (editable && c.editMode) || dragged == i}"
+           [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged == i}"
            (click)="t.close();chipsSelected($event, i);">
           <span>
             <ng-container *ngIf="c.hasIcons()">

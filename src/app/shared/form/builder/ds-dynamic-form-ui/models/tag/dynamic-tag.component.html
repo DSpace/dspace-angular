@@ -6,7 +6,7 @@
   <ds-chips [chips]="chips" [wrapperClass]="'border-bottom border-light'">
 
   <input *ngIf="!searchOptions"
-         class="border-0 tag-input mt-1 mb-1 js-remove"
+         class="border-0 form-control-plaintext tag-input mt-1 mb-1 js-remove"
          type="text"
          [class.pl-3]="chips.hasItems()"
          [placeholder]="model.label"

@@ -1,5 +1,5 @@
-.dragged {
-  max-height: 100px !important;
-  color: #CF4444;
-  background-color: #CF4444;
+@import "../../../styles/variables";
+
+.chip-selected {
+  background-color: map-get($theme-colors, info) !important;
 }
