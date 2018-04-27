@@ -5,13 +5,12 @@ import { AuthorityOptions } from '../../../../../../core/integration/models/auth
 export const DYNAMIC_FORM_CONTROL_TYPE_TAG = 'TYPETAG';
 
 export interface DynamicTagModelConfig extends DsDynamicInputModelConfig {
-  authorityOptions: AuthorityOptions;
   minChars: number;
   value?: any;
 }
 
 export class DynamicTagModel extends DsDynamicInputModel {
-  @serializable() authorityOptions: AuthorityOptions;
+
   @serializable() minChars: number;
   @serializable() value: any[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TAG;
@@ -21,7 +20,6 @@ export class DynamicTagModel extends DsDynamicInputModel {
     super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
-    this.authorityOptions = config.authorityOptions;
     this.minChars = config.minChars;
     const value = config.value || [];
     this.valueUpdates.next(value)

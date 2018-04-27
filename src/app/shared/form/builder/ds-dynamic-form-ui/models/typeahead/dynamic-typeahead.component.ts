@@ -88,7 +88,6 @@ export class DsDynamicTypeaheadComponent implements OnInit {
 
   onInput(event) {
     if (!this.model.authorityOptions.closed && isNotEmpty(event.target.value)) {
-      console.log(event.target.value);
       const value = new AuthorityModel();
       value.value = event.target.value;
       value.display = event.target.value;

@@ -29,7 +29,6 @@ export class TaskResponseParsingService extends BaseResponseParsingService imple
     if (this.isSuccessStatus(data.statusCode)) {
       return new TaskResponse( data.statusCode);
     } else {
-      console.log(data);
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from server'),

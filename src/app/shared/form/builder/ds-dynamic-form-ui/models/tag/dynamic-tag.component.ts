@@ -7,8 +7,9 @@ import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicTagModel } from './dynamic-tag.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { Chips } from '../../../../../chips/chips.model';
-import { hasValue } from '../../../../../empty.util';
+import { Chips } from '../../../../../chips/models/chips.model';
+import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
+import { isEqual } from 'lodash';
 
 @Component({
   selector: 'ds-dynamic-tag',
@@ -26,7 +27,6 @@ export class DsDynamicTagComponent implements OnInit {
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   chips: Chips;
-  placeholder = 'Enter tags...';
   hasAuthority: boolean;
 
   searching = false;
@@ -84,12 +84,22 @@ export class DsDynamicTagComponent implements OnInit {
     } else {
       this.chips = new Chips(this.model.value, 'display');
     }
+    this.chips.chipsItems
+      .subscribe((subItems: any[]) => {
+        const items = this.chips.getChipsItems();
+        // Does not emit change if model value is equal to the current value
+        if (!isEqual(items, this.model.value)) {
+          this.model.valueUpdates.next(items);
+          this.change.emit(event);
+        }
+      })
   }
 
   changeSearchingStatus(status: boolean) {
     this.searching = status;
     this.cdr.detectChanges();
   }
+
   onInput(event) {
     if (event.data) {
       this.group.markAsDirty();
@@ -98,10 +108,8 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onBlurEvent(event: Event) {
-    if (this.chips.displayObj === null) {
-      if (this.currentValue != null && this.currentValue.length > 0) {
+    if (isNotEmpty(this.currentValue)) {
         this.addTagsToChips();
-      }
     }
     this.blur.emit(event);
   }

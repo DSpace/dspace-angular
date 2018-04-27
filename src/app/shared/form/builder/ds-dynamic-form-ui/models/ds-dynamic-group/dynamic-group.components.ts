@@ -2,18 +2,19 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, View
 
 import { Observable } from 'rxjs/Observable';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import { isEqual } from 'lodash';
 
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
-import { Chips} from '../../../../../chips/chips.model';
+import { Chips} from '../../../../../chips/models/chips.model';
 import { DynamicLookupModel } from '../lookup/dynamic-lookup.model';
 import { NotificationsService } from '../../../../../notifications/notifications.service';
 import { isEmpty } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
-import { ChipsItem } from '../../../../../chips/chips-item.model';
+import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -35,7 +36,6 @@ export class DsDynamicGroupComponent implements OnInit {
   public formModel: DynamicFormControlModel[];
   public editMode = false;
 
-  private initialized = false;
   private selectedChipItem: ChipsItem;
 
   @ViewChild('formRef') private formRef: FormComponent;
@@ -53,11 +53,9 @@ export class DsDynamicGroupComponent implements OnInit {
     this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);
     this.chips.chipsItems
       .subscribe((subItems: any[]) => {
-        console.log('subscribe items ', subItems);
-        if (this.initialized) {
-          // Does not emit change on first time, because model value is equal to the current value
-
-          const items = this.chips.getChipsItems();
+        const items = this.chips.getChipsItems();
+        // Does not emit change if model value is equal to the current value
+        if (!isEqual(items, this.model.value)) {
           if (isEmpty(items)) {
             // If items is empty, last element has been removed
             // so emit an empty value that allows to dispatch
@@ -73,7 +71,6 @@ export class DsDynamicGroupComponent implements OnInit {
           this.model.valueUpdates.next(items);
           this.change.emit();
         }
-        this.initialized = true
       })
   }
 

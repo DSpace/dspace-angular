@@ -330,7 +330,8 @@
         "first_name": "First name",
         "last_name": "Last name",
         "loading": "Loading...",
-        "no_results": "No results found"
+        "no_results": "No results found",
+        "no-value": "No value entered"
       },
       "deduplication": {
         "duplicated": "It's a duplicate",

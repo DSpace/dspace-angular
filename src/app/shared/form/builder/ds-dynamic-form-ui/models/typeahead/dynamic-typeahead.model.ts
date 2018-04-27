@@ -5,14 +5,12 @@ import { AuthorityOptions } from '../../../../../../core/integration/models/auth
 export const DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD = 'TYPEAHEAD';
 
 export interface DsDynamicTypeaheadModelConfig extends DsDynamicInputModelConfig {
-  authorityOptions: AuthorityOptions;
   minChars: number;
   value: any;
 }
 
 export class DynamicTypeaheadModel extends DsDynamicInputModel {
 
-  @serializable() authorityOptions: AuthorityOptions;
   @serializable() minChars: number;
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD;
 
@@ -21,7 +19,6 @@ export class DynamicTypeaheadModel extends DsDynamicInputModel {
     super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
-    this.authorityOptions = config.authorityOptions;
     this.minChars = config.minChars;
   }
 
