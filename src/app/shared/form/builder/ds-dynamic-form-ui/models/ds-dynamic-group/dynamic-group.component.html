@@ -1,10 +1,10 @@
 <a class="close position-relative" aria-label="Close">
   <span *ngIf="!(formCollapsed | async)"
-        class="fa fa-angle-up fa-fw"
+        class="fa fa-angle-up fa-fw fa-2x"
         aria-hidden="true"
         (click)="collapseForm()"></span>
   <span *ngIf="(formCollapsed | async)"
-        class="fa fa-angle-down fa-fw"
+        class="fa fa-angle-down fa-fw fa-2x"
         aria-hidden="true"
         (click)="expandForm()"></span>
 </a>
@@ -51,8 +51,9 @@
       </button>
 
   </div>
+  <div class="clearfix"></div>
 </div>
-<div class="clearfix"></div>
+
 <div class="d-inline-flex">
   <div *ngIf="!chips.hasItems()" class="mb-3">
     <input type="text" readonly class="border-0 form-control-plaintext tag-input mt-1 mb-1 text-muted" value="{{'submission.sections.form.no-value' | translate}}">

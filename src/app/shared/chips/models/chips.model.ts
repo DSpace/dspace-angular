@@ -1,16 +1,26 @@
 import { findIndex, isEqual } from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ChipsItem } from './chips-item.model';
+import { ChipsItem, ChipsItemIcon } from './chips-item.model';
+import { Inject } from '@angular/core';
+import { GlobalConfig } from '../../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../../config';
+import { AuthorityModel } from '../../../core/integration/models/authority.model';
+import { hasValue } from '../../empty.util';
 
 export class Chips {
-
+  chipsItems: BehaviorSubject<ChipsItem[]>;
   displayField: string;
   displayObj: string;
-  chipsItems: BehaviorSubject<ChipsItem[]>;
+  EnvConfig: GlobalConfig
 
   private _items: ChipsItem[];
 
-  constructor(items: any[] = [], displayField: string = 'display', displayObj?: string) {
+  constructor(EnvConfig: GlobalConfig,
+              items: any[] = [],
+              displayField: string = 'display',
+              displayObj?: string) {
+
+    this.EnvConfig = EnvConfig;
     this.displayField = displayField;
     this.displayObj = displayObj;
     if (Array.isArray(items)) {
@@ -19,13 +29,19 @@ export class Chips {
   }
 
   public add(item: any): void {
-    const chipsItem = new ChipsItem(item, this.displayField, this.displayObj);
+    const icons = this.getChipsIcons(item);
+    const chipsItem = new ChipsItem(item, this.displayField, this.displayObj, icons);
 
     const duplicatedIndex = findIndex(this._items, {display: chipsItem.display.trim()});
     if (duplicatedIndex === -1 || !isEqual(item, this.getChipByIndex(duplicatedIndex).item)) {
       this._items.push(chipsItem);
       this.chipsItems.next(this._items);
     }
+  }
+
+  public getChipById(id): ChipsItem {
+    const index = findIndex(this._items, {id: id});
+    return this.getChipByIndex(index);
   }
 
   public getChipByIndex(index): ChipsItem {
@@ -62,10 +78,12 @@ export class Chips {
     this.chipsItems.next(this._items);
   }
 
-  public update(chipsItem: ChipsItem): void {
-    const index = findIndex(this._items, {id: chipsItem.id});
-    const chipsItemTarget = this.getChipByIndex(index);
-    chipsItemTarget.updateItem(chipsItem.item);
+  public update(id: string, item: any): void {
+    const chipsItemTarget = this.getChipById(id);
+    const icons = this.getChipsIcons(item);
+
+    chipsItemTarget.updateItem(item);
+    chipsItemTarget.updateIcons(icons);
     chipsItemTarget.unsetEditMode();
     this.chipsItems.next(this._items);
   }
@@ -74,13 +92,34 @@ export class Chips {
     this.chipsItems.next(this._items);
   }
 
+  private getChipsIcons(item) {
+    const icons = [];
+    Object.keys(item)
+      .forEach((metadata) => {
+        const value = item[metadata];
+        if (hasValue(value)
+          && value instanceof AuthorityModel
+          && value.id
+          && this.EnvConfig.submission.metadata.icons.hasOwnProperty(metadata)) {
+
+          const icon: ChipsItemIcon = {
+            style: this.EnvConfig.submission.metadata.icons[metadata]
+          };
+          icons.push(icon);
+        }
+      });
+
+    return icons;
+  }
+
   /**
    * Sets initial items, used in edit mode
    */
   private setInitialItems(items: any[]): void {
     this._items = [];
     items.forEach((item, index) => {
-      const chipsItem = new ChipsItem(item, this.displayField, this.displayObj);
+      const icons = this.getChipsIcons(item);
+      const chipsItem = new ChipsItem(item, this.displayField, this.displayObj, icons);
       this._items.push(chipsItem);
     });
 

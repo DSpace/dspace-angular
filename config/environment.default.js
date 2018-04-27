@@ -44,6 +44,12 @@ module.exports = {
       metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
       // NOTE: every how many minutes submission is saved automatically
       timer: 5
+    },
+    metadata: {
+      icons: {
+        'dc.contributor.author': 'fa-user',
+        default: ''
+      }
     }
   },
   // Angular Universal settings

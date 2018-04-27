@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
@@ -10,6 +10,8 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { Chips } from '../../../../../chips/models/chips.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { isEqual } from 'lodash';
+import { GlobalConfig } from '../../../../../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../../../../../config';
 
 @Component({
   selector: 'ds-dynamic-tag',
@@ -66,7 +68,8 @@ export class DsDynamicTagComponent implements OnInit {
       .do(() => this.changeSearchingStatus(false))
       .merge(this.hideSearchingWhenUnsubscribed);
 
-  constructor(private authorityService: AuthorityService,
+  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              private authorityService: AuthorityService,
               private cdr: ChangeDetectorRef) {
   }
 
@@ -79,11 +82,8 @@ export class DsDynamicTagComponent implements OnInit {
         this.model.authorityOptions.metadata);
     }
 
-    if (this.hasAuthority) {
-      this.chips = new Chips(this.model.value, 'display');
-    } else {
-      this.chips = new Chips(this.model.value, 'display');
-    }
+    this.chips = new Chips(this.EnvConfig, this.model.value, 'display');
+
     this.chips.chipsItems
       .subscribe((subItems: any[]) => {
         const items = this.chips.getChipsItems();

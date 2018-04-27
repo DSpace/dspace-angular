@@ -1,11 +1,17 @@
 import { uniqueId } from 'lodash';
+import { isNotEmpty } from '../../empty.util';
+
+export interface ChipsItemIcon {
+  style: string;
+  tooltip?: any;
+}
 
 export class ChipsItem {
   public id: string;
   public display: string;
   public item: any;
   public editMode?: boolean;
-  public icons?: string[];
+  public icons?: ChipsItemIcon[];
 
   private fieldToDisplay: string;
   private objToDisplay: string;
@@ -13,7 +19,7 @@ export class ChipsItem {
   constructor(item: any,
               fieldToDisplay: string,
               objToDisplay: string,
-              icons?: string[],
+              icons?: ChipsItemIcon[],
               editMode?: boolean) {
 
     this.id = uniqueId();
@@ -25,12 +31,21 @@ export class ChipsItem {
     this.icons = icons || [];
   }
 
+  hasIcons(): boolean {
+    return isNotEmpty(this.icons);
+  }
+
   setEditMode(): void {
     this.editMode = true;
   }
 
+  updateIcons(icons: ChipsItemIcon[]): void {
+    this.icons = icons;
+  }
+
   updateItem(item: any): void {
     this.item = item;
+    this.setDisplayText();
   }
 
   unsetEditMode(): void {

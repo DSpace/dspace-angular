@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { Chips} from './models/chips.model';
 import { UploadFilesService } from '../upload-files/upload-files.service';
 import { SortablejsOptions } from 'angular-sortablejs';
@@ -23,8 +32,9 @@ export class ChipsComponent implements OnChanges {
 
   options: SortablejsOptions;
   dragged = -1;
+  tipText: string;
 
-  constructor(private uploadFilesService: UploadFilesService) {
+  constructor(private cdr: ChangeDetectorRef, private uploadFilesService: UploadFilesService) {
     this.options = {
       animation: 300,
       chosenClass: 'm-0',
@@ -68,7 +78,7 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
-  onDragStart(tooltip, index) {
+  onDragStart(tooltip: NgbTooltip, index) {
     tooltip.close();
     this.uploadFilesService.overrideDragOverPage();
     this.dragged = index;
@@ -80,8 +90,11 @@ export class ChipsComponent implements OnChanges {
     this.chips.updateOrder();
   }
 
-  showTooltip(tooltip, index) {
+  showTooltip(tooltip: NgbTooltip, index, content) {
+    tooltip.close();
     if (!this.chips.getChipByIndex(index).editMode && this.dragged === -1) {
+      this.tipText = content;
+      this.cdr.detectChanges();
       tooltip.open();
     }
   }

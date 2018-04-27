@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
@@ -12,9 +12,12 @@ import { FormComponent } from '../../../../form.component';
 import { Chips} from '../../../../../chips/models/chips.model';
 import { DynamicLookupModel } from '../lookup/dynamic-lookup.model';
 import { NotificationsService } from '../../../../../notifications/notifications.service';
-import { isEmpty } from '../../../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
-import { ChipsItem } from '../../../../../chips/models/chips-item.model';
+import { ChipsItem, ChipsItemIcon } from '../../../../../chips/models/chips-item.model';
+import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { GlobalConfig } from '../../../../../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../../../../../config';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -40,7 +43,8 @@ export class DsDynamicGroupComponent implements OnInit {
 
   @ViewChild('formRef') private formRef: FormComponent;
 
-  constructor(private formBuilderService: FormBuilderService,
+  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              private formBuilderService: FormBuilderService,
               private formService: FormService,
               private notificationService: NotificationsService,
               private cdr: ChangeDetectorRef) {
@@ -48,9 +52,12 @@ export class DsDynamicGroupComponent implements OnInit {
 
   ngOnInit() {
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
+    if (isNotEmpty(this.model.value)) {
+      this.formCollapsed = Observable.of(true);
+    }
     this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(config, this.model.scopeUUID, {});
-    this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);
+    this.chips = new Chips(this.EnvConfig, this.model.value, 'value', this.model.mandatoryField);
     this.chips.chipsItems
       .subscribe((subItems: any[]) => {
         const items = this.chips.getChipsItems();
@@ -150,8 +157,7 @@ export class DsDynamicGroupComponent implements OnInit {
 
     // Item to add
     if (!this.isMandatoryFieldEmpty()) {
-      const item = this.readFormItem();
-
+      const item = this.buildChipItem();
       this.chips.add(item);
 
       this.resetForm();
@@ -160,26 +166,20 @@ export class DsDynamicGroupComponent implements OnInit {
 
   private modifyChip() {
     if (!this.formRef.formGroup.valid) {
-      this.notificationService.warning(null, 'Please compile the mandatory field before to save.');
       this.formService.validateAllFormFields(this.formRef.formGroup);
       return;
     }
 
     if (!this.isMandatoryFieldEmpty()) {
-      const item = this.readFormItem();
-      this.selectedChipItem.item = item;
-      this.chips.update(this.selectedChipItem);
-      // this.model.valueUpdates.next(this.chips.getChipsItems());
-
-      this.editMode = false;
-      // this.change.emit(event);
+      const item = this.buildChipItem();
+      this.chips.update(this.selectedChipItem.id, item);
       this.resetForm();
       this.cdr.detectChanges();
     }
   }
 
-  private readFormItem() {
-    const item = {};
+  private buildChipItem() {
+    const item = Object.create({});
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((control: DynamicInputModel) => {
