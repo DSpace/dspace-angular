@@ -38,7 +38,8 @@ describe('SearchPageComponent', () => {
   const sort: SortOptions = new SortOptions();
   const mockResults = Observable.of(['test', 'data']);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
-    search: mockResults
+    search: mockResults,
+    getSearchLink: '/search'
   });
   const queryParam = 'test query';
   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';

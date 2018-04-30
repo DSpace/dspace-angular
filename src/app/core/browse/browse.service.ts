@@ -36,7 +36,7 @@ export class BrowseService {
 
   getBrowseURLFor(metadatumKey: string, linkPath: string): Observable<string> {
     const searchKeyArray = BrowseService.toSearchKeyArray(metadatumKey);
-    return this.halService.getEndpoint(linkPath)
+    return this.halService.getEndpoint(this.linkPath)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new BrowseEndpointRequest(this.requestService.generateRequestId(), endpointURL))

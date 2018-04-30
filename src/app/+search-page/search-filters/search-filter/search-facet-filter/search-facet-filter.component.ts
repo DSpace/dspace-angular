@@ -101,11 +101,17 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     return hasValue(o);
   }
   getRemoveParams(value: string) {
-    return { [this.filterConfig.paramName]: this.selectedValues.filter((v) => v !== value) };
+    return {
+      [this.filterConfig.paramName]: this.selectedValues.filter((v) => v !== value),
+      page: 1
+    };
   }
 
   getAddParams(value: string) {
-    return { [this.filterConfig.paramName]: [...this.selectedValues, value] };
+    return {
+      [this.filterConfig.paramName]: [...this.selectedValues, value],
+      page: 1
+    };
   }
 
   ngOnDestroy(): void {

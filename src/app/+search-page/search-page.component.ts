@@ -31,7 +31,6 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 export class SearchPageComponent implements OnInit {
 
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
-  currentParams = {};
   searchOptions$: Observable<PaginatedSearchOptions>;
   sortConfig: SortOptions;
   scopeListRD$: Observable<RemoteData<PaginatedList<Community>>>;
@@ -77,5 +76,9 @@ export class SearchPageComponent implements OnInit {
 
   public isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
+  }
+
+  public getSearchLink(): string {
+    return this.service.getSearchLink();
   }
 }

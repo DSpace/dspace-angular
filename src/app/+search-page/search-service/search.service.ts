@@ -167,7 +167,8 @@ export class SearchService implements OnDestroy {
     // get search results from response cache
     const facetConfigObs: Observable<SearchFilterConfig[]> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
-      map((response: FacetConfigSuccessResponse) => response.results)
+      map((response: FacetConfigSuccessResponse) =>
+        response.results.map((result: any) => Object.assign(new SearchFilterConfig(), result)))
     );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, facetConfigObs);
@@ -235,7 +236,7 @@ export class SearchService implements OnDestroy {
     this.router.navigate([this.getSearchLink()], navigationExtras);
   }
 
-  getSearchLink() {
+  getSearchLink(): string {
     const urlTree = this.router.parseUrl(this.router.url);
     const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
     return '/' + g.toString();
