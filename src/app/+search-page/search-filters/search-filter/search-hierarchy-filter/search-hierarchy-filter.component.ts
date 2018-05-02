@@ -12,12 +12,14 @@ import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-
  */
 
 @Component({
-  selector: 'ds-search-text-filter',
-  styleUrls: ['./search-text-filter.component.scss'],
-  templateUrl: './search-text-filter.component.html',
+  selector: 'ds-search-hierarchy-filter',
+  styleUrls: ['./search-hierarchy-filter.component.scss'],
+  templateUrl: './search-hierarchy-filter.component.html',
 })
 
-@renderFacetFor(FilterType.text)
-export class SearchTextFilterComponent extends SearchFacetFilterComponent implements OnInit {
+@renderFacetFor(FilterType.hierarchy)
+export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnInit {
   currentPage: Observable<number>;
+
+
 }

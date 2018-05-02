@@ -1,7 +1,10 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import { Component, InjectionToken, Injector, Input, OnInit } from '@angular/core';
 import { renderFilterType } from '../search-filter-type-decorator';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
+import { GlobalConfig } from '../../../../../config/global-config.interface';
+import { FILTER_CONFIG, SELECTED_VALUES } from '../search-filter.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
@@ -9,21 +12,22 @@ import { SearchFilterConfig } from '../../../search-service/search-filter-config
 })
 export class SearchFacetFilterWrapperComponent implements OnInit {
   @Input() filterConfig: SearchFilterConfig;
-  @Input() selectedValues: string[];
+  @Input() selectedValues: Observable<string[]>;
   objectInjector: Injector;
 
   constructor(private injector: Injector) {
   }
 
   ngOnInit(): void {
-    this.objectInjector = Injector.create({
-      providers: [
-        { provide: 'filterConfig', useFactory: () => (this.filterConfig), deps: [] },
-        { provide: 'selectedValues', useFactory: () => (this.selectedValues), deps: [] }],
+    this.selectedValues.subscribe((values) => {
+      this.objectInjector = Injector.create({
+        providers: [
+          { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
+          { provide: SELECTED_VALUES, useFactory: () => (values), deps: [] }],
 
-      parent: this.injector
+        parent: this.injector
+      });
     });
-
   }
 
   getSearchFilter(): string {

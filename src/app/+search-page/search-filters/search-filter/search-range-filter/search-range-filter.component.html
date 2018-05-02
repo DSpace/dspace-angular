@@ -3,13 +3,13 @@
         <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter row"
               [action]="getCurrentUrl()">
             <div class="col-6">
-                <input type="text" [(ngModel)]="min" [name]="filterConfig.paramName + 'min'"
+                <input type="text" [(ngModel)]="min" [name]="min"
                        class="form-control"
                        aria-label="Mininum value"
                        [placeholder]="'search.filters.filter.' + filterConfig.name + '.min.placeholder'| translate"/>
             </div>
             <div class="col-6">
-                <input type="text" [(ngModel)]="max" [name]="filterConfig.paramName + 'max'"
+                <input type="text" [(ngModel)]="max" [name]="max"
                        class="form-control"
                        aria-label="Maximum value"
                        [placeholder]="'search.filters.filter.' + filterConfig.name + '.max.placeholder'| translate"/>

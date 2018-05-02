@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
@@ -22,6 +22,9 @@ import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
+
+export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
+export const SELECTED_VALUES: InjectionToken<string[]> = new InjectionToken<string[]>('selectedValues');
 
 @Injectable()
 export class SearchFilterService {

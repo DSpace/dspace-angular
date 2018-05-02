@@ -3,7 +3,7 @@ import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, SearchFilterService, SELECTED_VALUES } from '../search-filter.service';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
@@ -35,8 +35,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected router: Router,
-              @Inject('filterConfig') public filterConfig: SearchFilterConfig,
-              @Inject('selectedValues') public selectedValues: string[]) {
+              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
+              @Inject(SELECTED_VALUES) public selectedValues: string[]) {
   }
 
   ngOnInit(): void {

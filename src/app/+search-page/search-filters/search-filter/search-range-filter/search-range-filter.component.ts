@@ -17,6 +17,7 @@ import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-
 
 @renderFacetFor(FilterType.range)
 export class SearchRangeFilterComponent extends SearchFacetFilterComponent {
+  rangeDelimiter = '-';
   min = 1950;
   max = 1960;
   rangeMin = 1900; // calculate using available values
@@ -29,5 +30,24 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent {
   set range(value: number[]) {
     this.min = value[0];
     this.max = value[1];
+  }
+
+  getAddParams(value: string) {
+    const parts = value.split(this.rangeDelimiter);
+    const min = parts.length > 1 ? parts[0].trim() : value;
+    const max = parts.length > 1 ? parts[1].trim() : value;
+    return {
+      [this.filterConfig.paramName + '.min']: [min],
+      [this.filterConfig.paramName + '.max']: [max],
+      page: 1
+    };
+  }
+
+  getRemoveParams(value: string) {
+    return {
+      [this.filterConfig.paramName + '.min']: null,
+      [this.filterConfig.paramName + '.max']: null,
+      page: 1
+    };
   }
 }

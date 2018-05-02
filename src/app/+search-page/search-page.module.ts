@@ -24,6 +24,8 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchRangeFilterComponent } from './search-filters/search-filter/search-range-filter/search-range-filter.component';
 import { SearchTextFilterComponent } from './search-filters/search-filter/search-text-filter/search-text-filter.component';
 import { SearchFacetFilterWrapperComponent } from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
+import { SearchBooleanFilterComponent } from './search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
+import { SearchHierarchyFilterComponent } from './search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
 
 const effects = [
   SearchSidebarEffects
@@ -55,6 +57,8 @@ const effects = [
     SearchFacetFilterWrapperComponent,
     SearchRangeFilterComponent,
     SearchTextFilterComponent,
+    SearchHierarchyFilterComponent,
+    SearchBooleanFilterComponent,
   ],
   providers: [
     SearchService,
@@ -70,6 +74,8 @@ const effects = [
     CommunitySearchResultGridElementComponent,
     SearchRangeFilterComponent,
     SearchTextFilterComponent,
+    SearchHierarchyFilterComponent,
+    SearchBooleanFilterComponent,
   ]
 })
 export class SearchPageModule {
