@@ -18,6 +18,7 @@ import { renderSectionFor } from '../section-decorator';
 import { SectionDataObject } from '../section-data.model';
 import { submissionObjectFromIdSelector } from '../../selectors';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
+import { AlertType } from '../../../shared/alerts/aletrs-type';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -30,6 +31,7 @@ export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
 @renderSectionFor(SectionType.Upload)
 export class FilesSectionComponent extends SectionModelComponent implements OnChanges, OnInit {
 
+  public AlertTypeEnum = AlertType;
   public fileIndexes = [];
   public fileList = [];
 

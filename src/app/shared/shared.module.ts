@@ -98,6 +98,8 @@ import { SubmissionRestService } from '../submission/submission-rest.service';
 import { WorkspaceitemActionsComponent } from './mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { WorkflowitemActionsComponent } from './mydspace-actions/workflowitem/workflowitem-actions.component';
 import { ItemSubmitterComponent } from './object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import { ItemActionsComponent } from './mydspace-actions/item/item-actions.component';
+import { AlertsComponent } from './alerts/alerts.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -130,6 +132,7 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
+  AlertsComponent,
   AuthNavMenuComponent,
   ChipsComponent,
   ComcolPageContentComponent,
@@ -171,6 +174,7 @@ const COMPONENTS = [
   ItemSubmitterComponent,
   ItemDetailPreviewComponent,
   ClaimedTaskActionsComponent,
+  ItemActionsComponent,
   PoolTaskActionsComponent,
   WorkflowitemActionsComponent,
   WorkspaceitemActionsComponent,
