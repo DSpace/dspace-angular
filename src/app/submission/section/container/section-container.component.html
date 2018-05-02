@@ -18,9 +18,9 @@
           <i *ngIf="(sectionRef.isValid() | async)" class="fa fa-check-circle text-success mr-3"
              aria-hidden="true"></i>
           <a class="close" aria-label="Close">
-            <span *ngIf="sectionRef.isOpen()" class="fa fa-angle-up fa-fw"
+            <span *ngIf="sectionRef.isOpen()" class="fa fa-chevron-up fa-fw"
                   aria-hidden="true"></span>
-            <span *ngIf="!sectionRef.isOpen()" class="fa fa-angle-down fa-fw"
+            <span *ngIf="!sectionRef.isOpen()" class="fa fa-chevron-down fa-fw"
                   aria-hidden="true"></span>
           </a>
           <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory()"

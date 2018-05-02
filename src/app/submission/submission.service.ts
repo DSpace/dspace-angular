@@ -7,7 +7,8 @@ import { submissionSelector, SubmissionState } from './submission.reducers';
 import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
 import { SaveSubmissionFormAction } from './objects/submission-objects.actions';
 import {
-  SubmissionObjectEntry, SubmissionSectionEntry,
+  SubmissionObjectEntry,
+  SubmissionSectionEntry,
   SubmissionSectionObject
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
@@ -17,12 +18,11 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionRestService } from './submission-rest.service';
 import { Router } from '@angular/router';
-import { SectionService } from './section/section.service';
-import { SubmissionSectionModel } from '../core/shared/config/config-submission-section.model';
 import { SectionDataObject } from './section/section-data.model';
 
 export const WORKSPACE_SCOPE = 'WORKSPACE';
 export const WORKFLOW_SCOPE = 'WORKFLOW';
+export const ITEM_SCOPE = 'ITEM';
 
 @Injectable()
 export class SubmissionService {
@@ -110,13 +110,27 @@ export class SubmissionService {
     const url = this.router.routerState.snapshot.url;
     if (url.startsWith('/workspaceitems') || url.startsWith('/submit')) {
       return 'workspaceitems';
-    } else {
+    } else if (url.startsWith('/workflowitems')) {
       return 'workflowitems';
+    } else {
+      return 'edititems';
     }
   }
 
   getSubmissionScope(): string {
-    return (this.getSubmissionObjectLinkName() === 'workspaceitems') ? WORKSPACE_SCOPE : WORKFLOW_SCOPE;
+    let scope: string;
+    switch (this.getSubmissionObjectLinkName()) {
+      case 'workspaceitems':
+        scope = WORKSPACE_SCOPE;
+        break;
+      case 'workflowitems':
+        scope = WORKFLOW_SCOPE;
+        break;
+      case 'edititems':
+        scope = ITEM_SCOPE;
+        break;
+    }
+    return scope;
   }
 
   getSectionsState(submissionId: string): Observable<boolean> {

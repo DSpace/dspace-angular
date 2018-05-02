@@ -55,7 +55,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
       this.uploadEnabled
         .subscribe((isUploadEnabled) => {
           if (isUploadEnabled) {
-            this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload_successful'));
+            this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
 
             const {sections} = workspaceitem;
             if (sections && isNotEmpty(sections)) {

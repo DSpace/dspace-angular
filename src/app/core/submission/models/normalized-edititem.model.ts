@@ -1,25 +1,25 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
-import { Workflowitem } from './workflowitem.model';
 import { NormalizedWorkspaceItem } from './normalized-workspaceitem.model';
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
 import { ResourceType } from '../../shared/resource-type';
 import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 import { SubmissionObjectError } from './submission-object.model';
+import { EditItem } from './edititem.model';
 
-@mapsTo(Workflowitem)
+@mapsTo(EditItem)
 @inheritSerialization(NormalizedWorkspaceItem)
-export class NormalizedWorkflowItem extends NormalizedSubmissionObject {
+export class NormalizedEditItem extends NormalizedSubmissionObject {
 
   /**
-   * The workspaceitem identifier
+   * The item identifier
    */
   @autoserialize
   id: string;
 
   /**
-   * The workspaceitem last modified date
+   * The item last modified date
    */
   @autoserialize
   lastModified: Date;

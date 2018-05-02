@@ -6,7 +6,6 @@ import { Eperson } from '../../core/eperson/models/eperson.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { hasNoUndefinedValue, hasValue, isNotEmpty } from '../empty.util';
@@ -16,10 +15,6 @@ import { MessageDataResponse } from '../../core/message/message-data-response';
 import { AppState } from '../../app.reducer';
 import { Store } from '@ngrx/store';
 import { getAuthenticatedUser } from '../../core/auth/selectors';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemMyDSpaceResult } from '../object-collection/shared/workspaceitem-my-dspace-result.model';
-import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'ds-message-board',
@@ -32,6 +27,7 @@ import { Subject } from 'rxjs/Subject';
 
 export class MessageBoardComponent implements OnDestroy {
   @Input() dso: any;
+  @Input() tooltipMessage: string;
   @Output() refresh = new EventEmitter<any>();
 
   item: Observable<Item>;
@@ -154,7 +150,7 @@ export class MessageBoardComponent implements OnDestroy {
         uuid: msgUuid
       };
       this.msgService.markAsUnread(body)
-        .filter( (res) => res.hasSucceeded)
+        .filter((res) => res.hasSucceeded)
         .take(1)
         .subscribe((res) => {
           if (!res.error) {
@@ -216,7 +212,7 @@ export class MessageBoardComponent implements OnDestroy {
     this.rememberEmitUnread = false;
     this.rememberEmitRead = false;
     this.markAsRead();
-    this.modalRef = this.modalService.open(content, { size: 'lg' });
+    this.modalRef = this.modalService.open(content, {size: 'lg'});
     this.modalRef.result.then((result) => {
       this.emitRefresh();
     }, (reason) => {

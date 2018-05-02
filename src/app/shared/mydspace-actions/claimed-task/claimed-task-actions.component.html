@@ -26,7 +26,7 @@
 </button>
 
 <button type="button"
-        class="btn mt-1 mb-3"
+        class="btn btn-secondary mt-1 mb-3"
         ngbTooltip="{{'submission.workflow.tasks.claimed.return_help' | translate}}"
         [disabled]="processingReturnToPool"
         (click)="returnToPool()">
@@ -36,6 +36,7 @@
 
   <ds-message-board
     [dso]="workflowitemObs | async"
+    [tooltipMessage]="'mydspace.messages.controller-help'"
     (refresh)="refresh()">
   </ds-message-board>
 

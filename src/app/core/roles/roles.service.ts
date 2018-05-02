@@ -43,4 +43,8 @@ export class RolesService {
   isController(): Observable<boolean> {
     return this.groupExists('Controllers');
   }
+
+  isAdmin(): Observable<boolean> {
+    return this.groupExists('Administrator');
+  }
 }

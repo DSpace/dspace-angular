@@ -1,6 +1,6 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 
-import { WorkspaceItemError, Workspaceitem } from './workspaceitem.model';
+import { Workspaceitem } from './workspaceitem.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
@@ -10,6 +10,7 @@ import { NormalizedCollection } from '../../cache/models/normalized-collection.m
 import { ResourceType } from '../../shared/resource-type';
 import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
 import { Eperson } from '../../eperson/models/eperson.model';
+import { SubmissionObjectError } from './submission-object.model';
 
 @mapsTo(Workspaceitem)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -46,5 +47,5 @@ export class NormalizedWorkspaceItem extends NormalizedSubmissionObject {
   submitter: string[];
 
   @autoserialize
-  errors: WorkspaceItemError[]
+  errors: SubmissionObjectError[]
 }

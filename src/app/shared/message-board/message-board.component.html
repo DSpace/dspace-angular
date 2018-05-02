@@ -1,5 +1,6 @@
 <button
   class="btn btn-primary mt-1 mb-3"
+  ngbTooltip="{{tooltipMessage | translate}}"
   (click)="openMessageBoard(content)">
   <i class="fa fa-envelope"></i>
   <span *ngIf="(messagesObs | async)?.length > 0"

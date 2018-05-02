@@ -100,7 +100,9 @@
       "subject-placeholder": "Subject...",
       "description-placeholder": "Insert your message here...",
       "mark-as-read": "Mark as read",
-      "mark-as-unread": "Mark as unread"
+      "mark-as-unread": "Mark as unread",
+      "submitter-help": "Select this option to send a message to controller.",
+      "controller-help": "Select this option to send a message to item's submitter."
     },
     "show": {
       "workspace": "Your Submissions",
@@ -317,9 +319,10 @@
       "submit.progressbar.cclicense": "Creative commons license",
 
       "upload": {
+        "info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging&dropping them everywhere in the page</strong>",
         "drop-message": "Drop files to attach them to the item",
-        "upload_successful": "Upload successful",
-        "upload_failed": "Upload failed",
+        "upload-successful": "Upload successful",
+        "upload-failed": "Upload failed",
         "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
         "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicity decided for the single file, with the following group(s):",
         "form": {
@@ -360,11 +363,13 @@
       }
     },
     "workflow": {
-      "workspaceitems": {
+      "generic": {
         "delete": "Delete",
         "delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
         "edit": "Edit",
-        "edit-help": "Select this option to change the item's metadata."
+        "edit-help": "Select this option to change the item's metadata.",
+        "view": "View",
+        "view-help": "Select this option to view the item's metadata."
       },
       "tasks": {
         "generic": {

@@ -4,19 +4,19 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { hasNoValue, isEmpty, isNotEmpty } from '../../empty.util';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-my-dspace-result-list-element',
   template: ``
 })
 
-export class MyDSpaceResultListElementComponent<T extends MyDSpaceResult<K>, K extends SubmissionObject> extends AbstractListableElementComponent<T> {
+export class MyDSpaceResultListElementComponent<T extends MyDSpaceResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
   dsoIndex: number;
 
-public constructor(@Inject('objectElementProvider') public listable: ListableObject,
-                   @Inject('indexElementProvider') public index: number) {
+  public constructor(@Inject('objectElementProvider') public listable: ListableObject,
+                     @Inject('indexElementProvider') public index: number) {
     super(listable);
     this.dso = this.object.dspaceObject;
     this.dsoIndex = this.index;

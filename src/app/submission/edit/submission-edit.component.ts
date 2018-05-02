@@ -13,6 +13,7 @@ import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PlatformService } from '../../shared/services/platform.service';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
 @Component({
   selector: 'ds-submission-edit',
@@ -51,10 +52,10 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
           this.submissionId = params.get('id');
           this.subs.push(
             this.restService.getDataById(this.submissionService.getSubmissionObjectLinkName(), this.submissionId)
-              .filter((submissionObjects: Workspaceitem[] | Workflowitem[]) => isNotUndefined(submissionObjects))
+              .filter((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects))
               .take(1)
-              .map((submissionObjects: Workspaceitem[] | Workflowitem[]) => submissionObjects[0])
-              .subscribe((submissionObject: Workspaceitem | Workflowitem) => {
+              .map((submissionObjects: SubmissionObject[]) => submissionObjects[0])
+              .subscribe((submissionObject: SubmissionObject) => {
                 if (isEmpty(submissionObject)) {
                   this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
                   this.router.navigate(['/mydspace']);

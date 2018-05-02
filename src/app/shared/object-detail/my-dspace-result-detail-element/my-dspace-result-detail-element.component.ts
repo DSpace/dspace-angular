@@ -5,17 +5,17 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { hasNoValue, isEmpty, isNotEmpty } from '../../empty.util';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-my-dspace-result-detail-element',
   template: ``
 })
 
-export class MyDSpaceResultDetailElementComponent<T extends MyDSpaceResult<K>, K extends SubmissionObject> extends AbstractListableElementComponent<T> {
+export class MyDSpaceResultDetailElementComponent<T extends MyDSpaceResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
 
-public constructor(@Inject('objectElementProvider') public gridable: ListableObject) {
+  public constructor(@Inject('objectElementProvider') public gridable: ListableObject) {
     super(gridable);
     this.dso = this.object.dspaceObject;
   }

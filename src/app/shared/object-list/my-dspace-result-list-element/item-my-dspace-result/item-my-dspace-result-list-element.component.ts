@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
@@ -14,13 +14,8 @@ import { ItemStatusType } from '../../../object-collection/shared/mydspace-item-
 })
 
 @renderElementsFor(ItemMyDSpaceResult, ViewMode.List)
-export class ItemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ItemMyDSpaceResult, Item> implements OnInit {
+export class ItemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ItemMyDSpaceResult, Item> {
 
-  public itemUrl: string;
   public status = ItemStatusType.ACCEPTED;
-
-  ngOnInit() {
-    this.itemUrl = this.dso.findMetadata('dc.identifier.uri');
-  }
 
 }

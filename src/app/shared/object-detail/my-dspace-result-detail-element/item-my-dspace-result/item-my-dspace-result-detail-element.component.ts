@@ -16,14 +16,6 @@ import { ItemStatusType } from '../../../object-collection/shared/mydspace-item-
 @renderElementsFor(ItemMyDSpaceResult, ViewMode.Detail)
 export class ItemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ItemMyDSpaceResult, Item> {
 
-  public itemUrl: string;
   public status = ItemStatusType.ACCEPTED;
 
-  isInProgress(): boolean {
-    return (!this.dso.isArchived) && (!this.dso.isWithdrawn);
-  }
-
-  ngOnInit() {
-    this.itemUrl = this.dso.findMetadata('dc.identifier.uri');
-  }
 }
