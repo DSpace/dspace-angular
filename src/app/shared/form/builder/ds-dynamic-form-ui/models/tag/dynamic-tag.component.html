@@ -6,18 +6,19 @@
   <ds-chips [chips]="chips" [wrapperClass]="'border-bottom border-light'">
 
   <input *ngIf="!searchOptions"
-         class="border-0 form-control-plaintext tag-input mt-1 mb-1 js-remove"
+         class="border-0 form-control-plaintext tag-input mt-1 mb-1 chips-sort-ignore"
          type="text"
          [class.pl-3]="chips.hasItems()"
          [placeholder]="model.label"
          [(ngModel)]="currentValue"
+         (blur)="onBlurEvent($event)"
          (keypress)="preventEventsPropagation($event)"
          (keydown)="preventEventsPropagation($event)"
          (keyup)="onKeyUp($event)" />
 
 
   <input *ngIf="searchOptions"
-         class="border-0 form-control-plaintext tag-input mt-1 mb-1"
+         class="border-0 form-control-plaintext tag-input mt-1 mb-1 chips-sort-ignore"
          type="text"
          [(ngModel)]="currentValue"
          [attr.autoComplete]="model.autoComplete"

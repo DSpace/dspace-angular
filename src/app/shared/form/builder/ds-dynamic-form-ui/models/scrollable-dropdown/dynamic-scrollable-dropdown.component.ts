@@ -7,6 +7,7 @@ import { isNull, isUndefined } from '../../../../../empty.util';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -52,7 +53,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
     return (typeof item === 'string') ? item : this.inputFormatter(item);
   }
 
-  inputFormatter = (x: {display: string}) => x.display;
+  inputFormatter = (x: AuthorityModel) => x.display || x.value;
 
   onScroll() {
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {

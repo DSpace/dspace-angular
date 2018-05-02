@@ -39,6 +39,7 @@ export class ChipsComponent implements OnChanges {
       animation: 300,
       chosenClass: 'm-0',
       dragClass: 'm-0',
+      filter: '.chips-sort-ignore',
       ghostClass: 'm-0'
     };
   }
