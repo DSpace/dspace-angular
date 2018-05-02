@@ -234,7 +234,7 @@ export class UploadSectionFileEditComponent implements OnChanges {
             (model.parent as DynamicFormArrayGroupModel).group) as DynamicDateControlModel;
 
           const min = new Date(accessCondition.maxStartDate);
-          startDateModel.min = {
+          startDateModel.max = {
             year: min.getFullYear(),
             month: min.getMonth() + 1,
             day: min.getDate()
