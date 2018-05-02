@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
+import { isNotEmpty } from '../../../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -16,13 +17,16 @@ import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-
 })
 
 @renderFacetFor(FilterType.range)
-export class SearchRangeFilterComponent extends SearchFacetFilterComponent {
+export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit {
   rangeDelimiter = '-';
   min = 1950;
   max = 1960;
   rangeMin = 1900; // calculate using available values
   rangeMax = 2000;
 
+  ngOnInit(): void {
+
+  }
   get range() {
     return [this.min, this.max];
   }
@@ -50,4 +54,17 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent {
       page: 1
     };
   }
+
+  onSubmit(data: any) {
+    if (isNotEmpty(data)) {
+      this.router.navigate([this.getSearchLink()], {
+        queryParams:
+          { [this.filterConfig.paramName + '.min']: [data[this.filterConfig.paramName + '.min']],
+            [this.filterConfig.paramName + '.max']: [data[this.filterConfig.paramName + '.max']]},
+        queryParamsHandling: 'merge'
+      });
+      this.filter = '';
+    }
+  }
+
 }
