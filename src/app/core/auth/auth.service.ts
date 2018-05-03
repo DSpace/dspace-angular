@@ -135,6 +135,7 @@ export class AuthService {
    */
   public checkAuthenticationToken(): Observable<AuthTokenInfo> {
     return this.store.select(getAuthenticationToken)
+      .take(1)
       .map((authTokenInfo: AuthTokenInfo) => {
         let token: AuthTokenInfo;
         // Retrieve authentication token info and check if is valid
