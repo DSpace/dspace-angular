@@ -1,17 +1,24 @@
-import { DSpaceObject } from './dspace-object.model';
 
-export class BitstreamFormat extends DSpaceObject {
+import { autoserialize } from 'cerialize';
 
+export class BitstreamFormat {
+
+  @autoserialize
   shortDescription: string;
 
+  @autoserialize
   description: string;
 
+  @autoserialize
   mimetype: string;
 
+  @autoserialize
   supportLevel: number;
 
+  @autoserialize
   internal: boolean;
 
+  @autoserialize
   extensions: string;
 
 }

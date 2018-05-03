@@ -12,8 +12,8 @@ import { BrowseDefinition } from '../shared/browse-definition.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
-export class BrowseService extends HALEndpointService {
-  protected linkName = 'browses';
+export class BrowseService {
+  protected linkPath = 'browses';
 
   private static toSearchKeyArray(metadatumKey: string): string[] {
     const keyParts = metadatumKey.split('.');
@@ -31,13 +31,12 @@ export class BrowseService extends HALEndpointService {
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
-    super();
+    protected halService: HALEndpointService) {
   }
 
-  getBrowseURLFor(metadatumKey: string, linkName: string): Observable<string> {
+  getBrowseURLFor(metadatumKey: string, linkPath: string): Observable<string> {
     const searchKeyArray = BrowseService.toSearchKeyArray(metadatumKey);
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new BrowseEndpointRequest(this.requestService.generateRequestId(), endpointURL))
@@ -59,10 +58,10 @@ export class BrowseService extends HALEndpointService {
                 return isNotEmpty(matchingKeys);
               })
             ).map((def: BrowseDefinition) => {
-            if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkName])) {
-              throw new Error(`A browse endpoint for ${linkName} on ${metadatumKey} isn't configured`);
+            if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
+              throw new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`);
             } else {
-              return def._links[linkName];
+              return def._links[linkPath];
             }
           })
         );

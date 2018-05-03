@@ -1,5 +1,6 @@
-import { SortOptions } from '../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { isNotEmpty } from '../shared/empty.util';
+import { URLCombiner } from '../core/url-combiner/url-combiner';
+import 'core-js/fn/object/entries';
 
 export enum ViewMode {
   List = 'list',
@@ -7,7 +8,28 @@ export enum ViewMode {
 }
 
 export class SearchOptions {
-  pagination?: PaginationComponentOptions;
-  sort?: SortOptions;
   view?: ViewMode = ViewMode.List;
+  scope?: string;
+  query?: string;
+  filters?: any;
+
+  toRestUrl(url: string, args: string[] = []): string {
+
+    if (isNotEmpty(this.query)) {
+      args.push(`query=${this.query}`);
+    }
+
+    if (isNotEmpty(this.scope)) {
+      args.push(`scope=${this.scope}`);
+    }
+    if (isNotEmpty(this.filters)) {
+      Object.entries(this.filters).forEach(([key, values]) => {
+        values.forEach((value) => args.push(`${key}=${value},equals`));
+      });
+    }
+    if (isNotEmpty(args)) {
+      url = new URLCombiner(url, `?${args.join('&')}`).toString();
+    }
+    return url;
+  }
 }

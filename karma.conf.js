@@ -51,7 +51,7 @@ module.exports = function (config) {
      */
     files: [{
       pattern: './spec-bundle.js',
-      watched: false
+      watched: false,
     }],
 
     /*

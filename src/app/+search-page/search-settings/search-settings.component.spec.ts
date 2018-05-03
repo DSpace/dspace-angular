@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchSettingsComponent } from './search-settings.component';
 import { Observable } from 'rxjs/Observable';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +22,7 @@ describe('SearchSettingsComponent', () => {
   pagination.id = 'search-results-pagination';
   pagination.currentPage = 1;
   pagination.pageSize = 10;
-  const sort: SortOptions = new SortOptions();
+  const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
   const mockResults = [ 'test', 'data' ];
   const searchServiceStub = {
     searchOptions: { pagination: pagination, sort: sort },

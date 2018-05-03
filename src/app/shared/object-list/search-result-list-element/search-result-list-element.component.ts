@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
-import { isEmpty, hasNoValue } from '../../empty.util';
+import { hasNoValue, isEmpty } from '../../empty.util';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { Observable } from 'rxjs/Observable';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 
 @Component({
@@ -46,7 +46,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
     this.object.hitHighlights.some(
       (md: Metadatum) => {
         if (key === md.key) {
-          result =  md.value;
+          result = md.value;
           return true;
         }
       }

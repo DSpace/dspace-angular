@@ -1,13 +1,16 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
+import { autoserialize, autoserializeAs } from 'cerialize';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 
 import { Metadatum } from '../../shared/metadatum.model';
 import { ResourceType } from '../../shared/resource-type';
+import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
 
 /**
- * An abstract model class for a DSpaceObject.
+ * An model class for a DSpaceObject.
  */
-export abstract class NormalizedDSpaceObject extends NormalizedObject {
+@mapsTo(DSpaceObject)
+export class NormalizedDSpaceObject extends NormalizedObject {
 
   /**
    * The link to the rest endpoint where this object can be found
