@@ -29,6 +29,7 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
 
 export const LOGIN_ROUTE = '/login';
+export const LOGOUT_ROUTE = '/logout';
 
 export const REDIRECT_COOKIE = 'dsRedirectUrl';
 
