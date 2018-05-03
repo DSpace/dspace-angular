@@ -26,6 +26,7 @@ import { NativeWindowRef, NativeWindowService } from '../../shared/services/wind
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 export const LOGIN_ROUTE = '/login';
+export const LOGOUT_ROUTE = '/logout';
 
 export const REDIRECT_COOKIE = 'dsRedirectUrl';
 
