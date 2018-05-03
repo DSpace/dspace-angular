@@ -20,7 +20,6 @@ import { CoreState } from '../../core/core.reducers';
 import { isNotEmpty } from '../empty.util';
 import { fadeOut } from '../animations/fade';
 import { AuthService } from '../../core/auth/auth.service';
-import { PlatformService } from '../services/platform.service';
 
 /**
  * /users/sign-in
@@ -59,6 +58,12 @@ export class LogInComponent implements OnDestroy, OnInit {
   public hasMessage = false;
 
   /**
+   * Whether user is authenticated.
+   * @type {Observable<string>}
+   */
+  public isAuthenticated: Observable<boolean>;
+
+  /**
    * True if the authentication is loading.
    * @type {boolean}
    */
@@ -88,10 +93,11 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @param {FormBuilder} formBuilder
    * @param {Store<State>} store
    */
-  constructor(private authService: AuthService,
-              private formBuilder: FormBuilder,
-              public platform: PlatformService,
-              private store: Store<CoreState>) {
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private store: Store<CoreState>
+  ) {
   }
 
   /**
@@ -99,6 +105,9 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
+    // set isAuthenticated
+    this.isAuthenticated = this.store.select(isAuthenticated);
+
     // set formGroup
     this.form = this.formBuilder.group({
       email: ['', Validators.required],
@@ -154,7 +163,7 @@ export class LogInComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * To to the registration page.
+   * To the registration page.
    * @method register
    */
   public register() {

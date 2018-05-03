@@ -10,9 +10,8 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
-import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticated } from './core/auth/selectors';
-import { PlatformService } from './shared/services/platform.service';
+import { AuthService } from './core/auth/auth.service';
 
 @Component({
   selector: 'ds-app',
@@ -29,7 +28,7 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     private store: Store<HostWindowState>,
     private metadata: MetadataService,
-    private platformService: PlatformService
+    private authService: AuthService
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
@@ -48,12 +47,13 @@ export class AppComponent implements OnInit {
     const color: string = this.config.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
-    // if (this.platformService.isBrowser) {
+
+    // Whether is not authenticathed try to retrieve a possible stored auth token
     this.store.select(isAuthenticated)
       .take(1)
       .filter((authenticated) => !authenticated)
-      .subscribe((authenticated) => this.store.dispatch(new CheckAuthenticationTokenAction()));
-    // }
+      .subscribe((authenticated) => this.authService.checksAuthenticationToken());
+
   }
 
   @HostListener('window:resize', ['$event'])

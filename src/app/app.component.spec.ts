@@ -1,22 +1,13 @@
-import {
-  async,
-  ComponentFixture,
-  inject,
-  TestBed
-} from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement
-} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
 import { By } from '@angular/platform-browser';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Store, StoreModule } from '@ngrx/store';
-
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
 
@@ -25,13 +16,11 @@ import { HostWindowResizeAction } from './shared/host-window.actions';
 
 import { MetadataService } from './core/metadata/metadata.service';
 
-import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
+import { ENV_CONFIG, GLOBAL_CONFIG } from '../config';
 import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
 
 import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
 import { MockMetadataService } from './shared/mocks/mock-metadata-service';
-import { PlatformServiceStub } from './shared/testing/platform-service-stub';
-import { PlatformService } from './shared/services/platform.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -55,10 +44,9 @@ describe('App component', () => {
       ],
       declarations: [AppComponent], // declare the test component
       providers: [
-        { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
-        { provide: NativeWindowService, useValue: new NativeWindowRef() },
-        { provide: MetadataService, useValue: new MockMetadataService() },
-        { provide: PlatformService, useValue: new PlatformServiceStub() },
+        {provide: GLOBAL_CONFIG, useValue: ENV_CONFIG},
+        {provide: NativeWindowService, useValue: new NativeWindowRef()},
+        {provide: MetadataService, useValue: new MockMetadataService()},
         AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

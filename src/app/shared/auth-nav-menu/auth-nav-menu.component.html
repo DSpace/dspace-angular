@@ -2,7 +2,7 @@
   <li *ngIf="!(isAuthenticated | async) && !(windowService.isMobileView() | async) && showAuth" class="nav-item dropdown" (click)="$event.stopPropagation();">
     <div ngbDropdown placement="bottom-right" class="d-inline-block float-right" @fadeInOut>
       <a href="#" id="dropdownLogin" class="nav-link" (click)="$event.preventDefault()" ngbDropdownToggle><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> {{ 'nav.login' | translate }}<span class="caret"></span></a>
-      <div id="loginDropdownMenu" ngbDropdownMenu aria-labelledby="dropdownLogin">
+      <div id="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu aria-labelledby="dropdownLogin">
         <ds-log-in></ds-log-in>
       </div>
     </div>

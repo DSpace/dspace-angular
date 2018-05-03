@@ -7,7 +7,7 @@ import { fadeInOut, fadeOut } from '../animations/fade';
 import { HostWindowService } from '../host-window.service';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { hasValue, isNotUndefined } from '../empty.util';
-import { getAuthenticatedUser, isAuthenticated } from '../../core/auth/selectors';
+import { getAuthenticatedUser, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
 import { Subscription } from 'rxjs/Subscription';
 import { Eperson } from '../../core/eperson/models/eperson.model';
 
@@ -24,6 +24,12 @@ export class AuthNavMenuComponent implements OnDestroy, OnInit {
    */
   public isAuthenticated: Observable<boolean>;
 
+  /**
+   * True if the authentication is loading.
+   * @type {boolean}
+   */
+  public loading: Observable<boolean>;
+
   public showAuth = false;
 
   public user: Observable<Eperson>;
@@ -35,8 +41,11 @@ export class AuthNavMenuComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    // set loading
+    // set isAuthenticated
     this.isAuthenticated = this.store.select(isAuthenticated);
+
+    // set loading
+    this.loading = this.store.select(isAuthenticationLoading);
 
     this.user = this.store.select(getAuthenticatedUser);
 

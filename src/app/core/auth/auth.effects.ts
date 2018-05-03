@@ -71,7 +71,7 @@ export class AuthEffects {
   public checkToken: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN)
     .switchMap(() => {
-      return this.authService.checkAuthenticationToken()
+      return this.authService.hasValidAuthenticationToken()
         .map((token: AuthTokenInfo) => new AuthenticatedAction(token))
         .catch((error) => Observable.of(new CheckAuthenticationTokenErrorAction()));
     });

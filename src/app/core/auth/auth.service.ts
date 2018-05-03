@@ -16,11 +16,15 @@ import { CookieService } from '../../shared/services/cookie.service';
 import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { Store } from '@ngrx/store';
-import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
+import {
+  CheckAuthenticationTokenAction,
+  ResetAuthenticationMessagesAction,
+  SetRedirectUrlAction
+} from './auth.actions';
 import { RouterReducerState } from '@ngrx/router-store';
 import { CookieAttributes } from 'js-cookie';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
-import { PlatformService } from '../../shared/services/platform.service';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
 
@@ -38,15 +42,15 @@ export class AuthService {
    * True if authenticated
    * @type boolean
    */
-  private _authenticated: boolean;
+  protected _authenticated: boolean;
 
-  constructor(@Inject(NativeWindowService) private _window: NativeWindowRef,
-              @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
-              private authRequestService: AuthRequestService,
-              private platform: PlatformService,
-              private router: Router,
-              private storage: CookieService,
-              private store: Store<AppState>) {
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+              @Inject(REQUEST) protected req: any,
+              @Inject(NativeWindowService) protected _window: NativeWindowRef,
+              protected authRequestService: AuthRequestService,
+              protected router: Router,
+              protected storage: CookieService,
+              protected store: Store<AppState>) {
     this.store.select(isAuthenticated)
       .startWith(false)
       .subscribe((authenticated: boolean) => this._authenticated = authenticated);
@@ -135,9 +139,16 @@ export class AuthService {
   }
 
   /**
+   * Checks if token is present into browser storage and is valid. (NB Check is done only on SSR)
+   */
+  public checksAuthenticationToken() {
+    return
+  }
+
+  /**
    * Checks if token is present into storage and is not expired
    */
-  public checkAuthenticationToken(): Observable<AuthTokenInfo> {
+  public hasValidAuthenticationToken(): Observable<AuthTokenInfo> {
     return this.store.select(getAuthenticationToken)
       .take(1)
       .map((authTokenInfo: AuthTokenInfo) => {
@@ -351,10 +362,9 @@ export class AuthService {
     this.getRedirectUrl()
       .take(1)
       .subscribe((redirectUrl) => {
+        console.log('Browser');
         if (isNotEmpty(redirectUrl)) {
-          if (this.platform.isBrowser) {
-            this.clearRedirectUrl();
-          }
+          this.clearRedirectUrl();
 
           // override the route reuse strategy
           this.router.routeReuseStrategy.shouldReuseRoute = () => {
