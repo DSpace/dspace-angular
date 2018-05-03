@@ -60,11 +60,14 @@ export class SearchFilterService {
     });
   }
 
-  getCurrentSort(): Observable<SortOptions> {
+  getCurrentSort(defaultSort: SortOptions): Observable<SortOptions> {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
-    return Observable.combineLatest(sortDirection$, sortField$, (sortDirection, sortField) =>
-      new SortOptions(isNotEmpty(sortField) ? sortField : undefined, SortDirection[sortDirection])
+    return Observable.combineLatest(sortDirection$, sortField$, (sortDirection, sortField) => {
+        const field = sortField || defaultSort.field;
+        const direction = SortDirection[sortDirection] || defaultSort.direction;
+        return new SortOptions(field, direction)
+      }
     );
   }
 
@@ -79,28 +82,28 @@ export class SearchFilterService {
   getPaginatedSearchOptions(defaults: any = {}): Observable<PaginatedSearchOptions> {
     return Observable.combineLatest(
       this.getCurrentPagination(defaults.pagination),
-      this.getCurrentSort(),
+      this.getCurrentSort(defaults.sort),
       this.getCurrentView(),
       this.getCurrentScope(),
       this.getCurrentQuery(),
       this.getCurrentFilters()).pipe(
-        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-        map(([pagination, sort, view, scope, query, filters]) => {
-            return Object.assign(new PaginatedSearchOptions(),
-              defaults,
-              {
-                pagination: pagination,
-                sort: sort,
-                view: view,
-                scope: scope || defaults.scope,
-                query: query,
-                filters: filters
-              })
-        })
-      )
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      map(([pagination, sort, view, scope, query, filters]) => {
+        return Object.assign(new PaginatedSearchOptions(),
+          defaults,
+          {
+            pagination: pagination,
+            sort: sort,
+            view: view,
+            scope: scope || defaults.scope,
+            query: query,
+            filters: filters
+          })
+      })
+    )
   }
 
- getSearchOptions(defaults: any = {}): Observable<SearchOptions> {
+  getSearchOptions(defaults: any = {}): Observable<SearchOptions> {
     return Observable.combineLatest(
       this.getCurrentView(),
       this.getCurrentScope(),
@@ -111,7 +114,7 @@ export class SearchFilterService {
           defaults,
           {
             view: view,
-            scope: scope,
+            scope: scope || defaults.scope,
             query: query,
             filters: filters
           })

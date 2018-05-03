@@ -8,10 +8,8 @@ import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
-import { Community } from '../core/shared/community.model';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SearchPageComponent } from './search-page.component';
 import { SearchService } from './search-service/search.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,7 +33,7 @@ describe('SearchPageComponent', () => {
   pagination.id = 'search-results-pagination';
   pagination.currentPage = 1;
   pagination.pageSize = 10;
-  const sort: SortOptions = new SortOptions();
+  const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
   const mockResults = Observable.of(['test', 'data']);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     search: mockResults,

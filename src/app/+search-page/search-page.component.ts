@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { flatMap, } from 'rxjs/operators';
-import { SortOptions } from '../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
@@ -42,6 +42,7 @@ export class SearchPageComponent implements OnInit {
       id: 'search-results-pagination',
       pageSize: 10
     },
+    sort: new SortOptions('score', SortDirection.DESC),
     query: '',
     scope: ''
   };

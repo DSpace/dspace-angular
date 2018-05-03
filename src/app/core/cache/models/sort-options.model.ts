@@ -4,7 +4,7 @@ export enum SortDirection {
 }
 
 export class SortOptions {
-  constructor(public field: string = 'dc.title', public direction: SortDirection = SortDirection.ASC) {
+  constructor(public field: string, public direction: SortDirection) {
 
   }
 }
