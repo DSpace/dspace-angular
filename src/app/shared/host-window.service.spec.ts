@@ -1,9 +1,10 @@
 import { Store } from '@ngrx/store';
+import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from '../app.reducer';
 import { HostWindowState } from './host-window.reducer';
 
-import { HostWindowService } from './host-window.service';
+import { GridBreakpoint, HostWindowService, WidthCategory } from './host-window.service';
 
 describe('HostWindowService', () => {
   let service: HostWindowService;
@@ -187,6 +188,78 @@ describe('HostWindowService', () => {
         expect(status).toBeFalsy();
       });
     });
+  });
+
+  describe('widthCategory', () => {
+    beforeEach(() => {
+      service = new HostWindowService({} as Store<AppState>);
+    });
+
+    it('should call getWithObs to get the current width', () => {
+      spyOn(service as any, 'getWidthObs').and
+        .returnValue(hot('a-', { a: GridBreakpoint.SM_MIN - 1 }));
+
+      const result = service.widthCategory;
+
+      expect((service as any).getWidthObs).toHaveBeenCalled();
+    });
+
+    it('should return XS if width < SM_MIN', () => {
+      spyOn(service as any, 'getWidthObs').and
+        .returnValue(hot('a-', { a: GridBreakpoint.SM_MIN - 1 }));
+
+      const result = service.widthCategory;
+
+      const expected = cold('b-', { b: WidthCategory.XS });
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should return SM if SM_MIN <= width < MD_MIN', () => {
+      spyOn(service as any, 'getWidthObs').and
+        .returnValue(hot('a-', {
+          a: GridBreakpoint.SM_MIN + Math.floor((GridBreakpoint.MD_MIN - GridBreakpoint.SM_MIN) / 2)
+        }));
+
+      const result = service.widthCategory;
+
+      const expected = cold('b-', { b: WidthCategory.SM });
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should return MD if MD_MIN <= width < LG_MIN', () => {
+      spyOn(service as any, 'getWidthObs').and
+        .returnValue(hot('a-', {
+          a: GridBreakpoint.MD_MIN + Math.floor((GridBreakpoint.LG_MIN - GridBreakpoint.MD_MIN) / 2)
+        }));
+
+      const result = service.widthCategory;
+
+      const expected = cold('b-', { b: WidthCategory.MD });
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should return LG if LG_MIN <= width < XL_MIN', () => {
+      spyOn(service as any, 'getWidthObs').and
+        .returnValue(hot('a-', {
+          a: GridBreakpoint.LG_MIN + Math.floor((GridBreakpoint.XL_MIN - GridBreakpoint.LG_MIN) / 2)
+        }));
+
+      const result = service.widthCategory;
+
+      const expected = cold('b-', { b: WidthCategory.LG });
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should return XL if width >= XL_MIN', () => {
+      spyOn(service as any, 'getWidthObs').and
+        .returnValue(hot('a-', { a: GridBreakpoint.XL_MIN + 1 }));
+
+      const result = service.widthCategory;
+
+      const expected = cold('b-', { b: WidthCategory.XL });
+      expect(result).toBeObservable(expected);
+    });
+
   });
 
 });

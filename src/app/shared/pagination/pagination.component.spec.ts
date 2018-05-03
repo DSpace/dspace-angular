@@ -41,7 +41,7 @@ import { MockRouter } from '../mocks/mock-router';
 
 import { HostWindowService } from '../host-window.service';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../../../config';
 
@@ -349,7 +349,7 @@ class TestComponent {
   collection: string[] = [];
   collectionSize: number;
   paginationOptions = new PaginationComponentOptions();
-  sortOptions = new SortOptions();
+  sortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
   constructor() {
     this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);

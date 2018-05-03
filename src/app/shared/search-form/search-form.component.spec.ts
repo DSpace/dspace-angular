@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, async, tick, fakeAsync } from '@angular/core
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { SearchFormComponent } from './search-form.component';
-import { Observable } from 'rxjs/Observable';
 import { FormsModule } from '@angular/forms';
 import { ResourceType } from '../../core/shared/resource-type';
 import { RouterTestingModule } from '@angular/router/testing';

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { flatMap, } from 'rxjs/operators';
-import { SortOptions } from '../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
@@ -31,7 +31,6 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 export class SearchPageComponent implements OnInit {
 
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
-  currentParams = {};
   searchOptions$: Observable<PaginatedSearchOptions>;
   sortConfig: SortOptions;
   scopeListRD$: Observable<RemoteData<PaginatedList<Community>>>;
@@ -43,6 +42,7 @@ export class SearchPageComponent implements OnInit {
       id: 'search-results-pagination',
       pageSize: 10
     },
+    sort: new SortOptions('score', SortDirection.DESC),
     query: '',
     scope: ''
   };
@@ -77,5 +77,9 @@ export class SearchPageComponent implements OnInit {
 
   public isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
+  }
+
+  public getSearchLink(): string {
+    return this.service.getSearchLink();
   }
 }

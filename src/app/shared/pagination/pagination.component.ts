@@ -144,7 +144,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Direction in which to sort: ascending or descending
    */
-  public sortDirection: SortDirection = SortDirection.Ascending;
+  public sortDirection: SortDirection = SortDirection.ASC;
 
   /**
    * Name of the field that's used to sort by

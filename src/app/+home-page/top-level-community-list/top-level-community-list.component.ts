@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 
@@ -27,7 +27,7 @@ export class TopLevelCommunityListComponent {
     this.config.id = 'top-level-pagination';
     this.config.pageSize = 5;
     this.config.currentPage = 1;
-    this.sortConfig = new SortOptions();
+    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
 
     this.updatePage({
       page: this.config.currentPage,
