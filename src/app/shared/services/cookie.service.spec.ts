@@ -1,4 +1,3 @@
-import { PlatformService } from './platform.service'
 import { CookieService, ICookieService } from './cookie.service'
 import { async, TestBed } from '@angular/core/testing'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
@@ -10,8 +9,7 @@ describe(CookieService.name, () => {
     TestBed.configureTestingModule({
       providers: [
         CookieService,
-        PlatformService,
-        { provide: REQUEST, useValue: {} }
+        {provide: REQUEST, useValue: {}}
       ]
     })
   }));

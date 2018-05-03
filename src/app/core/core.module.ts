@@ -38,13 +38,11 @@ import { SubmissionDefinitionsConfigService } from './config/submission-definiti
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
 import { UUIDService } from './shared/uuid.service';
-import { AuthService } from './auth/auth.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthRequestService } from './auth/auth-request.service';
 import { AuthResponseParsingService } from './auth/auth-response-parsing.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { CookieService } from '../shared/services/cookie.service';
 import { PlatformService } from '../shared/services/platform.service';
 
 const IMPORTS = [
@@ -66,10 +64,8 @@ const PROVIDERS = [
   AuthenticatedGuard,
   AuthRequestService,
   AuthResponseParsingService,
-  AuthService,
   CommunityDataService,
   CollectionDataService,
-  CookieService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
   HostWindowService,

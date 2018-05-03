@@ -15,6 +15,10 @@ import { AppComponent } from '../../app/app.component';
 import { AppModule } from '../../app/app.module';
 import { DSpaceBrowserTransferStateModule } from '../transfer-state/dspace-browser-transfer-state.module';
 import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
+import { ClientCookieService } from '../../app/shared/services/client-cookie.service';
+import { CookieService } from '../../app/shared/services/cookie.service';
+import { ServerAuthService } from '../../app/core/auth/server-auth.service';
+import { AuthService } from '../../app/core/auth/auth.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -57,6 +61,14 @@ export function getRequest(transferState: TransferState): any {
       provide: REQUEST,
       useFactory: getRequest,
       deps: [TransferState]
+    },
+    {
+      provide: AuthService,
+      useClass: AuthService
+    },
+    {
+      provide: CookieService,
+      useClass: ClientCookieService
     }
   ]
 })
