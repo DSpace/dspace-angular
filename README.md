@@ -239,6 +239,7 @@ dspace-angular
 ├── config                                              * Folder for configuration files
 │   ├── environment.default.js                          * Default configuration files
 │   └── environment.test.js                             * Test configuration files
+├── docs                                                * Folder for documentation
 ├── e2e                                                 * Folder for e2e test files
 │   ├── app.e2e-spec.ts                                 *
 │   ├── app.po.ts                                       *
@@ -379,6 +380,11 @@ This project makes use of [`yarn`](https://yarnpkg.com/en/) to ensure that the e
 * **Removing dependencies**: If a dependency is no longer needed, or replaced, use [`yarn remove`](https://yarnpkg.com/en/docs/cli/remove) to remove it.
 
 As you can see above, using `yarn` commandline tools means that you should never need to modify the `package.json` manually. *We recommend always using `yarn` to keep dependencies updated / in sync.*
+
+Further Documentation
+---------------------
+
+See [`./docs`](docs) for further documentation.
 
 Frequently asked questions
 --------------------------

@@ -427,6 +427,12 @@ angular2-template-loader@0.6.2:
   dependencies:
     loader-utils "^0.2.15"
 
+angulartics2@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-5.2.0.tgz#5bac82d4b6acf798b7db906488861e70b49fe04c"
+  dependencies:
+    tslib "^1.7.1"
+
 ansi-align@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-2.0.0.tgz#c36aeccba563b89ceb556f3690f0b1d9e3547f7f"
