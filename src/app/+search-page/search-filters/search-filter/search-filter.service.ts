@@ -60,8 +60,12 @@ export class SearchFilterService {
   getCurrentSort(): Observable<SortOptions> {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
-    return Observable.combineLatest(sortDirection$, sortField$, (sortDirection, sortField) =>
-      new SortOptions(isNotEmpty(sortField) ? sortField : undefined, SortDirection[sortDirection])
+    return Observable.combineLatest(sortDirection$, sortField$, (sortDirection, sortField) => {
+        if (isNotEmpty(sortField)) {
+          const direction = SortDirection[sortDirection];
+          return new SortOptions(sortField,  direction ? direction : SortDirection.ASC)
+        }
+      }
     );
   }
 
@@ -87,7 +91,7 @@ export class SearchFilterService {
               defaults,
               {
                 pagination: pagination,
-                sort: sort,
+                sort: sort || defaults.sort,
                 view: view,
                 scope: scope || defaults.scope,
                 query: query,
@@ -108,7 +112,7 @@ export class SearchFilterService {
           defaults,
           {
             view: view,
-            scope: scope,
+            scope: scope || defaults.scope,
             query: query,
             filters: filters
           })

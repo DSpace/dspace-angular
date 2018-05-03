@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { Subscription } from 'rxjs/Subscription';
-import { SortOptions } from '../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { ItemDataService } from '../core/data/item-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
@@ -48,7 +48,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     this.paginationConfig.id = 'collection-page-pagination';
     this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
-    this.sortConfig = new SortOptions();
+    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
   }
 
   ngOnInit(): void {
