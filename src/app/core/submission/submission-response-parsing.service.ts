@@ -20,6 +20,7 @@ import { SubmissionResourceType } from './submission-resource-type';
 import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 import { normalizeSectionData } from './models/workspaceitem-sections.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
+import { NormalizedEditItem } from './models/normalized-edititem.model';
 
 @Injectable()
 export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
@@ -59,7 +60,9 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
     dataDefinition[Object.keys(dataDefinition)[0]].forEach((item, index) => {
       let normalizedItem = Object.assign({}, item);
       // In case data is an Instance of NormalizedWorkspaceItem normalize field value of all the section of type form
-      if (item instanceof NormalizedWorkspaceItem || item instanceof NormalizedWorkflowItem) {
+      if (item instanceof NormalizedWorkspaceItem
+        || item instanceof NormalizedWorkflowItem
+        || item instanceof NormalizedEditItem) {
         if (item.sections) {
           const precessedSection = Object.create({});
           // Iterate over all workspaceitem's sections
