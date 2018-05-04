@@ -15,6 +15,10 @@ import { DSpaceServerTransferStateModule } from '../transfer-state/dspace-server
 import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 
 import { TranslateUniversalLoader } from '../translate-universal-loader';
+import { CookieService } from '../../app/shared/services/cookie.service';
+import { ServerCookieService } from '../../app/shared/services/server-cookie.service';
+import { AuthService } from '../../app/core/auth/auth.service';
+import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 
 export function createTranslateLoader() {
   return new TranslateUniversalLoader('dist/assets/i18n/', '.json');
@@ -42,6 +46,14 @@ export function createTranslateLoader() {
     AppModule
   ],
   providers: [
+    {
+      provide: AuthService,
+      useClass: ServerAuthService
+    },
+    {
+      provide: CookieService,
+      useClass: ServerCookieService
+    }
   ]
 })
 export class ServerAppModule {
