@@ -11,6 +11,7 @@ export const COMBOBOX_VALUE_SUFFIX = '_COMBO_VALUE';
 export interface DsDynamicComboboxModelConfig extends DynamicFormGroupModelConfig {
   languageCodes: LanguageCode[];
   language: string;
+  readOnly: boolean;
 }
 
 export class DynamicComboboxModel extends DynamicFormGroupModel {
@@ -18,10 +19,12 @@ export class DynamicComboboxModel extends DynamicFormGroupModel {
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() languageUpdates: Subject<string>;
   @serializable() hasLanguages = false;
+  @serializable() readOnly: boolean;
 
   constructor(config: DsDynamicComboboxModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
 
+    this.readOnly = config.readOnly;
     this.language = config.language;
     this.languageCodes = config.languageCodes;
 

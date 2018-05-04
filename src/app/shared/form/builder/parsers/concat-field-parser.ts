@@ -16,10 +16,11 @@ export class ConcatFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
               protected initFormValues,
+              protected readOnly: boolean,
               private separator: string,
               protected firstPlaceholder: string = null,
               protected secondPlaceholder: string = null) {
-    super(configData, initFormValues);
+    super(configData, initFormValues, readOnly);
 
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;

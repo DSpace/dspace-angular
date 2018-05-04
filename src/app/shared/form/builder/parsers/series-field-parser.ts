@@ -4,7 +4,7 @@ import { ConcatFieldParser } from './concat-field-parser';
 
 export class SeriesFieldParser extends ConcatFieldParser {
 
-  constructor(protected configData: FormFieldModel, protected initFormValues) {
-    super(configData, initFormValues, ';');
+  constructor(protected configData: FormFieldModel, protected initFormValues, protected readOnly: boolean) {
+    super(configData, initFormValues, readOnly, ';');
   }
 }

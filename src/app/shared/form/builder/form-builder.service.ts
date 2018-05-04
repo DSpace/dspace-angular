@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { isEqual, mergeWith } from 'lodash';
+import { FormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -14,7 +14,8 @@ import {
   DynamicPathable,
   JSONUtils,
 } from '@ng-dynamic-forms/core';
-import { FormGroup } from '@angular/forms';
+import { isEqual, mergeWith } from 'lodash';
+
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../empty.util';
 import { DynamicComboboxModel } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
@@ -32,8 +33,9 @@ import { RowParser } from './parsers/row-parser';
 
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import { AuthorityModel } from '../../../core/integration/models/authority.model';
+import { AuthorityValueModel } from '../../../core/integration/models/authority-value.model';
 import { FormFieldLanguageValueObject } from './models/form-field-language-value.model';
+import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -176,13 +178,13 @@ export class FormBuilderService extends DynamicFormService {
     return newModel;
   }
 
-  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any, submissionScope?: string): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, JSONUtils.parseReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = new RowParser(currentRow, scopeUUID, initFormValues, submissionScope).parse();
+        const rowParsed = new RowParser(currentRow, scopeUUID, initFormValues, submissionScope, readOnly).parse();
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
@@ -246,15 +248,15 @@ export class FormBuilderService extends DynamicFormService {
       fieldValue = (event.model.parent as any).value;
     } else if ((event.model as any).hasLanguages) {
       const language = (event.model as any).language;
-      if (this.isModelWithAuthority(event.model)) {
+      if ((event.model as DsDynamicInputModel).hasAuthority) {
         if (Array.isArray(value)) {
           value.forEach((authority, index) => {
-            authority = Object.assign(new AuthorityModel(), authority, {language});
+            authority = Object.assign(new AuthorityValueModel(), authority, {language});
             value[index] = authority;
           });
           fieldValue = value;
         } else {
-          fieldValue = Object.assign(new AuthorityModel(), value, {language});
+          fieldValue = Object.assign(new AuthorityValueModel(), value, {language});
         }
       } else {
         // Language without Authority (input, textArea)

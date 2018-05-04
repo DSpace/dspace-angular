@@ -25,7 +25,11 @@ export const ROW_ID_PREFIX = 'df-row-group-config-';
 export class RowParser {
   protected authorityOptions: IntegrationSearchOptions;
 
-  constructor(protected rowData, protected scopeUUID, protected initFormValues: any, protected submissionScope) {
+  constructor(protected rowData,
+              protected scopeUUID,
+              protected initFormValues: any,
+              protected submissionScope,
+              protected readOnly: boolean) {
     this.authorityOptions = new IntegrationSearchOptions(scopeUUID);
   }
 
@@ -46,47 +50,47 @@ export class RowParser {
 
       switch (fieldData.input.type) {
         case 'date':
-          fieldModel = (new DateFieldParser(fieldData, this.initFormValues).parse());
+          fieldModel = (new DateFieldParser(fieldData, this.initFormValues, this.readOnly).parse());
           break;
 
         case 'dropdown':
-          fieldModel = (new DropdownFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse());
+          fieldModel = (new DropdownFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
           break;
 
         case 'list':
-          fieldModel = (new ListFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse());
+          fieldModel = (new ListFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
           break;
 
         case 'lookup':
-          fieldModel = (new LookupFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse());
+          fieldModel = (new LookupFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
           break;
 
         case 'onebox':
-          fieldModel = (new OneboxFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse());
+          fieldModel = (new OneboxFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
           break;
 
         case 'lookup-name':
-          fieldModel = (new LookupNameFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse());
+          fieldModel = (new LookupNameFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
           break;
 
         case 'name':
-          fieldModel = (new NameFieldParser(fieldData, this.initFormValues).parse());
+          fieldModel = (new NameFieldParser(fieldData, this.initFormValues, this.readOnly).parse());
           break;
 
         case 'series':
-          fieldModel = (new SeriesFieldParser(fieldData, this.initFormValues).parse());
+          fieldModel = (new SeriesFieldParser(fieldData, this.initFormValues, this.readOnly).parse());
           break;
 
         case 'tag':
-          fieldModel = (new TagFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse());
+          fieldModel = (new TagFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
           break;
 
         case 'textarea':
-          fieldModel = (new TextareaFieldParser(fieldData, this.initFormValues).parse());
+          fieldModel = (new TextareaFieldParser(fieldData, this.initFormValues, this.readOnly).parse());
           break;
 
         case 'group':
-          fieldModel = new GroupFieldParser(fieldData, this.initFormValues, this.authorityOptions.uuid).parse();
+          fieldModel = new GroupFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse();
           break;
 
         case 'twobox':

@@ -1,12 +1,15 @@
 import {
-  DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig,
+  DynamicFormControlLayout,
+  DynamicInputModel,
+  DynamicInputModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs/Subject';
+
 import { LanguageCode } from '../../models/form-field-language-value.model';
-import { AuthorityModel } from '../../../../../core/integration/models/authority.model';
 import { AuthorityOptions } from '../../../../../core/integration/models/authority-options.model';
 import { hasValue } from '../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   authorityOptions: AuthorityOptions;
@@ -25,11 +28,12 @@ export class DsDynamicInputModel extends DynamicInputModel {
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
 
+    this.readOnly = config.readOnly;
     this.value = config.value;
     this.language = config.language;
     if (!this.language) {
       // TypeAhead
-      if (config.value instanceof AuthorityModel) {
+      if (config.value instanceof FormFieldMetadataValueObject) {
         this.language = config.value.language;
       } else if (Array.isArray(config.value)) {
         // Tag of Authority
@@ -53,11 +57,11 @@ export class DsDynamicInputModel extends DynamicInputModel {
   }
 
   get hasLanguages(): boolean {
-      if (this.languageCodes && this.languageCodes.length > 1) {
-        return true;
-      } else {
-        return false;
-      }
+    if (this.languageCodes && this.languageCodes.length > 1) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   get language(): string {

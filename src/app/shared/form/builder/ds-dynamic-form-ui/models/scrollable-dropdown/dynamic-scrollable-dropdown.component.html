@@ -4,16 +4,18 @@
          [class.is-invalid]="showErrorMessages"
          [dynamicId]="bindId && model.id"
          [name]="model.name"
+         [readonly]="model.readOnly"
          [type]="model.inputType"
          [value]="formatItemForInput(model.value)"
          (blur)="onBlurEvent($event)"
-         (click)="$event.stopPropagation(); sdRef.open();"
+         (click)="$event.stopPropagation(); openDropdown(sdRef);"
          (focus)="onFocusEvent($event)"
          (keypress)="$event.preventDefault()">
     <button aria-describedby="collectionControlsMenuLabel"
             class="ds-form-input-btn  btn btn-outline-primary"
             id="scrollableDropdownMenuButton_{{model.id}}"
-            ngbDropdownToggle ></button>
+            ngbDropdownToggle
+            [disabled]="model.readOnly"></button>
 
   <div ngbDropdownMenu
        class="dropdown-menu scrollable-dropdown-menu w-100"

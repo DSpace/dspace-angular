@@ -10,8 +10,11 @@ import { FormRowModel } from '../../../../core/shared/config/config-submission-f
 
 export class GroupFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel, protected initFormValues, protected authorityUuid: string) {
-    super(configData, initFormValues);
+  constructor(protected configData: FormFieldModel,
+              protected initFormValues,
+              protected readOnly: boolean,
+              protected authorityUuid: string) {
+    super(configData, initFormValues, readOnly);
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject) {
@@ -52,7 +55,7 @@ export class GroupFieldParser extends FieldParser {
     }
     const cls = {
       element: {
-        container: 'mb-0'
+        container: 'mb-3'
       }
     };
 

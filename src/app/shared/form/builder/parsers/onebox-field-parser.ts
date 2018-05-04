@@ -1,26 +1,19 @@
-import {
-  DynamicFormControlLayoutConfig,
-  DynamicFormGroupModel,
-  DynamicInputModel,
-  DynamicInputModelConfig,
-  DynamicSelectModel,
-  DynamicSelectModelConfig
-} from '@ng-dynamic-forms/core';
+import { DynamicSelectModel, DynamicSelectModelConfig } from '@ng-dynamic-forms/core';
 
 import { FieldParser } from './field-parser';
 import { FormFieldModel } from '../models/form-field.model';
 import {
   COMBOBOX_GROUP_SUFFIX,
   COMBOBOX_METADATA_SUFFIX,
-  COMBOBOX_VALUE_SUFFIX, DsDynamicComboboxModelConfig,
+  COMBOBOX_VALUE_SUFFIX,
+  DsDynamicComboboxModelConfig,
   DynamicComboboxModel
 } from '../ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { isNotEmpty } from '../../../empty.util';
-import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import {
-  DsDynamicTypeaheadModelConfig, DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD,
+  DsDynamicTypeaheadModelConfig,
   DynamicTypeaheadModel
 } from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 
@@ -28,8 +21,9 @@ export class OneboxFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
               protected initFormValues,
+              protected readOnly: boolean,
               protected authorityUuid: string) {
-    super(configData, initFormValues);
+    super(configData, initFormValues, readOnly);
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
@@ -74,11 +68,13 @@ export class OneboxFieldParser extends FieldParser {
       if (isNotEmpty(fieldValue)) {
         selectModelConfig.value = fieldValue.metadata;
       }
+      selectModelConfig.disabled = true;
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + COMBOBOX_VALUE_SUFFIX, true, true);
       this.setValues(inputModelConfig, fieldValue);
 
+      inputSelectGroup.readOnly = selectModelConfig.disabled && inputModelConfig.readOnly;
       inputSelectGroup.group.push(new DsDynamicInputModel(inputModelConfig, clsInput));
 
       return new DynamicComboboxModel(inputSelectGroup, clsGroup);

@@ -1,7 +1,7 @@
 import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { isNotEmpty } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
-import { AuthorityModel } from '../../../../../core/integration/models/authority.model';
+import { AuthorityValueModel } from '../../../../../core/integration/models/authority-value.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
 export const CONCAT_FIRST_INPUT_SUFFIX = '_CONCAT_FIRST_INPUT';
@@ -33,7 +33,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     }
   }
 
-  set value(value: string | AuthorityModel) {
+  set value(value: string | AuthorityValueModel) {
     let values;
     if (typeof value === 'string') {
       values =  value ? value.split(this.separator) : [null, null];

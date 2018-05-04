@@ -11,6 +11,7 @@
          [name]="model.name"
          [ngbTypeahead]="search"
          [placeholder]="model.label"
+         [readonly]="model.readOnly"
          [resultTemplate]="rt"
          [type]="model.inputType"
          [(ngModel)]="currentValue"

@@ -16,12 +16,13 @@
              class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
+                    [disabled]="isItemReadOnly(context, index)"
                     (click)="insertItem($event, group.context, group.index + 1)">
               <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
             <button type="button" class="btn btn-secondary"
                     (click)="removeItem($event, context, index)"
-                    [disabled]="group.context.groups.length === 1">
+                    [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </div>
@@ -33,7 +34,7 @@
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
                     (click)="removeItem($event, context, index)"
-                    [disabled]="group.context.groups.length === 1">
+                    [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
           </div>

@@ -4,8 +4,11 @@ import { LookupFieldParser } from './lookup-field-parser';
 
 export class LookupNameFieldParser extends LookupFieldParser {
 
-  constructor(protected configData: FormFieldModel, protected initFormValues, protected authorityUuid: string) {
-    super(configData, initFormValues, authorityUuid);
+  constructor(protected configData: FormFieldModel,
+              protected initFormValues,
+              protected readOnly: boolean,
+              protected authorityUuid: string) {
+    super(configData, initFormValues, readOnly, authorityUuid);
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {

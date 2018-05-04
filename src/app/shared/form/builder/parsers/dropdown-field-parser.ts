@@ -12,8 +12,9 @@ export class DropdownFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
               protected initFormValues,
+              protected readOnly: boolean,
               protected authorityUuid: string) {
-    super(configData, initFormValues);
+    super(configData, initFormValues, readOnly);
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {

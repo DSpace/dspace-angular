@@ -38,9 +38,6 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   value: number;
   lastValue: number;
 
-  readonlyInputs: any;
-  // hiddenForm: FormGroup;
-
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {
   }
 

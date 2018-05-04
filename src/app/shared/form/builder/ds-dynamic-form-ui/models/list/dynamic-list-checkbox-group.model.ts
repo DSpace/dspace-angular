@@ -5,7 +5,7 @@ import {
   DynamicFormGroupModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 import { hasValue } from '../../../../../empty.util';
 
@@ -21,7 +21,7 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
   @serializable() authorityOptions: AuthorityOptions;
   @serializable() repeatable: boolean;
   @serializable() groupLength: number;
-  @serializable() _value: AuthorityModel[];
+  @serializable() _value: AuthorityValueModel[];
   valueUpdates: Subject<any>;
 
   constructor(config: DynamicListCheckboxGroupModelConfig, layout?: DynamicFormControlLayout) {
@@ -33,7 +33,7 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
     this.repeatable = config.repeatable;
 
     this.valueUpdates = new Subject<any>();
-    this.valueUpdates.subscribe((value: AuthorityModel | AuthorityModel[]) => this.value = value);
+    this.valueUpdates.subscribe((value: AuthorityValueModel | AuthorityValueModel[]) => this.value = value);
     this.valueUpdates.next(config.value);
   }
 
@@ -45,13 +45,13 @@ export class DynamicListCheckboxGroupModel extends DynamicCheckboxGroupModel {
     return this._value;
   }
 
-  set value(value: AuthorityModel | AuthorityModel[]) {
+  set value(value: AuthorityValueModel | AuthorityValueModel[]) {
     if (value) {
       if (Array.isArray(value)) {
         this._value = value;
       } else {
         // _value is non extendible so assign it a new array
-        const newValue = (this.value as AuthorityModel[]).concat([value]);
+        const newValue = (this.value as AuthorityValueModel[]).concat([value]);
         this._value = newValue
       }
     }

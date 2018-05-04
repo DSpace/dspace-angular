@@ -1,7 +1,7 @@
 <div #sdRef="ngbDropdown"
      ngbDropdown
      (click)="$event.stopPropagation();"
->
+     (openChange)="openChange($event)">
 
   <!--Simple lookup, only 1 field -->
   <div class="form-row" *ngIf="!isLookupName">
@@ -17,6 +17,7 @@
                  [(ngModel)]="firstInputValue"
                  [disabled]="isInputDisabled()"
                  [placeholder]="model.placeholder"
+                 [readonly]="model.readOnly"
                  (change)="$event.preventDefault()"
                  (blur)="onBlurEvent($event); sdRef.close();"
                  (focus)="onFocusEvent($event); sdRef.close();"
@@ -28,15 +29,16 @@
     </div>
     <div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 text-center">
       <button
-        *ngIf="model.value == null" class="btn btn-secondary"
+        *ngIf="!isInputDisabled()" class="btn btn-secondary"
         type="button"
-        [disabled]="isSearchDisabled()"
-        (click)="search($event); sdRef.open();">Search
+        [disabled]="model.readOnly || isSearchDisabled()"
+        (click)="search($event); sdRef.open();">{{'submission.sections.form.search' | translate}}
       </button>
       <button
-        *ngIf="model.value != null" class="btn btn-secondary"
+        *ngIf="isInputDisabled()" class="btn btn-secondary"
         type="button"
-        (click)="remove($event)">Remove
+        [disabled]="model.readOnly"
+        (click)="remove($event)">{{'submission.sections.form.remove' | translate}}
       </button>
     </div>
   </div>
@@ -55,6 +57,7 @@
                  [(ngModel)]="firstInputValue"
                  [disabled]="isInputDisabled()"
                  [placeholder]="model.placeholder | translate"
+                 [readonly]="model.readOnly"
                  (change)="$event.preventDefault()"
                  (blur)="onBlurEvent($event); sdRef.close();"
                  (focus)="onFocusEvent($event); sdRef.close();"
@@ -73,6 +76,7 @@
                   [(ngModel)]="secondInputValue"
                   [disabled]="firstInputValue.length === 0 || isInputDisabled()"
                   [placeholder]="model.placeholder2 | translate"
+                  [readonly]="model.readOnly"
                   (change)="$event.preventDefault()"
                   (blur)="onBlurEvent($event); sdRef.close();"
                   (focus)="onFocusEvent($event); sdRef.close();"
@@ -86,12 +90,12 @@
         *ngIf="!isInputDisabled()" class="btn btn-secondary"
         type="button"
         [disabled]="isSearchDisabled()"
-        (click)="search($event); sdRef.open();"> {{'submission.sections.form.search' | translate}}
+        (click)="search($event); sdRef.open();">{{'submission.sections.form.search' | translate}}
       </button>
       <button
         *ngIf="isInputDisabled()" class="btn btn-secondary"
         type="button"
-        (click)="remove($event)"> {{'submission.sections.form.remove' | translate}}
+        (click)="remove($event)">{{'submission.sections.form.remove' | translate}}
       </button>
     </div>
   </div>
@@ -111,7 +115,7 @@
 
       <button class="dropdown-item disabled"
               *ngIf="optionsList && optionsList.length == 0"
-              (click)="clearFields(); sdRef.close();">{{'submission.sections.form.no_results' | translate}}
+              (click)="clearFields(); sdRef.close();">{{'submission.sections.form.no-results' | translate}}
       </button>
       <button class="dropdown-item collection-item"
               *ngFor="let listEntry of optionsList"

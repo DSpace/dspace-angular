@@ -5,15 +5,15 @@ import { IntegrationSearchOptions } from '../../../../core/integration/models/in
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { AuthorityModel } from '../../../../core/integration/models/authority.model';
 
 export class ListFieldParser extends FieldParser {
   searchOptions: IntegrationSearchOptions;
 
   constructor(protected configData: FormFieldModel,
               protected initFormValues,
+              protected readOnly: boolean,
               protected authorityUuid: string) {
-    super(configData, initFormValues);
+    super(configData, initFormValues, readOnly);
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
@@ -26,13 +26,11 @@ export class ListFieldParser extends FieldParser {
       if (isNotEmpty(this.getInitGroupValues())) {
         listModelConfig.value = [];
         this.getInitGroupValues().forEach((value: any) => {
-          if (value instanceof AuthorityModel) {
+          if (value instanceof FormFieldMetadataValueObject) {
             listModelConfig.value.push(value);
           } else {
-            const authorityValue: AuthorityModel = new AuthorityModel();
-            authorityValue.value = value;
-            authorityValue.display = value;
-            listModelConfig.value.push(authorityValue);
+            const valueObj = new FormFieldMetadataValueObject(value);
+            listModelConfig.value.push(valueObj);
           }
         });
       }

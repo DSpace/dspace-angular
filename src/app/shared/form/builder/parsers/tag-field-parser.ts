@@ -6,9 +6,11 @@ import { DynamicTagModel, DynamicTagModelConfig } from '../ds-dynamic-form-ui/mo
 
 export class TagFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel, protected initFormValues,
+  constructor(protected configData: FormFieldModel,
+              protected initFormValues,
+              protected readOnly: boolean,
               protected authorityUuid: string) {
-    super(configData, initFormValues);
+    super(configData, initFormValues, readOnly);
   }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {

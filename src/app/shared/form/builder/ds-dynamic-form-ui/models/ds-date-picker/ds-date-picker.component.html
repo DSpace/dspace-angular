@@ -1,6 +1,7 @@
 <div class="d-flex">
   <div class="mr-3">
     <ds-number-picker
+      [disabled]="model.disabled"
       [min]="minYear"
       [max]="maxYear"
       [name]="'year'"
@@ -22,7 +23,7 @@
       [(ngModel)]="initialMonth"
       [value]="month"
       [placeholder]="monthPlaceholder"
-      [disabled]="!year"
+      [disabled]="!year || model.disabled"
       (change)="onChange($event)"
     ></ds-number-picker>
   </div>
@@ -36,7 +37,7 @@
       [(ngModel)]="initialDay"
       [value]="day"
       [placeholder]="dayPlaceholder"
-      [disabled]="!month"
+      [disabled]="!month || model.disabled"
       (change)="onChange($event)"
     ></ds-number-picker>
   </div>

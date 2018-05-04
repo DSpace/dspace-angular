@@ -12,10 +12,6 @@ import {
 
 export class TextareaFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel, protected initFormValues) {
-    super(configData, initFormValues);
-  }
-
   public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
     const textAreaModelConfig: DsDynamicTextAreaModelConfig = this.initModel();
 

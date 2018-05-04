@@ -22,7 +22,7 @@
                  [class.mr-2]="l"
                  aria-hidden="true"></i>
             </ng-container>
-            {{c.display}}<i class="fa fa-times ml-2" (click)="removeChips($event, i)"></i>
+            <p class="chip-label text-truncate d-table-cell">{{c.display}}</p><i class="fa fa-times ml-2" (click)="removeChips($event, i)"></i>
           </span>
         </a>
       </li>

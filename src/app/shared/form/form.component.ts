@@ -235,6 +235,12 @@ export class FormComponent implements OnDestroy, OnInit {
     this.formGroup.reset();
   }
 
+  isItemReadOnly(arrayContext: DynamicFormArrayModel, index: number): boolean {
+    const context = arrayContext.groups[index];
+    const model = context.group[0] as any;
+    return model.readOnly;
+  }
+
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number) {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));

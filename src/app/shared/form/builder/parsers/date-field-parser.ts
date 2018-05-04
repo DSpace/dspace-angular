@@ -7,29 +7,11 @@ import { DS_DATE_PICKER_SEPARATOR } from '../ds-dynamic-form-ui/models/ds-date-p
 
 export class DateFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel, protected initFormValues) {
-    super(configData, initFormValues);
-  }
-
   public modelFactory(): any {
     const inputDateModelConfig: DynamicDatePickerModelConfig = this.initModel();
 
     inputDateModelConfig.toggleIcon = 'fa fa-calendar';
-    /*
-    let cls: ClsConfig;
-    cls = {
-      element: {
-        container: 'p-0',
-        label: 'col-form-label'
-      },
-      grid: {
-        host: 'col-sm-4'
-      }
-    };
-    const datePickerGroup: DynamicFormGroupModel = Object.create(null);
-    datePickerGroup.id = inputDateModelConfig.id + '_group';*/
 
-    // const dateModel = new DynamicDatePickerModel(inputDateModelConfig);
     const dateModel = new DynamicDsDatePickerModel(inputDateModelConfig);
 
     // Init Data and validity check

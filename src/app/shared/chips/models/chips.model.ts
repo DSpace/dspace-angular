@@ -1,11 +1,9 @@
 import { findIndex, isEqual } from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ChipsItem, ChipsItemIcon } from './chips-item.model';
-import { Inject } from '@angular/core';
 import { GlobalConfig } from '../../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../../config';
-import { AuthorityModel } from '../../../core/integration/models/authority.model';
 import { hasValue } from '../../empty.util';
+import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
 
 export class Chips {
   chipsItems: BehaviorSubject<ChipsItem[]>;
@@ -98,8 +96,8 @@ export class Chips {
       .forEach((metadata) => {
         const value = item[metadata];
         if (hasValue(value)
-          && value instanceof AuthorityModel
-          && value.id
+          && value instanceof FormFieldMetadataValueObject
+          && value.authority
           && this.EnvConfig.submission.metadata.icons.hasOwnProperty(metadata)) {
 
           const icon: ChipsItemIcon = {

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
@@ -7,7 +7,8 @@ import { isNull, isUndefined } from '../../../../../empty.util';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
-import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -53,7 +54,13 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
     return (typeof item === 'string') ? item : this.inputFormatter(item);
   }
 
-  inputFormatter = (x: AuthorityModel) => x.display || x.value;
+  inputFormatter = (x: AuthorityValueModel) => x.display || x.value;
+
+  openDropdown(sdRef: NgbDropdown) {
+    if (!this.model.readOnly) {
+      sdRef.open();
+    }
+  }
 
   onScroll() {
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {

@@ -3,6 +3,7 @@ import { isNotEmpty } from '../../../empty.util';
 export class FormFieldMetadataValueObject {
   metadata?: string;
   value: string;
+  display: string;
   language: any;
   authority: string;
   confidence: number;
@@ -13,12 +14,14 @@ export class FormFieldMetadataValueObject {
   constructor(value: string,
               language: any = null,
               authority: string = null,
+              display: string = null,
               confidence: number = -1,
               place: number = -1,
               metadata: string = null) {
     this.value = value;
     this.language = language;
     this.authority = authority;
+    this.display = display || value;
 
     this.confidence = confidence;
     if (authority != null) {

@@ -1,5 +1,5 @@
 import { AUTOCOMPLETE_OFF, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
-import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 

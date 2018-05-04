@@ -1,7 +1,7 @@
 import { IntegrationModel } from './integration.model';
 import { autoserialize } from 'cerialize';
 
-export class AuthorityModel extends IntegrationModel {
+export class AuthorityValueModel extends IntegrationModel {
 
   @autoserialize
   id: string;

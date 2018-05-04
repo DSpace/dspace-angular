@@ -1,6 +1,5 @@
-import { isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
-import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
 
 import { uniqueId } from 'lodash';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -9,8 +8,6 @@ import {
   DynamicRowArrayModelConfig
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { AuthorityModel } from '../../../../core/integration/models/authority.model';
-import { FormFieldLanguageValueObject } from '../models/form-field-language-value.model';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
@@ -19,7 +16,7 @@ export abstract class FieldParser {
 
   protected fieldId: string;
 
-  constructor(protected configData: FormFieldModel, protected initFormValues) {
+  constructor(protected configData: FormFieldModel, protected initFormValues, protected readOnly: boolean) {
   }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject): any;
@@ -177,6 +174,10 @@ export abstract class FieldParser {
     // input ID doesn't allow dots, so replace them
     controlModel.id = (this.fieldId).replace(/\./g, '_');
 
+    // Set read only option
+    controlModel.readOnly = this.readOnly;
+    controlModel.disabled = this.readOnly;
+
     if (label) {
       controlModel.label = (labelEmpty) ? '&nbsp;' : this.configData.label;
     }
@@ -224,11 +225,11 @@ export abstract class FieldParser {
         this.configData.selectableMetadata[0].metadata,
         authorityUuid,
         this.configData.selectableMetadata[0].closed
-        )
+      )
     }
   }
 
-  public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceAuthority: boolean = false, groupModel?: boolean) {
+  public setValues(modelConfig: DsDynamicInputModelConfig, fieldValue: any, forceValueAsObj: boolean = false, groupModel?: boolean) {
     if (isNotEmpty(fieldValue)) {
       if (groupModel) {
         // Array, values is an array
@@ -240,34 +241,26 @@ export abstract class FieldParser {
         return;
       }
 
-      if (fieldValue instanceof FormFieldMetadataValueObject) {
-        // Case string with language
-        modelConfig.value = fieldValue;
+      if (typeof fieldValue === 'object') {
         modelConfig.language = fieldValue.language;
-      }
-      if (fieldValue instanceof FormFieldLanguageValueObject) {
-        // Case string with language
-        modelConfig.value = fieldValue.value;
-        modelConfig.language = fieldValue.language;
-
-      } else if (fieldValue instanceof AuthorityModel) {
-        // AuthorityModel
-        modelConfig.value = fieldValue;
-
+        if (hasValue(fieldValue.language)) {
+          // Instance of FormFieldLanguageValueObject
+          modelConfig.value = fieldValue.value;
+        } else if (hasValue(fieldValue.metadata)) {
+          // Is a combobox field's value
+          modelConfig.value = fieldValue.value;
+        } else {
+          // Instance of FormFieldMetadataValueObject
+          modelConfig.value = fieldValue;
+        }
       } else {
-        if (forceAuthority) {
-          // If value isn't an instance of AuthorityModel instantiate it
-          const authorityValue: AuthorityModel = new AuthorityModel();
-          authorityValue.value = fieldValue;
-          authorityValue.display = fieldValue;
-          modelConfig.value = authorityValue;
+        if (forceValueAsObj) {
+          // If value isn't an instance of FormFieldMetadataValueObject instantiate it
+          modelConfig.value = new FormFieldMetadataValueObject(fieldValue);
         } else {
           if (typeof fieldValue === 'string') {
             // Case only string
             modelConfig.value = fieldValue;
-          } else if (fieldValue.value) {
-            // Case ComboBox, >=1 retry, first time fieldValue is null
-            modelConfig.value = fieldValue.value;
           }
         }
       }

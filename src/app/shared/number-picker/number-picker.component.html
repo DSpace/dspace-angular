@@ -1,4 +1,4 @@
-<div class="ngb-tp-hour">
+<div class="d-flex flex-column align-items-center justify-content-around">
     <button
       type="button"
       class="btn btn-link"
@@ -17,10 +17,10 @@
       [(ngModel)]="value"
       (change)="update($event)"
       (focus)="onFocus()"
-      [readonly]="readonlyInputs"
+      [readonly]="disabled"
       [disabled]="disabled"
       [ngClass]="{'is-invalid': invalid}"
-      aria-label="Hours"
+      aria-label="name"
     >
     <button
       type="button"

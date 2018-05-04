@@ -9,7 +9,6 @@ import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
@@ -88,12 +87,10 @@ export class DsDynamicTypeaheadComponent implements OnInit {
 
   onInput(event) {
     if (!this.model.authorityOptions.closed && isNotEmpty(event.target.value)) {
-      const value = new AuthorityModel();
-      value.value = event.target.value;
-      value.display = event.target.value;
-      this.currentValue = value;
-      this.model.valueUpdates.next(value as any);
-      this.change.emit(value);
+      const valueObj = new FormFieldMetadataValueObject(event.target.value);
+      this.currentValue = valueObj;
+      this.model.valueUpdates.next(valueObj as any);
+      this.change.emit(valueObj);
     }
     if (event.data) {
       // this.group.markAsDirty();

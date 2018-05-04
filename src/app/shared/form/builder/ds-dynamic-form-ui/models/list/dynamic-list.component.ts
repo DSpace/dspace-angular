@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { findKey, pull } from 'lodash';
+import { findKey } from 'lodash';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
@@ -10,9 +10,8 @@ import { ConfigData } from '../../../../../../core/config/config-data';
 import { ConfigAuthorityModel } from '../../../../../../core/shared/config/config-authority.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicCheckboxModel } from '@ng-dynamic-forms/core';
-import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
-import { DsDynamicFormControlComponent } from '../../ds-dynamic-form-control.component';
 
 export interface ListItem {
   id: string,
@@ -39,7 +38,7 @@ export class DsDynamicListComponent implements OnInit {
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public items: ListItem[][] = [];
-  protected authorityList: AuthorityModel[];
+  protected authorityList: AuthorityValueModel[];
   protected searchOptions: IntegrationSearchOptions;
 
   constructor(private authorityService: AuthorityService,
@@ -73,7 +72,7 @@ export class DsDynamicListComponent implements OnInit {
     const target = event.target as any;
     if (this.model.repeatable) {
       // Target tabindex coincide with the array index of the value into the authority list
-      const authorityValue: AuthorityModel = this.authorityList[target.tabIndex];
+      const authorityValue: AuthorityValueModel = this.authorityList[target.tabIndex];
       if (target.checked) {
         this.model.valueUpdates.next(authorityValue);
       } else {

@@ -7,8 +7,9 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../../empty.util';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { AuthorityModel } from '../../../../../../core/integration/models/authority.model';
 import { Subscription } from 'rxjs/Subscription';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 
 @Component({
   selector: 'ds-dynamic-lookup',
@@ -64,7 +65,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
         } else {
           this.setInputsValue(this.model.value);
         }
-    });
+      });
   }
 
   public formatItemForInput(item: any, field: number): string {
@@ -83,9 +84,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   onInput(event) {
     if (!this.model.authorityOptions.closed) {
       if (isNotEmpty(this.getCurrentValue())) {
-        const currentValue = new AuthorityModel();
-        currentValue.value = this.getCurrentValue();
-        currentValue.display = this.getCurrentValue();
+        const currentValue = new FormFieldMetadataValueObject(this.getCurrentValue());
         this.onSelect(currentValue);
       } else {
         this.remove();
@@ -103,7 +102,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   protected setInputsValue(value) {
     if (hasValue(value)) {
       let displayValue = value;
-      if (value instanceof AuthorityModel) {
+      if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel) {
         displayValue = value.display;
       }
 
@@ -111,7 +110,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
         if (this.isLookupName) {
           const values = displayValue.split(this.model.separator);
 
-          this.firstInputValue = (values[0] || '').trim() ;
+          this.firstInputValue = (values[0] || '').trim();
           this.secondInputValue = (values[1] || '').trim();
         } else {
           this.firstInputValue = displayValue || '';
@@ -188,13 +187,21 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
     //   return true;
     // }
     // return false;
-    return isEmpty(this.model.value);
+    return isEmpty(this.firstInputValue);
   }
 
   remove() {
     this.group.markAsPristine();
     this.model.valueUpdates.next(null);
     this.change.emit(null);
+  }
+
+  openChange(isOpened: boolean) {
+    if (!isOpened) {
+      if (this.model.authorityOptions.closed) {
+        this.setInputsValue('');
+      }
+    }
   }
 
   onBlurEvent(event: Event) {
