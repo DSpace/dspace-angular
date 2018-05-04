@@ -24,7 +24,7 @@ module.exports = {
   // Authentications
   auth: {
     target: {
-      host: 'https://hasselt-dspace.dev01.4science.it',
+      host: 'https://dspace7.4science.it',
       page: '/dspace-spring-rest/shib.html'
     }
   },
