@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { hasNoValue, isEmpty, isNotEmpty } from '../../empty.util';
 import { Metadatum } from '../../../core/shared/metadatum.model';
 import { Item } from '../../../core/shared/item.model';
@@ -17,14 +18,6 @@ export class ItemListPreviewComponent {
   @Input() object: any;
   @Input() status: ItemStatusType;
   @Input() showSubmitter = false;
-
-  getTitle(): string {
-    return this.item.findMetadata('dc.title');
-  }
-
-  getDate(): string {
-    return this.item.findMetadata('dc.date.issued');
-  }
 
   getValues(keys: string[]): string[] {
     const results: string[] = new Array<string>();

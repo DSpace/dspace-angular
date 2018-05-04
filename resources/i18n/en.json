@@ -87,7 +87,11 @@
     "description": "",
     "new-submission-btn": "New submission",
     "results": {
-      "head": "Your submissions"
+      "head": "Your submissions",
+      "no-title": "No title",
+      "no-authors": "No Authors",
+      "no-date": "No Date",
+      "no-abstract": "No Abstract"
     },
     "messages": {
       "title": "Messages",
