@@ -12,6 +12,7 @@ import { NotificationComponent } from '../notification/notification.component';
 import { Notification } from '../models/notification.model';
 import { NotificationType } from '../models/notification-type';
 import { uniqueId } from 'lodash';
+import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 
 describe('NotificationsBoardComponent', () => {
   let comp: NotificationsBoardComponent;
@@ -45,8 +46,11 @@ describe('NotificationsBoardComponent', () => {
     comp.options = {
       rtl: false,
       position: ['top', 'right'],
-      maxStack: 5
-    };
+      maxStack: 5,
+      timeOut: 5000,
+      clickToClose: true,
+      animate: 'scale'
+    } as INotificationBoardOptions;
 
     fixture.detectChanges();
   }));
