@@ -9,6 +9,7 @@ import 'rxjs/add/observable/of';
 import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
+import { GlobalConfig } from '../../../config/global-config.interface';
 
 describe('NotificationsService test', () => {
   const store: Store<Notification> = jasmine.createSpyObj('store', {
@@ -16,6 +17,7 @@ describe('NotificationsService test', () => {
     select: Observable.of(true)
   });
   let service;
+  let envConfig: GlobalConfig;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -26,7 +28,18 @@ describe('NotificationsService test', () => {
       ]
     });
 
-    service = new NotificationsService(store);
+    envConfig = {
+      notifications: {
+        rtl: false,
+        position: ['top', 'right'],
+        maxStack: 8,
+        timeOut: 5000,
+        clickToClose: true,
+        animate: 'scale'
+      },
+    } as any;
+
+    service = new NotificationsService(envConfig, store);
   });
 
   it('Success method should dispatch NewNotificationAction with proper parameter', () => {
