@@ -1,7 +1,4 @@
-// import actions
 import { NotificationsActions, NotificationsActionTypes, RemoveNotificationAction } from './notifications.actions';
-
-// import models
 import { INotification } from './models/notification.model';
 
 /**
@@ -27,7 +24,6 @@ export function notificationsReducer(state: any = initialState, action: Notifica
 
   switch (action.type) {
     case NotificationsActionTypes.NEW_NOTIFICATION:
-    case NotificationsActionTypes.NEW_NOTIFICATION_WITH_TIMER:
       return [...state, action.payload];
 
     case NotificationsActionTypes.REMOVE_ALL_NOTIFICATIONS:

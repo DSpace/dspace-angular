@@ -8,7 +8,7 @@
                            [logo]="(logoRDObs | async)?.payload"
                            [alternateText]="'Community Logo'">
       </ds-comcol-page-logo>
-      <!-- Introductionary text -->
+      <!-- Introductory text -->
       <ds-comcol-page-content
         [content]="communityPayload.introductoryText"
         [hasInnerHtml]="true">
@@ -24,7 +24,7 @@
         [content]="communityPayload.copyrightText"
         [hasInnerHtml]="true">
       </ds-comcol-page-content>
-      <ds-community-page-sub-collection-list></ds-community-page-sub-collection-list>
+      <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
     </div>
   </div>
   <ds-error *ngIf="communityRD?.hasFailed" message="{{'error.community' | translate}}"></ds-error>

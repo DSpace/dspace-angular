@@ -1,15 +1,22 @@
-import { inject, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { NotificationsService } from './notifications.service';
-import { NotificationType } from './models/notification-type';
-import { NotificationOptions } from './models/notification-options.model';
-import { NotificationAnimationsType } from './models/notification-animations-type';
 import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
 import { NotificationComponent } from './notification/notification.component';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { notificationsReducer } from './notifications.reducers';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
+import { Notification } from './models/notification.model';
+import { NotificationType } from './models/notification-type';
 
-describe('NotificationsService', () => {
+describe('NotificationsService test', () => {
+  const store: Store<Notification> = jasmine.createSpyObj('store', {
+    dispatch: {},
+    select: Observable.of(true)
+  });
+  let service;
+
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [NotificationComponent, NotificationsBoardComponent],
@@ -18,88 +25,43 @@ describe('NotificationsService', () => {
         StoreModule.forRoot({notificationsReducer}),
       ]
     });
+
+    service = new NotificationsService(store);
   });
 
-  it('Default options',
-    inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.success('Title', Observable.of('Content'));
-      expect(notification.options.clickToClose).toBe(true);
-    })
-  );
+  it('Success method should dispatch NewNotificationAction with proper parameter', () => {
+    const notification = service.success('Title', Observable.of('Content'));
+    expect(notification.type).toBe(NotificationType.Success);
+    expect(store.dispatch).toHaveBeenCalledWith(new NewNotificationAction(notification));
+  });
 
-  it('Success method',
-    inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.success(Observable.of('Title'), Observable.of('Content'));
-      expect(notification.id !== undefined).toBeTruthy();
-      expect(notification.type).toBe(NotificationType.Success);
-      expect(notification.title).toBe(Observable.of('Title'));
-      expect(notification.content).toBe(Observable.of('Content'));
-      expect(notification.html).toBeUndefined();
-      expect(notification.options.timeOut).toBe(0);
-      expect(notification.options.clickToClose).toBeTruthy();
-      expect(notification.options.animate).toBe(NotificationAnimationsType.Scale);
-    })
-  );
+  it('Warning method should dispatch NewNotificationAction with proper parameter', () => {
+    const notification = service.warning('Title', Observable.of('Content'));
+    expect(notification.type).toBe(NotificationType.Warning);
+    expect(store.dispatch).toHaveBeenCalledWith(new NewNotificationAction(notification));
+  });
 
-  it('Error method',
-    inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.error(Observable.of('Title'), Observable.of('Content'));
-      expect(notification.id !== undefined).toBeTruthy();
-      expect(notification.type).toBe(NotificationType.Error);
-      expect(notification.title).toBe(Observable.of('Title'));
-      expect(notification.content).toBe(Observable.of('Content'));
-      expect(notification.html).toBeUndefined();
-      expect(notification.options.timeOut).toBe(0);
-      expect(notification.options.clickToClose).toBeTruthy();
-      expect(notification.options.animate).toBe(NotificationAnimationsType.Scale);
-    })
-  );
+  it('Info method should dispatch NewNotificationAction with proper parameter', () => {
+    const notification = service.info('Title', Observable.of('Content'));
+    expect(notification.type).toBe(NotificationType.Info);
+    expect(store.dispatch).toHaveBeenCalledWith(new NewNotificationAction(notification));
+  });
 
-  it('Warning method',
-    inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.warning(Observable.of('Title'), Observable.of('Content'));
-      expect(notification.id !== undefined).toBeTruthy();
-      expect(notification.type).toBe(NotificationType.Warning);
-      expect(notification.title).toBe(Observable.of('Title'));
-      expect(notification.content).toBe(Observable.of('Content'));
-      expect(notification.html).toBeUndefined();
-      expect(notification.options.timeOut).toBe(0);
-      expect(notification.options.clickToClose).toBeTruthy();
-      expect(notification.options.animate).toBe(NotificationAnimationsType.Scale);
-    })
-  );
+  it('Error method should dispatch NewNotificationAction with proper parameter', () => {
+    const notification = service.error('Title', Observable.of('Content'));
+    expect(notification.type).toBe(NotificationType.Error);
+    expect(store.dispatch).toHaveBeenCalledWith(new NewNotificationAction(notification));
+  });
 
-  it('Info method',
-    inject([NotificationsService], (service: NotificationsService) => {
-      const notification = service.info(Observable.of('Title'), Observable.of('Content'));
-      expect(notification.id !== undefined).toBeTruthy();
-      expect(notification.type).toBe(NotificationType.Info);
-      expect(notification.title).toBe(Observable.of('Title'));
-      expect(notification.content).toBe(Observable.of('Content'));
-      expect(notification.html).toBeUndefined();
-      expect(notification.options.timeOut).toBe(0);
-      expect(notification.options.clickToClose).toBeTruthy();
-      expect(notification.options.animate).toBe(NotificationAnimationsType.Scale);
-    })
-  );
+  it('Remove method should dispatch RemoveNotificationAction with proper id', () => {
+    const notification = new Notification('1234', NotificationType.Info, 'title...', 'description');
+    service.remove(notification);
+    expect(store.dispatch).toHaveBeenCalledWith(new RemoveNotificationAction(notification.id));
+  });
 
-  it('Html content',
-    inject([NotificationsService], (service: NotificationsService) => {
-      const options = new NotificationOptions(
-        10000,
-        false,
-        NotificationAnimationsType.Rotate);
-      const html = '<p>I\'m a mock test</p>';
-      const notification = service.success(null, null, options, html);
-      expect(notification.id !== undefined).toBeTruthy();
-      expect(notification.type).toBe(NotificationType.Success);
-      expect(notification.title).toBeNull();
-      expect(notification.content).toBeNull();
-      expect(notification.html).not.toBeNull();
-      expect(notification.options.timeOut).toBe(10000);
-      expect(notification.options.clickToClose).toBeFalsy();
-      expect(notification.options.animate).toBe(NotificationAnimationsType.Rotate);
-    })
-  );
+  it('RemoveAll method should dispatch RemoveAllNotificationsAction', () => {
+    service.removeAll();
+    expect(store.dispatch).toHaveBeenCalledWith(new RemoveAllNotificationsAction());
+  });
 
 });

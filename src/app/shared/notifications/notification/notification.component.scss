@@ -1,40 +1,28 @@
-.alert-dismissible .close {
-  top: -13px;
-  right: -15px;
+@import '../../../../styles/variables.scss';
+
+.close {
+  outline: none !important
 }
 
-.notificationClose:focus {
-  outline: none !important;
+.notification-icon {
+  min-width: 3rem;
 }
 
-.icon {
-  //float: left;
-  //padding: 5px;
-}
-
-.alert-dismissible {
-  padding: 10px;
-}
-
-.sn-title, .sn-content, .sn-html {
-  position: relative;
-  left: 20px;
-}
-
-.sn-progress-loader {
-  position: absolute;
-  top: 0;
-  left: 1px;
-  width: 99%;
+.notification-progress-loader {
+  top: -1px;
+  left: 0;
   height: 1px;
 }
 
-.sn-progress-loader span {
-  float: left;
-  height: 100%;
+.alert-success .notification-progress-loader span {
+  background: darken(adjust-hue(map-get($theme-colors, success), -10), 10%);
 }
-
-.alert-success .sn-progress-loader span { background: #CBC1AD;  }
-.alert-danger .sn-progress-loader span { background: #D5BABA; }
-.alert-info .sn-progress-loader span { background: #B4C9CF; }
-.alert-warning .sn-progress-loader span { background: #DBD1BD; }
+.alert-danger .notification-progress-loader span {
+  background: darken(adjust-hue(map-get($theme-colors, danger), -10), 10%);
+}
+.alert-info .notification-progress-loader span {
+  background: darken(adjust-hue(map-get($theme-colors, info), -10), 10%);
+}
+.alert-warning .notification-progress-loader span {
+  background: darken(adjust-hue(map-get($theme-colors, warning), -10), 10%);
+}

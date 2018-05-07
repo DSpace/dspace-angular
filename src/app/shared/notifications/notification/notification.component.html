@@ -1,60 +1,58 @@
-<div class="notificationContainer alert {{item.type}} alert-dismissible" role="alert"
+<div class="alert {{item.type}} alert-dismissible p-3" role="alert"
      [@enterLeave]="animate">
 
-  <div class="sn-progress-loader" *ngIf="showProgressBar">
-    <span [ngStyle]="{'width': progressWidth + '%'}"></span>
+  <div class="notification-progress-loader position-absolute w-100" *ngIf="showProgressBar">
+    <span [ngStyle]="{'width': progressWidth + '%'}" class="h-100 float-left"></span>
   </div>
-
 
     <button *ngIf="item.options.clickToClose"
             (click)="remove()"
-            type="button" class="notificationClose close" data-dismiss="alert" aria-label="Close">
+            type="button" class="close pt-0 pr-1 pl-0 pb-0" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
 
 
   <div class="d-flex flex-row">
-    <div class="d-flex flex-column justify-content-center">
-      <div class="p-2">
-        <div class="icon"><i
-          [ngClass]="{'fa fa-2x': true,
-        'fa-check': item.type == 'alert-success',
-        'fa-times-circle': item.type == 'alert-danger',
-        'fa-exclamation-triangle': item.type == 'alert-warning',
-        'fa-info': item.type == 'alert-info'
-        }"></i></div>
-      </div>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <div class="notification-icon d-flex justify-content-center"><i
+        [ngClass]="{'fa fa-2x': true,
+      'fa-check': item.type == 'alert-success',
+      'fa-times-circle': item.type == 'alert-danger',
+      'fa-exclamation-triangle': item.type == 'alert-warning',
+      'fa-info': item.type == 'alert-info'
+      }"></i></div>
     </div>
     <div class="d-flex flex-column justify-content-center align-content-stretch">
       <div class="p-2 mr-3"  *ngIf="title">
         <strong>
-          <div class="sn-title" *ngIf="titleIsTemplate; else regularTitle">
+          <div class="pl-1" *ngIf="titleIsTemplate; else regularTitle">
             <ng-container *ngTemplateOutlet="title"></ng-container>
           </div>
           <ng-template #regularTitle>
-            <div class="sn-title" [innerHTML]="(title | async)"></div>
+            <div class="pl-1" [innerHTML]="(title | async)"></div>
           </ng-template>
         </strong>
       </div>
 
       <div class="p-2 mr-3"  *ngIf="content">
-        <div class="sn-content" *ngIf="contentIsTemplate; else regularContent">
+        <div class="pl-1" *ngIf="contentIsTemplate; else regularContent">
           <ng-container *ngTemplateOutlet="content"></ng-container>
         </div>
         <ng-template #regularContent>
-          <div class="sn-content" [innerHTML]="(content | async)"></div>
+          <div class="pl-1" [innerHTML]="(content | async)"></div>
         </ng-template>
       </div>
 
       <div class="p-2 mr-3" *ngIf="item.html">
-        <div class="sn-html" *ngIf="htmlIsTemplate; else regularHtml">
+        <div class="pl-1" *ngIf="htmlIsTemplate; else regularHtml">
           <ng-container *ngTemplateOutlet="html"></ng-container>
         </div>
         <ng-template #regularHtml>
-          <div class="sn-content" [innerHTML]="html"></div>
+          <div class="pl-1" [innerHTML]="html"></div>
         </ng-template>
       </div>
     </div>
   </div>
+
 
 </div>

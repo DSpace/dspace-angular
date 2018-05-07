@@ -1,41 +1,43 @@
-.simple-notification-wrapper {
-  position: fixed;
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+
+.notifications-wrapper {
   width: 300px;
   z-index: 1051;
 }
 
-.simple-notification-wrapper.left {
+.notifications-wrapper.left {
   left: 20px;
 }
 
-.simple-notification-wrapper.top {
+.notifications-wrapper.top {
   top: 20px;
 }
 
-.simple-notification-wrapper.right {
+.notifications-wrapper.right {
   right: 20px;
 }
 
-.simple-notification-wrapper.bottom {
+.notifications-wrapper.bottom {
   bottom: 20px;
 }
 
-.simple-notification-wrapper.center {
+.notifications-wrapper.center {
   left: 50%;
   transform: translateX(-50%);
 }
 
-.simple-notification-wrapper.middle {
+.notifications-wrapper.middle {
   top: 50%;
   transform: translateY(-50%);
 }
 
-.simple-notification-wrapper.middle.center {
+.notifications-wrapper.middle.center {
   transform: translate(-50%, -50%);
 }
 
-@media (max-width: 340px) {
-  .simple-notification-wrapper {
+@media screen and (max-width: map-get($grid-breakpoints, sm)) {
+  .notifications-wrapper {
     width: auto;
     left: 20px;
     right: 20px;

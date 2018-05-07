@@ -86,7 +86,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this.contentType(this.item.html, 'html');
   }
 
-  startTimeOut(): void {
+  private startTimeOut(): void {
     this.steps = this.item.options.timeOut / 10;
     this.speed = this.item.options.timeOut / this.steps;
     this.start = new Date().getTime();
@@ -149,7 +149,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     this[key + 'IsTemplate'] = item instanceof TemplateRef;
   }
 
-  setAnimationOut() {
+  private setAnimationOut() {
     this.animate = this.item.options.animate + NotificationAnimationsStatus.Out;
     this.cdr.detectChanges();
   }

@@ -7,14 +7,16 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { NotificationsService } from '../notifications.service';
+
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+import { difference } from 'lodash';
+
+import { NotificationsService } from '../notifications.service';
 import { AppState } from '../../../app.reducer';
 import { notificationsStateSelector } from '../selectors';
-import { difference } from 'lodash';
 import { INotification } from '../models/notification.model';
 import { NotificationsState } from '../notifications.reducers';
-import { Subscription } from 'rxjs/Subscription';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 
 @Component({
@@ -86,7 +88,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  block(item: INotification): boolean {
+  private block(item: INotification): boolean {
     const toCheck = item.html ? this.checkHtml : this.checkStandard;
     this.notifications.forEach((notification) => {
       if (toCheck(notification, item)) {
@@ -111,16 +113,16 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
     return toCheck(comp, item);
   }
 
-  checkStandard(checker: INotification, item: INotification): boolean {
+  private checkStandard(checker: INotification, item: INotification): boolean {
     return checker.type === item.type && checker.title === item.title && checker.content === item.content;
   }
 
-  checkHtml(checker: INotification, item: INotification): boolean {
+  private checkHtml(checker: INotification, item: INotification): boolean {
     return checker.html ? checker.type === item.type && checker.title === item.title && checker.content === item.content && checker.html === item.html : false;
   }
 
   // Attach all the changes received in the options object
-  attachChanges(options: any): void {
+  private attachChanges(options: any): void {
     Object.keys(options).forEach((a) => {
       if (this.hasOwnProperty(a)) {
         (this as any)[a] = options[a];
