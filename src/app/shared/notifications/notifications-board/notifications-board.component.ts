@@ -7,14 +7,16 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { NotificationsService } from '../notifications.service';
+
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+import { difference } from 'lodash';
+
+import { NotificationsService } from '../notifications.service';
 import { AppState } from '../../../app.reducer';
 import { notificationsStateSelector } from '../selectors';
-import { difference } from 'lodash';
 import { INotification } from '../models/notification.model';
 import { NotificationsState } from '../notifications.reducers';
-import { Subscription } from 'rxjs/Subscription';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 
 @Component({

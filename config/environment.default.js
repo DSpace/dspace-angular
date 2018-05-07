@@ -25,7 +25,12 @@ module.exports = {
   notifications: {
     rtl: false,
     position: ['top', 'right'],
-    maxStack: 8
+    maxStack: 8,
+    // NOTE: after how many seconds notification is closed automatically. If set to zero notifications are not closed automatically
+    timeOut: 5000, // 5 second
+    clickToClose: true,
+    // NOTE: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale'
+    animate: 'scale'
   },
   // Angular Universal settings
   universal: {
