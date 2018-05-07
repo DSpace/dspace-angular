@@ -33,6 +33,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   @Input() submissionId: string;
 
   public definitionId: string;
+  public test = true;
   public loading: Observable<boolean> = Observable.of(true);
   public submissionSections: Observable<any>;
   public uploadFilesOptions: UploadFilesComponentOptions = {
@@ -72,7 +73,10 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       this.loading = this.store.select(submissionObjectFromIdSelector(this.submissionId))
         .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission) && this.isActive)
         .map((submission: SubmissionObjectEntry) => submission.isLoading)
-        .map((isLoading: boolean) => isLoading)
+        .map((isLoading: boolean) => {
+          console.log(isLoading);
+          return isLoading
+        })
         .distinctUntilChanged();
 
       this.subs.push(
