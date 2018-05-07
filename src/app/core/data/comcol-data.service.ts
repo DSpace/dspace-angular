@@ -9,15 +9,18 @@ import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
 import { FindByIDRequest } from './request.models';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
-export abstract class ComColDataService<TNormalized extends CacheableObject, TDomain>  extends DataService<TNormalized, TDomain> {
+export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain>  extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
+  protected abstract halService: HALEndpointService;
 
   /**
    * Get the scoped endpoint URL by fetching the object with
    * the given scopeID and returning its HAL link with this
-   * data-service's linkName
+   * data-service's linkPath
    *
    * @param {string} scopeID
    *    the id of the scope object
@@ -26,7 +29,7 @@ export abstract class ComColDataService<TNormalized extends CacheableObject, TDo
    */
   public getScopedEndpoint(scopeID: string): Observable<string> {
     if (isEmpty(scopeID)) {
-      return this.getEndpoint();
+      return this.halService.getEndpoint(this.linkPath);
     } else {
       const scopeCommunityHrefObs = this.cds.getEndpoint()
         .flatMap((endpoint: string) => this.cds.getFindByIDHref(endpoint, scopeID))
@@ -47,8 +50,8 @@ export abstract class ComColDataService<TNormalized extends CacheableObject, TDo
         errorResponse.flatMap((response: ErrorResponse) =>
           Observable.throw(new Error(`The Community with scope ${scopeID} couldn't be retrieved`))),
         successResponse
-          .flatMap((response: DSOSuccessResponse) => this.objectCache.getByUUID(scopeID, NormalizedCommunity))
-          .map((nc: NormalizedCommunity) => nc._links[this.linkName])
+          .flatMap((response: DSOSuccessResponse) => this.objectCache.getByUUID(scopeID))
+          .map((nc: NormalizedCommunity) => nc._links[this.linkPath])
           .filter((href) => isNotEmpty(href))
       ).distinctUntilChanged();
     }

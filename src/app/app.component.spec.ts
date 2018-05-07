@@ -30,6 +30,8 @@ import { NativeWindowRef, NativeWindowService } from './shared/window.service';
 
 import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
 import { MockMetadataService } from './shared/mocks/mock-metadata-service';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { AngularticsMock } from './shared/mocks/mock-angulartics.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -56,6 +58,7 @@ describe('App component', () => {
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MockMetadataService() },
+        { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() },
         AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

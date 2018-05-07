@@ -10,6 +10,7 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './shared/window.service';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 @Component({
   selector: 'ds-app',
@@ -20,11 +21,14 @@ import { NativeWindowRef, NativeWindowService } from './shared/window.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
-              @Inject(NativeWindowService) private _window: NativeWindowRef,
-              private translate: TranslateService,
-              private store: Store<HostWindowState>,
-              private metadata: MetadataService) {
+  constructor(
+    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
+    private translate: TranslateService,
+    private store: Store<HostWindowState>,
+    private metadata: MetadataService,
+    private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics
+  ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them

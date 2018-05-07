@@ -11,6 +11,7 @@ export interface GlobalConfig extends Config {
   cache: CacheConfig;
   notifications: INotificationBoardOptions;
   universal: UniversalConfig;
+  gaTrackingId: string;
   logDirectory: string;
   debug: boolean;
 }

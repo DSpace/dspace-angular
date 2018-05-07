@@ -28,7 +28,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const processRequestDTO = this.process<NormalizedObject,ResourceType>(data.payload, request.href);
     const selfLinks = this.flattenSingleKeyObject(processRequestDTO).map((no) => no.self);
-    return new DSOSuccessResponse(selfLinks, data.statusCode, this.processPageInfo(data.payload.page))
+    return new DSOSuccessResponse(selfLinks, data.statusCode, this.processPageInfo(data.payload))
   }
 
 }

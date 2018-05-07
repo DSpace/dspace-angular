@@ -4,7 +4,7 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
-import { RootResponseParsingService } from './root-response-parsing.service';
+import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 
@@ -140,14 +140,17 @@ export class FindAllRequest extends GetRequest {
   }
 }
 
-export class RootEndpointRequest extends GetRequest {
-  constructor(uuid: string, EnvConfig: GlobalConfig) {
-    const href = new RESTURLCombiner(EnvConfig, '/').toString();
-    super(uuid, href);
+export class EndpointMapRequest extends GetRequest {
+  constructor(
+    public uuid: string,
+    public href: string,
+    public body?: any
+  ) {
+    super(uuid, href, body);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return RootResponseParsingService;
+    return EndpointMapResponseParsingService;
   }
 }
 

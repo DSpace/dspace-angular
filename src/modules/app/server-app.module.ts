@@ -16,6 +16,9 @@ import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.ser
 
 import { TranslateUniversalLoader } from '../translate-universal-loader';
 
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { AngularticsMock } from '../../app/shared/mocks/mock-angulartics.service';
+
 export function createTranslateLoader() {
   return new TranslateUniversalLoader('dist/assets/i18n/', '.json');
 }
@@ -42,6 +45,7 @@ export function createTranslateLoader() {
     AppModule
   ],
   providers: [
+    { provide: Angulartics2GoogleAnalytics, useClass: AngularticsMock }
   ]
 })
 export class ServerAppModule {

@@ -1,10 +1,7 @@
-import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs/Observable';
 
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ConfigSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
 import { ConfigRequest, FindAllOptions, RestRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
@@ -12,13 +9,13 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ConfigData } from './config-data';
 
-export abstract class ConfigService extends HALEndpointService {
+export abstract class ConfigService {
   protected request: ConfigRequest;
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
-  protected abstract linkName: string;
-  protected abstract EnvConfig: GlobalConfig;
+  protected abstract linkPath: string;
   protected abstract browseEndpoint: string;
+  protected abstract halService: HALEndpointService;
 
   protected getConfig(request: RestRequest): Observable<ConfigData> {
     const [successResponse, errorResponse] =  this.responseCache.get(request.href)
@@ -58,11 +55,7 @@ export abstract class ConfigService extends HALEndpointService {
     }
 
     if (hasValue(options.sort)) {
-      let direction = 'asc';
-      if (options.sort.direction === 1) {
-        direction = 'desc';
-      }
-      args.push(`sort=${options.sort.field},${direction}`);
+      args.push(`sort=${options.sort.field},${options.sort.direction}`);
     }
 
     if (isNotEmpty(args)) {
@@ -72,7 +65,7 @@ export abstract class ConfigService extends HALEndpointService {
   }
 
   public getConfigAll(): Observable<ConfigData> {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL))
@@ -89,7 +82,7 @@ export abstract class ConfigService extends HALEndpointService {
   }
 
   public getConfigByName(name: string): Observable<ConfigData> {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .map((endpoint: string) => this.getConfigByNameHref(endpoint, name))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
@@ -100,7 +93,7 @@ export abstract class ConfigService extends HALEndpointService {
   }
 
   public getConfigBySearch(options: FindAllOptions = {}): Observable<ConfigData> {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .map((endpoint: string) => this.getConfigSearchHref(endpoint, options))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()

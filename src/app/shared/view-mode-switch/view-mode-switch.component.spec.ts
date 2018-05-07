@@ -4,13 +4,12 @@ import { By } from '@angular/platform-browser';
 import { MockTranslateLoader } from '../mocks/mock-translate-loader';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { SearchService } from '../../+search-page/search-service/search.service';
-import { ItemDataService } from './../../core/data/item-data.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { RouteService } from '../route.service';
+import { SearchServiceStub } from '../testing/search-service-stub';
 
 @Component({ template: '' })
 class DummyComponent { }
@@ -18,10 +17,9 @@ class DummyComponent { }
 describe('ViewModeSwitchComponent', () => {
   let comp: ViewModeSwitchComponent;
   let fixture: ComponentFixture<ViewModeSwitchComponent>;
-  let searchService: SearchService;
+  const searchService = new SearchServiceStub();
   let listButton: HTMLElement;
   let gridButton: HTMLElement;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -40,10 +38,10 @@ describe('ViewModeSwitchComponent', () => {
         DummyComponent
       ],
       providers: [
-        { provide: ItemDataService, useValue: {} },
-        { provide: RouteService, useValue: {} },
-        SearchService
+        { provide: SearchService, useValue: searchService },
       ],
+    }).overrideComponent(ViewModeSwitchComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
@@ -54,7 +52,6 @@ describe('ViewModeSwitchComponent', () => {
     const debugElements = fixture.debugElement.queryAll(By.css('a'));
     listButton = debugElements[0].nativeElement;
     gridButton = debugElements[1].nativeElement;
-    searchService = fixture.debugElement.injector.get(SearchService);
   });
 
   it('should set list button as active when on list mode', fakeAsync(() => {

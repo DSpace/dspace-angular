@@ -41,7 +41,7 @@ import { MockRouter } from '../mocks/mock-router';
 
 import { HostWindowService } from '../host-window.service';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../../../config';
 
@@ -271,7 +271,7 @@ describe('Pagination component', () => {
 
     changePage(testFixture, 3);
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 0, sortField: 'name' } });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 'ASC', sortField: 'dc.title' }, queryParamsHandling: 'merge' });
 
   }));
 
@@ -282,7 +282,7 @@ describe('Pagination component', () => {
 
     changePageSize(testFixture, '20');
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 1, pageSize: 20, sortDirection: 0, sortField: 'name' } });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 1, pageSize: 20, sortDirection: 'ASC', sortField: 'dc.title' } , queryParamsHandling: 'merge' });
   }));
 
   it('should set correct values', fakeAsync(() => {
@@ -349,7 +349,7 @@ class TestComponent {
   collection: string[] = [];
   collectionSize: number;
   paginationOptions = new PaginationComponentOptions();
-  sortOptions = new SortOptions();
+  sortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
   constructor() {
     this.collection = Array.from(new Array(100), (x, i) => `item ${i + 1}`);

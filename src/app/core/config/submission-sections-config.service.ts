@@ -1,20 +1,19 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { ConfigService } from './config.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
 export class SubmissionSectionsConfigService extends ConfigService {
-  protected linkName = 'submissionsections';
+  protected linkPath = 'submissionsections';
   protected browseEndpoint = '';
 
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
+    protected halService: HALEndpointService) {
     super();
   }
 

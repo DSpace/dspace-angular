@@ -5,6 +5,7 @@ import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { SearchOptions, ViewMode } from '../search-options.model';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { SearchResult } from '../search-result.model';
+import { PaginatedList } from '../../core/data/paginated-list';
 
 /**
  * This component renders a simple item page.
@@ -20,7 +21,7 @@ import { SearchResult } from '../search-result.model';
   ]
 })
 export class SearchResultsComponent {
-  @Input() searchResults: RemoteData<Array<SearchResult<DSpaceObject>>>;
+  @Input() searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
   @Input() searchConfig: SearchOptions;
   @Input() sortConfig: SortOptions;
   @Input() viewMode: ViewMode;

@@ -1,24 +1,26 @@
 @import '../../../styles/variables';
 @import '../../../styles/mixins';
 
+$ds-wrapper-grid-spacing: $spacer/2;
+
 ds-wrapper-grid-element ::ng-deep {
   div.thumbnail > img {
     height: $card-thumbnail-height;
     width: 100%;
   }
   div.card {
-    margin-bottom: $spacer;
+    margin-top: $ds-wrapper-grid-spacing;
+    margin-bottom: $ds-wrapper-grid-spacing;
   }
 }
 
 .card-columns {
-  @include media-breakpoint-only(lg) {
-    column-count: 3;
-  }
-  @include media-breakpoint-only(sm) {
-    column-count: 2;
-  }
-  @include media-breakpoint-only(xs) {
-    column-count: 1;
+  margin-left: -$ds-wrapper-grid-spacing;
+  margin-right: -$ds-wrapper-grid-spacing;
+
+  .card-column {
+    padding-left: $ds-wrapper-grid-spacing;
+    padding-right: $ds-wrapper-grid-spacing;
   }
 }
+
