@@ -54,13 +54,13 @@ export class AuthService {
 
     // If current route is different from the one setted in authentication guard
     // and is not the login route, clear redirect url and messages
-    const routeUrlObs = this.store.select(routerStateSelector)
+    const routeUrl$ = this.store.select(routerStateSelector)
       .filter((routerState: RouterReducerState) => isNotUndefined(routerState) && isNotUndefined(routerState.state))
       .filter((routerState: RouterReducerState) => !this.isLoginRoute(routerState.state.url))
       .map((routerState: RouterReducerState) => routerState.state.url);
-    const redirectUrlObs = this.getRedirectUrl();
-    routeUrlObs.pipe(
-      withLatestFrom(redirectUrlObs),
+    const redirectUrl$ = this.store.select(getRedirectUrl).distinctUntilChanged();
+    routeUrl$.pipe(
+      withLatestFrom(redirectUrl$),
       map(([routeUrl, redirectUrl]) => [routeUrl, redirectUrl])
     ).filter(([routeUrl, redirectUrl]) => isNotEmpty(redirectUrl) && (routeUrl !== redirectUrl))
       .subscribe(() => {
@@ -329,7 +329,6 @@ export class AuthService {
     this.getRedirectUrl()
       .first()
       .subscribe((redirectUrl) => {
-        console.log('Browser');
         if (isNotEmpty(redirectUrl)) {
           this.clearRedirectUrl();
 
