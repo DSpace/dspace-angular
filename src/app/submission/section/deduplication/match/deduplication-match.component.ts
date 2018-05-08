@@ -1,18 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../core/shared/item.model';
 import { DeduplicationSchema } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
-import { SubmissionService, WORKFLOW_SCOPE, WORKSPACE_SCOPE } from '../../../submission.service';
+import { SubmissionService } from '../../../submission.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { SubmissionState } from '../../../submission.reducers';
 import { DeduplicationService } from '../deduplication.service';
-import { SetWorkflowDuplicatedAction, SetWorkspaceDuplicatedAction } from '../../../objects/submission-objects.actions';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 @Component({
   selector: 'ds-deduplication-match',
@@ -63,7 +62,7 @@ export class DeduplicationMatchComponent implements OnInit {
       this.item = Object.assign(new Item(), this.match.matchObject);
     }
 
-    this.isWorkFlow = this.submissionService.getSubmissionScope() === WORKFLOW_SCOPE ? true : false;
+    this.isWorkFlow = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem;
 
     this.rejectForm = this.formBuilder.group({
       reason: ['', Validators.required]

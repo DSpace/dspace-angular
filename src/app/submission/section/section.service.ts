@@ -18,6 +18,7 @@ import {
 } from '../objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector, submissionSectionFromIdSelector } from '../selectors';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 
 @Injectable()
 export class SectionService {
@@ -44,6 +45,15 @@ export class SectionService {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
       .filter((sectionObj) => hasValue(sectionObj))
       .map((sectionObj: SubmissionSectionObject) => sectionObj.enabled)
+      .distinctUntilChanged();
+  }
+
+  public isSectionReadOnly(submissionId: string, sectionId: string, submissionScope: SubmissionScopeType): Observable<boolean> {
+    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
+      .filter((sectionObj) => hasValue(sectionObj))
+      .map((sectionObj: SubmissionSectionObject) => {
+        return sectionObj.visibility.other === 'READONLY' && submissionScope !== SubmissionScopeType.WorkspaceItem
+      })
       .distinctUntilChanged();
   }
 

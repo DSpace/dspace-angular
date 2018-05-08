@@ -11,7 +11,8 @@ import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { Observable } from 'rxjs/Observable';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
-import { SubmissionService, WORKFLOW_SCOPE } from '../../submission.service';
+import { SubmissionService } from '../../submission.service';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
 @Component({
   selector: 'ds-deduplication-section',
@@ -49,13 +50,13 @@ export class DeduplicationSectionComponent extends SectionModelComponent impleme
 
     this.sectionDataObs = this.store.select(submissionSectionDataFromIdSelector(this.submissionId, this.sectionData.id))
       .filter((sd) => isNotEmpty(sd))
-      .startWith( {matches:[]})
+      .startWith({matches: []})
       .distinctUntilChanged()
-      .map( (sd) => {
+      .map((sd) => {
         return sd;
       });
 
-    this.isWorkFlow = this.submissionService.getSubmissionScope() === WORKFLOW_SCOPE ? true : false;
+    this.isWorkFlow = this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkflowItem;
 
     this.disclaimer = this.isWorkFlow ?
       this.translate.get('submission.sections.deduplication.disclaimer_ctrl')

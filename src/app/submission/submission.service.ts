@@ -19,10 +19,7 @@ import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionRestService } from './submission-rest.service';
 import { Router } from '@angular/router';
 import { SectionDataObject } from './section/section-data.model';
-
-export const WORKSPACE_SCOPE = 'WORKSPACE';
-export const WORKFLOW_SCOPE = 'WORKFLOW';
-export const ITEM_SCOPE = 'ITEM';
+import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 
 @Injectable()
 export class SubmissionService {
@@ -117,17 +114,17 @@ export class SubmissionService {
     }
   }
 
-  getSubmissionScope(): string {
-    let scope: string;
+  getSubmissionScope(): SubmissionScopeType {
+    let scope: SubmissionScopeType;
     switch (this.getSubmissionObjectLinkName()) {
       case 'workspaceitems':
-        scope = WORKSPACE_SCOPE;
+        scope = SubmissionScopeType.WorkspaceItem;
         break;
       case 'workflowitems':
-        scope = WORKFLOW_SCOPE;
+        scope = SubmissionScopeType.WorkflowItem;
         break;
       case 'edititems':
-        scope = ITEM_SCOPE;
+        scope = SubmissionScopeType.EditItem;
         break;
     }
     return scope;

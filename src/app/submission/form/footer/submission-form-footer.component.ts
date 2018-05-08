@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SubmissionRestService } from '../../submission-rest.service';
-import { SubmissionService, WORKSPACE_SCOPE } from '../../submission.service';
+import { SubmissionService } from '../../submission.service';
 import { SubmissionState } from '../../submission.reducers';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -10,6 +10,7 @@ import {
   SaveSubmissionFormAction
 } from '../../objects/submission-objects.actions';
 import { Observable } from 'rxjs/Observable';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
 @Component({
   selector: 'ds-submission-form-footer',
@@ -40,7 +41,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
       this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
       this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
-      this.showDepositAndDiscard = Observable.of(this.submissionService.getSubmissionScope() === WORKSPACE_SCOPE);
+      this.showDepositAndDiscard = Observable.of(this.submissionService.getSubmissionScope() === SubmissionScopeType.WorkspaceItem);
     }
   }
 
