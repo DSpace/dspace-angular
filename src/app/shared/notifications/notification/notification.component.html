@@ -25,30 +25,30 @@
     <div class="d-flex flex-column justify-content-center align-content-stretch">
       <div class="p-2 mr-3"  *ngIf="title">
         <strong>
-          <div class="pl-1" *ngIf="titleIsTemplate; else regularTitle">
+          <div class="notification-title pl-1" *ngIf="titleIsTemplate; else regularTitle">
             <ng-container *ngTemplateOutlet="title"></ng-container>
           </div>
           <ng-template #regularTitle>
-            <div class="pl-1" [innerHTML]="(title | async)"></div>
+            <div class="notification-title pl-1" [innerHTML]="(title | async)"></div>
           </ng-template>
         </strong>
       </div>
 
       <div class="p-2 mr-3"  *ngIf="content">
-        <div class="pl-1" *ngIf="contentIsTemplate; else regularContent">
+        <div class="notification-content pl-1" *ngIf="contentIsTemplate; else regularContent">
           <ng-container *ngTemplateOutlet="content"></ng-container>
         </div>
         <ng-template #regularContent>
-          <div class="pl-1" [innerHTML]="(content | async)"></div>
+          <div class="notification-content pl-1" [innerHTML]="(content | async)"></div>
         </ng-template>
       </div>
 
       <div class="p-2 mr-3" *ngIf="item.html">
-        <div class="pl-1" *ngIf="htmlIsTemplate; else regularHtml">
+        <div class="notification-html pl-1" *ngIf="htmlIsTemplate; else regularHtml">
           <ng-container *ngTemplateOutlet="html"></ng-container>
         </div>
         <ng-template #regularHtml>
-          <div class="pl-1" [innerHTML]="html"></div>
+          <div class="notification-html pl-1" [innerHTML]="html"></div>
         </ng-template>
       </div>
     </div>
