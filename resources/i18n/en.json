@@ -237,6 +237,19 @@
     "objects": "Error fetching objects",
     "search-results": "Error fetching search results"
   },
+  "form": {
+    "search": "Search",
+    "remove": "Remove",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "loading": "Loading...",
+    "no-results": "No results found",
+    "no-value": "No value entered",
+    "group-collapse": "Collapse",
+    "group-expand": "Expand",
+    "group-collapse-help": "Click here to collapse",
+    "group-expand-help": "Click here to expand and add more element"
+  },
   "login": {
     "title": "Login",
     "form": {
@@ -337,19 +350,6 @@
           "until-placeholder": "Until",
           "group-label": "Group"
         }
-      },
-      "form": {
-        "search": "Search",
-        "remove": "Remove",
-        "first_name": "First name",
-        "last_name": "Last name",
-        "loading": "Loading...",
-        "no-results": "No results found",
-        "no-value": "No value entered",
-        "group-collapse": "Collapse",
-        "group-expand": "Expand",
-        "group-collapse-help": "Click here to collapse",
-        "group-expand-help": "Click here to expand and add more element"
       },
       "deduplication": {
         "duplicated": "It's a duplicate",

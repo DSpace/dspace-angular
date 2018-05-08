@@ -32,13 +32,13 @@
         *ngIf="!isInputDisabled()" class="btn btn-secondary"
         type="button"
         [disabled]="model.readOnly || isSearchDisabled()"
-        (click)="search($event); sdRef.open();">{{'submission.sections.form.search' | translate}}
+        (click)="search($event); sdRef.open();">{{'form.search' | translate}}
       </button>
       <button
         *ngIf="isInputDisabled()" class="btn btn-secondary"
         type="button"
         [disabled]="model.readOnly"
-        (click)="remove($event)">{{'submission.sections.form.remove' | translate}}
+        (click)="remove($event)">{{'form.remove' | translate}}
       </button>
     </div>
   </div>
@@ -90,12 +90,12 @@
         *ngIf="!isInputDisabled()" class="btn btn-secondary"
         type="button"
         [disabled]="isSearchDisabled()"
-        (click)="search($event); sdRef.open();">{{'submission.sections.form.search' | translate}}
+        (click)="search($event); sdRef.open();">{{'form.search' | translate}}
       </button>
       <button
         *ngIf="isInputDisabled()" class="btn btn-secondary"
         type="button"
-        (click)="remove($event)">{{'submission.sections.form.remove' | translate}}
+        (click)="remove($event)">{{'form.remove' | translate}}
       </button>
     </div>
   </div>
@@ -115,7 +115,7 @@
 
       <button class="dropdown-item disabled"
               *ngIf="optionsList && optionsList.length == 0"
-              (click)="clearFields(); sdRef.close();">{{'submission.sections.form.no-results' | translate}}
+              (click)="clearFields(); sdRef.close();">{{'form.no-results' | translate}}
       </button>
       <button class="dropdown-item collection-item"
               *ngFor="let listEntry of optionsList"
@@ -123,7 +123,7 @@
               title="{{ listEntry.display }}">
         {{listEntry.value}}
       </button>
-      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'submission.sections.form.loading' | translate}}</p></div>
+      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>
     </div>
   </div>
 
