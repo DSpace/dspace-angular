@@ -36,6 +36,8 @@ import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row
 import { AuthorityValueModel } from '../../../core/integration/models/authority-value.model';
 import { FormFieldLanguageValueObject } from './models/form-field-language-value.model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -166,16 +168,6 @@ export class FormBuilderService extends DynamicFormService {
     result = iterateControlModels(groupModel);
 
     return result;
-  }
-
-  modelFromArray(model: DynamicFormControlModel[]): DynamicFormControlModel[] {
-    const newModel: DynamicFormControlModel[] = [];
-
-    if (isNotEmpty(model)) {
-      model.forEach((entry) => newModel.push(Object.assign({}, entry)));
-    }
-
-    return newModel;
   }
 
   modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {

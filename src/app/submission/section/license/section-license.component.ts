@@ -19,7 +19,8 @@ import { SectionType } from '../section-type';
 import { renderSectionFor } from '../section-decorator';
 import { SectionDataObject } from '../section-data.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/models/workspaceitem-section-license.model';
-import { SubmissionService, WORKFLOW_SCOPE } from '../../submission.service';
+import { SubmissionService } from '../../submission.service';
+import { SectionService } from '../section.service';
 
 @Component({
   selector: 'ds-submission-section-license',
@@ -43,6 +44,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
               protected formService: FormService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
               protected store: Store<SubmissionState>,
+              protected sectionService: SectionService,
               protected submissionService: SubmissionService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
@@ -62,26 +64,32 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
         .subscribe((licenseData: RemoteData<License>) => {
           this.licenseText = licenseData.payload.text;
           this.formId = this.formService.getUniqueId(this.sectionData.id);
-          this.formModel = this.formBuilderService.modelFromArray(SECTION_LICENSE_FORM_MODEL);
+          this.formModel = this.formBuilderService.fromJSON(SECTION_LICENSE_FORM_MODEL);
           const model = this.formBuilderService.findById('granted', this.formModel);
           // Retrieve license accepted status
           if ((this.sectionData.data as WorkspaceitemSectionLicenseObject).granted) {
             (model as DynamicCheckboxModel).checked = true;
             this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, true));
           }
-          // Disable checkbox whether it's in workflow scope
-          if (this.submissionService.getSubmissionScope() === WORKFLOW_SCOPE ) {
-            model.disabled = true
-          }
+
+          // Disable checkbox whether it's in workflow or item scope
+          this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope())
+            .take(1)
+            .filter((isReadOnly) => isReadOnly)
+            .subscribe((isReadOnly) => {
+              model.disabled = true;
+            });
           this.changeDetectorRef.detectChanges();
         })
     );
   }
 
   onChange(event: DynamicFormControlEvent) {
+    console.log(event);
     const path = this.formBuilderService.getFieldPathSegmentedFromChangeEvent(event);
     // const path = 'granted/0';
     const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+    console.log(value);
     this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, value));
     if (value) {
       this.operationsBuilder.add(this.pathCombiner.getPath(path), value.toString(), false, true);
