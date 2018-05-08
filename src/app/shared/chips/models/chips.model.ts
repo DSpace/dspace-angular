@@ -1,26 +1,30 @@
 import { findIndex, isEqual } from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ChipsItem, ChipsItemIcon } from './chips-item.model';
-import { GlobalConfig } from '../../../../config/global-config.interface';
 import { hasValue } from '../../empty.util';
 import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
+import { AuthorityValueModel } from '../../../core/integration/models/authority-value.model';
+
+export interface ChipsIconsConfig {
+  [metadata: string]: string;
+}
 
 export class Chips {
   chipsItems: BehaviorSubject<ChipsItem[]>;
   displayField: string;
   displayObj: string;
-  EnvConfig: GlobalConfig
+  iconsConfig: ChipsIconsConfig;
 
   private _items: ChipsItem[];
 
-  constructor(EnvConfig: GlobalConfig,
-              items: any[] = [],
+  constructor(items: any[] = [],
               displayField: string = 'display',
-              displayObj?: string) {
+              displayObj?: string,
+              iconsConfig?: ChipsIconsConfig) {
 
-    this.EnvConfig = EnvConfig;
     this.displayField = displayField;
     this.displayObj = displayObj;
+    this.iconsConfig = iconsConfig || Object.create({});
     if (Array.isArray(items)) {
       this.setInitialItems(items);
     }
@@ -96,12 +100,12 @@ export class Chips {
       .forEach((metadata) => {
         const value = item[metadata];
         if (hasValue(value)
-          && value instanceof FormFieldMetadataValueObject
-          && value.authority
-          && this.EnvConfig.submission.metadata.icons.hasOwnProperty(metadata)) {
+          && (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel)
+          && ((value as FormFieldMetadataValueObject).authority || (value as AuthorityValueModel).id)
+          && this.iconsConfig.hasOwnProperty(metadata)) {
 
           const icon: ChipsItemIcon = {
-            style: this.EnvConfig.submission.metadata.icons[metadata]
+            style: this.iconsConfig[metadata]
           };
           icons.push(icon);
         }
@@ -115,7 +119,7 @@ export class Chips {
    */
   private setInitialItems(items: any[]): void {
     this._items = [];
-    items.forEach((item, index) => {
+    items.forEach((item) => {
       const icons = this.getChipsIcons(item);
       const chipsItem = new ChipsItem(item, this.displayField, this.displayObj, icons);
       this._items.push(chipsItem);

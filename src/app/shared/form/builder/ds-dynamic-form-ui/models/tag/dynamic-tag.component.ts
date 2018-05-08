@@ -82,7 +82,7 @@ export class DsDynamicTagComponent implements OnInit {
         this.model.authorityOptions.metadata);
     }
 
-    this.chips = new Chips(this.EnvConfig, this.model.value, 'display');
+    this.chips = new Chips(this.model.value, 'display', null,this.EnvConfig.submission.metadata.icons);
 
     this.chips.chipsItems
       .subscribe((subItems: any[]) => {
