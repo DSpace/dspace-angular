@@ -22,6 +22,7 @@ import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
+import { FormOperationsService } from '../shared/form/form-operations.service';
 import { FormService } from '../shared/form/form.service';
 import { GroupEpersonService } from './eperson/group-eperson.service';
 import { HostWindowService } from '../shared/host-window.service';
@@ -58,7 +59,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { PlatformService } from '../shared/services/platform.service';
 import { JsonPatchOperationsService } from './json-patch/json-patch-operations.service';
-import { PostPatchDataService } from './data/postpatch-data.service';
 import { MessageService } from './message/message.service';
 import { MessageResponseParsingService } from './message/message-response-parsing.service';
 import { WorkflowitemDataService } from './submission/workflowitem-data.service';
@@ -97,6 +97,7 @@ const PROVIDERS = [
   DynamicFormService,
   DynamicFormValidationService,
   FormBuilderService,
+  FormOperationsService,
   FormService,
   EpersonResponseParsingService,
   GroupEpersonService,

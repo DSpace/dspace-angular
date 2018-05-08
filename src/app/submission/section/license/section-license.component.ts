@@ -21,6 +21,7 @@ import { SectionDataObject } from '../section-data.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/models/workspaceitem-section-license.model';
 import { SubmissionService } from '../../submission.service';
 import { SectionService } from '../section.service';
+import { FormOperationsService } from '../../../shared/form/form-operations.service';
 
 @Component({
   selector: 'ds-submission-section-license',
@@ -41,6 +42,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
   constructor(protected changeDetectorRef: ChangeDetectorRef,
               protected collectionDataService: CollectionDataService,
               protected formBuilderService: FormBuilderService,
+              protected formOperationsService: FormOperationsService,
               protected formService: FormService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
               protected store: Store<SubmissionState>,
@@ -85,8 +87,8 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
   }
 
   onChange(event: DynamicFormControlEvent) {
-    const path = this.formBuilderService.getFieldPathSegmentedFromChangeEvent(event);
-    const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+    const path = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
+    const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
     this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, value));
     if (value) {
       this.operationsBuilder.add(this.pathCombiner.getPath(path), value.toString(), false, true);

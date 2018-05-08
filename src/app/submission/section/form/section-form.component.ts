@@ -33,6 +33,7 @@ import { SectionDataObject } from '../section-data.model';
 import { renderSectionFor } from '../section-decorator';
 import { SectionType } from '../section-type';
 import { SubmissionService } from '../../submission.service';
+import { FormOperationsService } from '../../../shared/form/form-operations.service';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -55,6 +56,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
 
   constructor(protected cdr: ChangeDetectorRef,
               protected formBuilderService: FormBuilderService,
+              protected formOperationsService: FormOperationsService,
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
               protected store: Store<SubmissionState>,
@@ -179,13 +181,13 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   }
 
   onChange(event: DynamicFormControlEvent) {
-    this.formBuilderService.dispatchOperationsFromEvent(
+    this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
       this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formBuilderService.getArrayIndexFromEvent(event)));
-    const metadata = this.formBuilderService.getFieldPathSegmentedFromChangeEvent(event);
-    const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
+    const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
+    const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 
     if (this.EnvConfig.submission.autosave.metadata.indexOf(metadata) !== -1 && isNotEmpty(value)) {
       this.store.dispatch(new SaveSubmissionFormAction(this.submissionId));
@@ -193,11 +195,11 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   }
 
   onFocus(event: DynamicFormControlEvent) {
-    const value = this.formBuilderService.getFieldValueFromChangeEvent(event);
+    const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model);
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
       this.previousValue.path = path;
-      this.previousValue.value = this.formBuilderService.getComboboxMap(event);
+      this.previousValue.value = this.formOperationsService.getComboboxMap(event);
     } else if ( (typeof value ===  'object' && isNotEmpty(value.value))  || (typeof value === 'string' && isNotEmpty(value)) ) {
       this.previousValue.path = path;
       this.previousValue.value = value;
@@ -205,11 +207,11 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   }
 
   onRemove(event: DynamicFormControlEvent) {
-    this.formBuilderService.dispatchOperationsFromEvent(
+    this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
       this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formBuilderService.getArrayIndexFromEvent(event)));
+      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
   }
 
   hasStoredValue(fieldId, index) {
