@@ -81,13 +81,13 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0.tgz#8f2ae70db2fe1dcbf5e0acb49dc2b1bbba2be8d2"
 
-"@ng-dynamic-forms/core@5.4.4":
-  version "5.4.4"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-5.4.4.tgz#1f29c460005ed08a034db3224fc013fc9a509dff"
+"@ng-dynamic-forms/core@5.4.7":
+  version "5.4.7"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-5.4.7.tgz#203dffe4bb31a3599e906990ad9dc2b35714e37a"
 
-"@ng-dynamic-forms/ui-ng-bootstrap@5.4.4":
-  version "5.4.4"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-5.4.4.tgz#812036d2a4cefdc5f7e4af40084c3cb627040038"
+"@ng-dynamic-forms/ui-ng-bootstrap@5.4.7":
+  version "5.4.7"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-5.4.7.tgz#66d037a226da96fe84c4dbac98e4dba859c551f8"
 
 "@ngrx/effects@^5.1.0":
   version "5.1.0"
