@@ -1,3 +1,4 @@
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { HostWindowState } from './host-window.reducer';
 import { Injectable } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
@@ -8,11 +9,18 @@ import { AppState } from '../app.reducer';
 
 // TODO: ideally we should get these from sass somehow
 export enum GridBreakpoint {
-  XS = 0,
-  SM = 576,
-  MD = 768,
-  LG = 992,
-  XL = 1200
+  SM_MIN = 576,
+  MD_MIN = 768,
+  LG_MIN = 992,
+  XL_MIN = 1200
+}
+
+export enum WidthCategory {
+  XS,
+  SM,
+  MD,
+  LG,
+  XL
 }
 
 const hostWindowStateSelector = (state: AppState) => state.hostWindow;
@@ -31,34 +39,58 @@ export class HostWindowService {
       .filter((width) => hasValue(width));
   }
 
+  get widthCategory(): Observable<WidthCategory> {
+    return this.getWidthObs().pipe(
+      map((width: number) => {
+        if (width < GridBreakpoint.SM_MIN) {
+          return WidthCategory.XS
+        } else if (width >= GridBreakpoint.SM_MIN && width < GridBreakpoint.MD_MIN) {
+          return WidthCategory.SM
+        } else if (width >= GridBreakpoint.MD_MIN && width < GridBreakpoint.LG_MIN) {
+          return WidthCategory.MD
+        } else if (width >= GridBreakpoint.LG_MIN && width < GridBreakpoint.XL_MIN) {
+          return WidthCategory.LG
+        } else {
+          return WidthCategory.XL
+        }
+      }),
+      distinctUntilChanged()
+    );
+  }
+
   isXs(): Observable<boolean> {
-    return this.getWidthObs()
-      .map((width) => width < GridBreakpoint.SM)
-      .distinctUntilChanged();
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat === WidthCategory.XS),
+      distinctUntilChanged()
+    );
   }
 
   isSm(): Observable<boolean> {
-    return this.getWidthObs()
-      .map((width) => width >= GridBreakpoint.SM && width < GridBreakpoint.MD)
-      .distinctUntilChanged();
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat === WidthCategory.SM),
+      distinctUntilChanged()
+    );
   }
 
   isMd(): Observable<boolean> {
-    return this.getWidthObs()
-      .map((width) => width >= GridBreakpoint.MD && width < GridBreakpoint.LG)
-      .distinctUntilChanged();
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat === WidthCategory.MD),
+      distinctUntilChanged()
+    );
   }
 
   isLg(): Observable<boolean> {
-    return this.getWidthObs()
-      .map((width) => width >= GridBreakpoint.LG && width < GridBreakpoint.XL)
-      .distinctUntilChanged();
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat === WidthCategory.LG),
+      distinctUntilChanged()
+    );
   }
 
   isXl(): Observable<boolean> {
-    return this.getWidthObs()
-      .map((width) => width >= GridBreakpoint.XL)
-      .distinctUntilChanged();
+    return this.widthCategory.pipe(
+      map((widthCat: WidthCategory) => widthCat === WidthCategory.XL),
+      distinctUntilChanged()
+    );
   }
 
   isMobileView(): Observable<boolean> {

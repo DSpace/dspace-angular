@@ -14,27 +14,27 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
-  protected linkName = 'items';
+  protected linkPath = 'items';
 
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    private bs: BrowseService
-  ) {
-    super(NormalizedItem);
+    private bs: BrowseService,
+    protected halService: HALEndpointService) {
+    super();
   }
 
   public getScopedEndpoint(scopeID: string): Observable<string> {
     if (isEmpty(scopeID)) {
-      return this.getEndpoint();
+      return this.halService.getEndpoint(this.linkPath);
     } else {
-      return this.bs.getBrowseURLFor('dc.date.issued', this.linkName)
+      return this.bs.getBrowseURLFor('dc.date.issued', this.linkPath)
         .filter((href: string) => isNotEmpty(href))
         .map((href: string) => new URLCombiner(href, `?scope=${scopeID}`).toString())
         .distinctUntilChanged();

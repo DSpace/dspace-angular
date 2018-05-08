@@ -1,8 +1,5 @@
-/**
- * TODO replace with actual string enum after upgrade to TypeScript 2.4:
- * https://github.com/Microsoft/TypeScript/pull/15486
- */
 export enum ResourceType {
+  DSpaceObject = 'dspaceobject',
   Bundle = 'bundle',
   Bitstream = 'bitstream',
   BitstreamFormat = 'bitstreamformat',

@@ -20,6 +20,9 @@ import { ServerCookieService } from '../../app/shared/services/server-cookie.ser
 import { AuthService } from '../../app/core/auth/auth.service';
 import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { AngularticsMock } from '../../app/shared/mocks/mock-angulartics.service';
+
 export function createTranslateLoader() {
   return new TranslateUniversalLoader('dist/assets/i18n/', '.json');
 }
@@ -46,6 +49,7 @@ export function createTranslateLoader() {
     AppModule
   ],
   providers: [
+    { provide: Angulartics2GoogleAnalytics, useClass: AngularticsMock },
     {
       provide: AuthService,
       useClass: ServerAuthService

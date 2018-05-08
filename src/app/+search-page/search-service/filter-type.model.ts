@@ -1,5 +1,6 @@
 export enum FilterType {
   text,
-  range,
-  hierarchy
+  date,
+  hierarchical,
+  standard
 }
