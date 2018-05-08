@@ -58,7 +58,6 @@ export class ServerAuthService extends AuthService {
     this.getRedirectUrl()
       .first()
       .subscribe((redirectUrl) => {
-        console.log('server side');
         if (isNotEmpty(redirectUrl)) {
           // override the route reuse strategy
           this.router.routeReuseStrategy.shouldReuseRoute = () => {

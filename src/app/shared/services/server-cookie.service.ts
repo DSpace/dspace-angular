@@ -14,7 +14,6 @@ export class ServerCookieService extends CookieService implements ICookieService
   }
 
   public get(name: string): any {
-    console.log(this.req.connection.remoteAddress);
     try {
       return JSON.parse(this.req.cookies[name])
     } catch (err) {
