@@ -154,5 +154,20 @@
     "item": "Error fetching item",
     "objects": "Error fetching objects",
     "search-results": "Error fetching search results"
+  },
+  "form": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "search": "Search",
+    "remove": "Remove",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "loading": "Loading...",
+    "no-results": "No results found",
+    "no-value": "No value entered",
+    "group-collapse": "Collapse",
+    "group-expand": "Expand",
+    "group-collapse-help": "Click here to collapse",
+    "group-expand-help": "Click here to expand and add more element"
   }
 }

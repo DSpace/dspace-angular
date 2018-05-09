@@ -7,6 +7,7 @@ import { ResponseParsingService } from './parsing.service';
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
+import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -174,6 +175,15 @@ export class ConfigRequest extends GetRequest {
   }
 }
 
+export class IntegrationRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return IntegrationResponseParsingService;
+  }
+}
 export class RequestError extends Error {
   statusText: string;
 }

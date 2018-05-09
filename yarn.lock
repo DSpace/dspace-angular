@@ -81,6 +81,14 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0.tgz#8f2ae70db2fe1dcbf5e0acb49dc2b1bbba2be8d2"
 
+"@ng-dynamic-forms/core@5.4.7":
+  version "5.4.7"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-5.4.7.tgz#203dffe4bb31a3599e906990ad9dc2b35714e37a"
+
+"@ng-dynamic-forms/ui-ng-bootstrap@5.4.7":
+  version "5.4.7"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-5.4.7.tgz#66d037a226da96fe84c4dbac98e4dba859c551f8"
+
 "@ngrx/effects@^5.1.0":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-5.1.0.tgz#cef84576b2d0333f19188aedfe156fd301bff70a"
@@ -121,6 +129,10 @@
 "@ngx-translate/http-loader@2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-2.0.1.tgz#aa67788e64bfa8652691a77b022b3b4031209113"
+
+"@nicky-lenaers/ngx-scroll-to@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@nicky-lenaers/ngx-scroll-to/-/ngx-scroll-to-0.6.0.tgz#6d2922f5765a472e3c86499d9e53df5ca210e637"
 
 "@types/acorn@^4.0.3":
   version "4.0.3"
@@ -421,11 +433,21 @@ angular-idle-preload@2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/angular-idle-preload/-/angular-idle-preload-2.0.4.tgz#7b177c0f52918c090e5c345480b922297cd59a0d"
 
+angular-sortablejs@^2.5.0:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/angular-sortablejs/-/angular-sortablejs-2.5.2.tgz#ffd651e47cc93a191db4c023f617db3789fd9af5"
+
 angular2-template-loader@0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/angular2-template-loader/-/angular2-template-loader-0.6.2.tgz#c0d44e90fff0fac95e8b23f043acda7fd1c51d7c"
   dependencies:
     loader-utils "^0.2.15"
+
+angular2-text-mask@8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/angular2-text-mask/-/angular2-text-mask-8.0.4.tgz#07e485746cfb9f27e710b27b2785eac4cc4871fc"
+  dependencies:
+    text-mask-core "^5.0.0"
 
 angulartics2@^5.2.0:
   version "5.2.0"
@@ -5587,11 +5609,19 @@ netmask@~1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
 
+ng2-file-upload@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/ng2-file-upload/-/ng2-file-upload-1.2.1.tgz#5563c5dfd6f43fbfbe815c206e343464a0a6a197"
+
 ngrx-store-freeze@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/ngrx-store-freeze/-/ngrx-store-freeze-0.2.1.tgz#04fb29db33cafda0f2d6ea32adeaac4891b1b27b"
   dependencies:
     deep-freeze-strict "^1.1.1"
+
+ngx-infinite-scroll@0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-0.8.2.tgz#9cc615c01fbb6307599453c9d9cfb5c1db4fd3e8"
 
 ngx-pagination@3.0.3:
   version "3.0.3"
@@ -8151,6 +8181,10 @@ sort-keys@^1.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
+sortablejs@1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.7.0.tgz#80a2b2370abd568e1cec8c271131ef30a904fa28"
+
 source-list-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
@@ -8589,6 +8623,14 @@ term-size@^1.2.0:
   resolved "https://registry.yarnpkg.com/term-size/-/term-size-1.2.0.tgz#458b83887f288fc56d6fffbfad262e26638efa69"
   dependencies:
     execa "^0.7.0"
+
+text-mask-core@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.0.1.tgz#86db742bdfe3b4c383bb51a3b4ca342c86110639"
+
+text-mask-core@^5.0.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.1.1.tgz#a7f65634e11236818fd36a92668e17bf9368f357"
 
 throttleit@^1.0.0:
   version "1.0.0"

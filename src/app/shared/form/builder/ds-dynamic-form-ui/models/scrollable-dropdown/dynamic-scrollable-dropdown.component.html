@@ -1,0 +1,43 @@
+<div #sdRef="ngbDropdown" ngbDropdown class="input-group w-100">
+  <input class="form-control"
+         [attr.autoComplete]="model.autoComplete"
+         [class.is-invalid]="showErrorMessages"
+         [dynamicId]="bindId && model.id"
+         [name]="model.name"
+         [readonly]="model.readOnly"
+         [type]="model.inputType"
+         [value]="formatItemForInput(model.value)"
+         (blur)="onBlurEvent($event)"
+         (click)="$event.stopPropagation(); openDropdown(sdRef);"
+         (focus)="onFocusEvent($event)"
+         (keypress)="$event.preventDefault()">
+    <button aria-describedby="collectionControlsMenuLabel"
+            class="ds-form-input-btn  btn btn-outline-primary"
+            id="scrollableDropdownMenuButton_{{model.id}}"
+            ngbDropdownToggle
+            [disabled]="model.readOnly"></button>
+
+  <div ngbDropdownMenu
+       class="dropdown-menu scrollable-dropdown-menu w-100"
+       aria-haspopup="true"
+       aria-expanded="false"
+       aria-labelledby="scrollableDropdownMenuButton">
+    <div class="scrollable-menu"
+         aria-labelledby="scrollableDropdownMenuButton"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         (scrolled)="onScroll()"
+         [scrollWindow]="false">
+
+      <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">No results found</button>
+      <button class="dropdown-item collection-item" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry)" title="{{ listEntry.display }}">
+        {{inputFormatter(listEntry)}}
+      </button>
+      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>Loading...</p></div>
+    </div>
+
+  </div>
+</div>
+
+

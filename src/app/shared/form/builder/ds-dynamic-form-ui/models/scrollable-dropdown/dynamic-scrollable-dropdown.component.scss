@@ -1,0 +1,26 @@
+@import '../../../../form.component';
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.collection-item {
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;
+}
+
+.scrollable-dropdown-loading {
+  background-color: map-get($theme-colors, primary);
+  color: white;
+  height: 2rem !important;
+  line-height: 2rem;
+  position: sticky;
+  bottom: 0;
+}
+
+.scrollable-dropdown-menu {
+  left: 0 !important;
+  margin-bottom: 1rem;
+  z-index: 1000;
+}

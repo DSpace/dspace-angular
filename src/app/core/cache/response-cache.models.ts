@@ -5,6 +5,7 @@ import { BrowseDefinition } from '../shared/browse-definition.model';
 import { ConfigObject } from '../shared/config/config.model';
 import { FacetValue } from '../../+search-page/search-service/facet-value.model';
 import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
+import { IntegrationModel } from '../integration/models/integration.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -100,6 +101,16 @@ export class ErrorResponse extends RestResponse {
 export class ConfigSuccessResponse extends RestResponse {
   constructor(
     public configDefinition: ConfigObject[],
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class IntegrationSuccessResponse extends RestResponse {
+  constructor(
+    public dataDefinition: IntegrationModel[],
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {

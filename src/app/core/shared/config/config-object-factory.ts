@@ -6,6 +6,7 @@ import { SubmissionFormsModel } from './config-submission-forms.model';
 import { SubmissionDefinitionsModel } from './config-submission-definitions.model';
 import { ConfigType } from './config-type';
 import { ConfigObject } from './config.model';
+import { ConfigAuthorityModel } from './config-authority.model';
 
 export class ConfigObjectFactory {
   public static getConstructor(type): GenericConstructor<ConfigObject> {
@@ -21,6 +22,9 @@ export class ConfigObjectFactory {
       case ConfigType.SubmissionSection:
       case ConfigType.SubmissionSections: {
         return SubmissionSectionModel
+      }
+      case ConfigType.Authority: {
+        return ConfigAuthorityModel
       }
       default: {
         return undefined;
