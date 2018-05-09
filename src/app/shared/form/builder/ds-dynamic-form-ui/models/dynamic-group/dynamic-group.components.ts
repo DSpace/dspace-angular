@@ -63,7 +63,6 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    console.log(this.model.hasErrorMessages);
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
     if (isNotEmpty(this.model.value)) {
       this.formCollapsed = Observable.of(true);

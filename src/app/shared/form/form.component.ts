@@ -5,7 +5,7 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormGroupModel,
+  DynamicFormGroupModel, DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 
@@ -49,6 +49,7 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() formModel: DynamicFormControlModel[];
   @Input() parentFormModel: DynamicFormGroupModel | DynamicFormGroupModel[];
   @Input() formGroup: FormGroup;
+  @Input() formLayout: DynamicFormLayout = null;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -205,6 +206,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event) {
+    console.log(event, this.formGroup);
     const action: FormChangeAction = new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel));
 
     this.store.dispatch(action);

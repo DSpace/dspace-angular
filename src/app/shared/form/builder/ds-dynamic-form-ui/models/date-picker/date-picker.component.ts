@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DynamicDsDatePickerModel } from './ds-date-picker.model';
+import { DynamicDsDatePickerModel } from './date-picker.model';
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
 
 @Component({
   selector: 'ds-date-picker',
-  styleUrls: ['./ds-date-picker.component.scss'],
-  templateUrl: './ds-date-picker.component.html',
+  styleUrls: ['./date-picker.component.scss'],
+  templateUrl: './date-picker.component.html',
 })
 
 export class DsDatePickerComponent implements OnInit {

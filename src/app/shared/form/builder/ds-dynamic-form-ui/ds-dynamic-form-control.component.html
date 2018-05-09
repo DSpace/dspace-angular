@@ -93,8 +93,10 @@
                  [ngClass]="getClass('element', 'control', checkboxModel)">
             <input type="checkbox" ngbButton
                    [checked]="checkboxModel.checked"
+                   [id]="bindId && checkboxModel.id"
                    [dynamicId]="bindId && checkboxModel.id"
                    [formControlName]="checkboxModel.id"
+                   [indeterminate]="checkboxModel.indeterminate"
                    [name]="checkboxModel.name"
                    [required]="checkboxModel.required"
                    [tabindex]="checkboxModel.tabIndex"
@@ -165,14 +167,18 @@
         <!-- INPUT ------------------------------------------------------------------------------------------------>
         <div *ngSwitchCase="7" [class.input-group]="model.prefix || model.suffix">
 
-          <div *ngIf="model.prefix" class="input-group-addon" [innerHTML]="model.prefix"></div>
+          <div *ngIf="model.prefix" class="input-group-prepend">
+            <span class="input-group-text" [innerHTML]="model.prefix"></span>
+          </div>
 
           <ng-container *ngTemplateOutlet="inputTemplate;
                                            context:{bindId: bindId, model: model, showErrorMessages: showErrorMessages}">
 
           </ng-container>
 
-          <div *ngIf="model.suffix" class="input-group-addon" [innerHTML]="model.suffix"></div>
+          <div *ngIf="model.suffix" class="input-group-append">
+            <span class="input-group-text" [innerHTML]="model.suffix"></span>
+          </div>
 
           <datalist *ngIf="model.list" [id]="model.listId">
             <option *ngFor="let option of model.list" [value]="option">
@@ -181,7 +187,7 @@
         </div>
 
         <!-- RADIO GROUP ------------------------------------------------------------------------------------------>
-        <div *ngSwitchCase="8" ngbRadioGroup class="btn-group" role="radiogroup"
+        <div *ngSwitchCase="8" ngbRadioGroup class="btn-group btn-group-toggle" role="radiogroup"
              [dynamicId]="bindId && model.id"
              [formControlName]="model.id"
              [ngClass]="getClass('element', 'control')"
@@ -191,19 +197,19 @@
           <legend *ngIf="model.legend" [innerHTML]="model.legend"></legend>
 
           <label *ngFor="let option of model.options$ | async" ngbButtonLabel
-                       [ngClass]="[getClass('element', 'option'), getClass('grid', 'option')]">
+                 [ngClass]="[getClass('element', 'option'), getClass('grid', 'option')]">
 
             <input type="radio" ngbButton
                    [disabled]="option.disabled"
                    [name]="model.name"
                    [value]="option.value"
-                           (blur)="onBlur($event)"
-                           (focus)="onFocus($event)"/><span [innerHTML]="option.label"></span>
+                   (blur)="onBlur($event)"
+                   (focus)="onFocus($event)"/><span [innerHTML]="option.label"></span>
           </label>
 
         </div>
 
-
+        <!-- SELECT ----------------------------------------------------------------------------------------------->
         <ng-container *ngSwitchCase="9">
           <ng-container *ngTemplateOutlet="selectTemplate;
                                                  context:{bindId: bindId, model: model, showErrorMessages: showErrorMessages}">
