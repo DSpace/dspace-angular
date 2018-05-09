@@ -71,10 +71,31 @@ export class SearchFilterService {
     );
   }
 
-  getCurrentFilters() {
-    return this.routeService.getQueryParamsWithPrefix('f.');
+  getCurrentFilters(): Observable<any> {
+    return this.routeService.getQueryParamsWithPrefix('f.').map((filterParams) => {
+      if (isNotEmpty(filterParams)) {
+        const params = {};
+        Object.keys(filterParams).forEach((key) => {
+          if (key.endsWith('.min') || key.endsWith('.max')) {
+            const realKey = key.slice(0, -4);
+            if (isEmpty(params[realKey])) {
+              const min = filterParams[realKey + '.min'][0] || '*';
+              const max = filterParams[realKey + '.max'][0] || '*';
+              params[realKey] = ['[' + min + ' TO ' + max + ']'];
+            }
+          } else {
+            params[key] = filterParams[key];
+          }
+        });
+        return params;
+      }
+      return filterParams;
+    });
   }
 
+  getCurrentFrontendFilters(): Observable<any> {
+    return this.routeService.getQueryParamsWithPrefix('f.');
+  }
   getCurrentView() {
     return this.routeService.getQueryParameterValue('view');
   }

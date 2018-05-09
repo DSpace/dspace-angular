@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
+import { FILTER_CONFIG, SearchFilterService, SELECTED_VALUES } from '../search-filter.service';
+import { SearchService } from '../../../search-service/search.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 
 /**
  * This component renders a simple item page.
@@ -20,20 +25,27 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit {
   rangeDelimiter = '-';
   min = 1950;
-  max = 1960;
-  rangeMin = 1900; // calculate using available values
-  rangeMax = 2000;
+  max = 2018;
+  range;
+  dateFormats = ['YYYY', 'YYYY-MM', 'YYYY-MM-DD']
+
+  constructor(protected searchService: SearchService,
+              protected filterService: SearchFilterService,
+              protected router: Router,
+              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
+              @Inject(SELECTED_VALUES) public selectedValues: string[],
+              private route: ActivatedRoute) {
+    super(searchService, filterService, router, filterConfig, selectedValues);
+  }
 
   ngOnInit(): void {
+    super.ngOnInit();
+    this.min = moment(this.filterConfig.minValue, this.dateFormats).year() || this.min;
+    this.max = moment(this.filterConfig.maxValue, this.dateFormats).year() || this.max;
+    const iniMin = this.route.snapshot.queryParams[this.filterConfig.paramName + '.min'] || this.min;
+    const iniMax = this.route.snapshot.queryParams[this.filterConfig.paramName + '.max'] || this.max;
+    this.range = [iniMin, iniMax];
 
-  }
-  get range() {
-    return [this.min, this.max];
-  }
-
-  set range(value: number[]) {
-    this.min = value[0];
-    this.max = value[1];
   }
 
   getAddParams(value: string) {
@@ -59,8 +71,10 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     if (isNotEmpty(data)) {
       this.router.navigate([this.getSearchLink()], {
         queryParams:
-          { [this.filterConfig.paramName + '.min']: [data[this.filterConfig.paramName + '.min']],
-            [this.filterConfig.paramName + '.max']: [data[this.filterConfig.paramName + '.max']]},
+          {
+            [this.filterConfig.paramName + '.min']: [data[this.filterConfig.paramName + '.min']],
+            [this.filterConfig.paramName + '.max']: [data[this.filterConfig.paramName + '.max']]
+          },
         queryParamsHandling: 'merge'
       });
       this.filter = '';

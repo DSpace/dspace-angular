@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchFacetFilterComponent } from './search-facet-filter.component';
 import { SearchFilterService } from '../search-filter.service';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { FilterType } from '../../../search-service/filter-type.model';
@@ -19,6 +18,7 @@ import { RouterStub } from '../../../../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;

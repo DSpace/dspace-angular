@@ -45,6 +45,7 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
+import { MomentModule } from 'angular2-moment';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -55,7 +56,8 @@ const MODULES = [
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,
-  NouisliderModule
+  NouisliderModule,
+  MomentModule
 ];
 
 const PIPES = [

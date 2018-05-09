@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { flatMap, } from 'rxjs/operators';
+import { flatMap, tap, } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { PaginatedList } from '../core/data/paginated-list';

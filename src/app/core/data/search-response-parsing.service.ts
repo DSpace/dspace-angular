@@ -17,6 +17,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const payload = data.payload;
+    console.log(payload);
     const hitHighlights = payload._embedded.objects
       .map((object) => object.hitHighlights)
       .map((hhObject) => {
