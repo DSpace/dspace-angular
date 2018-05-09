@@ -1,14 +1,16 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
-import { SubmissionState } from '../../submission/submission.reducers';
+
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+
+import { SubmissionState } from '../../submission/submission.reducers';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { MyDSpaceResult } from '../my-dspace-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
 
 @Component({
   selector: 'ds-my-dspace-new-submission',
@@ -20,7 +22,7 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
   @Output()
   wsiUploaded = new EventEmitter<Array<MyDSpaceResult<DSpaceObject>>>();
 
-  public uploadFilesOptions: UploadFilesComponentOptions = {
+  public uploadFilesOptions: UploaderOptions = {
     url: '',
     authToken: null,
     disableMultipart: false,

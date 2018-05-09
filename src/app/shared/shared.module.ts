@@ -60,7 +60,7 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
-import { UploadFilesComponent } from './upload-files/upload-files.component';
+import { UploaderComponent } from './uploader/uploader.component';
 import { ChipsComponent } from './chips/chips.component';
 import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
 import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models/list/dynamic-list.component';
@@ -165,7 +165,7 @@ const COMPONENTS = [
   SearchFormComponent,
   ThumbnailComponent,
   GridThumbnailComponent,
-  UploadFilesComponent,
+  UploaderComponent,
   WrapperListElementComponent,
   DsDynamicGroupComponent,
   DsDatePickerComponent,

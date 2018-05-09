@@ -6,7 +6,6 @@ import {
   ResetSubmissionFormAction
 } from '../objects/submission-objects.actions';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
-import { UploadFilesComponentOptions } from '../../shared/upload-files/upload-files-component-options.model';
 import { SubmissionRestService } from '../submission-rest.service';
 import { submissionObjectFromIdSelector } from '../selectors';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
@@ -19,6 +18,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../core/auth/auth.service';
 import { Observable } from 'rxjs/Observable';
 import { SectionDataObject } from '../section/section-data.model';
+import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -36,7 +36,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   public test = true;
   public loading: Observable<boolean> = Observable.of(true);
   public submissionSections: Observable<any>;
-  public uploadFilesOptions: UploadFilesComponentOptions = {
+  public uploadFilesOptions: UploaderOptions = {
     url: '',
     authToken: null,
     disableMultipart: false,

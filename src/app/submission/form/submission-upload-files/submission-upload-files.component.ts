@@ -1,16 +1,17 @@
 import { Component, Input, OnChanges } from '@angular/core';
+
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Observable';
+
 import { SectionService } from '../../section/section.service';
-import { UploadFilesComponentOptions } from '../../../shared/upload-files/upload-files-component-options.model';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 import { normalizeSectionData } from '../../../core/submission/models/workspaceitem-sections.model';
 import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-operations.service';
 import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../../submission.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationOptions } from '../../../shared/notifications/models/notification-options.model';
-import { Observable } from 'rxjs/Observable';
+import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -21,7 +22,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   @Input() collectionId;
   @Input() submissionId;
   @Input() sectionId;
-  @Input() uploadFilesOptions: UploadFilesComponentOptions;
+  @Input() uploadFilesOptions: UploaderOptions;
 
   public enableDragOverDocument = true;
   public dropOverDocumentMsg = 'submission.sections.upload.drop-message';
