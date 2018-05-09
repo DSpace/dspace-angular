@@ -4,6 +4,7 @@ import { InjectionToken } from '@angular/core';
 import { Config } from './config/config.interface';
 import { ServerConfig } from './config/server-config.interface';
 import { GlobalConfig } from './config/global-config.interface';
+import { hasValue } from './app/shared/empty.util';
 
 const GLOBAL_CONFIG: InjectionToken<GlobalConfig> = new InjectionToken<GlobalConfig>('config');
 
@@ -53,6 +54,41 @@ if (envConfigFile) {
   } catch (e) {
     console.warn('Unable to merge the default environment');
   }
+}
+
+// allow to override a few important options by environment variables
+function createServerConfig(host?: string,  port?: string, nameSpace?: string, ssl?: string): ServerConfig {
+  const result = { host, nameSpace } as any;
+
+  if (hasValue(port)) {
+    result.port = Number(port);
+  }
+
+  if (hasValue(ssl)) {
+    result.ssl = ssl.trim().match(/^(true|1|yes)$/i) ? true : false;
+  }
+
+  return result;
+}
+
+const processEnv = {
+  ui: createServerConfig(
+    process.env.DSPACE_HOST,
+    process.env.DSPACE_PORT,
+    process.env.DSPACE_NAMESPACE,
+    process.env.DSPACE_SSL) as ServerConfig,
+  rest: createServerConfig(
+    process.env.DSPACE_REST_HOST,
+    process.env.DSPACE_REST_PORT,
+    process.env.DSPACE_REST_NAMESPACE,
+    process.env.DSPACE_REST_SSL) as ServerConfig
+} as GlobalConfig;
+
+// merge the environment variables with our configuration.
+try {
+  merge(processEnv)
+} catch (e) {
+  console.warn('Unable to merge environment variable into the configuration')
 }
 
 buildBaseUrls();
