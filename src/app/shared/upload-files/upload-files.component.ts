@@ -15,7 +15,7 @@ import { uniqueId } from 'lodash';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { UploadFilesComponentOptions } from './upload-files-component-options.model';
-import { isUndefined } from '../empty.util';
+import { isNotEmpty, isUndefined } from '../empty.util';
 import { UploadFilesService } from './upload-files.service';
 
 @Component({
@@ -120,8 +120,10 @@ export class UploadFilesComponent {
       this.scrollToService.scrollTo(config);
     };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      const responsePath = JSON.parse(response);
-      this.onCompleteItem.emit(responsePath);
+      if (isNotEmpty(response)) {
+        const responsePath = JSON.parse(response);
+        this.onCompleteItem.emit(responsePath);
+      }
     };
     this.uploader.onProgressAll = () => this.onProgress();
     this.uploader.onProgressItem = () => this.onProgress();
