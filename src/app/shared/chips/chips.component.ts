@@ -1,19 +1,11 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { Chips} from './models/chips.model';
-import { UploadFilesService } from '../upload-files/upload-files.service';
-import { SortablejsOptions } from 'angular-sortablejs';
-import { ChipsItem } from './models/chips-item.model';
-import { SectionDirective } from '../../submission/section/section.directive';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
+
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { SortablejsOptions } from 'angular-sortablejs';
+
+import { Chips } from './models/chips.model';
+import { ChipsItem } from './models/chips-item.model';
+import { UploaderService } from '../uploader/uploader.service';
 
 @Component({
   selector: 'ds-chips',
@@ -34,7 +26,7 @@ export class ChipsComponent implements OnChanges {
   dragged = -1;
   tipText: string;
 
-  constructor(private cdr: ChangeDetectorRef, private uploadFilesService: UploadFilesService) {
+  constructor(private cdr: ChangeDetectorRef, private uploaderService: UploaderService) {
     this.options = {
       animation: 300,
       chosenClass: 'm-0',
@@ -81,12 +73,12 @@ export class ChipsComponent implements OnChanges {
 
   onDragStart(tooltip: NgbTooltip, index) {
     tooltip.close();
-    this.uploadFilesService.overrideDragOverPage();
+    this.uploaderService.overrideDragOverPage();
     this.dragged = index;
   }
 
   onDragEnd(event) {
-    this.uploadFilesService.allowDragOverPage();
+    this.uploaderService.allowDragOverPage();
     this.dragged = -1;
     this.chips.updateOrder();
   }

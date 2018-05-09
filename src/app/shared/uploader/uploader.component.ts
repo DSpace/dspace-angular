@@ -14,19 +14,19 @@ import { Observable } from 'rxjs/Observable';
 import { uniqueId } from 'lodash';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
-import { UploadFilesComponentOptions } from './upload-files-component-options.model';
+import { UploaderOptions } from './uploader-options.model';
 import { isNotEmpty, isUndefined } from '../empty.util';
-import { UploadFilesService } from './upload-files.service';
+import { UploaderService } from './uploader.service';
 
 @Component({
-  selector: 'ds-upload-files',
-  templateUrl: 'upload-files.component.html',
-  styleUrls: ['upload-files.component.scss'],
+  selector: 'ds-uploader',
+  templateUrl: 'uploader.component.html',
+  styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated
 })
 
-export class UploadFilesComponent {
+export class UploaderComponent {
 
   /**
    * The message to show when drag files on the drop zone
@@ -51,7 +51,7 @@ export class UploadFilesComponent {
   /**
    * Configuration for the ng2-file-upload component.
    */
-  @Input() uploadFilesOptions: UploadFilesComponentOptions;
+  @Input() uploadFilesOptions: UploaderOptions;
 
   /**
    * The function to call when upload is completed
@@ -66,7 +66,7 @@ export class UploadFilesComponent {
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
 
-    if (this.enableDragOverDocument && this.uploadFilesService.isAllowedDragOverPage()) {
+    if (this.enableDragOverDocument && this.uploaderService.isAllowedDragOverPage()) {
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {
@@ -75,7 +75,7 @@ export class UploadFilesComponent {
     }
   }
 
-  constructor(private cdr: ChangeDetectorRef, private scrollToService: ScrollToService, private uploadFilesService: UploadFilesService) {
+  constructor(private cdr: ChangeDetectorRef, private scrollToService: ScrollToService, private uploaderService: UploaderService) {
   }
 
   /**

@@ -1,9 +1,9 @@
 <div class="parent">
   <div class="upload">
-    <ds-upload-files *ngIf="uploadFilesOptions.url !== ''"
-      [onBeforeUpload]="onBeforeUpload"
-      [uploadFilesOptions]="uploadFilesOptions"
-      (onCompleteItem)="onCompleteItem($event)"></ds-upload-files>
+    <ds-uploader *ngIf="uploadFilesOptions.url !== ''"
+                 [onBeforeUpload]="onBeforeUpload"
+                 [uploadFilesOptions]="uploadFilesOptions"
+                 (onCompleteItem)="onCompleteItem($event)"></ds-uploader>
 
   </div>
   <div class="add">

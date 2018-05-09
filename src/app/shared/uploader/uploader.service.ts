@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class UploadFilesService {
+export class UploaderService {
   private _overrideDragOverPage = false;
 
   public overrideDragOverPage() {

@@ -1,5 +1,5 @@
 
-export class UploadFilesComponentOptions {
+export class UploaderOptions {
   /**
    * URL of the REST endpoint for file upload.
    */
