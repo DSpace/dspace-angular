@@ -1,40 +1,25 @@
 // Load the implementations that should be tested
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement
-} from '@angular/core';
-
-import {
-  async,
-  ComponentFixture,
-  inject,
-  TestBed,
-} from '@angular/core/testing';
-
-import { StoreModule } from '@ngrx/store';
-
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import { DynamicFormControlModel, DynamicFormValidationService, DynamicInputModel } from '@ng-dynamic-forms/core';
+import { Store } from '@ngrx/store';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import Spy = jasmine.Spy;
+import { TranslateModule } from '@ngx-translate/core';
 
 import { FormComponent } from './form.component';
 import { FormService } from './form.service';
-import { DynamicFormControlModel, DynamicFormValidationService, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilderService } from './builder/form-builder.service';
-import { SubmissionFormsConfigService } from '../../core/config/submission-forms-config.service';
-import { ResponseCacheService } from '../../core/cache/response-cache.service';
-import { RequestService } from '../../core/data/request.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { Observable } from 'rxjs/Observable';
+import { FormState } from './form.reducers';
 
 function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
   TestBed.overrideComponent(type, {
-    set: { template: html }
+    set: {template: html}
   });
   const fixture = TestBed.createComponent(type);
 
@@ -110,7 +95,14 @@ describe('Form component', () => {
   const formBuilderServiceStub = {
     createFormGroup: (formModel) => new FormGroup(TEST_FORM_GROUP)
   }
-  const submissionFormsConfigServiceStub = { }
+  const submissionFormsConfigServiceStub = {};
+
+  const store: Store<FormState> = jasmine.createSpyObj('store', {
+    /* tslint:disable:no-empty */
+    dispatch: {},
+    /* tslint:enable:no-empty */
+    select: Observable.of({})
+  });
 
   // async beforeEach
   beforeEach(async(() => {
@@ -121,17 +113,22 @@ describe('Form component', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot({}),
         NgbModule.forRoot(),
+        TranslateModule.forRoot()
       ],
       declarations: [
         FormComponent,
         TestComponent,
       ], // declare the test component
       providers: [
+        ChangeDetectorRef,
+        DynamicFormValidationService,
+        FormBuilderService,
         FormComponent,
-        { provide: FormService, useValue: formServiceStub },
-        { provide: FormBuilderService, useValue: formBuilderServiceStub },
+        FormService,
+        {
+          provide: Store, useValue: store
+        }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -141,17 +138,17 @@ describe('Form component', () => {
   // synchronous beforeEach
   beforeEach(() => {
     html = `
-      <ds-form #formRef="formComponent"
+      <ds-form *ngIf="formModel" #formRef="formComponent"
                [formId]="formId"
                [formModel]="formModel"
-               [displaySubmit]="false"></ds-form>`;
+               [displaySubmit]="displaySubmit"></ds-form>`;
 
     testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
     testComp = testFixture.componentInstance;
-
   });
 
   it('should create Form Component', inject([FormComponent], (app: FormComponent) => {
+
     expect(app).toBeDefined();
   }));
 
@@ -166,6 +163,7 @@ class TestComponent {
 
   public formId;
   public formModel: DynamicFormControlModel[];
+  public displaySubmit = false;
 
   constructor() {
     this.formId = 'testForm';

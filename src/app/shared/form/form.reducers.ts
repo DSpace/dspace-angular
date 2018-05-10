@@ -86,14 +86,16 @@ function initForm(state: FormState, action: FormInitAction): FormState {
     return Object.assign({}, state, {
       [ action.payload.formId ]: {
         data: action.payload.formData,
-        valid: action.payload.valid
+        valid: action.payload.valid,
+        errors: []
       }
     });
   } else {
     const newState = Object.assign({}, state);
     newState[ action.payload.formId ] = Object.assign({}, newState[ action.payload.formId ], {
         data: action.payload.formData,
-        valid: action.payload.valid
+        valid: action.payload.valid,
+        errors: []
       }
     );
     return newState;
