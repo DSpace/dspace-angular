@@ -29,7 +29,7 @@
             <ng-container *ngTemplateOutlet="title"></ng-container>
           </div>
           <ng-template #regularTitle>
-            <div class="notification-title pl-1" [innerHTML]="(title | async)"></div>
+            <div class="notification-title pl-1">{{(title | async)}}</div>
           </ng-template>
         </strong>
       </div>
@@ -39,7 +39,7 @@
           <ng-container *ngTemplateOutlet="content"></ng-container>
         </div>
         <ng-template #regularContent>
-          <div class="notification-content pl-1" [innerHTML]="(content | async)"></div>
+          <div class="notification-content pl-1">{{(content | async)}}</div>
         </ng-template>
       </div>
 
