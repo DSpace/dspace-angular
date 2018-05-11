@@ -45,7 +45,7 @@ import { isNotEmpty } from '../../empty.util';
 
 export class NotificationComponent implements OnInit, OnDestroy {
 
-  @Input() public item: INotification;
+  @Input() public notification: INotification;
 
   // Progress bar variables
   public title: Observable<string>;
@@ -74,21 +74,20 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.animate = this.item.options.animate + NotificationAnimationsStatus.In;
+    this.animate = this.notification.options.animate + NotificationAnimationsStatus.In;
 
-    if (this.item.options.timeOut !== 0) {
+    if (this.notification.options.timeOut !== 0) {
       this.startTimeOut();
       this.showProgressBar = true;
     }
-
-    this.contentType(this.item.title, 'title');
-    this.contentType(this.item.content, 'content');
-    this.contentType(this.item.html, 'html');
+    this.html = this.notification.html;
+    this.contentType(this.notification.title, 'title');
+    this.contentType(this.notification.content, 'content');
   }
 
   private startTimeOut(): void {
-    this.steps = this.item.options.timeOut / 10;
-    this.speed = this.item.options.timeOut / this.steps;
+    this.steps = this.notification.options.timeOut / 10;
+    this.speed = this.notification.options.timeOut / this.steps;
     this.start = new Date().getTime();
     this.zone.runOutsideAngular(() => this.timer = setTimeout(this.instance, this.speed));
   }
@@ -117,17 +116,17 @@ export class NotificationComponent implements OnInit, OnDestroy {
     if (this.animate) {
       this.setAnimationOut();
       setTimeout(() => {
-        this.notificationService.remove(this.item);
+        this.notificationService.remove(this.notification);
       }, 1000);
     } else {
-      this.notificationService.remove(this.item);
+      this.notificationService.remove(this.notification);
     }
   }
 
   private contentType(item: any, key: string) {
     if (item instanceof TemplateRef) {
       this[key] = item;
-    } else if (key === 'title' || key === 'content') {
+    } else if (key === 'title' || (key === 'content' && !this.html)) {
       let value = null;
       if (isNotEmpty(item)) {
         if (typeof item === 'string') {
@@ -150,7 +149,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   private setAnimationOut() {
-    this.animate = this.item.options.animate + NotificationAnimationsStatus.Out;
+    this.animate = this.notification.options.animate + NotificationAnimationsStatus.Out;
     this.cdr.detectChanges();
   }
 }

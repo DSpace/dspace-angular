@@ -60,7 +60,7 @@ describe('NotificationComponent', () => {
   beforeEach(()  => {
     fixture = TestBed.createComponent(NotificationComponent);
     comp = fixture.componentInstance;
-    comp.item = {
+    comp.notification = {
       id: '1',
       type: NotificationType.Info,
       title: 'Notif. title',
@@ -83,17 +83,37 @@ describe('NotificationComponent', () => {
 
   it('should set Title', () => {
     fixture.detectChanges();
-    expect(elTitle.textContent).toBe(comp.item.title as string);
+    expect(elTitle.textContent).toBe(comp.notification.title as string);
   });
 
   it('should set Content', () => {
     fixture.detectChanges();
-    expect(elContent.textContent).toBe(comp.item.content as string);
+    expect(elContent.textContent).toBe(comp.notification.content as string);
   });
 
   it('should set type', () => {
     fixture.detectChanges();
     expect(elType).toBeDefined();
   });
+
+  it('shuld has html content', () => {
+    fixture = TestBed.createComponent(NotificationComponent);
+    comp = fixture.componentInstance;
+    const htmlContent = `<a class="btn btn-link p-0 m-0 pb-1" href="/test"><strong>test</strong></a>`
+    comp.notification = {
+      id: '1',
+      type: NotificationType.Info,
+      title: 'Notif. title',
+      content: htmlContent,
+      options: new NotificationOptions(),
+      html: true
+    };
+
+    fixture.detectChanges();
+
+    deContent = fixture.debugElement.query(By.css('.notification-html'));
+    elContent = deContent.nativeElement;
+    expect(elContent.innerHTML).toEqual(htmlContent);
+  })
 
 });
