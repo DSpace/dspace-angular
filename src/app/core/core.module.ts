@@ -44,6 +44,7 @@ import { HALEndpointService } from './shared/hal-endpoint.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FacetValueMapResponseParsingService } from './data/facet-value-map-response-parsing.service';
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 const IMPORTS = [
   CommonModule,
@@ -89,6 +90,7 @@ const PROVIDERS = [
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
   UUIDService,
+  NotificationsService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
