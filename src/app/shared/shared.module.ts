@@ -47,6 +47,7 @@ import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
+import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -103,7 +104,8 @@ const ENTRY_COMPONENTS = [
 ];
 
 const PROVIDERS = [
-  TruncatableService
+  TruncatableService,
+  MockAdminGuard
 ];
 
 const DIRECTIVES = [
