@@ -8,7 +8,7 @@ import 'rxjs/add/Observable/of';
 
 import { LoginPageComponent } from './login-page.component';
 
-fdescribe('LoginPageComponent', () => {
+describe('LoginPageComponent', () => {
   let comp: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
 

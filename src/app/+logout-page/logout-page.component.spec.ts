@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { LogoutPageComponent } from './logout-page.component';
 
-fdescribe('LogoutPageComponent', () => {
+describe('LogoutPageComponent', () => {
   let comp: LogoutPageComponent;
   let fixture: ComponentFixture<LogoutPageComponent>;
 
