@@ -1,3 +1,4 @@
+<script src="search-range-filter.component.ts"></script>
 <div>
     <div class="filters">
         <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter row"
@@ -17,7 +18,7 @@
             <input type="submit" class="d-none"/>
         </form>
         <nouislider [connect]="true" [min]="min" [max]="max" [step]="1"
-                    [(ngModel)]="range" (mouseup)="onSubmit(form.value)"></nouislider>
+                    [(ngModel)]="range" (mouseup)="onSubmit(form.value)" ngDefaultControl></nouislider>
 
         <ng-container *ngFor="let page of (filterValues$ | async)">
             <ng-container *ngFor="let value of (page | async)?.payload.page">

@@ -5,8 +5,7 @@ import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { PageInfo } from '../shared/page-info.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { Metadatum } from '../shared/metadatum.model';
 
@@ -17,7 +16,6 @@ export class SearchResponseParsingService implements ResponseParsingService {
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const payload = data.payload;
-    console.log(payload);
     const hitHighlights = payload._embedded.objects
       .map((object) => object.hitHighlights)
       .map((hhObject) => {

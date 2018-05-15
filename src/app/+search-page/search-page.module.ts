@@ -72,6 +72,7 @@ const effects = [
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
+    SearchFacetFilterComponent,
     SearchRangeFilterComponent,
     SearchTextFilterComponent,
     SearchHierarchyFilterComponent,

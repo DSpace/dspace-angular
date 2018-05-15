@@ -5591,9 +5591,9 @@ netmask@~1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
 
-ng2-nouislider@^1.7.7:
-  version "1.7.7"
-  resolved "https://registry.yarnpkg.com/ng2-nouislider/-/ng2-nouislider-1.7.7.tgz#b841f4b313c8c9c8a763c80f3a59d5aa4c3a70c8"
+ng2-nouislider@1.7.8:
+  version "1.7.8"
+  resolved "https://registry.yarnpkg.com/ng2-nouislider/-/ng2-nouislider-1.7.8.tgz#5fd6de120f9ca5b5d9c4b377f884944b74c06855"
 
 ngrx-store-freeze@^0.2.1:
   version "0.2.1"
@@ -5814,9 +5814,9 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
-nouislider@^10.0.0:
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-10.1.0.tgz#7bdd0411fd62d4584bfe88cb92bb8d06e64c6b47"
+nouislider@^11.0.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-11.1.0.tgz#1768eb5b854917325d41b96f2dc4eb3757d73381"
 
 npm-run-all@4.1.2:
   version "4.1.2"

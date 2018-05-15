@@ -17,7 +17,7 @@
 
     @autoserialize
     isOpenByDefault: boolean;
-    
+
     @autoserialize
     maxValue: string;
 

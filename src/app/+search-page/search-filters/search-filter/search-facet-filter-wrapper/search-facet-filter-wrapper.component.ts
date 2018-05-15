@@ -1,8 +1,7 @@
-import { Component, InjectionToken, Injector, Input, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
 import { renderFilterType } from '../search-filter-type-decorator';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
-import { GlobalConfig } from '../../../../../config/global-config.interface';
 import { FILTER_CONFIG, SELECTED_VALUES } from '../search-filter.service';
 import { Observable } from 'rxjs/Observable';
 

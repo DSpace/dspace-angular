@@ -1,14 +1,38 @@
 @import '../../../../../styles/variables.scss';
 @import '../../../../../styles/mixins.scss';
 
+
 .filters {
+     margin-top: $spacer/2;
+     margin-bottom: $spacer/2;
+     a {
+         color: $link-color;
+         &:hover {
+             text-decoration: underline;
+             color: $link-hover-color;
 
-    a {
-        color: $link-color;
-        &:hover {
-            text-decoration: underline;
-            color: $link-hover-color;
+         }
+     }
+     .toggle-more-filters a {
+         color: $link-color;
+         text-decoration: underline;
+         cursor: pointer;
+     }
+ }
 
+$slider-handle-width: 18px;
+::ng-deep
+{
+    html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
+        right: -$slider-handle-width/2;
+    }
+    .noUi-horizontal .noUi-handle {
+        width: $slider-handle-width;
+        &:before {
+            left: ($slider-handle-width - 2)/2 - 2;
+        }
+        &:after {
+            left: ($slider-handle-width - 2)/2 + 2;
         }
     }
 }

@@ -20,6 +20,4 @@ import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-
 @renderFacetFor(FilterType.hierarchy)
 export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnInit {
   currentPage: Observable<number>;
-
-
 }
