@@ -16,7 +16,7 @@ import { TopLevelCommunityListComponent } from './top-level-community-list/top-l
   declarations: [
     HomePageComponent,
     TopLevelCommunityListComponent,
-    HomeNewsComponent
+    HomeNewsComponent,
   ]
 })
 export class HomePageModule {

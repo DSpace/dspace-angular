@@ -20,11 +20,11 @@ import { SearchResultListElementComponent } from './object-list/search-result-li
 import { WrapperListElementComponent } from './object-list/wrapper-list-element/wrapper-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
 
-import { CollectionGridElementComponent} from './object-grid/collection-grid-element/collection-grid-element.component'
-import { CommunityGridElementComponent} from './object-grid/community-grid-element/community-grid-element.component'
-import { ItemGridElementComponent} from './object-grid/item-grid-element/item-grid-element.component'
-import { AbstractListableElementComponent} from './object-collection/shared/object-collection-element/abstract-listable-element.component'
-import { WrapperGridElementComponent} from './object-grid/wrapper-grid-element/wrapper-grid-element.component'
+import { CollectionGridElementComponent } from './object-grid/collection-grid-element/collection-grid-element.component';
+import { CommunityGridElementComponent } from './object-grid/community-grid-element/community-grid-element.component';
+import { ItemGridElementComponent } from './object-grid/item-grid-element/item-grid-element.component';
+import { AbstractListableElementComponent } from './object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { WrapperGridElementComponent } from './object-grid/wrapper-grid-element/wrapper-grid-element.component';
 import { ObjectGridComponent } from './object-grid/object-grid.component';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
@@ -43,11 +43,14 @@ import { VarDirective } from './utils/var.directive';
 import { LogInComponent } from './log-in/log-in.component';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
+import { NotificationComponent } from './notifications/notification/notification.component';
+import { NotificationsBoardComponent } from './notifications/notifications-board/notifications-board.component';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
+import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -103,11 +106,12 @@ const ENTRY_COMPONENTS = [
   ItemGridElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
-  SearchResultGridElementComponent
+  SearchResultGridElementComponent,
 ];
 
 const PROVIDERS = [
-  TruncatableService
+  TruncatableService,
+  MockAdminGuard
 ];
 
 const DIRECTIVES = [
