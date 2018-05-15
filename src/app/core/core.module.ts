@@ -105,7 +105,7 @@ const PROVIDERS = [
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }
+  },
   NotificationsService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
