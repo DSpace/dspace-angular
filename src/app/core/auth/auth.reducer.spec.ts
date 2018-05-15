@@ -12,14 +12,15 @@ import {
   LogOutAction,
   LogOutErrorAction,
   LogOutSuccessAction,
-  RedirectWhenAuthenticationIsRequiredAction, RedirectWhenTokenExpiredAction,
+  RedirectWhenAuthenticationIsRequiredAction,
+  RedirectWhenTokenExpiredAction,
   RefreshTokenAction,
   RefreshTokenErrorAction,
-  RefreshTokenSuccessAction, ResetAuthenticationMessagesAction, SetRedirectUrlAction
+  RefreshTokenSuccessAction,
+  ResetAuthenticationMessagesAction,
+  SetRedirectUrlAction
 } from './auth.actions';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { Eperson } from '../eperson/models/eperson.model';
-import { Group } from '../eperson/models/group.model';
 import { EpersonMock } from '../../shared/testing/eperson-mock';
 
 describe('authReducer', () => {
