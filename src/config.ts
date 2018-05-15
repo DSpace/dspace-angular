@@ -76,12 +76,12 @@ const processEnv = {
     process.env.DSPACE_HOST,
     process.env.DSPACE_PORT,
     process.env.DSPACE_NAMESPACE,
-    process.env.DSPACE_SSL) as ServerConfig,
+    process.env.DSPACE_SSL),
   rest: createServerConfig(
     process.env.DSPACE_REST_HOST,
     process.env.DSPACE_REST_PORT,
     process.env.DSPACE_REST_NAMESPACE,
-    process.env.DSPACE_REST_SSL) as ServerConfig
+    process.env.DSPACE_REST_SSL)
 } as GlobalConfig;
 
 // merge the environment variables with our configuration.
