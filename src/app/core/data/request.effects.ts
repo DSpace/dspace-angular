@@ -18,15 +18,23 @@ import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
-import { catchError, flatMap, map, tap } from 'rxjs/operators';
+import { catchError, flatMap, map, take, tap } from 'rxjs/operators';
+
+export const addToResponseCacheAndCompleteAction = (request: RestRequest) =>
+  (source: Observable<ErrorResponse>): Observable<RequestCompleteAction> =>
+    source.pipe(
+      tap((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive)),
+      map((response: RestResponse) => new RequestCompleteAction(request.uuid))
+    );
 
 @Injectable()
 export class RequestEffects {
 
   @Effect() execute = this.actions$.ofType(RequestActionTypes.EXECUTE).pipe(
     flatMap((action: RequestExecuteAction) => {
-      return this.requestService.getByUUID(action.payload)
-        .take(1);
+      return this.requestService.getByUUID(action.payload).pipe(
+        take(1)
+      );
     }),
     map((entry: RequestEntry) => entry.request),
     flatMap((request: RestRequest) => {
@@ -37,11 +45,9 @@ export class RequestEffects {
       }
       return this.restApi.request(request.method, request.href, body).pipe(
         map((data: DSpaceRESTV2Response) => this.injector.get(request.getResponseParser()).parse(request, data)),
-        tap((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive)),
-        map((response: RestResponse) => new RequestCompleteAction(request.uuid)),
+        addToResponseCacheAndCompleteAction(request),
         catchError((error: RequestError) => Observable.of(new ErrorResponse(error)).pipe(
-          tap((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive)),
-          map((response: RestResponse) => new RequestCompleteAction(request.uuid))
+          addToResponseCacheAndCompleteAction(request)
         ))
       );
     })
