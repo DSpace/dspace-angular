@@ -232,8 +232,11 @@ describe('ConfigResponseParsingService', () => {
       expect(response.constructor).toBe(ErrorResponse);
     });
 
-    it('should return a ConfigSuccessResponse with the ConfigDefinitions in data', () => {
+    fit('should return a ConfigSuccessResponse with the ConfigDefinitions in data', () => {
       const response = service.parse(validRequest, validResponse);
+      debugger;
+      console.log(definitions);
+      console.log((response as any).configDefinition);
       expect((response as any).configDefinition).toEqual(definitions);
     });
 

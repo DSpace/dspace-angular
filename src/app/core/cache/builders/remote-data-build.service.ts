@@ -85,6 +85,7 @@ export class RemoteDataBuildService {
   }
 
   toRemoteDataObservable<T>(requestEntryObs: Observable<RequestEntry>, responseCacheObs: Observable<ResponseCacheEntry>, payloadObs: Observable<T>) {
+
     return Observable.combineLatest(requestEntryObs, responseCacheObs.startWith(undefined), payloadObs,
       (reqEntry: RequestEntry, resEntry: ResponseCacheEntry, payload: T) => {
         const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
@@ -98,7 +99,6 @@ export class RemoteDataBuildService {
             error = new RemoteDataError(resEntry.response.statusCode, errorMessage);
           }
         }
-
         return new RemoteData(
           requestPending,
           responsePending,
@@ -109,7 +109,7 @@ export class RemoteDataBuildService {
       });
   }
 
-  buildList<TNormalized extends NormalizedObject, TDomain>(hrefObs: string | Observable<string>): Observable<RemoteData<TDomain[] | PaginatedList<TDomain>>> {
+  buildList<TNormalized extends NormalizedObject, TDomain>(hrefObs: string | Observable<string>): Observable<RemoteData<PaginatedList<TDomain>>> {
     if (typeof hrefObs === 'string') {
       hrefObs = Observable.of(hrefObs);
     }
@@ -147,11 +147,7 @@ export class RemoteDataBuildService {
       });
 
     const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
-      if (hasValue(pageInfo)) {
-        return new PaginatedList(pageInfo, tDomainList);
-      } else {
-        return tDomainList;
-      }
+      return new PaginatedList(pageInfo, tDomainList);
     });
 
     return this.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);

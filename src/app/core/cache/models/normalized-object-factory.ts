@@ -6,6 +6,8 @@ import { GenericConstructor } from '../../shared/generic-constructor';
 import { NormalizedCommunity } from './normalized-community.model';
 import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from './normalized-object.model';
+import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
+import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
@@ -24,6 +26,12 @@ export class NormalizedObjectFactory {
       }
       case ResourceType.Community: {
         return NormalizedCommunity
+      }
+      case ResourceType.BitstreamFormat: {
+        return NormalizedBitstreamFormat
+      }
+      case ResourceType.ResourcePolicy: {
+        return NormalizedResourcePolicy
       }
       default: {
         return undefined;
