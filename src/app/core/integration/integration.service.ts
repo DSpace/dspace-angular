@@ -1,22 +1,21 @@
 import { Observable } from 'rxjs/Observable';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ErrorResponse, IntegrationSuccessResponse, RestResponse } from '../cache/response-cache.models';
-import { EpersonRequest, IntegrationRequest, GetRequest } from '../data/request.models';
+import { GetRequest, IntegrationRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IntegrationData } from './integration-data';
 import { IntegrationSearchOptions } from './models/integration-options.model';
 
-export abstract class IntegrationService extends HALEndpointService {
-  protected request: EpersonRequest;
+export abstract class IntegrationService {
+  protected request: IntegrationRequest;
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract linkPath: string;
-  protected abstract EnvConfig: GlobalConfig;
   protected abstract browseEndpoint: string;
+  protected abstract halService: HALEndpointService;
 
   protected getData(request: GetRequest): Observable<IntegrationData> {
     const [successResponse, errorResponse] = this.responseCache.get(request.href)
@@ -73,7 +72,7 @@ export abstract class IntegrationService extends HALEndpointService {
   }
 
   public getEntriesByName(options: IntegrationSearchOptions): Observable<IntegrationData> {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .map((endpoint: string) => this.getIntegrationHref(endpoint, options))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
@@ -83,5 +82,4 @@ export abstract class IntegrationService extends HALEndpointService {
       .distinctUntilChanged();
   }
 
-  // /integration/authorities/${authorityOptions.name}/entries?query=${authorityOptions.query}&metadata=${authorityOptions.metadata}&uuid=${authorityOptions.uuid}${queryPage}
 }

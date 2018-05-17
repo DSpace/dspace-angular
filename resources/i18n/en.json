@@ -59,6 +59,10 @@
       "detail": "{{ range }} of {{ total }}"
     }
   },
+  "sorting": {
+    "ASC": "Ascending",
+    "DESC": "Descending"
+  },
   "title": "DSpace",
   "404": {
     "help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
@@ -181,9 +185,13 @@
           "placeholder": "Subject",
           "head": "Subject"
         },
-        "date": {
+        "dateIssued": {
           "placeholder": "Date",
           "head": "Date"
+        },
+        "has_content_in_original_bundle": {
+          "placeholder": "Has files",
+          "head": "Has files"
         },
         "namedresourcetype": {
           "placeholder": "Status",
@@ -238,6 +246,8 @@
     "search-results": "Error fetching search results"
   },
   "form": {
+    "submit": "Submit",
+    "cancel": "Cancel",
     "search": "Search",
     "remove": "Remove",
     "first-name": "First name",

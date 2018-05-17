@@ -18,7 +18,8 @@ module.exports = {
   // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
-    msToLive: 15 * 60 * 1000, // 15 minute
+    msToLive: 15 * 60 * 1000, // 15 minutes
+    // msToLive: 1000, // 15 minutes
     control: 'max-age=60' // revalidate browser
   },
   // Authentications
@@ -63,6 +64,8 @@ module.exports = {
     async: true,
     time: false
   },
+  // Google Analytics tracking id
+  gaTrackingId: '',
   // Log directory
   logDirectory: '.',
   // NOTE: will log all redux actions and transfers in console

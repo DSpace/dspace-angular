@@ -13,6 +13,7 @@ import { CommunityDataService } from './community-data.service';
 import { FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 const LINK_NAME = 'test';
 
@@ -21,7 +22,6 @@ class NormalizedTestObject extends NormalizedObject {
 }
 
 class TestService extends ComColDataService<NormalizedTestObject, any> {
-  protected linkPath = LINK_NAME;
   protected overrideRequest = false;
 
   constructor(
@@ -31,7 +31,9 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected store: Store<CoreState>,
     protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
-    protected objectCache: ObjectCacheService
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected linkPath: string
   ) {
     super();
   }
@@ -45,6 +47,7 @@ describe('ComColDataService', () => {
   let requestService: RequestService;
   let cds: CommunityDataService;
   let objectCache: ObjectCacheService;
+  const halService: any = {};
 
   const rdbService = {} as RemoteDataBuildService;
   const store = {} as Store<CoreState>;
@@ -91,7 +94,9 @@ describe('ComColDataService', () => {
       store,
       EnvConfig,
       cds,
-      objectCache
+      objectCache,
+      halService,
+      LINK_NAME
     );
   }
 
@@ -150,25 +155,6 @@ describe('ComColDataService', () => {
       it('should throw an error', () => {
         const result = service.getScopedEndpoint(scopeID);
         const expected = cold('--#-', undefined, new Error(`The Community with scope ${scopeID} couldn't be retrieved`));
-
-        expect(result).toBeObservable(expected);
-      });
-    });
-
-    describe('if the scope is not specified', () => {
-      beforeEach(() => {
-        cds = initMockCommunityDataService();
-        requestService = getMockRequestService();
-        objectCache = initMockObjectCacheService();
-        responseCache = initMockResponseCacheService(true);
-        service = initTestService();
-      });
-
-      it('should return this.getEndpoint()', () => {
-        spyOn(service, 'getEndpoint').and.returnValue(cold('--e-', { e: serviceEndpoint }));
-
-        const result = service.getScopedEndpoint(undefined);
-        const expected = cold('--f-', { f: serviceEndpoint });
 
         expect(result).toBeObservable(expected);
       });

@@ -11,7 +11,7 @@ import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
 import { GroupFieldParser } from './group-field-parser';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
-import { DynamicGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.model';
+import { DynamicGroupModel } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { isEmpty } from '../../../empty.util';
 import { LookupFieldParser } from './lookup-field-parser';

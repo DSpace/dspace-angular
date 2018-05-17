@@ -107,7 +107,9 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: false
       });
 
+    case AuthActionTypes.AUTHENTICATED:
     case AuthActionTypes.AUTHENTICATE_SUCCESS:
+    case AuthActionTypes.LOG_OUT:
       return state;
 
     case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN:
@@ -123,8 +125,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.LOG_OUT_ERROR:
       return Object.assign({}, state, {
         authenticated: true,
-        error: (action as LogOutErrorAction).payload.message,
-        user: undefined
+        error: (action as LogOutErrorAction).payload.message
       });
 
     case AuthActionTypes.LOG_OUT_SUCCESS:

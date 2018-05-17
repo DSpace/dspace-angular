@@ -1,10 +1,9 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { IntegrationService } from './integration.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
 export class AuthorityService extends IntegrationService {
@@ -14,7 +13,7 @@ export class AuthorityService extends IntegrationService {
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
+    protected halService: HALEndpointService) {
     super();
   }
 }

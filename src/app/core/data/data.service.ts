@@ -1,11 +1,9 @@
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { GlobalConfig } from '../../../config';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
-import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
@@ -15,13 +13,13 @@ import { RequestService } from './request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 
-export abstract class DataService<TNormalized extends NormalizedObject, TDomain> extends HALEndpointService {
+export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
-  protected abstract EnvConfig: GlobalConfig;
+  protected abstract halService: HALEndpointService;
   protected abstract overrideRequest = false;
 
   public abstract getScopedEndpoint(scope: string): Observable<string>
@@ -87,7 +85,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   }
 
   findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
-    const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
+    const hrefObs = this.halService.getEndpoint(this.linkPath).filter((href: string) => isNotEmpty(href))
       .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
 
     hrefObs
@@ -106,7 +104,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   }
 
   findById(id: string): Observable<RemoteData<TDomain>> {
-    const hrefObs = this.getEndpoint()
+    const hrefObs = this.halService.getEndpoint(this.linkPath)
       .map((endpoint: string) => this.getFindByIDHref(endpoint, id));
 
     hrefObs

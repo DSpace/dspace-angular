@@ -33,7 +33,7 @@ import { Item } from '../../core/shared/item.model';
 import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
-import { PageInfo } from '../shared/page-info.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -114,6 +114,7 @@ describe('MetadataService', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
+        { provide: HALEndpointService, useValue: {}},
         Meta,
         Title,
         ItemDataService,

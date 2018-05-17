@@ -9,10 +9,7 @@ import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { SearchAppliedFilter } from '../../search-service/search-applied-filter.model';
-import { GlobalConfig } from '../../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../../config';
+import { PaginatedList } from '../../../core/data/paginated-list';
 
 /**
  * This component renders a simple item page.
@@ -29,16 +26,12 @@ import { GLOBAL_CONFIG } from '../../../../config';
 
 export class SearchFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
-  filterValues: Observable<RemoteData<FacetValue[]>>;
 
-  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
-              private searchService: SearchService,
-              private filterService: SearchFilterService) {
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig, private filterService: SearchFilterService) {
   }
 
   ngOnInit() {
-    this.filterValues = this.searchService.getFacetValuesFor(this.filter.name);
-    const sub = this.filterService.isFilterActive(this.filter.paramName).take(1).subscribe((isActive) => {
+    this.filterService.isFilterActive(this.filter.paramName).first().subscribe((isActive) => {
       const isOpenByConfig = this.config.filters.loadOpened.includes(this.filter.name);
       if (this.filter.isOpenByDefault || isActive || isOpenByConfig) {
         this.initialExpand();
@@ -46,9 +39,6 @@ export class SearchFilterComponent implements OnInit {
         this.initialCollapse();
       }
     });
-    if (hasValue(sub)) {
-      sub.unsubscribe();
-    }
   }
 
   toggle() {

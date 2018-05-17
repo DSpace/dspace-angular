@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
-import { isNotEmpty, hasValue, isEmpty } from '../empty.util';
+import { isNotEmpty, hasValue, isEmpty, hasNoValue } from '../empty.util';
 
 /**
  * This component renders a simple item page.
@@ -18,15 +19,12 @@ export class SearchFormComponent {
   @Input() query: string;
   @Input() searchLink: string;
   selectedId = '';
-  // Optional existing search parameters
-  @Input() currentParams: {};
+  @Input() currentUrl: string;
   @Input() scopes: DSpaceObject[];
 
   @Input()
-  set scope(dso: DSpaceObject) {
-    if (hasValue(dso)) {
-      this.selectedId = dso.id;
-    }
+  set scope(id: string) {
+    this.selectedId = id;
   }
 
   constructor(private router: Router) {
@@ -37,27 +35,19 @@ export class SearchFormComponent {
   }
 
   updateSearch(data: any) {
-    this.router.navigate([`/${this.searchLink}`], {
-      queryParams: Object.assign({}, this.currentParams,
-        {
-          query: data.query,
-          scope: data.scope || undefined,
-          page: data.page || 1
-        }
-      )
-    })
-    ;
+    const newUrl = hasValue(this.currentUrl) ? this.currentUrl : 'search';
+    this.router.navigate([newUrl], {
+      queryParams: {
+        query: data.query,
+        scope: data.scope || undefined,
+        page: data.page || 1
+      },
+      queryParamsHandling: 'merge'
+    });
   }
 
   isNotEmpty(object: any) {
     return isNotEmpty(object);
-  }
-
-  byId(id1: string, id2: string) {
-    if (isEmpty(id1) && isEmpty(id2)) {
-      return true;
-    }
-    return id1 === id2;
   }
 
 }

@@ -5,7 +5,7 @@
         <option *ngFor="let sortDirection of (sortDirections | dsKeys)"
                 [value]="sortDirection.value"
                 [selected]="sortDirection.value === direction? 'selected': null">
-            {{sortDirection.key}}
+            {{'sorting.' + sortDirection.key | translate}}
         </option>
     </select>
 </div>

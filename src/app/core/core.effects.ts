@@ -11,6 +11,6 @@ export const coreEffects = [
   RequestEffects,
   ObjectCacheEffects,
   UUIDIndexEffects,
-  AuthEffects,
+  AuthEffects
   JsonPatchOperationsEffects,
 ];

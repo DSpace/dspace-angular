@@ -10,6 +10,7 @@ import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
 import { ComColDataService } from './comcol-data.service';
 import { RequestService } from './request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
 export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {
@@ -22,9 +23,13 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    protected objectCache: ObjectCacheService
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService
   ) {
     super();
+  }
+
+  getEndpoint() {
+    return this.halService.getEndpoint(this.linkPath);
   }
 }

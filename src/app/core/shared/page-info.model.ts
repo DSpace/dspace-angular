@@ -28,4 +28,15 @@ export class PageInfo {
   @autoserializeAs(Number, 'number')
   currentPage: number;
 
+  @autoserialize
+  last: string;
+
+  @autoserialize
+  next: string;
+
+  @autoserialize
+  prev: string;
+
+  @autoserialize
+  first: string;
 }

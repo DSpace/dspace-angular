@@ -1,8 +1,8 @@
 <h3>{{"search.filters.head" | translate}}</h3>
 <ds-search-tab></ds-search-tab>
-<div *ngIf="filters.length > 0">
-    <div *ngFor="let filter of filters">
+<div *ngIf="(filters | async)?.hasSucceeded">
+    <div *ngFor="let filter of (filters | async).payload">
         <ds-search-filter class="d-block mb-3 p-3" [filter]="filter"></ds-search-filter>
     </div>
 </div>
-<a class="btn btn-primary" [routerLink]="[getSearchLink()]" [queryParams]="getClearFiltersQueryParams()" role="button">{{"search.filters.reset" | translate}}</a>
+<a class="btn btn-primary" [routerLink]="[getSearchLink()]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">{{"search.filters.reset" | translate}}</a>

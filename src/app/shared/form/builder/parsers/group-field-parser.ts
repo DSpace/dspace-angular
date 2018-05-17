@@ -4,7 +4,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import {
   DynamicGroupModel,
   DynamicGroupModelConfig, PLACEHOLDER_PARENT_METADATA
-} from '../ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.model';
+} from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { isNotEmpty } from '../../../empty.util';
 import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
 

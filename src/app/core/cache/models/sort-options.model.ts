@@ -1,6 +1,6 @@
 export enum SortDirection {
-  Ascending = 'ASC',
-  Descending = 'DESC'
+  ASC = 'ASC',
+  DESC = 'DESC'
 }
 export enum SortBy {
   'Last updated',
@@ -10,7 +10,7 @@ export enum SortBy {
 }
 
 export class SortOptions {
-  constructor(public field: string = 'dc.title', public direction: SortDirection = SortDirection.Ascending) {
+  constructor(public field: string, public direction: SortDirection) {
 
   }
 }

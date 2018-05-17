@@ -24,7 +24,7 @@ export class NotificationsService {
   success(title: any = Observable.of(''),
           content: any = Observable.of(''),
           options: NotificationOptions = this.getDefaultOptions(),
-          html?: any): INotification {
+          html: boolean = false): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Success, title, content, options, html);
     this.add(notification);
     return notification;
@@ -33,7 +33,7 @@ export class NotificationsService {
   error(title: any = Observable.of(''),
         content: any = Observable.of(''),
         options: NotificationOptions = this.getDefaultOptions(),
-        html?: any): INotification {
+        html: boolean = false): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Error, title, content, options, html);
     this.add(notification);
     return notification;
@@ -42,7 +42,7 @@ export class NotificationsService {
   info(title: any = Observable.of(''),
        content: any = Observable.of(''),
        options: NotificationOptions = this.getDefaultOptions(),
-       html?: any): INotification {
+       html: boolean = false): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Info, title, content, options, html);
     this.add(notification);
     return notification;
@@ -51,7 +51,7 @@ export class NotificationsService {
   warning(title: any = Observable.of(''),
           content: any = Observable.of(''),
           options: NotificationOptions = this.getDefaultOptions(),
-          html?: any): INotification {
+          html: boolean = false): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Warning, title, content, options, html);
     this.add(notification);
     return notification;

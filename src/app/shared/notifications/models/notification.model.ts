@@ -9,23 +9,23 @@ export interface INotification {
   title?: Observable<string> | string;
   content?: Observable<string> | string;
   options?: INotificationOptions;
-  html?: any;
+  html?: boolean;
 }
 
 export class Notification implements INotification {
   public id: string;
   public type: NotificationType;
-  public title: Observable<string>  | string;
-  public content: Observable<string>  | string;
+  public title: Observable<string> | string;
+  public content: Observable<string> | string;
   public options: INotificationOptions;
-  public html: any;
+  public html: boolean;
 
   constructor(id: string,
               type: NotificationType,
-              title?: Observable<string>  | string,
-              content?: Observable<string>  | string,
+              title?: Observable<string> | string,
+              content?: Observable<string> | string,
               options?: NotificationOptions,
-              html?: any) {
+              html?: boolean) {
 
     this.id = id;
     this.type = type;

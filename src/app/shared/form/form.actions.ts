@@ -15,9 +15,9 @@ export const FormActionTypes = {
   FORM_CHANGE: type('dspace/form/FORM_CHANGE'),
   FORM_REMOVE: type('dspace/form/FORM_REMOVE'),
   FORM_STATUS_CHANGE: type('dspace/form/FORM_STATUS_CHANGE'),
-  FORM_ADD_ERROR: type('dspace/form/ADD_ERROR'),
-  FORM_REMOVE_ERROR: type('dspace/form/REMOVE_ERROR'),
-  CLEAR_ERRORS: type('dspace/form/CLEAR_ERRORS'),
+  FORM_ADD_ERROR: type('dspace/form/FORM_ADD_ERROR'),
+  FORM_REMOVE_ERROR: type('dspace/form/FORM_REMOVE_ERROR'),
+  FORM_CLEAR_ERRORS: type('dspace/form/FORM_CLEAR_ERRORS'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -122,5 +122,6 @@ export class FormAddError implements Action {
  */
 export type FormAction = FormInitAction
   | FormChangeAction
+  | FormRemoveAction
   | FormStatusChangeAction
   | FormAddError

@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchFilterService } from './search-filter/search-filter.service';
 import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../search-service/search.service';
 import { Observable } from 'rxjs/Observable';
@@ -22,6 +23,9 @@ describe('SearchFiltersComponent', () => {
     }
     /* tslint:enable:no-empty */
   };
+  const searchFilterServiceStub = jasmine.createSpyObj('SearchFilterService', {
+    getCurrentFilters: Observable.of({})
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,6 +33,7 @@ describe('SearchFiltersComponent', () => {
       declarations: [SearchFiltersComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
+        { provide: SearchFilterService, useValue: searchFilterServiceStub },
 
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -42,17 +47,6 @@ describe('SearchFiltersComponent', () => {
     comp = fixture.componentInstance; // SearchFiltersComponent test instance
     fixture.detectChanges();
     searchService = (comp as any).searchService;
-  });
-
-  describe('when the getClearFiltersQueryParams method is called', () => {
-    beforeEach(() => {
-      spyOn(searchService, 'getClearFiltersQueryParams');
-      comp.getClearFiltersQueryParams();
-    });
-
-    it('should call getClearFiltersQueryParams on the searchService', () => {
-      expect(searchService.getClearFiltersQueryParams).toHaveBeenCalled()
-    });
   });
 
   describe('when the getSearchLink method is called', () => {

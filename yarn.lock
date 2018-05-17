@@ -134,6 +134,12 @@
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@nicky-lenaers/ngx-scroll-to/-/ngx-scroll-to-0.6.0.tgz#6d2922f5765a472e3c86499d9e53df5ca210e637"
 
+"@types/acorn@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@types/acorn/-/acorn-4.0.3.tgz#d1f3e738dde52536f9aad3d3380d14e448820afd"
+  dependencies:
+    "@types/estree" "*"
+
 "@types/body-parser@*":
   version "1.16.8"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.16.8.tgz#687ec34140624a3bec2b1a8ea9268478ae8f3be3"
@@ -150,6 +156,10 @@
 "@types/deep-freeze@0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@types/deep-freeze/-/deep-freeze-0.1.1.tgz#0e1ee6ceee06f51baeb663deec0bb7780bd72827"
+
+"@types/estree@*":
+  version "0.0.38"
+  resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.38.tgz#c1be40aa933723c608820a99a373a16d215a1ca2"
 
 "@types/events@*":
   version "1.1.0"
@@ -428,8 +438,8 @@ angular-idle-preload@2.0.4:
   resolved "https://registry.yarnpkg.com/angular-idle-preload/-/angular-idle-preload-2.0.4.tgz#7b177c0f52918c090e5c345480b922297cd59a0d"
 
 angular-sortablejs@^2.5.0:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/angular-sortablejs/-/angular-sortablejs-2.5.1.tgz#e4e83d90598271ae22a99a87e7a3278bde7f7c7f"
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/angular-sortablejs/-/angular-sortablejs-2.5.2.tgz#ffd651e47cc93a191db4c023f617db3789fd9af5"
 
 angular2-template-loader@0.6.2:
   version "0.6.2"
@@ -442,6 +452,12 @@ angular2-text-mask@8.0.4:
   resolved "https://registry.yarnpkg.com/angular2-text-mask/-/angular2-text-mask-8.0.4.tgz#07e485746cfb9f27e710b27b2785eac4cc4871fc"
   dependencies:
     text-mask-core "^5.0.0"
+
+angulartics2@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-5.2.0.tgz#5bac82d4b6acf798b7db906488861e70b49fe04c"
+  dependencies:
+    tslib "^1.7.1"
 
 ansi-align@^2.0.0:
   version "2.0.0"
@@ -8620,9 +8636,13 @@ term-size@^1.2.0:
   dependencies:
     execa "^0.7.0"
 
-text-mask-core@5.0.1, text-mask-core@^5.0.0:
+text-mask-core@5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.0.1.tgz#86db742bdfe3b4c383bb51a3b4ca342c86110639"
+
+text-mask-core@^5.0.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.1.1.tgz#a7f65634e11236818fd36a92668e17bf9368f357"
 
 throttleit@^1.0.0:
   version "1.0.0"

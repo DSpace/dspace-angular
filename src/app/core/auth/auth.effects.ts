@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 // import @ngrx
-import { Effect, Actions } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 
 // import rxjs
@@ -9,16 +9,22 @@ import { Observable } from 'rxjs/Observable';
 
 // import services
 import { AuthService } from './auth.service';
-
 // import actions
 import {
-  AuthActionTypes, AuthenticateAction, AuthenticatedAction,
+  AuthActionTypes,
+  AuthenticateAction,
+  AuthenticatedAction,
   AuthenticatedErrorAction,
   AuthenticatedSuccessAction,
   AuthenticationErrorAction,
-  AuthenticationSuccessAction, CheckAuthenticationTokenErrorAction,
+  AuthenticationSuccessAction,
+  CheckAuthenticationTokenErrorAction,
   LogOutErrorAction,
-  LogOutSuccessAction, RefreshTokenAction, RefreshTokenErrorAction, RefreshTokenSuccessAction, RegistrationAction,
+  LogOutSuccessAction,
+  RefreshTokenAction,
+  RefreshTokenErrorAction,
+  RefreshTokenSuccessAction,
+  RegistrationAction,
   RegistrationErrorAction,
   RegistrationSuccessAction, RetrieveAuthMethodsAction, RetrieveAuthMethodsErrorAction, RetrieveAuthMethodsSuccessAction
 } from './auth.actions';
@@ -37,7 +43,7 @@ export class AuthEffects {
    * @method authenticate
    */
   @Effect()
-  public authenticate: Observable<Action> = this.actions$
+  public authenticate$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.AUTHENTICATE)
     .switchMap((action: AuthenticateAction) => {
       return this.authService.authenticate(action.payload.email, action.payload.password)
@@ -47,13 +53,13 @@ export class AuthEffects {
     });
 
   @Effect()
-  public authenticateSuccess: Observable<Action> = this.actions$
+  public authenticateSuccess$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.AUTHENTICATE_SUCCESS)
     .do((action: AuthenticationSuccessAction) => this.authService.storeToken(action.payload))
     .map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload));
 
   @Effect()
-  public authenticated: Observable<Action> = this.actions$
+  public authenticated$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.AUTHENTICATED)
     .switchMap((action: AuthenticatedAction) => {
       return this.authService.authenticatedUser(action.payload)
@@ -63,12 +69,12 @@ export class AuthEffects {
 
   // It means "reacts to this action but don't send another"
   @Effect({dispatch: false})
-  public authenticatedError: Observable<Action> = this.actions$
+  public authenticatedError$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.AUTHENTICATED_ERROR)
     .do((action: LogOutSuccessAction) => this.authService.removeToken());
 
   @Effect()
-  public checkToken: Observable<Action> = this.actions$
+  public checkToken$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN)
     .switchMap(() => {
       return this.authService.hasValidAuthenticationToken()
@@ -77,12 +83,12 @@ export class AuthEffects {
     });
 
   @Effect()
-  public checkTokenError: Observable<Action> = this.actions$
+  public checkTokenError$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_ERROR)
     .map(() => new RetrieveAuthMethodsAction());
 
   @Effect()
-  public createUser: Observable<Action> = this.actions$
+  public createUser$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.REGISTRATION)
     .debounceTime(500) // to remove when functionality is implemented
     .switchMap((action: RegistrationAction) => {
@@ -92,7 +98,7 @@ export class AuthEffects {
     });
 
   @Effect()
-  public refreshToken: Observable<Action> = this.actions$
+  public refreshToken$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.REFRESH_TOKEN)
     .switchMap((action: RefreshTokenAction) => {
       return this.authService.refreshAuthenticationToken(action.payload)
@@ -102,7 +108,7 @@ export class AuthEffects {
 
   // It means "reacts to this action but don't send another"
   @Effect({dispatch: false})
-  public refreshTokenSuccess: Observable<Action> = this.actions$
+  public refreshTokenSuccess$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.REFRESH_TOKEN_SUCCESS)
     .do((action: RefreshTokenSuccessAction) => this.authService.replaceToken(action.payload));
 
@@ -111,7 +117,7 @@ export class AuthEffects {
    * clear a possible invalid token or authentication errors
    */
   @Effect({dispatch: false})
-  public clearInvalidTokenOnRehydrate = this.actions$
+  public clearInvalidTokenOnRehydrate$: Observable<any> = this.actions$
     .ofType(StoreActionTypes.REHYDRATE)
     .switchMap(() => {
       return this.store.select(isAuthenticated)
@@ -122,7 +128,7 @@ export class AuthEffects {
     });
 
   @Effect()
-  public logOut: Observable<Action> = this.actions$
+  public logOut$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.LOG_OUT)
     .switchMap(() => {
       return this.authService.logout()
@@ -131,25 +137,25 @@ export class AuthEffects {
     });
 
   @Effect({dispatch: false})
-  public logOutSuccess: Observable<Action> = this.actions$
+  public logOutSuccess$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.LOG_OUT_SUCCESS)
     .do(() => this.authService.removeToken())
     .do(() => this.authService.refreshAfterLogout());
 
   @Effect({dispatch: false})
-  public redirectToLogin: Observable<Action> = this.actions$
+  public redirectToLogin$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED)
     .do(() => this.authService.removeToken())
     .do(() => this.authService.redirectToLogin());
 
   @Effect({dispatch: false})
-  public redirectToLoginTokenExpired: Observable<Action> = this.actions$
+  public redirectToLoginTokenExpired$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED)
     .do(() => this.authService.removeToken())
     .do(() => this.authService.redirectToLoginWhenTokenExpired());
 
   @Effect()
-  public retrieveMethods: Observable<Action> = this.actions$
+  public retrieveMethods$: Observable<Action> = this.actions$
     .ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS)
     .switchMap(() => {
       return this.authService.retrieveAuthMethods()

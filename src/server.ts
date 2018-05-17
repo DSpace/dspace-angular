@@ -21,8 +21,6 @@ import { ENV_CONFIG } from './config';
 export function startServer(bootstrap: Type<{}> | NgModuleFactory<{}>) {
   const app = express();
 
-  const port = ENV_CONFIG.ui.port ? ENV_CONFIG.ui.port : 80;
-
   if (ENV_CONFIG.production) {
     enableProdMode();
     app.use(compression());
@@ -90,7 +88,7 @@ export function startServer(bootstrap: Type<{}> | NgModuleFactory<{}>) {
     https.createServer({
       key: keys.serviceKey,
       cert: keys.certificate
-    }, app).listen(port, ENV_CONFIG.ui.host, () => {
+    }, app).listen(ENV_CONFIG.ui.port, ENV_CONFIG.ui.host, () => {
       serverStarted();
     });
   }
@@ -127,7 +125,7 @@ export function startServer(bootstrap: Type<{}> | NgModuleFactory<{}>) {
       });
     }
   } else {
-    app.listen(port, ENV_CONFIG.ui.host, () => {
+    app.listen(ENV_CONFIG.ui.port, ENV_CONFIG.ui.host, () => {
       serverStarted();
     });
   }}

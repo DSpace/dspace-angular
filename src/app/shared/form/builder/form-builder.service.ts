@@ -7,19 +7,17 @@ import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormService,
-  DynamicFormValidationService,
   DynamicPathable,
   JSONUtils,
 } from '@ng-dynamic-forms/core';
 import { mergeWith } from 'lodash';
 
-import { isEmpty, isNotEmpty, isNotNull, isNull } from '../../empty.util';
+import { isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
 import { DynamicComboboxModel } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
-import { DynamicGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.model';
+import { DynamicGroupModel } from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { RowParser } from './parsers/row-parser';
@@ -137,7 +135,7 @@ export class FormBuilderService extends DynamicFormService {
           controlId = controlModel.name;
         }
 
-        const controlValue = (controlModel as any).value || null;
+        const controlValue = isNotUndefined((controlModel as any).value) ? (controlModel as any).value : null;
         if (controlId && iterateResult.hasOwnProperty(controlId) && isNotNull(iterateResult[controlId])) {
           iterateResult[controlId].push(controlValue);
         } else {
@@ -153,7 +151,7 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any = {}, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, JSONUtils.parseReviver) : json;
 

@@ -3,6 +3,7 @@ import { SearchService } from '../search-service/search.service';
 import { SearchOptions, ViewMode } from '../search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
 
 @Component({
   selector: 'ds-search-settings',
@@ -11,7 +12,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 })
 export class SearchSettingsComponent implements OnInit {
 
-  @Input() searchOptions: SearchOptions;
+  @Input() searchOptions: PaginatedSearchOptions;
   /**
    * Declare SortDirection enumeration to use it in the template
    */
@@ -21,8 +22,6 @@ export class SearchSettingsComponent implements OnInit {
    */
   public pageSize;
   @Input() public pageSizeOptions;
-  public listPageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
-  public gridPageSizeOptions: number[] = [12, 24, 36, 48 , 50, 62, 74, 84];
 
   private sub;
   private scope: string;
@@ -50,9 +49,9 @@ export class SearchSettingsComponent implements OnInit {
         this.pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
         this.direction = params.sortDirection || this.searchOptions.sort.direction;
         if (params.view === ViewMode.Grid) {
-          this.pageSizeOptions = this.gridPageSizeOptions;
+          this.pageSizeOptions = this.pageSizeOptions;
         } else {
-          this.pageSizeOptions = this.listPageSizeOptions;
+          this.pageSizeOptions = this.pageSizeOptions;
         }
       });
   }

@@ -13,6 +13,7 @@ import { Notification } from '../models/notification.model';
 import { NotificationType } from '../models/notification-type';
 import { uniqueId } from 'lodash';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 
 describe('NotificationsBoardComponent', () => {
   let comp: NotificationsBoardComponent;
@@ -26,7 +27,7 @@ describe('NotificationsBoardComponent', () => {
         StoreModule.forRoot({notificationsReducer})],
       declarations: [NotificationsBoardComponent, NotificationComponent], // declare the test component
       providers: [
-        NotificationsService,
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
         ChangeDetectorRef]
     }).compileComponents();  // compile template and css
   }));

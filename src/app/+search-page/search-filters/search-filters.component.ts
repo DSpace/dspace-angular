@@ -3,6 +3,7 @@ import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 import { Observable } from 'rxjs/Observable';
+import { SearchFilterService } from './search-filter/search-filter.service';
 import { Subscription } from 'rxjs/Subscription';
 import { hasValue } from '../../shared/empty.util';
 
@@ -18,32 +19,12 @@ import { hasValue } from '../../shared/empty.util';
   templateUrl: './search-filters.component.html',
 })
 
-export class SearchFiltersComponent implements OnDestroy, OnInit {
-  filters: SearchFilterConfig[] = [];
-  sub: Subscription;
-  constructor(private cdr: ChangeDetectorRef, private searchService: SearchService) {
-  }
-
-  ngOnInit() {
-    this.sub = this.searchService.getConfig()
-      .distinctUntilChanged()
-      .subscribe((filtersConfig) => {
-        const filters = [];
-        filtersConfig.forEach((filter) => {
-          let newFilter = filter;
-          // Force instance of the facet object to SearchFilterConfig
-          if (!(filter instanceof SearchFilterConfig)) {
-            newFilter = Object.assign(new SearchFilterConfig(), filter);
-          }
-          filters.push(newFilter);
-        });
-        this.filters = filters;
-        this.cdr.detectChanges();
-      });
-  }
-
-  getClearFiltersQueryParams(): any {
-    return this.searchService.getClearFiltersQueryParams();
+export class SearchFiltersComponent {
+  filters: Observable<RemoteData<SearchFilterConfig[]>>;
+  clearParams;
+  constructor(private cdr: ChangeDetectorRef, private searchService: SearchService, private filterService: SearchFilterService) {
+    this.filters = searchService.getConfig();
+    this.clearParams = filterService.getCurrentFilters().map((filters) => {Object.keys(filters).forEach((f) => filters[f] = null); return filters;});
   }
 
   getSearchLink() {

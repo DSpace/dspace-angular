@@ -12,7 +12,7 @@ import { BrowseDefinition } from '../shared/browse-definition.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
-export class BrowseService extends HALEndpointService {
+export class BrowseService {
   protected linkPath = 'browses';
 
   private static toSearchKeyArray(metadatumKey: string): string[] {
@@ -31,13 +31,12 @@ export class BrowseService extends HALEndpointService {
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
-    super();
+    protected halService: HALEndpointService) {
   }
 
   getBrowseURLFor(metadatumKey: string, linkPath: string): Observable<string> {
     const searchKeyArray = BrowseService.toSearchKeyArray(metadatumKey);
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => new BrowseEndpointRequest(this.requestService.generateRequestId(), endpointURL))

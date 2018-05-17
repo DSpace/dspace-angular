@@ -13,6 +13,9 @@ module.exports = {
   output: {
     path: root('dist')
   },
+  watchOptions: {
+    aggregateTimeout: 50,
+  },
   module: {
     rules: [{
         test: /\.ts$/,

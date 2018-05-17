@@ -1,48 +1,27 @@
-import { FilterType } from './filter-type.model';
-import { autoserialize, autoserializeAs } from 'cerialize';
-import { FacetValue } from './facet-value.model';
+  import { FilterType } from './filter-type.model';
+  import { autoserialize, autoserializeAs } from 'cerialize';
 
-export class SearchFilterConfig {
-  @autoserialize
-  scope: string;
+  export class SearchFilterConfig {
 
-  @autoserialize
-  query: string;
+    @autoserialize
+    name: string;
 
-  @autoserialize
-  sort: any; // TODO
+    @autoserializeAs(String, 'facetType')
+    type: FilterType;
 
-  @autoserialize
-  configurationName: string;
+    @autoserialize
+    hasFacets: boolean;
 
-  @autoserialize
-  name: string;
+    // @autoserializeAs(String, 'facetLimit') - uncomment when fixed in rest
+    pageSize = 5;
 
-  @autoserialize
-  facetType: FilterType;
-
-  @autoserialize
-  facetLimit: number;
-
-  @autoserialize
-  hasFacets: boolean;
-
-  @autoserialize
-  pageSize = 5;
-
-  @autoserialize
-  public type: string;
-
-  @autoserializeAs(FacetValue)
-  values: FacetValue[];
-
-  @autoserialize
-  isOpenByDefault: boolean;
-  /**
-   * Name of this configuration that can be used in a url
-   * @returns Parameter name
-   */
-  get paramName(): string {
-    return 'f.' + this.name;
+    @autoserialize
+    isOpenByDefault: boolean;
+    /**
+     * Name of this configuration that can be used in a url
+     * @returns Parameter name
+     */
+    get paramName(): string {
+      return 'f.' + this.name;
+    }
   }
-}

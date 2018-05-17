@@ -1,33 +1,34 @@
-/* tslint:disable:no-unused-variable */
-/*import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from '@angular/material';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
-import { go } from '@ngrx/router-store';
 
-// reducers
-import { reducer } from '../../app.reducers';
-
-// models
-import { User } from '../../core/models/user';
-
-// services
-import { MOCK_USER } from '../../core/services/user.service';
-
-// this component to test
 import { LogInComponent } from './log-in.component';
+import { authReducer } from '../../core/auth/auth.reducers';
+import { EpersonMock } from '../testing/eperson-mock';
+import { Eperson } from '../../core/eperson/models/eperson.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthServiceStub } from '../testing/auth-service-stub';
+import { AppState } from '../../app.reducer';
 
 describe('LogInComponent', () => {
 
   let component: LogInComponent;
   let fixture: ComponentFixture<LogInComponent>;
   let page: Page;
-  let user: User = new User();
+  let user: Eperson;
+
+  const authState = {
+    authenticated: false,
+    loaded: false,
+    loading: false,
+  };
 
   beforeEach(() => {
-    user = MOCK_USER;
+    user = EpersonMock;
   });
 
   beforeEach(async(() => {
@@ -35,27 +36,37 @@ describe('LogInComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        MaterialModule,
         ReactiveFormsModule,
-        StoreModule.provideStore(reducer)
+        StoreModule.forRoot(authReducer),
+        TranslateModule.forRoot()
       ],
       declarations: [
         LogInComponent
+      ],
+      providers: [
+        {provide: AuthService, useClass: AuthServiceStub}
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ]
     })
-    .compileComponents();
+      .compileComponents();
+
+  }));
+
+  beforeEach(inject([Store], (store: Store<AppState>) => {
+    store
+      .subscribe((state) => {
+        (state as any).core = Object.create({});
+        (state as any).core.auth = authState;
+      });
 
     // create component and test fixture
     fixture = TestBed.createComponent(LogInComponent);
 
     // get test component from the fixture
     component = fixture.componentInstance;
-  }));
 
-  beforeEach(() => {
     // create page
     page = new Page(component, fixture);
 
@@ -63,7 +74,8 @@ describe('LogInComponent', () => {
     fixture.whenStable().then(() => {
       page.addPageElements();
     });
-  });
+
+  }));
 
   it('should create a FormGroup comprised of FormControls', () => {
     fixture.detectChanges();
@@ -74,8 +86,8 @@ describe('LogInComponent', () => {
     fixture.detectChanges();
 
     // set FormControl values
-    component.form.controls['email'].setValue(user.email);
-    component.form.controls['password'].setValue(user.password);
+    component.form.controls.email.setValue('user');
+    component.form.controls.password.setValue('password');
 
     // submit form
     component.submit();
@@ -90,7 +102,6 @@ describe('LogInComponent', () => {
  *
  * @class Page
  */
-/*
 class Page {
 
   public emailInput: HTMLInputElement;
@@ -103,16 +114,14 @@ class Page {
     const store = injector.get(Store);
 
     // add spies
-    this.navigateSpy  = spyOn(store, 'dispatch');
+    this.navigateSpy = spyOn(store, 'dispatch');
   }
 
   public addPageElements() {
     const emailInputSelector = 'input[formcontrolname=\'email\']';
-    // console.log(this.fixture.debugElement.query(By.css(emailInputSelector)));
     this.emailInput = this.fixture.debugElement.query(By.css(emailInputSelector)).nativeElement;
 
     const passwordInputSelector = 'input[formcontrolname=\'password\']';
     this.passwordInput = this.fixture.debugElement.query(By.css(passwordInputSelector)).nativeElement;
   }
 }
-*/

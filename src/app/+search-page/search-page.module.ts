@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { SearchPageRoutingModule } from './search-page-routing.module';
 import { SearchPageComponent } from './search-page.component';
@@ -50,6 +51,7 @@ const components = [
     CommonModule,
     SharedModule,
     EffectsModule.forFeature(effects),
+    CoreModule.forRoot()
   ],
   declarations: components,
   providers: [

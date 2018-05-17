@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
@@ -45,6 +46,7 @@ import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationServ
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
+
 import { SubmissionResponseParsingService } from './submission/submission-response-parsing.service';
 import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
@@ -58,6 +60,10 @@ import { AuthResponseParsingService } from './auth/auth-response-parsing.service
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { PlatformService } from '../shared/services/platform.service';
+import { HALEndpointService } from './shared/hal-endpoint.service';
+import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
+import { FacetValueMapResponseParsingService } from './data/facet-value-map-response-parsing.service';
+import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { JsonPatchOperationsService } from './json-patch/json-patch-operations.service';
 import { MessageService } from './message/message.service';
 import { MessageResponseParsingService } from './message/message-response-parsing.service';
@@ -101,6 +107,7 @@ const PROVIDERS = [
   FormService,
   EpersonResponseParsingService,
   GroupEpersonService,
+  HALEndpointService,
   HostWindowService,
   ItemDataService,
   MetadataService,
@@ -111,6 +118,9 @@ const PROVIDERS = [
   RequestService,
   ResponseCacheService,
   EndpointMapResponseParsingService,
+  FacetValueResponseParsingService,
+  FacetValueMapResponseParsingService,
+  FacetConfigResponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
   ServerResponseService,
@@ -126,6 +136,7 @@ const PROVIDERS = [
   JsonPatchOperationsService,
   AuthorityService,
   IntegrationResponseParsingService,
+  UploaderService,
   UUIDService,
   NotificationsService,
   WorkspaceitemDataService,
@@ -137,14 +148,14 @@ const PROVIDERS = [
   TaskResponseParsingService,
   RolesService,
   UploaderService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory },
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }
-
+  },
+  NotificationsService,
+  { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
 @NgModule({

@@ -1,15 +1,17 @@
 import { PageInfo } from '../shared/page-info.model';
+import { hasValue } from '../../shared/empty.util';
 
 export class PaginatedList<T> {
 
-  constructor(
-    private pageInfo: PageInfo,
-    public page: T[]
-  ) {
+  constructor(private pageInfo: PageInfo,
+              public page: T[]) {
   }
 
   get elementsPerPage(): number {
-    return this.pageInfo.elementsPerPage;
+    if (hasValue(this.pageInfo)) {
+      return this.pageInfo.elementsPerPage;
+    }
+    return this.page.length;
   }
 
   set elementsPerPage(value: number) {
@@ -17,7 +19,10 @@ export class PaginatedList<T> {
   }
 
   get totalElements(): number {
-    return this.pageInfo.totalElements;
+    if (hasValue(this.pageInfo)) {
+      return this.pageInfo.totalElements;
+    }
+    return this.page.length;
   }
 
   set totalElements(value: number) {
@@ -25,7 +30,10 @@ export class PaginatedList<T> {
   }
 
   get totalPages(): number {
-    return this.pageInfo.totalPages;
+    if (hasValue(this.pageInfo)) {
+      return this.pageInfo.totalPages;
+    }
+    return 1;
   }
 
   set totalPages(value: number) {
@@ -33,10 +41,44 @@ export class PaginatedList<T> {
   }
 
   get currentPage(): number {
-    return this.pageInfo.currentPage;
+    if (hasValue(this.pageInfo)) {
+      return this.pageInfo.currentPage;
+    }
+    return 1;
   }
 
   set currentPage(value: number) {
     this.pageInfo.currentPage = value;
+  }
+
+  get first(): string {
+    return this.pageInfo.first;
+  }
+
+  set first(first: string) {
+    this.pageInfo.first = first;
+  }
+
+  get prev(): string {
+    return this.pageInfo.prev;
+  }
+  set prev(prev: string) {
+    this.pageInfo.prev = prev;
+  }
+
+  get next(): string {
+    return this.pageInfo.next;
+  }
+
+  set next(next: string) {
+    this.pageInfo.next = next;
+  }
+
+  get last(): string {
+    return this.pageInfo.last;
+  }
+
+  set last(last: string) {
+    this.pageInfo.last = last;
   }
 }

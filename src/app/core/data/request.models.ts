@@ -14,6 +14,7 @@ import { EpersonResponseParsingService } from '../eperson/eperson-response-parsi
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { MessageResponseParsingService } from '../message/message-response-parsing.service';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
+import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -149,13 +150,6 @@ export class EndpointMapRequest extends GetRequest {
   }
 }
 
-export class RootEndpointRequest extends EndpointMapRequest {
-  constructor(uuid: string, EnvConfig: GlobalConfig) {
-    const href = new RESTURLCombiner(EnvConfig, '/').toString();
-    super(uuid, href);
-  }
-}
-
 export class BrowseEndpointRequest extends GetRequest {
   constructor(uuid: string, href: string) {
     super(uuid, href);
@@ -193,6 +187,16 @@ export class AuthGetRequest extends GetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return AuthResponseParsingService;
+  }
+}
+
+export class IntegrationRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return IntegrationResponseParsingService;
   }
 }
 

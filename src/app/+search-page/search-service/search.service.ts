@@ -1,13 +1,18 @@
-import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
+import { Injectable, OnDestroy } from '@angular/core';
+import {
+  ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router,
+  UrlSegmentGroup
+} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, filter, first, flatMap, map, startWith, take, tap } from 'rxjs/operators';
+import { flatMap, map, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { SearchSuccessResponse } from '../../core/cache/response-cache.models';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import {
+  FacetConfigSuccessResponse,
+  FacetValueSuccessResponse,
+  SearchSuccessResponse
+} from '../../core/cache/response-cache.models';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { ResponseCacheService } from '../../core/cache/response-cache.service';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -19,7 +24,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
@@ -31,74 +36,41 @@ import { SearchQueryResponse } from './search-query-response.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { getSearchResultFor } from './search-result-element-decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { SearchAppliedFilter } from './search-applied-filter.model';
+import { FacetValueResponseParsingService } from '../../core/data/facet-value-response-parsing.service';
+import { FacetConfigResponseParsingService } from '../../core/data/facet-config-response-parsing.service';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { observable } from 'rxjs/symbol/observable';
 
 @Injectable()
-export class SearchService extends HALEndpointService implements OnDestroy {
-  protected linkPath = 'discover/search/objects';
+export class SearchService implements OnDestroy {
+  private searchLinkPath = 'discover/search/objects';
+  private facetValueLinkPathPrefix = 'discover/facets/';
+  private facetConfigLinkPath = 'discover/facets';
 
   private sub;
 
-  appliedFilters: SearchAppliedFilter[] = [];
-  appliedFiltersSubject: BehaviorSubject<SearchAppliedFilter[]>;
-  config: SearchFilterConfig[] = [];
-  configSubject: BehaviorSubject<SearchFilterConfig[]>;
   searchOptions: SearchOptions;
 
-  constructor(protected responseCache: ResponseCacheService,
-              protected requestService: RequestService,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+  constructor(private router: Router,
               private route: ActivatedRoute,
+              protected responseCache: ResponseCacheService,
+              protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
-              private router: Router) {
-    super();
-    this.initSearchOptions();
-    this.configSubject = new BehaviorSubject<SearchFilterConfig[]>(this.config);
-    this.appliedFiltersSubject = new BehaviorSubject<SearchAppliedFilter[]>(this.appliedFilters);
-    // this.searchOptions = new BehaviorSubject<SearchOptions>(searchOptions);
+              private halService: HALEndpointService) {
+    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
+    pagination.id = 'search-results-pagination';
+    pagination.currentPage = 1;
+    pagination.pageSize = 10;
+    const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
+    this.searchOptions = Object.assign(new SearchOptions(), { pagination: pagination, sort: sort });
   }
 
-  search(query: string, scopeId?: string, searchOptions?: SearchOptions, configuration?: string, filters?: any): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>> | PaginatedList<SearchResult<DSpaceObject>>>> {
-    this.configSubject.next([]);
-    this.appliedFiltersSubject.next([]);
-    const requestObs = this.getEndpoint().pipe(
+  search(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    const requestObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
-        const args: string[] = [];
-
-        if (isNotEmpty(query)) {
-          args.push(`query=${query}`);
+        if (hasValue(searchOptions)) {
+          url = (searchOptions as PaginatedSearchOptions).toRestUrl(url);
         }
-
-        if (isNotEmpty(scopeId)) {
-          args.push(`scope=${scopeId}`);
-        }
-
-        if (isNotEmpty(searchOptions)) {
-          if (isNotEmpty(searchOptions.sort)) {
-            args.push(`sort=${searchOptions.sort.field},${searchOptions.sort.direction}`);
-          }
-          if (isNotEmpty(searchOptions.pagination)) {
-            args.push(`page=${searchOptions.pagination.currentPage - 1}`);
-            args.push(`size=${searchOptions.pagination.pageSize}`);
-          }
-        }
-
-        if (isNotEmpty(configuration)) {
-          args.push(`configuration=${configuration}`);
-        }
-
-        if (isNotEmpty(filters)) {
-          Object.keys(filters)
-            .forEach((key) => {
-              filters[key].forEach((value) => args.push(`${key}=${value}`))
-            });
-        }
-
-        if (isNotEmpty(args)) {
-          url = new URLCombiner(url, `?${args.join('&')}`).toString();
-        }
-
         const request = new GetRequest(this.requestService.generateRequestId(), url);
         return Object.assign(request, {
           getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -106,9 +78,8 @@ export class SearchService extends HALEndpointService implements OnDestroy {
           }
         });
       }),
-      tap((request: RestRequest) => this.requestService.configure(request, true)),
+      tap((request: RestRequest) => this.requestService.configure(request)),
     );
-
     const requestEntryObs = requestObs.pipe(
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
@@ -120,17 +91,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     // get search results from response cache
     const sqrObs: Observable<SearchQueryResponse> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
-      // take(1),
-      map((response: SearchSuccessResponse) => {
-        // emit new facets value
-        this.configSubject.next(response.results.facets);
-        this.config = response.results.facets;
-
-        // emit new applied filters value
-        this.appliedFiltersSubject.next(response.results.appliedFilters);
-        this.appliedFilters = response.results.appliedFilters;
-        return response.results
-      })
+      map((response: SearchSuccessResponse) => response.results)
     );
 
     // turn dspace href from search results to effective list of DSpaceObjects
@@ -150,7 +111,7 @@ export class SearchService extends HALEndpointService implements OnDestroy {
         let co = DSpaceObject;
         if (dsos.payload[index]) {
           const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
-          co = getSearchResultFor(constructor, configuration);
+          co = getSearchResultFor(constructor);
           return Object.assign(new co(), object, {
             dspaceObject: dsos.payload[index]
           });
@@ -160,18 +121,10 @@ export class SearchService extends HALEndpointService implements OnDestroy {
       });
     });
 
-    const pageInfoObs: Observable<PageInfo> = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-      .map((entry: ResponseCacheEntry) => {
-        if (hasValue((entry.response as SearchSuccessResponse).pageInfo)) {
-          const resPageInfo = (entry.response as SearchSuccessResponse).pageInfo;
-          if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
-            return Object.assign({}, resPageInfo, {currentPage: resPageInfo.currentPage + 1});
-          } else {
-            return resPageInfo;
-          }
-        }
-      });
+    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: FacetValueSuccessResponse) => response.pageInfo)
+    );
 
     const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
       return new PaginatedList(pageInfo, tDomainList);
@@ -180,66 +133,88 @@ export class SearchService extends HALEndpointService implements OnDestroy {
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
-  getConfig(): BehaviorSubject<SearchFilterConfig[]> {
-    return this.configSubject;
-  }
+  getConfig(scope?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+    const requestObs = this.halService.getEndpoint(this.facetConfigLinkPath).pipe(
+      map((url: string) => {
+        const args: string[] = [];
 
-  getAppliedFiltersFor(searchFilterConfigName: string): Observable<RemoteData<SearchAppliedFilter[]>> {
-    return this.appliedFiltersSubject.pipe(
-      filter((appliedFilters: SearchAppliedFilter[]) => isNotEmpty(appliedFilters)),
-      map((appliedFilters: SearchAppliedFilter[]) => appliedFilters
-        .filter((appliedFilter: SearchAppliedFilter) => appliedFilter.filter === searchFilterConfigName)),
-      map((appliedFilters: SearchAppliedFilter[]) => {
-        const requestPending = false;
-        const responsePending = false;
-        const isSuccessful = true;
-        const error = undefined;
-        return new RemoteData(
-          requestPending,
-          responsePending,
-          isSuccessful,
-          error,
-          appliedFilters
-        )
-      }),
-      startWith(new RemoteData(
-        false,
-        true,
-        true,
-        undefined,
-        []
-      )),
-      distinctUntilChanged()
-    )
-  }
+        if (isNotEmpty(scope)) {
+          args.push(`scope=${scope}`);
+        }
 
-  getFacetValuesFor(searchFilterConfigName: string): Observable<RemoteData<FacetValue[]>> {
-    return this.getConfig().pipe(
-      filter((config: SearchFilterConfig[]) => isNotUndefined(config)),
-      flatMap((config: SearchFilterConfig[]) => config),
-      filter((config: SearchFilterConfig) => config.name === searchFilterConfigName),
-      map((config: SearchFilterConfig) => {
-        const requestPending = false;
-        const responsePending = false;
-        const isSuccessful = true;
-        const error = undefined;
-        return new RemoteData(
-          requestPending,
-          responsePending,
-          isSuccessful,
-          error,
-          config.values
-        )
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+
+        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return FacetConfigResponseParsingService;
+          }
+        });
       }),
-      startWith(new RemoteData(
-        false,
-        true,
-        true,
-        undefined,
-        []
-      )),
-      distinctUntilChanged()
+      tap((request: RestRequest) => this.requestService.configure(request)),
     );
+
+    const requestEntryObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    const responseCacheObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.responseCache.get(request.href))
+    );
+
+    // get search results from response cache
+    const facetConfigObs: Observable<SearchFilterConfig[]> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: FacetConfigSuccessResponse) =>
+        response.results.map((result: any) => Object.assign(new SearchFilterConfig(), result)))
+    );
+
+    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, facetConfigObs);
+  }
+
+  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions): Observable<RemoteData<PaginatedList<FacetValue>>> {
+    const requestObs = this.halService.getEndpoint(this.facetValueLinkPathPrefix + filterConfig.name).pipe(
+      map((url: string) => {
+        const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
+        if (hasValue(searchOptions)) {
+          url = searchOptions.toRestUrl(url, args);
+        }
+        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return FacetValueResponseParsingService;
+          }
+        });
+      }),
+      tap((request: RestRequest) => this.requestService.configure(request)),
+    );
+
+    const requestEntryObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    const responseCacheObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.responseCache.get(request.href))
+    );
+
+    // get search results from response cache
+    const facetValueObs: Observable<FacetValue[]> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: FacetValueSuccessResponse) => response.results)
+    );
+
+    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: FacetValueSuccessResponse) => response.pageInfo)
+    );
+
+    const payloadObs = Observable.combineLatest(facetValueObs, pageInfoObs, (facetValue, pageInfo) => {
+      return new PaginatedList(pageInfo, facetValue);
+    });
+
+    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
   getViewMode(): Observable<ViewMode> {
@@ -253,53 +228,18 @@ export class SearchService extends HALEndpointService implements OnDestroy {
   }
 
   setViewMode(viewMode: ViewMode) {
-    this.sub = this.route.queryParams
-      .take(1)
-      .subscribe((params) => {
-        // Clear search options
-        this.initSearchOptions();
-        const newParams = Object.create({});
-        Object.keys(params)
-          .filter((paramKey) => paramKey !== 'pageId' && paramKey !== 'page' && paramKey !== 'pageSize')
-          .forEach((paramKey) => newParams[paramKey] = params[paramKey]);
+    const navigationExtras: NavigationExtras = {
+      queryParams: { view: viewMode },
+      queryParamsHandling: 'merge'
+    };
 
-        newParams.view = viewMode;
-
-        const navigationExtras: NavigationExtras = {
-          queryParams: newParams
-        };
-
-        this.router.navigate([this.getSearchLink()], navigationExtras);
-      });
+    this.router.navigate([this.getSearchLink()], navigationExtras);
   }
 
-  getClearFiltersQueryParams(): any {
-    const params = {};
-    this.sub = this.route.queryParamMap
-      .subscribe((paramsMap) => {
-        paramsMap.keys
-          .filter((key) => this.config
-            .findIndex((conf: SearchFilterConfig) => conf.paramName === key) < 0)
-          .forEach((key) => {
-            params[key] = paramsMap.get(key);
-          })
-      });
-    return params;
-  }
-
-  getSearchLink() {
+  getSearchLink(): string {
     const urlTree = this.router.parseUrl(this.router.url);
     const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
     return '/' + g.toString();
-  }
-
-  protected initSearchOptions() {
-    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'search-results-pagination';
-    pagination.currentPage = 1;
-    pagination.pageSize = 10;
-    const sort: SortOptions = new SortOptions();
-    this.searchOptions = {pagination: pagination, sort: sort};
   }
 
   ngOnDestroy(): void {

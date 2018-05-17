@@ -31,7 +31,7 @@ export class FormService {
   /**
    * Method to retrieve form's data from state
    */
-  public getFormData(formId: string): Observable<FormControl> {
+  public getFormData(formId: string): Observable<any> {
     return this.store.select(formObjectFromIdSelector(formId))
       .filter((state) => isNotUndefined(state))
       .map((state) => state.data)

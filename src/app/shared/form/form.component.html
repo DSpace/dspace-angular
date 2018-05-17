@@ -5,6 +5,7 @@
       [formId]="formId"
       [formGroup]="formGroup"
       [formModel]="formModel"
+      [formLayout]="formLayout"
       (dfBlur)="onBlur($event)"
       (dfChange)="onChange($event)"
       (dfFocus)="onFocus($event)">
@@ -48,9 +49,9 @@
       <div class="form-group row">
 
         <div class="col text-right">
-          <button type="reset" class="btn btn-default" (click)="reset()">Cancel</button>
+          <button type="reset" class="btn btn-default" (click)="reset()">{{'form.cancel' | translate}}</button>
           <button type="submit" class="btn btn-primary" (click)="onSubmit($event)"
-                  [disabled]="!(isValid() | async)">Submit
+                  [disabled]="!(isValid() | async)">{{'form.submit' | translate}}
           </button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 <ds-truncatable [id]="dso.id">
-    <div class="card mt-1" [@focusShadow]="(isCollapsed() | async)?'blur':'focus'">
+    <div class="card" [@focusShadow]="(isCollapsed() | async)?'blur':'focus'">
         <a [routerLink]="['/items/' + dso.id]" class="card-img-top full-width">
             <div>
                 <ds-grid-thumbnail [thumbnail]="dso.getThumbnail()">

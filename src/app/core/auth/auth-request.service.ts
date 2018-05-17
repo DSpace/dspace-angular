@@ -12,14 +12,14 @@ import { AuthStatusResponse, ErrorResponse, RestResponse } from '../cache/respon
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 
 @Injectable()
-export class AuthRequestService extends HALEndpointService {
-  protected linkPath = 'authn';
+export class AuthRequestService {
+  protected linkName = 'authn';
   protected browseEndpoint = '';
 
-  constructor(protected responseCache: ResponseCacheService,
-              protected requestService: RequestService,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
-    super();
+  constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              protected halService: HALEndpointService,
+              protected responseCache: ResponseCacheService,
+              protected requestService: RequestService) {
   }
 
   protected fetchRequest(request: RestRequest): Observable<any> {
@@ -42,7 +42,7 @@ export class AuthRequestService extends HALEndpointService {
   }
 
   public postToEndpoint(method: string, body: any, options?: HttpOptions): Observable<any> {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkName)
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL) => this.getEndpointByMethod(endpointURL, method))
       .distinctUntilChanged()
@@ -53,7 +53,7 @@ export class AuthRequestService extends HALEndpointService {
   }
 
   public getRequest(method: string, options?: HttpOptions): Observable<any> {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkName)
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL) => this.getEndpointByMethod(endpointURL, method))
       .distinctUntilChanged()

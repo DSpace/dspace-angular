@@ -1,19 +1,23 @@
 import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, map, flatMap, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, map, flatMap, startWith, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response-cache.models';
-import { EndpointMapRequest, RootEndpointRequest } from '../data/request.models';
+import { EndpointMapRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { Inject, Injectable } from '@angular/core';
+import { GLOBAL_CONFIG } from '../../../config';
 
-export abstract class HALEndpointService {
-  protected abstract responseCache: ResponseCacheService;
-  protected abstract requestService: RequestService;
-  protected abstract linkPath: string;
-  protected abstract EnvConfig: GlobalConfig;
+@Injectable()
+export class HALEndpointService {
+
+  constructor(private responseCache: ResponseCacheService,
+              private requestService: RequestService,
+              @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
+  }
 
   protected getRootHref(): string {
     return new RESTURLCombiner(this.EnvConfig, '/').toString();
@@ -28,48 +32,45 @@ export abstract class HALEndpointService {
     this.requestService.configure(request);
     return this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
-      .filter((response: EndpointMapSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.endpointMap))
+      .filter((response: EndpointMapSuccessResponse) => isNotEmpty(response))
       .map((response: EndpointMapSuccessResponse) => response.endpointMap)
       .distinctUntilChanged();
   }
 
-  public getEndpoint(linkName?: string): Observable<string> {
-    const mapLinkName = isNotEmpty(linkName) ? linkName : this.linkPath;
-    return this.getEndpointAt(...mapLinkName.split('/'));
+  public getEndpoint(linkPath: string): Observable<string> {
+    return this.getEndpointAt(...linkPath.split('/'));
   }
 
   private getEndpointAt(...path: string[]): Observable<string> {
     if (isEmpty(path)) {
       path = ['/'];
     }
+    let currentPath;
     const pipeArguments = path
-      .map((subPath: string) => [
+      .map((subPath: string, index: number) => [
         flatMap((href: string) => this.getEndpointMapAt(href)),
-        map((endpointMap: EndpointMap) => endpointMap[subPath]),
+        map((endpointMap: EndpointMap) => {
+          if (hasValue(endpointMap) && hasValue(endpointMap[subPath])) {
+            currentPath = endpointMap[subPath];
+            return endpointMap[subPath];
+          } else {
+            /*TODO remove if/else block once the rest response contains _links for facets*/
+            currentPath += '/' + subPath;
+            return currentPath;
+          }
+        }),
       ])
       .reduce((combined, thisElement) => [...combined, ...thisElement], []);
     return Observable.of(this.getRootHref()).pipe(...pipeArguments, distinctUntilChanged());
   }
 
-  public isEnabledOnRestApi(): Observable<boolean> {
+  public isEnabledOnRestApi(linkPath: string): Observable<boolean> {
     return this.getRootEndpointMap().pipe(
       // TODO this only works when there's no / in linkPath
-      map((endpointMap: EndpointMap) => isNotEmpty(endpointMap[this.linkPath])),
+      map((endpointMap: EndpointMap) => isNotEmpty(endpointMap[linkPath])),
       startWith(undefined),
       distinctUntilChanged()
     )
-  }
-
-  protected prepareBody(body: any) {
-    let queryParams = '';
-    if (isNotEmpty(body) && typeof body === 'object') {
-      Object.keys(body)
-        .forEach((param) => {
-          const paramValue = `${param}=${body[param]}`;
-          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
-        })
-    }
-    return encodeURI(queryParams);
   }
 
 }

@@ -10,10 +10,12 @@ import { CommunityDataService } from './community-data.service';
 import { DataService } from './data.service';
 import { FindByIDRequest } from './request.models';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain>  extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
+  protected abstract halService: HALEndpointService;
 
   /**
    * Get the scoped endpoint URL by fetching the object with
@@ -27,7 +29,7 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
    */
   public getScopedEndpoint(scopeID: string): Observable<string> {
     if (isEmpty(scopeID)) {
-      return this.getEndpoint();
+      return this.halService.getEndpoint(this.linkPath);
     } else {
       const scopeCommunityHrefObs = this.cds.getEndpoint()
         .flatMap((endpoint: string) => this.cds.getFindByIDHref(endpoint, scopeID))

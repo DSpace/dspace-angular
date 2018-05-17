@@ -6,7 +6,7 @@ import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { PageInfo } from '../shared/page-info.model';
-import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { Metadatum } from '../shared/metadatum.model';
 
@@ -26,21 +26,17 @@ export class SearchResponseParsingService implements ResponseParsingService {
             value: hhObject[key].join('...')
           }))
         } else {
-          return undefined;
+          return [];
         }
       });
 
     const dsoSelfLinks = payload._embedded.objects
-      // .filter((object) => isNotEmpty(object._embedded) && isNotEmpty(object._embedded.rObject))
       .filter((object) => hasValue(object._embedded))
-      .map((object) => object._embedded.rObject)
+      .map((object) => object._embedded.dspaceObject)
       // we don't need embedded collections, bitstreamformats, etc for search results.
       // And parsing them all takes up a lot of time. Throw them away to improve performance
       // until objs until partial results are supported by the rest api
-      // .map((dso) => {
-      //   console.log(dso);
-      //   return Object.assign({}, dso, { _embedded: undefined })
-      // })
+      .map((dso) => Object.assign({}, dso, { _embedded: undefined }))
       .map((dso) => this.dsoParser.parse(request, {
         payload: dso,
         statusCode: data.statusCode
@@ -49,44 +45,17 @@ export class SearchResponseParsingService implements ResponseParsingService {
       .reduce((combined, thisElement) => [...combined, ...thisElement], []);
 
     const objects = payload._embedded.objects
-      // .filter((object, index) => isNotEmpty(object._embedded) && isNotEmpty(object._embedded.rObject))
-      .filter((object, index) => hasValue(object._embedded))
+      .filter((object) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
         dspaceObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
         // we don't need embedded collections, bitstreamformats, etc for search results.
         // And parsing them all takes up a lot of time. Throw them away to improve performance
         // until objs until partial results are supported by the rest api
-        // _embedded: undefined
+        _embedded: undefined
       }));
     payload.objects = objects;
-
-    const facets = payload._embedded.facets
-      .map((facet) => {
-        const values = facet._embedded.values
-          .map((value) => {
-            return Object.assign({}, value, {search: value._links.search.href})
-          })
-          .reduce((combined, thisElement) => [...combined, ...thisElement], [])
-        return Object.assign({}, facet, {values: values})
-      })
-      .reduce((combined, thisElement) => [...combined, ...thisElement], []);
-    payload.facets = facets;
-
     const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
-    return new SearchSuccessResponse(deserialized, data.statusCode, this.processPageInfo(data.payload));
-  }
-
-  processPageInfo(payload: any): PageInfo {
-    if (isNotEmpty(payload.page)) {
-      const pageObj = Object.assign({}, payload.page, {_links: payload._links});
-      const pageInfoObject = new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
-      if (pageInfoObject.currentPage >= 0) {
-        Object.assign(pageInfoObject, { currentPage: pageInfoObject.currentPage + 1 });
-      }
-      return pageInfoObject
-    } else {
-      return undefined;
-    }
+    return new SearchSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload));
   }
 }
