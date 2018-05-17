@@ -44,6 +44,9 @@ import { SearchResultGridElementComponent } from './object-grid/search-result-gr
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
+import { LogInComponent } from './log-in/log-in.component';
+import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
+import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
@@ -101,6 +104,7 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
+  AuthNavMenuComponent,
   ChipsComponent,
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
@@ -117,6 +121,8 @@ const COMPONENTS = [
   ErrorComponent,
   FormComponent,
   LoadingComponent,
+  LogInComponent,
+  LogOutComponent,
   NumberPickerComponent,
   ObjectListComponent,
   AbstractListableElementComponent,

@@ -30,6 +30,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
+import { SharedModule } from './shared/shared.module';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -53,6 +54,7 @@ if (!ENV_CONFIG.production) {
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     HttpClientModule,
     AppRoutingModule,
     CoreModule.forRoot(),

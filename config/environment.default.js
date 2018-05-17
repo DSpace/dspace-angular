@@ -22,6 +22,13 @@ module.exports = {
     // msToLive: 1000, // 15 minutes
     control: 'max-age=60' // revalidate browser
   },
+  // Authentications
+  auth: {
+    target: {
+      host: 'https://dspace7.4science.it',
+      page: '/dspace-spring-rest/shib.html'
+    }
+  },
   // Notifications
   notifications: {
     rtl: false,
