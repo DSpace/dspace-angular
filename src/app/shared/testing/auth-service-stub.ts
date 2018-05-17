@@ -6,12 +6,19 @@ import { Eperson } from '../../core/eperson/models/eperson.model';
 
 export class AuthServiceStub {
 
+  token: AuthTokenInfo = new AuthTokenInfo('token_test');
+  private _tokenExpired = false;
+
+  constructor() {
+    this.token.expires = Date.now() + (1000 * 60 * 60);
+  }
+
   public authenticate(user: string, password: string): Observable<AuthStatus> {
     if (user === 'user' && password === 'password') {
       const authStatus = new AuthStatus();
       authStatus.okay = true;
       authStatus.authenticated = true;
-      authStatus.token = new AuthTokenInfo('token_test');
+      authStatus.token = this.token;
       authStatus.eperson = [EpersonMock];
       return Observable.of(authStatus);
     } else {
@@ -28,16 +35,46 @@ export class AuthServiceStub {
     }
   }
 
+  public buildAuthHeader(token?: AuthTokenInfo): string {
+    return `Bearer ${token.accessToken}`;
+  }
+
+  public getToken(): AuthTokenInfo {
+    return this.token;
+  }
+
   public hasValidAuthenticationToken(): Observable<AuthTokenInfo> {
-    return Observable.of(new AuthTokenInfo('token_test'));
+    return Observable.of(this.token);
   }
 
   public logout(): Observable<boolean> {
     return Observable.of(true);
   }
 
+  public isTokenExpired(token?: AuthTokenInfo): boolean {
+    return this._tokenExpired;
+  }
+
+  /**
+   * This method is used to ease testing
+   */
+  public setTokenAsExpired() {
+    this._tokenExpired = true
+  }
+
+  /**
+   * This method is used to ease testing
+   */
+  public setTokenAsNotExpired() {
+    this._tokenExpired = false
+  }
+
+  public isTokenExpiring(): Observable<boolean> {
+    return Observable.of(false);
+  }
+
   public refreshAuthenticationToken(token: AuthTokenInfo): Observable<AuthTokenInfo> {
-    return Observable.of(new AuthTokenInfo('token_test'));
+    return Observable.of(this.token);
   }
 
   public redirectToPreviousUrl() {
@@ -45,6 +82,10 @@ export class AuthServiceStub {
   }
 
   public removeToken() {
+    return;
+  }
+
+  setRedirectUrl(url: string) {
     return;
   }
 

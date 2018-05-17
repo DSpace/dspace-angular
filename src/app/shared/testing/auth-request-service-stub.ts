@@ -4,39 +4,10 @@ import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { Eperson } from '../../core/eperson/models/eperson.model';
 import { isNotEmpty } from '../empty.util';
+import { EpersonMock } from './eperson-mock';
 
 export class AuthRequestServiceStub {
-  protected mockUser: Eperson = Object.assign(new Eperson(), {
-    id: 'test',
-    uuid: 'test',
-    name: 'User Test',
-    handle: 'test',
-    metadata: [
-      {
-        key: 'eperson.firstname',
-        value: 'User',
-        language: null,
-        authority: null,
-        confidence: 0
-      },
-      {
-        key: 'eperson.lastname',
-        value: 'Test',
-        language: null,
-        authority: null,
-        confidence: 0
-      }
-    ],
-    groups: [],
-    netid: 'test',
-    lastActive: '',
-    canLogIn: true,
-    email: 'test@test.com',
-    requireCertificate: true,
-    selfRegistered: false,
-    self: {},
-    type: 'eperson'
-  });
+  protected mockUser: Eperson = EpersonMock;
   protected mockTokenInfo = new AuthTokenInfo('test_token');
 
   public postToEndpoint(method: string, body: any, options?: HttpOptions): Observable<any> {
