@@ -1,46 +1,108 @@
-/* tslint:disable:no-unused-variable */
-/*import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// import ngrx
 import { Store, StoreModule } from '@ngrx/store';
 
-// reducers
-import { reducer } from '../../app.reducers';
+import { authReducer } from '../../core/auth/auth.reducers';
+import { EpersonMock } from '../testing/eperson-mock';
+import { Eperson } from '../../core/eperson/models/eperson.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { AppState } from '../../app.reducer';
+import { LogOutComponent } from './log-out.component';
+import { RouterStub } from '../testing/router-stub';
 
-// test this component
-import { SignOutComponent } from './log-out.component';
+describe('LogOutComponent', () => {
 
-describe('Component: Signout', () => {
-  let component: SignOutComponent;
-  let fixture: ComponentFixture<SignOutComponent>;
+  let component: LogOutComponent;
+  let fixture: ComponentFixture<LogOutComponent>;
+  let page: Page;
+  let user: Eperson;
+
+  const authState = {
+    authenticated: false,
+    loaded: false,
+    loading: false,
+  };
+  const routerStub = new RouterStub();
+
+  beforeEach(() => {
+    user = EpersonMock;
+  });
 
   beforeEach(async(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.provideStore(reducer)
+        FormsModule,
+        ReactiveFormsModule,
+        StoreModule.forRoot(authReducer),
+        TranslateModule.forRoot()
       ],
       declarations: [
-        SignOutComponent
+        LogOutComponent
+      ],
+      providers: [
+        {provide: Router, useValue: routerStub},
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ]
     })
-    .compileComponents();
+      .compileComponents();
+
+  }));
+
+  beforeEach(inject([Store], (store: Store<AppState>) => {
+    store
+      .subscribe((state) => {
+        (state as any).core = Object.create({});
+        (state as any).core.auth = authState;
+      });
 
     // create component and test fixture
-    fixture = TestBed.createComponent(SignOutComponent);
+    fixture = TestBed.createComponent(LogOutComponent);
 
     // get test component from the fixture
     component = fixture.componentInstance;
+
+    // create page
+    page = new Page(component, fixture);
+
   }));
 
   it('should create an instance', () => {
-   expect(component).toBeTruthy();
+    expect(component).toBeTruthy();
+  });
+
+  it('should log out', () => {
+    fixture.detectChanges();
+
+    // submit form
+    component.logOut();
+
+    // verify Store.dispatch() is invoked
+    expect(page.navigateSpy.calls.any()).toBe(true, 'Store.dispatch not invoked');
   });
 });
-*/
+
+/**
+ * I represent the DOM elements and attach spies.
+ *
+ * @class Page
+ */
+class Page {
+
+  public navigateSpy: jasmine.Spy;
+
+  constructor(private component: LogOutComponent, private fixture: ComponentFixture<LogOutComponent>) {
+    // use injector to get services
+    const injector = fixture.debugElement.injector;
+    const store = injector.get(Store);
+
+    // add spies
+    this.navigateSpy = spyOn(store, 'dispatch');
+  }
+
+}

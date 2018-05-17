@@ -1,24 +1,24 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/Rx';
-import { GlobalConfig } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { ConfigService } from './config.service';
 import { RequestService } from '../data/request.service';
 import { ConfigRequest, FindAllOptions } from '../data/request.models';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 
 const LINK_NAME = 'test';
 const BROWSE = 'search/findByCollection';
 
 class TestService extends ConfigService {
-  protected linkName = LINK_NAME;
+  protected linkPath = LINK_NAME;
   protected browseEndpoint = BROWSE;
 
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
-    protected EnvConfig: GlobalConfig
-  ) {
+    protected halService: HALEndpointService) {
     super();
   }
 }
@@ -28,8 +28,8 @@ describe('ConfigService', () => {
   let service: TestService;
   let responseCache: ResponseCacheService;
   let requestService: RequestService;
+  let halService: any;
 
-  const envConfig = {} as GlobalConfig;
   const findOptions: FindAllOptions = new FindAllOptions();
 
   const scopeName = 'traditional';
@@ -51,7 +51,7 @@ describe('ConfigService', () => {
     return new TestService(
       responseCache,
       requestService,
-      envConfig
+      halService
     );
   }
 
@@ -60,8 +60,7 @@ describe('ConfigService', () => {
     requestService = getMockRequestService();
     service = initTestService();
     scheduler = getTestScheduler();
-    spyOn(service, 'getEndpoint').and
-      .returnValue(hot('--a-', { a: serviceEndpoint }));
+    halService = new HALEndpointServiceStub(configEndpoint);
   });
 
   describe('getConfigByHref', () => {

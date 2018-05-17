@@ -3,11 +3,11 @@ import { getMockResponseCacheService } from '../../shared/mocks/mock-response-ca
 import { BrowseService } from './browse.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
-import { GlobalConfig } from '../../../config';
 import { hot, cold, getTestScheduler } from 'jasmine-marbles';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEndpointRequest } from '../data/request.models';
 import { TestScheduler } from 'rxjs/Rx';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
@@ -15,8 +15,8 @@ describe('BrowseService', () => {
   let responseCache: ResponseCacheService;
   let requestService: RequestService;
 
-  const envConfig = {} as GlobalConfig;
   const browsesEndpointURL = 'https://rest.api/browses';
+  const halService: any = new HALEndpointServiceStub(browsesEndpointURL);
   const browseDefinitions = [
     Object.assign(new BrowseDefinition(), {
       metadataBrowse: false,
@@ -91,7 +91,7 @@ describe('BrowseService', () => {
     return new BrowseService(
       responseCache,
       requestService,
-      envConfig
+      halService
     );
   }
 
@@ -106,16 +106,16 @@ describe('BrowseService', () => {
         responseCache = initMockResponseCacheService(true);
         requestService = getMockRequestService();
         service = initTestService();
-        spyOn(service, 'getEndpoint').and
+        spyOn(halService, 'getEndpoint').and
           .returnValue(hot('--a-', { a: browsesEndpointURL }));
       });
 
-      it('should return the URL for the given metadatumKey and linkName', () => {
+      it('should return the URL for the given metadatumKey and linkPath', () => {
         const metadatumKey = 'dc.date.issued';
-        const linkName = 'items';
-        const expectedURL = browseDefinitions[0]._links[linkName];
+        const linkPath = 'items';
+        const expectedURL = browseDefinitions[0]._links[linkPath];
 
-        const result = service.getBrowseURLFor(metadatumKey, linkName);
+        const result = service.getBrowseURLFor(metadatumKey, linkPath);
         const expected = cold('c-d-', { c: undefined, d: expectedURL });
 
         expect(result).toBeObservable(expected);
@@ -123,10 +123,10 @@ describe('BrowseService', () => {
 
       it('should work when the definition uses a wildcard in the metadatumKey', () => {
         const metadatumKey = 'dc.contributor.author';  // should match dc.contributor.* in the definition
-        const linkName = 'items';
-        const expectedURL = browseDefinitions[1]._links[linkName];
+        const linkPath = 'items';
+        const expectedURL = browseDefinitions[1]._links[linkPath];
 
-        const result = service.getBrowseURLFor(metadatumKey, linkName);
+        const result = service.getBrowseURLFor(metadatumKey, linkPath);
         const expected = cold('c-d-', { c: undefined, d: expectedURL });
 
         expect(result).toBeObservable(expected);
@@ -134,30 +134,30 @@ describe('BrowseService', () => {
 
       it('should throw an error when the key doesn\'t match', () => {
         const metadatumKey = 'dc.title'; // isn't in the definitions
-        const linkName = 'items';
+        const linkPath = 'items';
 
-        const result = service.getBrowseURLFor(metadatumKey, linkName);
-        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkName} on ${metadatumKey} isn't configured`));
+        const result = service.getBrowseURLFor(metadatumKey, linkPath);
+        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`));
 
         expect(result).toBeObservable(expected);
       });
 
       it('should throw an error when the link doesn\'t match', () => {
         const metadatumKey = 'dc.date.issued';
-        const linkName = 'collections'; // isn't in the definitions
+        const linkPath = 'collections'; // isn't in the definitions
 
-        const result = service.getBrowseURLFor(metadatumKey, linkName);
-        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkName} on ${metadatumKey} isn't configured`));
+        const result = service.getBrowseURLFor(metadatumKey, linkPath);
+        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`));
 
         expect(result).toBeObservable(expected);
       });
 
       it('should configure a new BrowseEndpointRequest', () => {
         const metadatumKey = 'dc.date.issued';
-        const linkName = 'items';
+        const linkPath = 'items';
         const expected = new BrowseEndpointRequest(requestService.generateRequestId(), browsesEndpointURL);
 
-        scheduler.schedule(() => service.getBrowseURLFor(metadatumKey, linkName).subscribe());
+        scheduler.schedule(() => service.getBrowseURLFor(metadatumKey, linkPath).subscribe());
         scheduler.flush();
 
         expect(requestService.configure).toHaveBeenCalledWith(expected);
@@ -171,13 +171,13 @@ describe('BrowseService', () => {
         responseCache = initMockResponseCacheService(true);
         requestService = getMockRequestService();
         service = initTestService();
-        spyOn(service, 'getEndpoint').and
+        spyOn(halService, 'getEndpoint').and
           .returnValue(hot('----'));
 
         const metadatumKey = 'dc.date.issued';
-        const linkName = 'items';
+        const linkPath = 'items';
 
-        const result = service.getBrowseURLFor(metadatumKey, linkName);
+        const result = service.getBrowseURLFor(metadatumKey, linkPath);
         const expected = cold('b---', { b: undefined });
         expect(result).toBeObservable(expected);
       });
@@ -188,13 +188,13 @@ describe('BrowseService', () => {
         responseCache = initMockResponseCacheService(false);
         requestService = getMockRequestService();
         service = initTestService();
-        spyOn(service, 'getEndpoint').and
+        spyOn(halService, 'getEndpoint').and
           .returnValue(hot('--a-', { a: browsesEndpointURL }));
 
         const metadatumKey = 'dc.date.issued';
-        const linkName = 'items';
+        const linkPath = 'items';
 
-        const result = service.getBrowseURLFor(metadatumKey, linkName);
+        const result = service.getBrowseURLFor(metadatumKey, linkPath);
         const expected = cold('c-#-', { c: undefined }, new Error(`Couldn't retrieve the browses endpoint`));
         expect(result).toBeObservable(expected);
       });

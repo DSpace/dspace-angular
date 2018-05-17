@@ -144,7 +144,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Direction in which to sort: ascending or descending
    */
-  public sortDirection: SortDirection = SortDirection.Ascending;
+  public sortDirection: SortDirection = SortDirection.ASC;
 
   /**
    * Name of the field that's used to sort by
@@ -336,7 +336,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   private updateRoute(params: {}) {
     this.router.navigate([], {
-      queryParams: Object.assign({}, this.currentQueryParams, params)
+      queryParams: Object.assign({}, this.currentQueryParams, params),
+      queryParamsHandling: 'merge'
     });
   }
 
@@ -399,8 +400,8 @@ export class PaginationComponent implements OnDestroy, OnInit {
     }
 
     const sortDirection = this.currentQueryParams.sortDirection;
-    if (this.sortDirection !== +sortDirection) {
-      this.setSortDirection(+sortDirection);
+    if (this.sortDirection !== sortDirection) {
+      this.setSortDirection(sortDirection);
     }
 
     const sortField = this.currentQueryParams.sortField;

@@ -1,40 +1,76 @@
 import { Observable } from 'rxjs/Observable';
+import { distinctUntilChanged, map, flatMap, startWith, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { EndpointMap, RootSuccessResponse } from '../cache/response-cache.models';
-import { RootEndpointRequest } from '../data/request.models';
+import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response-cache.models';
+import { EndpointMapRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { Inject, Injectable } from '@angular/core';
+import { GLOBAL_CONFIG } from '../../../config';
 
-export abstract class HALEndpointService {
-  protected abstract responseCache: ResponseCacheService;
-  protected abstract requestService: RequestService;
-  protected abstract linkName: string;
-  protected abstract EnvConfig: GlobalConfig;
+@Injectable()
+export class HALEndpointService {
 
-  protected getEndpointMap(): Observable<EndpointMap> {
-    const request = new RootEndpointRequest(this.requestService.generateRequestId(), this.EnvConfig);
+  constructor(private responseCache: ResponseCacheService,
+              private requestService: RequestService,
+              @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
+  }
+
+  protected getRootHref(): string {
+    return new RESTURLCombiner(this.EnvConfig, '/').toString();
+  }
+
+  protected getRootEndpointMap(): Observable<EndpointMap> {
+    return this.getEndpointMapAt(this.getRootHref());
+  }
+
+  private getEndpointMapAt(href): Observable<EndpointMap> {
+    const request = new EndpointMapRequest(this.requestService.generateRequestId(), href);
     this.requestService.configure(request);
     return this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
-      .filter((response: RootSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.endpointMap))
-      .map((response: RootSuccessResponse) => response.endpointMap)
+      .filter((response: EndpointMapSuccessResponse) => isNotEmpty(response))
+      .map((response: EndpointMapSuccessResponse) => response.endpointMap)
       .distinctUntilChanged();
   }
 
-  public getEndpoint(linkName?: string): Observable<string> {
-    const mapLinkName = isNotEmpty(linkName) ? linkName : this.linkName;
-    return this.getEndpointMap()
-      .map((map: EndpointMap) => map[mapLinkName])
-      .distinctUntilChanged();
+  public getEndpoint(linkPath: string): Observable<string> {
+    return this.getEndpointAt(...linkPath.split('/'));
   }
 
-  public isEnabledOnRestApi(): Observable<boolean> {
-    return this.getEndpointMap()
-      .map((map: EndpointMap) => isNotEmpty(map[this.linkName]))
-      .startWith(undefined)
-      .distinctUntilChanged();
+  private getEndpointAt(...path: string[]): Observable<string> {
+    if (isEmpty(path)) {
+      path = ['/'];
+    }
+    let currentPath;
+    const pipeArguments = path
+      .map((subPath: string, index: number) => [
+        flatMap((href: string) => this.getEndpointMapAt(href)),
+        map((endpointMap: EndpointMap) => {
+          if (hasValue(endpointMap) && hasValue(endpointMap[subPath])) {
+            currentPath = endpointMap[subPath];
+            return endpointMap[subPath];
+          } else {
+            /*TODO remove if/else block once the rest response contains _links for facets*/
+            currentPath += '/' + subPath;
+            return currentPath;
+          }
+        }),
+      ])
+      .reduce((combined, thisElement) => [...combined, ...thisElement], []);
+    return Observable.of(this.getRootHref()).pipe(...pipeArguments, distinctUntilChanged());
+  }
+
+  public isEnabledOnRestApi(linkPath: string): Observable<boolean> {
+    return this.getRootEndpointMap().pipe(
+      // TODO this only works when there's no / in linkPath
+      map((endpointMap: EndpointMap) => isNotEmpty(endpointMap[linkPath])),
+      startWith(undefined),
+      distinctUntilChanged()
+    )
   }
 
 }

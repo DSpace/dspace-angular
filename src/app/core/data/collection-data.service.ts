@@ -10,20 +10,21 @@ import { Collection } from '../shared/collection.model';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { RequestService } from './request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
-  protected linkName = 'collections';
+  protected linkPath = 'collections';
 
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
-    protected objectCache: ObjectCacheService
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService
   ) {
-    super(NormalizedCollection);
+    super();
   }
 }

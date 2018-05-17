@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Community } from '../../../../core/shared/community.model';
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';

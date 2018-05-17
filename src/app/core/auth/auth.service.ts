@@ -310,7 +310,7 @@ export class AuthService {
    */
   public storeToken(token: AuthTokenInfo) {
     // Add 1 day to the current date
-    const expireDate = Date.now() + (1000 * 60 * 60 * 24 * 1);
+    const expireDate = Date.now() + (1000 * 60 * 60 * 24);
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
@@ -404,8 +404,8 @@ export class AuthService {
    * Set redirect url
    */
   setRedirectUrl(url: string) {
-    // Add 1 day to the current date
-    const expireDate = Date.now() + (1000 * 60 * 60 * 24 * 1);
+    // Add 1 hour to the current date
+    const expireDate = Date.now() + (1000 * 60 * 60);
 
     // Set the cookie expire date
     const expires = new Date(expireDate);

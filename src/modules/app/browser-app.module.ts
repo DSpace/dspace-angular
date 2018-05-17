@@ -19,6 +19,8 @@ import { ClientCookieService } from '../../app/shared/services/client-cookie.ser
 import { CookieService } from '../../app/shared/services/cookie.service';
 import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 import { AuthService } from '../../app/core/auth/auth.service';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -45,6 +47,7 @@ export function getRequest(transferState: TransferState): any {
       preloadingStrategy:
       IdlePreload
     }),
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
     BrowserAnimationsModule,
     DSpaceBrowserTransferStateModule,
     TranslateModule.forRoot({
