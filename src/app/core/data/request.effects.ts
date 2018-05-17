@@ -1,7 +1,7 @@
 import { Inject, Injectable, Injector } from '@angular/core';
 import { Request } from '@angular/http';
 import { RequestArgs } from '@angular/http/src/interfaces';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
 
@@ -18,32 +18,34 @@ import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
+import { catchError, flatMap, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class RequestEffects {
 
-  @Effect() execute = this.actions$
-    .ofType(RequestActionTypes.EXECUTE)
-    .flatMap((action: RequestExecuteAction) => {
+  @Effect() execute = this.actions$.ofType(RequestActionTypes.EXECUTE).pipe(
+    flatMap((action: RequestExecuteAction) => {
       return this.requestService.getByUUID(action.payload)
         .take(1);
-    })
-    .map((entry: RequestEntry) => entry.request)
-    .flatMap((request: RestRequest) => {
+    }),
+    map((entry: RequestEntry) => entry.request),
+    flatMap((request: RestRequest) => {
       let body;
       if (isNotEmpty(request.body)) {
         const serializer = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(request.body.type));
         body = JSON.stringify(serializer.serialize(request.body));
       }
-      return this.restApi.request(request.method, request.href, body)
-        .map((data: DSpaceRESTV2Response) =>
-          this.injector.get(request.getResponseParser()).parse(request, data))
-        .do((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive))
-        .map((response: RestResponse) => new RequestCompleteAction(request.uuid))
-        .catch((error: RequestError) => Observable.of(new ErrorResponse(error))
-          .do((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive))
-          .map((response: RestResponse) => new RequestCompleteAction(request.uuid)));
-    });
+      return this.restApi.request(request.method, request.href, body).pipe(
+        map((data: DSpaceRESTV2Response) => this.injector.get(request.getResponseParser()).parse(request, data)),
+        tap((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive)),
+        map((response: RestResponse) => new RequestCompleteAction(request.uuid)),
+        catchError((error: RequestError) => Observable.of(new ErrorResponse(error)).pipe(
+          tap((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive)),
+          map((response: RestResponse) => new RequestCompleteAction(request.uuid))
+        ))
+      );
+    })
+  );
 
   constructor(
     @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig,
