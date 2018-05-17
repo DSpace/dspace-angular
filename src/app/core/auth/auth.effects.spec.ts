@@ -21,7 +21,6 @@ import {
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction
 } from './auth.actions';
-import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
 import { AuthService } from './auth.service';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
@@ -64,7 +63,6 @@ describe('AuthEffects', () => {
             payload: {email: 'user', password: 'password'}
           }
         });
-
 
         const expected = cold('--b-', {b: new AuthenticationSuccessAction(token)});
 
