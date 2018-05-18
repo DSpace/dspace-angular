@@ -1,6 +1,6 @@
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { BrowseEndpointRequest } from './request.models';
-import { BrowseSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
+import { GenericSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
@@ -12,7 +12,7 @@ describe('BrowseResponseParsingService', () => {
   });
 
   describe('parse', () => {
-    const validRequest = new BrowseEndpointRequest('clients/b186e8ce-e99c-4183-bc9a-42b4821bdb78', 'https://rest.api/discover/browses');
+    const validRequest = new BrowseEndpointRequest('client/b186e8ce-e99c-4183-bc9a-42b4821bdb78', 'https://rest.api/discover/browses');
 
     const validResponse = {
       payload: {
@@ -138,9 +138,9 @@ describe('BrowseResponseParsingService', () => {
       })
     ];
 
-    it('should return a BrowseSuccessResponse if data contains a valid browse endpoint response', () => {
+    it('should return a GenericSuccessResponse if data contains a valid browse endpoint response', () => {
       const response = service.parse(validRequest, validResponse);
-      expect(response.constructor).toBe(BrowseSuccessResponse);
+      expect(response.constructor).toBe(GenericSuccessResponse);
     });
 
     it('should return an ErrorResponse if data contains an invalid browse endpoint response', () => {
@@ -155,9 +155,9 @@ describe('BrowseResponseParsingService', () => {
       expect(response.constructor).toBe(ErrorResponse);
     });
 
-    it('should return a BrowseSuccessResponse with the BrowseDefinitions in data', () => {
+    it('should return a GenericSuccessResponse with the BrowseDefinitions in data', () => {
       const response = service.parse(validRequest, validResponse);
-      expect((response as BrowseSuccessResponse).browseDefinitions).toEqual(definitions);
+      expect((response as GenericSuccessResponse<BrowseDefinition[]>).payload).toEqual(definitions);
     });
 
   });
