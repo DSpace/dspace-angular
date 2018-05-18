@@ -39,7 +39,7 @@ export class CollectionsComponent implements OnInit {
   }
 
   hasSucceeded() {
-    this.item.owner.map((rd: RemoteData<Collection>) => rd.hasSucceeded)
+    return this.item.owner.map((rd: RemoteData<Collection>) => rd.hasSucceeded);
   }
 
 }

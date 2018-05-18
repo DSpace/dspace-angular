@@ -34,7 +34,7 @@ export abstract class BaseResponseParsingService {
       } else if (Array.isArray(data)) {
         return this.processArray(data, requestHref);
       } else if (isObjectLevel(data)) {
-        const object = this.deserialize(data, requestHref);
+        let object = this.deserialize(data, requestHref);
         this.cache(object, requestHref);
         if (isNotEmpty(data._embedded)) {
           const list = {};
@@ -42,12 +42,10 @@ export abstract class BaseResponseParsingService {
             .keys(data._embedded)
             .filter((property) => data._embedded.hasOwnProperty(property))
             .forEach((property) => {
-              console.log(data._embedded[property]);
               const parsedObj = this.process<ObjectDomain, ObjectType>(data._embedded[property], requestHref);
               list[property] = parsedObj;
             });
-          console.log(list);
-          Object.assign(object, list);
+          object = Object.assign({}, object, list);
         }
         return object;
       }
@@ -66,7 +64,12 @@ export abstract class BaseResponseParsingService {
 
   protected processPaginatedList<ObjectDomain, ObjectType>(data: any, requestHref: string): PaginatedList<ObjectDomain> {
     const pageInfo: PageInfo = this.processPageInfo(data);
-    const list = this.flattenSingleKeyObject(data._embedded);
+    let list = data._embedded;
+
+    // Workaround for inconsistancy in rest response - sometimes page embeds are wrapped in another object
+    if (!Array.isArray(list)) {
+      list = this.flattenSingleKeyObject(list);
+    }
     const page: ObjectDomain[] = this.processArray(list, requestHref);
     return new PaginatedList<ObjectDomain>(pageInfo, page);
   }
