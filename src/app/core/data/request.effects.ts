@@ -20,10 +20,10 @@ import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.seriali
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { catchError, flatMap, map, take, tap } from 'rxjs/operators';
 
-export const addToResponseCacheAndCompleteAction = (request: RestRequest) =>
+export const addToResponseCacheAndCompleteAction = (request: RestRequest, responseCache: ResponseCacheService, envConfig: GlobalConfig) =>
   (source: Observable<ErrorResponse>): Observable<RequestCompleteAction> =>
     source.pipe(
-      tap((response: RestResponse) => this.responseCache.add(request.href, response, this.EnvConfig.cache.msToLive)),
+      tap((response: RestResponse) => responseCache.add(request.href, response, envConfig.cache.msToLive)),
       map((response: RestResponse) => new RequestCompleteAction(request.uuid))
     );
 
@@ -45,9 +45,9 @@ export class RequestEffects {
       }
       return this.restApi.request(request.method, request.href, body).pipe(
         map((data: DSpaceRESTV2Response) => this.injector.get(request.getResponseParser()).parse(request, data)),
-        addToResponseCacheAndCompleteAction(request),
+        addToResponseCacheAndCompleteAction(request, this.responseCache, this.EnvConfig),
         catchError((error: RequestError) => Observable.of(new ErrorResponse(error)).pipe(
-          addToResponseCacheAndCompleteAction(request)
+          addToResponseCacheAndCompleteAction(request, this.responseCache, this.EnvConfig)
         ))
       );
     })
