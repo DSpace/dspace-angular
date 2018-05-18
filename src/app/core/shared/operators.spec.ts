@@ -14,7 +14,6 @@ import {
   getResponseFromSelflink
 } from './operators';
 
-
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;
   let requestService: RequestService;
