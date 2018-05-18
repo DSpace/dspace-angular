@@ -29,7 +29,7 @@ export const getResponseFromSelflink = (responseCache: ResponseCacheService) =>
 
 export const filterSuccessfulResponses = () =>
   (source: Observable<ResponseCacheEntry>): Observable<ResponseCacheEntry> =>
-    source.pipe(filter((entry: ResponseCacheEntry) => entry.response.isSuccessful));
+    source.pipe(filter((entry: ResponseCacheEntry) => entry.response.isSuccessful === true));
 
 export const getResourceLinksFromResponse = () =>
   (source: Observable<ResponseCacheEntry>): Observable<string[]> =>

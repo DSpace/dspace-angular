@@ -12,7 +12,7 @@ describe('BrowseResponseParsingService', () => {
   });
 
   describe('parse', () => {
-    const validRequest = new BrowseEndpointRequest('clients/b186e8ce-e99c-4183-bc9a-42b4821bdb78', 'https://rest.api/discover/browses');
+    const validRequest = new BrowseEndpointRequest('client/b186e8ce-e99c-4183-bc9a-42b4821bdb78', 'https://rest.api/discover/browses');
 
     const validResponse = {
       payload: {
