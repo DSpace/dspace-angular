@@ -56,7 +56,12 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     }).subscribe((newValues$) => {
       this.filterValues = [...this.filterValues, newValues$];
       this.filterValues$.next(this.filterValues);
-      newValues$.first().subscribe((rd) => this.isLastPage$.next(hasNoValue(rd.payload.next)));
+      newValues$.first()
+        .filter((rd) => rd.payload.hasPageInfo())
+        .subscribe((rd) => {
+          console.log(rd, rd.payload.totalElements);
+          this.isLastPage$.next(hasNoValue(rd.payload.next))
+        });
     });
   }
 

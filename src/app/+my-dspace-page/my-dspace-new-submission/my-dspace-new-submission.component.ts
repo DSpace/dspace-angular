@@ -4,13 +4,13 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SubmissionState } from '../../submission/submission.reducers';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { MyDSpaceResult } from '../my-dspace-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 
 @Component({
   selector: 'ds-my-dspace-new-submission',
@@ -31,14 +31,14 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private changeDetectorRef: ChangeDetectorRef,
+              private halService: HALEndpointService,
               private notificationsService: NotificationsService,
               private store: Store<SubmissionState>,
-              private wsiDataService: WorkspaceitemDataService,
               private translate: TranslateService) {
   }
 
   ngOnInit() {
-    this.wsiDataService.getEndpoint().subscribe((url) => {
+    this.halService.getEndpoint('workspaceitems').subscribe((url) => {
         this.uploadFilesOptions.url = url;
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
         this.changeDetectorRef.detectChanges();

@@ -6,7 +6,6 @@ import {
   ResetSubmissionFormAction
 } from '../objects/submission-objects.actions';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
-import { SubmissionRestService } from '../submission-rest.service';
 import { submissionObjectFromIdSelector } from '../selectors';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
@@ -19,6 +18,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { Observable } from 'rxjs/Observable';
 import { SectionDataObject } from '../section/section-data.model';
 import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -46,11 +46,12 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   protected isActive: boolean;
   protected subs: Subscription[] = [];
 
-  constructor(private authService: AuthService,
-              private changeDetectorRef: ChangeDetectorRef,
-              private store: Store<SubmissionState>,
-              private submissionRestService: SubmissionRestService,
-              private submissionService: SubmissionService) {
+  constructor(
+    private authService: AuthService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private halService: HALEndpointService,
+    private store: Store<SubmissionState>,
+    private submissionService: SubmissionService) {
     this.isActive = true;
   }
 
@@ -77,7 +78,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         .distinctUntilChanged();
 
       this.subs.push(
-        this.submissionRestService.getEndpoint('workspaceitems')
+        this.halService.getEndpoint('workspaceitems')
           .filter((href: string) => isNotEmpty(href))
           .distinctUntilChanged()
           .subscribe((endpointURL) => {

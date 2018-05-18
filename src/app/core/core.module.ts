@@ -41,7 +41,6 @@ import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 import { ConfigResponseParsingService } from './data/config-response-parsing.service';
 import { RouteService } from '../shared/services/route.service';
-import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
@@ -75,6 +74,7 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { RolesService } from './roles/roles.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
+import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -141,6 +141,7 @@ const PROVIDERS = [
   NotificationsService,
   WorkspaceitemDataService,
   WorkflowitemDataService,
+  MyDSpaceResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
   MessageService,

@@ -1,36 +1,32 @@
 import { Observable } from 'rxjs/Observable';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import {
-  EpersonSuccessResponse, ErrorResponse,
-  RestResponse
-} from '../cache/response-cache.models';
-import { EpersonRequest, GetRequest} from '../data/request.models';
+import { EpersonSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { EpersonRequest, GetRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { EpersonData } from './eperson-data';
 
-export abstract class EpersonService extends HALEndpointService {
+export abstract class EpersonService {
   protected request: EpersonRequest;
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract linkPath: string;
-  protected abstract EnvConfig: GlobalConfig;
   protected abstract browseEndpoint: string;
+  protected abstract halService: HALEndpointService;
 
   protected getEperson(request: GetRequest): Observable<EpersonData> {
-    const [successResponse, errorResponse] =  this.responseCache.get(request.href)
+    const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
         Observable.throw(new Error(`Couldn't retrieve the EPerson`))),
       successResponse
-      .filter((response: EpersonSuccessResponse) => isNotEmpty(response))
-      .map((response: EpersonSuccessResponse) => new EpersonData(response.pageInfo, response.epersonDefinition))
-      .distinctUntilChanged());
+        .filter((response: EpersonSuccessResponse) => isNotEmpty(response))
+        .map((response: EpersonSuccessResponse) => new EpersonData(response.pageInfo, response.epersonDefinition))
+        .distinctUntilChanged());
   }
 
   public getDataByHref(href: string): Observable<EpersonData> {
@@ -41,7 +37,7 @@ export abstract class EpersonService extends HALEndpointService {
   }
 
   public getDataByUuid(uuid: string): Observable<EpersonData> {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .map((endpoint: string) => this.getDataByIDHref(endpoint, uuid))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()

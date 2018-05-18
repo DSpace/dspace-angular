@@ -73,4 +73,16 @@ export class HALEndpointService {
     )
   }
 
+  public prepareBody(body: any) {
+    let queryParams = '';
+    if (isNotEmpty(body) && typeof body === 'object') {
+      Object.keys(body)
+        .forEach((param) => {
+          const paramValue = `${param}=${body[param]}`;
+          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+        })
+    }
+    return encodeURI(queryParams);
+  }
+
 }

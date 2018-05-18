@@ -1,10 +1,14 @@
 import { PageInfo } from '../shared/page-info.model';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 
 export class PaginatedList<T> {
 
   constructor(private pageInfo: PageInfo,
               public page: T[]) {
+  }
+
+  hasPageInfo() {
+    return isNotEmpty(this.pageInfo);
   }
 
   get elementsPerPage(): number {

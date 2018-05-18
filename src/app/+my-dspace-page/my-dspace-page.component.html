@@ -1,27 +1,26 @@
 <div class="container">
-  <ds-my-dspace-new-submission *ngIf="(isSubmitter | async)"
-    (wsiUploaded)="newSubmissionsEnd($event)"></ds-my-dspace-new-submission>
+  <ds-my-dspace-new-submission *ngIf="(isSubmitter$ | async)"
+                               (wsiUploaded)="newSubmissionsEnd($event)"></ds-my-dspace-new-submission>
   <div class="search-page row">
-    <ds-search-sidebar *ngIf="!(isMobileView | async)" class="col-3 sidebar-md-sticky"
+    <ds-search-sidebar *ngIf="!(isMobileView$ | async)" class="col-3 sidebar-md-sticky"
                        id="search-sidebar"
                        [hideOptions]="hideOptions"
-                       [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"></ds-search-sidebar>
+                       [resultCount]="(resultsRD$ | async)?.pageInfo?.totalElements"></ds-search-sidebar>
     <div class="col-12 col-md-9">
       <ds-search-form id="search-form"
-                      [query]="query"
-                      [scope]="(scopeObjectRDObs | async)?.payload"
-                      [currentParams]="currentParams"
-                      [scopes]="(scopeListRDObs | async)?.payload?.page"
-                      [searchLink]="'mydspace'">
+                      [query]="(searchOptions$ | async)?.query"
+                      [scope]="(searchOptions$ | async)?.scope"
+                      [currentUrl]="getSearchLink()"
+                      [scopes]="(scopeListRD$ | async)?.payload?.page">
       </ds-search-form>
       <div class="row">
         <div id="search-body"
              class="row-offcanvas row-offcanvas-left"
              [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
-          <ds-search-sidebar *ngIf="(isMobileView | async)" class="col-12"
+          <ds-search-sidebar *ngIf="(isMobileView$ | async)" class="col-12"
                              id="search-sidebar-sm"
                              [hideOptions]="hideOptions"
-                             [resultCount]="(resultsRDObs | async)?.pageInfo?.totalElements"
+                             [resultCount]="(resultsRD$ | async)?.pageInfo?.totalElements"
                              (toggleSidebar)="closeSidebar()"
                              [ngClass]="{'active': !(isSidebarCollapsed() | async)}">
           </ds-search-sidebar>
@@ -34,13 +33,11 @@
                 | translate}}
               </button>
             </div>
-            <ds-my-dspace-results [searchResults]="resultsRDObs | async"
-                                  [searchConfig]="searchOptions" [sortConfig]="sortConfig"></ds-my-dspace-results>
+            <ds-my-dspace-results [searchResults]="resultsRD$ | async"
+                                  [searchConfig]="searchOptions$ | async" [sortConfig]="sortConfig"></ds-my-dspace-results>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-

@@ -1,34 +1,30 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { SortOptions } from '../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
-import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SearchOptions, ViewMode } from '../+search-page/search-options.model';
 import { SearchResult } from '../+search-page/search-result.model';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
-import { Workspaceitem } from '../core/submission/models/workspaceitem.model';
-import { RolesService } from '../core/roles/roles.service';
-import { Store } from '@ngrx/store';
-import { Eperson } from '../core/eperson/models/eperson.model';
-import { AppState } from '../app.reducer';
-import { getAuthenticatedUser } from '../core/auth/selectors';
+import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
+import { SearchFilterService } from '../+search-page/search-filters/search-filter/search-filter.service';
+import { flatMap } from 'rxjs/operators';
 import { MyDSpaceConfigurationType } from './mydspace-configuration-type';
+import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
+import { RolesService } from '../core/roles/roles.service';
+import { getAuthenticatedUser } from '../core/auth/selectors';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import { Eperson } from '../core/eperson/models/eperson.model';
+import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../shared/empty.util';
+import { NavigationExtras, Router } from '@angular/router';
 
-/**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
- */
-
+export const MYDSPACE_ROUTE = '/mydspace';
 @Component({
   selector: 'ds-my-dspace-page',
   styleUrls: ['./my-dspace-page.component.scss'],
@@ -36,119 +32,84 @@ import { MyDSpaceConfigurationType } from './mydspace-configuration-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut]
 })
-export class MyDSpacePageComponent implements OnInit, OnDestroy {
+export class MyDSpacePageComponent implements OnDestroy, OnInit {
 
   private sub;
   private scope: string;
 
   configuration: MyDSpaceConfigurationType;
-  hideOptions = true;
-  query: string;
-  scopeObjectRDObs: Observable<RemoteData<DSpaceObject>>;
-  resultsRDObs:  Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
-  currentParams = {};
-  filters = {};
-  searchOptions: SearchOptions;
+  hideOptions: boolean;
+  resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
+  searchOptions$: Observable<PaginatedSearchOptions>;
   sortConfig: SortOptions;
-  scopeListRDObs: Observable<RemoteData<PaginatedList<Community>>>;
-  isMobileView: Observable<boolean>;
-  isController: Observable<boolean>;
-  isSubmitter: Observable<boolean>;
-  user: Observable<Eperson>;
+  scopeListRD$: Observable<RemoteData<PaginatedList<Community>>>;
+  isMobileView$: Observable<boolean>;
+  isController$: Observable<boolean>;
+  isSubmitter$: Observable<boolean>;
+  pageSize;
+  pageSizeOptions;
+  defaults = {
+    pagination: {
+      id: 'mydspace-results-pagination',
+      pageSize: 10
+    },
+    sort: new SortOptions('score', SortDirection.DESC),
+    configuration: '',
+    query: '',
+    scope: ''
+  };
+  user$: Observable<Eperson>;
 
-  constructor(private cdr: ChangeDetectorRef,
-              private service: SearchService,
-              private route: ActivatedRoute,
-              private router: Router,
+  constructor(private service: SearchService,
               private communityService: CommunityDataService,
-              public rolesService: RolesService,
               private sidebarService: SearchSidebarService,
+              private windowService: HostWindowService,
+              private filterService: SearchFilterService,
+              private router: Router,
               private store: Store<AppState>,
-              private windowService: HostWindowService) {
-
-    this.isMobileView =  Observable.combineLatest(
+              public rolesService: RolesService) {
+    this.isMobileView$ = Observable.combineLatest(
       this.windowService.isXs(),
       this.windowService.isSm(),
       ((isXs, isSm) => isXs || isSm)
     );
-    this.scopeListRDObs = communityService.findAll();
-    // Initial pagination config
-    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'mydspace-results-pagination';
-    pagination.currentPage = 1;
-    pagination.pageSize = 10;
-
-    const sort: SortOptions = new SortOptions();
-    this.sortConfig = sort;
-    this.searchOptions = this.service.searchOptions;
-    this.isSubmitter = this.rolesService.isSubmitter();
-    this.isController = this.rolesService.isController();
+    this.scopeListRD$ = communityService.findAll();
+    this.isSubmitter$ = this.rolesService.isSubmitter();
+    this.isController$ = this.rolesService.isController();
   }
 
   ngOnInit(): void {
-    this.user = this.store.select(getAuthenticatedUser);
+    this.service.setServiceOptions(MyDSpaceResponseParsingService, true);
+    this.hideOptions = true;
 
-    const queryParamsObs = this.route.queryParams;
-    this.sub = Observable.combineLatest(queryParamsObs, this.isSubmitter, this.isController)
-      .filter(([params, isSubmitter, isController]) => isNotEmpty(isSubmitter) && isNotEmpty(isController))
-      .subscribe(([params, isSubmitter, isController]) => {
-          // Save current parameters
-          this.currentParams = params;
-          this.configuration = this.getSearchConfiguration(params.configuration, isSubmitter, isController);
-          this.query = params.query || '';
-          this.scope = params.scope;
-          const page = +params.page || this.service.searchOptions.pagination.currentPage;
-          let pageSize = +params.pageSize || this.service.searchOptions.pagination.pageSize;
-          let pageSizeOptions: number[] = [5, 10, 20, 40, 60, 80, 100];
+    this.user$ = this.store.select(getAuthenticatedUser);
+    this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
 
-          if (isNotEmpty(params.view) && (params.view === ViewMode.Detail)) {
-            pageSizeOptions = [1];
-            if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 1;
-            }
-          }
-          if (isNotEmpty(params.view) && params.view === ViewMode.List) {
-            if (pageSizeOptions.indexOf(pageSize) === -1) {
-              pageSize = 10;
-            }
-          }
-
-          const sortDirection = params.sortDirection || this.service.searchOptions.sort.direction;
-          const sortField = params.sortField || this.service.searchOptions.sort.field;
-          const pagination = Object.assign({},
-            this.service.searchOptions.pagination,
-            { currentPage: page, pageSize: pageSize, pageSizeOptions: pageSizeOptions}
-          );
-          const sort = Object.assign({},
-            this.service.searchOptions.sort,
-            { direction: sortDirection, field: sortField }
-          );
-
-          const filters = Object.create({});
-          Object.keys(this.currentParams)
-            .filter((key) => this.isFilterParamKey(key))
-            .forEach((key) => {
-              if (Array.isArray(this.currentParams[key])) {
-                filters[key] = this.currentParams[key];
-              } else {
-                filters[key] = [this.currentParams[key]]
-              }
-            });
-
-          this.updateSearchResults(
-            {
-              pagination: pagination,
-              sort: sort
-            },
-            filters
-          );
-          if (isNotEmpty(this.scope)) {
-            this.scopeObjectRDObs = this.communityService.findById(this.scope);
-          } else {
-            this.scopeObjectRDObs = Observable.of(undefined);
-          }
+    this.sub = Observable.combineLatest(this.searchOptions$, this.isSubmitter$, this.isController$)
+      .filter(([searchOptions, isSubmitter, isController]) => isNotEmpty(isSubmitter) && isNotEmpty(isController))
+      .distinctUntilChanged()
+      .subscribe(([searchOptions, isSubmitter, isController]) => {
+        const configuration = this.getSearchConfiguration(searchOptions.configuration as MyDSpaceConfigurationType, isSubmitter, isController);
+        if (isNotNull(configuration)) {
+          this.resultsRD$ = this.service.search(searchOptions)
         }
-      );
+      });
+  }
+
+  public closeSidebar(): void {
+    this.sidebarService.collapse()
+  }
+
+  public openSidebar(): void {
+    this.sidebarService.expand();
+  }
+
+  public isSidebarCollapsed(): Observable<boolean> {
+    return this.sidebarService.isCollapsed;
+  }
+
+  public getSearchLink(): string {
+    return this.service.getSearchLink();
   }
 
   private getAvailableConfiguration(isSubmitter: boolean, isController: boolean): MyDSpaceConfigurationType[] {
@@ -166,51 +127,23 @@ export class MyDSpacePageComponent implements OnInit, OnDestroy {
     const configurationDefault: MyDSpaceConfigurationType = (isSubmitter || (!isSubmitter && !isController)) ?
       MyDSpaceConfigurationType.Workspace :
       MyDSpaceConfigurationType.Workflow;
-    if (isEmpty(configurationParam)) {
-      return configurationDefault;
-    } else if (!this.getAvailableConfiguration(isSubmitter, isController).includes(configurationParam)) {
-      // If configuration param is not included in available configurations redirect to a default configuration value
+    if (isEmpty(configurationParam) || !this.getAvailableConfiguration(isSubmitter, isController).includes(configurationParam)) {
+      // If configuration param is empty or is not included in available configurations redirect to a default configuration value
       const navigationExtras: NavigationExtras = {
         queryParams: {configuration: configurationDefault},
         queryParamsHandling: 'merge'
       };
 
-      this.router.navigate(['/mydspace'], navigationExtras);
+      this.router.navigate([MYDSPACE_ROUTE], navigationExtras);
+      return null;
     } else {
       return configurationParam;
     }
-  }
-
-  private isFilterParamKey(key: string) {
-    return key.startsWith('f.');
-  }
-
-  private updateSearchResults(searchOptions, filters) {
-    this.resultsRDObs = this.service.search(this.query, this.scope, searchOptions, this.configuration, filters);
-    this.searchOptions = searchOptions;
-    this.filters = this.filters;
-    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
-  }
-
-  public closeSidebar(): void {
-    this.sidebarService.collapse();
-  }
-
-  public openSidebar(): void {
-    this.sidebarService.expand();
-  }
-
-  public isSidebarCollapsed(): Observable<boolean> {
-    return this.sidebarService.isCollapsed;
-  }
-
-  public newSubmissionsEnd(workspaceitems: Workspaceitem[]) {
-    this.updateSearchResults(this.searchOptions, this.filters);
   }
 }

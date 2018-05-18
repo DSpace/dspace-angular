@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ErrorResponse, PostPatchSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
@@ -12,12 +11,12 @@ import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
 
 @Injectable()
-export abstract class PostPatchDataService<ResponseDefinitionDomain> extends HALEndpointService {
+export abstract class PostPatchDataService<ResponseDefinitionDomain> {
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
-  protected abstract EnvConfig: GlobalConfig;
+  protected abstract halService: HALEndpointService;
   protected abstract overrideRequest = false;
 
   protected submitData(request: RestRequest): Observable<ResponseDefinitionDomain> {

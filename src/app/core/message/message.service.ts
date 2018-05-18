@@ -18,15 +18,14 @@ import { MessageDataResponse } from './message-data-response';
 import { RemoteDataError } from '../data/remote-data-error';
 
 @Injectable()
-export class MessageService extends HALEndpointService {
+export class MessageService {
   protected linkPath = 'messages';
   protected browseEndpoint = '';
 
   constructor(protected http: DSpaceRESTv2Service,
               protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
-    super();
+              protected halService: HALEndpointService) {
   }
 
   protected fetchRequest(request: RestRequest): Observable<MessageDataResponse> {
@@ -48,7 +47,7 @@ export class MessageService extends HALEndpointService {
   }
 
   protected postToEndpoint(method: string, body: any, options?: HttpOptions): Observable<MessageDataResponse> {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL) => this.getEndpointByMethod(endpointURL, method))
       .distinctUntilChanged()
@@ -59,7 +58,7 @@ export class MessageService extends HALEndpointService {
   }
 
   public getRequest(method: string, options?: HttpOptions): Observable<any> {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL) => this.getEndpointByMethod(endpointURL, method))
       .distinctUntilChanged()
@@ -70,15 +69,15 @@ export class MessageService extends HALEndpointService {
   }
 
   public createMessage(body: any, options?: HttpOptions): Observable<MessageDataResponse> {
-    return this.postToEndpoint('', this.prepareBody(body), this.makeHttpOptions());
+    return this.postToEndpoint('', this.halService.prepareBody(body), this.makeHttpOptions());
   }
 
   public markAsRead(body: any, options?: HttpOptions): Observable<MessageDataResponse> {
-    return this.postToEndpoint('read', this.prepareBody(body), this.makeHttpOptions());
+    return this.postToEndpoint('read', this.halService.prepareBody(body), this.makeHttpOptions());
   }
 
   public markAsUnread(body: any, options?: HttpOptions): Observable<MessageDataResponse> {
-    return this.postToEndpoint('unread', this.prepareBody(body), this.makeHttpOptions());
+    return this.postToEndpoint('unread', this.halService.prepareBody(body), this.makeHttpOptions());
   }
 
   protected makeHttpOptions() {

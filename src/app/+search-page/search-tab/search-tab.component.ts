@@ -23,11 +23,11 @@ export class SearchTabComponent implements OnDestroy, OnInit {
   constructor(private rolesService: RolesService,
               private route: ActivatedRoute,
               private router: Router) {
-    this.isSubmitter = this.rolesService.isSubmitter();
-    this.isController = this.rolesService.isController();
   }
 
   ngOnInit() {
+    this.isSubmitter = this.rolesService.isSubmitter();
+    this.isController = this.rolesService.isController();
     const queryParamsObs = this.route.queryParams;
     this.sub = Observable.combineLatest(queryParamsObs, this.isSubmitter, this.isController)
       .filter(([params, isSubmitter, isController]) => isNotEmpty(isSubmitter) && isNotEmpty(isController))

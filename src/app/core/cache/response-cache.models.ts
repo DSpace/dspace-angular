@@ -5,8 +5,6 @@ import { BrowseDefinition } from '../shared/browse-definition.model';
 import { ConfigObject } from '../shared/config/config.model';
 import { FacetValue } from '../../+search-page/search-service/facet-value.model';
 import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
-import { AuthTokenInfo } from '../auth/models/auth-token-info.model';
-import { NormalizedAuthStatus } from '../auth/models/normalized-auth-status.model';
 import { AuthStatus } from '../auth/models/auth-status.model';
 import { IntegrationModel } from '../integration/models/integration.model';
 import { NormalizedObject } from './models/normalized-object.model';
@@ -14,10 +12,12 @@ import { NormalizedObject } from './models/normalized-object.model';
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
   public toCache = true;
+
   constructor(
     public isSuccessful: boolean,
     public statusCode: string,
-  ) { }
+  ) {
+  }
 }
 
 export class DSOSuccessResponse extends RestResponse {
@@ -115,6 +115,7 @@ export class ConfigSuccessResponse extends RestResponse {
 
 export class AuthStatusResponse extends RestResponse {
   public toCache = false;
+
   constructor(
     public response: AuthStatus,
     public statusCode: string
@@ -122,7 +123,6 @@ export class AuthStatusResponse extends RestResponse {
     super(true, statusCode);
   }
 }
-
 
 export class IntegrationSuccessResponse extends RestResponse {
   constructor(
@@ -133,6 +133,7 @@ export class IntegrationSuccessResponse extends RestResponse {
     super(true, statusCode);
   }
 }
+
 export class PostPatchSuccessResponse extends RestResponse {
   constructor(
     public dataDefinition: any[],
@@ -145,7 +146,7 @@ export class PostPatchSuccessResponse extends RestResponse {
 
 export class SubmissionSuccessResponse extends RestResponse {
   constructor(
-    public dataDefinition: Array<NormalizedObject|ConfigObject|string>,
+    public dataDefinition: Array<NormalizedObject | ConfigObject | string>,
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {
@@ -163,18 +164,9 @@ export class EpersonSuccessResponse extends RestResponse {
   }
 }
 
-export class IntegrationSuccessResponse extends RestResponse {
-  constructor(
-    public dataDefinition: IntegrationModel[],
-    public statusCode: string,
-    public pageInfo?: PageInfo
-  ) {
-    super(true, statusCode);
-  }
-}
-
 export class MessageResponse extends RestResponse {
   public toCache = false;
+
   constructor(
     public statusCode: string,
     public pageInfo?: PageInfo
@@ -185,6 +177,7 @@ export class MessageResponse extends RestResponse {
 
 export class TaskResponse extends RestResponse {
   public toCache = false;
+
   constructor(
     public statusCode: string,
     public pageInfo?: PageInfo
@@ -192,4 +185,5 @@ export class TaskResponse extends RestResponse {
     super(true, statusCode);
   }
 }
+
 /* tslint:enable:max-classes-per-file */

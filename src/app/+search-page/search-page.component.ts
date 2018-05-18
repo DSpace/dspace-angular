@@ -14,6 +14,8 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
+import { SearchResponseParsingService } from '../core/data/search-response-parsing.service';
 
 /**
  * This component renders a simple item page.
@@ -61,6 +63,7 @@ export class SearchPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.service.setServiceOptions(SearchResponseParsingService, false);
     this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
     this.resultsRD$ = this.searchOptions$.pipe(
       flatMap((searchOptions) => this.service.search(searchOptions))

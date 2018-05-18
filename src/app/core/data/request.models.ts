@@ -1,7 +1,5 @@
 import { SortOptions } from '../cache/models/sort-options.model';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
@@ -14,7 +12,6 @@ import { EpersonResponseParsingService } from '../eperson/eperson-response-parsi
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { MessageResponseParsingService } from '../message/message-response-parsing.service';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
-import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -275,16 +272,6 @@ export class EpersonRequest extends GetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return EpersonResponseParsingService;
-  }
-}
-
-export class IntegrationRequest extends GetRequest {
-  constructor(uuid: string, href: string) {
-    super(uuid, href);
-  }
-
-  getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return IntegrationResponseParsingService;
   }
 }
 

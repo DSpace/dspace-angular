@@ -33,7 +33,7 @@ export class EpersonResponseParsingService extends BaseResponseParsingService im
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links)) {
       const epersonDefinition = this.process<NormalizedObject,EpersonType>(data.payload, request.href);
-      return new EpersonSuccessResponse(epersonDefinition[Object.keys(epersonDefinition)[0]], data.statusCode, this.processPageInfo(data.payload.page));
+      return new EpersonSuccessResponse(epersonDefinition[Object.keys(epersonDefinition)[0]], data.statusCode, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(
         Object.assign(

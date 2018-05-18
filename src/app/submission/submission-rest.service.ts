@@ -1,10 +1,9 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { ResponseCacheService } from '../core/cache/response-cache.service';
 import { RequestService } from '../core/data/request.service';
-import { GlobalConfig } from '../../config/global-config.interface';
 import { ResponseCacheEntry } from '../core/cache/response-cache.reducer';
 import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
@@ -19,20 +18,21 @@ import {
   SubmissionRequest
 } from '../core/data/request.models';
 import { SubmitDataResponseDefinitionObject } from '../core/shared/submit-data-response-definition.model';
-import { GLOBAL_CONFIG } from '../../config';
 import { CoreState } from '../core/core.reducers';
 import { PostPatchDataService } from '../core/data/postpatch-data.service';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
+import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 
 @Injectable()
 export class SubmissionRestService extends PostPatchDataService<SubmitDataResponseDefinitionObject> {
   protected linkPath = 'workspaceitems';
   protected overrideRequest = true;
 
-  constructor(protected responseCache: ResponseCacheService,
-              protected requestService: RequestService,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected store: Store<CoreState>) {
+  constructor(
+    protected responseCache: ResponseCacheService,
+    protected requestService: RequestService,
+    protected store: Store<CoreState>,
+    protected halService: HALEndpointService) {
     super();
   }
 
@@ -51,7 +51,7 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
   }
 
   public deleteById(scopeId: string, linkName?: string): Observable<SubmitDataResponseDefinitionObject> {
-    return this.getEndpoint(linkName)
+    return this.halService.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
@@ -69,7 +69,7 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
   }
 
   public getDataById(linkName: string, id: string): Observable<any> {
-    return this.getEndpoint(linkName)
+    return this.halService.getEndpoint(linkName)
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
@@ -80,7 +80,7 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
   }
 
   public postToEndpoint(linkName: string, body: any, scopeId?: string, options?: HttpOptions): Observable<SubmitDataResponseDefinitionObject> {
-    return this.getEndpoint(linkName)
+    return this.halService.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
       .distinctUntilChanged()
@@ -91,7 +91,7 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
   }
 
   public patchToEndpoint(linkName: string, body: any, scopeId?: string): Observable<SubmitDataResponseDefinitionObject> {
-    return this.getEndpoint(linkName)
+    return this.halService.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
       .distinctUntilChanged()

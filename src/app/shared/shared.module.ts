@@ -7,10 +7,6 @@ import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule
 
 import { TranslateModule } from '@ngx-translate/core';
 
-import { FileUploadModule } from 'ng2-file-upload';
-
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -59,13 +55,12 @@ import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dyn
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
-import { NotificationComponent } from './notifications/notification/notification.component';
-import { NotificationsBoardComponent } from './notifications/notifications-board/notifications-board.component';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
+import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { UploaderComponent } from './uploader/uploader.component';
 import { ChipsComponent } from './chips/chips.component';
 import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
@@ -222,8 +217,7 @@ const ENTRY_COMPONENTS = [
 ];
 
 const PROVIDERS = [
-  MockAdminGuard
-
+  MockAdminGuard,
   SubmissionService,
   SubmissionRestService,
   TruncatableService,

@@ -1,6 +1,5 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { ErrorResponse, PostPatchSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
@@ -18,17 +17,15 @@ import {
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel } from './json-patch.model';
-import { GLOBAL_CONFIG } from '../../../config';
 
 @Injectable()
-export class JsonPatchOperationsService<ResponseDefinitionDomain> extends HALEndpointService {
+export class JsonPatchOperationsService<ResponseDefinitionDomain> {
   protected linkPath;
 
   constructor(protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
-              @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected store: Store<CoreState>) {
-    super();
+              protected store: Store<CoreState>,
+              protected halService: HALEndpointService) {
   }
 
   protected submitData(request: RestRequest): Observable<ResponseDefinitionDomain> {
@@ -110,8 +107,8 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> extends HALEnd
     return isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
   }
 
-  public jsonPatchByResourceType(linkName: string, scopeId: string, resourceType: string, ) {
-    const hrefObs = this.getEndpoint(linkName)
+  public jsonPatchByResourceType(linkName: string, scopeId: string, resourceType: string,) {
+    const hrefObs = this.halService.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId));
@@ -120,7 +117,7 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> extends HALEnd
   }
 
   public jsonPatchByResourceID(linkName: string, scopeId: string, resourceType: string, resourceId: string) {
-    const hrefObs = this.getEndpoint(linkName)
+    const hrefObs = this.halService.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId));

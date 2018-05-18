@@ -10,11 +10,16 @@ export enum ViewMode {
 
 export class SearchOptions {
   view?: ViewMode = ViewMode.List;
+  configuration?: string;
   scope?: string;
   query?: string;
   filters?: any;
 
   toRestUrl(url: string, args: string[] = []): string {
+
+    if (isNotEmpty(this.configuration)) {
+      args.push(`configuration=${this.configuration}`);
+    }
 
     if (isNotEmpty(this.query)) {
       args.push(`query=${this.query}`);

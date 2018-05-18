@@ -1,10 +1,6 @@
 import { Observable } from 'rxjs/Observable';
-
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -18,6 +14,7 @@ import { ProcessTaskResponse } from './models/process-task-response';
 import { RemoteDataError } from '../data/remote-data-error';
 import { HttpHeaders } from '@angular/common/http';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 export abstract class TasksService<TNormalized extends NormalizedObject, TDomain> extends DataService<TNormalized, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -25,7 +22,7 @@ export abstract class TasksService<TNormalized extends NormalizedObject, TDomain
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
-  protected abstract EnvConfig: GlobalConfig;
+  protected abstract halService: HALEndpointService;
   protected abstract overrideRequest = false;
 
   protected fetchRequest(request: RestRequest): Observable<any> {
@@ -51,11 +48,11 @@ export abstract class TasksService<TNormalized extends NormalizedObject, TDomain
   }
 
   public getScopedEndpoint(scopeID: string): Observable<string> {
-    return this.getEndpoint();
+    return this.halService.getEndpoint(this.linkPath);
   }
 
   protected postToEndpoint(linkName: string, body: any, scopeId?: string, options?: HttpOptions): Observable<any> {
-    return this.getEndpoint(linkName)
+    return this.halService.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
       .distinctUntilChanged()
@@ -66,7 +63,7 @@ export abstract class TasksService<TNormalized extends NormalizedObject, TDomain
   }
 
   protected deleteToEndpoint(linkName: string, body: any, scopeId?: string, options?: HttpOptions): Observable<any> {
-    return this.getEndpoint(linkName)
+    return this.halService.getEndpoint(linkName)
       .filter((href: string) => isNotEmpty(href))
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
       .distinctUntilChanged()

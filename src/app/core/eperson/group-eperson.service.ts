@@ -1,16 +1,16 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { EpersonService } from './eperson.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 import { EpersonRequest, GetRequest } from '../data/request.models';
 import { EpersonData } from './eperson-data';
 import { EpersonSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
 import { Observable } from 'rxjs/Observable';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { BrowseService } from '../browse/browse.service';
 
 @Injectable()
 export class GroupEpersonService extends EpersonService {
@@ -20,7 +20,8 @@ export class GroupEpersonService extends EpersonService {
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig) {
+    protected bs: BrowseService,
+    protected halService: HALEndpointService) {
     super();
   }
 
@@ -29,7 +30,7 @@ export class GroupEpersonService extends EpersonService {
   }
 
   isMemberOf(groupName: string) {
-    return this.getEndpoint()
+    return this.halService.getEndpoint(this.linkPath)
       .map((endpoint: string) => this.getSearchHref(endpoint, groupName))
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
@@ -40,7 +41,7 @@ export class GroupEpersonService extends EpersonService {
   }
 
   protected getSearch(request: GetRequest): Observable<EpersonData> {
-    const [successResponse, errorResponse] =  this.responseCache.get(request.href)
+    const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(

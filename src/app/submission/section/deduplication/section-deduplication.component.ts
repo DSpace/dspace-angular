@@ -5,7 +5,7 @@ import { renderSectionFor } from '../section-decorator';
 import { SectionDataObject } from '../section-data.model';
 import { SubmissionState } from '../../submission.reducers';
 import { Store } from '@ngrx/store';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { Observable } from 'rxjs/Observable';
@@ -46,7 +46,7 @@ export class DeduplicationSectionComponent extends SectionModelComponent impleme
     this.config = new PaginationComponentOptions();
     this.config.id = 'duplicated_items';
     this.config.pageSize = 2;
-    this.sortConfig = new SortOptions();
+    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
 
     this.sectionDataObs = this.store.select(submissionSectionDataFromIdSelector(this.submissionId, this.sectionData.id))
       .filter((sd) => isNotEmpty(sd))

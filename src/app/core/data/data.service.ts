@@ -147,7 +147,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       }
     }
 
-    const hrefObs = this.getEndpoint().filter((href: string) => isNotEmpty(href))
+    const hrefObs = this.halService.getEndpoint(this.linkPath).filter((href: string) => isNotEmpty(href))
       .flatMap((endpoint: string) => this.getSearchByHref(endpoint, url, options));
     hrefObs
       .filter((href: string) => hasValue(href))
