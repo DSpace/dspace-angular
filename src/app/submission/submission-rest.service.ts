@@ -51,7 +51,7 @@ export class SubmissionRestService extends PostPatchDataService<SubmitDataRespon
   }
 
   public deleteById(scopeId: string, linkName?: string): Observable<SubmitDataResponseDefinitionObject> {
-    return this.halService.getEndpoint(linkName)
+    return this.halService.getEndpoint(linkName || this.linkPath)
       .filter((href: string) => isNotEmpty(href))
       .distinctUntilChanged()
       .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))

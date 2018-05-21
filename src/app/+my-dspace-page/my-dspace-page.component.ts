@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
@@ -22,7 +22,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { Eperson } from '../core/eperson/models/eperson.model';
 import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../shared/empty.util';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Route, Router } from '@angular/router';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 @Component({
@@ -40,7 +40,7 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
   configuration: MyDSpaceConfigurationType;
   hideOptions: boolean;
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
-  searchOptions$: Observable<PaginatedSearchOptions>;
+  searchOptions$: Observable<any>;
   sortConfig: SortOptions;
   scopeListRD$: Observable<RemoteData<PaginatedList<Community>>>;
   isMobileView$: Observable<boolean>;
@@ -60,11 +60,13 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
   };
   user$: Observable<Eperson>;
 
-  constructor(private service: SearchService,
+  constructor(private cdr: ChangeDetectorRef,
+              private service: SearchService,
               private communityService: CommunityDataService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
               private filterService: SearchFilterService,
+              private route: ActivatedRoute,
               private router: Router,
               private store: Store<AppState>,
               public rolesService: RolesService) {
@@ -83,7 +85,13 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
     this.hideOptions = true;
 
     this.user$ = this.store.select(getAuthenticatedUser);
+    // const conf$ = this.filterService.getCurrentConfiguration();
+    const conf$ = this.route.queryParams;
+    this.route.queryParams.subscribe((p) => {
+      console.log('mydspace page params', p);
+    });
     this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
+    // this.searchOptions$ = this.route.queryParams;
 
     this.sub = Observable.combineLatest(this.searchOptions$, this.isSubmitter$, this.isController$)
       .filter(([searchOptions, isSubmitter, isController]) => isNotEmpty(isSubmitter) && isNotEmpty(isController))
@@ -94,6 +102,10 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
           this.resultsRD$ = this.service.search(searchOptions)
         }
       });
+
+    // this.resultsRD$ = this.searchOptions$.pipe(
+    //   flatMap((searchOptions) => this.service.search(searchOptions))
+    // );
   }
 
   public closeSidebar(): void {
@@ -131,10 +143,16 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
       // If configuration param is empty or is not included in available configurations redirect to a default configuration value
       const navigationExtras: NavigationExtras = {
         queryParams: {configuration: configurationDefault},
-        queryParamsHandling: 'merge'
+        // queryParamsHandling: 'merge'
       };
 
+      // override the route reuse strategy
+      this.router.routeReuseStrategy.shouldReuseRoute = () => {
+        return false;
+      };
+      this.router.navigated = false;
       this.router.navigate([MYDSPACE_ROUTE], navigationExtras);
+      this.cdr.detectChanges();
       return null;
     } else {
       return configurationParam;
@@ -145,5 +163,7 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
+    this.user$ = null;
+    this.searchOptions$ = null;
   }
 }

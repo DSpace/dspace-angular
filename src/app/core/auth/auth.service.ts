@@ -309,7 +309,6 @@ export class AuthService {
    * @returns {AuthTokenInfo}
    */
   public storeToken(token: AuthTokenInfo) {
-    console.log(token);
     // Add 1 day to the current date
     const expireDate = Date.now() + (1000 * 60 * 60 * 24);
 

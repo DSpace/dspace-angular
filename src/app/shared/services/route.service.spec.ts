@@ -1,9 +1,10 @@
 import { RouteService } from './route.service';
 import { async, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap, Params } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
-describe('RouteService', () => {
+fdescribe('RouteService', () => {
   let service: RouteService;
   const paramName1 = 'name';
   const paramValue1 = 'Test Name';
@@ -24,16 +25,29 @@ describe('RouteService', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParams: Observable.of(paramObject),
-            queryParamMap: Observable.of(convertToParamMap(paramObject))
-          },
+            queryParams: paramObject,
+            queryParamMap: convertToParamMap(paramObject)
+          }
+        },
+        {
+          provide: Router,
+          useValue: {
+            routerState: {
+              snapshot: {
+                root:{
+                  queryParams: paramObject,
+                  queryParamMap: convertToParamMap(paramObject)
+                }
+              }
+            }
+          }
         },
       ]
     });
   }));
 
   beforeEach(() => {
-    service = new RouteService(TestBed.get(ActivatedRoute));
+    service = new RouteService(TestBed.get(ActivatedRoute), TestBed.get(Router));
   });
 
   describe('hasQueryParam', () => {

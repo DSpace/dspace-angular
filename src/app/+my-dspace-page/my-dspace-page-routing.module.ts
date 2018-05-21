@@ -12,7 +12,8 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
         path: '',
         pathMatch: 'full',
         component: MyDSpacePageComponent,
-        data: {title: 'mydspace.title'}}
+        data: {title: 'mydspace.title'}
+      }
     ])
   ]
 })
