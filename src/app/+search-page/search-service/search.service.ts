@@ -23,6 +23,7 @@ import { RequestService } from '../../core/data/request.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { configureRequest } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -78,7 +79,7 @@ export class SearchService implements OnDestroy {
           }
         });
       }),
-      tap((request: RestRequest) => this.requestService.configure(request)),
+      configureRequest(this.requestService)
     );
     const requestEntryObs = requestObs.pipe(
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
@@ -153,7 +154,7 @@ export class SearchService implements OnDestroy {
           }
         });
       }),
-      tap((request: RestRequest) => this.requestService.configure(request)),
+      configureRequest(this.requestService)
     );
 
     const requestEntryObs = requestObs.pipe(
@@ -188,7 +189,7 @@ export class SearchService implements OnDestroy {
           }
         });
       }),
-      tap((request: RestRequest) => this.requestService.configure(request)),
+      configureRequest(this.requestService)
     );
 
     const requestEntryObs = requestObs.pipe(
