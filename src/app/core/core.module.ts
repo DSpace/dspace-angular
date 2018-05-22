@@ -49,6 +49,7 @@ import { RegistryMetadataschemasResponseParsingService } from './data/registry-m
 import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 const IMPORTS = [
   CommonModule,
@@ -99,6 +100,7 @@ const PROVIDERS = [
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
   UUIDService,
+  NotificationsService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

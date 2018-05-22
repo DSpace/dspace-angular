@@ -2,6 +2,10 @@
   <div class="inner-wrapper">
     <ds-header></ds-header>
 
+    <ds-notifications-board
+      [options]="config.notifications">
+    </ds-notifications-board>
+
     <main class="main-content">
       <router-outlet></router-outlet>
     </main>
@@ -9,3 +13,5 @@
     <ds-footer></ds-footer>
   </div>
 </div>
+
+

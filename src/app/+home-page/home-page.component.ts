@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './home-page.component.html'
 })
 export class HomePageComponent {
-
 }
