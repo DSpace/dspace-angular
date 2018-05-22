@@ -518,7 +518,7 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             collapsed: false,
             enabled: action.payload.enabled,
             data: action.payload.data,
-            errors: action.payload.errors,
+            errors: action.payload.errors || [],
             isLoading: false,
             isValid: false
           }

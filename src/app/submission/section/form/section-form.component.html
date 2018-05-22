@@ -1,5 +1,5 @@
 <ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
-<ds-form *ngIf="!isLoading" #formRef="formComponent"
+<ds-form *ngIf="!isLoading && formModel" #formRef="formComponent"
          [formId]="formId"
          [formModel]="formModel"
          [displaySubmit]="false"

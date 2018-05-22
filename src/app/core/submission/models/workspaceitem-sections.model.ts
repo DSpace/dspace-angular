@@ -25,21 +25,21 @@ export function normalizeSectionData(obj: any) {
   let result: any = obj;
   if (isNotNull(obj)) {
     // If is an Instance of FormFieldMetadataValueObject normalize it
-    if (typeof obj === 'object'
-      && isServerFormValue(obj)) {
+    if (typeof obj === 'object' && isServerFormValue(obj)) {
       // If authority property is set normalize as a FormFieldMetadataValueObject object
       /* NOTE: Data received from server could have authority property equal to null, but into form
          field's model is required a FormFieldMetadataValueObject object as field value, so double-check in
          field's parser and eventually instantiate it */
-      if (isNotEmpty(obj.authority)) {
-        result = new FormFieldMetadataValueObject(obj.value, obj.language, obj.authority, (obj.display || obj.value));
-      } else if (isNotEmpty(obj.language)) {
-        const languageValue = new FormFieldLanguageValueObject(obj.value, obj.language);
-        result = languageValue;
-      } else {
-        // Normalize as a string value
-        result = obj.value;
-      }
+      // if (isNotEmpty(obj.authority)) {
+      //   result = new FormFieldMetadataValueObject(obj.value, obj.language, obj.authority, (obj.display || obj.value), obj.place, obj.confidence);
+      // } else if (isNotEmpty(obj.language)) {
+      //   const languageValue = new FormFieldLanguageValueObject(obj.value, obj.language);
+      //   result = languageValue;
+      // } else {
+      //   // Normalize as a string value
+      //   result = obj.value;
+      // }
+      result = new FormFieldMetadataValueObject(obj.value, obj.language, obj.authority, (obj.display || obj.value), obj.place, obj.confidence);
     } else if (Array.isArray(obj)) {
       result = [];
       obj.forEach((item, index) => {

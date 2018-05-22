@@ -1,5 +1,5 @@
 import {
-  FormAction, FormActionTypes, FormAddError, FormChangeAction, FormInitAction, FormRemoveAction,
+  FormAction, FormActionTypes, FormAddError, FormChangeAction, FormInitAction, FormRemoveAction, FormRemoveErrorAction,
   FormStatusChangeAction
 } from './form.actions';
 import { hasValue } from '../empty.util';
@@ -45,6 +45,10 @@ export function formReducer(state = initialState, action: FormAction): FormState
       return addFormErrors(state, action as FormAddError)
     }
 
+    case FormActionTypes.FORM_REMOVE_ERROR: {
+      return removeFormError(state, action as FormRemoveErrorAction)
+    }
+
     default: {
       return state;
     }
@@ -66,6 +70,19 @@ function addFormErrors(state: FormState, action: FormAddError) {
         errors: state[formId].errors ? uniqWith(state[formId].errors.concat(error), isEqual) : [].concat(error),
       }
     });
+  } else {
+    return state;
+  }
+}
+
+function removeFormError(state: FormState, action: FormRemoveErrorAction) {
+  const formId = action.payload.formId;
+  const fieldId = action.payload.fieldId;
+  if (hasValue(state[formId])) {
+    const errors = state[formId].errors.filter((error) => error.fieldId !== fieldId);
+    const newState = Object.assign({}, state);
+    newState[ formId ] = Object.assign({}, state[formId], {errors})
+    return newState
   } else {
     return state;
   }

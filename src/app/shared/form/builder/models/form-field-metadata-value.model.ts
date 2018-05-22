@@ -11,12 +11,12 @@ export class FormFieldMetadataValueObject {
   closed: boolean;
   label: string;
 
-  constructor(value: string,
+  constructor(value: string = null,
               language: any = null,
               authority: string = null,
               display: string = null,
+              place: number = 0,
               confidence: number = -1,
-              place: number = -1,
               metadata: string = null) {
     this.value = value;
     this.language = language;

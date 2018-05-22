@@ -4,7 +4,7 @@ import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/rout
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-fdescribe('RouteService', () => {
+describe('RouteService', () => {
   let service: RouteService;
   const paramName1 = 'name';
   const paramValue1 = 'Test Name';
@@ -25,8 +25,8 @@ fdescribe('RouteService', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParams: paramObject,
-            queryParamMap: convertToParamMap(paramObject)
+            queryParams: Observable.of(paramObject),
+            queryParamMap: Observable.of(convertToParamMap(paramObject))
           }
         },
         {

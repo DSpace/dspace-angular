@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
-import { isEqual } from 'lodash';
+import { isEqual, isObject, transform } from 'lodash';
 
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -48,6 +48,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   public isLoading = true;
 
   protected formConfig: SubmissionFormsModel;
+  protected formData: any = Object.create({});
   protected pathCombiner: JsonPatchOperationPathCombiner;
   protected previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
   protected subs: Subscription[] = [];
@@ -79,6 +80,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
           .take(1)
           .subscribe((sectionData: WorkspaceitemSectionDataType) => {
             if (isUndefined(this.formModel)) {
+              console.log('INIT!!!');
               this.sectionData.errors = [];
               // Is the first loading so init form
               this.initForm(sectionData);
@@ -106,14 +108,27 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   }
 
   updateForm(sectionData: WorkspaceitemSectionDataType, errors: SubmissionSectionError[]) {
-    this.formModel = this.formBuilderService.modelFromConfiguration(
-      this.formConfig,
-      this.collectionId,
-      sectionData,
-      this.submissionService.getSubmissionScope());
-    this.isLoading = false;
-    this.checksForErrors(errors);
-    this.cdr.detectChanges();
+    const diff = this.difference(sectionData, this.formData);
+    if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data) && isNotEmpty(diff)) {
+
+      console.log('old', this.sectionData.data);
+      console.log('new', sectionData);
+      console.log('diff', this.difference(sectionData, this.sectionData.data));
+      const newModel = this.formBuilderService.modelFromConfiguration(
+        this.formConfig,
+        this.collectionId,
+        sectionData,
+        this.submissionService.getSubmissionScope());
+      this.formModel = null;
+      this.cdr.detectChanges();
+      this.formModel = newModel;
+      this.checksForErrors(errors);
+      this.cdr.detectChanges();
+      this.sectionData.data = sectionData;
+    } else if (isNotEmpty(errors)) {
+      this.checksForErrors(errors);
+    }
+
   }
 
   checksForErrors(errors: SubmissionSectionError[]) {
@@ -155,7 +170,14 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
           this.valid = formState;
           this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, this.valid));
         }),
-
+      /**
+       * Subscribe to form data
+       */
+      this.formService.getFormData(this.formId)
+        .distinctUntilChanged()
+        .subscribe((formData) => {
+          this.formData = formData;
+        }),
       /**
        * Subscribe to section state
        */
@@ -163,21 +185,38 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
         .filter((sectionState: SubmissionSectionObject) => {
           return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
         })
+        .distinctUntilChanged()
         .subscribe((sectionState: SubmissionSectionObject) => {
-          if (isNotEmpty(sectionState.data) && !isEqual(sectionState.data, this.sectionData.data)) {
-            // Data are changed from remote response so update form's values
-            // TODO send a notification to notify data may have been changed
-            this.sectionData.data = sectionState.data;
-            this.isLoading = true;
-            setTimeout(() => {
-              // Reset the form
-              this.updateForm(sectionState.data, sectionState.errors);
-            }, 50);
-          } else if (isNotEmpty(sectionState.errors)) {
-            this.checksForErrors(sectionState.errors);
-          }
+          this.updateForm(sectionState.data, sectionState.errors);
+          // if (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors)) {
+          //   console.log(sectionState.data, sectionState.errors);
+          //   this.updateForm(sectionState.data, sectionState.errors);
+          // }
+          // if (isNotEmpty(sectionState.data) && !isEqual(sectionState.data, this.sectionData.data)) {
+          //   // Data are changed from remote response so update form's values
+          //   // TODO send a notification to notify data may have been changed
+          //   this.sectionData.data = sectionState.data;
+          //   // this.isLoading = true;
+          //   setTimeout(() => {
+          //     // Reset the form
+          //     this.updateForm(sectionState.data, sectionState.errors);
+          //   }, 50);
+          // } else if (isNotEmpty(sectionState.errors)) {
+          //   this.checksForErrors(sectionState.errors);
+          // }
         })
     )
+  }
+
+  private difference(object, base) {
+    const changes = (o, b) => {
+      return transform(o, (result, value, key) => {
+        if (!isEqual(value, b[key]) && isNotEmpty(value)) {
+          result[key] = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value;
+        }
+      });
+    }
+    return changes(object, base);
   }
 
   onChange(event: DynamicFormControlEvent) {
@@ -197,10 +236,11 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   onFocus(event: DynamicFormControlEvent) {
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model);
+    console.log(value, path);
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
       this.previousValue.path = path;
       this.previousValue.value = this.formOperationsService.getComboboxMap(event);
-    } else if ( (typeof value ===  'object' && isNotEmpty(value.value))  || (typeof value === 'string' && isNotEmpty(value)) ) {
+    } else if (isNotEmpty(value) && ((typeof value ===  'object' && isNotEmpty(value.value))  || (typeof value === 'string'))) {
       this.previousValue.path = path;
       this.previousValue.value = value;
     }

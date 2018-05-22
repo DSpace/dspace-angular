@@ -10,7 +10,13 @@ import {
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
-import { FormChangeAction, FormInitAction, FormRemoveAction, FormStatusChangeAction } from './form.actions';
+import {
+  FormChangeAction,
+  FormInitAction,
+  FormRemoveAction,
+  FormRemoveErrorAction,
+  FormStatusChangeAction
+} from './form.actions';
 import { FormBuilderService } from './builder/form-builder.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -215,7 +221,9 @@ export class FormComponent implements OnDestroy, OnInit {
     this.change.emit(event);
     const control: FormControl = event.control;
 
-    control.setErrors(null);
+    console.log(control);
+    // control.setErrors(null);
+    this.store.dispatch(new FormRemoveErrorAction(this.formId, event.model.id));
   }
 
   /**
