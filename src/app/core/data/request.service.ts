@@ -68,9 +68,13 @@ export class RequestService {
   }
 
   // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
-  configure<T extends CacheableObject>(request: RestRequest, overrideRequest: boolean = false): void {
-    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request) || overrideRequest) {
-      this.dispatchRequest(request, overrideRequest);
+  configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
+    const isGetRequest = request.method === RestRequestMethod.Get;
+    if (!isGetRequest || !this.isCachedOrPending(request) || forceBypassCache) {
+      this.dispatchRequest(request);
+      if (isGetRequest && !forceBypassCache) {
+        this.trackRequestsOnTheirWayToTheStore(request);
+      }
     }
   }
 
@@ -103,12 +107,9 @@ export class RequestService {
     return isCached || isPending;
   }
 
-  private dispatchRequest(request: RestRequest, overrideRequest: boolean = false) {
+  private dispatchRequest(request: RestRequest) {
     this.store.dispatch(new RequestConfigureAction(request));
     this.store.dispatch(new RequestExecuteAction(request.uuid));
-    if (request.method === RestRequestMethod.Get && !overrideRequest) {
-      this.trackRequestsOnTheirWayToTheStore(request);
-    }
   }
 
   /**

@@ -1,4 +1,4 @@
-import { authReducer, AuthState } from './auth.reducers';
+import { authReducer, AuthState } from './auth.reducer';
 import {
   AddAuthenticationMessageAction,
   AuthenticateAction,

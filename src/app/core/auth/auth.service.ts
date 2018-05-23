@@ -138,7 +138,7 @@ export class AuthService {
   /**
    * Checks if token is present into browser storage and is valid. (NB Check is done only on SSR)
    */
-  public checksAuthenticationToken() {
+  public checkAuthenticationToken() {
     return
   }
 

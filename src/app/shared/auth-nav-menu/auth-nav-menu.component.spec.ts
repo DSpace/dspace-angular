@@ -4,7 +4,7 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 
-import { authReducer, AuthState } from '../../core/auth/auth.reducers';
+import { authReducer, AuthState } from '../../core/auth/auth.reducer';
 import { EpersonMock } from '../testing/eperson-mock';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppState } from '../../app.reducer';

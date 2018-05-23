@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
     this.store.select(isAuthenticated)
       .take(1)
       .filter((authenticated) => !authenticated)
-      .subscribe((authenticated) => this.authService.checksAuthenticationToken());
+      .subscribe((authenticated) => this.authService.checkAuthenticationToken());
 
   }
 
