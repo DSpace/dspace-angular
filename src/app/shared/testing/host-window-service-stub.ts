@@ -17,7 +17,7 @@ export class HostWindowServiceStub {
     return Observable.of(this.width < 576);
   }
 
-  isMobileView(): Observable<boolean> {
+  isXsOrSm(): Observable<boolean> {
     return this.isXs();
   }
 }
