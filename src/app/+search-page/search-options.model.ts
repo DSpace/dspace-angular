@@ -1,5 +1,6 @@
 import { isNotEmpty } from '../shared/empty.util';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
+import 'core-js/library/fn/object/entries';
 
 export enum ViewMode {
   List = 'list',
