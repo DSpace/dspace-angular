@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../empty.util';
-import { DynamicGroupModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-group/dynamic-group.model';
+
+import { isEqual } from 'lodash';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DynamicFormArrayGroupModel,
-  DynamicFormControlEvent
+  DynamicFormControlEvent,
+  DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
+
+import { isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../empty.util';
 import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormFieldPreviousValueObject } from './builder/models/form-field-previous-value-object';
 import { DynamicComboboxModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
-import { isEqual } from 'lodash';
 import { JsonPatchOperationsBuilder } from '../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldLanguageValueObject } from './builder/models/form-field-language-value.model';
 import { DsDynamicInputModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -20,14 +22,15 @@ import { FormBuilderService } from './builder/form-builder.service';
 @Injectable()
 export class FormOperationsService {
 
-  constructor(private formBuilder: FormBuilderService, private operationsBuilder: JsonPatchOperationsBuilder) {}
+  constructor(private formBuilder: FormBuilderService, private operationsBuilder: JsonPatchOperationsBuilder) {
+  }
 
   protected dispatchOperationsFromRemoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject) {
     const path = this.getFieldPathFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
-    if (event.model.parent instanceof DynamicComboboxModel) {
+    if (this.formBuilder.isComboboxGroup(event.model.parent as DynamicFormControlModel)) {
       this.dispatchOperationsFromMap(this.getComboboxMap(event), pathCombiner, event, previousValue);
     } else if (isNotEmpty(value)) {
       this.operationsBuilder.remove(pathCombiner.getPath(path));
@@ -42,10 +45,10 @@ export class FormOperationsService {
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
     // Detect which operation must be dispatched
-    if (event.model.parent instanceof DynamicComboboxModel) {
+    if (this.formBuilder.isComboboxGroup(event.model.parent as DynamicFormControlModel)) {
       // It's a qualdrup model
       this.dispatchOperationsFromMap(this.getComboboxMap(event), pathCombiner, event, previousValue);
-    } else if (event.model instanceof DynamicGroupModel) {
+    } else if (this.formBuilder.isRelationGroup(event.model)) {
       // It's a relation model
       this.dispatchOperationsFromMap(this.getValueMap(value), pathCombiner, event, previousValue);
     } else if (this.formBuilder.isModelInAuthorityGroup(event.model)) {
@@ -179,8 +182,8 @@ export class FormOperationsService {
 
   getFieldPathSegmentedFromChangeEvent(event: DynamicFormControlEvent) {
     let fieldId;
-    if (event.model.parent instanceof DynamicComboboxModel) {
-      fieldId = event.model.parent.qualdropId;
+    if (this.formBuilder.isComboboxGroup(event.model.parent as DynamicFormControlModel)) {
+      fieldId = (event.model.parent as any).qualdropId;
     } else {
       fieldId = this.formBuilder.getId(event.model);
     }

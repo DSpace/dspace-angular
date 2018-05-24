@@ -28,6 +28,7 @@ import { GlobalConfig } from '../../../../../../../config/global-config.interfac
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { isObjectEmpty } from '../../../../../object.util';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -67,6 +68,10 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     if (isNotEmpty(this.model.value)) {
       this.formCollapsed = Observable.of(true);
     }
+    this.model.valueUpdates.subscribe((value: any[]) => {
+      this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && isObjectEmpty(value[0]))) ? Observable.of(true) : Observable.of(false);
+    });
+
     this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(config, this.model.scopeUUID, {});
     this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);

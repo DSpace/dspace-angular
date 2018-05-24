@@ -12,7 +12,6 @@ import {
 import { FormGroup } from '@angular/forms';
 import {
   DynamicDatePickerModel,
-  DynamicFormArrayGroupModel,
   DynamicFormControlComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -173,4 +172,8 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
     }
   }
 
+  onValueChange($event: Event | DynamicFormControlEvent | any): void {
+    console.log('dynamic!!!', $event);
+    super.onValueChange($event);
+  }
 }

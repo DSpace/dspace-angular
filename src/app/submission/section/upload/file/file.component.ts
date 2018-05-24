@@ -106,11 +106,12 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
               this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
             });
           const accessConditionsToSave = [];
+          console.log(formData.accessConditions);
           formData.accessConditions
             .forEach((accessCondition, index) => {
               let accessConditionOpt;
               this.availableAccessConditionOptions
-                .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0])
+                .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0].value)
                 .forEach((element) => accessConditionOpt = element);
               if (accessConditionOpt) {
                 const path = `accessConditions/${index}`;
@@ -121,15 +122,15 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
                   accessConditionsToSave.push(accessConditionOpt);
                 } else {
                   accessConditionOpt = Object.assign({}, accessCondition);
-                  accessConditionOpt.name = Array.isArray(accessCondition.name) ? accessCondition.name[0] : accessCondition.name;
-                  accessConditionOpt.groupUUID = Array.isArray(accessCondition.groupUUID) ? accessCondition.groupUUID[0] : accessCondition.groupUUID;
+                  accessConditionOpt.name = Array.isArray(accessCondition.name) ? accessCondition.name[0].value : accessCondition.name.value;
+                  accessConditionOpt.groupUUID = Array.isArray(accessCondition.groupUUID) ? accessCondition.groupUUID[0].value : accessCondition.groupUUID.value;
                   if (accessCondition.startDate) {
-                    const startDate = Array.isArray(accessCondition.startDate) ? accessCondition.startDate[0] : accessCondition.startDate;
+                    const startDate = Array.isArray(accessCondition.startDate) ? accessCondition.startDate[0].value : accessCondition.startDate.value;
                     accessConditionOpt.startDate = dateToGMTString(startDate);
                     accessConditionOpt = deleteProperty(accessConditionOpt, 'endDate');
                   }
                   if (accessCondition.endDate) {
-                    const endDate = Array.isArray(accessCondition.endDate) ? accessCondition.endDate[0] : accessCondition.endDate;
+                    const endDate = Array.isArray(accessCondition.endDate) ? accessCondition.endDate[0].value : accessCondition.endDate.value;
                     accessConditionOpt.endDate = dateToGMTString(endDate);
                     accessConditionOpt = deleteProperty(accessConditionOpt, 'startDate');
                   }

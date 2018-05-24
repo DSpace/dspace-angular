@@ -16,7 +16,7 @@ import {
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { submissionSectionDataFromIdSelector, submissionSectionFromIdSelector } from '../../selectors';
@@ -34,6 +34,8 @@ import { renderSectionFor } from '../section-decorator';
 import { SectionType } from '../section-type';
 import { SubmissionService } from '../../submission.service';
 import { FormOperationsService } from '../../../shared/form/form-operations.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -45,6 +47,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
 
   public formId;
   public formModel: DynamicFormControlModel[];
+  public isUpdating = false;
   public isLoading = true;
 
   protected formConfig: SubmissionFormsModel;
@@ -60,8 +63,10 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
               protected formOperationsService: FormOperationsService,
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
+              protected notificationsService: NotificationsService,
               protected store: Store<SubmissionState>,
               protected submissionService: SubmissionService,
+              protected translate: TranslateService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
@@ -110,21 +115,23 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   updateForm(sectionData: WorkspaceitemSectionDataType, errors: SubmissionSectionError[]) {
     const diff = this.difference(sectionData, this.formData);
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data) && isNotEmpty(diff)) {
-
-      console.log('old', this.sectionData.data);
+      this.notificationsService.info(null, this.translate.get('submission.sections.general.metadata_extracted'));
+      this.isUpdating = true;
+      console.log('old', this.formData);
       console.log('new', sectionData);
-      console.log('diff', this.difference(sectionData, this.sectionData.data));
-      const newModel = this.formBuilderService.modelFromConfiguration(
+      console.log('diff', diff);
+      console.log('errors', errors);
+      this.formModel = null;
+      this.cdr.detectChanges();
+      this.formModel = this.formBuilderService.modelFromConfiguration(
         this.formConfig,
         this.collectionId,
         sectionData,
         this.submissionService.getSubmissionScope());
-      this.formModel = null;
-      this.cdr.detectChanges();
-      this.formModel = newModel;
       this.checksForErrors(errors);
-      this.cdr.detectChanges();
       this.sectionData.data = sectionData;
+      this.isUpdating = false;
+      this.cdr.detectChanges();
     } else if (isNotEmpty(errors)) {
       this.checksForErrors(errors);
     }
@@ -133,7 +140,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
 
   checksForErrors(errors: SubmissionSectionError[]) {
     this.formService.isFormInitialized(this.formId)
-      .filter((status: boolean) => status === true)
+      .filter((status: boolean) => status === true && !this.isUpdating)
       .take(1)
       .subscribe(() => {
         errors.forEach((error: SubmissionSectionError) => {
@@ -187,6 +194,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
         })
         .distinctUntilChanged()
         .subscribe((sectionState: SubmissionSectionObject) => {
+          console.log(sectionState.data, sectionState.errors);
           this.updateForm(sectionState.data, sectionState.errors);
           // if (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors)) {
           //   console.log(sectionState.data, sectionState.errors);
@@ -215,7 +223,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
           result[key] = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value;
         }
       });
-    }
+    };
     return changes(object, base);
   }
 
@@ -236,7 +244,6 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   onFocus(event: DynamicFormControlEvent) {
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
     const path = this.formBuilderService.getPath(event.model);
-    console.log(value, path);
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
       this.previousValue.path = path;
       this.previousValue.value = this.formOperationsService.getComboboxMap(event);

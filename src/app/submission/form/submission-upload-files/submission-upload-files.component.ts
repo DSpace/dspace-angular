@@ -60,7 +60,6 @@ export class SubmissionUploadFilesComponent implements OnChanges {
 
             const {sections} = workspaceitem;
             if (sections && isNotEmpty(sections)) {
-              this.notificationsService.info(null, this.translate.get('submission.sections.general.metadata_extracted'));
               Object.keys(sections)
                 .forEach((sectionId) => {
                   const sectionData = normalizeSectionData(sections[sectionId]);

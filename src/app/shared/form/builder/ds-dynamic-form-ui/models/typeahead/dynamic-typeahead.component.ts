@@ -90,6 +90,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
     if (!this.model.authorityOptions.closed && isNotEmpty(event.target.value)) {
       const valueObj = new FormFieldMetadataValueObject(event.target.value);
       this.inputValue = valueObj;
+      this.model.valueUpdates.next(this.inputValue);
     }
     if (event.data) {
       // this.group.markAsDirty();
@@ -98,7 +99,6 @@ export class DsDynamicTypeaheadComponent implements OnInit {
 
   onBlurEvent(event: Event) {
     if (!this.model.authorityOptions.closed && isNotEmpty(this.inputValue)) {
-      this.model.valueUpdates.next(this.inputValue);
       this.change.emit(this.inputValue);
       this.inputValue = null;
     }
