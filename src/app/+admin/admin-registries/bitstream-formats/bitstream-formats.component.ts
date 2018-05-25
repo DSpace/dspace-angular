@@ -15,7 +15,7 @@ export class BitstreamFormatsComponent {
   bitstreamFormats: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-bitstreamformats-pagination',
-    pageSize: 20
+    pageSize: 10000
   });
 
   constructor(private registryService: RegistryService) {

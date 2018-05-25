@@ -15,7 +15,7 @@ export class MetadataRegistryComponent {
   metadataSchemas: Observable<RemoteData<PaginatedList<MetadataSchema>>>;
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-metadataschemas-pagination',
-    pageSize: 10
+    pageSize: 10000
   });
 
   constructor(private registryService: RegistryService) {
