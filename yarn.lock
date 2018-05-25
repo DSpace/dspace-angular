@@ -77,7 +77,7 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@angularclass/bootloader/-/bootloader-1.0.1.tgz#75de7cf3901b445900a419c2aeca44181d465060"
 
-"@ng-bootstrap/ng-bootstrap@^1.0.0":
+"@ng-bootstrap/ng-bootstrap@1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.1.2.tgz#276b1c488687ca3e53d1694b63835fd57ca552ca"
 

@@ -42,7 +42,7 @@ export class RouteService {
     return this.route.queryParamMap.map((map) => {
       const snapshot: RouterStateSnapshot = this.router.routerState.snapshot;
       // Due to an Angular bug, sometimes change of QueryParam is not detected so double checks with route snapshot
-      if (!isEqual(map.keys, snapshot.root.queryParamMap.keys)) {
+      if (!isEqual(map, snapshot.root.queryParamMap)) {
         return snapshot.root.queryParamMap;
       } else {
         return map;
