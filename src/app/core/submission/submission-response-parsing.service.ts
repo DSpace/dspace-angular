@@ -44,7 +44,6 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
       // Response from a DELETE request
       return new SubmissionSuccessResponse(null, data.statusCode);
     } else {
-      console.log(data);
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from server'),

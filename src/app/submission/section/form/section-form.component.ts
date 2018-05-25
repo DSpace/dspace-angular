@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
@@ -8,23 +7,17 @@ import { isEqual, isObject, transform } from 'lodash';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import {
-  DeleteSectionErrorsAction,
-  SaveSubmissionFormAction,
-  SectionStatusChangeAction,
-} from '../../objects/submission-objects.actions';
+import { SaveSubmissionFormAction, SectionStatusChangeAction, } from '../../objects/submission-objects.actions';
 import { SectionModelComponent } from '../section.model';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { submissionSectionDataFromIdSelector, submissionSectionFromIdSelector } from '../../selectors';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
-import parseSectionErrorPaths, { SectionErrorPath } from '../../utils/parseSectionErrorPaths';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
-import { FormAddError } from '../../../shared/form/form.actions';
 import { WorkspaceitemSectionDataType } from '../../../core/submission/models/workspaceitem-sections.model';
 import { Subscription } from 'rxjs/Subscription';
 import { GLOBAL_CONFIG } from '../../../../config';
@@ -36,6 +29,7 @@ import { SubmissionService } from '../../submission.service';
 import { FormOperationsService } from '../../../shared/form/form-operations.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SectionService } from '../section.service';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -65,6 +59,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
               protected formConfigService: SubmissionFormsConfigService,
               protected notificationsService: NotificationsService,
               protected store: Store<SubmissionState>,
+              protected sectionService: SectionService,
               protected submissionService: SubmissionService,
               protected translate: TranslateService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
@@ -85,7 +80,6 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
           .take(1)
           .subscribe((sectionData: WorkspaceitemSectionDataType) => {
             if (isUndefined(this.formModel)) {
-              console.log('INIT!!!');
               this.sectionData.errors = [];
               // Is the first loading so init form
               this.initForm(sectionData);
@@ -117,10 +111,6 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data) && isNotEmpty(diff)) {
       this.notificationsService.info(null, this.translate.get('submission.sections.general.metadata_extracted'));
       this.isUpdating = true;
-      console.log('old', this.formData);
-      console.log('new', sectionData);
-      console.log('diff', diff);
-      console.log('errors', errors);
       this.formModel = null;
       this.cdr.detectChanges();
       this.formModel = this.formBuilderService.modelFromConfiguration(
@@ -143,23 +133,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
       .filter((status: boolean) => status === true && !this.isUpdating)
       .take(1)
       .subscribe(() => {
-        errors.forEach((error: SubmissionSectionError) => {
-          const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
-
-          errorPaths.forEach((path: SectionErrorPath) => {
-            if (path.fieldId) {
-              const fieldId = path.fieldId.replace(/\./g, '_');
-
-              // Dispatch action to the form state;
-              const formAddErrorAction = new FormAddError(this.formId, fieldId, error.message);
-              this.store.dispatch(formAddErrorAction);
-            }
-          });
-        });
-
-        // because errors has been shown, remove them from the state
-        const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionData.id, errors);
-        this.store.dispatch(removeAction);
+        this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors);
         this.sectionData.errors = errors;
         this.cdr.detectChanges();
       });
@@ -194,7 +168,6 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
         })
         .distinctUntilChanged()
         .subscribe((sectionState: SubmissionSectionObject) => {
-          console.log(sectionState.data, sectionState.errors);
           this.updateForm(sectionState.data, sectionState.errors);
           // if (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors)) {
           //   console.log(sectionState.data, sectionState.errors);
@@ -247,7 +220,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
       this.previousValue.path = path;
       this.previousValue.value = this.formOperationsService.getComboboxMap(event);
-    } else if (isNotEmpty(value) && ((typeof value ===  'object' && isNotEmpty(value.value))  || (typeof value === 'string'))) {
+    } else if (isNotEmpty(value) && ((typeof value === 'object' && isNotEmpty(value.value)) || (typeof value === 'string'))) {
       this.previousValue.path = path;
       this.previousValue.value = value;
     }

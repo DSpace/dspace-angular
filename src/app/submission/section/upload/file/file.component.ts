@@ -106,7 +106,6 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
               this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
             });
           const accessConditionsToSave = [];
-          console.log(formData.accessConditions);
           formData.accessConditions
             .forEach((accessCondition, index) => {
               let accessConditionOpt;

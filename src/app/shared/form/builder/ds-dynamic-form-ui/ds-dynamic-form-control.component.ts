@@ -171,9 +171,4 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
       this.onValueChange(event);
     }
   }
-
-  onValueChange($event: Event | DynamicFormControlEvent | any): void {
-    console.log('dynamic!!!', $event);
-    super.onValueChange($event);
-  }
 }

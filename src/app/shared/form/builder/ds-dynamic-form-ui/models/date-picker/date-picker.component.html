@@ -8,9 +8,10 @@
       [size]="4"
       [(ngModel)]="initialYear"
       [value]="year"
-      [invalid]="invalid"
+      [invalid]="showErrorMessages"
       [placeholder]='yearPlaceholder'
       (change)="onChange($event)"
+      (focus)="onFocus($event)"
     ></ds-number-picker>
   </div>
 
@@ -25,6 +26,7 @@
       [placeholder]="monthPlaceholder"
       [disabled]="!year || model.disabled"
       (change)="onChange($event)"
+      (focus)="onFocus($event)"
     ></ds-number-picker>
   </div>
 
@@ -39,6 +41,7 @@
       [placeholder]="dayPlaceholder"
       [disabled]="!month || model.disabled"
       (change)="onChange($event)"
+      (focus)="onFocus($event)"
     ></ds-number-picker>
   </div>
 

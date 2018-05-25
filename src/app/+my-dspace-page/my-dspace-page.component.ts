@@ -85,13 +85,8 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
     this.hideOptions = true;
 
     this.user$ = this.store.select(getAuthenticatedUser);
-    // const conf$ = this.filterService.getCurrentConfiguration();
-    const conf$ = this.route.queryParams;
-    this.route.queryParams.subscribe((p) => {
-      console.log('mydspace page params', p);
-    });
+
     this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
-    // this.searchOptions$ = this.route.queryParams;
 
     this.sub = Observable.combineLatest(this.searchOptions$, this.isSubmitter$, this.isController$)
       .filter(([searchOptions, isSubmitter, isController]) => isNotEmpty(isSubmitter) && isNotEmpty(isController))

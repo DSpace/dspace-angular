@@ -6,6 +6,7 @@ import { SubmissionState } from '../submission.reducers';
 
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import {
+  DeleteSectionErrorsAction,
   DisableSectionAction,
   EnableSectionAction,
   InertSectionErrorsAction,
@@ -19,6 +20,8 @@ import {
 import { submissionObjectFromIdSelector, submissionSectionFromIdSelector } from '../selectors';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
+import { FormAddError } from '../../shared/form/form.actions';
 
 @Injectable()
 export class SectionService {
@@ -27,6 +30,25 @@ export class SectionService {
               private store: Store<SubmissionState>) {
   }
 
+  public checkSectionErrors(submissionId, sectionId, formId, errors) {
+    errors.forEach((error: SubmissionSectionError) => {
+      const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
+
+      errorPaths.forEach((path: SectionErrorPath) => {
+        if (path.fieldId) {
+          const fieldId = path.fieldId.replace(/\./g, '_');
+
+          // Dispatch action to the form state;
+          const formAddErrorAction = new FormAddError(formId, fieldId, error.message);
+          this.store.dispatch(formAddErrorAction);
+        }
+      });
+    });
+
+    // because errors has been shown, remove them from the state
+    const removeAction = new DeleteSectionErrorsAction(submissionId, sectionId, errors);
+    this.store.dispatch(removeAction);
+  }
   public getSectionState(submissionId, sectionId): Observable<SubmissionSectionObject> {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
       .filter((sectionObj) => hasValue(sectionObj))

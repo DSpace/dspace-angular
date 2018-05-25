@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue, isNotUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { License } from '../../../core/shared/license.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
@@ -22,6 +22,7 @@ import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/mode
 import { SubmissionService } from '../../submission.service';
 import { SectionService } from '../section.service';
 import { FormOperationsService } from '../../../shared/form/form-operations.service';
+import { submissionSectionErrorsFromIdSelector } from '../../selectors';
 
 @Component({
   selector: 'ds-submission-section-license',
@@ -82,6 +83,14 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
               model.disabled = true;
             });
           this.changeDetectorRef.detectChanges();
+        }),
+      this.store.select(submissionSectionErrorsFromIdSelector(this.submissionId, this.sectionData.id))
+        .filter((errors) => isNotEmpty(errors))
+        .distinctUntilChanged()
+        .subscribe((errors) => {
+          this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors);
+          this.sectionData.errors = errors;
+          this.changeDetectorRef.detectChanges();
         })
     );
   }
@@ -89,9 +98,9 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
   onChange(event: DynamicFormControlEvent) {
     const path = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
-    this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, value));
+    this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, value.value));
     if (value) {
-      this.operationsBuilder.add(this.pathCombiner.getPath(path), value.toString(), false, true);
+      this.operationsBuilder.add(this.pathCombiner.getPath(path), value.value.toString(), false, true);
     } else {
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
     }

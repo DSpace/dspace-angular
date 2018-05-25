@@ -212,7 +212,6 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event) {
-    console.log(event, this.formGroup);
     const action: FormChangeAction = new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel));
 
     this.store.dispatch(action);
@@ -221,9 +220,10 @@ export class FormComponent implements OnDestroy, OnInit {
     this.change.emit(event);
     const control: FormControl = event.control;
 
-    console.log(control);
     // control.setErrors(null);
-    this.store.dispatch(new FormRemoveErrorAction(this.formId, event.model.id));
+    if (control.valid) {
+      this.store.dispatch(new FormRemoveErrorAction(this.formId, event.model.id));
+    }
   }
 
   /**

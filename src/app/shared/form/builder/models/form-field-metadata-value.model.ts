@@ -39,4 +39,8 @@ export class FormFieldMetadataValueObject {
   hasAuthority(): boolean {
     return isNotEmpty(this.authority);
   }
+
+  hasValue(): boolean {
+    return isNotEmpty(this.value);
+  }
 }

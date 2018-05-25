@@ -53,3 +53,8 @@ export function submissionSectionDataFromIdSelector(submissionId: string, sectio
   const submissionIdSelector  = submissionSectionFromIdSelector(submissionId, sectionId);
   return subStateSelector<SubmissionState, SubmissionSectionObject>(submissionIdSelector, 'data');
 }
+
+export function submissionSectionErrorsFromIdSelector(submissionId: string, sectionId: string): MemoizedSelector<SubmissionState, any> {
+  const submissionIdSelector  = submissionSectionFromIdSelector(submissionId, sectionId);
+  return subStateSelector<SubmissionState, SubmissionSectionObject>(submissionIdSelector, 'errors');
+}

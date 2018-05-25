@@ -9,7 +9,8 @@ export const SECTION_LICENSE_FORM_MODEL = [
       required: null
     },
     errorMessages: {
-      required: 'You must accept the license'
+      required: 'You must accept the license',
+      notgranted: 'You must accept the license'
     },
     type: 'CHECKBOX',
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { isEqual } from 'lodash';
+import { isEqual, isObject } from 'lodash';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
@@ -18,6 +18,7 @@ import { FormFieldLanguageValueObject } from './builder/models/form-field-langua
 import { DsDynamicInputModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { AuthorityValueModel } from '../../core/integration/models/authority-value.model';
 import { FormBuilderService } from './builder/form-builder.service';
+import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 
 @Injectable()
 export class FormOperationsService {
@@ -58,7 +59,7 @@ export class FormOperationsService {
         value, true);
     } else if (previousValue.isPathEqual(this.formBuilder.getPath(event.model)) || hasStoredValue) {
       // Here model has a previous value changed or stored in the server
-      if (isEmpty(value)) {
+      if (!value.hasValue()) {
         // New value is empty, so dispatch a remove operation
         if (this.getArrayIndexFromEvent(event) === 0) {
           this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));
@@ -72,7 +73,7 @@ export class FormOperationsService {
           value);
       }
       previousValue.delete();
-    } else if (isNotEmpty(value)) {
+    } else if (value.hasValue()) {
       // Here model has no previous value but a new one
       if (isUndefined(this.getArrayIndexFromEvent(event))
         || this.getArrayIndexFromEvent(event) === 0) {
@@ -210,11 +211,12 @@ export class FormOperationsService {
         }
       } else {
         // Language without Authority (input, textArea)
-        fieldValue = new FormFieldLanguageValueObject(value, language);
+        fieldValue = new FormFieldMetadataValueObject(value, language);
       }
-    } else {
-      // Authority Simple, without language
+    } else if (value instanceof FormFieldLanguageValueObject || value instanceof AuthorityValueModel || isObject(value)) {
       fieldValue = value;
+    } else {
+      fieldValue = new FormFieldMetadataValueObject(value);
     }
 
     return fieldValue;

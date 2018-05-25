@@ -11,31 +11,22 @@ import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/f
 })
 
 export class NumberPickerComponent implements OnInit, ControlValueAccessor {
-  @Output()
-  selected = new EventEmitter<number>();
-  @Output()
-  remove = new EventEmitter<number>();
-  @Output()
-  change = new EventEmitter<any>();
 
-  @Input()
-  step: number;
-  @Input()
-  min: number;
-  @Input()
-  max: number;
-  @Input()
-  size: number;
-  @Input()
-  placeholder: string;
-  @Input()
-  name: string;
-  @Input()
-  disabled: boolean;
-  @Input()
-  invalid: boolean;
-  @Input()
-  value: number;
+  @Input() step: number;
+  @Input() min: number;
+  @Input() max: number;
+  @Input() size: number;
+  @Input() placeholder: string;
+  @Input() name: string;
+  @Input() disabled: boolean;
+  @Input() invalid: boolean;
+  @Input() value: number;
+
+  @Output() selected = new EventEmitter<number>();
+  @Output() remove = new EventEmitter<number>();
+  @Output() change = new EventEmitter<any>();
+  @Output() focus = new EventEmitter<any>();
+
   lastValue: number;
 
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {
@@ -118,10 +109,11 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  onFocus() {
+  onFocus(event) {
     if (this.value) {
       this.lastValue = this.value;
     }
+    this.focus.emit(event);
   }
 
   writeValue(value) {
