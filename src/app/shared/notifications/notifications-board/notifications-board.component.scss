@@ -5,6 +5,9 @@
   z-index: $zindex-popover;
   text-align: right;
   @include word-wrap;
+  .notification {
+    display: block;
+  }
 }
 
 .notifications-wrapper.left {
