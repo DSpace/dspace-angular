@@ -34,19 +34,26 @@ export abstract class BaseResponseParsingService {
       } else if (Array.isArray(data)) {
         return this.processArray(data, requestHref);
       } else if (isObjectLevel(data)) {
-        let object = this.deserialize(data, requestHref);
-        this.cache(object, requestHref);
+        const object = this.deserialize(data);
         if (isNotEmpty(data._embedded)) {
-          const list = {};
           Object
             .keys(data._embedded)
             .filter((property) => data._embedded.hasOwnProperty(property))
             .forEach((property) => {
               const parsedObj = this.process<ObjectDomain, ObjectType>(data._embedded[property], requestHref);
-              list[property] = parsedObj;
+              if (isNotEmpty(parsedObj)) {
+                if (isPaginatedResponse(data._embedded[property])) {
+                  object[property] = parsedObj;
+                  object[property].page = parsedObj.page.map((obj) => obj.self);
+                } else if (isObjectLevel(data._embedded[property])) {
+                  object[property] = parsedObj.self;
+                } else if (Array.isArray(parsedObj)) {
+                  object[property] = parsedObj.map((obj) => obj.self)
+                }
+              }
             });
-          object = Object.assign({}, object, list);
         }
+        this.cache(object, requestHref);
         return object;
       }
       const result = {};
@@ -83,7 +90,7 @@ export abstract class BaseResponseParsingService {
     return array;
   }
 
-  protected deserialize<ObjectDomain, ObjectType>(obj, requestHref) {
+  protected deserialize<ObjectDomain, ObjectType>(obj): any {
     const type: ObjectType = obj.type;
     if (hasValue(type)) {
       const normObjConstructor = this.objectFactory.getConstructor(type) as GenericConstructor<ObjectDomain>;
