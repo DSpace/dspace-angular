@@ -73,7 +73,7 @@ export abstract class BaseResponseParsingService {
     const pageInfo: PageInfo = this.processPageInfo(data);
     let list = data._embedded;
 
-    // Workaround for inconsistancy in rest response - sometimes page embeds are wrapped in another object
+    // Workaround for inconsistency in rest response. Issue: https://github.com/DSpace/dspace-angular/issues/238
     if (!Array.isArray(list)) {
       list = this.flattenSingleKeyObject(list);
     }
