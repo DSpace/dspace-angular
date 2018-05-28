@@ -1,0 +1,32 @@
+<h2 class="item-page-title-field">
+  <ds-metadata-values [values]="item?.filterMetadata(['project.identifier.name'])"></ds-metadata-values>
+</h2>
+<div class="row">
+  <div class="col-xs-12 col-md-4">
+    <ds-metadata-field-wrapper>
+      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/project-placeholder.png'"></ds-thumbnail>
+    </ds-metadata-field-wrapper>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['project.identifier.status']"
+      [label]="'project.page.status'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['project.identifier.id']"
+      [label]="'project.page.id'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['project.identifier.expectedcompletion']"
+      [label]="'project.page.expectedcompletion'">
+    </ds-generic-item-page-field>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['project.identifier.description']"
+      [label]="'project.page.description'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['project.identifier.keywords']"
+      [label]="'project.page.keywords'">
+    </ds-generic-item-page-field>
+  </div>
+</div>

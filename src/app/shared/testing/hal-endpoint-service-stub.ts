@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { ViewMode } from '../../+search-page/search-options.model';
+import { SetViewMode } from '../view-mode';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class HALEndpointServiceStub {

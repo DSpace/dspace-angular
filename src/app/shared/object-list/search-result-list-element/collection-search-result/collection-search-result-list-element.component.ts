@@ -4,7 +4,7 @@ import { renderElementsFor } from '../../../object-collection/shared/dso-element
 
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 import { Collection } from '../../../../core/shared/collection.model';
-import { ViewMode } from '../../../../+search-page/search-options.model';
+import { SetViewMode } from '../../../view-mode';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 
 @Component({
@@ -13,5 +13,5 @@ import { CollectionSearchResult } from '../../../object-collection/shared/collec
   templateUrl: 'collection-search-result-list-element.component.html'
 })
 
-@renderElementsFor(CollectionSearchResult, ViewMode.List)
+@renderElementsFor(CollectionSearchResult, SetViewMode.List)
 export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {}

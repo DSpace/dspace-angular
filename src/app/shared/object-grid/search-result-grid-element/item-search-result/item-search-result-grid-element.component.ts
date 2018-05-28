@@ -4,7 +4,7 @@ import { renderElementsFor } from '../../../object-collection/shared/dso-element
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { ViewMode } from '../../../../+search-page/search-options.model';
+import { SetViewMode } from '../../../view-mode';
 import { focusShadow } from '../../../../shared/animations/focus';
 
 @Component({
@@ -14,5 +14,5 @@ import { focusShadow } from '../../../../shared/animations/focus';
   animations: [focusShadow],
 })
 
-@renderElementsFor(ItemSearchResult, ViewMode.Grid)
+@renderElementsFor(ItemSearchResult, SetViewMode.Grid)
 export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {}

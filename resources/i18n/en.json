@@ -45,6 +45,38 @@
       }
     }
   },
+  "person": {
+    "page": {
+      "jobtitle": "Job Title",
+      "lastname": "Last Name",
+      "firstname": "First Name",
+      "email": "Email Address",
+      "orcid": "ORCID",
+      "birthdate": "Birth Date",
+      "staffid": "Staff ID",
+      "link": {
+        "full": "Show all metadata"
+      }
+    }
+  },
+  "project": {
+    "page": {
+      "status": "Status",
+      "id": "ID",
+      "expectedcompletion": "Expected Completion",
+      "description": "Description",
+      "keywords": "Keywords"
+    }
+  },
+  "orgunit": {
+    "page": {
+      "dateestablished": "Date established",
+      "city": "City",
+      "country": "Country",
+      "id": "ID",
+      "description": "Description"
+    }
+  },
   "nav": {
     "home": "Home"
   },

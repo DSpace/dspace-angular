@@ -1,14 +1,10 @@
-import { isNotEmpty } from '../shared/empty.util';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
 import 'core-js/fn/object/entries';
-
-export enum ViewMode {
-  List = 'list',
-  Grid = 'grid'
-}
+import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { isNotEmpty } from '../shared/empty.util';
+import { SetViewMode } from '../shared/view-mode';
 
 export class SearchOptions {
-  view?: ViewMode = ViewMode.List;
+  view?: SetViewMode = SetViewMode.List;
   scope?: string;
   query?: string;
   filters?: any;

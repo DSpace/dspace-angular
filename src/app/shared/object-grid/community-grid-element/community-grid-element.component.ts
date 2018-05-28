@@ -3,7 +3,7 @@ import { Component, Input, Inject } from '@angular/core';
 import { Community } from '../../../core/shared/community.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { renderElementsFor} from '../../object-collection/shared/dso-element-decorator';
-import { ViewMode } from '../../../+search-page/search-options.model';
+import { SetViewMode } from '../../view-mode';
 
 @Component({
   selector: 'ds-community-grid-element',
@@ -11,5 +11,5 @@ import { ViewMode } from '../../../+search-page/search-options.model';
   templateUrl: './community-grid-element.component.html'
 })
 
-@renderElementsFor(Community, ViewMode.Grid)
+@renderElementsFor(Community, SetViewMode.Grid)
 export class CommunityGridElementComponent extends AbstractListableElementComponent<Community> {}

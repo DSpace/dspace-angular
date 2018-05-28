@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
-import { ViewMode } from '../../+search-page/search-options.model';
+import { SetViewMode } from '../view-mode';
 import { SearchServiceStub } from '../testing/search-service-stub';
 
 @Component({ template: '' })
@@ -55,19 +55,19 @@ describe('ViewModeSwitchComponent', () => {
   });
 
   it('should set list button as active when on list mode', fakeAsync(() => {
-    searchService.setViewMode(ViewMode.List);
+    searchService.setViewMode(SetViewMode.List);
     tick();
     fixture.detectChanges();
-    expect(comp.currentMode).toBe(ViewMode.List);
+    expect(comp.currentMode).toBe(SetViewMode.List);
     expect(listButton.classList).toContain('active');
     expect(gridButton.classList).not.toContain('active');
   }));
 
   it('should set grid button as active when on grid mode', fakeAsync(() => {
-    searchService.setViewMode(ViewMode.Grid);
+    searchService.setViewMode(SetViewMode.Grid);
     tick();
     fixture.detectChanges();
-    expect(comp.currentMode).toBe(ViewMode.Grid);
+    expect(comp.currentMode).toBe(SetViewMode.Grid);
     expect(listButton.classList).not.toContain('active');
     expect(gridButton.classList).toContain('active');
   }));

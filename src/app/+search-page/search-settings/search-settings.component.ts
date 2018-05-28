@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { SetViewMode } from '../../shared/view-mode';
 import { SearchService } from '../search-service/search.service';
-import { SearchOptions, ViewMode } from '../search-options.model';
+import { SearchOptions} from '../search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
@@ -48,7 +49,7 @@ export class SearchSettingsComponent implements OnInit {
         this.page  = +params.page || this.searchOptions.pagination.currentPage;
         this.pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
         this.direction = params.sortDirection || this.searchOptions.sort.direction;
-        if (params.view === ViewMode.Grid) {
+        if (params.view === SetViewMode.Grid) {
           this.pageSizeOptions = this.pageSizeOptions;
         } else {
           this.pageSizeOptions = this.pageSizeOptions;

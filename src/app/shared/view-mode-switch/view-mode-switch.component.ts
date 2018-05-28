@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs/Subscription';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ViewMode } from '../../+search-page/search-options.model';
+import { SetViewMode } from '../view-mode';
 import { SearchService } from './../../+search-page/search-service/search.service';
 
 /**
@@ -12,20 +12,20 @@ import { SearchService } from './../../+search-page/search-service/search.servic
   templateUrl: './view-mode-switch.component.html'
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
-  currentMode: ViewMode = ViewMode.List;
-  viewModeEnum = ViewMode;
+  currentMode: SetViewMode = SetViewMode.List;
+  viewModeEnum = SetViewMode;
   private sub: Subscription;
 
   constructor(private searchService: SearchService) {
   }
 
   ngOnInit(): void {
-    this.sub = this.searchService.getViewMode().subscribe((viewMode: ViewMode) => {
+    this.sub = this.searchService.getViewMode().subscribe((viewMode: SetViewMode) => {
       this.currentMode = viewMode;
     });
   }
 
-  switchViewTo(viewMode: ViewMode) {
+  switchViewTo(viewMode: SetViewMode) {
     this.searchService.setViewMode(viewMode);
   }
 

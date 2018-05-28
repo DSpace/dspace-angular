@@ -12,6 +12,7 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
+import * as viewMode from '../../shared/view-mode';
 
 /**
  * This component renders a simple item page.
@@ -34,6 +35,8 @@ export class ItemPageComponent implements OnInit {
   itemRDObs: Observable<RemoteData<Item>>;
 
   thumbnailObs: Observable<Bitstream>;
+
+  ElementViewMode = viewMode.ElementViewMode;
 
   constructor(
     private route: ActivatedRoute,

@@ -4,7 +4,7 @@ import { renderElementsFor } from '../../../object-collection/shared/dso-element
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { ViewMode } from '../../../../+search-page/search-options.model';
+import { SetViewMode } from '../../../view-mode';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { focusBackground } from '../../../animations/focus';
 
@@ -16,6 +16,6 @@ import { focusBackground } from '../../../animations/focus';
 
 })
 
-@renderElementsFor(ItemSearchResult, ViewMode.List)
+@renderElementsFor(ItemSearchResult, SetViewMode.List)
 export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 }

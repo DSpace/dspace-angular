@@ -1,5 +1,5 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
-import { ViewMode } from '../../../+search-page/search-options.model';
+import { SetViewMode } from '../../view-mode';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { rendersDSOType } from '../../object-collection/shared/dso-element-decorator';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
@@ -26,6 +26,6 @@ export class WrapperGridElementComponent implements OnInit {
 
   getGridElement(): string {
     const f: GenericConstructor<ListableObject> = this.object.constructor as GenericConstructor<ListableObject>;
-    return rendersDSOType(f, ViewMode.Grid);
+    return rendersDSOType(f, SetViewMode.Grid);
   }
 }

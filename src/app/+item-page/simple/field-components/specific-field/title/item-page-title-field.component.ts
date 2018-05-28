@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 
 import { Item } from '../../../../../core/shared/item.model';
-import { ItemPageSpecificFieldComponent } from '../item-page-specific-field.component';
+import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
     selector: 'ds-item-page-title-field',
     templateUrl: './item-page-title-field.component.html'
 })
-export class ItemPageTitleFieldComponent extends ItemPageSpecificFieldComponent {
+export class ItemPageTitleFieldComponent extends ItemPageFieldComponent {
 
     @Input() item: Item;
 

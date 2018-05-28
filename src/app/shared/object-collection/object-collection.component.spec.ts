@@ -1,5 +1,5 @@
 import { ObjectCollectionComponent } from './object-collection.component';
-import { ViewMode } from '../../+search-page/search-options.model';
+import { SetViewMode } from '../view-mode';
 import { element } from 'protractor';
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -38,14 +38,14 @@ describe('ObjectCollectionComponent', () => {
 
   }));
   it('should only show the grid component when the viewmode is set to grid', () => {
-    objectCollectionComponent.currentMode = ViewMode.Grid;
+    objectCollectionComponent.currentMode = SetViewMode.Grid;
 
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeNull();
   });
 
   it('should only show the list component when the viewmode is set to list', () => {
-    objectCollectionComponent.currentMode = ViewMode.List;
+    objectCollectionComponent.currentMode = SetViewMode.List;
 
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();

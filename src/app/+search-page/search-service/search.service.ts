@@ -5,7 +5,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { flatMap, map, tap } from 'rxjs/operators';
-import { ViewMode } from '../../+search-page/search-options.model';
+import { SetViewMode } from '../../shared/view-mode';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import {
@@ -217,17 +217,17 @@ export class SearchService implements OnDestroy {
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
-  getViewMode(): Observable<ViewMode> {
+  getViewMode(): Observable<SetViewMode> {
     return this.route.queryParams.map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
         return params.view;
       } else {
-        return ViewMode.List;
+        return SetViewMode.List;
       }
     });
   }
 
-  setViewMode(viewMode: ViewMode) {
+  setViewMode(viewMode: SetViewMode) {
     const navigationExtras: NavigationExtras = {
       queryParams: { view: viewMode },
       queryParamsHandling: 'merge'
