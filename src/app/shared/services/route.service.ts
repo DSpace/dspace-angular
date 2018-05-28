@@ -38,7 +38,7 @@ export class RouteService {
       }).distinctUntilChanged();
   }
 
-  private getQueryParamMap(): Observable<any> {
+  public getQueryParamMap(): Observable<any> {
     return this.route.queryParamMap.map((map) => {
       const snapshot: RouterStateSnapshot = this.router.routerState.snapshot;
       // Due to an Angular bug, sometimes change of QueryParam is not detected so double checks with route snapshot

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SearchConfigOption } from '../search-filters/search-switch-config/search-config-option.model';
 
 /**
  * This component renders a simple item page.
@@ -15,6 +16,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SearchSidebarComponent {
   @Input() resultCount;
   @Input() hideOptions;
+  @Input() viewModeList;
+  @Input() configurationList: SearchConfigOption[];
   @Output() toggleSidebar = new EventEmitter<boolean>();
 
 }

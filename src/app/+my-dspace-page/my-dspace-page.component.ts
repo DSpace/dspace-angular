@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { findIndex } from 'lodash';
+
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
@@ -11,9 +13,7 @@ import { HostWindowService } from '../shared/host-window.service';
 import { SearchResult } from '../+search-page/search-result.model';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
-import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { SearchFilterService } from '../+search-page/search-filters/search-filter/search-filter.service';
-import { flatMap } from 'rxjs/operators';
 import { MyDSpaceConfigurationType } from './mydspace-configuration-type';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
 import { RolesService } from '../core/roles/roles.service';
@@ -22,9 +22,12 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { Eperson } from '../core/eperson/models/eperson.model';
 import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../shared/empty.util';
-import { ActivatedRoute, NavigationExtras, Route, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ViewMode } from '../+search-page/search-options.model';
+import { SearchConfigOption } from '../+search-page/search-filters/search-switch-config/search-config-option.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
+
 @Component({
   selector: 'ds-my-dspace-page',
   styleUrls: ['./my-dspace-page.component.scss'],
@@ -38,6 +41,7 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
   private scope: string;
 
   configuration: MyDSpaceConfigurationType;
+  configurationList$: Observable<SearchConfigOption[]>;
   hideOptions: boolean;
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
   searchOptions$: Observable<any>;
@@ -59,6 +63,7 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
     scope: ''
   };
   user$: Observable<Eperson>;
+  viewModeList = [ViewMode.List, ViewMode.Detail];
 
   constructor(private cdr: ChangeDetectorRef,
               private service: SearchService,
@@ -84,23 +89,30 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
     this.service.setServiceOptions(MyDSpaceResponseParsingService, true);
     this.hideOptions = true;
 
-    this.user$ = this.store.select(getAuthenticatedUser);
-
-    this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
-
-    this.sub = Observable.combineLatest(this.searchOptions$, this.isSubmitter$, this.isController$)
-      .filter(([searchOptions, isSubmitter, isController]) => isNotEmpty(isSubmitter) && isNotEmpty(isController))
-      .distinctUntilChanged()
-      .subscribe(([searchOptions, isSubmitter, isController]) => {
-        const configuration = this.getSearchConfiguration(searchOptions.configuration as MyDSpaceConfigurationType, isSubmitter, isController);
-        if (isNotNull(configuration)) {
-          this.resultsRD$ = this.service.search(searchOptions)
-        }
+    this.configurationList$ = Observable.combineLatest(this.isSubmitter$, this.isController$)
+      .filter(([isSubmitter, isController]) => isNotEmpty(isSubmitter) && isNotEmpty(isController))
+      .first()
+      .map(([isSubmitter, isController]) => {
+        return this.getMyDSpaceConfigurationOptions(isSubmitter, isController);
       });
 
-    // this.resultsRD$ = this.searchOptions$.pipe(
-    //   flatMap((searchOptions) => this.service.search(searchOptions))
-    // );
+    this.user$ = this.store.select(getAuthenticatedUser);
+
+    this.searchOptions$ = this.filterService.getCurrentView()
+      .flatMap((currentView) => {
+        if (isNotEmpty(currentView) && currentView === ViewMode.Detail) {
+          this.defaults.pagination.pageSize = 1;
+        }
+        return this.filterService.getPaginatedSearchOptions(this.defaults);
+      });
+
+    this.sub = Observable.combineLatest(this.searchOptions$, this.configurationList$)
+      .distinctUntilChanged()
+      .subscribe(([searchOptions, configurationList]) => {
+        if (this.validateConfigurationParam(searchOptions.configuration as MyDSpaceConfigurationType, configurationList)) {
+          this.resultsRD$ = this.service.search(searchOptions);
+        }
+      });
   }
 
   public closeSidebar(): void {
@@ -119,26 +131,28 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
     return this.service.getSearchLink();
   }
 
-  private getAvailableConfiguration(isSubmitter: boolean, isController: boolean): MyDSpaceConfigurationType[] {
-    const availableConf: MyDSpaceConfigurationType[] = [];
+  private getMyDSpaceConfigurationOptions(isSubmitter: boolean, isController: boolean): SearchConfigOption[] {
+    const configurationOptions: SearchConfigOption[] = [];
     if (isSubmitter || (!isSubmitter && !isController)) {
-      availableConf.push(MyDSpaceConfigurationType.Workspace);
+      const value = MyDSpaceConfigurationType.Workspace;
+      const label = `mydspace.show.${value}`;
+      configurationOptions.push({value, label})
     }
     if (isController || (!isSubmitter && !isController)) {
-      availableConf.push(MyDSpaceConfigurationType.Workflow);
+      const value = MyDSpaceConfigurationType.Workflow;
+      const label = `mydspace.show.${value}`;
+      configurationOptions.push({value, label})
     }
-    return availableConf;
+    return configurationOptions;
   }
 
-  private getSearchConfiguration(configurationParam: MyDSpaceConfigurationType, isSubmitter: boolean, isController: boolean) {
-    const configurationDefault: MyDSpaceConfigurationType = (isSubmitter || (!isSubmitter && !isController)) ?
-      MyDSpaceConfigurationType.Workspace :
-      MyDSpaceConfigurationType.Workflow;
-    if (isEmpty(configurationParam) || !this.getAvailableConfiguration(isSubmitter, isController).includes(configurationParam)) {
+  private validateConfigurationParam(configurationParam: MyDSpaceConfigurationType, configurationList: SearchConfigOption[]): boolean {
+    const configurationDefault: MyDSpaceConfigurationType = configurationList[0].value as MyDSpaceConfigurationType;
+    if (isEmpty(configurationParam) || findIndex(configurationList, {value: configurationParam}) === -1) {
       // If configuration param is empty or is not included in available configurations redirect to a default configuration value
       const navigationExtras: NavigationExtras = {
         queryParams: {configuration: configurationDefault},
-        // queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge'
       };
 
       // override the route reuse strategy
@@ -148,9 +162,9 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
       this.router.navigated = false;
       this.router.navigate([MYDSPACE_ROUTE], navigationExtras);
       this.cdr.detectChanges();
-      return null;
+      return false;
     } else {
-      return configurationParam;
+      return true;
     }
   }
 

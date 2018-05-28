@@ -1,7 +1,8 @@
 import { Subscription } from 'rxjs/Subscription';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { SearchService } from './../../+search-page/search-service/search.service';
+import { isEmpty } from '../empty.util';
 
 /**
  * Component to switch between list and grid views.
@@ -12,6 +13,8 @@ import { SearchService } from './../../+search-page/search-service/search.servic
   templateUrl: './view-mode-switch.component.html'
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
+  @Input() viewModeList: ViewMode[];
+
   currentMode: ViewMode = ViewMode.List;
   viewModeEnum = ViewMode;
   private sub: Subscription;
@@ -20,6 +23,10 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (isEmpty(this.viewModeList)) {
+      this.viewModeList = [ViewMode.List, ViewMode.Grid];
+    }
+
     this.sub = this.searchService.getViewMode().subscribe((viewMode: ViewMode) => {
       this.currentMode = viewMode;
     });
@@ -33,5 +40,9 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
     if (this.sub !== undefined) {
       this.sub.unsubscribe();
     }
+  }
+
+  isToShow(viewMode: ViewMode) {
+    return this.viewModeList && this.viewModeList.includes(viewMode);
   }
 }

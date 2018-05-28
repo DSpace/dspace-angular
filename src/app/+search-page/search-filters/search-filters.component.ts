@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 import { Observable } from 'rxjs/Observable';
 import { SearchFilterService } from './search-filter/search-filter.service';
+import { SearchConfigOption } from './search-switch-config/search-config-option.model';
 
 /**
  * This component renders a simple item page.
@@ -18,6 +19,8 @@ import { SearchFilterService } from './search-filter/search-filter.service';
 })
 
 export class SearchFiltersComponent {
+  @Input() configurationList: SearchConfigOption[];
+
   filters: Observable<RemoteData<SearchFilterConfig[]>>;
   clearParams;
 

@@ -38,6 +38,7 @@ import { FacetConfigResponseParsingService } from '../../core/data/facet-config-
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { MYDSPACE_ROUTE } from '../../+my-dspace-page/my-dspace-page.component';
 import { MyDSpaceResponseParsingService } from '../../core/data/mydspace-response-parsing.service';
+import { RouteService } from '../../shared/services/route.service';
 
 @Injectable()
 export class SearchService implements OnDestroy {
@@ -53,6 +54,7 @@ export class SearchService implements OnDestroy {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private routeService: RouteService,
               protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
@@ -232,22 +234,35 @@ export class SearchService implements OnDestroy {
   }
 
   getViewMode(): Observable<ViewMode> {
-    return this.route.queryParams.map((params) => {
-      if (isNotEmpty(params.view) && hasValue(params.view)) {
-        return params.view;
-      } else {
-        return ViewMode.List;
-      }
-    });
+    return this.routeService.getQueryParameterValue('view')
+      .map((view) => {
+        if (isNotEmpty(view) && hasValue(view)) {
+          return view as ViewMode;
+        } else {
+          return ViewMode.List;
+        }
+      });
   }
 
   setViewMode(viewMode: ViewMode) {
-    const navigationExtras: NavigationExtras = {
-      queryParams: {view: viewMode},
-      queryParamsHandling: 'merge'
-    };
+    this.sub = this.routeService.getQueryParamMap()
+      .map((paramMap) => paramMap.params)
+      .distinctUntilChanged()
+      .take(1)
+      .subscribe((params) => {
+        const newParams = Object.create({});
+        Object.keys(params)
+          .filter((paramKey) => paramKey !== 'pageId' && paramKey !== 'page' && paramKey !== 'pageSize')
+          .forEach((paramKey) => newParams[paramKey] = params[paramKey]);
 
-    this.router.navigate([this.getSearchLink()], navigationExtras);
+        newParams.view = viewMode;
+
+        const navigationExtras: NavigationExtras = {
+          queryParams: newParams
+        };
+
+        this.router.navigate([this.getSearchLink()], navigationExtras);
+      })
   }
 
   getSearchLink(): string {

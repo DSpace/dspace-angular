@@ -13,7 +13,7 @@ module.exports = {
     host: 'dspace7.4science.it',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/dspace-spring-rest/api'
+    nameSpace: '/or2018/api'
   },
   // Caching settings
   cache: {
@@ -26,7 +26,7 @@ module.exports = {
   auth: {
     target: {
       host: 'https://dspace7.4science.it',
-      page: '/dspace-spring-rest/shib.html'
+      page: '/or2018/shib.html'
     }
   },
   filters: {

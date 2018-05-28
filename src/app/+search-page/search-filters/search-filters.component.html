@@ -1,5 +1,5 @@
 <h3>{{"search.filters.head" | translate}}</h3>
-<ds-search-tab></ds-search-tab>
+<ds-search-switch-config *ngIf="configurationList" [configurationList]="configurationList"></ds-search-switch-config>
 <div *ngIf="(filters | async)?.hasSucceeded">
     <div *ngFor="let filter of (filters | async)?.payload">
         <ds-search-filter class="d-block mb-3 p-3" [filter]="filter"></ds-search-filter>
