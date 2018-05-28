@@ -34,5 +34,8 @@ $slider-handle-width: 18px;
         &:after {
             left: ($slider-handle-width - 2)/2 + 2;
         }
+        &:focus {
+            outline: none;
+        }
     }
 }
