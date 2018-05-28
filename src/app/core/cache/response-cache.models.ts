@@ -1,5 +1,6 @@
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { RequestError } from '../data/request.models';
+import { BrowseEntry } from '../shared/browse-entry.model';
 import { PageInfo } from '../shared/page-info.model';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { ConfigObject } from '../shared/config/config.model';
@@ -78,10 +79,11 @@ export class EndpointMapSuccessResponse extends RestResponse {
   }
 }
 
-export class BrowseSuccessResponse extends RestResponse {
+export class GenericSuccessResponse<T> extends RestResponse {
   constructor(
-    public browseDefinitions: BrowseDefinition[],
-    public statusCode: string
+    public payload: T,
+    public statusCode: string,
+    public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
   }

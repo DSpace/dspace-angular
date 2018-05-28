@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { map, tap } from 'rxjs/operators';
-import { NormalizedSearchResult } from '../../../+search-page/normalized-search-result.model';
-import { SearchResult } from '../../../+search-page/search-result.model';
-import { SearchQueryResponse } from '../../../+search-page/search-service/search-query-response.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { distinctUntilChanged, flatMap, map, startWith } from 'rxjs/operators';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
@@ -12,13 +9,19 @@ import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
 
+import { NormalizedObject } from '../models/normalized-object.model';
 import { ObjectCacheService } from '../object-cache.service';
 import { DSOSuccessResponse, ErrorResponse } from '../response-cache.models';
 import { ResponseCacheEntry } from '../response-cache.reducer';
 import { ResponseCacheService } from '../response-cache.service';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
-import { NormalizedObject } from '../models/normalized-object.model';
 import { PageInfo } from '../../shared/page-info.model';
+import {
+  getRequestFromSelflink,
+  getResourceLinksFromResponse,
+  getResponseFromSelflink,
+  filterSuccessfulResponses
+} from '../../shared/operators';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -27,43 +30,42 @@ export class RemoteDataBuildService {
               protected requestService: RequestService) {
   }
 
-  buildSingle<TNormalized extends NormalizedObject, TDomain>(hrefObs: string | Observable<string>): Observable<RemoteData<TDomain>> {
-    if (typeof hrefObs === 'string') {
-      hrefObs = Observable.of(hrefObs);
+  buildSingle<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<TDomain>> {
+    if (typeof href$ === 'string') {
+      href$ = Observable.of(href$);
     }
-    const requestHrefObs = hrefObs.flatMap((href: string) =>
-      this.objectCache.getRequestHrefBySelfLink(href));
+    const requestHref$ = href$.pipe(flatMap((href: string) =>
+      this.objectCache.getRequestHrefBySelfLink(href)));
 
-    const requestEntryObs = Observable.race(
-      hrefObs.flatMap((href: string) => this.requestService.getByHref(href))
-        .filter((entry) => hasValue(entry)),
-      requestHrefObs.flatMap((requestHref) =>
-        this.requestService.getByHref(requestHref)).filter((entry) => hasValue(entry))
+    const requestEntry$ = Observable.race(
+      href$.pipe(getRequestFromSelflink(this.requestService)),
+      requestHref$.pipe(getRequestFromSelflink(this.requestService))
     );
 
-    const responseCacheObs = Observable.race(
-      hrefObs.flatMap((href: string) => this.responseCache.get(href))
-        .filter((entry) => hasValue(entry)),
-      requestHrefObs.flatMap((requestHref) => this.responseCache.get(requestHref)).filter((entry) => hasValue(entry))
+    const responseCache$ = Observable.race(
+      href$.pipe(getResponseFromSelflink(this.responseCache)),
+      requestHref$.pipe(getResponseFromSelflink(this.responseCache))
     );
 
     // always use self link if that is cached, only if it isn't, get it via the response.
-    const payloadObs =
+    const payload$ =
       Observable.combineLatest(
-        hrefObs.flatMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href))
-          .startWith(undefined),
-        responseCacheObs
-          .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-          .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks)
-          .flatMap((resourceSelfLinks: string[]) => {
+        href$.pipe(
+          flatMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href)),
+          startWith(undefined)
+        ),
+        responseCache$.pipe(
+          getResourceLinksFromResponse(),
+          flatMap((resourceSelfLinks: string[]) => {
             if (isNotEmpty(resourceSelfLinks)) {
               return this.objectCache.getBySelfLink(resourceSelfLinks[0]);
             } else {
               return Observable.of(undefined);
             }
-          })
-          .distinctUntilChanged()
-          .startWith(undefined),
+          }),
+          distinctUntilChanged(),
+          startWith(undefined)
+        ),
         (fromSelfLink, fromResponse) => {
           if (hasValue(fromSelfLink)) {
             return fromSelfLink;
@@ -71,18 +73,19 @@ export class RemoteDataBuildService {
             return fromResponse;
           }
         }
-      ).filter((normalized) => hasValue(normalized))
-        .map((normalized: TNormalized) => {
+      ).pipe(
+        hasValueOperator(),
+        map((normalized: TNormalized) => {
           return this.build<TNormalized, TDomain>(normalized);
-        })
-        .startWith(undefined)
-        .distinctUntilChanged();
-    return this.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+        }),
+        startWith(undefined),
+        distinctUntilChanged()
+      );
+    return this.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
-  toRemoteDataObservable<T>(requestEntryObs: Observable<RequestEntry>, responseCacheObs: Observable<ResponseCacheEntry>, payloadObs: Observable<T>) {
-
-    return Observable.combineLatest(requestEntryObs, responseCacheObs.startWith(undefined), payloadObs,
+  toRemoteDataObservable<T>(requestEntry$: Observable<RequestEntry>, responseCache$: Observable<ResponseCacheEntry>, payload$: Observable<T>) {
+    return Observable.combineLatest(requestEntry$, responseCache$.startWith(undefined), payload$,
       (reqEntry: RequestEntry, resEntry: ResponseCacheEntry, payload: T) => {
         const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
         const responsePending = hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
@@ -105,33 +108,31 @@ export class RemoteDataBuildService {
       });
   }
 
-  buildList<TNormalized extends NormalizedObject, TDomain>(hrefObs: string | Observable<string>): Observable<RemoteData<PaginatedList<TDomain>>> {
-    if (typeof hrefObs === 'string') {
-      hrefObs = Observable.of(hrefObs);
+  buildList<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<TDomain>>> {
+    if (typeof href$ === 'string') {
+      href$ = Observable.of(href$);
     }
 
-    const requestEntryObs = hrefObs.flatMap((href: string) => this.requestService.getByHref(href))
-      .filter((entry) => hasValue(entry));
-    const responseCacheObs = hrefObs.flatMap((href: string) => this.responseCache.get(href))
-      .filter((entry) => hasValue(entry));
+    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
 
-    const tDomainListObs = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-      .map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks)
-      .flatMap((resourceUUIDs: string[]) => {
+    const tDomainList$ = responseCache$.pipe(
+      getResourceLinksFromResponse(),
+      flatMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs)
           .map((normList: TNormalized[]) => {
             return normList.map((normalized: TNormalized) => {
               return this.build<TNormalized, TDomain>(normalized);
             });
           });
-      })
-      .startWith([])
-      .distinctUntilChanged();
+      }),
+      startWith([]),
+      distinctUntilChanged()
+    );
 
-    const pageInfoObs = responseCacheObs
-      .filter((entry: ResponseCacheEntry) => entry.response.isSuccessful)
-      .map((entry: ResponseCacheEntry) => {
+    const pageInfo$ = responseCache$.pipe(
+      filterSuccessfulResponses(),
+      map((entry: ResponseCacheEntry) => {
         if (hasValue((entry.response as DSOSuccessResponse).pageInfo)) {
           const resPageInfo = (entry.response as DSOSuccessResponse).pageInfo;
           if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
@@ -140,13 +141,14 @@ export class RemoteDataBuildService {
             return resPageInfo;
           }
         }
-      });
+      })
+  );
 
-    const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
+    const payload$ = Observable.combineLatest(tDomainList$, pageInfo$, (tDomainList, pageInfo) => {
       return new PaginatedList(pageInfo, tDomainList);
     });
 
-    return this.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+    return this.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
   build<TNormalized, TDomain>(normalized: TNormalized): TDomain {

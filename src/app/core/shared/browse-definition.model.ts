@@ -3,6 +3,9 @@ import { SortOption } from './sort-option.model';
 
 export class BrowseDefinition {
   @autoserialize
+  id: string;
+
+  @autoserialize
   metadataBrowse: boolean;
 
   @autoserialize
