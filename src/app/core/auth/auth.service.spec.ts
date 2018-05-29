@@ -22,6 +22,7 @@ import { Eperson } from '../eperson/models/eperson.model';
 import { EpersonMock } from '../../shared/testing/eperson-mock';
 import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../../shared/services/client-cookie.service';
+import { GlobalConfig } from '../../../config/global-config.interface';
 
 describe('AuthService test', () => {
 
@@ -31,6 +32,15 @@ describe('AuthService test', () => {
   });
   let authService: AuthService;
   const authRequest = new AuthRequestServiceStub();
+  const config = {
+    auth: {
+      target: {
+        host: 'https://dspace7.4science.it',
+        page: '/or2018/shib.html'
+        // page: '/dspace-spring-rest/shib.html'
+      }
+    },
+  } as GlobalConfig;
   const window = new NativeWindowRef();
   const routerStub = new RouterStub();
   const routeStub = new ActivatedRouteStub();
@@ -132,7 +142,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, {}, window, authReqService, router, cookieService, store);
+      authService = new AuthService(config, {}, window, authReqService, router, cookieService, store);
     }));
 
     it('should return true when user is logged in', () => {
@@ -191,7 +201,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, {}, window, authReqService, router, cookieService, store);
+      authService = new AuthService(config, {}, window, authReqService, router, cookieService, store);
       storage = (authService as any).storage;
       spyOn(storage, 'get');
       spyOn(storage, 'remove');
