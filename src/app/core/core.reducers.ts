@@ -4,7 +4,7 @@ import { responseCacheReducer, ResponseCacheState } from './cache/response-cache
 import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
 import { indexReducer, IndexState } from './index/index.reducer';
 import { requestReducer, RequestState } from './data/request.reducer';
-import { authReducer, AuthState } from './auth/auth.reducers';
+import { authReducer, AuthState } from './auth/auth.reducer';
 import { jsonPatchOperationsReducer, JsonPatchOperationsState } from './json-patch/json-patch-operations.reducer';
 
 export interface CoreState {

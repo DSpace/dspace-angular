@@ -47,7 +47,7 @@ export class ServerAuthService extends AuthService {
   /**
    * Checks if token is present into browser storage and is valid. (NB Check is done only on SSR)
    */
-  public checksAuthenticationToken() {
+  public checkAuthenticationToken() {
     this.store.dispatch(new CheckAuthenticationTokenAction())
   }
 

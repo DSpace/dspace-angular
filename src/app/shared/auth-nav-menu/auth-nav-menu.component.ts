@@ -30,12 +30,15 @@ export class AuthNavMenuComponent implements OnInit {
    */
   public loading: Observable<boolean>;
 
+  public isXsOrSm$: Observable<boolean>;
+
   public showAuth = Observable.of(false);
 
   public user: Observable<Eperson>;
 
   constructor(private store: Store<AppState>,
-              public windowService: HostWindowService) {
+              private windowService: HostWindowService) {
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
   ngOnInit(): void {

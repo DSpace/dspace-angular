@@ -5,7 +5,6 @@ import {
   AuthenticationSuccessAction, LogOutErrorAction, RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction, RefreshTokenSuccessAction, RetrieveAuthMethodsSuccessAction, SetRedirectUrlAction
 } from './auth.actions';
-
 // import models
 import { Eperson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
@@ -211,99 +210,3 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return state;
   }
 }
-
-/**
- * Returns true if the user is authenticated.
- * @function _isAuthenticated
- * @param {State} state
- * @returns {boolean}
- */
-export const _isAuthenticated = (state: AuthState) => state.authenticated;
-
-/**
- * Returns true if the authenticated has loaded.
- * @function _isAuthenticatedLoaded
- * @param {State} state
- * @returns {boolean}
- */
-export const _isAuthenticatedLoaded = (state: AuthState) => state.loaded;
-
-/**
- * Return the users state
- * @function _getAuthenticatedUser
- * @param {State} state
- * @returns {User}
- */
-export const _getAuthenticatedUser = (state: AuthState) => state.user;
-
-/**
- * Returns the authentication error.
- * @function _getAuthenticationError
- * @param {State} state
- * @returns {string}
- */
-export const _getAuthenticationError = (state: AuthState) => state.error;
-
-/**
- * Returns the authentication info message.
- * @function _getAuthenticationInfo
- * @param {State} state
- * @returns {string}
- */
-export const _getAuthenticationInfo = (state: AuthState) => state.info;
-
-/**
- * Returns true if request is in progress.
- * @function _isLoading
- * @param {State} state
- * @returns {boolean}
- */
-export const _isLoading = (state: AuthState) => state.loading;
-
-/**
- * Returns true if a refresh token request is in progress.
- * @function _isRefreshing
- * @param {State} state
- * @returns {boolean}
- */
-export const _isRefreshing = (state: AuthState) => state.refreshing;
-
-/**
- * Returns the authentication token.
- * @function _getAuthenticationToken
- * @param {State} state
- * @returns {AuthToken}
- */
-export const _getAuthenticationToken = (state: AuthState) => state.authToken;
-
-/**
- * Returns the sign out error.
- * @function _getLogOutError
- * @param {State} state
- * @returns {string}
- */
-export const _getLogOutError = (state: AuthState) => state.error;
-
-/**
- * Returns the sign up error.
- * @function _getRegistrationError
- * @param {State} state
- * @returns {string}
- */
-export const _getRegistrationError = (state: AuthState) => state.error;
-
-/**
- * Returns the redirect url.
- * @function _getRedirectUrl
- * @param {State} state
- * @returns {string}
- */
-export const _getRedirectUrl = (state: AuthState) => state.redirectUrl;
-
-/**
- * Returns the sso login url.
- * @function _getSSOLoginUrl
- * @param {State} state
- * @returns {string}
- */
-export const _getSSOLoginUrl = (state: AuthState) => state.ssoLoginUrl;
