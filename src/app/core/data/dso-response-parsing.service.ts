@@ -30,7 +30,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     const processRequestDTO = this.process<NormalizedObject,ResourceType>(data.payload, request.href);
     let objectList = processRequestDTO;
     if (hasNoValue(processRequestDTO)) {
-      return new DSOSuccessResponse(undefined, data.statusCode, undefined)
+      return new DSOSuccessResponse([], data.statusCode, undefined)
     }
     if (hasValue(processRequestDTO.page)) {
       objectList = processRequestDTO.page;
