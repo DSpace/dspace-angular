@@ -132,7 +132,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, authReqService, router, cookieService, store);
+      authService = new AuthService({}, {}, window, authReqService, router, cookieService, store);
     }));
 
     it('should return true when user is logged in', () => {
@@ -191,7 +191,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, authReqService, router, cookieService, store);
+      authService = new AuthService({}, {}, window, authReqService, router, cookieService, store);
       storage = (authService as any).storage;
       spyOn(storage, 'get');
       spyOn(storage, 'remove');
