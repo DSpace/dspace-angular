@@ -3,7 +3,9 @@ import { AuthTokenInfo } from './auth-token-info.model';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { Eperson } from '../../eperson/models/eperson.model';
 
-export class AuthStatus extends DSpaceObject {
+export class AuthStatus {
+
+  id: string;
 
   okay: boolean;
 
@@ -15,5 +17,7 @@ export class AuthStatus extends DSpaceObject {
 
   ssoLoginUrl?: string;
 
-  token?: AuthTokenInfo
+  token?: AuthTokenInfo;
+
+  self: string;
 }

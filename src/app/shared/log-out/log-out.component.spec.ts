@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { authReducer } from '../../core/auth/auth.reducers';
+import { authReducer } from '../../core/auth/auth.reducer';
 import { EpersonMock } from '../testing/eperson-mock';
 import { Eperson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';

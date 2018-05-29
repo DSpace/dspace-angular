@@ -15,6 +15,7 @@ import { coreReducers } from './core.reducers';
 import { isNotEmpty } from '../shared/empty.util';
 
 import { ApiService } from '../shared/services/api.service';
+import { BrowseEntriesResponseParsingService } from './data/browse-entries-response-parsing.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
 import { DebugResponseParsingService } from './data/debug-response-parsing.service';
@@ -45,7 +46,6 @@ import { AuthRequestService } from './auth/auth-request.service';
 import { AuthResponseParsingService } from './auth/auth-response-parsing.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { PlatformService } from '../shared/services/platform.service';
 import { HALEndpointService } from './shared/hal-endpoint.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FacetValueMapResponseParsingService } from './data/facet-value-map-response-parsing.service';
@@ -81,7 +81,6 @@ const PROVIDERS = [
   MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
-  PlatformService,
   RemoteDataBuildService,
   RequestService,
   ResponseCacheService,
@@ -93,6 +92,7 @@ const PROVIDERS = [
   SearchResponseParsingService,
   ServerResponseService,
   BrowseResponseParsingService,
+  BrowseEntriesResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
   RouteService,

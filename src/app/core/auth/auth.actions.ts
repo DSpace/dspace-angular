@@ -364,8 +364,7 @@ export class SetRedirectUrlAction implements Action {
  * @type {AuthActions}
  */
 export type AuthActions
-  =
-  AuthenticateAction
+  = AuthenticateAction
   | AuthenticatedAction
   | AuthenticatedErrorAction
   | AuthenticatedSuccessAction

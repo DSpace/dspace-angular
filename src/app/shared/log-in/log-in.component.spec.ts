@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { LogInComponent } from './log-in.component';
-import { authReducer } from '../../core/auth/auth.reducers';
+import { authReducer } from '../../core/auth/auth.reducer';
 import { EpersonMock } from '../testing/eperson-mock';
 import { Eperson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';

@@ -1,6 +1,7 @@
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import { getMockStore } from '../../shared/mocks/mock-store';
@@ -229,6 +230,11 @@ describe('RequestService', () => {
         request = testGetRequest;
       });
 
+      it('should track it on it\'s way to the store', () => {
+        spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
+        service.configure(request);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).toHaveBeenCalledWith(request);
+      });
       describe('and it isn\'t cached or pending', () => {
         beforeEach(() => {
           spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(false);
@@ -236,7 +242,7 @@ describe('RequestService', () => {
 
         it('should dispatch the request', () => {
           service.configure(request);
-          expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(request, false);
+          expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(request);
         });
       });
       describe('and it is already cached or pending', () => {
@@ -254,22 +260,44 @@ describe('RequestService', () => {
     describe('when the request isn\'t a GET request', () => {
       it('should dispatch the request', () => {
         service.configure(testPostRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPostRequest, false);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPostRequest);
 
         service.configure(testPutRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPutRequest, false);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPutRequest);
 
         service.configure(testDeleteRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testDeleteRequest, false);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testDeleteRequest);
 
         service.configure(testOptionsRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testOptionsRequest, false);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testOptionsRequest);
 
         service.configure(testHeadRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testHeadRequest, false);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testHeadRequest);
 
         service.configure(testPatchRequest);
-        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPatchRequest, false);
+        expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPatchRequest);
+      });
+
+      it('shouldn\'t track it on it\'s way to the store', () => {
+        spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
+
+        serviceAsAny.dispatchRequest(testPostRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testPutRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testDeleteRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testOptionsRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testHeadRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testPatchRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
       });
     });
   });
@@ -380,43 +408,6 @@ describe('RequestService', () => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
       expect(store.dispatch).toHaveBeenCalledWith(new RequestExecuteAction(request.uuid));
-    });
-
-    describe('when it\'s a GET request', () => {
-      let request: RestRequest;
-      beforeEach(() => {
-        request = testGetRequest;
-      });
-
-      it('should track it on it\'s way to the store', () => {
-        spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
-        serviceAsAny.dispatchRequest(request);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).toHaveBeenCalledWith(request);
-      });
-    });
-
-    describe('when it\'s not a GET request', () => {
-      it('shouldn\'t track it', () => {
-        spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
-
-        serviceAsAny.dispatchRequest(testPostRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testPutRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testDeleteRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testOptionsRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testHeadRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testPatchRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-      });
     });
   });
 

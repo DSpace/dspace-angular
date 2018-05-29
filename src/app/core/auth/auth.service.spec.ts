@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import 'rxjs/add/observable/of';
 
-import { authReducer, AuthState } from './auth.reducers';
+import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
 import { AuthService } from './auth.service';
 import { RouterStub } from '../../shared/testing/router-stub';

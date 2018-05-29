@@ -93,9 +93,11 @@ export class HostWindowService {
     );
   }
 
-  isMobileView(): Observable<boolean> {
-    return this.getWidthObs()
-      .map((width) => width < GridBreakpoint.MD_MIN)
-      .distinctUntilChanged();
+  isXsOrSm(): Observable<boolean> {
+    return Observable.combineLatest(
+        this.isXs(),
+        this.isSm(),
+        ((isXs, isSm) => isXs || isSm)
+      ).distinctUntilChanged();
   }
 }

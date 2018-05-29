@@ -30,12 +30,15 @@ export class AuthNavMenuComponent implements OnInit {
    */
   public loading: Observable<boolean>;
 
+  public isXsOrSm$: Observable<boolean>;
+
   public showAuth = Observable.of(false);
 
   public user: Observable<Eperson>;
 
   constructor(private store: Store<AppState>,
-              public windowService: HostWindowService) {
+              private windowService: HostWindowService) {
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
   ngOnInit(): void {
@@ -50,7 +53,7 @@ export class AuthNavMenuComponent implements OnInit {
     this.showAuth = this.store.select(routerStateSelector)
       .filter((router: RouterReducerState) => isNotUndefined(router) && isNotUndefined(router.state))
       .map((router: RouterReducerState) => {
-        return router.state.url !== LOGIN_ROUTE && router.state.url !== LOGOUT_ROUTE;
+        return !router.state.url.startsWith(LOGIN_ROUTE) && !router.state.url.startsWith(LOGOUT_ROUTE);
       });
   }
 }
