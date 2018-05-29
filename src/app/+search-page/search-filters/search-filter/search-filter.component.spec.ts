@@ -4,13 +4,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterService } from './search-filter.service';
 import { SearchService } from '../../search-service/search.service';
 import { SearchFilterComponent } from './search-filter.component';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { FilterType } from '../../search-service/filter-type.model';
-import { FacetValue } from '../../search-service/facet-value.model';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -18,10 +18,8 @@ describe('SearchFilterComponent', () => {
   const filterName1 = 'test name';
   const filterName2 = 'test2';
   const filterName3 = 'another name3';
-  const nonExistingFilter1 = new FacetValue();
-  nonExistingFilter1.filterValue = 'non existing 1';
-  const nonExistingFilter2 = new FacetValue();
-  nonExistingFilter2.filterValue = 'non existing 2';
+  const nonExistingFilter1 = 'non existing 1';
+  const nonExistingFilter2 = 'non existing 2';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
     type: FilterType.text,
@@ -117,16 +115,16 @@ describe('SearchFilterComponent', () => {
   });
 
   describe('when getSelectedValues is called', () => {
-    let valuesObservable: Observable<FacetValue[]>;
+    let valuesObservable: Observable<string[]>;
     beforeEach(() => {
       valuesObservable = comp.getSelectedValues();
     });
 
     it('should return an observable containing the existing filters', () => {
       const sub = valuesObservable.subscribe((values) => {
-        expect(values.filter).toContain(filterName1);
-        expect(values.filter).toContain(filterName2);
-        expect(values.filter).toContain(filterName3);
+        expect(values).toContain(filterName1);
+        expect(values).toContain(filterName2);
+        expect(values).toContain(filterName3);
       });
       sub.unsubscribe();
     });
