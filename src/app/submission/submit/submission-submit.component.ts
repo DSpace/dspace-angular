@@ -14,7 +14,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 
 @Component({
   selector: 'ds-submit-page',
-  styleUrls: ['./submission-page.component.scss'],
+  styleUrls: ['./submission-submit.component.scss'],
   templateUrl: './submission-submit.component.html'
 })
 export class SubmissionSubmitComponent implements OnDestroy, OnInit {
