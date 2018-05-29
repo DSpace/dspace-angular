@@ -1,6 +1,16 @@
+import { cold, hot } from 'jasmine-marbles';
 import {
-  isEmpty, hasNoValue, hasValue, isNotEmpty, isNull, isNotNull,
-  isUndefined, isNotUndefined
+  ensureArrayHasValue,
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  isNotEmptyOperator,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+  isUndefined
 } from './empty.util';
 
 describe('Empty Utils', () => {
@@ -274,6 +284,25 @@ describe('Empty Utils', () => {
 
   });
 
+  describe('hasValueOperator', () => {
+    it('should only include items from the source observable for which hasValue is true, and omit all others', () => {
+      const testData = {
+        a: null,
+        b: 'test',
+        c: true,
+        d: undefined,
+        e: 1,
+        f: {}
+      };
+
+      const source$ = hot('abcdef', testData);
+      const expected$ = cold('-bc-ef', testData);
+      const result$ = source$.pipe(hasValueOperator());
+
+      expect(result$).toBeObservable(expected$);
+    });
+  });
+
   describe('isEmpty', () => {
     it('should return true for null', () => {
       expect(isEmpty(null)).toBe(true);
@@ -392,5 +421,57 @@ describe('Empty Utils', () => {
       expect(isNotEmpty(fullMap)).toBe(true);
     });
 
+  });
+
+  describe('isNotEmptyOperator', () => {
+    it('should only include items from the source observable for which isNotEmpty is true, and omit all others', () => {
+      const testData = {
+        a: null,
+        b: 'test',
+        c: true,
+        d: undefined,
+        e: 1,
+        f: {},
+        g: '',
+        h: ' '
+      };
+
+      const source$ = hot('abcdefgh', testData);
+      const expected$ = cold('-bc-e--h', testData);
+      const result$ = source$.pipe(isNotEmptyOperator());
+
+      expect(result$).toBeObservable(expected$);
+    });
+  });
+
+  describe('ensureArrayHasValue', () => {
+    it('should let all arrays pass unchanged, and turn everything else in to empty arrays', () => {
+      const sourceData = {
+        a: { a: 'b' },
+        b: ['a', 'b', 'c'],
+        c: null,
+        d: [1],
+        e: undefined,
+        f: [],
+        g: () => true,
+        h: {},
+        i: ''
+      };
+
+      const expectedData = Object.assign({}, sourceData, {
+        a: [],
+        c: [],
+        e: [],
+        g: [],
+        h: [],
+        i: []
+      });
+
+      const source$ = hot('abcdefghi', sourceData);
+      const expected$ = cold('abcdefghi', expectedData);
+      const result$ = source$.pipe(ensureArrayHasValue());
+
+      expect(result$).toBeObservable(expected$);
+    });
   });
 });

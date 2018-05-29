@@ -5,6 +5,7 @@ import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { PaginatedList } from '../data/paginated-list';
 
 export class Item extends DSpaceObject {
 
@@ -47,7 +48,7 @@ export class Item extends DSpaceObject {
     return this.owningCollection;
   }
 
-  bitstreams: Observable<RemoteData<Bitstream[]>>;
+  bitstreams: Observable<RemoteData<PaginatedList<Bitstream>>>;
 
   /**
    * Retrieves the thumbnail of this item
@@ -88,7 +89,7 @@ export class Item extends DSpaceObject {
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
     return this.bitstreams
-      .map((rd: RemoteData<Bitstream[]>) => rd.payload)
+      .map((rd: RemoteData<PaginatedList<Bitstream>>) => rd.payload.page)
       .filter((bitstreams: Bitstream[]) => hasValue(bitstreams))
       .startWith([])
       .map((bitstreams) => {

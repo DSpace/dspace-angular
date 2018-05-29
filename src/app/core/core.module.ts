@@ -15,6 +15,7 @@ import { coreReducers } from './core.reducers';
 import { isNotEmpty } from '../shared/empty.util';
 
 import { ApiService } from '../shared/api.service';
+import { BrowseEntriesResponseParsingService } from './data/browse-entries-response-parsing.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
 import { DebugResponseParsingService } from './data/debug-response-parsing.service';
@@ -83,6 +84,7 @@ const PROVIDERS = [
   SearchResponseParsingService,
   ServerResponseService,
   BrowseResponseParsingService,
+  BrowseEntriesResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
   RouteService,
