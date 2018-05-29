@@ -1,6 +1,6 @@
 import { IDToUUIDSerializer } from './it-to-uuid-serializer';
 
-fdescribe('IDToUUIDSerializer', () => {
+describe('IDToUUIDSerializer', () => {
   let serializer: IDToUUIDSerializer;
   const prefix = 'test-prefix';
 
