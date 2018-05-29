@@ -19,11 +19,11 @@ import { FileSectionComponent } from './simple/field-components/file-section/fil
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
-import { ItemPageFieldsComponent } from './simple/relationship-types/item/item-page-fields.component';
-import { OrgUnitPageFieldsComponent } from './simple/relationship-types/orgunit/orgunit-page-fields.component';
-import { PersonPageFieldsComponent } from './simple/relationship-types/person/person-page-fields.component';
-import { ProjectPageFieldsComponent } from './simple/relationship-types/project/project-page-fields.component';
-import { RelationshipTypeSwitcherComponent } from './simple/relationship-types/switcher/relationship-type-switcher.component';
+import { ItemPageFieldsComponent } from './simple/entity-types/item/item-page-fields.component';
+import { OrgUnitPageFieldsComponent } from './simple/entity-types/orgunit/orgunit-page-fields.component';
+import { PersonPageFieldsComponent } from './simple/entity-types/person/person-page-fields.component';
+import { ProjectPageFieldsComponent } from './simple/entity-types/project/project-page-fields.component';
+import { EntityTypeSwitcherComponent } from './simple/entity-types/switcher/entity-type-switcher.component';
 
 @NgModule({
   imports: [
@@ -46,7 +46,7 @@ import { RelationshipTypeSwitcherComponent } from './simple/relationship-types/s
     FileSectionComponent,
     CollectionsComponent,
     FullFileSectionComponent,
-    RelationshipTypeSwitcherComponent,
+    EntityTypeSwitcherComponent,
     ItemPageFieldsComponent,
     ProjectPageFieldsComponent,
     OrgUnitPageFieldsComponent,

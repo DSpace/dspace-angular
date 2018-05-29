@@ -65,7 +65,7 @@
       "id": "ID",
       "expectedcompletion": "Expected Completion",
       "description": "Description",
-      "keywords": "Keywords"
+      "keyword": "Keywords"
     }
   },
   "orgunit": {

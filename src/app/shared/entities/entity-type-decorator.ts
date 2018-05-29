@@ -1,10 +1,10 @@
 import { hasNoValue, hasValue } from '../empty.util';
 import { ElementViewMode } from '../view-mode';
 
-export const DEFAULT_RELATIONSHIP_TYPE = 'Default';
+export const DEFAULT_ENTITY_TYPE = 'Default';
 
 const map = new Map();
-export function rendersRelationshipType(type: string, viewMode: ElementViewMode) {
+export function rendersEntityType(type: string, viewMode: ElementViewMode) {
   return function decorator(component: any) {
     if (hasNoValue(map.get(viewMode))) {
       map.set(viewMode, new Map());
@@ -16,10 +16,10 @@ export function rendersRelationshipType(type: string, viewMode: ElementViewMode)
   };
 }
 
-export function getComponentByRelationshipType(type: string, viewMode: ElementViewMode) {
+export function getComponentByEntityType(type: string, viewMode: ElementViewMode) {
   let component = map.get(viewMode).get(type);
   if (hasNoValue(component)) {
-    component = map.get(viewMode).get(DEFAULT_RELATIONSHIP_TYPE);
+    component = map.get(viewMode).get(DEFAULT_ENTITY_TYPE);
   }
   return component;
 }

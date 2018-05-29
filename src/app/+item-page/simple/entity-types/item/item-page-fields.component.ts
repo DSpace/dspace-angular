@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import {
-  DEFAULT_RELATIONSHIP_TYPE,
-  rendersRelationshipType
-} from '../../../../shared/entities/relationship-type-decorator';
+  DEFAULT_ENTITY_TYPE,
+  rendersEntityType
+} from '../../../../shared/entities/entity-type-decorator';
 import { ElementViewMode } from '../../../../shared/view-mode';
-import { ITEM } from '../switcher/relationship-type-switcher.component';
+import { ITEM } from '../switcher/entity-type-switcher.component';
 
-@rendersRelationshipType('Item', ElementViewMode.Full)
-@rendersRelationshipType(DEFAULT_RELATIONSHIP_TYPE, ElementViewMode.Full)
+@rendersEntityType('Item', ElementViewMode.Full)
+@rendersEntityType(DEFAULT_ENTITY_TYPE, ElementViewMode.Full)
 @Component({
   selector: 'ds-item-page-fields',
   styleUrls: ['./item-page-fields.component.scss'],

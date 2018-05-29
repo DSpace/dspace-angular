@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { rendersRelationshipType } from '../../../../shared/entities/relationship-type-decorator';
+import { rendersEntityType } from '../../../../shared/entities/entity-type-decorator';
 import { ElementViewMode } from '../../../../shared/view-mode';
-import { ITEM } from '../switcher/relationship-type-switcher.component';
+import { ITEM } from '../switcher/entity-type-switcher.component';
 
-@rendersRelationshipType('Person', ElementViewMode.Full)
+@rendersEntityType('Person', ElementViewMode.Full)
 @Component({
   selector: 'ds-person-page-fields',
   styleUrls: ['./person-page-fields.component.scss'],
