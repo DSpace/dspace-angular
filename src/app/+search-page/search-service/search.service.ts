@@ -20,6 +20,7 @@ import { RequestService } from '../../core/data/request.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { configureRequest } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -46,7 +47,7 @@ export class SearchService implements OnDestroy {
   private facetValueLinkPathPrefix = 'discover/facets/';
   private facetConfigLinkPath = 'discover/facets';
 
-  private overrideRequest = false;
+  private forceBypassCache = false;
   private parser: GenericConstructor<ResponseParsingService> = SearchResponseParsingService;
   private sub;
 
@@ -67,11 +68,11 @@ export class SearchService implements OnDestroy {
     this.searchOptions = Object.assign(new SearchOptions(), {pagination: pagination, sort: sort});
   }
 
-  setServiceOptions(parser: GenericConstructor<ResponseParsingService>, overrideRequest: boolean) {
+  setServiceOptions(parser: GenericConstructor<ResponseParsingService>, forceBypassCache: boolean) {
     if (parser) {
       this.parser = parser;
     }
-    this.overrideRequest = overrideRequest;
+    this.forceBypassCache = forceBypassCache;
   }
 
   search(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
@@ -89,7 +90,7 @@ export class SearchService implements OnDestroy {
           getResponseParser: getResponseParserFn
         });
       }),
-      tap((request: RestRequest) => this.requestService.configure(request, this.overrideRequest)),
+      configureRequest(this.requestService, this.forceBypassCache)
     );
     const requestEntryObs = requestObs.pipe(
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
@@ -168,7 +169,7 @@ export class SearchService implements OnDestroy {
           }
         });
       }),
-      tap((request: RestRequest) => this.requestService.configure(request, this.overrideRequest)),
+      configureRequest(this.requestService, this.forceBypassCache)
     );
 
     const requestEntryObs = requestObs.pipe(
@@ -204,7 +205,7 @@ export class SearchService implements OnDestroy {
           }
         });
       }),
-      tap((request: RestRequest) => this.requestService.configure(request, this.overrideRequest)),
+      configureRequest(this.requestService, this.forceBypassCache)
     );
 
     const requestEntryObs = requestObs.pipe(

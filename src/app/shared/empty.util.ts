@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs/Observable';
+import { filter, map } from 'rxjs/operators';
+
 /**
  * Returns true if the passed value is null.
  * isNull();              // false
@@ -81,6 +84,14 @@ export function hasNoValue(obj?: any): boolean {
 export function hasValue(obj?: any): boolean {
   return isNotUndefined(obj) && isNotNull(obj);
 }
+
+/**
+ * Filter items emitted by the source Observable by only emitting those for
+ * which hasValue is true
+ */
+export const hasValueOperator = () =>
+  <T>(source: Observable<T>): Observable<T> =>
+    source.pipe(filter((obj: T) => hasValue(obj)));
 
 /**
  * Returns true if the passed value is null or undefined.
@@ -193,3 +204,21 @@ export function isEmpty(obj?: any): boolean {
 export function isNotEmpty(obj?: any): boolean {
   return !isEmpty(obj);
 }
+
+/**
+ * Filter items emitted by the source Observable by only emitting those for
+ * which isNotEmpty is true
+ */
+export const isNotEmptyOperator = () =>
+  <T>(source: Observable<T>): Observable<T> =>
+    source.pipe(filter((obj: T) => isNotEmpty(obj)));
+
+/**
+ * Tests each value emitted by the source Observable,
+ * let's arrays pass through, turns other values in to
+ * empty arrays. Used to be able to chain array operators
+ * on something that may not have a value
+ */
+export const ensureArrayHasValue = () =>
+  <T>(source: Observable<T[]>): Observable<T[]> =>
+    source.pipe(map((arr: T[]): T[] => Array.isArray(arr) ? arr : []));
