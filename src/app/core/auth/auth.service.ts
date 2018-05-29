@@ -1,12 +1,17 @@
 import { Inject, Injectable } from '@angular/core';
 import { PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
 
+import { RouterReducerState } from '@ngrx/router-store';
+import { Store } from '@ngrx/store';
+import { CookieAttributes } from 'js-cookie';
 import { Observable } from 'rxjs/Observable';
 import { map, withLatestFrom } from 'rxjs/operators';
 
 import { Eperson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
-import { HttpHeaders } from '@angular/common/http';
+
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
@@ -14,16 +19,9 @@ import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/emp
 import { CookieService } from '../../shared/services/cookie.service';
 import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
-import { Store } from '@ngrx/store';
-import {
-  CheckAuthenticationTokenAction,
-  ResetAuthenticationMessagesAction,
-  SetRedirectUrlAction
-} from './auth.actions';
-import { RouterReducerState } from '@ngrx/router-store';
-import { CookieAttributes } from 'js-cookie';
+import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -90,7 +88,7 @@ export class AuthService {
    */
   public authenticate(user: string, password: string): Observable<AuthStatus> {
     // Attempt authenticating the user using the supplied credentials.
-    const body = encodeURI(`password=${password}&user=${user}`);
+    const body = (`password=${Base64EncodeUrl(password)}&user=${Base64EncodeUrl(user)}`);
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
