@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { filter, flatMap, map, tap } from 'rxjs/operators';
-import { hasValueOperator } from '../../shared/empty.util';
+import { hasValue, hasValueOperator } from '../../shared/empty.util';
 import { DSOSuccessResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';

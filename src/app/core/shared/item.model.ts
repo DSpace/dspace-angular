@@ -6,6 +6,7 @@ import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { PaginatedList } from '../data/paginated-list';
+import { Relationship } from './entities/relationship.model';
 
 export class Item extends DSpaceObject {
 
@@ -49,6 +50,8 @@ export class Item extends DSpaceObject {
   }
 
   bitstreams: Observable<RemoteData<PaginatedList<Bitstream>>>;
+
+  relationships: Observable<RemoteData<PaginatedList<Relationship>>>;
 
   /**
    * Retrieves the thumbnail of this item

@@ -54,6 +54,7 @@
       "orcid": "ORCID",
       "birthdate": "Birth Date",
       "staffid": "Staff ID",
+      "publications": "Publications",
       "link": {
         "full": "Show all metadata"
       }
