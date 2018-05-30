@@ -24,6 +24,18 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
+    <ds-related-entities
+      [entities]="people$ | async"
+      [label]="'relationships.isPersonOf' | translate">
+    </ds-related-entities>
+    <ds-related-entities
+      [entities]="projects$ | async"
+      [label]="'relationships.isProjectOf' | translate">
+    </ds-related-entities>
+    <ds-related-entities
+      [entities]="publications$ | async"
+      [label]="'relationships.isPublicationOf' | translate">
+    </ds-related-entities>
     <ds-generic-item-page-field [item]="item"
       [fields]="['orgunit.identifier.description']"
       [label]="'orgunit.page.description'">

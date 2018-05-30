@@ -26,7 +26,7 @@
   },
   "item": {
     "page": {
-      "author": "Author",
+      "author": "Authors",
       "abstract": "Abstract",
       "date": "Date",
       "uri": "URI",
@@ -45,6 +45,13 @@
       }
     }
   },
+  "relationships": {
+    "isPublicationOf": "Publications",
+    "isProjectOf": "Projects",
+    "isOrgUnitOf": "Org Units",
+    "isAuthorOf": "Authors",
+    "isPersonOf": "Authors"
+  },
   "person": {
     "page": {
       "jobtitle": "Job Title",
@@ -54,7 +61,6 @@
       "orcid": "ORCID",
       "birthdate": "Birth Date",
       "staffid": "Staff ID",
-      "publications": "Publications",
       "link": {
         "full": "Show all metadata"
       }

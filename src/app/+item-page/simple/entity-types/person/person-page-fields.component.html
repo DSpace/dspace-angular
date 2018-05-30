@@ -24,13 +24,18 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
-    <ng-container *ngVar="(publications$ | async) as publications">
-      <ds-metadata-field-wrapper *ngIf="publications && publications.length > 0" [label]="'person.page.publications' | translate">
-        <span *ngFor="let publ of publications; let last=last;">
-            {{publ.name}}<span *ngIf="!last" [innerHTML]="separator"></span>
-        </span>
-      </ds-metadata-field-wrapper>
-    </ng-container>
+    <ds-related-entities
+      [entities]="publications$ | async"
+      [label]="'relationships.isPublicationOf' | translate">
+    </ds-related-entities>
+    <ds-related-entities
+      [entities]="projects$ | async"
+      [label]="'relationships.isProjectOf' | translate">
+    </ds-related-entities>
+    <ds-related-entities
+      [entities]="orgunits$ | async"
+      [label]="'relationships.isOrgUnitOf' | translate">
+    </ds-related-entities>
     <ds-generic-item-page-field [item]="item"
       [fields]="['person.identifier.jobtitle']"
       [label]="'person.page.jobtitle'">

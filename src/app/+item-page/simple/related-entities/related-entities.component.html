@@ -1,0 +1,5 @@
+<ds-metadata-field-wrapper *ngIf="entities && entities.length > 0" [label]="label">
+  <ds-entity-type-switcher *ngFor="let entity of entities"
+                           [object]="entity" [viewMode]="ElementViewMode.SetElement">
+  </ds-entity-type-switcher>
+</ds-metadata-field-wrapper>

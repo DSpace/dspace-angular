@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from './../shared/shared.module';
+import { EntityPageFieldsComponent } from './simple/entity-types/shared/entity-page-fields.component';
 import { GenericItemPageFieldComponent } from './simple/field-components/specific-field/generic/generic-item-page-field.component';
 
 import { ItemPageComponent } from './simple/item-page.component';
@@ -19,10 +20,11 @@ import { FileSectionComponent } from './simple/field-components/file-section/fil
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
-import { ItemPageFieldsComponent } from './simple/entity-types/item/item-page-fields.component';
+import { PublicationPageFieldsComponent } from './simple/entity-types/publication/publication-page-fields.component';
 import { OrgUnitPageFieldsComponent } from './simple/entity-types/orgunit/orgunit-page-fields.component';
 import { PersonPageFieldsComponent } from './simple/entity-types/person/person-page-fields.component';
 import { ProjectPageFieldsComponent } from './simple/entity-types/project/project-page-fields.component';
+import { RelatedEntitiesComponent } from './simple/related-entities/related-entities-component';
 
 @NgModule({
   imports: [
@@ -45,14 +47,16 @@ import { ProjectPageFieldsComponent } from './simple/entity-types/project/projec
     FileSectionComponent,
     CollectionsComponent,
     FullFileSectionComponent,
-    ItemPageFieldsComponent,
+    PublicationPageFieldsComponent,
     ProjectPageFieldsComponent,
     OrgUnitPageFieldsComponent,
     PersonPageFieldsComponent,
+    RelatedEntitiesComponent,
+    EntityPageFieldsComponent,
     GenericItemPageFieldComponent
   ],
   entryComponents: [
-    ItemPageFieldsComponent,
+    PublicationPageFieldsComponent,
     ProjectPageFieldsComponent,
     OrgUnitPageFieldsComponent,
     PersonPageFieldsComponent

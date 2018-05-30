@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EntityTypeSwitcherComponent } from './entities/switcher/entity-type-switcher.component';
 import { EntitySearchResultComponent } from './object-list/item-list-element/entity-types/entity-search-result-component';
-import { ItemListElementComponent } from './object-list/item-list-element/entity-types/item/item-list-element.component';
+import { PublicationListElementComponent } from './object-list/item-list-element/entity-types/publication/publication-list-element.component';
 import { OrgUnitListElementComponent } from './object-list/item-list-element/entity-types/orgunit/orgunit-list-element.component';
 import { PersonListElementComponent } from './object-list/item-list-element/entity-types/person/person-list-element.component';
 import { ProjectListElementComponent } from './object-list/item-list-element/entity-types/project/project-list-element.component';
@@ -109,7 +109,7 @@ const ENTRY_COMPONENTS = [
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
-  ItemListElementComponent,
+  PublicationListElementComponent,
   PersonListElementComponent,
   OrgUnitListElementComponent,
   ProjectListElementComponent
