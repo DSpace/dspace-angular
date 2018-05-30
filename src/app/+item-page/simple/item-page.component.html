@@ -1,7 +1,7 @@
 <div class="container" *ngVar="(itemRDObs | async) as itemRD">
   <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="itemRD?.payload as item">
-      <ds-entity-type-switcher [item]="item" [viewMode]="ElementViewMode.Full"></ds-entity-type-switcher>
+      <ds-entity-type-switcher [object]="item" [viewMode]="ElementViewMode.Full"></ds-entity-type-switcher>
     </div>
   </div>
   <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>

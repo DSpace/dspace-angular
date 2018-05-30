@@ -1,5 +1,6 @@
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { Metadatum } from '../core/shared/metadatum.model';
+import { hasNoValue, isEmpty } from '../shared/empty.util';
 import { ListableObject } from '../shared/object-collection/shared/listable-object.model';
 
 export class SearchResult<T extends DSpaceObject> implements ListableObject {

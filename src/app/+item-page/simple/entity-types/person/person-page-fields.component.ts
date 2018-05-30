@@ -11,7 +11,7 @@ import { getRemoteDataPayload } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import { rendersEntityType } from '../../../../shared/entities/entity-type-decorator';
 import { ElementViewMode } from '../../../../shared/view-mode';
-import { ITEM } from '../switcher/entity-type-switcher.component';
+import { ITEM } from '../../../../shared/entities/switcher/entity-type-switcher.component';
 
 const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
   (a: T[], b: T[]): boolean => {
@@ -62,7 +62,6 @@ const relationsToItems = (thisId: string, ids: ItemDataService) =>
           .map((d: RemoteData<Item>) => d.payload)),
       distinctUntilChanged(compareArraysUsingIds()),
     );
-
 
 @rendersEntityType('Person', ElementViewMode.Full)
 @Component({

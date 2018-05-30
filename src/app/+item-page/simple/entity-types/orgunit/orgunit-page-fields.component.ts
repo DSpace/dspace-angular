@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { rendersEntityType } from '../../../../shared/entities/entity-type-decorator';
 import { ElementViewMode } from '../../../../shared/view-mode';
-import { ITEM } from '../switcher/entity-type-switcher.component';
+import { ITEM } from '../../../../shared/entities/switcher/entity-type-switcher.component';
 
 @rendersEntityType('OrgUnit', ElementViewMode.Full)
 @Component({

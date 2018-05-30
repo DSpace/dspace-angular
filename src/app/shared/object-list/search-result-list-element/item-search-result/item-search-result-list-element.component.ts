@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Item } from '../../../../core/shared/item.model';
+import { focusBackground } from '../../../animations/focus';
 
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
-import { SearchResultListElementComponent } from '../search-result-list-element.component';
-import { Item } from '../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import * as viewMode from '../../../../shared/view-mode';
 import { SetViewMode } from '../../../view-mode';
-import { ListableObject } from '../../../object-collection/shared/listable-object.model';
-import { focusBackground } from '../../../animations/focus';
+import { SearchResultListElementComponent } from '../search-result-list-element.component';
 
 @Component({
   selector: 'ds-item-search-result-list-element',
@@ -18,4 +18,5 @@ import { focusBackground } from '../../../animations/focus';
 
 @renderElementsFor(ItemSearchResult, SetViewMode.List)
 export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+  ElementViewMode = viewMode.ElementViewMode;
 }

@@ -23,7 +23,6 @@ import { ItemPageFieldsComponent } from './simple/entity-types/item/item-page-fi
 import { OrgUnitPageFieldsComponent } from './simple/entity-types/orgunit/orgunit-page-fields.component';
 import { PersonPageFieldsComponent } from './simple/entity-types/person/person-page-fields.component';
 import { ProjectPageFieldsComponent } from './simple/entity-types/project/project-page-fields.component';
-import { EntityTypeSwitcherComponent } from './simple/entity-types/switcher/entity-type-switcher.component';
 
 @NgModule({
   imports: [
@@ -46,7 +45,6 @@ import { EntityTypeSwitcherComponent } from './simple/entity-types/switcher/enti
     FileSectionComponent,
     CollectionsComponent,
     FullFileSectionComponent,
-    EntityTypeSwitcherComponent,
     ItemPageFieldsComponent,
     ProjectPageFieldsComponent,
     OrgUnitPageFieldsComponent,

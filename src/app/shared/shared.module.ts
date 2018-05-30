@@ -8,6 +8,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { EntityTypeSwitcherComponent } from './entities/switcher/entity-type-switcher.component';
+import { EntitySearchResultComponent } from './object-list/item-list-element/entity-types/entity-search-result-component';
+import { ItemListElementComponent } from './object-list/item-list-element/entity-types/item/item-list-element.component';
+import { OrgUnitListElementComponent } from './object-list/item-list-element/entity-types/orgunit/orgunit-list-element.component';
+import { PersonListElementComponent } from './object-list/item-list-element/entity-types/person/person-list-element.component';
+import { ProjectListElementComponent } from './object-list/item-list-element/entity-types/project/project-list-element.component';
 
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
@@ -15,7 +21,7 @@ import { SafeUrlPipe } from './utils/safe-url-pipe';
 
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './object-list/community-list-element/community-list-element.component';
-import { ItemListElementComponent } from './object-list/item-list-element/item-list-element.component';
+import { EntityListElementComponent } from './object-list/item-list-element/entity-list-element.component';
 import { SearchResultListElementComponent } from './object-list/search-result-list-element/search-result-list-element.component';
 import { WrapperListElementComponent } from './object-list/wrapper-list-element/wrapper-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
@@ -89,11 +95,13 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
+  EntitySearchResultComponent,
+  EntityTypeSwitcherComponent
 ];
 
 const ENTRY_COMPONENTS = [
   // put shared entry components (components that are created dynamically) here
-  ItemListElementComponent,
+  EntityListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
@@ -101,6 +109,10 @@ const ENTRY_COMPONENTS = [
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
+  ItemListElementComponent,
+  PersonListElementComponent,
+  OrgUnitListElementComponent,
+  ProjectListElementComponent
 ];
 
 const PROVIDERS = [

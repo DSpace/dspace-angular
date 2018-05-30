@@ -1,4 +1,4 @@
-import { ItemListElementComponent } from './item-list-element.component';
+import { EntityListElementComponent } from './entity-list-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -6,8 +6,8 @@ import { TruncatePipe } from '../../utils/truncate.pipe';
 import { Item } from '../../../core/shared/item.model';
 import { Observable } from 'rxjs/Observable';
 
-let itemListElementComponent: ItemListElementComponent;
-let fixture: ComponentFixture<ItemListElementComponent>;
+let itemListElementComponent: EntityListElementComponent;
+let fixture: ComponentFixture<EntityListElementComponent>;
 
 const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
   bitstreams: Observable.of({}),
@@ -38,22 +38,22 @@ const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
     }]
 });
 
-describe('ItemListElementComponent', () => {
+describe('EntityListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemListElementComponent , TruncatePipe],
+      declarations: [ EntityListElementComponent , TruncatePipe],
       providers: [
         { provide: 'objectElementProvider', useValue: {mockItemWithAuthorAndDate}}
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(ItemListElementComponent, {
+    }).overrideComponent(EntityListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(ItemListElementComponent);
+    fixture = TestBed.createComponent(EntityListElementComponent);
     itemListElementComponent = fixture.componentInstance;
 
   }));

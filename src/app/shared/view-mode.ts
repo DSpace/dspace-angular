@@ -5,7 +5,7 @@ export enum SetViewMode {
 
 export enum ElementViewMode {
   Full,
-  setElement
+  SetElement
 }
 
 export type ViewMode = SetViewMode | ElementViewMode;
