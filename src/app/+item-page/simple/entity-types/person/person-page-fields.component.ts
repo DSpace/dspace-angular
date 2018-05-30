@@ -27,6 +27,9 @@ const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
       bIds.every((e) => aIds.includes(e));
   };
 
+const compareArraysUsingIds = <T extends { id: string }>() =>
+  compareArraysUsing((t: T) => hasValue(t) ? t.id : undefined);
+
 const filterRelationsByTypeLabel = (label: string) =>
   (source: Observable<[Relationship[], RelationshipType[]]>): Observable<Relationship[]> =>
     source.pipe(
@@ -36,7 +39,7 @@ const filterRelationsByTypeLabel = (label: string) =>
           relTypesCurrentPage[idx].rightLabel === label)
         )
       ),
-      distinctUntilChanged(compareArraysUsing((e: Relationship) => hasValue(e) ? e.id : undefined))
+      distinctUntilChanged(compareArraysUsingIds())
     );
 
 const relationsToItems = (thisId: string, ids: ItemDataService) =>
@@ -57,7 +60,7 @@ const relationsToItems = (thisId: string, ids: ItemDataService) =>
         arr
           .filter((d: RemoteData<Item>) => d.hasSucceeded)
           .map((d: RemoteData<Item>) => d.payload)),
-      distinctUntilChanged(compareArraysUsing((rdi: Item) => hasValue(rdi) ? rdi.uuid : undefined)),
+      distinctUntilChanged(compareArraysUsingIds()),
     );
 
 
@@ -82,7 +85,7 @@ export class PersonPageFieldsComponent implements OnInit {
       filter((rd: RemoteData<PaginatedList<Relationship>>) => rd.hasSucceeded),
       getRemoteDataPayload(),
       map((pl: PaginatedList<Relationship>) => pl.page),
-      distinctUntilChanged(compareArraysUsing((e: Relationship) => hasValue(e) ? e.id : undefined))
+      distinctUntilChanged(compareArraysUsingIds())
     );
 
     const relTypesCurrentPage$ = relsCurrentPage$.pipe(
@@ -93,7 +96,7 @@ export class PersonPageFieldsComponent implements OnInit {
             arr.map((d: RemoteData<RelationshipType>) => d.payload)
         )
       ),
-      distinctUntilChanged(compareArraysUsing((e: RelationshipType) => hasValue(e) ? e.id : undefined))
+      distinctUntilChanged(compareArraysUsingIds())
     );
 
     const resolvedRelsAndTypes$ = Observable.combineLatest(
