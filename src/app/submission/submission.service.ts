@@ -41,6 +41,10 @@ export class SubmissionService {
     return this.restService.postToEndpoint('workflowitems', selfUrl, null, options);
   }
 
+  discardSubmission(submissionId: string): Observable<any> {
+    return this.restService.deleteById(submissionId);
+  }
+
   getActiveSectionId(submissionId: string): Observable<string> {
     return this.store.select(submissionObjectFromIdSelector(submissionId))
       .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))

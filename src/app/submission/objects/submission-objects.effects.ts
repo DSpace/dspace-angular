@@ -7,7 +7,7 @@ import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
   DepositSubmissionErrorAction,
-  DepositSubmissionSuccessAction,
+  DepositSubmissionSuccessAction, DiscardSubmissionAction, DiscardSubmissionErrorAction, DiscardSubmissionSuccessAction,
   InitSectionAction,
   LoadSubmissionFormAction,
   ResetSubmissionFormAction,
@@ -181,7 +181,24 @@ export class SubmissionObjectEffects {
 
   @Effect({dispatch: false}) depositSubmissionError$ = this.actions$
     .ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_ERROR)
-    .do(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.deposit_error_notice')))
+    .do(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.deposit_error_notice')));
+
+  @Effect() discardSubmission$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION)
+    .switchMap((action: DepositSubmissionAction) => {
+      return this.submissionService.discardSubmission(action.payload.submissionId)
+        .map(() => new DiscardSubmissionSuccessAction(action.payload.submissionId))
+        .catch((e) => Observable.of(new DiscardSubmissionErrorAction(action.payload.submissionId)));
+    });
+
+  @Effect({dispatch: false}) discardSubmissionSuccess$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS)
+    .do(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.discard_success_notice')))
+    .do(() => this.submissionService.redirectToMyDSpace());
+
+  @Effect({dispatch: false}) discardSubmissionError$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR)
+    .do(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice')));
 
   @Effect()
   public wsDuplication: Observable<Action> = this.actions$

@@ -321,6 +321,8 @@
         "sections_not_valid": "There are incomplete sections.",
         "deposit_success_notice": "Submission deposited successfully.",
         "deposit_error_notice": "There was an issue when submitting the item, please try again later.",
+        "discard_success_notice": "Submission discarded successfully.",
+        "discard_error_notice": "There was an issue when discarding the item, please try again later.",
         "save_success_notice": "Submission saved successfully.",
         "metadata_extracted": "New metadata have been extracted and added to the item."
       },

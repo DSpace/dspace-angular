@@ -5,6 +5,7 @@ import { SubmissionService } from '../../submission.service';
 import { SubmissionState } from '../../submission.reducers';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DepositSubmissionAction, DiscardSubmissionAction,
   SaveAndDepositSubmissionAction,
   SaveForLaterSubmissionFormAction,
   SaveSubmissionFormAction
@@ -61,10 +62,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
-          this.restService.deleteById(this.submissionId)
-            .subscribe((response) => {
-              this.submissionService.redirectToMyDSpace();
-            })
+          this.store.dispatch(new DiscardSubmissionAction(this.submissionId));
         }
       }
     );

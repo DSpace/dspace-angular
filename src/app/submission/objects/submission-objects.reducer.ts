@@ -137,11 +137,23 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS: {
-      return Object.create({});
+      return initialState;
     }
 
     case SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_ERROR: {
       return endDeposit(state, action as DepositSubmissionAction);
+    }
+
+    case SubmissionObjectActionTypes.DISCARD_SUBMISSION: {
+      return state;
+    }
+
+    case SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS: {
+      return initialState;
+    }
+
+    case SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR: {
+      return state;
     }
 
     case SubmissionObjectActionTypes.SET_ACTIVE_SECTION: {

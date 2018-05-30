@@ -51,6 +51,9 @@ export const SubmissionObjectActionTypes = {
   DEPOSIT_SUBMISSION: type('dspace/submission/DEPOSIT_SUBMISSION'),
   DEPOSIT_SUBMISSION_SUCCESS: type('dspace/submission/DEPOSIT_SUBMISSION_SUCCESS'),
   DEPOSIT_SUBMISSION_ERROR: type('dspace/submission/DEPOSIT_SUBMISSION_ERROR'),
+  DISCARD_SUBMISSION: type('dspace/submission/DISCARD_SUBMISSION'),
+  DISCARD_SUBMISSION_SUCCESS: type('dspace/submission/DISCARD_SUBMISSION_SUCCESS'),
+  DISCARD_SUBMISSION_ERROR: type('dspace/submission/DISCARD_SUBMISSION_ERROR'),
   SET_WORKSPACE_DUPLICATION: type('/sections/deduplication/SET_WORKSPACE_DUPLICATION'),
   SET_WORKSPACE_DUPLICATION_SUCCESS: type('/sections/deduplication/SET_WORKSPACE_DUPLICATION_SUCCESS'),
   SET_WORKSPACE_DUPLICATION_ERROR: type('/sections/deduplication/SET_WORKSPACE_DUPLICATION_ERROR'),
@@ -595,7 +598,7 @@ export class DepositSubmissionAction implements Action {
   };
 
   /**
-   * Create a new DepositSubmissionFormAction
+   * Create a new DepositSubmissionAction
    *
    * @param submissionId
    *    the submission's ID to deposit
@@ -633,6 +636,57 @@ export class DepositSubmissionErrorAction implements Action {
    *
    * @param submissionId
    *    the submission's ID to deposit
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
+}
+
+export class DiscardSubmissionAction implements Action {
+  type = SubmissionObjectActionTypes.DISCARD_SUBMISSION;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new DiscardSubmissionAction
+   *
+   * @param submissionId
+   *    the submission's ID to discard
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
+}
+
+export class DiscardSubmissionSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new DiscardSubmissionSuccessAction
+   *
+   * @param submissionId
+   *    the submission's ID to discard
+   */
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
+  }
+}
+
+export class DiscardSubmissionErrorAction implements Action {
+  type = SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR;
+  payload: {
+    submissionId: string;
+  };
+
+  /**
+   * Create a new DiscardSubmissionErrorAction
+   *
+   * @param submissionId
+   *    the submission's ID to discard
    */
   constructor(submissionId: string) {
     this.payload = { submissionId };
@@ -926,6 +980,9 @@ export type SubmissionObjectAction = DisableSectionAction
   | DepositSubmissionAction
   | DepositSubmissionSuccessAction
   | DepositSubmissionErrorAction
+  | DiscardSubmissionAction
+  | DiscardSubmissionSuccessAction
+  | DiscardSubmissionErrorAction
   | SectionStatusChangeAction
   | NewUploadedFileAction
   | EditFileDataAction
