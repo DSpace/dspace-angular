@@ -154,9 +154,10 @@ export class SearchService implements OnDestroy {
           args.push(`scope=${scope}`);
         }
 
-        if (isNotEmpty(configuration)) {
-          args.push(`configuration=${configuration}`);
-        }
+        const configurationValue = configuration || 'default';
+        // if (isNotEmpty(configuration)) {
+        args.push(`configuration=${configurationValue}`);
+        // }
 
         if (isNotEmpty(args)) {
           url = new URLCombiner(url, `?${args.join('&')}`).toString();

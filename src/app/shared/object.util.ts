@@ -1,4 +1,5 @@
 import { isNotEmpty } from './empty.util';
+import { isEqual, isObject, transform } from 'lodash';
 
 /**
  * Returns passed object without specified property
@@ -34,4 +35,15 @@ export function isObjectEmpty(obj: any): boolean {
       return result;
     }
   }
+}
+
+export function difference(object, base) {
+  const changes = (o, b) => {
+    return transform(o, (result, value, key) => {
+      if (!isEqual(value, b[key]) && isNotEmpty(value)) {
+        result[key] = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value;
+      }
+    });
+  };
+  return changes(object, base);
 }

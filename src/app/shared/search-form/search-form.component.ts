@@ -16,6 +16,7 @@ import { isNotEmpty, hasValue, isEmpty, hasNoValue } from '../empty.util';
   templateUrl: './search-form.component.html'
 })
 export class SearchFormComponent {
+  @Input() defaultSearchLabel = 'search.form.search_dspace';
   @Input() query: string;
   @Input() searchLink: string;
   selectedId = '';

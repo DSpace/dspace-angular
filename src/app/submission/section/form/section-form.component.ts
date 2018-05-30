@@ -30,6 +30,7 @@ import { FormOperationsService } from '../../../shared/form/form-operations.serv
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SectionService } from '../section.service';
+import { difference } from '../../../shared/object.util';
 
 @Component({
   selector: 'ds-submission-section-form',
@@ -107,7 +108,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   }
 
   updateForm(sectionData: WorkspaceitemSectionDataType, errors: SubmissionSectionError[]) {
-    const diff = this.difference(sectionData, this.formData);
+    const diff = difference(sectionData, this.formData);
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data) && isNotEmpty(diff)) {
       this.notificationsService.info(null, this.translate.get('submission.sections.general.metadata_extracted'));
       this.isUpdating = true;
@@ -187,17 +188,6 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
           // }
         })
     )
-  }
-
-  private difference(object, base) {
-    const changes = (o, b) => {
-      return transform(o, (result, value, key) => {
-        if (!isEqual(value, b[key]) && isNotEmpty(value)) {
-          result[key] = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value;
-        }
-      });
-    };
-    return changes(object, base);
   }
 
   onChange(event: DynamicFormControlEvent) {

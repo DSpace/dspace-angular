@@ -10,6 +10,7 @@
                        [viewModeList]="viewModeList"></ds-search-sidebar>
     <div class="col-12 col-md-9">
       <ds-search-form id="search-form"
+                      [defaultSearchLabel]="'search.form.search_mydspace'"
                       [query]="(searchOptions$ | async)?.query"
                       [scope]="(searchOptions$ | async)?.scope"
                       [currentUrl]="getSearchLink()"

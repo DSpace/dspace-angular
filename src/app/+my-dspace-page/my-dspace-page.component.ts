@@ -25,6 +25,7 @@ import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../shared/empty.util';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ViewMode } from '../+search-page/search-options.model';
 import { SearchConfigOption } from '../+search-page/search-filters/search-switch-config/search-config-option.model';
+import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 
@@ -99,6 +100,7 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
     this.user$ = this.store.select(getAuthenticatedUser);
 
     this.searchOptions$ = this.filterService.getCurrentView()
+      .distinctUntilChanged()
       .flatMap((currentView) => {
         if (isNotEmpty(currentView) && currentView === ViewMode.Detail) {
           this.defaults.pagination.pageSize = 1;
@@ -109,7 +111,7 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
     this.sub = Observable.combineLatest(this.searchOptions$, this.configurationList$)
       .distinctUntilChanged()
       .subscribe(([searchOptions, configurationList]) => {
-        if (this.validateConfigurationParam(searchOptions.configuration as MyDSpaceConfigurationType, configurationList)) {
+        if (this.validateConfigurationParam(searchOptions, configurationList)) {
           this.resultsRD$ = this.service.search(searchOptions);
         }
       });
@@ -146,9 +148,9 @@ export class MyDSpacePageComponent implements OnDestroy, OnInit {
     return configurationOptions;
   }
 
-  private validateConfigurationParam(configurationParam: MyDSpaceConfigurationType, configurationList: SearchConfigOption[]): boolean {
+  private validateConfigurationParam(searchOptions: PaginatedSearchOptions, configurationList: SearchConfigOption[]): boolean {
     const configurationDefault: MyDSpaceConfigurationType = configurationList[0].value as MyDSpaceConfigurationType;
-    if (isEmpty(configurationParam) || findIndex(configurationList, {value: configurationParam}) === -1) {
+    if (isEmpty(searchOptions.configuration) || findIndex(configurationList, {value: searchOptions.configuration}) === -1) {
       // If configuration param is empty or is not included in available configurations redirect to a default configuration value
       const navigationExtras: NavigationExtras = {
         queryParams: {configuration: configurationDefault},
