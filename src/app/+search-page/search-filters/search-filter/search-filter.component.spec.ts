@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterService } from './search-filter.service';
 import { SearchService } from '../../search-service/search.service';

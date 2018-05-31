@@ -25,6 +25,7 @@ export class ObjectListComponent {
 
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
+  @Input() hasBorder = false;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
   private _objects: RemoteData<PaginatedList<ListableObject>>;

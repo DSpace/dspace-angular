@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 import { Observable } from 'rxjs/Observable';
 import { SearchFilterService } from './search-filter/search-filter.service';
+import { SearchConfigOption } from './search-switch-config/search-config-option.model';
 
 /**
  * This component renders a simple item page.
@@ -18,14 +19,27 @@ import { SearchFilterService } from './search-filter/search-filter.service';
 })
 
 export class SearchFiltersComponent {
+  @Input() configurationList: SearchConfigOption[];
+
   filters: Observable<RemoteData<SearchFilterConfig[]>>;
   clearParams;
+
   constructor(private searchService: SearchService, private filterService: SearchFilterService) {
     this.filters = searchService.getConfig();
-    this.clearParams = filterService.getCurrentFilters().map((filters) => {Object.keys(filters).forEach((f) => filters[f] = null); return filters;});
+    this.clearParams = filterService.getCurrentFilters().map((filters) => {
+      Object.keys(filters).forEach((f) => filters[f] = null);
+      return filters;
+    });
+  }
+
+  ngOnInit(): void {
+    this.filters = this.filterService.getSearchOptions()
+      .distinctUntilChanged()
+      .flatMap((options) => this.searchService.getConfig(options.scope, options.configuration));
   }
 
   getSearchLink() {
     return this.searchService.getSearchLink();
   }
+
 }

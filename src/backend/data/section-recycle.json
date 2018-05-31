@@ -1,0 +1,79 @@
+{
+  "unexpected": [],
+  "metadata": [
+    {
+      "dc.title": [
+        {
+          "value": "Meeting Abstract",
+          "language": "en",
+          "authority": null,
+          "confidence": -1,
+          "place": 1
+        }
+      ]
+    }
+  ,
+    {
+      "dc.title": [
+        {
+          "value": "Detection of myocardial viability with dual dose dobutamine MRI in correlation with histological changes in chronically dysfunctional myocardium. An experimental study",
+          "language": "en",
+          "authority": null,
+          "confidence": -1,
+          "place": 1
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "uuid": "c8183d95-2bce-44f2-acbc-e7a46ba3679f",
+      "metadata": {
+        "dc.description": [
+          {
+            "value": "",
+            "language": null,
+            "authority": null,
+            "confidence": -1,
+            "place": 0
+          }
+        ],
+        "dc.source": [
+          {
+            "value": "/repos/uhasselt/upload/C:\\Users\\lucp0548\\Google Drive\\Secretariaat\\Admin\\Document Server\\pdfs\\1-s2.0-S0167947312002617-main.pdf",
+            "language": null,
+            "authority": null,
+            "confidence": -1,
+            "place": 0
+          }
+        ],
+        "dc.title": [
+          {
+            "value": "1-s2.0-S0167947312002617-main.pdf",
+            "language": null,
+            "authority": null,
+            "confidence": -1,
+            "place": 0
+          }
+        ]
+      },
+      "accessConditions": [],
+      "format": {
+        "id": 3,
+        "shortDescription": "Adobe PDF",
+        "description": "Adobe Portable Document Format",
+        "mimetype": "application/pdf",
+        "supportLevel": 0,
+        "internal": false,
+        "extensions": null,
+        "type": "bitstreamformat"
+      },
+      "sizeBytes": 494089,
+      "checkSum": {
+        "checkSumAlgorithm": "MD5",
+        "value": "d033bc9bf87cfae19fad1ef228b7f8ed"
+      },
+      "url": "http://hasselt-dspace.dev01.4science.it/api/core/bitstreams/c8183d95-2bce-44f2-acbc-e7a46ba3679f/content"
+    }
+  ]
+}

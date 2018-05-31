@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <form [formGroup]="formGroup">
+
+    <ds-dynamic-form
+      [formId]="formId"
+      [formGroup]="formGroup"
+      [formModel]="formModel"
+      [formLayout]="formLayout"
+      (dfBlur)="onBlur($event)"
+      (dfChange)="onChange($event)"
+      (dfFocus)="onFocus($event)">
+
+      <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
+
+        <!--Array with repeteable items-->
+        <div *ngIf="!context.notRepeteable"
+             class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary"
+                    [disabled]="isItemReadOnly(context, index)"
+                    (click)="insertItem($event, group.context, group.index + 1)">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-secondary"
+                    (click)="removeItem($event, context, index)"
+                    [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <!--Array with non repeteable items - Only delete button-->
+        <div *ngIf="context.notRepeteable && group.context.groups.length > 1"
+             class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary"
+                    (click)="removeItem($event, context, index)"
+                    [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </ng-template>
+
+    </ds-dynamic-form>
+
+    <div *ngIf="displaySubmit">
+      <hr>
+      <div class="form-group row">
+
+        <div class="col text-right">
+          <button type="reset" class="btn btn-default" (click)="reset()">{{'form.cancel' | translate}}</button>
+          <button type="submit" class="btn btn-primary" (click)="onSubmit($event)"
+                  [disabled]="!(isValid() | async)">{{'form.submit' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</div>

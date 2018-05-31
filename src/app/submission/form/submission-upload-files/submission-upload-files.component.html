@@ -1,0 +1,7 @@
+<ds-uploader *ngIf="uploadFilesOptions.url"
+             [dropMsg]="dropMsg"
+             [dropOverDocumentMsg]="dropOverDocumentMsg"
+             [enableDragOverDocument]="enableDragOverDocument"
+             [onBeforeUpload]="onBeforeUpload"
+             [uploadFilesOptions]="uploadFilesOptions"
+             (onCompleteItem)="onCompleteItem($event)"></ds-uploader>

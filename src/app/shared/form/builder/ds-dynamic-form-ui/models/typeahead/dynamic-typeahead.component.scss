@@ -1,0 +1,25 @@
+@import "../../../../../../../styles/variables";
+
+/* style fa-spin */
+.fa-spin {
+  pointer-events: none;
+}
+
+/* align fa-spin */
+.left-addon .fa-spin  { left:  0;}
+.right-addon .fa-spin { right: 0;}
+
+:host /deep/ .dropdown-menu {
+  width: 100% !important;
+  max-height: 200px;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+:host /deep/ .dropdown-item.active,
+:host /deep/ .dropdown-item:active,
+:host /deep/ .dropdown-item:focus,
+:host /deep/ .dropdown-item:hover {
+  color: $dropdown-link-hover-color !important;
+  background-color: $dropdown-link-hover-bg !important;
+}

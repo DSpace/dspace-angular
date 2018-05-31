@@ -1,12 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
-import { SearchService } from '../../search-service/search.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { GLOBAL_CONFIG } from '../../../../config';
+import { GlobalConfig } from '../../../../config/global-config.interface';
 
 /**
  * This component renders a simple item page.
@@ -24,12 +23,13 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 export class SearchFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
 
-  constructor(private filterService: SearchFilterService) {
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig, private filterService: SearchFilterService) {
   }
 
   ngOnInit() {
     this.filterService.isFilterActive(this.filter.paramName).first().subscribe((isActive) => {
-      if (this.filter.isOpenByDefault || isActive) {
+      const isOpenByConfig = this.config.filters.loadOpened.includes(this.filter.name);
+      if (this.filter.isOpenByDefault || isActive || isOpenByConfig) {
         this.initialExpand();
       } else {
         this.initialCollapse();

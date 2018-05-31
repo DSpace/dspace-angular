@@ -1,6 +1,7 @@
 <ds-object-list [config]="config"
                 [sortConfig]="sortConfig"
                 [objects]="objects"
+                [hasBorder]="hasBorder"
                 [hideGear]="hideGear"
                 *ngIf="getViewMode()===viewModeEnum.List">
 </ds-object-list>
@@ -8,8 +9,15 @@
 <ds-object-grid [config]="config"
                 [sortConfig]="sortConfig"
                 [objects]="objects"
-                [hideGear]="true"
+                [hideGear]="hideGear"
                 *ngIf="getViewMode()===viewModeEnum.Grid">
 </ds-object-grid>
+
+<ds-object-detail [config]="config"
+                  [sortConfig]="sortConfig"
+                  [objects]="objects"
+                  [hideGear]="hideGear"
+                  *ngIf="getViewMode()===viewModeEnum.Detail">
+</ds-object-detail>
 
 

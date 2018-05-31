@@ -14,7 +14,7 @@ export const ObjectCacheActionTypes = {
 
 /* tslint:disable:max-classes-per-file */
 /**
- * An ngrx action to add an object to the cache
+ * An ngrx action to panel-add an object to the cache
  */
 export class AddToObjectCacheAction implements Action {
   type = ObjectCacheActionTypes.ADD;
@@ -29,7 +29,7 @@ export class AddToObjectCacheAction implements Action {
    * Create a new AddToObjectCacheAction
    *
    * @param objectToCache
-   *    the object to add
+   *    the object to panel-add
    * @param timeAdded
    *    the time it was added
    * @param msToLive

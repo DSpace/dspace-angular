@@ -55,8 +55,7 @@ export class HALEndpointService {
             return endpointMap[subPath];
           } else {
             /*TODO remove if/else block once the rest response contains _links for facets*/
-            currentPath += '/' + subPath;
-            return currentPath;
+            return currentPath + '/' + subPath;
           }
         }),
       ])
@@ -71,6 +70,18 @@ export class HALEndpointService {
       startWith(undefined),
       distinctUntilChanged()
     )
+  }
+
+  public prepareBody(body: any) {
+    let queryParams = '';
+    if (isNotEmpty(body) && typeof body === 'object') {
+      Object.keys(body)
+        .forEach((param) => {
+          const paramValue = `${param}=${body[param]}`;
+          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+        })
+    }
+    return encodeURI(queryParams);
   }
 
 }

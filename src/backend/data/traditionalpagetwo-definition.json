@@ -1,0 +1,100 @@
+{
+  "id": "traditionalpagetwo",
+  "name": "traditionalpagetwo",
+  "rows": [
+    {
+      "fields": [
+        {
+          "label": "Subject Keywords",
+          "mandatory": false,
+          "repeatable": true,
+          "hints": "Enter appropriate subject keywords or phrases.",
+          "selectableMetadata": [
+            {
+              "metadata": "dc.subject",
+              "label": null,
+              "authority": "srsc",
+              "closed": false
+            }
+          ],
+          "languageCodes": [],
+          "input": {
+            "type": "tag"
+          }
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "label": "Abstract",
+          "mandatory": false,
+          "repeatable": false,
+          "hints": "Enter the abstract of the item.",
+          "selectableMetadata": [
+            {
+              "metadata": "dc.description.abstract",
+              "label": null,
+              "authority": null,
+              "closed": null
+            }
+          ],
+          "languageCodes": [],
+          "input": {
+            "type": "textarea"
+          }
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "label": "Sponsors",
+          "mandatory": false,
+          "repeatable": false,
+          "hints": "Enter the names of any sponsors and/or funding codes in the box.",
+          "selectableMetadata": [
+            {
+              "metadata": "dc.description.sponsorship",
+              "label": null,
+              "authority": null,
+              "closed": null
+            }
+          ],
+          "languageCodes": [],
+          "input": {
+            "type": "textarea"
+          }
+        }
+      ]
+    },
+    {
+      "fields": [
+        {
+          "label": "Description",
+          "mandatory": false,
+          "repeatable": false,
+          "hints": "Enter any other description or comments in this box.",
+          "selectableMetadata": [
+            {
+              "metadata": "dc.description",
+              "label": null,
+              "authority": null,
+              "closed": null
+            }
+          ],
+          "languageCodes": [],
+          "input": {
+            "type": "textarea"
+          }
+        }
+      ]
+    }
+  ],
+  "type": "submissionform",
+  "_links": {
+    "self": {
+      "href": "https://dspace7.dev01.4science.it/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo"
+    }
+  }
+}

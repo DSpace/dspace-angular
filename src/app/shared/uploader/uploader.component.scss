@@ -1,0 +1,40 @@
+@import '../../../styles/_variables.scss';
+
+.ds-base-drop-zone {
+  border: 2px dashed $gray-600;
+}
+
+/* Default class applied to drop zones on over */
+.ds-base-drop-zone-file-over {
+  border: 2px dashed map-get($theme-colors, primary);
+}
+
+.ds-base-drop-zone p {
+  height: 42px;
+}
+
+.ds-document-drop-zone {
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.ds-document-drop-zone-active {
+  z-index: 1025 !important;
+}
+
+.ds-document-drop-zone-inner {
+  background-color: rgba($white, 0.7);
+  z-index: 1021;
+  top: 0;
+  left: 0;
+}
+
+.ds-document-drop-zone-inner-content {
+  border: 4px dashed map-get($theme-colors, primary);
+  z-index: 1021;
+}
+
+.ds-document-drop-zone-inner-content p {
+  font-size: ($font-size-lg * 2.5);
+}

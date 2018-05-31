@@ -16,5 +16,4 @@ export class SubmissionDefinitionsConfigService extends ConfigService {
     protected halService: HALEndpointService) {
     super();
   }
-
 }

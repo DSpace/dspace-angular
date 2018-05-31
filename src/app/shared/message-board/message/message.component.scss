@@ -1,0 +1,54 @@
+$user_bg: #e6f2ff;
+$other_bg: #EFEFEF;
+
+li {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  width: 80%;
+}
+
+.chat-body {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+li.float-left .chat-body {
+  background: $other_bg;
+}
+
+li.float-right .chat-body {
+  background: $user_bg;
+}
+
+li .chat-body p {
+  margin: 0;
+  color: #777777;
+}
+
+.description {
+  color: #666666;
+  font-style: italic;
+  padding: 0 15px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.max250 {
+  max-width: 250px;
+}
+
+/deep/ .float-right div[class^="clamp-"]
+.content:after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), $user_bg 70%) !important;
+}
+
+/deep/ .float-left div[class^="clamp-"]
+.content:after {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), $other_bg 70%) !important;
+}
+
+.truncatable {
+  clear: both;
+}

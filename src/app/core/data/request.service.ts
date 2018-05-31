@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
+import { MemoizedSelector, Store } from '@ngrx/store';
+
+import { remove } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
 import { hasValue } from '../../shared/empty.util';
@@ -16,7 +18,7 @@ import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
 
-import { RequestEntry, RequestState } from './request.reducer';
+import { RequestEntry } from './request.reducer';
 
 @Injectable()
 export class RequestService {
@@ -66,8 +68,25 @@ export class RequestService {
       .flatMap((uuid: string) => this.getByUUID(uuid));
   }
 
-  configure<T extends CacheableObject>(request: RestRequest): void {
-    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
+  private clearRequestsOnTheirWayToTheStore(href) {
+    this.getByHref(href)
+      .take(1)
+      .subscribe((re: RequestEntry) => {
+        if (!hasValue(re)) {
+          this.responseCache.remove(href);
+        } else if (!re.responsePending) {
+          this.responseCache.remove(href);
+          remove(this.requestsOnTheirWayToTheStore, (item) => item === href);
+        }
+      });
+  }
+
+  // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
+  configure<T extends CacheableObject>(request: RestRequest, overrideRequest: boolean = false): void {
+    if (overrideRequest) {
+      this.clearRequestsOnTheirWayToTheStore(request.href);
+    }
+    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request) || (overrideRequest && !this.isPending(request))) {
       this.dispatchRequest(request);
     }
   }
@@ -118,7 +137,7 @@ export class RequestService {
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.store.select(this.entryFromUUIDSelector(request.href))
+    this.getByHref(request.href)
       .filter((re: RequestEntry) => hasValue(re))
       .take(1)
       .subscribe((re: RequestEntry) => {

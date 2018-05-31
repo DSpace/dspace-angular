@@ -1,0 +1,7 @@
+<span class="mb-5">{{ licenseText }}</span>
+<br> <br>
+<ds-form *ngIf="formModel" #formRef="formComponent"
+         [formId]="formId"
+         [formModel]="formModel"
+         [displaySubmit]="displaySubmit"
+         (dfChange)="onChange($event)"></ds-form>

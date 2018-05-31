@@ -22,6 +22,7 @@ class NormalizedTestObject extends NormalizedObject {
 }
 
 class TestService extends ComColDataService<NormalizedTestObject, any> {
+  protected overrideRequest = false;
 
   constructor(
     protected responseCache: ResponseCacheService,

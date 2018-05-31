@@ -1,0 +1,23 @@
+@import "../../../styles/_variables.scss";
+
+.ds-form-input-addon {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+}
+
+.ds-form-input-btn {
+  border: $input-btn-border-width solid $input-border-color;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+}
+
+.ds-form-input-btn:focus {
+  box-shadow: none !important;
+}
+
+.ds-form-input-value {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

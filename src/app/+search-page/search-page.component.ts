@@ -14,6 +14,8 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
+import { SearchResponseParsingService } from '../core/data/search-response-parsing.service';
 
 /**
  * This component renders a simple item page.
@@ -34,7 +36,7 @@ export class SearchPageComponent implements OnInit {
   searchOptions$: Observable<PaginatedSearchOptions>;
   sortConfig: SortOptions;
   scopeListRD$: Observable<RemoteData<PaginatedList<Community>>>;
-  isMobileView$: Observable<boolean>;
+  isXsOrSm$: Observable<boolean>;
   pageSize;
   pageSizeOptions;
   defaults = {
@@ -43,6 +45,7 @@ export class SearchPageComponent implements OnInit {
       pageSize: 10
     },
     sort: new SortOptions('score', SortDirection.DESC),
+    configuration: 'default',
     query: '',
     scope: ''
   };
@@ -52,15 +55,12 @@ export class SearchPageComponent implements OnInit {
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
               private filterService: SearchFilterService) {
-    this.isMobileView$ = Observable.combineLatest(
-      this.windowService.isXs(),
-      this.windowService.isSm(),
-      ((isXs, isSm) => isXs || isSm)
-    );
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.scopeListRD$ = communityService.findAll();
   }
 
   ngOnInit(): void {
+    this.service.setServiceOptions(SearchResponseParsingService, false);
     this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
     this.resultsRD$ = this.searchOptions$.pipe(
       flatMap((searchOptions) => this.service.search(searchOptions))

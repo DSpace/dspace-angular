@@ -63,7 +63,7 @@ export class SearchSettingsComponent implements OnInit {
         pageSize: value
       })
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 
   reloadOrder(event: Event) {
@@ -73,6 +73,6 @@ export class SearchSettingsComponent implements OnInit {
         sortDirection: value
       })
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 }

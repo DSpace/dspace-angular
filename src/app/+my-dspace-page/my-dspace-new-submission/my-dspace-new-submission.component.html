@@ -1,0 +1,15 @@
+<div class="parent">
+  <div class="upload">
+    <ds-uploader *ngIf="uploadFilesOptions.url !== ''"
+                 [onBeforeUpload]="onBeforeUpload"
+                 [uploadFilesOptions]="uploadFilesOptions"
+                 (onCompleteItem)="onCompleteItem($event)"></ds-uploader>
+
+  </div>
+  <div class="add">
+    <a class="btn btn-lg btn-primary mt-1 ml-2" [routerLink]="['/submit']" role="button">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i> New submission
+    </a>
+  </div>
+
+</div>

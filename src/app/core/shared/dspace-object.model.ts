@@ -16,7 +16,7 @@ export class  DSpaceObject implements CacheableObject, ListableObject {
   /**
    * The human-readable identifier of this DSpaceObject
    */
-  id: string;
+  id: any;
 
   /**
    * The universally unique identifier of this DSpaceObject
@@ -26,7 +26,7 @@ export class  DSpaceObject implements CacheableObject, ListableObject {
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  type: ResourceType;
+  type: any;
 
   /**
    * The name for this DSpaceObject
@@ -48,6 +48,10 @@ export class  DSpaceObject implements CacheableObject, ListableObject {
    */
   owner: Observable<RemoteData<DSpaceObject>>;
 
+  _links: {
+    [name: string]: string
+  }
+
   /**
    * Find a metadata field by key and language
    *
@@ -60,9 +64,9 @@ export class  DSpaceObject implements CacheableObject, ListableObject {
    * @return string
    */
   findMetadata(key: string, language?: string): string {
-    const metadatum = this.metadata.find((m: Metadatum) => {
+    const metadatum = (this.metadata) ? this.metadata.find((m: Metadatum) => {
       return m.key === key && (isEmpty(language) || m.language === language)
-    });
+    }) : null;
     if (isNotEmpty(metadatum)) {
       return metadatum.value;
     } else {
@@ -81,7 +85,7 @@ export class  DSpaceObject implements CacheableObject, ListableObject {
    * @return Array<Metadatum>
    */
   filterMetadata(keys: string[]): Metadatum[] {
-    return this.metadata.filter((metadatum: Metadatum) => {
+    return (this.metadata || []).filter((metadatum: Metadatum) => {
       return keys.some((key) => key === metadatum.key);
     });
   }

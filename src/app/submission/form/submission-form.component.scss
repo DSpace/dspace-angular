@@ -1,0 +1,25 @@
+@import '../../../styles/variables';
+
+.submission-form-header {
+  background-color: rgba($white, .97);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.5rem 0 0.5rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+}
+
+.submission-form-header-item {
+  flex-grow: 1;
+}
+
+.submission-form-footer {
+  border-radius: $card-border-radius;
+  position: sticky;
+  bottom: 0;
+  background-color: $gray-400;
+  padding: 0.5rem;
+  z-index: 1000;
+}
+

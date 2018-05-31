@@ -21,9 +21,28 @@ import { SearchFiltersComponent } from './search-filters/search-filters.componen
 import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
+import { SearchSwitchConfigComponent } from './search-filters/search-switch-config/search-switch-config.component';
 
 const effects = [
   SearchSidebarEffects
+];
+
+const components = [
+  SearchPageComponent,
+  SearchResultsComponent,
+  SearchSidebarComponent,
+  SearchSettingsComponent,
+  ItemSearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  CommunitySearchResultListElementComponent,
+  ItemSearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
+  CommunitySearchResultGridElementComponent,
+  CommunitySearchResultListElementComponent,
+  SearchFiltersComponent,
+  SearchFilterComponent,
+  SearchFacetFilterComponent,
+  SearchSwitchConfigComponent
 ];
 
 @NgModule({
@@ -34,22 +53,7 @@ const effects = [
     EffectsModule.forFeature(effects),
     CoreModule.forRoot()
   ],
-  declarations: [
-    SearchPageComponent,
-    SearchResultsComponent,
-    SearchSidebarComponent,
-    SearchSettingsComponent,
-    ItemSearchResultListElementComponent,
-    CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent,
-    ItemSearchResultGridElementComponent,
-    CollectionSearchResultGridElementComponent,
-    CommunitySearchResultGridElementComponent,
-    CommunitySearchResultListElementComponent,
-    SearchFiltersComponent,
-    SearchFilterComponent,
-    SearchFacetFilterComponent
-  ],
+  declarations: components,
   providers: [
     SearchService,
     SearchSidebarService,
@@ -62,7 +66,8 @@ const effects = [
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
-  ]
+  ],
+  exports: components
 })
 export class SearchPageModule {
 }

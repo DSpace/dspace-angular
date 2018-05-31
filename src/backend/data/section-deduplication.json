@@ -1,0 +1,848 @@
+{
+  "matches": [
+    {
+      "submitterDecision": "verify",
+      "submitterNote": "To test...",
+      "submitterTime": "2018-04-01",
+      "workflowDecision": null,
+      "workflowNote": null,
+      "workflowTime": null,
+      "matchObject": {
+        "id": "b4175bce-4b4b-463d-8c25-01b87f5fadad",
+        "uuid": "b4175bce-4b4b-463d-8c25-01b87f5fadad",
+        "name": "ciaoo",
+        "handle": null,
+        "metadata": [
+          {
+            "key": "dc.title",
+            "value": "Low temperature magnetic properties of NpNi5",
+            "language": null,
+            "authority": null,
+            "confidence": 0
+          }
+          , {
+            "key" : "dc.description.abstract",
+            "value" : "We present the result of an extended experimental characterization of the hexagonal intermetallicHaucke compound NpNi5.",
+            "language" : null,
+            "authority" : null,
+            "confidence" : 0
+          }
+        ],
+        "inArchive": false,
+        "discoverable": true,
+        "withdrawn": false,
+        "lastModified": "2018-03-13T08:54:29.711+0000",
+        "type": "item",
+        "_links": {
+          "bitstreams": {
+            "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/bitstreams"
+          },
+          "owningCollection": {
+            "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/owningCollection"
+          },
+          "templateItemOf": {
+            "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/templateItemOf"
+          },
+          "self": {
+            "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad"
+          }
+        },
+        "_embedded": {
+          "owningCollection": null,
+          "templateItemOf": null,
+          "bitstreams": {
+            "_embedded": [
+              {
+                "id": "79724d0a-a1a1-4cfe-8480-1bf4214f5651",
+                "uuid": "79724d0a-a1a1-4cfe-8480-1bf4214f5651",
+                "name": "ciao",
+                "handle": null,
+                "metadata": [
+                  {
+                    "key": "dc.creator",
+                    "value": "First, Submitter <submitter-one-hasselt@mailinator.com>",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  },
+                  {
+                    "key": "dc.date.issued",
+                    "value": "2018-03-07T14:56:08Z",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  },
+                  {
+                    "key": "dc.title",
+                    "value": "ciao",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  },
+                  {
+                    "key": "dc.type",
+                    "value": "inbound",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  }
+                ],
+                "bundleName": "MESSAGE",
+                "sizeBytes": 4,
+                "checkSum": {
+                  "checkSumAlgorithm": "MD5",
+                  "value": "098f6bcd4621d373cade4e832627b4f6"
+                },
+                "sequenceId": null,
+                "type": "bitstream",
+                "_links": {
+                  "content": {
+                    "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/79724d0a-a1a1-4cfe-8480-1bf4214f5651/content"
+                  },
+                  "format": {
+                    "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/79724d0a-a1a1-4cfe-8480-1bf4214f5651/format"
+                  },
+                  "self": {
+                    "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/79724d0a-a1a1-4cfe-8480-1bf4214f5651"
+                  }
+                },
+                "_embedded": {
+                  "format": {
+                    "id": 5,
+                    "shortDescription": "Text",
+                    "description": "Plain Text",
+                    "mimetype": "text/plain",
+                    "supportLevel": 0,
+                    "internal": false,
+                    "extensions": null,
+                    "type": "bitstreamformat",
+                    "_links": {
+                      "self": {
+                        "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreamformats/5"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "id": "fd4a3838-c25d-42af-8cc6-96c89083c492",
+                "uuid": "fd4a3838-c25d-42af-8cc6-96c89083c492",
+                "name": "cc",
+                "handle": null,
+                "metadata": [
+                  {
+                    "key": "dc.creator",
+                    "value": "First, Submitter <submitter-one-hasselt@mailinator.com>",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  },
+                  {
+                    "key": "dc.date.issued",
+                    "value": "2018-03-08T16:48:18Z",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  },
+                  {
+                    "key": "dc.title",
+                    "value": "cc",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  },
+                  {
+                    "key": "dc.type",
+                    "value": "inbound",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  }
+                ],
+                "bundleName": "MESSAGE",
+                "sizeBytes": 4,
+                "checkSum": {
+                  "checkSumAlgorithm": "MD5",
+                  "value": "41fcba09f2bdcdf315ba4119dc7978dd"
+                },
+                "sequenceId": null,
+                "type": "bitstream",
+                "_links": {
+                  "content": {
+                    "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/fd4a3838-c25d-42af-8cc6-96c89083c492/content"
+                  },
+                  "format": {
+                    "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/fd4a3838-c25d-42af-8cc6-96c89083c492/format"
+                  },
+                  "self": {
+                    "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/fd4a3838-c25d-42af-8cc6-96c89083c492"
+                  }
+                },
+                "_embedded": {
+                  "format": {
+                    "id": 5,
+                    "shortDescription": "Text",
+                    "description": "Plain Text",
+                    "mimetype": "text/plain",
+                    "supportLevel": 0,
+                    "internal": false,
+                    "extensions": null,
+                    "type": "bitstreamformat",
+                    "_links": {
+                      "self": {
+                        "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreamformats/5"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "id": "47022f6f-5db4-4e8b-869d-09cfff20cbdc",
+                "uuid": "47022f6f-5db4-4e8b-869d-09cfff20cbdc",
+                "name": "test",
+                "handle": null,
+                "metadata": [
+                  {
+                    "key": "dc.creator",
+                    "value": "First, Submitter <submitter-one-hasselt@mailinator.com>",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  },
+                  {
+                    "key": "dc.date.issued",
+                    "value": "2018-03-08T16:57:38Z",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  },
+                  {
+                    "key": "dc.title",
+                    "value": "test",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  },
+                  {
+                    "key": "dc.type",
+                    "value": "inbound",
+                    "language": null,
+                    "authority": null,
+                    "confidence": 0
+                  }
+                ],
+                "bundleName": "MESSAGE",
+                "sizeBytes": 5,
+                "checkSum": {
+                  "checkSumAlgorithm": "MD5",
+                  "value": "189bbbb00c5f1fb7fba9ad9285f193d1"
+                },
+                "sequenceId": null,
+                "type": "bitstream",
+                "_links": {
+                  "content": {
+                    "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/47022f6f-5db4-4e8b-869d-09cfff20cbdc/content"
+                  },
+                  "format": {
+                    "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/47022f6f-5db4-4e8b-869d-09cfff20cbdc/format"
+                  },
+                  "self": {
+                    "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/47022f6f-5db4-4e8b-869d-09cfff20cbdc"
+                  }
+                },
+                "_embedded": {
+                  "format": {
+                    "id": 5,
+                    "shortDescription": "Text",
+                    "description": "Plain Text",
+                    "mimetype": "text/plain",
+                    "supportLevel": 0,
+                    "internal": false,
+                    "extensions": null,
+                    "type": "bitstreamformat",
+                    "_links": {
+                      "self": {
+                        "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreamformats/5"
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "_links": {
+              "self": {
+                "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/bitstreams"
+              }
+            },
+            "page": {
+              "number": 0,
+              "size": 3,
+              "totalPages": 1,
+              "totalElements": 3
+            }
+          }
+        }
+      }
+    },
+    {
+      "submitterDecision": null,
+      "submitterNote": null,
+      "submitterTime": null,
+      "workflowDecision": null,
+      "workflowNote": null,
+      "workflowTime": null,
+      "matchObject": {
+        "type" : "workspaceitem",
+        "item": {
+          "id": "b4175bce-4b4b-463d-8c25-01b87f5fadad",
+          "uuid": "b4175bce-4b4b-463d-8c25-01b87f5fadad",
+          "name": "ciaoo",
+          "handle": null,
+          "metadata": [
+            {
+              "key": "dc.title",
+              "value": "ciaoo",
+              "language": null,
+              "authority": null,
+              "confidence": 0
+            }
+          ],
+          "inArchive": false,
+          "discoverable": true,
+          "withdrawn": false,
+          "lastModified": "2018-03-13T08:54:29.711+0000",
+          "type": "item",
+          "_links": {
+            "bitstreams": {
+              "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/bitstreams"
+            },
+            "owningCollection": {
+              "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/owningCollection"
+            },
+            "templateItemOf": {
+              "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/templateItemOf"
+            },
+            "self": {
+              "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad"
+            }
+          },
+          "_embedded": {
+            "owningCollection": null,
+            "templateItemOf": null,
+            "bitstreams": {
+              "_embedded": [
+                {
+                  "id": "79724d0a-a1a1-4cfe-8480-1bf4214f5651",
+                  "uuid": "79724d0a-a1a1-4cfe-8480-1bf4214f5651",
+                  "name": "ciao",
+                  "handle": null,
+                  "metadata": [
+                    {
+                      "key": "dc.creator",
+                      "value": "First, Submitter <submitter-one-hasselt@mailinator.com>",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.date.issued",
+                      "value": "2018-03-07T14:56:08Z",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.title",
+                      "value": "ciao",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.type",
+                      "value": "inbound",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    }
+                  ],
+                  "bundleName": "MESSAGE",
+                  "sizeBytes": 4,
+                  "checkSum": {
+                    "checkSumAlgorithm": "MD5",
+                    "value": "098f6bcd4621d373cade4e832627b4f6"
+                  },
+                  "sequenceId": null,
+                  "type": "bitstream",
+                  "_links": {
+                    "content": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/79724d0a-a1a1-4cfe-8480-1bf4214f5651/content"
+                    },
+                    "format": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/79724d0a-a1a1-4cfe-8480-1bf4214f5651/format"
+                    },
+                    "self": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/79724d0a-a1a1-4cfe-8480-1bf4214f5651"
+                    }
+                  },
+                  "_embedded": {
+                    "format": {
+                      "id": 5,
+                      "shortDescription": "Text",
+                      "description": "Plain Text",
+                      "mimetype": "text/plain",
+                      "supportLevel": 0,
+                      "internal": false,
+                      "extensions": null,
+                      "type": "bitstreamformat",
+                      "_links": {
+                        "self": {
+                          "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreamformats/5"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "fd4a3838-c25d-42af-8cc6-96c89083c492",
+                  "uuid": "fd4a3838-c25d-42af-8cc6-96c89083c492",
+                  "name": "cc",
+                  "handle": null,
+                  "metadata": [
+                    {
+                      "key": "dc.creator",
+                      "value": "First, Submitter <submitter-one-hasselt@mailinator.com>",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.date.issued",
+                      "value": "2018-03-08T16:48:18Z",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.title",
+                      "value": "cc",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.type",
+                      "value": "inbound",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    }
+                  ],
+                  "bundleName": "MESSAGE",
+                  "sizeBytes": 4,
+                  "checkSum": {
+                    "checkSumAlgorithm": "MD5",
+                    "value": "41fcba09f2bdcdf315ba4119dc7978dd"
+                  },
+                  "sequenceId": null,
+                  "type": "bitstream",
+                  "_links": {
+                    "content": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/fd4a3838-c25d-42af-8cc6-96c89083c492/content"
+                    },
+                    "format": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/fd4a3838-c25d-42af-8cc6-96c89083c492/format"
+                    },
+                    "self": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/fd4a3838-c25d-42af-8cc6-96c89083c492"
+                    }
+                  },
+                  "_embedded": {
+                    "format": {
+                      "id": 5,
+                      "shortDescription": "Text",
+                      "description": "Plain Text",
+                      "mimetype": "text/plain",
+                      "supportLevel": 0,
+                      "internal": false,
+                      "extensions": null,
+                      "type": "bitstreamformat",
+                      "_links": {
+                        "self": {
+                          "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreamformats/5"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "47022f6f-5db4-4e8b-869d-09cfff20cbdc",
+                  "uuid": "47022f6f-5db4-4e8b-869d-09cfff20cbdc",
+                  "name": "test",
+                  "handle": null,
+                  "metadata": [
+                    {
+                      "key": "dc.creator",
+                      "value": "First, Submitter <submitter-one-hasselt@mailinator.com>",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.date.issued",
+                      "value": "2018-03-08T16:57:38Z",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.title",
+                      "value": "test",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.type",
+                      "value": "inbound",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    }
+                  ],
+                  "bundleName": "MESSAGE",
+                  "sizeBytes": 5,
+                  "checkSum": {
+                    "checkSumAlgorithm": "MD5",
+                    "value": "189bbbb00c5f1fb7fba9ad9285f193d1"
+                  },
+                  "sequenceId": null,
+                  "type": "bitstream",
+                  "_links": {
+                    "content": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/47022f6f-5db4-4e8b-869d-09cfff20cbdc/content"
+                    },
+                    "format": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/47022f6f-5db4-4e8b-869d-09cfff20cbdc/format"
+                    },
+                    "self": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/47022f6f-5db4-4e8b-869d-09cfff20cbdc"
+                    }
+                  },
+                  "_embedded": {
+                    "format": {
+                      "id": 5,
+                      "shortDescription": "Text",
+                      "description": "Plain Text",
+                      "mimetype": "text/plain",
+                      "supportLevel": 0,
+                      "internal": false,
+                      "extensions": null,
+                      "type": "bitstreamformat",
+                      "_links": {
+                        "self": {
+                          "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreamformats/5"
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "_links": {
+                "self": {
+                  "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/bitstreams"
+                }
+              },
+              "page": {
+                "number": 0,
+                "size": 3,
+                "totalPages": 1,
+                "totalElements": 3
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "submitterDecision": null,
+      "submitterNote": null,
+      "submitterTime": null,
+      "workflowDecision": null,
+      "workflowNote": null,
+      "workflowTime": null,
+      "matchObject": {
+        "type" : "workflowitem",
+        "item": {
+          "id": "b4175bce-4b4b-463d-8c25-01b87f5fadad",
+          "uuid": "b4175bce-4b4b-463d-8c25-01b87f5fadad",
+          "name": "ciaoo",
+          "handle": null,
+          "metadata": [
+            {
+              "key": "dc.title",
+              "value": "ciaoo",
+              "language": null,
+              "authority": null,
+              "confidence": 0
+            }
+          ],
+          "inArchive": false,
+          "discoverable": true,
+          "withdrawn": false,
+          "lastModified": "2018-03-13T08:54:29.711+0000",
+          "type": "item",
+          "_links": {
+            "bitstreams": {
+              "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/bitstreams"
+            },
+            "owningCollection": {
+              "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/owningCollection"
+            },
+            "templateItemOf": {
+              "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/templateItemOf"
+            },
+            "self": {
+              "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad"
+            }
+          },
+          "_embedded": {
+            "owningCollection": null,
+            "templateItemOf": null,
+            "bitstreams": {
+              "_embedded": [
+                {
+                  "id": "79724d0a-a1a1-4cfe-8480-1bf4214f5651",
+                  "uuid": "79724d0a-a1a1-4cfe-8480-1bf4214f5651",
+                  "name": "ciao",
+                  "handle": null,
+                  "metadata": [
+                    {
+                      "key": "dc.creator",
+                      "value": "First, Submitter <submitter-one-hasselt@mailinator.com>",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.date.issued",
+                      "value": "2018-03-07T14:56:08Z",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.title",
+                      "value": "ciao",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.type",
+                      "value": "inbound",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    }
+                  ],
+                  "bundleName": "MESSAGE",
+                  "sizeBytes": 4,
+                  "checkSum": {
+                    "checkSumAlgorithm": "MD5",
+                    "value": "098f6bcd4621d373cade4e832627b4f6"
+                  },
+                  "sequenceId": null,
+                  "type": "bitstream",
+                  "_links": {
+                    "content": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/79724d0a-a1a1-4cfe-8480-1bf4214f5651/content"
+                    },
+                    "format": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/79724d0a-a1a1-4cfe-8480-1bf4214f5651/format"
+                    },
+                    "self": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/79724d0a-a1a1-4cfe-8480-1bf4214f5651"
+                    }
+                  },
+                  "_embedded": {
+                    "format": {
+                      "id": 5,
+                      "shortDescription": "Text",
+                      "description": "Plain Text",
+                      "mimetype": "text/plain",
+                      "supportLevel": 0,
+                      "internal": false,
+                      "extensions": null,
+                      "type": "bitstreamformat",
+                      "_links": {
+                        "self": {
+                          "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreamformats/5"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "fd4a3838-c25d-42af-8cc6-96c89083c492",
+                  "uuid": "fd4a3838-c25d-42af-8cc6-96c89083c492",
+                  "name": "cc",
+                  "handle": null,
+                  "metadata": [
+                    {
+                      "key": "dc.creator",
+                      "value": "First, Submitter <submitter-one-hasselt@mailinator.com>",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.date.issued",
+                      "value": "2018-03-08T16:48:18Z",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.title",
+                      "value": "cc",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.type",
+                      "value": "inbound",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    }
+                  ],
+                  "bundleName": "MESSAGE",
+                  "sizeBytes": 4,
+                  "checkSum": {
+                    "checkSumAlgorithm": "MD5",
+                    "value": "41fcba09f2bdcdf315ba4119dc7978dd"
+                  },
+                  "sequenceId": null,
+                  "type": "bitstream",
+                  "_links": {
+                    "content": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/fd4a3838-c25d-42af-8cc6-96c89083c492/content"
+                    },
+                    "format": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/fd4a3838-c25d-42af-8cc6-96c89083c492/format"
+                    },
+                    "self": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/fd4a3838-c25d-42af-8cc6-96c89083c492"
+                    }
+                  },
+                  "_embedded": {
+                    "format": {
+                      "id": 5,
+                      "shortDescription": "Text",
+                      "description": "Plain Text",
+                      "mimetype": "text/plain",
+                      "supportLevel": 0,
+                      "internal": false,
+                      "extensions": null,
+                      "type": "bitstreamformat",
+                      "_links": {
+                        "self": {
+                          "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreamformats/5"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "47022f6f-5db4-4e8b-869d-09cfff20cbdc",
+                  "uuid": "47022f6f-5db4-4e8b-869d-09cfff20cbdc",
+                  "name": "test",
+                  "handle": null,
+                  "metadata": [
+                    {
+                      "key": "dc.creator",
+                      "value": "First, Submitter <submitter-one-hasselt@mailinator.com>",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.date.issued",
+                      "value": "2018-03-08T16:57:38Z",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.title",
+                      "value": "test",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    },
+                    {
+                      "key": "dc.type",
+                      "value": "inbound",
+                      "language": null,
+                      "authority": null,
+                      "confidence": 0
+                    }
+                  ],
+                  "bundleName": "MESSAGE",
+                  "sizeBytes": 5,
+                  "checkSum": {
+                    "checkSumAlgorithm": "MD5",
+                    "value": "189bbbb00c5f1fb7fba9ad9285f193d1"
+                  },
+                  "sequenceId": null,
+                  "type": "bitstream",
+                  "_links": {
+                    "content": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/47022f6f-5db4-4e8b-869d-09cfff20cbdc/content"
+                    },
+                    "format": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/47022f6f-5db4-4e8b-869d-09cfff20cbdc/format"
+                    },
+                    "self": {
+                      "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreams/47022f6f-5db4-4e8b-869d-09cfff20cbdc"
+                    }
+                  },
+                  "_embedded": {
+                    "format": {
+                      "id": 5,
+                      "shortDescription": "Text",
+                      "description": "Plain Text",
+                      "mimetype": "text/plain",
+                      "supportLevel": 0,
+                      "internal": false,
+                      "extensions": null,
+                      "type": "bitstreamformat",
+                      "_links": {
+                        "self": {
+                          "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/bitstreamformats/5"
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "_links": {
+                "self": {
+                  "href": "https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/core/items/b4175bce-4b4b-463d-8c25-01b87f5fadad/bitstreams"
+                }
+              },
+              "page": {
+                "number": 0,
+                "size": 3,
+                "totalPages": 1,
+                "totalElements": 3
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

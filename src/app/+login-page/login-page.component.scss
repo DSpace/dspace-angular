@@ -1,0 +1,10 @@
+@import '../../styles/variables.scss';
+
+.login-logo {
+  height: $login-logo-height;
+  width: $login-logo-width;
+}
+
+.login-container {
+  max-width: 350px;
+}

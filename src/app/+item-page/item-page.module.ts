@@ -18,28 +18,32 @@ import { FileSectionComponent } from './simple/field-components/file-section/fil
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
+import { SubmissionModule } from '../submission/submission.module';
 
 @NgModule({
   imports: [
+    // ALL WAS MOVED IN SHARED MODULE
     CommonModule,
     SharedModule,
+    SubmissionModule,
     ItemPageRoutingModule
   ],
   declarations: [
+    // ALL WAS MOVED IN SHARED MODULE
     ItemPageComponent,
-    FullItemPageComponent,
-    MetadataValuesComponent,
-    MetadataUriValuesComponent,
-    MetadataFieldWrapperComponent,
-    ItemPageAuthorFieldComponent,
-    ItemPageDateFieldComponent,
-    ItemPageAbstractFieldComponent,
-    ItemPageUriFieldComponent,
-    ItemPageTitleFieldComponent,
-    ItemPageSpecificFieldComponent,
-    FileSectionComponent,
-    CollectionsComponent,
-    FullFileSectionComponent
+    // FullItemPageComponent,
+    // MetadataValuesComponent,
+    // MetadataUriValuesComponent,
+    // MetadataFieldWrapperComponent,
+    // ItemPageAuthorFieldComponent,
+    // ItemPageDateFieldComponent,
+    // ItemPageAbstractFieldComponent,
+    // ItemPageUriFieldComponent,
+    // ItemPageTitleFieldComponent,
+    // ItemPageSpecificFieldComponent,
+    // FileSectionComponent,
+    // CollectionsComponent,
+    // FullFileSectionComponent
   ]
 })
 export class ItemPageModule {

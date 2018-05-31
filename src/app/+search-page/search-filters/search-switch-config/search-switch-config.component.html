@@ -1,0 +1,13 @@
+<div *ngIf="configurationList?.length > 1" class="setting-option result-order-settings mb-3 p-3">
+  <h5>{{ 'search.sidebar.tab.title' | translate}}</h5>
+
+  <select class="form-control"
+          [compareWith]="compare"
+          [(ngModel)]="selectedOption"
+          (change)="onSelect($event)">
+    <option *ngFor="let option of configurationList;" [ngValue]="option.value">
+      {{option.label | translate}}
+    </option>
+  </select>
+
+</div>

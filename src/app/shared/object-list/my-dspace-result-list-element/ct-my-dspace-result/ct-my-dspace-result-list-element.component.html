@@ -1,0 +1,6 @@
+<ds-item-list-preview [item]="(workFlow.item | async)?.payload[0]"
+                      [object]="object"
+                      [showSubmitter]="true"
+                      [status]="status"></ds-item-list-preview>
+
+<ds-claimed-task-actions [object]="dso"></ds-claimed-task-actions>

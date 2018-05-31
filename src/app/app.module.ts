@@ -30,6 +30,9 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
+import { SharedModule } from './shared/shared.module';
+import { SortablejsModule } from 'angular-sortablejs';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -53,9 +56,12 @@ if (!ENV_CONFIG.production) {
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     HttpClientModule,
     AppRoutingModule,
     CoreModule.forRoot(),
+    SortablejsModule.forRoot({ animation: 150 }),
+    ScrollToModule.forRoot(),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
     EffectsModule.forRoot(appEffects),

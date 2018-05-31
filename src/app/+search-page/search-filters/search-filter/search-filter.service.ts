@@ -14,7 +14,7 @@ import {
 import { hasValue, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchService } from '../../search-service/search.service';
-import { RouteService } from '../../../shared/route.service';
+import { RouteService } from '../../../shared/services/route.service';
 import ObjectExpression from 'rollup/dist/typings/ast/nodes/ObjectExpression';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -76,22 +76,28 @@ export class SearchFilterService {
     return this.routeService.getQueryParameterValue('view');
   }
 
+  getCurrentConfiguration() {
+    return this.routeService.getQueryParameterValue('configuration');
+  }
+
   getPaginatedSearchOptions(defaults: any = {}): Observable<PaginatedSearchOptions> {
     return Observable.combineLatest(
       this.getCurrentPagination(defaults.pagination),
       this.getCurrentSort(defaults.sort),
+      this.getCurrentConfiguration(),
       this.getCurrentView(),
       this.getCurrentScope(),
       this.getCurrentQuery(),
       this.getCurrentFilters()).pipe(
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-      map(([pagination, sort, view, scope, query, filters]) => {
+      map(([pagination, sort, configuration, view, scope, query, filters]) => {
         return Object.assign(new PaginatedSearchOptions(),
           defaults,
           {
             pagination: pagination,
             sort: sort,
             view: view,
+            configuration: configuration || defaults.configuration,
             scope: scope || defaults.scope,
             query: query,
             filters: filters
@@ -102,14 +108,16 @@ export class SearchFilterService {
 
   getSearchOptions(defaults: any = {}): Observable<SearchOptions> {
     return Observable.combineLatest(
+      this.getCurrentConfiguration(),
       this.getCurrentView(),
       this.getCurrentScope(),
       this.getCurrentQuery(),
       this.getCurrentFilters(),
-      (view, scope, query, filters) => {
+      (configuration, view, scope, query, filters) => {
         return Object.assign(new SearchOptions(),
           defaults,
           {
+            configuration: configuration || defaults.configuration,
             view: view,
             scope: scope || defaults.scope,
             query: query,
