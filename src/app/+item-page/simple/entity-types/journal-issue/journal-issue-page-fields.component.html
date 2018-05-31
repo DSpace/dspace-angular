@@ -16,6 +16,10 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
+    <ds-related-entities
+      [entities]="volumes$ | async"
+      [label]="'relationships.isSingleVolumeOf' | translate">
+    </ds-related-entities>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journalissue.identifier.description']"
       [label]="'journalissue.page.description'">

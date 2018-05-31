@@ -17,6 +17,7 @@ import {
   templateUrl: './journal-issue-page-fields.component.html'
 })
 export class JournalIssuePageFieldsComponent extends EntityPageFieldsComponent {
+  volumes$: Observable<Item[]>;
 
   constructor(
     @Inject(ITEM) public item: Item,
@@ -26,5 +27,10 @@ export class JournalIssuePageFieldsComponent extends EntityPageFieldsComponent {
   }
   ngOnInit(): void {
     super.ngOnInit();
+
+    this.volumes$ = this.resolvedRelsAndTypes$.pipe(
+      filterRelationsByTypeLabel('isJournalVolumeOfIssue'),
+      relationsToItems(this.item.id, this.ids)
+    );
   }
 }

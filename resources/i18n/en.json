@@ -50,7 +50,12 @@
     "isProjectOf": "Projects",
     "isOrgUnitOf": "Org Units",
     "isAuthorOf": "Authors",
-    "isPersonOf": "Authors"
+    "isPersonOf": "Authors",
+    "isJournalOf": "Journals",
+    "isSingleJournalOf": "Journal",
+    "isVolumeOf": "Volumes",
+    "isSingleVolumeOf": "Volume",
+    "isIssueOf": "Issues"
   },
   "person": {
     "page": {
