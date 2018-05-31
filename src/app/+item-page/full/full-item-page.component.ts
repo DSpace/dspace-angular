@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -34,8 +34,9 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
   metadataObs: Observable<Metadatum[]>;
 
-  constructor(route: ActivatedRoute, items: ItemDataService, metadataService: MetadataService) {
-    super(route, items, metadataService);
+  constructor(route: ActivatedRoute, items: ItemDataService, metadataService: MetadataService,
+              ref: ChangeDetectorRef) {
+    super(route, items, metadataService, ref);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/

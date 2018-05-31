@@ -1,6 +1,6 @@
 export enum SetViewMode {
-  List,
-  Grid
+  List = 'list',
+  Grid = 'grid'
 }
 
 export enum ElementViewMode {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -41,7 +41,8 @@ export class ItemPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private items: ItemDataService,
-    private metadataService: MetadataService
+    private metadataService: MetadataService,
+    private ref: ChangeDetectorRef
   ) {
 
   }
@@ -50,16 +51,17 @@ export class ItemPageComponent implements OnInit {
     this.sub = this.route.params.subscribe((params) => {
       this.initialize(params);
     });
+
   }
 
   initialize(params) {
     this.id = +params.id;
     this.itemRDObs = this.items.findById(params.id);
+    this.ref.detectChanges();
     this.metadataService.processRemoteData(this.itemRDObs);
     this.thumbnailObs = this.itemRDObs
       .map((rd: RemoteData<Item>) => rd.payload)
       .filter((item: Item) => hasValue(item))
       .flatMap((item: Item) => item.getThumbnail());
   }
-
 }
