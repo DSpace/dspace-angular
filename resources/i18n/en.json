@@ -84,6 +84,28 @@
       "description": "Description"
     }
   },
+  "journal": {
+    "page": {
+      "issn": "ISSN",
+      "publisher": "Publisher",
+      "description": "Description"
+    }
+  },
+  "journalvolume": {
+    "page": {
+      "volume": "Volume",
+      "issuedate": "Issue Date",
+      "description": "Description"
+    }
+  },
+  "journalissue": {
+    "page": {
+      "number": "Number",
+      "issuedate": "Issue Date",
+      "description": "Description",
+      "keyword": "Keywords"
+    }
+  },
   "nav": {
     "home": "Home"
   },
