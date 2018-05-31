@@ -108,7 +108,8 @@ export class FormBuilderService extends DynamicFormService {
       } else if (!(controlValue instanceof FormFieldMetadataValueObject)) {
         return new FormFieldMetadataValueObject(controlValue, controlLanguage, null, null, controlModelIndex);
       } else {
-        return controlValue;
+        const place = controlModelIndex || controlValue.place;
+        return Object.assign(new FormFieldMetadataValueObject(), controlValue, {place});
       }
     };
 
@@ -154,30 +155,37 @@ export class FormBuilderService extends DynamicFormService {
           controlId = controlModel.name;
         }
 
-        const controlArrayValue = [];
         if (controlModel instanceof DynamicGroupModel) {
           const values = (controlModel as any).value;
           values.forEach((groupValue, groupIndex) => {
             const newGroupValue = Object.create({});
             Object.keys(groupValue)
               .forEach((key) => {
-                newGroupValue[key] = normalizeValue(controlModel, groupValue[key], groupIndex);
+                const normValue = normalizeValue(controlModel, groupValue[key], groupIndex);
+                if (iterateResult.hasOwnProperty(key)) {
+                  iterateResult[key].push(normValue);
+                } else {
+                  iterateResult[key] = [normValue];
+                }
+                // newGroupValue[key] = normalizeValue(controlModel, groupValue[key], groupIndex);
               });
-            controlArrayValue.push(newGroupValue);
+            // controlArrayValue.push(newGroupValue);
           })
         } else if (isNotUndefined((controlModel as any).value) && isNotEmpty((controlModel as any).value)) {
+          const controlArrayValue = [];
           // Normalize control value as an array of FormFieldMetadataValueObject
           const values = Array.isArray((controlModel as any).value) ? (controlModel as any).value : [(controlModel as any).value];
           values.forEach((controlValue) => {
             controlArrayValue.push(normalizeValue(controlModel, controlValue, controlModelIndex))
-          })
+          });
+
+          if (controlId && iterateResult.hasOwnProperty(controlId) && isNotNull(iterateResult[controlId])) {
+            iterateResult[controlId] = iterateResult[controlId].concat(controlArrayValue);
+          } else {
+            iterateResult[controlId] = isNotEmpty(controlArrayValue) ? controlArrayValue : null;
+          }
         }
 
-        if (controlId && iterateResult.hasOwnProperty(controlId) && isNotNull(iterateResult[controlId])) {
-          iterateResult[controlId] = iterateResult[controlId].concat(controlArrayValue);
-        } else {
-          iterateResult[controlId] = isNotEmpty(controlArrayValue) ? controlArrayValue : null;
-        }
       }
 
       return iterateResult;

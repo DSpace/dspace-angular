@@ -21,7 +21,8 @@
              class="col-sm-9 pl-0"
              [formId]="formId"
              [formModel]="formModel"
-             [displaySubmit]="false"></ds-form>
+             [displaySubmit]="false"
+             (dfChange)="onChange($event)"></ds-form>
 
 
     <div *ngIf="!(formCollapsed | async)" class="col p-0 m-0 d-flex justify-content-center align-items-center">

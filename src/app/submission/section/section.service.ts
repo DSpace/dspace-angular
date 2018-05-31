@@ -21,7 +21,7 @@ import { submissionObjectFromIdSelector, submissionSectionFromIdSelector } from 
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { FormAddError } from '../../shared/form/form.actions';
+import { FormAddError, FormRemoveErrorAction } from '../../shared/form/form.actions';
 
 @Injectable()
 export class SectionService {
@@ -30,8 +30,9 @@ export class SectionService {
               private store: Store<SubmissionState>) {
   }
 
-  public checkSectionErrors(submissionId, sectionId, formId, errors) {
-    errors.forEach((error: SubmissionSectionError) => {
+  public checkSectionErrors(submissionId, sectionId, formId, currentErrors, prevErrors = []) {
+    const dispatchedErrors = [];
+    currentErrors.forEach((error: SubmissionSectionError) => {
       const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
 
       errorPaths.forEach((path: SectionErrorPath) => {
@@ -41,14 +42,31 @@ export class SectionService {
           // Dispatch action to the form state;
           const formAddErrorAction = new FormAddError(formId, fieldId, error.message);
           this.store.dispatch(formAddErrorAction);
+          dispatchedErrors.push(fieldId);
+        }
+      });
+    });
+
+    prevErrors.forEach((error: SubmissionSectionError) => {
+      const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
+
+      errorPaths.forEach((path: SectionErrorPath) => {
+        if (path.fieldId) {
+          const fieldId = path.fieldId.replace(/\./g, '_');
+
+          if (!dispatchedErrors.includes(fieldId)) {
+            const formRemoveErrorAction = new FormRemoveErrorAction(formId, fieldId);
+            this.store.dispatch(formRemoveErrorAction);
+          }
         }
       });
     });
 
     // because errors has been shown, remove them from the state
-    const removeAction = new DeleteSectionErrorsAction(submissionId, sectionId, errors);
+    const removeAction = new DeleteSectionErrorsAction(submissionId, sectionId, currentErrors);
     this.store.dispatch(removeAction);
   }
+
   public getSectionState(submissionId, sectionId): Observable<SubmissionSectionObject> {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
       .filter((sectionObj) => hasValue(sectionObj))

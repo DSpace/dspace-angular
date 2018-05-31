@@ -110,7 +110,11 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
   updateForm(sectionData: WorkspaceitemSectionDataType, errors: SubmissionSectionError[]) {
     const diff = difference(sectionData, this.formData);
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data) && isNotEmpty(diff)) {
-      this.notificationsService.info(null, this.translate.get('submission.sections.general.metadata_extracted'));
+      this.translate.get('submission.sections.general.metadata_extracted', {sectionId: this.sectionData.id})
+        .take(1)
+        .subscribe((m) => {
+          this.notificationsService.info(null, m, null, true);
+        });
       this.isUpdating = true;
       this.formModel = null;
       this.cdr.detectChanges();
@@ -123,7 +127,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
       this.sectionData.data = sectionData;
       this.isUpdating = false;
       this.cdr.detectChanges();
-    } else if (isNotEmpty(errors)) {
+    } else if (isNotEmpty(errors) || isNotEmpty(this.sectionData.errors)) {
       this.checksForErrors(errors);
     }
 
@@ -134,7 +138,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
       .filter((status: boolean) => status === true && !this.isUpdating)
       .take(1)
       .subscribe(() => {
-        this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors);
+        this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors, this.sectionData.errors);
         this.sectionData.errors = errors;
         this.cdr.detectChanges();
       });

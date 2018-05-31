@@ -324,7 +324,7 @@
         "discard_success_notice": "Submission discarded successfully.",
         "discard_error_notice": "There was an issue when discarding the item, please try again later.",
         "save_success_notice": "Submission saved successfully.",
-        "metadata_extracted": "New metadata have been extracted and added to the item."
+        "metadata_extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section."
       },
       "submit.progressbar.describe.stepone": "Describe",
       "submit.progressbar.describe.steptwo": "Describe",

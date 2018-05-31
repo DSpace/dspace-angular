@@ -41,7 +41,10 @@ export function difference(object, base) {
   const changes = (o, b) => {
     return transform(o, (result, value, key) => {
       if (!isEqual(value, b[key]) && isNotEmpty(value)) {
-        result[key] = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value;
+        const resultValue = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value;
+        if (!isObjectEmpty(resultValue)) {
+          result[key] = resultValue;
+        }
       }
     });
   };

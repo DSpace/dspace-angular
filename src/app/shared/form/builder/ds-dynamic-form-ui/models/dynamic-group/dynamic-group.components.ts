@@ -11,7 +11,12 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
 import { isEqual } from 'lodash';
 
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
@@ -125,13 +130,19 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     return res;
   }
 
+  onChange(event: DynamicFormControlEvent) {
+  }
+
   onChipSelected(event) {
     this.expandForm();
     this.selectedChipItem = this.chips.getChipByIndex(event);
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((model: DynamicInputModel) => {
-        const value = this.selectedChipItem.item[model.name] === PLACEHOLDER_PARENT_METADATA ? null : this.selectedChipItem.item[model.name];
+        const value = (this.selectedChipItem.item[model.name] === PLACEHOLDER_PARENT_METADATA
+          || this.selectedChipItem.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
+            ? null
+            : this.selectedChipItem.item[model.name];
         if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel) {
           model.valueUpdates.next(value.display);
         } else {

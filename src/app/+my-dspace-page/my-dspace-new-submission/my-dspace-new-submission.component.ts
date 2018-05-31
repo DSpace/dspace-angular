@@ -68,7 +68,7 @@ export class MyDSpaceNewSubmissionComponent implements OnInit {
             this.translate.get('mydspace.upload.upload-successful', {here})
               .take(1)
               .subscribe((m) => {
-                this.notificationsService.success(null, null, options, m);
+                this.notificationsService.success(null, m, options, true);
               });
           });
       } else if (workspaceitems.length > 1) {
