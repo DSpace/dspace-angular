@@ -14,6 +14,9 @@ import { PublicationListElementComponent } from './object-list/item-list-element
 import { OrgUnitListElementComponent } from './object-list/item-list-element/entity-types/orgunit/orgunit-list-element.component';
 import { PersonListElementComponent } from './object-list/item-list-element/entity-types/person/person-list-element.component';
 import { ProjectListElementComponent } from './object-list/item-list-element/entity-types/project/project-list-element.component';
+import { JournalListElementComponent } from './object-list/item-list-element/entity-types/journal/journal-list-element.component';
+import { JournalVolumeListElementComponent } from './object-list/item-list-element/entity-types/journal-volume/journal-volume-list-element.component';
+import { JournalIssueListElementComponent } from './object-list/item-list-element/entity-types/journal-issue/journal-issue-list-element.component';
 
 import { EnumKeysPipe } from './utils/enum-keys-pipe';
 import { FileSizePipe } from './utils/file-size-pipe';
@@ -112,7 +115,10 @@ const ENTRY_COMPONENTS = [
   PublicationListElementComponent,
   PersonListElementComponent,
   OrgUnitListElementComponent,
-  ProjectListElementComponent
+  ProjectListElementComponent,
+  JournalListElementComponent,
+  JournalVolumeListElementComponent,
+  JournalIssueListElementComponent
 ];
 
 const PROVIDERS = [

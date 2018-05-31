@@ -25,6 +25,9 @@ import { OrgUnitPageFieldsComponent } from './simple/entity-types/orgunit/orguni
 import { PersonPageFieldsComponent } from './simple/entity-types/person/person-page-fields.component';
 import { ProjectPageFieldsComponent } from './simple/entity-types/project/project-page-fields.component';
 import { RelatedEntitiesComponent } from './simple/related-entities/related-entities-component';
+import { JournalPageFieldsComponent } from './simple/entity-types/journal/journal-page-fields.component';
+import { JournalIssuePageFieldsComponent } from './simple/entity-types/journal-issue/journal-issue-page-fields.component';
+import { JournalVolumePageFieldsComponent } from './simple/entity-types/journal-volume/journal-volume-page-fields.component';
 
 @NgModule({
   imports: [
@@ -53,13 +56,19 @@ import { RelatedEntitiesComponent } from './simple/related-entities/related-enti
     PersonPageFieldsComponent,
     RelatedEntitiesComponent,
     EntityPageFieldsComponent,
-    GenericItemPageFieldComponent
+    GenericItemPageFieldComponent,
+    JournalPageFieldsComponent,
+    JournalIssuePageFieldsComponent,
+    JournalVolumePageFieldsComponent
   ],
   entryComponents: [
     PublicationPageFieldsComponent,
     ProjectPageFieldsComponent,
     OrgUnitPageFieldsComponent,
-    PersonPageFieldsComponent
+    PersonPageFieldsComponent,
+    JournalPageFieldsComponent,
+    JournalIssuePageFieldsComponent,
+    JournalVolumePageFieldsComponent
   ]
 })
 export class ItemPageModule {
