@@ -1,6 +1,7 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { ConfigObject } from './config.model';
 import { SubmissionSectionModel } from './config-submission-section.model';
+import { isNotEmpty } from '../../../shared/empty.util';
 
 @inheritSerialization(ConfigObject)
 export class ConfigAuthorityModel extends ConfigObject {
@@ -20,4 +21,7 @@ export class ConfigAuthorityModel extends ConfigObject {
   @autoserialize
   language: string;
 
+  hasValue(): boolean {
+    return isNotEmpty(this.value);
+  }
 }
