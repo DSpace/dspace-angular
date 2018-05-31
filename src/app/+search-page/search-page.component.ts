@@ -45,6 +45,7 @@ export class SearchPageComponent implements OnInit {
       pageSize: 10
     },
     sort: new SortOptions('score', SortDirection.DESC),
+    configuration: 'default',
     query: '',
     scope: ''
   };

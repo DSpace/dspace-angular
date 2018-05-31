@@ -29,6 +29,8 @@ import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { isObjectEmpty } from '../../../../../object.util';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -130,13 +132,18 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((model: DynamicInputModel) => {
         const value = this.selectedChipItem.item[model.name] === PLACEHOLDER_PARENT_METADATA ? null : this.selectedChipItem.item[model.name];
-        if (model instanceof DynamicLookupModel) {
-          (model as DynamicLookupModel).valueUpdates.next(value);
-        } else if (model instanceof DynamicInputModel) {
-          model.valueUpdates.next(value);
+        if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel) {
+          model.valueUpdates.next(value.display);
         } else {
-          (model as any).value = value;
+          model.valueUpdates.next(value);
         }
+        // if (model instanceof DynamicLookupModel) {
+        //   (model as DynamicLookupModel).valueUpdates.next(value);
+        // } else if (model instanceof DynamicInputModel) {
+        //   model.valueUpdates.next(value);
+        // } else {
+        //   (model as any).value = value;
+        // }
       });
     });
 

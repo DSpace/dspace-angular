@@ -21,7 +21,7 @@ export function searchResultFor(domainConstructor: GenericConstructor<ListableOb
 }
 
 export function getSearchResultFor(domainConstructor: GenericConstructor<ListableObject>, configuration: string = null) {
-  if (isNull(configuration)) {
+  if (isNull(configuration) || configuration === 'default') {
     return searchResultMap.get(domainConstructor);
   } else {
     return searchResultMap.get(configuration).get(domainConstructor);
