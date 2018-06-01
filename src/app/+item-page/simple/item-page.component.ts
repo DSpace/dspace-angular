@@ -14,6 +14,7 @@ import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
 import * as viewMode from '../../shared/view-mode';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * This component renders a simple item page.
@@ -31,11 +32,11 @@ export class ItemPageComponent implements OnInit {
 
   id: number;
 
-  private sub: any;
-
+  private sub: Subscription;
+  private itemSub: Subscription;
   thumbnailObs: Observable<Bitstream>;
 
-  itemRDObs?: BehaviorSubject<RemoteData<Item>> = new BehaviorSubject(new RemoteData(true, true, false, null, null));
+  itemRDObs: BehaviorSubject<RemoteData<Item>> = new BehaviorSubject(new RemoteData(true, true, undefined, null, null));
 
   ElementViewMode = viewMode.ElementViewMode;
 
@@ -43,9 +44,7 @@ export class ItemPageComponent implements OnInit {
     private route: ActivatedRoute,
     private items: ItemDataService,
     private metadataService: MetadataService,
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe((params) => {
@@ -56,7 +55,10 @@ export class ItemPageComponent implements OnInit {
 
   initialize(params) {
     this.id = +params.id;
-    this.items.findById(params.id).filter((rd) => hasValue(rd.payload)).first().subscribe((item) => this.itemRDObs.next(item));
+    if (hasValue(this.itemSub)) {
+      this.itemSub.unsubscribe();
+    }
+    this.itemSub = this.items.findById(params.id).subscribe((item) => this.itemRDObs.next(item));
     this.metadataService.processRemoteData(this.itemRDObs);
     this.thumbnailObs = this.itemRDObs
       .map((rd: RemoteData<Item>) => rd.payload)
