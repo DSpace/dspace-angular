@@ -14,6 +14,7 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 /**
  * This component renders a simple item page.
@@ -30,13 +31,12 @@ import { hasValue } from '../../shared/empty.util';
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
-  itemRDObs: Observable<RemoteData<Item>>;
+  itemRDObs: BehaviorSubject<RemoteData<Item>>;
 
   metadataObs: Observable<Metadatum[]>;
 
-  constructor(route: ActivatedRoute, items: ItemDataService, metadataService: MetadataService,
-              ref: ChangeDetectorRef) {
-    super(route, items, metadataService, ref);
+  constructor(route: ActivatedRoute, items: ItemDataService, metadataService: MetadataService) {
+    super(route, items, metadataService);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/

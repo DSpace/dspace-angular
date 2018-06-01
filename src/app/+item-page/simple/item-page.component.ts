@@ -13,6 +13,7 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
 import * as viewMode from '../../shared/view-mode';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 /**
  * This component renders a simple item page.
@@ -32,9 +33,9 @@ export class ItemPageComponent implements OnInit {
 
   private sub: any;
 
-  itemRDObs: Observable<RemoteData<Item>>;
-
   thumbnailObs: Observable<Bitstream>;
+
+  itemRDObs?: BehaviorSubject<RemoteData<Item>> = new BehaviorSubject(new RemoteData(true, true, false, null, null));
 
   ElementViewMode = viewMode.ElementViewMode;
 
@@ -42,7 +43,6 @@ export class ItemPageComponent implements OnInit {
     private route: ActivatedRoute,
     private items: ItemDataService,
     private metadataService: MetadataService,
-    private ref: ChangeDetectorRef
   ) {
 
   }
@@ -56,8 +56,7 @@ export class ItemPageComponent implements OnInit {
 
   initialize(params) {
     this.id = +params.id;
-    this.itemRDObs = this.items.findById(params.id);
-    this.ref.detectChanges();
+    this.items.findById(params.id).filter((rd) => hasValue(rd.payload)).first().subscribe((item) => this.itemRDObs.next(item));
     this.metadataService.processRemoteData(this.itemRDObs);
     this.thumbnailObs = this.itemRDObs
       .map((rd: RemoteData<Item>) => rd.payload)
