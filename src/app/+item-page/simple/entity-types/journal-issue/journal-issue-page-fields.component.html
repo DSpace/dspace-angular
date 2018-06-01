@@ -20,6 +20,10 @@
       [entities]="volumes$ | async"
       [label]="'relationships.isSingleVolumeOf' | translate">
     </ds-related-entities>
+    <ds-related-entities
+      [entities]="publications$ | async"
+      [label]="'relationships.isPublicationOfJournalIssue' | translate">
+    </ds-related-entities>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journalissue.identifier.description']"
       [label]="'journalissue.page.description'">

@@ -18,8 +18,12 @@
       [label]="'relationships.isProjectOf' | translate">
     </ds-related-entities>
     <ds-related-entities
-      [entities]="orgunits$ | async"
+      [entities]="orgUnits$ | async"
       [label]="'relationships.isOrgUnitOf' | translate">
+    </ds-related-entities>
+    <ds-related-entities
+      [entities]="journalIssues$ | async"
+      [label]="'relationships.isJournalIssueOf' | translate">
     </ds-related-entities>
     <ds-item-page-abstract-field [item]="item"></ds-item-page-abstract-field>
     <ds-item-page-uri-field [item]="item"></ds-item-page-uri-field>

@@ -55,7 +55,9 @@
     "isSingleJournalOf": "Journal",
     "isVolumeOf": "Volumes",
     "isSingleVolumeOf": "Volume",
-    "isIssueOf": "Issues"
+    "isIssueOf": "Issues",
+    "isJournalIssueOf": "Journal Issue",
+    "isPublicationOfJournalIssue": "Articles"
   },
   "person": {
     "page": {
