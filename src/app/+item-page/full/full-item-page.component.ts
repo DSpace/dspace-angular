@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -14,6 +14,7 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 /**
  * This component renders a simple item page.
@@ -30,7 +31,7 @@ import { hasValue } from '../../shared/empty.util';
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
-  itemRDObs: Observable<RemoteData<Item>>;
+  itemRDObs: BehaviorSubject<RemoteData<Item>>;
 
   metadataObs: Observable<Metadatum[]>;
 
