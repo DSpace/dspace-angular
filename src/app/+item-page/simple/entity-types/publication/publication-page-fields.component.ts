@@ -25,6 +25,7 @@ export class PublicationPageFieldsComponent extends EntityPageFieldsComponent im
   authors$: Observable<Item[]>;
   projects$: Observable<Item[]>;
   orgUnits$: Observable<Item[]>;
+  journalIssues$: Observable<Item[]>;
 
   constructor(
     @Inject(ITEM) public item: Item,
@@ -48,6 +49,11 @@ export class PublicationPageFieldsComponent extends EntityPageFieldsComponent im
 
     this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
       filterRelationsByTypeLabel('isOrgUnitOfPublication'),
+      relationsToItems(this.item.id, this.ids)
+    );
+
+    this.journalIssues$ = this.resolvedRelsAndTypes$.pipe(
+      filterRelationsByTypeLabel('isJournalIssueOfPublication'),
       relationsToItems(this.item.id, this.ids)
     );
   }
