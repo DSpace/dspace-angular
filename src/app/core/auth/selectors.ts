@@ -195,7 +195,7 @@ export const getLogOutError = createSelector(getAuthState, _getLogOutError);
 export const getRegistrationError = createSelector(getAuthState, _getRegistrationError);
 
 /**
- * Returns the redirect url..
+ * Returns the redirect url.
  * @function getRedirectUrl
  * @param {AuthState} state
  * @param {any} props
