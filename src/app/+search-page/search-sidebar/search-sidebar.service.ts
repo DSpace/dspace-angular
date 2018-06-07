@@ -11,22 +11,17 @@ const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: 
 
 @Injectable()
 export class SearchSidebarService {
-  private isMobileView: Observable<boolean>;
+  private isXsOrSm$: Observable<boolean>;
   private isCollapsdeInStored: Observable<boolean>;
 
   constructor(private store: Store<AppState>, private windowService: HostWindowService) {
-    this.isMobileView =
-      Observable.combineLatest(
-        this.windowService.isXs(),
-        this.windowService.isSm(),
-        ((isXs, isSm) => isXs || isSm)
-      );
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.isCollapsdeInStored = this.store.select(sidebarCollapsedSelector);
   }
 
   get isCollapsed(): Observable<boolean> {
     return Observable.combineLatest(
-      this.isMobileView,
+      this.isXsOrSm$,
       this.isCollapsdeInStored,
       (mobile, store) => mobile ? store : true);
   }

@@ -92,4 +92,12 @@ export class HostWindowService {
       distinctUntilChanged()
     );
   }
+
+  isXsOrSm(): Observable<boolean> {
+    return Observable.combineLatest(
+        this.isXs(),
+        this.isSm(),
+        ((isXs, isSm) => isXs || isSm)
+      ).distinctUntilChanged();
+  }
 }

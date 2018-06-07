@@ -9,7 +9,9 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/host-window.reducer';
-import { NativeWindowRef, NativeWindowService } from './shared/window.service';
+import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
+import { isAuthenticated } from './core/auth/selectors';
+import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 @Component({
@@ -27,7 +29,8 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     private store: Store<HostWindowState>,
     private metadata: MetadataService,
-    private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics
+    private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
+    private authService: AuthService
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
@@ -46,6 +49,13 @@ export class AppComponent implements OnInit {
     const color: string = this.config.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
+
+    // Whether is not authenticathed try to retrieve a possible stored auth token
+    this.store.select(isAuthenticated)
+      .take(1)
+      .filter((authenticated) => !authenticated)
+      .subscribe((authenticated) => this.authService.checkAuthenticationToken());
+
   }
 
   @HostListener('window:resize', ['$event'])
