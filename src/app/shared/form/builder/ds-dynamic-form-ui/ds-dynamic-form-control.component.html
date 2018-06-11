@@ -127,8 +127,8 @@
                  [showWeekdays]="getAdditional('showWeekdays', true)"
                  [showWeekNumbers]="getAdditional('showWeekNumbers', false)"
                  [startDate]="model.focusedDate"
+                 (dateSelect)="onValueChange($event)"
                  (blur)="onBlur($event)"
-                 (change)="onValueChange($event)"
                  (focus)="onFocus($event)">
 
           <div class="input-group-append">

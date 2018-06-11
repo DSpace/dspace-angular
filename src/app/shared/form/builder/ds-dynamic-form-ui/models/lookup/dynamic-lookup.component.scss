@@ -1,5 +1,9 @@
 @import "../../../../../../../styles/variables";
 
+.dropdown-toggle::after {
+  display:none
+}
+
 /* enable absolute positioning */
 .spinner-addon {
   position: relative;

@@ -30,6 +30,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   searchFailed = false;
   hideSearchingWhenUnsubscribed = new Observable(() => () => this.changeSearchingStatus(false));
   currentValue: any;
+  inputValue: any;
 
   formatter = (x: { display: string }) => {
     return (typeof x === 'object') ? x.display : x
@@ -88,9 +89,8 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   onInput(event) {
     if (!this.model.authorityOptions.closed && isNotEmpty(event.target.value)) {
       const valueObj = new FormFieldMetadataValueObject(event.target.value);
-      this.currentValue = valueObj;
-      this.model.valueUpdates.next(valueObj as any);
-      this.change.emit(valueObj);
+      this.inputValue = valueObj;
+      this.model.valueUpdates.next(this.inputValue);
     }
     if (event.data) {
       // this.group.markAsDirty();
@@ -98,6 +98,10 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   }
 
   onBlurEvent(event: Event) {
+    if (!this.model.authorityOptions.closed && isNotEmpty(this.inputValue)) {
+      this.change.emit(this.inputValue);
+      this.inputValue = null;
+    }
     this.blur.emit(event);
   }
 
@@ -114,6 +118,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   }
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
+    this.inputValue = null;
     this.currentValue = event.item;
     this.model.valueUpdates.next(event.item);
     this.change.emit(event.item);

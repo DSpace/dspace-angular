@@ -10,7 +10,13 @@ import {
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
-import { FormChangeAction, FormInitAction, FormRemoveAction, FormStatusChangeAction } from './form.actions';
+import {
+  FormChangeAction,
+  FormInitAction,
+  FormRemoveAction,
+  FormRemoveErrorAction,
+  FormStatusChangeAction
+} from './form.actions';
 import { FormBuilderService } from './builder/form-builder.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -144,7 +150,7 @@ export class FormComponent implements OnDestroy, OnInit {
         .filter((formState: FormEntry) => !!formState && !isEmpty(formState.errors))
         .map((formState) => formState.errors)
         .distinctUntilChanged()
-        .delay(100) // this terrible delay is here to prevent the detection change error
+        // .delay(100) // this terrible delay is here to prevent the detection change error
         .subscribe((errors: FormError[]) => {
           const {formGroup, formModel} = this;
 
@@ -172,10 +178,10 @@ export class FormComponent implements OnDestroy, OnInit {
    * Method provided by Angular. Invoked when the instance is destroyed
    */
   ngOnDestroy() {
-    this.store.dispatch(new FormRemoveAction(this.formId));
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+    this.store.dispatch(new FormRemoveAction(this.formId));
   }
 
   /**
@@ -206,7 +212,6 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event) {
-    console.log(event, this.formGroup);
     const action: FormChangeAction = new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel));
 
     this.store.dispatch(action);
@@ -215,7 +220,10 @@ export class FormComponent implements OnDestroy, OnInit {
     this.change.emit(event);
     const control: FormControl = event.control;
 
-    control.setErrors(null);
+    // control.setErrors(null);
+    if (control.valid) {
+      this.store.dispatch(new FormRemoveErrorAction(this.formId, event.model.id));
+    }
   }
 
   /**

@@ -1,7 +1,8 @@
-<div class="d-flex flex-column align-items-center justify-content-around">
+<div class="d-flex flex-column align-items-center justify-content-around mr-3">
     <button
-      type="button"
       class="btn btn-link"
+      type="button"
+      tabindex="-1"
       [disabled]="disabled"
       (click)="increment()">
       <span class="chevron"></span>
@@ -9,22 +10,23 @@
     </button>
     <input
       type="text"
-      class="form-control"
+      class="form-control d-inline-block text-center"
       maxlength="{{size}}"
       size="{{size}}"
       placeholder="{{placeholder}}"
       [name]="name"
       [(ngModel)]="value"
-      (change)="update($event)"
-      (focus)="onFocus()"
+      (change)="update($event); $event.stopPropagation();"
+      (focus)="onFocus($event); $event.stopPropagation();"
       [readonly]="disabled"
       [disabled]="disabled"
       [ngClass]="{'is-invalid': invalid}"
       aria-label="name"
     >
     <button
-      type="button"
       class="btn btn-link"
+      type="button"
+      tabindex="-1"
       [disabled]="disabled"
       (click)="decrement()">
       <span class="chevron bottom"></span>

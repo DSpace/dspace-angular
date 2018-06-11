@@ -18,10 +18,11 @@
 <div class="pt-2" [ngClass]="{'border-top': !invalid, 'border border-danger': invalid}">
   <div *ngIf="!(formCollapsed | async)" class="pl-2 row"  @shrinkInOut>
     <ds-form #formRef="formComponent"
-             class="col-sm-9 pl-0"
+             class="col-sm-12 col-md-8 col-lg-9 col-xl-10 pl-0"
              [formId]="formId"
              [formModel]="formModel"
-             [displaySubmit]="false"></ds-form>
+             [displaySubmit]="false"
+             (dfChange)="onChange($event)"></ds-form>
 
 
     <div *ngIf="!(formCollapsed | async)" class="col p-0 m-0 d-flex justify-content-center align-items-center">
@@ -54,7 +55,11 @@
 
   <div class="d-flex">
     <div *ngIf="!chips.hasItems()">
-      <input type="text" readonly class="border-0 form-control-plaintext tag-input mt-1 mb-1 pl-2 text-muted" value="{{'form.no-value' | translate}}">
+      <input type="text"
+             class="border-0 form-control-plaintext tag-input mt-1 mb-1 pl-2 text-muted"
+             readonly
+             tabindex="-1"
+             value="{{'form.no-value' | translate}}">
     </div>
     <ds-chips
       *ngIf="chips.hasItems()"

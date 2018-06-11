@@ -6,12 +6,11 @@ import { AuthorityService } from '../../../../../../core/integration/authority.s
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
-import { ConfigData } from '../../../../../../core/config/config-data';
-import { ConfigAuthorityModel } from '../../../../../../core/shared/config/config-authority.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicCheckboxModel } from '@ng-dynamic-forms/core';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
+import { IntegrationData } from '../../../../../../core/integration/integration-data';
 
 export interface ListItem {
   id: string,
@@ -26,7 +25,6 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html'
 })
 
-// TODO Fare questo componente da zero
 export class DsDynamicListComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
@@ -91,13 +89,13 @@ export class DsDynamicListComponent implements OnInit {
   protected setOptionsFromAuthority() {
     if (this.model.authorityOptions.name && this.model.authorityOptions.name.length > 0) {
       const listGroup = this.group.controls[this.model.id] as FormGroup;
-      this.authorityService.getEntriesByName(this.searchOptions).subscribe((authorities: ConfigData) => {
+      this.authorityService.getEntriesByName(this.searchOptions).subscribe((authorities: IntegrationData) => {
         let groupCounter = 0;
         let itemsPerGroup = 0;
         let tempList: ListItem[] = [];
-        this.authorityList = authorities.payload as ConfigAuthorityModel[];
+        this.authorityList = authorities.payload as AuthorityValueModel[];
         // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
-        (authorities.payload as ConfigAuthorityModel[]).forEach((option, key) => {
+        (authorities.payload as AuthorityValueModel[]).forEach((option, key) => {
           const value = option.id || option.value;
           const checked: boolean = isNotEmpty(findKey(
             this.model.value,

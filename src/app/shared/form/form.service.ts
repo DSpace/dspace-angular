@@ -84,7 +84,7 @@ export class FormService {
 
       error[errorKey] = message; // assign message
 
-      // if form control model has errorMessages object, create it
+      // if form control model has not errorMessages object, create it
       if (!model.errorMessages) {
         model.errorMessages = {};
       }

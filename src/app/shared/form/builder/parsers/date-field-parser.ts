@@ -4,20 +4,19 @@ import { FormFieldModel } from '../models/form-field.model';
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { isNotEmpty } from '../../../empty.util';
 import { DS_DATE_PICKER_SEPARATOR } from '../ds-dynamic-form-ui/models/date-picker/date-picker.component';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 export class DateFieldParser extends FieldParser {
 
-  public modelFactory(): any {
+  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     const inputDateModelConfig: DynamicDatePickerModelConfig = this.initModel();
 
     inputDateModelConfig.toggleIcon = 'fa fa-calendar';
-
-    const dateModel = new DynamicDsDatePickerModel(inputDateModelConfig);
-
+    this.setValues(inputDateModelConfig as any, fieldValue);
     // Init Data and validity check
-    if (isNotEmpty(this.getInitFieldValue())) {
+    if (isNotEmpty(inputDateModelConfig.value)) {
       let malformedData = false;
-      const value = this.getInitFieldValue().toString();
+      const value = inputDateModelConfig.value.toString();
       if (value.length >= 4) {
         const valuesArray = value.split(DS_DATE_PICKER_SEPARATOR);
         if (valuesArray.length < 4) {
@@ -29,12 +28,8 @@ export class DateFieldParser extends FieldParser {
           }
         }
 
-        if (!malformedData) {
-          dateModel.valueUpdates.next(this.getInitFieldValue());
-        } else {
+        if (malformedData) {
           // TODO Set error message
-          dateModel.malformedDate = true;
-          // TODO
           // const errorMessage = 'The stored date is not compliant';
           // dateModel.validators = Object.assign({}, dateModel.validators, {malformedDate: null});
           // dateModel.errorMessages = Object.assign({}, dateModel.errorMessages, {malformedDate: errorMessage});
@@ -44,6 +39,7 @@ export class DateFieldParser extends FieldParser {
       }
 
     }
+    const dateModel = new DynamicDsDatePickerModel(inputDateModelConfig);
     return dateModel;
   }
 }

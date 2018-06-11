@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicDsDatePickerModel } from './date-picker.model';
+import { hasValue, isNotEmpty } from '../../../../../empty.util';
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
 
@@ -20,12 +21,10 @@ export class DsDatePickerComponent implements OnInit {
   // @Input()
   // maxDate;
 
-  @Output()
-  selected = new EventEmitter<number>();
-  @Output()
-  remove = new EventEmitter<number>();
-  @Output()
-  change = new EventEmitter<any>();
+  @Output() selected = new EventEmitter<number>();
+  @Output() remove = new EventEmitter<number>();
+  @Output() change = new EventEmitter<any>();
+  @Output() focus = new EventEmitter<any>();
 
   initialYear: number;
   initialMonth: number;
@@ -48,9 +47,8 @@ export class DsDatePickerComponent implements OnInit {
 
   disabledMonth = true;
   disabledDay = true;
-  invalid = false;
 
-  ngOnInit() {// TODO Manage fields when not setted
+  ngOnInit() {
     const now = new Date();
     this.initialYear = now.getFullYear();
     this.initialMonth = now.getMonth() + 1;
@@ -76,15 +74,6 @@ export class DsDatePickerComponent implements OnInit {
 
     this.maxYear = this.initialYear + 100;
 
-    // Invalid state for year
-    this.group.get(this.model.id).statusChanges.subscribe((state) => {
-      if (state === 'INVALID' || this.model.malformedDate) {
-        this.invalid = true;
-      } else {
-        this.invalid = false;
-        this.model.malformedDate = false;
-      }
-    });
   }
 
   onChange(event) {
@@ -157,8 +146,13 @@ export class DsDatePickerComponent implements OnInit {
         : this.day.toString();
       value += DS_DATE_PICKER_SEPARATOR + dd;
     }
+
     this.model.valueUpdates.next(value);
-    this.change.emit(event);
+    this.change.emit(value);
+  }
+
+  onFocus(event) {
+    this.focus.emit(event);
   }
 
   getLastDay(date: Date) {

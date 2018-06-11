@@ -114,6 +114,29 @@ export class FormAddError implements Action {
   }
 }
 
+export class FormRemoveErrorAction implements Action {
+  type = FormActionTypes.FORM_REMOVE_ERROR;
+  payload: {
+    formId: string,
+    fieldId: string
+  };
+
+  constructor(formId: string, fieldId: string) {
+    this.payload = {formId, fieldId};
+  }
+}
+
+export class FormClearErrorsAction implements Action {
+  type = FormActionTypes.FORM_CLEAR_ERRORS;
+  payload: {
+    formId: string
+  };
+
+  constructor(formId: string) {
+    this.payload = {formId};
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -125,3 +148,5 @@ export type FormAction = FormInitAction
   | FormRemoveAction
   | FormStatusChangeAction
   | FormAddError
+  | FormClearErrorsAction
+  | FormRemoveErrorAction

@@ -2,7 +2,7 @@ import { isNotEmpty } from '../../../empty.util';
 
 export class FormFieldMetadataValueObject {
   metadata?: string;
-  value: string;
+  value: any;
   display: string;
   language: any;
   authority: string;
@@ -11,14 +11,14 @@ export class FormFieldMetadataValueObject {
   closed: boolean;
   label: string;
 
-  constructor(value: string,
+  constructor(value: any = null,
               language: any = null,
               authority: string = null,
               display: string = null,
+              place: number = 0,
               confidence: number = -1,
-              place: number = -1,
               metadata: string = null) {
-    this.value = value;
+    this.value = isNotNull(value) ? ((typeof value === 'string') ? value.trim() : value) : null;
     this.language = language;
     this.authority = authority;
     this.display = display || value;
@@ -38,5 +38,9 @@ export class FormFieldMetadataValueObject {
 
   hasAuthority(): boolean {
     return isNotEmpty(this.authority);
+  }
+
+  hasValue(): boolean {
+    return isNotEmpty(this.value);
   }
 }

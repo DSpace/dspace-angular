@@ -11,7 +11,12 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
 import { isEqual } from 'lodash';
 
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
@@ -28,6 +33,9 @@ import { GlobalConfig } from '../../../../../../../config/global-config.interfac
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { isObjectEmpty } from '../../../../../object.util';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -67,9 +75,13 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     if (isNotEmpty(this.model.value)) {
       this.formCollapsed = Observable.of(true);
     }
+    this.model.valueUpdates.subscribe((value: any[]) => {
+      this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && isObjectEmpty(value[0]))) ? Observable.of(true) : Observable.of(false);
+    });
+
     this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(config, this.model.scopeUUID, {});
-    this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);
+    this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField, this.EnvConfig.submission.metadata.icons);
     this.subs.push(
       this.chips.chipsItems
         .subscribe((subItems: any[]) => {
@@ -118,20 +130,32 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     return res;
   }
 
+  onChange(event: DynamicFormControlEvent) {
+    return
+  }
+
   onChipSelected(event) {
     this.expandForm();
     this.selectedChipItem = this.chips.getChipByIndex(event);
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
       modelRow.group.forEach((model: DynamicInputModel) => {
-        const value = this.selectedChipItem.item[model.name] === PLACEHOLDER_PARENT_METADATA ? null : this.selectedChipItem.item[model.name];
-        if (model instanceof DynamicLookupModel) {
-          (model as DynamicLookupModel).valueUpdates.next(value);
-        } else if (model instanceof DynamicInputModel) {
-          model.valueUpdates.next(value);
+        const value = (this.selectedChipItem.item[model.name] === PLACEHOLDER_PARENT_METADATA
+          || this.selectedChipItem.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
+            ? null
+            : this.selectedChipItem.item[model.name];
+        if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel) {
+          model.valueUpdates.next(value.display);
         } else {
-          (model as any).value = value;
+          model.valueUpdates.next(value);
         }
+        // if (model instanceof DynamicLookupModel) {
+        //   (model as DynamicLookupModel).valueUpdates.next(value);
+        // } else if (model instanceof DynamicInputModel) {
+        //   model.valueUpdates.next(value);
+        // } else {
+        //   (model as any).value = value;
+        // }
       });
     });
 

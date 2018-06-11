@@ -30,11 +30,11 @@
          (scrolled)="onScroll()"
          [scrollWindow]="false">
 
-      <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">No results found</button>
+      <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">{{'form.no-results' | translate}}</button>
       <button class="dropdown-item collection-item" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry)" title="{{ listEntry.display }}">
         {{inputFormatter(listEntry)}}
       </button>
-      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>Loading...</p></div>
+      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>
     </div>
 
   </div>

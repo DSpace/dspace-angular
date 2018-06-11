@@ -68,7 +68,6 @@ export class OneboxFieldParser extends FieldParser {
       if (isNotEmpty(fieldValue)) {
         selectModelConfig.value = fieldValue.metadata;
       }
-      selectModelConfig.disabled = true;
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + COMBOBOX_VALUE_SUFFIX, true, true);

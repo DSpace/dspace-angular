@@ -118,9 +118,9 @@ export abstract class FieldParser {
       const values: FormFieldMetadataValueObject[] = [];
       fieldIds.forEach((id) => {
         if (this.initFormValues.hasOwnProperty(id)) {
-          const valueObj: FormFieldMetadataValueObject = Object.create({});
+          const valueObj: FormFieldMetadataValueObject = Object.assign(new FormFieldMetadataValueObject(), this.initFormValues[id][innerIndex]);
           valueObj.metadata = id;
-          valueObj.value = this.initFormValues[id][innerIndex];
+          // valueObj.value = this.initFormValues[id][innerIndex];
           values.push(valueObj);
         }
       });
@@ -243,16 +243,21 @@ export abstract class FieldParser {
 
       if (typeof fieldValue === 'object') {
         modelConfig.language = fieldValue.language;
-        if (hasValue(fieldValue.language)) {
-          // Instance of FormFieldLanguageValueObject
-          modelConfig.value = fieldValue.value;
-        } else if (hasValue(fieldValue.metadata)) {
-          // Is a combobox field's value
-          modelConfig.value = fieldValue.value;
-        } else {
-          // Instance of FormFieldMetadataValueObject
+        if (forceValueAsObj) {
           modelConfig.value = fieldValue;
+        } else {
+          modelConfig.value = fieldValue.value;
         }
+        // if (hasValue(fieldValue.language)) {
+        //   // Instance of FormFieldLanguageValueObject
+        //   modelConfig.value = fieldValue.value;
+        // } else if (hasValue(fieldValue.metadata)) {
+        //   // Is a combobox field's value
+        //   modelConfig.value = fieldValue.value;
+        // } else {
+        //   // Instance of FormFieldMetadataValueObject
+        //   modelConfig.value = fieldValue;
+        // }
       } else {
         if (forceValueAsObj) {
           // If value isn't an instance of FormFieldMetadataValueObject instantiate it
