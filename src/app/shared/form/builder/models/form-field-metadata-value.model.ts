@@ -1,4 +1,4 @@
-import { isNotEmpty } from '../../../empty.util';
+import { isNotEmpty, isNotNull } from '../../../empty.util';
 
 export class FormFieldMetadataValueObject {
   metadata?: string;
