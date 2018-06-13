@@ -12,8 +12,8 @@ import { hasValue } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
-  authorityOptions: AuthorityOptions;
-  languageCodes: LanguageCode[];
+  authorityOptions?: AuthorityOptions;
+  languageCodes?: LanguageCode[];
   language?: string;
   value?: any;
 }
