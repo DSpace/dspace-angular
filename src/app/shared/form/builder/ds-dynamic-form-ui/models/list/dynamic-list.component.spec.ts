@@ -13,7 +13,6 @@ import { DynamicFormControlLayout, DynamicFormsCoreModule, DynamicFormValidation
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
-import { FormBuilderServiceStub } from '../../../../../testing/form-builder-service-stub';
 
 function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
   TestBed.overrideComponent(type, {
@@ -34,7 +33,6 @@ describe('Dynamic List component', () => {
   // async beforeEach
   beforeEach(async(() => {
     const authorityServiceStub = new AuthorityServiceStub();
-    const formBuilderServiceStub = new FormBuilderServiceStub();
 
     TestBed.configureTestingModule({
       imports: [
