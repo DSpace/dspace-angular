@@ -7,9 +7,9 @@ import { AppState } from '../../app.reducer';
 import { formObjectFromIdSelector } from './selectors';
 import { FormBuilderService } from './builder/form-builder.service';
 import { DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
-import { isNotEmpty, isNotUndefined } from '../empty.util';
+import { isEmpty, isNotEmpty, isNotUndefined } from '../empty.util';
 import { find, uniqueId } from 'lodash';
-import { FormChangeAction } from './form.actions';
+import { FormChangeAction, FormRemoveErrorAction } from './form.actions';
 
 @Injectable()
 export class FormService {
@@ -75,39 +75,46 @@ export class FormService {
   }
 
   public addErrorToField(field: AbstractControl, model: DynamicFormControlModel, message: string) {
-    const errorFound = !!(find(field.errors, (err) => err === message));
 
-    // search for the same error in the formControl.errors property
-    if (!errorFound) {
-      const errorKey = uniqueId('error-'); // create a single key for the error
-      const error = {}; // create the error object
+    const error = {}; // create the error object
 
-      error[errorKey] = message; // assign message
-
-      // if form control model has not errorMessages object, create it
-      if (!model.errorMessages) {
-        model.errorMessages = {};
-      }
-
-      // put the error in the form control model
-      model.errorMessages[errorKey] = message;
-
-      // Use correct error messages from the model
-      const lastArray = message.split('.');
-      if (lastArray && lastArray.length > 0) {
-        const last = lastArray[lastArray.length - 1];
-        const modelMsg = model.errorMessages[last];
-        if (modelMsg && modelMsg.length > 0) {
-          model.errorMessages[errorKey] = modelMsg;
-        }
-      }
-
-      // add the error in the form control
-      field.setErrors(error);
-
-      // formGroup.markAsDirty();
-      field.markAsTouched();
+    // if form control model has not errorMessages object, create it
+    if (!model.errorMessages) {
+      model.errorMessages = {};
     }
+
+    // Use correct error messages from the model
+    const lastArray = message.split('.');
+    if (lastArray && lastArray.length > 0) {
+      // check if error code is already present in the set of model's validators
+      const last = lastArray[lastArray.length - 1];
+      const modelMsg = model.errorMessages[last];
+      if (isEmpty(modelMsg)) {
+        const errorKey = uniqueId('error-'); // create a single key for the error
+        error[errorKey] = true;
+        // put the error message in the form control model
+        model.errorMessages[errorKey] = message;
+      } else {
+        error[last] = modelMsg;
+      }
+    }
+
+    // add the error in the form control
+    field.setErrors(error);
+    field.markAsTouched();
+  }
+
+  public removeErrorFromField(field: AbstractControl, model: DynamicFormControlModel, message) {
+    const error = {};
+
+    // Use correct error messages from the model
+    const lastArray = message.split('.');
+    if (lastArray && lastArray.length > 0) {
+      const last = lastArray[lastArray.length - 1];
+      error[last] = null;
+    }
+    field.setErrors(error);
+    field.markAsUntouched();
   }
 
   public resetForm(formGroup: FormGroup, groupModel: DynamicFormControlModel[], formId: string) {

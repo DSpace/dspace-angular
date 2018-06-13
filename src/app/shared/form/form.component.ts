@@ -8,6 +8,7 @@ import {
   DynamicFormGroupModel, DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
+import { findIndex } from 'lodash';
 
 import { AppState } from '../../app.reducer';
 import {
@@ -37,12 +38,18 @@ import { isEmpty } from 'lodash';
 })
 export class FormComponent implements OnDestroy, OnInit {
 
+  private formErrors: FormError[] = [];
   private formValid: boolean;
 
   /**
    * A boolean that indicate if to display form's submit and cancel buttons
    */
   @Input() displaySubmit = true;
+
+  /**
+   * A boolean that indicate if to emit a form change event
+   */
+  @Input() emitChange = true;
 
   /**
    * The form unique ID
@@ -154,7 +161,9 @@ export class FormComponent implements OnDestroy, OnInit {
         .subscribe((errors: FormError[]) => {
           const {formGroup, formModel} = this;
 
-          errors.forEach((error: FormError) => {
+          errors
+            .filter((error: FormError) => findIndex(this.formErrors, {fieldId: error.fieldId}) === -1)
+            .forEach((error: FormError) => {
             const {fieldId} = error;
             let field: AbstractControl;
             if (!!this.parentFormModel) {
@@ -166,9 +175,29 @@ export class FormComponent implements OnDestroy, OnInit {
             if (field) {
               const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
               this.formService.addErrorToField(field, model, error.message);
+              // this.formService.validateAllFormFields(formGroup);
+              this.changeDetectorRef.detectChanges();
             }
           });
 
+          this.formErrors
+            .filter((error: FormError) => findIndex(errors, {fieldId: error.fieldId}) === -1)
+            .forEach((error: FormError) => {
+              const {fieldId} = error;
+              let field: AbstractControl;
+              if (!!this.parentFormModel) {
+                field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel);
+              } else {
+                field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel);
+              }
+
+              if (field) {
+                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+                this.formService.removeErrorFromField(field, model, error.message);
+              }
+            });
+
+          this.formErrors = errors;
           this.changeDetectorRef.detectChanges();
         })
     );
@@ -217,10 +246,11 @@ export class FormComponent implements OnDestroy, OnInit {
     this.store.dispatch(action);
     this.formGroup.markAsPristine();
 
-    this.change.emit(event);
-    const control: FormControl = event.control;
+    if (this.emitChange) {
+      this.change.emit(event);
+    }
 
-    // control.setErrors(null);
+    const control: FormControl = event.control;
     if (control.valid) {
       this.store.dispatch(new FormRemoveErrorAction(this.formId, event.model.id));
     }

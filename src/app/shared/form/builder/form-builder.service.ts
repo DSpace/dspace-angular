@@ -162,12 +162,13 @@ export class FormBuilderService extends DynamicFormService {
             Object.keys(groupValue)
               .forEach((key) => {
                 const normValue = normalizeValue(controlModel, groupValue[key], groupIndex);
-                if (iterateResult.hasOwnProperty(key)) {
-                  iterateResult[key].push(normValue);
-                } else {
-                  iterateResult[key] = [normValue];
+                if (normValue.hasValue()) {
+                  if (iterateResult.hasOwnProperty(key)) {
+                    iterateResult[key].push(normValue);
+                  } else {
+                    iterateResult[key] = [normValue];
+                  }
                 }
-                // newGroupValue[key] = normalizeValue(controlModel, groupValue[key], groupIndex);
               });
             // controlArrayValue.push(newGroupValue);
           })

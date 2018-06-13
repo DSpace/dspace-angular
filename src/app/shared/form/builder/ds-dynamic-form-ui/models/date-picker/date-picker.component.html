@@ -10,6 +10,7 @@
     [value]="year"
     [invalid]="showErrorMessages"
     [placeholder]='yearPlaceholder'
+    (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)"
   ></ds-number-picker>
@@ -24,6 +25,7 @@
     [value]="month"
     [placeholder]="monthPlaceholder"
     [disabled]="!year || model.disabled"
+    (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)"
   ></ds-number-picker>
@@ -38,6 +40,7 @@
     [value]="day"
     [placeholder]="dayPlaceholder"
     [disabled]="!month || model.disabled"
+    (blur)="onBlur($event)"
     (change)="onChange($event)"
     (focus)="onFocus($event)"
   ></ds-number-picker>

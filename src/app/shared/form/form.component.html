@@ -6,6 +6,7 @@
       [formGroup]="formGroup"
       [formModel]="formModel"
       [formLayout]="formLayout"
+      (change)="$event.stopPropagation();"
       (dfBlur)="onBlur($event)"
       (dfChange)="onChange($event)"
       (dfFocus)="onFocus($event)">

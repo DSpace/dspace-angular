@@ -13,7 +13,8 @@ export class GroupFieldParser extends FieldParser {
   constructor(protected configData: FormFieldModel,
               protected initFormValues,
               protected readOnly: boolean,
-              protected authorityUuid: string) {
+              protected submissionScope: string,
+              protected authorityUuid: string,) {
     super(configData, initFormValues, readOnly);
   }
 
@@ -21,6 +22,7 @@ export class GroupFieldParser extends FieldParser {
     const modelConfiguration: DynamicGroupModelConfig = this.initModel();
 
     modelConfiguration.scopeUUID = this.authorityUuid;
+    modelConfiguration.submissionScope = this.submissionScope;
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
       modelConfiguration.formConfiguration = this.configData.rows;
       modelConfiguration.relationFields = [];

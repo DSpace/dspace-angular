@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DynamicDsDatePickerModel } from './date-picker.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 
@@ -23,6 +23,7 @@ export class DsDatePickerComponent implements OnInit {
 
   @Output() selected = new EventEmitter<number>();
   @Output() remove = new EventEmitter<number>();
+  @Output() blur = new EventEmitter<any>();
   @Output() change = new EventEmitter<any>();
   @Output() focus = new EventEmitter<any>();
 
@@ -74,6 +75,10 @@ export class DsDatePickerComponent implements OnInit {
 
     this.maxYear = this.initialYear + 100;
 
+  }
+
+  onBlur(event) {
+    this.blur.emit();
   }
 
   onChange(event) {

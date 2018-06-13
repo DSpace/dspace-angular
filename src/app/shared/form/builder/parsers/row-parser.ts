@@ -90,7 +90,7 @@ export class RowParser {
           break;
 
         case 'group':
-          fieldModel = new GroupFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse();
+          fieldModel = new GroupFieldParser(fieldData, this.initFormValues, this.readOnly, this.submissionScope, this.authorityOptions.uuid).parse();
           break;
 
         case 'twobox':

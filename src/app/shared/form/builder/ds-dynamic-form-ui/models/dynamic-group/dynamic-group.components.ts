@@ -11,12 +11,7 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import {
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicInputModel
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { isEqual } from 'lodash';
 
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
@@ -25,7 +20,6 @@ import { SubmissionFormsModel } from '../../../../../../core/shared/config/confi
 import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
 import { Chips } from '../../../../../chips/models/chips.model';
-import { DynamicLookupModel } from '../lookup/dynamic-lookup.model';
 import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
@@ -48,6 +42,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   @Input() formId: string;
   @Input() group: FormGroup;
   @Input() model: DynamicGroupModel;
+  @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -57,7 +52,6 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   public formCollapsed = Observable.of(false);
   public formModel: DynamicFormControlModel[];
   public editMode = false;
-  public invalid = false;
 
   private selectedChipItem: ChipsItem;
   private subs: Subscription[] = [];
@@ -72,7 +66,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
-    if (isNotEmpty(this.model.value)) {
+    if (!this.model.isEmpty()) {
       this.formCollapsed = Observable.of(true);
     }
     this.model.valueUpdates.subscribe((value: any[]) => {
@@ -80,38 +74,22 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     });
 
     this.formId = this.formService.getUniqueId(this.model.id);
-    this.formModel = this.formBuilderService.modelFromConfiguration(config, this.model.scopeUUID, {});
-    this.chips = new Chips(this.model.value, 'value', this.model.mandatoryField);
+    this.formModel = this.formBuilderService.modelFromConfiguration(config, this.model.scopeUUID, {}, this.model.submissionScope, this.model.readOnly);
+    const initChipsValue = this.model.isEmpty() ? [] : this.model.value;
+    this.chips = new Chips(initChipsValue, 'value', this.model.mandatoryField);
     this.subs.push(
       this.chips.chipsItems
         .subscribe((subItems: any[]) => {
           const items = this.chips.getChipsItems();
           // Does not emit change if model value is equal to the current value
           if (!isEqual(items, this.model.value)) {
-            if (isEmpty(items)) {
-              // If items is empty, last element has been removed
-              // so emit an empty value that allows to dispatch
-              // a remove JSON PATCH operation
-              const emptyItem = Object.create({});
-              Object.keys(this.model.value[0])
-                .forEach((key) => {
-                  emptyItem[key] = null;
-                });
-              items.push(emptyItem);
+            // if ((isNotEmpty(items) && !this.model.isEmpty()) || (isEmpty(items) && !this.model.isEmpty())) {
+            if (!(isEmpty(items) && this.model.isEmpty())) {
+              this.model.valueUpdates.next(items);
+              this.change.emit();
             }
-
-            this.model.valueUpdates.next(items);
-            this.change.emit();
           }
         }),
-      // Invalid state for year
-      this.group.get(this.model.id).statusChanges.subscribe((state) => {
-        if (state === 'INVALID') {
-          this.invalid = true;
-        } else {
-          this.invalid = false;
-        }
-      })
     )
   }
 
@@ -130,8 +108,8 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     return res;
   }
 
-  onChange(event: DynamicFormControlEvent) {
-    return
+  onBlur(event) {
+    this.blur.emit();
   }
 
   onChipSelected(event) {
@@ -142,24 +120,21 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       modelRow.group.forEach((model: DynamicInputModel) => {
         const value = (this.selectedChipItem.item[model.name] === PLACEHOLDER_PARENT_METADATA
           || this.selectedChipItem.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
-            ? null
-            : this.selectedChipItem.item[model.name];
+          ? null
+          : this.selectedChipItem.item[model.name];
         if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel) {
           model.valueUpdates.next(value.display);
         } else {
           model.valueUpdates.next(value);
         }
-        // if (model instanceof DynamicLookupModel) {
-        //   (model as DynamicLookupModel).valueUpdates.next(value);
-        // } else if (model instanceof DynamicInputModel) {
-        //   model.valueUpdates.next(value);
-        // } else {
-        //   (model as any).value = value;
-        // }
       });
     });
 
     this.editMode = true;
+  }
+
+  onFocus(event) {
+    this.focus.emit(event);
   }
 
   collapseForm() {
@@ -178,7 +153,9 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       this.editMode = false;
     }
     this.resetForm();
-    // this.change.emit(event);
+    if (!this.model.isEmpty()) {
+      this.formCollapsed = Observable.of(true);
+    }
   }
 
   save() {
