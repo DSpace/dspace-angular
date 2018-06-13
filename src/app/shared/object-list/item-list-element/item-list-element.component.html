@@ -9,8 +9,8 @@
             <span *ngIf="!last">; </span>
         </span>
     </span>
-    (<span *ngIf="object.findMetadata('dc.publisher')" class="item-list-publisher">{{object.findMetadata("dc.publisher")}}, </span><span
-          *ngIf="object.findMetadata('dc.date.issued')" class="item-list-date">{{object.findMetadata("dc.date.issued")}}</span>)
+    (<span *ngIf="hasValue(object.findMetadata('dc.publisher'))" class="item-list-publisher">{{object.findMetadata("dc.publisher")}}, </span><span
+          *ngIf="hasValue(object.findMetadata('dc.date.issued'))" class="item-list-date">{{object.findMetadata("dc.date.issued")}}</span>)
   </span>
     <div *ngIf="object.findMetadata('dc.description.abstract')" class="item-list-abstract">
         {{object.findMetadata("dc.description.abstract") | dsTruncate:[200] }}
