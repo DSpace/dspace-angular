@@ -10,7 +10,6 @@ import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
-import { FormBuilderServiceStub } from '../../../../../testing/form-builder-service-stub';
 import { DsDynamicLookupComponent } from './dynamic-lookup.component';
 import { DynamicLookupModel } from './dynamic-lookup.model';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -35,7 +34,6 @@ describe('Dynamic Lookup component', () => {
   // async beforeEach
   beforeEach(async(() => {
     const authorityServiceStub = new AuthorityServiceStub();
-    const formBuilderServiceStub = new FormBuilderServiceStub();
 
     TestBed.configureTestingModule({
       imports: [

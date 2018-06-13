@@ -8,7 +8,6 @@ import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
-import { FormBuilderServiceStub } from '../../../../../testing/form-builder-service-stub';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -34,7 +33,6 @@ describe('Dynamic Dynamic Typeahead component', () => {
   // async beforeEach
   beforeEach(async(() => {
     const authorityServiceStub = new AuthorityServiceStub();
-    const formBuilderServiceStub = new FormBuilderServiceStub();
 
     TestBed.configureTestingModule({
       imports: [
