@@ -55,10 +55,10 @@ export const enum NGBootstrapFormControlType {
   TimePicker = 11, // 'TIMEPICKER'
   TypeAhead = 12, // 'TYPEAHEAD'
   ScrollableDropdown = 13, // 'SCROLLABLE_DROPDOWN'
-  TypeTag = 14, // 'TYPETAG'
+  Tag = 14, // 'TAG'
   List = 15, // 'TYPELIST'
-  Relation = 16, // Dynamic Group
-  DsDatePicker = 17, // Ds Date Picker
+  Relation = 16, // 'RELATION'
+  Date = 17, // 'DATE'
   Lookup = 18, // LOOKUP
 }
 
@@ -109,7 +109,6 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
         return datepickerModel.inline ? NGBootstrapFormControlType.Calendar : NGBootstrapFormControlType.DatePicker;
 
       case DYNAMIC_FORM_CONTROL_TYPE_GROUP:
-        // return (model instanceof DynamicGroupModel) ? NGBootstrapFormControlType.DynamicGroup : NGBootstrapFormControlType.Group;
         return NGBootstrapFormControlType.Group;
 
       case DYNAMIC_FORM_CONTROL_TYPE_INPUT:
@@ -134,13 +133,13 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
         return NGBootstrapFormControlType.ScrollableDropdown;
 
       case DYNAMIC_FORM_CONTROL_TYPE_TAG:
-        return NGBootstrapFormControlType.TypeTag;
+        return NGBootstrapFormControlType.Tag;
 
       case DYNAMIC_FORM_CONTROL_TYPE_RELATION:
         return NGBootstrapFormControlType.Relation;
 
       case DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER:
-        return NGBootstrapFormControlType.DsDatePicker;
+        return NGBootstrapFormControlType.Date;
 
       case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP:
         return NGBootstrapFormControlType.Lookup;

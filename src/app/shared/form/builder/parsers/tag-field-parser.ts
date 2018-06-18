@@ -20,7 +20,6 @@ export class TagFieldParser extends FieldParser {
       this.setAuthorityOptions(tagModelConfig, this.authorityUuid);
     }
 
-    tagModelConfig.minChars = 3;
     this.setValues(tagModelConfig, fieldValue, null, true);
 
     const tagModel = new DynamicTagModel(tagModelConfig);

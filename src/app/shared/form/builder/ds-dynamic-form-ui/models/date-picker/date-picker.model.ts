@@ -2,7 +2,7 @@ import { DynamicDateControlModel, DynamicFormControlLayout, serializable } from 
 import { DynamicDateControlModelConfig } from '@ng-dynamic-forms/core/src/model/dynamic-date-control.model';
 import { Subject } from 'rxjs/Subject';
 
-export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DSDATEPICKER';
+export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 
 /**
  * Dynamic Date Picker Model class

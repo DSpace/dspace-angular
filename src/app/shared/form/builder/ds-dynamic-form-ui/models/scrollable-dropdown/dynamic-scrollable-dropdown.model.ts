@@ -6,8 +6,8 @@ export const DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN = 'SCROLLABLE_DROPDOW
 
 export interface DynamicScrollableDropdownModelConfig extends DsDynamicInputModelConfig {
   authorityOptions: AuthorityOptions;
-  maxOptions: number;
-  value: any;
+  maxOptions?: number;
+  value?: any;
 }
 
 export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
@@ -21,7 +21,7 @@ export class DynamicScrollableDropdownModel extends DsDynamicInputModel {
 
     this.autoComplete = AUTOCOMPLETE_OFF;
     this.authorityOptions = config.authorityOptions;
-    this.maxOptions = config.maxOptions;
+    this.maxOptions = config.maxOptions || 10;
   }
 
 }

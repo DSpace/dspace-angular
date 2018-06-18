@@ -5,8 +5,8 @@ import { AuthorityOptions } from '../../../../../../core/integration/models/auth
 export const DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD = 'TYPEAHEAD';
 
 export interface DsDynamicTypeaheadModelConfig extends DsDynamicInputModelConfig {
-  minChars: number;
-  value: any;
+  minChars?: number;
+  value?: any;
 }
 
 export class DynamicTypeaheadModel extends DsDynamicInputModel {
@@ -19,7 +19,7 @@ export class DynamicTypeaheadModel extends DsDynamicInputModel {
     super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
-    this.minChars = config.minChars;
+    this.minChars = config.minChars || 3;
   }
 
 }

@@ -6,8 +6,8 @@ import { AuthorityOptions } from '../../../../../../core/integration/models/auth
 export const DYNAMIC_FORM_CONTROL_TYPE_LOOKUP = 'LOOKUP';
 
 export interface DynamicLookupModelConfig extends DsDynamicInputModelConfig {
-  maxOptions: number;
-  value: any;
+  maxOptions?: number;
+  value?: any;
   separator: string;
 }
 
@@ -26,7 +26,7 @@ export class DynamicLookupModel extends DsDynamicInputModel {
     super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
-    this.maxOptions = config.maxOptions;
+    this.maxOptions = config.maxOptions || 10;
     this.separator = config.separator; // Defined only for lookup-name
 
     this.valueUpdates.next(config.value);

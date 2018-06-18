@@ -9,7 +9,7 @@ import { hasValue } from '../../../../../empty.util';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   authorityOptions: AuthorityOptions;
-  groupLength: number;
+  groupLength?: number;
   repeatable: boolean;
   value?: any;
 }

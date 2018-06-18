@@ -81,7 +81,6 @@ export class OneboxFieldParser extends FieldParser {
       const typeaheadModelConfig: DsDynamicTypeaheadModelConfig = this.initModel();
       this.setAuthorityOptions(typeaheadModelConfig, this.authorityUuid);
       this.setValues(typeaheadModelConfig, fieldValue, true);
-      typeaheadModelConfig.minChars = 3;
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
       return typeaheadModel;
     } else {

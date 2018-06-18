@@ -23,7 +23,6 @@ export class DropdownFieldParser extends FieldParser {
 
     if (isNotEmpty(this.configData.selectableMetadata[0].authority)) {
       this.setAuthorityOptions(dropdownModelConfig, this.authorityUuid);
-      dropdownModelConfig.maxOptions = 10;
       if (isNotEmpty(fieldValue)) {
         dropdownModelConfig.value = fieldValue;
       }

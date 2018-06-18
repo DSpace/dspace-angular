@@ -9,8 +9,8 @@ export const COMBOBOX_METADATA_SUFFIX = '_COMBO_METADATA';
 export const COMBOBOX_VALUE_SUFFIX = '_COMBO_VALUE';
 
 export interface DsDynamicComboboxModelConfig extends DynamicFormGroupModelConfig {
-  languageCodes: LanguageCode[];
-  language: string;
+  languageCodes?: LanguageCode[];
+  language?: string;
   readOnly: boolean;
 }
 

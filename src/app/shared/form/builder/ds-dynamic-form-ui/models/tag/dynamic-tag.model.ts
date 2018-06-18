@@ -2,10 +2,10 @@ import { AUTOCOMPLETE_OFF, DynamicFormControlLayout, serializable } from '@ng-dy
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 
-export const DYNAMIC_FORM_CONTROL_TYPE_TAG = 'TYPETAG';
+export const DYNAMIC_FORM_CONTROL_TYPE_TAG = 'TAG';
 
 export interface DynamicTagModelConfig extends DsDynamicInputModelConfig {
-  minChars: number;
+  minChars?: number;
   value?: any;
 }
 
@@ -20,7 +20,7 @@ export class DynamicTagModel extends DsDynamicInputModel {
     super(config, layout);
 
     this.autoComplete = AUTOCOMPLETE_OFF;
-    this.minChars = config.minChars;
+    this.minChars = config.minChars || 3;
     const value = config.value || [];
     this.valueUpdates.next(value)
   }
