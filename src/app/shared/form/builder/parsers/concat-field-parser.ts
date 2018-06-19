@@ -31,10 +31,16 @@ export class ConcatFieldParser extends FieldParser {
 
     let clsGroup: DynamicFormControlLayout;
     let clsInput: DynamicFormControlLayout;
-    const newId = this.configData.selectableMetadata[0].metadata
-      .split('.')
-      .slice(0, this.configData.selectableMetadata[0].metadata.split('.').length - 1)
-      .join('.');
+    let newId: string;
+
+    if (this.configData.selectableMetadata[0].metadata.includes('.')) {
+      newId = this.configData.selectableMetadata[0].metadata
+        .split('.')
+        .slice(0, this.configData.selectableMetadata[0].metadata.split('.').length - 1)
+        .join('.');
+    } else {
+      newId = this.configData.selectableMetadata[0].metadata
+    }
 
     clsInput = {
       grid: {

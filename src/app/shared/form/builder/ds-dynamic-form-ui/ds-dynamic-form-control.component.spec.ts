@@ -37,7 +37,7 @@ import { DynamicLookupModel } from './models/lookup/dynamic-lookup.model';
 import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './models/tag/dynamic-tag.model';
 import { DynamicTypeaheadModel } from './models/typeahead/dynamic-typeahead.model';
-import { DynamicComboboxModel } from './models/ds-dynamic-combobox.model';
+import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
 
 describe('DsDynamicFormControlComponent test suite', () => {
 
@@ -80,7 +80,7 @@ describe('DsDynamicFormControlComponent test suite', () => {
     }),
     new DynamicDsDatePickerModel({id: 'datepicker'}),
     new DynamicLookupModel({id: 'lookup', separator: ','}),
-    new DynamicComboboxModel({id: 'combobox', readOnly: false})
+    new DynamicQualdropModel({id: 'combobox', readOnly: false})
   ];
   const testModel = formModel[8];
   let formGroup: FormGroup;

@@ -13,7 +13,7 @@ import {
 import { mergeWith, isObject } from 'lodash';
 
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
-import { DynamicComboboxModel } from './ds-dynamic-form-ui/models/ds-dynamic-combobox.model';
+import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
@@ -148,8 +148,8 @@ export class FormBuilderService extends DynamicFormService {
 
         let controlId;
         // Get the field's name
-        if (controlModel instanceof DynamicComboboxModel) {
-          // If is instance of DynamicComboboxModel take the qualdrop id as field's name
+        if (controlModel instanceof DynamicQualdropModel) {
+          // If is instance of DynamicQualdropModel take the qualdrop id as field's name
           controlId = controlModel.qualdropId;
         } else {
           controlId = controlModel.name;
@@ -220,22 +220,26 @@ export class FormBuilderService extends DynamicFormService {
   isModelInCustomGroup(model: DynamicFormControlModel) {
     return model.parent &&
       (model.parent instanceof DynamicConcatModel
-        || model.parent instanceof DynamicComboboxModel);
+        || model.parent instanceof DynamicQualdropModel);
+  }
+
+  hasArrayGroupValue(model: DynamicFormControlModel) {
+    return model && (this.isListGroup(model) || model.type === DYNAMIC_FORM_CONTROL_TYPE_TAG);
   }
 
   hasMappedGroupValue(model: DynamicFormControlModel) {
-    return ((model.parent && model.parent instanceof DynamicComboboxModel)
+    return ((model.parent && model.parent instanceof DynamicQualdropModel)
       || model.parent instanceof DynamicGroupModel);
   }
 
-  isComboboxGroup(model: DynamicFormControlModel) {
-    return model && model instanceof DynamicComboboxModel;
+  isQualdropGroup(model: DynamicFormControlModel) {
+    return model && model instanceof DynamicQualdropModel;
   }
 
   isCustomGroup(model: DynamicFormControlModel) {
     return model &&
       (model instanceof DynamicConcatModel
-        || model instanceof DynamicComboboxModel
+        || this.isQualdropGroup(model)
         || this.isListGroup(model));
   }
 
@@ -243,10 +247,6 @@ export class FormBuilderService extends DynamicFormService {
     return model &&
       (model instanceof DynamicListCheckboxGroupModel
         || model instanceof DynamicListRadioGroupModel);
-  }
-
-  isModelInAuthorityGroup(model: DynamicFormControlModel) {
-    return model && (this.isListGroup(model) || model.type === DYNAMIC_FORM_CONTROL_TYPE_TAG);
   }
 
   isRelationGroup(model: DynamicFormControlModel) {

@@ -4,24 +4,24 @@ import { Subject } from 'rxjs/Subject';
 import { DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core/src/model/form-group/dynamic-form-group.model';
 import { LanguageCode } from '../../models/form-field-language-value.model';
 
-export const COMBOBOX_GROUP_SUFFIX = '_COMBO_GROUP';
-export const COMBOBOX_METADATA_SUFFIX = '_COMBO_METADATA';
-export const COMBOBOX_VALUE_SUFFIX = '_COMBO_VALUE';
+export const QUALDROP_GROUP_SUFFIX = '_QUALDROP_GROUP';
+export const QUALDROP_METADATA_SUFFIX = '_QUALDROP_METADATA';
+export const QUALDROP_VALUE_SUFFIX = '_QUALDROP_VALUE';
 
-export interface DsDynamicComboboxModelConfig extends DynamicFormGroupModelConfig {
+export interface DsDynamicQualdropModelConfig extends DynamicFormGroupModelConfig {
   languageCodes?: LanguageCode[];
   language?: string;
   readOnly: boolean;
 }
 
-export class DynamicComboboxModel extends DynamicFormGroupModel {
+export class DynamicQualdropModel extends DynamicFormGroupModel {
   @serializable() private _language: string;
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() languageUpdates: Subject<string>;
   @serializable() hasLanguages = false;
   @serializable() readOnly: boolean;
 
-  constructor(config: DsDynamicComboboxModelConfig, layout?: DynamicFormControlLayout) {
+  constructor(config: DsDynamicQualdropModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
 
     this.readOnly = config.readOnly;
