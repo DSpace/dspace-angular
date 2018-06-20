@@ -36,7 +36,7 @@ describe('DropdownFieldParser test suite', () => {
     expect(parser instanceof DropdownFieldParser).toBe(true);
   });
 
-  it('should return a DynamicScrollableDropdownModel object', () => {
+  it('should return a DynamicScrollableDropdownModel object when repeatable option is false', () => {
     const parser = new DropdownFieldParser(field, initFormValues, readOnly, authorityUuid);
 
     const fieldModel = parser.parse();

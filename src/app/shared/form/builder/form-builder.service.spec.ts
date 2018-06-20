@@ -47,6 +47,7 @@ import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 
 describe('FormBuilderService test suite', () => {
 
@@ -243,7 +244,9 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicDsDatePickerModel({id: 'testDate'}),
 
-      new DynamicLookupModel({id: 'testLookup', separator: ','}),
+      new DynamicLookupModel({id: 'testLookup'}),
+
+      new DynamicLookupNameModel({id: 'testLookupName'}),
 
       new DynamicQualdropModel({id: 'testCombobox', readOnly: false})
     ];

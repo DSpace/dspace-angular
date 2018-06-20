@@ -112,11 +112,23 @@ describe('FormService test suite', () => {
   });
 
   it('should add error to field', () => {
-    const control = builderService.getFormControlById('description', formGroup, formModel);
-    const model = builderService.findById('description', formModel);
+    let control = builderService.getFormControlById('description', formGroup, formModel);
+    let model = builderService.findById('description', formModel);
+    let errorKeys: string[];
 
     service.addErrorToField(control, model, 'Test error message');
-    const errorKeys = Object.keys(control.errors);
+    errorKeys = Object.keys(control.errors);
+
+    expect(errorKeys.length).toBe(1);
+
+    expect(control.hasError(errorKeys[0])).toBe(true);
+
+    expect(formGroup.controls.description.touched).toBe(true);
+
+    control = builderService.getFormControlById('title', formGroup, formModel);
+    model = builderService.findById('title', formModel);
+    service.addErrorToField(control, model, 'error.required');
+    errorKeys = Object.keys(control.errors);
 
     expect(errorKeys.length).toBe(1);
 
@@ -126,11 +138,26 @@ describe('FormService test suite', () => {
   });
 
   it('should remove error from field', () => {
-    const control = builderService.getFormControlById('description', formGroup, formModel);
-    const model = builderService.findById('description', formModel);
+    let control = builderService.getFormControlById('description', formGroup, formModel);
+    let model = builderService.findById('description', formModel);
+    let errorKeys: string[];
 
     service.addErrorToField(control, model, 'Test error message');
-    const errorKeys = Object.keys(control.errors);
+    errorKeys = Object.keys(control.errors);
+
+    service.removeErrorFromField(control, model, errorKeys[0]);
+
+    expect(errorKeys.length).toBe(1);
+
+    expect(control.hasError(errorKeys[0])).toBe(false);
+
+    expect(formGroup.controls.description.touched).toBe(false);
+
+    control = builderService.getFormControlById('title', formGroup, formModel);
+    model = builderService.findById('title', formModel);
+
+    service.addErrorToField(control, model, 'error.required');
+    errorKeys = Object.keys(control.errors);
 
     service.removeErrorFromField(control, model, errorKeys[0]);
 

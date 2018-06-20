@@ -39,6 +39,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
 import { isNotEmpty } from '../../../empty.util';
+import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 
 export const enum NGBootstrapFormControlType {
 
@@ -60,6 +61,7 @@ export const enum NGBootstrapFormControlType {
   Relation = 16, // 'RELATION'
   Date = 17, // 'DATE'
   Lookup = 18, // LOOKUP
+  LookupName = 19, // LOOKUP_NAME
 }
 
 @Component({
@@ -143,6 +145,9 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
 
       case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP:
         return NGBootstrapFormControlType.Lookup;
+
+      case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME:
+        return NGBootstrapFormControlType.LookupName;
 
       default:
         return null;

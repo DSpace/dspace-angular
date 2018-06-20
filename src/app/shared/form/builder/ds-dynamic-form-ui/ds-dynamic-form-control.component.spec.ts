@@ -38,6 +38,7 @@ import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dyn
 import { DynamicTagModel } from './models/tag/dynamic-tag.model';
 import { DynamicTypeaheadModel } from './models/typeahead/dynamic-typeahead.model';
 import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
+import { DynamicLookupNameModel } from './models/lookup/dynamic-lookup-name.model';
 
 describe('DsDynamicFormControlComponent test suite', () => {
 
@@ -79,7 +80,8 @@ describe('DsDynamicFormControlComponent test suite', () => {
       submissionScope: ''
     }),
     new DynamicDsDatePickerModel({id: 'datepicker'}),
-    new DynamicLookupModel({id: 'lookup', separator: ','}),
+    new DynamicLookupModel({id: 'lookup'}),
+    new DynamicLookupNameModel({id: 'lookupName'}),
     new DynamicQualdropModel({id: 'combobox', readOnly: false})
   ];
   const testModel = formModel[8];
@@ -272,6 +274,8 @@ describe('DsDynamicFormControlComponent test suite', () => {
 
     expect(testFn(formModel[23])).toEqual(NGBootstrapFormControlType.Lookup);
 
-    expect(testFn(formModel[24])).toEqual(NGBootstrapFormControlType.Group);
+    expect(testFn(formModel[24])).toEqual(NGBootstrapFormControlType.LookupName);
+
+    expect(testFn(formModel[25])).toEqual(NGBootstrapFormControlType.Group);
   });
 });

@@ -317,6 +317,18 @@
           ></ds-dynamic-lookup>
         </ng-container>
 
+        <ng-container *ngSwitchCase="19">
+          <ds-dynamic-lookup
+            [bindId]="bindId"
+            [group]="group"
+            [model]="model"
+            [showErrorMessages]="showErrorMessages"
+            (blur)="onBlur($event)"
+            (change)="onValueChange($event)"
+            (focus)="onFocus($event)"
+          ></ds-dynamic-lookup>
+        </ng-container>
+
         <small *ngIf="showHint" class="text-muted" [innerHTML]="model.hint"
                [ngClass]="getClass('element', 'hint')"></small>
 

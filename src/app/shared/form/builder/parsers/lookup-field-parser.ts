@@ -19,8 +19,8 @@ export class LookupFieldParser extends FieldParser {
 
       this.setValues(lookupModelConfig, fieldValue, true);
 
-      const lookupModel = new DynamicLookupModel(lookupModelConfig);
-      return lookupModel;
+      return new DynamicLookupModel(lookupModelConfig);
+
     }
   }
 }

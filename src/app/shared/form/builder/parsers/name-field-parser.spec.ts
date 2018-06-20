@@ -66,7 +66,7 @@ describe('NameFieldParser test suite', () => {
     expect(parser instanceof NameFieldParser).toBe(true);
   });
 
-  it('should return a DynamicConcatModel object', () => {
+  it('should return a DynamicConcatModel object when repeatable option is false', () => {
     const parser = new NameFieldParser(field2, initFormValues, readOnly);
 
     const fieldModel = parser.parse();

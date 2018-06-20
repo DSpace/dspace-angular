@@ -36,7 +36,7 @@ describe('DateFieldParser test suite', () => {
     expect(parser instanceof DateFieldParser).toBe(true);
   });
 
-  it('should return a DynamicDsDatePickerModel object', () => {
+  it('should return a DynamicDsDatePickerModel object when repeatable option is false', () => {
     const parser = new DateFieldParser(field, initFormValues, readOnly);
 
     const fieldModel = parser.parse();

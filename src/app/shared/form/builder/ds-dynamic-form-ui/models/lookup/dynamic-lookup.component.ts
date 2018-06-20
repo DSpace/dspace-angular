@@ -10,6 +10,7 @@ import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { Subscription } from 'rxjs/Subscription';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 
 @Component({
   selector: 'ds-dynamic-lookup',
@@ -19,7 +20,7 @@ import { AuthorityValueModel } from '../../../../../../core/integration/models/a
 export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
-  @Input() model: DynamicLookupModel;
+  @Input() model: DynamicLookupModel | DynamicLookupNameModel;
   @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
@@ -31,7 +32,6 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: any;
-  public isLookupName: boolean;
   public name2: string;
 
   protected searchOptions: IntegrationSearchOptions;
@@ -51,8 +51,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
       1);
 
     // Switch Lookup/LookupName
-    if (this.model.separator) {
-      this.isLookupName = true;
+    if (this.isLookupName()) {
       this.name2 = this.model.name + '2';
     }
 
@@ -107,8 +106,8 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
       }
 
       if (hasValue(displayValue)) {
-        if (this.isLookupName) {
-          const values = displayValue.split(this.model.separator);
+        if (this.isLookupName()) {
+          const values = displayValue.split((this.model as DynamicLookupNameModel).separator);
 
           this.firstInputValue = (values[0] || '').trim();
           this.secondInputValue = (values[1] || '').trim();
@@ -121,7 +120,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
 
   protected getCurrentValue(): string {
     let result = '';
-    if (!this.isLookupName) {
+    if (!this.isLookupName()) {
       result = this.firstInputValue;
     } else {
       if (isNotEmpty(this.firstInputValue)) {
@@ -130,7 +129,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
       if (isNotEmpty(this.secondInputValue)) {
         result = isEmpty(result)
           ? this.secondInputValue
-          : this.firstInputValue + this.model.separator + ' ' + this.secondInputValue;
+          : this.firstInputValue + (this.model as DynamicLookupNameModel).separator + ' ' + this.secondInputValue;
       }
     }
     return result;
@@ -163,7 +162,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
 
   protected resetFields() {
     this.firstInputValue = '';
-    if (this.isLookupName) {
+    if (this.isLookupName()) {
       this.secondInputValue = '';
     }
   }
@@ -179,6 +178,10 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
 
   isInputDisabled() {
     return this.model.authorityOptions.closed && hasValue(this.model.value);
+  }
+
+  isLookupName() {
+    return (this.model instanceof DynamicLookupNameModel);
   }
 
   isSearchDisabled() {

@@ -31,7 +31,7 @@ describe('SeriesFieldParser test suite', () => {
     expect(parser instanceof SeriesFieldParser).toBe(true);
   });
 
-  it('should return a DynamicConcatModel object', () => {
+  it('should return a DynamicConcatModel object when repeatable option is false', () => {
     const parser = new SeriesFieldParser(field, initFormValues, readOnly);
 
     const fieldModel = parser.parse();
