@@ -65,15 +65,6 @@ export class FormService {
     });
   }
 
-  public setValue(formGroup: FormGroup, fieldModel: DynamicFormControlModel, fieldId: string, value: any) {
-    if (isNotEmpty(fieldModel)) {
-      const path = this.formBuilderService.getPath(fieldModel);
-      const fieldControl = formGroup.get(path);
-      fieldControl.markAsDirty();
-      fieldControl.setValue(value);
-    }
-  }
-
   public addErrorToField(field: AbstractControl, model: DynamicFormControlModel, message: string) {
 
     const error = {}; // create the error object
@@ -104,15 +95,20 @@ export class FormService {
     field.markAsTouched();
   }
 
-  public removeErrorFromField(field: AbstractControl, model: DynamicFormControlModel, message) {
+  public removeErrorFromField(field: AbstractControl, model: DynamicFormControlModel, messageKey: string) {
     const error = {};
 
-    // Use correct error messages from the model
-    const lastArray = message.split('.');
-    if (lastArray && lastArray.length > 0) {
-      const last = lastArray[lastArray.length - 1];
-      error[last] = null;
+    if (messageKey.includes('.')) {
+      // Use correct error messages from the model
+      const lastArray = messageKey.split('.');
+      if (lastArray && lastArray.length > 0) {
+        const last = lastArray[lastArray.length - 1];
+        error[last] = null;
+      }
+    } else {
+      error[messageKey] = null;
     }
+
     field.setErrors(error);
     field.markAsUntouched();
   }

@@ -1,21 +1,45 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { async, inject, TestBed } from '@angular/core/testing';
-import 'rxjs/add/observable/of';
+import { FormGroup } from '@angular/forms';
+
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicFormValidationService,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
+
 import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
 import { AppState } from '../../app.reducer';
-import { DynamicPathable } from '@ng-dynamic-forms/core/src/model/misc/dynamic-form-control-path.model';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { formReducer } from './form.reducers';
 
-describe('FormService', () => {
+describe('FormService test suite', () => {
   const formId = 'testForm';
   let service: FormService;
+  let builderService: FormBuilderService;
+  let formGroup: FormGroup;
+
+  const formModel: DynamicFormControlModel[] = [
+    new DynamicInputModel({id: 'author', value: 'test'}),
+    new DynamicInputModel({
+      id: 'title',
+      validators: {
+        required: null
+      },
+      errorMessages: {
+        required: 'Title is required'
+      }
+    }),
+    new DynamicInputModel({id: 'date'}),
+    new DynamicInputModel({id: 'description'}),
+  ];
+
   const formData = {
-    'dc.contributor.author': null,
-    'dc.title': ['test'],
-    'dc.date.issued': null,
-    'dc.description': null
+    author: ['test'],
+    title: null,
+    date: null,
+    description: null
   };
   const formState = {
     testForm: {
@@ -25,31 +49,27 @@ describe('FormService', () => {
     }
   };
 
-  const formBuilderServiceStub: any = {
-    getPath: (model: DynamicPathable) => [],
-    /* tslint:disable:no-empty */
-    clearAllModelsValue: (groupModel: DynamicFormControlModel[]) => {
-    }
-    /* tslint:enable:no-empty */
-  };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({formReducer})
       ],
       providers: [
-        {provide: FormBuilderService, useValue: formBuilderServiceStub},
+        DynamicFormService,
+        DynamicFormValidationService,
+        FormBuilderService,
       ]
     }).compileComponents();
   }));
 
-  beforeEach(inject([Store], (store: Store<AppState>) => {
+  beforeEach(inject([Store, FormBuilderService], (store: Store<AppState>, formBuilderService: FormBuilderService) => {
     store
       .subscribe((state) => {
         state.forms = formState;
       });
-    service = new FormService(formBuilderServiceStub, store);
+    builderService = formBuilderService;
+    formGroup = builderService.createFormGroup(formModel);
+    service = new FormService(formBuilderService, store);
   }));
 
   it('should check whether form state is init', () => {
@@ -70,4 +90,54 @@ describe('FormService', () => {
     });
   });
 
+  it('should return form unique id', () => {
+    const formId1 = service.getUniqueId(formId);
+    const formId2 = service.getUniqueId(formId);
+
+    expect(formId1).not.toEqual(formId2);
+  });
+
+  it('should validate all form fields', () => {
+    service.validateAllFormFields(formGroup);
+
+    expect(formGroup.controls.author.touched).toBe(true);
+    expect(formGroup.controls.author.status).toBe('VALID');
+
+    expect(formGroup.controls.title.touched).toBe(true);
+    expect(formGroup.controls.title.status).toBe('INVALID');
+
+    expect(formGroup.controls.date.touched).toBe(true);
+
+    expect(formGroup.controls.description.touched).toBe(true);
+  });
+
+  it('should add error to field', () => {
+    const control = builderService.getFormControlById('description', formGroup, formModel);
+    const model = builderService.findById('description', formModel);
+
+    service.addErrorToField(control, model, 'Test error message');
+    const errorKeys = Object.keys(control.errors);
+
+    expect(errorKeys.length).toBe(1);
+
+    expect(control.hasError(errorKeys[0])).toBe(true);
+
+    expect(formGroup.controls.description.touched).toBe(true);
+  });
+
+  it('should remove error from field', () => {
+    const control = builderService.getFormControlById('description', formGroup, formModel);
+    const model = builderService.findById('description', formModel);
+
+    service.addErrorToField(control, model, 'Test error message');
+    const errorKeys = Object.keys(control.errors);
+
+    service.removeErrorFromField(control, model, errorKeys[0]);
+
+    expect(errorKeys.length).toBe(1);
+
+    expect(control.hasError(errorKeys[0])).toBe(false);
+
+    expect(formGroup.controls.description.touched).toBe(false);
+  });
 });

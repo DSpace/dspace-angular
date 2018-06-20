@@ -1,10 +1,4 @@
 import { FormFieldModel } from '../models/form-field.model';
-import { OneboxFieldParser } from './onebox-field-parser';
-import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { DynamicTypeaheadModel } from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
-import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { ConcatFieldParser } from './concat-field-parser';
-import { NameFieldParser } from './name-field-parser';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { SeriesFieldParser } from './series-field-parser';
 
