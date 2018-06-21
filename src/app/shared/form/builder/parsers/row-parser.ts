@@ -93,10 +93,6 @@ export class RowParser {
           fieldModel = new GroupFieldParser(fieldData, this.initFormValues, this.readOnly, this.submissionScope, this.authorityOptions.uuid).parse();
           break;
 
-        case 'twobox':
-          // group.push(new TwoboxFieldParser(fieldData).parse());
-          break;
-
         default:
           throw new Error(`unknown form control model type defined on JSON object with label "${fieldData.label}"`);
       }
