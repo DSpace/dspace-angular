@@ -157,9 +157,8 @@ describe('FormService test suite', () => {
     model = builderService.findById('title', formModel);
 
     service.addErrorToField(control, model, 'error.required');
-    errorKeys = Object.keys(control.errors);
 
-    service.removeErrorFromField(control, model, errorKeys[0]);
+    service.removeErrorFromField(control, model, 'error.required');
 
     expect(errorKeys.length).toBe(1);
 

@@ -16,7 +16,7 @@ import { UploaderService } from '../uploader/uploader.service';
 export class ChipsComponent implements OnChanges {
   @Input() chips: Chips;
   @Input() wrapperClass: string;
-  @Input() editable: boolean;
+  @Input() editable = true;
 
   @Output() selected: EventEmitter<number> = new EventEmitter<number>();
   @Output() remove: EventEmitter<number> = new EventEmitter<number>();
@@ -34,12 +34,6 @@ export class ChipsComponent implements OnChanges {
       filter: '.chips-sort-ignore',
       ghostClass: 'm-0'
     };
-  }
-
-  ngOnInit() {
-    if (!this.editable) {
-      this.editable = false;
-    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -1,18 +1,21 @@
 import { FormFieldModel } from '../models/form-field.model';
 import { NameFieldParser } from './name-field-parser';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 describe('NameFieldParser test suite', () => {
   let field1: FormFieldModel;
   let field2: FormFieldModel;
   let field3: FormFieldModel;
+  let initFormValues: any = {};
 
-  const initFormValues = {};
   const readOnly = false;
 
   beforeEach(() => {
     field1 = {
-      input: {type: 'name'},
+      input: {
+        type: 'name'
+      },
       label: 'Name',
       mandatory: 'false',
       repeatable: false,
@@ -80,6 +83,19 @@ describe('NameFieldParser test suite', () => {
     const fieldModel = parser.parse();
 
     expect((fieldModel as DynamicConcatModel).separator).toBe(', ');
+  });
+
+  it('should set init value properly', () => {
+    initFormValues = {
+      name: [new FormFieldMetadataValueObject('test, name')],
+    };
+    const expectedValue = new FormFieldMetadataValueObject('test, name');
+
+    const parser = new NameFieldParser(field1, initFormValues, readOnly);
+
+    const fieldModel = parser.parse();
+
+    expect(fieldModel.value).toEqual(expectedValue);
   });
 
 });

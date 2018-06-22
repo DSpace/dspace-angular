@@ -71,11 +71,11 @@ export class ConcatFieldParser extends FieldParser {
 
     // Init values
     if (isNotEmpty(fieldValue)) {
-      const  values = fieldValue.split(this.separator);
+      const  values = fieldValue.value.split(this.separator);
 
       if (values.length > 1) {
-        input1ModelConfig.value = values[0];
-        input2ModelConfig.value = values[1];
+        input1ModelConfig.value = values[0].trim();
+        input2ModelConfig.value = values[1].trim();
       }
     }
 

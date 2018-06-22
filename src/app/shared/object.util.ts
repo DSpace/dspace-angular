@@ -10,14 +10,13 @@ export function deleteProperty(object, key): object {
 }
 
 /**
- * Returns true if the passed value is null or undefined.
- * hasNoValue();              // true
- * hasNoValue(null);          // true
- * hasNoValue(undefined);     // true
- * hasNoValue('');            // false
- * hasNoValue({});            // false
- * hasNoValue([]);            // false
- * hasNoValue(function() {}); // false
+ * Returns true if the passed object is empty or has only empty property.
+ * isObjectEmpty({});               // true
+ * isObjectEmpty({a: null});        // true
+ * isObjectEmpty({a: []});          // true
+ * isObjectEmpty({a: [], b: {});    // true
+ * isObjectEmpty({a: 'a', b: 'b'}); // false
+ * isObjectEmpty({a: [], b: 'b'});  // false
  */
 export function isObjectEmpty(obj: any): boolean {
   const objectType = typeof obj;
@@ -37,6 +36,13 @@ export function isObjectEmpty(obj: any): boolean {
   }
 }
 
+/**
+ * Returns diff from the base object.
+ * difference({}, {});                      // {}
+ * difference({a: 'a', b: 'b'}, {a: 'a'});  // {b: 'b'}
+ * difference({a: 'a', b: {}}, {a: 'a'});   // {}
+ * difference({a: 'a'}, {a: 'a', b: 'b'});  // {}
+ */
 export function difference(object, base) {
   const changes = (o, b) => {
     return transform(o, (result, value, key) => {

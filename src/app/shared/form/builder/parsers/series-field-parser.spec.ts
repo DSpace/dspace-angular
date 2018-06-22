@@ -1,11 +1,12 @@
 import { FormFieldModel } from '../models/form-field.model';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { SeriesFieldParser } from './series-field-parser';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 describe('SeriesFieldParser test suite', () => {
   let field: FormFieldModel;
+  let initFormValues: any = {};
 
-  const initFormValues = {};
   const readOnly = false;
 
   beforeEach(() => {
@@ -45,6 +46,19 @@ describe('SeriesFieldParser test suite', () => {
     const fieldModel = parser.parse();
 
     expect((fieldModel as DynamicConcatModel).separator).toBe('; ');
+  });
+
+  it('should set init value properly', () => {
+    initFormValues = {
+      series: [new FormFieldMetadataValueObject('test; series')],
+    };
+    const expectedValue = new FormFieldMetadataValueObject('test; series');
+
+    const parser = new SeriesFieldParser(field, initFormValues, readOnly);
+
+    const fieldModel = parser.parse();
+
+    expect(fieldModel.value).toEqual(expectedValue);
   });
 
 });

@@ -8,13 +8,13 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 export class DateFieldParser extends FieldParser {
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
+    let malformedDate = false;
     const inputDateModelConfig: DynamicDatePickerModelConfig = this.initModel();
 
     inputDateModelConfig.toggleIcon = 'fa fa-calendar';
     this.setValues(inputDateModelConfig as any, fieldValue);
     // Init Data and validity check
     if (isNotEmpty(inputDateModelConfig.value)) {
-      let malformedData = false;
       const value = inputDateModelConfig.value.toString();
       if (value.length >= 4) {
         const valuesArray = value.split(DS_DATE_PICKER_SEPARATOR);
@@ -22,23 +22,15 @@ export class DateFieldParser extends FieldParser {
           for (let i = 0; i < valuesArray.length; i++) {
             const len = i === 0 ? 4 : 2;
             if (valuesArray[i].length !== len) {
-              malformedData = true;
+              malformedDate = true;
             }
           }
-        }
-
-        if (malformedData) {
-          // TODO Set error message
-          // const errorMessage = 'The stored date is not compliant';
-          // dateModel.validators = Object.assign({}, dateModel.validators, {malformedDate: null});
-          // dateModel.errorMessages = Object.assign({}, dateModel.errorMessages, {malformedDate: errorMessage});
-
-          // this.formService.addErrorToField(this.group.get(this.model.id), this.model, errorMessage)
         }
       }
 
     }
     const dateModel = new DynamicDsDatePickerModel(inputDateModelConfig);
+    dateModel.malformedDate = malformedDate;
     return dateModel;
   }
 }

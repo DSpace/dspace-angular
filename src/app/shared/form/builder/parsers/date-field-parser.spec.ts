@@ -3,11 +3,12 @@ import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-conc
 import { SeriesFieldParser } from './series-field-parser';
 import { DateFieldParser } from './date-field-parser';
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 describe('DateFieldParser test suite', () => {
   let field: FormFieldModel;
+  let initFormValues: any = {};
 
-  const initFormValues = {};
   const readOnly = false;
 
   beforeEach(() => {
@@ -44,4 +45,16 @@ describe('DateFieldParser test suite', () => {
     expect(fieldModel instanceof DynamicDsDatePickerModel).toBe(true);
   });
 
+  it('should set init value properly', () => {
+    initFormValues = {
+      date: [new FormFieldMetadataValueObject('1983-11-18')],
+    };
+    const expectedValue = '1983-11-18';
+
+    const parser = new DateFieldParser(field, initFormValues, readOnly);
+
+    const fieldModel = parser.parse();
+
+    expect(fieldModel.value).toEqual(expectedValue);
+  });
 });

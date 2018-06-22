@@ -185,7 +185,7 @@ export abstract class FieldParser {
     controlModel.placeholder = this.configData.label;
 
     if (this.configData.mandatory && setErrors) {
-      this.setErrors(controlModel);
+      this.markAsRequired(controlModel);
     }
 
     // Available Languages
@@ -196,7 +196,7 @@ export abstract class FieldParser {
     return controlModel;
   }
 
-  protected setErrors(controlModel) {
+  protected markAsRequired(controlModel) {
     controlModel.required = true;
     controlModel.validators = Object.assign({}, controlModel.validators, {required: null});
     controlModel.errorMessages = Object.assign(
