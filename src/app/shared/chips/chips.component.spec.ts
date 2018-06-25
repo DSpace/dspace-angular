@@ -6,7 +6,7 @@ import 'rxjs/add/observable/of';
 import { Chips } from './models/chips.model';
 import { UploaderService } from '../uploader/uploader.service';
 import { ChipsComponent } from './chips.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { SortablejsModule } from 'angular-sortablejs';
 import { By } from '@angular/platform-browser';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -22,7 +22,7 @@ function createTestComponent<T>(html: string, type: { new(...args: any[]): T }):
   return fixture as ComponentFixture<T>;
 }
 
-describe('Chips component', () => {
+describe('ChipsComponent test suite', () => {
 
   let testComp: TestComponent;
   let chipsComp: ChipsComponent;
@@ -125,10 +125,31 @@ describe('Chips component', () => {
     expect(chipsComp.chips.remove).toHaveBeenCalledWith(item);
   }));
 
-  // it('should chipsSelected', inject([ChipsComponent], (app: ChipsComponent) => {
-  //   app.chipsSelected(new Event('click'), 1);
-  //   expect(app).toBeDefined();
-  // }));
+  it('should save chips item index when drag and drop start', fakeAsync(() => {
+    const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+
+    de.triggerEventHandler('dragstart', null);
+
+    expect(chipsComp.dragged).toBe(0)
+  }));
+
+  it('should update chips item order when drag and drop end', fakeAsync(() => {
+    spyOn(chipsComp.chips, 'updateOrder');
+    const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+
+    de.triggerEventHandler('dragend', null);
+
+    expect(chipsComp.dragged).toBe(-1)
+    expect(chipsComp.chips.updateOrder).toHaveBeenCalled();
+  }));
+
+  it('should show item tooltip on mouse over', fakeAsync(() => {
+    const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+
+    de.triggerEventHandler('mouseover', null);
+
+    expect(chipsComp.tipText).toBe('a')
+  }));
 });
 
 // declare a test component

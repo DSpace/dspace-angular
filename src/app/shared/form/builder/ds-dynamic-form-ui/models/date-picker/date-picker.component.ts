@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DynamicDsDatePickerModel } from './date-picker.model';
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../../../empty.util';
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
 
@@ -91,6 +91,8 @@ export class DsDatePickerComponent implements OnInit {
           this.year = undefined;
           this.month = undefined;
           this.day = undefined;
+          this.disabledMonth = true;
+          this.disabledDay = true;
         }
         break;
       }
@@ -100,6 +102,7 @@ export class DsDatePickerComponent implements OnInit {
         } else {
           this.month = undefined;
           this.day = undefined;
+          this.disabledDay = true;
         }
         break;
       }
@@ -124,28 +127,28 @@ export class DsDatePickerComponent implements OnInit {
     }
 
     // Manage disable
-    if (!this.model.value && event.field === 'year') {
+    if (hasValue(this.year) && event.field === 'year') {
       this.disabledMonth = false;
-    } else if (this.disabledDay && event.field === 'month') {
+    } else if (hasValue(this.month) && event.field === 'month') {
       this.disabledDay = false;
     }
 
     // update value
     let value = null;
-    if (this.year) {
+    if (hasValue(this.year)) {
       let yyyy = this.year.toString();
       while (yyyy.length < 4) {
         yyyy = '0' + yyyy;
       }
       value = yyyy;
     }
-    if (this.month) {
+    if (hasValue(this.month)) {
       const mm = this.month.toString().length === 1
         ? '0' + this.month.toString()
         : this.month.toString();
       value += DS_DATE_PICKER_SEPARATOR + mm;
     }
-    if (this.day) {
+    if (hasValue(this.day)) {
       const dd = this.day.toString().length === 1
         ? '0' + this.day.toString()
         : this.day.toString();

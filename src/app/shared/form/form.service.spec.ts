@@ -3,7 +3,7 @@ import { async, inject, TestBed } from '@angular/core/testing';
 import { FormGroup } from '@angular/forms';
 
 import {
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicFormGroupModel,
   DynamicFormService,
   DynamicFormValidationService,
   DynamicInputModel
@@ -33,18 +33,47 @@ describe('FormService test suite', () => {
     }),
     new DynamicInputModel({id: 'date'}),
     new DynamicInputModel({id: 'description'}),
+    new DynamicFormGroupModel({
+
+      id: 'addressLocation',
+      group: [
+        new DynamicInputModel({
+
+          id: 'zipCode',
+          label: 'Zip Code',
+          placeholder: 'ZIP'
+        }),
+        new DynamicInputModel({
+
+          id: 'state',
+          label: 'State',
+          placeholder: 'State'
+        }),
+        new DynamicInputModel({
+
+          id: 'city',
+          label: 'City',
+          placeholder: 'City'
+        })
+      ]
+    }),
   ];
 
   const formData = {
     author: ['test'],
     title: null,
     date: null,
-    description: null
+    description: null,
+    addressLocation: {
+      zipCode: null,
+      state: null,
+      city: null
+    }
   };
   const formState = {
     testForm: {
       data: formData,
-      valid: true,
+      valid: false,
       errors: []
     }
   };
@@ -80,7 +109,7 @@ describe('FormService test suite', () => {
 
   it('should return form status when isValid is called', () => {
     service.isValid(formId).subscribe((status) => {
-      expect(status).toBe(true);
+      expect(status).toBe(false);
     });
   });
 
@@ -165,5 +194,13 @@ describe('FormService test suite', () => {
     expect(control.hasError(errorKeys[0])).toBe(false);
 
     expect(formGroup.controls.description.touched).toBe(false);
+  });
+
+  it('should reset form group', () => {
+    const control = builderService.getFormControlById('author', formGroup, formModel);
+
+    service.resetForm(formGroup, formModel, formId);
+
+    expect(control.value).toBeNull();
   });
 });

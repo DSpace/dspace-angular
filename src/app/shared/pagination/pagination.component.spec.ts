@@ -300,7 +300,7 @@ describe('Pagination component', () => {
 
   it('should get parameters from route', () => {
 
-    activatedRouteStub = testFixture.debugElement.injector.get(ActivatedRoute) as any;;
+    activatedRouteStub = testFixture.debugElement.injector.get(ActivatedRoute) as any;
     activatedRouteStub.testParams = {
       pageId: 'test',
       page: 2,

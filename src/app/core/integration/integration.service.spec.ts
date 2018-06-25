@@ -80,15 +80,4 @@ describe('IntegrationService', () => {
     });
   });
 
-  // describe('getConfigBySearch', () => {
-  //
-  //   it('should configure a new ConfigRequest', () => {
-  //     findOptions.uuid = uuid;
-  //     const expected = new ConfigRequest(requestService.generateRequestId(), searchEndpoint);
-  //     scheduler.schedule(() => service.getConfigBySearch(findOptions).subscribe());
-  //     scheduler.flush();
-  //
-  //     expect(requestService.configure).toHaveBeenCalledWith(expected);
-  //   });
-  // });
 });

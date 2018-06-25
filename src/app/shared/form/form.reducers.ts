@@ -148,14 +148,7 @@ function initForm(state: FormState, action: FormInitAction): FormState {
  *    the new state, with the data changed.
  */
 function changeDataForm(state: FormState, action: FormChangeAction): FormState {
-  if (!hasValue(state[action.payload.formId])) {
-    return Object.assign({}, state, {
-      [action.payload.formId]: {
-        data: action.payload.formData,
-        valid: state[action.payload.formId].valid
-      }
-    });
-  } else {
+  if (hasValue(state[action.payload.formId])) {
     const newState = Object.assign({}, state);
     newState[action.payload.formId] = Object.assign({}, newState[action.payload.formId], {
         data: action.payload.formData,
@@ -163,6 +156,8 @@ function changeDataForm(state: FormState, action: FormChangeAction): FormState {
       }
     );
     return newState;
+  } else {
+    return state;
   }
 }
 
