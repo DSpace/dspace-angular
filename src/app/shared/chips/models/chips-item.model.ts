@@ -17,8 +17,8 @@ export class ChipsItem {
   private objToDisplay: string;
 
   constructor(item: any,
-              fieldToDisplay: string,
-              objToDisplay: string,
+              fieldToDisplay: string = 'display',
+              objToDisplay?: string,
               icons?: ChipsItemIcon[],
               editMode?: boolean) {
 
