@@ -21,7 +21,7 @@ import {
 import { FormBuilderService } from './builder/form-builder.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue, isNotNull, isNull } from '../empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { formObjectFromIdSelector } from './selectors';
 import { FormEntry, FormError } from './form.reducers';
@@ -154,7 +154,7 @@ export class FormComponent implements OnDestroy, OnInit {
 
     this.subs.push(
       this.store.select(formObjectFromIdSelector(this.formId))
-        .filter((formState: FormEntry) => !!formState && !isEmpty(formState.errors))
+        .filter((formState: FormEntry) => !!formState && (isNotEmpty(formState.errors) || isNotEmpty(this.formErrors)))
         .map((formState) => formState.errors)
         .distinctUntilChanged()
         // .delay(100) // this terrible delay is here to prevent the detection change error
@@ -223,7 +223,7 @@ export class FormComponent implements OnDestroy, OnInit {
   /**
    * Method to keep synchronized form controls values with form state
    */
-  private keepSync() {
+  private keepSync(): void {
     this.subs.push(this.formService.getFormData(this.formId)
       .subscribe((stateFormData) => {
         if (!Object.is(stateFormData, this.formGroup.value) && this.formGroup) {
@@ -232,15 +232,15 @@ export class FormComponent implements OnDestroy, OnInit {
       }));
   }
 
-  onBlur(event) {
+  onBlur(event: DynamicFormControlEvent): void {
     this.blur.emit(event);
   }
 
-  onFocus(event) {
+  onFocus(event: DynamicFormControlEvent): void {
     this.focus.emit(event);
   }
 
-  onChange(event) {
+  onChange(event: DynamicFormControlEvent): void {
     const action: FormChangeAction = new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel));
 
     this.store.dispatch(action);
@@ -260,7 +260,7 @@ export class FormComponent implements OnDestroy, OnInit {
    * Method called on submit.
    * Emit a new submit Event whether the form is valid, mark fields with error otherwise
    */
-  onSubmit() {
+  onSubmit(): void {
     if (this.getFormGroupValidStatus()) {
       this.submit.emit(this.formService.getFormData(this.formId));
     } else {
@@ -271,7 +271,7 @@ export class FormComponent implements OnDestroy, OnInit {
   /**
    * Method to reset form fields
    */
-  reset() {
+  reset(): void {
     this.formGroup.reset();
   }
 
@@ -281,14 +281,14 @@ export class FormComponent implements OnDestroy, OnInit {
     return model.readOnly;
   }
 
-  removeItem($event, arrayContext: DynamicFormArrayModel, index: number) {
+  removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
     this.store.dispatch(new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel)));
   }
 
-  insertItem($event, arrayContext: DynamicFormArrayModel, index: number) {
+  insertItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
     this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
