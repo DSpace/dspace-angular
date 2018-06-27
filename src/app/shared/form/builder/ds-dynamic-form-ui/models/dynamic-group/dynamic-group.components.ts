@@ -122,11 +122,12 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
           || this.selectedChipItem.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
           ? null
           : this.selectedChipItem.item[model.name];
-        if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel) {
-          model.valueUpdates.next(value.display);
-        } else {
-          model.valueUpdates.next(value);
-        }
+        // if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel) {
+        //   model.valueUpdates.next(value.display);
+        // } else {
+        //   model.valueUpdates.next(value);
+        // }
+        model.valueUpdates.next(value);
       });
     });
 

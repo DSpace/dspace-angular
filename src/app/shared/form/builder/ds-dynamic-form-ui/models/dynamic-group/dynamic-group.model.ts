@@ -13,11 +13,9 @@ export const PLACEHOLDER_PARENT_METADATA = '#PLACEHOLDER_PARENT_METADATA_VALUE#'
 export interface DynamicGroupModelConfig extends DsDynamicInputModelConfig {
   formConfiguration: FormRowModel[],
   mandatoryField: string,
-  name: string,
   relationFields: string[],
   scopeUUID: string,
   submissionScope: string;
-  value?: any;
 }
 
 /**
