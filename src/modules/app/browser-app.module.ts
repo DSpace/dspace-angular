@@ -17,7 +17,6 @@ import { DSpaceBrowserTransferStateModule } from '../transfer-state/dspace-brows
 import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 import { ClientCookieService } from '../../app/shared/services/client-cookie.service';
 import { CookieService } from '../../app/shared/services/cookie.service';
-import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';

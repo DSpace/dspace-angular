@@ -8,6 +8,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { AuthService } from './auth.service';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { CheckAuthenticationTokenAction } from './auth.actions';
+import { Eperson } from '../eperson/models/eperson.model';
 
 /**
  * The auth service.
@@ -16,32 +17,29 @@ import { CheckAuthenticationTokenAction } from './auth.actions';
 export class ServerAuthService extends AuthService {
 
   /**
-   * Authenticate the user
-   *
-   * @param {string} user The user name
-   * @param {string} password The user's password
-   * @returns {Observable<User>} The authenticated user observable.
+   * Returns the authenticated user
+   * @returns {User}
    */
-  public authenticate(user: string, password: string): Observable<AuthStatus> {
-    // Attempt authenticating the user using the supplied credentials.
-    const body = encodeURI(`password=${password}&user=${user}`);
+  public authenticatedUser(token: AuthTokenInfo): Observable<Eperson> {
+    // Determine if the user has an existing auth session on the server
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
 
-    // NB this could be use to avoid the problem with the authentication is case the UI is rendered by Angular Universal.
-    const clientIp = this.req.connection.remoteAddress;
+    headers = headers.append('Accept', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
+    // NB this is used to pass server client IP check.
+    const clientIp = this.req.get('x-forwarded-for');
+    headers = headers.append('X-Forwarded-For', clientIp);
 
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     options.headers = headers;
-    return this.authRequestService.postToEndpoint('login', body, options)
+    return this.authRequestService.getRequest('status', options)
       .map((status: AuthStatus) => {
         if (status.authenticated) {
-          return status;
+          return status.eperson[0];
         } else {
-          throw(new Error('Invalid email or password'));
+          throw(new Error('Not authenticated'));
         }
-      })
-
+      });
   }
 
   /**
