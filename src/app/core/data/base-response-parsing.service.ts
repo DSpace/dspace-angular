@@ -13,7 +13,7 @@ function isObjectLevel(halObj: any) {
 }
 
 function isPaginatedResponse(halObj: any) {
-  return isNotEmpty(halObj.page) && hasValue(halObj._embedded);
+  return isNotEmpty(halObj.page) /** && hasValue(halObj._embedded)**/;
 }
 
 /* tslint:disable:max-classes-per-file */

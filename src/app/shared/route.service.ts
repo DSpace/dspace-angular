@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import {
-  ActivatedRoute, convertToParamMap, NavigationExtras, Params,
-  Router,
-} from '@angular/router';
-import { isNotEmpty } from './empty.util';
+import { ActivatedRoute, Params, } from '@angular/router';
 
 @Injectable()
 export class RouteService {
@@ -28,16 +24,20 @@ export class RouteService {
     return this.route.queryParamMap.map((map) => map.getAll(paramName).indexOf(paramValue) > -1).distinctUntilChanged();
   }
 
+  getRouteParameterValue(paramName: string): Observable<string> {
+    return this.route.params.map((params) => params[paramName]).distinctUntilChanged();
+  }
+
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
     return this.route.queryParamMap
       .map((map) => {
-          const params = {};
-          map.keys
-            .filter((key) => key.startsWith(prefix))
-            .forEach((key) => {
-              params[key] = [...map.getAll(key)];
-            });
-          return params;
-        }).distinctUntilChanged();
+        const params = {};
+        map.keys
+          .filter((key) => key.startsWith(prefix))
+          .forEach((key) => {
+            params[key] = [...map.getAll(key)];
+          });
+        return params;
+      }).distinctUntilChanged();
   }
 }
