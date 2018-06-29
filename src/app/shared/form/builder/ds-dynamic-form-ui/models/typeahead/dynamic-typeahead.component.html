@@ -15,9 +15,9 @@
          [resultTemplate]="rt"
          [type]="model.inputType"
          [(ngModel)]="currentValue"
-         (blur)="onBlurEvent($event)"
-         (focus)="onFocusEvent($event)"
-         (change)="onChangeEvent($event)"
+         (blur)="onBlur($event)"
+         (focus)="onFocus($event)"
+         (change)="onChange($event)"
          (input)="onInput($event)"
          (selectItem)="onSelectItem($event)">
 

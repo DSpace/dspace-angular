@@ -32,7 +32,6 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: any;
-  public name2: string;
 
   protected searchOptions: IntegrationSearchOptions;
   protected sub: Subscription;
@@ -49,11 +48,6 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
       '',
       this.model.maxOptions,
       1);
-
-    // Switch Lookup/LookupName
-    if (this.isLookupName()) {
-      this.name2 = this.model.name + '2';
-    }
 
     this.setInputsValue(this.model.value);
 

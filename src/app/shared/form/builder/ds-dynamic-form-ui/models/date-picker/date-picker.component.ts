@@ -31,9 +31,9 @@ export class DsDatePickerComponent implements OnInit {
   initialMonth: number;
   initialDay: number;
 
-  year: number;
-  month: number;
-  day: number;
+  year: any;
+  month: any;
+  day: any;
 
   minYear: 0;
   maxYear: number;

@@ -3,7 +3,10 @@ import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/c
 import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,15 +19,11 @@ import { FormService } from '../../../../form.service';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { FormComponent } from '../../../../form.component';
-import { DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../../app.reducer';
-import { Observable } from 'rxjs/Observable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
-import { By } from '@angular/platform-browser';
 
 function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
   TestBed.overrideComponent(type, {
@@ -202,7 +201,6 @@ describe('DsDynamicGroupComponent test suite', () => {
       }];
       groupFixture.detectChanges();
 
-      const de = groupFixture.debugElement.queryAll(By.css('button'));
       const buttons = groupFixture.debugElement.nativeElement.querySelectorAll('button');
       const btnEl = buttons[0];
       btnEl.click();
@@ -219,7 +217,6 @@ describe('DsDynamicGroupComponent test suite', () => {
 
       groupFixture.detectChanges();
 
-      const de = groupFixture.debugElement.queryAll(By.css('button'));
       const buttons = groupFixture.debugElement.nativeElement.querySelectorAll('button');
       const btnEl = buttons[2];
       btnEl.click();
@@ -231,7 +228,7 @@ describe('DsDynamicGroupComponent test suite', () => {
   });
 
   describe('when init model value is not empty', () => {
-    beforeEach(inject([FormBuilderService], (service: FormBuilderService) => {
+    beforeEach(() => {
 
       groupFixture = TestBed.createComponent(DsDynamicGroupComponent);
       groupComp = groupFixture.componentInstance; // FormComponent test instance
@@ -246,7 +243,7 @@ describe('DsDynamicGroupComponent test suite', () => {
       groupComp.showErrorMessages = false;
       groupFixture.detectChanges();
 
-    }));
+    });
 
     afterEach(() => {
       groupFixture.destroy();
@@ -279,7 +276,6 @@ describe('DsDynamicGroupComponent test suite', () => {
       }];
       groupFixture.detectChanges();
 
-      const de = groupFixture.debugElement.queryAll(By.css('button'));
       const buttons = groupFixture.debugElement.nativeElement.querySelectorAll('button');
       const btnEl = buttons[0];
       btnEl.click();
@@ -290,18 +286,17 @@ describe('DsDynamicGroupComponent test suite', () => {
       expect(groupComp.formCollapsed).toEqual(Observable.of(true));
     }));
 
-    it('should delete existing chips item', inject([FormBuilderService], (service: FormBuilderService) => {
+    it('should delete existing chips item', () => {
       groupComp.onChipSelected(0);
       groupFixture.detectChanges();
 
-      const de = groupFixture.debugElement.queryAll(By.css('button'));
       const buttons = groupFixture.debugElement.nativeElement.querySelectorAll('button');
       const btnEl = buttons[1];
       btnEl.click();
 
       expect(groupComp.chips.getChipsItems()).toEqual([]);
       expect(groupComp.formCollapsed).toEqual(Observable.of(false));
-    }));
+    });
   });
 });
 

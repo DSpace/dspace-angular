@@ -92,12 +92,9 @@ export class DsDynamicTypeaheadComponent implements OnInit {
       this.inputValue = valueObj;
       this.model.valueUpdates.next(this.inputValue);
     }
-    if (event.data) {
-      // this.group.markAsDirty();
-    }
   }
 
-  onBlurEvent(event: Event) {
+  onBlur(event: Event) {
     if (!this.model.authorityOptions.closed && isNotEmpty(this.inputValue)) {
       this.change.emit(this.inputValue);
       this.inputValue = null;
@@ -105,7 +102,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
     this.blur.emit(event);
   }
 
-  onChangeEvent(event: Event) {
+  onChange(event: Event) {
     event.stopPropagation();
     if (isEmpty(this.currentValue)) {
       this.model.valueUpdates.next(null);
@@ -113,7 +110,7 @@ export class DsDynamicTypeaheadComponent implements OnInit {
     }
   }
 
-  onFocusEvent(event) {
+  onFocus(event) {
     this.focus.emit(event);
   }
 

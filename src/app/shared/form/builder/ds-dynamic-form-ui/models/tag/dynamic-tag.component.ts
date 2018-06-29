@@ -8,7 +8,7 @@ import { AuthorityService } from '../../../../../../core/integration/authority.s
 import { DynamicTagModel } from './dynamic-tag.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { Chips } from '../../../../../chips/models/chips.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { isEqual } from 'lodash';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
@@ -107,14 +107,14 @@ export class DsDynamicTagComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  onBlurEvent(event: Event) {
+  onBlur(event: Event) {
     if (isNotEmpty(this.currentValue)) {
-        this.addTagsToChips();
+      this.addTagsToChips();
     }
     this.blur.emit(event);
   }
 
-  onFocusEvent($event) {
+  onFocus(event) {
     this.focus.emit(event);
   }
 
@@ -138,7 +138,7 @@ export class DsDynamicTagComponent implements OnInit {
   onKeyUp(event) {
     if (event.keyCode === 13 || event.keyCode === 188) {
       event.preventDefault();
-      // Key: Enter or , or ;
+      // Key: Enter or ',' or ';'
       this.addTagsToChips();
       event.stopPropagation();
     }
@@ -147,7 +147,6 @@ export class DsDynamicTagComponent implements OnInit {
   preventEventsPropagation(event) {
     event.stopPropagation();
     if (event.keyCode === 13) {
-      // Key: Enter or , or ;
       event.preventDefault();
     }
   }
@@ -179,16 +178,5 @@ export class DsDynamicTagComponent implements OnInit {
       }, 50);
       this.updateModel(event);
     }
-  }
-
-  removeChips(event) {
-    // console.log("Removed chips index: "+event);
-    this.model.valueUpdates.next(this.chips.getChipsItems());
-    this.change.emit(event);
-  }
-
-  changeChips(event) {
-    this.model.valueUpdates.next(this.chips.getChipsItems());
-    this.change.emit(event);
   }
 }

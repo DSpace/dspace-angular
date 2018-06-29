@@ -7,9 +7,9 @@
          [readonly]="model.readOnly"
          [type]="model.inputType"
          [value]="formatItemForInput(model.value)"
-         (blur)="onBlurEvent($event)"
+         (blur)="onBlur($event)"
          (click)="$event.stopPropagation(); openDropdown(sdRef);"
-         (focus)="onFocusEvent($event)"
+         (focus)="onFocus($event)"
          (keypress)="$event.preventDefault()">
     <button aria-describedby="collectionControlsMenuLabel"
             class="ds-form-input-btn  btn btn-outline-primary"
