@@ -36,7 +36,7 @@ export class DsDynamicListComponent implements OnInit {
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public items: ListItem[][] = [];
-  protected authorityList: AuthorityValueModel[];
+  protected optionsList: AuthorityValueModel[];
   protected searchOptions: IntegrationSearchOptions;
 
   constructor(private authorityService: AuthorityService,
@@ -58,19 +58,19 @@ export class DsDynamicListComponent implements OnInit {
     }
   }
 
-  onBlurEvent(event: Event) {
+  onBlur(event: Event) {
     this.blur.emit(event);
   }
 
-  onFocusEvent(event: Event) {
+  onFocus(event: Event) {
     this.focus.emit(event);
   }
 
-  onChangeEvent(event: Event) {
+  onChange(event: Event) {
     const target = event.target as any;
     if (this.model.repeatable) {
       // Target tabindex coincide with the array index of the value into the authority list
-      const authorityValue: AuthorityValueModel = this.authorityList[target.tabIndex];
+      const authorityValue: AuthorityValueModel = this.optionsList[target.tabIndex];
       if (target.checked) {
         this.model.valueUpdates.next(authorityValue);
       } else {
@@ -81,7 +81,7 @@ export class DsDynamicListComponent implements OnInit {
         this.model.valueUpdates.next(newValue);
       }
     } else {
-      (this.model as DynamicListRadioGroupModel).valueUpdates.next(this.authorityList[target.value]);
+      (this.model as DynamicListRadioGroupModel).valueUpdates.next(this.optionsList[target.value]);
     }
     this.change.emit(event);
   }
@@ -93,7 +93,7 @@ export class DsDynamicListComponent implements OnInit {
         let groupCounter = 0;
         let itemsPerGroup = 0;
         let tempList: ListItem[] = [];
-        this.authorityList = authorities.payload as AuthorityValueModel[];
+        this.optionsList = authorities.payload as AuthorityValueModel[];
         // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
         (authorities.payload as AuthorityValueModel[]).forEach((option, key) => {
           const value = option.id || option.value;

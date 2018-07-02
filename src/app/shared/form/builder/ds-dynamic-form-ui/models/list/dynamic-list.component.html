@@ -19,9 +19,9 @@
                  [name]="model.name"
                  [required]="model.required"
                  [value]="item.value"
-                 (blur)="onBlurEvent($event)"
-                 (change)="onChangeEvent($event)"
-                 (focus)="onFocusEvent($event)"/>
+                 (blur)="onBlur($event)"
+                 (change)="onChange($event)"
+                 (focus)="onFocus($event)"/>
         <label class="custom-control-label"
                [class.disabled]="model.disabled"
                [ngClass]="model.layout.element?.control"
@@ -40,7 +40,7 @@
        [attr.tabindex]="model.tabIndex"
        [dynamicId]="bindId && model.id"
        [ngClass]="model.layout.element?.control"
-       (change)="onChangeEvent($event)">
+       (change)="onChange($event)">
 
     <div *ngFor="let columnItems of items" class="col-sm ml-3">
 
@@ -54,8 +54,8 @@
                  [name]="model.id"
                  [required]="model.required"
                  [value]="item.index"
-                 (blur)="onBlurEvent($event)"
-                 (focus)="onFocusEvent($event)"/>
+                 (blur)="onBlur($event)"
+                 (focus)="onFocus($event)"/>
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
         </label>
       </div>
