@@ -2,11 +2,9 @@
 @import '../../../../../styles/mixins.scss';
 
 .filters {
-    margin-top: $spacer/2;
-    margin-bottom: $spacer/2;
     a {
         color: $body-color;
-        &:hover {
+        &:hover, &focus {
           text-decoration: none;
         }
     }
@@ -16,3 +14,4 @@
         cursor: pointer;
     }
 }
+

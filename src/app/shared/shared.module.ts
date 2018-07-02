@@ -40,14 +40,16 @@ import { SearchResultGridElementComponent } from './object-grid/search-result-gr
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
-import { NotificationComponent } from './notifications/notification/notification.component';
-import { NotificationsBoardComponent } from './notifications/notifications-board/notifications-board.component';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
 import { TruncatableService } from './truncatable/truncatable.service';
 import { TruncatablePartComponent } from './truncatable/truncatable-part/truncatable-part.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
+import { DebounceDirective } from './utils/debounce.directive';
+import { ClickOutsideDirective } from './utils/click-outside.directive';
+import { EmphasizePipe } from './utils/emphasize.pipe';
+import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -65,7 +67,8 @@ const PIPES = [
   EnumKeysPipe,
   FileSizePipe,
   SafeUrlPipe,
-  TruncatePipe
+  TruncatePipe,
+  EmphasizePipe
 ];
 
 const COMPONENTS = [
@@ -89,6 +92,7 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
+  InputSuggestionsComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -110,7 +114,9 @@ const PROVIDERS = [
 
 const DIRECTIVES = [
   VarDirective,
-  DragClickDirective
+  DragClickDirective,
+  DebounceDirective,
+  ClickOutsideDirective
 ];
 
 @NgModule({

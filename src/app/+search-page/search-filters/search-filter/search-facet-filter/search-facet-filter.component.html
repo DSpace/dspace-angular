@@ -1,5 +1,5 @@
 <div>
-    <div class="filters">
+    <div class="filters py-2">
         <a *ngFor="let value of selectedValues" class="d-block"
            [routerLink]="[getSearchLink()]"
            [queryParams]="getRemoveParams(value)" queryParamsHandling="merge">
@@ -28,11 +28,15 @@
                 | translate}}</a>
         </div>
     </div>
-    <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter"
-          [action]="getCurrentUrl()">
-        <input type="text" [(ngModel)]="filter" [name]="filterConfig.paramName" class="form-control"
-               aria-label="New filter input"
-               [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"  [ngModelOptions]="{standalone: true}"/>
-        <input type="submit" class="d-none"/>
-    </form>
+    <ds-input-suggestions [suggestions]="(filterSearchResults | async)"
+                          [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"
+                          [action]="getCurrentUrl()"
+                          [name]="filterConfig.paramName"
+                          [(ngModel)]="filter"
+                          (submitSuggestion)="onSubmit($event)"
+                          (clickSuggestion)="clickFilter($event)"
+                          (findSuggestions)="findSuggestions($event)"
+                          [getDisplayValue]="getDisplayValue"
+                          ngDefaultControl
+    ></ds-input-suggestions>
 </div>
