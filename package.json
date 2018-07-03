@@ -8,7 +8,7 @@
   },
   "license": "BSD-2-Clause",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "global": "npm install -g @angular/cli marked node-gyp nodemon node-nightly npm-check-updates npm-run-all rimraf typescript ts-node typedoc webpack webpack-bundle-analyzer pm2 rollup",
