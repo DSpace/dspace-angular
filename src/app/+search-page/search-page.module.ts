@@ -21,6 +21,8 @@ import { SearchFiltersComponent } from './search-filters/search-filters.componen
 import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
+import { FilteredSearchPageComponent } from './filtered-search-page.component';
+import { SearchFixedFilterService } from './search-filters/search-filter/search-fixed-filter.service';
 
 const effects = [
   SearchSidebarEffects
@@ -36,6 +38,7 @@ const effects = [
   ],
   declarations: [
     SearchPageComponent,
+    FilteredSearchPageComponent,
     SearchResultsComponent,
     SearchSidebarComponent,
     SearchSettingsComponent,
@@ -53,7 +56,8 @@ const effects = [
   providers: [
     SearchService,
     SearchSidebarService,
-    SearchFilterService
+    SearchFilterService,
+    SearchFixedFilterService
   ],
   entryComponents: [
     ItemSearchResultListElementComponent,

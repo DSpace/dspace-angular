@@ -8,9 +8,12 @@ export class SearchOptions {
   scope?: string;
   query?: string;
   filters?: any;
+  fixedFilter?: any;
 
   toRestUrl(url: string, args: string[] = []): string {
-
+    if (isNotEmpty(this.fixedFilter)) {
+      args.push(this.fixedFilter);
+    }
     if (isNotEmpty(this.query)) {
       args.push(`query=${this.query}`);
     }

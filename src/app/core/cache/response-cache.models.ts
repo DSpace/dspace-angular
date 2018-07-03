@@ -108,4 +108,14 @@ export class ConfigSuccessResponse extends RestResponse {
     super(true, statusCode);
   }
 }
+
+export class FilteredDiscoveryQueryResponse extends RestResponse {
+  constructor(
+    public filterQuery: string,
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
 /* tslint:enable:max-classes-per-file */

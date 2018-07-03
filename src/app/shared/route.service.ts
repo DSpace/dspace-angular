@@ -28,6 +28,10 @@ export class RouteService {
     return this.route.params.map((params) => params[paramName]).distinctUntilChanged();
   }
 
+  getRouteDataValue(datafield: string): Observable<any> {
+    return this.route.data.map((data) => data[datafield]).distinctUntilChanged();
+  }
+
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
     return this.route.queryParamMap
       .map((map) => {
