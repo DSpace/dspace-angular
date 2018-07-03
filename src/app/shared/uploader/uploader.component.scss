@@ -20,19 +20,19 @@
 }
 
 .ds-document-drop-zone-active {
-  z-index: 1025 !important;
+  z-index: $drop-zone-area-z-index !important;
 }
 
 .ds-document-drop-zone-inner {
   background-color: rgba($white, 0.7);
-  z-index: 1021;
+  z-index: $drop-zone-area-inner-z-index;
   top: 0;
   left: 0;
 }
 
 .ds-document-drop-zone-inner-content {
   border: 4px dashed map-get($theme-colors, primary);
-  z-index: 1021;
+  z-index: $drop-zone-area-inner-z-index;
 }
 
 .ds-document-drop-zone-inner-content p {

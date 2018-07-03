@@ -12,7 +12,7 @@ import {
 import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
 import { AppState } from '../../app.reducer';
-import { formReducer } from './form.reducers';
+import { formReducer } from './form.reducer';
 
 describe('FormService test suite', () => {
   const formId = 'testForm';

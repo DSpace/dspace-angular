@@ -4,21 +4,21 @@ import { isEqual, isObject, transform } from 'lodash';
 /**
  * Returns passed object without specified property
  */
-export function deleteProperty(object, key): object {
+export function deleteProperty(object: object, key: string): object {
   const {[key]: deletedKey, ...otherKeys} = object;
   return otherKeys;
 }
 
 /**
  * Returns true if the passed object is empty or has only empty property.
- * isObjectEmpty({});               // true
- * isObjectEmpty({a: null});        // true
- * isObjectEmpty({a: []});          // true
- * isObjectEmpty({a: [], b: {});    // true
- * isObjectEmpty({a: 'a', b: 'b'}); // false
- * isObjectEmpty({a: [], b: 'b'});  // false
+ * hasOnlyEmptyProperties({});               // true
+ * hasOnlyEmptyProperties({a: null});        // true
+ * hasOnlyEmptyProperties({a: []});          // true
+ * hasOnlyEmptyProperties({a: [], b: {});    // true
+ * hasOnlyEmptyProperties({a: 'a', b: 'b'}); // false
+ * hasOnlyEmptyProperties({a: [], b: 'b'});  // false
  */
-export function isObjectEmpty(obj: any): boolean {
+export function hasOnlyEmptyProperties(obj: object): boolean {
   const objectType = typeof obj;
   if (objectType === 'object') {
     if (Object.keys(obj).length === 0) {
@@ -43,12 +43,12 @@ export function isObjectEmpty(obj: any): boolean {
  * difference({a: 'a', b: {}}, {a: 'a'});   // {}
  * difference({a: 'a'}, {a: 'a', b: 'b'});  // {}
  */
-export function difference(object, base) {
+export function difference(object: object, base: object) {
   const changes = (o, b) => {
     return transform(o, (result, value, key) => {
       if (!isEqual(value, b[key]) && isNotEmpty(value)) {
         const resultValue = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value;
-        if (!isObjectEmpty(resultValue)) {
+        if (!hasOnlyEmptyProperties(resultValue)) {
           result[key] = resultValue;
         }
       }

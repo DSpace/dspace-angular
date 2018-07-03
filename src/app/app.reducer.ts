@@ -3,7 +3,7 @@ import * as fromRouter from '@ngrx/router-store';
 
 import { headerReducer, HeaderState } from './header/header.reducer';
 import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
-import { formReducer, FormState } from './shared/form/form.reducers';
+import { formReducer, FormState } from './shared/form/form.reducer';
 import {
   SearchSidebarState,
   sidebarReducer

@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormComponent } from './form.component';
 import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormState } from './form.reducers';
+import { FormState } from './form.reducer';
 import { FormChangeAction, FormStatusChangeAction } from './form.actions';
 import { MockStore } from '../testing/mock-store';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';

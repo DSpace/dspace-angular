@@ -12,11 +12,11 @@
 
 :host /deep/ .dropdown-menu {
   width: 100% !important;
-  max-height: 200px;
+  max-height: $dropdown-menu-max-height;
   overflow-y: scroll;
   overflow-x: hidden;
   left: 0 !important;
-  margin-top: 15px !important;
+  margin-top: $spacer !important;
 }
 
 :host /deep/ .dropdown-item.active,
@@ -28,7 +28,6 @@
 }
 
 .tag-input {
-  flex-grow: 1;
   outline: none;
   width: auto !important;
 }

@@ -1,4 +1,4 @@
-import { deleteProperty, difference, isObjectEmpty } from './object.util';
+import { deleteProperty, difference, hasOnlyEmptyProperties } from './object.util';
 
 describe('Object Utils', () => {
   let object: any = {};
@@ -19,36 +19,36 @@ describe('Object Utils', () => {
 
   });
 
-  describe('isObjectEmpty', () => {
+  describe('hasOnlyEmptyProperties', () => {
 
     it('should return true when object is empty', () => {
       object = {};
-      expect(isObjectEmpty(object)).toBe(true);
+      expect(hasOnlyEmptyProperties(object)).toBe(true);
     });
 
     it('should return true when object has a null property', () => {
       object = {a: null};
-      expect(isObjectEmpty(object)).toBe(true);
+      expect(hasOnlyEmptyProperties(object)).toBe(true);
     });
 
     it('should return true when object property has an empty array as value', () => {
       object = {a: []};
-      expect(isObjectEmpty(object)).toBe(true);
+      expect(hasOnlyEmptyProperties(object)).toBe(true);
     });
 
     it('should return true when object property has an empty object as value', () => {
       object = {a: {}};
-      expect(isObjectEmpty(object)).toBe(true);
+      expect(hasOnlyEmptyProperties(object)).toBe(true);
     });
 
     it('should return false when object is not empty', () => {
       object = {a: 'a', b: 'b'};
-      expect(isObjectEmpty(object)).toBe(false);
+      expect(hasOnlyEmptyProperties(object)).toBe(false);
     });
 
     it('should return false when object has at least a valued property', () => {
       object = {a: [], b: 'b'};
-      expect(isObjectEmpty(object)).toBe(false);
+      expect(hasOnlyEmptyProperties(object)).toBe(false);
     });
 
   });

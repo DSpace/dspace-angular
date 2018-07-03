@@ -13,7 +13,7 @@ import {
   DynamicColorPickerModel,
   DynamicDatePickerModel,
   DynamicEditorModel,
-  DynamicFileUploadModel,
+  DynamicFileUploadModel, DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlModel,
   DynamicFormControlValue,
@@ -48,6 +48,7 @@ import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-inpu
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
+import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 
 describe('FormBuilderService test suite', () => {
 
@@ -248,7 +249,20 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicLookupNameModel({id: 'testLookupName'}),
 
-      new DynamicQualdropModel({id: 'testCombobox', readOnly: false})
+      new DynamicQualdropModel({id: 'testCombobox', readOnly: false}),
+
+      new DynamicRowArrayModel(
+        {
+          id: 'testFormRowArray',
+          initialCount: 5,
+          notRepeteable: false,
+          groupFactory: () => {
+            return [
+              new DynamicInputModel({id: 'testFormRowArrayGroupInput'})
+            ];
+          },
+        }
+      ),
     ];
 
     testFormConfiguration = {
@@ -388,6 +402,8 @@ describe('FormBuilderService test suite', () => {
     expect(service.findById('testCheckboxGroup1', testModel) instanceof DynamicFormControlModel).toBe(true);
     expect(service.findById('testCheckboxGroup2', testModel) instanceof DynamicFormControlModel).toBe(true);
     expect(service.findById('nestedTestInput', testModel) instanceof DynamicFormControlModel).toBe(true);
+    expect(service.findById('testFormRowArrayGroupInput', testModel) instanceof DynamicFormControlModel).toBe(true);
+    expect(service.findById('testFormRowArrayGroupInput', testModel, 2) instanceof DynamicFormControlModel).toBe(true);
   });
 
   it('should create an array of form models', () => {
@@ -484,9 +500,32 @@ describe('FormBuilderService test suite', () => {
 
   it('should return true when model is a Qualdrop Group', () => {
     const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID');
-    const model = service.findById('dc_identifier_QUALDROP_GROUP', formModel);
+    let model = service.findById('dc_identifier_QUALDROP_GROUP', formModel);
 
     expect(service.isQualdropGroup(model)).toBe(true);
+
+    model = service.findById('name_CONCAT_GROUP', formModel);
+
+    expect(service.isQualdropGroup(model)).toBe(false);
+  });
+
+  it('should return true when model is a Custom or List Group', () => {
+    const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID');
+    let model = service.findById('dc_identifier_QUALDROP_GROUP', formModel);
+
+    expect(service.isCustomOrListGroup(model)).toBe(true);
+
+    model = service.findById('name_CONCAT_GROUP', formModel);
+
+    expect(service.isCustomOrListGroup(model)).toBe(true);
+
+    model = service.findById('testCheckboxList', testModel);
+
+    expect(service.isCustomOrListGroup(model)).toBe(true);
+
+    model = service.findById('testRadioList', testModel);
+
+    expect(service.isCustomOrListGroup(model)).toBe(true);
   });
 
   it('should return true when model is a Custom Group', () => {
@@ -498,6 +537,14 @@ describe('FormBuilderService test suite', () => {
     model = service.findById('name_CONCAT_GROUP', formModel);
 
     expect(service.isCustomGroup(model)).toBe(true);
+
+    model = service.findById('testCheckboxList', testModel);
+
+    expect(service.isCustomGroup(model)).toBe(false);
+
+    model = service.findById('testRadioList', testModel);
+
+    expect(service.isCustomGroup(model)).toBe(false);
   });
 
   it('should return true when model is a List Group', () => {
@@ -514,6 +561,26 @@ describe('FormBuilderService test suite', () => {
     const model = service.findById('testRelationGroup', testModel);
 
     expect(service.isRelationGroup(model)).toBe(true);
+  });
+
+  it('should return true when model is a Array Row Group', () => {
+    let model = service.findById('testFormRowArray', testModel, null);
+
+    expect(service.isRowArrayGroup(model)).toBe(true);
+
+    model = service.findById('testFormArray', testModel);
+
+    expect(service.isRowArrayGroup(model)).toBe(false);
+  });
+
+  it('should return true when model is a Array Group', () => {
+    let model = service.findById('testFormRowArray', testModel) as DynamicFormArrayModel;
+
+    expect(service.isArrayGroup(model)).toBe(true);
+
+    model = service.findById('testFormArray', testModel) as DynamicFormArrayModel;
+
+    expect(service.isArrayGroup(model)).toBe(true);
   });
 
   it('should return properly form control by field id', () => {

@@ -27,7 +27,7 @@ import { GlobalConfig } from '../../../../../../../config/global-config.interfac
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { isObjectEmpty } from '../../../../../object.util';
+import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 
@@ -70,7 +70,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       this.formCollapsed = Observable.of(true);
     }
     this.model.valueUpdates.subscribe((value: any[]) => {
-      this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && isObjectEmpty(value[0]))) ? Observable.of(true) : Observable.of(false);
+      this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0]))) ? Observable.of(true) : Observable.of(false);
     });
 
     this.formId = this.formService.getUniqueId(this.model.id);

@@ -1,4 +1,4 @@
-import { FormEntry, formReducer } from './form.reducers';
+import { FormEntry, formReducer } from './form.reducer';
 import {
   FormAddError,
   FormChangeAction, FormClearErrorsAction,

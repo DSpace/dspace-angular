@@ -20,6 +20,7 @@ export class DynamicQualdropModel extends DynamicFormGroupModel {
   @serializable() languageUpdates: Subject<string>;
   @serializable() hasLanguages = false;
   @serializable() readOnly: boolean;
+  isCustomGroup = true;
 
   constructor(config: DsDynamicQualdropModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);

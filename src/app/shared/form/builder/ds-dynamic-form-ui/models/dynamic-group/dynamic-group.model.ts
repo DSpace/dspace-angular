@@ -4,7 +4,7 @@ import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-in
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { isEmpty, isNull } from '../../../../../empty.util';
 
-export const DYNAMIC_FORM_CONTROL_TYPE_RELATION = 'RELATION';
+export const DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP = 'RELATION';
 export const PLACEHOLDER_PARENT_METADATA = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 
 /**
@@ -28,7 +28,7 @@ export class DynamicGroupModel extends DsDynamicInputModel {
   @serializable() scopeUUID: string;
   @serializable() submissionScope: string;
   @serializable() _value: any[];
-  @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION;
+  @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP;
 
   constructor(config: DynamicGroupModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);

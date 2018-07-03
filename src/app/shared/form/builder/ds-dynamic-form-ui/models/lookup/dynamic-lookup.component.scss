@@ -29,16 +29,16 @@
 
 /* add padding  */
 .left-addon input {
-  padding-left: 30px;
+  padding-left: $spacer * 2;
 }
 
 .right-addon input {
-  padding-right: 30px;
+  padding-right: $spacer * 2;
 }
 
 :host /deep/ .dropdown-menu {
   width: 100% !important;
-  max-height: 200px;
+  max-height: $dropdown-menu-max-height;
   overflow-y: auto !important;
   overflow-x: hidden;
 }
@@ -50,23 +50,16 @@
   color: $dropdown-link-hover-color !important;
   background-color: $dropdown-link-hover-bg !important;
 }
-
-.dropdown-menu {
-  margin-top: -10px;
-}
+//
+//.dropdown-menu {
+//  margin-top: -($spacer * 0.625);
+//}
 
 div {
   overflow: visible;
   //padding-right: 0 !important;
 }
-
-button {
-  margin-right: 10px;
-}
-
-//@media (min-width: $screen-sm-min) {
-//  .firstName {
-//    padding-left: 0 !important;
-//    margin-left: -5px !important;
-//  }
+//
+//button {
+//  margin-right: $spacer * 0.625;
 //}

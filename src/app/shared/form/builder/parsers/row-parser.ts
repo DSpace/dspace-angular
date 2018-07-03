@@ -1,4 +1,9 @@
-import { DynamicFormArrayModel, DynamicFormControlModel, DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
+  DynamicFormArrayModel,
+  DynamicFormControlModel,
+  DynamicFormGroupModelConfig
+} from '@ng-dynamic-forms/core';
 import { uniqueId } from 'lodash';
 
 import { DateFieldParser } from './date-field-parser';
@@ -11,7 +16,10 @@ import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
 import { GroupFieldParser } from './group-field-parser';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
-import { DynamicGroupModel } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  DynamicGroupModel
+} from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { isEmpty } from '../../../empty.util';
 import { LookupFieldParser } from './lookup-field-parser';
@@ -98,7 +106,7 @@ export class RowParser {
       }
 
       if (fieldModel) {
-        if (fieldModel instanceof DynamicFormArrayModel || fieldModel instanceof DynamicGroupModel) {
+        if (fieldModel.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY || fieldModel.type === DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP) {
           if (this.rowData.fields.length > 1) {
             setLayout(fieldModel, 'grid', 'host', layoutGridClass);
             config.group.push(fieldModel);
@@ -111,7 +119,7 @@ export class RowParser {
           }
           return;
         } else {
-          if (fieldModel instanceof Array) {
+          if (Array.isArray(fieldModel)) {
             fieldModel.forEach((model) => {
               parsedResult = model;
               return;

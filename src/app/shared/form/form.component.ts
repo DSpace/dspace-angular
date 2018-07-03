@@ -24,7 +24,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { formObjectFromIdSelector } from './selectors';
-import { FormEntry, FormError } from './form.reducers';
+import { FormEntry, FormError } from './form.reducer';
 import { isEmpty } from 'lodash';
 
 /**

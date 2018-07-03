@@ -16,6 +16,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
 
   @serializable() separator: string;
   @serializable() hasLanguages = false;
+  isCustomGroup = true;
 
   constructor(config: DynamicConcatModelConfig, layout?: DynamicFormControlLayout) {
 
