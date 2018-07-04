@@ -10,6 +10,7 @@
                         [currentUrl]="getSearchLink()"
                         [scopes]="(scopeListRD$ | async)?.payload?.page">
         </ds-search-form>
+          <ds-search-labels></ds-search-labels>
       <div class="row">
         <div id="search-body"
              class="row-offcanvas row-offcanvas-left"

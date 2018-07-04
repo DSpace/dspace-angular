@@ -1,0 +1,10 @@
+<div>
+  <div class="labels">
+    <a *ngFor="let value of (appliedFilters | async)" class="badge badge-primary mr-1"
+       [routerLink]="[getSearchLink()]"
+       [queryParams]="getQueryParamsWithout(value.filter, value.value) | async">
+      {{value | dsCapitalize}}
+      <span> ×</span>
+    </a>
+  </div>
+</div>
