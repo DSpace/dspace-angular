@@ -3,5 +3,14 @@
     .dropdown-item {
         white-space: normal;
         word-break: break-word;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+form {
+    > div {
+        position: relative;
     }
 }

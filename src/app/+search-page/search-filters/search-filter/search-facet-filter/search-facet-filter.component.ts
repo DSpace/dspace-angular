@@ -68,6 +68,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.filterValues$.next(this.filterValues);
       newValues$.first().subscribe((rd) => this.isLastPage$.next(hasNoValue(rd.payload.next)));
     });
+    this.filter = '';
   }
 
   isChecked(value: FacetValue): Observable<boolean> {
@@ -99,16 +100,12 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     if (isNotEmpty(data)) {
       this.router.navigate([this.getSearchLink()], {
         queryParams:
-          { [this.filterConfig.paramName]: [...this.selectedValues, data[this.filterConfig.paramName]] },
+          { [this.filterConfig.paramName]: [...this.selectedValues, data] },
         queryParamsHandling: 'merge'
       });
       this.filter = '';
     }
     this.filterSearchResults = Observable.of([]);
-  }
-
-  clickFilter(data: string) {
-    this.onSubmit({ [this.filterConfig.paramName]: data });
   }
 
   hasValue(o: any): boolean {
