@@ -1,32 +1,15 @@
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DynamicFormArrayModel,
-  DynamicFormControlModel,
-  DynamicFormGroupModelConfig
-} from '@ng-dynamic-forms/core';
+import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core';
 import { uniqueId } from 'lodash';
 
-import { DateFieldParser } from './date-field-parser';
-import { DropdownFieldParser } from './dropdown-field-parser';
-import { ListFieldParser } from './list-field-parser';
-import { OneboxFieldParser } from './onebox-field-parser';
-import { NameFieldParser } from './name-field-parser';
-import { SeriesFieldParser } from './series-field-parser';
-import { TagFieldParser } from './tag-field-parser';
-import { TextareaFieldParser } from './textarea-field-parser';
-import { GroupFieldParser } from './group-field-parser';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
-  DynamicGroupModel
-} from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { isEmpty } from '../../../empty.util';
-import { LookupFieldParser } from './lookup-field-parser';
-import { LookupNameFieldParser } from './lookup-name-field-parser';
-import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { setLayout } from './parser.utils';
 import { FormFieldModel } from '../models/form-field.model';
+import { ParserType } from './parser-type';
+import { ParserOptions } from './parser-options';
+import { ParserFactory } from './parser-factory';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -53,56 +36,20 @@ export class RowParser {
 
     const layoutGridClass = ' col-sm-' + Math.trunc(12 / scopedFields.length) + ' d-flex flex-column justify-content-start';
 
+    const parserOptions: ParserOptions = {
+      readOnly: this.readOnly,
+      submissionScope: this.submissionScope,
+      authorityUuid: this.authorityOptions.uuid
+    };
+
     // Iterate over row's fields
     scopedFields.forEach((fieldData: FormFieldModel) => {
 
-      switch (fieldData.input.type) {
-        case 'date':
-          fieldModel = (new DateFieldParser(fieldData, this.initFormValues, this.readOnly).parse());
-          break;
-
-        case 'dropdown':
-          fieldModel = (new DropdownFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
-          break;
-
-        case 'list':
-          fieldModel = (new ListFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
-          break;
-
-        case 'lookup':
-          fieldModel = (new LookupFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
-          break;
-
-        case 'onebox':
-          fieldModel = (new OneboxFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
-          break;
-
-        case 'lookup-name':
-          fieldModel = (new LookupNameFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
-          break;
-
-        case 'name':
-          fieldModel = (new NameFieldParser(fieldData, this.initFormValues, this.readOnly).parse());
-          break;
-
-        case 'series':
-          fieldModel = (new SeriesFieldParser(fieldData, this.initFormValues, this.readOnly).parse());
-          break;
-
-        case 'tag':
-          fieldModel = (new TagFieldParser(fieldData, this.initFormValues, this.readOnly, this.authorityOptions.uuid).parse());
-          break;
-
-        case 'textarea':
-          fieldModel = (new TextareaFieldParser(fieldData, this.initFormValues, this.readOnly).parse());
-          break;
-
-        case 'group':
-          fieldModel = new GroupFieldParser(fieldData, this.initFormValues, this.readOnly, this.submissionScope, this.authorityOptions.uuid).parse();
-          break;
-
-        default:
-          throw new Error(`unknown form control model type defined on JSON object with label "${fieldData.label}"`);
+      const parserCo = ParserFactory.getConstructor(fieldData.input.type as ParserType);
+      if (parserCo) {
+        fieldModel = new parserCo(fieldData, this.initFormValues, parserOptions).parse();
+      } else {
+        throw new Error(`unknown form control model type defined with label "${fieldData.label}"`);
       }
 
       if (fieldModel) {

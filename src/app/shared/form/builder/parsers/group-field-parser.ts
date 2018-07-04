@@ -3,26 +3,19 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { FormFieldModel } from '../models/form-field.model';
 import {
   DynamicGroupModel,
-  DynamicGroupModelConfig, PLACEHOLDER_PARENT_METADATA
+  DynamicGroupModelConfig,
+  PLACEHOLDER_PARENT_METADATA
 } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { isNotEmpty } from '../../../empty.util';
 import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
 
 export class GroupFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel,
-              protected initFormValues,
-              protected readOnly: boolean,
-              protected submissionScope: string,
-              protected authorityUuid: string,) {
-    super(configData, initFormValues, readOnly);
-  }
-
   public modelFactory(fieldValue: FormFieldMetadataValueObject) {
     const modelConfiguration: DynamicGroupModelConfig = this.initModel();
 
-    modelConfiguration.scopeUUID = this.authorityUuid;
-    modelConfiguration.submissionScope = this.submissionScope;
+    modelConfiguration.scopeUUID = this.parserOptions.authorityUuid;
+    modelConfiguration.submissionScope = this.parserOptions.submissionScope;
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {
       modelConfiguration.formConfiguration = this.configData.rows;
       modelConfiguration.relationFields = [];

@@ -1,26 +1,26 @@
 import { FieldParser } from './field-parser';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import {
-  DynamicFormControlLayout, DynamicInputModel,
-  DynamicInputModelConfig
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig } from '@ng-dynamic-forms/core';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
-  CONCAT_GROUP_SUFFIX, CONCAT_SECOND_INPUT_SUFFIX,
-  DynamicConcatModel, DynamicConcatModelConfig
+  CONCAT_GROUP_SUFFIX,
+  CONCAT_SECOND_INPUT_SUFFIX,
+  DynamicConcatModel,
+  DynamicConcatModelConfig
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { isNotEmpty } from '../../../empty.util';
+import { ParserOptions } from './parser-options';
 
 export class ConcatFieldParser extends FieldParser {
 
   constructor(protected configData: FormFieldModel,
               protected initFormValues,
-              protected readOnly: boolean,
-              private separator: string,
+              protected parserOptions: ParserOptions,
+              protected separator: string,
               protected firstPlaceholder: string = null,
               protected secondPlaceholder: string = null) {
-    super(configData, initFormValues, readOnly);
+    super(configData, initFormValues, parserOptions);
 
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;
@@ -71,7 +71,7 @@ export class ConcatFieldParser extends FieldParser {
 
     // Init values
     if (isNotEmpty(fieldValue)) {
-      const  values = fieldValue.value.split(this.separator);
+      const values = fieldValue.value.split(this.separator);
 
       if (values.length > 1) {
         input1ModelConfig.value = values[0].trim();

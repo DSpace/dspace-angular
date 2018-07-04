@@ -2,13 +2,17 @@ import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { TextareaFieldParser } from './textarea-field-parser';
 import { DsDynamicTextAreaModel } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { ParserOptions } from './parser-options';
 
 describe('TextareaFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
 
-  const authorityUuid = 'testScopeUUID';
-  const readOnly = false;
+  const parserOptions: ParserOptions = {
+    readOnly: false,
+    submissionScope: null,
+    authorityUuid: null
+  };
 
   beforeEach(() => {
     field = {
@@ -30,13 +34,13 @@ describe('TextareaFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new TextareaFieldParser(field, initFormValues, readOnly);
+    const parser = new TextareaFieldParser(field, initFormValues, parserOptions);
 
     expect(parser instanceof TextareaFieldParser).toBe(true);
   });
 
   it('should return a DsDynamicTextAreaModel object when repeatable option is false', () => {
-    const parser = new TextareaFieldParser(field, initFormValues, readOnly);
+    const parser = new TextareaFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -51,7 +55,7 @@ describe('TextareaFieldParser test suite', () => {
     };
     const expectedValue ='test description';
 
-    const parser = new TextareaFieldParser(field, initFormValues, readOnly);
+    const parser = new TextareaFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 

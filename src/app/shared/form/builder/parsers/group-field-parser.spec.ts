@@ -2,14 +2,17 @@ import { FormFieldModel } from '../models/form-field.model';
 import { GroupFieldParser } from './group-field-parser';
 import { DynamicGroupModel } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { ParserOptions } from './parser-options';
 
 describe('GroupFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues = {};
 
-  const authorityUuid = 'testScopeUUID';
-  const readOnly = false;
-  const submissionScope = 'WORKSPACE';
+  const parserOptions: ParserOptions = {
+    readOnly: false,
+    submissionScope: 'testScopeUUID',
+    authorityUuid: 'WORKSPACE'
+  };
 
   beforeEach(() => {
     field = {
@@ -68,13 +71,13 @@ describe('GroupFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new GroupFieldParser(field, initFormValues, readOnly, submissionScope, authorityUuid);
+    const parser = new GroupFieldParser(field, initFormValues, parserOptions);
 
     expect(parser instanceof GroupFieldParser).toBe(true);
   });
 
   it('should return a DynamicGroupModel object', () => {
-    const parser = new GroupFieldParser(field, initFormValues, readOnly, submissionScope, authorityUuid);
+    const parser = new GroupFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -83,7 +86,7 @@ describe('GroupFieldParser test suite', () => {
 
   it('should throw when rows configuration is empty', () => {
     field.rows = null;
-    const parser = new GroupFieldParser(field, initFormValues, readOnly, submissionScope, authorityUuid);
+    const parser = new GroupFieldParser(field, initFormValues, parserOptions);
 
     expect(() => parser.parse())
       .toThrow();
@@ -94,7 +97,7 @@ describe('GroupFieldParser test suite', () => {
       author: [new FormFieldMetadataValueObject('test author')],
       affiliation: [new FormFieldMetadataValueObject('test affiliation')]
     };
-    const parser = new GroupFieldParser(field, initFormValues, readOnly, submissionScope, authorityUuid);
+    const parser = new GroupFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
     const expectedValue = [{

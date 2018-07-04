@@ -1,13 +1,12 @@
 import { DynamicSelectModel, DynamicSelectModelConfig } from '@ng-dynamic-forms/core';
 
 import { FieldParser } from './field-parser';
-import { FormFieldModel } from '../models/form-field.model';
 import {
+  DsDynamicQualdropModelConfig,
+  DynamicQualdropModel,
   QUALDROP_GROUP_SUFFIX,
   QUALDROP_METADATA_SUFFIX,
-  QUALDROP_VALUE_SUFFIX,
-  DsDynamicQualdropModelConfig,
-  DynamicQualdropModel
+  QUALDROP_VALUE_SUFFIX
 } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { isNotEmpty } from '../../../empty.util';
@@ -18,13 +17,6 @@ import {
 } from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 
 export class OneboxFieldParser extends FieldParser {
-
-  constructor(protected configData: FormFieldModel,
-              protected initFormValues,
-              protected readOnly: boolean,
-              protected authorityUuid: string) {
-    super(configData, initFormValues, readOnly);
-  }
 
   public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
     if (this.configData.selectableMetadata.length > 1) {
@@ -79,7 +71,7 @@ export class OneboxFieldParser extends FieldParser {
       return new DynamicQualdropModel(inputSelectGroup, clsGroup);
     } else if (this.configData.selectableMetadata[0].authority) {
       const typeaheadModelConfig: DsDynamicTypeaheadModelConfig = this.initModel();
-      this.setAuthorityOptions(typeaheadModelConfig, this.authorityUuid);
+      this.setAuthorityOptions(typeaheadModelConfig, this.parserOptions.authorityUuid);
       this.setValues(typeaheadModelConfig, fieldValue, true);
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
       return typeaheadModel;

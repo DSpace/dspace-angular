@@ -2,12 +2,17 @@ import { FormFieldModel } from '../models/form-field.model';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { SeriesFieldParser } from './series-field-parser';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { ParserOptions } from './parser-options';
 
 describe('SeriesFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
 
-  const readOnly = false;
+  const parserOptions: ParserOptions = {
+    readOnly: false,
+    submissionScope: 'testScopeUUID',
+    authorityUuid: null
+  };
 
   beforeEach(() => {
     field = {
@@ -27,13 +32,13 @@ describe('SeriesFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new SeriesFieldParser(field, initFormValues, readOnly);
+    const parser = new SeriesFieldParser(field, initFormValues, parserOptions);
 
     expect(parser instanceof SeriesFieldParser).toBe(true);
   });
 
   it('should return a DynamicConcatModel object when repeatable option is false', () => {
-    const parser = new SeriesFieldParser(field, initFormValues, readOnly);
+    const parser = new SeriesFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -41,7 +46,7 @@ describe('SeriesFieldParser test suite', () => {
   });
 
   it('should return a DynamicConcatModel object with the correct separator', () => {
-    const parser = new SeriesFieldParser(field, initFormValues, readOnly);
+    const parser = new SeriesFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -54,7 +59,7 @@ describe('SeriesFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test; series');
 
-    const parser = new SeriesFieldParser(field, initFormValues, readOnly);
+    const parser = new SeriesFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 

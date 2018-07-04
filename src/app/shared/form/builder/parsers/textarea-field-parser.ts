@@ -1,10 +1,6 @@
 import { FieldParser } from './field-parser';
-import {
-  DynamicFormControlLayout, DynamicTextAreaModel, DynamicTextAreaModelConfig
-} from '@ng-dynamic-forms/core';
-import { FormFieldModel } from '../models/form-field.model';
+import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { isNotEmpty } from '../../../empty.util';
 import {
   DsDynamicTextAreaModel,
   DsDynamicTextAreaModelConfig

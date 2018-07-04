@@ -11,12 +11,13 @@ import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-fo
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
+import { ParserOptions } from './parser-options';
 
 export abstract class FieldParser {
 
   protected fieldId: string;
 
-  constructor(protected configData: FormFieldModel, protected initFormValues, protected readOnly: boolean) {
+  constructor(protected configData: FormFieldModel, protected initFormValues, protected parserOptions: ParserOptions) {
   }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject): any;
@@ -175,8 +176,8 @@ export abstract class FieldParser {
     controlModel.id = (this.fieldId).replace(/\./g, '_');
 
     // Set read only option
-    controlModel.readOnly = this.readOnly;
-    controlModel.disabled = this.readOnly;
+    controlModel.readOnly = this.parserOptions.readOnly;
+    controlModel.disabled = this.parserOptions.readOnly;
 
     if (label) {
       controlModel.label = (labelEmpty) ? '&nbsp;' : this.configData.label;

@@ -3,15 +3,19 @@ import { OneboxFieldParser } from './onebox-field-parser';
 import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicTypeaheadModel } from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { ParserOptions } from './parser-options';
 
 describe('OneboxFieldParser test suite', () => {
   let field1: FormFieldModel;
   let field2: FormFieldModel;
   let field3: FormFieldModel;
 
-  const authorityUuid = 'testScopeUUID';
   const initFormValues = {};
-  const readOnly = false;
+  const parserOptions: ParserOptions = {
+    readOnly: false,
+    submissionScope: 'testScopeUUID',
+    authorityUuid: null
+  };
 
   beforeEach(() => {
     field1 = {
@@ -66,13 +70,13 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new OneboxFieldParser(field1, initFormValues, readOnly, authorityUuid);
+    const parser = new OneboxFieldParser(field1, initFormValues, parserOptions);
 
     expect(parser instanceof OneboxFieldParser).toBe(true);
   });
 
   it('should return a DynamicQualdropModel object when selectableMetadata is multiple', () => {
-    const parser = new OneboxFieldParser(field2, initFormValues, readOnly, authorityUuid);
+    const parser = new OneboxFieldParser(field2, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -80,7 +84,7 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should return a DsDynamicInputModel object when selectableMetadata is not multiple', () => {
-    const parser = new OneboxFieldParser(field3, initFormValues, readOnly, authorityUuid);
+    const parser = new OneboxFieldParser(field3, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -88,7 +92,7 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should return a DynamicTypeaheadModel object when selectableMetadata has authority', () => {
-    const parser = new OneboxFieldParser(field1, initFormValues, readOnly, authorityUuid);
+    const parser = new OneboxFieldParser(field1, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 

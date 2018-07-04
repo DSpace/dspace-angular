@@ -3,13 +3,17 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { ListFieldParser } from './list-field-parser';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
+import { ParserOptions } from './parser-options';
 
 describe('ListFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues = {};
 
-  const authorityUuid = 'testScopeUUID';
-  const readOnly = false;
+  const parserOptions: ParserOptions = {
+    readOnly: false,
+    submissionScope: 'testScopeUUID',
+    authorityUuid: null
+  };
 
   beforeEach(() => {
     field = {
@@ -33,13 +37,13 @@ describe('ListFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new ListFieldParser(field, initFormValues, readOnly, authorityUuid);
+    const parser = new ListFieldParser(field, initFormValues, parserOptions);
 
     expect(parser instanceof ListFieldParser).toBe(true);
   });
 
   it('should return a DynamicListCheckboxGroupModel object when repeatable option is true', () => {
-    const parser = new ListFieldParser(field, initFormValues, readOnly, authorityUuid);
+    const parser = new ListFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -48,7 +52,7 @@ describe('ListFieldParser test suite', () => {
 
   it('should return a DynamicListRadioGroupModel object when repeatable option is false', () => {
     field.repeatable = false;
-    const parser = new ListFieldParser(field, initFormValues, readOnly, authorityUuid);
+    const parser = new ListFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -61,7 +65,7 @@ describe('ListFieldParser test suite', () => {
     };
     const expectedValue = [new FormFieldMetadataValueObject('test type')];
 
-    const parser = new ListFieldParser(field, initFormValues, readOnly, authorityUuid);
+    const parser = new ListFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
