@@ -3,10 +3,7 @@
 
 :host {
     border: 1px solid map-get($theme-colors, light);
-    >div {
-        position: relative;
-    }
-    .search-filter-wrapper {
+    .search-filter-wrapper.closed {
         overflow: hidden;
     }
     .filter-toggle {

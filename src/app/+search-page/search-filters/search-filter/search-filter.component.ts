@@ -1,12 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
-import { SearchService } from '../../search-service/search.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { FacetValue } from '../../search-service/facet-value.model';
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
-import { PaginatedList } from '../../../core/data/paginated-list';
 
 /**
  * This component renders a simple item page.
@@ -23,6 +19,7 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 
 export class SearchFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
+  collapsed;
 
   constructor(private filterService: SearchFilterService) {
   }
@@ -47,13 +44,27 @@ export class SearchFilterComponent implements OnInit {
 
   initialCollapse() {
     this.filterService.initialCollapse(this.filter.name);
+    this.collapsed = true;
   }
 
   initialExpand() {
     this.filterService.initialExpand(this.filter.name);
+    this.collapsed = false;
   }
 
   getSelectedValues(): Observable<string[]> {
     return this.filterService.getSelectedValuesForFilter(this.filter);
+  }
+
+  finishSlide(event: any): void {
+    if (event.fromState === 'collapsed') {
+      this.collapsed = false;
+    }
+  }
+
+  startSlide(event: any): void {
+    if (event.toState === 'collapsed') {
+      this.collapsed = true;
+    }
   }
 }

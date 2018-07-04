@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { hasValue, isNotEmpty } from '../empty.util';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * This component renders a simple item page.
