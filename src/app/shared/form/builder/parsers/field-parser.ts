@@ -62,7 +62,7 @@ export abstract class FieldParser {
 
       const layout: DynamicFormControlLayout = {
         grid: {
-          group: 'dsgridgroup form-row'
+          group: 'form-row'
         }
       };
 
@@ -78,7 +78,7 @@ export abstract class FieldParser {
   }
 
   protected getInitValueCount(index = 0, fieldId?): number {
-    const fieldIds = fieldId || this.getFieldId();
+    const fieldIds = fieldId || this.getAllFieldIds();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
       return this.initFormValues[fieldIds[0]].length;
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
@@ -95,7 +95,7 @@ export abstract class FieldParser {
   }
 
   protected getInitGroupValues(): FormFieldMetadataValueObject[] {
-    const fieldIds = this.getFieldId();
+    const fieldIds = this.getAllFieldIds();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds[0])) {
       return this.initFormValues[fieldIds[0]];
     }
@@ -108,7 +108,7 @@ export abstract class FieldParser {
   }
 
   protected getInitFieldValue(outerIndex = 0, innerIndex = 0, fieldId?): FormFieldMetadataValueObject {
-    const fieldIds = fieldId || this.getFieldId();
+    const fieldIds = fieldId || this.getAllFieldIds();
     if (isNotEmpty(this.initFormValues)
       && isNotNull(fieldIds)
       && fieldIds.length === 1
@@ -132,7 +132,7 @@ export abstract class FieldParser {
   }
 
   protected getInitArrayIndex() {
-    const fieldIds: any = this.getFieldId();
+    const fieldIds: any = this.getAllFieldIds();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds)) {
       return this.initFormValues[fieldIds].length;
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
@@ -148,7 +148,12 @@ export abstract class FieldParser {
     }
   }
 
-  protected getFieldId(): string[] {
+  protected getFieldId(): string {
+    const ids = this.getAllFieldIds();
+    return isNotNull(ids) ? ids[0] : null;
+  }
+
+  protected getAllFieldIds(): string[] {
     if (Array.isArray(this.configData.selectableMetadata)) {
       if (this.configData.selectableMetadata.length === 1) {
         return [this.configData.selectableMetadata[0].metadata];
@@ -167,7 +172,7 @@ export abstract class FieldParser {
     const controlModel = Object.create(null);
 
     // Sets input ID
-    this.fieldId = id ? id : this.getFieldId()[0];
+    this.fieldId = id ? id : this.getFieldId();
 
     // Sets input name (with the original field's id value)
     controlModel.name = this.fieldId;

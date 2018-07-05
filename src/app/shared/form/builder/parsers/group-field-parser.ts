@@ -55,7 +55,7 @@ export class GroupFieldParser extends FieldParser {
     };
 
     const model = new DynamicGroupModel(modelConfiguration, cls);
-    model.name = this.getFieldId()[0];
+    model.name = this.getFieldId();
     return model;
   }
 

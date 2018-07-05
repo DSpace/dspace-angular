@@ -97,7 +97,7 @@ export class ConcatFieldParser extends FieldParser {
       }
     };
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
-    concatModel.name = this.getFieldId()[0];
+    concatModel.name = this.getFieldId();
 
     return concatModel;
   }
