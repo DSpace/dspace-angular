@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 
 export class SearchLabelsComponent {
-  protected appliedFilters: Observable<FilterLabel[]>;
+  appliedFilters: Observable<FilterLabel[]>;
 
   constructor(private searchService: SearchService) {
     this.appliedFilters = this.searchService.getFilterLabels();
