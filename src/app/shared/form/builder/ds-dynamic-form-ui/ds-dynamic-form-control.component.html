@@ -329,7 +329,7 @@
           ></ds-dynamic-lookup>
         </ng-container>
 
-        <small *ngIf="showHint" class="text-muted" [innerHTML]="model.hint"
+        <small *ngIf="model.hint" class="text-muted" [innerHTML]="model.hint"
                [ngClass]="getClass('element', 'hint')"></small>
 
         <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">

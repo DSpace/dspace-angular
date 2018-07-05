@@ -6,11 +6,9 @@ import 'rxjs/add/observable/of';
 import { Chips } from './models/chips.model';
 import { UploaderService } from '../uploader/uploader.service';
 import { ChipsComponent } from './chips.component';
-import { NgbModule, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SortablejsModule } from 'angular-sortablejs';
 import { By } from '@angular/platform-browser';
-import { PaginationComponent } from '../pagination/pagination.component';
-import { TruncatableComponent } from '../truncatable/truncatable.component';
 
 function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
   TestBed.overrideComponent(type, {
