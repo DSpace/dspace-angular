@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import {
-  ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router,
+  ActivatedRoute, NavigationExtras, Params, PRIMARY_OUTLET, Router,
   UrlSegmentGroup
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -40,7 +40,8 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 import { FacetValueResponseParsingService } from '../../core/data/facet-value-response-parsing.service';
 import { FacetConfigResponseParsingService } from '../../core/data/facet-config-response-parsing.service';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { observable } from 'rxjs/symbol/observable';
+import { FilterLabel } from './filter-label.model';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Injectable()
 export class SearchService implements OnDestroy {
@@ -221,6 +222,27 @@ export class SearchService implements OnDestroy {
     });
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+  }
+
+  getFilterLabels(): Observable<FilterLabel[]> {
+    return combineLatest(this.getConfig(), this.route.queryParams).pipe(
+      map(([rd, params]) => {
+        const filterLabels: FilterLabel[] = [];
+        rd.payload.forEach((config: SearchFilterConfig) => {
+          const param = params[config.paramName];
+          if (param !== undefined) {
+            if (param instanceof Array && param.length > 1) {
+              param.forEach((p: string) => {
+                filterLabels.push(new FilterLabel(p, config.paramName))
+              });
+            } else {
+              filterLabels.push(new FilterLabel(param, config.paramName));
+            }
+          }
+        });
+        return filterLabels.filter((n) => n !== undefined && n.value.length > 0);
+      })
+    );
   }
 
   getViewMode(): Observable<ViewMode> {
