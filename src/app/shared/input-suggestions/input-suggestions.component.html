@@ -7,7 +7,7 @@
            class="form-control"
            [dsDebounce]="debounceTime" (onDebounce)="findSuggestions.emit($event)"
            [placeholder]="placeholder"
-           [ngModelOptions]="{standalone: true}" autocomplete="off"/>
+           [ngModelOptions]="{standalone: true}" autocomplete="off" id="suggestion_input"/>
     <input type="submit" class="d-none"/>
     <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
         <ul class="list-unstyled">
