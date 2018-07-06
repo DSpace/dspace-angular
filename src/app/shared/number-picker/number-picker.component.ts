@@ -122,13 +122,7 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(value) {
-    if (this.startValue) {
-      this.startValue = this.value;
-      this.value = value;
-    } else {
-      // First init
-      this.startValue = value || this.min;
-    }
+    this.startValue = value || this.min;
   }
 
   registerOnChange(fn) {

@@ -26,6 +26,7 @@ export class FormFieldModel {
   @autoserialize
   input: {
     type: string;
+    regex?: string;
   };
 
   @autoserialize

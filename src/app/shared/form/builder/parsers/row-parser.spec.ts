@@ -71,7 +71,10 @@ describe('RowParser test suite', () => {
     row2 = {
       fields: [
         {
-          input: {type: 'onebox'},
+          input: {
+            type: 'onebox',
+            regex: '^[a-zA-Z0-9]+$'
+          },
           label: 'Title',
           mandatory: 'false',
           repeatable: true,

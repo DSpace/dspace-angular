@@ -194,12 +194,31 @@ export abstract class FieldParser {
       this.markAsRequired(controlModel);
     }
 
+    if (this.hasRegex()) {
+      console.log(this.configData.input.regex);
+      this.addPatternValidator(controlModel);
+    }
+
     // Available Languages
     if (this.configData.languageCodes && this.configData.languageCodes.length > 0) {
       (controlModel as DsDynamicInputModel).languageCodes = this.configData.languageCodes;
     }
 
     return controlModel;
+  }
+
+  protected hasRegex() {
+    return hasValue(this.configData.input.regex);
+  }
+
+  protected addPatternValidator(controlModel) {
+    const regex = new RegExp(this.configData.input.regex);
+    controlModel.validators = Object.assign({}, controlModel.validators, {pattern: regex});
+    controlModel.errorMessages = Object.assign(
+      {},
+      controlModel.errorMessages,
+      {pattern: 'form.error.validation.pattern', regex: 'form.error.validation.pattern'});
+
   }
 
   protected markAsRequired(controlModel) {

@@ -333,7 +333,7 @@
                [ngClass]="getClass('element', 'hint')"></small>
 
         <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
-            <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message }}</small>
+            <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate:model.validators }}</small>
         </div>
 
       </ng-container>

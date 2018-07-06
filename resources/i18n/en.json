@@ -168,6 +168,11 @@
     "group-collapse": "Collapse",
     "group-expand": "Expand",
     "group-collapse-help": "Click here to collapse",
-    "group-expand-help": "Click here to expand and add more element"
+    "group-expand-help": "Click here to expand and add more element",
+    "error": {
+      "validation": {
+        "pattern": "This input is restricted by the current pattern: {{ pattern }}."
+      }
+    }
   }
 }
