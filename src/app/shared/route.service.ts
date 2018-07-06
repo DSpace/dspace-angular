@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, Params, } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router, } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class RouteService {
+  params: Observable<Params>;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
+    this.subscribeToRouterParams();
+
   }
 
   getQueryParameterValues(paramName: string): Observable<string[]> {
@@ -25,7 +29,7 @@ export class RouteService {
   }
 
   getRouteParameterValue(paramName: string): Observable<string> {
-    return this.route.params.map((params) => params[paramName]).distinctUntilChanged();
+    return this.params.map((params) => params[paramName]).distinctUntilChanged();
   }
 
   getRouteDataValue(datafield: string): Observable<any> {
@@ -43,5 +47,17 @@ export class RouteService {
           });
         return params;
       }).distinctUntilChanged();
+  }
+
+  subscribeToRouterParams() {
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        let active = this.route;
+        while (active.firstChild) {
+          active = active.firstChild;
+        }
+        this.params = active.params;
+      });
   }
 }

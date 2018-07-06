@@ -46,6 +46,7 @@ import { FacetValueResponseParsingService } from './data/facet-value-response-pa
 import { FacetValueMapResponseParsingService } from './data/facet-value-map-response-parsing.service';
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -93,6 +94,7 @@ const PROVIDERS = [
   SubmissionSectionsConfigService,
   UUIDService,
   NotificationsService,
+  FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

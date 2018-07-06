@@ -18,6 +18,8 @@ export class FilteredDiscoveryPageResponseParsingService extends BaseResponsePar
   ) { super();
   }
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+    console.log('test');
+
     const query = data.payload['discovery-query'];
     return new FilteredDiscoveryQueryResponse(query, data.statusCode);
   }

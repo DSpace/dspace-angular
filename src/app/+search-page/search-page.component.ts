@@ -47,7 +47,7 @@ export class SearchPageComponent implements OnInit {
     query: '',
     scope: ''
   };
-  title;
+  fixedFilter;
 
   constructor(protected service: SearchService,
               protected communityService: CommunityDataService,
@@ -68,6 +68,7 @@ export class SearchPageComponent implements OnInit {
     this.resultsRD$ = this.searchOptions$.pipe(
       flatMap((searchOptions) => this.service.search(searchOptions))
     );
+    this.fixedFilter = this.routeService.getRouteParameterValue('filter');
   }
 
   public closeSidebar(): void {

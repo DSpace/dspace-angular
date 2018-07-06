@@ -145,6 +145,24 @@
     }
   },
   "search": {
+    "journal": {
+      "title": "DSpace Angular :: Journal Search",
+      "results": {
+        "head": "Journal Search Results"
+      }
+    },
+    "person": {
+      "title": "DSpace Angular :: Person Search",
+      "results": {
+        "head": "Person Search Results"
+      }
+    },
+    "publication": {
+      "title": "DSpace Angular :: Publication Search",
+      "results": {
+        "head": "Publication Search Results"
+      }
+    },
     "title": "DSpace Angular :: Search",
     "description": "",
     "form": {

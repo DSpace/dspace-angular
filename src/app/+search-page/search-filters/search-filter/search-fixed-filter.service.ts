@@ -12,6 +12,7 @@ import { ResponseParsingService } from '../../../core/data/parsing.service';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { FilteredDiscoveryPageResponseParsingService } from '../../../core/data/filtered-discovery-page-response-parsing.service';
 import { hasValue } from '../../../shared/empty.util';
+import { configureRequest } from '../../../core/shared/operators';
 
 @Injectable()
 export class SearchFixedFilterService {
@@ -30,12 +31,14 @@ export class SearchFixedFilterService {
         map((url: string) => {
           url += ('/' + filterName);
           const request = new GetRequest(this.requestService.generateRequestId(), url);
+          console.log(url);
           return Object.assign(request, {
             getResponseParser(): GenericConstructor<ResponseParsingService> {
               return FilteredDiscoveryPageResponseParsingService;
             }
           });
         }),
+        configureRequest(this.requestService)
       );
 
       const responseCacheObs = requestObs.pipe(
