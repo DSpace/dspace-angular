@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SetViewMode } from '../../shared/view-mode';
 import { SearchService } from '../search-service/search.service';
-import { SearchOptions} from '../search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
@@ -64,7 +63,7 @@ export class SearchSettingsComponent implements OnInit {
         pageSize: value
       })
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 
   reloadOrder(event: Event) {
@@ -74,6 +73,6 @@ export class SearchSettingsComponent implements OnInit {
         sortDirection: value
       })
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 }

@@ -31,7 +31,6 @@ export class SearchFixedFilterService {
         map((url: string) => {
           url += ('/' + filterName);
           const request = new GetRequest(this.requestService.generateRequestId(), url);
-          console.log(url);
           return Object.assign(request, {
             getResponseParser(): GenericConstructor<ResponseParsingService> {
               return FilteredDiscoveryPageResponseParsingService;
