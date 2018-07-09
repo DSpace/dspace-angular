@@ -33,3 +33,5 @@ export const appReducers: ActionReducerMap<AppState> = {
   searchFilter: filterReducer,
   truncatable: truncatableReducer
 };
+
+export const routerStateSelector = (state: AppState) => state.router;

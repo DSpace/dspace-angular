@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
@@ -77,7 +78,8 @@ describe('SearchPageComponent', () => {
           provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
           {
             isXs: Observable.of(true),
-            isSm: Observable.of(false)
+            isSm: Observable.of(false),
+            isXsOrSm: Observable.of(true)
           })
         },
         {

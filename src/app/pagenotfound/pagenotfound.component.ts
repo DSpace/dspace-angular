@@ -1,4 +1,4 @@
-import { ServerResponseService } from '../shared/server-response.service';
+import { ServerResponseService } from '../shared/services/server-response.service';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
