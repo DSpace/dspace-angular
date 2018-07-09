@@ -23,9 +23,6 @@ git clone https://github.com/DSpace/dspace-angular.git
 # change directory to our repo
 cd dspace-angular
 
-# install the global dependencies
-yarn run global
-
 # install the local dependencies
 yarn install
 

@@ -26,12 +26,14 @@ import { HostWindowResizeAction } from './shared/host-window.actions';
 import { MetadataService } from './core/metadata/metadata.service';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
-import { NativeWindowRef, NativeWindowService } from './shared/window.service';
+import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
 
 import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
 import { MockMetadataService } from './shared/mocks/mock-metadata-service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AngularticsMock } from './shared/mocks/mock-angulartics.service';
+import { AuthServiceMock } from './shared/mocks/mock-auth.service';
+import { AuthService } from './core/auth/auth.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -59,6 +61,7 @@ describe('App component', () => {
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MockMetadataService() },
         { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
         AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

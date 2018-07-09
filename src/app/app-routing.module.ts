@@ -13,6 +13,8 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
       { path: 'items', loadChildren: './+item-page/item-page.module#ItemPageModule' },
       { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
       { path: 'admin', loadChildren: './+admin/admin.module#AdminModule' },
+      { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
+      { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ])
   ],
