@@ -4,8 +4,8 @@ import { DynamicTagModel, DynamicTagModelConfig } from '../ds-dynamic-form-ui/mo
 
 export class TagFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
-    const tagModelConfig: DynamicTagModelConfig = this.initModel();
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+    const tagModelConfig: DynamicTagModelConfig = this.initModel(null, label);
     if (this.configData.selectableMetadata[0].authority
       && this.configData.selectableMetadata[0].authority.length > 0) {
       this.setAuthorityOptions(tagModelConfig, this.parserOptions.authorityUuid);

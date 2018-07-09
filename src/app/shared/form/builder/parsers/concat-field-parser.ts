@@ -27,7 +27,7 @@ export class ConcatFieldParser extends FieldParser {
     this.secondPlaceholder = secondPlaceholder;
   }
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
 
     let clsGroup: DynamicFormControlLayout;
     let clsInput: DynamicFormControlLayout;
@@ -54,8 +54,8 @@ export class ConcatFieldParser extends FieldParser {
     concatGroup.group = [];
     concatGroup.separator = this.separator;
 
-    const input1ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_FIRST_INPUT_SUFFIX, true, false, false);
-    const input2ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_SECOND_INPUT_SUFFIX, true, true, false);
+    const input1ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_FIRST_INPUT_SUFFIX, label, false, false);
+    const input2ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_SECOND_INPUT_SUFFIX, label, true, false);
 
     if (this.configData.mandatory) {
       input1ModelConfig.required = true;

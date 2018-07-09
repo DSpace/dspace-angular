@@ -5,7 +5,8 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormGroupModel, DynamicFormLayout,
+  DynamicFormGroupModel,
+  DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { findIndex } from 'lodash';
@@ -25,7 +26,6 @@ import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { formObjectFromIdSelector } from './selectors';
 import { FormEntry, FormError } from './form.reducer';
-import { isEmpty } from 'lodash';
 
 /**
  * The default form component.
@@ -164,21 +164,21 @@ export class FormComponent implements OnDestroy, OnInit {
           errors
             .filter((error: FormError) => findIndex(this.formErrors, {fieldId: error.fieldId}) === -1)
             .forEach((error: FormError) => {
-            const {fieldId} = error;
-            let field: AbstractControl;
-            if (!!this.parentFormModel) {
-              field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel);
-            } else {
-              field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel);
-            }
+              const {fieldId} = error;
+              let field: AbstractControl;
+              if (!!this.parentFormModel) {
+                field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel);
+              } else {
+                field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel);
+              }
 
-            if (field) {
-              const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
-              this.formService.addErrorToField(field, model, error.message);
-              // this.formService.validateAllFormFields(formGroup);
-              this.changeDetectorRef.detectChanges();
-            }
-          });
+              if (field) {
+                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+                this.formService.addErrorToField(field, model, error.message);
+                // this.formService.validateAllFormFields(formGroup);
+                this.changeDetectorRef.detectChanges();
+              }
+            });
 
           this.formErrors
             .filter((error: FormError) => findIndex(errors, {fieldId: error.fieldId}) === -1)

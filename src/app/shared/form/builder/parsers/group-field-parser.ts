@@ -11,8 +11,8 @@ import { FormRowModel } from '../../../../core/shared/config/config-submission-f
 
 export class GroupFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject) {
-    const modelConfiguration: DynamicGroupModelConfig = this.initModel();
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean) {
+    const modelConfiguration: DynamicGroupModelConfig = this.initModel(null, label);
 
     modelConfiguration.scopeUUID = this.parserOptions.authorityUuid;
     modelConfiguration.submissionScope = this.parserOptions.submissionScope;

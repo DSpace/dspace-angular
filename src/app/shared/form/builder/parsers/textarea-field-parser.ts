@@ -8,8 +8,8 @@ import {
 
 export class TextareaFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject | any): any {
-    const textAreaModelConfig: DsDynamicTextAreaModelConfig = this.initModel();
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+    const textAreaModelConfig: DsDynamicTextAreaModelConfig = this.initModel(null, label);
 
     let layout: DynamicFormControlLayout;
 

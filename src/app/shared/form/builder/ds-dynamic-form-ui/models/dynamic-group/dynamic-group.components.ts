@@ -70,7 +70,12 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       this.formCollapsed = Observable.of(true);
     }
     this.model.valueUpdates.subscribe((value: any[]) => {
-      this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0]))) ? Observable.of(true) : Observable.of(false);
+      if ((isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0])))) {
+        this.collapseForm();
+      } else {
+        this.expandForm();
+      }
+      // this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0]))) ? Observable.of(true) : Observable.of(false);
     });
 
     this.formId = this.formService.getUniqueId(this.model.id);
@@ -213,7 +218,9 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   }
 
   private resetForm() {
-    this.formService.resetForm(this.formRef.formGroup, this.formModel, this.formId);
+    if (this.formRef) {
+      this.formService.resetForm(this.formRef.formGroup, this.formModel, this.formId);
+    }
   }
 
   ngOnDestroy(): void {

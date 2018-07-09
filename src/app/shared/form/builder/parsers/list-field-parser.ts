@@ -8,8 +8,8 @@ import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dy
 export class ListFieldParser extends FieldParser {
   searchOptions: IntegrationSearchOptions;
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
-    const listModelConfig = this.initModel();
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+    const listModelConfig = this.initModel(null, label);
     listModelConfig.repeatable = this.configData.repeatable;
 
     if (this.configData.selectableMetadata[0].authority

@@ -20,7 +20,7 @@ export abstract class FieldParser {
   constructor(protected configData: FormFieldModel, protected initFormValues, protected parserOptions: ParserOptions) {
   }
 
-  public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject): any;
+  public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
 
   public parse() {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
@@ -33,6 +33,7 @@ export abstract class FieldParser {
 
       const config = {
         id: uniqueId() + '_array',
+        label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
         notRepeteable: !this.configData.repeatable,
         groupFactory: () => {
@@ -50,7 +51,7 @@ export abstract class FieldParser {
                 arrayCounter++;
               }
             }
-            model = this.modelFactory(fieldValue);
+            model = this.modelFactory(fieldValue, false);
           }
           setLayout(model, 'element', 'host', 'col');
           if (model.hasLanguages) {
@@ -184,9 +185,8 @@ export abstract class FieldParser {
     controlModel.readOnly = this.parserOptions.readOnly;
     controlModel.disabled = this.parserOptions.readOnly;
 
-    if (label) {
-      controlModel.label = (labelEmpty) ? '&nbsp;' : this.configData.label;
-    }
+    // Set label
+    this.setLabel(controlModel, label, labelEmpty);
 
     controlModel.placeholder = this.configData.label;
 
@@ -216,7 +216,7 @@ export abstract class FieldParser {
     controlModel.errorMessages = Object.assign(
       {},
       controlModel.errorMessages,
-      {pattern: 'form.error.validation.pattern', regex: 'form.error.validation.pattern'});
+      {pattern: 'form.error.validation.pattern'});
 
   }
 
@@ -227,6 +227,12 @@ export abstract class FieldParser {
       {},
       controlModel.errorMessages,
       {required: this.configData.mandatoryMessage});
+  }
+
+  protected setLabel(controlModel, label = true, labelEmpty = false) {
+    if (label) {
+      controlModel.label = (labelEmpty) ? '&nbsp;' : this.configData.label;
+    }
   }
 
   protected setOptions(controlModel) {

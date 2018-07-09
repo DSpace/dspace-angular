@@ -7,9 +7,9 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 
 export class DateFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
     let malformedDate = false;
-    const inputDateModelConfig: DynamicDatePickerModelConfig = this.initModel();
+    const inputDateModelConfig: DynamicDatePickerModelConfig = this.initModel(null, label);
 
     inputDateModelConfig.toggleIcon = 'fa fa-calendar';
     this.setValues(inputDateModelConfig as any, fieldValue);

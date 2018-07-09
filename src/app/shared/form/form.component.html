@@ -15,7 +15,7 @@
 
         <!--Array with repeteable items-->
         <div *ngIf="!context.notRepeteable"
-             class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
+             class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
                     [disabled]="isItemReadOnly(context, index)"
@@ -32,7 +32,7 @@
 
         <!--Array with non repeteable items - Only delete button-->
         <div *ngIf="context.notRepeteable && group.context.groups.length > 1"
-             class="col-xs-2 d-flex flex-column justify-content-sm-center align-items-end mt-3">
+             class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
                     (click)="removeItem($event, context, index)"

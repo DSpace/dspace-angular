@@ -18,7 +18,7 @@ import {
 
 export class OneboxFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
     if (this.configData.selectableMetadata.length > 1) {
       // Case ComboBox
       const clsGroup = {
@@ -55,14 +55,14 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.group = [];
       inputSelectGroup.legend = this.configData.label;
 
-      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(newId + QUALDROP_METADATA_SUFFIX);
+      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(newId + QUALDROP_METADATA_SUFFIX, label);
       this.setOptions(selectModelConfig);
       if (isNotEmpty(fieldValue)) {
         selectModelConfig.value = fieldValue.metadata;
       }
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
-      const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + QUALDROP_VALUE_SUFFIX, true, true);
+      const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + QUALDROP_VALUE_SUFFIX, label, true);
       this.setValues(inputModelConfig, fieldValue);
 
       inputSelectGroup.readOnly = selectModelConfig.disabled && inputModelConfig.readOnly;
@@ -70,13 +70,13 @@ export class OneboxFieldParser extends FieldParser {
 
       return new DynamicQualdropModel(inputSelectGroup, clsGroup);
     } else if (this.configData.selectableMetadata[0].authority) {
-      const typeaheadModelConfig: DsDynamicTypeaheadModelConfig = this.initModel();
+      const typeaheadModelConfig: DsDynamicTypeaheadModelConfig = this.initModel(null, label);
       this.setAuthorityOptions(typeaheadModelConfig, this.parserOptions.authorityUuid);
       this.setValues(typeaheadModelConfig, fieldValue, true);
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
       return typeaheadModel;
     } else {
-      const inputModelConfig: DsDynamicInputModelConfig = this.initModel();
+      const inputModelConfig: DsDynamicInputModelConfig = this.initModel(null, label);
       this.setValues(inputModelConfig, fieldValue);
       const inputModel = new DsDynamicInputModel(inputModelConfig);
       return inputModel;

@@ -86,7 +86,14 @@ export const FORM_GROUP_TEST_GROUP = new FormGroup({
 });
 
 describe('DsDynamicGroupComponent test suite', () => {
-
+  const config = {
+    form: {
+      validatorMap: {
+        required: 'required',
+        regex: 'pattern'
+      }
+    }
+  } as any;
   let testComp: TestComponent;
   let groupComp: DsDynamicGroupComponent;
   let testFixture: ComponentFixture<TestComponent>;
@@ -126,7 +133,7 @@ describe('DsDynamicGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        {provide: GLOBAL_CONFIG, useValue: {} as GlobalConfig},
+        {provide: GLOBAL_CONFIG, useValue: config},
         {provide: Store, useValue: store},
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

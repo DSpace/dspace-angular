@@ -9,8 +9,8 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 
 export class DropdownFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue: FormFieldMetadataValueObject): any {
-    const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.initModel();
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+    const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.initModel(null, label);
     let layout: DynamicFormControlLayout;
 
     if (isNotEmpty(this.configData.selectableMetadata[0].authority)) {
