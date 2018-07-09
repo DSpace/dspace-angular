@@ -22,6 +22,14 @@ module.exports = {
     // msToLive: 1000, // 15 minutes
     control: 'max-age=60' // revalidate browser
   },
+  // Form settings
+  form: {
+    // NOTE: Map server-side validators to comparative Angular form validators
+    validatorMap: {
+      required: 'required',
+      regex: 'pattern'
+    }
+  },
   // Notifications
   notifications: {
     rtl: false,

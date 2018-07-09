@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
@@ -6,16 +6,19 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { formObjectFromIdSelector } from './selectors';
 import { FormBuilderService } from './builder/form-builder.service';
-import { DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
-import { isEmpty, isNotEmpty, isNotUndefined } from '../empty.util';
-import { find, uniqueId } from 'lodash';
-import { FormChangeAction, FormRemoveErrorAction } from './form.actions';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { isEmpty, isNotUndefined } from '../empty.util';
+import { uniqueId } from 'lodash';
+import { FormChangeAction } from './form.actions';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 
 @Injectable()
 export class FormService {
 
-  constructor(private formBuilderService: FormBuilderService,
-              private store: Store<AppState>) {
+  constructor(
+    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+    private formBuilderService: FormBuilderService,
+    private store: Store<AppState>) {
   }
 
   /**
@@ -35,6 +38,16 @@ export class FormService {
     return this.store.select(formObjectFromIdSelector(formId))
       .filter((state) => isNotUndefined(state))
       .map((state) => state.data)
+      .distinctUntilChanged();
+  }
+
+  /**
+   * Method to retrieve form's errors from state
+   */
+  public getFormErrors(formId: string): Observable<any> {
+    return this.store.select(formObjectFromIdSelector(formId))
+      .filter((state) => isNotUndefined(state))
+      .map((state) => state.errors)
       .distinctUntilChanged();
   }
 
@@ -66,50 +79,42 @@ export class FormService {
   }
 
   public addErrorToField(field: AbstractControl, model: DynamicFormControlModel, message: string) {
-
     const error = {}; // create the error object
+    const errorKey = this.getValidatorNameFromMap(message);
+    let errorMsg = message;
 
     // if form control model has not errorMessages object, create it
     if (!model.errorMessages) {
       model.errorMessages = {};
     }
 
-    // Use correct error messages from the model
-    const lastArray = message.split('.');
-    if (lastArray && lastArray.length > 0) {
-      // check if error code is already present in the set of model's validators
-      const last = lastArray[lastArray.length - 1];
-      const modelMsg = model.errorMessages[last];
-      if (isEmpty(modelMsg)) {
-        const errorKey = uniqueId('error-'); // create a single key for the error
-        error[errorKey] = true;
-        // put the error message in the form control model
-        model.errorMessages[errorKey] = message;
-      } else {
-        error[last] = modelMsg;
-      }
+    // check if error code is already present in the set of model's validators
+    if (isEmpty(model.errorMessages[errorKey])) {
+      // put the error message in the form control model
+      model.errorMessages[errorKey] = message;
+    } else {
+      // Use correct error messages from the model
+      errorMsg = model.errorMessages[errorKey];
     }
 
-    // add the error in the form control
-    field.setErrors(error);
+    if (!field.hasError(errorKey)) {
+      error[errorKey] = true;
+      // add the error in the form control
+      field.setErrors(error);
+    }
+
     field.markAsTouched();
   }
 
   public removeErrorFromField(field: AbstractControl, model: DynamicFormControlModel, messageKey: string) {
     const error = {};
+    const errorKey = this.getValidatorNameFromMap(messageKey);
 
-    if (messageKey.includes('.')) {
-      // Use correct error messages from the model
-      const lastArray = messageKey.split('.');
-      if (lastArray && lastArray.length > 0) {
-        const last = lastArray[lastArray.length - 1];
-        error[last] = null;
-      }
-    } else {
-      error[messageKey] = null;
+    if (field.hasError(errorKey)) {
+      error[errorKey] = null;
+      field.setErrors(error);
     }
 
-    field.setErrors(error);
     field.markAsUntouched();
   }
 
@@ -117,5 +122,15 @@ export class FormService {
     this.formBuilderService.clearAllModelsValue(groupModel);
     formGroup.reset();
     this.store.dispatch(new FormChangeAction(formId, formGroup.value));
+  }
+
+  private getValidatorNameFromMap(validator): string {
+    if (validator.includes('.')) {
+      const splitArray = validator.split('.');
+      if (splitArray && splitArray.length > 0) {
+        validator = this.getValidatorNameFromMap(splitArray[splitArray.length - 1]);
+      }
+    }
+    return (this.config.form.validatorMap.hasOwnProperty(validator)) ? this.config.form.validatorMap[validator] : validator;
   }
 }

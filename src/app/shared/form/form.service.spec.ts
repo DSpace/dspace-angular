@@ -13,8 +13,17 @@ import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
 import { AppState } from '../../app.reducer';
 import { formReducer } from './form.reducer';
+import { GlobalConfig } from '../../../config/global-config.interface';
 
 describe('FormService test suite', () => {
+  const config = {
+    form: {
+      validatorMap: {
+        required: 'required',
+          regex: 'pattern'
+      }
+    }
+  } as any;
   const formId = 'testForm';
   let service: FormService;
   let builderService: FormBuilderService;
@@ -98,7 +107,7 @@ describe('FormService test suite', () => {
       });
     builderService = formBuilderService;
     formGroup = builderService.createFormGroup(formModel);
-    service = new FormService(formBuilderService, store);
+    service = new FormService(config, formBuilderService, store);
   }));
 
   it('should check whether form state is init', () => {

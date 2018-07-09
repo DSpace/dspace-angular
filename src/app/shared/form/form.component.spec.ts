@@ -22,6 +22,7 @@ import { FormState } from './form.reducer';
 import { FormChangeAction, FormStatusChangeAction } from './form.actions';
 import { MockStore } from '../testing/mock-store';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import { GLOBAL_CONFIG } from '../../../config';
 
 function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
   TestBed.overrideComponent(type, {
@@ -102,11 +103,19 @@ export const TEST_FORM_MODEL_WITH_ARRAY = [
 ];
 
 describe('FormComponent test suite', () => {
-
   let testComp: TestComponent;
   let formComp: FormComponent;
   let testFixture: ComponentFixture<TestComponent>;
   let formFixture: ComponentFixture<FormComponent>;
+
+  const config = {
+    form: {
+      validatorMap: {
+        required: 'required',
+        regex: 'pattern'
+      }
+    }
+  } as any;
   const formState: FormState = {
     testForm: {
       data: {
@@ -146,6 +155,7 @@ describe('FormComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
+        {provide: GLOBAL_CONFIG, useValue: config},
         {
           provide: Store, useValue: store
         }
