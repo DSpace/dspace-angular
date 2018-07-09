@@ -4,7 +4,7 @@ import {
   ActivatedRoute, convertToParamMap, NavigationExtras, Params,
   Router,
 } from '@angular/router';
-import { isNotEmpty } from './empty.util';
+import { isNotEmpty } from '../empty.util';
 
 @Injectable()
 export class RouteService {

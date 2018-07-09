@@ -17,6 +17,7 @@ import { RequestConfigureAction, RequestExecuteAction } from './request.actions'
 import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
 
 import { RequestEntry, RequestState } from './request.reducer';
+import { ResponseCacheRemoveAction } from '../cache/response-cache.actions';
 
 @Injectable()
 export class RequestService {
@@ -66,9 +67,14 @@ export class RequestService {
       .flatMap((uuid: string) => this.getByUUID(uuid));
   }
 
-  configure<T extends CacheableObject>(request: RestRequest): void {
-    if (request.method !== RestRequestMethod.Get || !this.isCachedOrPending(request)) {
+  // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
+  configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
+    const isGetRequest = request.method === RestRequestMethod.Get;
+    if (!isGetRequest || !this.isCachedOrPending(request) || forceBypassCache) {
       this.dispatchRequest(request);
+      if (isGetRequest && !forceBypassCache) {
+        this.trackRequestsOnTheirWayToTheStore(request);
+      }
     }
   }
 
@@ -104,9 +110,6 @@ export class RequestService {
   private dispatchRequest(request: RestRequest) {
     this.store.dispatch(new RequestConfigureAction(request));
     this.store.dispatch(new RequestExecuteAction(request.uuid));
-    if (request.method === RestRequestMethod.Get) {
-      this.trackRequestsOnTheirWayToTheStore(request);
-    }
   }
 
   /**

@@ -34,7 +34,7 @@ export class SearchPageComponent implements OnInit {
   searchOptions$: Observable<PaginatedSearchOptions>;
   sortConfig: SortOptions;
   scopeListRD$: Observable<RemoteData<PaginatedList<Community>>>;
-  isMobileView$: Observable<boolean>;
+  isXsOrSm$: Observable<boolean>;
   pageSize;
   pageSizeOptions;
   defaults = {
@@ -52,11 +52,7 @@ export class SearchPageComponent implements OnInit {
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
               private filterService: SearchFilterService) {
-    this.isMobileView$ = Observable.combineLatest(
-      this.windowService.isXs(),
-      this.windowService.isSm(),
-      ((isXs, isSm) => isXs || isSm)
-    );
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.scopeListRD$ = communityService.findAll();
   }
 

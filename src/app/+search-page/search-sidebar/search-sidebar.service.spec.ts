@@ -3,6 +3,7 @@ import { SearchSidebarService } from './search-sidebar.service';
 import { AppState } from '../../app.reducer';
 import { async, inject, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { SearchSidebarCollapseAction, SearchSidebarExpandAction } from './search-sidebar.actions';
 import { HostWindowService } from '../../shared/host-window.service';
 
@@ -17,7 +18,8 @@ describe('SearchSidebarService', () => {
   const windowService = jasmine.createSpyObj('hostWindowService',
     {
       isXs: Observable.of(true),
-      isSm: Observable.of(false)
+      isSm: Observable.of(false),
+      isXsOrSm: Observable.of(true)
     });
   beforeEach(async(() => {
     TestBed.configureTestingModule({
