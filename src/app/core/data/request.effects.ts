@@ -41,9 +41,9 @@ export class RequestEffects {
       let body;
       if (isNotEmpty(request.body)) {
         const serializer = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(request.body.type));
-        body = JSON.stringify(serializer.serialize(request.body));
+        body = serializer.serialize(request.body);
       }
-      return this.restApi.request(request.method, request.href, body).pipe(
+      return this.restApi.request(request.method, request.href, body, request.options).pipe(
         map((data: DSpaceRESTV2Response) => this.injector.get(request.getResponseParser()).parse(request, data)),
         addToResponseCacheAndCompleteAction(request, this.responseCache, this.EnvConfig),
         catchError((error: RequestError) => Observable.of(new ErrorResponse(error)).pipe(

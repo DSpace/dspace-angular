@@ -14,7 +14,8 @@ import { coreReducers } from './core.reducers';
 
 import { isNotEmpty } from '../shared/empty.util';
 
-import { ApiService } from '../shared/api.service';
+import { ApiService } from '../shared/services/api.service';
+import { BrowseEntriesResponseParsingService } from './data/browse-entries-response-parsing.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
 import { DebugResponseParsingService } from './data/debug-response-parsing.service';
@@ -30,16 +31,21 @@ import { RemoteDataBuildService } from './cache/builders/remote-data-build.servi
 import { RequestService } from './data/request.service';
 import { ResponseCacheService } from './cache/response-cache.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
-import { ServerResponseService } from '../shared/server-response.service';
-import { NativeWindowFactory, NativeWindowService } from '../shared/window.service';
+import { ServerResponseService } from '../shared/services/server-response.service';
+import { NativeWindowFactory, NativeWindowService } from '../shared/services/window.service';
 import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 import { ConfigResponseParsingService } from './data/config-response-parsing.service';
-import { RouteService } from '../shared/route.service';
+import { RouteService } from '../shared/services/route.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
 import { UUIDService } from './shared/uuid.service';
+import { AuthenticatedGuard } from './auth/authenticated.guard';
+import { AuthRequestService } from './auth/auth-request.service';
+import { AuthResponseParsingService } from './auth/auth-response-parsing.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
 import { HALEndpointService } from './shared/hal-endpoint.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FacetValueMapResponseParsingService } from './data/facet-value-map-response-parsing.service';
@@ -62,6 +68,9 @@ const EXPORTS = [
 
 const PROVIDERS = [
   ApiService,
+  AuthenticatedGuard,
+  AuthRequestService,
+  AuthResponseParsingService,
   CommunityDataService,
   CollectionDataService,
   DSOResponseParsingService,
@@ -83,6 +92,7 @@ const PROVIDERS = [
   SearchResponseParsingService,
   ServerResponseService,
   BrowseResponseParsingService,
+  BrowseEntriesResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
   RouteService,
@@ -90,6 +100,12 @@ const PROVIDERS = [
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
   UUIDService,
+  // register AuthInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  },
   NotificationsService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];

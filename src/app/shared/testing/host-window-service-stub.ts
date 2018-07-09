@@ -16,4 +16,8 @@ export class HostWindowServiceStub {
   isXs(): Observable<boolean> {
     return Observable.of(this.width < 576);
   }
+
+  isXsOrSm(): Observable<boolean> {
+    return this.isXs();
+  }
 }

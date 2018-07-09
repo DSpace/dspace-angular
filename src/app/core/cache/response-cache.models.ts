@@ -1,16 +1,21 @@
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { RequestError } from '../data/request.models';
+import { BrowseEntry } from '../shared/browse-entry.model';
 import { PageInfo } from '../shared/page-info.model';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { ConfigObject } from '../shared/config/config.model';
 import { FacetValue } from '../../+search-page/search-service/facet-value.model';
 import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
+import { AuthTokenInfo } from '../auth/models/auth-token-info.model';
+import { NormalizedAuthStatus } from '../auth/models/normalized-auth-status.model';
+import { AuthStatus } from '../auth/models/auth-status.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
+  public toCache = true;
   constructor(
     public isSuccessful: boolean,
-    public statusCode: string
+    public statusCode: string,
   ) { }
 }
 
@@ -78,10 +83,11 @@ export class EndpointMapSuccessResponse extends RestResponse {
   }
 }
 
-export class BrowseSuccessResponse extends RestResponse {
+export class GenericSuccessResponse<T> extends RestResponse {
   constructor(
-    public browseDefinitions: BrowseDefinition[],
-    public statusCode: string
+    public payload: T,
+    public statusCode: string,
+    public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
   }
@@ -106,4 +112,15 @@ export class ConfigSuccessResponse extends RestResponse {
     super(true, statusCode);
   }
 }
+
+export class AuthStatusResponse extends RestResponse {
+  public toCache = false;
+  constructor(
+    public response: AuthStatus,
+    public statusCode: string
+  ) {
+    super(true, statusCode);
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
