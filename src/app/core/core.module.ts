@@ -50,6 +50,11 @@ import { HALEndpointService } from './shared/hal-endpoint.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FacetValueMapResponseParsingService } from './data/facet-value-map-response-parsing.service';
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
+import { RegistryService } from './registry/registry.service';
+import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
+import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
+import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
+import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 
 const IMPORTS = [
@@ -81,6 +86,7 @@ const PROVIDERS = [
   MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
+  RegistryService,
   RemoteDataBuildService,
   RequestService,
   ResponseCacheService,
@@ -88,6 +94,10 @@ const PROVIDERS = [
   FacetValueResponseParsingService,
   FacetValueMapResponseParsingService,
   FacetConfigResponseParsingService,
+  RegistryMetadataschemasResponseParsingService,
+  RegistryMetadatafieldsResponseParsingService,
+  RegistryBitstreamformatsResponseParsingService,
+  MetadataschemaParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
   ServerResponseService,
