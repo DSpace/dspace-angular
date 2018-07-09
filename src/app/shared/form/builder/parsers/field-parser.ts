@@ -195,7 +195,6 @@ export abstract class FieldParser {
     }
 
     if (this.hasRegex()) {
-      console.log(this.configData.input.regex);
       this.addPatternValidator(controlModel);
     }
 
