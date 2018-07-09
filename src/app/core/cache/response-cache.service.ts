@@ -65,6 +65,11 @@ export class ResponseCacheService {
     return result;
   }
 
+  remove(key: string): void {
+    if (this.has(key)) {
+      this.store.dispatch(new ResponseCacheRemoveAction(key));
+    }
+  }
   /**
    * Check whether a ResponseCacheEntry should still be cached
    *

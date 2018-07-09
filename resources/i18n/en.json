@@ -46,7 +46,9 @@
     }
   },
   "nav": {
-    "home": "Home"
+    "home": "Home",
+    "login": "Log In",
+    "logout": "Log Out"
   },
   "pagination": {
     "results-per-page": "Results Per Page",
@@ -154,5 +156,31 @@
     "item": "Error fetching item",
     "objects": "Error fetching objects",
     "search-results": "Error fetching search results"
+  },
+  "login": {
+    "title": "Login",
+    "form": {
+      "header": "Please log in to DSpace",
+      "email": "Email address",
+      "forgot-password": "Have you forgotten your password?",
+      "new-user": "New user? Click here to register.",
+      "password": "Password",
+      "submit": "Log in"
+    }
+  },
+  "logout": {
+    "title": "Logout",
+    "form": {
+      "header": "Log out from DSpace",
+      "submit": "Log out"
+    }
+  },
+  "auth": {
+    "messages": {
+      "expired": "Your session has expired. Please log in again."
+    },
+    "errors": {
+      "invalid-user": "Invalid email or password."
+    }
   }
 }

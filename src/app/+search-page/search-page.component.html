@@ -1,8 +1,8 @@
 <div class="container">
   <div class="search-page row">
-        <ds-search-sidebar *ngIf="!(isMobileView$ | async)" class="col-3 sidebar-md-sticky"
-                         id="search-sidebar"
-                         [resultCount]="(resultsRD$ | async)?.pageInfo?.totalElements"></ds-search-sidebar>
+        <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-3 sidebar-md-sticky"
+                           id="search-sidebar"
+                           [resultCount]="(resultsRD$ | async)?.pageInfo?.totalElements"></ds-search-sidebar>
         <div class="col-12 col-md-9">
         <ds-search-form id="search-form"
                         [query]="(searchOptions$ | async)?.query"
@@ -14,7 +14,7 @@
         <div id="search-body"
              class="row-offcanvas row-offcanvas-left"
              [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
-          <ds-search-sidebar *ngIf="(isMobileView$ | async)" class="col-12"
+          <ds-search-sidebar *ngIf="(isXsOrSm$ | async)" class="col-12"
                              id="search-sidebar-sm"
                              [resultCount]="(resultsRD$ | async)?.pageInfo?.totalElements"
                              (toggleSidebar)="closeSidebar()"
