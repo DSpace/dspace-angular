@@ -1,9 +1,11 @@
-import { FormEntry, formReducer } from './form.reducer';
+import { formReducer } from './form.reducer';
 import {
   FormAddError,
-  FormChangeAction, FormClearErrorsAction,
+  FormChangeAction,
+  FormClearErrorsAction,
   FormInitAction,
-  FormRemoveAction, FormRemoveErrorAction,
+  FormRemoveAction,
+  FormRemoveErrorAction,
   FormStatusChangeAction
 } from './form.actions';
 
@@ -165,15 +167,17 @@ describe('formReducer', () => {
     const expectedErrors = [
       {
         fieldId: 'title',
+        fieldIndex: 0,
         message: 'Not valid'
       }
     ];
 
     const formId = 'testForm';
     const fieldId = 'title';
+    const fieldIndex = 0;
     const message = 'Not valid';
 
-    const action = new FormAddError(formId, fieldId, message);
+    const action = new FormAddError(formId, fieldId, fieldIndex, message);
     const newState = formReducer(initState, action);
 
     expect(newState.testForm.errors).toEqual(expectedErrors);
@@ -192,10 +196,12 @@ describe('formReducer', () => {
         errors: [
           {
             fieldId: 'author',
+            fieldIndex: 0,
             message: 'error.validation.required'
           },
           {
             fieldId: 'title',
+            fieldIndex: 0,
             message: 'error.validation.required'
           }
         ]
@@ -205,13 +211,16 @@ describe('formReducer', () => {
     const expectedErrors = [
       {
         fieldId: 'title',
+        fieldIndex: 0,
         message: 'error.validation.required'
       }
     ];
 
     const formId = 'testForm';
+    const fieldId = 'author';
+    const fieldIndex = 0;
 
-    const action = new FormRemoveErrorAction(formId, 'author');
+    const action = new FormRemoveErrorAction(formId, fieldId, fieldIndex);
     const newState = formReducer(initState, action);
 
     expect(newState.testForm.errors).toEqual(expectedErrors);
@@ -252,6 +261,7 @@ describe('formReducer', () => {
         errors: [
           {
             fieldId: 'author',
+            fieldIndex: 0,
             message: 'error.validation.required'
           }
         ]

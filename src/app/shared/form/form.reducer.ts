@@ -14,6 +14,7 @@ import { isEqual, uniqWith } from 'lodash';
 export interface FormError {
   message: string;
   fieldId: string;
+  fieldIndex: number;
 }
 
 export interface FormEntry {
@@ -70,6 +71,7 @@ function addFormErrors(state: FormState, action: FormAddError) {
   if (hasValue(state[formId])) {
     const error: FormError = {
       fieldId: action.payload.fieldId,
+      fieldIndex: action.payload.fieldIndex,
       message: action.payload.errorMessage
     };
 
@@ -88,8 +90,9 @@ function addFormErrors(state: FormState, action: FormAddError) {
 function removeFormError(state: FormState, action: FormRemoveErrorAction) {
   const formId = action.payload.formId;
   const fieldId = action.payload.fieldId;
+  const fieldIndex = action.payload.fieldIndex;
   if (hasValue(state[formId])) {
-    const errors = state[formId].errors.filter((error) => error.fieldId !== fieldId);
+    const errors = state[formId].errors.filter((error) => error.fieldId !== fieldId || error.fieldIndex !== fieldIndex);
     const newState = Object.assign({}, state);
     newState[formId] = Object.assign({}, state[formId], {errors});
     return newState;

@@ -162,14 +162,15 @@ export class FormComponent implements OnDestroy, OnInit {
           const {formGroup, formModel} = this;
 
           errors
-            .filter((error: FormError) => findIndex(this.formErrors, {fieldId: error.fieldId}) === -1)
+            .filter((error: FormError) => findIndex(this.formErrors, {fieldId: error.fieldId, fieldIndex: error.fieldIndex}) === -1)
             .forEach((error: FormError) => {
               const {fieldId} = error;
+              const {fieldIndex} = error;
               let field: AbstractControl;
               if (!!this.parentFormModel) {
-                field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel);
+                field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel, fieldIndex);
               } else {
-                field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel);
+                field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel, fieldIndex);
               }
 
               if (field) {
@@ -181,14 +182,15 @@ export class FormComponent implements OnDestroy, OnInit {
             });
 
           this.formErrors
-            .filter((error: FormError) => findIndex(errors, {fieldId: error.fieldId}) === -1)
+            .filter((error: FormError) => findIndex(errors, {fieldId: error.fieldId, fieldIndex: error.fieldIndex}) === -1)
             .forEach((error: FormError) => {
               const {fieldId} = error;
+              const {fieldIndex} = error;
               let field: AbstractControl;
               if (!!this.parentFormModel) {
-                field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel);
+                field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel, fieldIndex);
               } else {
-                field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel);
+                field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel, fieldIndex);
               }
 
               if (field) {
@@ -251,8 +253,9 @@ export class FormComponent implements OnDestroy, OnInit {
     }
 
     const control: FormControl = event.control;
+    const fieldIndex: number = (event.context && event.context.index) ? event.context.index : 0;
     if (control.valid) {
-      this.store.dispatch(new FormRemoveErrorAction(this.formId, event.model.id));
+      this.store.dispatch(new FormRemoveErrorAction(this.formId, event.model.id, fieldIndex));
     }
   }
 

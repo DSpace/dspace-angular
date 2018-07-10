@@ -18,7 +18,10 @@ import { isObject, isString, mergeWith } from 'lodash';
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  DynamicGroupModel
+} from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
 
@@ -150,7 +153,7 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (this.isRelationGroup(controlModel)) {
-          const values = (controlModel as any).value;
+          const values = (controlModel as DynamicGroupModel).getGroupValue();
           values.forEach((groupValue, groupIndex) => {
             const newGroupValue = Object.create({});
             Object.keys(groupValue)

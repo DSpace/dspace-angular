@@ -106,11 +106,12 @@ export class FormAddError implements Action {
   payload: {
     formId: string,
     fieldId: string,
+    fieldIndex: number,
     errorMessage: string,
   };
 
-  constructor(formId: string, fieldId: string, errorMessage: string) {
-    this.payload = {formId, fieldId, errorMessage};
+  constructor(formId: string, fieldId: string, fieldIndex: number, errorMessage: string) {
+    this.payload = {formId, fieldId, fieldIndex, errorMessage};
   }
 }
 
@@ -118,11 +119,12 @@ export class FormRemoveErrorAction implements Action {
   type = FormActionTypes.FORM_REMOVE_ERROR;
   payload: {
     formId: string,
-    fieldId: string
+    fieldId: string,
+    fieldIndex: number,
   };
 
-  constructor(formId: string, fieldId: string) {
-    this.payload = {formId, fieldId};
+  constructor(formId: string, fieldId: string, fieldIndex: number,) {
+    this.payload = {formId, fieldId, fieldIndex};
   }
 }
 

@@ -85,7 +85,7 @@ export const FORM_GROUP_TEST_GROUP = new FormGroup({
   dc_contributor_author: new FormControl(),
 });
 
-describe('DsDynamicGroupComponent test suite', () => {
+fdescribe('DsDynamicGroupComponent test suite', () => {
   const config = {
     form: {
       validatorMap: {
@@ -188,8 +188,8 @@ describe('DsDynamicGroupComponent test suite', () => {
     });
 
     it('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
-      const config = {rows: groupComp.model.formConfiguration} as SubmissionFormsModel;
-      const formModel = service.modelFromConfiguration(config, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
+      const formConfig = {rows: groupComp.model.formConfiguration} as SubmissionFormsModel;
+      const formModel = service.modelFromConfiguration(formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips([], 'value', 'dc.contributor.author');
 
       expect(groupComp.formCollapsed).toEqual(Observable.of(false));
@@ -258,8 +258,8 @@ describe('DsDynamicGroupComponent test suite', () => {
     });
 
     it('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
-      const config = {rows: groupComp.model.formConfiguration} as SubmissionFormsModel;
-      const formModel = service.modelFromConfiguration(config, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
+      const formConfig = {rows: groupComp.model.formConfiguration} as SubmissionFormsModel;
+      const formModel = service.modelFromConfiguration(formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips(modelValue, 'value', 'dc.contributor.author');
 
       expect(groupComp.formCollapsed).toEqual(Observable.of(true));

@@ -43,6 +43,19 @@ export class DynamicGroupModel extends DsDynamicInputModel {
   }
 
   get value() {
+    return this._value
+  }
+
+  set value(value) {
+    this._value = (isEmpty(value)) ? null : value;
+  }
+
+  isEmpty() {
+    const value = this.getGroupValue();
+    return (value.length === 1 && isNull(value[0][this.mandatoryField]));
+  }
+
+  getGroupValue(): any[] {
     if (isEmpty(this._value)) {
       // If items is empty, last element has been removed
       // so emit an empty value that allows to dispatch
@@ -56,13 +69,5 @@ export class DynamicGroupModel extends DsDynamicInputModel {
       return [emptyItem];
     }
     return this._value
-  }
-
-  set value(value) {
-    this._value = value;
-  }
-
-  isEmpty() {
-    return (this.value.length === 1 && isNull(this.value[0][this.mandatoryField]));
   }
 }
