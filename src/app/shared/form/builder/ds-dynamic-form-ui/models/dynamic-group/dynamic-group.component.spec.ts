@@ -85,7 +85,7 @@ export const FORM_GROUP_TEST_GROUP = new FormGroup({
   dc_contributor_author: new FormControl(),
 });
 
-fdescribe('DsDynamicGroupComponent test suite', () => {
+describe('DsDynamicGroupComponent test suite', () => {
   const config = {
     form: {
       validatorMap: {
