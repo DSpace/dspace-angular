@@ -16,7 +16,6 @@ import { FormRowModel, SubmissionFormsModel } from '../../../../../../core/share
 import { FormFieldModel } from '../../../models/form-field.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormService } from '../../../../form.service';
-import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { FormComponent } from '../../../../form.component';
 import { AppState } from '../../../../../../app.reducer';
@@ -24,16 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: {template: html}
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
+import { createTestComponent } from '../../../../../testing/utils';
 
 export const FORM_GROUP_TEST_MODEL_CONFIG = {
   disabled: false,

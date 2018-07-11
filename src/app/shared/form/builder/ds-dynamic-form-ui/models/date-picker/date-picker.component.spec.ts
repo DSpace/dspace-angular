@@ -12,16 +12,7 @@ import { FormBuilderService } from '../../../form-builder.service';
 
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: {template: html}
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
+import { createTestComponent } from '../../../../../testing/utils';
 
 export const DATE_TEST_GROUP = new FormGroup({
   date: new FormControl()

@@ -16,16 +16,7 @@ import { AuthorityServiceStub } from '../../../../../testing/authority-service-s
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { By } from '@angular/platform-browser';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: {template: html}
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
+import { createTestComponent } from '../../../../../testing/utils';
 
 export const LAYOUT_TEST = {
   element: {

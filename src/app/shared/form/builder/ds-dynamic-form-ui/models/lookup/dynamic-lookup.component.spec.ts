@@ -21,16 +21,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { By } from '@angular/platform-browser';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: {template: html}
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
+import { createTestComponent } from '../../../../../testing/utils';
 
 export const LOOKUP_TEST_MODEL_CONFIG = {
   authorityOptions: {

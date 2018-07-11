@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/c
 import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import 'rxjs/add/observable/of';
 import {
   DynamicFormArrayModel,
@@ -23,16 +23,7 @@ import { FormChangeAction, FormStatusChangeAction } from './form.actions';
 import { MockStore } from '../testing/mock-store';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import { GLOBAL_CONFIG } from '../../../config';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: {template: html}
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
+import { createTestComponent } from '../testing/utils';
 
 export const TEST_FORM_MODEL = [
 
@@ -212,6 +203,7 @@ describe('FormComponent test suite', () => {
     it('should display form errors when errors are added to the state', () => {
       const errors = [{
         fieldId: 'dc_title',
+        fieldIndex: 0,
         message: 'error.validation.required'
       }];
 

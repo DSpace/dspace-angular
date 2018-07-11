@@ -19,21 +19,7 @@ import { DynamicTypeaheadModel } from '../typeahead/dynamic-typeahead.model';
 import { TYPEAHEAD_TEST_GROUP, TYPEAHEAD_TEST_MODEL_CONFIG } from '../typeahead/dynamic-typeahead.component.spec';
 import { By } from '@angular/platform-browser';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: {template: html}
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
-
-function hasClass(element: any, className: string): boolean {
-  const classes = element.getAttribute('class');
-  return classes.split(' ').indexOf(className) !== -1;
-}
+import { hasClass, createTestComponent } from '../../../../../testing/utils';
 
 export const SD_TEST_GROUP = new FormGroup({
   dropdown: new FormControl(),

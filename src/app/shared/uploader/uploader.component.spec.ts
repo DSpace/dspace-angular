@@ -9,16 +9,7 @@ import { UploaderOptions } from './uploader-options.model';
 import { UploaderComponent } from './uploader.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TranslateModule } from '@ngx-translate/core';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: {template: html}
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
+import { createTestComponent } from '../testing/utils';
 
 describe('Chips component', () => {
 

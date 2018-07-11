@@ -1,23 +1,13 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
-import 'rxjs/add/observable/of';
 
 import { UploaderService } from '../uploader/uploader.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { By } from '@angular/platform-browser';
 import { NumberPickerComponent } from './number-picker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: {template: html}
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
+import { createTestComponent } from '../testing/utils';
 
 describe('NumberPickerComponent test suite', () => {
 

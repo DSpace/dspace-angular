@@ -18,16 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DsDynamicTypeaheadComponent } from './dynamic-typeahead.component';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: {template: html}
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
+import { createTestComponent } from '../../../../../testing/utils';
 
 export const TYPEAHEAD_TEST_GROUP = new FormGroup({
   typeahead: new FormControl(),
