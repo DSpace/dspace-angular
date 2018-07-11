@@ -1,7 +1,9 @@
-import { uniqueId } from 'lodash';
+import { uniqueId, isObject } from 'lodash';
 import { isNotEmpty } from '../../empty.util';
 
 export interface ChipsItemIcon {
+  metadata: string;
+  hasAuthority: boolean;
   style: string;
   tooltip?: any;
 }
@@ -54,15 +56,12 @@ export class ChipsItem {
 
   private setDisplayText(): void {
     let value = this.item;
-    if ( typeof this.item === 'object') {
+    if (isObject(this.item)) {
       // Check If displayField is in an internal object
       const obj = this.objToDisplay ? this.item[this.objToDisplay] : this.item;
-      const displayFieldBkp = 'value';
 
-      if (obj instanceof Object && obj && obj[this.fieldToDisplay]) {
-        value = obj[this.fieldToDisplay];
-      } else if (obj instanceof Object && obj && obj[displayFieldBkp]) {
-        value = obj[displayFieldBkp];
+      if (isObject(obj) && obj) {
+        value = obj[this.fieldToDisplay] || obj.value;
       } else {
         value = obj;
       }

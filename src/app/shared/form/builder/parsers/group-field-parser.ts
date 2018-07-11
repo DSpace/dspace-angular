@@ -40,7 +40,7 @@ export class GroupFieldParser extends FieldParser {
       const mandatoryFieldEntries: FormFieldMetadataValueObject[] = this.getInitFieldValues(modelConfiguration.mandatoryField);
       mandatoryFieldEntries.forEach((entry, index) => {
         const item = Object.create(null);
-        const listFields = modelConfiguration.relationFields.concat(modelConfiguration.mandatoryField);
+        const listFields = [modelConfiguration.mandatoryField].concat(modelConfiguration.relationFields);
         listFields.forEach((fieldId) => {
           const value = this.getInitFieldValue(0, index, [fieldId]);
           item[fieldId] = isNotEmpty(value) ? value : PLACEHOLDER_PARENT_METADATA;

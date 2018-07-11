@@ -216,7 +216,7 @@ export abstract class FieldParser {
     controlModel.errorMessages = Object.assign(
       {},
       controlModel.errorMessages,
-      {pattern: 'form.error.validation.pattern'});
+      {pattern: 'error.validation.pattern'});
 
   }
 
