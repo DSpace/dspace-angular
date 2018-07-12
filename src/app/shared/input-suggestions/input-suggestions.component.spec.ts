@@ -46,7 +46,7 @@ describe('InputSuggestionsComponent', () => {
   describe('when the input field is in focus', () => {
 
     beforeEach(() => {
-      const inputElement = de.query(By.css('#suggestion_input'));
+      const inputElement = de.query(By.css('.suggestion_input'));
       inputElement.nativeElement.focus();
       fixture.detectChanges();
 

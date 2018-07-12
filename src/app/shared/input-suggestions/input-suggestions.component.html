@@ -7,12 +7,12 @@
            class="form-control"
            [dsDebounce]="debounceTime" (onDebounce)="findSuggestions.emit($event)"
            [placeholder]="placeholder"
-           [ngModelOptions]="{standalone: true}" autocomplete="off" id="suggestion_input"/>
+           [ngModelOptions]="{standalone: true}" autocomplete="off" class="suggestion_input"/>
     <input type="submit" class="d-none"/>
     <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
         <ul class="list-unstyled">
             <li *ngFor="let suggestionOption of suggestions">
-                <a href="#" class="d-block"  class="dropdown-item" (click)="onClickSuggestion(suggestionOption.value)" #suggestion>
+                <a href="#" class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption.value)" #suggestion>
                     <span [innerHTML]="suggestionOption.displayValue"></span>
                 </a>
             </li>
