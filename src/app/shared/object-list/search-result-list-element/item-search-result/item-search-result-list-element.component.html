@@ -5,7 +5,7 @@
   <span class="text-muted">
     <ds-truncatable-part [id]="dso.id" [minLines]="1">
             (<span *ngIf="dso.findMetadata('dc.publisher')" class="item-list-publisher"
-                   [innerHTML]="getFirstValue('dc.publisher')">, </span><span
+                   [innerHTML]="getFirstValue('dc.publisher') + ', '"></span><span
             *ngIf="dso.findMetadata('dc.date.issued')" class="item-list-date"
             [innerHTML]="getFirstValue('dc.date.issued')"></span>)
             <span *ngIf="dso.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"

@@ -1,24 +1,25 @@
 
-import { autoserialize } from 'cerialize';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { ResourceType } from './resource-type';
 
-export class BitstreamFormat {
+export class BitstreamFormat implements CacheableObject {
 
-  @autoserialize
   shortDescription: string;
 
-  @autoserialize
   description: string;
 
-  @autoserialize
   mimetype: string;
 
-  @autoserialize
   supportLevel: number;
 
-  @autoserialize
   internal: boolean;
 
-  @autoserialize
   extensions: string;
+
+  self: string;
+
+  type: ResourceType;
+
+  uuid: string;
 
 }

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
@@ -182,7 +181,7 @@ describe('SearchFacetFilterComponent', () => {
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';
     const testValue = 'test';
-    const data = { [mockFilterConfig.paramName]: testValue };
+    const data = testValue ;
     beforeEach(() => {
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
       comp.onSubmit(data);
@@ -237,6 +236,16 @@ describe('SearchFacetFilterComponent', () => {
 
     it('should call showFirstPageOnly on the component', () => {
       expect(comp.showFirstPageOnly).toHaveBeenCalled();
+    });
+  });
+  describe('when findSuggestions is called with query \'test\'', () => {
+    const query = 'test';
+    beforeEach(() => {
+      comp.findSuggestions(query);
+    });
+
+    it('should call getFacetValuesFor on the component\'s SearchService with the right query', () => {
+      expect((comp as any).searchService.getFacetValuesFor).toHaveBeenCalledWith(comp.filterConfig, 1, {}, query);
     });
   });
 });

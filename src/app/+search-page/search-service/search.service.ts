@@ -175,13 +175,18 @@ export class SearchService implements OnDestroy {
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, facetConfigObs);
   }
 
-  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions): Observable<RemoteData<PaginatedList<FacetValue>>> {
+  getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string): Observable<RemoteData<PaginatedList<FacetValue>>> {
     const requestObs = this.halService.getEndpoint(this.facetValueLinkPathPrefix + filterConfig.name).pipe(
       map((url: string) => {
         const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
+        if (hasValue(filterQuery)) {
+          // args.push(`${filterConfig.paramName}=${filterQuery},query`);
+          args.push(`prefix=${filterQuery}`);
+        }
         if (hasValue(searchOptions)) {
           url = searchOptions.toRestUrl(url, args);
         }
+
         const request = new GetRequest(this.requestService.generateRequestId(), url);
         return Object.assign(request, {
           getResponseParser(): GenericConstructor<ResponseParsingService> {

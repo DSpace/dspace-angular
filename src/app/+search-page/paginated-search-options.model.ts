@@ -1,7 +1,6 @@
 import { SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { isNotEmpty } from '../shared/empty.util';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { SearchOptions } from './search-options.model';
 
 export class PaginatedSearchOptions extends SearchOptions {

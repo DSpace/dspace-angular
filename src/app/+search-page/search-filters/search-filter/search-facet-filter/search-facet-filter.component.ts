@@ -1,4 +1,12 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit, QueryList,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { Router } from '@angular/router';
@@ -11,6 +19,7 @@ import { SearchService } from '../../../search-service/search.service';
 import { SearchOptions } from '../../../search-options.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
+import { EmphasizePipe } from '../../../../shared/utils/emphasize.pipe';
 
 /**
  * This component renders a simple item page.
@@ -34,6 +43,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   filter: string;
   pageChange = false;
   sub: Subscription;
+  filterSearchResults: Observable<any[]> = Observable.of([]);
 
   constructor(private searchService: SearchService, private filterService: SearchFilterService, private router: Router) {
   }
@@ -58,6 +68,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.filterValues$.next(this.filterValues);
       newValues$.first().subscribe((rd) => this.isLastPage$.next(hasNoValue(rd.payload.next)));
     });
+    this.filter = '';
   }
 
   isChecked(value: FacetValue): Observable<boolean> {
@@ -89,16 +100,22 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     if (isNotEmpty(data)) {
       this.router.navigate([this.getSearchLink()], {
         queryParams:
-          { [this.filterConfig.paramName]: [...this.selectedValues, data[this.filterConfig.paramName]] },
+          { [this.filterConfig.paramName]: [...this.selectedValues, data] },
         queryParamsHandling: 'merge'
       });
       this.filter = '';
     }
+    this.filterSearchResults = Observable.of([]);
+  }
+
+  onClick(data: any) {
+    this.filter = data;
   }
 
   hasValue(o: any): boolean {
     return hasValue(o);
   }
+
   getRemoveParams(value: string) {
     return {
       [this.filterConfig.paramName]: this.selectedValues.filter((v) => v !== value),
@@ -122,4 +139,29 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.sub.unsubscribe();
     }
   }
+
+  findSuggestions(data): void {
+    if (isNotEmpty(data)) {
+      this.filterService.getSearchOptions().first().subscribe(
+        (options) => {
+          this.filterSearchResults = this.searchService.getFacetValuesFor(this.filterConfig, 1, options, data.toLowerCase())
+            .first()
+            .map(
+              (rd: RemoteData<PaginatedList<FacetValue>>) => {
+                return rd.payload.page.map((facet) => {
+                  return {displayValue: this.getDisplayValue(facet, data), value: facet.value}
+                })
+              }
+            );
+        }
+      )
+    } else {
+      this.filterSearchResults = Observable.of([]);
+    }
+  }
+
+  getDisplayValue(facet: FacetValue, query: string): string {
+    return new EmphasizePipe().transform(facet.value, query) + ' (' + facet.count + ')';
+  }
+
 }

@@ -46,7 +46,6 @@ describe('ResponseCacheService', () => {
 
       let testObj: ResponseCacheEntry;
       service.get(keys[1]).first().subscribe((entry) => {
-        console.log(entry);
         testObj = entry;
       });
       expect(testObj.key).toEqual(keys[1]);

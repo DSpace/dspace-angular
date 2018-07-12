@@ -1,4 +1,4 @@
-import { autoserialize, inheritSerialization, autoserializeAs } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
 
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Collection } from '../../shared/collection.model';
