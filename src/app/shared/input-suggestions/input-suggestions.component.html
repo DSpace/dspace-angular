@@ -4,10 +4,10 @@
       (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
       (dsClickOutside)="close()">
     <input #inputField type="text" [(ngModel)]="ngModel" [name]="name"
-           class="form-control"
+           class="form-control suggestion_input"
            [dsDebounce]="debounceTime" (onDebounce)="findSuggestions.emit($event)"
            [placeholder]="placeholder"
-           [ngModelOptions]="{standalone: true}" autocomplete="off" class="suggestion_input"/>
+           [ngModelOptions]="{standalone: true}" autocomplete="off"/>
     <input type="submit" class="d-none"/>
     <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
         <ul class="list-unstyled">
