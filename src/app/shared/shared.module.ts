@@ -53,6 +53,7 @@ import { DebounceDirective } from './utils/debounce.directive';
 import { ClickOutsideDirective } from './utils/click-outside.directive';
 import { EmphasizePipe } from './utils/emphasize.pipe';
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
+import { CapitalizePipe } from './utils/capitalize.pipe';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -71,7 +72,8 @@ const PIPES = [
   FileSizePipe,
   SafeUrlPipe,
   TruncatePipe,
-  EmphasizePipe
+  EmphasizePipe,
+  CapitalizePipe
 ];
 
 const COMPONENTS = [

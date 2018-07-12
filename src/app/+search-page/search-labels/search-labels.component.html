@@ -1,0 +1,10 @@
+<div>
+  <div class="labels col-sm-9 offset-sm-3">
+    <a *ngFor="let label of (appliedFilters | async)" class="badge badge-primary mr-1"
+       [routerLink]="getSearchLink()"
+       [queryParams]="(getRemoveParams(label) | async)" queryParamsHandling="merge">
+      {{label.value}}
+      <span> ×</span>
+    </a>
+  </div>
+</div>

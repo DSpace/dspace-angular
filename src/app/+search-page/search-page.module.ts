@@ -21,6 +21,7 @@ import { SearchFiltersComponent } from './search-filters/search-filters.componen
 import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
+import { SearchLabelsComponent } from './search-labels/search-labels.component';
 
 const effects = [
   SearchSidebarEffects
@@ -48,7 +49,8 @@ const effects = [
     CommunitySearchResultListElementComponent,
     SearchFiltersComponent,
     SearchFilterComponent,
-    SearchFacetFilterComponent
+    SearchFacetFilterComponent,
+    SearchLabelsComponent
   ],
   providers: [
     SearchService,

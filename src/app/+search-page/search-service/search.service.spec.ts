@@ -32,6 +32,8 @@ import {
 } from '../../core/cache/response-cache.models';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchFilterConfig } from './search-filter-config.model';
+import { FilterLabel } from './filter-label.model';
+import createSpyObj = jasmine.createSpyObj;
 
 @Component({ template: '' })
 class DummyComponent {
@@ -243,6 +245,37 @@ describe('SearchService', () => {
       });
       it('should call get on the request service with the correct request url', () => {
         expect((searchService as any).responseCache.get).toHaveBeenCalledWith(requestUrl);
+      });
+    });
+
+    describe('when getFilterLabels is called', () => {
+      let obs: Observable<FilterLabel[]>;
+      const value = 'Test';
+      const orgField = 'author';
+      const field = 'f.' + orgField;
+      const mockConfig = new RemoteData(false, false, true, null, [
+        {
+          name: orgField,
+          type: null,
+          hasFacets: false,
+          pageSize: 5,
+          isOpenByDefault: false,
+          paramName: field
+        } as SearchFilterConfig
+      ]);
+      const mockParams = [];
+
+      beforeEach(() => {
+        spyOn((searchService as any), 'getConfig').and.returnValue(Observable.of(mockConfig));
+        mockParams[field] = value;
+        (searchService as any).route.queryParams = Observable.of(mockParams);
+        obs = searchService.getFilterLabels();
+      });
+
+      it('should return the correct labels', () => {
+        obs.subscribe((filters) => {
+          expect(filters[0].value).toEqual(value);
+        });
       });
     });
   });
