@@ -1,8 +1,6 @@
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { RequestError } from '../data/request.models';
-import { BrowseEntry } from '../shared/browse-entry.model';
 import { PageInfo } from '../shared/page-info.model';
-import { BrowseDefinition } from '../shared/browse-definition.model';
 import { ConfigObject } from '../shared/config/config.model';
 import { FacetValue } from '../../+search-page/search-service/facet-value.model';
 import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
@@ -11,17 +9,17 @@ import { RegistryMetadataschemasResponse } from '../registry/registry-metadatasc
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
-import { AuthTokenInfo } from '../auth/models/auth-token-info.model';
-import { NormalizedAuthStatus } from '../auth/models/normalized-auth-status.model';
 import { AuthStatus } from '../auth/models/auth-status.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
   public toCache = true;
+
   constructor(
     public isSuccessful: boolean,
     public statusCode: string,
-  ) { }
+  ) {
+  }
 }
 
 export class DSOSuccessResponse extends RestResponse {
@@ -159,6 +157,7 @@ export class ConfigSuccessResponse extends RestResponse {
 
 export class AuthStatusResponse extends RestResponse {
   public toCache = false;
+
   constructor(
     public response: AuthStatus,
     public statusCode: string
@@ -166,7 +165,6 @@ export class AuthStatusResponse extends RestResponse {
     super(true, statusCode);
   }
 }
-
 
 export class IntegrationSuccessResponse extends RestResponse {
   constructor(
@@ -177,4 +175,5 @@ export class IntegrationSuccessResponse extends RestResponse {
     super(true, statusCode);
   }
 }
+
 /* tslint:enable:max-classes-per-file */
