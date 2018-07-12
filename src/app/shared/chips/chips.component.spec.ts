@@ -144,12 +144,43 @@ describe('ChipsComponent test suite', () => {
         relatedField: new FormFieldMetadataValueObject('related test', null, 'test002'),
         otherRelatedField: new FormFieldMetadataValueObject('other related test')
       };
+      const iconsConfig = [
+        {
+          name: 'mainField',
+          config: {
+            withAuthority:{
+              style: 'fa-user'
+            }
+          }
+        },
+        {
+          name: 'relatedField',
+          config: {
+            withAuthority:{
+              style: 'fa-user-alt'
+            },
+            withoutAuthority:{
+              style: 'fa-user-alt text-muted'
+            }
+          }
+        },
+        {
+          name: 'otherRelatedField',
+          config: {
+            withAuthority:{
+              style: 'fa-user-alt'
+            },
+            withoutAuthority:{
+              style: 'fa-user-alt text-muted'
+            }
+          }
+        },
+        {
+          name: 'default',
+          config: {}
+        }
+      ];
 
-      const iconsConfig = {
-        mainField: 'fa-user',
-        relatedField: 'fa-user-alt',
-        otherRelatedField: 'fa-user-alt'
-      };
       chips = new Chips([item], 'display', 'mainField', iconsConfig);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance

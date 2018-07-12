@@ -16,7 +16,7 @@ describe('Chips model test suite', () => {
     expect(chips.getChipsItems()).toEqual(items);
     expect(chips.displayField).toBe('display');
     expect(chips.displayObj).toBe(undefined);
-    expect(chips.iconsConfig).toEqual({});
+    expect(chips.iconsConfig).toEqual([]);
   });
 
   it('should add an element to items', () => {
@@ -105,11 +105,22 @@ describe('Chips model test suite', () => {
         otherProperty: 'a'
       },
     ];
-    chips = new Chips(items, 'value', 'toDisplay', {toDisplay: 'fa fa-plus'});
+    const iconsConfig = [{
+      name: 'toDisplay',
+      config: {
+        withAuthority:{
+          style: 'fa-user'
+        },
+        withoutAuthority:{
+          style: 'fa-user text-muted'
+        }
+      }
+    }];
+    chips = new Chips(items, 'value', 'toDisplay', iconsConfig);
 
     expect(chips.displayField).toBe('value');
     expect(chips.displayObj).toBe('toDisplay');
-    expect(chips.iconsConfig).toEqual({toDisplay: 'fa fa-plus'});
+    expect(chips.iconsConfig).toEqual(iconsConfig);
     expect(chips.getChipsItems()).toEqual(items);
   });
 });

@@ -18,7 +18,6 @@
                  class="fa {{icon.style}}"
                  [class.mr-1]="!l"
                  [class.mr-2]="l"
-                 [class.text-muted]="!(icon.hasAuthority)"
                  aria-hidden="true"
                  (dragstart)="tooltip.close();"
                  (mouseover)="showTooltip(t, i, icon.metadata)"
