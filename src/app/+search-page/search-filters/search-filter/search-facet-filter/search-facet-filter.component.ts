@@ -43,7 +43,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   filter: string;
   pageChange = false;
   sub: Subscription;
-  filterSearchResults: Observable<string[]> = Observable.of([]);
+  filterSearchResults: Observable<any[]> = Observable.of([]);
 
   constructor(private searchService: SearchService, private filterService: SearchFilterService, private router: Router) {
   }
@@ -108,6 +108,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.filterSearchResults = Observable.of([]);
   }
 
+  onClick(data: any) {
+    this.filter = data;
+  }
+
   hasValue(o: any): boolean {
     return hasValue(o);
   }
@@ -144,7 +148,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
             .first()
             .map(
               (rd: RemoteData<PaginatedList<FacetValue>>) => {
-                return rd.payload.page.map((facet) => facet.value)
+                return rd.payload.page.map((facet) => {
+                  return {displayValue: this.getDisplayValue(facet, data), value: facet.value}
+                })
               }
             );
         }
@@ -154,7 +160,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     }
   }
 
-  getDisplayValue(value: string, searchValue: string) {
-    return new EmphasizePipe().transform(value, searchValue);
+  getDisplayValue(facet: FacetValue, query: string): string {
+    return new EmphasizePipe().transform(facet.value, query) + ' (' + facet.count + ')';
   }
+
 }

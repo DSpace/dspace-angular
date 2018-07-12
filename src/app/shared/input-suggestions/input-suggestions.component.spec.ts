@@ -14,7 +14,7 @@ describe('InputSuggestionsComponent', () => {
   let fixture: ComponentFixture<InputSuggestionsComponent>;
   let de: DebugElement;
   let el: HTMLElement;
-  const suggestions = ['suggestion uno', 'suggestion dos', 'suggestion tres'];
+  const suggestions = [{displayValue: 'suggestion uno', value: 'suggestion uno'}, {displayValue: 'suggestion dos', value: 'suggestion dos'}, {displayValue: 'suggestion tres', value: 'suggestion tres'}];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -299,7 +299,7 @@ describe('InputSuggestionsComponent', () => {
       fixture.detectChanges();
     });
     it('should call onClickSuggestion() with the suggestion as a parameter', () => {
-      expect(comp.onClickSuggestion).toHaveBeenCalledWith(suggestions[clickedIndex]);
+      expect(comp.onClickSuggestion).toHaveBeenCalledWith(suggestions[clickedIndex].value);
     });
   });
 

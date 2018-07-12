@@ -24,7 +24,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class InputSuggestionsComponent {
-  @Input() suggestions: string[] = [];
+  @Input() suggestions: any[] = [];
   @Input() debounceTime = 500;
   @Input() placeholder = '';
   @Input() action;
@@ -38,7 +38,6 @@ export class InputSuggestionsComponent {
   selectedIndex = -1;
   @ViewChild('inputField') queryInput: ElementRef;
   @ViewChildren('suggestion') resultViews: QueryList<ElementRef>;
-  @Input() getDisplayValue: (value: string, query: string) => string = (value: string, query: string) => value;
 
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.suggestions)) {
@@ -90,6 +89,8 @@ export class InputSuggestionsComponent {
 
   onClickSuggestion(data) {
     this.clickSuggestion.emit(data);
+    this.close();
+    this.queryInput.nativeElement.focus();
     return false;
   }
 
