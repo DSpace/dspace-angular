@@ -4,7 +4,7 @@ import {
   UrlSegmentGroup
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { filter, flatMap, map, tap } from 'rxjs/operators';
 import { ViewMode } from '../../+search-page/search-options.model';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
@@ -25,7 +25,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { configureRequest } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
@@ -42,6 +42,10 @@ import { FacetConfigResponseParsingService } from '../../core/data/facet-config-
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { FilterLabel } from './filter-label.model';
 import { combineLatest } from 'rxjs/observable/combineLatest';
+import { Community } from '../../core/shared/community.model';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { Collection } from '../../core/shared/collection.model';
 
 @Injectable()
 export class SearchService implements OnDestroy {
@@ -58,7 +62,9 @@ export class SearchService implements OnDestroy {
               protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
-              private halService: HALEndpointService) {
+              private halService: HALEndpointService,
+              private communityService: CommunityDataService,
+              private collectionService: CollectionDataService) {
     const pagination: PaginationComponentOptions = new PaginationComponentOptions();
     pagination.id = 'search-results-pagination';
     pagination.currentPage = 1;
@@ -222,6 +228,38 @@ export class SearchService implements OnDestroy {
     });
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+  }
+
+  getScopes(scopeId: string): Observable<DSpaceObject[]> {
+
+    if (hasNoValue(scopeId)) {
+      const top: Observable<Community[]> = this.communityService.findTop({ elementsPerPage: 9999 }).pipe(
+        map(
+          (communities: RemoteData<PaginatedList<Community>>) => communities.payload.page
+        )
+      );
+      return top;
+    }
+
+    const communityScope: Observable<RemoteData<Community>> = this.communityService.findById(scopeId).filter((communityRD: RemoteData<Community>) => !communityRD.isLoading);
+    const scopeObject: Observable<DSpaceObject[]> = communityScope.pipe(
+      flatMap((communityRD: RemoteData<Community>) => {
+          if (hasValue(communityRD.payload)) {
+            const community: Community = communityRD.payload;
+            // const subcommunities$ = community.subcommunities.filter((subcommunitiesRD: RemoteData<PaginatedList<Community>>) => !subcommunitiesRD.isLoading).first();
+            // const collections$ = community.subcommunities.filter((subcommunitiesRD: RemoteData<PaginatedList<Community>>) => !subcommunitiesRD.isLoading).first();
+            return Observable.combineLatest(community.subcommunities, community.collections, (subCommunities, collections) => {
+              /*if this is a community, we also need to show the direct children*/
+              return [community, ...subCommunities.payload.page, ...collections.payload.page]
+            })
+          } else {
+            return this.collectionService.findById(scopeId).pipe(map((collectionRD: RemoteData<Collection>) => [collectionRD.payload]));
+          }
+        }
+      ));
+
+    return scopeObject;
+
   }
 
   getFilterLabels(): Observable<FilterLabel[]> {
