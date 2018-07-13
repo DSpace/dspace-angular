@@ -16,8 +16,11 @@
             </div>
             <input type="submit" class="d-none"/>
         </form>
+
+      <ng-container *ngIf="shouldShowSlider()">
         <nouislider [connect]="true" [min]="min" [max]="max" [step]="1"
                     [(ngModel)]="range" (mouseup)="onSubmit(form.value)" ngDefaultControl></nouislider>
+      </ng-container>
 
         <ng-container *ngFor="let page of (filterValues$ | async)">
             <ng-container *ngFor="let value of (page | async)?.payload.page">

@@ -5591,9 +5591,9 @@ netmask@~1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
 
-ng2-nouislider@1.7.8:
-  version "1.7.8"
-  resolved "https://registry.yarnpkg.com/ng2-nouislider/-/ng2-nouislider-1.7.8.tgz#5fd6de120f9ca5b5d9c4b377f884944b74c06855"
+ng2-nouislider@^1.7.11:
+  version "1.7.11"
+  resolved "https://registry.yarnpkg.com/ng2-nouislider/-/ng2-nouislider-1.7.11.tgz#b8ba5e3d2ffc23e1e32dfe54dd1726e2b4be316b"
 
 ngrx-store-freeze@^0.2.1:
   version "0.2.1"

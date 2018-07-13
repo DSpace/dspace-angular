@@ -1,4 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
@@ -36,6 +37,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               protected router: Router,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(SELECTED_VALUES) public selectedValues: string[],
+              @Inject(PLATFORM_ID) private platformId: any,
               private route: ActivatedRoute) {
     super(searchService, filterService, router, filterConfig, selectedValues);
   }
@@ -81,6 +83,13 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       });
       this.filter = '';
     }
+  }
+
+  /**
+   * TODO when upgrading nouislider, verify that this check is still needed.
+   */
+  shouldShowSlider(): boolean {
+    return isPlatformBrowser(this.platformId);
   }
 
 }
