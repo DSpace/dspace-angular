@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, S
 
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { SortablejsOptions } from 'angular-sortablejs';
+import { isObject } from 'lodash';
 
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
@@ -81,7 +82,7 @@ export class ChipsComponent implements OnChanges {
     const item = this.chips.getChipByIndex(index);
     if (!item.editMode && this.dragged === -1) {
       if (field) {
-        this.tipText = item.item[field].display;
+        this.tipText = (isObject(item.item[field])) ? item.item[field].display : item.item[field];
       } else {
         this.tipText = item.display;
       }
