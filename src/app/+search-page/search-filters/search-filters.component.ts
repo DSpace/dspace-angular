@@ -22,7 +22,7 @@ export class SearchFiltersComponent {
   clearParams;
   constructor(private searchService: SearchService, private filterService: SearchFilterService) {
     this.filters = searchService.getConfig();
-    this.clearParams = filterService.getCurrentFilters().map((filters) => {Object.keys(filters).forEach((f) => filters[f] = null); return filters;});
+    this.clearParams = filterService.getCurrentFrontendFilters().map((filters) => {Object.keys(filters).forEach((f) => filters[f] = null); return filters;});
   }
 
   getSearchLink() {

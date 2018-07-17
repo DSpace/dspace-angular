@@ -1,6 +1,6 @@
 export enum FilterType {
-  text,
-  date,
-  hierarchical,
-  standard
+  text = 'text',
+  range = 'date',
+  hierarchy = 'hierarchical',
+  boolean = 'standard'
 }

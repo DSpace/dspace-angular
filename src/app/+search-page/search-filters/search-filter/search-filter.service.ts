@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
@@ -22,6 +22,9 @@ import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
+
+export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
+export const SELECTED_VALUES: InjectionToken<string[]> = new InjectionToken<string[]>('selectedValues');
 
 @Injectable()
 export class SearchFilterService {
@@ -68,10 +71,31 @@ export class SearchFilterService {
     );
   }
 
-  getCurrentFilters() {
-    return this.routeService.getQueryParamsWithPrefix('f.');
+  getCurrentFilters(): Observable<any> {
+    return this.routeService.getQueryParamsWithPrefix('f.').map((filterParams) => {
+      if (isNotEmpty(filterParams)) {
+        const params = {};
+        Object.keys(filterParams).forEach((key) => {
+          if (key.endsWith('.min') || key.endsWith('.max')) {
+            const realKey = key.slice(0, -4);
+            if (isEmpty(params[realKey])) {
+              const min = filterParams[realKey + '.min'][0] || '*';
+              const max = filterParams[realKey + '.max'][0] || '*';
+              params[realKey] = ['[' + min + ' TO ' + max + ']'];
+            }
+          } else {
+            params[key] = filterParams[key];
+          }
+        });
+        return params;
+      }
+      return filterParams;
+    });
   }
 
+  getCurrentFrontendFilters(): Observable<any> {
+    return this.routeService.getQueryParamsWithPrefix('f.');
+  }
   getCurrentView() {
     return this.routeService.getQueryParameterValue('view');
   }

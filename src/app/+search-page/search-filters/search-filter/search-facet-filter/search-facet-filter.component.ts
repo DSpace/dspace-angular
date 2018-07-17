@@ -1,7 +1,7 @@
 import {
   Component,
   ElementRef,
-  Input,
+  Inject,
   OnDestroy,
   OnInit, QueryList,
   ViewChild,
@@ -11,7 +11,7 @@ import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, SearchFilterService, SELECTED_VALUES } from '../search-filter.service';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
@@ -29,13 +29,10 @@ import { EmphasizePipe } from '../../../../shared/utils/emphasize.pipe';
 
 @Component({
   selector: 'ds-search-facet-filter',
-  styleUrls: ['./search-facet-filter.component.scss'],
-  templateUrl: './search-facet-filter.component.html'
+  template: ``,
 })
 
 export class SearchFacetFilterComponent implements OnInit, OnDestroy {
-  @Input() filterConfig: SearchFilterConfig;
-  @Input() selectedValues: string[];
   filterValues: Array<Observable<RemoteData<PaginatedList<FacetValue>>>> = [];
   filterValues$: BehaviorSubject<any> = new BehaviorSubject(this.filterValues);
   currentPage: Observable<number>;
@@ -45,7 +42,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   sub: Subscription;
   filterSearchResults: Observable<any[]> = Observable.of([]);
 
-  constructor(private searchService: SearchService, private filterService: SearchFilterService, private router: Router) {
+  constructor(protected searchService: SearchService,
+              protected filterService: SearchFilterService,
+              protected router: Router,
+              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
+              @Inject(SELECTED_VALUES) public selectedValues: string[]) {
   }
 
   ngOnInit(): void {

@@ -24,7 +24,7 @@ describe('SearchFiltersComponent', () => {
     /* tslint:enable:no-empty */
   };
   const searchFilterServiceStub = jasmine.createSpyObj('SearchFilterService', {
-    getCurrentFilters: Observable.of({})
+    getCurrentFrontendFilters: Observable.of({})
   });
 
   beforeEach(async(() => {
