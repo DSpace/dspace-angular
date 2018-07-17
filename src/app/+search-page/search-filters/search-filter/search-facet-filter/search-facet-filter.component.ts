@@ -50,17 +50,13 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentPage = this.getCurrentPage();
-    this.currentPage.distinctUntilChanged().subscribe((page) => this.pageChange = true);
     this.filterService.getSearchOptions().distinctUntilChanged().subscribe((options) => this.updateFilterValueList(options));
   }
 
   updateFilterValueList(options: SearchOptions) {
-    if (!this.pageChange) {
-      this.showFirstPageOnly();
-    }
-    this.pageChange = false;
-
     this.unsubscribe();
+    this.showFirstPageOnly();
+
     this.sub = this.currentPage.distinctUntilChanged().map((page) => {
       return this.searchService.getFacetValuesFor(this.filterConfig, page, options);
     }).subscribe((newValues$) => {
@@ -149,7 +145,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
             .map(
               (rd: RemoteData<PaginatedList<FacetValue>>) => {
                 return rd.payload.page.map((facet) => {
-                  return {displayValue: this.getDisplayValue(facet, data), value: facet.value}
+                  return { displayValue: this.getDisplayValue(facet, data), value: facet.value }
                 })
               }
             );
