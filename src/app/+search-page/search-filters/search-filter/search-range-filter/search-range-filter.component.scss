@@ -3,14 +3,15 @@
 
 
 .filters {
-     margin-top: $spacer/2;
-     margin-bottom: $spacer/2;
      a {
          color: $link-color;
          &:hover {
              text-decoration: underline;
              color: $link-hover-color;
 
+         }
+         span.badge {
+             vertical-align: text-top;
          }
      }
      .toggle-more-filters a {
