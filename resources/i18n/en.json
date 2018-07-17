@@ -59,8 +59,13 @@
     }
   },
   "sorting": {
-    "ASC": "Ascending",
-    "DESC": "Descending"
+    "score": {
+      "DESC": "Relevance"
+    },
+    "dc.title": {
+      "ASC": "Title Ascending",
+      "DESC": "Title Descending"
+    }
   },
   "title": "DSpace",
   "404": {
@@ -93,13 +98,13 @@
       "close": "Back to results",
       "open": "Search Tools",
       "results": "results",
-      "filters":{
-        "title":"Filters"
+      "filters": {
+        "title": "Filters"
       },
-      "settings":{
-        "title":"Settings",
-        "sort-by":"Sort By",
-        "rpp":"Results per page"
+      "settings": {
+        "title": "Settings",
+        "sort-by": "Sort By",
+        "rpp": "Results per page"
       }
     },
     "view-switch": {
