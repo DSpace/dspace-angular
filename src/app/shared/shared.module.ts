@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NouisliderModule } from 'ng2-nouislider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
@@ -40,6 +40,9 @@ import { SearchResultGridElementComponent } from './object-grid/search-result-gr
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
+import { LogInComponent } from './log-in/log-in.component';
+import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
+import { LogOutComponent } from './log-out/log-out.component';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
@@ -51,6 +54,7 @@ import { ClickOutsideDirective } from './utils/click-outside.directive';
 import { EmphasizePipe } from './utils/emphasize.pipe';
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 import { CapitalizePipe } from './utils/capitalize.pipe';
+import { MomentModule } from 'angular2-moment';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -60,7 +64,9 @@ const MODULES = [
   NgxPaginationModule,
   ReactiveFormsModule,
   RouterModule,
-  TranslateModule
+  TranslateModule,
+  NouisliderModule,
+  MomentModule
 ];
 
 const PIPES = [
@@ -75,11 +81,14 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
+  AuthNavMenuComponent,
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
   ErrorComponent,
   LoadingComponent,
+  LogInComponent,
+  LogOutComponent,
   ObjectListComponent,
   AbstractListableElementComponent,
   WrapperListElementComponent,

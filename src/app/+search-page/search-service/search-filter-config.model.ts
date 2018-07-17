@@ -17,6 +17,12 @@
 
     @autoserialize
     isOpenByDefault: boolean;
+
+    @autoserialize
+    maxValue: string;
+
+    @autoserialize
+    minValue: string;
     /**
      * Name of this configuration that can be used in a url
      * @returns Parameter name

@@ -9,6 +9,16 @@ import { Observable } from 'rxjs/Observable';
 import { HeaderComponent } from './header.component';
 import { HeaderState } from './header.reducer';
 import { HeaderToggleAction } from './header.actions';
+import { AuthNavMenuComponent } from '../shared/auth-nav-menu/auth-nav-menu.component';
+import { LogInComponent } from '../shared/log-in/log-in.component';
+import { LogOutComponent } from '../shared/log-out/log-out.component';
+import { LoadingComponent } from '../shared/loading/loading.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HostWindowService } from '../shared/host-window.service';
+import { HostWindowServiceStub } from '../shared/testing/host-window-service-stub';
+import { RouterStub } from '../shared/testing/router-stub';
+import { Router } from '@angular/router';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;
@@ -19,8 +29,17 @@ describe('HeaderComponent', () => {
   // async beforeEach
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({}), TranslateModule.forRoot(), NgbCollapseModule.forRoot()],
-      declarations: [HeaderComponent]
+      imports: [
+        StoreModule.forRoot({}),
+        TranslateModule.forRoot(),
+        NgbCollapseModule.forRoot(),
+        NoopAnimationsModule,
+        ReactiveFormsModule],
+      declarations: [HeaderComponent, AuthNavMenuComponent, LoadingComponent, LogInComponent, LogOutComponent],
+      providers: [
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: Router, useClass: RouterStub },
+      ]
     })
       .compileComponents();  // compile template and css
   }));

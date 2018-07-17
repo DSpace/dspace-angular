@@ -1,6 +1,6 @@
 import { isNotEmpty } from '../shared/empty.util';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
-import 'core-js/fn/object/entries';
+import 'core-js/library/fn/object/entries';
 
 export enum ViewMode {
   List = 'list',
@@ -24,7 +24,7 @@ export class SearchOptions {
     }
     if (isNotEmpty(this.filters)) {
       Object.entries(this.filters).forEach(([key, values]) => {
-        values.forEach((value) => args.push(`${key}=${value},equals`));
+        values.forEach((value) => args.push(`${key}=${value},query`));
       });
     }
     if (isNotEmpty(args)) {

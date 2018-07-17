@@ -7,6 +7,9 @@
         &:hover, &focus {
           text-decoration: none;
         }
+        span.badge {
+            vertical-align: text-top;
+        }
     }
     .toggle-more-filters a {
         color: $link-color;

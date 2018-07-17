@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchFacetFilterComponent } from './search-facet-filter.component';
-import { SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, SearchFilterService, SELECTED_VALUES } from '../search-filter.service';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { FacetValue } from '../../../search-service/facet-value.model';
@@ -19,6 +17,7 @@ import { RouterStub } from '../../../../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { SearchFacetFilterComponent } from './search-facet-filter.component';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -65,6 +64,8 @@ describe('SearchFacetFilterComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
+        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig()},
+        { provide: SELECTED_VALUES, useValue: {} },
         {
           provide: SearchFilterService, useValue: {
           isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
@@ -182,7 +183,7 @@ describe('SearchFacetFilterComponent', () => {
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';
     const testValue = 'test';
-    const data = { [mockFilterConfig.paramName]: testValue };
+    const data = testValue ;
     beforeEach(() => {
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
       comp.onSubmit(data);
@@ -237,6 +238,16 @@ describe('SearchFacetFilterComponent', () => {
 
     it('should call showFirstPageOnly on the component', () => {
       expect(comp.showFirstPageOnly).toHaveBeenCalled();
+    });
+  });
+  describe('when findSuggestions is called with query \'test\'', () => {
+    const query = 'test';
+    beforeEach(() => {
+      comp.findSuggestions(query);
+    });
+
+    it('should call getFacetValuesFor on the component\'s SearchService with the right query', () => {
+      expect((comp as any).searchService.getFacetValuesFor).toHaveBeenCalledWith(comp.filterConfig, 1, {}, query);
     });
   });
 });

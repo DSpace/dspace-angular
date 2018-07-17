@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
-import { SearchOptions, ViewMode } from '../search-options.model';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
+import { hasValue } from '../../shared/empty.util';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ds-search-settings',
@@ -23,37 +25,38 @@ export class SearchSettingsComponent implements OnInit {
   public pageSize;
   @Input() public pageSizeOptions;
 
-  private sub;
+  private sub: Subscription;
   private scope: string;
   query: string;
   page: number;
   direction: SortDirection;
+  field: string;
   currentParams = {};
-
+  searchOptionPossibilities = [new SortOptions('score', SortDirection.DESC), new SortOptions('dc.title', SortDirection.ASC), new SortOptions('dc.title', SortDirection.DESC)];
+  defaults = {
+    pagination: {
+      id: 'search-results-pagination',
+      pageSize: 10
+    },
+    sort: new SortOptions('score', SortDirection.DESC),
+    query: '',
+    scope: ''
+  };
   constructor(private service: SearchService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private filterService: SearchFilterService) {
   }
 
   ngOnInit(): void {
     this.searchOptions = this.service.searchOptions;
     this.pageSize = this.searchOptions.pagination.pageSize;
     this.pageSizeOptions = this.searchOptions.pagination.pageSizeOptions;
-    this.sub = this.route
-      .queryParams
-      .subscribe((params) => {
-        this.currentParams = params;
-        this.query = params.query || '';
-        this.scope = params.scope;
-        this.page  = +params.page || this.searchOptions.pagination.currentPage;
-        this.pageSize = +params.pageSize || this.searchOptions.pagination.pageSize;
-        this.direction = params.sortDirection || this.searchOptions.sort.direction;
-        if (params.view === ViewMode.Grid) {
-          this.pageSizeOptions = this.pageSizeOptions;
-        } else {
-          this.pageSizeOptions = this.pageSizeOptions;
-        }
-      });
+    this.filterService.getPaginatedSearchOptions(this.defaults).first().subscribe((options) => {
+      this.direction = options.sort.direction;
+      this.field = options.sort.field;
+      this.pageSize = options.pagination.pageSize;
+    })
   }
 
   reloadRPP(event: Event) {
@@ -67,12 +70,16 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   reloadOrder(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
+    const values = (event.target as HTMLInputElement).value.split(',');
     const navigationExtras: NavigationExtras = {
-      queryParams: Object.assign({}, this.currentParams, {
-        sortDirection: value
-      })
+      queryParams: {
+        sortDirection: values[1],
+        sortField: values[0]
+      },
+      queryParamsHandling: 'merge'
     };
     this.router.navigate([ '/search' ], navigationExtras);
   }
+
+
 }

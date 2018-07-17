@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { flatMap, } from 'rxjs/operators';
+import { flatMap, map, tap, } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
@@ -33,8 +33,8 @@ export class SearchPageComponent implements OnInit {
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
   searchOptions$: Observable<PaginatedSearchOptions>;
   sortConfig: SortOptions;
-  scopeListRD$: Observable<RemoteData<PaginatedList<Community>>>;
-  isMobileView$: Observable<boolean>;
+  scopeListRD$: Observable<DSpaceObject[]>;
+  isXsOrSm$: Observable<boolean>;
   pageSize;
   pageSizeOptions;
   defaults = {
@@ -48,23 +48,22 @@ export class SearchPageComponent implements OnInit {
   };
 
   constructor(private service: SearchService,
-              private communityService: CommunityDataService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
               private filterService: SearchFilterService) {
-    this.isMobileView$ = Observable.combineLatest(
-      this.windowService.isXs(),
-      this.windowService.isSm(),
-      ((isXs, isSm) => isXs || isSm)
-    );
-    this.scopeListRD$ = communityService.findAll();
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
   ngOnInit(): void {
     this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
     this.resultsRD$ = this.searchOptions$.pipe(
-      flatMap((searchOptions) => this.service.search(searchOptions))
+      flatMap((searchOptions) =>
+        this.service.search(searchOptions)
+      )
     );
+    this.scopeListRD$ = this.filterService.getCurrentScope().pipe(
+      flatMap((scopeId) => this.service.getScopes(scopeId))
+    )
   }
 
   public closeSidebar(): void {

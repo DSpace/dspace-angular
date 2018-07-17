@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken } from '@angular/core';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
@@ -14,20 +14,25 @@ import {
 import { hasValue, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchService } from '../../search-service/search.service';
-import { RouteService } from '../../../shared/route.service';
+import { RouteService } from '../../../shared/services/route.service';
 import ObjectExpression from 'rollup/dist/typings/ast/nodes/ObjectExpression';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
+import { ActivatedRoute } from '@angular/router';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
+
+export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
+export const SELECTED_VALUES: InjectionToken<string[]> = new InjectionToken<string[]>('selectedValues');
 
 @Injectable()
 export class SearchFilterService {
 
   constructor(private store: Store<SearchFiltersState>,
-              private routeService: RouteService) {
+              private routeService: RouteService,
+              private route: ActivatedRoute) {
   }
 
   isFilterActiveWithValue(paramName: string, filterValue: string): Observable<boolean> {
@@ -61,6 +66,9 @@ export class SearchFilterService {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
     return Observable.combineLatest(sortDirection$, sortField$, (sortDirection, sortField) => {
+        // Dirty fix because sometimes the observable value is null somehow
+        sortField = this.route.snapshot.queryParamMap.get('sortField');
+
         const field = sortField || defaultSort.field;
         const direction = SortDirection[sortDirection] || defaultSort.direction;
         return new SortOptions(field, direction)
@@ -68,7 +76,29 @@ export class SearchFilterService {
     );
   }
 
-  getCurrentFilters() {
+  getCurrentFilters(): Observable<any> {
+    return this.routeService.getQueryParamsWithPrefix('f.').map((filterParams) => {
+      if (isNotEmpty(filterParams)) {
+        const params = {};
+        Object.keys(filterParams).forEach((key) => {
+          if (key.endsWith('.min') || key.endsWith('.max')) {
+            const realKey = key.slice(0, -4);
+            if (isEmpty(params[realKey])) {
+              const min = filterParams[realKey + '.min'][0] || '*';
+              const max = filterParams[realKey + '.max'][0] || '*';
+              params[realKey] = ['[' + min + ' TO ' + max + ']'];
+            }
+          } else {
+            params[key] = filterParams[key];
+          }
+        });
+        return params;
+      }
+      return filterParams;
+    });
+  }
+
+  getCurrentFrontendFilters(): Observable<any> {
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 

@@ -22,6 +22,11 @@ import { SearchFilterComponent } from './search-filters/search-filter/search-fil
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { SearchRangeFilterComponent } from './search-filters/search-filter/search-range-filter/search-range-filter.component';
+import { SearchTextFilterComponent } from './search-filters/search-filter/search-text-filter/search-text-filter.component';
+import { SearchFacetFilterWrapperComponent } from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
+import { SearchBooleanFilterComponent } from './search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
+import { SearchHierarchyFilterComponent } from './search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
 
 const effects = [
   SearchSidebarEffects
@@ -50,7 +55,13 @@ const effects = [
     SearchFiltersComponent,
     SearchFilterComponent,
     SearchFacetFilterComponent,
-    SearchLabelsComponent
+    SearchLabelsComponent,
+    SearchFacetFilterComponent,
+    SearchFacetFilterWrapperComponent,
+    SearchRangeFilterComponent,
+    SearchTextFilterComponent,
+    SearchHierarchyFilterComponent,
+    SearchBooleanFilterComponent,
   ],
   providers: [
     SearchService,
@@ -64,6 +75,11 @@ const effects = [
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
+    SearchFacetFilterComponent,
+    SearchRangeFilterComponent,
+    SearchTextFilterComponent,
+    SearchHierarchyFilterComponent,
+    SearchBooleanFilterComponent,
   ]
 })
 export class SearchPageModule {

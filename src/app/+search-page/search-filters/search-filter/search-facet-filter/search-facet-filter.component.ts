@@ -1,7 +1,7 @@
 import {
   Component,
   ElementRef,
-  Input,
+  Inject,
   OnDestroy,
   OnInit, QueryList,
   ViewChild,
@@ -11,7 +11,7 @@ import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, SearchFilterService, SELECTED_VALUES } from '../search-filter.service';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
@@ -29,13 +29,10 @@ import { EmphasizePipe } from '../../../../shared/utils/emphasize.pipe';
 
 @Component({
   selector: 'ds-search-facet-filter',
-  styleUrls: ['./search-facet-filter.component.scss'],
-  templateUrl: './search-facet-filter.component.html'
+  template: ``,
 })
 
 export class SearchFacetFilterComponent implements OnInit, OnDestroy {
-  @Input() filterConfig: SearchFilterConfig;
-  @Input() selectedValues: string[];
   filterValues: Array<Observable<RemoteData<PaginatedList<FacetValue>>>> = [];
   filterValues$: BehaviorSubject<any> = new BehaviorSubject(this.filterValues);
   currentPage: Observable<number>;
@@ -43,24 +40,24 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   filter: string;
   pageChange = false;
   sub: Subscription;
-  filterSearchResults: Observable<string[]> = Observable.of([]);
+  filterSearchResults: Observable<any[]> = Observable.of([]);
 
-  constructor(private searchService: SearchService, private filterService: SearchFilterService, private router: Router) {
+  constructor(protected searchService: SearchService,
+              protected filterService: SearchFilterService,
+              protected router: Router,
+              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
+              @Inject(SELECTED_VALUES) public selectedValues: string[]) {
   }
 
   ngOnInit(): void {
     this.currentPage = this.getCurrentPage();
-    this.currentPage.distinctUntilChanged().subscribe((page) => this.pageChange = true);
     this.filterService.getSearchOptions().distinctUntilChanged().subscribe((options) => this.updateFilterValueList(options));
   }
 
   updateFilterValueList(options: SearchOptions) {
-    if (!this.pageChange) {
-      this.showFirstPageOnly();
-    }
-    this.pageChange = false;
-
     this.unsubscribe();
+    this.showFirstPageOnly();
+
     this.sub = this.currentPage.distinctUntilChanged().map((page) => {
       return this.searchService.getFacetValuesFor(this.filterConfig, page, options);
     }).subscribe((newValues$) => {
@@ -108,6 +105,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.filterSearchResults = Observable.of([]);
   }
 
+  onClick(data: any) {
+    this.filter = data;
+  }
+
   hasValue(o: any): boolean {
     return hasValue(o);
   }
@@ -144,7 +145,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
             .first()
             .map(
               (rd: RemoteData<PaginatedList<FacetValue>>) => {
-                return rd.payload.page.map((facet) => facet.value)
+                return rd.payload.page.map((facet) => {
+                  return { displayValue: this.getDisplayValue(facet, data), value: facet.value }
+                })
               }
             );
         }
@@ -154,7 +157,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     }
   }
 
-  getDisplayValue(value: string, searchValue: string) {
-    return new EmphasizePipe().transform(value, searchValue);
+  getDisplayValue(facet: FacetValue, query: string): string {
+    return new EmphasizePipe().transform(facet.value, query) + ' (' + facet.count + ')';
   }
+
 }

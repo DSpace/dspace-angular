@@ -2,10 +2,10 @@
 <div *ngIf="[searchOptions].sort" class="setting-option result-order-settings mb-3 p-3">
     <h5>{{ 'search.sidebar.settings.sort-by' | translate}}</h5>
     <select class="form-control" (change)="reloadOrder($event)">
-        <option *ngFor="let sortDirection of (sortDirections | dsKeys)"
-                [value]="sortDirection.value"
-                [selected]="sortDirection.value === direction? 'selected': null">
-            {{'sorting.' + sortDirection.key | translate}}
+        <option *ngFor="let sortOption of searchOptionPossibilities"
+                [value]="sortOption.field + ',' + sortOption.direction.toString()"
+                [selected]="sortOption.field === field && sortOption.direction === direction? 'selected': null">
+            {{'sorting.' + sortOption.field + '.' + sortOption.direction | translate}}
         </option>
     </select>
 </div>

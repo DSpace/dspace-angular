@@ -12,8 +12,8 @@ export class DebounceDirective implements OnInit, OnDestroy {
   @Output()
   public onDebounce = new EventEmitter<any>();
 
-  @Input('dsDebounce')
-  public debounceTime = 500;
+  @Input()
+  public dsDebounce = 500;
 
   private isFirstChange = true;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -24,7 +24,7 @@ export class DebounceDirective implements OnInit, OnDestroy {
   ngOnInit() {
     this.model.valueChanges
       .takeUntil(this.ngUnsubscribe)
-      .debounceTime(this.debounceTime)
+      .debounceTime(this.dsDebounce)
       .distinctUntilChanged()
       .subscribe((modelValue) => {
         if (this.isFirstChange) {
@@ -39,5 +39,4 @@ export class DebounceDirective implements OnInit, OnDestroy {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-
 }
