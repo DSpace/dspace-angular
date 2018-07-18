@@ -1,16 +1,16 @@
 <div>
     <div class="filters py-2">
-        <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter row"
+        <form #form="ngForm" (ngSubmit)="onSubmit()" class="add-filter row"
               [action]="getCurrentUrl()">
             <div class="col-6">
                 <input type="text" [(ngModel)]="range[0]" [name]="filterConfig.paramName + '.min'"
-                       class="form-control" (blur)="onSubmit(form.value)"
+                       class="form-control" (blur)="onSubmit()"
                        aria-label="Mininum value"
                        [placeholder]="'search.filters.filter.' + filterConfig.name + '.min.placeholder'| translate"/>
             </div>
             <div class="col-6">
                 <input type="text" [(ngModel)]="range[1]" [name]="filterConfig.paramName + '.max'"
-                       class="form-control" (blur)="onSubmit(form.value)"
+                       class="form-control" (blur)="onSubmit()"
                        aria-label="Maximum value"
                        [placeholder]="'search.filters.filter.' + filterConfig.name + '.max.placeholder'| translate"/>
             </div>
