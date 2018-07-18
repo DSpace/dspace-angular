@@ -123,10 +123,11 @@ describe('SearchFacetFilterComponent', () => {
 
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';
-    const data = { [mockFilterConfig.paramName + minSuffix]: '1900', [mockFilterConfig.paramName + maxSuffix]: '1950' };
+    comp.range = [1900, 1950];
+    // const data = { [mockFilterConfig.paramName + minSuffix]: '1900', [mockFilterConfig.paramName + maxSuffix]: '1950' };
     beforeEach(() => {
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
-      comp.onSubmit(data);
+      comp.onSubmit();
     });
 
     it('should call navigate on the router with the right searchlink and parameters', () => {
