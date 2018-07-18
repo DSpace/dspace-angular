@@ -10,6 +10,8 @@ import {
 import { SearchFiltersState } from './search-filter.reducer';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { FilterType } from '../../search-service/filter-type.model';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
+import { ActivatedRoute } from '@angular/router';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;
@@ -44,13 +46,13 @@ describe('SearchFilterService', () => {
     }
     /* tslint:enable:no-empty */
   };
-
+  const activatedRoute: any = new ActivatedRouteStub();
   const searchServiceStub: any = {
     uiSearchRoute: '/search'
   };
 
   beforeEach(() => {
-    service = new SearchFilterService(store, routeServiceStub);
+    service = new SearchFilterService(store, routeServiceStub, activatedRoute);
   });
 
   describe('when the initialCollapse method is triggered', () => {

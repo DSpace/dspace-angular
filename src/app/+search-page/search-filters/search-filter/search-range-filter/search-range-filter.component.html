@@ -1,27 +1,28 @@
 <div>
     <div class="filters py-2">
-        <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="add-filter row"
+        <form #form="ngForm" (ngSubmit)="onSubmit()" class="add-filter row"
               [action]="getCurrentUrl()">
             <div class="col-6">
-                <input type="text" [ngModel]="range[0]" [name]="filterConfig.paramName + '.min'"
-                       class="form-control" (blur)="onSubmit(form.value)"
+                <input type="text" [(ngModel)]="range[0]" [name]="filterConfig.paramName + '.min'"
+                       class="form-control" (blur)="onSubmit()"
                        aria-label="Mininum value"
                        [placeholder]="'search.filters.filter.' + filterConfig.name + '.min.placeholder'| translate"/>
             </div>
             <div class="col-6">
-                <input type="text" [ngModel]="range[1]" [name]="filterConfig.paramName + '.max'"
-                       class="form-control" (blur)="onSubmit(form.value)"
+                <input type="text" [(ngModel)]="range[1]" [name]="filterConfig.paramName + '.max'"
+                       class="form-control" (blur)="onSubmit()"
                        aria-label="Maximum value"
                        [placeholder]="'search.filters.filter.' + filterConfig.name + '.max.placeholder'| translate"/>
             </div>
             <input type="submit" class="d-none"/>
         </form>
 
-      <ng-container *ngIf="shouldShowSlider()">
-        <nouislider [connect]="true" [min]="min" [max]="max" [step]="1"
-                    [(ngModel)]="range" (mouseup)="onSubmit(form.value)" ngDefaultControl></nouislider>
-      </ng-container>
+        <ng-container *ngIf="shouldShowSlider()">
+            <nouislider [connect]="true" [min]="min" [max]="max" [step]="1"
+                        [(ngModel)]="range" (end)="onSubmit()"
+                        ngDefaultControl></nouislider>
 
+        </ng-container>
         <ng-container *ngFor="let page of (filterValues$ | async)">
             <ng-container *ngFor="let value of (page | async)?.payload.page; let i=index">
                 <a *ngIf="!selectedValues.includes(value.value)" class="d-flex flex-row"
