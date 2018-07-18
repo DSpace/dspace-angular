@@ -31,7 +31,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   min = 1950;
   max = 2018;
   range;
-
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected router: Router,
@@ -71,18 +70,16 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     };
   }
 
-  onSubmit(data: any) {
-    if (isNotEmpty(data)) {
+  onSubmit() {
       this.router.navigate([this.getSearchLink()], {
         queryParams:
           {
-            [this.filterConfig.paramName + minSuffix]: [data[this.filterConfig.paramName + minSuffix]],
-            [this.filterConfig.paramName + maxSuffix]: [data[this.filterConfig.paramName + maxSuffix]]
+            [this.filterConfig.paramName + minSuffix]: [this.range[0]],
+            [this.filterConfig.paramName + maxSuffix]: [this.range[1]]
           },
         queryParamsHandling: 'merge'
       });
       this.filter = '';
-    }
   }
 
   /**
