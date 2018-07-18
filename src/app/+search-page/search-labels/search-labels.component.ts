@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Params } from '@angular/router';
 import { FilterLabel } from '../search-service/filter-label.model';
 import { map } from 'rxjs/operators';
+import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 
 @Component({
   selector: 'ds-search-labels',
@@ -13,8 +14,8 @@ import { map } from 'rxjs/operators';
 export class SearchLabelsComponent {
   appliedFilters: Observable<FilterLabel[]>;
 
-  constructor(private searchService: SearchService) {
-    this.appliedFilters = this.searchService.getFilterLabels();
+  constructor(private searchService: SearchService, private filterService: SearchFilterService) {
+    this.appliedFilters = this.filterService.getCurrentFilterLabels();
   }
 
   getRemoveParams(filterLabel: FilterLabel): Observable<Params> {

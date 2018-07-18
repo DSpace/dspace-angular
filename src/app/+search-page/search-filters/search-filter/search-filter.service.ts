@@ -20,7 +20,8 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
+import { FilterLabel } from '../../search-service/filter-label.model';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
@@ -76,7 +77,7 @@ export class SearchFilterService {
     );
   }
 
-  getCurrentFilters(): Observable<any> {
+  getCurrentFilters(): Observable<Params> {
     return this.routeService.getQueryParamsWithPrefix('f.').map((filterParams) => {
       if (isNotEmpty(filterParams)) {
         const params = {};
@@ -96,6 +97,20 @@ export class SearchFilterService {
       }
       return filterParams;
     });
+  }
+
+  getCurrentFilterLabels(): Observable<FilterLabel[]> {
+    return this.getCurrentFilters().pipe(
+      map((params: Params) => {
+        const filterLabels: FilterLabel[] = [];
+        Object.keys(params).forEach((key) => {
+          params[key].forEach((p: string) => {
+            filterLabels.push(new FilterLabel(p, key));
+          });
+        });
+        return filterLabels;
+      })
+    );
   }
 
   getCurrentFrontendFilters(): Observable<any> {

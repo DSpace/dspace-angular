@@ -262,27 +262,6 @@ export class SearchService implements OnDestroy {
 
   }
 
-  getFilterLabels(): Observable<FilterLabel[]> {
-    return combineLatest(this.getConfig(), this.route.queryParams).pipe(
-      map(([rd, params]) => {
-        const filterLabels: FilterLabel[] = [];
-        rd.payload.forEach((config: SearchFilterConfig) => {
-          const param = params[config.paramName];
-          if (param !== undefined) {
-            if (param instanceof Array && param.length > 1) {
-              param.forEach((p: string) => {
-                filterLabels.push(new FilterLabel(p, config.paramName))
-              });
-            } else {
-              filterLabels.push(new FilterLabel(param, config.paramName));
-            }
-          }
-        });
-        return filterLabels.filter((n) => n !== undefined && n.value.length > 0);
-      })
-    );
-  }
-
   getViewMode(): Observable<ViewMode> {
     return this.route.queryParams.map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
