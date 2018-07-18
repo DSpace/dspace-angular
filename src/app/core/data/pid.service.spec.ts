@@ -7,7 +7,7 @@ import { PIDService } from './pid.service';
 import { FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 
-fdescribe('PIDService', () => {
+describe('PIDService', () => {
   let scheduler: TestScheduler;
   let service: PIDService;
   let halService: HALEndpointService;
