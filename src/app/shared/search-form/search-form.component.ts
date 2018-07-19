@@ -33,14 +33,14 @@ export class SearchFormComponent {
     this.updateSearch(data);
   }
 
+  onScopeChange(scope: string) {
+    this.updateSearch({ scope });
+  }
+
   updateSearch(data: any) {
     const newUrl = hasValue(this.currentUrl) ? this.currentUrl : 'search';
     this.router.navigate([newUrl], {
-      queryParams: {
-        query: data.query,
-        scope: data.scope || undefined,
-        page: data.page || 1
-      },
+      queryParams: Object.assign({}, { page: 1 }, data),
       queryParamsHandling: 'merge'
     });
   }

@@ -63,7 +63,9 @@ export class SearchPageComponent implements OnInit {
     );
     this.scopeListRD$ = this.filterService.getCurrentScope().pipe(
       flatMap((scopeId) => this.service.getScopes(scopeId))
-    )
+    );
+
+    this.resultsRD$.subscribe((v) => console.log('this.resultsRD$', v.state));
   }
 
   public closeSidebar(): void {
