@@ -7,7 +7,6 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SearchServiceStub } from '../../shared/testing/search-service-stub';
 import { Observable } from 'rxjs/Observable';
-import { FilterLabel } from '../search-service/filter-label.model';
 import { Params } from '@angular/router';
 
 describe('SearchLabelsComponent', () => {
@@ -21,8 +20,8 @@ describe('SearchLabelsComponent', () => {
   const field2 = 'subject';
   const value1 = 'TestAuthor';
   const value2 = 'TestSubject';
-  const filter1 = new FilterLabel(value1, field1);
-  const filter2 = new FilterLabel(value2, field2);
+  const filter1 = [field1, value1];
+  const filter2 = [field2, value2];
   const mockFilters = [
     filter1,
     filter2
@@ -53,7 +52,7 @@ describe('SearchLabelsComponent', () => {
     let obs: Observable<Params>;
 
     beforeEach(() => {
-      obs = comp.getRemoveParams(filter1);
+      obs = comp.getRemoveParams(filter1[0], filter1[1]);
     });
 
     it('should return all params but the provided filter', () => {
