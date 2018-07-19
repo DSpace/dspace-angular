@@ -114,6 +114,13 @@
     "filters": {
       "head": "Filters",
       "reset": "Reset filters",
+      "applied": {
+        "f.author": "Author",
+        "f.dateIssued.min": "Start date",
+        "f.dateIssued.max": "End date",
+        "f.subject": "Subject",
+        "f.has_content_in_original_bundle": "Has files"
+      },
       "filter": {
         "show-more": "Show more",
         "show-less": "Collapse",

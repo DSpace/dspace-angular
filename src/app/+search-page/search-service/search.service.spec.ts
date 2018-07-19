@@ -1,14 +1,11 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { SearchService } from './search.service';
-import { ItemDataService } from './../../core/data/item-data.service';
 import { ViewMode } from '../../+search-page/search-options.model';
-import { RouteService } from '../../shared/services/route.service';
-import { GLOBAL_CONFIG } from '../../../config';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
@@ -19,21 +16,16 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Observable } from 'rxjs/Observable';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { SearchResult } from '../search-result.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { RequestEntry } from '../../core/data/request.reducer';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import {
-  FacetConfigSuccessResponse, RestResponse,
+  FacetConfigSuccessResponse,
   SearchSuccessResponse
 } from '../../core/cache/response-cache.models';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchFilterConfig } from './search-filter-config.model';
-import { FilterLabel } from './filter-label.model';
-import createSpyObj = jasmine.createSpyObj;
 
 @Component({ template: '' })
 class DummyComponent {
