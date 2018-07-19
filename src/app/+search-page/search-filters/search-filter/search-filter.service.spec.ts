@@ -11,7 +11,6 @@ import { SearchFiltersState } from './search-filter.reducer';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { FilterType } from '../../search-service/filter-type.model';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
-import { ActivatedRoute } from '@angular/router';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;

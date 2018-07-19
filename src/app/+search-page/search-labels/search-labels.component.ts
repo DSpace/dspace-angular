@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { Observable } from 'rxjs/Observable';
 import { Params } from '@angular/router';
-import { FilterLabel } from '../search-service/filter-label.model';
 import { map } from 'rxjs/operators';
 import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-search-labels',
@@ -12,27 +12,23 @@ import { SearchFilterService } from '../search-filters/search-filter/search-filt
 })
 
 export class SearchLabelsComponent {
-  appliedFilters: Observable<FilterLabel[]>;
+  appliedFilters: Observable<Params>;
 
   constructor(private searchService: SearchService, private filterService: SearchFilterService) {
-    this.appliedFilters = this.filterService.getCurrentFilterLabels();
+    this.appliedFilters = this.filterService.getCurrentFrontendFilters();
   }
 
-  getRemoveParams(filterLabel: FilterLabel): Observable<Params> {
+  getRemoveParams(filterField: string, filterValue: string): Observable<Params> {
     return this.appliedFilters.pipe(
       map((filters) => {
-        const values = [];
-        filters.forEach((filter) => {
-          if (filter.field === filterLabel.field && filter.value !== filterLabel.value) {
-            values.push(filter.value);
-          }
-        });
+        const field: string = Object.keys(filters).find((f) => f === filterField);
+        const newValues = hasValue(filters[field]) ? filters[field].filter((v) => v !== filterValue) : null;
         return {
-          [filterLabel.field]: values,
+          [field]: isNotEmpty(newValues) ? newValues : null,
           page: 1
         };
       })
-    );
+    )
   }
 
   getSearchLink() {

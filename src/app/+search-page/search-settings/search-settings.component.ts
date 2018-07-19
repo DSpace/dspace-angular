@@ -49,22 +49,23 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchOptions = this.service.searchOptions;
-    this.pageSize = this.searchOptions.pagination.pageSize;
-    this.pageSizeOptions = this.searchOptions.pagination.pageSizeOptions;
     this.filterService.getPaginatedSearchOptions(this.defaults).first().subscribe((options) => {
       this.direction = options.sort.direction;
       this.field = options.sort.field;
       this.pageSize = options.pagination.pageSize;
+      this.searchOptions = options;
+      this.pageSize = options.pagination.pageSize;
+      this.pageSizeOptions = options.pagination.pageSizeOptions
     })
   }
 
   reloadRPP(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     const navigationExtras: NavigationExtras = {
-      queryParams: Object.assign({}, this.currentParams, {
-        pageSize: value
-      })
+      queryParams: {
+        pageSize: value,
+      },
+      queryParamsHandling: 'merge'
     };
     this.router.navigate([ '/search' ], navigationExtras);
   }
