@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnChanges, OnInit, PLATFORM_ID } from '@angular/core';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
@@ -51,6 +51,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
   }
 
+
+
   getAddParams(value: string) {
     const parts = value.split(rangeDelimiter);
     const min = parts.length > 1 ? parts[0].trim() : value;
@@ -70,12 +72,27 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     };
   }
 
+  getRemoveMaxParam() {
+    return {
+      [this.filterConfig.paramName + maxSuffix]: null,
+      page: 1
+    };
+  }
+  getRemoveMinParam() {
+    return {
+      [this.filterConfig.paramName + minSuffix]: null,
+      page: 1
+    };
+  }
+
   onSubmit() {
+      const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
+      const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
       this.router.navigate([this.getSearchLink()], {
         queryParams:
           {
-            [this.filterConfig.paramName + minSuffix]: [this.range[0]],
-            [this.filterConfig.paramName + maxSuffix]: [this.range[1]]
+            [this.filterConfig.paramName + minSuffix]: newMin,
+            [this.filterConfig.paramName + maxSuffix]: newMax
           },
         queryParamsHandling: 'merge'
       });

@@ -21,7 +21,6 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FilterLabel } from '../../search-service/filter-label.model';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
@@ -85,8 +84,8 @@ export class SearchFilterService {
           if (key.endsWith('.min') || key.endsWith('.max')) {
             const realKey = key.slice(0, -4);
             if (isEmpty(params[realKey])) {
-              const min = filterParams[realKey + '.min'][0] || '*';
-              const max = filterParams[realKey + '.max'][0] || '*';
+              const min = filterParams[realKey + '.min'] ? filterParams[realKey + '.min'][0] : '*';
+              const max = filterParams[realKey + '.max'] ? filterParams[realKey + '.max'][0] : '*';
               params[realKey] = ['[' + min + ' TO ' + max + ']'];
             }
           } else {
@@ -99,21 +98,7 @@ export class SearchFilterService {
     });
   }
 
-  getCurrentFilterLabels(): Observable<FilterLabel[]> {
-    return this.getCurrentFilters().pipe(
-      map((params: Params) => {
-        const filterLabels: FilterLabel[] = [];
-        Object.keys(params).forEach((key) => {
-          params[key].forEach((p: string) => {
-            filterLabels.push(new FilterLabel(p, key));
-          });
-        });
-        return filterLabels;
-      })
-    );
-  }
-
-  getCurrentFrontendFilters(): Observable<any> {
+  getCurrentFrontendFilters(): Observable<Params> {
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
@@ -165,7 +150,14 @@ export class SearchFilterService {
   }
 
   getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
-    return this.routeService.getQueryParameterValues(filterConfig.paramName);
+    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
+    const prefixValues$ =  this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').map((params: Params) => [].concat(...Object.values(params)));
+    return Observable.combineLatest(values$, prefixValues$, (values, prefixValues) => {
+      if (isNotEmpty(values)) {
+        return values;
+      }
+      return prefixValues;
+    })
   }
 
   isCollapsed(filterName: string): Observable<boolean> {

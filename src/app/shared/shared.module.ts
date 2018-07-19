@@ -55,6 +55,7 @@ import { EmphasizePipe } from './utils/emphasize.pipe';
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { MomentModule } from 'angular2-moment';
+import { ObjectKeysPipe } from './utils/object-keys-pipe';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -76,7 +77,8 @@ const PIPES = [
   SafeUrlPipe,
   TruncatePipe,
   EmphasizePipe,
-  CapitalizePipe
+  CapitalizePipe,
+  ObjectKeysPipe
 ];
 
 const COMPONENTS = [

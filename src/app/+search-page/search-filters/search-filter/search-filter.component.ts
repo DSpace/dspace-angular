@@ -3,6 +3,7 @@ import { SearchFilterConfig } from '../../search-service/search-filter-config.mo
 import { SearchFilterService } from './search-filter.service';
 import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
+import { isNotEmpty } from '../../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -25,8 +26,8 @@ export class SearchFilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filterService.isFilterActive(this.filter.paramName).first().subscribe((isActive) => {
-      if (this.filter.isOpenByDefault || isActive) {
+    this.getSelectedValues().first().subscribe((isActive) => {
+      if (this.filter.isOpenByDefault || isNotEmpty(isActive)) {
         this.initialExpand();
       } else {
         this.initialCollapse();

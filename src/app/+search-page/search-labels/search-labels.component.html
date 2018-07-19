@@ -1,10 +1,12 @@
 <div class="row">
-  <div class="labels col-sm-9 offset-sm-3">
-    <a *ngFor="let label of (appliedFilters | async)" class="badge badge-primary mr-1"
-       [routerLink]="getSearchLink()"
-       [queryParams]="(getRemoveParams(label) | async)" queryParamsHandling="merge">
-      {{label.value}}
-      <span> ×</span>
-    </a>
-  </div>
+    <div class="labels col-sm-9 offset-sm-3">
+        <ng-container *ngFor="let key of ((appliedFilters | async) | dsObjectKeys)">
+            <a *ngFor="let values of (appliedFilters | async)[key]" class="badge badge-primary mr-1"
+               [routerLink]="getSearchLink()"
+               [queryParams]="(getRemoveParams(key, values) | async)" queryParamsHandling="merge">
+                {{values}}
+                <span> ×</span>
+            </a>
+        </ng-container>
+    </div>
 </div>

@@ -40,8 +40,6 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 import { FacetValueResponseParsingService } from '../../core/data/facet-value-response-parsing.service';
 import { FacetConfigResponseParsingService } from '../../core/data/facet-config-response-parsing.service';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { FilterLabel } from './filter-label.model';
-import { combineLatest } from 'rxjs/observable/combineLatest';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
