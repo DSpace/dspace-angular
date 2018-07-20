@@ -27,7 +27,7 @@ export class ConfigResponseParsingService extends BaseResponseParsingService imp
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && data.statusCode === '200') {
+    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && (data.statusCode === '201' || data.statusCode === '200' || data.statusCode === 'OK')) {
       const configDefinition = this.process<ConfigObject,ConfigType>(data.payload, request.href);
       return new ConfigSuccessResponse(configDefinition[Object.keys(configDefinition)[0]], data.statusCode, this.processPageInfo(data.payload));
     } else {

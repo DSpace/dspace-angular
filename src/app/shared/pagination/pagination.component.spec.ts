@@ -44,16 +44,7 @@ import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../../../config';
-
-function createTestComponent<T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> {
-  TestBed.overrideComponent(type, {
-    set: { template: html }
-  });
-  const fixture = TestBed.createComponent(type);
-
-  fixture.detectChanges();
-  return fixture as ComponentFixture<T>;
-}
+import { createTestComponent } from '../testing/utils';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -300,7 +291,7 @@ describe('Pagination component', () => {
 
   it('should get parameters from route', () => {
 
-    activatedRouteStub = testFixture.debugElement.injector.get(ActivatedRoute) as any;;
+    activatedRouteStub = testFixture.debugElement.injector.get(ActivatedRoute) as any;
     activatedRouteStub.testParams = {
       pageId: 'test',
       page: 2,

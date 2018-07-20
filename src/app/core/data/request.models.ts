@@ -11,6 +11,7 @@ import { ConfigResponseParsingService } from './config-response-parsing.service'
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
+import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -212,6 +213,15 @@ export class AuthGetRequest extends GetRequest {
   }
 }
 
+export class IntegrationRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return IntegrationResponseParsingService;
+  }
+}
 export class RequestError extends Error {
   statusText: string;
 }

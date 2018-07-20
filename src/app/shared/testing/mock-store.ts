@@ -9,12 +9,13 @@ export class MockStore<T> extends BehaviorSubject<T> {
   }
 
   dispatch = (action: Action): void => {
-    console.info();
-  }
+    // console.info(action);
+  };
 
   select = <R>(pathOrMapFn: any): Observable<T> => {
-    return Observable.of(this.getValue());
-  }
+    return this.asObservable()
+      .map((value) => pathOrMapFn.projector(value))
+  };
 
   nextState(_newState: T) {
     this.next(_newState);

@@ -1,0 +1,50 @@
+<div class="d-flex">
+  <ds-number-picker
+    tabindex="1"
+    [disabled]="model.disabled"
+    [min]="minYear"
+    [max]="maxYear"
+    [name]="'year'"
+    [size]="4"
+    [(ngModel)]="initialYear"
+    [value]="year"
+    [invalid]="showErrorMessages"
+    [placeholder]='yearPlaceholder'
+    (blur)="onBlur($event)"
+    (change)="onChange($event)"
+    (focus)="onFocus($event)"
+  ></ds-number-picker>
+
+  <ds-number-picker
+    tabindex="2"
+    [min]="minMonth"
+    [max]="maxMonth"
+    [name]="'month'"
+    [size]="6"
+    [(ngModel)]="initialMonth"
+    [value]="month"
+    [placeholder]="monthPlaceholder"
+    [disabled]="!year || model.disabled"
+    (blur)="onBlur($event)"
+    (change)="onChange($event)"
+    (focus)="onFocus($event)"
+  ></ds-number-picker>
+
+  <ds-number-picker
+    tabindex="3"
+    [min]="minDay"
+    [max]="maxDay"
+    [name]="'day'"
+    [size]="2"
+    [(ngModel)]="initialDay"
+    [value]="day"
+    [placeholder]="dayPlaceholder"
+    [disabled]="!month || model.disabled"
+    (blur)="onBlur($event)"
+    (change)="onChange($event)"
+    (focus)="onFocus($event)"
+  ></ds-number-picker>
+
+</div>
+
+<div class="clearfix"></div>
