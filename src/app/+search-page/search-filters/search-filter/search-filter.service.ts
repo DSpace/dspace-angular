@@ -1,21 +1,21 @@
 import { Injectable, InjectionToken } from '@angular/core';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import {
   SearchFilterCollapseAction,
-  SearchFilterDecrementPageAction, SearchFilterExpandAction,
+  SearchFilterDecrementPageAction,
+  SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
   SearchFilterInitialCollapseAction,
-  SearchFilterInitialExpandAction, SearchFilterResetPageAction,
+  SearchFilterInitialExpandAction,
+  SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
 import { hasValue, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
-import { SearchService } from '../../search-service/search.service';
 import { RouteService } from '../../../shared/services/route.service';
-import ObjectExpression from 'rollup/dist/typings/ast/nodes/ObjectExpression';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../search-options.model';
@@ -25,7 +25,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
-export const SELECTED_VALUES: InjectionToken<string[]> = new InjectionToken<string[]>('selectedValues');
 
 @Injectable()
 export class SearchFilterService {

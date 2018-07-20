@@ -1,17 +1,9 @@
-import {
-  Component,
-  ElementRef,
-  Inject,
-  OnDestroy,
-  OnInit, QueryList,
-  ViewChild,
-  ViewChildren
-} from '@angular/core';
+import { Component, Inject, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { FILTER_CONFIG, SearchFilterService, SELECTED_VALUES } from '../search-filter.service';
+import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
@@ -20,6 +12,7 @@ import { SearchOptions } from '../../../search-options.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { EmphasizePipe } from '../../../../shared/utils/emphasize.pipe';
+import { tap } from 'rxjs/operators';
 
 /**
  * This component renders a simple item page.
@@ -32,7 +25,7 @@ import { EmphasizePipe } from '../../../../shared/utils/emphasize.pipe';
   template: ``,
 })
 
-export class SearchFacetFilterComponent implements OnInit, OnDestroy {
+export class SearchFacetFilterComponent implements OnInit, OnDestroy, OnChanges {
   filterValues: Array<Observable<RemoteData<PaginatedList<FacetValue>>>> = [];
   filterValues$: BehaviorSubject<any> = new BehaviorSubject(this.filterValues);
   currentPage: Observable<number>;
@@ -41,27 +34,33 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   pageChange = false;
   sub: Subscription;
   filterSearchResults: Observable<any[]> = Observable.of([]);
+  selectedValues: Observable<string[]>;
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected router: Router,
-              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(SELECTED_VALUES) public selectedValues: string[]) {
+              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig) {
   }
 
   ngOnInit(): void {
     this.currentPage = this.getCurrentPage();
+    this.selectedValues = this.filterService.getSelectedValuesForFilter(this.filterConfig);
     this.filterService.getSearchOptions().distinctUntilChanged().subscribe((options) => this.updateFilterValueList(options));
   }
 
   updateFilterValueList(options: SearchOptions) {
     this.unsubscribe();
     this.showFirstPageOnly();
-
-    this.sub = this.currentPage.distinctUntilChanged().map((page) => {
-      return this.searchService.getFacetValuesFor(this.filterConfig, page, options);
+    let page;
+    this.sub = this.currentPage.distinctUntilChanged().map((p) => {
+      page = p;
+      return this.searchService.getFacetValuesFor(this.filterConfig, p, options).pipe(tap((rd) =>  {if (this.filterConfig.paramName === 'f.author') console.log(rd.isLoading, rd.hasSucceeded, rd.payload)}));
     }).subscribe((newValues$) => {
-      this.filterValues = [...this.filterValues, newValues$];
+      if (page > 1) {
+        this.filterValues = [...this.filterValues, newValues$];
+      } else {
+        this.filterValues = [newValues$]
+      }
       this.filterValues$.next(this.filterValues);
       newValues$.first().subscribe((rd) => this.isLastPage$.next(hasNoValue(rd.payload.next)));
     });
@@ -81,7 +80,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   showFirstPageOnly() {
-    this.filterValues = [];
+    // this.filterValues = [];
     this.filterService.resetPage(this.filterConfig.name);
   }
 
@@ -94,15 +93,18 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(data: any) {
-    if (isNotEmpty(data)) {
-      this.router.navigate([this.getSearchLink()], {
-        queryParams:
-          { [this.filterConfig.paramName]: [...this.selectedValues, data] },
-        queryParamsHandling: 'merge'
-      });
-      this.filter = '';
-    }
-    this.filterSearchResults = Observable.of([]);
+    this.selectedValues.first().subscribe((selectedValues) => {
+        if (isNotEmpty(data)) {
+          this.router.navigate([this.getSearchLink()], {
+            queryParams:
+              { [this.filterConfig.paramName]: [...selectedValues, data] },
+            queryParamsHandling: 'merge'
+          });
+          this.filter = '';
+        }
+        this.filterSearchResults = Observable.of([]);
+      }
+    )
   }
 
   onClick(data: any) {
@@ -113,18 +115,22 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     return hasValue(o);
   }
 
-  getRemoveParams(value: string) {
-    return {
-      [this.filterConfig.paramName]: this.selectedValues.filter((v) => v !== value),
-      page: 1
-    };
+  getRemoveParams(value: string): Observable<any> {
+    return this.selectedValues.map((selectedValues) => {
+      return {
+        [this.filterConfig.paramName]: selectedValues.filter((v) => v !== value),
+        page: 1
+      };
+    });
   }
 
-  getAddParams(value: string) {
-    return {
-      [this.filterConfig.paramName]: [...this.selectedValues, value],
-      page: 1
-    };
+  getAddParams(value: string): Observable<any> {
+    return this.selectedValues.map((selectedValues) => {
+      return {
+        [this.filterConfig.paramName]: [...selectedValues, value],
+        page: 1
+      };
+    });
   }
 
   ngOnDestroy(): void {
@@ -159,6 +165,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   getDisplayValue(facet: FacetValue, query: string): string {
     return new EmphasizePipe().transform(facet.value, query) + ' (' + facet.count + ')';
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
   }
 
 }

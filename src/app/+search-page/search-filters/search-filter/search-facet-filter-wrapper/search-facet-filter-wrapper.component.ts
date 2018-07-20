@@ -2,7 +2,7 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { renderFilterType } from '../search-filter-type-decorator';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
-import { FILTER_CONFIG, SELECTED_VALUES } from '../search-filter.service';
+import { FILTER_CONFIG } from '../search-filter.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -18,14 +18,11 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedValues.subscribe((values) => {
-      this.objectInjector = Injector.create({
-        providers: [
-          { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
-          { provide: SELECTED_VALUES, useFactory: () => (values), deps: [] }],
-
-        parent: this.injector
-      });
+    this.objectInjector = Injector.create({
+      providers: [
+        { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] }
+      ],
+      parent: this.injector
     });
   }
 

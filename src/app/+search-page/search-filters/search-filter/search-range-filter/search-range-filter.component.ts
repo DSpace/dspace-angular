@@ -1,14 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnChanges, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
-import { FILTER_CONFIG, SearchFilterService, SELECTED_VALUES } from '../search-filter.service';
+import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchService } from '../../../search-service/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * This component renders a simple item page.
@@ -31,14 +31,14 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   min = 1950;
   max = 2018;
   range;
+
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected router: Router,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(SELECTED_VALUES) public selectedValues: string[],
               @Inject(PLATFORM_ID) private platformId: any,
               private route: ActivatedRoute) {
-    super(searchService, filterService, router, filterConfig, selectedValues);
+    super(searchService, filterService, router, filterConfig);
   }
 
   ngOnInit(): void {
@@ -51,52 +51,41 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
   }
 
-
-
   getAddParams(value: string) {
     const parts = value.split(rangeDelimiter);
     const min = parts.length > 1 ? parts[0].trim() : value;
     const max = parts.length > 1 ? parts[1].trim() : value;
-    return {
-      [this.filterConfig.paramName + minSuffix]: [min],
-      [this.filterConfig.paramName + maxSuffix]: [max],
-      page: 1
-    };
+    return Observable.of(
+      {
+        [this.filterConfig.paramName + minSuffix]: [min],
+        [this.filterConfig.paramName + maxSuffix]: [max],
+        page: 1
+      });
   }
 
   getRemoveParams(value: string) {
-    return {
-      [this.filterConfig.paramName + minSuffix]: null,
-      [this.filterConfig.paramName + maxSuffix]: null,
-      page: 1
-    };
+    return Observable.of(
+      {
+        [this.filterConfig.paramName + minSuffix]: null,
+        [this.filterConfig.paramName + maxSuffix]: null,
+        page: 1
+      }
+    );
   }
 
-  getRemoveMaxParam() {
-    return {
-      [this.filterConfig.paramName + maxSuffix]: null,
-      page: 1
-    };
-  }
-  getRemoveMinParam() {
-    return {
-      [this.filterConfig.paramName + minSuffix]: null,
-      page: 1
-    };
-  }
 
   onSubmit() {
-      const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
-      const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
-      this.router.navigate([this.getSearchLink()], {
-        queryParams:
-          {
-            [this.filterConfig.paramName + minSuffix]: newMin,
-            [this.filterConfig.paramName + maxSuffix]: newMax
-          },
-        queryParamsHandling: 'merge'
-      });
-      this.filter = '';
+    const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
+    const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
+    this.router.navigate([this.getSearchLink()], {
+      queryParams:
+        {
+          [this.filterConfig.paramName + minSuffix]: newMin,
+          [this.filterConfig.paramName + maxSuffix]: newMax
+        },
+      queryParamsHandling: 'merge'
+    });
+    this.filter = '';
   }
 
   /**
