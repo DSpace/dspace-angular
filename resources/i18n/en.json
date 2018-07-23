@@ -22,6 +22,21 @@
     },
     "sub-collection-list": {
       "head": "Collections of this Community"
+    },
+    "edit": {
+      "name": "Name",
+      "description": "Short Description",
+      "introductory": "Introductory text (HTML)",
+      "copyright": "Copyright text (HTML)",
+      "news": "News (HTML)",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "required": {
+        "name": "Please enter a community name"
+      }
+    },
+    "create": {
+      "head": "Create a Community"
     }
   },
   "item": {

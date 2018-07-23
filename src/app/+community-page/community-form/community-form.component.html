@@ -1,0 +1,27 @@
+<form #form="ngForm" (ngSubmit)="onSubmit(form.value)" class="row" action="/">
+  <div class="col-12 form-group">
+    <label for="community-name" class="font-weight-bold">{{ 'community.edit.name' | translate }}</label>
+    <input type="text" [(ngModel)]="name" name="name" id="community-name" class="form-control" [ngClass]="{'is-invalid' : !name && nameRequiredError}" aria-label="Community Name" />
+    <div class="invalid-feedback">{{ 'community.edit.required.name' | translate }}</div>
+  </div>
+  <div class="col-12 form-group">
+    <label for="community-description" class="font-weight-bold">{{ 'community.edit.description' | translate }}</label>
+    <input type="text" [(ngModel)]="description" name="description" id="community-description" class="form-control" aria-label="Community Short Description" />
+  </div>
+  <div class="col-12 form-group">
+    <label for="community-introductory" class="font-weight-bold">{{ 'community.edit.introductory' | translate }}</label>
+    <textarea [(ngModel)]="introductory" name="introductory" id="community-introductory" class="form-control" aria-label="Community Introductory Text" rows="6" ></textarea>
+  </div>
+  <div class="col-12 form-group">
+    <label for="community-copyright" class="font-weight-bold">{{ 'community.edit.copyright' | translate }}</label>
+    <textarea [(ngModel)]="copyright" name="copyright" id="community-copyright" class="form-control" aria-label="Community Copyright Text" rows="6" ></textarea>
+  </div>
+  <div class="col-12 form-group">
+    <label for="community-news" class="font-weight-bold">{{ 'community.edit.news' | translate }}</label>
+    <textarea [(ngModel)]="news" name="news" id="community-news" class="form-control" aria-label="Community News" rows="6" ></textarea>
+  </div>
+  <div class="col-12 form-group">
+    <button type="button" class="btn btn-secondary">{{ 'community.edit.cancel' | translate }}</button>
+    <button type="submit" class="btn btn-secondary">{{ 'community.edit.submit' | translate }}</button>
+  </div>
+</form>
