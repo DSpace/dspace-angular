@@ -12,7 +12,6 @@ import { SearchOptions } from '../../../search-options.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { EmphasizePipe } from '../../../../shared/utils/emphasize.pipe';
-import { tap } from 'rxjs/operators';
 
 /**
  * This component renders a simple item page.
@@ -25,7 +24,7 @@ import { tap } from 'rxjs/operators';
   template: ``,
 })
 
-export class SearchFacetFilterComponent implements OnInit, OnDestroy, OnChanges {
+export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   filterValues: Array<Observable<RemoteData<PaginatedList<FacetValue>>>> = [];
   filterValues$: BehaviorSubject<any> = new BehaviorSubject(this.filterValues);
   currentPage: Observable<number>;
@@ -43,27 +42,32 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy, OnChanges 
   }
 
   ngOnInit(): void {
-    this.currentPage = this.getCurrentPage();
+    this.currentPage = this.getCurrentPage().distinctUntilChanged();
     this.selectedValues = this.filterService.getSelectedValuesForFilter(this.filterConfig);
-    this.filterService.getSearchOptions().distinctUntilChanged().subscribe((options) => this.updateFilterValueList(options));
-  }
+    const searchOptions = this.filterService.getSearchOptions().distinctUntilChanged();
+    searchOptions.subscribe((options) => this.updateFilterValueList(options));
+    const facetValues = Observable.combineLatest(searchOptions, this.currentPage, (options, page) => {
+      return {values: this.searchService.getFacetValuesFor(this.filterConfig, page, options), page: page};
+    });
+    facetValues.subscribe((facetOutcome) => {
+      const newValues$ = facetOutcome.values;
 
-  updateFilterValueList(options: SearchOptions) {
-    this.unsubscribe();
-    this.showFirstPageOnly();
-    let page;
-    this.sub = this.currentPage.distinctUntilChanged().map((p) => {
-      page = p;
-      return this.searchService.getFacetValuesFor(this.filterConfig, p, options).pipe(tap((rd) =>  {if (this.filterConfig.paramName === 'f.author') console.log(rd.isLoading, rd.hasSucceeded, rd.payload)}));
-    }).subscribe((newValues$) => {
-      if (page > 1) {
+      if (facetOutcome.page > 1) {
         this.filterValues = [...this.filterValues, newValues$];
       } else {
         this.filterValues = [newValues$]
       }
+
       this.filterValues$.next(this.filterValues);
-      newValues$.first().subscribe((rd) => this.isLastPage$.next(hasNoValue(rd.payload.next)));
+      newValues$.first().subscribe((rd) => {
+        this.isLastPage$.next(hasNoValue(rd.payload.next))
+      });
     });
+  }
+
+  updateFilterValueList(options: SearchOptions) {
+    // this.unsubscribe();
+    this.showFirstPageOnly();
     this.filter = '';
   }
 
@@ -166,9 +170,4 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy, OnChanges 
   getDisplayValue(facet: FacetValue, query: string): string {
     return new EmphasizePipe().transform(facet.value, query) + ' (' + facet.count + ')';
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
-
 }
