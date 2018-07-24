@@ -3,7 +3,10 @@ import { FacetValue } from '../../../search-service/facet-value.model';
 import { Observable } from 'rxjs/Observable';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
-import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
+import {
+  facetLoad,
+  SearchFacetFilterComponent
+} from '../search-facet-filter/search-facet-filter.component';
 
 /**
  * This component renders a simple item page.
@@ -15,6 +18,7 @@ import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-
   selector: 'ds-search-hierarchy-filter',
   styleUrls: ['./search-hierarchy-filter.component.scss'],
   templateUrl: './search-hierarchy-filter.component.html',
+  animations: [facetLoad]
 })
 
 @renderFacetFor(FilterType.hierarchy)

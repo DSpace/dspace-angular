@@ -1,8 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
-import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
+import {
+  facetLoad,
+  SearchFacetFilterComponent
+} from '../search-facet-filter/search-facet-filter.component';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchService } from '../../../search-service/search.service';
@@ -24,6 +28,7 @@ const rangeDelimiter = '-';
   selector: 'ds-search-range-filter',
   styleUrls: ['./search-range-filter.component.scss'],
   templateUrl: './search-range-filter.component.html',
+  animations: [facetLoad]
 })
 
 @renderFacetFor(FilterType.range)
@@ -35,10 +40,11 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected router: Router,
+              protected rdbs: RemoteDataBuildService,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
               private route: ActivatedRoute) {
-    super(searchService, filterService, router, filterConfig);
+    super(searchService, filterService, rdbs, router, filterConfig);
   }
 
   ngOnInit(): void {

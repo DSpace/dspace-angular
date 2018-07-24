@@ -23,8 +23,9 @@
                         ngDefaultControl></nouislider>
 
         </ng-container>
-        <ng-container *ngFor="let page of (filterValues$ | async)">
-            <ng-container *ngFor="let value of (page | async)?.payload.page; let i=index">
+      <ng-container *ngFor="let page of (filterValues$ | async)?.payload">
+        <div [@facetLoad]="animationState">
+          <ng-container *ngFor="let value of page.page; let i=index">
                 <a *ngIf="!(selectedValues | async).includes(value.value)" class="d-flex flex-row"
                    [routerLink]="[getSearchLink()]"
                    [queryParams]="getAddParams(value.value) | async" queryParamsHandling="merge">
@@ -34,6 +35,7 @@
                     </span>
                 </a>
             </ng-container>
+          </div>
         </ng-container>
     </div>
 </div>

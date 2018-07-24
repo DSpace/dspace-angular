@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
-import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
+import {
+  facetLoad,
+  SearchFacetFilterComponent
+} from '../search-facet-filter/search-facet-filter.component';
 
 /**
  * This component renders a simple item page.
@@ -14,6 +17,7 @@ import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-
   selector: 'ds-search-boolean-filter',
   styleUrls: ['./search-boolean-filter.component.scss'],
   templateUrl: './search-boolean-filter.component.html',
+  animations: [facetLoad]
 })
 
 @renderFacetFor(FilterType.boolean)
