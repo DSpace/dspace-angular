@@ -2,24 +2,28 @@
 @import '../../../../styles/mixins';
 
 .notifications-wrapper {
-  width: 300px;
-  z-index: 1051;
+  z-index: $zindex-popover;
+  text-align: right;
+  @include word-wrap;
+  .notification {
+    display: block;
+  }
 }
 
 .notifications-wrapper.left {
-  left: 20px;
+  left: 0;
 }
 
 .notifications-wrapper.top {
-  top: 20px;
+  top:0;
 }
 
 .notifications-wrapper.right {
-  right: 20px;
+  right: 0;
 }
 
 .notifications-wrapper.bottom {
-  bottom: 20px;
+  bottom: 0;
 }
 
 .notifications-wrapper.center {
@@ -39,7 +43,7 @@
 @media screen and (max-width: map-get($grid-breakpoints, sm)) {
   .notifications-wrapper {
     width: auto;
-    left: 20px;
-    right: 20px;
+    left: 0;
+    right: 0;
   }
 }
