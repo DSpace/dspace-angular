@@ -42,6 +42,10 @@ describe('SearchFilterService', () => {
     addQueryParameterValue: (param: string, value: string) => {
     },
     getQueryParameterValues: (param: string) => {
+      return Observable.of({});
+    },
+    getQueryParamsWithPrefix: (param: string) => {
+      return Observable.of({});
     }
     /* tslint:enable:no-empty */
   };

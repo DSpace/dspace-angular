@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { SearchServiceStub } from '../../shared/testing/search-service-stub';
 import { Observable } from 'rxjs/Observable';
 import { Params } from '@angular/router';
+import { ObjectKeysPipe } from '../../shared/utils/object-keys-pipe';
+import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 
 describe('SearchLabelsComponent', () => {
   let comp: SearchLabelsComponent;
@@ -30,9 +32,10 @@ describe('SearchLabelsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchLabelsComponent],
+      declarations: [SearchLabelsComponent, ObjectKeysPipe],
       providers: [
-        { provide: SearchService, useValue: new SearchServiceStub(searchLink) }
+        { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
+        { provide: SearchFilterService, useValue: {getCurrentFrontendFilters : () =>  Observable.of({})} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchLabelsComponent, {

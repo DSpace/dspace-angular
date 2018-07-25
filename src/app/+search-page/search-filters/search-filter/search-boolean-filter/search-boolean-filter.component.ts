@@ -22,5 +22,4 @@ import {
 
 @renderFacetFor(FilterType.boolean)
 export class SearchBooleanFilterComponent extends SearchFacetFilterComponent implements OnInit {
-  currentPage: Observable<number>;
 }

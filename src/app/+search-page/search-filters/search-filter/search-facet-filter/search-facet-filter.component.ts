@@ -33,7 +33,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   currentPage: Observable<number>;
   isLastPage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   filter: string;
-  pageChange = false;
   private subs: Subscription[] = [];
   filterSearchResults: Observable<any[]> = Observable.of([]);
   selectedValues: Observable<string[]>;
@@ -55,10 +54,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.subs.push(searchOptions.subscribe((options) => this.updateFilterValueList(options)));
 
     const facetValues = Observable.combineLatest(searchOptions, this.currentPage, (options, page) => {
-      return {values: this.searchService.getFacetValuesFor(this.filterConfig, page, options), page: page};
+      return {
+        values: this.searchService.getFacetValuesFor(this.filterConfig, page, options),
+        page: page
+      };
     });
-
-
 
     this.subs.push(facetValues.subscribe((facetOutcome) => {
       const newValues$ = facetOutcome.values;
@@ -86,7 +86,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   updateFilterValueList(options: SearchOptions) {
-    // this.showFirstPageOnly();
     this.animationState = 'loading';
     this.collapseNextUpdate = true;
     this.filter = '';

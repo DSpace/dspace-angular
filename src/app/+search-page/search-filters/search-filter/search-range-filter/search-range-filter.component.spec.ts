@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FILTER_CONFIG, SearchFilterService, SELECTED_VALUES } from '../search-filter.service';
+import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { FacetValue } from '../../../search-service/facet-value.model';
@@ -13,13 +13,13 @@ import { SearchServiceStub } from '../../../../shared/testing/search-service-stu
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RouterStub } from '../../../../shared/testing/router-stub';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Router } from '@angular/router';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
-import { MockActivatedRoute } from '../../../../shared/mocks/mock-active-router';
+import { RouteService } from '../../../../shared/services/route.service';
+import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 
-describe('SearchFacetFilterComponent', () => {
+describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;
   let fixture: ComponentFixture<SearchRangeFilterComponent>;
   const minSuffix = '.min';
@@ -55,12 +55,11 @@ describe('SearchFacetFilterComponent', () => {
   ];
 
   const searchLink = '/search';
-  const selectedValues = [value1];
+  const selectedValues = Observable.of([value1]);
   let filterService;
   let searchService;
   let router;
   const page = Observable.of(0);
-  const activatedRouteStub = new MockActivatedRoute();
 
   const mockValues = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), values)));
   beforeEach(async(() => {
@@ -70,21 +69,22 @@ describe('SearchFacetFilterComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
-        { provide: FILTER_CONFIG, useValue: mockFilterConfig},
-        { provide: SELECTED_VALUES, useValue: selectedValues },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: FILTER_CONFIG, useValue: mockFilterConfig },
+        { provide: RemoteDataBuildService, useValue: {aggregate: () => Observable.of({})} },
+        { provide: RouteService, useValue: {getQueryParameterValue: () => Observable.of({})} },
         {
           provide: SearchFilterService, useValue: {
-          isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-          getPage: (paramName: string) => page,
-          /* tslint:disable:no-empty */
-          incrementPage: (filterName: string) => {
-          },
-          resetPage: (filterName: string) => {
-          },
-          getSearchOptions: () => Observable.of({}),
-          /* tslint:enable:no-empty */
-        }
+            getSelectedValuesForFilter: () => selectedValues,
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
+            getPage: (paramName: string) => page,
+            /* tslint:disable:no-empty */
+            incrementPage: (filterName: string) => {
+            },
+            resetPage: (filterName: string) => {
+            },
+            getSearchOptions: () => Observable.of({}),
+            /* tslint:enable:no-empty */
+          }
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -97,7 +97,6 @@ describe('SearchFacetFilterComponent', () => {
     fixture = TestBed.createComponent(SearchRangeFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.filterValues = [mockValues];
-    comp.filterValues$ = new BehaviorSubject(comp.filterValues);
     filterService = (comp as any).filterService;
     searchService = (comp as any).searchService;
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
@@ -107,32 +106,40 @@ describe('SearchFacetFilterComponent', () => {
 
   describe('when the getAddParams method is called wih a value', () => {
     it('should return the selectedValue list with the new parameter value', () => {
-      const result = comp.getAddParams(value3);
-      expect(result[mockFilterConfig.paramName + minSuffix]).toEqual(['1990']);
-      expect(result[mockFilterConfig.paramName + maxSuffix]).toEqual(['1992']);
+      const result$ = comp.getAddParams(value3);
+      result$.subscribe((result) => {
+        expect(result[mockFilterConfig.paramName + minSuffix]).toEqual(['1990']);
+        expect(result[mockFilterConfig.paramName + maxSuffix]).toEqual(['1992']);
+      });
     });
   });
 
   describe('when the getRemoveParams method is called wih a value', () => {
     it('should return the selectedValue list with the parameter value left out', () => {
-      const result = comp.getRemoveParams(value1);
-      expect(result[mockFilterConfig.paramName + minSuffix]).toBeNull();
-      expect(result[mockFilterConfig.paramName + maxSuffix]).toBeNull();
+      const result$ = comp.getRemoveParams(value1);
+      result$.subscribe((result) => {
+        expect(result[mockFilterConfig.paramName + minSuffix]).toBeNull();
+        expect(result[mockFilterConfig.paramName + maxSuffix]).toBeNull();
+      });
+
     });
   });
 
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';
-    comp.range = [1900, 1950];
     // const data = { [mockFilterConfig.paramName + minSuffix]: '1900', [mockFilterConfig.paramName + maxSuffix]: '1950' };
     beforeEach(() => {
+      comp.range = [1900, 1950];
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
       comp.onSubmit();
     });
 
     it('should call navigate on the router with the right searchlink and parameters', () => {
       expect(router.navigate).toHaveBeenCalledWith([searchUrl], {
-        queryParams: { [mockFilterConfig.paramName + minSuffix]: ['1900'], [mockFilterConfig.paramName + maxSuffix]: ['1950']},
+        queryParams: {
+          [mockFilterConfig.paramName + minSuffix]: [1900],
+          [mockFilterConfig.paramName + maxSuffix]: [1950]
+        },
         queryParamsHandling: 'merge'
       });
     });

@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
@@ -10,9 +10,12 @@ import {
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchService } from '../../../search-service/search.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
+import { RouteService } from '../../../../shared/services/route.service';
+import { hasValue } from '../../../../shared/empty.util';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * This component renders a simple item page.
@@ -32,10 +35,11 @@ const rangeDelimiter = '-';
 })
 
 @renderFacetFor(FilterType.range)
-export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit {
+export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit, OnDestroy {
   min = 1950;
   max = 2018;
   range;
+  sub: Subscription;
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
@@ -43,18 +47,22 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               protected rdbs: RemoteDataBuildService,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
-              private route: ActivatedRoute) {
+              private route: RouteService) {
     super(searchService, filterService, rdbs, router, filterConfig);
+
   }
 
   ngOnInit(): void {
     super.ngOnInit();
     this.min = moment(this.filterConfig.minValue, dateFormats).year() || this.min;
     this.max = moment(this.filterConfig.maxValue, dateFormats).year() || this.max;
-    const iniMin = this.route.snapshot.queryParams[this.filterConfig.paramName + minSuffix] || this.min;
-    const iniMax = this.route.snapshot.queryParams[this.filterConfig.paramName + maxSuffix] || this.max;
-    this.range = [iniMin, iniMax];
-
+    const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + minSuffix).startWith(undefined);
+    const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + maxSuffix).startWith(undefined);
+    this.sub = Observable.combineLatest(iniMin, iniMax, (min, max) => {
+      const minimum = hasValue(min) ? min : this.min;
+      const maximum = hasValue(max) ? max : this.max;
+      return [minimum, maximum]
+    }).subscribe((minmax) => this.range = minmax);
   }
 
   getAddParams(value: string) {
@@ -79,7 +87,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     );
   }
 
-
   onSubmit() {
     const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
     const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
@@ -101,4 +108,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     return isPlatformBrowser(this.platformId);
   }
 
+  ngOnDestroy() {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
+  }
 }

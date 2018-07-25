@@ -38,7 +38,8 @@ describe('SearchPageComponent', () => {
   const mockResults = Observable.of(['test', 'data']);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     search: mockResults,
-    getSearchLink: '/search'
+    getSearchLink: '/search',
+    getScopes: Observable.of(['test-scope'])
   });
   const queryParam = 'test query';
   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
@@ -76,11 +77,11 @@ describe('SearchPageComponent', () => {
         },
         {
           provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-          {
-            isXs: Observable.of(true),
-            isSm: Observable.of(false),
-            isXsOrSm: Observable.of(true)
-          })
+            {
+              isXs: Observable.of(true),
+              isSm: Observable.of(false),
+              isXsOrSm: Observable.of(true)
+            })
         },
         {
           provide: SearchSidebarService,
@@ -91,13 +92,17 @@ describe('SearchPageComponent', () => {
           useValue: jasmine.createSpyObj('SearchFilterService', {
             getPaginatedSearchOptions: hot('a', {
               a: paginatedSearchOptions
-            })
+            }),
+            getCurrentScope: hot('a', {
+              a: 'test-id'
+            }),
+
           })
         },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchPageComponent, {
-      set: {  changeDetection: ChangeDetectionStrategy.Default  }
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

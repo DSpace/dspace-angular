@@ -26,6 +26,8 @@ import {
 } from '../../core/cache/response-cache.models';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchFilterConfig } from './search-filter-config.model';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -54,6 +56,8 @@ describe('SearchService', () => {
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: HALEndpointService, useValue: {} },
+          { provide: CommunityDataService, useValue: {}},
+          { provide: CollectionDataService, useValue: {}},
           SearchService
         ],
       });
@@ -109,6 +113,8 @@ describe('SearchService', () => {
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
           { provide: HALEndpointService, useValue: halService },
+          { provide: CommunityDataService, useValue: {}},
+          { provide: CollectionDataService, useValue: {}},
           SearchService
         ],
       });

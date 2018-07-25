@@ -23,5 +23,4 @@ import { renderFacetFor } from '../search-filter-type-decorator';
 
 @renderFacetFor(FilterType.text)
 export class SearchTextFilterComponent extends SearchFacetFilterComponent implements OnInit {
-  currentPage: Observable<number>;
 }

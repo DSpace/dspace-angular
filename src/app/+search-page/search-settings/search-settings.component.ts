@@ -1,11 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
-import { hasValue } from '../../shared/empty.util';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ds-search-settings',
@@ -25,8 +23,6 @@ export class SearchSettingsComponent implements OnInit {
   public pageSize;
   @Input() public pageSizeOptions;
 
-  private sub: Subscription;
-  private scope: string;
   query: string;
   page: number;
   direction: SortDirection;
@@ -49,10 +45,9 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filterService.getPaginatedSearchOptions(this.defaults).first().subscribe((options) => {
+    this.filterService.getPaginatedSearchOptions(this.defaults).subscribe((options) => {
       this.direction = options.sort.direction;
       this.field = options.sort.field;
-      this.pageSize = options.pagination.pageSize;
       this.searchOptions = options;
       this.pageSize = options.pagination.pageSize;
       this.pageSizeOptions = options.pagination.pageSizeOptions
@@ -81,6 +76,4 @@ export class SearchSettingsComponent implements OnInit {
     };
     this.router.navigate([ '/search' ], navigationExtras);
   }
-
-
 }
