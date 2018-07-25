@@ -10,7 +10,8 @@
 }
 
 form {
-    > div {
-        position: relative;
+    position: relative;
+    .dropdown-menu {
+        position: absolute;
     }
 }
