@@ -1,16 +1,16 @@
 import { SearchFilterAction, SearchFilterActionTypes } from './search-filter.actions';
 import { isEmpty } from '../../../shared/empty.util';
 
-/*
-  Interface that represents the state for a single filters
+/**
+ * Interface that represents the state for a single filters
  */
 export interface SearchFilterState {
   filterCollapsed: boolean,
   page: number
 }
 
-/*
-  Interface that represents the state for all available filters
+/**
+ * Interface that represents the state for all available filters
  */
 export interface SearchFiltersState {
   [name: string]: SearchFilterState

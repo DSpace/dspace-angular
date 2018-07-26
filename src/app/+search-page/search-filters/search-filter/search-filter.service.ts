@@ -34,22 +34,42 @@ export class SearchFilterService {
               private route: ActivatedRoute) {
   }
 
+  /**
+   * Checks if a given filter is active with a given value
+   * @param {string} paramName The parameter name of the filter's configuration for which to search
+   * @param {string} filterValue The value for which to search
+   * @returns {Observable<boolean>} Emit true when the filter is active with the given value
+   */
   isFilterActiveWithValue(paramName: string, filterValue: string): Observable<boolean> {
     return this.routeService.hasQueryParamWithValue(paramName, filterValue);
   }
 
+  /**
+   * Checks if a given filter is active with any value
+   * @param {string} paramName The parameter name of the filter's configuration for which to search
+   * @returns {Observable<boolean>} Emit true when the filter is active with any value
+   */
   isFilterActive(paramName: string): Observable<boolean> {
     return this.routeService.hasQueryParam(paramName);
   }
 
+  /**
+   * @returns {Observable<string>} Emits the current scope's identifier
+   */
   getCurrentScope() {
     return this.routeService.getQueryParameterValue('scope');
   }
 
+  /**
+   * @returns {Observable<string>} Emits the current query string
+   */
   getCurrentQuery() {
     return this.routeService.getQueryParameterValue('query');
   }
 
+  /**
+   * @returns {Observable<string>} Emits the current pagination settings
+   */
   getCurrentPagination(pagination: any = {}): Observable<PaginationComponentOptions> {
     const page$ = this.routeService.getQueryParameterValue('page');
     const size$ = this.routeService.getQueryParameterValue('pageSize');
@@ -61,6 +81,9 @@ export class SearchFilterService {
     });
   }
 
+  /**
+   * @returns {Observable<string>} Emits the current sorting settings
+   */
   getCurrentSort(defaultSort: SortOptions): Observable<SortOptions> {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
@@ -75,6 +98,9 @@ export class SearchFilterService {
     );
   }
 
+  /**
+   * @returns {Observable<Params>} Emits the current active filters with their values as they are sent to the backend
+   */
   getCurrentFilters(): Observable<Params> {
     return this.routeService.getQueryParamsWithPrefix('f.').map((filterParams) => {
       if (isNotEmpty(filterParams)) {
@@ -97,14 +123,24 @@ export class SearchFilterService {
     });
   }
 
+  /**
+   * @returns {Observable<Params>} Emits the current active filters with their values as they are displayed in the frontend URL
+   */
   getCurrentFrontendFilters(): Observable<Params> {
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
+  /**
+   * @returns {Observable<string>} Emits the current UI list view
+   */
   getCurrentView() {
     return this.routeService.getQueryParameterValue('view');
   }
 
+  /**
+   * @param defaults The default values for the search options, that will be used if nothing is explicitly set
+   * @returns {Observable<PaginatedSearchOptions>} Emits the current paginated search options
+   */
   getPaginatedSearchOptions(defaults: any = {}): Observable<PaginatedSearchOptions> {
     return Observable.combineLatest(
       this.getCurrentPagination(defaults.pagination),
@@ -129,6 +165,10 @@ export class SearchFilterService {
     )
   }
 
+  /**
+   * @param defaults The default values for the search options, that will be used if nothing is explicitly set
+   * @returns {Observable<PaginatedSearchOptions>} Emits the current search options
+   */
   getSearchOptions(defaults: any = {}): Observable<SearchOptions> {
     return Observable.combineLatest(
       this.getCurrentView(),
@@ -148,9 +188,14 @@ export class SearchFilterService {
     )
   }
 
+  /**
+   * Requests the active filter values set for a given filter
+   * @param {SearchFilterConfig} filterConfig The configuration for which the filters are active
+   * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
+   */
   getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
     const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
-    const prefixValues$ =  this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').map((params: Params) => [].concat(...Object.values(params)));
+    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').map((params: Params) => [].concat(...Object.values(params)));
     return Observable.combineLatest(values$, prefixValues$, (values, prefixValues) => {
       if (isNotEmpty(values)) {
         return values;
@@ -159,6 +204,11 @@ export class SearchFilterService {
     })
   }
 
+  /**
+   * Checks if the state of a given filter is currently collapsed or not
+   * @param {string} filterName The filtername for which the collapsed state is checked
+   * @returns {Observable<boolean>} Emits the current collapsed state of the given filter, if it's unavailable, return false
+   */
   isCollapsed(filterName: string): Observable<boolean> {
     return this.store.select(filterByNameSelector(filterName))
       .map((object: SearchFilterState) => {
@@ -170,6 +220,11 @@ export class SearchFilterService {
       });
   }
 
+  /**
+   * Request the current page of a given filter
+   * @param {string} filterName The filtername for which the page state is checked
+   * @returns {Observable<boolean>} Emits the current page state of the given filter, if it's unavailable, return 1
+   */
   getPage(filterName: string): Observable<number> {
     return this.store.select(filterByNameSelector(filterName))
       .map((object: SearchFilterState) => {
@@ -181,34 +236,65 @@ export class SearchFilterService {
       });
   }
 
+  /**
+   * Dispatches a collapse action to the store for a given filter
+   * @param {string} filterName The filter for which the action is dispatched
+   */
   public collapse(filterName: string): void {
     this.store.dispatch(new SearchFilterCollapseAction(filterName));
   }
 
+  /**
+   * Dispatches a expand action to the store for a given filter
+   * @param {string} filterName The filter for which the action is dispatched
+   */
   public expand(filterName: string): void {
     this.store.dispatch(new SearchFilterExpandAction(filterName));
   }
 
+  /**
+   * Dispatches a toggle action to the store for a given filter
+   * @param {string} filterName The filter for which the action is dispatched
+   */
   public toggle(filterName: string): void {
     this.store.dispatch(new SearchFilterToggleAction(filterName));
   }
 
+  /**
+   * Dispatches a initial collapse action to the store for a given filter
+   * @param {string} filterName The filter for which the action is dispatched
+   */
   public initialCollapse(filterName: string): void {
     this.store.dispatch(new SearchFilterInitialCollapseAction(filterName));
   }
 
+  /**
+   * Dispatches a initial expand action to the store for a given filter
+   * @param {string} filterName The filter for which the action is dispatched
+   */
   public initialExpand(filterName: string): void {
     this.store.dispatch(new SearchFilterInitialExpandAction(filterName));
   }
 
+  /**
+   * Dispatches a decrement action to the store for a given filter
+   * @param {string} filterName The filter for which the action is dispatched
+   */
   public decrementPage(filterName: string): void {
     this.store.dispatch(new SearchFilterDecrementPageAction(filterName));
   }
 
+  /**
+   * Dispatches a increment page action to the store for a given filter
+   * @param {string} filterName The filter for which the action is dispatched
+   */
   public incrementPage(filterName: string): void {
     this.store.dispatch(new SearchFilterIncrementPageAction(filterName));
   }
-
+  /**
+   * Dispatches a reset page action to the store for a given filter
+   * @param {string} filterName The filter for which the action is dispatched
+   */
   public resetPage(filterName: string): void {
     this.store.dispatch(new SearchFilterResetPageAction(filterName));
   }

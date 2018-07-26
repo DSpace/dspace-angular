@@ -21,6 +21,9 @@ import { renderFacetFor } from '../search-filter-type-decorator';
   animations: [facetLoad]
 })
 
+/**
+ * Component that represents a text facet for a specific filter configuration
+ */
 @renderFacetFor(FilterType.text)
 export class SearchTextFilterComponent extends SearchFacetFilterComponent implements OnInit {
 }

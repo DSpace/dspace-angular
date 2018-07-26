@@ -5,12 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import { slide } from '../../../shared/animations/slide';
 import { isNotEmpty } from '../../../shared/empty.util';
 
-/**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
- */
-
 @Component({
   selector: 'ds-search-filter',
   styleUrls: ['./search-filter.component.scss'],

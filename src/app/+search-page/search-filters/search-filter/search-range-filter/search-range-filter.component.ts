@@ -34,11 +34,29 @@ const rangeDelimiter = '-';
   animations: [facetLoad]
 })
 
+/**
+ * Component that represents a range facet for a specific filter configuration
+ */
 @renderFacetFor(FilterType.range)
 export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit, OnDestroy {
+  /**
+   * Fallback minimum for the range
+   */
   min = 1950;
+
+  /**
+   * Fallback maximum for the range
+   */
   max = 2018;
+
+  /**
+   * The current range of the filter
+   */
   range;
+
+  /**
+   * Subscription to unsubscribe from
+   */
   sub: Subscription;
 
   constructor(protected searchService: SearchService,
@@ -52,6 +70,10 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
   }
 
+  /**
+   * Initialize with the min and max values as configured in the filter configuration
+   * Set the initial values of the range
+   */
   ngOnInit(): void {
     super.ngOnInit();
     this.min = moment(this.filterConfig.minValue, dateFormats).year() || this.min;
@@ -65,7 +87,12 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     }).subscribe((minmax) => this.range = minmax);
   }
 
-  getAddParams(value: string) {
+  /**
+   * Calculates the parameters that should change if a given values for this range filter would be changed
+   * @param {string} value The values that are changed for this filter
+   * @returns {Observable<any>} The changed filter parameters
+   */
+  getChangeParams(value: string) {
     const parts = value.split(rangeDelimiter);
     const min = parts.length > 1 ? parts[0].trim() : value;
     const max = parts.length > 1 ? parts[1].trim() : value;
@@ -77,16 +104,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       });
   }
 
-  getRemoveParams(value: string) {
-    return Observable.of(
-      {
-        [this.filterConfig.paramName + minSuffix]: null,
-        [this.filterConfig.paramName + maxSuffix]: null,
-        page: 1
-      }
-    );
-  }
-
+  /**
+   * Submits new custom range values to the range filter from the widget
+   */
   onSubmit() {
     const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
     const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
@@ -103,12 +123,18 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
   /**
    * TODO when upgrading nouislider, verify that this check is still needed.
+   * Prevents AoT bug
+   * @returns {boolean} True if the platformId is a platform browser
    */
   shouldShowSlider(): boolean {
     return isPlatformBrowser(this.platformId);
   }
 
+  /**
+   * Unsubscribe from all subscriptions
+   */
   ngOnDestroy() {
+    super.ngOnDestroy();
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
