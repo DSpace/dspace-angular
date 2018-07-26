@@ -210,6 +210,11 @@
       "license": {
         "notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission."
       }
+    },
+    "submission": {
+      "sections": {
+        "init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>"
+      }
     }
   },
   "form": {
@@ -252,5 +257,95 @@
     "errors": {
       "invalid-user": "Invalid email or password."
     }
+  },
+  "submission": {
+    "general":{
+      "cannot_submit": "You have not the privilege to make a new submission.",
+      "deposit": "Deposit",
+      "discard": {
+        "submit": "Discard",
+        "confirm": {
+          "cancel": "Cancel",
+          "submit": "Yes, I'm sure",
+          "title": "Discard submission",
+          "info": "This operation can't be undone. Are you sure?"
+        }
+      },
+      "save": "Save",
+      "save-later": "Save for later"
+    },
+    "submit": {
+      "title": "Submission"
+    },
+    "edit": {
+      "title": "Edit Submission"
+    },
+    "mydspace": {
+
+    },
+    "sections": {
+
+      "general": {
+        "add-more": "Add more",
+        "sections_not_valid": "There are incomplete sections.",
+        "deposit_success_notice": "Submission deposited successfully.",
+        "deposit_error_notice": "There was an issue when submitting the item, please try again later.",
+        "discard_success_notice": "Submission discarded successfully.",
+        "discard_error_notice": "There was an issue when discarding the item, please try again later.",
+        "save_success_notice": "Submission saved successfully.",
+        "metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
+        "metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission."
+      },
+      "submit.progressbar.describe.stepone": "Describe",
+      "submit.progressbar.describe.steptwo": "Describe",
+      "submit.progressbar.describe.stepcustom": "Describe",
+      "submit.progressbar.describe.deduplication": "Potential duplicates",
+      "submit.progressbar.describe.recycle": "Recycle",
+      "submit.progressbar.upload": "Upload files",
+      "submit.progressbar.license": "Deposit license",
+      "submit.progressbar.cclicense": "Creative commons license",
+
+      "upload": {
+        "info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging&dropping them everywhere in the page</strong>",
+        "drop-message": "Drop files to attach them to the item",
+        "upload-successful": "Upload successful",
+        "upload-failed": "Upload failed",
+        "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
+        "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicity decided for the single file, with the following group(s):",
+        "form": {
+          "access-condition-label": "Access condition type",
+          "from-label": "Access grant from",
+          "from-placeholder": "From",
+          "until-label": "Access grant until",
+          "until-placeholder": "Until",
+          "group-label": "Group"
+        }
+      },
+      "deduplication": {
+        "duplicated": "It's a duplicate",
+        "not_duplicated": "It's not a duplicate",
+        "duplicated_ctrl": "Mark the record to merge",
+        "duplicated_help": "Click here if this is a duplicate of your item",
+        "not_duplicated_help": "Click here if this is not a duplicate of your item",
+        "note_help": "Please enter your reason for the duplication into the box below.",
+        "note_placeholder": "Describe the reason of duplication",
+        "clear_decision": "Undo",
+        "clear_decision_help": "Click for clear the decision about this pontential duplicate",
+        "your_decision": "Your choice:",
+        "submitter_decision": "Submitter choice:",
+        "disclaimer": "The system has identified some potential duplicates. Please carefully review the list and flag each occurency with the appropriate choice or discard this submission.",
+        "disclaimer_ctrl": "The system has identified some potential duplicates. Please carefully review the list and the submitter comments and perform the appropriate action."
+      },
+      "recycle": {
+        "disclaimer": "The following existent information are not valid within the selected collection. Please copy them to the appropriate metadata if applicable. Use the discard button to remove these information when done."
+      }
+    }
+  },
+  "uploader": {
+    "drag-message": "Drag & Drop your files here",
+    "or": ", or",
+    "browse": "browse",
+    "queue-lenght": "Queue length",
+    "processing": "Processing"
   }
 }

@@ -10,6 +10,7 @@ import { MetadataSchema } from '../metadata/metadataschema.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
 import { AuthStatus } from '../auth/models/auth-status.model';
+import { NormalizedObject } from './models/normalized-object.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -169,6 +170,36 @@ export class AuthStatusResponse extends RestResponse {
 export class IntegrationSuccessResponse extends RestResponse {
   constructor(
     public dataDefinition: IntegrationModel[],
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class PostPatchSuccessResponse extends RestResponse {
+  constructor(
+    public dataDefinition: any[],
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class SubmissionSuccessResponse extends RestResponse {
+  constructor(
+    public dataDefinition: Array<NormalizedObject | ConfigObject | string>,
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class EpersonSuccessResponse extends RestResponse {
+  constructor(
+    public epersonDefinition: NormalizedObject[],
     public statusCode: string,
     public pageInfo?: PageInfo
   ) {

@@ -10,6 +10,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import { ParserType } from './parser-type';
 import { ParserOptions } from './parser-options';
 import { ParserFactory } from './parser-factory';
+import { TranslateService } from '@ngx-translate/core';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -49,7 +50,7 @@ export class RowParser {
       if (parserCo) {
         fieldModel = new parserCo(fieldData, this.initFormValues, parserOptions).parse();
       } else {
-        throw new Error(`unknown form control model type defined with label "${fieldData.label}"`);
+        throw new Error(`unknown form control model type "${fieldData.input.type}" defined for Input field with label "${fieldData.label}".`, );
       }
 
       if (fieldModel) {

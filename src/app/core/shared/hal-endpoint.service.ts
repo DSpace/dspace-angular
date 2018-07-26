@@ -55,8 +55,7 @@ export class HALEndpointService {
             return endpointMap[subPath];
           } else {
             /*TODO remove if/else block once the rest response contains _links for facets*/
-            currentPath += '/' + subPath;
-            return currentPath;
+            return currentPath + '/' + subPath;
           }
         }),
       ])

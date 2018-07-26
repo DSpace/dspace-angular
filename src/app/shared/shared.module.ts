@@ -55,8 +55,6 @@ import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dyn
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
-import { NotificationComponent } from './notifications/notification/notification.component';
-import { NotificationsBoardComponent } from './notifications/notifications-board/notifications-board.component';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
@@ -72,6 +70,7 @@ import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
+import { AlertsComponent } from './alerts/alerts.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -104,6 +103,7 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
+  AlertsComponent,
   AuthNavMenuComponent,
   ChipsComponent,
   ComcolPageContentComponent,

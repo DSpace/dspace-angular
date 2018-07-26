@@ -15,6 +15,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
   protected linkPath = 'collections';
+  protected forceBypassCache = false;
 
   constructor(
     protected responseCache: ResponseCacheService,

@@ -1,0 +1,9 @@
+@import '../../../../styles/variables';
+
+.dropdown-toggle::after {
+  display:none
+}
+
+.sections-dropdown-menu {
+  z-index: $submission-header-z-index;
+}

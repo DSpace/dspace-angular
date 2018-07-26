@@ -11,6 +11,8 @@ import { ConfigResponseParsingService } from './config-response-parsing.service'
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
+import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
+import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
@@ -184,8 +186,8 @@ export class BrowseEntriesRequest extends GetRequest {
 }
 
 export class ConfigRequest extends GetRequest {
-  constructor(uuid: string, href: string) {
-    super(uuid, href);
+  constructor(uuid: string, href: string, public options?: HttpOptions) {
+    super(uuid, href, null, options);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -222,6 +224,85 @@ export class IntegrationRequest extends GetRequest {
     return IntegrationResponseParsingService;
   }
 }
+
+export class SubmissionFindAllRequest extends GetRequest {
+  constructor(uuid: string, href: string, public body?: FindAllOptions) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class SubmissionFindByIDRequest extends GetRequest {
+  constructor(uuid: string,
+              href: string,
+              public resourceID: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class SubmissionRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class SubmissionDeleteRequest extends DeleteRequest {
+  constructor(public uuid: string,
+              public href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class SubmissionPatchRequest extends PatchRequest {
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any) {
+    super(uuid, href, body);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class SubmissionPostRequest extends PostRequest {
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+export class EpersonRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return EpersonResponseParsingService;
+  }
+}
+
 export class RequestError extends Error {
   statusText: string;
 }

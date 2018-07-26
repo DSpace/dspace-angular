@@ -31,6 +31,7 @@ import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-s
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { SharedModule } from './shared/shared.module';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -58,6 +59,7 @@ if (!ENV_CONFIG.production) {
     HttpClientModule,
     AppRoutingModule,
     CoreModule.forRoot(),
+    ScrollToModule.forRoot(),
     NgbModule.forRoot(),
     TranslateModule.forRoot(),
     EffectsModule.forRoot(appEffects),

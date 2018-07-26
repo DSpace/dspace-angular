@@ -89,7 +89,8 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     this.chips = new Chips(
       initChipsValue,
       'value',
-      this.model.mandatoryField);
+      this.model.mandatoryField,
+      this.EnvConfig.submission.metadata.icons);
     this.subs.push(
       this.chips.chipsItems
         .subscribe((subItems: any[]) => {

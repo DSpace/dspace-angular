@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
+import { MemoizedSelector, Store } from '@ngrx/store';
+
+import { remove } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
 import { hasValue } from '../../shared/empty.util';
@@ -67,12 +69,28 @@ export class RequestService {
       .flatMap((uuid: string) => this.getByUUID(uuid));
   }
 
-  // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
+  private clearRequestsOnTheirWayToTheStore(href) {
+    this.getByHref(href)
+      .take(1)
+      .subscribe((re: RequestEntry) => {
+        if (!hasValue(re)) {
+          this.responseCache.remove(href);
+        } else if (!re.responsePending) {
+          this.responseCache.remove(href);
+          remove(this.requestsOnTheirWayToTheStore, (item) => item === href);
+        }
+      });
+  }
+
+  // TODO to review "forceBypassCache" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
     const isGetRequest = request.method === RestRequestMethod.Get;
-    if (!isGetRequest || !this.isCachedOrPending(request) || forceBypassCache) {
+    if (forceBypassCache) {
+      this.clearRequestsOnTheirWayToTheStore(request.href);
+    }
+    if (!isGetRequest || !this.isCachedOrPending(request) || (forceBypassCache && !this.isPending(request))) {
       this.dispatchRequest(request);
-      if (isGetRequest && !forceBypassCache) {
+      if (isGetRequest) {
         this.trackRequestsOnTheirWayToTheStore(request);
       }
     }
@@ -121,7 +139,7 @@ export class RequestService {
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.store.select(this.entryFromUUIDSelector(request.href))
+    this.getByHref(request.href)
       .filter((re: RequestEntry) => hasValue(re))
       .take(1)
       .subscribe((re: RequestEntry) => {

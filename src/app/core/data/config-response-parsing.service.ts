@@ -34,7 +34,7 @@ export class ConfigResponseParsingService extends BaseResponseParsingService imp
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from config endpoint'),
-          {statusText: data.statusCode}
+          { statusText: data.statusCode }
         )
       );
     }

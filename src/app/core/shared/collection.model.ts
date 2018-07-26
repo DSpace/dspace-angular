@@ -3,6 +3,8 @@ import { Bitstream } from './bitstream.model';
 import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs/Observable';
+import { License } from './license.model';
+import { ResourcePolicy } from './resource-policy.model';
 
 export class Collection extends DSpaceObject {
 
@@ -39,7 +41,7 @@ export class Collection extends DSpaceObject {
    * The license of this Collection
    * Corresponds to the metadata field dc.rights.license
    */
-  get license(): string {
+  get dcLicense(): string {
     return this.findMetadata('dc.rights.license');
   }
 
@@ -52,9 +54,19 @@ export class Collection extends DSpaceObject {
   }
 
   /**
+   * The deposit license of this Collection
+   */
+  license: Observable<RemoteData<License>>;
+
+  /**
    * The Bitstream that represents the logo of this Collection
    */
   logo: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * The default access conditions of this Collection
+   */
+  defaultAccessConditions: Observable<RemoteData<ResourcePolicy[]>>;
 
   /**
    * An array of Collections that are direct parents of this Collection

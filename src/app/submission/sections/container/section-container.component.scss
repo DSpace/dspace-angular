@@ -1,0 +1,11 @@
+@import '../../../../styles/variables';
+
+:host /deep/ .card {
+  margin-bottom: 0.5rem;
+}
+
+.section-focus {
+  // box-shadow: $btn-focus-box-shadow;
+  border-radius: 0.25rem;
+  box-shadow: $btn-focus-box-shadow;
+}
