@@ -11,13 +11,28 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
   templateUrl: './search-labels.component.html',
 })
 
+/**
+ * Component that represents the labels containing the currently active filters
+ */
 export class SearchLabelsComponent {
+  /**
+   * Emits the currently active filters
+   */
   appliedFilters: Observable<Params>;
 
+  /**
+   * Initialize the instance variable
+   */
   constructor(private searchService: SearchService, private filterService: SearchFilterService) {
     this.appliedFilters = this.filterService.getCurrentFrontendFilters();
   }
 
+  /**
+   * Calculates the parameters that should change if a given value for the given filter would be removed from the active filters
+   * @param {string} filterField The filter field parameter name from which the value should be removed
+   * @param {string} filterValue The value that is removed for this given filter field
+   * @returns {Observable<Params>} The changed filter parameters
+   */
   getRemoveParams(filterField: string, filterValue: string): Observable<Params> {
     return this.appliedFilters.pipe(
       map((filters) => {
@@ -31,6 +46,9 @@ export class SearchLabelsComponent {
     )
   }
 
+  /**
+   * @returns {string} The base path to the search page
+   */
   getSearchLink() {
     return this.searchService.getSearchLink();
   }
