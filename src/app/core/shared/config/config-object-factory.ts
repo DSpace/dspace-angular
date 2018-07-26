@@ -5,7 +5,6 @@ import { SubmissionFormsModel } from './config-submission-forms.model';
 import { SubmissionDefinitionsModel } from './config-submission-definitions.model';
 import { ConfigType } from './config-type';
 import { ConfigObject } from './config.model';
-import { ConfigAuthorityModel } from './config-authority.model';
 import { SubmissionUploadsModel } from './config-submission-uploads.model';
 
 export class ConfigObjectFactory {
@@ -26,9 +25,6 @@ export class ConfigObjectFactory {
       case ConfigType.SubmissionUpload:
       case ConfigType.SubmissionUploads: {
         return SubmissionUploadsModel
-      }
-      case ConfigType.Authority: {
-        return ConfigAuthorityModel
       }
       default: {
         return undefined;
