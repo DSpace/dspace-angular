@@ -28,6 +28,10 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut]
 })
+
+/**
+ * This component represents the whole search page
+ */
 export class SearchPageComponent implements OnInit {
 
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
@@ -54,6 +58,13 @@ export class SearchPageComponent implements OnInit {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
+  /**
+   * Listening to changes in the paginated search options
+   * If something changes, update the search results
+   *
+   * Listen to changes in the scope
+   * If something changes, update the list of scopes for the dropdown
+   */
   ngOnInit(): void {
     this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
     this.resultsRD$ = this.searchOptions$.pipe(
@@ -66,18 +77,31 @@ export class SearchPageComponent implements OnInit {
     );
   }
 
+  /**
+   * Set the sidebar to a collapsed state
+   */
   public closeSidebar(): void {
     this.sidebarService.collapse()
   }
 
+  /**
+   * Set the sidebar to a expanded state
+   */
   public openSidebar(): void {
     this.sidebarService.expand();
   }
 
+  /**
+   * Check if the sidebar is correct
+   * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
+   */
   public isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
   }
 
+  /**
+   * @returns {string} The base path to the search page
+   */
   public getSearchLink(): string {
     return this.service.getSearchLink();
   }
