@@ -35,13 +35,30 @@ import { hasValue } from '../shared/empty.util';
  */
 export class SearchPageComponent implements OnInit {
 
+  /**
+   * The current search results
+   */
   resultsRD$: Subject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new Subject();
+
+  /**
+   * The current paginated search options
+   */
   searchOptions$: Observable<PaginatedSearchOptions>;
   sortConfig: SortOptions;
+
+  /**
+   * The current relevant scopes
+   */
   scopeListRD$: Observable<DSpaceObject[]>;
+
+  /**
+   * Emits true if were on a small screen
+   */
   isXsOrSm$: Observable<boolean>;
-  pageSize;
-  pageSizeOptions;
+
+  /**
+   * Default values for the Search Options
+   */
   defaults = {
     pagination: {
       id: 'search-results-pagination',
@@ -51,6 +68,10 @@ export class SearchPageComponent implements OnInit {
     query: '',
     scope: ''
   };
+
+  /**
+   * Subscription to unsubscribe from
+   */
   sub: Subscription;
 
   constructor(private service: SearchService,
@@ -93,7 +114,7 @@ export class SearchPageComponent implements OnInit {
   }
 
   /**
-   * Check if the sidebar is correct
+   * Check if the sidebar is collapsed
    * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
    */
   public isSidebarCollapsed(): Observable<boolean> {
@@ -107,6 +128,9 @@ export class SearchPageComponent implements OnInit {
     return this.service.getSearchLink();
   }
 
+  /**
+   * Unsubscribe from the subscription
+   */
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();

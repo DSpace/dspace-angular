@@ -45,15 +45,26 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 
+
+/**
+ * Service that performs all general actions that have to do with the search page
+ */
 @Injectable()
 export class SearchService implements OnDestroy {
+  /**
+   * Endpoint link path for retrieving general search results
+   */
   private searchLinkPath = 'discover/search/objects';
-  private facetValueLinkPathPrefix = 'discover/facets/';
-  private facetConfigLinkPath = 'discover/facets';
 
+  /**
+   * Endpoint link path for retrieving facet config incl values
+   */
+  private facetLinkPathPrefix = 'discover/facets/';
+
+  /**
+   * Subscription to unsubscribe from
+   */
   private sub;
-
-  searchOptions: SearchOptions;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -63,14 +74,13 @@ export class SearchService implements OnDestroy {
               private halService: HALEndpointService,
               private communityService: CommunityDataService,
               private collectionService: CollectionDataService) {
-    const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-    pagination.id = 'search-results-pagination';
-    pagination.currentPage = 1;
-    pagination.pageSize = 10;
-    const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-    this.searchOptions = Object.assign(new SearchOptions(), { pagination: pagination, sort: sort });
   }
 
+  /**
+   * Method to retrieve a paginated list of search results from the server
+   * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
+   * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
+   */
   search(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     const requestObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
@@ -139,8 +149,13 @@ export class SearchService implements OnDestroy {
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
+  /**
+   * Request the filter configuration for a given scope or the whole repository
+   * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
+   */
   getConfig(scope?: string): Observable<RemoteData<SearchFilterConfig[]>> {
-    const requestObs = this.halService.getEndpoint(this.facetConfigLinkPath).pipe(
+    const requestObs = this.halService.getEndpoint(this.facetLinkPathPrefix).pipe(
       map((url: string) => {
         const args: string[] = [];
 
@@ -180,12 +195,19 @@ export class SearchService implements OnDestroy {
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, facetConfigObs);
   }
 
+  /**
+   * Method to request a single page of filter values for a given value
+   * @param {SearchFilterConfig} filterConfig The filter config for which we want to request filter values
+   * @param {number} valuePage The page number of the filter values
+   * @param {SearchOptions} searchOptions The search configuration for the current search
+   * @param {string} filterQuery The optional query used to filter out filter values
+   * @returns {Observable<RemoteData<PaginatedList<FacetValue>>>} Emits the given page of facet values
+   */
   getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string): Observable<RemoteData<PaginatedList<FacetValue>>> {
-    const requestObs = this.halService.getEndpoint(this.facetValueLinkPathPrefix + filterConfig.name).pipe(
+    const requestObs = this.halService.getEndpoint(this.facetLinkPathPrefix + filterConfig.name).pipe(
       map((url: string) => {
         const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
         if (hasValue(filterQuery)) {
-          // args.push(`${filterConfig.paramName}=${filterQuery},query`);
           args.push(`prefix=${filterQuery}`);
         }
         if (hasValue(searchOptions)) {
@@ -228,7 +250,12 @@ export class SearchService implements OnDestroy {
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
 
-  getScopes(scopeId: string): Observable<DSpaceObject[]> {
+  /**
+   * Request a list of DSpaceObjects that can be used as a scope, based on the current scope
+   * @param {string} scopeId UUID of the current scope, if the scope is empty, the repository wide scopes will be returned
+   * @returns {Observable<DSpaceObject[]>} Emits a list of DSpaceObjects which represent possible scopes
+   */
+  getScopes(scopeId?: string): Observable<DSpaceObject[]> {
 
     if (hasNoValue(scopeId)) {
       const top: Observable<Community[]> = this.communityService.findTop({ elementsPerPage: 9999 }).pipe(
@@ -260,6 +287,10 @@ export class SearchService implements OnDestroy {
 
   }
 
+  /**
+   * Requests the current view mode based on the current URL
+   * @returns {Observable<ViewMode>} The current view mode
+   */
   getViewMode(): Observable<ViewMode> {
     return this.route.queryParams.map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
@@ -270,6 +301,10 @@ export class SearchService implements OnDestroy {
     });
   }
 
+  /**
+   * Changes the current view mode in the current URL
+   * @param {ViewMode} viewMode Mode to switch to
+   */
   setViewMode(viewMode: ViewMode) {
     const navigationExtras: NavigationExtras = {
       queryParams: { view: viewMode },
@@ -279,12 +314,18 @@ export class SearchService implements OnDestroy {
     this.router.navigate([this.getSearchLink()], navigationExtras);
   }
 
+  /**
+   * @returns {string} The base path to the search page
+   */
   getSearchLink(): string {
     const urlTree = this.router.parseUrl(this.router.url);
     const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
     return '/' + g.toString();
   }
 
+  /**
+   * Unsubscribe from the subscription
+   */
   ngOnDestroy(): void {
     if (this.sub !== undefined) {
       this.sub.unsubscribe();

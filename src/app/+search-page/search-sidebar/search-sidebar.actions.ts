@@ -17,14 +17,23 @@ export const SearchSidebarActionTypes = {
 };
 
 /* tslint:disable:max-classes-per-file */
+/**
+ * Used to collapse the sidebar
+ */
 export class SearchSidebarCollapseAction implements Action {
   type = SearchSidebarActionTypes.COLLAPSE;
 }
 
+/**
+ * Used to expand the sidebar
+ */
 export class SearchSidebarExpandAction implements Action {
   type = SearchSidebarActionTypes.EXPAND;
 }
 
+/**
+ * Used to collapse the sidebar when it's expanded and expand it when it's collapsed
+ */
 export class SearchSidebarToggleAction implements Action {
   type = SearchSidebarActionTypes.TOGGLE;
 }
