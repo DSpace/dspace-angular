@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { flatMap, map, tap, } from 'rxjs/operators';
+import { flatMap, } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { CommunityDataService } from '../core/data/community-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
-import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
@@ -14,6 +12,9 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { hasValue } from '../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -34,7 +35,7 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
  */
 export class SearchPageComponent implements OnInit {
 
-  resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
+  resultsRD$: Subject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new Subject();
   searchOptions$: Observable<PaginatedSearchOptions>;
   sortConfig: SortOptions;
   scopeListRD$: Observable<DSpaceObject[]>;
@@ -50,6 +51,7 @@ export class SearchPageComponent implements OnInit {
     query: '',
     scope: ''
   };
+  sub: Subscription;
 
   constructor(private service: SearchService,
               private sidebarService: SearchSidebarService,
@@ -67,11 +69,10 @@ export class SearchPageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
-    this.resultsRD$ = this.searchOptions$.pipe(
-      flatMap((searchOptions) =>
-        this.service.search(searchOptions)
-      )
+    this.sub = this.searchOptions$.subscribe((searchOptions) =>
+      this.service.search(searchOptions).first().subscribe((results) => this.resultsRD$.next(results))
     );
+
     this.scopeListRD$ = this.filterService.getCurrentScope().pipe(
       flatMap((scopeId) => this.service.getScopes(scopeId))
     );
@@ -104,5 +105,11 @@ export class SearchPageComponent implements OnInit {
    */
   public getSearchLink(): string {
     return this.service.getSearchLink();
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 }
