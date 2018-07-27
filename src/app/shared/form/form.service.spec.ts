@@ -13,7 +13,6 @@ import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
 import { AppState } from '../../app.reducer';
 import { formReducer } from './form.reducer';
-import { GlobalConfig } from '../../../config/global-config.interface';
 
 describe('FormService test suite', () => {
   const config = {

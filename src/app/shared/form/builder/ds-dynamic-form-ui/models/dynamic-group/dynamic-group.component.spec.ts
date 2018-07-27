@@ -82,6 +82,16 @@ describe('DsDynamicGroupComponent test suite', () => {
         required: 'required',
         regex: 'pattern'
       }
+    },
+    submission: {
+      metadata: {
+        icons: [
+          {
+            name: 'default',
+            config: {}
+          }
+        ]
+      }
     }
   } as any;
   let testComp: TestComponent;

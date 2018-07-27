@@ -1,17 +1,17 @@
-import { ComponentFixture, TestBed, async, fakeAsync, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { Location, CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { By, Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { Store, StoreModule } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
-import { RemoteDataError } from '../data/remote-data-error';
+import 'rxjs/add/observable/of';
 import { UUIDService } from '../shared/uuid.service';
 
 import { MetadataService } from './metadata.service';
@@ -27,8 +27,8 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
+import { RemoteData } from '../data/remote-data';
+import { Item } from '../shared/item.model';
 
 import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
@@ -45,13 +45,15 @@ class TestComponent {
   }
 }
 
-@Component({ template: '' }) class DummyItemComponent {
+@Component({ template: '' })
+class DummyItemComponent {
   constructor(private route: ActivatedRoute, private items: ItemDataService, private metadata: MetadataService) {
     this.route.params.subscribe((params) => {
       this.metadata.processRemoteData(this.items.findById(params.id));
     });
   }
 }
+
 /* tslint:enable:max-classes-per-file */
 
 describe('MetadataService', () => {
@@ -101,7 +103,12 @@ describe('MetadataService', () => {
         }),
         RouterTestingModule.withRoutes([
           { path: 'items/:id', component: DummyItemComponent, pathMatch: 'full' },
-          { path: 'other', component: DummyItemComponent, pathMatch: 'full', data: { title: 'Dummy Title', description: 'This is a dummy item component for testing!' } }
+          {
+            path: 'other',
+            component: DummyItemComponent,
+            pathMatch: 'full',
+            data: { title: 'Dummy Title', description: 'This is a dummy item component for testing!' }
+          }
         ])
       ],
       declarations: [
@@ -114,7 +121,7 @@ describe('MetadataService', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
-        { provide: HALEndpointService, useValue: {}},
+        { provide: HALEndpointService, useValue: {} },
         Meta,
         Title,
         ItemDataService,
@@ -172,7 +179,7 @@ describe('MetadataService', () => {
     spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(MockItem));
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
-    expect(tagStore.size).toBeGreaterThan(0)
+    expect(tagStore.size).toBeGreaterThan(0);
     router.navigate(['/other']);
     tick();
     expect(tagStore.size).toEqual(2);
@@ -189,7 +196,7 @@ describe('MetadataService', () => {
       undefined,
       MockItem
     ));
-  }
+  };
 
   const mockType = (mockItem: Item, type: string): Item => {
     const typedMockItem = Object.assign(new Item(), mockItem) as Item;
@@ -200,7 +207,7 @@ describe('MetadataService', () => {
       }
     }
     return typedMockItem;
-  }
+  };
 
   const mockPublisher = (mockItem: Item): Item => {
     const publishedMockItem = Object.assign(new Item(), mockItem) as Item;

@@ -1,16 +1,17 @@
 import { MetadataSchemaComponent } from './metadata-schema.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { MockTranslateLoader } from '../../../shared/testing/mock-translate-loader';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { SharedModule } from '../../../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
@@ -86,10 +87,10 @@ describe('MetadataSchemaComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
       declarations: [MetadataSchemaComponent, PaginationComponent, EnumKeysPipe],
       providers: [
-        { provide: RegistryService, useValue: registryServiceStub },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: Router, useValue: new RouterStub() }
+        {provide: RegistryService, useValue: registryServiceStub},
+        {provide: ActivatedRoute, useValue: activatedRouteStub},
+        {provide: HostWindowService, useValue: new HostWindowServiceStub(0)},
+        {provide: Router, useValue: new RouterStub()}
       ]
     }).compileComponents();
   }));

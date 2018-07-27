@@ -4,7 +4,7 @@ import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { GetRequest, RestRequest } from '../data/request.models';
+import { GetRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import {
@@ -133,7 +133,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(configureRequest(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(testRequest)
+      expect(requestService.configure).toHaveBeenCalledWith(testRequest, undefined)
     });
   });
 
