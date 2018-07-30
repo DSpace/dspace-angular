@@ -82,5 +82,9 @@ const effects = [
     SearchBooleanFilterComponent,
   ]
 })
+
+/**
+ * This module handles all components and pipes that are necessary for the search page
+ */
 export class SearchPageModule {
 }

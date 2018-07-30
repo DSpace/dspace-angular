@@ -3,19 +3,9 @@ import { URLCombiner } from '../core/url-combiner/url-combiner';
 import 'core-js/library/fn/object/entries';
 
 /**
- * This enumeration represents all possible ways of representing the a group of objects
- */
-
-export enum ViewMode {
-  List = 'list',
-  Grid = 'grid'
-}
-
-/**
  * This model class represents all parameters needed to request information about a certain search request
  */
 export class SearchOptions {
-  view?: ViewMode = ViewMode.List;
   scope?: string;
   query?: string;
   filters?: any;

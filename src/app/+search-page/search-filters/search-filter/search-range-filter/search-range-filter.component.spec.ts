@@ -96,7 +96,6 @@ describe('SearchRangeFilterComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchRangeFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
-    comp.filterValues = [mockValues];
     filterService = (comp as any).filterService;
     searchService = (comp as any).searchService;
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
@@ -104,9 +103,9 @@ describe('SearchRangeFilterComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when the getAddParams method is called wih a value', () => {
+  describe('when the getChangeParams method is called wih a value', () => {
     it('should return the selectedValue list with the new parameter value', () => {
-      const result$ = comp.getAddParams(value3);
+      const result$ = comp.getChangeParams(value3);
       result$.subscribe((result) => {
         expect(result[mockFilterConfig.paramName + minSuffix]).toEqual(['1990']);
         expect(result[mockFilterConfig.paramName + maxSuffix]).toEqual(['1992']);
@@ -114,16 +113,6 @@ describe('SearchRangeFilterComponent', () => {
     });
   });
 
-  describe('when the getRemoveParams method is called wih a value', () => {
-    it('should return the selectedValue list with the parameter value left out', () => {
-      const result$ = comp.getRemoveParams(value1);
-      result$.subscribe((result) => {
-        expect(result[mockFilterConfig.paramName + minSuffix]).toBeNull();
-        expect(result[mockFilterConfig.paramName + maxSuffix]).toBeNull();
-      });
-
-    });
-  });
 
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';

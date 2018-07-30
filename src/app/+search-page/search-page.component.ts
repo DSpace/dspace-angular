@@ -12,9 +12,9 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { hasValue } from '../shared/empty.util';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 /**
  * This component renders a simple item page.
@@ -38,13 +38,12 @@ export class SearchPageComponent implements OnInit {
   /**
    * The current search results
    */
-  resultsRD$: Subject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new Subject();
+  resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
 
   /**
    * The current paginated search options
    */
   searchOptions$: Observable<PaginatedSearchOptions>;
-  sortConfig: SortOptions;
 
   /**
    * The current relevant scopes
@@ -91,8 +90,7 @@ export class SearchPageComponent implements OnInit {
   ngOnInit(): void {
     this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
     this.sub = this.searchOptions$.subscribe((searchOptions) =>
-      this.service.search(searchOptions).first().subscribe((results) => this.resultsRD$.next(results))
-    );
+      this.service.search(searchOptions).filter((rd) => !rd.isLoading).first().subscribe((results) => this.resultsRD$.next(results)));
 
     this.scopeListRD$ = this.filterService.getCurrentScope().pipe(
       flatMap((scopeId) => this.service.getScopes(scopeId))
@@ -107,7 +105,7 @@ export class SearchPageComponent implements OnInit {
   }
 
   /**
-   * Set the sidebar to a expanded state
+   * Set the sidebar to an expanded state
    */
   public openSidebar(): void {
     this.sidebarService.expand();

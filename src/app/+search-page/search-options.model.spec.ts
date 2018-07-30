@@ -1,6 +1,6 @@
 import 'rxjs/add/observable/of';
 import { PaginatedSearchOptions } from './paginated-search-options.model';
-import { SearchOptions, ViewMode } from './search-options.model';
+import { SearchOptions } from './search-options.model';
 
 describe('SearchOptions', () => {
   let options: PaginatedSearchOptions;
@@ -13,7 +13,6 @@ describe('SearchOptions', () => {
     options.filters = filters;
     options.query = query;
     options.scope = scope;
-    options.view = ViewMode.Grid;
   });
 
   describe('when toRestUrl is called', () => {

@@ -189,6 +189,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.filter = data;
   }
 
+  /**
+   * For usage of the hasValue function in the template
+   */
   hasValue(o: any): boolean {
     return hasValue(o);
   }

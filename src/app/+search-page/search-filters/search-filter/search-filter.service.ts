@@ -248,7 +248,7 @@ export class SearchFilterService {
   }
 
   /**
-   * Dispatches a expand action to the store for a given filter
+   * Dispatches an expand action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
    */
   public expand(filterName: string): void {
@@ -264,7 +264,7 @@ export class SearchFilterService {
   }
 
   /**
-   * Dispatches a initial collapse action to the store for a given filter
+   * Dispatches an initial collapse action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
    */
   public initialCollapse(filterName: string): void {
@@ -272,7 +272,7 @@ export class SearchFilterService {
   }
 
   /**
-   * Dispatches a initial expand action to the store for a given filter
+   * Dispatches an initial expand action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
    */
   public initialExpand(filterName: string): void {
@@ -288,7 +288,7 @@ export class SearchFilterService {
   }
 
   /**
-   * Dispatches a increment page action to the store for a given filter
+   * Dispatches an increment page action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched
    */
   public incrementPage(filterName: string): void {

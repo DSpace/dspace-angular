@@ -1,13 +1,14 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import {
-  ActivatedRoute, NavigationExtras, Params, PRIMARY_OUTLET, Router,
+  ActivatedRoute,
+  NavigationExtras,
+  PRIMARY_OUTLET,
+  Router,
   UrlSegmentGroup
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { filter, flatMap, map, tap } from 'rxjs/operators';
-import { ViewMode } from '../../+search-page/search-options.model';
+import { flatMap, map } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import {
   FacetConfigSuccessResponse,
   FacetValueSuccessResponse,
@@ -25,8 +26,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { configureRequest } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
@@ -44,6 +44,7 @@ import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 
 /**

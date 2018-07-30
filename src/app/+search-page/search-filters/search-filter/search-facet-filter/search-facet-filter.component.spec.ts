@@ -91,8 +91,6 @@ describe('SearchFacetFilterComponent', () => {
     fixture = TestBed.createComponent(SearchFacetFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.filterConfig = mockFilterConfig;
-    comp.filterValues = [mockValues];
-    // comp.filterValues$ = new BehaviorSubject({});
     filterService = (comp as any).filterService;
     searchService = (comp as any).searchService;
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
@@ -198,10 +196,9 @@ describe('SearchFacetFilterComponent', () => {
   });
 
   describe('when updateFilterValueList is called', () => {
-    const searchOptions = new SearchOptions();
     beforeEach(() => {
       spyOn(comp, 'showFirstPageOnly');
-      comp.updateFilterValueList(searchOptions)
+      comp.updateFilterValueList()
     });
 
     it('should call showFirstPageOnly and empty the filter', () => {
@@ -210,7 +207,6 @@ describe('SearchFacetFilterComponent', () => {
         expect(comp.filter).toEqual('');
     });
   });
-
 
   describe('when findSuggestions is called with query \'test\'', () => {
     const query = 'test';

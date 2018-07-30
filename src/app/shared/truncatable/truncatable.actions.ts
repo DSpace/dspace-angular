@@ -16,22 +16,43 @@ export const TruncatableActionTypes = {
 };
 
 export class TruncatableAction implements Action {
+  /**
+   * UUID of the truncatable component the action is performed on, used to identify the filter
+   */
   id: string;
+
+  /**
+   * Type of action that will be performed
+   */
   type;
-  constructor(name: string) {
-    this.id = name;
+
+  /**
+   * Initialize with the truncatable component's UUID
+   * @param {string} id of the filter
+   */
+  constructor(id: string) {
+    this.id = id;
   }
 }
 
 /* tslint:disable:max-classes-per-file */
+/**
+ * Used to collapse a truncatable component when it's expanded and expand it when it's collapsed
+ */
 export class TruncatableToggleAction extends TruncatableAction {
   type = TruncatableActionTypes.TOGGLE;
 }
 
+/**
+ * Used to collapse a truncatable component
+ */
 export class TruncatableCollapseAction extends TruncatableAction {
   type = TruncatableActionTypes.COLLAPSE;
 }
 
+/**
+ * Used to expand a truncatable component
+ */
 export class TruncatableExpandAction extends TruncatableAction {
   type = TruncatableActionTypes.EXPAND;
 }

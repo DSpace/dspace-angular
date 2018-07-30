@@ -2,10 +2,10 @@ import { Component, Input } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { SearchOptions, ViewMode } from '../search-options.model';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { PaginatedList } from '../../core/data/paginated-list';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-search-results',
@@ -31,12 +31,8 @@ export class SearchResultsComponent {
   @Input() searchConfig: SearchOptions;
 
   /**
-   * The current sort options for the search
-   */
-  @Input() sortConfig: SortOptions;
-
-  /**
    * The current view mode for the search results
    */
   @Input() viewMode: ViewMode;
+
 }

@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { SearchService } from './search.service';
-import { ViewMode } from '../../+search-page/search-options.model';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
@@ -28,6 +27,7 @@ import { SearchQueryResponse } from './search-query-response.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({ template: '' })
 class DummyComponent {

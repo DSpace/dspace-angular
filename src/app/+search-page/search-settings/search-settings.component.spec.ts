@@ -13,6 +13,7 @@ import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { By } from '@angular/platform-browser';
 import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 import { hot } from 'jasmine-marbles';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 describe('SearchSettingsComponent', () => {
 
@@ -56,7 +57,7 @@ describe('SearchSettingsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [SearchSettingsComponent, EnumKeysPipe],
+      declarations: [SearchSettingsComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
 
@@ -96,15 +97,18 @@ describe('SearchSettingsComponent', () => {
   });
 
   it('it should show the order settings with the respective selectable options', () => {
-    const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
-    expect(orderSetting).toBeDefined();
-    const childElements = orderSetting.query(By.css('.form-control')).children;
-    expect(childElements.length).toEqual(comp.searchOptionPossibilities.length);
+    (comp as any).searchOptions$.first().subscribe((options) => {
+      fixture.detectChanges();
+      const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
+      expect(orderSetting).toBeDefined();
+      const childElements = orderSetting.query(By.css('.form-control')).children;
+      expect(childElements.length).toEqual(comp.searchOptionPossibilities.length);
+    });
   });
 
   it('it should show the size settings with the respective selectable options', () => {
-    (comp as any).filterService.getPaginatedSearchOptions().first().subscribe((options) => {
-        fixture.detectChanges()
+    (comp as any).searchOptions$.first().subscribe((options) => {
+        fixture.detectChanges();
         const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
         expect(pageSizeSetting).toBeDefined();
         const childElements = pageSizeSetting.query(By.css('.form-control')).children;
@@ -114,15 +118,21 @@ describe('SearchSettingsComponent', () => {
   });
 
   it('should have the proper order value selected by default', () => {
-    const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
-    const childElementToBeSelected = orderSetting.query(By.css('.form-control option[value="0"][selected="selected"]'))
-    expect(childElementToBeSelected).toBeDefined();
+    (comp as any).searchOptions$.first().subscribe((options) => {
+      fixture.detectChanges();
+      const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
+      const childElementToBeSelected = orderSetting.query(By.css('.form-control option[value="0"][selected="selected"]'));
+      expect(childElementToBeSelected).toBeDefined();
+    });
   });
 
   it('should have the proper rpp value selected by default', () => {
-    const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-    const childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'))
-    expect(childElementToBeSelected).toBeDefined();
+    (comp as any).searchOptions$.first().subscribe((options) => {
+      fixture.detectChanges();
+      const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
+      const childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'));
+      expect(childElementToBeSelected).toBeDefined();
+    });
   });
 
 });

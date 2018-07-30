@@ -4,8 +4,8 @@ import { renderElementsFor } from '../../../object-collection/shared/dso-element
 
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 import { Collection } from '../../../../core/shared/collection.model';
-import { ViewMode } from '../../../../+search-page/search-options.model';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-collection-search-result-list-element',

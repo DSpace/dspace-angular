@@ -156,6 +156,10 @@ const DIRECTIVES = [
     ...ENTRY_COMPONENTS
   ]
 })
+
+/**
+ * This module handles all components and pipes that need to be shared among multiple other modules
+ */
 export class SharedModule {
 
 }

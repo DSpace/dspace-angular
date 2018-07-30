@@ -18,7 +18,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SearchSidebarComponent {
 
   /**
-   * The total amount of result
+   * The total amount of results
    */
   @Input() resultCount;
 

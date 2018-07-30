@@ -1,14 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core'
 
-/**
- * Pipe to truncate a value in Angular. (Take a substring, starting at 0)
- * Default value: 10
- */
 @Pipe({
   name: 'dsCapitalize'
 })
+
+/**
+ * Pipe for capizalizing a string
+ */
 export class CapitalizePipe implements PipeTransform {
-  transform(value: string, args: string[]): string {
+  /**
+   * @param {string} value String to be capitalized
+   * @returns {string} Capitalized version of the input value
+   */
+  transform(value: string): string {
     if (value) {
       return value.charAt(0).toUpperCase() + value.slice(1);
     }

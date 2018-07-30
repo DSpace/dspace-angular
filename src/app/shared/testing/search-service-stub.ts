@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
-import { ViewMode } from '../../+search-page/search-options.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 export class SearchServiceStub {
 

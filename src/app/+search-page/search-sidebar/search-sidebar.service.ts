@@ -31,7 +31,7 @@ export class SearchSidebarService {
 
   /**
    * Checks if the sidebar should currently be collapsed
-   * @returns {Observable<boolean>} Emits true if our screen size is mobile or when the state in the store is currently collapsed
+   * @returns {Observable<boolean>} Emits true if the user's screen size is mobile or when the state in the store is currently collapsed
    */
   get isCollapsed(): Observable<boolean> {
     return Observable.combineLatest(
@@ -48,7 +48,7 @@ export class SearchSidebarService {
   }
 
   /**
-   * Dispatches a expand action to the store
+   * Dispatches an expand action to the store
    */
   public expand(): void {
     this.store.dispatch(new SearchSidebarExpandAction());
