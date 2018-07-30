@@ -8,6 +8,7 @@ import { SearchFilterService } from './search-filter/search-filter.service';
 import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../search-service/search.service';
 import { Observable } from 'rxjs/Observable';
+import { SearchConfigurationService } from '../search-service/search-configuration.service';
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;
@@ -23,7 +24,7 @@ describe('SearchFiltersComponent', () => {
     }
     /* tslint:enable:no-empty */
   };
-  const searchFilterServiceStub = jasmine.createSpyObj('SearchFilterService', {
+  const searchConfigServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
     getCurrentFrontendFilters: Observable.of({})
   });
 
@@ -33,7 +34,7 @@ describe('SearchFiltersComponent', () => {
       declarations: [SearchFiltersComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
-        { provide: SearchFilterService, useValue: searchFilterServiceStub },
+        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
 
       ],
       schemas: [NO_ERRORS_SCHEMA]

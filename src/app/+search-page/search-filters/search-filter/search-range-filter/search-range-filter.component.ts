@@ -16,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouteService } from '../../../../shared/services/route.service';
 import { hasValue } from '../../../../shared/empty.util';
 import { Subscription } from 'rxjs/Subscription';
+import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 
 /**
  * This component renders a simple item page.
@@ -61,12 +62,13 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected rdbs: RemoteDataBuildService,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
               private route: RouteService) {
-    super(searchService, filterService, rdbs, router, filterConfig);
+    super(searchService, filterService, searchConfigService, rdbs, router, filterConfig);
 
   }
 

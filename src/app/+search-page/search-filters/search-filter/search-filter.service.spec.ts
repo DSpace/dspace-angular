@@ -55,7 +55,7 @@ describe('SearchFilterService', () => {
   };
 
   beforeEach(() => {
-    service = new SearchFilterService(store, routeServiceStub, activatedRoute);
+    service = new SearchFilterService(store, routeServiceStub);
   });
 
   describe('when the initialCollapse method is triggered', () => {

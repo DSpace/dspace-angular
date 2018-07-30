@@ -18,6 +18,7 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
 import { RouteService } from '../../../../shared/services/route.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
+import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;
@@ -72,6 +73,9 @@ describe('SearchRangeFilterComponent', () => {
         { provide: FILTER_CONFIG, useValue: mockFilterConfig },
         { provide: RemoteDataBuildService, useValue: {aggregate: () => Observable.of({})} },
         { provide: RouteService, useValue: {getQueryParameterValue: () => Observable.of({})} },
+        { provide: SearchConfigurationService, useValue: {
+            getSearchOptions: () => Observable.of({}) }
+        },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => selectedValues,
@@ -81,8 +85,7 @@ describe('SearchRangeFilterComponent', () => {
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
-            },
-            getSearchOptions: () => Observable.of({}),
+            }
             /* tslint:enable:no-empty */
           }
         }
@@ -112,7 +115,6 @@ describe('SearchRangeFilterComponent', () => {
       });
     });
   });
-
 
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';

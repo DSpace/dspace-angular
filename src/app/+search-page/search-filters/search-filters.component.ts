@@ -3,7 +3,7 @@ import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 import { Observable } from 'rxjs/Observable';
-import { SearchFilterService } from './search-filter/search-filter.service';
+import { SearchConfigurationService } from '../search-service/search-configuration.service';
 
 @Component({
   selector: 'ds-search-filters',
@@ -29,11 +29,11 @@ export class SearchFiltersComponent {
   /**
    * Initialize instance variables
    * @param {SearchService} searchService
-   * @param {SearchFilterService} filterService
+   * @param {SearchConfigurationService} searchConfigService
    */
-  constructor(private searchService: SearchService, private filterService: SearchFilterService) {
+  constructor(private searchService: SearchService, private searchConfigService: SearchConfigurationService) {
     this.filters = searchService.getConfig();
-    this.clearParams = filterService.getCurrentFrontendFilters().map((filters) => {Object.keys(filters).forEach((f) => filters[f] = null); return filters;});
+    this.clearParams = searchConfigService.getCurrentFrontendFilters().map((filters) => {Object.keys(filters).forEach((f) => filters[f] = null); return filters;});
   }
 
   /**

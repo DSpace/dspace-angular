@@ -5,6 +5,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 import { Observable } from 'rxjs/Observable';
+import { SearchConfigurationService } from '../search-service/search-configuration.service';
 
 @Component({
   selector: 'ds-search-settings',
@@ -27,30 +28,17 @@ export class SearchSettingsComponent implements OnInit {
    */
   searchOptionPossibilities = [new SortOptions('score', SortDirection.DESC), new SortOptions('dc.title', SortDirection.ASC), new SortOptions('dc.title', SortDirection.DESC)];
 
-  /**
-   * Default values for the Search Options
-   */
-  defaults = {
-    pagination: {
-      id: 'search-results-pagination',
-      pageSize: 10
-    },
-    sort: new SortOptions('score', SortDirection.DESC),
-    query: '',
-    scope: ''
-  };
-
   constructor(private service: SearchService,
               private route: ActivatedRoute,
               private router: Router,
-              private filterService: SearchFilterService) {
+              private searchConfigurationService: SearchConfigurationService) {
   }
 
   /**
    * Initialize paginated search options
    */
   ngOnInit(): void {
-    this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
+    this.searchOptions$ = this.searchConfigurationService.getPaginatedSearchOptions();
   }
 
   /**

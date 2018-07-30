@@ -15,6 +15,7 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { Subscription } from 'rxjs/Subscription';
 import { hasValue } from '../shared/empty.util';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SearchConfigurationService } from './search-service/search-configuration.service';
 
 /**
  * This component renders a simple item page.
@@ -56,19 +57,6 @@ export class SearchPageComponent implements OnInit {
   isXsOrSm$: Observable<boolean>;
 
   /**
-   * Default values for the Search Options
-   */
-  defaults = {
-    pagination: {
-      id: 'search-results-pagination',
-      pageSize: 10
-    },
-    sort: new SortOptions('score', SortDirection.DESC),
-    query: '',
-    scope: ''
-  };
-
-  /**
    * Subscription to unsubscribe from
    */
   sub: Subscription;
@@ -76,7 +64,8 @@ export class SearchPageComponent implements OnInit {
   constructor(private service: SearchService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
-              private filterService: SearchFilterService) {
+              private filterService: SearchFilterService,
+              private searchConfigService: SearchConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -88,11 +77,11 @@ export class SearchPageComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
+    this.searchOptions$ = this.searchConfigService.getPaginatedSearchOptions();
     this.sub = this.searchOptions$.subscribe((searchOptions) =>
       this.service.search(searchOptions).filter((rd) => !rd.isLoading).first().subscribe((results) => this.resultsRD$.next(results)));
 
-    this.scopeListRD$ = this.filterService.getCurrentScope().pipe(
+    this.scopeListRD$ = this.searchConfigService.getCurrentScope().pipe(
       flatMap((scopeId) => this.service.getScopes(scopeId))
     );
   }

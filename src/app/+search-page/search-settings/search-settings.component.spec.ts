@@ -14,6 +14,7 @@ import { By } from '@angular/platform-browser';
 import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 import { hot } from 'jasmine-marbles';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { SearchConfigurationService } from '../search-service/search-configuration.service';
 
 describe('SearchSettingsComponent', () => {
 
@@ -68,7 +69,11 @@ describe('SearchSettingsComponent', () => {
         },
         {
           provide: SearchFilterService,
-          useValue: jasmine.createSpyObj('SearchFilterService', {
+          useValue: {}
+        },
+        {
+          provide: SearchConfigurationService,
+          useValue: jasmine.createSpyObj('SearchConfigurationService', {
             getPaginatedSearchOptions: hot('a', {
               a: paginatedSearchOptions
             }),

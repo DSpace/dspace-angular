@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
@@ -12,12 +12,12 @@ import { SearchService } from '../../../search-service/search.service';
 import { SearchServiceStub } from '../../../../shared/testing/search-service-stub';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
-import { SearchOptions } from '../../../search-options.model';
 import { RouterStub } from '../../../../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
+import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -66,6 +66,7 @@ describe('SearchFacetFilterComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         { provide: RemoteDataBuildService, useValue: {aggregate: () => Observable.of({})} },
+        { provide: SearchConfigurationService, useValue: {getSearchOptions: () => Observable.of({})} },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => Observable.of(selectedValues),
@@ -75,8 +76,7 @@ describe('SearchFacetFilterComponent', () => {
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
-            },
-            getSearchOptions: () => Observable.of({}),
+            }
             /* tslint:enable:no-empty */
           }
         }

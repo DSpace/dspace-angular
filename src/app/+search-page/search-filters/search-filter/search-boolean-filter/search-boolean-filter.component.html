@@ -30,14 +30,5 @@
                 | translate}}</a>
         </div>
     </div>
-    <ds-input-suggestions [suggestions]="(filterSearchResults | async)"
-                          [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"
-                          [action]="getCurrentUrl()"
-                          [name]="filterConfig.paramName"
-                          [(ngModel)]="filter"
-                          (submitSuggestion)="onSubmit($event)"
-                          (clickSuggestion)="onClick($event)"
-                          (findSuggestions)="findSuggestions($event)"
-                          ngDefaultControl
-    ></ds-input-suggestions>
+
 </div>

@@ -3,8 +3,8 @@ import { SearchService } from '../search-service/search.service';
 import { Observable } from 'rxjs/Observable';
 import { Params } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { SearchConfigurationService } from '../search-service/search-configuration.service';
 
 @Component({
   selector: 'ds-search-labels',
@@ -23,8 +23,8 @@ export class SearchLabelsComponent {
   /**
    * Initialize the instance variable
    */
-  constructor(private searchService: SearchService, private filterService: SearchFilterService) {
-    this.appliedFilters = this.filterService.getCurrentFrontendFilters();
+  constructor(private searchService: SearchService, private searchConfigService: SearchConfigurationService) {
+    this.appliedFilters = this.searchConfigService.getCurrentFrontendFilters();
   }
 
   /**

@@ -26,7 +26,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { configureRequest } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
@@ -42,10 +42,9 @@ import { FacetConfigResponseParsingService } from '../../core/data/facet-config-
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { Collection } from '../../core/shared/collection.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
-
+import { PIDService } from '../../core/data/pid.service';
+import { ResourceType } from '../../core/shared/resource-type';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -74,7 +73,8 @@ export class SearchService implements OnDestroy {
               private rdb: RemoteDataBuildService,
               private halService: HALEndpointService,
               private communityService: CommunityDataService,
-              private collectionService: CollectionDataService) {
+              private pidService: PIDService
+  ) {
   }
 
   /**
@@ -258,7 +258,7 @@ export class SearchService implements OnDestroy {
    */
   getScopes(scopeId?: string): Observable<DSpaceObject[]> {
 
-    if (hasNoValue(scopeId)) {
+    if (isEmpty(scopeId)) {
       const top: Observable<Community[]> = this.communityService.findTop({ elementsPerPage: 9999 }).pipe(
         map(
           (communities: RemoteData<PaginatedList<Community>>) => communities.payload.page
@@ -267,24 +267,22 @@ export class SearchService implements OnDestroy {
       return top;
     }
 
-    const communityScope: Observable<RemoteData<Community>> = this.communityService.findById(scopeId).filter((communityRD: RemoteData<Community>) => !communityRD.isLoading);
-    const scopeObject: Observable<DSpaceObject[]> = communityScope.pipe(
-      flatMap((communityRD: RemoteData<Community>) => {
-          if (hasValue(communityRD.payload)) {
-            const community: Community = communityRD.payload;
-            // const subcommunities$ = community.subcommunities.filter((subcommunitiesRD: RemoteData<PaginatedList<Community>>) => !subcommunitiesRD.isLoading).first();
-            // const collections$ = community.subcommunities.filter((subcommunitiesRD: RemoteData<PaginatedList<Community>>) => !subcommunitiesRD.isLoading).first();
+    const scopeObject: Observable<RemoteData<DSpaceObject>> = this.pidService.findById(scopeId).filter((dsoRD: RemoteData<DSpaceObject>) => !dsoRD.isLoading);
+    const scopeList: Observable<DSpaceObject[]> = scopeObject.pipe(
+      flatMap((dsoRD: RemoteData<DSpaceObject>) => {
+          if (dsoRD.payload.type === ResourceType.Community) {
+            const community: Community = dsoRD.payload as Community;
             return Observable.combineLatest(community.subcommunities, community.collections, (subCommunities, collections) => {
               /*if this is a community, we also need to show the direct children*/
               return [community, ...subCommunities.payload.page, ...collections.payload.page]
             })
           } else {
-            return this.collectionService.findById(scopeId).pipe(map((collectionRD: RemoteData<Collection>) => [collectionRD.payload]));
+            return Observable.of([dsoRD.payload]);
           }
         }
       ));
 
-    return scopeObject;
+    return scopeList;
 
   }
 

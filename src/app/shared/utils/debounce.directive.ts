@@ -31,7 +31,6 @@ export class DebounceDirective implements OnInit, OnDestroy {
    */
   private isFirstChange = true;
 
-
   /**
    * Subject to unsubscribe from
    */

@@ -19,6 +19,7 @@ import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
+import { SearchConfigurationService } from './search-service/search-configuration.service';
 
 describe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
@@ -89,7 +90,10 @@ describe('SearchPageComponent', () => {
         },
         {
           provide: SearchFilterService,
-          useValue: jasmine.createSpyObj('SearchFilterService', {
+          useValue: {}
+        },{
+          provide: SearchConfigurationService,
+          useValue: jasmine.createSpyObj('SearchConfigurationService', {
             getPaginatedSearchOptions: hot('a', {
               a: paginatedSearchOptions
             }),

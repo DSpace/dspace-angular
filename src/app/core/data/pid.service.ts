@@ -23,7 +23,6 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    private bs: BrowseService,
     protected halService: HALEndpointService) {
     super();
   }
@@ -46,7 +45,7 @@ export class PIDService {
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService) {
-    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, null, halService);
+    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService);
   }
 
   findById(id: string): Observable<RemoteData<DSpaceObject>> {

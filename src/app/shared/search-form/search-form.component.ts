@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { isNotEmpty, hasValue, isEmpty, hasNoValue } from '../empty.util';
@@ -31,6 +30,7 @@ export class SearchFormComponent {
    */
   @Input()
   scope = '';
+
   @Input() currentUrl: string;
 
   /**

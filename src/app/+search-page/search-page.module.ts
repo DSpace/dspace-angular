@@ -27,6 +27,7 @@ import { SearchTextFilterComponent } from './search-filters/search-filter/search
 import { SearchFacetFilterWrapperComponent } from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SearchBooleanFilterComponent } from './search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
 import { SearchHierarchyFilterComponent } from './search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
+import { SearchConfigurationService } from './search-service/search-configuration.service';
 
 const effects = [
   SearchSidebarEffects
@@ -66,7 +67,8 @@ const effects = [
   providers: [
     SearchService,
     SearchSidebarService,
-    SearchFilterService
+    SearchFilterService,
+    SearchConfigurationService
   ],
   entryComponents: [
     ItemSearchResultListElementComponent,

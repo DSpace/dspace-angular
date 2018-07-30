@@ -6,7 +6,6 @@ import {
   SearchFacetFilterComponent
 } from '../search-facet-filter/search-facet-filter.component';
 
-
 @Component({
   selector: 'ds-search-boolean-filter',
   styleUrls: ['./search-boolean-filter.component.scss'],

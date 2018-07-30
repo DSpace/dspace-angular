@@ -15,6 +15,7 @@ import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { SearchService } from '../../../search-service/search.service';
 import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
+import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -68,6 +69,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected searchConfigService: SearchConfigurationService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig) {
@@ -80,7 +82,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.filterValues$ = new BehaviorSubject(new RemoteData(true, false, undefined, undefined, undefined));
     this.currentPage = this.getCurrentPage().distinctUntilChanged();
     this.selectedValues = this.filterService.getSelectedValuesForFilter(this.filterConfig);
-    const searchOptions = this.filterService.getSearchOptions().distinctUntilChanged();
+    const searchOptions = this.searchConfigService.getSearchOptions().distinctUntilChanged();
     this.subs.push(searchOptions.subscribe((options) => this.updateFilterValueList()));
 
     const facetValues = Observable.combineLatest(searchOptions, this.currentPage, (options, page) => {
@@ -240,7 +242,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   findSuggestions(data): void {
     if (isNotEmpty(data)) {
-      this.filterService.getSearchOptions().first().subscribe(
+      this.searchConfigService.getSearchOptions().first().subscribe(
         (options) => {
           this.filterSearchResults = this.searchService.getFacetValuesFor(this.filterConfig, 1, options, data.toLowerCase())
             .first()

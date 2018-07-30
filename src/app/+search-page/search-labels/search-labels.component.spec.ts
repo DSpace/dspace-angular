@@ -9,7 +9,7 @@ import { SearchServiceStub } from '../../shared/testing/search-service-stub';
 import { Observable } from 'rxjs/Observable';
 import { Params } from '@angular/router';
 import { ObjectKeysPipe } from '../../shared/utils/object-keys-pipe';
-import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
+import { SearchConfigurationService } from '../search-service/search-configuration.service';
 
 describe('SearchLabelsComponent', () => {
   let comp: SearchLabelsComponent;
@@ -35,7 +35,7 @@ describe('SearchLabelsComponent', () => {
       declarations: [SearchLabelsComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: SearchFilterService, useValue: {getCurrentFrontendFilters : () =>  Observable.of({})} }
+        { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  Observable.of({})} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchLabelsComponent, {
