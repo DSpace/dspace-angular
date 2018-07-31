@@ -1,7 +1,9 @@
 import { RouteService } from './route.service';
 import { async, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap, Params } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of'
+import { MockRouter } from '../mocks/mock-router';
 
 describe('RouteService', () => {
   let service: RouteService;
@@ -28,12 +30,13 @@ describe('RouteService', () => {
             queryParamMap: Observable.of(convertToParamMap(paramObject))
           },
         },
+        { provide: Router, useValue: new MockRouter() },
       ]
     });
   }));
 
   beforeEach(() => {
-    service = new RouteService(TestBed.get(ActivatedRoute));
+    service = new RouteService(TestBed.get(ActivatedRoute), TestBed.get(Router));
   });
 
   describe('hasQueryParam', () => {

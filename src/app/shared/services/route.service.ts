@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import {
-  ActivatedRoute, convertToParamMap, NavigationExtras, Params,
-  Router,
-} from '@angular/router';
-import { isNotEmpty } from '../empty.util';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class RouteService {
 
-  constructor(private route: ActivatedRoute) {
+  private history = [];
+
+  constructor(private route: ActivatedRoute, private router: Router) {
   }
 
   getQueryParameterValues(paramName: string): Observable<string[]> {
@@ -40,4 +39,22 @@ export class RouteService {
           return params;
         }).distinctUntilChanged();
   }
+
+  public saveRouting(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(({urlAfterRedirects}: NavigationEnd) => {
+        this.history = [...this.history, urlAfterRedirects];
+        console.log(this.history);
+      });
+  }
+
+  public getHistory(): string[] {
+    return this.history;
+  }
+
+  public getPreviousUrl(): string {
+    return this.history[this.history.length - 2] || '';
+  }
+
 }

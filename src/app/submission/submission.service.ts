@@ -1,4 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
@@ -17,10 +19,10 @@ import { GLOBAL_CONFIG } from '../../config';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionRestService } from './submission-rest.service';
-import { Router } from '@angular/router';
 import { SectionDataObject } from './sections/models/section-data.model';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { SubmissionObject } from '../core/submission/models/submission-object.model';
+import { RouteService } from '../shared/services/route.service';
 
 @Injectable()
 export class SubmissionService {
@@ -31,6 +33,7 @@ export class SubmissionService {
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               protected restService: SubmissionRestService,
               protected router: Router,
+              protected routeService: RouteService,
               protected store: Store<SubmissionState>) {
   }
 
@@ -191,7 +194,12 @@ export class SubmissionService {
   }
 
   redirectToMyDSpace() {
-    this.router.navigate(['/mydspace']);
+    const previousUrl = this.routeService.getPreviousUrl();
+    if (isEmpty(previousUrl)) {
+      this.router.navigate(['/mydspace']);
+    } else {
+      this.router.navigateByUrl(previousUrl);
+    }
   }
 
   retrieveSubmission(submissionId): Observable<SubmissionObject> {

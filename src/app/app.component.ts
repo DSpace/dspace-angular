@@ -13,6 +13,7 @@ import { NativeWindowRef, NativeWindowService } from './shared/services/window.s
 import { isAuthenticated } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { RouteService } from './shared/services/route.service';
 
 @Component({
   selector: 'ds-app',
@@ -30,7 +31,8 @@ export class AppComponent implements OnInit {
     private store: Store<HostWindowState>,
     private metadata: MetadataService,
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
-    private authService: AuthService
+    private authService: AuthService,
+    private routeService: RouteService
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
@@ -38,6 +40,8 @@ export class AppComponent implements OnInit {
     translate.use('en');
 
     metadata.listenForRouteChange();
+
+    routeService.saveRouting();
 
     if (config.debug) {
       console.info(config);
