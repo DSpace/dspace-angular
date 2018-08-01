@@ -3,8 +3,13 @@
     <ng-container *ngFor="let c of chips.getChips(); let i = index">
       <ng-template #tipContent>{{tipText}}</ng-template>
       <li class="nav-item mr-2 mb-1"
-          (dragstart)="onDragStart(i)"
-          (dragend)="onDragEnd(i)">
+          #t="ngbTooltip"
+          triggers="manual"
+          [ngbTooltip]="tipContent"
+          (dragstart)="t.close();onDragStart(i)"
+          (dragend)="onDragEnd(i)"
+          (mouseover)="showTooltip(t, i)"
+          (mouseout)="t.close()">
         <a class="flex-sm-fill text-sm-center nav-link active"
            href="#"
            [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged == i}"

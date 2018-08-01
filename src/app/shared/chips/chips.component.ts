@@ -7,6 +7,7 @@ import { isObject } from 'lodash';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
 import { UploaderService } from '../uploader/uploader.service';
+import { isNotNull } from '../empty.util';
 
 @Component({
   selector: 'ds-chips',
@@ -88,7 +89,10 @@ export class ChipsComponent implements OnChanges {
       }
 
       this.cdr.detectChanges();
-      tooltip.open();
+      if (!item.hasIcons() || field) {
+        tooltip.open();
+      }
+
     }
   }
 

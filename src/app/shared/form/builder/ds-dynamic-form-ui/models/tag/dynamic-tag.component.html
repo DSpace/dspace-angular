@@ -3,7 +3,9 @@
 </ng-template>
 
 
-  <ds-chips [chips]="chips" [wrapperClass]="'border-bottom border-light'">
+  <ds-chips [chips]="chips"
+            [editable]="false"
+            [wrapperClass]="'border-bottom border-light'">
 
   <input *ngIf="!searchOptions"
          class="border-0 form-control-plaintext tag-input flex-grow-1 mt-1 mb-1 chips-sort-ignore"
