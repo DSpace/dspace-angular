@@ -1,6 +1,6 @@
 <h3>{{"search.filters.head" | translate}}</h3>
 <div *ngIf="(filters | async)?.hasSucceeded">
-    <div *ngFor="let filter of (filters | async).payload">
+    <div *ngFor="let filter of (filters | async)?.payload">
         <ds-search-filter class="d-block mb-3 p-3" [filter]="filter"></ds-search-filter>
     </div>
 </div>

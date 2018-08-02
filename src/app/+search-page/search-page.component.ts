@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { flatMap, } from 'rxjs/operators';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -77,11 +76,16 @@ export class SearchPageComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    this.searchOptions$ = this.searchConfigService.getPaginatedSearchOptions();
-    this.sub = this.searchOptions$.subscribe((searchOptions) =>
-      this.service.search(searchOptions).filter((rd) => !rd.isLoading).first().subscribe((results) => this.resultsRD$.next(results)));
-
-    this.scopeListRD$ = this.searchConfigService.getCurrentScope().pipe(
+    this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
+    let subscription;
+    this.sub = this.searchOptions$.subscribe((searchOptions) => {
+      if (hasValue(subscription)) {
+        /** Make sure no race condition is possible with a previous result coming back from the server later */
+        subscription.unsubscribe();
+      }
+      subscription = this.service.search(searchOptions).filter((rd) => !rd.isLoading).first().subscribe((results) => this.resultsRD$.next(results))
+    });
+    this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       flatMap((scopeId) => this.service.getScopes(scopeId))
     );
   }

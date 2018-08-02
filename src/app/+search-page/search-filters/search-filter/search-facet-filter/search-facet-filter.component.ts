@@ -82,14 +82,18 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.filterValues$ = new BehaviorSubject(new RemoteData(true, false, undefined, undefined, undefined));
     this.currentPage = this.getCurrentPage().distinctUntilChanged();
     this.selectedValues = this.filterService.getSelectedValuesForFilter(this.filterConfig);
-    const searchOptions = this.searchConfigService.getSearchOptions().distinctUntilChanged();
-    this.subs.push(searchOptions.subscribe((options) => this.updateFilterValueList()));
-
+    const searchOptions = this.searchConfigService.searchOptions;
+    this.subs.push(this.searchConfigService.searchOptions.subscribe(() => this.updateFilterValueList()));
     const facetValues = Observable.combineLatest(searchOptions, this.currentPage, (options, page) => {
-      return {
-        values: this.searchService.getFacetValuesFor(this.filterConfig, page, options),
-        page: page
-      };
+      return { options, page }
+    }).switchMap(({ options, page }) => {
+      return this.searchService.getFacetValuesFor(this.filterConfig, page, options).map((results) => {
+          return {
+            values: Observable.of(results),
+            page: page
+          };
+        }
+      );
     });
     let filterValues = [];
     this.subs.push(facetValues.subscribe((facetOutcome) => {
@@ -242,7 +246,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   findSuggestions(data): void {
     if (isNotEmpty(data)) {
-      this.searchConfigService.getSearchOptions().first().subscribe(
+      this.searchConfigService.searchOptions.first().subscribe(
         (options) => {
           this.filterSearchResults = this.searchService.getFacetValuesFor(this.filterConfig, 1, options, data.toLowerCase())
             .first()

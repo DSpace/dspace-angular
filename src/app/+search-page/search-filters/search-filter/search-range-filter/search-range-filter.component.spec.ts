@@ -74,7 +74,7 @@ describe('SearchRangeFilterComponent', () => {
         { provide: RemoteDataBuildService, useValue: {aggregate: () => Observable.of({})} },
         { provide: RouteService, useValue: {getQueryParameterValue: () => Observable.of({})} },
         { provide: SearchConfigurationService, useValue: {
-            getSearchOptions: () => Observable.of({}) }
+            searchOptions: Observable.of({}) }
         },
         {
           provide: SearchFilterService, useValue: {

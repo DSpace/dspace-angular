@@ -38,7 +38,7 @@ export class SearchSettingsComponent implements OnInit {
    * Initialize paginated search options
    */
   ngOnInit(): void {
-    this.searchOptions$ = this.searchConfigurationService.getPaginatedSearchOptions();
+    this.searchOptions$ = this.searchConfigurationService.paginatedSearchOptions;
   }
 
   /**
@@ -50,6 +50,7 @@ export class SearchSettingsComponent implements OnInit {
     const navigationExtras: NavigationExtras = {
       queryParams: {
         pageSize: value,
+        page: 1
       },
       queryParamsHandling: 'merge'
     };
@@ -65,7 +66,8 @@ export class SearchSettingsComponent implements OnInit {
     const navigationExtras: NavigationExtras = {
       queryParams: {
         sortDirection: values[1],
-        sortField: values[0]
+        sortField: values[0],
+        page: 1
       },
       queryParamsHandling: 'merge'
     };

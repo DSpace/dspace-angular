@@ -73,15 +73,14 @@ describe('SearchSettingsComponent', () => {
         },
         {
           provide: SearchConfigurationService,
-          useValue: jasmine.createSpyObj('SearchConfigurationService', {
-            getPaginatedSearchOptions: hot('a', {
+          useValue: {
+            paginatedSearchOptions: hot('a', {
               a: paginatedSearchOptions
             }),
             getCurrentScope: hot('a', {
               a: 'test-id'
             }),
-
-          })
+          }
         },
       ],
       schemas: [NO_ERRORS_SCHEMA]

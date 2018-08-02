@@ -17,6 +17,7 @@ export class RouteService {
   }
 
   getQueryParameterValue(paramName: string): Observable<string> {
+    this.route.queryParamMap.map((map) => map.get(paramName)).distinctUntilChanged().subscribe((t) => console.log('paramName: ' + paramName + 'values: ' + t));
     return this.route.queryParamMap.map((map) => map.get(paramName)).distinctUntilChanged();
   }
 
@@ -38,6 +39,7 @@ export class RouteService {
               params[key] = [...map.getAll(key)];
             });
           return params;
-        }).distinctUntilChanged();
+        })
+      .distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b));
   }
 }

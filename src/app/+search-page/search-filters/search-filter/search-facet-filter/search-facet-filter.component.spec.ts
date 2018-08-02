@@ -66,7 +66,7 @@ describe('SearchFacetFilterComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         { provide: RemoteDataBuildService, useValue: {aggregate: () => Observable.of({})} },
-        { provide: SearchConfigurationService, useValue: {getSearchOptions: () => Observable.of({})} },
+        { provide: SearchConfigurationService, useValue: {searchOptions: Observable.of({})} },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => Observable.of(selectedValues),

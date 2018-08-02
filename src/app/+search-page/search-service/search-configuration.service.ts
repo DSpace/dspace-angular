@@ -5,53 +5,73 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { RouteService } from '../../shared/services/route.service';
 import { hasNoValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
  */
 @Injectable()
-export class SearchConfigurationService {
-  private defaultPagination = { id: 'search-page-configuration', pageSize: 10 };
+export class SearchConfigurationService implements OnDestroy {
+  private defaultPagination = Object.assign(new PaginationComponentOptions(), { id: 'search-page-configuration', pageSize: 10, currentPage: 1 });
 
   private defaultSort = new SortOptions('score', SortDirection.DESC);
 
   private defaultScope = '';
 
+  private defaultQuery = '';
+
   private _defaults;
+
+  public searchOptions: BehaviorSubject<SearchOptions>;
+  public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions>;
+  private subs: Subscription[] = new Array();
 
   constructor(private routeService: RouteService,
               private route: ActivatedRoute) {
+    this.defaults.first().subscribe((defRD) => {
+        const defs = defRD.payload;
+        this.paginatedSearchOptions = new BehaviorSubject<SearchOptions>(defs);
+        this.searchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
 
+        this.subs.push(this.subscribeToSearchOptions(defs));
+        this.subs.push(this.subscribeToPaginatedSearchOptions(defs));
+      }
+    )
   }
 
   /**
    * @returns {Observable<string>} Emits the current scope's identifier
    */
-  getCurrentScope() {
-    return this.routeService.getQueryParameterValue('scope');
+  getCurrentScope(defaultScope: string) {
+    return this.routeService.getQueryParameterValue('scope').map((scope) => {
+      return scope || defaultScope;
+    });
   }
 
   /**
    * @returns {Observable<string>} Emits the current query string
    */
-  getCurrentQuery() {
-    return this.routeService.getQueryParameterValue('query');
+  getCurrentQuery(defaultQuery: string) {
+    return this.routeService.getQueryParameterValue('query').map((query) => {
+      return query || defaultQuery;
+    });
   }
 
   /**
    * @returns {Observable<string>} Emits the current pagination settings
    */
-  getCurrentPagination(pagination: any = {}): Observable<PaginationComponentOptions> {
+  getCurrentPagination(defaultPagination: PaginationComponentOptions): Observable<PaginationComponentOptions> {
     const page$ = this.routeService.getQueryParameterValue('page');
     const size$ = this.routeService.getQueryParameterValue('pageSize');
     return Observable.combineLatest(page$, size$, (page, size) => {
-      return Object.assign(new PaginationComponentOptions(), pagination, {
-        currentPage: page || 1,
-        pageSize: size || pagination.pageSize
+      return Object.assign(new PaginationComponentOptions(), defaultPagination, {
+        currentPage: page || defaultPagination.currentPage,
+        pageSize: size || defaultPagination.pageSize
       });
     });
   }
@@ -70,7 +90,7 @@ export class SearchConfigurationService {
         const direction = SortDirection[sortDirection] || defaultSort.direction;
         return new SortOptions(field, direction)
       }
-    );
+    )
   }
 
   /**
@@ -98,77 +118,106 @@ export class SearchConfigurationService {
     });
   }
 
-  /**
+    /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are displayed in the frontend URL
    */
   getCurrentFrontendFilters(): Observable<Params> {
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
-  /**
-   * @param defaults The default values for the search options, that will be used if nothing is explicitly set
-   * @returns {Observable<PaginatedSearchOptions>} Emits the current paginated search options
-   */
-  getPaginatedSearchOptions(defaults: Observable<RemoteData<any>> = this.defaults): Observable<PaginatedSearchOptions> {
-    return defaults.flatMap((defaultConfig) => {
-      const defaultValues = defaultConfig.payload;
-      return Observable.combineLatest(
-        this.getCurrentPagination(defaultValues.pagination),
-        this.getCurrentSort(defaultValues.sort),
-        this.getCurrentScope(),
-        this.getCurrentQuery(),
-        this.getCurrentFilters()).pipe(
-        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-        map(([pagination, sort, scope, query, filters]) => {
-          return Object.assign(new PaginatedSearchOptions(),
-            defaults,
-            {
-              pagination: pagination,
-              sort: sort,
-              scope: scope || defaultValues.scope,
-              query: query,
-              filters: filters
-            })
-        })
-      )
+  subscribeToSearchOptions(defaults: SearchOptions): Subscription {
+    console.log('scope: ', this.getScopePart(defaults.scope));
+    console.log('query: ', this.getQueryPart(defaults.query));
+    console.log('filters: ', this.getFiltersPart());
+    this.getScopePart(defaults.scope).subscribe((y) => console.log('scope: ' + JSON.stringify(y)));
+    this.getQueryPart(defaults.query).subscribe((y) => console.log('query: ' + JSON.stringify(y)));
+    this.getFiltersPart().subscribe((y) => console.log('filters: ' + JSON.stringify(y)));
+    return Observable.merge(
+      this.getScopePart(defaults.scope),
+      this.getQueryPart(defaults.query),
+      this.getFiltersPart()
+    ).subscribe((update) => {
+      const currentValue: SearchOptions = this.searchOptions.getValue();
+      const updatedValue: SearchOptions = Object.assign(new SearchOptions(), currentValue, update);
+      this.searchOptions.next(updatedValue);
     });
   }
 
-  /**
-   * @param defaults The default values for the search options, that will be used if nothing is explicitly set
-   * @returns {Observable<PaginatedSearchOptions>} Emits the current search options
-   */
-  getSearchOptions(defaults: Observable<RemoteData<any>> = this.defaults): Observable<SearchOptions> {
-    return defaults.flatMap((defaultConfig) => {
-      const defaultValues = defaultConfig.payload;
-      return Observable.combineLatest(
-        this.getCurrentScope(),
-        this.getCurrentQuery(),
-        this.getCurrentFilters(),
-        (scope, query, filters) => {
-          return Object.assign(new SearchOptions(),
-            {
-              scope: scope || defaultValues.scope,
-              query: query,
-              filters: filters
-            })
-        }
-      )
+  subscribeToPaginatedSearchOptions(defaults: PaginatedSearchOptions): Subscription {
+    return Observable.merge(
+      this.getPaginationPart(defaults.pagination),
+      this.getSortPart(defaults.sort),
+      this.getScopePart(defaults.scope),
+      this.getQueryPart(defaults.query),
+      this.getFiltersPart()
+    ).subscribe((update) => {
+      const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
+      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions(), currentValue, update);
+      this.paginatedSearchOptions.next(updatedValue);
     });
   }
 
   /**
    * Default values for the Search Options
    */
-  get defaults() {
+  get defaults(): Observable<RemoteData<PaginatedSearchOptions>> {
     if (hasNoValue(this._defaults)) {
-      const options = {
+      const options = Object.assign(new PaginatedSearchOptions(), {
         pagination: this.defaultPagination,
         sort: this.defaultSort,
-        scope: this.defaultScope
-      };
+        scope: this.defaultScope,
+        query: this.defaultQuery
+      });
       this._defaults = Observable.of(new RemoteData(false, false, true, null, options));
     }
     return this._defaults;
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((sub) => {
+      sub.unsubscribe();
+    });
+  }
+
+   getScopePart(defaultScope: string): Observable<any> {
+    return this.getCurrentScope(defaultScope).map((scope) => {
+      return { scope }
+    });
+  }
+
+  /**
+   * @returns {Observable<string>} Emits the current query string
+   */
+   getQueryPart(defaultQuery: string): Observable<any> {
+    return this.getCurrentQuery(defaultQuery).map((query) => {
+      return { query }
+    });
+  }
+
+  /**
+   * @returns {Observable<string>} Emits the current pagination settings
+   */
+   getPaginationPart(defaultPagination: PaginationComponentOptions): Observable<any> {
+    return this.getCurrentPagination(defaultPagination).map((pagination) => {
+      return { pagination }
+    });
+  }
+
+  /**
+   * @returns {Observable<string>} Emits the current sorting settings
+   */
+   getSortPart(defaultSort: SortOptions): Observable<any> {
+    return this.getCurrentSort(defaultSort).map((sort) => {
+      return { sort }
+    });
+  }
+
+  /**
+   * @returns {Observable<Params>} Emits the current active filters with their values as they are sent to the backend
+   */
+   getFiltersPart(): Observable<any> {
+    return this.getCurrentFilters().map((filters) => {
+      return { filters }
+    });
   }
 }
