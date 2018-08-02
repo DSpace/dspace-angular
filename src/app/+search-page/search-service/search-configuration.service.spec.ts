@@ -1,13 +1,11 @@
 import { SearchConfigurationService } from './search-configuration.service';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
-import { RemoteData } from '../../core/data/remote-data';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { cold, hot } from 'jasmine-marbles';
+import { Observable } from 'rxjs/Observable';
 
-fdescribe('SearchConfigurationService', () => {
+describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;
   const value1 = 'random value';
   const value2 = 'another value';
@@ -25,8 +23,8 @@ fdescribe('SearchConfigurationService', () => {
   const backendFilters = { 'f.author': ['another value'], 'f.date': ['[2013 TO 2018]'] };
 
   const spy = jasmine.createSpyObj('RouteService', {
-    getQueryParameterValue: cold('a', {a: [value1, value2]}),
-    getQueryParamsWithPrefix: cold('a', {a: prefixFilter}),
+    getQueryParameterValue: Observable.of([value1, value2]),
+    getQueryParamsWithPrefix: Observable.of(prefixFilter)
   });
 
   const activatedRoute: any = new ActivatedRouteStub();
@@ -97,38 +95,39 @@ fdescribe('SearchConfigurationService', () => {
       expect((service as any).routeService.getQueryParameterValue).toHaveBeenCalledWith('pageSize');
     });
   });
-  fdescribe('when updateSearchOptions or updatePaginatedSearchOptions is called', () => {
+  describe('when subscribeToSearchOptions or subscribeToPaginatedSearchOptions is called', () => {
     beforeEach(() => {
-      spyOn(service, 'getPaginationPart');
-      spyOn(service, 'getSortPart');
-      spyOn(service, 'getScopePart');
-      spyOn(service, 'getQueryPart');
-      spyOn(service, 'getFiltersPart');
+      spyOn(service, 'getCurrentPagination').and.callThrough();
+      spyOn(service, 'getCurrentSort').and.callThrough();
+      spyOn(service, 'getCurrentScope').and.callThrough();
+      spyOn(service, 'getCurrentQuery').and.callThrough();
+      spyOn(service, 'getCurrentFilters').and.callThrough();
     });
-    describe('when getPaginatedSearchOptions is called', () => {
+
+    describe('when subscribeToSearchOptions is called', () => {
       beforeEach(() => {
-        service.subscribeToSearchOptions(defaults);
+        service.subscribeToSearchOptions(defaults)
+      });
+      it('should call all getters it needs, but not call any others', () => {
+        expect(service.getCurrentPagination).not.toHaveBeenCalled();
+        expect(service.getCurrentSort).not.toHaveBeenCalled();
+        expect(service.getCurrentScope).toHaveBeenCalled();
+        expect(service.getCurrentQuery).toHaveBeenCalled();
+        expect(service.getCurrentFilters).toHaveBeenCalled();
+      });
+    });
+
+    describe('when subscribeToPaginatedSearchOptions is called', () => {
+      beforeEach(() => {
+        service.subscribeToPaginatedSearchOptions(defaults);
       });
       it('should call all getters it needs', () => {
-
-            // expect(service.getCurrentPagination).toHaveBeenCalled();
-            // expect(service.getCurrentSort).toHaveBeenCalled();
-            expect(service.getScopePart).toHaveBeenCalled();
-            expect(service.getQueryPart).toHaveBeenCalled();
-            expect(service.getFiltersPart).toHaveBeenCalled();
+        expect(service.getCurrentPagination).toHaveBeenCalled();
+        expect(service.getCurrentSort).toHaveBeenCalled();
+        expect(service.getCurrentScope).toHaveBeenCalled();
+        expect(service.getCurrentQuery).toHaveBeenCalled();
+        expect(service.getCurrentFilters).toHaveBeenCalled();
       });
     });
-    // describe('when searchOptions is called', () => {
-    //   beforeEach(() => {
-    //     service.searchOptions;
-    //   });
-    //   it('should call all getters it needs', () => {
-    //     expect(service.getCurrentPagination).not.toHaveBeenCalled();
-    //     expect(service.getCurrentSort).not.toHaveBeenCalled();
-    //     expect(service.getCurrentScope).toHaveBeenCalled();
-    //     expect(service.getCurrentQuery).toHaveBeenCalled();
-    //     expect(service.getCurrentFilters).toHaveBeenCalled(); 
-    //   });
-    // });
   });
 });

@@ -77,14 +77,11 @@ export class SearchPageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
-    let subscription;
-    this.sub = this.searchOptions$.subscribe((searchOptions) => {
-      if (hasValue(subscription)) {
-        /** Make sure no race condition is possible with a previous result coming back from the server later */
-        subscription.unsubscribe();
-      }
-      subscription = this.service.search(searchOptions).filter((rd) => !rd.isLoading).first().subscribe((results) => this.resultsRD$.next(results))
-    });
+    this.sub = this.searchOptions$
+      .switchMap((options) => this.service.search(options).filter((rd) => !rd.isLoading).first())
+      .subscribe((results) => {
+        this.resultsRD$.next(results);
+      });
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       flatMap((scopeId) => this.service.getScopes(scopeId))
     );

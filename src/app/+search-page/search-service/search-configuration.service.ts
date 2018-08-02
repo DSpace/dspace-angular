@@ -1,7 +1,6 @@
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
-import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
@@ -17,7 +16,11 @@ import { Subscription } from 'rxjs/Subscription';
  */
 @Injectable()
 export class SearchConfigurationService implements OnDestroy {
-  private defaultPagination = Object.assign(new PaginationComponentOptions(), { id: 'search-page-configuration', pageSize: 10, currentPage: 1 });
+  private defaultPagination = Object.assign(new PaginationComponentOptions(), {
+    id: 'search-page-configuration',
+    pageSize: 10,
+    currentPage: 1
+  });
 
   private defaultSort = new SortOptions('score', SortDirection.DESC);
 
@@ -118,7 +121,7 @@ export class SearchConfigurationService implements OnDestroy {
     });
   }
 
-    /**
+  /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are displayed in the frontend URL
    */
   getCurrentFrontendFilters(): Observable<Params> {
@@ -126,12 +129,6 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   subscribeToSearchOptions(defaults: SearchOptions): Subscription {
-    console.log('scope: ', this.getScopePart(defaults.scope));
-    console.log('query: ', this.getQueryPart(defaults.query));
-    console.log('filters: ', this.getFiltersPart());
-    this.getScopePart(defaults.scope).subscribe((y) => console.log('scope: ' + JSON.stringify(y)));
-    this.getQueryPart(defaults.query).subscribe((y) => console.log('query: ' + JSON.stringify(y)));
-    this.getFiltersPart().subscribe((y) => console.log('filters: ' + JSON.stringify(y)));
     return Observable.merge(
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
@@ -179,7 +176,7 @@ export class SearchConfigurationService implements OnDestroy {
     });
   }
 
-   getScopePart(defaultScope: string): Observable<any> {
+  private getScopePart(defaultScope: string): Observable<any> {
     return this.getCurrentScope(defaultScope).map((scope) => {
       return { scope }
     });
@@ -188,7 +185,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current query string
    */
-   getQueryPart(defaultQuery: string): Observable<any> {
+  private getQueryPart(defaultQuery: string): Observable<any> {
     return this.getCurrentQuery(defaultQuery).map((query) => {
       return { query }
     });
@@ -197,7 +194,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current pagination settings
    */
-   getPaginationPart(defaultPagination: PaginationComponentOptions): Observable<any> {
+  private getPaginationPart(defaultPagination: PaginationComponentOptions): Observable<any> {
     return this.getCurrentPagination(defaultPagination).map((pagination) => {
       return { pagination }
     });
@@ -206,7 +203,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<string>} Emits the current sorting settings
    */
-   getSortPart(defaultSort: SortOptions): Observable<any> {
+  private getSortPart(defaultSort: SortOptions): Observable<any> {
     return this.getCurrentSort(defaultSort).map((sort) => {
       return { sort }
     });
@@ -215,7 +212,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are sent to the backend
    */
-   getFiltersPart(): Observable<any> {
+  private getFiltersPart(): Observable<any> {
     return this.getCurrentFilters().map((filters) => {
       return { filters }
     });
