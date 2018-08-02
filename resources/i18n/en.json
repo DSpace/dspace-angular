@@ -220,7 +220,28 @@
     "recent-submissions": "Error fetching recent submissions",
     "item": "Error fetching item",
     "objects": "Error fetching objects",
-    "search-results": "Error fetching search results"
+    "search-results": "Error fetching search results",
+    "validation": {
+      "pattern": "This input is restricted by the current pattern: {{ pattern }}.",
+      "license": {
+        "notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission."
+      }
+    }
+  },
+  "form": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "search": "Search",
+    "remove": "Remove",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "loading": "Loading...",
+    "no-results": "No results found",
+    "no-value": "No value entered",
+    "group-collapse": "Collapse",
+    "group-expand": "Expand",
+    "group-collapse-help": "Click here to collapse",
+    "group-expand-help": "Click here to expand and add more element"
   },
   "login": {
     "title": "Login",

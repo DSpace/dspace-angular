@@ -1,0 +1,46 @@
+<ng-template #rt let-r="result" let-t="term">
+  {{ r.display }}
+</ng-template>
+
+
+  <ds-chips [chips]="chips" [wrapperClass]="'border-bottom border-light'">
+
+  <input *ngIf="!searchOptions"
+         class="border-0 form-control-plaintext tag-input flex-grow-1 mt-1 mb-1 chips-sort-ignore"
+         type="text"
+         [class.pl-3]="chips.hasItems()"
+         [placeholder]="model.placeholder"
+         [readonly]="model.readOnly"
+         [(ngModel)]="currentValue"
+         (blur)="onBlur($event)"
+         (keypress)="preventEventsPropagation($event)"
+         (keydown)="preventEventsPropagation($event)"
+         (keyup)="onKeyUp($event)" />
+
+
+  <input *ngIf="searchOptions"
+         class="border-0 form-control-plaintext tag-input flex-grow-1 mt-1 mb-1 chips-sort-ignore"
+         type="text"
+         [(ngModel)]="currentValue"
+         [attr.autoComplete]="model.autoComplete"
+         [class.is-invalid]="showErrorMessages"
+         [class.pl-3]="chips.hasItems()"
+         [dynamicId]="bindId && model.id"
+         [inputFormatter]="formatter"
+         [name]="model.name"
+         [ngbTypeahead]="search"
+         [placeholder]="model.placeholder"
+         [readonly]="model.readOnly"
+         [resultTemplate]="rt"
+         [type]="model.inputType"
+         (blur)="onBlur($event)"
+         (focus)="onFocus($event)"
+         (change)="$event.stopPropagation()"
+         (input)="onInput($event)"
+         (selectItem)="onSelectItem($event)"
+         (keypress)="preventEventsPropagation($event)"
+         (keydown)="preventEventsPropagation($event)"
+         (keyup)="onKeyUp($event)"/>
+    <i *ngIf="searching" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></i>
+  </ds-chips>
+

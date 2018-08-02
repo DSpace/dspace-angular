@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
@@ -23,6 +24,8 @@ import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { PIDService } from './data/pid.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
+import { FormBuilderService } from '../shared/form/builder/form-builder.service';
+import { FormService } from '../shared/form/form.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ItemDataService } from './data/item-data.service';
 import { MetadataService } from './metadata/metadata.service';
@@ -41,6 +44,8 @@ import { RouteService } from '../shared/services/route.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
+import { AuthorityService } from './integration/authority.service';
+import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
 import { UUIDService } from './shared/uuid.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthRequestService } from './auth/auth-request.service';
@@ -57,6 +62,7 @@ import { MetadataschemaParsingService } from './data/metadataschema-parsing.serv
 import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { UploaderService } from '../shared/uploader/uploader.service';
 
 const IMPORTS = [
   CommonModule,
@@ -81,6 +87,11 @@ const PROVIDERS = [
   CollectionDataService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
+  DynamicFormLayoutService,
+  DynamicFormService,
+  DynamicFormValidationService,
+  FormBuilderService,
+  FormService,
   HALEndpointService,
   HostWindowService,
   ItemDataService,
@@ -110,6 +121,9 @@ const PROVIDERS = [
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionSectionsConfigService,
+  AuthorityService,
+  IntegrationResponseParsingService,
+  UploaderService,
   UUIDService,
   PIDService,
   // register AuthInterceptor as HttpInterceptor

@@ -1,10 +1,14 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
 import { ConfigObject } from './config.model';
+import { FormFieldModel } from '../../../shared/form/builder/models/form-field.model';
+
+export interface FormRowModel {
+  fields: FormFieldModel[];
+}
 
 @inheritSerialization(ConfigObject)
 export class SubmissionFormsModel extends ConfigObject {
 
   @autoserialize
-  fields: any[];
-
+  rows: FormRowModel[];
 }

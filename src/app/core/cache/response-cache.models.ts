@@ -4,6 +4,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../shared/config/config.model';
 import { FacetValue } from '../../+search-page/search-service/facet-value.model';
 import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
+import { IntegrationModel } from '../integration/models/integration.model';
 import { RegistryMetadataschemasResponse } from '../registry/registry-metadataschemas-response.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
@@ -13,10 +14,12 @@ import { AuthStatus } from '../auth/models/auth-status.model';
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
   public toCache = true;
+
   constructor(
     public isSuccessful: boolean,
     public statusCode: string,
-  ) { }
+  ) {
+  }
 }
 
 export class DSOSuccessResponse extends RestResponse {
@@ -154,9 +157,20 @@ export class ConfigSuccessResponse extends RestResponse {
 
 export class AuthStatusResponse extends RestResponse {
   public toCache = false;
+
   constructor(
     public response: AuthStatus,
     public statusCode: string
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class IntegrationSuccessResponse extends RestResponse {
+  constructor(
+    public dataDefinition: IntegrationModel[],
+    public statusCode: string,
+    public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
   }

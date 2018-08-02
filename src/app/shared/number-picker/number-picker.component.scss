@@ -1,0 +1,25 @@
+:host {
+  outline: none;
+}
+
+.chevron::before {
+  border-style: solid;
+  border-width: 0.29em 0.29em 0 0;
+  content: '';
+  display: inline-block;
+  height: 0.69em;
+  left: 0.05em;
+  position: relative;
+  top: 0.15em;
+  transform: rotate(-45deg);
+  vertical-align: middle;
+  width: 0.71em;
+}
+.chevron.bottom:before {
+  top: -.3em;
+  transform: rotate(135deg);
+}
+
+input {
+  max-width: 80px !important;
+}
