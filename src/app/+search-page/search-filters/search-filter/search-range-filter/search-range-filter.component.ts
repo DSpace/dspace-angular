@@ -141,4 +141,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       this.sub.unsubscribe();
     }
   }
+
+  out(call) {
+    console.log(call);
+  }
 }

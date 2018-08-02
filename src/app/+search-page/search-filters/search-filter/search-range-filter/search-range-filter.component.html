@@ -19,8 +19,7 @@
 
         <ng-container *ngIf="shouldShowSlider()">
             <nouislider [connect]="true" [min]="min" [max]="max" [step]="1"
-                        [(ngModel)]="range" (end)="onSubmit()"
-                        ngDefaultControl></nouislider>
+                        [(ngModel)]="range" (change)="onSubmit()" ngDefaultControl></nouislider>
 
         </ng-container>
       <ng-container *ngFor="let page of (filterValues$ | async)?.payload">

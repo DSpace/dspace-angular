@@ -146,7 +146,10 @@
           "head": "Date"
         },
         "has_content_in_original_bundle": {
-          "placeholder": "Has files",
+          "value": {
+            "false": "No",
+            "true": "Yes"
+          },
           "head": "Has files"
         }
       }
