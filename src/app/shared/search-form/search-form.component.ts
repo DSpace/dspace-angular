@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
-import { isNotEmpty, hasValue, isEmpty, hasNoValue } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
 import { QueryParamsHandling } from '@angular/router/src/config';
 
 /**

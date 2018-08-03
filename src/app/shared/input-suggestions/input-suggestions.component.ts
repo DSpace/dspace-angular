@@ -81,6 +81,11 @@ export class InputSuggestionsComponent {
   selectedIndex = -1;
 
   /**
+   * True when the dropdown should not reopen
+   */
+  blockReopen = false;
+
+  /**
    * Reference to the input field component
    */
   @ViewChild('inputField') queryInput: ElementRef;
@@ -162,13 +167,25 @@ export class InputSuggestionsComponent {
   }
 
   /**
-   * Make sure that if a suggestion is clicked, the suggestions dropdown closes and the focus moves to the input field
+   * Make sure that if a suggestion is clicked, the suggestions dropdown closes, does not reopen and the focus moves to the input field
    */
   onClickSuggestion(data) {
     this.clickSuggestion.emit(data);
     this.close();
+    this.blockReopen = true;
     this.queryInput.nativeElement.focus();
     return false;
+  }
+
+  /**
+   * Finds new suggestions when necessary
+   * @param data The query value to emit
+   */
+  find(data) {
+    if (!this.blockReopen) {
+      this.findSuggestions.emit(data);
+    }
+    this.blockReopen = false;
   }
 
 }

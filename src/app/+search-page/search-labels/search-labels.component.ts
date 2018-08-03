@@ -8,6 +8,7 @@ import { SearchConfigurationService } from '../search-service/search-configurati
 
 @Component({
   selector: 'ds-search-labels',
+  styleUrls: ['./search-labels.component.scss'],
   templateUrl: './search-labels.component.html',
 })
 

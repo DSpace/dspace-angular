@@ -24,6 +24,12 @@ describe('SearchFiltersComponent', () => {
     }
     /* tslint:enable:no-empty */
   };
+
+  const searchFiltersStub = {
+    getSelectedValuesForFilter: (filter) =>
+      []
+  };
+
   const searchConfigServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
     getCurrentFrontendFilters: Observable.of({})
   });
@@ -35,6 +41,7 @@ describe('SearchFiltersComponent', () => {
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+        { provide: SearchFilterService, useValue: searchFiltersStub },
 
       ],
       schemas: [NO_ERRORS_SCHEMA]

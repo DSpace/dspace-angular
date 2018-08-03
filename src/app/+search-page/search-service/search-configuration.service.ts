@@ -16,24 +16,55 @@ import { Subscription } from 'rxjs/Subscription';
  */
 @Injectable()
 export class SearchConfigurationService implements OnDestroy {
+  /**
+   * Default pagination settings
+   */
   private defaultPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
     currentPage: 1
   });
 
+  /**
+   * Default sort settings
+   */
   private defaultSort = new SortOptions('score', SortDirection.DESC);
 
+  /**
+   * Default scope setting
+   */
   private defaultScope = '';
 
+  /**
+   * Default query setting
+   */
   private defaultQuery = '';
 
-  private _defaults;
+  /**
+   * Emits the current default values
+   */
+  private _defaults: Observable<RemoteData<PaginatedSearchOptions>>;
 
+  /**
+   * Emits the current search options
+   */
   public searchOptions: BehaviorSubject<SearchOptions>;
+
+  /**
+   * Emits the current search options including pagination and sort
+   */
   public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions>;
+
+  /**
+   * List of subscriptions to unsubscribe from on destroy
+   */
   private subs: Subscription[] = new Array();
 
+  /**
+   * Initialize the search options
+   * @param {RouteService} routeService
+   * @param {ActivatedRoute} route
+   */
   constructor(private routeService: RouteService,
               private route: ActivatedRoute) {
     this.defaults.first().subscribe((defRD) => {
@@ -128,6 +159,11 @@ export class SearchConfigurationService implements OnDestroy {
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
+  /**
+   * Sets up a subscription to all necessary parameters to make sure the searchOptions emits a new value every time they update
+   * @param {SearchOptions} defaults Default values for when no parameters are available
+   * @returns {Subscription} The subscription to unsubscribe from
+   */
   subscribeToSearchOptions(defaults: SearchOptions): Subscription {
     return Observable.merge(
       this.getScopePart(defaults.scope),
@@ -140,6 +176,11 @@ export class SearchConfigurationService implements OnDestroy {
     });
   }
 
+  /**
+   * Sets up a subscription to all necessary parameters to make sure the paginatedSearchOptions emits a new value every time they update
+   * @param {PaginatedSearchOptions} defaults Default values for when no parameters are available
+   * @returns {Subscription} The subscription to unsubscribe from
+   */
   subscribeToPaginatedSearchOptions(defaults: PaginatedSearchOptions): Subscription {
     return Observable.merge(
       this.getPaginationPart(defaults.pagination),
@@ -170,12 +211,18 @@ export class SearchConfigurationService implements OnDestroy {
     return this._defaults;
   }
 
+  /**
+   * Make sure to unsubscribe from all existing subscription to prevent memory leaks
+   */
   ngOnDestroy(): void {
     this.subs.forEach((sub) => {
       sub.unsubscribe();
     });
   }
 
+  /**
+   * @returns {Observable<string>} Emits the current scope's identifier
+   */
   private getScopePart(defaultScope: string): Observable<any> {
     return this.getCurrentScope(defaultScope).map((scope) => {
       return { scope }
@@ -183,7 +230,7 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * @returns {Observable<string>} Emits the current query string
+   * @returns {Observable<string>} Emits the current query string as a partial SearchOptions object
    */
   private getQueryPart(defaultQuery: string): Observable<any> {
     return this.getCurrentQuery(defaultQuery).map((query) => {
@@ -192,7 +239,7 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * @returns {Observable<string>} Emits the current pagination settings
+   * @returns {Observable<string>} Emits the current pagination settings as a partial SearchOptions object
    */
   private getPaginationPart(defaultPagination: PaginationComponentOptions): Observable<any> {
     return this.getCurrentPagination(defaultPagination).map((pagination) => {
@@ -201,7 +248,7 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * @returns {Observable<string>} Emits the current sorting settings
+   * @returns {Observable<string>} Emits the current sorting settings as a partial SearchOptions object
    */
   private getSortPart(defaultSort: SortOptions): Observable<any> {
     return this.getCurrentSort(defaultSort).map((sort) => {
@@ -210,7 +257,7 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * @returns {Observable<Params>} Emits the current active filters with their values as they are sent to the backend
+   * @returns {Observable<Params>} Emits the current active filters as a partial SearchOptions object
    */
   private getFiltersPart(): Observable<any> {
     return this.getCurrentFilters().map((filters) => {

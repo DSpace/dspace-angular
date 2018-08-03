@@ -87,7 +87,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     const facetValues = Observable.combineLatest(searchOptions, this.currentPage, (options, page) => {
       return { options, page }
     }).switchMap(({ options, page }) => {
-      return this.searchService.getFacetValuesFor(this.filterConfig, page, options).map((results) => {
+      return this.searchService.getFacetValuesFor(this.filterConfig, page, options)
+        .first((RD) => !RD.isLoading).map((results) => {
           return {
             values: Observable.of(results),
             page: page

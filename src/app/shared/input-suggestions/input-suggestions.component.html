@@ -5,7 +5,7 @@
       (dsClickOutside)="close()">
     <input #inputField type="text" [(ngModel)]="ngModel" [name]="name"
            class="form-control suggestion_input"
-           [dsDebounce]="debounceTime" (onDebounce)="findSuggestions.emit($event)"
+           [dsDebounce]="debounceTime" (onDebounce)="find($event)"
            [placeholder]="placeholder"
            [ngModelOptions]="{standalone: true}" autocomplete="off"/>
     <input type="submit" class="d-none"/>

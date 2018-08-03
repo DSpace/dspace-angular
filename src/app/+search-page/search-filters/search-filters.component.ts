@@ -4,6 +4,8 @@ import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 import { Observable } from 'rxjs/Observable';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { isNotEmpty } from '../../shared/empty.util';
+import { SearchFilterService } from './search-filter/search-filter.service';
 
 @Component({
   selector: 'ds-search-filters',
@@ -30,10 +32,14 @@ export class SearchFiltersComponent {
    * Initialize instance variables
    * @param {SearchService} searchService
    * @param {SearchConfigurationService} searchConfigService
+   * @param {SearchFilterService} filterService
    */
-  constructor(private searchService: SearchService, private searchConfigService: SearchConfigurationService) {
-    this.filters = searchService.getConfig();
-    this.clearParams = searchConfigService.getCurrentFrontendFilters().map((filters) => {Object.keys(filters).forEach((f) => filters[f] = null); return filters;});
+  constructor(private searchService: SearchService, private searchConfigService: SearchConfigurationService, private filterService: SearchFilterService) {
+    this.filters = searchService.getConfig().first((RD) => !RD.isLoading);
+    this.clearParams = searchConfigService.getCurrentFrontendFilters().map((filters) => {
+      Object.keys(filters).forEach((f) => filters[f] = null);
+      return filters;
+    });
   }
 
   /**
@@ -41,5 +47,30 @@ export class SearchFiltersComponent {
    */
   getSearchLink() {
     return this.searchService.getSearchLink();
+  }
+
+  /**
+   * Check if a given filter is supposed to be shown or not
+   * @param {SearchFilterConfig} filter The filter to check for
+   * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
+   */
+  isActive(filter: SearchFilterConfig): Observable<boolean> {
+    // console.log(filter.name);
+    return this.filterService.getSelectedValuesForFilter(filter)
+      .flatMap((isActive) => {
+        if (isNotEmpty(isActive)) {
+          return Observable.of(true);
+        } else {
+          return this.searchConfigService.searchOptions
+            .switchMap((options) => {
+                return this.searchService.getFacetValuesFor(filter, 1, options)
+                  .filter((RD) => !RD.isLoading)
+                  .map((valuesRD) => {
+                    return valuesRD.payload.totalElements > 0
+                  })
+              }
+            )
+        }
+      }).startWith(true);
   }
 }
