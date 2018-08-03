@@ -35,7 +35,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (!!this.submissionId) {
-      this.submissionService.getSectionsState(this.submissionId)
+      this.submissionService.getSubmissionStatus(this.submissionId)
         .subscribe((isValid) => {
           this.submissionIsInvalid = isValid === false;
         });

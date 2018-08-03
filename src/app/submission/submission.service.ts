@@ -152,7 +152,7 @@ export class SubmissionService {
     return scope;
   }
 
-  getSectionsState(submissionId: string): Observable<boolean> {
+  getSubmissionStatus(submissionId: string): Observable<boolean> {
     return this.store.select(submissionSelector)
       .map((submissions: SubmissionState) => submissions.objects[submissionId])
       .filter((item) => isNotUndefined(item) && isNotUndefined(item.sections))
@@ -178,16 +178,14 @@ export class SubmissionService {
   }
 
   getSubmissionSaveProcessingStatus(submissionId: string): Observable<boolean> {
-    return this.store.select(submissionObjectFromIdSelector(submissionId))
-      .filter((state: SubmissionObjectEntry) => isNotUndefined(state))
+    return this.getSubmissionObject(submissionId)
       .map((state: SubmissionObjectEntry) => state.savePending)
       .distinctUntilChanged()
       .startWith(false);
   }
 
   getSubmissionDepositProcessingStatus(submissionId: string): Observable<boolean> {
-    return this.store.select(submissionObjectFromIdSelector(submissionId))
-      .filter((state: SubmissionObjectEntry) => isNotUndefined(state))
+    return this.getSubmissionObject(submissionId)
       .map((state: SubmissionObjectEntry) => state.depositPending)
       .distinctUntilChanged()
       .startWith(false);

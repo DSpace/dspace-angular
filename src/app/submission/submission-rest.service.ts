@@ -30,7 +30,6 @@ import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 @Injectable()
 export class SubmissionRestService {
   protected linkPath = 'workspaceitems';
-  protected overrideRequest = true;
 
   constructor(
     protected responseCache: ResponseCacheService,

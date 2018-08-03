@@ -45,7 +45,6 @@ export class RouteService {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(({urlAfterRedirects}: NavigationEnd) => {
         this.history = [...this.history, urlAfterRedirects];
-        console.log(this.history);
       });
   }
 
