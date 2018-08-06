@@ -44,8 +44,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     private metadata: MetadataService,
     private route: ActivatedRoute
   ) {
-    console.log('component');
-    console.log('Collections data:', this.route.snapshot.data);
+    // this.route.snapshot.data.subscribe((c) => console.log(c));
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
     this.paginationConfig.pageSize = 5;
@@ -54,6 +53,9 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.route.data.subscribe((data) => {
+      console.log('data.collection', data.collection.state, data.collection)
+    })
     this.subs.push(
       Observable.combineLatest(
         this.route.params,
