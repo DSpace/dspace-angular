@@ -44,6 +44,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     private metadata: MetadataService,
     private route: ActivatedRoute
   ) {
+    console.log('component');
+    console.log('Collections data:', this.route.snapshot.data);
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
     this.paginationConfig.pageSize = 5;
