@@ -149,19 +149,19 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
         .getUploadedFileList(this.submissionId, this.sectionData.id)
         .filter((bitstreamList) => isNotUndefined(bitstreamList))
         .distinctUntilChanged()
-        .subscribe((fileList) => {
+        .subscribe((fileList: any[]) => {
             let sectionStatus = false;
             this.fileList = [];
             this.fileIndexes = [];
             this.fileNames = [];
-            if (isNotUndefined(fileList) && Object.keys(fileList).length > 0) {
-              Object.keys(fileList)
-                .forEach((key) => {
-                  this.fileList.push(fileList[key]);
-                  this.fileIndexes.push(fileList[key].uuid);
-                  const fileName = fileList[key].metadata['dc.title'][0].display || fileList[key].uuid;
-                  this.fileNames.push(fileName);
-                });
+            this.changeDetectorRef.detectChanges();
+            if (isNotUndefined(fileList) && fileList.length > 0) {
+              fileList.forEach((file, index) => {
+                this.fileList.push(file);
+                this.fileIndexes.push(file.uuid);
+                const fileName = file.metadata['dc.title'][0].display || file.uuid;
+                this.fileNames.push(fileName);
+              });
               sectionStatus = true;
             }
             this.store.dispatch(new SectionStatusChangeAction(this.submissionId,

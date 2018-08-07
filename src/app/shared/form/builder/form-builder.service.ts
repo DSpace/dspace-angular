@@ -28,6 +28,7 @@ import { RowParser } from './parsers/row-parser';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
+import { isDateObject } from '../../date.util';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -108,7 +109,11 @@ export class FormBuilderService extends DynamicFormService {
       } else if (isObject(controlValue)) {
         const authority = controlValue.authority || controlValue.id || null;
         const place = controlModelIndex || controlValue.place;
-        return new FormFieldMetadataValueObject(controlValue.value, controlLanguage, authority, controlValue.display, place);
+        if (isDateObject(controlValue)) {
+          return new FormFieldMetadataValueObject(controlValue, controlLanguage, authority, controlValue, place);
+        } else {
+          return new FormFieldMetadataValueObject(controlValue.value, controlLanguage, authority, controlValue.display, place);
+        }
       }
     };
 

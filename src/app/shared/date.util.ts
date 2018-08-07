@@ -1,5 +1,12 @@
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
+import { isObject } from 'lodash';
+
+export function isDateObject(value) {
+  return isObject(value) && value.hasOwnProperty('day')
+    && value.hasOwnProperty('month')  && value.hasOwnProperty('year');
+}
+
 export function dateToGMTString(date: Date | NgbDateStruct) {
   let year = ((date instanceof Date) ? date.getFullYear() : date.year).toString();
   let month = ((date instanceof Date) ? date.getMonth() + 1 : date.month).toString();

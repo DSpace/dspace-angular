@@ -11,7 +11,7 @@ import {
   DiscardSubmissionErrorAction,
   DiscardSubmissionSuccessAction,
   InitSectionAction,
-  LoadSubmissionFormAction,
+  InitSubmissionFormAction,
   ResetSubmissionFormAction,
   SaveAndDepositSubmissionAction,
   SaveForLaterSubmissionFormAction,
@@ -53,8 +53,8 @@ import parseSectionErrors from '../utils/parseSectionErrors';
 export class SubmissionObjectEffects {
 
   @Effect() loadForm$ = this.actions$
-    .ofType(SubmissionObjectActionTypes.LOAD_SUBMISSION_FORM)
-    .map((action: LoadSubmissionFormAction) => {
+    .ofType(SubmissionObjectActionTypes.INIT_SUBMISSION_FORM)
+    .map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
       definition.sections.forEach((sectionDefinition: SubmissionSectionModel, index: number) => {
@@ -90,7 +90,7 @@ export class SubmissionObjectEffects {
   @Effect() resetForm$ = this.actions$
     .ofType(SubmissionObjectActionTypes.RESET_SUBMISSION_FORM)
     .map((action: ResetSubmissionFormAction) =>
-      new LoadSubmissionFormAction(
+      new InitSubmissionFormAction(
         action.payload.collectionId,
         action.payload.submissionId,
         action.payload.selfUrl,
@@ -331,7 +331,7 @@ export class SubmissionObjectEffects {
       });
 
     }
-    // mappedActions.push(new CompleteSaveSubmissionFormAction(submissionId));
+
     return mappedActions;
   }
 

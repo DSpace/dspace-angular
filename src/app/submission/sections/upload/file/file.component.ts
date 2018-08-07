@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SectionUploadService } from '../section-upload.service';
 import { isNotEmpty, isNotNull, isNotUndefined } from '../../../../shared/empty.util';
@@ -31,7 +31,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
   @Input() configMetadataForm: SubmissionFormsModel;
   @Input() fileId;
   @Input() fileIndex;
-  @Input() fileName
+  @Input() fileName;
   @Input() sectionId;
   @Input() submissionId;
 
@@ -138,15 +138,15 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
                   accessConditionsToSave.push(accessConditionOpt);
                 } else {
                   accessConditionOpt = Object.assign({}, accessCondition);
-                  accessConditionOpt.name = Array.isArray(accessCondition.name) ? accessCondition.name[0].value : accessCondition.name.value;
-                  accessConditionOpt.groupUUID = Array.isArray(accessCondition.groupUUID) ? accessCondition.groupUUID[0].value : accessCondition.groupUUID.value;
+                  accessConditionOpt.name = this.retrieveValueFromField(accessCondition.name);
+                  accessConditionOpt.groupUUID = this.retrieveValueFromField(accessCondition.groupUUID);
                   if (accessCondition.startDate) {
-                    const startDate = Array.isArray(accessCondition.startDate) ? accessCondition.startDate[0].value : accessCondition.startDate.value;
+                    const startDate = this.retrieveValueFromField(accessCondition.startDate);
                     accessConditionOpt.startDate = dateToGMTString(startDate);
                     accessConditionOpt = deleteProperty(accessConditionOpt, 'endDate');
                   }
                   if (accessCondition.endDate) {
-                    const endDate = Array.isArray(accessCondition.endDate) ? accessCondition.endDate[0].value : accessCondition.endDate.value;
+                    const endDate = this.retrieveValueFromField(accessCondition.endDate);
                     accessConditionOpt.endDate = dateToGMTString(endDate);
                     accessConditionOpt = deleteProperty(accessConditionOpt, 'startDate');
                   }
@@ -174,8 +174,14 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
     );
   }
 
+  private retrieveValueFromField(field) {
+    const temp = Array.isArray(field) ? field[0] : field;
+    return (temp) ? temp.value : undefined;
+  }
+
   public switchMode() {
     this.readMode = !this.readMode;
     this.cdr.detectChanges();
   }
+
 }

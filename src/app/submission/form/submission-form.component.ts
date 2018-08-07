@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChange
 import { Store } from '@ngrx/store';
 import {
   CancelSubmissionFormAction,
-  LoadSubmissionFormAction,
+  InitSubmissionFormAction,
   ResetSubmissionFormAction
 } from '../objects/submission-objects.actions';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
@@ -85,7 +85,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
-            this.store.dispatch(new LoadSubmissionFormAction(this.collectionId, this.submissionId, this.selfUrl, this.submissionDefinition, this.sections, null));
+            this.store.dispatch(new InitSubmissionFormAction(this.collectionId, this.submissionId, this.selfUrl, this.submissionDefinition, this.sections, null));
             this.changeDetectorRef.detectChanges();
           }),
 
@@ -132,8 +132,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   protected getSectionsList(): Observable<any> {
     return this.submissionService.getSubmissionSections(this.submissionId)
       .filter((sections: SectionDataObject[]) => isNotEmpty(sections))
-      .map((sections: SectionDataObject[]) => {
-        return sections;
-      });
+      .map((sections: SectionDataObject[]) => sections);
   }
 }

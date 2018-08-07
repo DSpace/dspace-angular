@@ -131,7 +131,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
             message: msg + e.toString(),
             path: '/sections/' + this.sectionData.id
           };
-          this.sectionService.setSectionError(this.submissionId, this.sectionData.id, [sectionError])
+          this.sectionService.setSectionError(this.submissionId, this.sectionData.id, sectionError);
         })
 
     }

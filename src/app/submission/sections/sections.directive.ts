@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { isEmpty, uniq } from 'lodash';
+import { uniq } from 'lodash';
 
 import { SectionsService } from './sections.service';
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
@@ -12,7 +12,7 @@ import { SubmissionState } from '../submission.reducers';
 import { SubmissionSectionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import {
-  DeleteSectionErrorsAction,
+  RemoveSectionErrorsAction,
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from '../objects/submission-objects.actions';
@@ -143,12 +143,9 @@ export class SectionsDirective implements OnDestroy, OnInit {
   }
 
   public resetErrors() {
-    this.sectionErrors
-      .forEach((errorItem) => {
-        // because it has been deleted, remove the error from the state
-        const removeAction = new DeleteSectionErrorsAction(this.submissionId, this.sectionId, errorItem);
-        this.store.dispatch(removeAction);
-      })
+    if (isNotEmpty(this.sectionErrors)) {
+      this.store.dispatch(new RemoveSectionErrorsAction(this.submissionId, this.sectionId));
+    }
     this.sectionErrors = [];
 
   }

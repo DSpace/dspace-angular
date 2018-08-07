@@ -7,10 +7,9 @@ import { isEqual } from 'lodash';
 
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import {
-  DeleteSectionErrorsAction,
   DisableSectionAction,
   EnableSectionAction,
-  InertSectionErrorsAction,
+  InertSectionErrorsAction, RemoveSectionErrorsAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
 import {
@@ -37,7 +36,7 @@ export class SectionsService {
 
   public checkSectionErrors(submissionId, sectionId, formId, currentErrors, prevErrors = []) {
     if (isEmpty(currentErrors)) {
-      this.store.dispatch(new DeleteSectionErrorsAction(submissionId, sectionId, currentErrors));
+      this.store.dispatch(new RemoveSectionErrorsAction(submissionId, sectionId));
       this.store.dispatch(new FormClearErrorsAction(formId));
     } else if (!isEqual(currentErrors, prevErrors)) {
       const dispatchedErrors = [];
@@ -148,7 +147,7 @@ export class SectionsService {
     }
   }
 
-  public setSectionError(submissionId: string, sectionId: string, errors: SubmissionSectionError[]) {
-    this.store.dispatch(new InertSectionErrorsAction(submissionId, sectionId, errors));
+  public setSectionError(submissionId: string, sectionId: string, error: SubmissionSectionError) {
+    this.store.dispatch(new InertSectionErrorsAction(submissionId, sectionId, error));
   }
 }
