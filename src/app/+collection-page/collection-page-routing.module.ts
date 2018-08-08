@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { CollectionPageComponent } from './collection-page.component';
-import { CollectionPageResolverService } from './collection-page-resolver.service';
+import { CollectionPageResolver } from './collection-page.resolver';
 
 @NgModule({
   imports: [
@@ -11,12 +11,14 @@ import { CollectionPageResolverService } from './collection-page-resolver.servic
         path: ':id',
         component: CollectionPageComponent,
         pathMatch: 'full',
-        resolve: { collection: CollectionPageResolverService }
+        resolve: {
+          collection: CollectionPageResolver
+        }
       }
     ])
   ],
   providers: [
-    CollectionPageResolverService
+    CollectionPageResolver,
   ]
 })
 export class CollectionPageRoutingModule {

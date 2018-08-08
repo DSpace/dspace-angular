@@ -18,6 +18,7 @@ import { Item } from '../core/shared/item.model';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { filter, flatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-collection-page',
@@ -30,9 +31,9 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
   ]
 })
 export class CollectionPageComponent implements OnInit, OnDestroy {
-  collectionRDObs: Observable<RemoteData<Collection>>;
-  itemRDObs: Observable<RemoteData<PaginatedList<Item>>>;
-  logoRDObs: Observable<RemoteData<Bitstream>>;
+  collectionRD$: Observable<RemoteData<Collection>>;
+  itemRD$: Observable<RemoteData<PaginatedList<Item>>>;
+  logoRD$: Observable<RemoteData<Bitstream>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
   private subs: Subscription[] = [];
@@ -44,55 +45,44 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     private metadata: MetadataService,
     private route: ActivatedRoute
   ) {
-    // this.route.snapshot.data.subscribe((c) => console.log(c));
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
     this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
-    this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe((data) => {
-      console.log('data.collection', data.collection.state, data.collection)
-    })
+    this.collectionRD$ = this.route.data.map((data) => data.collection);
+    this.logoRD$ = this.collectionRD$.pipe(
+      map((rd: RemoteData<Collection>) => rd.payload),
+      filter((collection: Collection) => hasValue(collection)),
+      flatMap((collection: Collection) => collection.logo)
+    );
     this.subs.push(
-      Observable.combineLatest(
-        this.route.params,
-        this.route.queryParams,
-        (params, queryParams, ) => {
-          return Object.assign({}, params, queryParams);
-        })
-        .subscribe((params) => {
-          this.collectionId = params.id;
-          this.collectionRDObs = this.collectionDataService.findById(this.collectionId);
-          this.metadata.processRemoteData(this.collectionRDObs);
-          this.subs.push(this.collectionRDObs
-            .map((rd: RemoteData<Collection>) => rd.payload)
-            .filter((collection: Collection) => hasValue(collection))
-            .subscribe((collection: Collection) => this.logoRDObs = collection.logo));
-
-          const page = +params.page || this.paginationConfig.currentPage;
-          const pageSize = +params.pageSize || this.paginationConfig.pageSize;
-          const sortDirection = +params.page || this.sortConfig.direction;
-          const pagination = Object.assign({},
-            this.paginationConfig,
-            { currentPage: page, pageSize: pageSize }
-          );
-          const sort = Object.assign({},
-            this.sortConfig,
-            { direction: sortDirection, field: params.sortField }
-          );
-          this.updatePage({
-            pagination: pagination,
-            sort: sort
-          });
-        }));
+      this.route.queryParams.subscribe((params) => {
+        this.metadata.processRemoteData(this.collectionRD$);
+        const page = +params.page || this.paginationConfig.currentPage;
+        const pageSize = +params.pageSize || this.paginationConfig.pageSize;
+        const sortDirection = +params.page || this.sortConfig.direction;
+        const pagination = Object.assign({},
+          this.paginationConfig,
+          { currentPage: page, pageSize: pageSize }
+        );
+        const sort = Object.assign({},
+          this.sortConfig,
+          { direction: sortDirection, field: params.sortField }
+        );
+        this.updatePage({
+          pagination: pagination,
+          sort: sort
+        });
+      }));
 
   }
 
   updatePage(searchOptions) {
-    this.itemRDObs = this.itemDataService.findAll({
+    this.itemRD$ = this.itemDataService.findAll({
       scopeID: this.collectionId,
       currentPage: searchOptions.pagination.currentPage,
       elementsPerPage: searchOptions.pagination.pageSize,

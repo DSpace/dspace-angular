@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { hasValue } from '../shared/empty.util';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { getSucceededRemoteData } from '../core/shared/operators';
 
 /**
  * This component renders a simple item page.
@@ -78,7 +79,7 @@ export class SearchPageComponent implements OnInit {
   ngOnInit(): void {
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.sub = this.searchOptions$
-      .switchMap((options) => this.service.search(options).filter((rd) => !rd.isLoading).first())
+      .switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData()))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });

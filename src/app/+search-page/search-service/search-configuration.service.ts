@@ -10,6 +10,7 @@ import { hasNoValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
+import { getSucceededRemoteData } from '../../core/shared/operators';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -67,15 +68,17 @@ export class SearchConfigurationService implements OnDestroy {
    */
   constructor(private routeService: RouteService,
               private route: ActivatedRoute) {
-    this.defaults.first().subscribe((defRD) => {
-        const defs = defRD.payload;
-        this.paginatedSearchOptions = new BehaviorSubject<SearchOptions>(defs);
-        this.searchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
+    this.defaults
+      .pipe(getSucceededRemoteData())
+      .subscribe((defRD) => {
+          const defs = defRD.payload;
+          this.paginatedSearchOptions = new BehaviorSubject<SearchOptions>(defs);
+          this.searchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
 
-        this.subs.push(this.subscribeToSearchOptions(defs));
-        this.subs.push(this.subscribeToPaginatedSearchOptions(defs));
-      }
-    )
+          this.subs.push(this.subscribeToSearchOptions(defs));
+          this.subs.push(this.subscribeToPaginatedSearchOptions(defs));
+        }
+      )
   }
 
   /**
