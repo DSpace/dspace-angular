@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -8,9 +8,14 @@ import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { FindByIDRequest } from './request.models';
+import { FindByIDRequest, PutRequest } from './request.models';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Community } from '../shared/community.model';
+import { Collection } from '../shared/collection.model';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { configureRequest } from '../shared/operators';
 
 export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain>  extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
@@ -56,4 +61,14 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
       ).distinctUntilChanged();
     }
   }
+
+  public create(comcol: TDomain) {
+    this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new PutRequest(this.requestService.generateRequestId(), endpointURL, comcol)),
+      configureRequest(this.requestService)
+    );
+  }
+
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Community } from '../../core/shared/community.model';
 
 @Component({
   selector: 'ds-create-community',
@@ -8,7 +9,9 @@ import { Component } from '@angular/core';
 export class CreateCommunityPageComponent {
 
   onSubmit(data: any) {
-    console.log('yay, made it with name: ' + data.name);
+    Object.assign(new Community(), {
+      // TODO: Create community object to add to rest
+    });
   }
 
 }
