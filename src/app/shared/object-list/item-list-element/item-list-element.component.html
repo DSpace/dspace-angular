@@ -1,18 +1,24 @@
-<a [routerLink]="['/items/' + object.id]" class="lead">
-    {{object.findMetadata("dc.title")}}
-</a>
-<div>
-  <span class="text-muted">
-    <span *ngIf="object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"
-          class="item-list-authors">
-        <span *ngFor="let authorMd of object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
-            <span *ngIf="!last">; </span>
+<ds-truncatable [id]="object.id">
+  <a [routerLink]="['/items/' + object.id]" class="lead">
+      {{object.findMetadata("dc.title")}}
+  </a>
+  <div>
+    <ds-truncatable-part [id]="object.id" [minLines]="1">
+      <span class="text-muted">
+        <span *ngIf="object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"
+              class="item-list-authors">
+            <span *ngFor="let authorMd of object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
+                <span *ngIf="!last">; </span>
+            </span>
         </span>
-    </span>
-    (<span *ngIf="object.findMetadata('dc.publisher')" class="item-list-publisher">{{object.findMetadata("dc.publisher")}}, </span><span
-          *ngIf="object.findMetadata('dc.date.issued')" class="item-list-date">{{object.findMetadata("dc.date.issued")}}</span>)
-  </span>
-    <div *ngIf="object.findMetadata('dc.description.abstract')" class="item-list-abstract">
-        {{object.findMetadata("dc.description.abstract") | dsTruncate:[200] }}
-    </div>
-</div>
+        (<span *ngIf="object.findMetadata('dc.publisher')" class="item-list-publisher">{{object.findMetadata("dc.publisher")}}, </span><span
+              *ngIf="object.findMetadata('dc.date.issued')" class="item-list-date">{{object.findMetadata("dc.date.issued")}}</span>)
+      </span>
+    </ds-truncatable-part>
+    <ds-truncatable-part [id]="object.id" [minLines]="3">
+      <div *ngIf="object.findMetadata('dc.description.abstract')" class="item-list-abstract">
+          {{object.findMetadata("dc.description.abstract")}}
+      </div>
+    </ds-truncatable-part>
+  </div>
+</ds-truncatable>

@@ -15,6 +15,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { FindAllOptions } from './request.models';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -30,15 +31,15 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     super();
   }
 
-  public getScopedEndpoint(scopeID: string): Observable<string> {
-    if (isEmpty(scopeID)) {
-      return this.halService.getEndpoint(this.linkPath);
-    } else {
-      return this.bs.getBrowseURLFor('dc.date.issued', this.linkPath)
-        .filter((href: string) => isNotEmpty(href))
-        .map((href: string) => new URLCombiner(href, `?scope=${scopeID}`).toString())
-        .distinctUntilChanged();
+  public getBrowseEndpoint(options: FindAllOptions = {}): Observable<string> {
+    let field = 'dc.date.issued';
+    if (options.sort && options.sort.field) {
+      field = options.sort.field;
     }
+    return this.bs.getBrowseURLFor(field, this.linkPath)
+      .filter((href: string) => isNotEmpty(href))
+      .map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}` + (options.startsWith ? `&startsWith=${options.startsWith}` : '')).toString())
+      .distinctUntilChanged();
   }
 
 }

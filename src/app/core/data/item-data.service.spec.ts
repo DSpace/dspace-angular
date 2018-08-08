@@ -8,6 +8,7 @@ import { CoreState } from '../core.reducers';
 import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { FindAllOptions } from './request.models';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -20,9 +21,19 @@ describe('ItemDataService', () => {
   const halEndpointService = {} as HALEndpointService;
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
+  const startsWith = 'a';
+  const options = Object.assign(new FindAllOptions(), {
+    scopeID: scopeID,
+    sort: {
+      field: '',
+      direction: undefined
+    },
+    startsWith: startsWith
+  });
+
   const browsesEndpoint = 'https://rest.api/discover/browses';
   const itemBrowseEndpoint = `${browsesEndpoint}/author/items`;
-  const scopedEndpoint = `${itemBrowseEndpoint}?scope=${scopeID}`;
+  const scopedEndpoint = `${itemBrowseEndpoint}?scope=${scopeID}&startsWith=${startsWith}`;
   const serviceEndpoint = `https://rest.api/core/items`;
   const browseError = new Error('getBrowseURL failed');
 
@@ -46,16 +57,16 @@ describe('ItemDataService', () => {
     );
   }
 
-  describe('getScopedEndpoint', () => {
+  describe('getBrowseEndpoint', () => {
     beforeEach(() => {
       scheduler = getTestScheduler();
     });
 
-    it('should return the endpoint to fetch Items within the given scope', () => {
+    it('should return the endpoint to fetch Items within the given scope and starting with the given string', () => {
       bs = initMockBrowseService(true);
       service = initTestService();
 
-      const result = service.getScopedEndpoint(scopeID);
+      const result = service.getBrowseEndpoint(options);
       const expected = cold('--b-', { b: scopedEndpoint });
 
       expect(result).toBeObservable(expected);
@@ -67,7 +78,7 @@ describe('ItemDataService', () => {
         service = initTestService();
       });
       it('should throw an error', () => {
-        const result = service.getScopedEndpoint(scopeID);
+        const result = service.getBrowseEndpoint(options);
         const expected = cold('--#-', undefined, browseError);
 
         expect(result).toBeObservable(expected);
