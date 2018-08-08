@@ -104,15 +104,25 @@ describe('DataService', () => {
             });
         });
 
+        it('should include startsWith in href if startsWith provided in options', () => {
+            options = { startsWith: 'ab' };
+            const expected = `${endpoint}?startsWith=${options.startsWith}`;
+
+            (service as any).getFindAllHref(endpoint, options).subscribe((value) => {
+                expect(value).toBe(expected);
+            });
+        });
+
         it('should include all provided options in href', () => {
             const sortOptions = new SortOptions('field1', SortDirection.DESC)
             options = {
                 currentPage: 6,
                 elementsPerPage: 10,
-                sort: sortOptions
+                sort: sortOptions,
+                startsWith: 'ab'
             }
             const expected = `${endpoint}?page=${options.currentPage - 1}&size=${options.elementsPerPage}` +
-                `&sort=${sortOptions.field},${sortOptions.direction}`;
+                `&sort=${sortOptions.field},${sortOptions.direction}&startsWith=${options.startsWith}`;
 
             (service as any).getFindAllHref(endpoint, options).subscribe((value) => {
                 expect(value).toBe(expected);
