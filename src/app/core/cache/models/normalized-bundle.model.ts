@@ -5,6 +5,9 @@ import { Bundle } from '../../shared/bundle.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 
+/**
+ * Normalized model class for a DSpace Bundle
+ */
 @mapsTo(Bundle)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedBundle extends NormalizedDSpaceObject {
@@ -25,6 +28,9 @@ export class NormalizedBundle extends NormalizedDSpaceObject {
    */
   owner: string;
 
+  /**
+   * List of Bitstreams that are part of this Bundle
+   */
   @autoserialize
   @relationship(ResourceType.Bitstream, true)
   bitstreams: string[];

@@ -1,4 +1,4 @@
-import { IDToUUIDSerializer } from './it-to-uuid-serializer';
+import { IDToUUIDSerializer } from './id-to-uuid-serializer';
 
 describe('IDToUUIDSerializer', () => {
   let serializer: IDToUUIDSerializer;
