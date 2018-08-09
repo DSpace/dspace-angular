@@ -8,12 +8,14 @@ import { RemoteDataError } from '../../data/remote-data-error';
 import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
+
 import { NormalizedObject } from '../models/normalized-object.model';
 import { ObjectCacheService } from '../object-cache.service';
 import { DSOSuccessResponse, ErrorResponse } from '../response-cache.models';
 import { ResponseCacheEntry } from '../response-cache.reducer';
 import { ResponseCacheService } from '../response-cache.service';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
+import { PageInfo } from '../../shared/page-info.model';
 import {
   getRequestFromSelflink,
   getResourceLinksFromResponse,
@@ -96,7 +98,6 @@ export class RemoteDataBuildService {
             error = new RemoteDataError(resEntry.response.statusCode, errorMessage);
           }
         }
-
         return new RemoteData(
           requestPending,
           responsePending,
@@ -107,7 +108,7 @@ export class RemoteDataBuildService {
       });
   }
 
-  buildList<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<TDomain[] | PaginatedList<TDomain>>> {
+  buildList<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<TDomain>>> {
     if (typeof href$ === 'string') {
       href$ = Observable.of(href$);
     }
@@ -144,11 +145,7 @@ export class RemoteDataBuildService {
   );
 
     const payload$ = Observable.combineLatest(tDomainList$, pageInfo$, (tDomainList, pageInfo) => {
-      if (hasValue(pageInfo)) {
-        return new PaginatedList(pageInfo, tDomainList);
-      } else {
-        return tDomainList;
-      }
+      return new PaginatedList(pageInfo, tDomainList);
     });
 
     return this.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
@@ -160,34 +157,42 @@ export class RemoteDataBuildService {
     const relationships = getRelationships(normalized.constructor) || [];
 
     relationships.forEach((relationship: string) => {
+      let result;
       if (hasValue(normalized[relationship])) {
         const { resourceType, isList } = getRelationMetadata(normalized, relationship);
-        if (Array.isArray(normalized[relationship])) {
-          normalized[relationship].forEach((href: string) => {
+        const objectList = normalized[relationship].page || normalized[relationship];
+        if (typeof objectList !== 'string') {
+          objectList.forEach((href: string) => {
             this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href))
           });
 
           const rdArr = [];
-          normalized[relationship].forEach((href: string) => {
+          objectList.forEach((href: string) => {
             rdArr.push(this.buildSingle(href));
           });
 
           if (isList) {
-            links[relationship] = this.aggregate(rdArr);
+            result = this.aggregate(rdArr);
           } else if (rdArr.length === 1) {
-            links[relationship] = rdArr[0];
+            result = rdArr[0];
           }
         } else {
-          this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), normalized[relationship]));
+          this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), objectList));
 
           // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
           // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
           // but it should still be built as a list
           if (isList) {
-            links[relationship] = this.buildList(normalized[relationship]);
+            result = this.buildList(objectList);
           } else {
-            links[relationship] = this.buildSingle(normalized[relationship]);
+            result = this.buildSingle(objectList);
           }
+        }
+
+        if (hasValue(normalized[relationship].page)) {
+          links[relationship] = this.aggregatePaginatedList(result, normalized[relationship].pageInfo);
+        } else {
+          links[relationship] = result;
         }
       }
     });
@@ -247,6 +252,10 @@ export class RemoteDataBuildService {
           payload
         );
       })
+  }
+
+  aggregatePaginatedList<T>(input: Observable<RemoteData<T[]>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
+    return input.map((rd) => Object.assign(rd, {payload: new PaginatedList(pageInfo, rd.payload)}));
   }
 
 }

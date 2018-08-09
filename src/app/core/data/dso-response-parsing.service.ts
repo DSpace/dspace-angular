@@ -12,6 +12,7 @@ import { RestRequest } from './request.models';
 
 import { ResponseParsingService } from './parsing.service';
 import { BaseResponseParsingService } from './base-response-parsing.service';
+import { hasNoValue, hasValue } from '../../shared/empty.util';
 
 @Injectable()
 export class DSOResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
@@ -27,7 +28,16 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const processRequestDTO = this.process<NormalizedObject,ResourceType>(data.payload, request.href);
-    const selfLinks = this.flattenSingleKeyObject(processRequestDTO).map((no) => no.self);
+    let objectList = processRequestDTO;
+    if (hasNoValue(processRequestDTO)) {
+      return new DSOSuccessResponse([], data.statusCode, undefined)
+    }
+    if (hasValue(processRequestDTO.page)) {
+      objectList = processRequestDTO.page;
+    } else if (!Array.isArray(processRequestDTO)) {
+      objectList = [processRequestDTO];
+    }
+    const selfLinks = objectList.map((no) => no.self);
     return new DSOSuccessResponse(selfLinks, data.statusCode, this.processPageInfo(data.payload))
   }
 
