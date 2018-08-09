@@ -23,6 +23,7 @@
             max-width: 150px;
             height: $height;
             background: linear-gradient(to right, rgba(255, 255, 255, 0), $body-bg 70%);
+            pointer-events: none;
         }
     }
 }
