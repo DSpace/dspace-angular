@@ -18,6 +18,9 @@ import { Item } from '../../core/shared/item.model';
   styleUrls: ['./browse-by-author-page.component.scss'],
   templateUrl: './browse-by-author-page.component.html'
 })
+/**
+ * Component for browsing (items) by author (dc.contributor.author)
+ */
 export class BrowseByAuthorPageComponent implements OnInit {
 
   authors$: Observable<RemoteData<PaginatedList<BrowseEntry>>>;
@@ -55,7 +58,6 @@ export class BrowseByAuthorPageComponent implements OnInit {
           const pageSize = +params.pageSize || this.paginationConfig.pageSize;
           const sortDirection = params.sortDirection || this.sortConfig.direction;
           const sortField = params.sortField || this.sortConfig.field;
-          const startsWith = +params.query || params.query || '';
           this.value = +params.value || params.value || '';
           const pagination = Object.assign({},
             this.paginationConfig,
@@ -67,8 +69,7 @@ export class BrowseByAuthorPageComponent implements OnInit {
           );
           const searchOptions = {
             pagination: pagination,
-            sort: sort,
-            startsWith: startsWith
+            sort: sort
           };
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value);
@@ -79,10 +80,10 @@ export class BrowseByAuthorPageComponent implements OnInit {
   }
 
   /**
+   * Updates the current page with searchOptions
    * @param searchOptions   Options to narrow down your search:
    *                        { pagination: PaginationComponentOptions,
-   *                          sort: SortOptions,
-   *                          startsWith: string }
+   *                          sort: SortOptions }
    */
   updatePage(searchOptions) {
     this.authors$ = this.browseService.getBrowseEntriesFor('author', searchOptions);
@@ -90,10 +91,10 @@ export class BrowseByAuthorPageComponent implements OnInit {
   }
 
   /**
+   * Updates the current page with searchOptions and display items linked to author
    * @param searchOptions   Options to narrow down your search:
    *                        { pagination: PaginationComponentOptions,
-   *                          sort: SortOptions,
-   *                          startsWith: string }
+   *                          sort: SortOptions }
    * @param author          The author's name for displaying items
    */
   updatePageWithItems(searchOptions, author: string) {

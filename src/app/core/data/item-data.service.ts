@@ -38,7 +38,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     }
     return this.bs.getBrowseURLFor(field, this.linkPath)
       .filter((href: string) => isNotEmpty(href))
-      .map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}` + (options.startsWith ? `&startsWith=${options.startsWith}` : '')).toString())
+      .map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString())
       .distinctUntilChanged();
   }
 

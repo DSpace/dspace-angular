@@ -47,6 +47,11 @@ export const getRemoteDataPayload = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(map((remoteData: RemoteData<T>) => remoteData.payload));
 
+/**
+ * Get the browse links from a definition by ID given an array of all definitions
+ * @param {string} definitionID
+ * @returns {(source: Observable<RemoteData<BrowseDefinition[]>>) => Observable<any>}
+ */
 export const getBrowseDefinitionLinks = (definitionID: string) =>
   (source: Observable<RemoteData<BrowseDefinition[]>>): Observable<any> =>
     source.pipe(

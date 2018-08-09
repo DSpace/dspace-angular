@@ -133,6 +133,15 @@ export class BrowseService {
     return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
+  /**
+   * Get all items linked to a certain metadata value
+   * @param {string} definitionID     definition ID to define the metadata-field (e.g. author)
+   * @param {string} filterValue      metadata value to filter by (e.g. author's name)
+   * @param options                   Options to narrow down your search:
+   *                                  { pagination: PaginationComponentOptions,
+   *                                    sort: SortOptions }
+   * @returns {Observable<RemoteData<PaginatedList<Item>>>}
+   */
   getBrowseItemsFor(definitionID: string, filterValue: string, options: {
     pagination?: PaginationComponentOptions;
     sort?: SortOptions;

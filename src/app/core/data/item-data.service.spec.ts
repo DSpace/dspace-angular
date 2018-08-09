@@ -21,19 +21,17 @@ describe('ItemDataService', () => {
   const halEndpointService = {} as HALEndpointService;
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
-  const startsWith = 'a';
   const options = Object.assign(new FindAllOptions(), {
     scopeID: scopeID,
     sort: {
       field: '',
       direction: undefined
-    },
-    startsWith: startsWith
+    }
   });
 
   const browsesEndpoint = 'https://rest.api/discover/browses';
   const itemBrowseEndpoint = `${browsesEndpoint}/author/items`;
-  const scopedEndpoint = `${itemBrowseEndpoint}?scope=${scopeID}&startsWith=${startsWith}`;
+  const scopedEndpoint = `${itemBrowseEndpoint}?scope=${scopeID}`;
   const serviceEndpoint = `https://rest.api/core/items`;
   const browseError = new Error('getBrowseURL failed');
 

@@ -17,6 +17,9 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
     fadeInOut
   ]
 })
+/**
+ * Component to display a browse-by page for any ListableObject
+ */
 export class BrowseByComponent {
   @Input() title: string;
   @Input() objects$: Observable<RemoteData<PaginatedList<ListableObject>>>;

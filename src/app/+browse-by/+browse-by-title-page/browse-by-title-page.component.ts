@@ -17,6 +17,9 @@ import { Collection } from '../../core/shared/collection.model';
   styleUrls: ['./browse-by-title-page.component.scss'],
   templateUrl: './browse-by-title-page.component.html'
 })
+/**
+ * Component for browsing items by title (dc.title)
+ */
 export class BrowseByTitlePageComponent implements OnInit {
 
   items$: Observable<RemoteData<PaginatedList<Item>>>;
@@ -52,7 +55,6 @@ export class BrowseByTitlePageComponent implements OnInit {
           const page = +params.page || this.paginationConfig.currentPage;
           const pageSize = +params.pageSize || this.paginationConfig.pageSize;
           const sortDirection = +params.page || this.sortConfig.direction;
-          const startsWith = +params.query || params.query || '';
           const pagination = Object.assign({},
             this.paginationConfig,
             { currentPage: page, pageSize: pageSize }
@@ -63,18 +65,22 @@ export class BrowseByTitlePageComponent implements OnInit {
           );
           this.updatePage({
             pagination: pagination,
-            sort: sort,
-            startsWith: startsWith
+            sort: sort
           });
         }));
   }
 
+  /**
+   * Updates the current page with searchOptions
+   * @param searchOptions   Options to narrow down your search:
+   *                        { pagination: PaginationComponentOptions,
+   *                          sort: SortOptions }
+   */
   updatePage(searchOptions) {
     this.items$ = this.itemDataService.findAll({
       currentPage: searchOptions.pagination.currentPage,
       elementsPerPage: searchOptions.pagination.pageSize,
-      sort: searchOptions.sort,
-      startsWith: searchOptions.startsWith
+      sort: searchOptions.sort
     });
   }
 
