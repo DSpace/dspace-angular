@@ -29,7 +29,7 @@
     <textarea [(ngModel)]="provenance" name="news" id="collection-provenance" class="form-control" aria-label="Collection Provenance" rows="6" ></textarea>
   </div>
   <div class="col-12 form-group">
-    <button type="button" class="btn btn-secondary">{{ 'collection.edit.cancel' | translate }}</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">{{ 'collection.edit.cancel' | translate }}</button>
     <button type="submit" class="btn btn-secondary">{{ 'collection.edit.submit' | translate }}</button>
   </div>
 </form>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { isNotEmpty } from '../../shared/empty.util';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ds-collection-form',
@@ -20,6 +21,10 @@ export class CollectionFormComponent {
 
   @Output() submitted: EventEmitter<any> = new EventEmitter();
 
+  public constructor(private location: Location) {
+
+  }
+
   onSubmit(data: any) {
     if (isNotEmpty(data.name)) {
       this.submitted.emit(data);
@@ -27,6 +32,10 @@ export class CollectionFormComponent {
     } else {
       this.nameRequiredError = true;
     }
+  }
+
+  cancel() {
+    this.location.back();
   }
 
 }
