@@ -141,6 +141,7 @@ export class FindAllOptions {
   elementsPerPage?: number;
   currentPage?: number;
   sort?: SortOptions;
+  startsWith?: string;
 }
 
 export class FindAllRequest extends GetRequest {
