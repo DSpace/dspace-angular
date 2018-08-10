@@ -11,6 +11,8 @@ import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { AuthService } from '../auth/auth.service';
+import { Community } from '../shared/community.model';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
@@ -23,8 +25,13 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected store: Store<CoreState>,
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService
+    protected halService: HALEndpointService,
+    protected authService: AuthService
   ) {
     super();
+  }
+
+  getName(collection: Collection) {
+    return collection.name;
   }
 }

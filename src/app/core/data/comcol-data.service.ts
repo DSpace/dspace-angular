@@ -8,7 +8,7 @@ import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { FindByIDRequest, PutRequest } from './request.models';
+import { FindByIDRequest, PostRequest, PutRequest } from './request.models';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -16,11 +16,15 @@ import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { configureRequest } from '../shared/operators';
+import { AuthService } from '../auth/auth.service';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpHeaders } from '@angular/common/http';
 
 export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain>  extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
   protected abstract halService: HALEndpointService;
+  protected abstract authService: AuthService;
 
   /**
    * Get the scoped endpoint URL by fetching the object with
@@ -66,9 +70,18 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
     this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpointURL: string) => new PutRequest(this.requestService.generateRequestId(), endpointURL, comcol)),
+      map((endpointURL: string) => {
+        const options: HttpOptions = Object.create({});
+        const headers = new HttpHeaders();
+        headers.append('Authentication', this.authService.buildAuthHeader());
+        options.headers = headers;
+        console.log(options);
+        return new PostRequest(this.requestService.generateRequestId(), endpointURL + '?name=' + this.getName(comcol), options);
+      }),
       configureRequest(this.requestService)
     );
   }
+
+  abstract getName(comcol: TDomain): string;
 
 }
