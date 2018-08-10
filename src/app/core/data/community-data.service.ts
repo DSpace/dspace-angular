@@ -34,7 +34,8 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
     return this.halService.getEndpoint(this.linkPath);
   }
 
-  getName(community: Community) {
-    return community.name;
+  buildCreateParams(community: Community) {
+    const urlParams = '?name=' + community.name;
+    return urlParams;
   }
 }

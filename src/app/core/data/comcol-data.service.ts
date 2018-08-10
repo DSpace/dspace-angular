@@ -75,13 +75,12 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
         const headers = new HttpHeaders();
         headers.append('Authentication', this.authService.buildAuthHeader());
         options.headers = headers;
-        console.log(options);
-        return new PostRequest(this.requestService.generateRequestId(), endpointURL + '?name=' + this.getName(comcol), options);
+        return new PostRequest(this.requestService.generateRequestId(), endpointURL + this.buildCreateParams(comcol));
       }),
       configureRequest(this.requestService)
-    );
+    ).subscribe();
   }
 
-  abstract getName(comcol: TDomain): string;
+  abstract buildCreateParams(comcol: TDomain): string;
 
 }
