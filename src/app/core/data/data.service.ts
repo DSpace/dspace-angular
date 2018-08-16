@@ -41,6 +41,10 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       args.push(`sort=${options.sort.field},${options.sort.direction}`);
     }
 
+    if (hasValue(options.startsWith)) {
+      args.push(`startsWith=${options.startsWith}`);
+    }
+
     if (isNotEmpty(args)) {
       return result.map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString());
     } else {

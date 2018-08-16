@@ -11,8 +11,8 @@
                 <span *ngIf="!last">; </span>
             </span>
         </span>
-        (<span *ngIf="object.findMetadata('dc.publisher')" class="item-list-publisher">{{object.findMetadata("dc.publisher")}}, </span><span
-              *ngIf="object.findMetadata('dc.date.issued')" class="item-list-date">{{object.findMetadata("dc.date.issued")}}</span>)
+        (<span *ngIf="hasValue(object.findMetadata('dc.publisher'))" class="item-list-publisher">{{object.findMetadata("dc.publisher")}}, </span><span
+              *ngIf="hasValue(object.findMetadata('dc.date.issued'))" class="item-list-date">{{object.findMetadata("dc.date.issued")}}</span>)
       </span>
     </ds-truncatable-part>
     <ds-truncatable-part [id]="object.id" [minLines]="3">
