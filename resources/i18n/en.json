@@ -29,7 +29,8 @@
       }
     },
     "create": {
-      "head": "Create a Collection"
+      "head": "Create a Collection",
+      "sub-head": "Create a Collection for Community {{ parent }}"
     }
   },
   "community": {
@@ -53,7 +54,8 @@
       }
     },
     "create": {
-      "head": "Create a Community"
+      "head": "Create a Community",
+      "sub-head": "Create a Sub-Community for Community {{ parent }}"
     }
   },
   "item": {

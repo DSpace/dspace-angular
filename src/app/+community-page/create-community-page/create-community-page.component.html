@@ -1,8 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col-12 pb-4">
-      <h2 id="header" class="border-bottom pb-2">{{ 'community.create.head' | translate }}</h2>
+      <ng-container *ngVar="(communityRDObs | async).payload as community">
+        <h2 *ngIf="!community" id="header" class="border-bottom pb-2">{{ 'community.create.head' | translate }}</h2>
+        <h2 *ngIf="community" id="sub-header" class="border-bottom pb-2">{{ 'community.create.sub-head' | translate:{ parent: community.name } }}</h2>
+      </ng-container>
     </div>
+  </div>
+  <div *ngIf="(error$ | async) as error" class="alert alert-danger">
+    <strong>{{error.statusCode}}</strong>
+    <p class="mb-0">{{error.errorMessage}}</p>
   </div>
   <ds-community-form (submitted)="onSubmit($event)"></ds-community-form>
 </div>

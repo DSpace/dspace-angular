@@ -8,14 +8,14 @@ import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { FindByIDRequest, PostRequest, PutRequest } from './request.models';
+import { FindByIDRequest, PostRequest, PutRequest, RequestError, RestRequest } from './request.models';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Community } from '../shared/community.model';
 import { Collection } from '../shared/collection.model';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { configureRequest } from '../shared/operators';
+import { catchError, distinctUntilChanged, map } from 'rxjs/operators';
+import { configureRequest, getResponseFromSelflink } from '../shared/operators';
 import { AuthService } from '../auth/auth.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
@@ -66,8 +66,8 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
     }
   }
 
-  public create(comcol: TDomain) {
-    this.halService.getEndpoint(this.linkPath).pipe(
+  public create(comcol: TDomain, parentUUID?: string): Observable<ResponseCacheEntry> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) => {
@@ -75,12 +75,22 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
         const headers = new HttpHeaders();
         headers.append('Authentication', this.authService.buildAuthHeader());
         options.headers = headers;
-        return new PostRequest(this.requestService.generateRequestId(), endpointURL + this.buildCreateParams(comcol));
+        return new PostRequest(this.requestService.generateRequestId(), endpointURL + ((parentUUID) ? this.buildCreateParams(comcol, parentUUID) : this.buildCreateParams(comcol)));
       }),
-      configureRequest(this.requestService)
-    ).subscribe();
+      configureRequest(this.requestService),
+      map((request: RestRequest) => request.href),
+      getResponseFromSelflink(this.responseCache)
+    );
   }
 
-  abstract buildCreateParams(comcol: TDomain): string;
+  public buildCreateParams(comcol: TDomain, parentUUID?: string): string {
+    if (comcol instanceof Community || comcol instanceof Collection) {
+      let urlParams = '?name=' + comcol.name;
+      if (parentUUID) {
+        urlParams += '&parent=' + parentUUID;
+      }
+      return urlParams;
+    }
+  }
 
 }

@@ -31,8 +31,4 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     super();
   }
 
-  buildCreateParams(collection: Collection) {
-    const urlParams = '?name=' + collection.name;
-    return urlParams;
-  }
 }
