@@ -1,0 +1,43 @@
+{
+    "name": "DSpace",
+    "description": "DSpace is a turnkey institutional repository application.",
+    "icon": "https://janitor.technology/img/dspace.svg",
+    "docker": {
+      "image": "janitortechnology/dspace"
+    },
+    "ports": {
+      "22": {
+        "label": "SSH",
+        "proxy": "none"
+      },
+      "3000": {
+        "label": "Web",
+        "proxy": "https",
+        "preview": true
+      },
+      "8088": {
+        "label": "VNC",
+        "proxy": "https",
+        "preview": true
+      },
+      "8089": {
+        "label": "Cloud9",
+        "proxy": "https"
+      }
+    },
+    "scripts": {
+      "Run server": {
+        "cmd": "yarn run server",
+        "openPort": "3000"
+      },
+      "Install global dependencies": "yarn run global",
+      "Install local dependencies": "yarn install",
+      "Start": {
+        "cmd": "yarn start",
+        "openPort": "3000"
+      },
+      "Clean": "yarn run clean",
+      "Update source code": "git pull --rebase origin master",
+      "Send to code review": "hub pull-request"
+    }
+}
