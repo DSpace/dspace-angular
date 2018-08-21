@@ -3,10 +3,11 @@ import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { SetViewMode } from '../../shared/view-mode';
-import { SearchOptions} from '../search-options.model';
+import { SearchOptions } from '../search-options.model';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { SearchResult } from '../search-result.model';
 import { PaginatedList } from '../../core/data/paginated-list';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -26,4 +27,13 @@ export class SearchResultsComponent {
   @Input() searchConfig: SearchOptions;
   @Input() sortConfig: SortOptions;
   @Input() viewMode: SetViewMode;
+  @Input() fixedFilter: string;
+
+  getTitleKey() {
+    if (isNotEmpty(this.fixedFilter)) {
+      return 'search.' + this.fixedFilter + '.results.head'
+    } else {
+      return 'search.results.head';
+    }
+  }
 }

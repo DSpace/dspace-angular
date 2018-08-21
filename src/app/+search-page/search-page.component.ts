@@ -14,6 +14,7 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { RouteService } from '../shared/route.service';
 
 /**
  * This component renders a simple item page.
@@ -46,12 +47,14 @@ export class SearchPageComponent implements OnInit {
     query: '',
     scope: ''
   };
+  fixedFilter;
 
-  constructor(private service: SearchService,
-              private communityService: CommunityDataService,
-              private sidebarService: SearchSidebarService,
-              private windowService: HostWindowService,
-              private filterService: SearchFilterService) {
+  constructor(protected service: SearchService,
+              protected communityService: CommunityDataService,
+              protected sidebarService: SearchSidebarService,
+              protected windowService: HostWindowService,
+              protected filterService: SearchFilterService,
+              protected routeService: RouteService) {
     this.isMobileView$ = Observable.combineLatest(
       this.windowService.isXs(),
       this.windowService.isSm(),
@@ -65,6 +68,7 @@ export class SearchPageComponent implements OnInit {
     this.resultsRD$ = this.searchOptions$.pipe(
       flatMap((searchOptions) => this.service.search(searchOptions))
     );
+    this.fixedFilter = this.routeService.getRouteParameterValue('filter');
   }
 
   public closeSidebar(): void {

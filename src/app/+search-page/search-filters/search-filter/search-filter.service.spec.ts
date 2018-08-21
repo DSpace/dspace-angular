@@ -10,6 +10,7 @@ import {
 import { SearchFiltersState } from './search-filter.reducer';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { FilterType } from '../../search-service/filter-type.model';
+import { SearchFixedFilterService } from './search-fixed-filter.service';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;
@@ -21,6 +22,12 @@ describe('SearchFilterService', () => {
     isOpenByDefault: false,
     pageSize: 2
   });
+
+  const mockFixedFilterService: SearchFixedFilterService = {
+    getQueryByFilterName: (filter: string) => {
+      return Observable.of(undefined)
+    }
+  } as SearchFixedFilterService
   const value1 = 'random value';
   // const value2 = 'another value';
   const store: Store<SearchFiltersState> = jasmine.createSpyObj('store', {
@@ -50,7 +57,7 @@ describe('SearchFilterService', () => {
   };
 
   beforeEach(() => {
-    service = new SearchFilterService(store, routeServiceStub);
+    service = new SearchFilterService(store, routeServiceStub, mockFixedFilterService);
   });
 
   describe('when the initialCollapse method is triggered', () => {

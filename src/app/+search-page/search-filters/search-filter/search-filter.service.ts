@@ -20,6 +20,7 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
+import { SearchFixedFilterService } from './search-fixed-filter.service';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
@@ -27,7 +28,8 @@ const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 export class SearchFilterService {
 
   constructor(private store: Store<SearchFiltersState>,
-              private routeService: RouteService) {
+              private routeService: RouteService,
+              private fixedFilterService: SearchFixedFilterService) {
   }
 
   isFilterActiveWithValue(paramName: string, filterValue: string): Observable<boolean> {
@@ -72,6 +74,11 @@ export class SearchFilterService {
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
+  getCurrentFixedFilter(): Observable<string> {
+    const filter: Observable<string> = this.routeService.getRouteParameterValue('filter');
+    return filter.flatMap((f) => this.fixedFilterService.getQueryByFilterName(f));
+  }
+
   getCurrentView() {
     return this.routeService.getQueryParameterValue('view');
   }
@@ -83,9 +90,10 @@ export class SearchFilterService {
       this.getCurrentView(),
       this.getCurrentScope(),
       this.getCurrentQuery(),
-      this.getCurrentFilters()).pipe(
+      this.getCurrentFilters(),
+      this.getCurrentFixedFilter()).pipe(
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-      map(([pagination, sort, view, scope, query, filters]) => {
+      map(([pagination, sort, view, scope, query, filters, fixedFilter]) => {
         return Object.assign(new PaginatedSearchOptions(),
           defaults,
           {
@@ -94,7 +102,8 @@ export class SearchFilterService {
             view: view,
             scope: scope || defaults.scope,
             query: query,
-            filters: filters
+            filters: filters,
+            fixedFilter: fixedFilter
           })
       })
     )
@@ -106,14 +115,16 @@ export class SearchFilterService {
       this.getCurrentScope(),
       this.getCurrentQuery(),
       this.getCurrentFilters(),
-      (view, scope, query, filters) => {
+      this.getCurrentFixedFilter(),
+      (view, scope, query, filters, fixedFilter) => {
         return Object.assign(new SearchOptions(),
           defaults,
           {
             view: view,
             scope: scope || defaults.scope,
             query: query,
-            filters: filters
+            filters: filters,
+            fixedFilter: fixedFilter
           })
       }
     )

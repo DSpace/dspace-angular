@@ -6,14 +6,13 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 
 function isObjectLevel(halObj: any) {
   return isNotEmpty(halObj._links) && hasValue(halObj._links.self);
 }
 
 function isPaginatedResponse(halObj: any) {
-  return isNotEmpty(halObj.page) && hasValue(halObj._embedded);
+  return isNotEmpty(halObj.page) /* && hasValue(halObj._embedded)*/;
 }
 
 /* tslint:disable:max-classes-per-file */
