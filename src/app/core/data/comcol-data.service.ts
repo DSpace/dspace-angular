@@ -75,7 +75,7 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
         const headers = new HttpHeaders();
         headers.append('Authentication', this.authService.buildAuthHeader());
         options.headers = headers;
-        return new PostRequest(this.requestService.generateRequestId(), endpointURL + ((parentUUID) ? this.buildCreateParams(comcol, parentUUID) : this.buildCreateParams(comcol)));
+        return new PostRequest(this.requestService.generateRequestId(), endpointURL + ((parentUUID) ? this.buildCreateParams(comcol, parentUUID) : this.buildCreateParams(comcol)), options);
       }),
       configureRequest(this.requestService),
       map((request: RestRequest) => request.href),

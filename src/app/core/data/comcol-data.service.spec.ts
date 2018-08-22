@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/Rx';
+import { Observable, TestScheduler } from 'rxjs/Rx';
 import { GlobalConfig } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -14,6 +14,8 @@ import { FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Community } from '../shared/community.model';
+import { AuthService } from '../auth/auth.service';
 
 const LINK_NAME = 'test';
 
@@ -32,6 +34,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
+    protected authService: AuthService,
     protected linkPath: string
   ) {
     super();
@@ -46,7 +49,8 @@ describe('ComColDataService', () => {
   let requestService: RequestService;
   let cds: CommunityDataService;
   let objectCache: ObjectCacheService;
-  const halService: any = {};
+  let authService: AuthService;
+  let halService: any = {};
 
   const rdbService = {} as RemoteDataBuildService;
   const store = {} as Store<CoreState>;
@@ -57,6 +61,11 @@ describe('ComColDataService', () => {
   const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
   const serviceEndpoint = `https://rest.api/core/${LINK_NAME}`;
+  const authHeader = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJlaWQiOiJhNjA4NmIzNC0zOTE4LTQ1YjctOGRkZC05MzI5YTcwMmEyNmEiLCJzZyI6W10sImV4cCI6MTUzNDk0MDcyNX0.RV5GAtiX6cpwBN77P_v16iG9ipeyiO7faNYSNMzq_sQ';
+
+  const mockHalService = {
+    getEndpoint: (linkPath) => Observable.of(communitiesEndpoint)
+  };
 
   function initMockCommunityDataService(): CommunityDataService {
     return jasmine.createSpyObj('responseCache', {
@@ -85,6 +94,14 @@ describe('ComColDataService', () => {
     });
   }
 
+  function initMockAuthService(): AuthService {
+    return jasmine.createSpyObj('authService', {
+      buildAuthHeader: cold('c-', {
+        c: authHeader
+      })
+    });
+  }
+
   function initTestService(): TestService {
     return new TestService(
       responseCache,
@@ -95,9 +112,20 @@ describe('ComColDataService', () => {
       cds,
       objectCache,
       halService,
+      authService,
       LINK_NAME
     );
   }
+
+  beforeEach(() => {
+    cds = initMockCommunityDataService();
+    requestService = getMockRequestService();
+    objectCache = initMockObjectCacheService();
+    responseCache = initMockResponseCacheService(true);
+    halService = mockHalService;
+    authService = initMockAuthService();
+    service = initTestService();
+  });
 
   describe('getScopedEndpoint', () => {
     beforeEach(() => {
@@ -105,12 +133,6 @@ describe('ComColDataService', () => {
     });
 
     it('should configure a new FindByIDRequest for the scope Community', () => {
-      cds = initMockCommunityDataService();
-      requestService = getMockRequestService();
-      objectCache = initMockObjectCacheService();
-      responseCache = initMockResponseCacheService(true);
-      service = initTestService();
-
       const expected = new FindByIDRequest(requestService.generateRequestId(), communityEndpoint, scopeID);
 
       scheduler.schedule(() => service.getScopedEndpoint(scopeID).subscribe());
@@ -120,14 +142,6 @@ describe('ComColDataService', () => {
     });
 
     describe('if the scope Community can be found', () => {
-      beforeEach(() => {
-        cds = initMockCommunityDataService();
-        requestService = getMockRequestService();
-        objectCache = initMockObjectCacheService();
-        responseCache = initMockResponseCacheService(true);
-        service = initTestService();
-      });
-
       it('should fetch the scope Community from the cache', () => {
         scheduler.schedule(() => service.getScopedEndpoint(scopeID).subscribe());
         scheduler.flush();
@@ -160,4 +174,68 @@ describe('ComColDataService', () => {
     });
 
   });
+
+  describe('create', () => {
+    let community: Community;
+    const name = 'test community';
+
+    beforeEach(() => {
+      community = Object.assign(new Community(), {
+        name: name
+      });
+      spyOn(service, 'buildCreateParams');
+    });
+
+    describe('when creating a top-level community', () => {
+      it('should build params without parent UUID', () => {
+        scheduler.schedule(() => service.create(community).subscribe());
+        scheduler.flush();
+        expect(service.buildCreateParams).toHaveBeenCalledWith(community);
+      });
+    });
+
+    describe('when creating a community part of another community', () => {
+      let parentCommunity: Community;
+      const parentName = 'test parent community';
+      const parentUUID = 'a20da287-e174-466a-9926-f66b9300d347';
+
+      beforeEach(() => {
+        parentCommunity = Object.assign(new Community(), {
+          id: parentUUID,
+          uuid: parentUUID,
+          name: parentName
+        });
+      });
+
+      it('should build params with parent UUID', () => {
+        scheduler.schedule(() => service.create(community, parentUUID).subscribe());
+        scheduler.flush();
+        expect(service.buildCreateParams).toHaveBeenCalledWith(community, parentUUID);
+      });
+    });
+  });
+
+  describe('buildCreateParams', () => {
+    let community: Community;
+    const name = 'test community';
+    let parentCommunity: Community;
+    const parentName = 'test parent community';
+    const parentUUID = 'a20da287-e174-466a-9926-f66b9300d347';
+
+    beforeEach(() => {
+      community = Object.assign(new Community(), {
+        name: name
+      });
+      parentCommunity = Object.assign(new Community(), {
+        id: parentUUID,
+        uuid: parentUUID,
+        name: parentName
+      });
+    });
+
+    it('should return the correct url parameters', () => {
+      expect(service.buildCreateParams(community, parentUUID)).toEqual('?name=' + name + '&parent=' + parentUUID);
+    });
+  });
+
 });
