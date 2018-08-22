@@ -14,7 +14,7 @@ describe('SearchConfigurationService', () => {
     'f.date.min': ['2013'],
     'f.date.max': ['2018']
   };
-  const defaults = Object.assign(new PaginatedSearchOptions(), {
+  const defaults = new PaginatedSearchOptions( {
     pagination: Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 }),
     sort: new SortOptions('score', SortDirection.DESC),
     query: '',

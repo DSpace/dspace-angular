@@ -10,6 +10,12 @@ export class PaginatedSearchOptions extends SearchOptions {
   pagination?: PaginationComponentOptions;
   sort?: SortOptions;
 
+  constructor(options: {scope?: string, query?: string, filters?: any, pagination?: PaginationComponentOptions, sort?: SortOptions}) {
+    super(options)
+    this.pagination = options.pagination;
+    this.sort = options.sort;
+  }
+
   /**
    * Method to generate the URL that can be used to request a certain page with specific sort options
    * @param {string} url The URL to the REST endpoint

@@ -37,7 +37,7 @@ describe('SearchPageComponent', () => {
   pagination.currentPage = 1;
   pagination.pageSize = 10;
   const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-  const mockResults = Observable.of(new RemoteData(false, false, true, null,['test', 'data']));
+  const mockResults = Observable.of(new RemoteData(false, false, true, null, ['test', 'data']));
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     search: mockResults,
     getSearchLink: '/search',
@@ -46,11 +46,11 @@ describe('SearchPageComponent', () => {
   const queryParam = 'test query';
   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
   const paginatedSearchOptions = {
-      query: queryParam,
-      scope: scopeParam,
-      pagination,
-      sort
-    };
+    query: queryParam,
+    scope: scopeParam,
+    pagination,
+    sort
+  };
   const activatedRouteStub = {
     queryParams: Observable.of({
       query: queryParam,
@@ -178,5 +178,4 @@ describe('SearchPageComponent', () => {
     });
 
   });
-})
-;
+});

@@ -174,7 +174,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFiltersPart()
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
-      const updatedValue: SearchOptions = Object.assign(new SearchOptions(), currentValue, update);
+      const updatedValue: SearchOptions = Object.assign(currentValue, update);
       this.searchOptions.next(updatedValue);
     });
   }
@@ -193,7 +193,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFiltersPart()
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
-      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions(), currentValue, update);
+      const updatedValue: PaginatedSearchOptions = Object.assign(currentValue, update);
       this.paginatedSearchOptions.next(updatedValue);
     });
   }
@@ -203,7 +203,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   get defaults(): Observable<RemoteData<PaginatedSearchOptions>> {
     if (hasNoValue(this._defaults)) {
-      const options = Object.assign(new PaginatedSearchOptions(), {
+      const options = new PaginatedSearchOptions({
         pagination: this.defaultPagination,
         sort: this.defaultSort,
         scope: this.defaultScope,

@@ -12,12 +12,7 @@ describe('PaginatedSearchOptions', () => {
   const scope = '0fde1ecb-82cc-425a-b600-ac3576d76b47';
   const baseUrl = 'www.rest.com';
   beforeEach(() => {
-    options = new PaginatedSearchOptions();
-    options.sort = sortOptions;
-    options.pagination = pageOptions;
-    options.filters = filters;
-    options.query = query;
-    options.scope = scope;
+    options = new PaginatedSearchOptions({sort: sortOptions, pagination: pageOptions, filters: filters, query: query, scope: scope});
   });
 
   describe('when toRestUrl is called', () => {

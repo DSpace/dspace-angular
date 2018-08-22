@@ -10,6 +10,12 @@ export class SearchOptions {
   query?: string;
   filters?: any;
 
+  constructor(options: {scope?: string, query?: string, filters?: any}) {
+      this.scope = options.scope;
+      this.query = options.query;
+      this.filters = options.filters;
+  }
+
   /**
    * Method to generate the URL that can be used request information about a search request
    * @param {string} url The URL to the REST endpoint

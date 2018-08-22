@@ -19,6 +19,10 @@ import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { filter, flatMap, map } from 'rxjs/operators';
+import { SearchService } from '../+search-page/search-service/search.service';
+import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
+import { SearchResult } from '../+search-page/search-result.model';
+import { toDSpaceObjectListRD } from '../core/shared/operators';
 
 @Component({
   selector: 'ds-collection-page',
@@ -41,7 +45,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private collectionDataService: CollectionDataService,
-    private itemDataService: ItemDataService,
+    private searchService: SearchService,
     private metadata: MetadataService,
     private route: ActivatedRoute
   ) {
@@ -82,12 +86,13 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   updatePage(searchOptions) {
-    this.itemRD$ = this.itemDataService.findAll({
-      scopeID: this.collectionId,
-      currentPage: searchOptions.pagination.currentPage,
-      elementsPerPage: searchOptions.pagination.pageSize,
-      sort: searchOptions.sort
-    });
+    this.itemRD$ = this.searchService.search(
+      new PaginatedSearchOptions({
+        scope: this.collectionId,
+        pagination: searchOptions.pagination,
+        sort: searchOptions.sort,
+        filters: {type: 2}
+      })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
   }
 
   ngOnDestroy(): void {
