@@ -21,7 +21,6 @@ import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
 import { DebugResponseParsingService } from './data/debug-response-parsing.service';
 import { DSOResponseParsingService } from './data/dso-response-parsing.service';
-import { PIDService } from './data/pid.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
@@ -63,6 +62,7 @@ import { RegistryMetadatafieldsResponseParsingService } from './data/registry-me
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
+import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 
 const IMPORTS = [
   CommonModule,
@@ -125,7 +125,7 @@ const PROVIDERS = [
   IntegrationResponseParsingService,
   UploaderService,
   UUIDService,
-  PIDService,
+  DSpaceObjectDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

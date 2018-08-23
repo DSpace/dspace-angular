@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { hasValue } from '../../shared/empty.util';
-import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedDSpaceObject } from '../cache/models/normalized-dspace-object.model';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -11,12 +9,11 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { RemoteData } from './remote-data';
-import { FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> {
-  protected linkPath = 'pid';
+  protected linkPath = 'dso';
 
   constructor(
     protected responseCache: ResponseCacheService,
@@ -32,13 +29,13 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
   }
 
   getFindByIDHref(endpoint, resourceID): string {
-    return endpoint.replace(/\{\?id\}/,`?id=${resourceID}`);
+    return endpoint.replace(/\{\?uuid\}/,`?uuid=${resourceID}`);
   }
 }
 
 @Injectable()
-export class PIDService {
-  protected linkPath = 'pid';
+export class DSpaceObjectDataService {
+  protected linkPath = 'dso';
   private dataService: DataServiceImpl;
 
   constructor(
@@ -48,7 +45,7 @@ export class PIDService {
     this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService);
   }
 
-  findById(id: string): Observable<RemoteData<DSpaceObject>> {
-    return this.dataService.findById(id);
+  findById(uuid: string): Observable<RemoteData<DSpaceObject>> {
+    return this.dataService.findById(uuid);
   }
 }
