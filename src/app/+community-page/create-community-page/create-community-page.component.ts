@@ -31,7 +31,13 @@ export class CreateCommunityPageComponent {
 
   onSubmit(data: any) {
     const community = Object.assign(new Community(), {
-      name: data.name
+      name: data.name,
+      metadata: [
+        { key: 'dc.description', value: data.introductory },
+        { key: 'dc.description.abstract', value: data.description },
+        { key: 'dc.rights', value: data.copyright }
+        // TODO: metadata for news
+      ]
     });
     this.parentUUID$.subscribe((uuid: string) => {
       let response$: Observable<ResponseCacheEntry>;

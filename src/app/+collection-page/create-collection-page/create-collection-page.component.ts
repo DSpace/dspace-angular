@@ -33,7 +33,14 @@ export class CreateCollectionPageComponent {
 
   onSubmit(data: any) {
     const collection = Object.assign(new Collection(), {
-      name: data.name
+      name: data.name,
+      metadata: [
+        { key: 'dc.description', value: data.introductory },
+        { key: 'dc.description.abstract', value: data.description },
+        { key: 'dc.rights', value: data.copyright },
+        { key: 'dc.rights.license', value: data.license }
+        // TODO: metadata for news and provenance
+      ]
     });
     this.parentUUID$.subscribe((uuid: string) => {
       let response$: Observable<ResponseCacheEntry>;

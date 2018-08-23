@@ -89,6 +89,11 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
       if (parentUUID) {
         urlParams += '&parent=' + parentUUID;
       }
+      if (comcol.metadata) {
+        for (const i of Object.keys(comcol.metadata)) {
+          urlParams += '&' + comcol.metadata[i].key + '=' + comcol.metadata[i].value;
+        }
+      }
       return urlParams;
     }
   }
