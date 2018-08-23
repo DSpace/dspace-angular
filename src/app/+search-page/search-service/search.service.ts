@@ -7,7 +7,7 @@ import {
   UrlSegmentGroup
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, switchMap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
@@ -24,7 +24,7 @@ import { RequestService } from '../../core/data/request.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { configureRequest } from '../../core/shared/operators';
+import { configureRequest, getSucceededRemoteData } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
@@ -43,8 +43,8 @@ import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { PIDService } from '../../core/data/pid.service';
 import { ResourceType } from '../../core/shared/resource-type';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -73,7 +73,7 @@ export class SearchService implements OnDestroy {
               private rdb: RemoteDataBuildService,
               private halService: HALEndpointService,
               private communityService: CommunityDataService,
-              private pidService: PIDService
+              private dspaceObjectService: DSpaceObjectDataService
   ) {
   }
 
@@ -267,9 +267,9 @@ export class SearchService implements OnDestroy {
       return top;
     }
 
-    const scopeObject: Observable<RemoteData<DSpaceObject>> = this.pidService.findById(scopeId).filter((dsoRD: RemoteData<DSpaceObject>) => !dsoRD.isLoading);
+    const scopeObject: Observable<RemoteData<DSpaceObject>> = this.dspaceObjectService.findById(scopeId).pipe(getSucceededRemoteData());
     const scopeList: Observable<DSpaceObject[]> = scopeObject.pipe(
-      flatMap((dsoRD: RemoteData<DSpaceObject>) => {
+      switchMap((dsoRD: RemoteData<DSpaceObject>) => {
           if (dsoRD.payload.type === ResourceType.Community) {
             const community: Community = dsoRD.payload as Community;
             return Observable.combineLatest(community.subcommunities, community.collections, (subCommunities, collections) => {

@@ -27,7 +27,7 @@ import { SearchQueryResponse } from './search-query-response.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { PIDService } from '../../core/data/pid.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -57,7 +57,7 @@ describe('SearchService', () => {
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: HALEndpointService, useValue: {} },
           { provide: CommunityDataService, useValue: {}},
-          { provide: PIDService, useValue: {}},
+          { provide: DSpaceObjectDataService, useValue: {}},
           SearchService
         ],
       });
@@ -114,7 +114,7 @@ describe('SearchService', () => {
           { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
           { provide: HALEndpointService, useValue: halService },
           { provide: CommunityDataService, useValue: {}},
-          { provide: PIDService, useValue: {}},
+          { provide: DSpaceObjectDataService, useValue: {}},
           SearchService
         ],
       });

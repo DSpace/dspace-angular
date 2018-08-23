@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { flatMap, } from 'rxjs/operators';
+import { flatMap, switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -83,7 +83,7 @@ export class SearchPageComponent implements OnInit {
         this.resultsRD$.next(results);
       });
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
-      flatMap((scopeId) => this.service.getScopes(scopeId))
+      switchMap((scopeId) => this.service.getScopes(scopeId))
     );
   }
 
