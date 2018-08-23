@@ -8,18 +8,12 @@ module.exports = {
     nameSpace: '/'
   },
   // The REST API server settings.
-  // rest: {
-  //   ssl: true,
-  //   host: 'dspace7.4science.it',
-  //   port: 443,
-  //   // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-  //   nameSpace: '/dspace-spring-rest/api'
-  // },
     rest: {
-        ssl: false,
-        host: 'dspace7-internal.atmire.com',
-        port: 80,
-        nameSpace: '/rest/api'
+    ssl: true,
+    host: 'dspace7.4science.it',
+    port: 443,
+    // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
+    nameSpace: '/dspace-spring-rest/api'
     },
   // Caching settings
   cache: {
