@@ -1,23 +1,27 @@
-import { CreateCommunityPageComponent } from './create-community-page.component';
+import { SharedModule } from '../../shared/shared.module';
+import { Community } from '../../core/shared/community.model';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RouteService } from '../../shared/services/route.service';
+import { DSOSuccessResponse, ErrorResponse } from '../../core/cache/response-cache.models';
+import { CommonModule } from '@angular/common';
+import { CreateCommunityPageComponent } from '../../+community-page/create-community-page/create-community-page.component';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommunityFormComponent } from '../../+community-page/community-form/community-form.component';
 import { Observable } from 'rxjs/Observable';
-import { RemoteData } from '../../core/data/remote-data';
-import { Community } from '../../core/shared/community.model';
-import { DSOSuccessResponse, ErrorResponse } from '../../core/cache/response-cache.models';
-import { BrowserModule } from '@angular/platform-browser';
-import { SharedModule } from '../../shared/shared.module';
-import { CommonModule } from '@angular/common';
-import { CommunityFormComponent } from '../community-form/community-form.component';
-import { RouterTestingModule } from '@angular/router/testing';
+import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestError } from '../../core/data/request.models';
+import { RouteService } from '../../shared/services/route.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { CreateCollectionPageComponent } from './create-collection-page.component';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { Collection } from '../../core/shared/collection.model';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CollectionFormComponent } from '../collection-form/collection-form.component';
 
-describe('CreateCommunityPageComponent', () => {
-  let comp: CreateCommunityPageComponent;
-  let fixture: ComponentFixture<CreateCommunityPageComponent>;
+describe('CreateCollectionPageComponent', () => {
+  let comp: CreateCollectionPageComponent;
+  let fixture: ComponentFixture<CreateCollectionPageComponent>;
+  let collectionDataService: CollectionDataService;
   let communityDataService: CommunityDataService;
   let routeService: RouteService;
   let router: Router;
@@ -27,14 +31,16 @@ describe('CreateCommunityPageComponent', () => {
     name: 'test community'
   });
 
+  const collectionDataServiceStub = {
+    create: (com, uuid?) => Observable.of({
+      response: new DSOSuccessResponse(null,'200',null)
+    })
+  };
   const communityDataServiceStub = {
     findById: (uuid) => Observable.of(new RemoteData(false, false, true, null, Object.assign(new Community(), {
       uuid: uuid,
       name: community.name
-    }))),
-    create: (com, uuid?) => Observable.of({
-      response: new DSOSuccessResponse(null,'200',null)
-    })
+    })))
   };
   const routeServiceStub = {
     getQueryParameterValue: (param) => Observable.of(community.uuid)
@@ -46,8 +52,9 @@ describe('CreateCommunityPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [CreateCommunityPageComponent, CommunityFormComponent],
+      declarations: [CreateCollectionPageComponent, CollectionFormComponent],
       providers: [
+        { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub }
@@ -56,9 +63,10 @@ describe('CreateCommunityPageComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateCommunityPageComponent);
+    fixture = TestBed.createComponent(CreateCollectionPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
+    collectionDataService = (comp as any).collectionDataService;
     communityDataService = (comp as any).communityDataService;
     routeService = (comp as any).routeService;
     router = (comp as any).router;
@@ -78,7 +86,7 @@ describe('CreateCommunityPageComponent', () => {
 
     it('should not navigate on failure', () => {
       spyOn(router, 'navigateByUrl');
-      spyOn(communityDataService, 'create').and.returnValue(Observable.of({
+      spyOn(collectionDataService, 'create').and.returnValue(Observable.of({
         response: Object.assign(new ErrorResponse(new RequestError()), {
           isSuccessful: false
         })
