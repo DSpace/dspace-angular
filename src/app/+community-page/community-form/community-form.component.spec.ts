@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { Location } from '@angular/common';
 
 describe('CommunityFormComponent', () => {
   let comp: CommunityFormComponent;

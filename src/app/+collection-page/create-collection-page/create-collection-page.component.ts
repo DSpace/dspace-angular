@@ -20,9 +20,9 @@ import { RemoteData } from '../../core/data/remote-data';
 })
 export class CreateCollectionPageComponent {
 
-  private error$: Observable<ErrorResponse>;
-  private parentUUID$: Observable<string>;
-  private communityRDObs: Observable<RemoteData<Community>>;
+  public error$: Observable<ErrorResponse>;
+  public parentUUID$: Observable<string>;
+  public communityRDObs: Observable<RemoteData<Community>>;
 
   public constructor(private collectionDataService: CollectionDataService, private communityDataService: CommunityDataService, private routeService: RouteService, private router: Router) {
     this.parentUUID$ = this.routeService.getQueryParameterValue('parent');

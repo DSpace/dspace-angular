@@ -1,4 +1,3 @@
-import { CommunityFormComponent } from './community-form.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SharedModule } from '../../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { CollectionFormComponent } from './collection-form.component';
+import { Location } from '@angular/common';
 
 describe('CommunityFormComponent', () => {
   let comp: CollectionFormComponent;
