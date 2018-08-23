@@ -6,11 +6,13 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Injectable, OnDestroy } from '@angular/core';
 import { RouteService } from '../../shared/services/route.service';
-import { hasNoValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { getSucceededRemoteData } from '../../core/shared/operators';
+import { SearchFilter } from '../search-filter.model';
+import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -100,6 +102,15 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
+   * @returns {Observable<number>} Emits the current DSpaceObject type as a number
+   */
+  getCurrentDSOType(): Observable<DSpaceObjectType> {
+    return this.routeService.getQueryParameterValue('dsoType')
+      .filter((type) => hasValue(type) && hasValue(DSpaceObjectType[type.toUpperCase()]))
+      .map((type) => DSpaceObjectType[type.toUpperCase()]);
+  }
+
+  /**
    * @returns {Observable<string>} Emits the current pagination settings
    */
   getCurrentPagination(defaultPagination: PaginationComponentOptions): Observable<PaginationComponentOptions> {
@@ -133,25 +144,25 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are sent to the backend
    */
-  getCurrentFilters(): Observable<Params> {
+  getCurrentFilters(): Observable<SearchFilter[]> {
     return this.routeService.getQueryParamsWithPrefix('f.').map((filterParams) => {
       if (isNotEmpty(filterParams)) {
-        const params = {};
+        const filters = [];
         Object.keys(filterParams).forEach((key) => {
           if (key.endsWith('.min') || key.endsWith('.max')) {
             const realKey = key.slice(0, -4);
-            if (isEmpty(params[realKey])) {
+            if (hasNoValue(filters.find((filter) => filter.key === realKey))) {
               const min = filterParams[realKey + '.min'] ? filterParams[realKey + '.min'][0] : '*';
               const max = filterParams[realKey + '.max'] ? filterParams[realKey + '.max'][0] : '*';
-              params[realKey] = ['[' + min + ' TO ' + max + ']'];
+              filters.push(new SearchFilter(realKey, ['[' + min + ' TO ' + max + ']']));
             }
           } else {
-            params[key] = filterParams[key];
+            filters.push(new SearchFilter(key, filterParams[key]));
           }
         });
-        return params;
+        return filters;
       }
-      return filterParams;
+      return [];
     });
   }
 
@@ -171,6 +182,7 @@ export class SearchConfigurationService implements OnDestroy {
     return Observable.merge(
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
+      this.getDSOTypePart(),
       this.getFiltersPart()
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
@@ -190,6 +202,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getSortPart(defaults.sort),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
+      this.getDSOTypePart(),
       this.getFiltersPart()
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
@@ -238,6 +251,15 @@ export class SearchConfigurationService implements OnDestroy {
   private getQueryPart(defaultQuery: string): Observable<any> {
     return this.getCurrentQuery(defaultQuery).map((query) => {
       return { query }
+    });
+  }
+
+  /**
+   * @returns {Observable<string>} Emits the current query string as a partial SearchOptions object
+   */
+  private getDSOTypePart(): Observable<any> {
+    return this.getCurrentDSOType().map((dsoType) => {
+      return { dsoType }
     });
   }
 

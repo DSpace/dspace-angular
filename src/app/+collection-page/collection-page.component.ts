@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
-import { ItemDataService } from '../core/data/item-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 
@@ -21,8 +20,8 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { filter, flatMap, map } from 'rxjs/operators';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
-import { SearchResult } from '../+search-page/search-result.model';
 import { toDSpaceObjectListRD } from '../core/shared/operators';
+import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 
 @Component({
   selector: 'ds-collection-page',
@@ -68,18 +67,13 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
         this.metadata.processRemoteData(this.collectionRD$);
         const page = +params.page || this.paginationConfig.currentPage;
         const pageSize = +params.pageSize || this.paginationConfig.pageSize;
-        const sortDirection = +params.page || this.sortConfig.direction;
         const pagination = Object.assign({},
           this.paginationConfig,
           { currentPage: page, pageSize: pageSize }
         );
-        const sort = Object.assign({},
-          this.sortConfig,
-          { direction: sortDirection, field: params.sortField }
-        );
         this.updatePage({
           pagination: pagination,
-          sort: sort
+          sort: this.sortConfig
         });
       }));
 
@@ -91,7 +85,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
         scope: this.collectionId,
         pagination: searchOptions.pagination,
         sort: searchOptions.sort,
-        filters: {type: 2}
+        dsoType: DSpaceObjectType.ITEM
       })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
   }
 

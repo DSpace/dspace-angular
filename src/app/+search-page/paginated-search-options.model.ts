@@ -2,6 +2,8 @@ import { SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { isNotEmpty } from '../shared/empty.util';
 import { SearchOptions } from './search-options.model';
+import { SearchFilter } from './search-filter.model';
+import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 
 /**
  * This model class represents all parameters needed to request information about a certain page of a search request, in a certain order
@@ -10,8 +12,8 @@ export class PaginatedSearchOptions extends SearchOptions {
   pagination?: PaginationComponentOptions;
   sort?: SortOptions;
 
-  constructor(options: {scope?: string, query?: string, filters?: any, pagination?: PaginationComponentOptions, sort?: SortOptions}) {
-    super(options)
+  constructor(options: {scope?: string, query?: string, dsoType?: DSpaceObjectType, filters?: SearchFilter[], pagination?: PaginationComponentOptions, sort?: SortOptions}) {
+    super(options);
     this.pagination = options.pagination;
     this.sort = options.sort;
   }

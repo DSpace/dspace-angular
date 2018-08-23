@@ -178,4 +178,4 @@ describe('SearchPageComponent', () => {
     });
 
   });
-});
+})
