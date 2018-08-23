@@ -21,7 +21,7 @@
     <textarea [(ngModel)]="news" name="news" id="community-news" class="form-control" aria-label="Community News" rows="6" ></textarea>
   </div>
   <div class="col-12 form-group">
-    <button type="button" class="btn btn-secondary" (click)="cancel()">{{ 'community.edit.cancel' | translate }}</button>
-    <button type="submit" class="btn btn-secondary">{{ 'community.edit.submit' | translate }}</button>
+    <button type="button" class="btn btn-secondary" id="community-cancel" (click)="cancel()">{{ 'community.edit.cancel' | translate }}</button>
+    <button type="submit" class="btn btn-secondary" id="community-submit">{{ 'community.edit.submit' | translate }}</button>
   </div>
 </form>
