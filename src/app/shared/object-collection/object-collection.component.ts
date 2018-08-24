@@ -4,7 +4,7 @@ import { Component, EventEmitter,
   Output, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PageInfo } from '../../core/shared/page-info.model';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RouterReducerState } from '@ngrx/router-store';
 
 import { HeaderState } from './header.reducer';

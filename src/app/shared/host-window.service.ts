@@ -2,7 +2,7 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 import { HostWindowState } from './host-window.reducer';
 import { Injectable } from '@angular/core';
 import { createSelector, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { hasValue } from './empty.util';
 import { AppState } from '../app.reducer';

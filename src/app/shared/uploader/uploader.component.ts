@@ -10,7 +10,7 @@ import {
 } from '@angular/core'
 
 import { FileUploader } from 'ng2-file-upload';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { uniqueId } from 'lodash';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 

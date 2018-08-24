@@ -6,7 +6,7 @@ import { SearchService } from '../search-service/search.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SearchServiceStub } from '../../shared/testing/search-service-stub';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Params } from '@angular/router';
 import { ObjectKeysPipe } from '../../shared/utils/object-keys-pipe';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';

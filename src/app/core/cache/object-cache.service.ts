@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { IndexName } from '../index/index.reducer';
 
 import { ObjectCacheEntry, CacheableObject } from './object-cache.reducer';

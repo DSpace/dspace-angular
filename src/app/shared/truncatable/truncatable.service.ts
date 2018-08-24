@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { TruncatablesState, TruncatableState } from './truncatable.reducer';
 import { TruncatableExpandAction, TruncatableToggleAction, TruncatableCollapseAction } from './truncatable.actions';
 import { hasValue } from '../empty.util';

@@ -2,8 +2,7 @@ import { Inject, Injectable } from '@angular/core'
 
 import { REQUEST } from '@nguniversal/express-engine/tokens'
 
-import { Subject } from 'rxjs/Subject'
-import { Observable } from 'rxjs/Observable'
+import { Subject ,  Observable } from 'rxjs'
 import { CookieAttributes } from 'js-cookie'
 
 export interface ICookieService {

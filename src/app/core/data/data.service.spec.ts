@@ -6,7 +6,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { FindAllOptions } from './request.models';
 import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
 

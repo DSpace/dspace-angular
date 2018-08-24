@@ -6,7 +6,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/mock-remote-data-build.service';
 import { Item } from '../../../core/shared/item.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { TranslateModule } from '@ngx-translate/core';
 

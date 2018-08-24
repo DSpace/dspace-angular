@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { BrowseService } from '../browse/browse.service';

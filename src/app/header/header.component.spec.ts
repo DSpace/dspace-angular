@@ -4,7 +4,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { HeaderComponent } from './header.component';
 import { HeaderState } from './header.reducer';

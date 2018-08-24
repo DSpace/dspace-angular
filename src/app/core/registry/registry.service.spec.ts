@@ -6,7 +6,7 @@ import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { RequestEntry } from '../data/request.reducer';
 import { RemoteData } from '../data/remote-data';

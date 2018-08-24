@@ -1,15 +1,13 @@
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  BehaviorSubject ,  Subscription } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Injectable, OnDestroy } from '@angular/core';
 import { RouteService } from '../../shared/services/route.service';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
 import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';

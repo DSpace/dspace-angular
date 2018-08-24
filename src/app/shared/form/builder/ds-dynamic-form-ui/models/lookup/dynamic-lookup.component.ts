@@ -7,7 +7,7 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../../empty.util';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';

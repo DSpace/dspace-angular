@@ -1,6 +1,6 @@
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../../utils/truncate.pipe';

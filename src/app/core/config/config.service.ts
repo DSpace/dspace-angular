@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable';
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -23,7 +24,7 @@ export abstract class ConfigService {
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't retrieve the config`))),
+        observableThrowError(new Error(`Couldn't retrieve the config`))),
       successResponse
         .filter((response: ConfigSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.configDefinition))
         .map((response: ConfigSuccessResponse) => new ConfigData(response.pageInfo, response.configDefinition))

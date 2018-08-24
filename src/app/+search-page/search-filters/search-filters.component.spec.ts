@@ -7,7 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterService } from './search-filter/search-filter.service';
 import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../search-service/search.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
 
 describe('SearchFiltersComponent', () => {

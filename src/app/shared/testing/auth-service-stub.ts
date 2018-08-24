@@ -1,5 +1,5 @@
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EpersonMock } from './eperson-mock';
 import { Eperson } from '../../core/eperson/models/eperson.model';

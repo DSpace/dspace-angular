@@ -8,9 +8,8 @@ const {
   getAotPlugin
 } = require('./webpack/webpack.aot');
 
-module.exports = function(options, webpackOptions) {
+module.exports = function(options) {
   options = options || {};
-
   if (options.aot) {
     console.log(`Running build for ${options.client ? 'client' : 'server'} with AoT Compilation`)
   }
@@ -29,7 +28,7 @@ module.exports = function(options, webpackOptions) {
     ]
   });
 
-  if (webpackOptions.p) {
+  if (options.mode === 'production') {
     serverConfig = webpackMerge({}, serverConfig, prodPartial);
     clientConfig = webpackMerge({}, clientConfig, prodPartial);
   }

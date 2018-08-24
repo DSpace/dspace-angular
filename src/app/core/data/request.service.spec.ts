@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';

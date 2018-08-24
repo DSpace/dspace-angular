@@ -6,7 +6,7 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { RouterReducerState } from '@ngrx/router-store';
 import { Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, withLatestFrom } from 'rxjs/operators';
 
 import { Eperson } from '../eperson/models/eperson.model';

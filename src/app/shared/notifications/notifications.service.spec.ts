@@ -4,7 +4,7 @@ import { NotificationsBoardComponent } from './notifications-board/notifications
 import { NotificationComponent } from './notification/notification.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { notificationsReducer } from './notifications.reducers';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
 import { Notification } from './models/notification.model';

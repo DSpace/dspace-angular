@@ -1,9 +1,6 @@
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-
+import { throwError as observableThrowError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ApiService {
@@ -18,7 +15,7 @@ export class ApiService {
     return this._http.get(url, options)
       .catch((err) => {
         console.log('Error: ', err);
-        return Observable.throw(err);
+        return observableThrowError(err);
       });
   }
 

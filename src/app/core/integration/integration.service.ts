@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable';
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { ErrorResponse, IntegrationSuccessResponse, RestResponse } from '../cache/response-cache.models';
@@ -23,7 +24,7 @@ export abstract class IntegrationService {
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't retrieve the integration data`))),
+        observableThrowError(new Error(`Couldn't retrieve the integration data`))),
       successResponse
         .filter((response: IntegrationSuccessResponse) => isNotEmpty(response))
         .map((response: IntegrationSuccessResponse) => new IntegrationData(response.pageInfo, response.dataDefinition))

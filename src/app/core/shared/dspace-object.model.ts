@@ -4,7 +4,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 /**
  * An abstract model class for a DSpaceObject.

@@ -13,7 +13,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions, FindAllRequest } from './request.models';
 import { RemoteData } from './remote-data';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 
 @Injectable()

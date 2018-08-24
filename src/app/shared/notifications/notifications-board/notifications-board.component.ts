@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { difference } from 'lodash';
 
 import { NotificationsService } from '../notifications.service';

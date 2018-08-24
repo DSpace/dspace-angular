@@ -1,6 +1,6 @@
 import { MetadataRegistryComponent } from './metadata-registry.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { TranslateModule } from '@ngx-translate/core';

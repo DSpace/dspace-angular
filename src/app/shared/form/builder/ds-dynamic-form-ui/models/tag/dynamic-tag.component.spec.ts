@@ -6,7 +6,7 @@ import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, } from '@an
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { NgbModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of'
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';

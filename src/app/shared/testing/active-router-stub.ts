@@ -1,6 +1,6 @@
 import { convertToParamMap, ParamMap, Params } from '@angular/router';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 export class ActivatedRouteStub {
 

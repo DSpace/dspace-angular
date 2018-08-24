@@ -1,13 +1,10 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable, Injector } from '@angular/core';
 import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse,
   HttpErrorResponse, HttpResponseBase
 } from '@angular/common/http';
-
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/observable/throw'
-import 'rxjs/add/operator/catch';
-
 import { find } from 'lodash';
 
 import { AppState } from '../../app.reducer';
@@ -146,7 +143,7 @@ export class AuthInterceptor implements HttpInterceptor {
           }
         }
         // Return error response as is.
-        return Observable.throw(error);
+        return observableThrowError(error);
       }) as any;
 
   }

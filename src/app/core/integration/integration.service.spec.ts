@@ -1,5 +1,5 @@
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/Rx';
+import { TestScheduler } from 'rxjs';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 

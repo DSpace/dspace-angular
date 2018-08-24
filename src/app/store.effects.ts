@@ -1,10 +1,10 @@
-import 'rxjs/add/operator/withLatestFrom';
+
 
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { AppState } from './app.reducer';
 import { StoreAction, StoreActionTypes } from './store.actions';

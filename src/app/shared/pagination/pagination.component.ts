@@ -11,10 +11,8 @@ import {
 
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Subscription } from 'rxjs/Subscription';
-import { isNumeric } from 'rxjs/util/isNumeric';
-
-import { Observable } from 'rxjs/Observable';
+import { Subscription ,  Observable } from 'rxjs';
+import { isNumeric } from 'rxjs/util';
 
 import { HostWindowService } from '../host-window.service';
 import { HostWindowState } from '../host-window.reducer';

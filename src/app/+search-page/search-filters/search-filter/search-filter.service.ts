@@ -2,7 +2,7 @@ import { Injectable, InjectionToken } from '@angular/core';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,

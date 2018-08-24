@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';

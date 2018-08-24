@@ -1,7 +1,7 @@
 import { RouteService } from './route.service';
 import { async, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, Params } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 describe('RouteService', () => {
   let service: RouteService;

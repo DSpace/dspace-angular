@@ -4,7 +4,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
 
 @Component({

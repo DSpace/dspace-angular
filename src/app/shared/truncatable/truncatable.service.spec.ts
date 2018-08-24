@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { async, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { TruncatableService } from './truncatable.service';
 import { TruncatableCollapseAction, TruncatableExpandAction } from './truncatable.actions';
 import { TruncatablesState } from './truncatable.reducer';

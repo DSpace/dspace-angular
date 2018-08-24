@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 
 import { ResponseCacheService } from './response-cache.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { CoreState } from '../core.reducers';
 import { RestResponse } from './response-cache.models';
 import { ResponseCacheEntry } from './response-cache.reducer';

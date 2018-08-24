@@ -1,7 +1,8 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Request } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http'
-import { Observable } from 'rxjs/Observable';
 import { RestRequestMethod } from '../data/request.models';
 
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
@@ -40,7 +41,7 @@ export class DSpaceRESTv2Service {
       .map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.statusText }))
       .catch((err) => {
         console.log('Error: ', err);
-        return Observable.throw(err);
+        return observableThrowError(err);
       });
   }
 
@@ -70,7 +71,7 @@ export class DSpaceRESTv2Service {
       .map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.statusText }))
       .catch((err) => {
         console.log('Error: ', err);
-        return Observable.throw(err);
+        return observableThrowError(err);
       });
   }
 

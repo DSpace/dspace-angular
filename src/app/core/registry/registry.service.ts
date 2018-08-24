@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';

@@ -5,7 +5,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 
 // import rxjs
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 // import services
 import { AuthService } from './auth.service';

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../utils/truncate.pipe';
 import { Item } from '../../../core/shared/item.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 let itemGridElementComponent: ItemGridElementComponent;
 let fixture: ComponentFixture<ItemGridElementComponent>;

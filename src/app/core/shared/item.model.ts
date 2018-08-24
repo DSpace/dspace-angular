@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { DSpaceObject } from './dspace-object.model';
 import { Collection } from './collection.model';

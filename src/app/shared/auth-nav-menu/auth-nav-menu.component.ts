@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RouterReducerState } from '@ngrx/router-store';
 import { Store } from '@ngrx/store';
 

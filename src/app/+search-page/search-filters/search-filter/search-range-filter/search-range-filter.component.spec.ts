@@ -7,7 +7,7 @@ import { SearchFilterConfig } from '../../../search-service/search-filter-config
 import { FilterType } from '../../../search-service/filter-type.model';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { FormsModule } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { SearchService } from '../../../search-service/search.service';
 import { SearchServiceStub } from '../../../../shared/testing/search-service-stub';
 import { RemoteData } from '../../../../core/data/remote-data';

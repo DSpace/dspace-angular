@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';

@@ -15,7 +15,7 @@ import {
 } from '../../core/auth/selectors';
 
 import { AppState } from '../../app.reducer';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { fadeOut } from '../animations/fade';
 
 @Component({

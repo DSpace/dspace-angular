@@ -6,7 +6,7 @@ import {
   Router,
   UrlSegmentGroup
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { flatMap, map, switchMap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {

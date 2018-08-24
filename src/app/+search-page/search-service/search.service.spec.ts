@@ -12,7 +12,7 @@ import { ResponseCacheService } from '../../core/cache/response-cache.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { RouterStub } from '../../shared/testing/router-stub';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';

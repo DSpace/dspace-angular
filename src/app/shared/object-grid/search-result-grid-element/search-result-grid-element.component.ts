@@ -7,7 +7,7 @@ import { isEmpty, hasNoValue, hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-search-result-grid-element',

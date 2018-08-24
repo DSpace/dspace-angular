@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AppState } from '../app.reducer';
 import { HostWindowState } from './host-window.reducer';
 

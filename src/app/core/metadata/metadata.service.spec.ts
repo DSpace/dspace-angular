@@ -10,7 +10,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteDataError } from '../data/remote-data-error';
 import { UUIDService } from '../shared/uuid.service';
 

@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { IntegrationSearchOptions } from '../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../core/integration/integration-data';
 import { PageInfo } from '../../core/shared/page-info.model';

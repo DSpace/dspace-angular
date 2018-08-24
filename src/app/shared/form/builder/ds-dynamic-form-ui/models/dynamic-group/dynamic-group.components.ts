@@ -10,7 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { isEqual } from 'lodash';
 
@@ -26,7 +26,6 @@ import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { SearchFilterService } from './search-filter/search-filter.service';

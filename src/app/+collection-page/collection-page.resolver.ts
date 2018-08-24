@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Collection } from '../core/shared/collection.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { getSucceededRemoteData } from '../core/shared/operators';

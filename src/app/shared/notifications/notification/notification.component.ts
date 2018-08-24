@@ -21,7 +21,7 @@ import { fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState } from 
 import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../../animations/fromTop';
 import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../animations/fade';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { isNotEmpty } from '../../empty.util';
 
 @Component({

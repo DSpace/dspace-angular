@@ -1,6 +1,6 @@
 import { WrapperGridElementComponent } from './wrapper-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../testing/router-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';

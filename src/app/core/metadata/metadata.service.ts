@@ -1,5 +1,5 @@
-import 'rxjs/add/operator/first'
-import 'rxjs/add/operator/take'
+
+
 
 import { Inject, Injectable } from '@angular/core';
 import {
@@ -14,8 +14,7 @@ import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject ,  Observable } from 'rxjs';
 
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from '../shared/bitstream.model';

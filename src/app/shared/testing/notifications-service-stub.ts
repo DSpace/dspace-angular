@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { INotification } from '../notifications/models/notification.model';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 

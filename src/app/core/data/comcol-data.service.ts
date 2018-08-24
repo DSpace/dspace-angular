@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable';
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -48,7 +49,7 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
 
       return Observable.merge(
         errorResponse.flatMap((response: ErrorResponse) =>
-          Observable.throw(new Error(`The Community with scope ${scopeID} couldn't be retrieved`))),
+          observableThrowError(new Error(`The Community with scope ${scopeID} couldn't be retrieved`))),
         successResponse
           .flatMap((response: DSOSuccessResponse) => this.objectCache.getByUUID(scopeID))
           .map((nc: NormalizedCommunity) => nc._links[this.linkPath])

@@ -4,7 +4,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of'
 
 import { AuthEffects } from './auth.effects';

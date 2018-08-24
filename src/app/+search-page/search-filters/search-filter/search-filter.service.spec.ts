@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { SearchFilterService } from './search-filter.service';
 import { Store } from '@ngrx/store';
 import {

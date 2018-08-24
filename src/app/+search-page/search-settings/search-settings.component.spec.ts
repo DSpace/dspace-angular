@@ -1,7 +1,7 @@
 import { SearchService } from '../search-service/search.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchSettingsComponent } from './search-settings.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { TranslateModule } from '@ngx-translate/core';

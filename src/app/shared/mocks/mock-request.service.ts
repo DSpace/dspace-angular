@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RequestService } from '../../core/data/request.service';
 import { RequestEntry } from '../../core/data/request.reducer';
 

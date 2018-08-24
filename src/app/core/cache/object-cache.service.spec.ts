@@ -1,5 +1,5 @@
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { ObjectCacheService } from './object-cache.service';
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';

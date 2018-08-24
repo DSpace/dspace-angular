@@ -12,10 +12,9 @@ import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchService } from '../../../search-service/search.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { RouteService } from '../../../../shared/services/route.service';
 import { hasValue } from '../../../../shared/empty.util';
-import { Subscription } from 'rxjs/Subscription';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 
 /**

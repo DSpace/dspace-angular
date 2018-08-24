@@ -6,6 +6,7 @@ const {
 } = require('./helpers');
 
 module.exports = {
+  mode: 'development',
   devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.js', '.json']

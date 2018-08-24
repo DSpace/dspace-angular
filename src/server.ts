@@ -1,6 +1,6 @@
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
-import 'rxjs/Rx';
+import 'rxjs';
 
 import * as fs from 'fs';
 import * as pem from 'pem';

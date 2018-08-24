@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SearchSidebarState } from './search-sidebar.reducer';
 import { createSelector, Store } from '@ngrx/store';
 import { SearchSidebarCollapseAction, SearchSidebarExpandAction } from './search-sidebar.actions';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../../shared/host-window.service';
 

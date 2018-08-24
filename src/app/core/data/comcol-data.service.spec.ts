@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/Rx';
+import { TestScheduler } from 'rxjs';
 import { GlobalConfig } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';

@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { SearchSidebarService } from './search-sidebar.service';
 import { AppState } from '../../app.reducer';
 import { async, inject, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import { SearchSidebarCollapseAction, SearchSidebarExpandAction } from './search-sidebar.actions';
 import { HostWindowService } from '../../shared/host-window.service';

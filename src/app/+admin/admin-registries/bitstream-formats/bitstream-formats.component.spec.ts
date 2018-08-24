@@ -1,7 +1,7 @@
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { CommonModule } from '@angular/common';

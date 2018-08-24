@@ -6,8 +6,7 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject ,  Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';

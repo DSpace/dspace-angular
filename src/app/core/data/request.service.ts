@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { hasValue } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';

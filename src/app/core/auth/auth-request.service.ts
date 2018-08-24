@@ -1,10 +1,10 @@
+import { Observable, throwError as observableThrowError } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { Observable } from 'rxjs/Observable';
 import { isNotEmpty } from '../../shared/empty.util';
 import { AuthGetRequest, AuthPostRequest, PostRequest, RestRequest } from '../data/request.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
@@ -30,7 +30,7 @@ export class AuthRequestService {
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(response.errorMessage))),
+        observableThrowError(new Error(response.errorMessage))),
       successResponse
         .filter((response: AuthStatusResponse) => isNotEmpty(response))
         .map((response: AuthStatusResponse) => response.response)

@@ -1,6 +1,6 @@
 import { MetadataSchemaComponent } from './metadata-schema.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';

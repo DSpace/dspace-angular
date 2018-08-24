@@ -20,8 +20,7 @@ import {
   FormStatusChangeAction
 } from './form.actions';
 import { FormBuilderService } from './builder/form-builder.service';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  Subscription } from 'rxjs';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { formObjectFromIdSelector } from './selectors';
