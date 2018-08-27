@@ -74,12 +74,8 @@ module.exports = function (options) {
           enforce: 'pre',
           test: /\.js$/,
           loader: 'source-map-loader',
-          exclude: [
-            // these packages have problems with their sourcemaps
-            root('node_modules/@angular'),
-            root('node_modules/@nguniversal'),
-            root('node_modules/rxjs')
-          ]
+          exclude: [/node_modules/],
+
         },
 
         /**

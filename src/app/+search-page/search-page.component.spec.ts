@@ -19,6 +19,8 @@ import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
+import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { RemoteData } from '../core/data/remote-data';
 
 describe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
@@ -35,19 +37,20 @@ describe('SearchPageComponent', () => {
   pagination.currentPage = 1;
   pagination.pageSize = 10;
   const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-  const mockResults = Observable.of(['test', 'data']);
+  const mockResults = Observable.of(new RemoteData(false, false, true, null,['test', 'data']));
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     search: mockResults,
-    getSearchLink: '/search'
+    getSearchLink: '/search',
+    getScopes: Observable.of(['test-scope'])
   });
   const queryParam = 'test query';
   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
   const paginatedSearchOptions = {
-    query: queryParam,
-    scope: scopeParam,
-    pagination,
-    sort
-  };
+      query: queryParam,
+      scope: scopeParam,
+      pagination,
+      sort
+    };
   const activatedRouteStub = {
     queryParams: Observable.of({
       query: queryParam,
@@ -76,11 +79,11 @@ describe('SearchPageComponent', () => {
         },
         {
           provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-          {
-            isXs: Observable.of(true),
-            isSm: Observable.of(false),
-            isXsOrSm: Observable.of(true)
-          })
+            {
+              isXs: Observable.of(true),
+              isSm: Observable.of(false),
+              isXsOrSm: Observable.of(true)
+            })
         },
         {
           provide: SearchSidebarService,
@@ -88,16 +91,20 @@ describe('SearchPageComponent', () => {
         },
         {
           provide: SearchFilterService,
-          useValue: jasmine.createSpyObj('SearchFilterService', {
-            getPaginatedSearchOptions: hot('a', {
+          useValue: {}
+        }, {
+          provide: SearchConfigurationService,
+          useValue: {
+            paginatedSearchOptions: hot('a', {
               a: paginatedSearchOptions
-            })
-          })
+            }),
+            getCurrentScope: (a) => Observable.of('test-id')
+          }
         },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchPageComponent, {
-      set: {  changeDetection: ChangeDetectionStrategy.Default  }
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
@@ -171,4 +178,5 @@ describe('SearchPageComponent', () => {
     });
 
   });
-});
+})
+;

@@ -46,4 +46,8 @@ export class NormalizedCommunity extends NormalizedDSpaceObject {
   @relationship(ResourceType.Collection, true)
   collections: string[];
 
+  @autoserialize
+  @relationship(ResourceType.Community, true)
+  subcommunities: string[];
+
 }

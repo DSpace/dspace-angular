@@ -1,0 +1,17 @@
+.autocomplete {
+    width: 100%;
+    .dropdown-item {
+        white-space: normal;
+        word-break: break-word;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+form {
+    position: relative;
+    .dropdown-menu {
+        position: absolute;
+    }
+}
