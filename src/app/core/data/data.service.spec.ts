@@ -10,8 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { FindAllOptions } from './request.models';
 import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
 
-const LINK_NAME = 'test';
-const ENDPOINT = 'https://rest.api/core';
+const endpoint = 'https://rest.api/core';
 
 // tslint:disable:max-classes-per-file
 class NormalizedTestObject extends NormalizedObject {
@@ -30,9 +29,8 @@ class TestService extends DataService<NormalizedTestObject, any> {
     }
 
     public getBrowseEndpoint(options: FindAllOptions): Observable<string> {
-        return Observable.of(ENDPOINT);
+        return Observable.of(endpoint);
     }
-
 }
 
 describe('DataService', () => {
@@ -50,7 +48,7 @@ describe('DataService', () => {
             requestService,
             rdbService,
             store,
-            LINK_NAME,
+            endpoint,
             halService
           );
     }
@@ -63,14 +61,14 @@ describe('DataService', () => {
             options = {};
 
             (service as any).getFindAllHref(options).subscribe((value) => {
-                    expect(value).toBe(ENDPOINT);
+                    expect(value).toBe(endpoint);
                 }
             );
         });
 
         it('should include page in href if currentPage provided in options', () => {
             options = { currentPage: 2 };
-            const expected = `${ENDPOINT}?page=${options.currentPage - 1}`;
+            const expected = `${endpoint}?page=${options.currentPage - 1}`;
 
             (service as any).getFindAllHref(options).subscribe((value) => {
                 expect(value).toBe(expected);
@@ -79,7 +77,7 @@ describe('DataService', () => {
 
         it('should include size in href if elementsPerPage provided in options', () => {
             options = { elementsPerPage: 5 };
-            const expected = `${ENDPOINT}?size=${options.elementsPerPage}`;
+            const expected = `${endpoint}?size=${options.elementsPerPage}`;
 
             (service as any).getFindAllHref(options).subscribe((value) => {
                 expect(value).toBe(expected);
@@ -89,7 +87,7 @@ describe('DataService', () => {
         it('should include sort href if SortOptions provided in options', () => {
             const sortOptions = new SortOptions('field1', SortDirection.ASC);
             options = { sort:  sortOptions};
-            const expected = `${ENDPOINT}?sort=${sortOptions.field},${sortOptions.direction}`;
+            const expected = `${endpoint}?sort=${sortOptions.field},${sortOptions.direction}`;
 
             (service as any).getFindAllHref(options).subscribe((value) => {
                 expect(value).toBe(expected);
@@ -98,7 +96,7 @@ describe('DataService', () => {
 
         it('should include startsWith in href if startsWith provided in options', () => {
             options = { startsWith: 'ab' };
-            const expected = `${ENDPOINT}?startsWith=${options.startsWith}`;
+            const expected = `${endpoint}?startsWith=${options.startsWith}`;
 
             (service as any).getFindAllHref(options).subscribe((value) => {
                 expect(value).toBe(expected);
@@ -113,7 +111,7 @@ describe('DataService', () => {
                 sort: sortOptions,
                 startsWith: 'ab'
             }
-            const expected = `${ENDPOINT}?page=${options.currentPage - 1}&size=${options.elementsPerPage}` +
+            const expected = `${endpoint}?page=${options.currentPage - 1}&size=${options.elementsPerPage}` +
                 `&sort=${sortOptions.field},${sortOptions.direction}&startsWith=${options.startsWith}`;
 
             (service as any).getFindAllHref(options).subscribe((value) => {
