@@ -1,6 +1,6 @@
-import { ViewMode } from '../../../+search-page/search-options.model';
 import { renderElementsFor } from './dso-element-decorator';
 import { Item } from '../../../core/shared/item.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 describe('ElementDecorator', () => {
   const gridDecorator = renderElementsFor(Item, ViewMode.Grid);

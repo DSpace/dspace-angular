@@ -3,6 +3,7 @@ import { Bitstream } from './bitstream.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs/Observable';
+import { PaginatedList } from '../data/paginated-list';
 
 export class Community extends DSpaceObject {
 
@@ -58,6 +59,8 @@ export class Community extends DSpaceObject {
    */
   owner: Observable<RemoteData<Community>>;
 
-  collections: Observable<RemoteData<Collection[]>>;
+  collections: Observable<RemoteData<PaginatedList<Collection>>>;
+
+  subcommunities: Observable<RemoteData<PaginatedList<Collection>>>;
 
 }

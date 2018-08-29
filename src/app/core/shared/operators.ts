@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { filter, flatMap, map, tap } from 'rxjs/operators';
+import { filter, first, flatMap, map, tap } from 'rxjs/operators';
 import { hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { DSOSuccessResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
@@ -46,6 +46,10 @@ export const configureRequest = (requestService: RequestService) =>
 export const getRemoteDataPayload = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(map((remoteData: RemoteData<T>) => remoteData.payload));
+
+export const getSucceededRemoteData = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(first((rd: RemoteData<T>) => rd.hasSucceeded));
 
 /**
  * Get the browse links from a definition by ID given an array of all definitions

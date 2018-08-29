@@ -10,6 +10,7 @@ import {
 import { SearchFiltersState } from './search-filter.reducer';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { FilterType } from '../../search-service/filter-type.model';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;
@@ -41,10 +42,14 @@ describe('SearchFilterService', () => {
     addQueryParameterValue: (param: string, value: string) => {
     },
     getQueryParameterValues: (param: string) => {
+      return Observable.of({});
+    },
+    getQueryParamsWithPrefix: (param: string) => {
+      return Observable.of({});
     }
     /* tslint:enable:no-empty */
   };
-
+  const activatedRoute: any = new ActivatedRouteStub();
   const searchServiceStub: any = {
     uiSearchRoute: '/search'
   };

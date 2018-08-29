@@ -38,4 +38,8 @@ export class CollectionsComponent implements OnInit {
     this.collections = this.item.owner.map((rd: RemoteData<Collection>) => [rd.payload]);
   }
 
+  hasSucceeded() {
+    return this.item.owner.map((rd: RemoteData<Collection>) => rd.hasSucceeded);
+  }
+
 }

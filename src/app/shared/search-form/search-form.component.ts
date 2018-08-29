@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
-import { isNotEmpty, hasValue, isEmpty, hasNoValue } from '../empty.util';
+import { hasValue, isNotEmpty } from '../empty.util';
+import { QueryParamsHandling } from '@angular/router/src/config';
 
 /**
  * This component renders a simple item page.
@@ -15,36 +15,67 @@ import { isNotEmpty, hasValue, isEmpty, hasNoValue } from '../empty.util';
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html'
 })
-export class SearchFormComponent {
-  @Input() query: string;
-  selectedId = '';
-  @Input() currentUrl: string;
-  @Input() scopes: DSpaceObject[];
 
+/**
+ * Component that represents the search form
+ */
+export class SearchFormComponent {
+  /**
+   * The search query
+   */
+  @Input() query: string;
+
+  /**
+   * The currently selected scope object's UUID
+   */
   @Input()
-  set scope(id: string) {
-    this.selectedId = id;
-  }
+  scope = '';
+
+  @Input() currentUrl: string;
+
+  /**
+   * The available scopes
+   */
+  @Input() scopes: DSpaceObject[];
 
   constructor(private router: Router) {
   }
 
+  /**
+   * Updates the search when the form is submitted
+   * @param data Values submitted using the form
+   */
   onSubmit(data: any) {
     this.updateSearch(data);
   }
 
+  /**
+   * Updates the search when the current scope has been changed
+   * @param {string} scope The new scope
+   */
+  onScopeChange(scope: string) {
+    this.updateSearch({ scope });
+  }
+
+  /**
+   * Updates the search URL
+   * @param data Updated parameters
+   */
   updateSearch(data: any) {
-    const newUrl = hasValue(this.currentUrl) ? this.currentUrl : 'search';
+    const newUrl = hasValue(this.currentUrl) ? this.currentUrl : '/search';
+    let handling: QueryParamsHandling = '' ;
+    if (this.currentUrl === '/search') {
+      handling = 'merge';
+    }
     this.router.navigate([newUrl], {
-      queryParams: {
-        query: data.query,
-        scope: data.scope || undefined,
-        page: data.page || 1
-      },
-      queryParamsHandling: 'merge'
+      queryParams: Object.assign({}, { page: 1 }, data),
+      queryParamsHandling: handling
     });
   }
 
+  /**
+   * For usage of the isNotEmpty function in the template
+   */
   isNotEmpty(object: any) {
     return isNotEmpty(object);
   }

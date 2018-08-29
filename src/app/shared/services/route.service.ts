@@ -38,6 +38,7 @@ export class RouteService {
               params[key] = [...map.getAll(key)];
             });
           return params;
-        }).distinctUntilChanged();
+        })
+      .distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b));
   }
 }

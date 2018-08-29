@@ -8,8 +8,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
-import { ViewMode } from '../../+search-page/search-options.model';
 import { SearchServiceStub } from '../testing/search-service-stub';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({ template: '' })
 class DummyComponent { }

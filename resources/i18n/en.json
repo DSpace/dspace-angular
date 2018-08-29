@@ -59,8 +59,13 @@
     }
   },
   "sorting": {
-    "ASC": "Ascending",
-    "DESC": "Descending"
+    "score": {
+      "DESC": "Relevance"
+    },
+    "dc.title": {
+      "ASC": "Title Ascending",
+      "DESC": "Title Descending"
+    }
   },
   "title": "DSpace",
   "404": {
@@ -93,13 +98,13 @@
       "close": "Back to results",
       "open": "Search Tools",
       "results": "results",
-      "filters":{
-        "title":"Filters"
+      "filters": {
+        "title": "Filters"
       },
-      "settings":{
-        "title":"Settings",
-        "sort-by":"Sort By",
-        "rpp":"Results per page"
+      "settings": {
+        "title": "Settings",
+        "sort-by": "Sort By",
+        "rpp": "Results per page"
       }
     },
     "view-switch": {
@@ -109,6 +114,13 @@
     "filters": {
       "head": "Filters",
       "reset": "Reset filters",
+      "applied": {
+        "f.author": "Author",
+        "f.dateIssued.min": "Start date",
+        "f.dateIssued.max": "End date",
+        "f.subject": "Subject",
+        "f.has_content_in_original_bundle": "Has files"
+      },
       "filter": {
         "show-more": "Show more",
         "show-less": "Collapse",
@@ -125,11 +137,15 @@
           "head": "Subject"
         },
         "dateIssued": {
-          "placeholder": "Date",
+          "max": {
+            "placeholder": "Minimum Date"
+          },
+          "min": {
+            "placeholder": "Maximum Date"
+          },
           "head": "Date"
         },
         "has_content_in_original_bundle": {
-          "placeholder": "Has files",
           "head": "Has files"
         }
       }

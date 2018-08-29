@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchFacetFilterComponent } from './search-facet-filter.component';
-import { SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { FacetValue } from '../../../search-service/facet-value.model';
@@ -14,11 +12,12 @@ import { SearchService } from '../../../search-service/search.service';
 import { SearchServiceStub } from '../../../../shared/testing/search-service-stub';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
-import { SearchOptions } from '../../../search-options.model';
 import { RouterStub } from '../../../../shared/testing/router-stub';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { SearchFacetFilterComponent } from './search-facet-filter.component';
+import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
+import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -65,18 +64,21 @@ describe('SearchFacetFilterComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
+        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
+        { provide: RemoteDataBuildService, useValue: {aggregate: () => Observable.of({})} },
+        { provide: SearchConfigurationService, useValue: {searchOptions: Observable.of({})} },
         {
           provide: SearchFilterService, useValue: {
-          isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-          getPage: (paramName: string) => page,
-          /* tslint:disable:no-empty */
-          incrementPage: (filterName: string) => {
-          },
-          resetPage: (filterName: string) => {
-          },
-          getSearchOptions: () => Observable.of({}),
-          /* tslint:enable:no-empty */
-        }
+            getSelectedValuesForFilter: () => Observable.of(selectedValues),
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
+            getPage: (paramName: string) => page,
+            /* tslint:disable:no-empty */
+            incrementPage: (filterName: string) => {
+            },
+            resetPage: (filterName: string) => {
+            }
+            /* tslint:enable:no-empty */
+          }
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -89,9 +91,6 @@ describe('SearchFacetFilterComponent', () => {
     fixture = TestBed.createComponent(SearchFacetFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.filterConfig = mockFilterConfig;
-    comp.filterValues = [mockValues];
-    comp.filterValues$ = new BehaviorSubject(comp.filterValues);
-    comp.selectedValues = selectedValues;
     filterService = (comp as any).filterService;
     searchService = (comp as any).searchService;
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
@@ -124,14 +123,14 @@ describe('SearchFacetFilterComponent', () => {
   describe('when the getAddParams method is called wih a value', () => {
     it('should return the selectedValue list with the new parameter value', () => {
       const result = comp.getAddParams(value3);
-      expect(result[mockFilterConfig.paramName]).toEqual([value1, value2, value3]);
+      result.subscribe((r) => expect(r[mockFilterConfig.paramName]).toEqual([value1, value2, value3]));
     });
   });
 
   describe('when the getRemoveParams method is called wih a value', () => {
     it('should return the selectedValue list with the parameter value left out', () => {
       const result = comp.getRemoveParams(value1);
-      expect(result[mockFilterConfig.paramName]).toEqual([value2]);
+      result.subscribe((r) => expect(r[mockFilterConfig.paramName]).toEqual([value2]));
     });
   });
 
@@ -169,7 +168,7 @@ describe('SearchFacetFilterComponent', () => {
   });
 
   describe('when the getCurrentUrl method is called', () => {
-    const url = 'test.url/test'
+    const url = 'test.url/test';
     beforeEach(() => {
       router.navigateByUrl(url);
     });
@@ -182,7 +181,7 @@ describe('SearchFacetFilterComponent', () => {
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';
     const testValue = 'test';
-    const data = { [mockFilterConfig.paramName]: testValue };
+    const data = testValue;
     beforeEach(() => {
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
       comp.onSubmit(data);
@@ -197,46 +196,26 @@ describe('SearchFacetFilterComponent', () => {
   });
 
   describe('when updateFilterValueList is called', () => {
-    const cPage = 10;
-    const searchOptions = new SearchOptions();
     beforeEach(() => {
-      // spyOn(searchService, 'getFacetValuesFor'); Already spied upon
-      comp.currentPage = Observable.of(cPage);
-      comp.updateFilterValueList(searchOptions);
+      spyOn(comp, 'showFirstPageOnly');
+      comp.updateFilterValueList()
     });
 
-    it('should call getFacetValuesFor on the searchService with the correct parameters', () => {
-      expect(searchService.getFacetValuesFor).toHaveBeenCalledWith(mockFilterConfig, cPage, searchOptions);
+    it('should call showFirstPageOnly and empty the filter', () => {
+        expect(comp.animationState).toEqual('loading');
+        expect((comp as any).collapseNextUpdate).toBeTruthy();
+        expect(comp.filter).toEqual('');
     });
   });
 
-  describe('when updateFilterValueList is called and pageChange is set to true', () => {
-    const searchOptions = new SearchOptions();
+  describe('when findSuggestions is called with query \'test\'', () => {
+    const query = 'test';
     beforeEach(() => {
-      comp.pageChange = true;
-      spyOn(comp, 'showFirstPageOnly');
-      comp.updateFilterValueList(searchOptions);
+      comp.findSuggestions(query);
     });
 
-    it('should not call showFirstPageOnly on the component', () => {
-      expect(comp.showFirstPageOnly).not.toHaveBeenCalled();
-    });
-
-    it('should set pageChange to false', () => {
-      expect(comp.pageChange).toBeFalsy();
-    });
-  });
-
-  describe('when updateFilterValueList is called and pageChange is set to false', () => {
-    const searchOptions = new SearchOptions();
-    beforeEach(() => {
-      comp.pageChange = false;
-      spyOn(comp, 'showFirstPageOnly');
-      comp.updateFilterValueList(searchOptions);
-    });
-
-    it('should call showFirstPageOnly on the component', () => {
-      expect(comp.showFirstPageOnly).toHaveBeenCalled();
+    it('should call getFacetValuesFor on the component\'s SearchService with the right query', () => {
+      expect((comp as any).searchService.getFacetValuesFor).toHaveBeenCalledWith(comp.filterConfig, 1, {}, query);
     });
   });
 });

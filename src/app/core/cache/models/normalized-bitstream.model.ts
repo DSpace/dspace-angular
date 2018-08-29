@@ -5,6 +5,9 @@ import { Bitstream } from '../../shared/bitstream.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 
+/**
+ * Normalized model class for a DSpace Bitstream
+ */
 @mapsTo(Bitstream)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedBitstream extends NormalizedDSpaceObject {

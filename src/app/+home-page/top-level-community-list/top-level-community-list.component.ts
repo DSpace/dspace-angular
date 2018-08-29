@@ -38,7 +38,7 @@ export class TopLevelCommunityListComponent {
   }
 
   updatePage(data) {
-    this.communitiesRDObs = this.cds.findAll({
+    this.communitiesRDObs = this.cds.findTop({
       currentPage: data.page,
       elementsPerPage: data.pageSize,
       sort: { field: data.sortField, direction: data.sortDirection }

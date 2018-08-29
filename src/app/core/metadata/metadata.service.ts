@@ -26,7 +26,7 @@ import { Metadatum } from '../shared/metadatum.model';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 
 @Injectable()
 export class MetadataService {
@@ -269,11 +269,9 @@ export class MetadataService {
   private setCitationPdfUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
-      // NOTE: Observable resolves many times with same data
-      // taking only two, fist one is empty array
-      item.getFiles().take(2).subscribe((bitstreams: Bitstream[]) => {
+      item.getFiles().filter((files) => isNotEmpty(files)).first().subscribe((bitstreams: Bitstream[]) => {
         for (const bitstream of bitstreams) {
-          bitstream.format.take(1)
+          bitstream.format.first()
             .map((rd: RemoteData<BitstreamFormat>) => rd.payload)
             .filter((format: BitstreamFormat) => hasValue(format))
             .subscribe((format: BitstreamFormat) => {

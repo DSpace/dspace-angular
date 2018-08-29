@@ -1,8 +1,8 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
-import { ViewMode } from '../../../+search-page/search-options.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { rendersDSOType } from '../../object-collection/shared/dso-element-decorator';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-wrapper-grid-element',

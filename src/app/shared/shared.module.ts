@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NouisliderModule } from 'ng2-nouislider';
 
 import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -75,6 +76,13 @@ import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { BrowseByModule } from '../+browse-by/browse-by.module';
 import { BrowseByComponent } from './browse-by/browse-by.component';
 import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
+import { DebounceDirective } from './utils/debounce.directive';
+import { ClickOutsideDirective } from './utils/click-outside.directive';
+import { EmphasizePipe } from './utils/emphasize.pipe';
+import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
+import { CapitalizePipe } from './utils/capitalize.pipe';
+import { MomentModule } from 'angular2-moment';
+import { ObjectKeysPipe } from './utils/object-keys-pipe';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -93,6 +101,8 @@ const MODULES = [
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,
+  NouisliderModule,
+  MomentModule,
   TextMaskModule
 ];
 
@@ -102,6 +112,9 @@ const PIPES = [
   FileSizePipe,
   SafeUrlPipe,
   TruncatePipe,
+  EmphasizePipe,
+  CapitalizePipe,
+  ObjectKeysPipe,
   ConsolePipe
 ];
 
@@ -142,7 +155,8 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  BrowseByComponent
+  BrowseByComponent,
+  InputSuggestionsComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -165,7 +179,9 @@ const PROVIDERS = [
 
 const DIRECTIVES = [
   VarDirective,
-  DragClickDirective
+  DragClickDirective,
+  DebounceDirective,
+  ClickOutsideDirective
 ];
 
 @NgModule({
@@ -192,6 +208,10 @@ const DIRECTIVES = [
     ...ENTRY_COMPONENTS
   ]
 })
+
+/**
+ * This module handles all components and pipes that need to be shared among multiple other modules
+ */
 export class SharedModule {
 
 }
