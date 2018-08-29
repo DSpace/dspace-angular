@@ -1,3 +1,5 @@
+
+import {distinctUntilChanged, map, filter} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
@@ -8,7 +10,7 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { findIndex } from 'lodash';
 
 import { AppState } from '../../app.reducer';
@@ -143,8 +145,8 @@ export class FormComponent implements OnDestroy, OnInit {
 
     this.formValid = this.getFormGroupValidStatus();
 
-    this.subs.push(this.formGroup.statusChanges
-      .filter((currentStatus) => this.formValid !== this.getFormGroupValidStatus())
+    this.subs.push(this.formGroup.statusChanges.pipe(
+      filter((currentStatus) => this.formValid !== this.getFormGroupValidStatus()))
       .subscribe((currentStatus) => {
         // Dispatch a FormStatusChangeAction if the form status has changed
         this.store.dispatch(new FormStatusChangeAction(this.formId, this.getFormGroupValidStatus()));
@@ -152,10 +154,11 @@ export class FormComponent implements OnDestroy, OnInit {
       }));
 
     this.subs.push(
-      this.store.select(formObjectFromIdSelector(this.formId))
-        .filter((formState: FormEntry) => !!formState && (isNotEmpty(formState.errors) || isNotEmpty(this.formErrors)))
-        .map((formState) => formState.errors)
-        .distinctUntilChanged()
+      this.store.pipe(
+        select(formObjectFromIdSelector(this.formId)),
+        filter((formState: FormEntry) => !!formState && (isNotEmpty(formState.errors) || isNotEmpty(this.formErrors))),
+        map((formState) => formState.errors),
+        distinctUntilChanged(),)
         // .delay(100) // this terrible delay is here to prevent the detection change error
         .subscribe((errors: FormError[]) => {
           const {formGroup, formModel} = this;

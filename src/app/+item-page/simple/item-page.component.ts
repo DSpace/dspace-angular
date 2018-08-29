@@ -1,3 +1,5 @@
+
+import {mergeMap, filter, map} from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -44,11 +46,11 @@ export class ItemPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.map((data) => data.item);
+    this.itemRD$ = this.route.data.pipe(map((data) => data.item));
     this.metadataService.processRemoteData(this.itemRD$);
-    this.thumbnail$ = this.itemRD$
-      .map((rd: RemoteData<Item>) => rd.payload)
-      .filter((item: Item) => hasValue(item))
-      .flatMap((item: Item) => item.getThumbnail());
+    this.thumbnail$ = this.itemRD$.pipe(
+      map((rd: RemoteData<Item>) => rd.payload),
+      filter((item: Item) => hasValue(item)),
+      mergeMap((item: Item) => item.getThumbnail()),);
   }
 }

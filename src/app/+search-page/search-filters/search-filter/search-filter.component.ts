@@ -1,3 +1,5 @@
+
+import {first} from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchFilterService } from './search-filter.service';
@@ -35,7 +37,7 @@ export class SearchFilterComponent implements OnInit {
    * Else, the filter should initially be collapsed
    */
   ngOnInit() {
-    this.getSelectedValues().first().subscribe((isActive) => {
+    this.getSelectedValues().pipe(first()).subscribe((isActive) => {
       if (this.filter.isOpenByDefault || isNotEmpty(isActive)) {
         this.initialExpand();
       } else {

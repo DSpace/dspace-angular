@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Observable ,  BehaviorSubject } from 'rxjs';
 
@@ -12,8 +14,8 @@ export class MockStore<T> extends BehaviorSubject<T> {
   };
 
   select = <R>(pathOrMapFn: any): Observable<T> => {
-    return this.asObservable()
-      .map((value) => pathOrMapFn.projector(value))
+    return this.asObservable().pipe(
+      map((value) => pathOrMapFn.projector(value)))
   };
 
   nextState(_newState: T) {

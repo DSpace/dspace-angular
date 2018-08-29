@@ -1,3 +1,4 @@
+import {of as observableOf, combineLatest as observableCombineLatest,  Observable } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import {
   ActivatedRoute,
@@ -6,7 +7,6 @@ import {
   Router,
   UrlSegmentGroup
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { flatMap, map, switchMap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
@@ -122,7 +122,7 @@ export class SearchService implements OnDestroy {
     );
 
     // Create search results again with the correct dso objects linked to each result
-    const tDomainListObs = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
+    const tDomainListObs = observableCombineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
 
       return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
         let co = DSpaceObject;
@@ -143,7 +143,7 @@ export class SearchService implements OnDestroy {
       map((response: FacetValueSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
+    const payloadObs = observableCombineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
       return new PaginatedList(pageInfo, tDomainList);
     });
 
@@ -244,7 +244,7 @@ export class SearchService implements OnDestroy {
       map((response: FacetValueSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(facetValueObs, pageInfoObs, (facetValue, pageInfo) => {
+    const payloadObs = observableCombineLatest(facetValueObs, pageInfoObs, (facetValue, pageInfo) => {
       return new PaginatedList(pageInfo, facetValue);
     });
 
@@ -272,12 +272,12 @@ export class SearchService implements OnDestroy {
       switchMap((dsoRD: RemoteData<DSpaceObject>) => {
           if (dsoRD.payload.type === ResourceType.Community) {
             const community: Community = dsoRD.payload as Community;
-            return Observable.combineLatest(community.subcommunities, community.collections, (subCommunities, collections) => {
+            return observableCombineLatest(community.subcommunities, community.collections, (subCommunities, collections) => {
               /*if this is a community, we also need to show the direct children*/
               return [community, ...subCommunities.payload.page, ...collections.payload.page]
             })
           } else {
-            return Observable.of([dsoRD.payload]);
+            return observableOf([dsoRD.payload]);
           }
         }
       ));
@@ -291,13 +291,13 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<ViewMode>} The current view mode
    */
   getViewMode(): Observable<ViewMode> {
-    return this.route.queryParams.map((params) => {
+    return this.route.queryParams.pipe(map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
         return params.view;
       } else {
         return ViewMode.List;
       }
-    });
+    }));
   }
 
   /**

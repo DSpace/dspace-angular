@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, EventEmitter,
   Input,
   OnInit,
@@ -88,11 +90,11 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   }
 
   getViewMode(): ViewMode {
-    this.route.queryParams.map((params) => {
+    this.route.queryParams.pipe(map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
         this.currentMode = params.view;
       }
-    });
+    }));
     return this.currentMode;
   }
 

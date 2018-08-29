@@ -1,5 +1,6 @@
+
+import {combineLatest as observableCombineLatest,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
@@ -70,7 +71,7 @@ export class RegistryService {
       map((response: RegistryMetadataschemasSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(metadataschemasObs, pageInfoObs, (metadataschemas, pageInfo) => {
+    const payloadObs = observableCombineLatest(metadataschemasObs, pageInfoObs, (metadataschemas, pageInfo) => {
       return new PaginatedList(pageInfo, metadataschemas);
     });
 
@@ -132,7 +133,7 @@ export class RegistryService {
       map((response: RegistryMetadatafieldsSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(metadatafieldsObs, pageInfoObs, (metadatafields, pageInfo) => {
+    const payloadObs = observableCombineLatest(metadatafieldsObs, pageInfoObs, (metadatafields, pageInfo) => {
       return new PaginatedList(pageInfo, metadatafields);
     });
 
@@ -164,7 +165,7 @@ export class RegistryService {
       map((response: RegistryBitstreamformatsSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(bitstreamformatsObs, pageInfoObs, (bitstreamformats, pageInfo) => {
+    const payloadObs = observableCombineLatest(bitstreamformatsObs, pageInfoObs, (bitstreamformats, pageInfo) => {
       return new PaginatedList(pageInfo, bitstreamformats);
     });
 

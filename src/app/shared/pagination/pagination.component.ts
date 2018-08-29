@@ -11,15 +11,14 @@ import {
 
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Subscription ,  Observable } from 'rxjs';
-import { isNumeric } from 'rxjs/util';
-
+import { Subscription, Observable } from 'rxjs';
 import { HostWindowService } from '../host-window.service';
 import { HostWindowState } from '../host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { isNumeric } from 'tslint';
 
 /**
  * The default pagination controls component.

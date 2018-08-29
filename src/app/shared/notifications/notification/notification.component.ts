@@ -1,3 +1,5 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -21,7 +23,6 @@ import { fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState } from 
 import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../../animations/fromTop';
 import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../animations/fade';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
-import { Observable } from 'rxjs';
 import { isNotEmpty } from '../../empty.util';
 
 @Component({
@@ -130,14 +131,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
       let value = null;
       if (isNotEmpty(item)) {
         if (typeof item === 'string') {
-          value = Observable.of(item);
+          value = observableOf(item);
         } else if (item instanceof Observable) {
           value = item;
         } else if (typeof item === 'object' && isNotEmpty(item.value)) {
           // when notifications state is transferred from SSR to CSR,
           // Observables Object loses the instance type and become simply object,
           // so converts it again to Observable
-          value = Observable.of(item.value);
+          value = observableOf(item.value);
         }
       }
       this[key] = value

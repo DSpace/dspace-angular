@@ -1,8 +1,8 @@
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { SearchSidebarState } from './search-sidebar.reducer';
-import { createSelector, Store } from '@ngrx/store';
+import { createSelector, select, Store } from '@ngrx/store';
 import { SearchSidebarCollapseAction, SearchSidebarExpandAction } from './search-sidebar.actions';
-import { Observable } from 'rxjs';
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../../shared/host-window.service';
 
@@ -26,7 +26,7 @@ export class SearchSidebarService {
 
   constructor(private store: Store<AppState>, private windowService: HostWindowService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
-    this.isCollapsedInStore = this.store.select(sidebarCollapsedSelector);
+    this.isCollapsedInStore = this.store.pipe(select(sidebarCollapsedSelector));
   }
 
   /**
@@ -34,7 +34,7 @@ export class SearchSidebarService {
    * @returns {Observable<boolean>} Emits true if the user's screen size is mobile or when the state in the store is currently collapsed
    */
   get isCollapsed(): Observable<boolean> {
-    return Observable.combineLatest(
+    return observableCombineLatest(
       this.isXsOrSm$,
       this.isCollapsedInStore,
       (mobile, store) => mobile ? store : true);

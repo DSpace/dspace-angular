@@ -1,12 +1,12 @@
+import { Observable } from 'rxjs';
+import { filter, first, map, mergeMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
-import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
-
-import { Observable } from 'rxjs';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { hasValue } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { DSOSuccessResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { coreSelector, CoreState } from '../core.reducers';
@@ -16,8 +16,7 @@ import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
 
-import { RequestEntry, RequestState } from './request.reducer';
-import { ResponseCacheRemoveAction } from '../cache/response-cache.actions';
+import { RequestEntry } from './request.reducer';
 
 @Injectable()
 export class RequestService {
@@ -49,8 +48,8 @@ export class RequestService {
 
     // then check the store
     let isPending = false;
-    this.getByHref(request.href)
-      .take(1)
+    this.getByHref(request.href).pipe(
+      take(1))
       .subscribe((re: RequestEntry) => {
         isPending = (hasValue(re) && !re.completed)
       });
@@ -59,12 +58,14 @@ export class RequestService {
   }
 
   getByUUID(uuid: string): Observable<RequestEntry> {
-    return this.store.select(this.entryFromUUIDSelector(uuid));
+    return this.store.pipe(select(this.entryFromUUIDSelector(uuid)));
   }
 
   getByHref(href: string): Observable<RequestEntry> {
-    return this.store.select(this.uuidFromHrefSelector(href))
-      .flatMap((uuid: string) => this.getByUUID(uuid));
+    return this.store.pipe(
+      select(this.uuidFromHrefSelector(href)),
+      mergeMap((uuid: string) => this.getByUUID(uuid))
+    );
   }
 
   // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
@@ -81,29 +82,19 @@ export class RequestService {
   private isCachedOrPending(request: GetRequest) {
     let isCached = this.objectCache.hasBySelfLink(request.href);
     if (!isCached && this.responseCache.has(request.href)) {
-      const [successResponse, errorResponse] = this.responseCache.get(request.href)
-        .take(1)
-        .map((entry: ResponseCacheEntry) => entry.response)
-        .share()
-        .partition((response: RestResponse) => response.isSuccessful);
-
-      const [dsoSuccessResponse, otherSuccessResponse] = successResponse
-        .share()
-        .partition((response: DSOSuccessResponse) => hasValue(response.resourceSelfLinks));
-
-      Observable.merge(
-        errorResponse.map(() => true), // TODO add a configurable number of retries in case of an error.
-        otherSuccessResponse.map(() => true),
-        dsoSuccessResponse // a DSOSuccessResponse should only be considered cached if all its resources are cached
-          .map((response: DSOSuccessResponse) => response.resourceSelfLinks)
-          .map((resourceSelfLinks: string[]) => resourceSelfLinks
-            .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
-          )
+      this.responseCache.get(request.href).pipe(
+        first(),
+        map((entry: ResponseCacheEntry) => {
+          const response = entry.response;
+          if (response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)) {
+            return (response as DSOSuccessResponse).resourceSelfLinks.every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
+          } else {
+            return true;
+          }
+        })
       ).subscribe((c) => isCached = c);
     }
-
     const isPending = this.isPending(request);
-
     return isCached || isPending;
   }
 
@@ -121,11 +112,11 @@ export class RequestService {
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.store.select(this.entryFromUUIDSelector(request.href))
-      .filter((re: RequestEntry) => hasValue(re))
-      .take(1)
-      .subscribe((re: RequestEntry) => {
-        this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
-      });
+    this.store.pipe(select(this.entryFromUUIDSelector(request.href)),
+      filter((re: RequestEntry) => hasValue(re)),
+      take(1)
+    ).subscribe((re: RequestEntry) => {
+      this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
+    });
   }
 }

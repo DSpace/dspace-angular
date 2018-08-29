@@ -1,5 +1,6 @@
+import { filter, take, distinctUntilChanged, first } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { MemoizedSelector, Store } from '@ngrx/store';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
 
@@ -21,7 +22,8 @@ function entryFromKeySelector(key: string): MemoizedSelector<CoreState, Response
 export class ResponseCacheService {
   constructor(
     private store: Store<CoreState>
-  ) { }
+  ) {
+  }
 
   add(key: string, response: RestResponse, msToLive: number): Observable<ResponseCacheEntry> {
     if (!this.has(key)) {
@@ -39,9 +41,11 @@ export class ResponseCacheService {
    *    an observable of the ResponseCacheEntry with the specified key
    */
   get(key: string): Observable<ResponseCacheEntry> {
-    return this.store.select(entryFromKeySelector(key))
-      .filter((entry: ResponseCacheEntry) => this.isValid(entry))
-      .distinctUntilChanged()
+    return this.store.pipe(
+      select(entryFromKeySelector(key)),
+      filter((entry: ResponseCacheEntry) => this.isValid(entry)),
+      distinctUntilChanged()
+    )
   }
 
   /**
@@ -56,11 +60,11 @@ export class ResponseCacheService {
   has(key: string): boolean {
     let result: boolean;
 
-    this.store.select(entryFromKeySelector(key))
-      .take(1)
-      .subscribe((entry: ResponseCacheEntry) => {
-        result = this.isValid(entry);
-      });
+    this.store.pipe(select(entryFromKeySelector(key)),
+      first()
+    ).subscribe((entry: ResponseCacheEntry) => {
+      result = this.isValid(entry);
+    });
 
     return result;
   }
@@ -70,6 +74,7 @@ export class ResponseCacheService {
       this.store.dispatch(new ResponseCacheRemoveAction(key));
     }
   }
+
   /**
    * Check whether a ResponseCacheEntry should still be cached
    *

@@ -1,24 +1,16 @@
 import {
-  ChangeDetectorRef,
   Component,
+  ComponentFactoryResolver,
   ContentChildren,
   EventEmitter,
   Input,
   OnChanges,
   Output,
   QueryList,
-  SimpleChanges
+  SimpleChanges, Type
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-  DynamicDatePickerModel,
-  DynamicFormControlComponent,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormLayout,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-  DynamicTemplateDirective,
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
@@ -29,6 +21,14 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
+  DynamicDatePickerModel, DynamicFormControl,
+  DynamicFormControlContainerComponent,
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+  DynamicFormLayout,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+  DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
@@ -38,7 +38,6 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/dat
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { isNotEmpty } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 
 export const enum NGBootstrapFormControlType {
@@ -69,11 +68,11 @@ export const enum NGBootstrapFormControlType {
   styleUrls: ['../../form.component.scss', './ds-dynamic-form.component.scss'],
   templateUrl: './ds-dynamic-form-control.component.html'
 })
-export class DsDynamicFormControlComponent extends DynamicFormControlComponent implements OnChanges {
+export class DsDynamicFormControlComponent extends DynamicFormControlContainerComponent implements OnChanges {
 
-    @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
-    // tslint:disable-next-line:no-input-rename
-    @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
+  @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
+  // tslint:disable-next-line:no-input-rename
+  @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
 
   @Input() formId: string;
   @Input() asBootstrapFormGroup = true;
@@ -90,6 +89,7 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
 
+  componentType: Type<DynamicFormControl> | null;
   type: NGBootstrapFormControlType | null;
 
   static getFormControlType(model: DynamicFormControlModel): NGBootstrapFormControlType | null {
@@ -154,10 +154,10 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
     }
   }
 
-  constructor(protected changeDetectorRef: ChangeDetectorRef, protected layoutService: DynamicFormLayoutService,
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver, protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService) {
 
-    super(changeDetectorRef, layoutService, validationService);
+    super(componentFactoryResolver, layoutService, validationService);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -170,9 +170,4 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
     }
   }
 
-  onChangeLanguage(event) {
-    if (isNotEmpty((this.model as any).value)) {
-      this.onValueChange(event);
-    }
-  }
 }

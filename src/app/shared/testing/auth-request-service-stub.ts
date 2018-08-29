@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import {of as observableOf,  Observable } from 'rxjs';
 import { HttpOptions } from '../../core/dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
@@ -31,7 +31,7 @@ export class AuthRequestServiceStub {
         authStatusStub.authenticated = false;
       }
     }
-    return Observable.of(authStatusStub);
+    return observableOf(authStatusStub);
   }
 
   public getRequest(method: string, options?: HttpOptions): Observable<any> {
@@ -51,7 +51,7 @@ export class AuthRequestServiceStub {
         }
         break;
     }
-    return Observable.of(authStatusStub);
+    return observableOf(authStatusStub);
   }
 
   private validateToken(token): boolean {

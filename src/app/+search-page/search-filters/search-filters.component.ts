@@ -1,8 +1,10 @@
+import { Observable, of as observableOf } from 'rxjs';
+
+import { filter, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
-import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { SearchFilterService } from './search-filter/search-filter.service';
@@ -37,10 +39,10 @@ export class SearchFiltersComponent {
    */
   constructor(private searchService: SearchService, private searchConfigService: SearchConfigurationService, private filterService: SearchFilterService) {
     this.filters = searchService.getConfig().pipe(getSucceededRemoteData());
-    this.clearParams = searchConfigService.getCurrentFrontendFilters().map((filters) => {
+    this.clearParams = searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;
-    });
+    }));
   }
 
   /**
@@ -55,23 +57,23 @@ export class SearchFiltersComponent {
    * @param {SearchFilterConfig} filter The filter to check for
    * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
    */
-  isActive(filter: SearchFilterConfig): Observable<boolean> {
+  isActive(filterConfig: SearchFilterConfig): Observable<boolean> {
     // console.log(filter.name);
-    return this.filterService.getSelectedValuesForFilter(filter)
-      .flatMap((isActive) => {
+    return this.filterService.getSelectedValuesForFilter(filterConfig).pipe(
+      mergeMap((isActive) => {
         if (isNotEmpty(isActive)) {
-          return Observable.of(true);
+          return observableOf(true);
         } else {
-          return this.searchConfigService.searchOptions
-            .switchMap((options) => {
-                return this.searchService.getFacetValuesFor(filter, 1, options)
-                  .filter((RD) => !RD.isLoading)
-                  .map((valuesRD) => {
+          return this.searchConfigService.searchOptions.pipe(
+            switchMap((options) => {
+                return this.searchService.getFacetValuesFor(filterConfig, 1, options).pipe(
+                  filter((RD) => !RD.isLoading),
+                  map((valuesRD) => {
                     return valuesRD.payload.totalElements > 0
-                  })
+                  }),)
               }
-            )
+            ))
         }
-      }).startWith(true);
+      }),startWith(true),);
   }
 }

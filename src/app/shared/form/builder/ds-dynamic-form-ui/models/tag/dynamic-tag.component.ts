@@ -1,7 +1,9 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
+
+import {catchError, debounceTime, distinctUntilChanged, tap, switchMap, map, merge} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
-import { Observable } from 'rxjs';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -40,33 +42,33 @@ export class DsDynamicTagComponent implements OnInit {
   formatter = (x: { display: string }) => x.display;
 
   search = (text$: Observable<string>) =>
-    text$
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .do(() => this.changeSearchingStatus(true))
-      .switchMap((term) => {
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.changeSearchingStatus(true)),
+      switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return Observable.of({list: []});
+          return observableOf({list: []});
         } else {
           this.searchOptions.query = term;
-          return this.authorityService.getEntriesByName(this.searchOptions)
-            .map((authorities) => {
+          return this.authorityService.getEntriesByName(this.searchOptions).pipe(
+            map((authorities) => {
               // @TODO Pagination for authority is not working, to refactor when it will be fixed
               return {
                 list: authorities.payload,
                 pageInfo: authorities.pageInfo
               };
-            })
-            .do(() => this.searchFailed = false)
-            .catch(() => {
+            }),
+            tap(() => this.searchFailed = false),
+            catchError(() => {
               this.searchFailed = true;
-              return Observable.of({list: []});
-            });
+              return observableOf({list: []});
+            }),);
         }
-      })
-      .map((results) => results.list)
-      .do(() => this.changeSearchingStatus(false))
-      .merge(this.hideSearchingWhenUnsubscribed);
+      }),
+      map((results) => results.list),
+      tap(() => this.changeSearchingStatus(false)),
+      merge(this.hideSearchingWhenUnsubscribed),);
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private authorityService: AuthorityService,

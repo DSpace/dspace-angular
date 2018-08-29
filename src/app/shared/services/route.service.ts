@@ -1,3 +1,5 @@
+
+import {distinctUntilChanged, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
@@ -13,24 +15,24 @@ export class RouteService {
   }
 
   getQueryParameterValues(paramName: string): Observable<string[]> {
-    return this.route.queryParamMap.map((map) => [...map.getAll(paramName)]).distinctUntilChanged();
+    return this.route.queryParamMap.pipe(map((map) => [...map.getAll(paramName)]),distinctUntilChanged(),);
   }
 
   getQueryParameterValue(paramName: string): Observable<string> {
-    return this.route.queryParamMap.map((map) => map.get(paramName)).distinctUntilChanged();
+    return this.route.queryParamMap.pipe(map((map) => map.get(paramName)),distinctUntilChanged(),);
   }
 
   hasQueryParam(paramName: string): Observable<boolean> {
-    return this.route.queryParamMap.map((map) => map.has(paramName)).distinctUntilChanged();
+    return this.route.queryParamMap.pipe(map((map) => map.has(paramName)),distinctUntilChanged(),);
   }
 
   hasQueryParamWithValue(paramName: string, paramValue: string): Observable<boolean> {
-    return this.route.queryParamMap.map((map) => map.getAll(paramName).indexOf(paramValue) > -1).distinctUntilChanged();
+    return this.route.queryParamMap.pipe(map((map) => map.getAll(paramName).indexOf(paramValue) > -1),distinctUntilChanged(),);
   }
 
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
-    return this.route.queryParamMap
-      .map((map) => {
+    return this.route.queryParamMap.pipe(
+      map((map) => {
           const params = {};
           map.keys
             .filter((key) => key.startsWith(prefix))
@@ -38,7 +40,7 @@ export class RouteService {
               params[key] = [...map.getAll(key)];
             });
           return params;
-        })
-      .distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b));
+        }),
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),);
   }
 }

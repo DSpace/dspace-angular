@@ -1,3 +1,5 @@
+
+import {tap} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -66,8 +68,8 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
       this.loading = true;
       this.searchOptions.currentPage++;
-      this.authorityService.getEntriesByName(this.searchOptions)
-        .do(() => this.loading = false)
+      this.authorityService.getEntriesByName(this.searchOptions).pipe(
+        tap(() => this.loading = false))
         .subscribe((object: IntegrationData) => {
           this.optionsList = this.optionsList.concat(object.payload);
           this.pageInfo = object.pageInfo;

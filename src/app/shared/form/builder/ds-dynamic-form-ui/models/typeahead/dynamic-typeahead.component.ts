@@ -1,7 +1,9 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
+
+import {distinctUntilChanged, switchMap, tap, filter, catchError, debounceTime, merge, map} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
-import { Observable } from 'rxjs';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -37,33 +39,33 @@ export class DsDynamicTypeaheadComponent implements OnInit {
   };
 
   search = (text$: Observable<string>) =>
-    text$
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .do(() => this.changeSearchingStatus(true))
-      .switchMap((term) => {
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.changeSearchingStatus(true)),
+      switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return Observable.of({list: []});
+          return observableOf({list: []});
         } else {
           this.searchOptions.query = term;
-          return this.authorityService.getEntriesByName(this.searchOptions)
-            .map((authorities) => {
+          return this.authorityService.getEntriesByName(this.searchOptions).pipe(
+            map((authorities) => {
               // @TODO Pagination for authority is not working, to refactor when it will be fixed
               return {
                 list: authorities.payload,
                 pageInfo: authorities.pageInfo
               };
-            })
-            .do(() => this.searchFailed = false)
-            .catch(() => {
+            }),
+            tap(() => this.searchFailed = false),
+            catchError(() => {
               this.searchFailed = true;
-              return Observable.of({list: []});
-            });
+              return observableOf({list: []});
+            }),);
         }
-      })
-      .map((results) => results.list)
-      .do(() => this.changeSearchingStatus(false))
-      .merge(this.hideSearchingWhenUnsubscribed);
+      }),
+      map((results) => results.list),
+      tap(() => this.changeSearchingStatus(false)),
+      merge(this.hideSearchingWhenUnsubscribed),);
 
   constructor(private authorityService: AuthorityService, private cdr: ChangeDetectorRef) {
   }
@@ -74,8 +76,8 @@ export class DsDynamicTypeaheadComponent implements OnInit {
       this.model.authorityOptions.scope,
       this.model.authorityOptions.name,
       this.model.authorityOptions.metadata);
-    this.group.get(this.model.id).valueChanges
-      .filter((value) => this.currentValue !== value)
+    this.group.get(this.model.id).valueChanges.pipe(
+      filter((value) => this.currentValue !== value))
       .subscribe((value) => {
         this.currentValue = value;
       });

@@ -1,3 +1,7 @@
+
+import {combineLatest as observableCombineLatest,  BehaviorSubject ,  Observable } from 'rxjs';
+
+import {startWith,  distinctUntilChanged, map } from 'rxjs/operators';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,8 +10,6 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { BehaviorSubject ,  Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -105,9 +107,9 @@ export class ObjectGridComponent implements OnInit {
         }
       }),
       distinctUntilChanged()
-    ).startWith(3);
+    ).pipe(startWith(3));
 
-    this.columns$ = Observable.combineLatest(
+    this.columns$ = observableCombineLatest(
       nbColumns$,
       this._objects$,
       (nbColumns, objects) => {

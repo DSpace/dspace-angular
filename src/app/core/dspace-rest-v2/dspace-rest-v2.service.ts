@@ -1,5 +1,5 @@
-
 import {throwError as observableThrowError,  Observable } from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Request } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http'
@@ -37,12 +37,12 @@ export class DSpaceRESTv2Service {
    *      An Observable<string> containing the response from the server
    */
   get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
-    return this.http.get(absoluteURL, { observe: 'response' })
-      .map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.statusText }))
-      .catch((err) => {
+    return this.http.get(absoluteURL, { observe: 'response' }).pipe(
+      map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.statusText })),
+      catchError((err) => {
         console.log('Error: ', err);
         return observableThrowError(err);
-      });
+      }));
   }
 
   /**
@@ -67,12 +67,12 @@ export class DSpaceRESTv2Service {
     if (options && options.responseType) {
       requestOptions.responseType = options.responseType;
     }
-    return this.http.request(method, url, requestOptions)
-      .map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.statusText }))
-      .catch((err) => {
+    return this.http.request(method, url, requestOptions).pipe(
+      map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.statusText })),
+      catchError((err) => {
         console.log('Error: ', err);
         return observableThrowError(err);
-      });
+      }));
   }
 
 }

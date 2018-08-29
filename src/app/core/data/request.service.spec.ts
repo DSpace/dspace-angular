@@ -1,7 +1,6 @@
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs';
-import 'rxjs/add/observable/of';
+import { of as observableOf } from 'rxjs';
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import { getMockStore } from '../../shared/mocks/mock-store';
@@ -18,7 +17,8 @@ import {
   OptionsRequest,
   PatchRequest,
   PostRequest,
-  PutRequest, RestRequest
+  PutRequest,
+  RestRequest
 } from './request.models';
 import { RequestService } from './request.service';
 
@@ -46,12 +46,12 @@ describe('RequestService', () => {
 
     responseCache = getMockResponseCacheService();
     (responseCache.has as any).and.returnValue(false);
-    (responseCache.get as any).and.returnValue(Observable.of(undefined));
+    (responseCache.get as any).and.returnValue(observableOf(undefined));
 
     uuidService = getMockUUIDService();
 
     store = getMockStore<CoreState>();
-    (store.select as any).and.returnValue(Observable.of(undefined));
+    (store.pipe as any).and.returnValue(observableOf(undefined));
 
     service = new RequestService(
       objectCache,
@@ -74,7 +74,7 @@ describe('RequestService', () => {
   describe('isPending', () => {
     describe('before the request is configured', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(Observable.of(undefined));
+        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
       });
 
       it('should return false', () => {
@@ -87,7 +87,7 @@ describe('RequestService', () => {
 
     describe('when the request has been configured but hasn\'t reached the store yet', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(Observable.of(undefined));
+        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
         serviceAsAny.requestsOnTheirWayToTheStore = [testHref];
       });
 
@@ -101,7 +101,7 @@ describe('RequestService', () => {
 
     describe('when the request has reached the store, before the server responds', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(Observable.of({
+        spyOn(service, 'getByHref').and.returnValue(observableOf({
           completed: false
         }))
       });
@@ -116,7 +116,7 @@ describe('RequestService', () => {
 
     describe('after the server responds', () => {
       beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValues(Observable.of({
+        spyOn(service, 'getByHref').and.returnValues(observableOf({
           completed: true
         }));
       });
@@ -134,7 +134,7 @@ describe('RequestService', () => {
   describe('getByUUID', () => {
     describe('if the request with the specified UUID exists in the store', () => {
       beforeEach(() => {
-        (store.select as any).and.returnValues(hot('a', {
+        (store.pipe as any).and.returnValues(hot('a', {
           a: {
             completed: true
           }
@@ -155,7 +155,7 @@ describe('RequestService', () => {
 
     describe('if the request with the specified UUID doesn\'t exist in the store', () => {
       beforeEach(() => {
-        (store.select as any).and.returnValues(hot('a', {
+        (store.pipe as any).and.returnValues(hot('a', {
           a: undefined
         }));
       });
@@ -175,7 +175,7 @@ describe('RequestService', () => {
   describe('getByHref', () => {
     describe('when the request with the specified href exists in the store', () => {
       beforeEach(() => {
-        (store.select as any).and.returnValues(hot('a', {
+        (store.pipe as any).and.returnValues(hot('a', {
           a: testUUID
         }));
         spyOn(service, 'getByUUID').and.returnValue(cold('b', {
@@ -199,7 +199,7 @@ describe('RequestService', () => {
 
     describe('when the request with the specified href doesn\'t exist in the store', () => {
       beforeEach(() => {
-        (store.select as any).and.returnValues(hot('a', {
+        (store.pipe as any).and.returnValues(hot('a', {
           a: undefined
         }));
         spyOn(service, 'getByUUID').and.returnValue(cold('b', {
@@ -323,7 +323,7 @@ describe('RequestService', () => {
 
         describe('and it\'s a DSOSuccessResponse', () => {
           beforeEach(() => {
-            (responseCache.get as any).and.returnValues(Observable.of({
+            (responseCache.get as any).and.returnValues(observableOf({
                 response: {
                   isSuccessful: true,
                   resourceSelfLinks: [
@@ -356,7 +356,7 @@ describe('RequestService', () => {
           beforeEach(() => {
             (objectCache.hasBySelfLink as any).and.returnValues(false);
             (responseCache.has as any).and.returnValues(true);
-            (responseCache.get as any).and.returnValues(Observable.of({
+            (responseCache.get as any).and.returnValues(observableOf({
                 response: {
                   isSuccessful: true
                 }
@@ -428,7 +428,7 @@ describe('RequestService', () => {
 
     describe('when the request is added to the store', () => {
       it('should stop tracking the request', () => {
-        (store.select as any).and.returnValues(Observable.of({ request }));
+        (store.pipe as any).and.returnValues(observableOf({ request }));
         serviceAsAny.trackRequestsOnTheirWayToTheStore(request);
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });

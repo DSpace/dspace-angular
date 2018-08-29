@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import {of as observableOf,  Observable } from 'rxjs';
 
 import { Item } from '../../core/shared/item.model';
 
@@ -9,7 +9,7 @@ export const MockItem: Item = Object.assign(new Item(), {
   isArchived: true,
   isDiscoverable: true,
   isWithdrawn: false,
-  bitstreams: Observable.of({
+  bitstreams: observableOf({
     self: 'dspace-angular://aggregated/object/1507836003548',
     requestPending: false,
     responsePending: false,
@@ -28,7 +28,7 @@ export const MockItem: Item = Object.assign(new Item(), {
         {
           sizeBytes: 10201,
           content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-          format: Observable.of({
+          format: observableOf({
             self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10',
             requestPending: false,
             responsePending: false,
@@ -63,7 +63,7 @@ export const MockItem: Item = Object.assign(new Item(), {
         {
           sizeBytes: 31302,
           content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content',
-          format: Observable.of({
+          format: observableOf({
             self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4',
             requestPending: false,
             responsePending: false,
@@ -195,7 +195,7 @@ export const MockItem: Item = Object.assign(new Item(), {
       value: 'text'
     }
   ],
-  owningCollection: Observable.of({
+  owningCollection: observableOf({
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
       requestPending: false,
       responsePending: false,

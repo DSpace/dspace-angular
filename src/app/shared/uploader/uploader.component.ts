@@ -1,3 +1,5 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,7 +12,6 @@ import {
 } from '@angular/core'
 
 import { FileUploader } from 'ng2-file-upload';
-import { Observable } from 'rxjs';
 import { uniqueId } from 'lodash';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -60,8 +61,8 @@ export class UploaderComponent {
 
   public uploader: FileUploader;
   public uploaderId: string;
-  public isOverBaseDropZone = Observable.of(false);
-  public isOverDocumentDropZone = Observable.of(false);
+  public isOverBaseDropZone = observableOf(false);
+  public isOverDocumentDropZone = observableOf(false);
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
@@ -70,7 +71,7 @@ export class UploaderComponent {
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {
-        this.isOverDocumentDropZone = Observable.of(true);
+        this.isOverDocumentDropZone = observableOf(true);
       }
     }
   }
@@ -111,7 +112,7 @@ export class UploaderComponent {
     });
     this.uploader.onBeforeUploadItem = () => {
       this.onBeforeUpload();
-      this.isOverDocumentDropZone = Observable.of(false);
+      this.isOverDocumentDropZone = observableOf(false);
 
       // Move page target to the uploader
       const config: ScrollToConfigOptions = {
@@ -133,7 +134,7 @@ export class UploaderComponent {
    * Called when files are dragged on the base drop area.
    */
   public fileOverBase(isOver: boolean): void {
-    this.isOverBaseDropZone = Observable.of(isOver);
+    this.isOverBaseDropZone = observableOf(isOver);
   }
 
   /**
@@ -141,7 +142,7 @@ export class UploaderComponent {
    */
   public fileOverDocument(isOver: boolean) {
     if (!isOver) {
-      this.isOverDocumentDropZone = Observable.of(isOver);
+      this.isOverDocumentDropZone = observableOf(isOver);
     }
   }
 

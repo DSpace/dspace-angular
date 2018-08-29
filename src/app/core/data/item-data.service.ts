@@ -1,3 +1,5 @@
+
+import {distinctUntilChanged, map, filter} from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
@@ -34,10 +36,10 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     if (isEmpty(scopeID)) {
       return this.halService.getEndpoint(this.linkPath);
     } else {
-      return this.bs.getBrowseURLFor('dc.date.issued', this.linkPath)
-        .filter((href: string) => isNotEmpty(href))
-        .map((href: string) => new URLCombiner(href, `?scope=${scopeID}`).toString())
-        .distinctUntilChanged();
+      return this.bs.getBrowseURLFor('dc.date.issued', this.linkPath).pipe(
+        filter((href: string) => isNotEmpty(href)),
+        map((href: string) => new URLCombiner(href, `?scope=${scopeID}`).toString()),
+        distinctUntilChanged(),);
     }
   }
 

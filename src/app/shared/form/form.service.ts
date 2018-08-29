@@ -1,7 +1,8 @@
+import { map, distinctUntilChanged, filter } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
 import { formObjectFromIdSelector } from './selectors';
@@ -25,39 +26,47 @@ export class FormService {
    * Method to retrieve form's status from state
    */
   public isValid(formId: string): Observable<boolean> {
-    return this.store.select(formObjectFromIdSelector(formId))
-      .filter((state) => isNotUndefined(state))
-      .map((state) => state.valid)
-      .distinctUntilChanged();
+    return this.store.pipe(
+      select(formObjectFromIdSelector(formId)),
+      filter((state) => isNotUndefined(state)),
+      map((state) => state.valid),
+      distinctUntilChanged()
+    );
   }
 
   /**
    * Method to retrieve form's data from state
    */
   public getFormData(formId: string): Observable<any> {
-    return this.store.select(formObjectFromIdSelector(formId))
-      .filter((state) => isNotUndefined(state))
-      .map((state) => state.data)
-      .distinctUntilChanged();
+    return this.store.pipe(
+      select(formObjectFromIdSelector(formId)),
+      filter((state) => isNotUndefined(state)),
+      map((state) => state.data),
+      distinctUntilChanged()
+    );
   }
 
   /**
    * Method to retrieve form's errors from state
    */
   public getFormErrors(formId: string): Observable<any> {
-    return this.store.select(formObjectFromIdSelector(formId))
-      .filter((state) => isNotUndefined(state))
-      .map((state) => state.errors)
-      .distinctUntilChanged();
+    return this.store.pipe(
+      select(formObjectFromIdSelector(formId)),
+      filter((state) => isNotUndefined(state)),
+      map((state) => state.errors),
+      distinctUntilChanged()
+    );
   }
 
   /**
    * Method to retrieve form's data from state
    */
   public isFormInitialized(formId: string): Observable<boolean> {
-    return this.store.select(formObjectFromIdSelector(formId))
-      .distinctUntilChanged()
-      .map((state) => isNotUndefined(state));
+    return this.store.pipe(
+      select(formObjectFromIdSelector(formId)),
+      distinctUntilChanged(),
+      map((state) => isNotUndefined(state))
+    );
   }
 
   public getUniqueId(formId): string {
@@ -71,7 +80,7 @@ export class FormService {
     Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({onlySelf: true});
+        control.markAsTouched({ onlySelf: true });
       } else if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
       }

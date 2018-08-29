@@ -1,9 +1,9 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { Inject, Injectable, Injector } from '@angular/core';
 import { Request } from '@angular/http';
 import { RequestArgs } from '@angular/http/src/interfaces';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-// tslint:disable-next-line:import-blacklist
-import { Observable } from 'rxjs';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { isNotEmpty } from '../../shared/empty.util';
@@ -30,7 +30,8 @@ export const addToResponseCacheAndCompleteAction = (request: RestRequest, respon
 @Injectable()
 export class RequestEffects {
 
-  @Effect() execute = this.actions$.ofType(RequestActionTypes.EXECUTE).pipe(
+  @Effect() execute = this.actions$.pipe(
+    ofType(RequestActionTypes.EXECUTE),
     flatMap((action: RequestExecuteAction) => {
       return this.requestService.getByUUID(action.payload).pipe(
         take(1)
@@ -46,7 +47,7 @@ export class RequestEffects {
       return this.restApi.request(request.method, request.href, body, request.options).pipe(
         map((data: DSpaceRESTV2Response) => this.injector.get(request.getResponseParser()).parse(request, data)),
         addToResponseCacheAndCompleteAction(request, this.responseCache, this.EnvConfig),
-        catchError((error: RequestError) => Observable.of(new ErrorResponse(error)).pipe(
+        catchError((error: RequestError) => observableOf(new ErrorResponse(error)).pipe(
           addToResponseCacheAndCompleteAction(request, this.responseCache, this.EnvConfig)
         ))
       );

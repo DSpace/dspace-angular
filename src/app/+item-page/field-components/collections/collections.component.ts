@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -35,11 +37,11 @@ export class CollectionsComponent implements OnInit {
     // TODO: this should use parents, but the collections
     // for an Item aren't returned by the REST API yet,
     // only the owning collection
-    this.collections = this.item.owner.map((rd: RemoteData<Collection>) => [rd.payload]);
+    this.collections = this.item.owner.pipe(map((rd: RemoteData<Collection>) => [rd.payload]));
   }
 
   hasSucceeded() {
-    return this.item.owner.map((rd: RemoteData<Collection>) => rd.hasSucceeded);
+    return this.item.owner.pipe(map((rd: RemoteData<Collection>) => rd.hasSucceeded));
   }
 
 }

@@ -1,5 +1,6 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
-import { Observable } from 'rxjs';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EpersonMock } from './eperson-mock';
 import { Eperson } from '../../core/eperson/models/eperson.model';
@@ -20,7 +21,7 @@ export class AuthServiceStub {
       authStatus.authenticated = true;
       authStatus.token = this.token;
       authStatus.eperson = [EpersonMock];
-      return Observable.of(authStatus);
+      return observableOf(authStatus);
     } else {
       console.log('error');
       throw(new Error('Message Error test'));
@@ -29,7 +30,7 @@ export class AuthServiceStub {
 
   public authenticatedUser(token: AuthTokenInfo): Observable<Eperson> {
     if (token.accessToken === 'token_test') {
-      return Observable.of(EpersonMock);
+      return observableOf(EpersonMock);
     } else {
       throw(new Error('Message Error test'));
     }
@@ -44,11 +45,11 @@ export class AuthServiceStub {
   }
 
   public hasValidAuthenticationToken(): Observable<AuthTokenInfo> {
-    return Observable.of(this.token);
+    return observableOf(this.token);
   }
 
   public logout(): Observable<boolean> {
-    return Observable.of(true);
+    return observableOf(true);
   }
 
   public isTokenExpired(token?: AuthTokenInfo): boolean {
@@ -70,11 +71,11 @@ export class AuthServiceStub {
   }
 
   public isTokenExpiring(): Observable<boolean> {
-    return Observable.of(false);
+    return observableOf(false);
   }
 
   public refreshAuthenticationToken(token: AuthTokenInfo): Observable<AuthTokenInfo> {
-    return Observable.of(this.token);
+    return observableOf(this.token);
   }
 
   public redirectToPreviousUrl() {

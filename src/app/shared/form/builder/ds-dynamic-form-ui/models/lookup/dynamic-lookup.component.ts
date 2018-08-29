@@ -1,3 +1,5 @@
+
+import {distinctUntilChanged} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -137,8 +139,8 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
     this.searchOptions.query = this.getCurrentValue();
 
     this.loading = true;
-    this.authorityService.getEntriesByName(this.searchOptions)
-      .distinctUntilChanged()
+    this.authorityService.getEntriesByName(this.searchOptions).pipe(
+      distinctUntilChanged())
       .subscribe((object: IntegrationData) => {
         this.optionsList = object.payload;
         this.pageInfo = object.pageInfo;

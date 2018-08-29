@@ -1,5 +1,8 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
+
+import {mergeMap, first, take, distinctUntilChanged, map, filter} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -27,9 +30,9 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     const args = [];
 
     if (hasValue(options.scopeID)) {
-      result = this.getScopedEndpoint(options.scopeID).distinctUntilChanged();
+      result = this.getScopedEndpoint(options.scopeID).pipe(distinctUntilChanged());
     } else {
-      result = Observable.of(endpoint);
+      result = observableOf(endpoint);
     }
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
@@ -50,19 +53,19 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     }
 
     if (isNotEmpty(args)) {
-      return result.map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString());
+      return result.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
     } else {
       return result;
     }
   }
 
   findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
-    const hrefObs = this.halService.getEndpoint(this.linkPath).filter((href: string) => isNotEmpty(href))
-      .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(filter((href: string) => isNotEmpty(href)),
+      mergeMap((endpoint: string) => this.getFindAllHref(endpoint, options)),);
 
-    hrefObs
-      .filter((href: string) => hasValue(href))
-      .take(1)
+    hrefObs.pipe(
+      filter((href: string) => hasValue(href)),
+      take(1),)
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);
@@ -76,11 +79,11 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   }
 
   findById(id: string): Observable<RemoteData<TDomain>> {
-    const hrefObs = this.halService.getEndpoint(this.linkPath)
-      .map((endpoint: string) => this.getFindByIDHref(endpoint, id));
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getFindByIDHref(endpoint, id)));
 
-    hrefObs
-      .first((href: string) => hasValue(href))
+    hrefObs.pipe(
+      first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
         this.requestService.configure(request);

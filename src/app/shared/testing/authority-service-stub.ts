@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import {of as observableOf,  Observable } from 'rxjs';
 import { IntegrationSearchOptions } from '../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../core/integration/integration-data';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -16,6 +16,6 @@ export class AuthorityServiceStub {
   }
 
   getEntriesByName(options: IntegrationSearchOptions) {
-    return Observable.of(new IntegrationData(new PageInfo(), this._payload));
+    return observableOf(new IntegrationData(new PageInfo(), this._payload));
   }
 }

@@ -1,5 +1,6 @@
+
+import {combineLatest as observableCombineLatest,  Observable } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -33,7 +34,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   initialize(): void {
     const originals = this.item.getFiles();
     const licenses = this.item.getBitstreamsByBundleName('LICENSE');
-    this.bitstreamsObs = Observable.combineLatest(originals, licenses, (o, l) => [...o, ...l]);
+    this.bitstreamsObs = observableCombineLatest(originals, licenses, (o, l) => [...o, ...l]);
     this.bitstreamsObs.subscribe(
       (files) =>
         files.forEach(

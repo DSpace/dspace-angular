@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import {of as observableOf,  Observable } from 'rxjs';
 
 // declare a stub service
 export class HostWindowServiceStub {
@@ -14,7 +14,7 @@ export class HostWindowServiceStub {
   }
 
   isXs(): Observable<boolean> {
-    return Observable.of(this.width < 576);
+    return observableOf(this.width < 576);
   }
 
   isXsOrSm(): Observable<boolean> {

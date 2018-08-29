@@ -1,7 +1,8 @@
+import {mergeMap, filter, map} from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Subscription ,  Observable } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
@@ -34,11 +35,11 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.communityRD$ = this.route.data.pipe((data) => data.community);
-    this.logoRD$ = this.communityRD$
-      .map((rd: RemoteData<Community>) => rd.payload)
-      .filter((community: Community) => hasValue(community))
-      .flatMap((community: Community) => community.logo);
+    this.communityRD$ = this.route.data.pipe(map((data) => data.community));
+    this.logoRD$ = this.communityRD$.pipe(
+      map((rd: RemoteData<Community>) => rd.payload),
+      filter((community: Community) => hasValue(community)),
+      mergeMap((community: Community) => community.logo));
   }
 
   ngOnDestroy(): void {

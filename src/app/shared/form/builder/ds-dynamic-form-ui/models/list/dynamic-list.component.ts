@@ -99,7 +99,7 @@ export class DsDynamicListComponent implements OnInit {
           const value = option.id || option.value;
           const checked: boolean = isNotEmpty(findKey(
             this.model.value,
-            {value: option.value}));
+            (v) => v.value === option.value));
 
           const item: ListItem = {
             id: value,

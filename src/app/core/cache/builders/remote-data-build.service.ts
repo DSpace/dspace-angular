@@ -1,5 +1,6 @@
+
+import {combineLatest as observableCombineLatest, of as observableOf, Observable, race as observableRace } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { distinctUntilChanged, flatMap, map, startWith } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
@@ -32,24 +33,24 @@ export class RemoteDataBuildService {
 
   buildSingle<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<TDomain>> {
     if (typeof href$ === 'string') {
-      href$ = Observable.of(href$);
+      href$ = observableOf(href$);
     }
     const requestHref$ = href$.pipe(flatMap((href: string) =>
       this.objectCache.getRequestHrefBySelfLink(href)));
 
-    const requestEntry$ = Observable.race(
+    const requestEntry$ = observableRace(
       href$.pipe(getRequestFromSelflink(this.requestService)),
       requestHref$.pipe(getRequestFromSelflink(this.requestService))
     );
 
-    const responseCache$ = Observable.race(
+    const responseCache$ = observableRace(
       href$.pipe(getResponseFromSelflink(this.responseCache)),
       requestHref$.pipe(getResponseFromSelflink(this.responseCache))
     );
 
     // always use self link if that is cached, only if it isn't, get it via the response.
     const payload$ =
-      Observable.combineLatest(
+      observableCombineLatest(
         href$.pipe(
           flatMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href)),
           startWith(undefined)
@@ -60,7 +61,7 @@ export class RemoteDataBuildService {
             if (isNotEmpty(resourceSelfLinks)) {
               return this.objectCache.getBySelfLink(resourceSelfLinks[0]);
             } else {
-              return Observable.of(undefined);
+              return observableOf(undefined);
             }
           }),
           distinctUntilChanged(),
@@ -85,7 +86,7 @@ export class RemoteDataBuildService {
   }
 
   toRemoteDataObservable<T>(requestEntry$: Observable<RequestEntry>, responseCache$: Observable<ResponseCacheEntry>, payload$: Observable<T>) {
-    return Observable.combineLatest(requestEntry$, responseCache$.startWith(undefined), payload$,
+    return observableCombineLatest(requestEntry$, responseCache$.pipe(startWith(undefined)), payload$,
       (reqEntry: RequestEntry, resEntry: ResponseCacheEntry, payload: T) => {
         const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
         const responsePending = hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
@@ -110,7 +111,7 @@ export class RemoteDataBuildService {
 
   buildList<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<TDomain>>> {
     if (typeof href$ === 'string') {
-      href$ = Observable.of(href$);
+      href$ = observableOf(href$);
     }
 
     const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
@@ -119,12 +120,12 @@ export class RemoteDataBuildService {
     const tDomainList$ = responseCache$.pipe(
       getResourceLinksFromResponse(),
       flatMap((resourceUUIDs: string[]) => {
-        return this.objectCache.getList(resourceUUIDs)
-          .map((normList: TNormalized[]) => {
+        return this.objectCache.getList(resourceUUIDs).pipe(
+          map((normList: TNormalized[]) => {
             return normList.map((normalized: TNormalized) => {
               return this.build<TNormalized, TDomain>(normalized);
             });
-          });
+          }));
       }),
       startWith([]),
       distinctUntilChanged()
@@ -144,7 +145,7 @@ export class RemoteDataBuildService {
       })
   );
 
-    const payload$ = Observable.combineLatest(tDomainList$, pageInfo$, (tDomainList, pageInfo) => {
+    const payload$ = observableCombineLatest(tDomainList$, pageInfo$, (tDomainList, pageInfo) => {
       return new PaginatedList(pageInfo, tDomainList);
     });
 
@@ -204,10 +205,10 @@ export class RemoteDataBuildService {
   aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {
 
     if (isEmpty(input)) {
-      return Observable.of(new RemoteData(false, false, true, null, []));
+      return observableOf(new RemoteData(false, false, true, null, []));
     }
 
-    return Observable.combineLatest(
+    return observableCombineLatest(
       ...input,
       (...arr: Array<RemoteData<T>>) => {
         const requestPending: boolean = arr
@@ -255,7 +256,7 @@ export class RemoteDataBuildService {
   }
 
   aggregatePaginatedList<T>(input: Observable<RemoteData<T[]>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
-    return input.map((rd) => Object.assign(rd, {payload: new PaginatedList(pageInfo, rd.payload)}));
+    return input.pipe(map((rd) => Object.assign(rd, {payload: new PaginatedList(pageInfo, rd.payload)})));
   }
 
 }

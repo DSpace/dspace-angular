@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { MemoizedSelector, Store } from '@ngrx/store';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, first, map, mergeMap, take } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { IndexName } from '../index/index.reducer';
 
-import { ObjectCacheEntry, CacheableObject } from './object-cache.reducer';
+import { CacheableObject, ObjectCacheEntry } from './object-cache.reducer';
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
 import { hasNoValue } from '../../shared/empty.util';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { coreSelector, CoreState } from '../core.reducers';
 import { pathSelector } from '../shared/selectors';
-import { Item } from '../shared/item.model';
 import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
 
@@ -73,33 +73,40 @@ export class ObjectCacheService {
    *    An observable of the requested object
    */
   getByUUID<T extends NormalizedObject>(uuid: string): Observable<T> {
-    return this.store.select(selfLinkFromUuidSelector(uuid))
-      .flatMap((selfLink: string) => this.getBySelfLink(selfLink))
+    return this.store.pipe(
+      select(selfLinkFromUuidSelector(uuid)),
+      mergeMap((selfLink: string) => this.getBySelfLink(selfLink)
+      )
+    )
   }
 
   getBySelfLink<T extends NormalizedObject>(selfLink: string): Observable<T> {
-    return this.getEntry(selfLink)
-      .map((entry: ObjectCacheEntry) => {
-        const type: GenericConstructor<NormalizedObject>= NormalizedObjectFactory.getConstructor(entry.data.type);
+    return this.getEntry(selfLink).pipe(
+      map((entry: ObjectCacheEntry) => {
+        const type: GenericConstructor<NormalizedObject> = NormalizedObjectFactory.getConstructor(entry.data.type);
         return Object.assign(new type(), entry.data) as T
-      });
+      }));
   }
 
   private getEntry(selfLink: string): Observable<ObjectCacheEntry> {
-    return this.store.select(entryFromSelfLinkSelector(selfLink))
-      .filter((entry) => this.isValid(entry))
-      .distinctUntilChanged();
+    return this.store.pipe(
+      select(entryFromSelfLinkSelector(selfLink)),
+      filter((entry) => this.isValid(entry)),
+      distinctUntilChanged()
+    );
   }
 
   getRequestHrefBySelfLink(selfLink: string): Observable<string> {
-    return this.getEntry(selfLink)
-      .map((entry: ObjectCacheEntry) => entry.requestHref)
-      .distinctUntilChanged();
+    return this.getEntry(selfLink).pipe(
+      map((entry: ObjectCacheEntry) => entry.requestHref),
+      distinctUntilChanged(),);
   }
 
   getRequestHrefByUUID(uuid: string): Observable<string> {
-    return this.store.select(selfLinkFromUuidSelector(uuid))
-      .flatMap((selfLink: string) => this.getRequestHrefBySelfLink(selfLink));
+    return this.store.pipe(
+      select(selfLinkFromUuidSelector(uuid)),
+      mergeMap((selfLink: string) => this.getRequestHrefBySelfLink(selfLink))
+    );
   }
 
   /**
@@ -122,7 +129,7 @@ export class ObjectCacheService {
    * @return Observable<Array<T>>
    */
   getList<T extends NormalizedObject>(selfLinks: string[]): Observable<T[]> {
-    return Observable.combineLatest(
+    return observableCombineLatest(
       selfLinks.map((selfLink: string) => this.getBySelfLink<T>(selfLink))
     );
   }
@@ -139,9 +146,10 @@ export class ObjectCacheService {
   hasByUUID(uuid: string): boolean {
     let result: boolean;
 
-    this.store.select(selfLinkFromUuidSelector(uuid))
-      .take(1)
-      .subscribe((selfLink: string) => result = this.hasBySelfLink(selfLink));
+    this.store.pipe(
+      select(selfLinkFromUuidSelector(uuid)),
+      first()
+    ).subscribe((selfLink: string) => result = this.hasBySelfLink(selfLink));
 
     return result;
   }
@@ -158,9 +166,9 @@ export class ObjectCacheService {
   hasBySelfLink(selfLink: string): boolean {
     let result = false;
 
-    this.store.select(entryFromSelfLinkSelector(selfLink))
-      .take(1)
-      .subscribe((entry: ObjectCacheEntry) => result = this.isValid(entry));
+    this.store.pipe(select(entryFromSelfLinkSelector(selfLink)),
+      first()
+    ).subscribe((entry: ObjectCacheEntry) => result = this.isValid(entry));
 
     return result;
   }

@@ -1,3 +1,4 @@
+import {of as observableOf,  Observable ,  Subscription } from 'rxjs';
 import {
   ChangeDetectorRef,
   Component,
@@ -9,8 +10,6 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-
-import { Observable ,  Subscription } from 'rxjs';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { isEqual } from 'lodash';
 
@@ -48,7 +47,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public chips: Chips;
-  public formCollapsed = Observable.of(false);
+  public formCollapsed = observableOf(false);
   public formModel: DynamicFormControlModel[];
   public editMode = false;
 
@@ -66,7 +65,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   ngOnInit() {
     const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
     if (!this.model.isEmpty()) {
-      this.formCollapsed = Observable.of(true);
+      this.formCollapsed = observableOf(true);
     }
     this.model.valueUpdates.subscribe((value: any[]) => {
       if ((isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0])))) {
@@ -151,12 +150,12 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   }
 
   collapseForm() {
-    this.formCollapsed = Observable.of(true);
+    this.formCollapsed = observableOf(true);
     this.clear();
   }
 
   expandForm() {
-    this.formCollapsed = Observable.of(false);
+    this.formCollapsed = observableOf(false);
   }
 
   clear() {
@@ -167,7 +166,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     }
     this.resetForm();
     if (!this.model.isEmpty()) {
-      this.formCollapsed = Observable.of(true);
+      this.formCollapsed = observableOf(true);
     }
   }
 
