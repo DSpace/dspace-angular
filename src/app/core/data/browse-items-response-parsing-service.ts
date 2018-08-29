@@ -30,6 +30,12 @@ export class BrowseItemsResponseParsingService extends BaseResponseParsingServic
   ) { super();
   }
 
+  /**
+   * Parses data from the browse endpoint to a list of DSpaceObjects
+   * @param {RestRequest} request
+   * @param {DSpaceRESTV2Response} data
+   * @returns {RestResponse}
+   */
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._embedded)
       && Array.isArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]])) {

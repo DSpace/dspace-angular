@@ -31,6 +31,12 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     super();
   }
 
+  /**
+   * Get the endpoint for browsing items
+   *  (When options.sort.field is empty, the default field to browse by will be 'dc.date.issued')
+   * @param {FindAllOptions} options
+   * @returns {Observable<string>}
+   */
   public getBrowseEndpoint(options: FindAllOptions = {}): Observable<string> {
     let field = 'dc.date.issued';
     if (options.sort && options.sort.field) {
