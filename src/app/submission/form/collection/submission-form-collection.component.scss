@@ -2,7 +2,7 @@
 
 .scrollable-menu {
   height: auto;
-  max-height: 200px;
+  max-height: $dropdown-menu-max-height;
   overflow-x: hidden;
 }
 

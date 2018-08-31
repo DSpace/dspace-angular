@@ -10,7 +10,7 @@
 }
 
 .ds-base-drop-zone p {
-  min-height: 42px;
+  min-height: $drop-zone-area-height;
 }
 
 .ds-document-drop-zone {
