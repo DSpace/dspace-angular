@@ -42,7 +42,7 @@ module.exports = {
 
     ],
     optimization: {
-        minimize: [
+        minimizer: [
             new UglifyJsPlugin({
                 uglifyOptions: {
                     beautify: false,
