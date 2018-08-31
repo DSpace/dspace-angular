@@ -1,0 +1,8 @@
+@import '../../../../../styles/variables';
+
+.sticky-buttons {
+  position: sticky;
+  top: 72px;
+  z-index: $submission-footer-z-index;
+  background-color: rgba($white, .97);
+}

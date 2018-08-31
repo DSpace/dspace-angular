@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SectionUploadService } from '../section-upload.service';
 import { isNotEmpty, isNotNull, isNotUndefined } from '../../../../shared/empty.util';
@@ -20,6 +20,7 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 
 @Component({
   selector: 'ds-submission-upload-section-file',
+  styleUrls: ['./file.component.scss'],
   templateUrl: './file.component.html',
 })
 export class UploadSectionFileComponent implements OnChanges, OnInit {
@@ -122,7 +123,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
           const accessConditionsToSave = [];
           formData.accessConditions
             .filter((accessCondition) => isNotEmpty(accessCondition))
-            .forEach((accessCondition, index) => {
+            .forEach((accessCondition) => {
               let accessConditionOpt;
 
               this.availableAccessConditionOptions
@@ -130,7 +131,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
                 .forEach((element) => accessConditionOpt = element);
 
               if (accessConditionOpt) {
-                const path = `accessConditions/${index}`;
+
                 if (accessConditionOpt.hasStartDate !== true && accessConditionOpt.hasEndDate !== true) {
                   accessConditionOpt = deleteProperty(accessConditionOpt, 'hasStartDate');
 
