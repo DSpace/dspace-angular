@@ -223,7 +223,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
     const path = this.formBuilderService.getPath(event.model);
     if (this.formBuilderService.hasMappedGroupValue(event.model)) {
       this.previousValue.path = path;
-      this.previousValue.value = this.formOperationsService.getComboboxMap(event);
+      this.previousValue.value = this.formOperationsService.getQualdropValueMap(event);
     } else if (isNotEmpty(value) && ((typeof value === 'object' && isNotEmpty(value.value)) || (typeof value === 'string'))) {
       this.previousValue.path = path;
       this.previousValue.value = value;

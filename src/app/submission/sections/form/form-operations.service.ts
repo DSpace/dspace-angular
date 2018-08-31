@@ -65,10 +65,14 @@ export class FormOperationsService {
     return isNotUndefined(fieldIndex) ? fieldIndex : 0;
   }
 
-  public getComboboxMap(event): Map<string, any> {
+  public getQualdropValueMap(event): Map<string, any> {
     const metadataValueMap = new Map();
 
-    (event.model.parent.parent as DynamicFormArrayGroupModel).context.groups.forEach((arrayModel: DynamicFormArrayGroupModel) => {
+    const context = this.formBuilder.isQualdropGroup(event.model)
+      ? (event.model.parent as DynamicFormArrayGroupModel).context
+      : (event.model.parent.parent as DynamicFormArrayGroupModel).context;
+
+    context.groups.forEach((arrayModel: DynamicFormArrayGroupModel) => {
       const groupModel = arrayModel.group[0] as DynamicQualdropModel;
       const metadataValueList = metadataValueMap.get(groupModel.qualdropId) ? metadataValueMap.get(groupModel.qualdropId) : [];
       if (groupModel.value) {
@@ -80,15 +84,40 @@ export class FormOperationsService {
     return metadataValueMap;
   }
 
-  public getFieldPathFromChangeEvent(event: DynamicFormControlEvent) {
+  public getFieldPathFromEvent(event: DynamicFormControlEvent): string {
     const fieldIndex = this.getArrayIndexFromEvent(event);
     const fieldId = this.getFieldPathSegmentedFromChangeEvent(event);
     return (isNotUndefined(fieldIndex)) ? fieldId + '/' + fieldIndex : fieldId;
   }
 
+  public getQualdropItemPathFromEvent(event: DynamicFormControlEvent, valueMap: Map<string, any>): string {
+    const fieldIndex = this.getArrayIndexFromEvent(event);
+    const metadataValueMap = new Map();
+    let path;
+
+    const context = this.formBuilder.isQualdropGroup(event.model)
+      ? (event.model.parent as DynamicFormArrayGroupModel).context
+      : (event.model.parent.parent as DynamicFormArrayGroupModel).context;
+
+    context.groups.forEach((arrayModel: DynamicFormArrayGroupModel, index: number) => {
+      const groupModel = arrayModel.group[0] as DynamicQualdropModel;
+      const metadataValueList = metadataValueMap.get(groupModel.qualdropId) ? metadataValueMap.get(groupModel.qualdropId) : [];
+      if (groupModel.value) {
+        metadataValueList.push(groupModel.value);
+        metadataValueMap.set(groupModel.qualdropId, metadataValueList);
+      }
+      if (index === fieldIndex) {
+        path = groupModel.qualdropId + '/' + (metadataValueMap.get(groupModel.qualdropId).length - 1)
+      }
+    });
+    return path;
+  }
+
   public getFieldPathSegmentedFromChangeEvent(event: DynamicFormControlEvent) {
     let fieldId;
-    if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)) {
+    if (this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
+      fieldId = (event.model as any).qualdropId;
+    } else if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)) {
       fieldId = (event.model.parent as any).qualdropId;
     } else {
       fieldId = this.formBuilder.getId(event.model);
@@ -147,10 +176,10 @@ export class FormOperationsService {
   protected dispatchOperationsFromRemoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject) {
-    const path = this.getFieldPathFromChangeEvent(event);
+    const path = this.getFieldPathFromEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
-    if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)) {
-      this.dispatchOperationsFromMap(this.getComboboxMap(event), pathCombiner, event, previousValue);
+    if (this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
+      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
     } else if (isNotEmpty(value)) {
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     }
@@ -160,13 +189,13 @@ export class FormOperationsService {
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject,
                                               hasStoredValue: boolean) {
-    const path = this.getFieldPathFromChangeEvent(event);
+    const path = this.getFieldPathFromEvent(event);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
     // Detect which operation must be dispatched
     if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)) {
       // It's a qualdrup model
-      this.dispatchOperationsFromMap(this.getComboboxMap(event), pathCombiner, event, previousValue);
+      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
     } else if (this.formBuilder.isRelationGroup(event.model)) {
       // It's a relation model
       this.dispatchOperationsFromMap(this.getValueMap(value), pathCombiner, event, previousValue);
@@ -215,27 +244,32 @@ export class FormOperationsService {
                                       event: DynamicFormControlEvent,
                                       previousValue: FormFieldPreviousValueObject) {
     const currentValueMap = valueMap;
-    if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
-      previousValue.value.forEach((entry, index) => {
-        const currentValue = currentValueMap.get(index);
-        if (currentValue) {
-          if (!isEqual(entry, currentValue)) {
-            this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
+    if (event.type === 'remove') {
+      const path = this.getQualdropItemPathFromEvent(event, currentValueMap);
+      this.operationsBuilder.remove(pathCombiner.getPath(path));
+    } else {
+      if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
+        previousValue.value.forEach((entry, index) => {
+          const currentValue = currentValueMap.get(index);
+          if (currentValue) {
+            if (!isEqual(entry, currentValue)) {
+              this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
+            }
+            currentValueMap.delete(index);
+          } else if (!currentValue) {
+            this.operationsBuilder.remove(pathCombiner.getPath(index));
           }
-          currentValueMap.delete(index);
-        } else if (!currentValue) {
+        });
+      }
+      currentValueMap.forEach((entry: any[], index) => {
+        if (entry.length === 1 && isNull(entry[0])) {
+          // The last item of the group has been deleted so make a remove op
           this.operationsBuilder.remove(pathCombiner.getPath(index));
+        } else {
+          this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
         }
       });
     }
-    currentValueMap.forEach((entry: any[], index) => {
-      if (entry.length === 1 && isNull(entry[0])) {
-        // The last item of the group has been deleted so make a remove op
-        this.operationsBuilder.remove(pathCombiner.getPath(index));
-      } else {
-        this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
-      }
-    });
 
     previousValue.delete();
   }
