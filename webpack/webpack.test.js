@@ -179,17 +179,6 @@ module.exports = function (options) {
         },
 
         /**
-         * Json loader support for *.json files.
-         *
-         * See: https://github.com/webpack/json-loader
-         */
-        {
-          test: /\.json$/,
-          loader: 'json-loader',
-          exclude: [root('src/index.html')]
-        },
-
-        /**
          * Instruments JS files with Istanbul for subsequent code coverage reporting.
          * Instrument only testing sources.
          *
@@ -288,4 +277,4 @@ module.exports = function (options) {
     }
 
   };
-}
+};

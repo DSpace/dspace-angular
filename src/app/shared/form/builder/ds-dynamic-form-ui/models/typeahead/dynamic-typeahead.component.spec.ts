@@ -3,8 +3,7 @@ import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/c
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import 'rxjs/add/observable/of';
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
@@ -123,7 +122,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       it('should search when 3+ characters typed', fakeAsync(() => {
         spyOn((typeaheadComp as any).authorityService, 'getEntriesByName').and.callThrough();
 
-        typeaheadComp.search(Observable.of('test')).subscribe(() => {
+        typeaheadComp.search(observableOf('test')).subscribe(() => {
           expect((typeaheadComp as any).authorityService.getEntriesByName).toHaveBeenCalled();
         });
 

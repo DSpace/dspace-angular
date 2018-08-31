@@ -1,5 +1,4 @@
-
-import {combineLatest as observableCombineLatest,  Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
@@ -18,7 +17,9 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import {
-  MetadataschemaSuccessResponse, RegistryBitstreamformatsSuccessResponse, RegistryMetadatafieldsSuccessResponse,
+  MetadataschemaSuccessResponse,
+  RegistryBitstreamformatsSuccessResponse,
+  RegistryMetadatafieldsSuccessResponse,
   RegistryMetadataschemasSuccessResponse
 } from '../cache/response-cache.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -71,9 +72,11 @@ export class RegistryService {
       map((response: RegistryMetadataschemasSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = observableCombineLatest(metadataschemasObs, pageInfoObs, (metadataschemas, pageInfo) => {
-      return new PaginatedList(pageInfo, metadataschemas);
-    });
+    const payloadObs = observableCombineLatest(metadataschemasObs, pageInfoObs).pipe(
+      map(([metadataschemas, pageInfo]) => {
+        return new PaginatedList(pageInfo, metadataschemas);
+      })
+    );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
@@ -133,9 +136,11 @@ export class RegistryService {
       map((response: RegistryMetadatafieldsSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = observableCombineLatest(metadatafieldsObs, pageInfoObs, (metadatafields, pageInfo) => {
-      return new PaginatedList(pageInfo, metadatafields);
-    });
+    const payloadObs = observableCombineLatest(metadatafieldsObs, pageInfoObs).pipe(
+      map(([metadatafields, pageInfo]) => {
+        return new PaginatedList(pageInfo, metadatafields);
+      })
+    );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
@@ -165,9 +170,11 @@ export class RegistryService {
       map((response: RegistryBitstreamformatsSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = observableCombineLatest(bitstreamformatsObs, pageInfoObs, (bitstreamformats, pageInfo) => {
-      return new PaginatedList(pageInfo, bitstreamformats);
-    });
+    const payloadObs = observableCombineLatest(bitstreamformatsObs, pageInfoObs).pipe(
+      map(([bitstreamformats, pageInfo]) => {
+        return new PaginatedList(pageInfo, bitstreamformats);
+      })
+    );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }

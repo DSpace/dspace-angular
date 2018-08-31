@@ -1,17 +1,15 @@
-import { ComponentFixture, TestBed, async, fakeAsync, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { Location, CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { By, Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { Store, StoreModule } from '@ngrx/store';
-
-import { Observable } from 'rxjs';
-import { RemoteDataError } from '../data/remote-data-error';
+import { Observable, of as observableOf } from 'rxjs';
 import { UUIDService } from '../shared/uuid.service';
 
 import { MetadataService } from './metadata.service';
@@ -182,7 +180,7 @@ describe('MetadataService', () => {
   }));
 
   const mockRemoteData = (mockItem: Item): Observable<RemoteData<Item>> => {
-    return Observable.of(new RemoteData<Item>(
+    return observableOf(new RemoteData<Item>(
       false,
       false,
       true,

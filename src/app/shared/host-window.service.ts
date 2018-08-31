@@ -99,8 +99,10 @@ export class HostWindowService {
   isXsOrSm(): Observable<boolean> {
     return observableCombineLatest(
       this.isXs(),
-      this.isSm(),
-      ((isXs, isSm) => isXs || isSm)
-    ).pipe(distinctUntilChanged());
+      this.isSm()
+    ).pipe(
+      map(([isXs, isSm]) => isXs || isSm),
+      distinctUntilChanged()
+    );
   }
 }

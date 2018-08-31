@@ -1,5 +1,12 @@
-import {combineLatest as observableCombineLatest, of as observableOf,  BehaviorSubject ,  Observable ,  Subject ,  Subscription } from 'rxjs';
-import {switchMap, distinctUntilChanged, first,  map } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+  BehaviorSubject,
+  Observable,
+  Subject,
+  Subscription
+} from 'rxjs';
+import { switchMap, distinctUntilChanged, first, map } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -82,21 +89,24 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.selectedValues = this.filterService.getSelectedValuesForFilter(this.filterConfig);
     const searchOptions = this.searchConfigService.searchOptions;
     this.subs.push(this.searchConfigService.searchOptions.subscribe(() => this.updateFilterValueList()));
-    const facetValues = observableCombineLatest(searchOptions, this.currentPage, (options, page) => {
-      return { options, page }
-    }).pipe(switchMap(({ options, page }) => {
-      return this.searchService.getFacetValuesFor(this.filterConfig, page, options)
-        .pipe(
-          getSucceededRemoteData(),
-          map((results) => {
-              return {
-                values: observableOf(results),
-                page: page
-              };
-            }
+    const facetValues = observableCombineLatest(searchOptions, this.currentPage).pipe(
+      map(([options, page]) => {
+        return { options, page }
+      }),
+      switchMap(({ options, page }) => {
+        return this.searchService.getFacetValuesFor(this.filterConfig, page, options)
+          .pipe(
+            getSucceededRemoteData(),
+            map((results) => {
+                return {
+                  values: observableOf(results),
+                  page: page
+                };
+              }
+            )
           )
-        )
-    }));
+      })
+    );
     let filterValues = [];
     this.subs.push(facetValues.subscribe((facetOutcome) => {
       const newValues$ = facetOutcome.values;

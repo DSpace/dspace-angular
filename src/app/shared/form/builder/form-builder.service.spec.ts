@@ -16,7 +16,7 @@ import {
   DynamicFileUploadModel, DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
   DynamicFormControlModel,
-  DynamicFormControlValue,
+  // DynamicFormControlValue,
   DynamicFormGroupModel,
   DynamicFormService,
   DynamicFormValidationService,
@@ -761,8 +761,8 @@ describe('FormBuilderService test suite', () => {
     (formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 1');
     (formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 2');
 
-    (model.get(index).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).valueUpdates.next('next test value 1');
-    (model.get(index + step).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).valueUpdates.next('next test value 2');
+    (model.get(index).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 1');
+    (model.get(index + step).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 2');
 
     service.moveFormArrayGroup(index, step, formArray, model);
 
@@ -771,8 +771,8 @@ describe('FormBuilderService test suite', () => {
     expect((formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.value).toEqual('next test value 2');
     expect((formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.value).toEqual('next test value 1');
 
-    expect((model.get(index).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).value).toEqual('next test value 2');
-    expect((model.get(index + step).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).value).toEqual('next test value 1');
+    expect((model.get(index).get(0) as DynamicFormValueControlModel<any>).value).toEqual('next test value 2');
+    expect((model.get(index + step).get(0) as DynamicFormValueControlModel<any>).value).toEqual('next test value 1');
   });
 
   it('should move down a form array group', () => {
@@ -785,8 +785,8 @@ describe('FormBuilderService test suite', () => {
     (formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 1');
     (formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 2');
 
-    (model.get(index).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).valueUpdates.next('next test value 1');
-    (model.get(index + step).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).valueUpdates.next('next test value 2');
+    (model.get(index).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 1');
+    (model.get(index + step).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 2');
 
     service.moveFormArrayGroup(index, step, formArray, model);
 
@@ -795,8 +795,8 @@ describe('FormBuilderService test suite', () => {
     expect((formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.value).toEqual('next test value 2');
     expect((formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.value).toEqual('next test value 1');
 
-    expect((model.get(index).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).value).toEqual('next test value 2');
-    expect((model.get(index + step).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).value).toEqual('next test value 1');
+    expect((model.get(index).get(0) as DynamicFormValueControlModel<any>).value).toEqual('next test value 2');
+    expect((model.get(index + step).get(0) as DynamicFormValueControlModel<any>).value).toEqual('next test value 1');
   });
 
   it('should throw when form array group is to be moved out of bounds', () => {

@@ -1,4 +1,4 @@
-import {of as observableOf, combineLatest as observableCombineLatest,  Observable } from 'rxjs';
+import { of as observableOf, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import {
   ActivatedRoute,
@@ -122,30 +122,33 @@ export class SearchService implements OnDestroy {
     );
 
     // Create search results again with the correct dso objects linked to each result
-    const tDomainListObs = observableCombineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
-
-      return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
-        let co = DSpaceObject;
-        if (dsos.payload[index]) {
-          const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
-          co = getSearchResultFor(constructor);
-          return Object.assign(new co(), object, {
-            dspaceObject: dsos.payload[index]
-          });
-        } else {
-          return undefined;
-        }
-      });
-    });
+    const tDomainListObs = observableCombineLatest(sqrObs, dsoObs).pipe(
+      map(([sqr, dsos]) => {
+        return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
+          let co = DSpaceObject;
+          if (dsos.payload[index]) {
+            const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
+            co = getSearchResultFor(constructor);
+            return Object.assign(new co(), object, {
+              dspaceObject: dsos.payload[index]
+            });
+          } else {
+            return undefined;
+          }
+        });
+      })
+    );
 
     const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
       map((entry: ResponseCacheEntry) => entry.response),
       map((response: FacetValueSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = observableCombineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
-      return new PaginatedList(pageInfo, tDomainList);
-    });
+    const payloadObs = observableCombineLatest(tDomainListObs, pageInfoObs).pipe(
+      map(([tDomainList, pageInfo]) => {
+        return new PaginatedList(pageInfo, tDomainList);
+      })
+    );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
@@ -244,9 +247,11 @@ export class SearchService implements OnDestroy {
       map((response: FacetValueSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = observableCombineLatest(facetValueObs, pageInfoObs, (facetValue, pageInfo) => {
-      return new PaginatedList(pageInfo, facetValue);
-    });
+    const payloadObs = observableCombineLatest(facetValueObs, pageInfoObs).pipe(
+      map(([facetValue, pageInfo]) => {
+        return new PaginatedList(pageInfo, facetValue);
+      })
+    );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
@@ -272,10 +277,12 @@ export class SearchService implements OnDestroy {
       switchMap((dsoRD: RemoteData<DSpaceObject>) => {
           if (dsoRD.payload.type === ResourceType.Community) {
             const community: Community = dsoRD.payload as Community;
-            return observableCombineLatest(community.subcommunities, community.collections, (subCommunities, collections) => {
-              /*if this is a community, we also need to show the direct children*/
-              return [community, ...subCommunities.payload.page, ...collections.payload.page]
-            })
+            return observableCombineLatest(community.subcommunities, community.collections).pipe(
+              map(([subCommunities, collections]) => {
+                /*if this is a community, we also need to show the direct children*/
+                return [community, ...subCommunities.payload.page, ...collections.payload.page]
+              })
+            );
           } else {
             return observableOf([dsoRD.payload]);
           }

@@ -5,6 +5,7 @@ import { createSelector, select, Store } from '@ngrx/store';
 import { SearchSidebarCollapseAction, SearchSidebarExpandAction } from './search-sidebar.actions';
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../../shared/host-window.service';
+import { map } from 'rxjs/operators';
 
 const sidebarStateSelector = (state: AppState) => state.searchSidebar;
 const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SearchSidebarState) => sidebar.sidebarCollapsed);
@@ -36,8 +37,10 @@ export class SearchSidebarService {
   get isCollapsed(): Observable<boolean> {
     return observableCombineLatest(
       this.isXsOrSm$,
-      this.isCollapsedInStore,
-      (mobile, store) => mobile ? store : true);
+      this.isCollapsedInStore
+    ).pipe(
+      map(([mobile, store]) => mobile ? store : true)
+    );
   }
 
   /**

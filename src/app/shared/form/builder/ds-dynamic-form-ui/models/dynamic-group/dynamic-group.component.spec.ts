@@ -6,13 +6,15 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { DynamicFormValidationService } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import 'rxjs/add/observable/of';
+import { of as observableOf } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DsDynamicGroupComponent } from './dynamic-group.components';
 import { DynamicGroupModel, DynamicGroupModelConfig } from './dynamic-group.model';
-import { FormRowModel, SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
+import {
+  FormRowModel,
+  SubmissionFormsModel
+} from '../../../../../../core/shared/config/config-submission-forms.model';
 import { FormFieldModel } from '../../../models/form-field.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormService } from '../../../../form.service';
@@ -97,7 +99,7 @@ describe('DsDynamicGroupComponent test suite', () => {
 
   const store: Store<AppState> = jasmine.createSpyObj('store', {
     dispatch: {},
-    select: Observable.of(true)
+    select: observableOf(true)
   });
 
   // async beforeEach
@@ -182,7 +184,7 @@ describe('DsDynamicGroupComponent test suite', () => {
       const formModel = service.modelFromConfiguration(formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips([], 'value', 'dc.contributor.author');
 
-      expect(groupComp.formCollapsed).toEqual(Observable.of(false));
+      expect(groupComp.formCollapsed).toEqual(observableOf(false));
       expect(groupComp.formModel.length).toEqual(formModel.length);
       expect(groupComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
     }));
@@ -203,7 +205,7 @@ describe('DsDynamicGroupComponent test suite', () => {
       btnEl.click();
 
       expect(groupComp.chips.getChipsItems()).toEqual(modelValue);
-      expect(groupComp.formCollapsed).toEqual(Observable.of(true));
+      expect(groupComp.formCollapsed).toEqual(observableOf(true));
     });
 
     it('should clear form inputs', () => {
@@ -220,7 +222,7 @@ describe('DsDynamicGroupComponent test suite', () => {
 
       expect(control1.value).toBeNull();
       expect(control2.value).toBeNull();
-      expect(groupComp.formCollapsed).toEqual(Observable.of(false));
+      expect(groupComp.formCollapsed).toEqual(observableOf(false));
     });
   });
 
@@ -252,7 +254,7 @@ describe('DsDynamicGroupComponent test suite', () => {
       const formModel = service.modelFromConfiguration(formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips(modelValue, 'value', 'dc.contributor.author');
 
-      expect(groupComp.formCollapsed).toEqual(Observable.of(true));
+      expect(groupComp.formCollapsed).toEqual(observableOf(true));
       expect(groupComp.formModel.length).toEqual(formModel.length);
       expect(groupComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
     }));
@@ -280,7 +282,7 @@ describe('DsDynamicGroupComponent test suite', () => {
       groupFixture.detectChanges();
 
       expect(groupComp.chips.getChipsItems()).toEqual(modelValue);
-      expect(groupComp.formCollapsed).toEqual(Observable.of(true));
+      expect(groupComp.formCollapsed).toEqual(observableOf(true));
     }));
 
     it('should delete existing chips item', () => {
@@ -292,7 +294,7 @@ describe('DsDynamicGroupComponent test suite', () => {
       btnEl.click();
 
       expect(groupComp.chips.getChipsItems()).toEqual([]);
-      expect(groupComp.formCollapsed).toEqual(Observable.of(false));
+      expect(groupComp.formCollapsed).toEqual(observableOf(false));
     });
   });
 });

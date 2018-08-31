@@ -7,8 +7,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterService } from './search-filter/search-filter.service';
 import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../search-service/search.service';
-import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { of as observableOf } from 'rxjs';
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;
@@ -17,7 +17,7 @@ describe('SearchFiltersComponent', () => {
   const searchServiceStub = {
     /* tslint:disable:no-empty */
     getConfig: () =>
-      Observable.of({ hasSucceeded: true, payload: [] }),
+      observableOf({ hasSucceeded: true, payload: [] }),
     getClearFiltersQueryParams: () => {
     },
     getSearchLink: () => {
@@ -31,7 +31,7 @@ describe('SearchFiltersComponent', () => {
   };
 
   const searchConfigServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
-    getCurrentFrontendFilters: Observable.of({})
+    getCurrentFrontendFilters: observableOf({})
   });
 
   beforeEach(async(() => {

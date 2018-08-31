@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, InjectionToken } from '@angular/core';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
@@ -13,14 +13,10 @@ import {
   SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
-import { hasValue, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { RouteService } from '../../../shared/services/route.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../../search-options.model';
-import { PaginatedSearchOptions } from '../../paginated-search-options.model';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Params } from '@angular/router';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
@@ -63,13 +59,19 @@ export class SearchFilterService {
    */
   getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
     const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
-    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(map((params: Params) => [].concat(...Object.values(params))));
-    return observableCombineLatest(values$, prefixValues$, (values, prefixValues) => {
-      if (isNotEmpty(values)) {
-        return values;
-      }
-      return prefixValues;
-    })
+    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
+      map((params: Params) => [].concat(...Object.values(params)))
+    );
+
+    return observableCombineLatest(values$, prefixValues$).pipe(
+      map(([values, prefixValues]) => {
+          if (isNotEmpty(values)) {
+            return values;
+          }
+          return prefixValues;
+        }
+      )
+    )
   }
 
   /**

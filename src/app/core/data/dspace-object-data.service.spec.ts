@@ -1,5 +1,5 @@
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from '../../../../node_modules/rxjs';
+import { TestScheduler } from 'rxjs/testing';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

@@ -1,6 +1,5 @@
 import {
-  Component,
-  ComponentFactoryResolver,
+  Component, ComponentFactoryResolver,
   ContentChildren,
   EventEmitter,
   Input,
@@ -21,7 +20,7 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel, DynamicFormControl,
+  DynamicDatePickerModel, DynamicFormControl, DynamicFormControlComponent,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
@@ -38,6 +37,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/dat
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
+import { isNotEmpty } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 
 export const enum NGBootstrapFormControlType {
@@ -89,8 +89,9 @@ export class DsDynamicFormControlComponent extends DynamicFormControlContainerCo
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
 
-  componentType: Type<DynamicFormControl> | null;
   type: NGBootstrapFormControlType | null;
+
+  readonly componentType: Type<DynamicFormControl> | null;
 
   static getFormControlType(model: DynamicFormControlModel): NGBootstrapFormControlType | null {
 
@@ -162,7 +163,7 @@ export class DsDynamicFormControlComponent extends DynamicFormControlContainerCo
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes) {
-      super.ngOnChanges(changes);
+      // super.ngOnChanges(changes);
     }
 
     if (changes.model) {
@@ -170,4 +171,9 @@ export class DsDynamicFormControlComponent extends DynamicFormControlContainerCo
     }
   }
 
+  onChangeLanguage(event) {
+    if (isNotEmpty((this.model as any).value)) {
+      this.onChange(event);
+    }
+  }
 }

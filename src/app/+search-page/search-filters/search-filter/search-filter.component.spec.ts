@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterService } from './search-filter.service';
 import { SearchService } from '../../search-service/search.service';
@@ -38,19 +38,19 @@ describe('SearchFilterComponent', () => {
     initialExpand: (filter) => {
     },
     getSelectedValuesForFilter: (filter) => {
-      return Observable.of([filterName1, filterName2, filterName3])
+      return observableOf([filterName1, filterName2, filterName3])
     },
     isFilterActive: (filter) => {
-      return Observable.of([filterName1, filterName2, filterName3].indexOf(filter) >= 0);
+      return observableOf([filterName1, filterName2, filterName3].indexOf(filter) >= 0);
     },
     isCollapsed: (filter) => {
-      return Observable.of(true)
+      return observableOf(true)
     }
     /* tslint:enable:no-empty */
 
   };
   let filterService;
-  const mockResults = Observable.of(['test', 'data']);
+  const mockResults = observableOf(['test', 'data']);
   const searchServiceStub = {
     getFacetValuesFor: (filter) => mockResults
   };
@@ -140,7 +140,7 @@ describe('SearchFilterComponent', () => {
   describe('when isCollapsed is called and the filter is collapsed', () => {
     let isActive: Observable<boolean>;
     beforeEach(() => {
-      filterService.isCollapsed = () => Observable.of(true);
+      filterService.isCollapsed = () => observableOf(true);
       isActive = comp.isCollapsed();
     });
 
@@ -155,7 +155,7 @@ describe('SearchFilterComponent', () => {
   describe('when isCollapsed is called and the filter is not collapsed', () => {
     let isActive: Observable<boolean>;
     beforeEach(() => {
-      filterService.isCollapsed = () => Observable.of(false);
+      filterService.isCollapsed = () => observableOf(false);
       isActive = comp.isCollapsed();
     });
 

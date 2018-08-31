@@ -1,5 +1,12 @@
-import {of as observableOf, merge as observableMerge, combineLatest as observableCombineLatest,  Observable ,  BehaviorSubject ,  Subscription } from 'rxjs';
-import {filter, map} from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  merge as observableMerge,
+  Observable,
+  of as observableOf,
+  Subscription
+} from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
@@ -7,7 +14,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Injectable, OnDestroy } from '@angular/core';
 import { RouteService } from '../../shared/services/route.service';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../search-filter.model';
@@ -115,12 +122,13 @@ export class SearchConfigurationService implements OnDestroy {
   getCurrentPagination(defaultPagination: PaginationComponentOptions): Observable<PaginationComponentOptions> {
     const page$ = this.routeService.getQueryParameterValue('page');
     const size$ = this.routeService.getQueryParameterValue('pageSize');
-    return observableCombineLatest(page$, size$, (page, size) => {
-      return Object.assign(new PaginationComponentOptions(), defaultPagination, {
-        currentPage: page || defaultPagination.currentPage,
-        pageSize: size || defaultPagination.pageSize
-      });
-    });
+    return observableCombineLatest(page$, size$).pipe(map(([page, size]) => {
+        return Object.assign(new PaginationComponentOptions(), defaultPagination, {
+          currentPage: page || defaultPagination.currentPage,
+          pageSize: size || defaultPagination.pageSize
+        });
+      })
+    );
   }
 
   /**
@@ -129,7 +137,7 @@ export class SearchConfigurationService implements OnDestroy {
   getCurrentSort(defaultSort: SortOptions): Observable<SortOptions> {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
-    return observableCombineLatest(sortDirection$, sortField$, (sortDirection, sortField) => {
+    return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
         // Dirty fix because sometimes the observable value is null somehow
         sortField = this.route.snapshot.queryParamMap.get('sortField');
 
@@ -137,7 +145,8 @@ export class SearchConfigurationService implements OnDestroy {
         const direction = SortDirection[sortDirection] || defaultSort.direction;
         return new SortOptions(field, direction)
       }
-    )
+      )
+    );
   }
 
   /**

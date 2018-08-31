@@ -1,10 +1,10 @@
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 
 import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { isEmpty } from '../../shared/empty.util';
-import { PageInfo } from './page-info.model';
+import { first, map } from 'rxjs/operators';
 
 describe('Item', () => {
 
@@ -56,30 +56,30 @@ describe('Item', () => {
 
   it('should return the bitstreams related to this item with the specified bundle name', () => {
     const bitObs: Observable<Bitstream[]> = item.getBitstreamsByBundleName(thumbnailBundleName);
-    bitObs.take(1).subscribe((bs) =>
+    bitObs.pipe(first()).subscribe((bs) =>
       expect(bs.every((b) => b.name === thumbnailBundleName)).toBeTruthy());
   });
 
   it('should return an empty array when no bitstreams with this bundleName exist for this item', () => {
     const bs: Observable<Bitstream[]> = item.getBitstreamsByBundleName(nonExistingBundleName);
-    bs.take(1).subscribe((b) => expect(isEmpty(b)).toBeTruthy());
+    bs.pipe(first()).subscribe((b) => expect(isEmpty(b)).toBeTruthy());
   });
 
   describe('get thumbnail', () => {
     beforeEach(() => {
-      spyOn(item, 'getBitstreamsByBundleName').and.returnValue(Observable.of([remoteDataThumbnail]));
+      spyOn(item, 'getBitstreamsByBundleName').and.returnValue(observableOf([remoteDataThumbnail]));
     });
 
     it('should return the thumbnail of this item', () => {
       const path: string = thumbnailPath;
       const bitstream: Observable<Bitstream> = item.getThumbnail();
-      bitstream.map((b) => expect(b.content).toBe(path));
+      bitstream.pipe(map((b) => expect(b.content).toBe(path)));
     });
   });
 
   describe('get files', () => {
     beforeEach(() => {
-      spyOn(item, 'getBitstreamsByBundleName').and.returnValue(Observable.of(bitstreams));
+      spyOn(item, 'getBitstreamsByBundleName').and.returnValue(observableOf(bitstreams));
     });
 
     it("should return all bitstreams with 'ORIGINAL' as bundleName", () => {
@@ -87,7 +87,7 @@ describe('Item', () => {
 
       const files: Observable<Bitstream[]> = item.getFiles();
       let index = 0;
-      files.map((f) => expect(f.length).toBe(2));
+      files.pipe(map((f) => expect(f.length).toBe(2)));
       files.subscribe(
         (array) => array.forEach(
           (file) => {
@@ -103,7 +103,7 @@ describe('Item', () => {
 });
 
 function createRemoteDataObject(object: any) {
-  return Observable.of(new RemoteData(
+  return observableOf(new RemoteData(
     false,
     false,
     true,

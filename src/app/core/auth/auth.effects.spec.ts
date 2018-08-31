@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 
 import { Observable } from 'rxjs';
-import 'rxjs/add/observable/of'
+import { of as observableOf } from 'rxjs';
 
 import { AuthEffects } from './auth.effects';
 import {
@@ -36,7 +36,7 @@ describe('AuthEffects', () => {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */
-    select: Observable.of(true)
+    select: observableOf(true)
   });
   const token = authServiceStub.getToken();
 

@@ -1,9 +1,9 @@
 import { Store } from '@ngrx/store';
 import { async, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
 import { TruncatableService } from './truncatable.service';
 import { TruncatableCollapseAction, TruncatableExpandAction } from './truncatable.actions';
 import { TruncatablesState } from './truncatable.reducer';
+import { of as observableOf } from 'rxjs';
 
 describe('TruncatableService', () => {
   const id1 = '123';
@@ -13,7 +13,7 @@ describe('TruncatableService', () => {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */
-    select: Observable.of(true)
+    select: observableOf(true)
   });
   beforeEach(async(() => {
     TestBed.configureTestingModule({

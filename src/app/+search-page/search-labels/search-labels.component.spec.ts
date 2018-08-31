@@ -6,7 +6,7 @@ import { SearchService } from '../search-service/search.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SearchServiceStub } from '../../shared/testing/search-service-stub';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { Params } from '@angular/router';
 import { ObjectKeysPipe } from '../../shared/utils/object-keys-pipe';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
@@ -35,7 +35,7 @@ describe('SearchLabelsComponent', () => {
       declarations: [SearchLabelsComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  Observable.of({})} }
+        { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  observableOf({})} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchLabelsComponent, {
@@ -47,7 +47,7 @@ describe('SearchLabelsComponent', () => {
     fixture = TestBed.createComponent(SearchLabelsComponent);
     comp = fixture.componentInstance;
     searchService = (comp as any).searchService;
-    (comp as any).appliedFilters = Observable.of(mockFilters);
+    (comp as any).appliedFilters = observableOf(mockFilters);
     fixture.detectChanges();
   });
 

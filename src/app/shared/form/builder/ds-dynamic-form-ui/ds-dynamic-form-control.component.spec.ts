@@ -149,7 +149,7 @@ describe('DsDynamicFormControlComponent test suite', () => {
     expect(component.change).toBeDefined();
     expect(component.focus).toBeDefined();
 
-    expect(component.onValueChange).toBeDefined();
+    expect(component.onChange).toBeDefined();
     expect(component.onBlur).toBeDefined();
     expect(component.onFocus).toBeDefined();
 
@@ -185,11 +185,11 @@ describe('DsDynamicFormControlComponent test suite', () => {
 
   it('should listen to native change event', () => {
 
-    spyOn(component, 'onValueChange');
+    spyOn(component, 'onChange');
 
     testElement.triggerEventHandler('change', null);
 
-    expect(component.onValueChange).toHaveBeenCalled();
+    expect(component.onChange).toHaveBeenCalled();
   });
 
   it('should update model value when control value changes', () => {

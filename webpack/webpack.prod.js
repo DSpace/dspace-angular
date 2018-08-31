@@ -11,9 +11,11 @@ module.exports = {
     mode: 'production',
     recordsOutputPath: root('webpack.records.json'),
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production'),
-            'process.env.AOT': true
+        new webpack.EnvironmentPlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production'),
+                'AOT': true
+            }
         }),
 
         // Loader options

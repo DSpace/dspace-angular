@@ -1,7 +1,7 @@
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
-import { NO_ERRORS_SCHEMA, ChangeDetectionStrategy } from '@angular/core';
+import { of as observableOf } from 'rxjs';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Item } from '../../../../core/shared/item.model';
@@ -13,13 +13,13 @@ let itemSearchResultGridElementComponent: ItemSearchResultGridElementComponent;
 let fixture: ComponentFixture<ItemSearchResultGridElementComponent>;
 
 const truncatableServiceStub: any = {
-  isCollapsed: (id: number) => Observable.of(true),
+  isCollapsed: (id: number) => observableOf(true),
 };
 
 const mockItemWithAuthorAndDate: ItemSearchResult = new ItemSearchResult();
 mockItemWithAuthorAndDate.hitHighlights = [];
 mockItemWithAuthorAndDate.dspaceObject = Object.assign(new Item(), {
-  bitstreams: Observable.of({}),
+  bitstreams: observableOf({}),
   metadata: [
     {
       key: 'dc.contributor.author',
@@ -36,7 +36,7 @@ mockItemWithAuthorAndDate.dspaceObject = Object.assign(new Item(), {
 const mockItemWithoutAuthorAndDate: ItemSearchResult = new ItemSearchResult();
 mockItemWithoutAuthorAndDate.hitHighlights = [];
 mockItemWithoutAuthorAndDate.dspaceObject = Object.assign(new Item(), {
-  bitstreams: Observable.of({}),
+  bitstreams: observableOf({}),
   metadata: [
     {
       key: 'dc.title',

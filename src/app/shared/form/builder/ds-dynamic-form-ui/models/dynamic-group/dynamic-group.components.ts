@@ -73,7 +73,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       } else {
         this.expandForm();
       }
-      // this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0]))) ? Observable.of(true) : Observable.of(false);
+      // this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0]))) ? observableOf(true) : observableOf(false);
     });
 
     this.formId = this.formService.getUniqueId(this.model.id);

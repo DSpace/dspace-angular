@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { HeaderComponent } from './header.component';
 import { HeaderState } from './header.reducer';
@@ -50,7 +50,7 @@ describe('HeaderComponent', () => {
 
     comp = fixture.componentInstance;
 
-    store = fixture.debugElement.injector.get(Store);
+    store = fixture.debugElement.injector.get(Store) as Store<HeaderState>;
     spyOn(store, 'dispatch');
   });
 
@@ -72,7 +72,7 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#collapsingNav')).nativeElement;
-      spyOn(store, 'select').and.returnValue(Observable.of({ navCollapsed: true }));
+      spyOn(store, 'select').and.returnValue(observableOf({ navCollapsed: true }));
       fixture.detectChanges();
     });
 
@@ -87,7 +87,7 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#collapsingNav')).nativeElement;
-      spyOn(store, 'select').and.returnValue(Observable.of(false));
+      spyOn(store, 'select').and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
 

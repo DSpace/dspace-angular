@@ -1,6 +1,6 @@
 import { WrapperGridElementComponent } from './wrapper-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../testing/router-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -11,7 +11,7 @@ let fixture: ComponentFixture<WrapperGridElementComponent>;
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 const activatedRouteStub = {
-  queryParams: Observable.of({
+  queryParams: observableOf({
     query: queryParam,
     scope: scopeParam
   })

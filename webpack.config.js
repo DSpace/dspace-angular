@@ -8,23 +8,23 @@ const {
   getAotPlugin
 } = require('./webpack/webpack.aot');
 
-module.exports = function(options) {
-  options = options || {};
-  if (options.aot) {
-    console.log(`Running build for ${options.client ? 'client' : 'server'} with AoT Compilation`)
+module.exports = function(env, options) {
+    env = env || {};
+  if (env.aot) {
+    console.log(`Running build for ${env.client ? 'client' : 'server'} with AoT Compilation`)
   }
 
-  let serverPartial = getServerWebpackPartial(options.aot);
+  let serverPartial = getServerWebpackPartial(env.aot);
 
   let serverConfig = webpackMerge({}, commonPartial, serverPartial, {
     plugins: [
-      getAotPlugin('server', !!options.aot)
+      getAotPlugin('server', !!env.aot)
     ]
   });
 
   let clientConfig = webpackMerge({}, commonPartial, clientPartial, {
     plugins: [
-      getAotPlugin('client', !!options.aot)
+      getAotPlugin('client', !!env.aot)
     ]
   });
 
@@ -35,13 +35,13 @@ module.exports = function(options) {
 
   const configs = [];
 
-  if (!options.aot) {
+  if (!env.aot) {
     configs.push(clientConfig, serverConfig);
-  } else if (options.client) {
+  } else if (env.client) {
     configs.push(clientConfig);
-  } else if (options.server) {
+  } else if (env.server) {
     configs.push(serverConfig);
   }
 
   return configs;
-}
+};

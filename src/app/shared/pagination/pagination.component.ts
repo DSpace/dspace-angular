@@ -18,7 +18,6 @@ import { PaginationComponentOptions } from './pagination-component-options.model
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { isNumeric } from 'tslint';
 
 /**
  * The default pagination controls component.
@@ -419,7 +418,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   private validatePage(page: any): number {
     let result = this.currentPage;
-    if (isNumeric(page)) {
+    if (!isNaN(page)) {
       result = +page;
     }
     return result;

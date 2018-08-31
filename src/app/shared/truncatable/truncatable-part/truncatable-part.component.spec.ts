@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TruncatablePartComponent } from './truncatable-part.component';
 import { TruncatableService } from '../truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -15,9 +15,9 @@ describe('TruncatablePartComponent', () => {
   const truncatableServiceStub: any = {
     isCollapsed: (id: string) => {
       if (id === id1) {
-        return Observable.of(true)
+        return observableOf(true)
       } else {
-        return Observable.of(false);
+        return observableOf(false);
       }
     }
   };

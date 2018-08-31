@@ -2,12 +2,11 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, } from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
 
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { NgbModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
-import 'rxjs/add/observable/of'
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -140,7 +139,7 @@ describe('DsDynamicTagComponent test suite', () => {
       it('should search when 3+ characters typed', fakeAsync(() => {
         spyOn((tagComp as any).authorityService, 'getEntriesByName').and.callThrough();
 
-        tagComp.search(Observable.of('test')).subscribe(() => {
+        tagComp.search(observableOf('test')).subscribe(() => {
           expect((tagComp as any).authorityService.getEntriesByName).toHaveBeenCalled();
         });
       }));
