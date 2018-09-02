@@ -152,7 +152,16 @@
     }
   },
   "browse": {
-    "title": "Browsing {{ collection }} by {{ field }} {{ value }}"
+    "title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+    "starts-with": {
+      "link": {
+        "title": "Browse for items that begins with:"
+      },
+      "input": {
+        "title": "Browse for items that begin with these letters",
+        "placeholder": "Enter first few letters."
+      }
+    }
   },
   "admin": {
     "registries": {

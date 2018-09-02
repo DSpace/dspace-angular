@@ -75,6 +75,7 @@ import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/mode
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { BrowseByModule } from '../+browse-by/browse-by.module';
 import { BrowseByComponent } from './browse-by/browse-by.component';
+import { StartsWithComponent } from './browse-by/starts-with/starts-with.component';
 import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { DebounceDirective } from './utils/debounce.directive';
 import { ClickOutsideDirective } from './utils/click-outside.directive';
@@ -156,7 +157,8 @@ const COMPONENTS = [
   TruncatableComponent,
   TruncatablePartComponent,
   BrowseByComponent,
-  InputSuggestionsComponent
+  InputSuggestionsComponent,
+  StartsWithComponent
 ];
 
 const ENTRY_COMPONENTS = [

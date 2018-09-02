@@ -39,4 +39,7 @@ export class PageInfo {
 
   @autoserialize
   first: string;
+
+  @autoserialize
+  startsWith: string;
 }
