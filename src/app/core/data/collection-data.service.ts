@@ -13,6 +13,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { AuthService } from '../auth/auth.service';
 import { Community } from '../shared/community.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {

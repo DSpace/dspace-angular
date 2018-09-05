@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-create-community',
@@ -25,36 +26,33 @@ export class CreateCommunityPageComponent {
   public constructor(private communityDataService: CommunityDataService, private routeService: RouteService, private router: Router) {
     this.parentUUID$ = this.routeService.getQueryParameterValue('parent');
     this.parentUUID$.subscribe((uuid: string) => {
-      this.communityRDObs = this.communityDataService.findById(uuid);
+      if (isNotEmpty(uuid)) {
+        this.communityRDObs = this.communityDataService.findById(uuid);
+      }
     });
   }
 
   onSubmit(data: any) {
-    const community = Object.assign(new Community(), {
-      name: data.name,
-      metadata: [
-        { key: 'dc.description', value: data.introductory },
-        { key: 'dc.description.abstract', value: data.description },
-        { key: 'dc.rights', value: data.copyright }
-        // TODO: metadata for news
-      ]
-    });
     this.parentUUID$.subscribe((uuid: string) => {
-      let response$: Observable<ResponseCacheEntry>;
-      if (uuid) {
-        response$ = this.communityDataService.create(community, uuid);
-      } else {
-        response$ = this.communityDataService.create(community);
-      }
-      this.error$ = response$.pipe(
-        map((response: ResponseCacheEntry) => {
-          if (!response.response.isSuccessful && response.response instanceof ErrorResponse) {
-            return response.response;
-          } else if (response.response instanceof DSOSuccessResponse) {
-            this.router.navigateByUrl('');
-          }
-        })
-      );
+      const community = Object.assign(new Community(), {
+        name: data.name,
+        metadata: [
+          { key: 'dc.description', value: data.introductory },
+          { key: 'dc.description.abstract', value: data.description },
+          { key: 'dc.rights', value: data.copyright }
+          // TODO: metadata for news
+        ],
+        owner: Observable.of(new RemoteData(false, false, true, null, Object.assign(new Community(), {
+          id: uuid,
+          uuid: uuid
+        })))
+      });
+      this.communityDataService.create(community).subscribe((rd: RemoteData<Community>) => {
+        console.log(rd);
+        if (rd.hasSucceeded) {
+          this.router.navigateByUrl('');
+        }
+      });
     });
   }
 

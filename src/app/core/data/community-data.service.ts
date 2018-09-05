@@ -12,6 +12,7 @@ import { ComColDataService } from './comcol-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { AuthService } from '../auth/auth.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable()
 export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {

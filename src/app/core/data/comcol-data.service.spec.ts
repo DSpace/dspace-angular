@@ -16,6 +16,7 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Community } from '../shared/community.model';
 import { AuthService } from '../auth/auth.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 const LINK_NAME = 'test';
 

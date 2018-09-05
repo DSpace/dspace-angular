@@ -1,6 +1,6 @@
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
@@ -8,9 +8,30 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
-import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
+import {
+  FindAllOptions,
+  FindAllRequest,
+  FindByIDRequest,
+  GetRequest,
+  PostRequest,
+  RestRequest
+} from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { distinctUntilChanged, map, share, withLatestFrom } from 'rxjs/operators';
+import {
+  configureRequest,
+  filterSuccessfulResponses,
+  getRequestFromSelflink,
+  getResponseFromSelflink
+} from '../shared/operators';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpHeaders } from '@angular/common/http';
+import { ErrorResponse, GenericSuccessResponse } from '../cache/response-cache.models';
+import { BrowseEntry } from '../shared/browse-entry.model';
+import { AuthService } from '../auth/auth.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -19,6 +40,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
+  protected abstract authService: AuthService;
 
   public abstract getScopedEndpoint(scope: string): Observable<string>
 
@@ -91,21 +113,37 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
-  // TODO implement, after the structure of the REST server's POST response is finalized
-  // create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
-  //   const postHrefObs = this.getEndpoint();
-  //
-  //   // TODO ID is unknown at this point
-  //   const idHrefObs = postHrefObs.map((href: string) => this.getFindByIDHref(href, dso.id));
-  //
-  //   postHrefObs
-  //     .filter((href: string) => hasValue(href))
-  //     .take(1)
-  //     .subscribe((href: string) => {
-  //       const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.Post, dso);
-  //       this.requestService.configure(request);
-  //     });
-  //
-  //   return this.rdbService.buildSingle<TNormalized, TDomain>(idHrefObs, this.normalizedResourceType);
-  // }
+  public create(dso: TDomain): Observable<RemoteData<TDomain>> {
+    const request$ = this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      withLatestFrom(this.buildCreateParams(dso)),
+      map(([endpointURL, params]) => {
+        const options: HttpOptions = Object.create({});
+        const headers = new HttpHeaders();
+        headers.append('Authentication', this.authService.buildAuthHeader());
+        options.headers = headers;
+        return new PostRequest(this.requestService.generateRequestId(), endpointURL + params, options);
+      }),
+      configureRequest(this.requestService),
+      share()
+    );
+
+    const href$ = request$.pipe(map((request: RestRequest) => request.href));
+
+    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
+
+    const payload$ = responseCache$.pipe(
+      filterSuccessfulResponses(),
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: GenericSuccessResponse<TDomain>) => response.payload),
+      distinctUntilChanged()
+    );
+
+    return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+  }
+
+  public abstract buildCreateParams(dso: TDomain): Observable<string>;
+
 }

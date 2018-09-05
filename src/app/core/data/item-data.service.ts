@@ -15,6 +15,8 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -26,7 +28,8 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
     private bs: BrowseService,
-    protected halService: HALEndpointService) {
+    protected halService: HALEndpointService,
+    protected authService: AuthService) {
     super();
   }
 
@@ -39,6 +42,11 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
         .map((href: string) => new URLCombiner(href, `?scope=${scopeID}`).toString())
         .distinctUntilChanged();
     }
+  }
+
+  buildCreateParams(dso: Item): Observable<string> {
+    // TODO: Build parameters for creating an Item on the REST service
+    return undefined;
   }
 
 }

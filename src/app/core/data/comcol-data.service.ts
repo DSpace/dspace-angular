@@ -19,12 +19,12 @@ import { configureRequest, getResponseFromSelflink } from '../shared/operators';
 import { AuthService } from '../auth/auth.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
+import { RemoteData } from './remote-data';
 
 export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain>  extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
   protected abstract halService: HALEndpointService;
-  protected abstract authService: AuthService;
 
   /**
    * Get the scoped endpoint URL by fetching the object with
@@ -66,36 +66,21 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
     }
   }
 
-  public create(comcol: TDomain, parentUUID?: string): Observable<ResponseCacheEntry> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      isNotEmptyOperator(),
-      distinctUntilChanged(),
-      map((endpointURL: string) => {
-        const options: HttpOptions = Object.create({});
-        const headers = new HttpHeaders();
-        headers.append('Authentication', this.authService.buildAuthHeader());
-        options.headers = headers;
-        return new PostRequest(this.requestService.generateRequestId(), endpointURL + ((parentUUID) ? this.buildCreateParams(comcol, parentUUID) : this.buildCreateParams(comcol)), options);
-      }),
-      configureRequest(this.requestService),
-      map((request: RestRequest) => request.href),
-      getResponseFromSelflink(this.responseCache)
-    );
-  }
-
-  public buildCreateParams(comcol: TDomain, parentUUID?: string): string {
-    if (comcol instanceof Community || comcol instanceof Collection) {
-      let urlParams = '?name=' + comcol.name;
-      if (parentUUID) {
-        urlParams += '&parent=' + parentUUID;
-      }
-      if (comcol.metadata) {
-        for (const i of Object.keys(comcol.metadata)) {
-          urlParams += '&' + comcol.metadata[i].key + '=' + comcol.metadata[i].value;
+  public buildCreateParams(comcol): Observable<string> {
+    return comcol.owner.pipe(
+      map((rd: RemoteData<Community | Collection>) => {
+        let urlParams = '?name=' + comcol.name;
+        if (rd.payload.id) {
+          urlParams += '&parent=' + rd.payload.id;
         }
-      }
-      return urlParams;
-    }
+        if (comcol.metadata) {
+          for (const i of Object.keys(comcol.metadata)) {
+            urlParams += '&' + comcol.metadata[i].key + '=' + comcol.metadata[i].value;
+          }
+        }
+        return urlParams;
+      })
+    );
   }
 
 }

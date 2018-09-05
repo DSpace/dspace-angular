@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12 pb-4">
-      <ng-container *ngVar="(communityRDObs | async).payload as community">
+      <ng-container *ngVar="(communityRDObs | async)?.payload as community">
         <h2 *ngIf="!community" id="header" class="border-bottom pb-2">{{ 'collection.create.head' | translate }}</h2>
         <h2 *ngIf="community" id="sub-header" class="border-bottom pb-2">{{ 'collection.create.sub-head' | translate:{ parent: community.name } }}</h2>
       </ng-container>
