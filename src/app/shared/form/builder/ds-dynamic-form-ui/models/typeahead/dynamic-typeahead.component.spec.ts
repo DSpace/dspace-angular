@@ -4,10 +4,13 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { async, ComponentFixture, fakeAsync, inject, TestBed, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
-import 'rxjs/add/observable/of';
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormLayoutService,
+  DynamicFormsCoreModule,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
@@ -70,7 +73,8 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         ChangeDetectorRef,
         DsDynamicTypeaheadComponent,
         {provide: AuthorityService, useValue: authorityServiceStub},
-        {provide: GLOBAL_CONFIG, useValue: {} as GlobalConfig},
+        {provide: DynamicFormLayoutService, useValue: {}},
+        {provide: DynamicFormValidationService, useValue: {}}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -84,7 +88,6 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       <ds-dynamic-typeahead [bindId]="bindId"
                             [group]="group"
                             [model]="model"
-                            [showErrorMessages]="showErrorMessages"
                             (blur)="onBlur($event)"
                             (change)="onValueChange($event)"
                             (focus)="onFocus($event)"></ds-dynamic-typeahead>`;

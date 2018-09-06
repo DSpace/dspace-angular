@@ -49,6 +49,7 @@ import { FormFieldMetadataValueObject } from './models/form-field-metadata-value
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { getMockFormBuilderService } from '../../mocks/mock-form-builder-service';
 
 describe('FormBuilderService test suite', () => {
 
@@ -69,9 +70,7 @@ describe('FormBuilderService test suite', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
-        FormBuilderService,
-        DynamicFormService,
-        DynamicFormValidationService,
+        {provide: FormBuilderService, useValue: getMockFormBuilderService()},
         {provide: NG_VALIDATORS, useValue: testValidator, multi: true},
         {provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true}
       ]

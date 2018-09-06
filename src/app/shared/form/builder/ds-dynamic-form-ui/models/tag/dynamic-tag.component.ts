@@ -14,17 +14,22 @@ import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { isEqual } from 'lodash';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-tag',
   styleUrls: ['./dynamic-tag.component.scss'],
   templateUrl: './dynamic-tag.component.html'
 })
-export class DsDynamicTagComponent implements OnInit {
+export class DsDynamicTagComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTagModel;
-  @Input() showErrorMessages = false;
+  // @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -72,7 +77,11 @@ export class DsDynamicTagComponent implements OnInit {
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private authorityService: AuthorityService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+              ) {
+    super(layoutService, validationService);
   }
 
   ngOnInit() {

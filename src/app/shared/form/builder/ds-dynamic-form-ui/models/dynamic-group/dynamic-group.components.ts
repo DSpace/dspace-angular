@@ -1,4 +1,4 @@
-import {of as observableOf,  Observable ,  Subscription } from 'rxjs';
+import { of as observableOf, Subscription } from 'rxjs';
 import {
   ChangeDetectorRef,
   Component,
@@ -10,7 +10,14 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlComponent,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
 import { isEqual } from 'lodash';
 
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
@@ -26,8 +33,6 @@ import { GlobalConfig } from '../../../../../../../config/global-config.interfac
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { FormGroup } from '@angular/forms';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -35,12 +40,12 @@ import { AuthorityValueModel } from '../../../../../../core/integration/models/a
   templateUrl: './dynamic-group.component.html',
   animations: [shrinkInOut]
 })
-export class DsDynamicGroupComponent implements OnDestroy, OnInit {
+export class DsDynamicGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
   @Input() formId: string;
   @Input() group: FormGroup;
   @Input() model: DynamicGroupModel;
-  @Input() showErrorMessages = false;
+  // @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -59,11 +64,16 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private formBuilderService: FormBuilderService,
               private formService: FormService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
+
   }
 
   ngOnInit() {
-    const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
+    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
     if (!this.model.isEmpty()) {
       this.formCollapsed = observableOf(true);
     }

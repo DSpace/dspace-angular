@@ -5,7 +5,6 @@ import { NotificationComponent } from './notification/notification.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { notificationsReducer } from './notifications.reducers';
 import { of as observableOf } from 'rxjs';
-import 'rxjs/add/observable/of';
 import {
   NewNotificationAction,
   RemoveAllNotificationsAction,

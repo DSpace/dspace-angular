@@ -3,7 +3,8 @@ import { async, inject, TestBed } from '@angular/core/testing';
 import { FormGroup } from '@angular/forms';
 
 import {
-  DynamicFormControlModel, DynamicFormGroupModel,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
   DynamicFormService,
   DynamicFormValidationService,
   DynamicInputModel
@@ -13,7 +14,7 @@ import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
 import { AppState } from '../../app.reducer';
 import { formReducer } from './form.reducer';
-import { GlobalConfig } from '../../../config/global-config.interface';
+import { getMockFormBuilderService } from '../mocks/mock-form-builder-service';
 
 describe('FormService test suite', () => {
   const config = {
@@ -93,9 +94,7 @@ describe('FormService test suite', () => {
         StoreModule.forRoot({formReducer})
       ],
       providers: [
-        DynamicFormService,
-        DynamicFormValidationService,
-        FormBuilderService,
+        {provide: FormBuilderService, useValue: getMockFormBuilderService()},
       ]
     }).compileComponents();
   }));

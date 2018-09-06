@@ -6,6 +6,8 @@ import { CoreState } from '../core.reducers';
 import { RestResponse } from './response-cache.models';
 import { ResponseCacheEntry } from './response-cache.reducer';
 import { first } from 'rxjs/operators';
+import * as ngrx from '@ngrx/store'
+import { cold } from 'jasmine-marbles';
 
 describe('ResponseCacheService', () => {
   let service: ResponseCacheService;
@@ -41,10 +43,11 @@ describe('ResponseCacheService', () => {
 
   describe('get', () => {
     it('should return an observable of the cached request with the specified key', () => {
-      spyOn(store, 'select').and.callFake((...args: any[]) => {
-        return observableOf(validCacheEntry(keys[1]));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(validCacheEntry(keys[1]));
+        };
       });
-
       let testObj: ResponseCacheEntry;
       service.get(keys[1]).pipe(first()).subscribe((entry) => {
         testObj = entry;
@@ -53,8 +56,10 @@ describe('ResponseCacheService', () => {
     });
 
     it('should not return a cached request that has exceeded its time to live', () => {
-      spyOn(store, 'select').and.callFake((...args: any[]) => {
-        return observableOf(invalidCacheEntry(keys[1]));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(invalidCacheEntry(keys[1]));
+        };
       });
 
       let getObsHasFired = false;
@@ -66,17 +71,29 @@ describe('ResponseCacheService', () => {
 
   describe('has', () => {
     it('should return true if the request with the supplied key is cached and still valid', () => {
-      spyOn(store, 'select').and.returnValue(observableOf(validCacheEntry(keys[1])));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(validCacheEntry(keys[1]));
+        };
+      });
       expect(service.has(keys[1])).toBe(true);
     });
 
     it('should return false if the request with the supplied key isn\'t cached', () => {
-      spyOn(store, 'select').and.returnValue(observableOf(undefined));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(undefined);
+        };
+      });
       expect(service.has(keys[1])).toBe(false);
     });
 
     it('should return false if the request with the supplied key is cached but has exceeded its time to live', () => {
-      spyOn(store, 'select').and.returnValue(observableOf(invalidCacheEntry(keys[1])));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(invalidCacheEntry(keys[1]));
+        };
+      });
       expect(service.has(keys[1])).toBe(false);
     });
   });

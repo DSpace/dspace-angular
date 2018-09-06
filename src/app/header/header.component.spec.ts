@@ -19,7 +19,7 @@ import { HostWindowServiceStub } from '../shared/testing/host-window-service-stu
 import { RouterStub } from '../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
+import * as ngrx from '@ngrx/store';
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;
 let store: Store<HeaderState>;
@@ -72,7 +72,11 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#collapsingNav')).nativeElement;
-      spyOn(store, 'select').and.returnValue(observableOf({ navCollapsed: true }));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf({ navCollapsed: true })
+        };
+      });
       fixture.detectChanges();
     });
 
@@ -87,7 +91,11 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#collapsingNav')).nativeElement;
-      spyOn(store, 'select').and.returnValue(observableOf(false));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(false)
+        };
+      });
       fixture.detectChanges();
     });
 

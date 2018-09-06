@@ -56,11 +56,11 @@ describe('ConfigService', () => {
   }
 
   beforeEach(() => {
+    scheduler = getTestScheduler();
     responseCache = initMockResponseCacheService(true);
     requestService = getMockRequestService();
-    service = initTestService();
-    scheduler = getTestScheduler();
     halService = new HALEndpointServiceStub(configEndpoint);
+    service = initTestService();
   });
 
   describe('getConfigByHref', () => {

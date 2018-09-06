@@ -1,4 +1,4 @@
-import { Observable, throwError as observableThrowError } from 'rxjs';
+import { Observable, throwError as observableThrowError, merge as observableMerge } from 'rxjs';
 import { distinctUntilChanged, filter, first, map, mergeMap, tap } from 'rxjs/operators';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
@@ -10,6 +10,7 @@ import { DataService } from './data.service';
 import { FindByIDRequest } from './request.models';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { DSOSuccessResponse } from '../cache/response-cache.models';
 
 export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain> extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
@@ -38,23 +39,39 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
           this.requestService.configure(request);
         }),);
 
-      return scopeCommunityHrefObs.pipe(
+      // return scopeCommunityHrefObs.pipe(
+      //   mergeMap((href: string) => this.responseCache.get(href)),
+      //   map((entry: ResponseCacheEntry) => entry.response),
+      //   mergeMap((response) => {
+      //     if (response.isSuccessful) {
+      //       const community$: Observable<NormalizedCommunity> = this.objectCache.getByUUID(scopeID);
+      //       return community$.pipe(
+      //         map((community) => community._links[this.linkPath]),
+      //         filter((href) => isNotEmpty(href)),
+      //         distinctUntilChanged()
+      //       );
+      //     } else if (!response.isSuccessful) {
+      //       return observableThrowError(new Error(`The Community with scope ${scopeID} couldn't be retrieved`))
+      //     }
+      //   }),
+      //   distinctUntilChanged()
+      // );
+      const responses = scopeCommunityHrefObs.pipe(
         mergeMap((href: string) => this.responseCache.get(href)),
-        map((entry: ResponseCacheEntry) => entry.response),
-        mergeMap((response) => {
-          if (response.isSuccessful) {
-            const community$: Observable<NormalizedCommunity> = this.objectCache.getByUUID(scopeID);
-            return community$.pipe(
-              map((community) => community._links[this.linkPath]),
-              filter((href) => isNotEmpty(href)),
-              distinctUntilChanged()
-            );
-          } else if (!response.isSuccessful) {
-            return observableThrowError(new Error(`The Community with scope ${scopeID} couldn't be retrieved`))
-          }
-        }),
-        distinctUntilChanged()
+        map((entry: ResponseCacheEntry) => entry.response));
+      const errorResponses = responses.pipe(
+        filter((response) => !response.isSuccessful),
+        mergeMap(() => observableThrowError(new Error(`The Community with scope ${scopeID} couldn't be retrieved`)))
       );
+      const successResponses = responses.pipe(
+        filter((response) => response.isSuccessful),
+        mergeMap(() => this.objectCache.getByUUID(scopeID)),
+        map((nc: NormalizedCommunity) => nc._links[this.linkPath]),
+        filter((href) => isNotEmpty(href))
+      );
+
+
+      return observableMerge(errorResponses, successResponses).pipe(distinctUntilChanged());
     }
   }
 }

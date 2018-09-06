@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store, StoreModule } from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import 'rxjs/add/observable/of';
 import { of as observableOf } from 'rxjs';
 
 import { authReducer, AuthState } from './auth.reducer';
@@ -27,7 +26,7 @@ describe('AuthService test', () => {
 
   const mockStore: Store<AuthState> = jasmine.createSpyObj('store', {
     dispatch: {},
-    select: observableOf(true)
+    pipe: observableOf(true)
   });
   let authService: AuthService;
   const authRequest = new AuthRequestServiceStub();

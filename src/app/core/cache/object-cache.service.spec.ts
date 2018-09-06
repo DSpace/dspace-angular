@@ -7,6 +7,7 @@ import { CoreState } from '../core.reducers';
 import { ResourceType } from '../shared/resource-type';
 import { NormalizedItem } from './models/normalized-item.model';
 import { first } from 'rxjs/operators';
+import * as ngrx from '@ngrx/store';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
@@ -52,7 +53,11 @@ describe('ObjectCacheService', () => {
 
   describe('getBySelfLink', () => {
     it('should return an observable of the cached object with the specified self link and type', () => {
-      spyOn(store, 'select').and.returnValue(observableOf(cacheEntry));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(cacheEntry);
+        };
+      });
 
       // due to the implementation of spyOn above, this subscribe will be synchronous
       service.getBySelfLink(selfLink).pipe(first()).subscribe((o) => {
@@ -64,7 +69,11 @@ describe('ObjectCacheService', () => {
     });
 
     it('should not return a cached object that has exceeded its time to live', () => {
-      spyOn(store, 'select').and.returnValue(observableOf(invalidCacheEntry));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(invalidCacheEntry);
+        };
+      });
 
       let getObsHasFired = false;
       const subscription = service.getBySelfLink(selfLink).subscribe((o) => getObsHasFired = true);
@@ -88,19 +97,31 @@ describe('ObjectCacheService', () => {
 
   describe('has', () => {
     it('should return true if the object with the supplied self link is cached and still valid', () => {
-      spyOn(store, 'select').and.returnValue(observableOf(cacheEntry));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(cacheEntry);
+        };
+      });
 
       expect(service.hasBySelfLink(selfLink)).toBe(true);
     });
 
     it("should return false if the object with the supplied self link isn't cached", () => {
-      spyOn(store, 'select').and.returnValue(observableOf(undefined));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(undefined);
+        };
+      });
 
       expect(service.hasBySelfLink(selfLink)).toBe(false);
     });
 
     it('should return false if the object with the supplied self link is cached but has exceeded its time to live', () => {
-      spyOn(store, 'select').and.returnValue(observableOf(invalidCacheEntry));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(invalidCacheEntry);
+        };
+      });
 
       expect(service.hasBySelfLink(selfLink)).toBe(false);
     });

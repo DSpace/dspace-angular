@@ -7,7 +7,11 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
-import { DynamicCheckboxModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicCheckboxModel,
+  DynamicFormControlComponent, DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
@@ -25,11 +29,11 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html'
 })
 
-export class DsDynamicListComponent implements OnInit {
+export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicListCheckboxGroupModel | DynamicListRadioGroupModel;
-  @Input() showErrorMessages = false;
+  // @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -41,7 +45,11 @@ export class DsDynamicListComponent implements OnInit {
 
   constructor(private authorityService: AuthorityService,
               private cdr: ChangeDetectorRef,
-              private formBuilderService: FormBuilderService) {
+              private formBuilderService: FormBuilderService,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
   }
 
   ngOnInit() {
@@ -110,7 +118,10 @@ export class DsDynamicListComponent implements OnInit {
           if (this.model.repeatable) {
             this.formBuilderService.addFormGroupControl(listGroup, (this.model as DynamicListCheckboxGroupModel), new DynamicCheckboxModel(item));
           } else {
-            (this.model as DynamicListRadioGroupModel).options.push({label: item.label, value: option});
+            (this.model as DynamicListRadioGroupModel).options.push({
+              label: item.label,
+              value: option
+            });
           }
           tempList.push(item);
           itemsPerGroup++;

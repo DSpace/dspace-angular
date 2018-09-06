@@ -1,15 +1,14 @@
-import { Store } from '@ngrx/store';
-import { cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
-import { getMockStore } from '../../shared/mocks/mock-store';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
+import * as ngrx from '@ngrx/store';
 import {
   DeleteRequest,
   GetRequest,
@@ -21,8 +20,12 @@ import {
   RestRequest
 } from './request.models';
 import { RequestService } from './request.service';
+import { ActionsSubject, Store } from '@ngrx/store';
+import { TestScheduler } from 'rxjs/testing';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 describe('RequestService', () => {
+  let scheduler: TestScheduler;
   let service: RequestService;
   let serviceAsAny: any;
   let objectCache: ObjectCacheService;
@@ -39,8 +42,10 @@ describe('RequestService', () => {
   const testOptionsRequest = new OptionsRequest(testUUID, testHref);
   const testHeadRequest = new HeadRequest(testUUID, testHref);
   const testPatchRequest = new PatchRequest(testUUID, testHref);
-
+  let selectSpy;
   beforeEach(() => {
+    scheduler = getTestScheduler();
+
     objectCache = getMockObjectCacheService();
     (objectCache.hasBySelfLink as any).and.returnValue(false);
 
@@ -50,8 +55,13 @@ describe('RequestService', () => {
 
     uuidService = getMockUUIDService();
 
-    store = getMockStore<CoreState>();
-    (store.pipe as any).and.returnValue(observableOf(undefined));
+    store = new Store<CoreState>(new BehaviorSubject({}), new ActionsSubject(), null);
+    selectSpy = spyOnProperty(ngrx, 'select')
+    selectSpy.and.callFake(() => {
+      return () => {
+        return () => cold('a', { a: undefined });
+      };
+    });
 
     service = new RequestService(
       objectCache,
@@ -134,11 +144,15 @@ describe('RequestService', () => {
   describe('getByUUID', () => {
     describe('if the request with the specified UUID exists in the store', () => {
       beforeEach(() => {
-        (store.pipe as any).and.returnValues(hot('a', {
-          a: {
-            completed: true
-          }
-        }));
+        selectSpy.and.callFake(() => {
+          return () => {
+            return () => hot('a', {
+              a: {
+                completed: true
+              }
+            });
+          };
+        });
       });
 
       it('should return an Observable of the RequestEntry', () => {
@@ -155,9 +169,11 @@ describe('RequestService', () => {
 
     describe('if the request with the specified UUID doesn\'t exist in the store', () => {
       beforeEach(() => {
-        (store.pipe as any).and.returnValues(hot('a', {
-          a: undefined
-        }));
+        selectSpy.and.callFake(() => {
+          return () => {
+            return () => hot('a', { a: undefined });
+          };
+        });
       });
 
       it('should return an Observable of undefined', () => {
@@ -175,9 +191,11 @@ describe('RequestService', () => {
   describe('getByHref', () => {
     describe('when the request with the specified href exists in the store', () => {
       beforeEach(() => {
-        (store.pipe as any).and.returnValues(hot('a', {
-          a: testUUID
-        }));
+        selectSpy.and.callFake(() => {
+          return () => {
+            return () => hot('a', { a: testUUID });
+          };
+        });
         spyOn(service, 'getByUUID').and.returnValue(cold('b', {
           b: {
             completed: true
@@ -199,9 +217,11 @@ describe('RequestService', () => {
 
     describe('when the request with the specified href doesn\'t exist in the store', () => {
       beforeEach(() => {
-        (store.pipe as any).and.returnValues(hot('a', {
-          a: undefined
-        }));
+        selectSpy.and.callFake(() => {
+          return () => {
+            return () => hot('a', { a: undefined });
+          };
+        });
         spyOn(service, 'getByUUID').and.returnValue(cold('b', {
           b: undefined
         }));
@@ -241,7 +261,8 @@ describe('RequestService', () => {
         });
 
         it('should dispatch the request', () => {
-          service.configure(request);
+          scheduler.schedule(() => service.configure(request));
+          scheduler.flush();
           expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(request);
         });
       });
@@ -398,6 +419,10 @@ describe('RequestService', () => {
   });
 
   describe('dispatchRequest', () => {
+    beforeEach(() => {
+      spyOn(store, 'dispatch');
+    });
+
     it('should dispatch a RequestConfigureAction', () => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
@@ -428,7 +453,11 @@ describe('RequestService', () => {
 
     describe('when the request is added to the store', () => {
       it('should stop tracking the request', () => {
-        (store.pipe as any).and.returnValues(observableOf({ request }));
+        selectSpy.and.callFake(() => {
+          return () => {
+            return () => observableOf({ request });
+          };
+        });
         serviceAsAny.trackRequestsOnTheirWayToTheStore(request);
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });

@@ -1,12 +1,12 @@
-import { Observable } from 'rxjs';
-import { filter, first, map, mergeMap, take } from 'rxjs/operators';
+import { Observable, merge as observableMerge } from 'rxjs';
+import { filter, first, map, mergeMap, partition, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { hasValue } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOSuccessResponse } from '../cache/response-cache.models';
+import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { coreSelector, CoreState } from '../core.reducers';
@@ -82,17 +82,21 @@ export class RequestService {
   private isCachedOrPending(request: GetRequest) {
     let isCached = this.objectCache.hasBySelfLink(request.href);
     if (!isCached && this.responseCache.has(request.href)) {
-      this.responseCache.get(request.href).pipe(
-        first(),
-        map((entry: ResponseCacheEntry) => {
-          const response = entry.response;
-          if (response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)) {
-            return (response as DSOSuccessResponse).resourceSelfLinks.every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
-          } else {
-            return true;
-          }
-        })
-      ).subscribe((c) => isCached = c);
+      const responses = this.responseCache.get(request.href).pipe(
+        take(1),
+        map((entry: ResponseCacheEntry) => entry.response)
+      );
+
+      const errorResponses = responses.pipe(filter((response) => !response.isSuccessful), map(() => true)); // TODO add a configurable number of retries in case of an error.
+      const dsoSuccessResponses = responses.pipe(
+        filter((response) => response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)),
+        map((response: DSOSuccessResponse) => response.resourceSelfLinks),
+        map((resourceSelfLinks: string[]) => resourceSelfLinks
+          .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
+        ));
+      const otherSuccessResponses = responses.pipe(filter((response) => response.isSuccessful && !hasValue((response as DSOSuccessResponse).resourceSelfLinks)), map(() => true));
+
+      observableMerge(errorResponses, otherSuccessResponses, dsoSuccessResponses).subscribe((c) => isCached = c);
     }
     const isPending = this.isPending(request);
     return isCached || isPending;

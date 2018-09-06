@@ -3,15 +3,14 @@ import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import 'rxjs/add/observable/of';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormValidationService,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
-import { Store } from '@ngrx/store';
+import { ActionsSubject, Store } from '@ngrx/store';
+import { of as observableOf } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -19,11 +18,12 @@ import { FormComponent } from './form.component';
 import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormState } from './form.reducer';
-import { FormChangeAction, FormStatusChangeAction } from './form.actions';
-import { MockStore } from '../testing/mock-store';
+import { FormAddError, FormChangeAction, FormStatusChangeAction } from './form.actions';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { createTestComponent } from '../testing/utils';
+import { getMockFormService } from '../mocks/mock-form-service';
+import { getMockFormBuilderService } from '../mocks/mock-form-builder-service';
 
 export const TEST_FORM_MODEL = [
 
@@ -93,7 +93,7 @@ export const TEST_FORM_MODEL_WITH_ARRAY = [
   })
 ];
 
-describe('FormComponent test suite', () => {
+fdescribe('FormComponent test suite', () => {
   let testComp: TestComponent;
   let formComp: FormComponent;
   let testFixture: ComponentFixture<TestComponent>;
@@ -122,7 +122,7 @@ describe('FormComponent test suite', () => {
   };
   let html;
 
-  const store: MockStore<FormState> = new MockStore<FormState>(formState);
+  const store = new Store<FormState>(observableOf({}), new ActionsSubject(), undefined);
 
   // async beforeEach
   beforeEach(async(() => {
@@ -142,10 +142,9 @@ describe('FormComponent test suite', () => {
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
-        DynamicFormValidationService,
-        FormBuilderService,
+        {provide: FormBuilderService, useValue: getMockFormBuilderService()},
         FormComponent,
-        FormService,
+        {provide: FormService, useValue: getMockFormService()},
         {provide: GLOBAL_CONFIG, useValue: config},
         {
           provide: Store, useValue: store
@@ -200,18 +199,17 @@ describe('FormComponent test suite', () => {
 
     });
 
-    it('should display form errors when errors are added to the state', () => {
-      const errors = [{
+    fit('should display form errors when errors are added to the state', () => {
+      const error = {
         fieldId: 'dc_title',
         fieldIndex: 0,
         message: 'error.validation.required'
-      }];
+      };
 
-      formState.testForm.errors = errors;
-      store.nextState(formState);
+      store.dispatch(new FormAddError(formComp.formId, error.fieldId, error.fieldIndex, error.message));
       formFixture.detectChanges();
 
-      expect((formComp as any).formErrors).toEqual(errors);
+      expect((formComp as any).formErrors[0]).toEqual(error);
 
     });
 

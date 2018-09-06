@@ -1,4 +1,4 @@
-import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
+import { Observable, of as observableOf, throwError as observableThrowError, merge as observableMerge } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -18,18 +18,17 @@ export abstract class ConfigService {
   protected abstract halService: HALEndpointService;
 
   protected getConfig(request: RestRequest): Observable<ConfigData> {
-    return this.responseCache.get(request.href).pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
-      mergeMap((response) => {
-        if (response.isSuccessful && isNotEmpty(response) && isNotEmpty((response as ConfigSuccessResponse).configDefinition)) {
-          const configResponse = response as ConfigSuccessResponse;
-          return observableOf(new ConfigData(configResponse.pageInfo, configResponse.configDefinition));
-        } else if (!response.isSuccessful) {
-          return observableThrowError(new Error(`Couldn't retrieve the config`));
-        }
-      }),
-      distinctUntilChanged()
+    const responses = this.responseCache.get(request.href).pipe(map((entry: ResponseCacheEntry) => entry.response));
+    const errorResponses = responses.pipe(
+      filter((response) => !response.isSuccessful),
+      mergeMap(() => observableThrowError(new Error(`Couldn't retrieve the config`)))
     );
+    const successResponses = responses.pipe(
+      filter((response) => response.isSuccessful && isNotEmpty(response) && isNotEmpty((response as ConfigSuccessResponse).configDefinition)),
+      map((response: ConfigSuccessResponse) => new ConfigData(response.pageInfo, response.configDefinition))
+    );
+    return observableMerge(errorResponses, successResponses);
+
   }
 
   protected getConfigByNameHref(endpoint, resourceName): string {
@@ -73,7 +72,7 @@ export abstract class ConfigService {
       map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
       tap((request: RestRequest) => this.requestService.configure(request)),
       mergeMap((request: RestRequest) => this.getConfig(request)),
-      distinctUntilChanged(),);
+      distinctUntilChanged());
   }
 
   public getConfigByHref(href: string): Observable<ConfigData> {
@@ -91,10 +90,11 @@ export abstract class ConfigService {
       map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
       tap((request: RestRequest) => this.requestService.configure(request)),
       mergeMap((request: RestRequest) => this.getConfig(request)),
-      distinctUntilChanged(),);
+      distinctUntilChanged());
   }
 
   public getConfigBySearch(options: FindAllOptions = {}): Observable<ConfigData> {
+    console.log(this.halService.getEndpoint(this.linkPath));
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getConfigSearchHref(endpoint, options)),
       filter((href: string) => isNotEmpty(href)),
@@ -102,7 +102,7 @@ export abstract class ConfigService {
       map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
       tap((request: RestRequest) => this.requestService.configure(request)),
       mergeMap((request: RestRequest) => this.getConfig(request)),
-      distinctUntilChanged(),);
+      distinctUntilChanged());
   }
 
 }

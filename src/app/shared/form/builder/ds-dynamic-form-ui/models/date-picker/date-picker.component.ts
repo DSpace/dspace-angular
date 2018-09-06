@@ -1,7 +1,12 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { DynamicDsDatePickerModel } from './date-picker.model';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../../../empty.util';
+import { hasValue } from '../../../../../empty.util';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 export const DS_DATE_PICKER_SEPARATOR = '-';
 
@@ -11,11 +16,11 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
   templateUrl: './date-picker.component.html',
 })
 
-export class DsDatePickerComponent implements OnInit {
+export class DsDatePickerComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicDsDatePickerModel;
-  @Input() showErrorMessages = false;
+  // @Input() showErrorMessages = false;
   // @Input()
   // minDate;
   // @Input()
@@ -48,6 +53,12 @@ export class DsDatePickerComponent implements OnInit {
 
   disabledMonth = true;
   disabledDay = true;
+
+  constructor(protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
+  }
 
   ngOnInit() {
     const now = new Date();

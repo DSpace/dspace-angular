@@ -4,7 +4,11 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormLayoutService,
+  DynamicFormsCoreModule,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { NgbModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
@@ -86,6 +90,8 @@ describe('DsDynamicTagComponent test suite', () => {
         DsDynamicTagComponent,
         {provide: AuthorityService, useValue: authorityServiceStub},
         {provide: GLOBAL_CONFIG, useValue: {} as GlobalConfig},
+        {provide: DynamicFormLayoutService, useValue: {}},
+        {provide: DynamicFormValidationService, useValue: {}}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -99,7 +105,6 @@ describe('DsDynamicTagComponent test suite', () => {
       <ds-dynamic-tag [bindId]="bindId"
                       [group]="group"
                       [model]="model"
-                      [showErrorMessages]="showErrorMessages"
                       (blur)="onBlur($event)"
                       (change)="onValueChange($event)"
                       (focus)="onFocus($event)"></ds-dynamic-tag>`;

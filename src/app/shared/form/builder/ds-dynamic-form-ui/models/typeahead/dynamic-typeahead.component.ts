@@ -11,13 +11,18 @@ import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
   styleUrls: ['./dynamic-typeahead.component.scss'],
   templateUrl: './dynamic-typeahead.component.html'
 })
-export class DsDynamicTypeaheadComponent implements OnInit {
+export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTypeaheadModel;
@@ -67,7 +72,12 @@ export class DsDynamicTypeaheadComponent implements OnInit {
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed),);
 
-  constructor(private authorityService: AuthorityService, private cdr: ChangeDetectorRef) {
+  constructor(private authorityService: AuthorityService,
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
   }
 
   ngOnInit() {
