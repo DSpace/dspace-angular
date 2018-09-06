@@ -4,26 +4,27 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Observable } from 'rxjs/Observable';
+import { SearchFilter } from '../search-filter.model';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;
   const value1 = 'random value';
-  const value2 = 'another value';
   const prefixFilter = {
     'f.author': ['another value'],
     'f.date.min': ['2013'],
     'f.date.max': ['2018']
   };
-  const defaults = Object.assign(new PaginatedSearchOptions(), {
+  const defaults = new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 }),
     sort: new SortOptions('score', SortDirection.DESC),
     query: '',
     scope: ''
   });
-  const backendFilters = { 'f.author': ['another value'], 'f.date': ['[2013 TO 2018]'] };
+
+  const backendFilters = [new SearchFilter('f.author', ['another value']), new SearchFilter('f.date', ['[2013 TO 2018]'])];
 
   const spy = jasmine.createSpyObj('RouteService', {
-    getQueryParameterValue: Observable.of([value1, value2]),
+    getQueryParameterValue: Observable.of(value1),
     getQueryParamsWithPrefix: Observable.of(prefixFilter)
   });
 
@@ -48,6 +49,15 @@ describe('SearchConfigurationService', () => {
     });
     it('should call getQueryParameterValue on the routeService with parameter name \'query\'', () => {
       expect((service as any).routeService.getQueryParameterValue).toHaveBeenCalledWith('query');
+    });
+  });
+
+  describe('when getCurrentDSOType is called', () => {
+    beforeEach(() => {
+      service.getCurrentDSOType();
+    });
+    it('should call getQueryParameterValue on the routeService with parameter name \'dsoType\'', () => {
+      expect((service as any).routeService.getQueryParameterValue).toHaveBeenCalledWith('dsoType');
     });
   });
 
@@ -101,6 +111,7 @@ describe('SearchConfigurationService', () => {
       spyOn(service, 'getCurrentSort').and.callThrough();
       spyOn(service, 'getCurrentScope').and.callThrough();
       spyOn(service, 'getCurrentQuery').and.callThrough();
+      spyOn(service, 'getCurrentDSOType').and.callThrough();
       spyOn(service, 'getCurrentFilters').and.callThrough();
     });
 
@@ -113,6 +124,7 @@ describe('SearchConfigurationService', () => {
         expect(service.getCurrentSort).not.toHaveBeenCalled();
         expect(service.getCurrentScope).toHaveBeenCalled();
         expect(service.getCurrentQuery).toHaveBeenCalled();
+        expect(service.getCurrentDSOType).toHaveBeenCalled();
         expect(service.getCurrentFilters).toHaveBeenCalled();
       });
     });
@@ -126,6 +138,7 @@ describe('SearchConfigurationService', () => {
         expect(service.getCurrentSort).toHaveBeenCalled();
         expect(service.getCurrentScope).toHaveBeenCalled();
         expect(service.getCurrentQuery).toHaveBeenCalled();
+        expect(service.getCurrentDSOType).toHaveBeenCalled();
         expect(service.getCurrentFilters).toHaveBeenCalled();
       });
     });

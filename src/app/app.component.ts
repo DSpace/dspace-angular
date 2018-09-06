@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, HostListener, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  Inject,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 
@@ -21,7 +30,8 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+  isLoading = true;
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -30,7 +40,8 @@ export class AppComponent implements OnInit {
     private store: Store<HostWindowState>,
     private metadata: MetadataService,
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
@@ -56,6 +67,20 @@ export class AppComponent implements OnInit {
       .filter((authenticated) => !authenticated)
       .subscribe((authenticated) => this.authService.checkAuthenticationToken());
 
+  }
+
+  ngAfterViewInit() {
+    this.router.events
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          this.isLoading = true;
+        } else if (
+          event instanceof NavigationEnd ||
+          event instanceof NavigationCancel
+        ) {
+          this.isLoading = false;
+        }
+      });
   }
 
   @HostListener('window:resize', ['$event'])

@@ -16,6 +16,8 @@ import { SearchFilterConfig } from '../../../search-service/search-filter-config
 import { SearchService } from '../../../search-service/search.service';
 import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
+import { getSucceededRemoteData } from '../../../../core/shared/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -88,13 +90,16 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       return { options, page }
     }).switchMap(({ options, page }) => {
       return this.searchService.getFacetValuesFor(this.filterConfig, page, options)
-        .first((RD) => !RD.isLoading).map((results) => {
-          return {
-            values: Observable.of(results),
-            page: page
-          };
-        }
-      );
+        .pipe(
+          getSucceededRemoteData(),
+          map((results) => {
+              return {
+                values: Observable.of(results),
+                page: page
+              };
+            }
+          )
+        )
     });
     let filterValues = [];
     this.subs.push(facetValues.subscribe((facetOutcome) => {
@@ -250,14 +255,15 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.searchConfigService.searchOptions.first().subscribe(
         (options) => {
           this.filterSearchResults = this.searchService.getFacetValuesFor(this.filterConfig, 1, options, data.toLowerCase())
-            .first()
-            .map(
-              (rd: RemoteData<PaginatedList<FacetValue>>) => {
-                return rd.payload.page.map((facet) => {
-                  return { displayValue: this.getDisplayValue(facet, data), value: facet.value }
-                })
-              }
-            );
+            .pipe(
+              getSucceededRemoteData(),
+              map(
+                (rd: RemoteData<PaginatedList<FacetValue>>) => {
+                  return rd.payload.page.map((facet) => {
+                    return { displayValue: this.getDisplayValue(facet, data), value: facet.value }
+                  })
+                }
+              ))
         }
       )
     } else {
