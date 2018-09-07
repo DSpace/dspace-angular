@@ -54,14 +54,15 @@ export class BrowseByTitlePageComponent implements OnInit {
         .subscribe((params) => {
           const page = +params.page || this.paginationConfig.currentPage;
           const pageSize = +params.pageSize || this.paginationConfig.pageSize;
-          const sortDirection = +params.page || this.sortConfig.direction;
+          const sortDirection = params.sortDirection || this.sortConfig.direction;
+          const sortField = params.sortField || this.sortConfig.field;
           const pagination = Object.assign({},
             this.paginationConfig,
             { currentPage: page, pageSize: pageSize }
           );
           const sort = Object.assign({},
             this.sortConfig,
-            { direction: sortDirection, field: params.sortField }
+            { direction: sortDirection, field: sortField }
           );
           this.updatePage({
             pagination: pagination,
