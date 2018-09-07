@@ -10,6 +10,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
+import { AuthService } from '../auth/auth.service';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> {
@@ -20,7 +21,8 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    protected halService: HALEndpointService) {
+    protected halService: HALEndpointService,
+    protected authService: AuthService) {
     super();
   }
 
@@ -30,6 +32,10 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
 
   getFindByIDHref(endpoint, resourceID): string {
     return endpoint.replace(/\{\?uuid\}/,`?uuid=${resourceID}`);
+  }
+
+  buildCreateParams(dso: DSpaceObject): Observable<string> {
+    return undefined;
   }
 }
 
@@ -41,8 +47,9 @@ export class DSpaceObjectDataService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected halService: HALEndpointService) {
-    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService);
+    protected halService: HALEndpointService,
+    protected authService: AuthService) {
+    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService, authService);
   }
 
   findById(uuid: string): Observable<RemoteData<DSpaceObject>> {
