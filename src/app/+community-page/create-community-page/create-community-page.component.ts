@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { Community } from '../../core/shared/community.model';
-import { ComColDataService } from '../../core/data/comcol-data.service';
-import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
-import { DSOSuccessResponse, ErrorResponse, RestResponse } from '../../core/cache/response-cache.models';
+import { ErrorResponse } from '../../core/cache/response-cache.models';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';

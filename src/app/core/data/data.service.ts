@@ -18,20 +18,17 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { distinctUntilChanged, map, share, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, share, switchMap, withLatestFrom } from 'rxjs/operators';
 import {
   configureRequest,
   filterSuccessfulResponses,
-  getRequestFromSelflink,
   getResponseFromSelflink
 } from '../shared/operators';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
-import { ErrorResponse, GenericSuccessResponse } from '../cache/response-cache.models';
-import { BrowseEntry } from '../shared/browse-entry.model';
+import { DSOSuccessResponse } from '../cache/response-cache.models';
 import { AuthService } from '../auth/auth.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -130,18 +127,16 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     );
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
-
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
     const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
 
-    const payload$ = responseCache$.pipe(
+    const dsoHref$ = responseCache$.pipe(
       filterSuccessfulResponses(),
       map((entry: ResponseCacheEntry) => entry.response),
-      map((response: GenericSuccessResponse<TDomain>) => response.payload),
+      map((response: DSOSuccessResponse) => response.resourceSelfLinks[0]),
       distinctUntilChanged()
     );
 
-    return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.rdbService.buildSingle(dsoHref$);
   }
 
   public abstract buildCreateParams(dso: TDomain): Observable<string>;
