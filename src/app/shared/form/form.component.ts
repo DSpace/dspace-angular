@@ -1,6 +1,13 @@
-
-import {distinctUntilChanged, map, filter} from 'rxjs/operators';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
@@ -10,22 +17,11 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
-import { select, Store } from '@ngrx/store';
 import { findIndex } from 'lodash';
-
-import { AppState } from '../../app.reducer';
-import {
-  FormChangeAction,
-  FormInitAction,
-  FormRemoveAction,
-  FormRemoveErrorAction,
-  FormStatusChangeAction
-} from './form.actions';
 import { FormBuilderService } from './builder/form-builder.service';
-import { Observable ,  Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
-import { formObjectFromIdSelector } from './selectors';
 import { FormEntry, FormError } from './form.reducer';
 
 /**
@@ -92,8 +88,7 @@ export class FormComponent implements OnDestroy, OnInit {
 
   constructor(private formService: FormService,
               protected changeDetectorRef: ChangeDetectorRef,
-              private formBuilderService: FormBuilderService,
-              private store: Store<AppState>) {
+              private formBuilderService: FormBuilderService) {
   }
 
   /**
@@ -132,13 +127,14 @@ export class FormComponent implements OnDestroy, OnInit {
   ngOnInit() {
     if (!this.formGroup) {
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+
     } else {
       this.formModel.forEach((model) => {
         this.formBuilderService.addFormGroupControl(this.formGroup, this.parentFormModel, model);
       });
     }
 
-    this.store.dispatch(new FormInitAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel), this.getFormGroupValidStatus()));
+    this.formService.initForm(this.formId, this.formModel, this.getFormGroupValidStatus());
 
     // TODO: take a look to the following method:
     // this.keepSync();
@@ -148,46 +144,61 @@ export class FormComponent implements OnDestroy, OnInit {
     this.subs.push(this.formGroup.statusChanges.pipe(
       filter((currentStatus) => this.formValid !== this.getFormGroupValidStatus()))
       .subscribe((currentStatus) => {
-        // Dispatch a FormStatusChangeAction if the form status has changed
-        this.store.dispatch(new FormStatusChangeAction(this.formId, this.getFormGroupValidStatus()));
+        this.formService.setStatusChanged(this.formId, this.getFormGroupValidStatus());
         this.formValid = this.getFormGroupValidStatus();
       }));
 
     this.subs.push(
-      this.store.pipe(
-        select(formObjectFromIdSelector(this.formId)),
+      this.formService.getForm(this.formId).pipe(
         filter((formState: FormEntry) => !!formState && (isNotEmpty(formState.errors) || isNotEmpty(this.formErrors))),
         map((formState) => formState.errors),
-        distinctUntilChanged(),)
-        // .delay(100) // this terrible delay is here to prevent the detection change error
+        distinctUntilChanged())
+      // .delay(100) // this terrible delay is here to prevent the detection change error
         .subscribe((errors: FormError[]) => {
-          const {formGroup, formModel} = this;
+          const { formGroup, formModel } = this;
 
           errors
-            .filter((error: FormError) => findIndex(this.formErrors, {fieldId: error.fieldId, fieldIndex: error.fieldIndex}) === -1)
+            .filter((error: FormError) => findIndex(this.formErrors, {
+              fieldId: error.fieldId,
+              fieldIndex: error.fieldIndex
+            }) === -1)
             .forEach((error: FormError) => {
-              const {fieldId} = error;
-              const {fieldIndex} = error;
+              const { fieldId } = error;
+              const { fieldIndex } = error;
               let field: AbstractControl;
               if (!!this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel, fieldIndex);
               } else {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel, fieldIndex);
               }
+              console.log('1', error);
 
               if (field) {
+                console.log('2',error);
+
                 const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+                console.log('4',error);
+
                 this.formService.addErrorToField(field, model, error.message);
                 // this.formService.validateAllFormFields(formGroup);
+                console.log('5',error);
+
                 this.changeDetectorRef.detectChanges();
+
               }
+              console.log('4',error);
+
             });
+          console.log(errors);
 
           this.formErrors
-            .filter((error: FormError) => findIndex(errors, {fieldId: error.fieldId, fieldIndex: error.fieldIndex}) === -1)
+            .filter((error: FormError) => findIndex(errors, {
+              fieldId: error.fieldId,
+              fieldIndex: error.fieldIndex
+            }) === -1)
             .forEach((error: FormError) => {
-              const {fieldId} = error;
-              const {fieldIndex} = error;
+              const { fieldId } = error;
+              const { fieldIndex } = error;
               let field: AbstractControl;
               if (!!this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as FormGroup, formModel, fieldIndex);
@@ -200,7 +211,7 @@ export class FormComponent implements OnDestroy, OnInit {
                 this.formService.removeErrorFromField(field, model, error.message);
               }
             });
-
+          console.log(this.formErrors);
           this.formErrors = errors;
           this.changeDetectorRef.detectChanges();
         })
@@ -214,7 +225,7 @@ export class FormComponent implements OnDestroy, OnInit {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
-    this.store.dispatch(new FormRemoveAction(this.formId));
+    this.formService.removeForm(this.formId)
   }
 
   /**
@@ -245,9 +256,8 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event: DynamicFormControlEvent): void {
-    const action: FormChangeAction = new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel));
 
-    this.store.dispatch(action);
+    this.formService.changeForm(this.formId, this.formModel);
     this.formGroup.markAsPristine();
 
     if (this.emitChange) {
@@ -257,7 +267,7 @@ export class FormComponent implements OnDestroy, OnInit {
     const control: FormControl = event.control;
     const fieldIndex: number = (event.context && event.context.index) ? event.context.index : 0;
     if (control.valid) {
-      this.store.dispatch(new FormRemoveErrorAction(this.formId, event.model.id, fieldIndex));
+      this.formService.removeError(this.formId, event.model.id, fieldIndex);
     }
   }
 
@@ -290,14 +300,14 @@ export class FormComponent implements OnDestroy, OnInit {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
     this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
-    this.store.dispatch(new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel)));
+    this.formService.changeForm(this.formId, this.formModel);
   }
 
   insertItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
     this.formBuilderService.insertFormArrayGroup(index, formArrayControl, arrayContext);
     this.addArrayItem.emit(this.getEvent($event, arrayContext, index, 'add'));
-    this.store.dispatch(new FormChangeAction(this.formId, this.formBuilderService.getValueFromModel(this.formModel)));
+    this.formService.changeForm(this.formId, this.formModel);
   }
 
   protected getEvent($event: any, arrayContext: DynamicFormArrayModel, index: number, type: string): DynamicFormControlEvent {
@@ -314,6 +324,6 @@ export class FormComponent implements OnDestroy, OnInit {
     }
     const model = context.group[0] as DynamicFormControlModel;
     const control = group.controls[index] as FormControl;
-    return {$event, context, control, group, model, type};
+    return { $event, context, control, group, model, type };
   }
 }

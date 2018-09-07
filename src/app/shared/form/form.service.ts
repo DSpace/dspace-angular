@@ -10,8 +10,14 @@ import { FormBuilderService } from './builder/form-builder.service';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { isEmpty, isNotUndefined } from '../empty.util';
 import { uniqueId } from 'lodash';
-import { FormChangeAction } from './form.actions';
+import {
+  FormChangeAction,
+  FormInitAction,
+  FormRemoveAction, FormRemoveErrorAction,
+  FormStatusChangeAction
+} from './form.actions';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { FormEntry } from './form.reducer';
 
 @Injectable()
 export class FormService {
@@ -141,5 +147,29 @@ export class FormService {
       }
     }
     return (this.config.form.validatorMap.hasOwnProperty(validator)) ? this.config.form.validatorMap[validator] : validator;
+  }
+
+  public initForm(formId: string, model: DynamicFormControlModel[], valid: boolean) {
+    this.store.dispatch(new FormInitAction(formId, this.formBuilderService.getValueFromModel(model), valid))
+  }
+
+  public setStatusChanged(formId: string, valid: boolean) {
+    this.store.dispatch(new FormStatusChangeAction(formId, valid))
+  }
+
+  public getForm(formId: string): Observable<FormEntry> {
+    return this.store.pipe(select(formObjectFromIdSelector(formId)));
+  }
+
+  public removeForm(formId: string) {
+    this.store.dispatch(new FormRemoveAction(formId));
+  }
+
+  public changeForm(formId: string, model: DynamicFormControlModel[]) {
+    this.store.dispatch(new FormChangeAction(formId, this.formBuilderService.getValueFromModel(model)));
+  }
+
+  public removeError(formId: string, eventModelId: string, fieldIndex: number) {
+    this.store.dispatch(new FormRemoveErrorAction(formId, eventModelId, fieldIndex));
   }
 }

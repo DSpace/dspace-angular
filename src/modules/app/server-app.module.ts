@@ -49,7 +49,10 @@ export function createTranslateLoader() {
     AppModule
   ],
   providers: [
-    { provide: Angulartics2GoogleAnalytics, useClass: AngularticsMock },
+    {
+      provide: Angulartics2GoogleAnalytics,
+      useClass: AngularticsMock
+    },
     {
       provide: AuthService,
       useClass: ServerAuthService
