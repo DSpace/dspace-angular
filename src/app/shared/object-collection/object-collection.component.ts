@@ -14,8 +14,8 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 
 import { ListableObject } from './shared/listable-object.model';
-import { ViewMode } from '../../+search-page/search-options.model';
 import { hasValue, isNotEmpty } from '../empty.util';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-viewable-collection',

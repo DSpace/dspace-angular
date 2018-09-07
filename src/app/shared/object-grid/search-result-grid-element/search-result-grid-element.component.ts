@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
-import { isEmpty, hasNoValue } from '../../empty.util';
+import { isEmpty, hasNoValue, hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
@@ -60,4 +60,5 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   isCollapsed(): Observable<boolean> {
     return this.truncatableService.isCollapsed(this.dso.id);
   }
+
 }

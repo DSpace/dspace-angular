@@ -11,6 +11,10 @@ import { SearchSidebarService } from '../search-sidebar/search-sidebar.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { By } from '@angular/platform-browser';
+import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
+import { hot } from 'jasmine-marbles';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { SearchConfigurationService } from '../search-service/search-configuration.service';
 
 describe('SearchSettingsComponent', () => {
 
@@ -23,13 +27,21 @@ describe('SearchSettingsComponent', () => {
   pagination.currentPage = 1;
   pagination.pageSize = 10;
   const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-  const mockResults = [ 'test', 'data' ];
+  const mockResults = ['test', 'data'];
   const searchServiceStub = {
     searchOptions: { pagination: pagination, sort: sort },
     search: () => mockResults
   };
+
   const queryParam = 'test query';
   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
+  const paginatedSearchOptions = {
+    query: queryParam,
+    scope: scopeParam,
+    pagination,
+    sort
+  };
+
   const activatedRouteStub = {
     queryParams: Observable.of({
       query: queryParam,
@@ -41,12 +53,12 @@ describe('SearchSettingsComponent', () => {
     isCollapsed: Observable.of(true),
     collapse: () => this.isCollapsed = Observable.of(true),
     expand: () => this.isCollapsed = Observable.of(false)
-  }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot(), RouterTestingModule.withRoutes([]) ],
-      declarations: [ SearchSettingsComponent, EnumKeysPipe ],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      declarations: [SearchSettingsComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
 
@@ -55,8 +67,23 @@ describe('SearchSettingsComponent', () => {
           provide: SearchSidebarService,
           useValue: sidebarService
         },
+        {
+          provide: SearchFilterService,
+          useValue: {}
+        },
+        {
+          provide: SearchConfigurationService,
+          useValue: {
+            paginatedSearchOptions: hot('a', {
+              a: paginatedSearchOptions
+            }),
+            getCurrentScope: hot('a', {
+              a: 'test-id'
+            }),
+          }
+        },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -74,30 +101,42 @@ describe('SearchSettingsComponent', () => {
   });
 
   it('it should show the order settings with the respective selectable options', () => {
-    const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
-    expect(orderSetting).toBeDefined();
-    const childElements = orderSetting.query(By.css('.form-control')).children;
-    expect(childElements.length).toEqual(2);
-
+    (comp as any).searchOptions$.first().subscribe((options) => {
+      fixture.detectChanges();
+      const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
+      expect(orderSetting).toBeDefined();
+      const childElements = orderSetting.query(By.css('.form-control')).children;
+      expect(childElements.length).toEqual(comp.searchOptionPossibilities.length);
+    });
   });
 
   it('it should show the size settings with the respective selectable options', () => {
-    const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-    expect(pageSizeSetting).toBeDefined();
-    const childElements = pageSizeSetting.query(By.css('.form-control')).children;
-    expect(childElements.length).toEqual(7);
+    (comp as any).searchOptions$.first().subscribe((options) => {
+        fixture.detectChanges();
+        const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
+        expect(pageSizeSetting).toBeDefined();
+        const childElements = pageSizeSetting.query(By.css('.form-control')).children;
+        expect(childElements.length).toEqual(options.pagination.pageSizeOptions.length);
+      }
+    )
   });
 
   it('should have the proper order value selected by default', () => {
-    const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
-    const childElementToBeSelected = orderSetting.query(By.css('.form-control option[value="0"][selected="selected"]'))
-    expect(childElementToBeSelected).toBeDefined();
+    (comp as any).searchOptions$.first().subscribe((options) => {
+      fixture.detectChanges();
+      const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
+      const childElementToBeSelected = orderSetting.query(By.css('.form-control option[value="0"][selected="selected"]'));
+      expect(childElementToBeSelected).toBeDefined();
+    });
   });
 
   it('should have the proper rpp value selected by default', () => {
-    const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-    const childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'))
-    expect(childElementToBeSelected).toBeDefined();
+    (comp as any).searchOptions$.first().subscribe((options) => {
+      fixture.detectChanges();
+      const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
+      const childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'));
+      expect(childElementToBeSelected).toBeDefined();
+    });
   });
 
 });

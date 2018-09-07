@@ -1,0 +1,45 @@
+<div>
+    <div class="filters py-2">
+        <a *ngFor="let value of (selectedValues | async)" class="d-flex flex-row"
+           [routerLink]="[getSearchLink()]"
+           [queryParams]="getRemoveParams(value) | async" queryParamsHandling="merge">
+            <input type="checkbox" [checked]="true" class="my-1 align-self-stretch"/>
+            <span class="filter-value pl-1">{{value}}</span>
+        </a>
+        <ng-container *ngVar="(filterValues$ | async) as filterValuesRD">
+          <div [@facetLoad]="animationState">
+            <ng-container *ngFor="let page of filterValuesRD?.payload">
+              <ng-container *ngFor="let value of page.page; let i=index">
+                <a *ngIf="!(selectedValues | async).includes(value.value)" class="d-flex flex-row"
+                   [routerLink]="[getSearchLink()]"
+                   [queryParams]="getAddParams(value.value) | async" queryParamsHandling="merge" >
+                  <input type="checkbox" [checked]="false" class="my-1 align-self-stretch"/>
+                  <span class="filter-value px-1">{{value.value}}</span>
+                  <span class="float-right filter-value-count ml-auto">
+                          <span class="badge badge-secondary badge-pill">{{value.count}}</span>
+                      </span>
+                </a>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+        <div class="clearfix toggle-more-filters">
+            <a class="float-left" *ngIf="!(isLastPage$ | async)"
+               (click)="showMore()">{{"search.filters.filter.show-more"
+                | translate}}</a>
+            <a class="float-right" *ngIf="(currentPage | async) > 1"
+               (click)="showFirstPageOnly()">{{"search.filters.filter.show-less"
+                | translate}}</a>
+        </div>
+    </div>
+    <ds-input-suggestions [suggestions]="(filterSearchResults | async)"
+                          [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"
+                          [action]="getCurrentUrl()"
+                          [name]="filterConfig.paramName"
+                          [(ngModel)]="filter"
+                          (submitSuggestion)="onSubmit($event)"
+                          (clickSuggestion)="onClick($event)"
+                          (findSuggestions)="findSuggestions($event)"
+                          ngDefaultControl
+    ></ds-input-suggestions>
+</div>

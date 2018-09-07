@@ -21,7 +21,10 @@ export class ActivatedRouteStub {
   }
 
   // Test parameters
-  get testParams() { return this._testParams; }
+  get testParams() {
+    return this._testParams;
+  }
+
   set testParams(params: {}) {
     this._testParams = params;
     this.subject.next(params);
@@ -29,6 +32,9 @@ export class ActivatedRouteStub {
 
   // ActivatedRoute.snapshot.params
   get snapshot() {
-    return { params: this.testParams };
+    return {
+      params: this.testParams,
+      queryParamMap: convertToParamMap(this.testParams)
+    }
   }
 }

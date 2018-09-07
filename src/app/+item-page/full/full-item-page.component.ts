@@ -30,9 +30,9 @@ import { hasValue } from '../../shared/empty.util';
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
-  itemRDObs: Observable<RemoteData<Item>>;
+  itemRD$: Observable<RemoteData<Item>>;
 
-  metadataObs: Observable<Metadatum[]>;
+  metadata$: Observable<Metadatum[]>;
 
   constructor(route: ActivatedRoute, items: ItemDataService, metadataService: MetadataService) {
     super(route, items, metadataService);
@@ -41,14 +41,9 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit {
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
   ngOnInit(): void {
     super.ngOnInit();
-  }
-
-  initialize(params) {
-    super.initialize(params);
-    this.metadataObs = this.itemRDObs
+    this.metadata$ = this.itemRD$
       .map((rd: RemoteData<Item>) => rd.payload)
       .filter((item: Item) => hasValue(item))
       .map((item: Item) => item.metadata);
   }
-
 }

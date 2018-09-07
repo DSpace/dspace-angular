@@ -6,6 +6,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 
 import { fadeIn } from '../../shared/animations/fade';
+import { PaginatedList } from '../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-community-page-sub-collection-list',
@@ -15,7 +16,7 @@ import { fadeIn } from '../../shared/animations/fade';
 })
 export class CommunityPageSubCollectionListComponent implements OnInit {
   @Input() community: Community;
-  subCollectionsRDObs: Observable<RemoteData<Collection[]>>;
+  subCollectionsRDObs: Observable<RemoteData<PaginatedList<Collection>>>;
 
   ngOnInit(): void {
     this.subCollectionsRDObs = this.community.collections;

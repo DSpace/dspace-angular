@@ -4,8 +4,9 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { PageInfo } from '../shared/page-info.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { PaginatedList } from './paginated-list';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
 
 function isObjectLevel(halObj: any) {
   return isNotEmpty(halObj._links) && hasValue(halObj._links.self);
@@ -17,96 +18,103 @@ function isPaginatedResponse(halObj: any) {
 
 /* tslint:disable:max-classes-per-file */
 
-class ProcessRequestDTO<ObjectDomain> {
-  [key: string]: ObjectDomain[]
-}
-
 export abstract class BaseResponseParsingService {
   protected abstract EnvConfig: GlobalConfig;
   protected abstract objectCache: ObjectCacheService;
   protected abstract objectFactory: any;
   protected abstract toCache: boolean;
 
-  protected process<ObjectDomain,ObjectType>(data: any, requestHref: string): ProcessRequestDTO<ObjectDomain> {
+  protected process<ObjectDomain, ObjectType>(data: any, requestHref: string): any {
 
     if (isNotEmpty(data)) {
-      if (isPaginatedResponse(data)) {
-        return this.process(data._embedded, requestHref);
+      if (hasNoValue(data) || (typeof data !== 'object')) {
+        return data;
+      } else if (isPaginatedResponse(data)) {
+        return this.processPaginatedList(data, requestHref);
+      } else if (Array.isArray(data)) {
+        return this.processArray(data, requestHref);
       } else if (isObjectLevel(data)) {
-        return { topLevel: this.deserializeAndCache(data, requestHref) };
-      } else {
-        const result = new ProcessRequestDTO<ObjectDomain>();
-        if (Array.isArray(data)) {
-          result.topLevel = [];
-          data.forEach((datum) => {
-            if (isPaginatedResponse(datum)) {
-              const obj = this.process(datum, requestHref);
-              result.topLevel = [...result.topLevel, ...this.flattenSingleKeyObject(obj)];
-            } else {
-              result.topLevel = [...result.topLevel, ...this.deserializeAndCache<ObjectDomain,ObjectType>(datum, requestHref)];
-            }
-          });
-        } else {
-          Object.keys(data)
-            .filter((property) => data.hasOwnProperty(property))
-            .filter((property) => hasValue(data[property]))
+        const object = this.deserialize(data);
+        if (isNotEmpty(data._embedded)) {
+          Object
+            .keys(data._embedded)
+            .filter((property) => data._embedded.hasOwnProperty(property))
             .forEach((property) => {
-              if (isPaginatedResponse(data[property])) {
-                const obj = this.process(data[property], requestHref);
-                result[property] = this.flattenSingleKeyObject(obj);
-              } else {
-                result[property] = this.deserializeAndCache(data[property], requestHref);
+              const parsedObj = this.process<ObjectDomain, ObjectType>(data._embedded[property], requestHref);
+              if (isNotEmpty(parsedObj)) {
+                if (isPaginatedResponse(data._embedded[property])) {
+                  object[property] = parsedObj;
+                  object[property].page = parsedObj.page.map((obj) => obj.self);
+                } else if (isObjectLevel(data._embedded[property])) {
+                  object[property] = parsedObj.self;
+                } else if (Array.isArray(parsedObj)) {
+                  object[property] = parsedObj.map((obj) => obj.self)
+                }
               }
             });
         }
-        return result;
+        this.cache(object, requestHref);
+        return object;
       }
+      const result = {};
+      Object.keys(data)
+        .filter((property) => data.hasOwnProperty(property))
+        .filter((property) => hasValue(data[property]))
+        .forEach((property) => {
+          const obj = this.process(data[property], requestHref);
+          result[property] = obj;
+        });
+      return result;
+
     }
   }
 
-  protected deserializeAndCache<ObjectDomain,ObjectType>(obj, requestHref: string): ObjectDomain[] {
-    if (Array.isArray(obj)) {
-      let result = [];
-      obj.forEach((o) => result = [...result, ...this.deserializeAndCache<ObjectDomain,ObjectType>(o, requestHref)]);
-      return result;
-    }
+  protected processPaginatedList<ObjectDomain, ObjectType>(data: any, requestHref: string): PaginatedList<ObjectDomain> {
+    const pageInfo: PageInfo = this.processPageInfo(data);
+    let list = data._embedded;
 
+    // Workaround for inconsistency in rest response. Issue: https://github.com/DSpace/dspace-angular/issues/238
+    if (!Array.isArray(list)) {
+      list = this.flattenSingleKeyObject(list);
+    }
+    const page: ObjectDomain[] = this.processArray(list, requestHref);
+    return new PaginatedList<ObjectDomain>(pageInfo, page);
+  }
+
+  protected processArray<ObjectDomain, ObjectType>(data: any, requestHref: string): ObjectDomain[] {
+    let array: ObjectDomain[] = [];
+    data.forEach((datum) => {
+        array = [...array, this.process(datum, requestHref)];
+      }
+    );
+    return array;
+  }
+
+  protected deserialize<ObjectDomain, ObjectType>(obj): any {
     const type: ObjectType = obj.type;
     if (hasValue(type)) {
       const normObjConstructor = this.objectFactory.getConstructor(type) as GenericConstructor<ObjectDomain>;
 
       if (hasValue(normObjConstructor)) {
         const serializer = new DSpaceRESTv2Serializer(normObjConstructor);
-
-        let processed;
-        if (isNotEmpty(obj._embedded)) {
-          processed = this.process<ObjectDomain,ObjectType>(obj._embedded, requestHref);
-        }
-        const normalizedObj: any = serializer.deserialize(obj);
-
-        if (isNotEmpty(processed)) {
-          const processedList = {};
-          Object.keys(processed).forEach((key) => {
-            processedList[key] = processed[key].map((no: NormalizedObject) => (this.toCache) ? no.self : no);
-          });
-          Object.assign(normalizedObj, processedList);
-        }
-
-        if (this.toCache) {
-          this.addToObjectCache(normalizedObj, requestHref);
-        }
-        return [normalizedObj] as any;
-
+        const res = serializer.deserialize(obj);
+        return res;
       } else {
         // TODO: move check to Validator?
         // throw new Error(`The server returned an object with an unknown a known type: ${type}`);
-        return [];
+        return null;
       }
 
     } else {
       // TODO: move check to Validator
       // throw new Error(`The server returned an object without a type: ${JSON.stringify(obj)}`);
-      return [];
+      return null;
+    }
+  }
+
+  protected cache<ObjectDomain, ObjectType>(obj, requestHref) {
+    if (this.toCache) {
+      this.addToObjectCache(obj, requestHref);
     }
   }
 
@@ -119,7 +127,7 @@ export abstract class BaseResponseParsingService {
 
   processPageInfo(payload: any): PageInfo {
     if (isNotEmpty(payload.page)) {
-      const pageObj = Object.assign({}, payload.page, {_links: payload._links});
+      const pageObj = Object.assign({}, payload.page, { _links: payload._links });
       const pageInfoObject = new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
       if (pageInfoObject.currentPage >= 0) {
         Object.assign(pageInfoObject, { currentPage: pageInfoObject.currentPage + 1 });

@@ -21,6 +21,13 @@ import { SearchFiltersComponent } from './search-filters/search-filters.componen
 import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
 import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
+import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { SearchRangeFilterComponent } from './search-filters/search-filter/search-range-filter/search-range-filter.component';
+import { SearchTextFilterComponent } from './search-filters/search-filter/search-text-filter/search-text-filter.component';
+import { SearchFacetFilterWrapperComponent } from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
+import { SearchBooleanFilterComponent } from './search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
+import { SearchHierarchyFilterComponent } from './search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
+import { SearchConfigurationService } from './search-service/search-configuration.service';
 
 const effects = [
   SearchSidebarEffects
@@ -48,12 +55,20 @@ const effects = [
     CommunitySearchResultListElementComponent,
     SearchFiltersComponent,
     SearchFilterComponent,
-    SearchFacetFilterComponent
+    SearchFacetFilterComponent,
+    SearchLabelsComponent,
+    SearchFacetFilterComponent,
+    SearchFacetFilterWrapperComponent,
+    SearchRangeFilterComponent,
+    SearchTextFilterComponent,
+    SearchHierarchyFilterComponent,
+    SearchBooleanFilterComponent,
   ],
   providers: [
     SearchService,
     SearchSidebarService,
-    SearchFilterService
+    SearchFilterService,
+    SearchConfigurationService
   ],
   entryComponents: [
     ItemSearchResultListElementComponent,
@@ -62,7 +77,16 @@ const effects = [
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
+    SearchFacetFilterComponent,
+    SearchRangeFilterComponent,
+    SearchTextFilterComponent,
+    SearchHierarchyFilterComponent,
+    SearchBooleanFilterComponent,
   ]
 })
+
+/**
+ * This module handles all components and pipes that are necessary for the search page
+ */
 export class SearchPageModule {
 }

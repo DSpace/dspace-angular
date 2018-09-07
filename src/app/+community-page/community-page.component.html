@@ -1,11 +1,11 @@
-<div class="container" *ngVar="(communityRDObs | async) as communityRD">
+<div class="container" *ngVar="(communityRD$ | async) as communityRD">
   <div class="community-page" *ngIf="communityRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="communityRD?.payload; let communityPayload">
       <!-- Community name -->
       <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
       <!-- Community logo -->
-      <ds-comcol-page-logo *ngIf="logoRDObs"
-                           [logo]="(logoRDObs | async)?.payload"
+      <ds-comcol-page-logo *ngIf="logoRD$"
+                           [logo]="(logoRD$ | async)?.payload"
                            [alternateText]="'Community Logo'">
       </ds-comcol-page-logo>
       <!-- Introductory text -->

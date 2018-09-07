@@ -34,3 +34,4 @@ $navbar-light-color:                rgba(black, .5) !default;
 $navbar-dark-toggler-icon-bg: url("data%3Aimage%2Fsvg+xml%3Bcharset%3Dutf8%2C%3Csvg+viewBox%3D%270+0+30+30%27+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cpath+stroke%3D%27#{$navbar-dark-color}%27+stroke-width%3D%272%27+stroke-linecap%3D%27round%27+stroke-miterlimit%3D%2710%27+d%3D%27M4+7h22M4+15h22M4+23h22%27%2F%3E%3C%2Fsvg%3E");
 $navbar-light-toggler-icon-bg: url("data%3Aimage%2Fsvg+xml%3Bcharset%3Dutf8%2C%3Csvg+viewBox%3D%270+0+30+30%27+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cpath+stroke%3D%27#{$navbar-light-color}%27+stroke-width%3D%272%27+stroke-linecap%3D%27round%27+stroke-miterlimit%3D%2710%27+d%3D%27M4+7h22M4+15h22M4+23h22%27%2F%3E%3C%2Fsvg%3E");
 
+$enable-shadows: true !default;

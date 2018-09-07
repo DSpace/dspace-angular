@@ -1,39 +1,40 @@
 <div class="container">
-  <div class="search-page row">
+    <div class="search-page row">
         <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-3 sidebar-md-sticky"
                            id="search-sidebar"
-                           [resultCount]="(resultsRD$ | async)?.pageInfo?.totalElements"></ds-search-sidebar>
+                           [resultCount]="(resultsRD$ | async)?.payload.totalElements"></ds-search-sidebar>
         <div class="col-12 col-md-9">
-        <ds-search-form id="search-form"
-                        [query]="(searchOptions$ | async)?.query"
-                        [scope]="(searchOptions$ | async)?.scope"
-                        [currentUrl]="getSearchLink()"
-                        [scopes]="(scopeListRD$ | async)?.payload?.page">
-        </ds-search-form>
-      <div class="row">
-        <div id="search-body"
-             class="row-offcanvas row-offcanvas-left"
-             [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
-          <ds-search-sidebar *ngIf="(isXsOrSm$ | async)" class="col-12"
-                             id="search-sidebar-sm"
-                             [resultCount]="(resultsRD$ | async)?.pageInfo?.totalElements"
-                             (toggleSidebar)="closeSidebar()"
-                             [ngClass]="{'active': !(isSidebarCollapsed() | async)}">
-          </ds-search-sidebar>
-          <div id="search-content" class="col-12">
-            <div class="d-block d-md-none search-controls clearfix">
-              <ds-view-mode-switch></ds-view-mode-switch>
-              <button (click)="openSidebar()" aria-controls="#search-body"
-                      class="btn btn-outline-primary float-right open-sidebar"><i
-                class="fa fa-sliders"></i> {{"search.sidebar.open"
-                | translate}}
-              </button>
+            <ds-search-form id="search-form"
+                            [query]="(searchOptions$ | async)?.query"
+                            [scope]="(searchOptions$ | async)?.scope"
+                            [currentUrl]="getSearchLink()"
+                            [scopes]="(scopeListRD$ | async)">
+            </ds-search-form>
+            <ds-search-labels></ds-search-labels>
+            <div class="row">
+                <div id="search-body"
+                     class="row-offcanvas row-offcanvas-left"
+                     [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
+                    <ds-search-sidebar *ngIf="(isXsOrSm$ | async)" class="col-12"
+                                       id="search-sidebar-sm"
+                                       [resultCount]="(resultsRD$ | async)?.payload.totalElements"
+                                       (toggleSidebar)="closeSidebar()"
+                                       [ngClass]="{'active': !(isSidebarCollapsed() | async)}">
+                    </ds-search-sidebar>
+                    <div id="search-content" class="col-12">
+                        <div class="d-block d-md-none search-controls clearfix">
+                            <ds-view-mode-switch></ds-view-mode-switch>
+                            <button (click)="openSidebar()" aria-controls="#search-body"
+                                    class="btn btn-outline-primary float-right open-sidebar"><i
+                                    class="fa fa-sliders"></i> {{"search.sidebar.open"
+                                | translate}}
+                            </button>
+                        </div>
+                        <ds-search-results [searchResults]="resultsRD$ | async"
+                                           [searchConfig]="searchOptions$ | async"></ds-search-results>
+                    </div>
+                </div>
             </div>
-            <ds-search-results [searchResults]="resultsRD$ | async"
-                               [searchConfig]="searchOptions$ | async" [sortConfig]="sortConfig"></ds-search-results>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

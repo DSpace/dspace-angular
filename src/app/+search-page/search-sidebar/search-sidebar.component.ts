@@ -12,7 +12,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './search-sidebar.component.html',
 })
 
+/**
+ * Component representing the sidebar on the search page
+ */
 export class SearchSidebarComponent {
+
+  /**
+   * The total amount of results
+   */
   @Input() resultCount;
+
+  /**
+   * Emits event when the user clicks a button to open or close the sidebar
+   */
   @Output() toggleSidebar = new EventEmitter<boolean>();
 }

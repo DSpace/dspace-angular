@@ -10,7 +10,7 @@
         <span *ngFor="let authorMd of object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
             <span *ngIf="!last">; </span>
         </span>
-      <span *ngIf="object.findMetadata('dc.date.issued')" class="item-date">{{object.findMetadata("dc.date.issued")}}</span>
+      <span *ngIf="hasValue(object.findMetadata('dc.date.issued'))" class="item-date">{{object.findMetadata("dc.date.issued")}}</span>
     </p>
 
     <p *ngIf="object.findMetadata('dc.description.abstract')" class="item-abstract card-text">{{object.findMetadata("dc.description.abstract") | dsTruncate:[200] }}</p>

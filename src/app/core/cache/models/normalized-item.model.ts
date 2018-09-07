@@ -5,6 +5,9 @@ import { Item } from '../../shared/item.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 
+/**
+ * Normalized model class for a DSpace Item
+ */
 @mapsTo(Item)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedItem extends NormalizedDSpaceObject {
@@ -49,9 +52,13 @@ export class NormalizedItem extends NormalizedDSpaceObject {
   /**
    * The Collection that owns this Item
    */
+  @autoserialize
   @relationship(ResourceType.Collection, false)
   owningCollection: string;
 
+  /**
+   * List of Bitstreams that are owned by this Item
+   */
   @autoserialize
   @relationship(ResourceType.Bitstream, true)
   bitstreams: string[];
