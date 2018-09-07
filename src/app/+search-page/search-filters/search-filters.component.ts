@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { SearchFilterService } from './search-filter/search-filter.service';
+import { getSucceededRemoteData } from '../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-filters',
@@ -35,7 +36,7 @@ export class SearchFiltersComponent {
    * @param {SearchFilterService} filterService
    */
   constructor(private searchService: SearchService, private searchConfigService: SearchConfigurationService, private filterService: SearchFilterService) {
-    this.filters = searchService.getConfig().first((RD) => !RD.isLoading);
+    this.filters = searchService.getConfig().pipe(getSucceededRemoteData());
     this.clearParams = searchConfigService.getCurrentFrontendFilters().map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;

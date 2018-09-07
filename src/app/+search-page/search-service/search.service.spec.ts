@@ -155,7 +155,7 @@ describe('SearchService', () => {
 
     describe('when search is called', () => {
       const endPoint = 'http://endpoint.com/test/test';
-      const searchOptions = new PaginatedSearchOptions();
+      const searchOptions = new PaginatedSearchOptions({});
       const queryResponse = Object.assign(new SearchQueryResponse(), { objects: [] });
       const response = new SearchSuccessResponse(queryResponse, '200');
       const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });

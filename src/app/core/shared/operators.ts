@@ -9,6 +9,9 @@ import { RestRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from './browse-definition.model';
+import { DSpaceObject } from './dspace-object.model';
+import { PaginatedList } from '../data/paginated-list';
+import { SearchResult } from '../../+search-page/search-result.model';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -50,6 +53,16 @@ export const getRemoteDataPayload = () =>
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(first((rd: RemoteData<T>) => rd.hasSucceeded));
+
+export const toDSpaceObjectListRD = () =>
+  <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<SearchResult<T>>>>): Observable<RemoteData<PaginatedList<T>>> =>
+    source.pipe(
+      map((rd: RemoteData<PaginatedList<SearchResult<T>>>) => {
+        const dsoPage: T[] = rd.payload.page.map((searchResult: SearchResult<T>) => searchResult.dspaceObject);
+        const payload = Object.assign(rd.payload, { page: dsoPage }) as PaginatedList<T>;
+        return Object.assign(rd, {payload: payload});
+      })
+    );
 
 /**
  * Get the browse links from a definition by ID given an array of all definitions

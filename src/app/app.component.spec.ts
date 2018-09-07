@@ -34,6 +34,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AngularticsMock } from './shared/mocks/mock-angulartics.service';
 import { AuthServiceMock } from './shared/mocks/mock-auth.service';
 import { AuthService } from './core/auth/auth.service';
+import { Router } from '@angular/router';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -62,6 +63,7 @@ describe('App component', () => {
         { provide: MetadataService, useValue: new MockMetadataService() },
         { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: Router, useValue: {} },
         AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
