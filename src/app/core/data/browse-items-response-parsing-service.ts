@@ -16,6 +16,9 @@ import { RestRequest } from './request.models';
 import { Item } from '../shared/item.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
+/**
+ * A ResponseParsingService used to parse DSpaceRESTV2Response coming from the REST API to Browse Items (DSpaceObject[])
+ */
 @Injectable()
 export class BrowseItemsResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
