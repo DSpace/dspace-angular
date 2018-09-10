@@ -33,16 +33,6 @@ export class DSOSuccessResponse extends RestResponse {
   }
 }
 
-export class SingleDSOSuccessResponse extends DSOSuccessResponse {
-  constructor(
-    public resourceSelfLinks: string[],
-    public statusCode: string,
-    public dso: DSpaceObject
-  ) {
-    super(resourceSelfLinks, statusCode);
-  }
-}
-
 export class RegistryMetadataschemasSuccessResponse extends RestResponse {
   constructor(
     public metadataschemasResponse: RegistryMetadataschemasResponse,

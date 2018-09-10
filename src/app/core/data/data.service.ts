@@ -28,7 +28,7 @@ import {
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
-import { DSOSuccessResponse, SingleDSOSuccessResponse } from '../cache/response-cache.models';
+import { DSOSuccessResponse, GenericSuccessResponse } from '../cache/response-cache.models';
 import { AuthService } from '../auth/auth.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
@@ -115,7 +115,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
-  public create(dso: TDomain): Observable<RemoteData<DSpaceObject>> {
+  public create(dso: TDomain): Observable<RemoteData<TDomain>> {
     const request$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
@@ -138,9 +138,11 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     const payload$ = responseCache$.pipe(
       filterSuccessfulResponses(),
       map((entry: ResponseCacheEntry) => entry.response),
-      map((response: SingleDSOSuccessResponse) => response.dso),
+      map((response: GenericSuccessResponse<TDomain>) => response.payload),
       distinctUntilChanged()
     );
+
+    payload$.subscribe((value) => console.log(value));
 
     return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }

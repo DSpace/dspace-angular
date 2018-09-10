@@ -13,6 +13,7 @@ import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { map } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-create-collection',
@@ -50,7 +51,7 @@ export class CreateCollectionPageComponent {
           uuid: uuid
         })))
       });
-      this.collectionDataService.create(collection).subscribe((rd: RemoteData<Collection>) => {
+      this.collectionDataService.create(collection).subscribe((rd: RemoteData<DSpaceObject>) => {
         console.log(rd);
         if (rd.hasSucceeded) {
           this.router.navigateByUrl('');

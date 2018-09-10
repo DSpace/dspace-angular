@@ -6,7 +6,11 @@ import { GLOBAL_CONFIG } from '../../../config';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { DSOSuccessResponse, RestResponse, SingleDSOSuccessResponse } from '../cache/response-cache.models';
+import {
+  DSOSuccessResponse,
+  GenericSuccessResponse,
+  RestResponse
+} from '../cache/response-cache.models';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -28,16 +32,9 @@ export class SingleDsoResponseParsingService  extends BaseResponseParsingService
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const processRequestDTO = this.process<NormalizedObject,ResourceType>(data.payload, request.href);
     if (hasNoValue(processRequestDTO)) {
-      return new SingleDSOSuccessResponse([], data.statusCode, undefined)
+      return new GenericSuccessResponse<DSpaceObject>(undefined, data.statusCode)
     }
-    let objectList = processRequestDTO;
-    if (hasValue(processRequestDTO.page)) {
-      objectList = processRequestDTO.page;
-    } else if (!Array.isArray(processRequestDTO)) {
-      objectList = [processRequestDTO];
-    }
-    const selfLinks = objectList.map((no) => no.self);
-    return new SingleDSOSuccessResponse(selfLinks, data.statusCode, processRequestDTO);
+    return new GenericSuccessResponse<DSpaceObject>(processRequestDTO, data.statusCode);
   }
 
 }

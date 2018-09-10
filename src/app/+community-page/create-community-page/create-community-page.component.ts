@@ -7,6 +7,7 @@ import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-create-community',
@@ -43,7 +44,7 @@ export class CreateCommunityPageComponent {
           uuid: uuid
         })))
       });
-      this.communityDataService.create(community).subscribe((rd: RemoteData<Community>) => {
+      this.communityDataService.create(community).subscribe((rd: RemoteData<DSpaceObject>) => {
         console.log(rd);
         if (rd.hasSucceeded) {
           this.router.navigateByUrl('');
