@@ -30,7 +30,7 @@ export class FormOperationsService {
   dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
                               event: DynamicFormControlEvent,
                               previousValue: FormFieldPreviousValueObject,
-                              hasStoredValue: boolean) {
+                              hasStoredValue: boolean): void {
     switch (event.type) {
       case 'remove':
         this.dispatchOperationsFromRemoveEvent(pathCombiner, event, previousValue);
@@ -43,26 +43,29 @@ export class FormOperationsService {
     }
   }
 
-  getArrayIndexFromEvent(event: DynamicFormControlEvent) {
+  getArrayIndexFromEvent(event: DynamicFormControlEvent): number {
     let fieldIndex: number;
     if (isNotEmpty(event)) {
       if (isNull(event.context)) {
-        if (isNotNull(event.model.parent)) {
-          if ((event.model.parent as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP) {
-            if ((event.model.parent as any).parent) {
-              if ((event.model.parent as any).parent.context) {
-                if ((event.model.parent as any).parent.context.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY) {
-                  fieldIndex = (event.model.parent as any).parent.index;
-                }
-              }
-            }
-          }
+        // Check whether model is part of an Array of group
+        if (this.isPartOfArrayOfGroup(event.model)) {
+          fieldIndex = (event.model.parent as any).parent.index;
         }
       } else {
         fieldIndex = event.context.index;
       }
     }
+
+    // if field index is undefined model is not part of array of fields
     return isNotUndefined(fieldIndex) ? fieldIndex : 0;
+  }
+
+  isPartOfArrayOfGroup(model: any): boolean {
+    return (isNotNull(model.parent)
+      && (model.parent as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP
+      && (model.parent as any).parent
+      && (model.parent as any).parent.context
+      && (model.parent as any).parent.context.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY);
   }
 
   public getQualdropValueMap(event): Map<string, any> {
@@ -90,10 +93,10 @@ export class FormOperationsService {
     return (isNotUndefined(fieldIndex)) ? fieldId + '/' + fieldIndex : fieldId;
   }
 
-  public getQualdropItemPathFromEvent(event: DynamicFormControlEvent, valueMap: Map<string, any>): string {
+  public getQualdropItemPathFromEvent(event: DynamicFormControlEvent): string {
     const fieldIndex = this.getArrayIndexFromEvent(event);
     const metadataValueMap = new Map();
-    let path;
+    let path = null;
 
     const context = this.formBuilder.isQualdropGroup(event.model)
       ? (event.model.parent as DynamicFormArrayGroupModel).context
@@ -113,7 +116,7 @@ export class FormOperationsService {
     return path;
   }
 
-  public getFieldPathSegmentedFromChangeEvent(event: DynamicFormControlEvent) {
+  public getFieldPathSegmentedFromChangeEvent(event: DynamicFormControlEvent): string {
     let fieldId;
     if (this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
       fieldId = (event.model as any).qualdropId;
@@ -125,7 +128,7 @@ export class FormOperationsService {
     return fieldId;
   }
 
-  public getFieldValueFromChangeEvent(event: DynamicFormControlEvent) {
+  public getFieldValueFromChangeEvent(event: DynamicFormControlEvent): any {
     let fieldValue;
     const value = (event.model as any).value;
 
@@ -175,7 +178,7 @@ export class FormOperationsService {
 
   protected dispatchOperationsFromRemoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
                                               event: DynamicFormControlEvent,
-                                              previousValue: FormFieldPreviousValueObject) {
+                                              previousValue: FormFieldPreviousValueObject): void {
     const path = this.getFieldPathFromEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
     if (this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
@@ -188,7 +191,7 @@ export class FormOperationsService {
   protected dispatchOperationsFromChangeEvent(pathCombiner: JsonPatchOperationPathCombiner,
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject,
-                                              hasStoredValue: boolean) {
+                                              hasStoredValue: boolean): void {
     const path = this.getFieldPathFromEvent(event);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
@@ -242,10 +245,10 @@ export class FormOperationsService {
   protected dispatchOperationsFromMap(valueMap: Map<string, any>,
                                       pathCombiner: JsonPatchOperationPathCombiner,
                                       event: DynamicFormControlEvent,
-                                      previousValue: FormFieldPreviousValueObject) {
+                                      previousValue: FormFieldPreviousValueObject): void {
     const currentValueMap = valueMap;
     if (event.type === 'remove') {
-      const path = this.getQualdropItemPathFromEvent(event, currentValueMap);
+      const path = this.getQualdropItemPathFromEvent(event);
       this.operationsBuilder.remove(pathCombiner.getPath(path));
     } else {
       if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {

@@ -102,8 +102,6 @@ function startTransactionPatchOperations(state: JsonPatchOperationsState, action
     && isNull(state[ action.payload.resourceType ].transactionStartTime)) {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
-        children: state[ action.payload.resourceType ].children,
-        transactionStartTime: action.payload.startTime,
         commitPending: true
       })
     });
@@ -127,8 +125,6 @@ function commitOperations(state: JsonPatchOperationsState, action: CommitPatchOp
     && state[ action.payload.resourceType ].commitPending) {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
-        children: state[ action.payload.resourceType ].children,
-        transactionStartTime: state[ action.payload.resourceType ].transactionStartTime,
         commitPending: false
       })
     });
@@ -152,7 +148,6 @@ function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPa
     && state[ action.payload.resourceType ].commitPending) {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
-        children: state[ action.payload.resourceType ].children,
         transactionStartTime: null,
         commitPending: false
       })
@@ -174,12 +169,10 @@ function rollbackOperations(state: JsonPatchOperationsState, action: RollbacktPa
  */
 function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperationsState {
   const newState = Object.assign({}, state);
+  const body: any[] = hasValidBody(newState, action.payload.resourceType, action.payload.resourceId)
+    ? newState[ action.payload.resourceType ].children[ action.payload.resourceId ].body : Array.of();
   const newBody = addOperationToList(
-    (hasValue(newState[ action.payload.resourceType ])
-      && hasValue(newState[ action.payload.resourceType ].children)
-      && hasValue(newState[ action.payload.resourceType ].children[ action.payload.resourceId ])
-      && isNotEmpty(newState[ action.payload.resourceType ].children[ action.payload.resourceId ].body))
-      ? newState[ action.payload.resourceType ].children[ action.payload.resourceId ].body : Array.of(),
+    body,
     action.type,
     action.payload.path,
     hasValue(action.payload.value) ? action.payload.value : null);
@@ -193,7 +186,6 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
             body: newBody,
           }
         }),
-        transactionStartTime: state[ action.payload.resourceType ].transactionStartTime,
         commitPending: isNotUndefined(state[ action.payload.resourceType ].commitPending) ? state[ action.payload.resourceType ].commitPending : false
       })
     });
@@ -210,6 +202,24 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
       })
     });
   }
+}
+
+/**
+ * Check if state has a valid body.
+ *
+ * @param state
+ *    the current state
+ * @param resourceType
+ *    an resource type
+ * @param resourceId
+ *    an resource ID
+ * @return boolean
+ */
+function hasValidBody(state: JsonPatchOperationsState, resourceType: any, resourceId: any): boolean {
+  return (hasValue(state[ resourceType ])
+    && hasValue(state[ resourceType ].children)
+    && hasValue(state[ resourceType ].children[ resourceId ])
+    && isNotEmpty(state[ resourceType ].children[ resourceId ].body))
 }
 
 /**
@@ -255,7 +265,6 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
         children: newChildren,
         transactionStartTime: null,
-        commitPending: state[ action.payload.resourceType ].commitPending
       })
     });
   } else {

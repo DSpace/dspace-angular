@@ -1,19 +1,15 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ChangeDetectorRef, DebugElement } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { Store, StoreModule } from '@ngrx/store';
 
 import { NotificationComponent } from './notification.component';
 import { NotificationsService } from '../notifications.service';
 import { NotificationType } from '../models/notification-type';
 import { notificationsReducer } from '../notifications.reducers';
-import { Store, StoreModule } from '@ngrx/store';
 import { NotificationOptions } from '../models/notification-options.model';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
-import { AppState } from '../../../app.reducer';
-import { Observable } from 'rxjs/Observable';
-import { SearchPageComponent } from '../../../+search-page/search-page.component';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { GlobalConfig } from '../../../../config/global-config.interface';
 import { Notification } from '../models/notification.model';
@@ -96,10 +92,10 @@ describe('NotificationComponent', () => {
     expect(elType).toBeDefined();
   });
 
-  it('should has html content', () => {
+  it('should have html content', () => {
     fixture = TestBed.createComponent(NotificationComponent);
     comp = fixture.componentInstance;
-    const htmlContent = `<a class="btn btn-link p-0 m-0 pb-1" href="/test"><strong>test</strong></a>`
+    const htmlContent = '<a class="btn btn-link p-0 m-0 pb-1" href="/test"><strong>test</strong></a>';
     comp.notification = {
       id: '1',
       type: NotificationType.Info,
