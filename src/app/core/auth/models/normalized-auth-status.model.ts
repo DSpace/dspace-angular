@@ -21,6 +21,6 @@ export class NormalizedAuthStatus extends NormalizedDSpaceObject {
   authenticated: boolean;
 
   @autoserializeAs(Eperson)
-  eperson: Eperson[];
+  eperson: Eperson;
 
 }

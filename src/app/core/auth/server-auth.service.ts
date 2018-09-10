@@ -35,7 +35,7 @@ export class ServerAuthService extends AuthService {
     return this.authRequestService.getRequest('status', options)
       .map((status: AuthStatus) => {
         if (status.authenticated) {
-          return status.eperson[0];
+          return status.eperson;
         } else {
           throw(new Error('Not authenticated'));
         }

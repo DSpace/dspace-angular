@@ -19,7 +19,7 @@ export class AuthServiceStub {
       authStatus.okay = true;
       authStatus.authenticated = true;
       authStatus.token = this.token;
-      authStatus.eperson = [EpersonMock];
+      authStatus.eperson = EpersonMock;
       return Observable.of(authStatus);
     } else {
       console.log('error');

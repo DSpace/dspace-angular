@@ -13,7 +13,7 @@ export class AuthStatus {
 
   error?: AuthError;
 
-  eperson: Eperson[];
+  eperson: Eperson;
 
   token?: AuthTokenInfo;
 
