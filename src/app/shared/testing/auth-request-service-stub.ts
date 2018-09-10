@@ -26,7 +26,7 @@ export class AuthRequestServiceStub {
       if (this.validateToken(token)) {
         authStatusStub.authenticated = true;
         authStatusStub.token = this.mockTokenInfo;
-        authStatusStub.eperson = [this.mockUser];
+        authStatusStub.eperson = this.mockUser;
       } else {
         authStatusStub.authenticated = false;
       }
@@ -45,7 +45,7 @@ export class AuthRequestServiceStub {
         if (this.validateToken(token)) {
           authStatusStub.authenticated = true;
           authStatusStub.token = this.mockTokenInfo;
-          authStatusStub.eperson = [this.mockUser];
+          authStatusStub.eperson = this.mockUser;
         } else {
           authStatusStub.authenticated = false;
         }
