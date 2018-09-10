@@ -10,6 +10,7 @@ import { MetadataSchema } from '../metadata/metadataschema.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
 import { AuthStatus } from '../auth/models/auth-status.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -29,6 +30,16 @@ export class DSOSuccessResponse extends RestResponse {
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
+  }
+}
+
+export class SingleDSOSuccessResponse extends DSOSuccessResponse {
+  constructor(
+    public resourceSelfLinks: string[],
+    public statusCode: string,
+    public dso: DSpaceObject
+  ) {
+    super(resourceSelfLinks, statusCode);
   }
 }
 

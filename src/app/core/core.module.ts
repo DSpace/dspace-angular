@@ -63,6 +63,7 @@ import { RegistryBitstreamformatsResponseParsingService } from './data/registry-
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
+import { SingleDsoResponseParsingService } from './data/single-dso-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -126,6 +127,7 @@ const PROVIDERS = [
   UploaderService,
   UUIDService,
   DSpaceObjectDataService,
+  SingleDsoResponseParsingService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

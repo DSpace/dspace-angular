@@ -12,6 +12,7 @@ import { AuthResponseParsingService } from '../auth/auth-response-parsing.servic
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
+import { SingleDsoResponseParsingService } from './single-dso-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -223,6 +224,17 @@ export class IntegrationRequest extends GetRequest {
     return IntegrationResponseParsingService;
   }
 }
+
+export class CreateRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SingleDsoResponseParsingService;
+  }
+}
+
 export class RequestError extends Error {
   statusText: string;
 }

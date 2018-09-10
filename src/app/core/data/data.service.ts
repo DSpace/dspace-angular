@@ -9,6 +9,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import {
+  CreateRequest,
   FindAllOptions,
   FindAllRequest,
   FindByIDRequest,
@@ -21,14 +22,15 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { distinctUntilChanged, map, share, switchMap, withLatestFrom } from 'rxjs/operators';
 import {
   configureRequest,
-  filterSuccessfulResponses,
+  filterSuccessfulResponses, getRequestFromSelflink,
   getResponseFromSelflink
 } from '../shared/operators';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
-import { DSOSuccessResponse } from '../cache/response-cache.models';
+import { DSOSuccessResponse, SingleDSOSuccessResponse } from '../cache/response-cache.models';
 import { AuthService } from '../auth/auth.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -113,7 +115,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
-  public create(dso: TDomain): Observable<RemoteData<TDomain>> {
+  public create(dso: TDomain): Observable<RemoteData<DSpaceObject>> {
     const request$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
@@ -123,23 +125,24 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
         const headers = new HttpHeaders();
         headers.append('Authentication', this.authService.buildAuthHeader());
         options.headers = headers;
-        return new PostRequest(this.requestService.generateRequestId(), endpointURL + params, options);
+        return new CreateRequest(this.requestService.generateRequestId(), endpointURL + params, options);
       }),
       configureRequest(this.requestService),
       share()
     );
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
+    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
     const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
 
-    const dsoHref$ = responseCache$.pipe(
+    const payload$ = responseCache$.pipe(
       filterSuccessfulResponses(),
       map((entry: ResponseCacheEntry) => entry.response),
-      map((response: DSOSuccessResponse) => response.resourceSelfLinks[0]),
+      map((response: SingleDSOSuccessResponse) => response.dso),
       distinctUntilChanged()
     );
 
-    return this.rdbService.buildSingle(dsoHref$);
+    return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
   public abstract buildCreateParams(dso: TDomain): Observable<string>;
