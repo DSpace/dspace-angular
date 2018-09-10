@@ -23,6 +23,13 @@ export const getRequestFromSelflink = (requestService: RequestService) =>
       hasValueOperator()
     );
 
+export const getRequestFromUUID = (requestService: RequestService) =>
+  (source: Observable<string>): Observable<RequestEntry> =>
+    source.pipe(
+      flatMap((uuid: string) => requestService.getByUUID(uuid)),
+      hasValueOperator()
+    );
+
 export const getResponseFromSelflink = (responseCache: ResponseCacheService) =>
   (source: Observable<string>): Observable<ResponseCacheEntry> =>
     source.pipe(

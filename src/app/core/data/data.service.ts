@@ -22,7 +22,7 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { distinctUntilChanged, map, share, switchMap, withLatestFrom } from 'rxjs/operators';
 import {
   configureRequest,
-  filterSuccessfulResponses, getRequestFromSelflink,
+  filterSuccessfulResponses, getRequestFromSelflink, getRequestFromUUID,
   getResponseFromSelflink
 } from '../shared/operators';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
@@ -31,6 +31,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { DSOSuccessResponse, GenericSuccessResponse } from '../cache/response-cache.models';
 import { AuthService } from '../auth/auth.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { first } from 'rxjs/operator/first';
+import { take } from 'rxjs/operator/take';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -132,7 +134,8 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     );
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const uuid$ = request$.pipe(map((request: RestRequest) => request.uuid));
+    const requestEntry$ = uuid$.pipe(getRequestFromUUID(this.requestService));
     const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
 
     const payload$ = responseCache$.pipe(
@@ -141,8 +144,6 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       map((response: GenericSuccessResponse<TDomain>) => response.payload),
       distinctUntilChanged()
     );
-
-    payload$.subscribe((value) => console.log(value));
 
     return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
