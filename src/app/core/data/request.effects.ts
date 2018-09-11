@@ -38,7 +38,7 @@ export class RequestEffects {
     }),
     map((entry: RequestEntry) => entry.request),
     flatMap((request: RestRequest) => {
-      let body;
+      let body = request.body;
       if (isNotEmpty(request.body)) {
         const serializer = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(request.body.type));
         body = serializer.serialize(request.body);

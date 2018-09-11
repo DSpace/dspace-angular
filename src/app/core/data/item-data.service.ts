@@ -17,6 +17,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { AuthService } from '../auth/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -30,7 +31,8 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     private bs: BrowseService,
     protected halService: HALEndpointService,
     protected authService: AuthService,
-    protected notificationsService: NotificationsService) {
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient) {
     super();
   }
 

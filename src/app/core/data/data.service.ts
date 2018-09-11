@@ -18,7 +18,7 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { distinctUntilChanged, map, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import {
   configureRequest,
   filterSuccessfulResponses,
@@ -26,7 +26,7 @@ import {
 } from '../shared/operators';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { ErrorResponse, GenericSuccessResponse } from '../cache/response-cache.models';
 import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -41,6 +41,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   protected abstract halService: HALEndpointService;
   protected abstract authService: AuthService;
   protected abstract notificationsService: NotificationsService;
+  protected abstract http: HttpClient;
 
   public abstract getScopedEndpoint(scope: string): Observable<string>
 
@@ -126,17 +127,12 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     const request$ = endpoint$.pipe(
       take(1),
       withLatestFrom(this.buildCreateBody(dso)),
-      map(([endpoint, formdata]) => {
-        const options: HttpOptions = Object.create({});
-        let headers = new HttpHeaders();
-        headers = headers.append('Content-Type','multipart/form-data');
-        options.headers = headers;
-        return new CreateRequest(requestId, endpoint, formdata, options);
-      }),
+      map(([endpoint, formdata]) => new CreateRequest(requestId, endpoint, this.buildFormData(formdata))),
       configureRequest(this.requestService)
     );
 
     const payload$ = request$.pipe(
+      take(1),
       map((request: RestRequest) => request.href),
       getResponseFromSelflink(this.responseCache),
       map((response: ResponseCacheEntry) => {
@@ -158,6 +154,31 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
+  public createSimple(dso: TDomain): Observable<HttpEvent<{}>> {
+    const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged()
+    );
+
+    return endpoint$.pipe(
+      withLatestFrom(this.buildCreateBody(dso)),
+      switchMap(([endpoint, form]) => {
+        const req = new HttpRequest('POST', endpoint, this.buildFormData(form));
+        return this.http.request(req);
+      })
+    );
+  }
+
   public abstract buildCreateBody(dso: TDomain): Observable<any>;
+
+  protected buildFormData(form: any): FormData {
+    const formdata = new FormData();
+    for (const param in form) {
+      if (form.hasOwnProperty(param)) {
+        formdata.append(param, form[param]);
+      }
+    }
+    return formdata;
+  }
 
 }

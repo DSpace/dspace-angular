@@ -17,6 +17,7 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Observable } from 'rxjs/Observable';
 import { PaginatedList } from './paginated-list';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {
@@ -32,7 +33,8 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected authService: AuthService,
-    protected notificationsService: NotificationsService
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient
   ) {
     super();
   }

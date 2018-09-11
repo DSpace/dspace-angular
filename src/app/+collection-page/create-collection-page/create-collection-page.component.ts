@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { HttpEvent } from '@angular/common/http';
 
 @Component({
   selector: 'ds-create-collection',
@@ -55,6 +56,9 @@ export class CreateCollectionPageComponent {
           this.router.navigateByUrl('');
         }
       });
+      // this.collectionDataService.createSimple(collection).subscribe((httpEvent: HttpEvent<{}>) => {
+      //   console.log(httpEvent);
+      // });
     });
   }
 

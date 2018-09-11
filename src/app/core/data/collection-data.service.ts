@@ -14,6 +14,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { AuthService } from '../auth/auth.service';
 import { Community } from '../shared/community.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
@@ -28,7 +29,8 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected authService: AuthService,
-    protected notificationsService: NotificationsService
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient
   ) {
     super();
   }
