@@ -66,19 +66,23 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
     }
   }
 
-  public buildCreateParams(comcol): Observable<string> {
+  public buildCreateBody(comcol): Observable<any> {
     return comcol.owner.pipe(
       map((rd: RemoteData<Community | Collection>) => {
-        let urlParams = '?name=' + comcol.name;
+        const form: any = {
+          name: comcol.name
+        };
         if (rd.payload.id) {
-          urlParams += '&parent=' + rd.payload.id;
+          form.parent = rd.payload.id;
         }
         if (comcol.metadata) {
           for (const i of Object.keys(comcol.metadata)) {
-            urlParams += '&' + comcol.metadata[i].key + '=' + comcol.metadata[i].value;
+            if (isNotEmpty(comcol.metadata[i].value)) {
+              form[comcol.metadata[i].key] = comcol.metadata[i].value;
+            }
           }
         }
-        return urlParams;
+        return form;
       })
     );
   }

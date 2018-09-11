@@ -45,8 +45,8 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     }
   }
 
-  buildCreateParams(dso: Item): Observable<string> {
-    // TODO: Build parameters for creating an Item on the REST service
+  buildCreateBody(dso: Item): Observable<FormData> {
+    // TODO: Build http body for creating an Item on the REST service
     return undefined;
   }
 

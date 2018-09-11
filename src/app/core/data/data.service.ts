@@ -14,24 +14,21 @@ import {
   FindAllRequest,
   FindByIDRequest,
   GetRequest,
-  PostRequest,
   RestRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { distinctUntilChanged, map, share, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, take, withLatestFrom } from 'rxjs/operators';
 import {
   configureRequest,
-  filterSuccessfulResponses, getRequestFromSelflink, getRequestFromUUID,
+  filterSuccessfulResponses,
   getResponseFromSelflink
 } from '../shared/operators';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
-import { DSOSuccessResponse, ErrorResponse, GenericSuccessResponse } from '../cache/response-cache.models';
+import { ErrorResponse, GenericSuccessResponse } from '../cache/response-cache.models';
 import { AuthService } from '../auth/auth.service';
-import { Collection } from '../shared/collection.model';
-import { Community } from '../shared/community.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 
@@ -123,19 +120,18 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
-      distinctUntilChanged(),
-      withLatestFrom(this.buildCreateParams(dso)),
-      map(([endpointURL, params]) => endpointURL + params)
+      distinctUntilChanged()
     );
 
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint) => {
+      withLatestFrom(this.buildCreateBody(dso)),
+      map(([endpoint, formdata]) => {
         const options: HttpOptions = Object.create({});
-        const headers = new HttpHeaders();
-        headers.append('Authentication', this.authService.buildAuthHeader());
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type','multipart/form-data');
         options.headers = headers;
-        return new CreateRequest(requestId, endpoint, options);
+        return new CreateRequest(requestId, endpoint, formdata, options);
       }),
       configureRequest(this.requestService)
     );
@@ -162,6 +158,6 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
-  public abstract buildCreateParams(dso: TDomain): Observable<string>;
+  public abstract buildCreateBody(dso: TDomain): Observable<any>;
 
 }
