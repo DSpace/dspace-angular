@@ -1,10 +1,11 @@
 import {
   ObjectCacheAction, ObjectCacheActionTypes, AddToObjectCacheAction,
-  RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction
+  RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction, PatchObjectCacheAction
 } from './object-cache.actions';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
 import { ResourceType } from '../shared/resource-type';
+import { Operation } from 'fast-json-patch';
 
 export enum DirtyType {
   Created = 'Created',
@@ -36,6 +37,7 @@ export class ObjectCacheEntry implements CacheEntry {
   timeAdded: number;
   msToLive: number;
   requestHref: string;
+  operations: Operation[];
 }
 
 /**
@@ -76,6 +78,9 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
       return resetObjectCacheTimestamps(state, action as ResetObjectCacheTimestampsAction)
     }
 
+    case ObjectCacheActionTypes.PATCH: {
+      return patchObjectCache(state, action as PatchObjectCacheAction);
+    }
     default: {
       return state;
     }
@@ -98,7 +103,8 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
       data: action.payload.objectToCache,
       timeAdded: action.payload.timeAdded,
       msToLive: action.payload.msToLive,
-      requestHref: action.payload.requestHref
+      requestHref: action.payload.requestHref,
+      operations: []
     }
   });
 }
@@ -141,5 +147,25 @@ function resetObjectCacheTimestamps(state: ObjectCacheState, action: ResetObject
       timeAdded: action.payload
     });
   });
+  return newState;
+}
+
+/**
+ * Add the list of patch operations to a cached object
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a PatchObjectCacheAction
+ * @return ObjectCacheState
+ *    the new state, with the new operations added to the state of the specified ObjectCacheEntry
+ */
+function patchObjectCache(state: ObjectCacheState, action: PatchObjectCacheAction): ObjectCacheState {
+  const uuid = action.payload.uuid;
+  const operations = action.payload.operations;
+  const newState = Object.assign({}, state);
+  if (hasValue(newState[uuid])) {
+    newState[uuid].operations = state[uuid].operations.concat(operations);
+  }
   return newState;
 }

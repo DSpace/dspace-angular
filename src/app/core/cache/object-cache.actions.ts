@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
 import { CacheableObject } from './object-cache.reducer';
+import { Operation } from 'fast-json-patch';
 
 /**
  * The list of ObjectCacheAction type definitions
@@ -9,7 +10,8 @@ import { CacheableObject } from './object-cache.reducer';
 export const ObjectCacheActionTypes = {
   ADD: type('dspace/core/cache/object/ADD'),
   REMOVE: type('dspace/core/cache/object/REMOVE'),
-  RESET_TIMESTAMPS: type('dspace/core/cache/object/RESET_TIMESTAMPS')
+  RESET_TIMESTAMPS: type('dspace/core/cache/object/RESET_TIMESTAMPS'),
+  PATCH: type('dspace/core/cache/object/PATCH')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -79,6 +81,30 @@ export class ResetObjectCacheTimestampsAction implements Action {
     this.payload = newTimestamp;
   }
 }
+
+/**
+ * An ngrx action to add new operations to a specified cached objects
+ */
+export class PatchObjectCacheAction implements Action {
+  type = ObjectCacheActionTypes.PATCH;
+  payload: {
+    uuid: string,
+    operations: Operation[]
+  };
+
+  /**
+   * Create a new PatchObjectCacheAction
+   *
+   * @param uuid
+   *    the uuid of the object that should be updated
+   * @param operations
+   *    the list of operations to add
+   */
+  constructor(uuid: string, operations: Operation[]) {
+    this.payload = { uuid, operations };
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -87,4 +113,5 @@ export class ResetObjectCacheTimestampsAction implements Action {
 export type ObjectCacheAction
   = AddToObjectCacheAction
   | RemoveFromObjectCacheAction
-  | ResetObjectCacheTimestampsAction;
+  | ResetObjectCacheTimestampsAction
+  | PatchObjectCacheAction;

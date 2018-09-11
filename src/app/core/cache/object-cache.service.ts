@@ -1,18 +1,23 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { distinctUntilChanged, filter, first, map, mergeMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, mergeMap, take, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { IndexName } from '../index/index.reducer';
 
 import { CacheableObject, ObjectCacheEntry } from './object-cache.reducer';
-import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
-import { hasNoValue } from '../../shared/empty.util';
+import {
+  AddToObjectCacheAction,
+  PatchObjectCacheAction,
+  RemoveFromObjectCacheAction
+} from './object-cache.actions';
+import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { coreSelector, CoreState } from '../core.reducers';
 import { pathSelector } from '../shared/selectors';
 import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
+import { applyPatch, Operation } from 'fast-json-patch';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
   return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);
@@ -85,7 +90,11 @@ export class ObjectCacheService {
       map((entry: ObjectCacheEntry) => {
         const type: GenericConstructor<NormalizedObject> = NormalizedObjectFactory.getConstructor(entry.data.type);
         return Object.assign(new type(), entry.data) as T
-      }));
+      }),
+      // map((entry: ObjectCacheEntry) =>
+      //   applyPatch(entry.data, entry.operations).newDocument
+      // )
+    );
   }
 
   private getEntry(selfLink: string): Observable<ObjectCacheEntry> {
@@ -195,4 +204,26 @@ export class ObjectCacheService {
     }
   }
 
+  /**
+   * Add operations to a the existing list of operations for an ObjectCacheEntry
+   * @param {string} uuid
+   *     the uuid of the ObjectCacheEntry
+   * @param {Operation[]} patch
+   *     list of operations to perform
+   */
+  private addOperations(uuid: string, patch: Operation[]) {
+    this.store.dispatch(new PatchObjectCacheAction(uuid, patch));
+  }
+
+  /**
+   * Check whether there are any unperformed operations for an ObjectCacheEntry
+   *
+   * @param entry
+   *    the entry to check
+   * @return boolean
+   *    false if the entry is there are no operations left in the ObjectCacheEntry, true otherwise
+   */
+  private isDirty(entry: ObjectCacheEntry): boolean {
+    return isNotEmpty(entry.operations);
+  }
 }

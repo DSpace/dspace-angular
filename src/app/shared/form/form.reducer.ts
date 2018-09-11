@@ -30,7 +30,6 @@ export interface FormState {
 const initialState: FormState = Object.create(null);
 
 export function formReducer(state = initialState, action: FormAction): FormState {
-  console.log('TEST');
   switch (action.type) {
 
     case FormActionTypes.FORM_INIT: {
