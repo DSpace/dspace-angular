@@ -22,7 +22,6 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 })
 export class CreateCollectionPageComponent {
 
-  public error$: Observable<ErrorResponse>;
   public parentUUID$: Observable<string>;
   public communityRDObs: Observable<RemoteData<Community>>;
 

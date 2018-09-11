@@ -7,9 +7,5 @@
       </ng-container>
     </div>
   </div>
-  <div *ngIf="(error$ | async) as error" class="alert alert-danger">
-    <strong>{{error.statusCode}}</strong>
-    <p class="mb-0">{{error.errorMessage}}</p>
-  </div>
   <ds-community-form (submitted)="onSubmit($event)"></ds-community-form>
 </div>

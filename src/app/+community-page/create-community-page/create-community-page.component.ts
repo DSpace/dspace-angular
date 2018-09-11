@@ -17,7 +17,6 @@ import { take } from 'rxjs/operators';
 })
 export class CreateCommunityPageComponent {
 
-  public error$: Observable<ErrorResponse>;
   public parentUUID$: Observable<string>;
   public communityRDObs: Observable<RemoteData<Community>>;
 
