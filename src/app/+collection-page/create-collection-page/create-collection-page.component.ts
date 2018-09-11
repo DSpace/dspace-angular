@@ -52,7 +52,6 @@ export class CreateCollectionPageComponent {
         })))
       });
       this.collectionDataService.create(collection).subscribe((rd: RemoteData<DSpaceObject>) => {
-        console.log(rd);
         if (rd.hasSucceeded) {
           this.router.navigateByUrl('');
         }

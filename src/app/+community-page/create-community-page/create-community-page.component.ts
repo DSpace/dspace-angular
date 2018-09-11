@@ -46,7 +46,6 @@ export class CreateCommunityPageComponent {
         })))
       });
       this.communityDataService.create(community).pipe(take(1)).subscribe((rd: RemoteData<DSpaceObject>) => {
-        console.log(rd);
         if (rd.hasSucceeded) {
           this.router.navigateByUrl('');
         }
