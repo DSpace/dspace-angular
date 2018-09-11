@@ -19,7 +19,7 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { distinctUntilChanged, map, share, switchMap, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, share, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import {
   configureRequest,
   filterSuccessfulResponses, getRequestFromSelflink, getRequestFromUUID,
@@ -30,9 +30,8 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
 import { DSOSuccessResponse, GenericSuccessResponse } from '../cache/response-cache.models';
 import { AuthService } from '../auth/auth.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { first } from 'rxjs/operator/first';
-import { take } from 'rxjs/operator/take';
+import { Collection } from '../shared/collection.model';
+import { Community } from '../shared/community.model';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -118,32 +117,37 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   }
 
   public create(dso: TDomain): Observable<RemoteData<TDomain>> {
-    const request$ = this.halService.getEndpoint(this.linkPath).pipe(
+    const requestId = this.requestService.generateRequestId();
+    const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       withLatestFrom(this.buildCreateParams(dso)),
-      map(([endpointURL, params]) => {
+      map(([endpointURL, params]) => endpointURL + params)
+    );
+
+    const request$ = endpoint$.pipe(
+      take(1),
+      map((endpoint) => {
         const options: HttpOptions = Object.create({});
         const headers = new HttpHeaders();
         headers.append('Authentication', this.authService.buildAuthHeader());
         options.headers = headers;
-        return new CreateRequest(this.requestService.generateRequestId(), endpointURL + params, options);
+        return new CreateRequest(requestId, endpoint, options);
       }),
-      configureRequest(this.requestService),
-      share()
+      configureRequest(this.requestService)
     );
 
-    const href$ = request$.pipe(map((request: RestRequest) => request.href));
-    const uuid$ = request$.pipe(map((request: RestRequest) => request.uuid));
-    const requestEntry$ = uuid$.pipe(getRequestFromUUID(this.requestService));
-    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
-
-    const payload$ = responseCache$.pipe(
+    const payload$ = request$.pipe(
+      map((request: RestRequest) => request.href),
+      getResponseFromSelflink(this.responseCache),
       filterSuccessfulResponses(),
       map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<TDomain>) => response.payload),
       distinctUntilChanged()
     );
+
+    const requestEntry$ = this.requestService.getByUUID(requestId);
+    const responseCache$ = endpoint$.pipe(getResponseFromSelflink(this.responseCache));
 
     return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-create-community',
@@ -21,7 +22,7 @@ export class CreateCommunityPageComponent {
   public communityRDObs: Observable<RemoteData<Community>>;
 
   public constructor(private communityDataService: CommunityDataService, private routeService: RouteService, private router: Router) {
-    this.parentUUID$ = this.routeService.getQueryParameterValue('parent');
+    this.parentUUID$ = this.routeService.getQueryParameterValue('parent').pipe(take(1));
     this.parentUUID$.subscribe((uuid: string) => {
       if (isNotEmpty(uuid)) {
         this.communityRDObs = this.communityDataService.findById(uuid);
@@ -44,7 +45,7 @@ export class CreateCommunityPageComponent {
           uuid: uuid
         })))
       });
-      this.communityDataService.create(community).subscribe((rd: RemoteData<DSpaceObject>) => {
+      this.communityDataService.create(community).pipe(take(1)).subscribe((rd: RemoteData<DSpaceObject>) => {
         console.log(rd);
         if (rd.hasSucceeded) {
           this.router.navigateByUrl('');
