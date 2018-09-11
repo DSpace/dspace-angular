@@ -9,9 +9,9 @@ WORKDIR /home/user/dspace-angular/
 COPY --chown=user:user environment.prod.js /home/user/dspace-angular/config/
 
 # Install dependencies
-#RUN yarn run global \
-#  && yarn install \
-#  && yarn prestart
+RUN yarn run global \
+  && yarn install \
+  && yarn prestart
 
 # Add Janitor configurations
 COPY --chown=user:user janitor.json /home/user/ 
