@@ -11,6 +11,7 @@ import { DataService } from './data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { AuthService } from '../auth/auth.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> {
@@ -22,7 +23,8 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
     protected halService: HALEndpointService,
-    protected authService: AuthService) {
+    protected authService: AuthService,
+    protected notificationsService: NotificationsService) {
     super();
   }
 
@@ -48,8 +50,9 @@ export class DSpaceObjectDataService {
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService,
-    protected authService: AuthService) {
-    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService, authService);
+    protected authService: AuthService,
+    protected notificationsService: NotificationsService) {
+    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService, authService, notificationsService);
   }
 
   findById(uuid: string): Observable<RemoteData<DSpaceObject>> {

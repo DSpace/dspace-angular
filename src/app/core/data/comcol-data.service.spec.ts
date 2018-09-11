@@ -36,6 +36,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected authService: AuthService,
+    protected notificationsService: NotificationsService,
     protected linkPath: string
   ) {
     super();

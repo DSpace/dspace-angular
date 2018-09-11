@@ -29,7 +29,8 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     protected store: Store<CoreState>,
     private bs: BrowseService,
     protected halService: HALEndpointService,
-    protected authService: AuthService) {
+    protected authService: AuthService,
+    protected notificationsService: NotificationsService) {
     super();
   }
 

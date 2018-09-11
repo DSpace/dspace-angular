@@ -28,10 +28,12 @@ import {
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
-import { DSOSuccessResponse, GenericSuccessResponse } from '../cache/response-cache.models';
+import { DSOSuccessResponse, ErrorResponse, GenericSuccessResponse } from '../cache/response-cache.models';
 import { AuthService } from '../auth/auth.service';
 import { Collection } from '../shared/collection.model';
 import { Community } from '../shared/community.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -41,6 +43,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
   protected abstract authService: AuthService;
+  protected abstract notificationsService: NotificationsService;
 
   public abstract getScopedEndpoint(scope: string): Observable<string>
 
@@ -140,6 +143,13 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     const payload$ = request$.pipe(
       map((request: RestRequest) => request.href),
       getResponseFromSelflink(this.responseCache),
+      map((response: ResponseCacheEntry) => {
+        if (!response.response.isSuccessful && response.response instanceof ErrorResponse) {
+          const errorResponse: ErrorResponse = response.response;
+          this.notificationsService.error('Server Error:', errorResponse.errorMessage, new NotificationOptions(-1));
+        }
+        return response;
+      }),
       filterSuccessfulResponses(),
       map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<TDomain>) => response.payload),

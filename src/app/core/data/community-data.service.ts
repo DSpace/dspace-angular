@@ -16,6 +16,7 @@ import { RemoteData } from './remote-data';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Observable } from 'rxjs/Observable';
 import { PaginatedList } from './paginated-list';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable()
 export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {
@@ -30,7 +31,8 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected authService: AuthService
+    protected authService: AuthService,
+    protected notificationsService: NotificationsService
   ) {
     super();
   }

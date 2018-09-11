@@ -27,7 +27,8 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected authService: AuthService
+    protected authService: AuthService,
+    protected notificationsService: NotificationsService
   ) {
     super();
   }

@@ -9,6 +9,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable } from 'rxjs/Observable';
 import { FindAllOptions } from './request.models';
 import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 const LINK_NAME = 'test'
 
@@ -23,7 +24,8 @@ class TestService extends DataService<NormalizedTestObject, any> {
         protected rdbService: RemoteDataBuildService,
         protected store: Store<CoreState>,
         protected linkPath: string,
-        protected halService: HALEndpointService
+        protected halService: HALEndpointService,
+        protected notificationsService: NotificationsService
     ) {
         super();
     }
@@ -41,6 +43,7 @@ describe('DataService', () => {
     const requestService = {} as RequestService;
     const halService = {} as HALEndpointService;
     const rdbService = {} as RemoteDataBuildService;
+    const notificationsService = {} as NotificationsService;
     const store = {} as Store<CoreState>;
     const endpoint = 'https://rest.api/core';
 
@@ -51,7 +54,8 @@ describe('DataService', () => {
             rdbService,
             store,
             LINK_NAME,
-            halService
+            halService,
+            notificationsService
           );
     }
 
