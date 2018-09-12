@@ -7,7 +7,7 @@ import { RouterReducerState } from '@ngrx/router-store';
 import { Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
 import { Observable } from 'rxjs/Observable';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { Eperson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
@@ -17,11 +17,18 @@ import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
-import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
+import {
+  getAuthenticationToken,
+  getRedirectUrl,
+  isAuthenticated,
+  isTokenRefreshing
+} from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { NormalizedEperson } from '../eperson/models/NormalizedEperson.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -45,7 +52,9 @@ export class AuthService {
               protected authRequestService: AuthRequestService,
               protected router: Router,
               protected storage: CookieService,
-              protected store: Store<AppState>) {
+              protected store: Store<AppState>,
+              protected rdbService: RemoteDataBuildService
+              ) {
     this.store.select(isAuthenticated)
       .startWith(false)
       .subscribe((authenticated: boolean) => this._authenticated = authenticated);
@@ -123,14 +132,19 @@ export class AuthService {
     headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     options.headers = headers;
-    return this.authRequestService.getRequest('status', options)
-      .map((status: AuthStatus) => {
+    return this.authRequestService.getRequest('status', options).pipe(
+      switchMap((status: AuthStatus) => {
+
         if (status.authenticated) {
-          return status.eperson[0];
+
+          // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
+          const person$ = this.rdbService.buildSingle<NormalizedEperson, Eperson>(status.eperson.toString());
+          // person$.subscribe(() => console.log('test'));
+          return person$.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));
         }
-      });
+      }))
   }
 
   /**

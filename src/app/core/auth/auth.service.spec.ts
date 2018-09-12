@@ -22,6 +22,8 @@ import { Eperson } from '../eperson/models/eperson.model';
 import { EpersonMock } from '../../shared/testing/eperson-mock';
 import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../../shared/services/client-cookie.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 
 describe('AuthService test', () => {
 
@@ -44,7 +46,7 @@ describe('AuthService test', () => {
     authToken: token,
     user: EpersonMock
   };
-
+  const rdbService = getMockRemoteDataBuildService();
   describe('', () => {
 
     beforeEach(() => {
@@ -61,6 +63,7 @@ describe('AuthService test', () => {
           {provide: Router, useValue: routerStub},
           {provide: ActivatedRoute, useValue: routeStub},
           {provide: Store, useValue: mockStore},
+          {provide: RemoteDataBuildService, useValue: rdbService},
           CookieService,
           AuthService
         ],
@@ -121,6 +124,7 @@ describe('AuthService test', () => {
           {provide: AuthRequestService, useValue: authRequest},
           {provide: REQUEST, useValue: {}},
           {provide: Router, useValue: routerStub},
+          {provide: RemoteDataBuildService, useValue: rdbService},
           CookieService
         ]
       }).compileComponents();
@@ -132,7 +136,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, authReqService, router, cookieService, store);
+      authService = new AuthService({}, window, authReqService, router, cookieService, store, rdbService);
     }));
 
     it('should return true when user is logged in', () => {
@@ -191,7 +195,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, authReqService, router, cookieService, store);
+      authService = new AuthService({}, window, authReqService, router, cookieService, store, rdbService);
       storage = (authService as any).storage;
       spyOn(storage, 'get');
       spyOn(storage, 'remove');

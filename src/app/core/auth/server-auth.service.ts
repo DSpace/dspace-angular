@@ -1,3 +1,4 @@
+import {first, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -32,14 +33,14 @@ export class ServerAuthService extends AuthService {
     headers = headers.append('X-Forwarded-For', clientIp);
 
     options.headers = headers;
-    return this.authRequestService.getRequest('status', options)
-      .map((status: AuthStatus) => {
+    return this.authRequestService.getRequest('status', options).pipe(
+      map((status: AuthStatus) => {
         if (status.authenticated) {
           return status.eperson[0];
         } else {
           throw(new Error('Not authenticated'));
         }
-      });
+      }));
   }
 
   /**
@@ -53,8 +54,8 @@ export class ServerAuthService extends AuthService {
    * Redirect to the route navigated before the login
    */
   public redirectToPreviousUrl() {
-    this.getRedirectUrl()
-      .first()
+    this.getRedirectUrl().pipe(
+      first())
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
           // override the route reuse strategy

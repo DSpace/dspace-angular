@@ -5,6 +5,7 @@ import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { Eperson } from '../../core/eperson/models/eperson.model';
 import { isNotEmpty } from '../empty.util';
 import { EpersonMock } from './eperson-mock';
+import { RemoteData } from '../../core/data/remote-data';
 
 export class AuthRequestServiceStub {
   protected mockUser: Eperson = EpersonMock;
@@ -26,7 +27,7 @@ export class AuthRequestServiceStub {
       if (this.validateToken(token)) {
         authStatusStub.authenticated = true;
         authStatusStub.token = this.mockTokenInfo;
-        authStatusStub.eperson = [this.mockUser];
+        authStatusStub.eperson = Observable.of(new RemoteData<Eperson>(false, false, true, undefined, this.mockUser));
       } else {
         authStatusStub.authenticated = false;
       }
@@ -45,7 +46,7 @@ export class AuthRequestServiceStub {
         if (this.validateToken(token)) {
           authStatusStub.authenticated = true;
           authStatusStub.token = this.mockTokenInfo;
-          authStatusStub.eperson = [this.mockUser];
+          authStatusStub.eperson = Observable.of(new RemoteData<Eperson>(false, false, true, undefined, this.mockUser));
         } else {
           authStatusStub.authenticated = false;
         }

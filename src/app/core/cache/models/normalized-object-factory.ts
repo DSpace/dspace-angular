@@ -8,6 +8,8 @@ import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from './normalized-object.model';
 import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
+import { NormalizedEperson } from '../../eperson/models/NormalizedEperson.model';
+import { NormalizedGroup } from '../../eperson/models/NormalizedGroup.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
@@ -32,6 +34,12 @@ export class NormalizedObjectFactory {
       }
       case ResourceType.ResourcePolicy: {
         return NormalizedResourcePolicy
+      }
+      case ResourceType.Eperson: {
+        return NormalizedEperson
+      }
+      case ResourceType.Group: {
+        return NormalizedGroup
       }
       default: {
         return undefined;

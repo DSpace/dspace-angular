@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EpersonMock } from './eperson-mock';
 import { Eperson } from '../../core/eperson/models/eperson.model';
+import { RemoteData } from '../../core/data/remote-data';
 
 export class AuthServiceStub {
 
@@ -19,7 +20,7 @@ export class AuthServiceStub {
       authStatus.okay = true;
       authStatus.authenticated = true;
       authStatus.token = this.token;
-      authStatus.eperson = [EpersonMock];
+      authStatus.eperson = Observable.of(new RemoteData<Eperson>(false, false, true, undefined, EpersonMock));
       return Observable.of(authStatus);
     } else {
       console.log('error');

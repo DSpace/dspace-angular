@@ -10,6 +10,7 @@ import { isNotUndefined } from '../empty.util';
 import { getAuthenticatedUser, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
 import { Eperson } from '../../core/eperson/models/eperson.model';
 import { LOGIN_ROUTE, LOGOUT_ROUTE } from '../../core/auth/auth.service';
+import { RemoteData } from '../../core/data/remote-data';
 
 @Component({
   selector: 'ds-auth-nav-menu',

@@ -30,7 +30,6 @@ import { EpersonMock } from '../../shared/testing/eperson-mock';
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;
   let actions: Observable<any>;
-
   const authServiceStub = new AuthServiceStub();
   const store: Store<TruncatablesState> = jasmine.createSpyObj('store', {
     /* tslint:disable:no-empty */
