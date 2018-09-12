@@ -9,7 +9,7 @@ import { CookieAttributes } from 'js-cookie';
 import { Observable } from 'rxjs/Observable';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { Eperson } from '../eperson/models/eperson.model';
+import { EPerson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
 
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -28,7 +28,7 @@ import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedEperson } from '../eperson/models/NormalizedEperson.model';
+import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -107,7 +107,7 @@ export class AuthService {
         if (status.authenticated) {
           return status;
         } else {
-          throw(new Error('Invalid email or password'));
+          Observable.throw(new Error('Invalid email or password'));
         }
       })
 
@@ -125,7 +125,7 @@ export class AuthService {
    * Returns the authenticated user
    * @returns {User}
    */
-  public authenticatedUser(token: AuthTokenInfo): Observable<Eperson> {
+  public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
     // Determine if the user has an existing auth session on the server
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -136,10 +136,8 @@ export class AuthService {
       switchMap((status: AuthStatus) => {
 
         if (status.authenticated) {
-
           // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
-          const person$ = this.rdbService.buildSingle<NormalizedEperson, Eperson>(status.eperson.toString());
-          // person$.subscribe(() => console.log('test'));
+          const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
           return person$.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));
@@ -202,7 +200,7 @@ export class AuthService {
    * Create a new user
    * @returns {User}
    */
-  public create(user: Eperson): Observable<Eperson> {
+  public create(user: EPerson): Observable<EPerson> {
     // Normally you would do an HTTP request to POST the user
     // details and then return the new user object
     // but, let's just return the new user for this example.

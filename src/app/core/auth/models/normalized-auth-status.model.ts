@@ -26,7 +26,7 @@ export class NormalizedAuthStatus extends NormalizedObject {
   @autoserialize
   authenticated: boolean;
 
-  @relationship(ResourceType.Eperson, false)
+  @relationship(ResourceType.EPerson, false)
   @autoserialize
   eperson: string;
 }

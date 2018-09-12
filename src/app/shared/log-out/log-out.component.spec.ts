@@ -5,8 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { authReducer } from '../../core/auth/auth.reducer';
-import { EpersonMock } from '../testing/eperson-mock';
-import { Eperson } from '../../core/eperson/models/eperson.model';
+import { EPersonMock } from '../testing/eperson-mock';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AppState } from '../../app.reducer';
@@ -18,7 +18,7 @@ describe('LogOutComponent', () => {
   let component: LogOutComponent;
   let fixture: ComponentFixture<LogOutComponent>;
   let page: Page;
-  let user: Eperson;
+  let user: EPerson;
 
   const authState = {
     authenticated: false,
@@ -28,7 +28,7 @@ describe('LogOutComponent', () => {
   const routerStub = new RouterStub();
 
   beforeEach(() => {
-    user = EpersonMock;
+    user = EPersonMock;
   });
 
   beforeEach(async(() => {

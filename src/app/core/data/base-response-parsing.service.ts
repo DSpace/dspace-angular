@@ -7,6 +7,8 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { ResourceType } from '../shared/resource-type';
+import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 
 function isObjectLevel(halObj: any) {
   return isNotEmpty(halObj._links) && hasValue(halObj._links.self);
@@ -34,6 +36,7 @@ export abstract class BaseResponseParsingService {
       } else if (Array.isArray(data)) {
         return this.processArray(data, requestHref);
       } else if (isObjectLevel(data)) {
+        data = this.fixBadEPersonRestResponse(data);
         const object = this.deserialize(data);
         if (isNotEmpty(data._embedded)) {
           Object
@@ -53,6 +56,7 @@ export abstract class BaseResponseParsingService {
               }
             });
         }
+
         this.cache(object, requestHref);
         return object;
       }
@@ -144,5 +148,23 @@ export abstract class BaseResponseParsingService {
       throw new Error(`Expected an object with a single key, got: ${JSON.stringify(obj)}`);
     }
     return obj[keys[0]];
+  }
+
+  /* TODO remove when REST response for epersons is fixed */
+  private fixBadEPersonRestResponse(obj: any): any {
+    if (obj.type === ResourceType.EPerson) {
+      const groups = obj.groups;
+      const normGroups = [];
+      if (isNotEmpty(groups)) {
+        groups.forEach((group) => {
+            const parts = ['eperson', 'groups', group.uuid];
+            const href = new RESTURLCombiner(this.EnvConfig, ...parts).toString();
+            normGroups.push(href);
+          }
+        )
+      }
+      return Object.assign({}, obj, { groups: normGroups });
+    }
+    return obj;
   }
 }

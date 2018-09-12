@@ -1,6 +1,6 @@
-import { Eperson } from '../../core/eperson/models/eperson.model';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 
-export const EpersonMock: Eperson = Object.assign(new Eperson(),{
+export const EPersonMock: EPerson = Object.assign(new EPerson(),{
   handle: null,
   groups: [],
   netid: 'test@test.com',

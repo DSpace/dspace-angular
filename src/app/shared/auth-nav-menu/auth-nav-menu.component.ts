@@ -8,7 +8,7 @@ import { HostWindowService } from '../host-window.service';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { isNotUndefined } from '../empty.util';
 import { getAuthenticatedUser, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
-import { Eperson } from '../../core/eperson/models/eperson.model';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import { LOGIN_ROUTE, LOGOUT_ROUTE } from '../../core/auth/auth.service';
 import { RemoteData } from '../../core/data/remote-data';
 
@@ -35,7 +35,7 @@ export class AuthNavMenuComponent implements OnInit {
 
   public showAuth = Observable.of(false);
 
-  public user: Observable<Eperson>;
+  public user: Observable<EPerson>;
 
   constructor(private store: Store<AppState>,
               private windowService: HostWindowService) {

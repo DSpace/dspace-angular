@@ -25,7 +25,7 @@ import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
 import { AuthService } from './auth.service';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
 
-import { EpersonMock } from '../../shared/testing/eperson-mock';
+import { EPersonMock } from '../../shared/testing/eperson-mock';
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;
@@ -104,7 +104,7 @@ describe('AuthEffects', () => {
       it('should return a AUTHENTICATED_SUCCESS action in response to a AUTHENTICATED action', () => {
         actions = hot('--a-', {a: {type: AuthActionTypes.AUTHENTICATED, payload: token}});
 
-        const expected = cold('--b-', {b: new AuthenticatedSuccessAction(true, token, EpersonMock)});
+        const expected = cold('--b-', {b: new AuthenticatedSuccessAction(true, token, EPersonMock)});
 
         expect(authEffects.authenticated$).toBeObservable(expected);
       });

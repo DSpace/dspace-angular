@@ -18,8 +18,8 @@ import { AuthRequestServiceStub } from '../../shared/testing/auth-request-servic
 import { AuthRequestService } from './auth-request.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { Eperson } from '../eperson/models/eperson.model';
-import { EpersonMock } from '../../shared/testing/eperson-mock';
+import { EPerson } from '../eperson/models/eperson.model';
+import { EPersonMock } from '../../shared/testing/eperson-mock';
 import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../../shared/services/client-cookie.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -44,7 +44,7 @@ describe('AuthService test', () => {
     loaded: true,
     loading: false,
     authToken: token,
-    user: EpersonMock
+    user: EPersonMock
   };
   const rdbService = getMockRemoteDataBuildService();
   describe('', () => {
@@ -82,7 +82,7 @@ describe('AuthService test', () => {
     });
 
     it('should return the authenticated user object when user token is valid', () => {
-      authService.authenticatedUser(new AuthTokenInfo('test_token')).subscribe((user: Eperson) => {
+      authService.authenticatedUser(new AuthTokenInfo('test_token')).subscribe((user: EPerson) => {
         expect(user).toBeDefined();
       });
     });
@@ -188,7 +188,7 @@ describe('AuthService test', () => {
         loaded: true,
         loading: false,
         authToken: expiredToken,
-        user: EpersonMock
+        user: EPersonMock
       };
       store
         .subscribe((state) => {

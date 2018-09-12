@@ -2,13 +2,13 @@ import { Observable } from 'rxjs/Observable';
 import { HttpOptions } from '../../core/dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { Eperson } from '../../core/eperson/models/eperson.model';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import { isNotEmpty } from '../empty.util';
-import { EpersonMock } from './eperson-mock';
+import { EPersonMock } from './eperson-mock';
 import { RemoteData } from '../../core/data/remote-data';
 
 export class AuthRequestServiceStub {
-  protected mockUser: Eperson = EpersonMock;
+  protected mockUser: EPerson = EPersonMock;
   protected mockTokenInfo = new AuthTokenInfo('test_token');
 
   public postToEndpoint(method: string, body: any, options?: HttpOptions): Observable<any> {
@@ -27,7 +27,7 @@ export class AuthRequestServiceStub {
       if (this.validateToken(token)) {
         authStatusStub.authenticated = true;
         authStatusStub.token = this.mockTokenInfo;
-        authStatusStub.eperson = Observable.of(new RemoteData<Eperson>(false, false, true, undefined, this.mockUser));
+        authStatusStub.eperson = Observable.of(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
       } else {
         authStatusStub.authenticated = false;
       }
@@ -46,7 +46,7 @@ export class AuthRequestServiceStub {
         if (this.validateToken(token)) {
           authStatusStub.authenticated = true;
           authStatusStub.token = this.mockTokenInfo;
-          authStatusStub.eperson = Observable.of(new RemoteData<Eperson>(false, false, true, undefined, this.mockUser));
+          authStatusStub.eperson = Observable.of(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
         } else {
           authStatusStub.authenticated = false;
         }

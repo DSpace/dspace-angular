@@ -2,13 +2,13 @@ import { autoserialize, inheritSerialization } from 'cerialize';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
-import { Eperson } from './eperson.model';
+import { EPerson } from './eperson.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 
-@mapsTo(Eperson)
+@mapsTo(EPerson)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedEperson extends NormalizedDSpaceObject implements CacheableObject, ListableObject {
+export class NormalizedEPerson extends NormalizedDSpaceObject implements CacheableObject, ListableObject {
 
   @autoserialize
   public handle: string;
