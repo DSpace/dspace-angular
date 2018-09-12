@@ -66,20 +66,4 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
     }
   }
 
-  public buildFormData(comcol, parentUUID): FormData {
-    const form: FormData = new FormData();
-    form.append('name', comcol.name);
-    if (isNotEmpty(parentUUID)) {
-      form.append('parent', parentUUID);
-    }
-    if (comcol.metadata) {
-      for (const i of Object.keys(comcol.metadata)) {
-        if (isNotEmpty(comcol.metadata[i].value)) {
-          form.append(comcol.metadata[i].key, comcol.metadata[i].value);
-        }
-      }
-    }
-    return form;
-  }
-
 }

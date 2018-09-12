@@ -37,10 +37,6 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
   getFindByIDHref(endpoint, resourceID): string {
     return endpoint.replace(/\{\?uuid\}/,`?uuid=${resourceID}`);
   }
-
-  buildFormData(dso: DSpaceObject, parentUUID: string): FormData {
-    return undefined;
-  }
 }
 
 @Injectable()

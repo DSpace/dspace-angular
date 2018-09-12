@@ -47,9 +47,4 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     }
   }
 
-  buildFormData(dso: Item, parentUUID: string): FormData {
-    // TODO: build FormData for creating an Item
-    return undefined;
-  }
-
 }

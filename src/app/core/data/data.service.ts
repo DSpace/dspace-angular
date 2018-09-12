@@ -121,12 +121,13 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
-      distinctUntilChanged()
+      distinctUntilChanged(),
+      map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
     );
 
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint: string) => new CreateRequest(requestId, endpoint, this.buildFormData(dso, parentUUID))),
+      map((endpoint: string) => new CreateRequest(requestId, endpoint, dso)),
       configureRequest(this.requestService)
     );
 
@@ -152,7 +153,5 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
 
     return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
-
-  public abstract buildFormData(dso: TDomain, parentUUID: string): FormData;
 
 }
