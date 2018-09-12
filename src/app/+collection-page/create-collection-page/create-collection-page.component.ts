@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { DSOSuccessResponse, ErrorResponse } from '../../core/cache/response-cache.models';
 import { Observable } from 'rxjs/Observable';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -36,7 +36,7 @@ export class CreateCollectionPageComponent {
   }
 
   onSubmit(data: any) {
-    this.parentUUID$.subscribe((uuid: string) => {
+    this.parentUUID$.pipe(take(1)).subscribe((uuid: string) => {
       const collection = Object.assign(new Collection(), {
         name: data.name,
         metadata: [
@@ -45,20 +45,13 @@ export class CreateCollectionPageComponent {
           { key: 'dc.rights', value: data.copyright },
           { key: 'dc.rights.license', value: data.license }
           // TODO: metadata for news and provenance
-        ],
-        owner: Observable.of(new RemoteData(false, false, true, null, Object.assign(new Community(), {
-          id: uuid,
-          uuid: uuid
-        })))
+        ]
       });
-      this.collectionDataService.create(collection).subscribe((rd: RemoteData<DSpaceObject>) => {
+      this.collectionDataService.create(collection, uuid).pipe(take(1)).subscribe((rd: RemoteData<DSpaceObject>) => {
         if (rd.hasSucceeded) {
           this.router.navigateByUrl('');
         }
       });
-      // this.collectionDataService.createSimple(collection).subscribe((httpEvent: HttpEvent<{}>) => {
-      //   console.log(httpEvent);
-      // });
     });
   }
 

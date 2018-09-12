@@ -30,7 +30,7 @@ export class CreateCommunityPageComponent {
   }
 
   onSubmit(data: any) {
-    this.parentUUID$.subscribe((uuid: string) => {
+    this.parentUUID$.pipe(take(1)).subscribe((uuid: string) => {
       const community = Object.assign(new Community(), {
         name: data.name,
         metadata: [
@@ -38,13 +38,9 @@ export class CreateCommunityPageComponent {
           { key: 'dc.description.abstract', value: data.description },
           { key: 'dc.rights', value: data.copyright }
           // TODO: metadata for news
-        ],
-        owner: Observable.of(new RemoteData(false, false, true, null, Object.assign(new Community(), {
-          id: uuid,
-          uuid: uuid
-        })))
+        ]
       });
-      this.communityDataService.create(community).pipe(take(1)).subscribe((rd: RemoteData<DSpaceObject>) => {
+      this.communityDataService.create(community, uuid).pipe(take(1)).subscribe((rd: RemoteData<DSpaceObject>) => {
         if (rd.hasSucceeded) {
           this.router.navigateByUrl('');
         }

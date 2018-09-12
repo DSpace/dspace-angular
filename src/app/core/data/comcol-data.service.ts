@@ -66,25 +66,20 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
     }
   }
 
-  public buildCreateBody(comcol): Observable<any> {
-    return comcol.owner.pipe(
-      map((rd: RemoteData<Community | Collection>) => {
-        const form: any = {
-          name: comcol.name
-        };
-        if (rd.payload.id) {
-          form.parent = rd.payload.id;
+  public buildFormData(comcol, parentUUID): FormData {
+    const form: FormData = new FormData();
+    form.append('name', comcol.name);
+    if (isNotEmpty(parentUUID)) {
+      form.append('parent', parentUUID);
+    }
+    if (comcol.metadata) {
+      for (const i of Object.keys(comcol.metadata)) {
+        if (isNotEmpty(comcol.metadata[i].value)) {
+          form.append(comcol.metadata[i].key, comcol.metadata[i].value);
         }
-        if (comcol.metadata) {
-          for (const i of Object.keys(comcol.metadata)) {
-            if (isNotEmpty(comcol.metadata[i].value)) {
-              form[comcol.metadata[i].key] = comcol.metadata[i].value;
-            }
-          }
-        }
-        return form;
-      })
-    );
+      }
+    }
+    return form;
   }
 
 }

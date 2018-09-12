@@ -38,7 +38,7 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     return endpoint.replace(/\{\?uuid\}/,`?uuid=${resourceID}`);
   }
 
-  buildCreateBody(dso: DSpaceObject): Observable<FormData> {
+  buildFormData(dso: DSpaceObject, parentUUID: string): FormData {
     return undefined;
   }
 }

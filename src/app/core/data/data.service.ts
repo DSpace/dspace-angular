@@ -117,7 +117,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
-  public create(dso: TDomain): Observable<RemoteData<TDomain>> {
+  public create(dso: TDomain, parentUUID: string): Observable<RemoteData<TDomain>> {
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
@@ -126,8 +126,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
 
     const request$ = endpoint$.pipe(
       take(1),
-      withLatestFrom(this.buildCreateBody(dso)),
-      map(([endpoint, formdata]) => new CreateRequest(requestId, endpoint, this.buildFormData(formdata))),
+      map((endpoint: string) => new CreateRequest(requestId, endpoint, this.buildFormData(dso, parentUUID))),
       configureRequest(this.requestService)
     );
 
@@ -154,31 +153,6 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
-  public createSimple(dso: TDomain): Observable<HttpEvent<{}>> {
-    const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
-      isNotEmptyOperator(),
-      distinctUntilChanged()
-    );
-
-    return endpoint$.pipe(
-      withLatestFrom(this.buildCreateBody(dso)),
-      switchMap(([endpoint, form]) => {
-        const req = new HttpRequest('POST', endpoint, this.buildFormData(form));
-        return this.http.request(req);
-      })
-    );
-  }
-
-  public abstract buildCreateBody(dso: TDomain): Observable<any>;
-
-  protected buildFormData(form: any): FormData {
-    const formdata = new FormData();
-    for (const param in form) {
-      if (form.hasOwnProperty(param)) {
-        formdata.append(param, form[param]);
-      }
-    }
-    return formdata;
-  }
+  public abstract buildFormData(dso: TDomain, parentUUID: string): FormData;
 
 }
