@@ -61,7 +61,7 @@ export class DSpaceRESTv2Service {
   request(method: RestRequestMethod, url: string, body?: any, options?: HttpOptions): Observable<DSpaceRESTV2Response> {
     const requestOptions: HttpOptions = {};
     requestOptions.body = body;
-    if (method === RestRequestMethod.Post && isNotEmpty(body)) {
+    if (method === RestRequestMethod.Post && isNotEmpty(body.name)) {
       requestOptions.body = this.buildFormData(body);
     }
     requestOptions.observe = 'response';

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { DSOSuccessResponse, ErrorResponse } from '../../core/cache/response-cache.models';
 import { Observable } from 'rxjs/Observable';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
-import { map, take } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -26,7 +26,12 @@ export class CreateCollectionPageComponent {
   public parentUUID$: Observable<string>;
   public communityRDObs: Observable<RemoteData<Community>>;
 
-  public constructor(private collectionDataService: CollectionDataService, private communityDataService: CommunityDataService, private routeService: RouteService, private router: Router) {
+  public constructor(
+    private collectionDataService: CollectionDataService,
+    private communityDataService: CommunityDataService,
+    private routeService: RouteService,
+    private router: Router
+  ) {
     this.parentUUID$ = this.routeService.getQueryParameterValue('parent');
     this.parentUUID$.subscribe((uuid: string) => {
       if (isNotEmpty(uuid)) {
@@ -47,10 +52,9 @@ export class CreateCollectionPageComponent {
           // TODO: metadata for news and provenance
         ]
       });
-      this.collectionDataService.create(collection, uuid).pipe(take(1)).subscribe((rd: RemoteData<DSpaceObject>) => {
-        if (rd.hasSucceeded) {
-          this.router.navigateByUrl('');
-        }
+      this.collectionDataService.create(collection, uuid).subscribe((rd: RemoteData<DSpaceObject>) => {
+        const url: string = '/collections/' + rd.payload.id;
+        this.router.navigateByUrl(url);
       });
     });
   }
