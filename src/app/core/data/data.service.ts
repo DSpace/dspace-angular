@@ -18,11 +18,11 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { distinctUntilChanged, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import {
   configureRequest,
   filterSuccessfulResponses,
-  getResponseFromSelflink
+  getResponseFromSelflink, getSucceededRemoteData
 } from '../shared/operators';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -31,6 +31,7 @@ import { ErrorResponse, GenericSuccessResponse } from '../cache/response-cache.m
 import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -132,7 +133,6 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     );
 
     const payload$ = request$.pipe(
-      take(1),
       map((request: RestRequest) => request.href),
       getResponseFromSelflink(this.responseCache),
       map((response: ResponseCacheEntry) => {
@@ -151,7 +151,9 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     const requestEntry$ = this.requestService.getByUUID(requestId);
     const responseCache$ = endpoint$.pipe(getResponseFromSelflink(this.responseCache));
 
-    return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$).pipe(
+      getSucceededRemoteData()
+    );
   }
 
 }

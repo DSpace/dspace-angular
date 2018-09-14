@@ -17,6 +17,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Community } from '../shared/community.model';
 import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
 
 const LINK_NAME = 'test';
 
@@ -37,6 +38,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected halService: HALEndpointService,
     protected authService: AuthService,
     protected notificationsService: NotificationsService,
+    protected http: HttpClient,
     protected linkPath: string
   ) {
     super();
@@ -57,6 +59,8 @@ describe('ComColDataService', () => {
   const rdbService = {} as RemoteDataBuildService;
   const store = {} as Store<CoreState>;
   const EnvConfig = {} as GlobalConfig;
+  const notificationsService = {} as NotificationsService;
+  const http = {} as HttpClient;
 
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const communitiesEndpoint = 'https://rest.api/core/communities';
@@ -115,6 +119,8 @@ describe('ComColDataService', () => {
       objectCache,
       halService,
       authService,
+      notificationsService,
+      http,
       LINK_NAME
     );
   }
@@ -175,69 +181,6 @@ describe('ComColDataService', () => {
       });
     });
 
-  });
-
-  describe('create', () => {
-    let community: Community;
-    const name = 'test community';
-
-    beforeEach(() => {
-      community = Object.assign(new Community(), {
-        name: name
-      });
-      spyOn(service, 'buildCreateParams');
-    });
-
-    describe('when creating a top-level community', () => {
-      it('should build params without parent UUID', () => {
-        scheduler.schedule(() => service.create(community).subscribe());
-        scheduler.flush();
-        expect(service.buildCreateParams).toHaveBeenCalledWith(community);
-      });
-    });
-
-    describe('when creating a community part of another community', () => {
-      let parentCommunity: Community;
-      const parentName = 'test parent community';
-      const parentUUID = 'a20da287-e174-466a-9926-f66b9300d347';
-
-      beforeEach(() => {
-        parentCommunity = Object.assign(new Community(), {
-          id: parentUUID,
-          uuid: parentUUID,
-          name: parentName
-        });
-      });
-
-      it('should build params with parent UUID', () => {
-        scheduler.schedule(() => service.create(community, parentUUID).subscribe());
-        scheduler.flush();
-        expect(service.buildCreateParams).toHaveBeenCalledWith(community, parentUUID);
-      });
-    });
-  });
-
-  describe('buildCreateParams', () => {
-    let community: Community;
-    const name = 'test community';
-    let parentCommunity: Community;
-    const parentName = 'test parent community';
-    const parentUUID = 'a20da287-e174-466a-9926-f66b9300d347';
-
-    beforeEach(() => {
-      community = Object.assign(new Community(), {
-        name: name
-      });
-      parentCommunity = Object.assign(new Community(), {
-        id: parentUUID,
-        uuid: parentUUID,
-        name: parentName
-      });
-    });
-
-    it('should return the correct url parameters', () => {
-      expect(service.buildCreateParams(community, parentUUID)).toEqual('?name=' + name + '&parent=' + parentUUID);
-    });
   });
 
 });

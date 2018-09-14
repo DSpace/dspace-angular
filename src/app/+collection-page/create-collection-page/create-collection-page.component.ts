@@ -10,11 +10,14 @@ import { Router } from '@angular/router';
 import { DSOSuccessResponse, ErrorResponse } from '../../core/cache/response-cache.models';
 import { Observable } from 'rxjs/Observable';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
-import { first, map, take } from 'rxjs/operators';
+import { first, flatMap, map, take } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { HttpEvent } from '@angular/common/http';
+import { getSucceededRemoteData } from '../../core/shared/operators';
+import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 
 @Component({
   selector: 'ds-create-collection',
@@ -30,7 +33,8 @@ export class CreateCollectionPageComponent {
     private collectionDataService: CollectionDataService,
     private communityDataService: CommunityDataService,
     private routeService: RouteService,
-    private router: Router
+    private router: Router,
+    private objectCache: ObjectCacheService
   ) {
     this.parentUUID$ = this.routeService.getQueryParameterValue('parent');
     this.parentUUID$.subscribe((uuid: string) => {
@@ -52,9 +56,11 @@ export class CreateCollectionPageComponent {
           // TODO: metadata for news and provenance
         ]
       });
-      this.collectionDataService.create(collection, uuid).subscribe((rd: RemoteData<DSpaceObject>) => {
-        const url: string = '/collections/' + rd.payload.id;
-        this.router.navigateByUrl(url);
+      this.collectionDataService.create(collection, uuid).pipe(
+        flatMap((rd: RemoteData<Collection>) => this.objectCache.getByUUID(rd.payload.id)),
+        isNotEmptyOperator()
+      ).subscribe((col: NormalizedCollection) => {
+        this.router.navigate(['collections', col.id]);
       });
     });
   }

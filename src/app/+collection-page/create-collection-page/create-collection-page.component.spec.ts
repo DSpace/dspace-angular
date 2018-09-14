@@ -31,10 +31,13 @@ describe('CreateCollectionPageComponent', () => {
     name: 'test community'
   });
 
+  const collection = Object.assign(new Collection(), {
+    uuid: 'ce41d451-97ed-4a9c-94a1-7de34f16a9f4',
+    name: 'new collection'
+  });
+
   const collectionDataServiceStub = {
-    create: (com, uuid?) => Observable.of({
-      response: new DSOSuccessResponse(null,'200',null)
-    })
+    create: (col, uuid?) => Observable.of(new RemoteData(false, false, true, undefined, collection))
   };
   const communityDataServiceStub = {
     findById: (uuid) => Observable.of(new RemoteData(false, false, true, null, Object.assign(new Community(), {
@@ -46,7 +49,7 @@ describe('CreateCollectionPageComponent', () => {
     getQueryParameterValue: (param) => Observable.of(community.uuid)
   };
   const routerStub = {
-    navigateByUrl: (url) => url
+    navigate: (commands) => commands
   };
 
   beforeEach(async(() => {
@@ -78,22 +81,18 @@ describe('CreateCollectionPageComponent', () => {
     };
 
     it('should navigate when successful', () => {
-      spyOn(router, 'navigateByUrl');
+      spyOn(router, 'navigate');
       comp.onSubmit(data);
       fixture.detectChanges();
-      expect(router.navigateByUrl).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalled();
     });
 
     it('should not navigate on failure', () => {
-      spyOn(router, 'navigateByUrl');
-      spyOn(collectionDataService, 'create').and.returnValue(Observable.of({
-        response: Object.assign(new ErrorResponse(new RequestError()), {
-          isSuccessful: false
-        })
-      }));
+      spyOn(router, 'navigate');
+      spyOn(collectionDataService, 'create').and.returnValue(Observable.of(new RemoteData(true, true, false, undefined, collection)));
       comp.onSubmit(data);
       fixture.detectChanges();
-      expect(router.navigateByUrl).not.toHaveBeenCalled();
+      expect(router.navigate).not.toHaveBeenCalled();
     });
   });
 });

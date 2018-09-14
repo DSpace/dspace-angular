@@ -20,8 +20,12 @@ export class CreateCommunityPageComponent {
   public parentUUID$: Observable<string>;
   public communityRDObs: Observable<RemoteData<Community>>;
 
-  public constructor(private communityDataService: CommunityDataService, private routeService: RouteService, private router: Router) {
-    this.parentUUID$ = this.routeService.getQueryParameterValue('parent').pipe(take(1));
+  public constructor(
+    private communityDataService: CommunityDataService,
+    private routeService: RouteService,
+    private router: Router
+  ) {
+    this.parentUUID$ = this.routeService.getQueryParameterValue('parent');
     this.parentUUID$.subscribe((uuid: string) => {
       if (isNotEmpty(uuid)) {
         this.communityRDObs = this.communityDataService.findById(uuid);
@@ -42,7 +46,11 @@ export class CreateCommunityPageComponent {
       });
       this.communityDataService.create(community, uuid).pipe(take(1)).subscribe((rd: RemoteData<DSpaceObject>) => {
         if (rd.hasSucceeded) {
-          this.router.navigateByUrl('');
+          if (uuid) {
+            this.router.navigate(['communities', uuid]);
+          } else {
+            this.router.navigate([]);
+          }
         }
       });
     });

@@ -27,20 +27,23 @@ describe('CreateCommunityPageComponent', () => {
     name: 'test community'
   });
 
+  const newCommunity = Object.assign(new Community(), {
+    uuid: '1ff59938-a69a-4e62-b9a4-718569c55d48',
+    name: 'new community'
+  });
+
   const communityDataServiceStub = {
     findById: (uuid) => Observable.of(new RemoteData(false, false, true, null, Object.assign(new Community(), {
       uuid: uuid,
       name: community.name
     }))),
-    create: (com, uuid?) => Observable.of({
-      response: new DSOSuccessResponse(null,'200',null)
-    })
+    create: (com, uuid?) => Observable.of(new RemoteData(false, false, true, undefined, newCommunity))
   };
   const routeServiceStub = {
     getQueryParameterValue: (param) => Observable.of(community.uuid)
   };
   const routerStub = {
-    navigateByUrl: (url) => url
+    navigate: (commands) => commands
   };
 
   beforeEach(async(() => {
@@ -70,22 +73,18 @@ describe('CreateCommunityPageComponent', () => {
     };
 
     it('should navigate when successful', () => {
-      spyOn(router, 'navigateByUrl');
+      spyOn(router, 'navigate');
       comp.onSubmit(data);
       fixture.detectChanges();
-      expect(router.navigateByUrl).toHaveBeenCalled();
+      expect(router.navigate).toHaveBeenCalled();
     });
 
     it('should not navigate on failure', () => {
-      spyOn(router, 'navigateByUrl');
-      spyOn(communityDataService, 'create').and.returnValue(Observable.of({
-        response: Object.assign(new ErrorResponse(new RequestError()), {
-          isSuccessful: false
-        })
-      }));
+      spyOn(router, 'navigate');
+      spyOn(communityDataService, 'create').and.returnValue(Observable.of(new RemoteData(true, true, false, undefined, newCommunity)));
       comp.onSubmit(data);
       fixture.detectChanges();
-      expect(router.navigateByUrl).not.toHaveBeenCalled();
+      expect(router.navigate).not.toHaveBeenCalled();
     });
   });
 });

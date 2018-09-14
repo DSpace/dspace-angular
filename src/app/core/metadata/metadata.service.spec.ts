@@ -34,6 +34,10 @@ import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { AuthService } from '../auth/auth.service';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -69,6 +73,7 @@ describe('MetadataService', () => {
   let uuidService: UUIDService;
   let remoteDataBuildService: RemoteDataBuildService;
   let itemDataService: ItemDataService;
+  let authService: AuthService;
 
   let location: Location;
   let router: Router;
@@ -115,6 +120,9 @@ describe('MetadataService', () => {
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: HALEndpointService, useValue: {}},
+        { provide: AuthService, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: HttpClient, useValue: {} },
         Meta,
         Title,
         ItemDataService,
@@ -127,6 +135,7 @@ describe('MetadataService', () => {
     title = TestBed.get(Title);
     itemDataService = TestBed.get(ItemDataService);
     metadataService = TestBed.get(MetadataService);
+    authService = TestBed.get(AuthService);
 
     envConfig = TestBed.get(GLOBAL_CONFIG);
 

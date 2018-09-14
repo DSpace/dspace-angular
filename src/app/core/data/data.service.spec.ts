@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { FindAllOptions } from './request.models';
 import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
 
 const LINK_NAME = 'test'
 
@@ -25,7 +26,8 @@ class TestService extends DataService<NormalizedTestObject, any> {
         protected store: Store<CoreState>,
         protected linkPath: string,
         protected halService: HALEndpointService,
-        protected notificationsService: NotificationsService
+        protected notificationsService: NotificationsService,
+        protected http: HttpClient
     ) {
         super();
     }
@@ -44,6 +46,7 @@ describe('DataService', () => {
     const halService = {} as HALEndpointService;
     const rdbService = {} as RemoteDataBuildService;
     const notificationsService = {} as NotificationsService;
+    const http = {} as HttpClient;
     const store = {} as Store<CoreState>;
     const endpoint = 'https://rest.api/core';
 
@@ -55,7 +58,8 @@ describe('DataService', () => {
             store,
             LINK_NAME,
             halService,
-            notificationsService
+            notificationsService,
+            http
           );
     }
 
