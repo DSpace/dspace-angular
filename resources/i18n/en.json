@@ -151,6 +151,9 @@
       }
     }
   },
+  "browse": {
+    "title": "Browsing {{ collection }} by {{ field }} {{ value }}"
+  },
   "admin": {
     "registries": {
       "metadata": {
@@ -209,7 +212,8 @@
     "recent-submissions": "Loading recent submissions...",
     "item": "Loading item...",
     "objects": "Loading...",
-    "search-results": "Loading search results..."
+    "search-results": "Loading search results...",
+    "browse-by": "Loading items..."
   },
   "error": {
     "default": "Error",
@@ -221,6 +225,7 @@
     "item": "Error fetching item",
     "objects": "Error fetching objects",
     "search-results": "Error fetching search results",
+    "browse-by": "Error fetching items",
     "validation": {
       "pattern": "This input is restricted by the current pattern: {{ pattern }}.",
       "license": {

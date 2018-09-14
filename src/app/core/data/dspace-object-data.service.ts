@@ -10,6 +10,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
+import { FindAllOptions } from './request.models';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> {
@@ -24,8 +25,8 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     super();
   }
 
-  getScopedEndpoint(scope: string): Observable<string> {
-    return undefined;
+  getBrowseEndpoint(options: FindAllOptions): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath);
   }
 
   getFindByIDHref(endpoint, resourceID): string {
