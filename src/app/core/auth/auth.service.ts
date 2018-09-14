@@ -140,7 +140,7 @@ export class AuthService {
           const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
           return person$.pipe(map((eperson) => eperson.payload));
         } else {
-          throw(new Error('Not authenticated'));
+          Observable.throw(new Error('Not authenticated'));
         }
       }))
   }
