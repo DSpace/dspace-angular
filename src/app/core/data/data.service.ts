@@ -12,6 +12,7 @@ import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './r
 import { RequestService } from './request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { SearchParam } from '../cache/models/search-param.model';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -58,10 +59,16 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     let result: Observable<string>;
     const args = [];
 
+    result = Observable.of(`${endpoint}/search/${searchByLink}`);
+
+    if (hasValue(options.searchParams)) {
+      options.searchParams.forEach((param: SearchParam) => {
+        args.push(`${param.fieldName}=${param.fieldValue}`);
+      })
+    }
+
     if (hasValue(options.scopeID)) {
-      result = Observable.of(`${endpoint}/${searchByLink}?uuid=${options.scopeID}`);
-    } else {
-      result = Observable.of(endpoint);
+      args.push(`uuid=${options.scopeID}`);
     }
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
@@ -123,38 +130,17 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
-  // TODO remove when search will be completed
-  public searchBySubmitter(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
-    return this.searchBy('submitter', options);
-  }
-
-  // TODO remove when search will be completed
-  searchByUser(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
-    return this.searchBy('user', options);
-  }
-
-  // TODO remove when search will be completed
-  protected searchBy(searchBy: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
-    let url = null;
-    switch (searchBy) {
-      case 'user': {
-        url = 'search/findByUser';
-        break;
-      }
-      case 'submitter': {
-        url = 'search/findBySubmitter';
-        break;
-      }
-    }
+  protected searchBy(searchMethod: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).filter((href: string) => isNotEmpty(href))
-      .flatMap((endpoint: string) => this.getSearchByHref(endpoint, url, options));
+      .flatMap((endpoint: string) => this.getSearchByHref(endpoint, searchMethod, options));
     hrefObs
       .filter((href: string) => hasValue(href))
       .take(1)
       .subscribe((href: string) => {
+        console.log(href);
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request, this.forceBypassCache);
+        this.requestService.configure(request, true);
       });
 
     return this.rdbService.buildList<TNormalized, TDomain>(hrefObs) as Observable<RemoteData<PaginatedList<TDomain>>>;

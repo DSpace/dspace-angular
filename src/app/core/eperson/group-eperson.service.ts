@@ -1,55 +1,49 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+import { filter, map, take } from 'rxjs/operators';
+
 import { EpersonService } from './eperson.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
-import { isNotEmpty } from '../../shared/empty.util';
-import { EpersonRequest, GetRequest } from '../data/request.models';
-import { EpersonData } from './eperson-data';
-import { EpersonSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
-import { Observable } from 'rxjs/Observable';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { FindAllOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { BrowseService } from '../browse/browse.service';
+import { NormalizedGroupModel } from './models/NormalizedGroup.model';
+import { Group } from './models/group.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../core.reducers';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { SearchParam } from '../cache/models/search-param.model';
+import { RemoteData } from '../data/remote-data';
+import { PaginatedList } from '../data/paginated-list';
 
 @Injectable()
-export class GroupEpersonService extends EpersonService {
+export class GroupEpersonService extends EpersonService<NormalizedGroupModel, Group> {
   protected linkPath = 'groups';
   protected browseEndpoint = '';
+  protected forceBypassCache = false;
 
   constructor(
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
-    protected bs: BrowseService,
-    protected halService: HALEndpointService) {
+    protected rdbService: RemoteDataBuildService,
+    protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService
+  ) {
     super();
   }
 
-  protected getSearchHref(endpoint, groupName): string {
-    return `${endpoint}/search/isMemberOf?groupName=${groupName}`;
-  }
+  isMemberOf(groupName: string): Observable<boolean> {
+    const searchHref = 'isMemberOf';
+    const options = new FindAllOptions();
+    options.searchParams = [new SearchParam('groupName', groupName)];
 
-  isMemberOf(groupName: string) {
-    return this.halService.getEndpoint(this.linkPath)
-      .map((endpoint: string) => this.getSearchHref(endpoint, groupName))
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new EpersonRequest(this.requestService.generateRequestId(), endpointURL))
-      .do((request: GetRequest) => this.requestService.configure(request))
-      .flatMap((request: GetRequest) => this.getSearch(request))
-      .distinctUntilChanged();
-  }
-
-  protected getSearch(request: GetRequest): Observable<EpersonData> {
-    const [successResponse, errorResponse] = this.responseCache.get(request.href)
-      .map((entry: ResponseCacheEntry) => entry.response)
-      .partition((response: RestResponse) => response.isSuccessful);
-    return Observable.merge(
-      errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.of(new EpersonData(undefined, undefined))),
-      successResponse
-        .filter((response: EpersonSuccessResponse) => isNotEmpty(response))
-        .map((response: EpersonSuccessResponse) => new EpersonData(response.pageInfo, response.epersonDefinition))
-        .distinctUntilChanged());
+    return this.searchBy(searchHref, options).pipe(
+        filter((groups: RemoteData<PaginatedList<Group>>) => !groups.isResponsePending),
+        take(1),
+        map((groups: RemoteData<PaginatedList<Group>>) => groups.payload.totalElements > 0)
+      );
   }
 }

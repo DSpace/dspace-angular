@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GroupEpersonService } from '../../../../core/eperson/group-eperson.service';
 import { ResourcePolicy } from '../../../../core/shared/resource-policy.model';
 import { isEmpty } from '../../../../shared/empty.util';
-import { EpersonData } from '../../../../core/eperson/eperson-data';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { RemoteData } from '../../../../core/data/remote-data';
 
 @Component({
   selector: 'ds-access-conditions',
@@ -20,9 +20,11 @@ export class AccessConditionsComponent implements OnInit {
   ngOnInit() {
     this.accessConditions.forEach((accessCondition: ResourcePolicy) => {
       if (isEmpty(accessCondition.name)) {
-        this.groupService.getDataByUuid(accessCondition.groupUUID)
-          .subscribe((data: EpersonData) => {
-            const group = data.payload[0] as any;
+        this.groupService.findById(accessCondition.groupUUID)
+          .filter((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded)
+          .take(1)
+          .subscribe((rd: RemoteData<Group>) => {
+            const group: Group = rd.payload;
             const accessConditionEntry = Object.assign({}, accessCondition);
             accessConditionEntry.name = group.name;
             this.accessConditionsList.push(accessConditionEntry);

@@ -10,7 +10,6 @@ import { GroupEpersonService } from '../../../core/eperson/group-eperson.service
 import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
 import { SubmissionUploadsModel } from '../../../core/shared/config/config-submission-uploads.model';
 import { Observable } from 'rxjs/Observable';
-import { EpersonData } from '../../../core/eperson/eperson-data';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { SectionsType } from '../sections-type';
 import { renderSectionFor } from '../sections-decorator';
@@ -18,6 +17,8 @@ import { SectionDataObject } from '../models/section-data.model';
 import { submissionObjectFromIdSelector } from '../../selectors';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
 import { AlertType } from '../../../shared/alerts/aletrs-type';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Group } from '../../../core/eperson/models/group.model';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -113,16 +114,19 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
                       // Retrieve Groups for accessConditionPolicies
                       this.availableAccessConditionOptions.forEach((accessCondition) => {
                         if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
-                          groupsObs.push(this.groupService.getDataByUuid(accessCondition.groupUUID)
+                          groupsObs.push(
+                            this.groupService.findById(accessCondition.groupUUID)
+                              .filter((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded)
+                              .take(1)
                           );
                         }
                       });
                       let obsCounter = 1;
-                      Observable.merge(groupsObs)
+                      Observable.forkJoin(groupsObs)
                         .flatMap((group) => group)
                         .take(groupsObs.length)
-                        .subscribe((data: EpersonData) => {
-                          const group = data.payload[0] as any;
+                        .subscribe((rd: RemoteData<Group>) => {
+                          const group: Group = rd.payload;
                           if (isUndefined(this.availableGroups.get(group.uuid))) {
                             if (Array.isArray(group.groups)) {
                               const groupArrayData = [];
@@ -156,7 +160,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
             this.fileNames = [];
             this.changeDetectorRef.detectChanges();
             if (isNotUndefined(fileList) && fileList.length > 0) {
-              fileList.forEach((file, index) => {
+              fileList.forEach((file) => {
                 this.fileList.push(file);
                 this.fileIndexes.push(file.uuid);
                 const fileName = file.metadata['dc.title'][0].display || file.uuid;

@@ -1,7 +1,5 @@
 import { SortOptions } from '../cache/models/sort-options.model';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { BrowseEntriesResponseParsingService } from './browse-entries-response-parsing.service';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
@@ -10,10 +8,9 @@ import { BrowseResponseParsingService } from './browse-response-parsing.service'
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { HttpHeaders } from '@angular/common/http';
 import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
-import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
+import { SearchParam } from '../cache/models/search-param.model';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -143,6 +140,7 @@ export class FindAllOptions {
   elementsPerPage?: number;
   currentPage?: number;
   sort?: SortOptions;
+  searchParams?: SearchParam[];
 }
 
 export class FindAllRequest extends GetRequest {
@@ -299,7 +297,7 @@ export class EpersonRequest extends GetRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return EpersonResponseParsingService;
+    return DSOResponseParsingService;
   }
 }
 
