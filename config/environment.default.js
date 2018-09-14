@@ -20,7 +20,12 @@ module.exports = {
     // NOTE: how long should objects be cached for by default
     msToLive: 15 * 60 * 1000, // 15 minutes
     // msToLive: 1000, // 15 minutes
-    control: 'max-age=60' // revalidate browser
+    control: 'max-age=60', // revalidate browser
+    autoSync: {
+      defaultTime: 0,
+      maxBufferSize: 100,
+      timePerMethod: {'Patch': 30} //time in seconds
+    }
   },
   // Form settings
   form: {

@@ -7,8 +7,8 @@ import { IndexName } from '../index/index.reducer';
 
 import { CacheableObject, ObjectCacheEntry } from './object-cache.reducer';
 import {
-  AddToObjectCacheAction,
-  PatchObjectCacheAction,
+  AddPatchObjectCacheAction,
+  AddToObjectCacheAction, ApplyPatchObjectCacheAction,
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
 import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
@@ -18,13 +18,15 @@ import { pathSelector } from '../shared/selectors';
 import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
 import { applyPatch, Operation } from 'fast-json-patch';
+import { RestRequestMethod } from '../data/request.models';
+import { AddToSSBAction } from './server-sync-buffer.actions';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
   return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);
 }
 
 function entryFromSelfLinkSelector(selfLink: string): MemoizedSelector<CoreState, ObjectCacheEntry> {
-  return pathSelector<CoreState, ObjectCacheEntry>(coreSelector, 'data/object', selfLink);
+  return pathSelector<CoreState, ObjectCacheEntry>(coreSelector, 'cache/object', selfLink);
 }
 
 /**
@@ -52,10 +54,10 @@ export class ObjectCacheService {
   }
 
   /**
-   * Remove the object with the supplied UUID from the cache
+   * Remove the object with the supplied href from the cache
    *
-   * @param uuid
-   *    The UUID of the object to be removed
+   * @param href
+   *    The unique href of the object to be removed
    */
   remove(uuid: string): void {
     this.store.dispatch(new RemoveFromObjectCacheAction(uuid));
@@ -88,12 +90,16 @@ export class ObjectCacheService {
   getBySelfLink<T extends NormalizedObject>(selfLink: string): Observable<T> {
     return this.getEntry(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
+          // flatten two dimensional array
+          const flatPatch: Operation[] = [].concat(...entry.patches);
+          const patchedData = applyPatch(entry.data, flatPatch).newDocument;
+          return Object.assign({}, entry, { data: patchedData });
+        }
+      ),
+      map((entry: ObjectCacheEntry) => {
         const type: GenericConstructor<NormalizedObject> = NormalizedObjectFactory.getConstructor(entry.data.type);
         return Object.assign(new type(), entry.data) as T
-      }),
-      // map((entry: ObjectCacheEntry) =>
-      //   applyPatch(entry.data, entry.operations).newDocument
-      // )
+      })
     );
   }
 
@@ -205,14 +211,16 @@ export class ObjectCacheService {
   }
 
   /**
-   * Add operations to a the existing list of operations for an ObjectCacheEntry
+   * Add operations to the existing list of operations for an ObjectCacheEntry
+   * Makes sure the ServerSyncBuffer for this ObjectCacheEntry is updated
    * @param {string} uuid
    *     the uuid of the ObjectCacheEntry
    * @param {Operation[]} patch
    *     list of operations to perform
    */
-  private addOperations(uuid: string, patch: Operation[]) {
-    this.store.dispatch(new PatchObjectCacheAction(uuid, patch));
+  private addPatch(uuid: string, patch: Operation[]) {
+    this.store.dispatch(new AddPatchObjectCacheAction(uuid, patch));
+    this.store.dispatch(new AddToSSBAction(uuid, RestRequestMethod.Patch));
   }
 
   /**
@@ -224,6 +232,17 @@ export class ObjectCacheService {
    *    false if the entry is there are no operations left in the ObjectCacheEntry, true otherwise
    */
   private isDirty(entry: ObjectCacheEntry): boolean {
-    return isNotEmpty(entry.operations);
+    return isNotEmpty(entry.patches);
   }
+
+  /**
+   * Apply the existing operations on an ObjectCacheEntry in the store
+   * NB: this does not make any server side changes
+   * @param {string} uuid
+   *     the uuid of the ObjectCacheEntry
+   */
+  private applyPatchesToCachedObject(uuid: string) {
+    this.store.dispatch(new ApplyPatchObjectCacheAction(uuid));
+  }
+
 }

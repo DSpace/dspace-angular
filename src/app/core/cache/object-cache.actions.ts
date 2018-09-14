@@ -11,7 +11,8 @@ export const ObjectCacheActionTypes = {
   ADD: type('dspace/core/cache/object/ADD'),
   REMOVE: type('dspace/core/cache/object/REMOVE'),
   RESET_TIMESTAMPS: type('dspace/core/cache/object/RESET_TIMESTAMPS'),
-  PATCH: type('dspace/core/cache/object/PATCH')
+  ADD_PATCH: type('dspace/core/cache/object/ADD_PATCH'),
+  APPLY_PATCH: type('dspace/core/cache/object/APPLY_PATCH')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -56,11 +57,11 @@ export class RemoveFromObjectCacheAction implements Action {
   /**
    * Create a new RemoveFromObjectCacheAction
    *
-   * @param uuid
-   *    the UUID of the object to remove
+   * @param href
+   *    the unique href of the object to remove
    */
-  constructor(uuid: string) {
-    this.payload = uuid;
+  constructor(href: string) {
+    this.payload = href;
   }
 }
 
@@ -83,25 +84,43 @@ export class ResetObjectCacheTimestampsAction implements Action {
 }
 
 /**
- * An ngrx action to add new operations to a specified cached objects
+ * An ngrx action to add new operations to a specified cached object
  */
-export class PatchObjectCacheAction implements Action {
-  type = ObjectCacheActionTypes.PATCH;
+export class AddPatchObjectCacheAction implements Action {
+  type = ObjectCacheActionTypes.ADD_PATCH;
   payload: {
-    uuid: string,
+    href: string,
     operations: Operation[]
   };
 
   /**
-   * Create a new PatchObjectCacheAction
+   * Create a new AddPatchObjectCacheAction
    *
-   * @param uuid
-   *    the uuid of the object that should be updated
+   * @param href
+   *    the unique href of the object that should be updated
    * @param operations
    *    the list of operations to add
    */
-  constructor(uuid: string, operations: Operation[]) {
-    this.payload = { uuid, operations };
+  constructor(href: string, operations: Operation[]) {
+    this.payload = { href, operations };
+  }
+}
+
+/**
+ * An ngrx action to apply all existing operations to a specified cached object
+ */
+export class ApplyPatchObjectCacheAction implements Action {
+  type = ObjectCacheActionTypes.APPLY_PATCH;
+  payload: string;
+
+  /**
+   * Create a new ApplyPatchObjectCacheAction
+   *
+   * @param href
+   *    the unique href of the object that should be updated
+   */
+  constructor(href: string) {
+    this.payload = href;
   }
 }
 
@@ -114,4 +133,5 @@ export type ObjectCacheAction
   = AddToObjectCacheAction
   | RemoveFromObjectCacheAction
   | ResetObjectCacheTimestampsAction
-  | PatchObjectCacheAction;
+  | AddPatchObjectCacheAction
+  | ApplyPatchObjectCacheAction;
