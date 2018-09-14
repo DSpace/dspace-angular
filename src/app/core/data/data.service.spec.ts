@@ -11,8 +11,15 @@ import { FindAllOptions } from './request.models';
 import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { RemoteData } from './remote-data';
+import { RequestEntry } from './request.reducer';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 
-const LINK_NAME = 'test'
+const LINK_NAME = 'test';
 
 // tslint:disable:max-classes-per-file
 class NormalizedTestObject extends NormalizedObject {
@@ -26,6 +33,7 @@ class TestService extends DataService<NormalizedTestObject, any> {
         protected store: Store<CoreState>,
         protected linkPath: string,
         protected halService: HALEndpointService,
+        protected authService: AuthService,
         protected notificationsService: NotificationsService,
         protected http: HttpClient
     ) {
@@ -41,14 +49,19 @@ class TestService extends DataService<NormalizedTestObject, any> {
 describe('DataService', () => {
     let service: TestService;
     let options: FindAllOptions;
-    const responseCache = {} as ResponseCacheService;
-    const requestService = {} as RequestService;
-    const halService = {} as HALEndpointService;
-    const rdbService = {} as RemoteDataBuildService;
+    const responseCache = getMockResponseCacheService();
+    let rdbService = {} as RemoteDataBuildService;
+    const authService = {} as AuthService;
     const notificationsService = {} as NotificationsService;
     const http = {} as HttpClient;
     const store = {} as Store<CoreState>;
     const endpoint = 'https://rest.api/core';
+    const halService = Object.assign({
+      getEndpoint: () => Observable.of(endpoint)
+    });
+    const requestService = Object.assign(getMockRequestService(), {
+      getByUUID: () => Observable.of(new RequestEntry())
+    });
 
     function initTestService(): TestService {
         return new TestService(
@@ -58,6 +71,7 @@ describe('DataService', () => {
             store,
             LINK_NAME,
             halService,
+            authService,
             notificationsService,
             http
           );
@@ -136,6 +150,41 @@ describe('DataService', () => {
                 expect(value).toBe(expected);
         });
         })
+    });
+
+    fdescribe('create', () => {
+      const dso = new DSpaceObject();
+      const successfulRd$ = Observable.of(new RemoteData(false, false, true, undefined, dso));
+      const failingRd$ = Observable.of(new RemoteData(false, false, false, undefined, dso));
+
+      describe('when the request was successful', () => {
+        beforeEach(() => {
+          rdbService = getMockRemoteDataBuildService(successfulRd$);
+          service = initTestService();
+        });
+
+        it('should return a RemoteData of a DSpaceObject', () => {
+          service.create(dso, undefined).subscribe((rd: RemoteData<DSpaceObject>) => {
+            expect(rd.payload).toBe(dso);
+          });
+        });
+      });
+
+      describe('when the request was unsuccessful', () => {
+        beforeEach(() => {
+          rdbService = getMockRemoteDataBuildService(failingRd$);
+          service = initTestService();
+        });
+
+        it('should not return anything', () => {
+          service.create(dso, undefined);
+
+          // TODO: Expect create to emit nothing
+        });
+      });
+
+      // TODO: Create tests with passing parent
+
     });
 
 });
