@@ -20,7 +20,7 @@ import { RequestEntry } from './request.reducer';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 import { EmptyError } from 'rxjs/util/EmptyError';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { DSOSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
 import { hasValue } from '../../shared/empty.util';
 import { map } from 'rxjs/operators';
 import { RemoteDataError } from './remote-data-error';
@@ -72,21 +72,22 @@ describe('DataService', () => {
 
     const dso = new DSpaceObject();
     const successfulRd$ = Observable.of(new RemoteData(false, false, true, undefined, dso));
-    const successfulResponseCacheEntry = {
+    const successfulResponseCacheEntry = Object.assign({
       response: {
         isSuccessful: true,
         payload: dso,
         toCache: true,
-        statusCode: '200'
-      } as RestResponse
-    } as ResponseCacheEntry;
+        statusCode: '200',
+        resourceSelfLinks: [
+          endpoint
+        ]
+      } as DSOSuccessResponse
+    }) as ResponseCacheEntry;
 
     function initSuccessfulRemoteDataBuildService(): RemoteDataBuildService {
       return {
-        toRemoteDataObservable: (requestEntry$: Observable<RequestEntry>, responseCache$: Observable<ResponseCacheEntry>, payload$: Observable<any>) => {
-          requestEntry$.subscribe();
-          responseCache$.subscribe();
-          payload$.subscribe();
+        buildSingle: (selfLinks$: Observable<any>) => {
+          selfLinks$.subscribe();
           return successfulRd$;
         }
       } as RemoteDataBuildService;

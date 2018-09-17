@@ -67,7 +67,7 @@ describe('DSpaceRESTv2Service', () => {
     req.error(mockError);
   });
 
-  fdescribe('buildFormData', () => {
+  describe('buildFormData', () => {
     it('should return the correct data', () => {
       const name = 'testname';
       const dso: DSpaceObject = {
