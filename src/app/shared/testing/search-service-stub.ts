@@ -37,4 +37,8 @@ export class SearchServiceStub {
   getSearchLink() {
     return this.searchLink;
   }
+
+  getFilterLabels() {
+    return Observable.of([]);
+  }
 }

@@ -5,6 +5,9 @@ import { Collection } from '../../shared/collection.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 
+/**
+ * Normalized model class for a DSpace Collection
+ */
 @mapsTo(Collection)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedCollection extends NormalizedDSpaceObject {
@@ -36,6 +39,9 @@ export class NormalizedCollection extends NormalizedDSpaceObject {
   @relationship(ResourceType.Community, false)
   owner: string;
 
+  /**
+   * List of Items that are part of (not necessarily owned by) this Collection
+   */
   @autoserialize
   @relationship(ResourceType.Item, true)
   items: string[];

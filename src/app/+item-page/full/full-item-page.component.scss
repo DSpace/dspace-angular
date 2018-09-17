@@ -1,7 +1,10 @@
 @import '../../../styles/variables.scss';
+
 :host {
     div.simple-view-link {
         text-align: center;
-        margin: 20px;
+        a {
+            min-width: 25%;
+        }
     }
 }

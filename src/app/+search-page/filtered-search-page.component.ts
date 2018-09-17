@@ -4,9 +4,10 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchPageComponent } from './search-page.component';
-import { RouteService } from '../shared/route.service';
 import { ChangeDetectionStrategy, Component, Injectable } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
+import { RouteService } from '../shared/services/route.service';
+import { SearchConfigurationService } from './search-service/search-configuration.service';
 
 /**
  * This component renders a simple item page.
@@ -23,12 +24,11 @@ import { pushInOut } from '../shared/animations/push';
 export class FilteredSearchPageComponent extends SearchPageComponent {
 
   constructor(protected service: SearchService,
-              protected communityService: CommunityDataService,
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
               protected filterService: SearchFilterService,
-              protected routeService: RouteService) {
-    super(service, communityService, sidebarService, windowService, filterService, routeService);
+              protected searchConfigService: SearchConfigurationService) {
+    super(service, sidebarService, windowService, filterService, searchConfigService);
   }
 
 }

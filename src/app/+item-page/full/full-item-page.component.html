@@ -1,15 +1,15 @@
-<div class="container" *ngVar="(itemRDObs | async) as itemRD">
+<div class="container" *ngVar="(itemRD$ | async) as itemRD">
   <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="itemRD?.payload as entity">
       <ds-item-page-title-field [item]="item"></ds-item-page-title-field>
-      <div class="simple-view-link">
-        <a class="btn btn-outline-primary col-4" [routerLink]="['/items/' + item.id]">
+      <div class="simple-view-link my-3">
+        <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id]">
           {{"item.page.link.simple" | translate}}
         </a>
       </div>
       <table class="table table-responsive table-striped">
         <tbody>
-        <tr *ngFor="let metadatum of (metadataObs | async)">
+        <tr *ngFor="let metadatum of (metadata$ | async)">
           <td>{{metadatum.key}}</td>
           <td>{{metadatum.value}}</td>
           <td>{{metadatum.language}}</td>

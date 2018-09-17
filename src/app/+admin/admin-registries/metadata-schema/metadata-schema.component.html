@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="metadata-schema row">
+    <div class="col-12">
+
+      <h2 id="header" class="border-bottom pb-2">{{'admin.registries.schema.head' | translate}}: "{{(metadataSchema | async)?.payload?.prefix}}"</h2>
+
+      <p id="description" class="pb-2">{{'admin.registries.schema.description' | translate:namespace }}</p>
+
+      <h3>{{'admin.registries.schema.fields.head' | translate}}</h3>
+      <ds-pagination
+        *ngIf="(metadataFields | async)?.payload?.totalElements > 0"
+        [paginationOptions]="config"
+        [pageInfoState]="(metadataFields | async)?.payload"
+        [collectionSize]="(metadataFields | async)?.payload?.totalElements"
+        [hideGear]="true"
+        [hidePagerWhenSinglePage]="true"
+        (pageChange)="onPageChange($event)">
+        <div class="table-responsive">
+          <table id="metadata-fields" class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">{{'admin.registries.schema.fields.table.field' | translate}}</th>
+                <th scope="col">{{'admin.registries.schema.fields.table.scopenote' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let field of (metadataFields | async)?.payload?.page">
+                <td>{{(metadataSchema | async)?.payload?.prefix}}.{{field.element}}<label *ngIf="field.qualifier">.</label>{{field.qualifier}}</td>
+                <td>{{field.scopeNote}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ds-pagination>
+      <div *ngIf="(metadataFields | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
+        {{'admin.registries.schema.fields.no-items' | translate}}
+      </div>
+
+    </div>
+  </div>
+</div>

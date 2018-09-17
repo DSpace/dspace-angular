@@ -22,8 +22,19 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
     fadeInOut
   ]
 })
+
+/**
+ * Component that represents all results from a search
+ */
 export class SearchResultsComponent {
+  /**
+   * The actual search result objects
+   */
   @Input() searchResults: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>;
+
+  /**
+   * The current configuration of the search
+   */
   @Input() searchConfig: SearchOptions;
   @Input() sortConfig: SortOptions;
   @Input() viewMode: SetViewMode;

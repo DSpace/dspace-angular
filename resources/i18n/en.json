@@ -114,7 +114,9 @@
     }
   },
   "nav": {
-    "home": "Home"
+    "home": "Home",
+    "login": "Log In",
+    "logout": "Log Out"
   },
   "pagination": {
     "results-per-page": "Results Per Page",
@@ -125,8 +127,13 @@
     }
   },
   "sorting": {
-    "ASC": "Ascending",
-    "DESC": "Descending"
+    "score": {
+      "DESC": "Relevance"
+    },
+    "dc.title": {
+      "ASC": "Title Ascending",
+      "DESC": "Title Descending"
+    }
   },
   "title": "DSpace",
   "404": {
@@ -177,13 +184,13 @@
       "close": "Back to results",
       "open": "Search Tools",
       "results": "results",
-      "filters":{
-        "title":"Filters"
+      "filters": {
+        "title": "Filters"
       },
-      "settings":{
-        "title":"Settings",
-        "sort-by":"Sort By",
-        "rpp":"Results per page"
+      "settings": {
+        "title": "Settings",
+        "sort-by": "Sort By",
+        "rpp": "Results per page"
       }
     },
     "view-switch": {
@@ -193,6 +200,13 @@
     "filters": {
       "head": "Filters",
       "reset": "Reset filters",
+      "applied": {
+        "f.author": "Author",
+        "f.dateIssued.min": "Start date",
+        "f.dateIssued.max": "End date",
+        "f.subject": "Subject",
+        "f.has_content_in_original_bundle": "Has files"
+      },
       "filter": {
         "show-more": "Show more",
         "show-less": "Collapse",
@@ -209,16 +223,69 @@
           "head": "Subject"
         },
         "dateIssued": {
-          "placeholder": "Date",
+          "max": {
+            "placeholder": "Minimum Date"
+          },
+          "min": {
+            "placeholder": "Maximum Date"
+          },
           "head": "Date"
         },
         "has_content_in_original_bundle": {
-          "placeholder": "Has files",
           "head": "Has files"
         },
         "entityType": {
           "placeholder": "Entity Type",
           "head": "Entity Type"
+        }
+      }
+    }
+  },
+  "admin": {
+    "registries": {
+      "metadata": {
+        "title": "DSpace Angular :: Metadata Registry",
+        "head": "Metadata Registry",
+        "description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
+        "schemas": {
+          "table": {
+            "id": "ID",
+            "namespace": "Namespace",
+            "name": "Name"
+          },
+          "no-items": "No metadata schemas to show."
+        }
+      },
+      "schema": {
+        "title": "DSpace Angular :: Metadata Schema Registry",
+        "head": "Metadata Schema",
+        "description": "This is the metadata schema for \"{{namespace}}\".",
+        "fields": {
+          "head": "Schema metadata fields",
+          "table": {
+            "field": "Field",
+            "scopenote": "Scope Note"
+          },
+          "no-items": "No metadata fields to show."
+        }
+      },
+      "bitstream-formats": {
+        "title": "DSpace Angular :: Bitstream Format Registry",
+        "head": "Bitstream Format Registry",
+        "description": "This list of bitstream formats provides information about known formats and their support level.",
+        "formats": {
+          "table": {
+            "name": "Name",
+            "mimetype": "MIME Type",
+            "supportLevel": {
+              "head": "Support Level",
+              "0": "Unknown",
+              "1": "Known",
+              "2": "Support"
+            },
+            "internal": "internal"
+          },
+          "no-items": "No bitstream formats to show."
         }
       }
     }
@@ -243,6 +310,53 @@
     "recent-submissions": "Error fetching recent submissions",
     "item": "Error fetching item",
     "objects": "Error fetching objects",
-    "search-results": "Error fetching search results"
+    "search-results": "Error fetching search results",
+    "validation": {
+      "pattern": "This input is restricted by the current pattern: {{ pattern }}.",
+      "license": {
+        "notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission."
+      }
+    }
+  },
+  "form": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "search": "Search",
+    "remove": "Remove",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "loading": "Loading...",
+    "no-results": "No results found",
+    "no-value": "No value entered",
+    "group-collapse": "Collapse",
+    "group-expand": "Expand",
+    "group-collapse-help": "Click here to collapse",
+    "group-expand-help": "Click here to expand and add more element"
+  },
+  "login": {
+    "title": "Login",
+    "form": {
+      "header": "Please log in to DSpace",
+      "email": "Email address",
+      "forgot-password": "Have you forgotten your password?",
+      "new-user": "New user? Click here to register.",
+      "password": "Password",
+      "submit": "Log in"
+    }
+  },
+  "logout": {
+    "title": "Logout",
+    "form": {
+      "header": "Log out from DSpace",
+      "submit": "Log out"
+    }
+  },
+  "auth": {
+    "messages": {
+      "expired": "Your session has expired. Please log in again."
+    },
+    "errors": {
+      "invalid-user": "Invalid email or password."
+    }
   }
 }

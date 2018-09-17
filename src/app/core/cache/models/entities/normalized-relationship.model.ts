@@ -2,8 +2,8 @@ import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize'
 import { Relationship } from '../../../shared/entities/relationship.model';
 import { ResourceType } from '../../../shared/resource-type';
 import { mapsTo, relationship } from '../../builders/build-decorators';
-import { IDToUUIDSerializer } from '../../it-to-uuid-serializer';
 import { NormalizedObject } from '../normalized-object.model';
+import { IDToUUIDSerializer } from '../../id-to-uuid-serializer';
 
 @mapsTo(Relationship)
 @inheritSerialization(NormalizedObject)

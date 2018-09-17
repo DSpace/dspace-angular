@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { flatMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { RouteService } from '../../../shared/route.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { GetRequest, RestRequest } from '../../../core/data/request.models';
 import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response-cache.models';
@@ -13,6 +12,7 @@ import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { FilteredDiscoveryPageResponseParsingService } from '../../../core/data/filtered-discovery-page-response-parsing.service';
 import { hasValue } from '../../../shared/empty.util';
 import { configureRequest } from '../../../core/shared/operators';
+import { RouteService } from '../../../shared/services/route.service';
 
 @Injectable()
 export class SearchFixedFilterService {

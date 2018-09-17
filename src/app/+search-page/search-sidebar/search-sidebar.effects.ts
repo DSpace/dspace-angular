@@ -5,6 +5,9 @@ import * as fromRouter from '@ngrx/router-store';
 import { SearchSidebarCollapseAction } from './search-sidebar.actions';
 import { URLBaser } from '../../core/url-baser/url-baser';
 
+/**
+ * Makes sure that if the user navigates to another route, the sidebar is collapsed
+ */
 @Injectable()
 export class SearchSidebarEffects {
   private previousPath: string;

@@ -14,7 +14,7 @@ If you're looking for the 2016 Angular 2 DSpace UI prototype, you can find it [h
 Quick start
 -----------
 
-**Ensure you're running [Node](https://nodejs.org) >= `v6.9.x`, [npm](https://www.npmjs.com/) >= `v3.x` and [yarn](https://yarnpkg.com) >= `v0.20.x`**
+**Ensure you're running [Node](https://nodejs.org) >= `v8.0.x`, [npm](https://www.npmjs.com/) >= `v3.x` and [yarn](https://yarnpkg.com) >= `v0.20.x`**
 
 ```bash
 # clone the repo
@@ -22,9 +22,6 @@ git clone https://github.com/DSpace/dspace-angular.git
 
 # change directory to our repo
 cd dspace-angular
-
-# install the global dependencies
-yarn run global
 
 # install the local dependencies
 yarn install

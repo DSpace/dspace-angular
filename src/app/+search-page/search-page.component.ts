@@ -1,11 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { flatMap, } from 'rxjs/operators';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { CommunityDataService } from '../core/data/community-data.service';
+import { flatMap, switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
-import { Community } from '../core/shared/community.model';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
@@ -14,7 +11,11 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { RouteService } from '../shared/route.service';
+import { Subscription } from 'rxjs/Subscription';
+import { hasValue } from '../shared/empty.util';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { getSucceededRemoteData } from '../core/shared/operators';
 
 /**
  * This component renders a simple item page.
@@ -29,61 +30,99 @@ import { RouteService } from '../shared/route.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut]
 })
+
+/**
+ * This component represents the whole search page
+ */
 export class SearchPageComponent implements OnInit {
 
-  resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
+  /**
+   * The current search results
+   */
+  resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
+
+  /**
+   * The current paginated search options
+   */
   searchOptions$: Observable<PaginatedSearchOptions>;
-  sortConfig: SortOptions;
-  scopeListRD$: Observable<RemoteData<PaginatedList<Community>>>;
-  isMobileView$: Observable<boolean>;
-  pageSize;
-  pageSizeOptions;
-  defaults = {
-    pagination: {
-      id: 'search-results-pagination',
-      pageSize: 10
-    },
-    sort: new SortOptions('score', SortDirection.DESC),
-    query: '',
-    scope: ''
-  };
-  fixedFilter;
+
+  /**
+   * The current relevant scopes
+   */
+  scopeListRD$: Observable<DSpaceObject[]>;
+
+  /**
+   * Emits true if were on a small screen
+   */
+  isXsOrSm$: Observable<boolean>;
+
+  /**
+   * Subscription to unsubscribe from
+   */
+  sub: Subscription;
 
   constructor(protected service: SearchService,
-              protected communityService: CommunityDataService,
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
               protected filterService: SearchFilterService,
-              protected routeService: RouteService) {
-    this.isMobileView$ = Observable.combineLatest(
-      this.windowService.isXs(),
-      this.windowService.isSm(),
-      ((isXs, isSm) => isXs || isSm)
-    );
-    this.scopeListRD$ = communityService.findAll();
+              protected searchConfigService: SearchConfigurationService) {
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
+  /**
+   * Listening to changes in the paginated search options
+   * If something changes, update the search results
+   *
+   * Listen to changes in the scope
+   * If something changes, update the list of scopes for the dropdown
+   */
   ngOnInit(): void {
-    this.searchOptions$ = this.filterService.getPaginatedSearchOptions(this.defaults);
-    this.resultsRD$ = this.searchOptions$.pipe(
-      flatMap((searchOptions) => this.service.search(searchOptions))
+    this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
+    this.sub = this.searchOptions$
+      .switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData()))
+      .subscribe((results) => {
+        this.resultsRD$.next(results);
+      });
+    this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
+      switchMap((scopeId) => this.service.getScopes(scopeId))
     );
-    this.fixedFilter = this.routeService.getRouteParameterValue('filter');
   }
 
+  /**
+   * Set the sidebar to a collapsed state
+   */
   public closeSidebar(): void {
     this.sidebarService.collapse()
   }
 
+  /**
+   * Set the sidebar to an expanded state
+   */
   public openSidebar(): void {
     this.sidebarService.expand();
   }
 
+  /**
+   * Check if the sidebar is collapsed
+   * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
+   */
   public isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
   }
 
+  /**
+   * @returns {string} The base path to the search page
+   */
   public getSearchLink(): string {
     return this.service.getSearchLink();
+  }
+
+  /**
+   * Unsubscribe from the subscription
+   */
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 }

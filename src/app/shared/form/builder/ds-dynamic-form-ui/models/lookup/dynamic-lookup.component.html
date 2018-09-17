@@ -1,0 +1,127 @@
+<div ngbDropdown #sdRef="ngbDropdown"
+     (click)="$event.stopPropagation();"
+     (openChange)="openChange($event);">
+
+  <!--Simple lookup, only 1 field -->
+  <div class="form-row" *ngIf="!isLookupName()">
+    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+      <div class="row">
+        <div class="col">
+          <input class="form-control"
+                 [attr.autoComplete]="model.autoComplete"
+                 [class.is-invalid]="showErrorMessages"
+                 [dynamicId]="bindId && model.id"
+                 [name]="model.name"
+                 [type]="model.inputType"
+                 [(ngModel)]="firstInputValue"
+                 [disabled]="isInputDisabled()"
+                 [placeholder]="model.placeholder"
+                 [readonly]="model.readOnly"
+                 (change)="$event.preventDefault()"
+                 (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
+                 (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+                 (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
+                 (input)="onInput($event)">
+        </div>
+
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 text-center">
+      <button ngbDropdownAnchor
+              *ngIf="!isInputDisabled()" class="btn btn-secondary"
+              type="button"
+              [disabled]="model.readOnly || isSearchDisabled()"
+              (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
+      </button>
+      <button *ngIf="isInputDisabled()" class="btn btn-secondary"
+              type="button"
+              [disabled]="model.readOnly"
+              (click)="remove($event)">{{'form.remove' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <!--Lookup-name, 2 fields-->
+  <div class="form-row" *ngIf="isLookupName()">
+    <div class="col-xs-12 col-md-8 col-lg-9">
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <input class="form-control"
+                 [attr.autoComplete]="model.autoComplete"
+                 [class.is-invalid]="showErrorMessages"
+                 [dynamicId]="bindId && model.id"
+                 [name]="model.name"
+                 [type]="model.inputType"
+                 [(ngModel)]="firstInputValue"
+                 [disabled]="isInputDisabled()"
+                 [placeholder]="model.placeholder | translate"
+                 [readonly]="model.readOnly"
+                 (change)="$event.preventDefault()"
+                 (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
+                 (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+                 (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
+                 (input)="onInput($event)">
+        </div>
+
+        <div *ngIf="isLookupName()" class="col-xs-12 col-md-6 pl-md-0" >
+          <input  class="form-control"
+                  [ngClass]="{}"
+                  [attr.autoComplete]="model.autoComplete"
+                  [class.is-invalid]="showErrorMessages"
+                  [dynamicId]="bindId && model.id"
+                  [name]="model.name + '_2'"
+                  [type]="model.inputType"
+                  [(ngModel)]="secondInputValue"
+                  [disabled]="firstInputValue.length === 0 || isInputDisabled()"
+                  [placeholder]="model.secondPlaceholder | translate"
+                  [readonly]="model.readOnly"
+                  (change)="$event.preventDefault()"
+                  (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
+                  (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+                  (click)="$event.stopPropagation(); sdRef.close();"
+                  (input)="onInput($event)">
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3 col-lg-2 text-center">
+      <button ngbDropdownAnchor
+              *ngIf="!isInputDisabled()" class="btn btn-secondary"
+              type="button"
+              [disabled]="isSearchDisabled()"
+              (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
+      </button>
+      <button *ngIf="isInputDisabled()" class="btn btn-secondary"
+              type="button"
+              (click)="remove($event)">{{'form.remove' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <div ngbDropdownMenu
+       class="mt-0 dropdown-menu scrollable-dropdown-menu w-100"
+       aria-haspopup="true"
+       aria-expanded="false"
+       aria-labelledby="scrollableDropdownMenuButton">
+    <div class="scrollable-menu"
+         aria-labelledby="scrollableDropdownMenuButton"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         (scrolled)="onScroll()"
+         [scrollWindow]="false">
+
+      <button class="dropdown-item disabled"
+              *ngIf="optionsList && optionsList.length == 0"
+              (click)="$event.stopPropagation(); clearFields(); sdRef.close();">{{'form.no-results' | translate}}
+      </button>
+      <button class="dropdown-item collection-item"
+              *ngFor="let listEntry of optionsList"
+              (click)="$event.stopPropagation(); onSelect(listEntry); sdRef.close();"
+              title="{{ listEntry.display }}">
+        {{listEntry.value}}
+      </button>
+      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>
+    </div>
+  </div>
+
+</div>

@@ -1,4 +1,4 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 import { SearchService } from './search.service';
 import { ItemDataService } from './../../core/data/item-data.service';
 import { SetViewMode } from '../../shared/view-mode';
-import { RouteService } from '../../shared/route.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
@@ -19,19 +18,19 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Observable } from 'rxjs/Observable';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { SearchResult } from '../search-result.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { RequestEntry } from '../../core/data/request.reducer';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import {
-  FacetConfigSuccessResponse, RestResponse,
+  FacetConfigSuccessResponse,
   SearchSuccessResponse
 } from '../../core/cache/response-cache.models';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchFilterConfig } from './search-filter-config.model';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -60,6 +59,8 @@ describe('SearchService', () => {
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: HALEndpointService, useValue: {} },
+          { provide: CommunityDataService, useValue: {}},
+          { provide: DSpaceObjectDataService, useValue: {}},
           SearchService
         ],
       });
@@ -115,6 +116,8 @@ describe('SearchService', () => {
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
           { provide: HALEndpointService, useValue: halService },
+          { provide: CommunityDataService, useValue: {}},
+          { provide: DSpaceObjectDataService, useValue: {}},
           SearchService
         ],
       });
@@ -155,7 +158,7 @@ describe('SearchService', () => {
 
     describe('when search is called', () => {
       const endPoint = 'http://endpoint.com/test/test';
-      const searchOptions = new PaginatedSearchOptions();
+      const searchOptions = new PaginatedSearchOptions({});
       const queryResponse = Object.assign(new SearchQueryResponse(), { objects: [] });
       const response = new SearchSuccessResponse(queryResponse, '200');
       const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });

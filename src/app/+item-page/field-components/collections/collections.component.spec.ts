@@ -60,7 +60,7 @@ describe('CollectionsComponent', () => {
     });
   });
 
-  describe('When the requested item request has succeeded', () => {
+  describe('When the requested item request has failed', () => {
     beforeEach(() => {
       collectionsComponent.item = failedMockItem;
       fixture.detectChanges();

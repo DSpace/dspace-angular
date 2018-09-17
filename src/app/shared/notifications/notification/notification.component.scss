@@ -1,5 +1,11 @@
 @import '../../../../styles/variables.scss';
 
+.alert {
+  display: inline-block;
+  min-width: $modal-sm;
+  text-align: left;
+}
+
 .close {
   outline: none !important
 }

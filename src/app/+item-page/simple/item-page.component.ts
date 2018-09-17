@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -12,9 +12,6 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
-import * as viewMode from '../../shared/view-mode';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
 
 /**
  * This component renders a simple item page.
@@ -32,13 +29,11 @@ export class ItemPageComponent implements OnInit {
 
   id: number;
 
-  private sub: Subscription;
-  private itemSub: Subscription;
-  thumbnailObs: Observable<Bitstream>;
+  private sub: any;
 
-  itemRDObs: BehaviorSubject<RemoteData<Item>> = new BehaviorSubject(new RemoteData(true, true, undefined, null, null));
+  itemRD$: Observable<RemoteData<Item>>;
 
-  ElementViewMode = viewMode.ElementViewMode;
+  thumbnail$: Observable<Bitstream>;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,20 +42,9 @@ export class ItemPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe((params) => {
-      this.initialize(params);
-    });
-
-  }
-
-  initialize(params) {
-    this.id = +params.id;
-    if (hasValue(this.itemSub)) {
-      this.itemSub.unsubscribe();
-    }
-    this.itemSub = this.items.findById(params.id).subscribe((item) => this.itemRDObs.next(item));
-    this.metadataService.processRemoteData(this.itemRDObs);
-    this.thumbnailObs = this.itemRDObs
+    this.itemRD$ = this.route.data.map((data) => data.item);
+    this.metadataService.processRemoteData(this.itemRD$);
+    this.thumbnail$ = this.itemRD$
       .map((rd: RemoteData<Item>) => rd.payload)
       .filter((item: Item) => hasValue(item))
       .flatMap((item: Item) => item.getThumbnail());

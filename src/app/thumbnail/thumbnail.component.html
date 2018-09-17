@@ -1,4 +1,4 @@
 <div class="thumbnail">
-  <img *ngIf="thumbnail" [src]="thumbnail.content" (error)="errorHandler($event)"/>
-  <img *ngIf="!thumbnail" [src]="defaultImage | dsSafeUrl"/>
+  <img *ngIf="thumbnail" [src]="thumbnail.content" (error)="errorHandler($event)" class="img-fluid"/>
+  <img *ngIf="!thumbnail" [src]="defaultImage | dsSafeUrl" class="img-fluid"/>
 </div>
