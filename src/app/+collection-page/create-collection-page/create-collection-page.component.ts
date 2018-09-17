@@ -33,8 +33,7 @@ export class CreateCollectionPageComponent {
     private collectionDataService: CollectionDataService,
     private communityDataService: CommunityDataService,
     private routeService: RouteService,
-    private router: Router,
-    private objectCache: ObjectCacheService
+    private router: Router
   ) {
     this.parentUUID$ = this.routeService.getQueryParameterValue('parent');
     this.parentUUID$.subscribe((uuid: string) => {
@@ -56,11 +55,10 @@ export class CreateCollectionPageComponent {
           // TODO: metadata for news and provenance
         ]
       });
-      this.collectionDataService.create(collection, uuid).pipe(
-        flatMap((rd: RemoteData<Collection>) => this.objectCache.getByUUID(rd.payload.id)),
-        isNotEmptyOperator()
-      ).subscribe((col: NormalizedCollection) => {
-        this.router.navigate(['collections', col.id]);
+      this.collectionDataService.create(collection, uuid).subscribe((rd: RemoteData<Collection>) => {
+        if (rd.hasSucceeded) {
+          this.router.navigate(['collections', rd.payload.id]);
+        }
       });
     });
   }

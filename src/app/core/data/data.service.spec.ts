@@ -18,6 +18,12 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { RemoteData } from './remote-data';
 import { RequestEntry } from './request.reducer';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
+import { EmptyError } from 'rxjs/util/EmptyError';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { hasValue } from '../../shared/empty.util';
+import { map } from 'rxjs/operators';
+import { RemoteDataError } from './remote-data-error';
 
 const LINK_NAME = 'test';
 
@@ -49,7 +55,7 @@ class TestService extends DataService<NormalizedTestObject, any> {
 describe('DataService', () => {
     let service: TestService;
     let options: FindAllOptions;
-    const responseCache = getMockResponseCacheService();
+    let responseCache = getMockResponseCacheService();
     let rdbService = {} as RemoteDataBuildService;
     const authService = {} as AuthService;
     const notificationsService = {} as NotificationsService;
@@ -57,11 +63,37 @@ describe('DataService', () => {
     const store = {} as Store<CoreState>;
     const endpoint = 'https://rest.api/core';
     const halService = Object.assign({
-      getEndpoint: () => Observable.of(endpoint)
+      getEndpoint: (linkpath) => Observable.of(endpoint)
     });
     const requestService = Object.assign(getMockRequestService(), {
-      getByUUID: () => Observable.of(new RequestEntry())
+      getByUUID: () => Observable.of(new RequestEntry()),
+      configure: (request) => request
     });
+
+    const dso = new DSpaceObject();
+    const successfulRd$ = Observable.of(new RemoteData(false, false, true, undefined, dso));
+    const successfulResponseCacheEntry = {
+      response: {
+        isSuccessful: true,
+        payload: dso,
+        toCache: true,
+        statusCode: '200'
+      } as RestResponse
+    } as ResponseCacheEntry;
+
+    function initSuccessfulRemoteDataBuildService(): RemoteDataBuildService {
+      return {
+        toRemoteDataObservable: (requestEntry$: Observable<RequestEntry>, responseCache$: Observable<ResponseCacheEntry>, payload$: Observable<any>) => {
+          requestEntry$.subscribe();
+          responseCache$.subscribe();
+          payload$.subscribe();
+          return successfulRd$;
+        }
+      } as RemoteDataBuildService;
+    }
+    function initSuccessfulResponseCacheService(): ResponseCacheService {
+      return getMockResponseCacheService(Observable.of(new ResponseCacheEntry()), Observable.of(successfulResponseCacheEntry));
+    }
 
     function initTestService(): TestService {
         return new TestService(
@@ -136,13 +168,13 @@ describe('DataService', () => {
         });
 
         it('should include all provided options in href', () => {
-            const sortOptions = new SortOptions('field1', SortDirection.DESC)
+            const sortOptions = new SortOptions('field1', SortDirection.DESC);
             options = {
                 currentPage: 6,
                 elementsPerPage: 10,
                 sort: sortOptions,
                 startsWith: 'ab'
-            }
+            };
             const expected = `${endpoint}?page=${options.currentPage - 1}&size=${options.elementsPerPage}` +
                 `&sort=${sortOptions.field},${sortOptions.direction}&startsWith=${options.startsWith}`;
 
@@ -152,14 +184,12 @@ describe('DataService', () => {
         })
     });
 
-    fdescribe('create', () => {
-      const dso = new DSpaceObject();
-      const successfulRd$ = Observable.of(new RemoteData(false, false, true, undefined, dso));
-      const failingRd$ = Observable.of(new RemoteData(false, false, false, undefined, dso));
+    describe('create', () => {
 
       describe('when the request was successful', () => {
         beforeEach(() => {
-          rdbService = getMockRemoteDataBuildService(successfulRd$);
+          responseCache = initSuccessfulResponseCacheService();
+          rdbService = initSuccessfulRemoteDataBuildService();
           service = initTestService();
         });
 
@@ -168,22 +198,24 @@ describe('DataService', () => {
             expect(rd.payload).toBe(dso);
           });
         });
-      });
 
-      describe('when the request was unsuccessful', () => {
-        beforeEach(() => {
-          rdbService = getMockRemoteDataBuildService(failingRd$);
-          service = initTestService();
+        it('should get the response from cache with the correct url when parent is empty', () => {
+          const expectedUrl = endpoint;
+
+          service.create(dso, undefined).subscribe((value) => {
+            expect(responseCache.get).toHaveBeenCalledWith(expectedUrl);
+          });
         });
 
-        it('should not return anything', () => {
-          service.create(dso, undefined);
+        it('should get the response from cache with the correct url when parent is not empty', () => {
+          const parent = 'fake-parent-uuid';
+          const expectedUrl = `${endpoint}?parent=${parent}`;
 
-          // TODO: Expect create to emit nothing
+          service.create(dso, parent).subscribe((value) => {
+            expect(responseCache.get).toHaveBeenCalledWith(expectedUrl);
+          });
         });
       });
-
-      // TODO: Create tests with passing parent
 
     });
 
