@@ -22,6 +22,7 @@ import {
   getResponseFromSelflink,
   filterSuccessfulResponses
 } from '../../shared/operators';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -34,6 +35,8 @@ export class RemoteDataBuildService {
     if (typeof href$ === 'string') {
       href$ = Observable.of(href$);
     }
+    href$ = href$.multicast(new ReplaySubject(1)).refCount();
+
     const requestHref$ = href$.pipe(flatMap((href: string) =>
       this.objectCache.getRequestHrefBySelfLink(href)));
 
@@ -112,6 +115,7 @@ export class RemoteDataBuildService {
     if (typeof href$ === 'string') {
       href$ = Observable.of(href$);
     }
+    href$ = href$.shareReplay();
 
     const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
     const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));

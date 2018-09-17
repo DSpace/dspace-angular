@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, map, flatMap, startWith, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, flatMap, startWith, tap, switchMap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -48,7 +48,7 @@ export class HALEndpointService {
     let currentPath;
     const pipeArguments = path
       .map((subPath: string, index: number) => [
-        flatMap((href: string) => this.getEndpointMapAt(href)),
+        switchMap((href: string) => this.getEndpointMapAt(href)),
         map((endpointMap: EndpointMap) => {
           if (hasValue(endpointMap) && hasValue(endpointMap[subPath])) {
             currentPath = endpointMap[subPath];
