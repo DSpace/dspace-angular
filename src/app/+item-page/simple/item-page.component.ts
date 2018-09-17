@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
@@ -12,6 +12,9 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
+import * as viewMode from '../../shared/view-mode';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * This component renders a simple item page.
@@ -35,6 +38,8 @@ export class ItemPageComponent implements OnInit {
 
   thumbnail$: Observable<Bitstream>;
 
+  ElementViewMode = viewMode.ElementViewMode;
+
   constructor(
     private route: ActivatedRoute,
     private items: ItemDataService,
@@ -42,6 +47,13 @@ export class ItemPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.sub = this.route.params.subscribe((params) => {
+      this.initialize(params);
+    });
+
+  }
+
+  initialize(params) {
     this.itemRD$ = this.route.data.map((data) => data.item);
     this.metadataService.processRemoteData(this.itemRD$);
     this.thumbnail$ = this.itemRD$

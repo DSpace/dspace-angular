@@ -37,24 +37,28 @@ export class PublicationPageFieldsComponent extends EntityPageFieldsComponent im
   ngOnInit(): void {
     super.ngOnInit();
 
-    this.authors$ = this.resolvedRelsAndTypes$.pipe(
-      filterRelationsByTypeLabel('isAuthorOfPublication'),
-      relationsToItems(this.item.id, this.ids)
-    );
+    if (this.resolvedRelsAndTypes$) {
 
-    this.projects$ = this.resolvedRelsAndTypes$.pipe(
-      filterRelationsByTypeLabel('isProjectOfPublication'),
-      relationsToItems(this.item.id, this.ids)
-    );
+      this.authors$ = this.resolvedRelsAndTypes$.pipe(
+        filterRelationsByTypeLabel('isAuthorOfPublication'),
+        relationsToItems(this.item.id, this.ids)
+      );
 
-    this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-      filterRelationsByTypeLabel('isOrgUnitOfPublication'),
-      relationsToItems(this.item.id, this.ids)
-    );
+      this.projects$ = this.resolvedRelsAndTypes$.pipe(
+        filterRelationsByTypeLabel('isProjectOfPublication'),
+        relationsToItems(this.item.id, this.ids)
+      );
 
-    this.journalIssues$ = this.resolvedRelsAndTypes$.pipe(
-      filterRelationsByTypeLabel('isJournalIssueOfPublication'),
-      relationsToItems(this.item.id, this.ids)
-    );
+      this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
+        filterRelationsByTypeLabel('isOrgUnitOfPublication'),
+        relationsToItems(this.item.id, this.ids)
+      );
+
+      this.journalIssues$ = this.resolvedRelsAndTypes$.pipe(
+        filterRelationsByTypeLabel('isJournalIssueOfPublication'),
+        relationsToItems(this.item.id, this.ids)
+      );
+
+    }
   }
 }

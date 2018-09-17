@@ -73,28 +73,31 @@ export class EntityPageFieldsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const relsCurrentPage$ = this.item.relationships.pipe(
-      filter((rd: RemoteData<PaginatedList<Relationship>>) => rd.hasSucceeded),
-      getRemoteDataPayload(),
-      map((pl: PaginatedList<Relationship>) => pl.page),
-      distinctUntilChanged(compareArraysUsingIds())
-    );
+    const relationships$ = this.item.relationships;
+    if (relationships$) {
+      const relsCurrentPage$ = relationships$.pipe(
+        filter((rd: RemoteData<PaginatedList<Relationship>>) => rd.hasSucceeded),
+        getRemoteDataPayload(),
+        map((pl: PaginatedList<Relationship>) => pl.page),
+        distinctUntilChanged(compareArraysUsingIds())
+      );
 
-    const relTypesCurrentPage$ = relsCurrentPage$.pipe(
-      flatMap((rels: Relationship[]) =>
-        Observable.zip(
-          ...rels.map((rel: Relationship) => rel.relationshipType),
-          (...arr: Array<RemoteData<RelationshipType>>) =>
-            arr.map((d: RemoteData<RelationshipType>) => d.payload)
-        )
-      ),
-      distinctUntilChanged(compareArraysUsingIds())
-    );
+      const relTypesCurrentPage$ = relsCurrentPage$.pipe(
+        flatMap((rels: Relationship[]) =>
+          Observable.zip(
+            ...rels.map((rel: Relationship) => rel.relationshipType),
+            (...arr: Array<RemoteData<RelationshipType>>) =>
+              arr.map((d: RemoteData<RelationshipType>) => d.payload)
+          )
+        ),
+        distinctUntilChanged(compareArraysUsingIds())
+      );
 
-    this.resolvedRelsAndTypes$ = Observable.combineLatest(
-      relsCurrentPage$,
-      relTypesCurrentPage$
-    );
+      this.resolvedRelsAndTypes$ = Observable.combineLatest(
+        relsCurrentPage$,
+        relTypesCurrentPage$
+      );
+    }
   }
 
 }
