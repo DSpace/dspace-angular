@@ -54,7 +54,7 @@ export class AuthService {
               protected storage: CookieService,
               protected store: Store<AppState>,
               protected rdbService: RemoteDataBuildService
-              ) {
+  ) {
     this.store.select(isAuthenticated)
       .startWith(false)
       .subscribe((authenticated: boolean) => this._authenticated = authenticated);
@@ -107,7 +107,7 @@ export class AuthService {
         if (status.authenticated) {
           return status;
         } else {
-          Observable.throw(new Error('Invalid email or password'));
+          throw(new Error('Invalid email or password'));
         }
       })
 
@@ -140,7 +140,7 @@ export class AuthService {
           const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
           return person$.pipe(map((eperson) => eperson.payload));
         } else {
-          Observable.throw(new Error('Not authenticated'));
+          throw(new Error('Not authenticated'));
         }
       }))
   }
@@ -216,7 +216,7 @@ export class AuthService {
     // Send a request that sign end the session
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    const options: HttpOptions = Object.create({headers, responseType: 'text'});
+    const options: HttpOptions = Object.create({ headers, responseType: 'text' });
     return this.authRequestService.getRequest('logout', options)
       .map((status: AuthStatus) => {
         if (!status.authenticated) {
@@ -225,7 +225,6 @@ export class AuthService {
           throw(new Error('auth.errors.invalid-user'));
         }
       })
-
   }
 
   /**
@@ -246,6 +245,7 @@ export class AuthService {
   public getToken(): AuthTokenInfo {
     let token: AuthTokenInfo;
     this.store.select(getAuthenticationToken)
+      .first()
       .subscribe((authTokenInfo: AuthTokenInfo) => {
         // Retrieve authentication token info and check if is valid
         token = authTokenInfo || null;
@@ -291,7 +291,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = {expires: expires};
+    const options: CookieAttributes = { expires: expires };
 
     // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
@@ -349,8 +349,10 @@ export class AuthService {
           this.router.navigated = false;
           const url = decodeURIComponent(redirectUrl);
           this.router.navigateByUrl(url);
+          this._window.nativeWindow.location.href = url;
         } else {
           this.router.navigate(['/']);
+          this._window.nativeWindow.location.href = '/';
         }
       })
 
@@ -386,7 +388,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = {expires: expires};
+    const options: CookieAttributes = { expires: expires };
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }

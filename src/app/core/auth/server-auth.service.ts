@@ -44,7 +44,7 @@ export class ServerAuthService extends AuthService {
           // person$.subscribe(() => console.log('test'));
           return person$.pipe(map((eperson) => eperson.payload));
         } else {
-          Observable.throw(new Error('Not authenticated'));
+          throw(new Error('Not authenticated'));
         }
       }))
   }
@@ -71,8 +71,10 @@ export class ServerAuthService extends AuthService {
           this.router.navigated = false;
           const url = decodeURIComponent(redirectUrl);
           this.router.navigateByUrl(url);
+          this._window.nativeWindow.location.href = url;
         } else {
           this.router.navigate(['/']);
+          this._window.nativeWindow.location.href = '/';
         }
       })
 

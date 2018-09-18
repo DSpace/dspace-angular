@@ -56,7 +56,6 @@ export class SearchFiltersComponent {
    * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
    */
   isActive(filter: SearchFilterConfig): Observable<boolean> {
-    // console.log(filter.name);
     return this.filterService.getSelectedValuesForFilter(filter)
       .flatMap((isActive) => {
         if (isNotEmpty(isActive)) {

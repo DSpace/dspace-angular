@@ -7,10 +7,14 @@ import { fadeInOut, fadeOut } from '../animations/fade';
 import { HostWindowService } from '../host-window.service';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { isNotUndefined } from '../empty.util';
-import { getAuthenticatedUser, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
+import {
+  getAuthenticatedUser,
+  isAuthenticated,
+  isAuthenticationLoading
+} from '../../core/auth/selectors';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { LOGIN_ROUTE, LOGOUT_ROUTE } from '../../core/auth/auth.service';
-import { RemoteData } from '../../core/data/remote-data';
+import { AuthService, LOGIN_ROUTE, LOGOUT_ROUTE } from '../../core/auth/auth.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ds-auth-nav-menu',
@@ -37,8 +41,12 @@ export class AuthNavMenuComponent implements OnInit {
 
   public user: Observable<EPerson>;
 
+  public sub: Subscription;
+
   constructor(private store: Store<AppState>,
-              private windowService: HostWindowService) {
+              private windowService: HostWindowService,
+              private authService: AuthService
+  ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -54,7 +62,12 @@ export class AuthNavMenuComponent implements OnInit {
     this.showAuth = this.store.select(routerStateSelector)
       .filter((router: RouterReducerState) => isNotUndefined(router) && isNotUndefined(router.state))
       .map((router: RouterReducerState) => {
-        return !router.state.url.startsWith(LOGIN_ROUTE) && !router.state.url.startsWith(LOGOUT_ROUTE);
+        const url = router.state.url;
+        const show = !router.state.url.startsWith(LOGIN_ROUTE) && !router.state.url.startsWith(LOGOUT_ROUTE);
+        if (show) {
+          this.authService.setRedirectUrl(url);
+        }
+        return show;
       });
   }
 }

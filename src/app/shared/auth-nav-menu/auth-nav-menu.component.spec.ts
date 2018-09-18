@@ -13,7 +13,7 @@ import { HostWindowServiceStub } from '../testing/host-window-service-stub';
 import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+import { AuthService } from '../../core/auth/auth.service';
 
 describe('AuthNavMenuComponent', () => {
 
@@ -54,6 +54,7 @@ describe('AuthNavMenuComponent', () => {
         ],
         providers: [
           {provide: HostWindowService, useValue: window},
+          {provide: AuthService, useValue: {setRedirectUrl: () => {}}}
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA
@@ -223,6 +224,7 @@ describe('AuthNavMenuComponent', () => {
         ],
         providers: [
           {provide: HostWindowService, useValue: window},
+          {provide: AuthService, useValue: {setRedirectUrl: () => {}}}
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA
