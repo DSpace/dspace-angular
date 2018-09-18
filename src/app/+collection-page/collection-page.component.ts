@@ -18,7 +18,7 @@ import { Item } from '../core/shared/item.model';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { filter, flatMap, map } from 'rxjs/operators';
+import { combineLatest, filter, first, flatMap, map } from 'rxjs/operators';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { toDSpaceObjectListRD } from '../core/shared/operators';
@@ -57,7 +57,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.map((data) => data.collection);
+    this.collectionRD$ = this.route.data.map((data) => data.collection).pipe(first());
     this.logoRD$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => rd.payload),
       filter((collection: Collection) => hasValue(collection)),
@@ -77,9 +77,12 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
           this.sortConfig,
           { direction: sortDirection, field: params.sortField }
         );
-        this.updatePage({
-          pagination: pagination,
+        this.collectionRD$.subscribe((rd: RemoteData<Collection>) => {
+          this.collectionId = rd.payload.id;
+          this.updatePage({
+            pagination: pagination,
             sort: sort
+          });
         });
       }));
 
