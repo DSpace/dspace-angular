@@ -16,6 +16,7 @@ import { hasValue } from '../shared/empty.util';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../core/shared/operators';
+import { RouteService } from '../shared/services/route.service';
 
 /**
  * This component renders a simple item page.
@@ -61,11 +62,14 @@ export class SearchPageComponent implements OnInit {
    */
   sub: Subscription;
 
+  fixedFilter;
+
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
               protected filterService: SearchFilterService,
-              protected searchConfigService: SearchConfigurationService) {
+              protected searchConfigService: SearchConfigurationService,
+              protected routeService: RouteService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -86,6 +90,7 @@ export class SearchPageComponent implements OnInit {
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
+    this.fixedFilter = this.routeService.getRouteParameterValue('filter');
   }
 
   /**

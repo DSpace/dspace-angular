@@ -27,8 +27,9 @@ export class FilteredSearchPageComponent extends SearchPageComponent {
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
               protected filterService: SearchFilterService,
-              protected searchConfigService: SearchConfigurationService) {
-    super(service, sidebarService, windowService, filterService, searchConfigService);
+              protected searchConfigService: SearchConfigurationService,
+              protected routeService: RouteService) {
+    super(service, sidebarService, windowService, filterService, searchConfigService, routeService);
   }
 
 }
