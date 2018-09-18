@@ -2,8 +2,7 @@ import { RouteService } from './route.service';
 import { async, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { MockRouter } from './mocks/mock-router';
-import { RouterStub } from './testing/router-stub';
+import { RouterStub } from '../testing/router-stub';
 
 describe('RouteService', () => {
   let service: RouteService;
