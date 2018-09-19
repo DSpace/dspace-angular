@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, NavigationEnd, Params, Router, } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { ActivatedRoute, ActivationEnd, NavigationEnd, Params, Router, } from '@angular/router';
+import { filter, flatMap, map } from 'rxjs/operators';
 
 @Injectable()
 export class RouteService {
@@ -13,19 +13,19 @@ export class RouteService {
   }
 
   getQueryParameterValues(paramName: string): Observable<string[]> {
-    return this.route.queryParamMap.map((map) => [...map.getAll(paramName)]).distinctUntilChanged();
+    return this.route.queryParamMap.map((paramMap) => [...paramMap.getAll(paramName)]).distinctUntilChanged();
   }
 
   getQueryParameterValue(paramName: string): Observable<string> {
-    return this.route.queryParamMap.map((map) => map.get(paramName)).distinctUntilChanged();
+    return this.route.queryParamMap.map((paramMap) => paramMap.get(paramName)).distinctUntilChanged();
   }
 
   hasQueryParam(paramName: string): Observable<boolean> {
-    return this.route.queryParamMap.map((map) => map.has(paramName)).distinctUntilChanged();
+    return this.route.queryParamMap.map((paramMap) => paramMap.has(paramName)).distinctUntilChanged();
   }
 
   hasQueryParamWithValue(paramName: string, paramValue: string): Observable<boolean> {
-    return this.route.queryParamMap.map((map) => map.getAll(paramName).indexOf(paramValue) > -1).distinctUntilChanged();
+    return this.route.queryParamMap.map((paramMap) => paramMap.getAll(paramName).indexOf(paramValue) > -1).distinctUntilChanged();
   }
 
   getRouteParameterValue(paramName: string): Observable<string> {
@@ -38,26 +38,26 @@ export class RouteService {
 
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
     return this.route.queryParamMap
-      .map((map) => {
+      .map((paramMap) => {
         const params = {};
-        map.keys
+        paramMap.keys
           .filter((key) => key.startsWith(prefix))
           .forEach((key) => {
-            params[key] = [...map.getAll(key)];
+            params[key] = [...paramMap.getAll(key)];
           });
         return params;
       }).distinctUntilChanged();
   }
 
   subscribeToRouterParams() {
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
+    this.params = this.router.events.pipe(
+      flatMap((event) => {
         let active = this.route;
         while (active.firstChild) {
           active = active.firstChild;
         }
-        this.params = active.params;
-      });
+        return active.params;
+      })
+    );
   }
 }

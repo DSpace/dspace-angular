@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { SearchFixedFilterService } from '../search-filters/search-filter/search-fixed-filter.service';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -69,6 +70,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @param {ActivatedRoute} route
    */
   constructor(private routeService: RouteService,
+              private fixedFilterService: SearchFixedFilterService,
               private route: ActivatedRoute) {
     this.defaults
       .pipe(getSucceededRemoteData())
@@ -167,6 +169,14 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
+   * @returns {Observable<string>} Emits the current fixed filter as a string
+   */
+  getCurrentFixedFilter(): Observable<string> {
+    const fixedFilter: Observable<string> = this.routeService.getRouteParameterValue('filter');
+    return fixedFilter.flatMap((f) => this.fixedFilterService.getQueryByFilterName(f));
+  }
+
+  /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are displayed in the frontend URL
    */
   getCurrentFrontendFilters(): Observable<Params> {
@@ -183,7 +193,8 @@ export class SearchConfigurationService implements OnDestroy {
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
-      this.getFiltersPart()
+      this.getFiltersPart(),
+      this.getFixedFilterPart()
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
       const updatedValue: SearchOptions = Object.assign(currentValue, update);
@@ -203,7 +214,8 @@ export class SearchConfigurationService implements OnDestroy {
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
-      this.getFiltersPart()
+      this.getFiltersPart(),
+      this.getFixedFilterPart()
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
       const updatedValue: PaginatedSearchOptions = Object.assign(currentValue, update);
@@ -287,6 +299,15 @@ export class SearchConfigurationService implements OnDestroy {
   private getFiltersPart(): Observable<any> {
     return this.getCurrentFilters().map((filters) => {
       return { filters }
+    });
+  }
+
+  /**
+   * @returns {Observable<string>} Emits the current fixed filter as a partial SearchOptions object
+   */
+  private getFixedFilterPart(): Observable<any> {
+    return this.getCurrentFixedFilter().map((fixedFilter) => {
+      return { fixedFilter }
     });
   }
 }
