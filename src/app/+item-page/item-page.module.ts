@@ -28,12 +28,14 @@ import { RelatedEntitiesComponent } from './simple/related-entities/related-enti
 import { JournalPageFieldsComponent } from './simple/entity-types/journal/journal-page-fields.component';
 import { JournalIssuePageFieldsComponent } from './simple/entity-types/journal-issue/journal-issue-page-fields.component';
 import { JournalVolumePageFieldsComponent } from './simple/entity-types/journal-volume/journal-volume-page-fields.component';
+import { SearchPageModule } from '../+search-page/search-page.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    ItemPageRoutingModule
+    ItemPageRoutingModule,
+    SearchPageModule
   ],
   declarations: [
     ItemPageComponent,

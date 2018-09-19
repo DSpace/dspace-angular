@@ -4,13 +4,13 @@
                            id="search-sidebar"
                            [resultCount]="(resultsRD$ | async)?.payload.totalElements"></ds-search-sidebar>
         <div class="col-12 col-md-9">
-            <ds-search-form id="search-form"
+            <ds-search-form *ngIf="searchEnabled" id="search-form"
                             [query]="(searchOptions$ | async)?.query"
                             [scope]="(searchOptions$ | async)?.scope"
                             [currentUrl]="getSearchLink()"
                             [scopes]="(scopeListRD$ | async)">
             </ds-search-form>
-            <ds-search-labels></ds-search-labels>
+            <ds-search-labels *ngIf="searchEnabled"></ds-search-labels>
             <div class="row">
                 <div id="search-body"
                      class="row-offcanvas row-offcanvas-left"
@@ -32,7 +32,7 @@
                         </div>
                         <ds-search-results [searchResults]="resultsRD$ | async"
                                            [searchConfig]="searchOptions$ | async"
-                                           [fixedFilter]="fixedFilter | async"></ds-search-results>
+                                           [fixedFilter]="fixedFilter$ | async"></ds-search-results>
                     </div>
                 </div>
             </div>

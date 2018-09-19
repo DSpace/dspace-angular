@@ -56,4 +56,8 @@ export class SearchFixedFilterService {
     return Observable.of(undefined);
   }
 
+  getQueryByRelations(relationType: string, itemUUID: string): string {
+    return `query=relation.${relationType}:${itemUUID}`;
+  }
+
 }

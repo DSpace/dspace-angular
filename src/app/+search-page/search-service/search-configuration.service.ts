@@ -6,7 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Injectable, OnDestroy } from '@angular/core';
 import { RouteService } from '../../shared/services/route.service';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,6 +14,7 @@ import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SearchFixedFilterService } from '../search-filters/search-filter/search-fixed-filter.service';
+import { map } from 'rxjs/operators';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -306,8 +307,21 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current fixed filter as a partial SearchOptions object
    */
   private getFixedFilterPart(): Observable<any> {
-    return this.getCurrentFixedFilter().map((fixedFilter) => {
-      return { fixedFilter }
-    });
+    return this.getCurrentFixedFilter().pipe(
+      isNotEmptyOperator(),
+      map((fixedFilter) => {
+        return { fixedFilter }
+      })
+    );
+  }
+
+  public updateFixedFilter(fixedFilter: string) {
+    const currentPaginatedValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
+    const updatedPaginatedValue: PaginatedSearchOptions = Object.assign(currentPaginatedValue, { fixedFilter: fixedFilter });
+    this.paginatedSearchOptions.next(updatedPaginatedValue);
+
+    const currentValue: SearchOptions = this.searchOptions.getValue();
+    const updatedValue: SearchOptions = Object.assign(currentValue, { fixedFilter: fixedFilter });
+    this.searchOptions.next(updatedValue);
   }
 }

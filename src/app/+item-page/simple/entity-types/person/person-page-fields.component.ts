@@ -9,6 +9,7 @@ import {
   EntityPageFieldsComponent, filterRelationsByTypeLabel,
   relationsToItems
 } from '../shared/entity-page-fields.component';
+import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 
 @rendersEntityType('Person', ElementViewMode.Full)
 @Component({
@@ -20,10 +21,13 @@ export class PersonPageFieldsComponent extends EntityPageFieldsComponent {
   publications$: Observable<Item[]>;
   projects$: Observable<Item[]>;
   orgUnits$: Observable<Item[]>;
+  fixedFilter$: Observable<string>;
+  fixedFilterQuery: string;
 
   constructor(
     @Inject(ITEM) public item: Item,
-    private ids: ItemDataService
+    private ids: ItemDataService,
+    private fixedFilterService: SearchFixedFilterService
   ) {
     super(item);
   }
@@ -44,5 +48,8 @@ export class PersonPageFieldsComponent extends EntityPageFieldsComponent {
       filterRelationsByTypeLabel('isOrgUnitOfPerson'),
       relationsToItems(this.item.id, this.ids)
     );
+
+    this.fixedFilterQuery = this.fixedFilterService.getQueryByRelations('isAuthorOfPublication', this.item.id);
+    this.fixedFilter$ = Observable.of('publication');
   }
 }

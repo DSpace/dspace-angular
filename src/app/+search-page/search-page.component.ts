@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { flatMap, switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
@@ -12,7 +12,7 @@ import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { Subscription } from 'rxjs/Subscription';
-import { hasValue } from '../shared/empty.util';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../core/shared/operators';
@@ -62,7 +62,17 @@ export class SearchPageComponent implements OnInit {
    */
   sub: Subscription;
 
-  fixedFilter;
+  /**
+   * Whether or not the search bar should be visible
+   */
+  @Input()
+  searchEnabled = true;
+
+  /**
+   * The currently applied filter (determines title of search)
+   */
+  @Input()
+  fixedFilter$: Observable<string>;
 
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
@@ -81,7 +91,7 @@ export class SearchPageComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
+    this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$
       .switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData()))
       .subscribe((results) => {
@@ -90,7 +100,13 @@ export class SearchPageComponent implements OnInit {
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
-    this.fixedFilter = this.routeService.getRouteParameterValue('filter');
+    if (!isNotEmpty(this.fixedFilter$)) {
+      this.fixedFilter$ = this.routeService.getRouteParameterValue('filter');
+    }
+  }
+
+  protected getSearchOptions(): Observable<PaginatedSearchOptions> {
+    return this.searchConfigService.paginatedSearchOptions;
   }
 
   /**

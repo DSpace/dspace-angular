@@ -4,10 +4,15 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchPageComponent } from './search-page.component';
-import { ChangeDetectionStrategy, Component, Injectable } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injectable, Input } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { RouteService } from '../shared/services/route.service';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { switchMap, tap } from 'rxjs/operators';
+import { getSucceededRemoteData } from '../core/shared/operators';
+import { Observable } from 'rxjs/Observable';
+import { PaginatedSearchOptions } from './paginated-search-options.model';
+import { isNotEmpty } from '../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -23,6 +28,12 @@ import { SearchConfigurationService } from './search-service/search-configuratio
 
 export class FilteredSearchPageComponent extends SearchPageComponent {
 
+  /**
+   * The actual query for the fixed filter.
+   * If empty, the query will be determined by the route parameter called 'filter'
+   */
+  @Input() fixedFilterQuery: string;
+
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
@@ -30,6 +41,11 @@ export class FilteredSearchPageComponent extends SearchPageComponent {
               protected searchConfigService: SearchConfigurationService,
               protected routeService: RouteService) {
     super(service, sidebarService, windowService, filterService, searchConfigService, routeService);
+  }
+
+  protected getSearchOptions(): Observable<PaginatedSearchOptions> {
+    this.searchConfigService.updateFixedFilter(this.fixedFilterQuery);
+    return this.searchConfigService.paginatedSearchOptions;
   }
 
 }

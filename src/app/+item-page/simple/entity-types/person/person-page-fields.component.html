@@ -25,10 +25,6 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-entities
-      [entities]="publications$ | async"
-      [label]="'relationships.isPublicationOf' | translate">
-    </ds-related-entities>
-    <ds-related-entities
       [entities]="projects$ | async"
       [label]="'relationships.isProjectOf' | translate">
     </ds-related-entities>
@@ -48,5 +44,12 @@
       [fields]="['person.identifier.firstname']"
       [label]="'person.page.firstname'">
     </ds-generic-item-page-field>
+  </div>
+  <div class="col-12 border-top pt-2">
+    <ds-filtered-search-page
+      [fixedFilterQuery]="fixedFilterQuery"
+      [fixedFilter$]="fixedFilter$"
+      [searchEnabled]="false">
+    </ds-filtered-search-page>
   </div>
 </div>
