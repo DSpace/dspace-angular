@@ -14,6 +14,9 @@ import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { compare, Operation } from 'fast-json-patch';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -22,6 +25,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
+  protected abstract objectCache: ObjectCacheService;
 
   public abstract getScopedEndpoint(scope: string): Observable<string>
 
@@ -97,6 +101,15 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
+  patch(href: string, operations: Operation[]) {
+    this.objectCache.addPatch(href, operations);
+  }
+
+  update(object: DSpaceObject) {
+    const oldVersion = this.objectCache.getBySelfLink(object.self);
+    const operations = compare(oldVersion, object);
+    this.objectCache.addPatch(object.self, operations);
+  }
   // TODO implement, after the structure of the REST server's POST response is finalized
   // create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
   //   const postHrefObs = this.getEndpoint();

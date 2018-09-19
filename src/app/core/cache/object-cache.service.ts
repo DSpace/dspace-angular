@@ -90,7 +90,6 @@ export class ObjectCacheService {
   getBySelfLink<T extends NormalizedObject>(selfLink: string): Observable<T> {
     return this.getEntry(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
-          // flatten two dimensional array
           const flatPatch: Operation[] = [].concat(...entry.patches);
           const patchedData = applyPatch(entry.data, flatPatch).newDocument;
           return Object.assign({}, entry, { data: patchedData });
@@ -218,7 +217,7 @@ export class ObjectCacheService {
    * @param {Operation[]} patch
    *     list of operations to perform
    */
-  private addPatch(uuid: string, patch: Operation[]) {
+  public addPatch(uuid: string, patch: Operation[]) {
     this.store.dispatch(new AddPatchObjectCacheAction(uuid, patch));
     this.store.dispatch(new AddToSSBAction(uuid, RestRequestMethod.Patch));
   }

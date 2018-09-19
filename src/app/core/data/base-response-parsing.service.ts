@@ -25,7 +25,6 @@ export abstract class BaseResponseParsingService {
   protected abstract toCache: boolean;
 
   protected process<ObjectDomain, ObjectType>(data: any, requestHref: string): any {
-
     if (isNotEmpty(data)) {
       if (hasNoValue(data) || (typeof data !== 'object')) {
         return data;

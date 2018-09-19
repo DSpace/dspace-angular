@@ -20,7 +20,7 @@ export class AuthResponseParsingService extends BaseResponseParsingService imple
   protected toCache = false;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected objectCache: ObjectCacheService,) {
+              protected objectCache: ObjectCacheService) {
     super();
   }
 

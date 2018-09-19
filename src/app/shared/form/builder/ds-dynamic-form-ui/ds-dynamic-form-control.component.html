@@ -1,8 +1,8 @@
-<div [class.form-group]="(type !== 6 && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
+<div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
   [formGroup]="group"
      [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
 
-  <label *ngIf="type !== 3 && model.label"
+  <label *ngIf="model.type !== 'CHECKBOX' && model.label"
            [for]="model.id"
            [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
            [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>

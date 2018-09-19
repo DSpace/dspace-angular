@@ -112,13 +112,15 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
  *    the new state, with the object added, or overwritten.
  */
 function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheAction): ObjectCacheState {
+  const existing = state[action.payload.objectToCache.self];
   return Object.assign({}, state, {
     [action.payload.objectToCache.self]: {
       data: action.payload.objectToCache,
       timeAdded: action.payload.timeAdded,
       msToLive: action.payload.msToLive,
       requestHref: action.payload.requestHref,
-      isDirty: false
+      isDirty: false,
+      patches: (hasValue(existing) ? existing.patches : [])
     }
   });
 }

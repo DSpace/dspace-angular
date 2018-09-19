@@ -26,7 +26,9 @@ describe('objectCacheReducer', () => {
       },
       timeAdded: new Date().getTime(),
       msToLive: 900000,
-      requestHref: selfLink1
+      requestHref: selfLink1,
+      patches: [],
+      isDirty: false
     },
     [selfLink2]: {
       data: {
@@ -35,7 +37,9 @@ describe('objectCacheReducer', () => {
       },
       timeAdded: new Date().getTime(),
       msToLive: 900000,
-      requestHref: selfLink2
+      requestHref: selfLink2,
+      patches: [],
+      isDirty: false
     }
   };
   deepFreeze(testState);

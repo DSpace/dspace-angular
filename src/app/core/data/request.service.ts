@@ -17,6 +17,7 @@ import { RequestConfigureAction, RequestExecuteAction } from './request.actions'
 import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
 
 import { RequestEntry } from './request.reducer';
+import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 
 @Injectable()
 export class RequestService {
@@ -122,5 +123,9 @@ export class RequestService {
     ).subscribe((re: RequestEntry) => {
       this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
     });
+  }
+
+  commit(method?: RestRequestMethod) {
+    this.store.dispatch(new CommitSSBAction(method))
   }
 }

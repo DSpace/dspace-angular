@@ -10,7 +10,12 @@ export function getMockFormService(
     getUniqueId: id$,
     resetForm: {},
     validateAllFormFields: {},
-    getForm: errors.pipe(map((err) => { return {data: {}, valid: true, errors: err} })),
+    getForm: errors.pipe(
+      map((err) => {
+          return { data: {}, valid: true, errors: err }
+        }
+      )
+    ),
     removeForm: undefined,
     removeError: undefined,
     changeForm: undefined,
