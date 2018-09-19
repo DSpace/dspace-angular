@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { distinctUntilChanged, filter, first, map, mergeMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, mergeMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { IndexName } from '../index/index.reducer';
@@ -8,7 +8,8 @@ import { IndexName } from '../index/index.reducer';
 import { CacheableObject, ObjectCacheEntry } from './object-cache.reducer';
 import {
   AddPatchObjectCacheAction,
-  AddToObjectCacheAction, ApplyPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
 import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
@@ -18,8 +19,8 @@ import { pathSelector } from '../shared/selectors';
 import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
 import { applyPatch, Operation } from 'fast-json-patch';
-import { RestRequestMethod } from '../data/request.models';
 import { AddToSSBAction } from './server-sync-buffer.actions';
+import { RestRequestMethod } from '../data//rest-request-method';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
   return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);
@@ -209,6 +210,8 @@ export class ObjectCacheService {
     }
   }
 
+
+
   /**
    * Add operations to the existing list of operations for an ObjectCacheEntry
    * Makes sure the ServerSyncBuffer for this ObjectCacheEntry is updated
@@ -219,7 +222,7 @@ export class ObjectCacheService {
    */
   public addPatch(uuid: string, patch: Operation[]) {
     this.store.dispatch(new AddPatchObjectCacheAction(uuid, patch));
-    this.store.dispatch(new AddToSSBAction(uuid, RestRequestMethod.Patch));
+    this.store.dispatch(new AddToSSBAction(uuid, RestRequestMethod.PATCH));
   }
 
   /**

@@ -121,7 +121,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   //     .filter((href: string) => hasValue(href))
   //     .take(1)
   //     .subscribe((href: string) => {
-  //       const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.Post, dso);
+  //       const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.POST, dso);
   //       this.requestService.configure(request);
   //     });
   //

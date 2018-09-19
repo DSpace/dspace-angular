@@ -1,9 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import { CacheableObject } from './object-cache.reducer';
-import { Operation } from 'fast-json-patch';
-import { RestRequest, RestRequestMethod } from '../data/request.models';
+import { RestRequestMethod } from '../data//rest-request-method';
 
 /**
  * The list of ServerSyncBufferAction type definitions
@@ -33,7 +31,7 @@ export class AddToSSBAction implements Action {
    *    the unique href of the cached object entry that should be updated
    */
   constructor(href: string, method: RestRequestMethod) {
-    this.payload = { href, method };
+    this.payload = { href, method: undefined };
   }
 }
 

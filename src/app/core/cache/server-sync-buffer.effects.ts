@@ -14,22 +14,24 @@ import { Action, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
 import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
 import { RequestService } from '../data/request.service';
-import { PutRequest, RestRequestMethod } from '../data/request.models';
+import { PutRequest } from '../data/request.models';
 import { ObjectCacheService } from './object-cache.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
+import { RestRequestMethod } from '../data//rest-request-method';
 
 @Injectable()
-export class ObjectCacheEffects {
+export class ServerSyncBufferEffects {
   @Effect() setTimeoutForServerSync = this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
-        const autoSyncConfig = this.EnvConfig.cache.autoSync;
-        const timeoutInSeconds = autoSyncConfig.timePerMethod[action.type] || autoSyncConfig.defaultTime;
+        // const autoSyncConfig = this.EnvConfig.cache.autoSync;
+        // const timeoutInSeconds = autoSyncConfig.timePerMethod[action.type] || autoSyncConfig.defaultTime;
+        const timeoutInSeconds = 0;
         return observableOf(new CommitSSBAction(action.payload.method)).pipe(delay(timeoutInSeconds * 1000))
       })
     );
@@ -51,7 +53,7 @@ export class ObjectCacheEffects {
                 return true;
               })
               .map((entry: ServerSyncBufferEntry) => {
-                if (entry.method === RestRequestMethod.Patch) {
+                if (entry.method === RestRequestMethod.PATCH) {
                   return this.applyPatch(entry.href);
                 } else {
                   /* TODO other request stuff */

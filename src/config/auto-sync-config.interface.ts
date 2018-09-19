@@ -1,6 +1,5 @@
-import { RestRequestMethod } from '../app/core/data/request.models';
+import { RestRequestMethod } from '../app/core/data//rest-request-method';
 
-/* enum indices  */
 type TimePerMethod = {
   [method in RestRequestMethod]: number;
 };

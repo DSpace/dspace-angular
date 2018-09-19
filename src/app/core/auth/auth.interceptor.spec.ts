@@ -9,10 +9,10 @@ import { of as observableOf } from 'rxjs';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
 import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { RestRequestMethod } from '../data/request.models';
 import { RouterStub } from '../../shared/testing/router-stub';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
 import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
+import { RestRequestMethod } from '../data//rest-request-method';
 
 describe(`AuthInterceptor`, () => {
   let service: DSpaceRESTv2Service;
@@ -49,7 +49,7 @@ describe(`AuthInterceptor`, () => {
   describe('when has a valid token', () => {
 
     it('should not add an Authorization header when we’re sending a HTTP request to \'authn\' endpoint', () => {
-      service.request(RestRequestMethod.Post, 'dspace-spring-rest/api/authn/login', 'password=password&user=user').subscribe((response) => {
+      service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/authn/login', 'password=password&user=user').subscribe((response) => {
         expect(response).toBeTruthy();
       });
 
@@ -60,7 +60,7 @@ describe(`AuthInterceptor`, () => {
     });
 
     it('should add an Authorization header when we’re sending a HTTP request to \'authn\' endpoint', () => {
-      service.request(RestRequestMethod.Post, 'dspace-spring-rest/api/submission/workspaceitems', 'test').subscribe((response) => {
+      service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'test').subscribe((response) => {
         expect(response).toBeTruthy();
       });
 
@@ -85,11 +85,11 @@ describe(`AuthInterceptor`, () => {
 
     it('should redirect to login', () => {
 
-      service.request(RestRequestMethod.Post, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user').subscribe((response) => {
+      service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user').subscribe((response) => {
         expect(response).toBeTruthy();
       });
 
-      service.request(RestRequestMethod.Post, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user');
+      service.request(RestRequestMethod.POST, 'dspace-spring-rest/api/submission/workspaceitems', 'password=password&user=user');
 
       httpMock.expectNone('dspace-spring-rest/api/submission/workspaceitems');
     });
