@@ -20,7 +20,7 @@ import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
 import { applyPatch, Operation } from 'fast-json-patch';
 import { AddToSSBAction } from './server-sync-buffer.actions';
-import { RestRequestMethod } from '../data//rest-request-method';
+import { RestRequestMethod } from '../data/rest-request-method';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
   return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);

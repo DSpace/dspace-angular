@@ -5,7 +5,7 @@ import {
   ServerSyncBufferAction,
   ServerSyncBufferActionTypes
 } from './server-sync-buffer.actions';
-import { RestRequestMethod } from '../data//rest-request-method';
+import { RestRequestMethod } from '../data/rest-request-method';
 
 /**
  * An entry in the ServerSyncBufferState

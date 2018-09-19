@@ -12,7 +12,7 @@ import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { RouterStub } from '../../shared/testing/router-stub';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
 import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
-import { RestRequestMethod } from '../data//rest-request-method';
+import { RestRequestMethod } from '../data/rest-request-method';
 
 describe(`AuthInterceptor`, () => {
   let service: DSpaceRESTv2Service;

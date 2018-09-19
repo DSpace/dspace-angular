@@ -18,7 +18,7 @@ import { GetRequest, RestRequest } from './request.models';
 
 import { RequestEntry } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
-import { RestRequestMethod } from './/rest-request-method';
+import { RestRequestMethod } from './rest-request-method';
 
 @Injectable()
 export class RequestService {

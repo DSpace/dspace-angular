@@ -21,7 +21,7 @@ import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.seriali
 import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
-import { RestRequestMethod } from '../data//rest-request-method';
+import { RestRequestMethod } from '../data/rest-request-method';
 
 @Injectable()
 export class ServerSyncBufferEffects {

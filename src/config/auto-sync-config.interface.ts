@@ -1,4 +1,4 @@
-import { RestRequestMethod } from '../app/core/data//rest-request-method';
+import { RestRequestMethod } from '../app/core/data/rest-request-method';
 
 type TimePerMethod = {
   [method in RestRequestMethod]: number;

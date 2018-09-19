@@ -10,7 +10,7 @@ import { RequestActionTypes, RequestConfigureAction } from '../data/request.acti
 import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
 import { hasValue } from '../../shared/empty.util';
 import { IndexName } from './index.reducer';
-import { RestRequestMethod } from '../data//rest-request-method';
+import { RestRequestMethod } from '../data/rest-request-method';
 
 @Injectable()
 export class UUIDIndexEffects {

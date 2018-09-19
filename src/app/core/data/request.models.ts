@@ -9,7 +9,7 @@ import { ConfigResponseParsingService } from './config-response-parsing.service'
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
-import { RestRequestMethod } from './/rest-request-method';
+import { RestRequestMethod } from './rest-request-method';
 
 /* tslint:disable:max-classes-per-file */
 
