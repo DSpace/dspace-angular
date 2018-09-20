@@ -54,7 +54,7 @@ describe('AuthNavMenuComponent', () => {
         ],
         providers: [
           {provide: HostWindowService, useValue: window},
-          {provide: AuthService, useValue: {setRedirectUrl: () => {}}}
+          {provide: AuthService, useValue: {setRedirectUrl: () => { /*empty*/ }}}
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA
@@ -224,7 +224,7 @@ describe('AuthNavMenuComponent', () => {
         ],
         providers: [
           {provide: HostWindowService, useValue: window},
-          {provide: AuthService, useValue: {setRedirectUrl: () => {}}}
+          {provide: AuthService, useValue: {setRedirectUrl: () => { /*empty*/ }}}
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA
