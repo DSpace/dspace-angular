@@ -245,7 +245,6 @@ export class AuthService {
   public getToken(): AuthTokenInfo {
     let token: AuthTokenInfo;
     this.store.select(getAuthenticationToken)
-      .first()
       .subscribe((authTokenInfo: AuthTokenInfo) => {
         // Retrieve authentication token info and check if is valid
         token = authTokenInfo || null;
@@ -349,10 +348,12 @@ export class AuthService {
           this.router.navigated = false;
           const url = decodeURIComponent(redirectUrl);
           this.router.navigateByUrl(url);
-          this._window.nativeWindow.location.href = url;
+          /* TODO Reenable hard redirect when REST API can handle x-forwarded-for */
+          // this._window.nativeWindow.location.href = url;
         } else {
           this.router.navigate(['/']);
-          this._window.nativeWindow.location.href = '/';
+          /* TODO Reenable hard redirect when REST API can handle x-forwarded-for */
+          // this._window.nativeWindow.location.href = '/';
         }
       })
 

@@ -62,12 +62,8 @@ export class AuthNavMenuComponent implements OnInit {
     this.showAuth = this.store.select(routerStateSelector)
       .filter((router: RouterReducerState) => isNotUndefined(router) && isNotUndefined(router.state))
       .map((router: RouterReducerState) => {
-        const url = router.state.url;
-        const show = !router.state.url.startsWith(LOGIN_ROUTE) && !router.state.url.startsWith(LOGOUT_ROUTE);
-        if (show) {
-          this.authService.setRedirectUrl(url);
-        }
-        return show;
+        return !router.state.url.startsWith(LOGIN_ROUTE) && !router.state.url.startsWith(LOGOUT_ROUTE);
+
       });
   }
 }
