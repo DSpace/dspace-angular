@@ -24,5 +24,10 @@
       [fields]="['journal.identifier.description']"
       [label]="'journal.page.description'">
     </ds-generic-item-page-field>
+    <div>
+      <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">
+        {{"item.page.link.full" | translate}}
+      </a>
+    </div>
   </div>
 </div>
