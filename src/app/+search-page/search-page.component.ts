@@ -69,6 +69,12 @@ export class SearchPageComponent implements OnInit {
   searchEnabled = true;
 
   /**
+   * The width of the sidebar (bootstrap columns)
+   */
+  @Input()
+  sideBarWidth = 3;
+
+  /**
    * The currently applied filter (determines title of search)
    */
   @Input()
