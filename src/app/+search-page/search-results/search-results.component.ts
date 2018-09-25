@@ -39,6 +39,7 @@ export class SearchResultsComponent {
   @Input() sortConfig: SortOptions;
   @Input() viewMode: SetViewMode;
   @Input() fixedFilter: string;
+  @Input() disableHeader = false;
 
   getTitleKey() {
     if (isNotEmpty(this.fixedFilter)) {

@@ -89,6 +89,9 @@ const effects = [
     SearchTextFilterComponent,
     SearchHierarchyFilterComponent,
     SearchBooleanFilterComponent,
+  ],
+  exports: [
+    FilteredSearchPageComponent
   ]
 })
 
