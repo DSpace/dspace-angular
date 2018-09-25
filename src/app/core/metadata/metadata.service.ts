@@ -62,8 +62,8 @@ export class MetadataService {
         route = this.getCurrentRoute(route);
         return { params: route.params, data: route.data };
       }).subscribe((routeInfo: any) => {
-        this.processRouteChange(routeInfo);
-      });
+      this.processRouteChange(routeInfo);
+    });
   }
 
   public processRemoteData(remoteData: Observable<RemoteData<CacheableObject>>): void {
@@ -269,7 +269,10 @@ export class MetadataService {
   private setCitationPdfUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
-      item.getFiles().filter((files) => isNotEmpty(files)).first().subscribe((bitstreams: Bitstream[]) => {
+      item.getFiles()
+        .first((files) => isNotEmpty(files))
+        .catch((error) => { console.debug(error); return [] })
+        .subscribe((bitstreams: Bitstream[]) => {
         for (const bitstream of bitstreams) {
           bitstream.format.first()
             .map((rd: RemoteData<BitstreamFormat>) => rd.payload)

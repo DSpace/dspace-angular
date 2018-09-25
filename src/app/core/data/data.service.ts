@@ -80,7 +80,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       .map((endpoint: string) => this.getFindByIDHref(endpoint, id));
 
     hrefObs
-      .first((href: string) => hasValue(href))
+      .find((href: string) => hasValue(href))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
         this.requestService.configure(request);

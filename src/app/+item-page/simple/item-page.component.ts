@@ -47,13 +47,6 @@ export class ItemPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe((params) => {
-      this.initialize(params);
-    });
-
-  }
-
-  initialize(params) {
     this.itemRD$ = this.route.data.map((data) => data.item);
     this.metadataService.processRemoteData(this.itemRD$);
     this.thumbnail$ = this.itemRD$

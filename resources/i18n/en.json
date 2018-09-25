@@ -205,7 +205,8 @@
         "f.dateIssued.min": "Start date",
         "f.dateIssued.max": "End date",
         "f.subject": "Subject",
-        "f.has_content_in_original_bundle": "Has files"
+        "f.has_content_in_original_bundle": "Has files",
+        "f.entityType": "Entity Type"
       },
       "filter": {
         "show-more": "Show more",

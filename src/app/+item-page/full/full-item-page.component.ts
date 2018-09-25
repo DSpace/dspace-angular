@@ -42,10 +42,6 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit {
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
   ngOnInit(): void {
     super.ngOnInit();
-  }
-
-  initialize(params) {
-    super.initialize(params);
     this.metadata$ = this.itemRD$
       .map((rd: RemoteData<Item>) => rd.payload)
       .filter((item: Item) => hasValue(item))

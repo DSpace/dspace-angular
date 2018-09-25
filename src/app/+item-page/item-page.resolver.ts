@@ -5,6 +5,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
+import { tap } from 'rxjs/operators';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
