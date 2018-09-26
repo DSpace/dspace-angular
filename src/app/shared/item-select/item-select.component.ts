@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
 import { Item } from '../../core/shared/item.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-item-select',
@@ -14,7 +15,10 @@ import { Item } from '../../core/shared/item.model';
 export class ItemSelectComponent implements OnInit {
 
   @Input()
-  items$: Observable<RemoteData<PaginatedList<Item>>>;
+  itemsRD$: Observable<RemoteData<PaginatedList<Item>>>;
+
+  @Input()
+  paginationOptions: PaginationComponentOptions;
 
   checked: boolean[] = [];
 
@@ -22,7 +26,7 @@ export class ItemSelectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.items$ = this.itemDataService.findAll({});
+    this.itemsRD$.subscribe((value) => console.log(value));
   }
 
 }

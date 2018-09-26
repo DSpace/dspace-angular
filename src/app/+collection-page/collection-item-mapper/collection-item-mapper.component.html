@@ -35,7 +35,7 @@
 
         <!-- Map Tab -->
         <div *ngIf="activeTab == 1" id="tab-map">
-          <ds-item-select [items$]="mappingItemsRD$"></ds-item-select>
+          <ds-item-select [itemsRD$]="mappingItemsRD$" [paginationOptions]="(searchOptions$ | async)?.pagination"></ds-item-select>
         </div>
       </div>
 

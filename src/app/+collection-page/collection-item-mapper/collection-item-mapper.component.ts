@@ -49,13 +49,18 @@ export class CollectionItemMapperComponent implements OnInit {
       combineLatest(this.searchOptions$),
       flatMap(([collectionRD, options]) => {
         return this.searchService.search(Object.assign(options, {
-          scope: collectionRD.payload.id
+          scope: collectionRD.payload.id,
+          dsoType: DSpaceObjectType.ITEM
         }));
       }),
       toDSpaceObjectListRD()
     );
     this.mappingItemsRD$ = this.searchOptions$.pipe(
-      flatMap((options: PaginatedSearchOptions) => this.searchService.search(options)),
+      flatMap((options: PaginatedSearchOptions) => {
+        return this.searchService.search(Object.assign(options, {
+          dsoType: DSpaceObjectType.ITEM
+        }));
+      }),
       toDSpaceObjectListRD()
     );
   }
