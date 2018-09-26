@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { CollectionPageComponent } from './collection-page.component';
 import { CollectionPageResolver } from './collection-page.resolver';
+import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 
 @NgModule({
   imports: [
@@ -10,6 +11,14 @@ import { CollectionPageResolver } from './collection-page.resolver';
       {
         path: ':id',
         component: CollectionPageComponent,
+        pathMatch: 'full',
+        resolve: {
+          collection: CollectionPageResolver
+        }
+      },
+      {
+        path: ':id/mapper',
+        component: CollectionItemMapperComponent,
         pathMatch: 'full',
         resolve: {
           collection: CollectionPageResolver

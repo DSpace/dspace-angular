@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>{{'collection.item-mapper.head' | translate}}</h2>
+      <p [innerHTML]="'collection.item-mapper.collection' | translate:{ name: (collectionRD$ | async)?.payload?.name }"></p>
+      <p>{{'collection.item-mapper.description' | translate}}</p>
+
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <ds-search-form id="search-form"
+                          [query]="(searchOptions$ | async)?.query"
+                          [scope]="(searchOptions$ | async)?.scope"
+                          [currentUrl]="getCurrentUrl()">
+          </ds-search-form>
+        </div>
+      </div>
+      <ul class="nav nav-tabs mb-2">
+        <li class="nav-item">
+          <span class="tab nav-link" id="tab-browse-content" (click)="activeTab = 0" [ngClass]="(activeTab == 0)?'active':''">Browse</span>
+        </li>
+        <li class="nav-item">
+          <span class="tab nav-link" id="tab-map-content" (click)="activeTab = 1" [ngClass]="(activeTab == 1)?'active':''">Map</span>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- Browse Tab -->
+        <div *ngIf="activeTab == 0" id="tab-browse">
+          <ds-viewable-collection
+            [config]="(searchOptions$ | async)?.pagination"
+            [sortConfig]="(searchOptions$ | async)?.sort"
+            [objects]="collectionItemsRD$ | async">
+          </ds-viewable-collection>
+        </div>
+
+        <!-- Map Tab -->
+        <div *ngIf="activeTab == 1" id="tab-map">
+          <ds-item-select [items$]="mappingItemsRD$"></ds-item-select>
+        </div>
+      </div>
+
+      <button [routerLink]="['/collections/', (collectionRD$ | async)?.payload?.id]" class="btn btn-outline-secondary">{{'collection.item-mapper.return' | translate}}</button>
+    </div>
+  </div>
+</div>

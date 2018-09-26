@@ -13,6 +13,12 @@
           "head": "Recent Submissions"
         }
       }
+    },
+    "item-mapper": {
+      "head": "Item Mapper - Map Items from Other Collections",
+      "collection": "Collection: \"<b>{{name}}</b>\"",
+      "description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
+      "return": "Return"
     }
   },
   "community": {
@@ -42,6 +48,13 @@
       "link": {
         "simple": "Simple item page",
         "full": "Full item page"
+      }
+    },
+    "select": {
+      "table": {
+        "collection": "Collection",
+        "author": "Author",
+        "title": "Title"
       }
     }
   },

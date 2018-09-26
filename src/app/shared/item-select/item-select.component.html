@@ -1,0 +1,20 @@
+<div class="table-responsive">
+  <table id="item-select" class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th scope="col">{{'item.select.table.collection' | translate}}</th>
+        <th scope="col">{{'item.select.table.author' | translate}}</th>
+        <th scope="col">{{'item.select.table.title' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of (items$ | async)?.payload?.page ; let i = index">
+        <td><input [(ngModel)]="checked[i]" type="checkbox"></td>
+        <td><a [routerLink]="['/items', item.id]">{{(item.owningCollection | async)?.payload?.name}}</a></td>
+        <td><a [routerLink]="['/items', item.id]">{{item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])[0].value}}</a></td>
+        <td><a [routerLink]="['/items', item.id]">{{item.findMetadata("dc.title")}}</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
