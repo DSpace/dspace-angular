@@ -16,8 +16,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of (itemsRD$ | async)?.payload?.page ; let i = index">
-          <td><input [(ngModel)]="checked[i]" type="checkbox"></td>
+        <tr *ngFor="let item of (itemsRD$ | async)?.payload?.page">
+          <td><input [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox"></td>
           <td><a [routerLink]="['/items', item.id]">{{(item.owningCollection | async)?.payload?.name}}</a></td>
           <td><a *ngIf="item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0" [routerLink]="['/items', item.id]">{{item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])[0].value}}</a></td>
           <td><a [routerLink]="['/items', item.id]">{{item.findMetadata("dc.title")}}</a></td>
