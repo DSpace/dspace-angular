@@ -32,8 +32,6 @@ export class CollectionItemMapperComponent implements OnInit {
   collectionItemsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>;
   mappingItemsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>;
 
-  activeTab = 0;
-
   constructor(private collectionDataService: CollectionDataService,
               private route: ActivatedRoute,
               private router: Router,

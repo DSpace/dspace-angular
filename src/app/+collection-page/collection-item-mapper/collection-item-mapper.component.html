@@ -14,30 +14,23 @@
           </ds-search-form>
         </div>
       </div>
-      <ul class="nav nav-tabs mb-2">
-        <li class="nav-item">
-          <span class="tab nav-link" id="tab-browse-content" (click)="activeTab = 0" [ngClass]="(activeTab == 0)?'active':''">Browse</span>
-        </li>
-        <li class="nav-item">
-          <span class="tab nav-link" id="tab-map-content" (click)="activeTab = 1" [ngClass]="(activeTab == 1)?'active':''">Map</span>
-        </li>
-      </ul>
 
-      <div class="tab-content">
-        <!-- Browse Tab -->
-        <div *ngIf="activeTab == 0" id="tab-browse">
-          <ds-viewable-collection
-            [config]="(searchOptions$ | async)?.pagination"
-            [sortConfig]="(searchOptions$ | async)?.sort"
-            [objects]="collectionItemsRD$ | async">
-          </ds-viewable-collection>
-        </div>
-
-        <!-- Map Tab -->
-        <div *ngIf="activeTab == 1" id="tab-map">
-          <ds-item-select [itemsRD$]="mappingItemsRD$" [paginationOptions]="(searchOptions$ | async)?.pagination"></ds-item-select>
-        </div>
-      </div>
+      <ngb-tabset>
+        <ngb-tab title="{{'collection.item-mapper.tabs.browse' | translate}}">
+          <ng-template ngbTabContent>
+            <ds-viewable-collection
+              [config]="(searchOptions$ | async)?.pagination"
+              [sortConfig]="(searchOptions$ | async)?.sort"
+              [objects]="collectionItemsRD$ | async">
+            </ds-viewable-collection>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="{{'collection.item-mapper.tabs.map' | translate}}">
+          <ng-template ngbTabContent>
+            <ds-item-select [itemsRD$]="mappingItemsRD$" [paginationOptions]="(searchOptions$ | async)?.pagination"></ds-item-select>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
 
       <button [routerLink]="['/collections/', (collectionRD$ | async)?.payload?.id]" class="btn btn-outline-secondary">{{'collection.item-mapper.return' | translate}}</button>
     </div>

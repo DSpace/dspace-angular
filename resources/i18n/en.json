@@ -18,6 +18,10 @@
       "head": "Item Mapper - Map Items from Other Collections",
       "collection": "Collection: \"<b>{{name}}</b>\"",
       "description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
+      "tabs": {
+        "browse": "Browse",
+        "map": "Map"
+      },
       "return": "Return"
     }
   },
