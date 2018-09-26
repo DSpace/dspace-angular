@@ -102,6 +102,7 @@ function startTransactionPatchOperations(state: JsonPatchOperationsState, action
     && isNull(state[ action.payload.resourceType ].transactionStartTime)) {
     return Object.assign({}, state, {
       [action.payload.resourceType]: Object.assign({}, state[ action.payload.resourceType ], {
+        transactionStartTime: action.payload.startTime,
         commitPending: true
       })
     });
