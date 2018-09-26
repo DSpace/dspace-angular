@@ -182,8 +182,10 @@ function addPatchObjectCache(state: ObjectCacheState, action: AddPatchObjectCach
   const newState = Object.assign({}, state);
   if (hasValue(newState[uuid])) {
     const patches = newState[uuid].patches;
-    newState[uuid].patches = [...patches, {operations} as Patch];
-    newState[uuid].isDirty = true;
+    newState[uuid] = Object.assign({}, newState[uuid], {
+      patches: [...patches, { operations } as Patch],
+      isDirty: true
+    });
   }
   return newState;
 }
@@ -203,7 +205,7 @@ function applyPatchObjectCache(state: ObjectCacheState, action: ApplyPatchObject
   const newState = Object.assign({}, state);
   if (hasValue(newState[uuid])) {
     // flatten two dimensional array
-    const flatPatch: Operation[] = [].concat(...newState[uuid].patches);
+    const flatPatch: Operation[] = [].concat(...newState[uuid].patches.map((patch) => patch.operations));
     const newData = applyPatch( newState[uuid].data,  flatPatch);
     newState[uuid].data =  newData.newDocument;
     newState[uuid].patches = [];

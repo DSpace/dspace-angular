@@ -31,7 +31,7 @@ export class AddToSSBAction implements Action {
    *    the unique href of the cached object entry that should be updated
    */
   constructor(href: string, method: RestRequestMethod) {
-    this.payload = { href, method: undefined };
+    this.payload = { href, method: method };
   }
 }
 

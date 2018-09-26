@@ -24,9 +24,25 @@
         [content]="communityPayload.copyrightText"
         [hasInnerHtml]="true">
       </ds-comcol-page-content>
-      <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
+      <form (submit)="patchIt()">
+        <div class="row">
+          <div class="form-group col col-sm-4">
+            <label for="newname">Change Name</label>
+            <div class="input-group mb-3">
+              <input type="email" class="form-control" id="newname" name="newname"
+                     placeholder="Enter a collection name" [(ngModel)]="newname">
+              <div class="input-group-append">
+                <button class="btn btn-danger" type="submit">Patch!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <ds-community-page-sub-collection-list
+        [community]="communityPayload"></ds-community-page-sub-collection-list>
     </div>
   </div>
   <ds-error *ngIf="communityRD?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
-  <ds-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>
+  <ds-loading *ngIf="communityRD?.isLoading"
+              message="{{'loading.community' | translate}}"></ds-loading>
 </div>

@@ -1,4 +1,4 @@
-import { delay, exhaustMap, first, map, switchMap, tap } from 'rxjs/operators';
+import { delay, exhaustMap, first, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
@@ -9,17 +9,17 @@ import {
 } from './server-sync-buffer.actions';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { CoreState } from '../core.reducers';
-import { Action, select, Store } from '@ngrx/store';
+import { coreSelector, CoreState } from '../core.reducers';
+import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
-import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
+import { of as observableOf, combineLatest as observableCombineLatest, empty as observableEmpty } from 'rxjs';
 import { RequestService } from '../data/request.service';
 import { PutRequest } from '../data/request.models';
 import { ObjectCacheService } from './object-cache.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestRequestMethod } from '../data/rest-request-method';
 
@@ -29,9 +29,8 @@ export class ServerSyncBufferEffects {
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
       exhaustMap((action: AddToSSBAction) => {
-        // const autoSyncConfig = this.EnvConfig.cache.autoSync;
-        // const timeoutInSeconds = autoSyncConfig.timePerMethod[action.type] || autoSyncConfig.defaultTime;
-        const timeoutInSeconds = 0;
+        const autoSyncConfig = this.EnvConfig.cache.autoSync;
+        const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
         return observableOf(new CommitSSBAction(action.payload.method)).pipe(delay(timeoutInSeconds * 1000))
       })
     );
@@ -41,7 +40,7 @@ export class ServerSyncBufferEffects {
       ofType(ServerSyncBufferActionTypes.COMMIT),
       switchMap((action: CommitSSBAction) => {
         return this.store.pipe(
-          select(serverSyncBufferSelector),
+          select(serverSyncBufferSelector()),
           map((bufferState: ServerSyncBufferState) => {
             const actions: Array<Observable<Action>> = bufferState.buffer
               .filter((entry: ServerSyncBufferEntry) => {
@@ -54,29 +53,41 @@ export class ServerSyncBufferEffects {
               })
               .map((entry: ServerSyncBufferEntry) => {
                 if (entry.method === RestRequestMethod.PATCH) {
+                  console.log(this.applyPatch(entry.href));
                   return this.applyPatch(entry.href);
                 } else {
                   /* TODO other request stuff */
                 }
               });
+            console.log(actions);
             /* Add extra action to array, to make sure the ServerSyncBuffer is emptied afterwards */
-            return observableCombineLatest(actions).pipe(
-              map((array) => array.push(new EmptySSBAction(action.payload)))
-            );
+            if (isNotEmpty(actions) && isNotUndefined(actions[0])) {
+              return observableCombineLatest(...actions).pipe(
+                map((array) => {
+                  console.log(array);
+                  return array.push(new EmptySSBAction(action.payload));
+                })
+              );
+            } else {
+              return { type:'NO_ACTION' };
+            }
           })
         )
       })
     );
 
+
   private applyPatch(href: string): Observable<Action> {
     const patchObject = this.objectCache.getBySelfLink(href);
-    return patchObject.pipe(
+    const test = patchObject.pipe(
       map((object) => {
         const serializedObject = new DSpaceRESTv2Serializer(object.constructor as GenericConstructor<{}>).serialize(object);
         this.requestService.configure(new PutRequest(this.requestService.generateRequestId(), href, serializedObject));
+        console.log(new ApplyPatchObjectCacheAction(href));
         return new ApplyPatchObjectCacheAction(href)
       })
     )
+    return test;
   }
 
   constructor(private actions$: Actions,
@@ -88,4 +99,6 @@ export class ServerSyncBufferEffects {
   }
 }
 
-export const serverSyncBufferSelector = (state: CoreState) => state['cache/syncbuffer'];
+export function serverSyncBufferSelector(): MemoizedSelector<CoreState, ServerSyncBufferState> {
+  return createSelector(coreSelector, (state: CoreState) => state['cache/syncbuffer']);
+}

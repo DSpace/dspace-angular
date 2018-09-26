@@ -1,4 +1,4 @@
-import {mergeMap, filter, map} from 'rxjs/operators';
+import { mergeMap, filter, map, first, tap } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -24,6 +24,9 @@ import { hasValue } from '../shared/empty.util';
 export class CommunityPageComponent implements OnInit, OnDestroy {
   communityRD$: Observable<RemoteData<Community>>;
   logoRD$: Observable<RemoteData<Bitstream>>;
+  href: string;
+  newname: string;
+
   private subs: Subscription[] = [];
 
   constructor(
@@ -40,10 +43,20 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
       map((rd: RemoteData<Community>) => rd.payload),
       filter((community: Community) => hasValue(community)),
       mergeMap((community: Community) => community.logo));
+
+    this.communityRD$.pipe(first()).subscribe((crd) => {
+      this.href = crd.payload.self;
+      this.newname = crd.payload.name;
+    });
   }
 
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+  }
+
+  patchIt(): void {
+    console.log('patching it!', this.href, this.newname);
+    this.communityDataService.patch(this.href, [{ op: 'replace', path: '/name', value: this.newname }]);
   }
 
 }

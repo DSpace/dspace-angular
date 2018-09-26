@@ -24,7 +24,7 @@ module.exports = {
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
-      timePerMethod: {'Patch': 30} //time in seconds
+      timePerMethod: {'PATCH': 3} //time in seconds
     }
   },
   // Form settings
