@@ -18,16 +18,20 @@
       <ngb-tabset>
         <ngb-tab title="{{'collection.item-mapper.tabs.browse' | translate}}">
           <ng-template ngbTabContent>
-            <ds-viewable-collection
-              [config]="(searchOptions$ | async)?.pagination"
-              [sortConfig]="(searchOptions$ | async)?.sort"
-              [objects]="collectionItemsRD$ | async">
-            </ds-viewable-collection>
+            <div class="mt-2">
+              <ds-viewable-collection
+                [config]="(searchOptions$ | async)?.pagination"
+                [sortConfig]="(searchOptions$ | async)?.sort"
+                [objects]="collectionItemsRD$ | async">
+              </ds-viewable-collection>
+            </div>
           </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'collection.item-mapper.tabs.map' | translate}}">
           <ng-template ngbTabContent>
-            <ds-item-select [itemsRD$]="mappingItemsRD$" [paginationOptions]="(searchOptions$ | async)?.pagination"></ds-item-select>
+            <div class="mt-2">
+              <ds-item-select class="mt-2" [itemsRD$]="mappingItemsRD$" [paginationOptions]="(searchOptions$ | async)?.pagination"></ds-item-select>
+            </div>
           </ng-template>
         </ngb-tab>
       </ngb-tabset>

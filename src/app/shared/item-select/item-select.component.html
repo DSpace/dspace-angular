@@ -3,7 +3,8 @@
   [paginationOptions]="paginationOptions"
   [pageInfoState]="(itemsRD$ | async)?.payload"
   [collectionSize]="(itemsRD$ | async)?.payload?.totalElements"
-  [hidePagerWhenSinglePage]="true">
+  [hidePagerWhenSinglePage]="true"
+  [hideGear]="true">
   <div class="table-responsive">
     <table id="item-select" class="table table-striped table-hover">
       <thead>
@@ -18,7 +19,7 @@
         <tr *ngFor="let item of (itemsRD$ | async)?.payload?.page ; let i = index">
           <td><input [(ngModel)]="checked[i]" type="checkbox"></td>
           <td><a [routerLink]="['/items', item.id]">{{(item.owningCollection | async)?.payload?.name}}</a></td>
-          <td><a [routerLink]="['/items', item.id]">{{item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])[0].value}}</a></td>
+          <td><a *ngIf="item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0" [routerLink]="['/items', item.id]">{{item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])[0].value}}</a></td>
           <td><a [routerLink]="['/items', item.id]">{{item.findMetadata("dc.title")}}</a></td>
         </tr>
       </tbody>

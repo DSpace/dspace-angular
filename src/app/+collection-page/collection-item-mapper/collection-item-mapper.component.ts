@@ -14,6 +14,7 @@ import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -32,6 +33,8 @@ export class CollectionItemMapperComponent implements OnInit {
   collectionItemsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>;
   mappingItemsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>;
 
+  defaultSortOptions: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
+
   constructor(private collectionDataService: CollectionDataService,
               private route: ActivatedRoute,
               private router: Router,
@@ -48,15 +51,19 @@ export class CollectionItemMapperComponent implements OnInit {
       flatMap(([collectionRD, options]) => {
         return this.searchService.search(Object.assign(options, {
           scope: collectionRD.payload.id,
-          dsoType: DSpaceObjectType.ITEM
+          dsoType: DSpaceObjectType.ITEM,
+          sort: this.defaultSortOptions
         }));
       }),
       toDSpaceObjectListRD()
     );
     this.mappingItemsRD$ = this.searchOptions$.pipe(
       flatMap((options: PaginatedSearchOptions) => {
+        options.sort.field = 'dc.title';
         return this.searchService.search(Object.assign(options, {
-          dsoType: DSpaceObjectType.ITEM
+          scope: undefined,
+          dsoType: DSpaceObjectType.ITEM,
+          sort: this.defaultSortOptions
         }));
       }),
       toDSpaceObjectListRD()
