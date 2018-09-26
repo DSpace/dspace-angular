@@ -5,5 +5,5 @@ export enum SectionsType {
   CcLicense = 'cclicense',
   collection = 'collection',
   Recycle = 'recycle',
-  Deduplication = 'deduplication'
+  DetectDuplicate = 'detect-duplicate'
 }

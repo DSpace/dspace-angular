@@ -86,8 +86,19 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
             .subscribe((collectionData) => {
               this.collectionName = collectionData.payload.name;
 
+              console.log(collectionData.payload.defaultAccessConditions);
+              const defaultAccessConditions$ = collectionData.payload.defaultAccessConditions
+                || Observable.of(
+                  new RemoteData(
+                    false,
+                    false,
+                    true,
+                    undefined,
+                    undefined
+                  ));
+
               // Default Access Conditions
-              this.subs.push(collectionData.payload.defaultAccessConditions
+              this.subs.push(defaultAccessConditions$
                 .filter((accessConditions) => isNotUndefined((accessConditions.payload)))
                 .take(1)
                 .subscribe((defaultAccessConditions) => {

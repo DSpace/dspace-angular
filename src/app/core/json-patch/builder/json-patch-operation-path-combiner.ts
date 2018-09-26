@@ -18,6 +18,8 @@ export class JsonPatchOperationPathCombiner  {
   constructor(rootElement, ...subRootElements: string[]) {
     this._rootElement = rootElement;
     this._subRootElement = subRootElements.join('/');
+    console.log(subRootElements);
+    console.log(this._subRootElement);
   }
 
   get rootElement(): string {

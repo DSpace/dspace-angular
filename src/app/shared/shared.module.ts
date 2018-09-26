@@ -71,6 +71,7 @@ import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { AlertsComponent } from './alerts/alerts.component';
+import { ObjNgFor } from './utils/object-ngfor.pipe';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -98,7 +99,8 @@ const PIPES = [
   FileSizePipe,
   SafeUrlPipe,
   TruncatePipe,
-  ConsolePipe
+  ConsolePipe,
+  ObjNgFor
 ];
 
 const COMPONENTS = [
