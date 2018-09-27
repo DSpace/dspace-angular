@@ -68,7 +68,7 @@ export function itemSelectionReducer(state = initialState, action: ItemSelection
     case ItemSelectionActionTypes.SWITCH: {
       return Object.assign({}, state, {
         [action.id]: {
-          checked: !state.checked
+          checked: (isEmpty(state) || isEmpty(state[action.id])) ? true : !state[action.id].checked
         }
       });
     }

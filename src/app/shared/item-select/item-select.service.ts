@@ -9,8 +9,11 @@ import {
 } from './item-select.actions';
 import { Observable } from 'rxjs/Observable';
 import { hasValue } from '../empty.util';
+import { map } from 'rxjs/operators';
+import { AppState } from '../../app.reducer';
 
-const selectionStateSelector = (state: ItemSelectionsState) => state.selectionItem;
+const selectionStateSelector = (state: ItemSelectionsState) => state.itemSelection;
+const itemSelectionsStateSelector = (state: AppState) => state.itemSelection;
 
 /**
  * Service that takes care of selecting and deselecting items
@@ -18,7 +21,10 @@ const selectionStateSelector = (state: ItemSelectionsState) => state.selectionIt
 @Injectable()
 export class ItemSelectService {
 
-  constructor(private store: Store<ItemSelectionsState>) {
+  constructor(
+    private store: Store<ItemSelectionsState>,
+    private appStore: Store<AppState>
+  ) {
   }
 
   /**
@@ -27,14 +33,26 @@ export class ItemSelectService {
    * @returns {Observable<boolean>} Emits the current selection state of the given item, if it's unavailable, return false
    */
   getSelected(id: string): Observable<boolean> {
-    return this.store.select(selectionByIdSelector(id))
-      .map((object: ItemSelectionState) => {
+    return this.store.select(selectionByIdSelector(id)).pipe(
+      map((object: ItemSelectionState) => {
         if (object) {
           return object.checked;
         } else {
           return false;
         }
-      });
+      })
+    );
+  }
+
+  /**
+   * Request the current selection of a given item
+   * @param {string} id The UUID of the item
+   * @returns {Observable<boolean>} Emits the current selection state of the given item, if it's unavailable, return false
+   */
+  getAllSelected(): Observable<string[]> {
+    return this.appStore.select(itemSelectionsStateSelector).pipe(
+      map((state: ItemSelectionsState) => Object.keys(state).filter((key) => state[key].checked))
+    );
   }
 
   /**

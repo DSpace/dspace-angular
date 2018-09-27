@@ -70,6 +70,10 @@ export class CollectionItemMapperComponent implements OnInit {
     );
   }
 
+  mapItems(ids: string[]) {
+    console.log(ids);
+  }
+
   getCurrentUrl(): string {
     const urlTree = this.router.parseUrl(this.router.url);
     const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];

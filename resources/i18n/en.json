@@ -59,7 +59,8 @@
         "collection": "Collection",
         "author": "Author",
         "title": "Title"
-      }
+      },
+      "confirm": "Confirm selected"
     }
   },
   "nav": {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
@@ -21,13 +21,16 @@ export class ItemSelectComponent implements OnInit {
   @Input()
   paginationOptions: PaginationComponentOptions;
 
-  checked: boolean[] = [];
+  @Output()
+  confirm: EventEmitter<string[]> = new EventEmitter<string[]>();
+
+  selectedIds$: Observable<string[]>;
 
   constructor(private itemSelectService: ItemSelectService) {
   }
 
   ngOnInit(): void {
-    this.itemsRD$.subscribe((value) => console.log(value));
+    this.selectedIds$ = this.itemSelectService.getAllSelected();
   }
 
   switch(id: string) {
@@ -36,6 +39,12 @@ export class ItemSelectComponent implements OnInit {
 
   getSelected(id: string): Observable<boolean> {
     return this.itemSelectService.getSelected(id);
+  }
+
+  confirmSelected() {
+    this.selectedIds$.subscribe((ids: string[]) => {
+      this.confirm.emit(ids);
+    });
   }
 
 }
