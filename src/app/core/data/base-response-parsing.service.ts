@@ -150,7 +150,8 @@ export abstract class BaseResponseParsingService {
     return obj[keys[0]];
   }
 
-  /* TODO remove when REST response for epersons is fixed */
+  // TODO Remove when https://jira.duraspace.org/browse/DS-4006 is fixed
+  // See https://github.com/DSpace/dspace-angular/issues/292
   private fixBadEPersonRestResponse(obj: any): any {
     if (obj.type === ResourceType.EPerson) {
       const groups = obj.groups;

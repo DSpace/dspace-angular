@@ -137,6 +137,8 @@ export class AuthService {
 
         if (status.authenticated) {
           // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
+          // Review when https://jira.duraspace.org/browse/DS-4006 is fixed
+          // See https://github.com/DSpace/dspace-angular/issues/292
           const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
           return person$.pipe(map((eperson) => eperson.payload));
         } else {
@@ -348,11 +350,11 @@ export class AuthService {
           this.router.navigated = false;
           const url = decodeURIComponent(redirectUrl);
           this.router.navigateByUrl(url);
-          /* TODO Reenable hard redirect when REST API can handle x-forwarded-for */
+          /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
           // this._window.nativeWindow.location.href = url;
         } else {
           this.router.navigate(['/']);
-          /* TODO Reenable hard redirect when REST API can handle x-forwarded-for */
+          /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
           // this._window.nativeWindow.location.href = '/';
         }
       })
