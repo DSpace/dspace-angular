@@ -35,7 +35,7 @@
         </ds-comcol-page-content>
       </div>
     </div>
-    <ds-error *ngIf="collectionRD?.hasFailed"0 message="{{'error.collection' | translate}}"></ds-error>
+    <ds-error *ngIf="collectionRD?.hasFailed" message="{{'error.collection' | translate}}"></ds-error>
     <ds-loading *ngIf="collectionRD?.isLoading" message="{{'loading.collection' | translate}}"></ds-loading>
     <br>
     <ng-container *ngVar="(itemRD$ | async) as itemRD">

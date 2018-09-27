@@ -1,5 +1,3 @@
-
-import {first, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -10,7 +8,9 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { AuthService } from './auth.service';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { CheckAuthenticationTokenAction } from './auth.actions';
-import { Eperson } from '../eperson/models/eperson.model';
+import { EPerson } from '../eperson/models/eperson.model';
+import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
+import { first, switchMap, map } from 'rxjs/operators';
 
 /**
  * The auth service.
@@ -22,7 +22,7 @@ export class ServerAuthService extends AuthService {
    * Returns the authenticated user
    * @returns {User}
    */
-  public authenticatedUser(token: AuthTokenInfo): Observable<Eperson> {
+  public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
     // Determine if the user has an existing auth session on the server
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -35,9 +35,15 @@ export class ServerAuthService extends AuthService {
 
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status: AuthStatus) => {
+      switchMap((status: AuthStatus) => {
         if (status.authenticated) {
-          return status.eperson[0];
+
+          // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
+          const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
+          // person$.subscribe(() => console.log('test'));
+          return person$.pipe(
+            map((eperson) => eperson.payload)
+          );
         } else {
           throw(new Error('Not authenticated'));
         }

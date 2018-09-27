@@ -69,7 +69,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
 
     hrefObs.pipe(
       filter((href: string) => hasValue(href)),
-      take(1),)
+      take(1))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);
