@@ -16,6 +16,8 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -40,7 +42,8 @@ export class CollectionItemMapperComponent implements OnInit {
               private router: Router,
               private searchConfigService: SearchConfigurationService,
               private searchService: SearchService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private itemDataService: ItemDataService) {
   }
 
   ngOnInit(): void {
@@ -72,6 +75,13 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   mapItems(ids: string[]) {
+    const responses = this.collectionRD$.pipe(
+      map((collectionRD: RemoteData<Collection>) => collectionRD.payload),
+      flatMap((collection: Collection) => forkJoin(ids.map((id: string) => this.itemDataService.mapToCollection(id, collection.id))))
+    );
+
+    responses.subscribe((value) => console.log(value));
+
     this.collectionRD$.subscribe((collectionRD: RemoteData<Collection>) => {
       this.notificationsService.success('Mapping completed', `Successfully mapped ${ids.length} items to collection "${collectionRD.payload.name}".`);
     });
