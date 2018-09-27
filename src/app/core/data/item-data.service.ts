@@ -60,14 +60,11 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
   }
 
   public mapToCollection(itemId: string, collectionId: string): Observable<RestResponse> {
-    const request$ = this.getMappingCollectionsEndpoint(itemId, collectionId).pipe(
+    return this.getMappingCollectionsEndpoint(itemId, collectionId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL)),
-      configureRequest(this.requestService)
-    );
-
-    return request$.pipe(
+      configureRequest(this.requestService),
       map((request: RestRequest) => request.href),
       getResponseFromSelflink(this.responseCache),
       map((responseCacheEntry: ResponseCacheEntry) => responseCacheEntry.response)

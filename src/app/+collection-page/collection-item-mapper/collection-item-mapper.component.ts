@@ -9,8 +9,8 @@ import { SearchConfigurationService } from '../../+search-page/search-service/se
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { Item } from '../../core/shared/item.model';
-import { combineLatest, flatMap, map, tap } from 'rxjs/operators';
-import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
+import { combineLatest, filter, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { filterSuccessfulResponses, getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
@@ -18,6 +18,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { RestResponse } from '../../core/cache/response-cache.models';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -47,12 +48,16 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.map((data) => data.collection);
+    this.collectionRD$ = this.route.data.map((data) => data.collection).pipe(getSucceededRemoteData()) as Observable<RemoteData<Collection>>;
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
-    this.collectionItemsRD$ = this.collectionRD$.pipe(
-      getSucceededRemoteData(),
-      combineLatest(this.searchOptions$),
-      flatMap(([collectionRD, options]) => {
+
+    const collectionAndOptions$ = Observable.combineLatest(
+      this.collectionRD$,
+      this.searchOptions$
+    );
+
+    this.collectionItemsRD$ = collectionAndOptions$.pipe(
+      switchMap(([collectionRD, options]) => {
         return this.searchService.search(Object.assign(options, {
           scope: collectionRD.payload.id,
           dsoType: DSpaceObjectType.ITEM,
@@ -75,15 +80,21 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   mapItems(ids: string[]) {
-    const responses = this.collectionRD$.pipe(
-      map((collectionRD: RemoteData<Collection>) => collectionRD.payload),
-      flatMap((collection: Collection) => forkJoin(ids.map((id: string) => this.itemDataService.mapToCollection(id, collection.id))))
+    const responses$ = this.collectionRD$.pipe(
+      getSucceededRemoteData(),
+      map((collectionRD: RemoteData<Collection>) => collectionRD.payload.id),
+      switchMap((collectionId: string) => Observable.combineLatest(ids.map((id: string) => this.itemDataService.mapToCollection(id, collectionId))))
     );
 
-    responses.subscribe((value) => console.log(value));
-
-    this.collectionRD$.subscribe((collectionRD: RemoteData<Collection>) => {
-      this.notificationsService.success('Mapping completed', `Successfully mapped ${ids.length} items to collection "${collectionRD.payload.name}".`);
+    responses$.subscribe((responses: RestResponse[]) => {
+      const successful = responses.filter((response: RestResponse) => response.isSuccessful);
+      const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
+      if (successful.length > 0) {
+        this.notificationsService.success('Mapping completed', `Successfully mapped ${successful.length} items.`);
+      }
+      if (unsuccessful.length > 0) {
+        this.notificationsService.error('Mapping errors', `Errors occurred for mapping of ${unsuccessful.length} items.`);
+      }
     });
   }
 
