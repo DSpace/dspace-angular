@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { distinctUntilChanged, filter, first, map, mergeMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, mergeMap, } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { IndexName } from '../index/index.reducer';
@@ -18,9 +18,10 @@ import { coreSelector, CoreState } from '../core.reducers';
 import { pathSelector } from '../shared/selectors';
 import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
-import { applyPatch, Operation } from 'fast-json-patch';
+import { applyPatch, applyReducer, Operation } from 'fast-json-patch';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { ReplaceOperation } from 'fast-json-patch/lib/core';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
   return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);
@@ -92,7 +93,7 @@ export class ObjectCacheService {
     return this.getEntry(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
           const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
-          const patchedData = applyPatch(entry.data, flatPatch).newDocument;
+          const patchedData = applyPatch(entry.data, flatPatch, undefined, false).newDocument;
           return Object.assign({}, entry, { data: patchedData });
         }
       ),
@@ -114,7 +115,7 @@ export class ObjectCacheService {
   getRequestHrefBySelfLink(selfLink: string): Observable<string> {
     return this.getEntry(selfLink).pipe(
       map((entry: ObjectCacheEntry) => entry.requestHref),
-      distinctUntilChanged(),);
+      distinctUntilChanged());
   }
 
   getRequestHrefByUUID(uuid: string): Observable<string> {
@@ -209,7 +210,6 @@ export class ObjectCacheService {
       return !isOutDated;
     }
   }
-
 
 
   /**

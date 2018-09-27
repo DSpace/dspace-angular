@@ -21,6 +21,7 @@ export interface Patch {
   uuid?: string;
   operations: Operation[];
 }
+
 /**conca
  * An interface to represent objects that can be cached
  *
@@ -119,7 +120,7 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
       timeAdded: action.payload.timeAdded,
       msToLive: action.payload.msToLive,
       requestHref: action.payload.requestHref,
-      isDirty: false,
+      isDirty: (hasValue(existing) ? isNotEmpty(existing.patches) : false),
       patches: (hasValue(existing) ? existing.patches : [])
     }
   });
@@ -206,9 +207,8 @@ function applyPatchObjectCache(state: ObjectCacheState, action: ApplyPatchObject
   if (hasValue(newState[uuid])) {
     // flatten two dimensional array
     const flatPatch: Operation[] = [].concat(...newState[uuid].patches.map((patch) => patch.operations));
-    const newData = applyPatch( newState[uuid].data,  flatPatch);
-    newState[uuid].data =  newData.newDocument;
-    newState[uuid].patches = [];
+    const newData = applyPatch(newState[uuid].data, flatPatch, undefined, false);
+    newState[uuid] = Object.assign({}, newState[uuid], { data: newData.newDocument, patches: [] });
   }
   return newState;
 }

@@ -8,13 +8,13 @@ import { CoreState } from '../core.reducers';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthResponseParsingService } from './auth-response-parsing.service';
 import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
-import { getMockStore } from '../../shared/mocks/mock-store';
+// import { getMockStore } from '../../shared/mocks/mock-store';
 
 describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;
 
   const EnvConfig = {cache: {msToLive: 1000}} as GlobalConfig;
-  const store = getMockStore() as Store<CoreState>;
+  const store = {} as Store<CoreState>;
   const objectCacheService = new ObjectCacheService(store);
 
   beforeEach(() => {

@@ -15,7 +15,7 @@ import { Item } from '../core/shared/item.model';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { filter, flatMap, map } from 'rxjs/operators';
+import { filter, first, flatMap, map } from 'rxjs/operators';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { toDSpaceObjectListRD } from '../core/shared/operators';
@@ -39,6 +39,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   sortConfig: SortOptions;
   private subs: Subscription[] = [];
   private collectionId: string;
+  href: string;
+  newname: string;
 
   constructor(
     private collectionDataService: CollectionDataService,
@@ -77,6 +79,10 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
         });
       })
     );
+    this.collectionRD$.pipe(first()).subscribe((crd) => {
+      this.href = crd.payload.self;
+      this.newname = crd.payload.name;
+    });
   }
 
   updatePage(searchOptions) {
@@ -108,5 +114,10 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
         direction: event.sortDirection
       }
     })
+  }
+
+  patchIt(): void {
+    console.log('patching it!', this.href, this.newname);
+    this.collectionDataService.patch(this.href, [{ op: 'replace', path: '/name', value: this.newname }]);
   }
 }

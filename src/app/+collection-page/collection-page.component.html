@@ -33,6 +33,20 @@
           [content]="collection.license"
           [title]="'collection.page.license'">
         </ds-comcol-page-content>
+        <form (submit)="patchIt()">
+          <div class="row">
+            <div class="form-group col col-sm-4">
+              <label for="newname">Change Name</label>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" id="newname" name="newname"
+                       placeholder="Enter a collection name" [(ngModel)]="newname">
+                <div class="input-group-append">
+                  <button class="btn btn-danger" type="submit">Patch!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
     <ds-error *ngIf="collectionRD?.hasFailed" message="{{'error.collection' | translate}}"></ds-error>

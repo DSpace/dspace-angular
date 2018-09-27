@@ -27,7 +27,7 @@ export class AuthRequestServiceStub {
       if (this.validateToken(token)) {
         authStatusStub.authenticated = true;
         authStatusStub.token = this.mockTokenInfo;
-        authStatusStub.eperson = Observable.of(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
+        authStatusStub.eperson = observableOf(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
       } else {
         authStatusStub.authenticated = false;
       }
@@ -46,7 +46,7 @@ export class AuthRequestServiceStub {
         if (this.validateToken(token)) {
           authStatusStub.authenticated = true;
           authStatusStub.token = this.mockTokenInfo;
-          authStatusStub.eperson = Observable.of(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
+          authStatusStub.eperson = observableOf(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
         } else {
           authStatusStub.authenticated = false;
         }

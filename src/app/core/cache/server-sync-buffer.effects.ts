@@ -1,4 +1,4 @@
-import { delay, exhaustMap, first, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { delay, exhaustMap, first, map, switchMap } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
@@ -12,7 +12,7 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 import { coreSelector, CoreState } from '../core.reducers';
 import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
-import { of as observableOf, combineLatest as observableCombineLatest, empty as observableEmpty } from 'rxjs';
+import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { RequestService } from '../data/request.service';
 import { PutRequest } from '../data/request.models';
 import { ObjectCacheService } from './object-cache.service';
@@ -41,7 +41,7 @@ export class ServerSyncBufferEffects {
       switchMap((action: CommitSSBAction) => {
         return this.store.pipe(
           select(serverSyncBufferSelector()),
-          map((bufferState: ServerSyncBufferState) => {
+          switchMap((bufferState: ServerSyncBufferState) => {
             const actions: Array<Observable<Action>> = bufferState.buffer
               .filter((entry: ServerSyncBufferEntry) => {
                 /* If there's a request method, filter
@@ -53,41 +53,37 @@ export class ServerSyncBufferEffects {
               })
               .map((entry: ServerSyncBufferEntry) => {
                 if (entry.method === RestRequestMethod.PATCH) {
-                  console.log(this.applyPatch(entry.href));
                   return this.applyPatch(entry.href);
                 } else {
                   /* TODO other request stuff */
                 }
               });
-            console.log(actions);
+
             /* Add extra action to array, to make sure the ServerSyncBuffer is emptied afterwards */
             if (isNotEmpty(actions) && isNotUndefined(actions[0])) {
               return observableCombineLatest(...actions).pipe(
-                map((array) => {
-                  console.log(array);
-                  return array.push(new EmptySSBAction(action.payload));
-                })
-              );
+              switchMap((array) => [...array, new EmptySSBAction(action.payload)])
+            );
             } else {
-              return { type:'NO_ACTION' };
+              return observableOf({ type: 'NO_ACTION' });
             }
           })
         )
       })
     );
 
-
   private applyPatch(href: string): Observable<Action> {
-    const patchObject = this.objectCache.getBySelfLink(href);
-    const test = patchObject.pipe(
+    const patchObject = this.objectCache.getBySelfLink(href).pipe(first());
+
+    return patchObject.pipe(
       map((object) => {
         const serializedObject = new DSpaceRESTv2Serializer(object.constructor as GenericConstructor<{}>).serialize(object);
+
         this.requestService.configure(new PutRequest(this.requestService.generateRequestId(), href, serializedObject));
-        console.log(new ApplyPatchObjectCacheAction(href));
+
         return new ApplyPatchObjectCacheAction(href)
       })
     )
-    return test;
   }
 
   constructor(private actions$: Actions,

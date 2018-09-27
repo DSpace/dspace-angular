@@ -17,7 +17,6 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
-import { Observable } from 'rxjs/Observable';
 
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';

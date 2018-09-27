@@ -24,8 +24,7 @@ import { hasValue } from '../shared/empty.util';
 export class CommunityPageComponent implements OnInit, OnDestroy {
   communityRD$: Observable<RemoteData<Community>>;
   logoRD$: Observable<RemoteData<Bitstream>>;
-  href: string;
-  newname: string;
+
 
   private subs: Subscription[] = [];
 
@@ -44,19 +43,13 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
       filter((community: Community) => hasValue(community)),
       mergeMap((community: Community) => community.logo));
 
-    this.communityRD$.pipe(first()).subscribe((crd) => {
-      this.href = crd.payload.self;
-      this.newname = crd.payload.name;
-    });
+
   }
 
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
-  patchIt(): void {
-    console.log('patching it!', this.href, this.newname);
-    this.communityDataService.patch(this.href, [{ op: 'replace', path: '/name', value: this.newname }]);
-  }
+
 
 }
