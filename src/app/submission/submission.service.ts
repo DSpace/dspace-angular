@@ -82,7 +82,6 @@ export class SubmissionService {
         const availableSections: SectionDataObject[] = [];
         Object.keys(sections)
           .filter((sectionId) => !this.isSectionHidden(sections[sectionId] as SubmissionSectionObject))
-          // .filter((sectionId) => sections[sectionId].sectionType !== SectionsType.DetectDuplicate || isNotEmpty(sections[sectionId].data))
           .forEach((sectionId) => {
             const sectionObject: SectionDataObject = Object.create({});
             sectionObject.config = sections[sectionId].config;
@@ -217,28 +216,12 @@ export class SubmissionService {
     }
   }
 
-  notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
-
-    if (sectionType === SectionsType.DetectDuplicate) {
-      this.setActiveSection(submissionId, sectionId);
-      this.translate.get('submission.sections.detect-duplicate.duplicate-detected', {sectionId})
-        .take(1)
-        .subscribe((msg) => {
-          this.notificationsService.warning(null, msg, new NotificationOptions(0));
-        });
-      const config: ScrollToConfigOptions = {
-        target: sectionId,
-        offset: -70
-      };
-
-      this.scrollToService.scrollTo(config);
-    } else {
-      this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId})
-        .take(1)
-        .subscribe((msg) => {
-          this.notificationsService.info(null, msg, null, true);
-        });
-    }
+  notifyNewSection(sectionId: string, sectionType?: SectionsType) {
+    this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId})
+      .take(1)
+      .subscribe((m) => {
+        this.notificationsService.info(null, m, null, true);
+      });
   }
   retrieveSubmission(submissionId): Observable<SubmissionObject> {
     return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId)
