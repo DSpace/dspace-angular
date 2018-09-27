@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 
 // import models
-import { Eperson } from '../eperson/models/eperson.model';
+import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 
 export const AuthActionTypes = {
@@ -76,10 +76,10 @@ export class AuthenticatedSuccessAction implements Action {
   payload: {
     authenticated: boolean;
     authToken: AuthTokenInfo;
-    user: Eperson
+    user: EPerson
   };
 
-  constructor(authenticated: boolean, authToken: AuthTokenInfo, user: Eperson) {
+  constructor(authenticated: boolean, authToken: AuthTokenInfo, user: EPerson) {
     this.payload = { authenticated, authToken, user };
   }
 }
@@ -250,9 +250,9 @@ export class RefreshTokenErrorAction implements Action {
  */
 export class RegistrationAction implements Action {
   public type: string = AuthActionTypes.REGISTRATION;
-  payload: Eperson;
+  payload: EPerson;
 
-  constructor(user: Eperson) {
+  constructor(user: EPerson) {
     this.payload = user;
   }
 }
@@ -278,9 +278,9 @@ export class RegistrationErrorAction implements Action {
  */
 export class RegistrationSuccessAction implements Action {
   public type: string = AuthActionTypes.REGISTRATION_SUCCESS;
-  payload: Eperson;
+  payload: EPerson;
 
-  constructor(user: Eperson) {
+  constructor(user: EPerson) {
     this.payload = user;
   }
 }

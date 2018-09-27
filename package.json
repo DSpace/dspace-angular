@@ -99,7 +99,7 @@
     "cerialize": "0.1.18",
     "compression": "1.7.1",
     "cookie-parser": "1.4.3",
-    "core-js": "2.5.3",
+    "core-js": "^2.5.7",
     "express": "4.16.2",
     "express-session": "1.15.6",
     "font-awesome": "4.7.0",

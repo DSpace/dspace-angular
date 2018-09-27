@@ -1,12 +1,18 @@
 import { AuthStatus } from './auth-status.model';
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { mapsTo } from '../../cache/builders/build-decorators';
-import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
-import { Eperson } from '../../eperson/models/eperson.model';
+import { mapsTo, relationship } from '../../cache/builders/build-decorators';
+import { ResourceType } from '../../shared/resource-type';
+import { NormalizedObject } from '../../cache/models/normalized-object.model';
+import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 
 @mapsTo(AuthStatus)
-@inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedAuthStatus extends NormalizedDSpaceObject {
+@inheritSerialization(NormalizedObject)
+export class NormalizedAuthStatus extends NormalizedObject {
+  @autoserialize
+  id: string;
+
+  @autoserializeAs(new IDToUUIDSerializer('auth-status'), 'id')
+  uuid: string;
 
   /**
    * True if REST API is up and running, should never return false
@@ -20,7 +26,7 @@ export class NormalizedAuthStatus extends NormalizedDSpaceObject {
   @autoserialize
   authenticated: boolean;
 
-  @autoserializeAs(Eperson)
-  eperson: Eperson[];
-
+  @relationship(ResourceType.EPerson, false)
+  @autoserialize
+  eperson: string;
 }

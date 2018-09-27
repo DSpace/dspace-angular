@@ -7,8 +7,8 @@ import { Store, StoreModule } from '@ngrx/store';
 
 import { LogInComponent } from './log-in.component';
 import { authReducer } from '../../core/auth/auth.reducer';
-import { EpersonMock } from '../testing/eperson-mock';
-import { Eperson } from '../../core/eperson/models/eperson.model';
+import { EPersonMock } from '../testing/eperson-mock';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthServiceStub } from '../testing/auth-service-stub';
@@ -19,7 +19,7 @@ describe('LogInComponent', () => {
   let component: LogInComponent;
   let fixture: ComponentFixture<LogInComponent>;
   let page: Page;
-  let user: Eperson;
+  let user: EPerson;
 
   const authState = {
     authenticated: false,
@@ -28,7 +28,7 @@ describe('LogInComponent', () => {
   };
 
   beforeEach(() => {
-    user = EpersonMock;
+    user = EPersonMock;
   });
 
   beforeEach(async(() => {

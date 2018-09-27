@@ -1,7 +1,7 @@
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { Group } from './group.model';
 
-export class Eperson extends DSpaceObject {
+export class EPerson extends DSpaceObject {
 
   public handle: string;
 

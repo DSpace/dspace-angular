@@ -7,9 +7,9 @@ import { RouterReducerState } from '@ngrx/router-store';
 import { Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
 import { Observable } from 'rxjs/Observable';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { Eperson } from '../eperson/models/eperson.model';
+import { EPerson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
 
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -17,11 +17,18 @@ import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
-import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
+import {
+  getAuthenticationToken,
+  getRedirectUrl,
+  isAuthenticated,
+  isTokenRefreshing
+} from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -45,7 +52,9 @@ export class AuthService {
               protected authRequestService: AuthRequestService,
               protected router: Router,
               protected storage: CookieService,
-              protected store: Store<AppState>) {
+              protected store: Store<AppState>,
+              protected rdbService: RemoteDataBuildService
+  ) {
     this.store.select(isAuthenticated)
       .startWith(false)
       .subscribe((authenticated: boolean) => this._authenticated = authenticated);
@@ -116,21 +125,26 @@ export class AuthService {
    * Returns the authenticated user
    * @returns {User}
    */
-  public authenticatedUser(token: AuthTokenInfo): Observable<Eperson> {
+  public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
     // Determine if the user has an existing auth session on the server
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     options.headers = headers;
-    return this.authRequestService.getRequest('status', options)
-      .map((status: AuthStatus) => {
+    return this.authRequestService.getRequest('status', options).pipe(
+      switchMap((status: AuthStatus) => {
+
         if (status.authenticated) {
-          return status.eperson[0];
+          // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
+          // Review when https://jira.duraspace.org/browse/DS-4006 is fixed
+          // See https://github.com/DSpace/dspace-angular/issues/292
+          const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
+          return person$.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));
         }
-      });
+      }))
   }
 
   /**
@@ -188,7 +202,7 @@ export class AuthService {
    * Create a new user
    * @returns {User}
    */
-  public create(user: Eperson): Observable<Eperson> {
+  public create(user: EPerson): Observable<EPerson> {
     // Normally you would do an HTTP request to POST the user
     // details and then return the new user object
     // but, let's just return the new user for this example.
@@ -204,7 +218,7 @@ export class AuthService {
     // Send a request that sign end the session
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    const options: HttpOptions = Object.create({headers, responseType: 'text'});
+    const options: HttpOptions = Object.create({ headers, responseType: 'text' });
     return this.authRequestService.getRequest('logout', options)
       .map((status: AuthStatus) => {
         if (!status.authenticated) {
@@ -213,7 +227,6 @@ export class AuthService {
           throw(new Error('auth.errors.invalid-user'));
         }
       })
-
   }
 
   /**
@@ -279,7 +292,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = {expires: expires};
+    const options: CookieAttributes = { expires: expires };
 
     // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
@@ -337,8 +350,12 @@ export class AuthService {
           this.router.navigated = false;
           const url = decodeURIComponent(redirectUrl);
           this.router.navigateByUrl(url);
+          /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
+          // this._window.nativeWindow.location.href = url;
         } else {
           this.router.navigate(['/']);
+          /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
+          // this._window.nativeWindow.location.href = '/';
         }
       })
 
@@ -374,7 +391,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = {expires: expires};
+    const options: CookieAttributes = { expires: expires };
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
