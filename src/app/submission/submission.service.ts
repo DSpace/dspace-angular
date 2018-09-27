@@ -23,6 +23,9 @@ import { SectionDataObject } from './sections/models/section-data.model';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { SubmissionObject } from '../core/submission/models/submission-object.model';
 import { RouteService } from '../shared/services/route.service';
+import { SectionsType } from './sections/sections-type';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 @Injectable()
 export class SubmissionService {
@@ -31,10 +34,12 @@ export class SubmissionService {
   protected timerObs: Observable<any>;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              protected notificationsService: NotificationsService,
               protected restService: SubmissionRestService,
               protected router: Router,
               protected routeService: RouteService,
-              protected store: Store<SubmissionState>) {
+              protected store: Store<SubmissionState>,
+              protected translate: TranslateService) {
   }
 
   createSubmission(): Observable<SubmissionObject> {
@@ -200,6 +205,13 @@ export class SubmissionService {
     }
   }
 
+  notifyNewSection(sectionId: string, sectionType?: SectionsType) {
+    this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId})
+      .take(1)
+      .subscribe((m) => {
+        this.notificationsService.info(null, m, null, true);
+      });
+  }
   retrieveSubmission(submissionId): Observable<SubmissionObject> {
     return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId)
       .filter((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects))

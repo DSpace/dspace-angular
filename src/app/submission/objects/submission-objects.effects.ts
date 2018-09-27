@@ -319,11 +319,7 @@ export class SubmissionObjectEffects {
             const sectionErrors = errorsList[sectionId] || [];
             const sectionData = sections[sectionId] || {};
             if (!currentState.sections[sectionId].enabled) {
-              this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId})
-                .take(1)
-                .subscribe((m) => {
-                  this.notificationsService.info(null, m, null, true);
-                });
+              this.submissionService.notifyNewSection(sectionId);
             }
             mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
           });
