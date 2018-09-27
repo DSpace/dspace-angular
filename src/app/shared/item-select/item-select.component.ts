@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Item } from '../../core/shared/item.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ItemSelectService } from './item-select.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-item-select',
@@ -42,8 +43,11 @@ export class ItemSelectComponent implements OnInit {
   }
 
   confirmSelected() {
-    this.selectedIds$.subscribe((ids: string[]) => {
+    this.selectedIds$.pipe(
+      take(1)
+    ).subscribe((ids: string[]) => {
       this.confirm.emit(ids);
+      this.itemSelectService.reset();
     });
   }
 

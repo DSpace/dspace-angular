@@ -15,6 +15,7 @@ import { SearchService } from '../../+search-page/search-service/search.service'
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -35,11 +36,11 @@ export class CollectionItemMapperComponent implements OnInit {
 
   defaultSortOptions: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
-  constructor(private collectionDataService: CollectionDataService,
-              private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               private router: Router,
               private searchConfigService: SearchConfigurationService,
-              private searchService: SearchService) {
+              private searchService: SearchService,
+              private notificationsService: NotificationsService) {
   }
 
   ngOnInit(): void {
@@ -71,7 +72,9 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   mapItems(ids: string[]) {
-    console.log(ids);
+    this.collectionRD$.subscribe((collectionRD: RemoteData<Collection>) => {
+      this.notificationsService.success('Mapping completed', `Successfully mapped ${ids.length} items to collection "${collectionRD.payload.name}".`);
+    });
   }
 
   getCurrentUrl(): string {
