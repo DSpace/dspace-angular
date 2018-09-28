@@ -115,16 +115,14 @@ export class CollectionItemMapperComponent implements OnInit {
   tabChange(event) {
     // TODO: Fix tabs to maintain their own pagination options (once the current pagination system is improved)
     // Temporary solution: Clear url params when changing tabs
-    if (this.router.url.indexOf('?') > -1) {
-      const url: string = this.router.url.substring(0, this.router.url.indexOf('?'));
-      this.router.navigateByUrl(url);
-    }
+    this.router.navigateByUrl(this.getCurrentUrl());
   }
 
   getCurrentUrl(): string {
-    const urlTree = this.router.parseUrl(this.router.url);
-    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
-    return '/' + g.toString();
+    if (this.router.url.indexOf('?') > -1) {
+      return this.router.url.substring(0, this.router.url.indexOf('?'));
+    }
+    return this.router.url;
   }
 
 }

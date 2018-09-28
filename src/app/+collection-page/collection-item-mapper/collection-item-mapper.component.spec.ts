@@ -1,5 +1,5 @@
 import { CollectionItemMapperComponent } from './collection-item-mapper.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,18 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { Collection } from '../../core/shared/collection.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Observable } from 'rxjs/Observable';
+import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { EventEmitter } from '@angular/core';
+import { HostWindowService } from '../../shared/host-window.service';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service-stub';
+import { By } from '@angular/platform-browser';
+import { RestResponse } from '../../core/cache/response-cache.models';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { PageInfo } from '../../core/shared/page-info.model';
 
 fdescribe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -32,21 +44,39 @@ fdescribe('CollectionItemMapperComponent', () => {
   let notificationsService: NotificationsService;
   let itemDataService: ItemDataService;
 
+  const mockCollection: Collection = Object.assign(new Collection(), {
+    id: 'ce41d451-97ed-4a9c-94a1-7de34f16a9f4',
+    name: 'test-collection'
+  });
+  const mockCollectionRD: RemoteData<Collection> = new RemoteData<Collection>(false, false, true, null, mockCollection);
+  const mockSearchOptions = Observable.of(new PaginatedSearchOptions({
+    pagination: Object.assign(new PaginationComponentOptions(), {
+      id: 'search-page-configuration',
+      pageSize: 10,
+      currentPage: 1
+    }),
+    sort: new SortOptions('dc.title', SortDirection.ASC),
+    scope: mockCollection.id
+  }));
+  const routerStub = Object.assign(new RouterStub(), {
+    url: 'http://test.url'
+  });
   const searchConfigServiceStub = {
-
+    paginatedSearchOptions: mockSearchOptions
   };
   const itemDataServiceStub = {
-
+    mapToCollection: () => Observable.of(new RestResponse(true, '200'))
   };
-  const mockCollection: Collection = Object.assign(new Collection(), {
-    metadata: [
-      {
-        key: 'dc.title',
-        language: 'en_US',
-        value: 'Test title'
-      }]
+  const activatedRouteStub = new ActivatedRouteStub({}, { collection: mockCollectionRD });
+  const translateServiceStub = {
+    get: () => Observable.of('test-message of collection ' + mockCollection.name),
+    onLangChange: new EventEmitter(),
+    onTranslationChange: new EventEmitter(),
+    onDefaultLangChange: new EventEmitter()
+  };
+  const searchServiceStub = Object.assign(new SearchServiceStub(), {
+    search: () => Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [])))
   });
-  const activatedRouteStub = new ActivatedRouteStub({}, { collection: mockCollection });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -54,12 +84,13 @@ fdescribe('CollectionItemMapperComponent', () => {
       declarations: [CollectionItemMapperComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Router, useValue: new RouterStub() },
+        { provide: Router, useValue: routerStub },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
-        { provide: SearchService, useValue: new SearchServiceStub() },
+        { provide: SearchService, useValue: searchServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ItemDataService, useValue: itemDataServiceStub },
-        { provide: TranslateService, useValue: {} }
+        { provide: TranslateService, useValue: translateServiceStub },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
       ]
     }).compileComponents();
   }));
@@ -76,8 +107,31 @@ fdescribe('CollectionItemMapperComponent', () => {
     itemDataService = (comp as any).itemDataService;
   });
 
-  it('should test', () => {
+  it('should display the correct collection name', () => {
+    const name: HTMLElement = fixture.debugElement.query(By.css('#collection-name')).nativeElement;
+    expect(name.innerHTML).toContain(mockCollection.name);
+  });
 
+  describe('mapItems', () => {
+    const ids = ['id1', 'id2', 'id3', 'id4'];
+
+    beforeEach(() => {
+      spyOn(notificationsService, 'success').and.callThrough();
+      spyOn(notificationsService, 'error').and.callThrough();
+    });
+
+    it('should display a success message if at least one mapping was successful', () => {
+      comp.mapItems(ids);
+      expect(notificationsService.success).toHaveBeenCalled();
+      expect(notificationsService.error).not.toHaveBeenCalled();
+    });
+
+    it('should display an error message if at least one mapping was unsuccessful', () => {
+      spyOn(itemDataService, 'mapToCollection').and.returnValue(Observable.of(new RestResponse(false, '404')));
+      comp.mapItems(ids);
+      expect(notificationsService.success).not.toHaveBeenCalled();
+      expect(notificationsService.error).toHaveBeenCalled();
+    });
   });
 
 });
