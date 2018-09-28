@@ -22,6 +22,9 @@ export class ItemSelectComponent implements OnInit {
   @Input()
   paginationOptions: PaginationComponentOptions;
 
+  @Input()
+  confirmButton = 'item.select.confirm';
+
   @Output()
   confirm: EventEmitter<string[]> = new EventEmitter<string[]>();
 

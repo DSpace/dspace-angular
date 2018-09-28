@@ -16,6 +16,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RestResponse } from '../../core/cache/response-cache.models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -41,18 +42,21 @@ export class CollectionItemMapperComponent implements OnInit {
               private searchConfigService: SearchConfigurationService,
               private searchService: SearchService,
               private notificationsService: NotificationsService,
-              private itemDataService: ItemDataService) {
+              private itemDataService: ItemDataService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.map((data) => data.collection).pipe(getSucceededRemoteData()) as Observable<RemoteData<Collection>>;
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
+    this.loadItemLists();
+  }
 
+  loadItemLists() {
     const collectionAndOptions$ = Observable.combineLatest(
       this.collectionRD$,
       this.searchOptions$
     );
-
     this.collectionItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options]) => {
         return this.searchService.search(Object.assign(options, {
@@ -86,10 +90,24 @@ export class CollectionItemMapperComponent implements OnInit {
       const successful = responses.filter((response: RestResponse) => response.isSuccessful);
       const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
       if (successful.length > 0) {
-        this.notificationsService.success('Mapping completed', `Successfully mapped ${successful.length} items.`);
+        const successMessages = Observable.combineLatest(
+          this.translateService.get('collection.item-mapper.notifications.success.head'),
+          this.translateService.get('collection.item-mapper.notifications.success.content', { amount: successful.length })
+        );
+
+        successMessages.subscribe(([head, content]) => {
+          this.notificationsService.success(head, content);
+        });
       }
       if (unsuccessful.length > 0) {
-        this.notificationsService.error('Mapping errors', `Errors occurred for mapping of ${unsuccessful.length} items.`);
+        const unsuccessMessages = Observable.combineLatest(
+          this.translateService.get('collection.item-mapper.notifications.error.head'),
+          this.translateService.get('collection.item-mapper.notifications.error.content', { amount: unsuccessful.length })
+        );
+
+        unsuccessMessages.subscribe(([head, content]) => {
+          this.notificationsService.error(head, content);
+        });
       }
     });
   }

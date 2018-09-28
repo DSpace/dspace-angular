@@ -31,7 +31,11 @@
         <ngb-tab title="{{'collection.item-mapper.tabs.map' | translate}}">
           <ng-template ngbTabContent>
             <div class="mt-2">
-              <ds-item-select class="mt-2" [itemsRD$]="mappingItemsRD$" [paginationOptions]="(searchOptions$ | async)?.pagination" (confirm)="mapItems($event)"></ds-item-select>
+              <ds-item-select class="mt-2"
+                [itemsRD$]="mappingItemsRD$"
+                [paginationOptions]="(searchOptions$ | async)?.pagination"
+                [confirmButton]="'collection.item-mapper.confirm'"
+                (confirm)="mapItems($event)"></ds-item-select>
             </div>
           </ng-template>
         </ngb-tab>
