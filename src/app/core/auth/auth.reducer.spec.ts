@@ -21,7 +21,7 @@ import {
   SetRedirectUrlAction
 } from './auth.actions';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { EpersonMock } from '../../shared/testing/eperson-mock';
+import { EPersonMock } from '../../shared/testing/eperson-mock';
 
 describe('authReducer', () => {
 
@@ -107,7 +107,7 @@ describe('authReducer', () => {
       loading: true,
       info: undefined
     };
-    const action = new AuthenticatedSuccessAction(true, mockTokenInfo, EpersonMock);
+    const action = new AuthenticatedSuccessAction(true, mockTokenInfo, EPersonMock);
     const newState = authReducer(initialState, action);
     state = {
       authenticated: true,
@@ -116,7 +116,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock
+      user: EPersonMock
     };
     expect(newState).toEqual(state);
   });
@@ -182,7 +182,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock
+      user: EPersonMock
     };
 
     const action = new LogOutAction();
@@ -199,7 +199,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock
+      user: EPersonMock
     };
 
     const action = new LogOutSuccessAction();
@@ -225,7 +225,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock
+      user: EPersonMock
     };
 
     const action = new LogOutErrorAction(mockError);
@@ -237,7 +237,7 @@ describe('authReducer', () => {
       error: 'Test error message',
       loading: false,
       info: undefined,
-      user: EpersonMock
+      user: EPersonMock
     };
     expect(newState).toEqual(state);
   });
@@ -250,7 +250,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock
+      user: EPersonMock
     };
     const newTokenInfo = new AuthTokenInfo('Refreshed token');
     const action = new RefreshTokenAction(newTokenInfo);
@@ -262,7 +262,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock,
+      user: EPersonMock,
       refreshing: true
     };
     expect(newState).toEqual(state);
@@ -276,7 +276,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock,
+      user: EPersonMock,
       refreshing: true
     };
     const newTokenInfo = new AuthTokenInfo('Refreshed token');
@@ -289,7 +289,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock,
+      user: EPersonMock,
       refreshing: false
     };
     expect(newState).toEqual(state);
@@ -303,7 +303,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock,
+      user: EPersonMock,
       refreshing: true
     };
     const action = new RefreshTokenErrorAction();
@@ -329,7 +329,7 @@ describe('authReducer', () => {
       error: undefined,
       loading: false,
       info: undefined,
-      user: EpersonMock
+      user: EPersonMock
     };
 
     state = {

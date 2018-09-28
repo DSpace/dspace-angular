@@ -1,3 +1,4 @@
+import { filter, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -55,9 +56,9 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
     const hrefObs = this.getFindAllHref(options);
 
-    hrefObs
-      .filter((href: string) => hasValue(href))
-      .take(1)
+    hrefObs.pipe(
+      filter((href: string) => hasValue(href)),
+      take(1))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);

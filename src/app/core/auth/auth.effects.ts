@@ -28,7 +28,7 @@ import {
   RegistrationErrorAction,
   RegistrationSuccessAction
 } from './auth.actions';
-import { Eperson } from '../eperson/models/eperson.model';
+import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AppState } from '../../app.reducer';
@@ -63,7 +63,7 @@ export class AuthEffects {
     .ofType(AuthActionTypes.AUTHENTICATED)
     .switchMap((action: AuthenticatedAction) => {
       return this.authService.authenticatedUser(action.payload)
-        .map((user: Eperson) => new AuthenticatedSuccessAction((user !== null), action.payload, user))
+        .map((user: EPerson) => new AuthenticatedSuccessAction((user !== null), action.payload, user))
         .catch((error) => Observable.of(new AuthenticatedErrorAction(error)));
     });
 
@@ -88,7 +88,7 @@ export class AuthEffects {
     .debounceTime(500) // to remove when functionality is implemented
     .switchMap((action: RegistrationAction) => {
       return this.authService.create(action.payload)
-        .map((user: Eperson) => new RegistrationSuccessAction(user))
+        .map((user: EPerson) => new RegistrationSuccessAction(user))
         .catch((error) => Observable.of(new RegistrationErrorAction(error)));
     });
 
