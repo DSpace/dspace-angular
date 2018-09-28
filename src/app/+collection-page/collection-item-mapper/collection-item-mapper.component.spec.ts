@@ -33,7 +33,7 @@ import { RestResponse } from '../../core/cache/response-cache.models';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 
-fdescribe('CollectionItemMapperComponent', () => {
+describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
   let fixture: ComponentFixture<CollectionItemMapperComponent>;
 
