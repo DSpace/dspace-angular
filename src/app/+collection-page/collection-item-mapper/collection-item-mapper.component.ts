@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 import { ActivatedRoute, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable } from 'rxjs/Observable';
@@ -8,16 +7,14 @@ import { Collection } from '../../core/shared/collection.model';
 import { SearchConfigurationService } from '../../+search-page/search-service/search-configuration.service';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { Item } from '../../core/shared/item.model';
-import { combineLatest, filter, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
-import { filterSuccessfulResponses, getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
+import { flatMap, map, switchMap } from 'rxjs/operators';
+import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { RestResponse } from '../../core/cache/response-cache.models';
 
 @Component({
@@ -68,7 +65,6 @@ export class CollectionItemMapperComponent implements OnInit {
     );
     this.mappingItemsRD$ = this.searchOptions$.pipe(
       flatMap((options: PaginatedSearchOptions) => {
-        options.sort.field = 'dc.title';
         return this.searchService.search(Object.assign(options, {
           scope: undefined,
           dsoType: DSpaceObjectType.ITEM,
@@ -96,6 +92,15 @@ export class CollectionItemMapperComponent implements OnInit {
         this.notificationsService.error('Mapping errors', `Errors occurred for mapping of ${unsuccessful.length} items.`);
       }
     });
+  }
+
+  tabChange(event) {
+    // TODO: Fix tabs to maintain their own pagination options (once the current pagination system is improved)
+    // Temporary solution: Clear url params when changing tabs
+    if (this.router.url.indexOf('?') > -1) {
+      const url: string = this.router.url.substring(0, this.router.url.indexOf('?'));
+      this.router.navigateByUrl(url);
+    }
   }
 
   getCurrentUrl(): string {
