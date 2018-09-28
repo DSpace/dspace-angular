@@ -126,7 +126,7 @@ export abstract class BaseResponseParsingService {
     if (hasNoValue(co) || hasNoValue(co.self)) {
       throw new Error('The server returned an invalid object');
     }
-    this.objectCache.add(co, this.EnvConfig.cache.msToLive, requestHref);
+    this.objectCache.add(co, this.EnvConfig.cache.msToLive.default, requestHref);
   }
 
   processPageInfo(payload: any): PageInfo {

@@ -23,7 +23,7 @@ import { catchError, flatMap, map, take, tap } from 'rxjs/operators';
 export const addToResponseCacheAndCompleteAction = (request: RestRequest, responseCache: ResponseCacheService, envConfig: GlobalConfig) =>
   (source: Observable<ErrorResponse>): Observable<RequestCompleteAction> =>
     source.pipe(
-      tap((response: RestResponse) => responseCache.add(request.href, response, envConfig.cache.msToLive)),
+      tap((response: RestResponse) => responseCache.add(request.href, response, request.responseMsToLive ? request.responseMsToLive : envConfig.cache.msToLive.default)),
       map((response: RestResponse) => new RequestCompleteAction(request.uuid))
     );
 
