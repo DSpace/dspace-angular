@@ -21,7 +21,7 @@ import { LocationStrategy } from '@angular/common';
 import { MockLocationStrategy } from '@angular/common/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-fdescribe('ItemSelectComponent', () => {
+describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
   let fixture: ComponentFixture<ItemSelectComponent>;
   let itemSelectService: ItemSelectService;
