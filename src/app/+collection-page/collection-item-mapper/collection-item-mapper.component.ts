@@ -28,13 +28,37 @@ import { TranslateService } from '@ngx-translate/core';
     fadeInOut
   ]
 })
+/**
+ * Collection used to map items to a collection
+ */
 export class CollectionItemMapperComponent implements OnInit {
 
+  /**
+   * The collection to map items to
+   */
   collectionRD$: Observable<RemoteData<Collection>>;
+
+  /**
+   * Search options
+   */
   searchOptions$: Observable<PaginatedSearchOptions>;
+
+  /**
+   * List of items to show under the "Browse" tab
+   * Items inside the collection
+   */
   collectionItemsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>;
+
+  /**
+   * List of items to show under the "Map" tab
+   * Items outside the collection
+   */
   mappingItemsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>;
 
+  /**
+   * Sort on title ASC by default
+   * @type {SortOptions}
+   */
   defaultSortOptions: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
   constructor(private route: ActivatedRoute,
@@ -52,6 +76,11 @@ export class CollectionItemMapperComponent implements OnInit {
     this.loadItemLists();
   }
 
+  /**
+   * Load collectionItemsRD$ with a fixed scope to only obtain the items this collection owns
+   * Load mappingItemsRD$ to only obtain items this collection doesn't own
+   *  TODO: When the API support it, fetch items excluding the collection's scope (currently fetches all items)
+   */
   loadItemLists() {
     const collectionAndOptions$ = Observable.combineLatest(
       this.collectionRD$,
@@ -79,6 +108,10 @@ export class CollectionItemMapperComponent implements OnInit {
     );
   }
 
+  /**
+   * Map the selected items to the collection and display notifications
+   * @param {string[]} ids  The list of item UUID's to map to the collection
+   */
   mapItems(ids: string[]) {
     const responses$ = this.collectionRD$.pipe(
       getSucceededRemoteData(),
@@ -112,12 +145,20 @@ export class CollectionItemMapperComponent implements OnInit {
     });
   }
 
+  /**
+   * Clear url parameters on tab change (temporary fix until pagination is improved)
+   * @param event
+   */
   tabChange(event) {
     // TODO: Fix tabs to maintain their own pagination options (once the current pagination system is improved)
     // Temporary solution: Clear url params when changing tabs
     this.router.navigateByUrl(this.getCurrentUrl());
   }
 
+  /**
+   * Get current url without parameters
+   * @returns {string}
+   */
   getCurrentUrl(): string {
     if (this.router.url.indexOf('?') > -1) {
       return this.router.url.substring(0, this.router.url.indexOf('?'));
