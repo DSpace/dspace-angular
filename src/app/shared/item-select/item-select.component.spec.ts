@@ -1,5 +1,5 @@
 import { ItemSelectComponent } from './item-select.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { SharedModule } from '../shared.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -58,7 +58,6 @@ fdescribe('ItemSelectComponent', () => {
         }]
     })
   ];
-  const mockCheckedItems= [mockItemList[0].id];
   const mockItems = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockItemList)));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
@@ -71,7 +70,7 @@ fdescribe('ItemSelectComponent', () => {
       imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
       declarations: [],
       providers: [
-        { provide: ItemSelectService, useValue: new ItemSelectServiceStub(mockCheckedItems) },
+        { provide: ItemSelectService, useValue: new ItemSelectServiceStub() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -92,11 +91,41 @@ fdescribe('ItemSelectComponent', () => {
     expect(tbody.children.length).toBe(mockItemList.length);
   });
 
-  it('should have the correct items selected', () => {
-    for (const item of mockItemList) {
-      const checked = (mockCheckedItems.indexOf(item.id) > -1);
-      const checkbox: HTMLElement = fixture.debugElement.query(By.css(`input[name=${item.id}]`)).nativeElement;
-      expect(checkbox.getAttribute('checked')).toBe(checked);
-    }
+  describe('checkboxes', () => {
+    let checkbox: HTMLInputElement;
+
+    beforeEach(() => {
+      checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
+    });
+
+    it('should initially be unchecked',() => {
+      expect(checkbox.checked).toBeFalsy();
+    });
+
+    it('should be checked when clicked', () => {
+      checkbox.click();
+      fixture.detectChanges();
+      expect(checkbox.checked).toBeTruthy();
+    });
+
+    it('should switch the value through item-select-service', () => {
+      spyOn((comp as any).itemSelectService, 'switch').and.callThrough();
+      checkbox.click();
+      expect((comp as any).itemSelectService.switch).toHaveBeenCalled();
+    });
+  });
+
+  describe('when confirm is clicked', () => {
+    let confirmButton: HTMLButtonElement;
+
+    beforeEach(() => {
+      confirmButton = fixture.debugElement.query(By.css('button.item-confirm')).nativeElement;
+      spyOn(comp.confirm, 'emit').and.callThrough();
+    });
+
+    it('should emit the selected items',() => {
+      confirmButton.click();
+      expect(comp.confirm.emit).toHaveBeenCalled();
+    });
   });
 });

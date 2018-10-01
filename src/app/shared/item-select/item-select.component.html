@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of (itemsRD$ | async)?.payload?.page">
-          <td><input [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox" name="{{item.id}}"></td>
+          <td><input class="item-checkbox" [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox" name="{{item.id}}"></td>
           <td><a [routerLink]="['/items', item.id]">{{(item.owningCollection | async)?.payload?.name}}</a></td>
           <td><a *ngIf="item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0" [routerLink]="['/items', item.id]">{{item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])[0].value}}</a></td>
           <td><a [routerLink]="['/items', item.id]">{{item.findMetadata("dc.title")}}</a></td>
@@ -26,4 +26,4 @@
     </table>
   </div>
 </ds-pagination>
-<button class="btn btn-outline-secondary" (click)="confirmSelected()">{{confirmButton | translate}}</button>
+<button class="btn btn-outline-secondary item-confirm" (click)="confirmSelected()">{{confirmButton | translate}}</button>
