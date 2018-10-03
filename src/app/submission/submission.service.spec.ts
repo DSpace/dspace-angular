@@ -3,6 +3,8 @@ import { async, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of'
@@ -19,6 +21,8 @@ import { GLOBAL_CONFIG } from '../../config';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { submissionRestREsponse } from '../shared/mocks/mock-submission';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
 
 describe('SubmissionService test suite', () => {
   const config = {
@@ -355,15 +359,24 @@ describe('SubmissionService test suite', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ submissionReducers })
+        StoreModule.forRoot({ submissionReducers }),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        })
       ],
       providers: [
         { provide: GLOBAL_CONFIG, useValue: config },
         { provide: Router, useValue: router },
         { provide: SubmissionRestService, useValue: restService },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        NotificationsService,
         RouteService,
-        SubmissionService
+        ScrollToService,
+        SubmissionService,
+        TranslateService
       ]
     }).compileComponents();
   }));
