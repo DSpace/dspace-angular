@@ -27,16 +27,18 @@ import {
   SaveSubmissionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
   SaveSubmissionSectionFormErrorAction,
-  SetWorkspaceDuplicatedAction,
-  SetWorkflowDuplicatedAction,
   InitSectionAction,
   RemoveSectionErrorsAction,
   SaveForLaterSubmissionFormAction,
-  SaveAndDepositSubmissionAction, SaveForLaterSubmissionFormSuccessAction, SaveForLaterSubmissionFormErrorAction
+  SaveAndDepositSubmissionAction,
+  SaveForLaterSubmissionFormSuccessAction,
+  SaveForLaterSubmissionFormErrorAction,
+  SetDuplicateDecisionAction, SetDuplicateDecisionSuccessAction, SetDuplicateDecisionErrorAction
 } from './submission-objects.actions';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { SectionsType } from '../sections/sections-type';
+import { WorkspaceitemSectionDetectDuplicateObject } from '../../core/submission/models/workspaceitem-section-deduplication.model';
 
 export interface SectionVisibility {
   main: any;
@@ -74,6 +76,7 @@ export interface SubmissionObjectEntry {
   sections?: SubmissionSectionEntry;
   isLoading?: boolean;
   savePending?: boolean;
+  saveDecisionPending?: boolean;
   depositPending?: boolean;
 }
 
@@ -192,15 +195,6 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return deleteFile(state, action as DeleteUploadedFileAction);
     }
 
-    // deduplication
-    case SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION: {
-      return updateDeduplication(state, action as SetWorkspaceDuplicatedAction);
-    }
-
-    case SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION: {
-      return updateDeduplication(state, action as SetWorkflowDuplicatedAction);
-    }
-
     // errors actions
     case SubmissionObjectActionTypes.ADD_SECTION_ERROR: {
       return addError(state, action as InertSectionErrorsAction);
@@ -212,6 +206,19 @@ export function submissionObjectReducer(state = initialState, action: Submission
 
     case SubmissionObjectActionTypes.REMOVE_SECTION_ERRORS: {
       return removeSectionErrors(state, action as RemoveSectionErrorsAction);
+    }
+
+    // detect duplicate
+    case SubmissionObjectActionTypes.SET_DUPLICATE_DECISION: {
+      return startSaveDecision(state, action as SetDuplicateDecisionAction);
+    }
+
+    case SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS: {
+      return setDuplicateMatches(state, action as SetDuplicateDecisionSuccessAction);
+    }
+
+    case SubmissionObjectActionTypes.SET_DUPLICATE_DECISION: {
+      return endSaveDecision(state, action as SetDuplicateDecisionErrorAction);
     }
 
     default: {
@@ -319,6 +326,7 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     sections: Object.create(null),
     isLoading: true,
     savePending: false,
+    saveDecisionPending: false,
     depositPending: false,
   };
   return newState;
@@ -740,7 +748,7 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
         [ action.payload.submissionId ]: Object.assign({}, state[action.payload.submissionId], {
           sections: Object.assign({}, state[action.payload.submissionId].sections,
             Object.assign({}, {
-              [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
+              [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ], {
                 data: Object.assign({}, state[ action.payload.submissionId ].sections[ action.payload.sectionId ].data, {
                   files: newData
                 })
@@ -754,25 +762,74 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
   return state;
 }
 
+// ------ Detect duplicate functions ------ //
+
 /**
- * Update a Workspace deduplication match.
+ * Set decision flag to true
  *
  * @param state
  *    the current state
  * @param action
- *    a SetWorkspaceDuplicatedAction or SetWorkflowDuplicatedAction
+ *    an SetDuplicateDecisionAction
  * @return SubmissionObjectState
- *    the new state, with the match parameter changed.
+ *    the new state, with the decision flag changed.
  */
-function updateDeduplication(state: SubmissionObjectState, action: SetWorkspaceDuplicatedAction|SetWorkflowDuplicatedAction): SubmissionObjectState {
-  const matches = Object.assign([], (state[(action.payload as any).submissionId].sections.deduplication.data as any).matches);
-  const newMatch = (action.payload as any).data;
-  matches.forEach( (match, i) => {
-    if (i === action.payload.index) {
-      matches.splice(i, 1, Object.assign({}, match, newMatch));
-      return;
-    }
-  });
-  // const updatedMatches = Object.assign({}, matches, newMatch);
-  return Object.assign({}, state, {[(action.payload as any).submissionId]: {sections: {deduplication: {data: {matches}}}}});
+function startSaveDecision(state: SubmissionObjectState, action: SetDuplicateDecisionAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        saveDecisionPending: true,
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+function setDuplicateMatches(state: SubmissionObjectState, action: SetDuplicateDecisionSuccessAction) {
+  const index: any = findKey(
+    action.payload.submissionObject,
+    {id: parseInt(action.payload.submissionId, 10)});
+  const sectionData = action.payload.submissionObject[index].sections[ action.payload.sectionId ] as WorkspaceitemSectionDetectDuplicateObject;
+  const newData = (sectionData && sectionData.matches) ? sectionData : Object.create({});
+
+  if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections,
+          Object.assign({}, {
+            [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
+              enabled: true,
+              data: newData
+            })
+          })
+        ),
+        saveDecisionPending: false
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Set decision flag to false
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    an SetDuplicateDecisionSuccessAction or SetDuplicateDecisionErrorAction
+ * @return SubmissionObjectState
+ *    the new state, with the decision flag changed.
+ */
+function endSaveDecision(state: SubmissionObjectState, action: SetDuplicateDecisionSuccessAction | SetDuplicateDecisionErrorAction): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        saveDecisionPending: false,
+      })
+    });
+  } else {
+    return state;
+  }
 }

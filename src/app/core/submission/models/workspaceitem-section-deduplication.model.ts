@@ -1,14 +1,12 @@
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { WorkspaceitemSectionUploadFileObject } from './workspaceitem-section-upload-file.model';
-import { FormFieldChangedObject } from '../../../shared/form/builder/models/form-field-unexpected-object.model';
+import { Item } from '../../shared/item.model';
 
-import { DSpaceObject } from '../../shared/dspace-object.model';
-
-export interface WorkspaceitemSectionDeduplicationObject {
-  matches: DeduplicationSchema[];
+export interface WorkspaceitemSectionDetectDuplicateObject {
+  matches: {
+    [itemId: string]: DetectDuplicateMatch;
+  };
 }
 
-export interface DeduplicationSchema {
+export interface DetectDuplicateMatch {
   submitterDecision?: string; // [reject|verify]
   submitterNote?: string;
   submitterTime?: string; // (readonly)
@@ -17,5 +15,7 @@ export interface DeduplicationSchema {
   workflowNote?: string;
   workflowTime?: string; // (readonly)
 
-  matchObject?: DSpaceObject; // item, workspaceItem, workflowItem
+  adminDecision?: string;
+
+  matchObject?: Item;
 }

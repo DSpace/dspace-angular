@@ -22,12 +22,7 @@ import {
   SaveSubmissionSectionFormAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
-  SetWorkflowDuplicatedAction,
-  SetWorkflowDuplicatedErrorAction,
-  SetWorkflowDuplicatedSuccessAction,
-  SetWorkspaceDuplicatedAction,
-  SetWorkspaceDuplicatedErrorAction,
-  SetWorkspaceDuplicatedSuccessAction,
+  SetDuplicateDecisionAction, SetDuplicateDecisionErrorAction, SetDuplicateDecisionSuccessAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction
 } from './submission-objects.actions';
@@ -43,11 +38,13 @@ import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { TranslateService } from '@ngx-translate/core';
-import { DeduplicationService } from '../sections/deduplication/deduplication.service';
+import { DetectDuplicateService } from '../sections/detect-duplicate/detect-duplicate.service';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import parseSectionErrors from '../utils/parseSectionErrors';
+import { SectionsType } from '../sections/sections-type';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -60,7 +57,7 @@ export class SubmissionObjectEffects {
       definition.sections.forEach((sectionDefinition: SubmissionSectionModel, index: number) => {
         const sectionId = sectionDefinition._links.self.substr(sectionDefinition._links.self.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config || '';
-        const enabled = sectionDefinition.mandatory || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
+        const enabled = (sectionDefinition.mandatory && sectionDefinition.sectionType !== SectionsType.DetectDuplicate) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
         const sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
         const sectionErrors = null;
         mappedActions.push(
@@ -127,9 +124,7 @@ export class SubmissionObjectEffects {
     .map(([action, currentState]: [SaveSubmissionFormSuccessAction | SaveSubmissionSectionFormSuccessAction, any]) => {
       return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], action.payload.submissionObject, action.payload.submissionId);
     })
-    .mergeMap((actions) => {
-      return Observable.from(actions);
-    });
+    .mergeMap((actions) => Observable.from(actions));
 
   @Effect() saveSection$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM)
@@ -142,6 +137,31 @@ export class SubmissionObjectEffects {
         .map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response))
         .catch(() => Observable.of(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId)));
     });
+
+  @Effect() saveDuplicateDecision$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION)
+    .switchMap((action: SetDuplicateDecisionAction) => {
+      return this.operationsService.jsonPatchByResourceID(
+        this.submissionService.getSubmissionObjectLinkName(),
+        action.payload.submissionId,
+        'sections',
+        action.payload.sectionId)
+        .map((response: SubmissionObject[]) => new SetDuplicateDecisionSuccessAction(action.payload.submissionId, action.payload.sectionId, response))
+        .catch(() => Observable.of(new SetDuplicateDecisionErrorAction(action.payload.submissionId)));
+    });
+
+  @Effect({dispatch: false}) setDuplicateDecisionSuccess$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS)
+    .do(() => this.notificationsService.success(null, this.translate.get('submission.sections.detect-duplicate.decision-success-notice')));
+
+/*  @Effect() setDuplicateDecisionSuccess$ = this.actions$
+    .ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS)
+    .withLatestFrom(this.store$)
+    .map(([action, currentState]: [SetDuplicateDecisionSuccessAction, any]) => {
+      this.notificationsService.success(null, this.translate.get('submission.sections.detect-duplicate.decision-success-notice'));
+      return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], action.payload.submissionObject, action.payload.submissionId, false);
+    })
+    .mergeMap((actions) => Observable.from(actions));*/
 
   @Effect() saveAndDepositSection$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION)
@@ -202,79 +222,13 @@ export class SubmissionObjectEffects {
     .ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR)
     .do(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice')));
 
-  @Effect()
-  public wsDuplication: Observable<Action> = this.actions$
-    .ofType(SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION)
-    .map((action: SetWorkspaceDuplicatedAction) => {
-      // return this.deduplicationService.setWorkspaceDuplicated(action.payload)
-      //   .first()
-      //   .map((response) => {
-      console.log('Effect of SET_WORKSPACE_DUPLICATION');
-      // TODO JSON PATCH
-      // const pathCombiner = new JsonPatchOperationPathCombiner('sections', 'deduplication');
-      // const path = ''; // `metadata/${metadataKey}`; // TODO
-      // this.operationsBuilder.add(pathCombiner.getPath(path), action.payload, true);
-      return new SetWorkspaceDuplicatedSuccessAction(action.payload);
-    })
-    .catch((error) => Observable.of(new SetWorkspaceDuplicatedErrorAction(error)));
-
-  @Effect({dispatch: false})
-  public wsDuplicationSuccess: Observable<Action> = this.actions$
-    .ofType(SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION_SUCCESS)
-    // TODO
-    .do((action: SetWorkspaceDuplicatedAction) => {
-      console.log('Effect of SET_WORKSPACE_DUPLICATION_SUCCESS');
-      this.deduplicationService.setWorkspaceDuplicationSuccess(action.payload);
-    });
-
-  @Effect({dispatch: false})
-  public wsDuplicationError: Observable<Action> = this.actions$
-    .ofType(SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION_ERROR)
-    .do((action: SetWorkspaceDuplicatedAction) => {
-      console.log('Effect of SET_WORKSPACE_DUPLICATION_ERROR');
-      this.deduplicationService.setWorkspaceDuplicationError(action.payload);
-    });
-
-  @Effect()
-  public wfDuplication: Observable<Action> = this.actions$
-    .ofType(SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION)
-    .map((action: SetWorkflowDuplicatedAction) => {
-      // return this.deduplicationService.setWorkflowDuplicated(action.payload)
-      //   .first()
-      //   .map((response) => {
-      console.log('Effect of SET_WORKFLOW_DUPLICATION');
-      // TODO JSON PATCH
-      // const pathCombiner = new JsonPatchOperationPathCombiner('sections', 'deduplication');
-      // const path = ''; // `metadata/${metadataKey}`; // TODO
-      // this.operationsBuilder.add(pathCombiner.getPath(path), action.payload, true);
-      return new SetWorkflowDuplicatedSuccessAction(action.payload);
-    })
-    .catch((error) => Observable.of(new SetWorkflowDuplicatedErrorAction(error)));
-
-  @Effect({dispatch: false})
-  public wfDuplicationSuccess: Observable<Action> = this.actions$
-    .ofType(SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION_SUCCESS)
-    // TODO
-    .do((action: SetWorkflowDuplicatedAction) => {
-      console.log('Effect of SET_WORKFLOW_DUPLICATION_SUCCESS');
-      this.deduplicationService.setWorkflowDuplicationSuccess(action.payload);
-    });
-
-  @Effect({dispatch: false})
-  public wfDuplicationError: Observable<Action> = this.actions$
-    .ofType(SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION_ERROR)
-    .do((action: SetWorkflowDuplicatedAction) => {
-      console.log('Effect of SET_WORKFLOW_DUPLICATION_ERROR');
-      this.deduplicationService.setWorkflowDuplicationError(action.payload);
-    });
-
   constructor(private actions$: Actions,
               private notificationsService: NotificationsService,
               private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
               private sectionService: SectionsService,
               private store$: Store<any>,
               private submissionService: SubmissionService,
-              private deduplicationService: DeduplicationService,
+              private deduplicationService: DetectDuplicateService,
               private translate: TranslateService) {
   }
 
@@ -293,11 +247,13 @@ export class SubmissionObjectEffects {
     return canDeposit;
   }
 
-  protected parseSaveResponse(currentState: SubmissionObjectEntry, response: SubmissionObject[], submissionId: string) {
+  protected parseSaveResponse(currentState: SubmissionObjectEntry, response: SubmissionObject[], submissionId: string, notify: boolean = true) {
     const mappedActions = [];
 
     if (isNotEmpty(response)) {
-      this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'));
+      if (notify) {
+        this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'));
+      }
 
       // to avoid dispatching an action for every error, create an array of errors per section
       response.forEach((item: Workspaceitem | Workflowitem) => {
@@ -307,19 +263,20 @@ export class SubmissionObjectEffects {
 
         if (errors && !isEmpty(errors)) {
           errorsList = parseSectionErrors(errors);
-          this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));
+          if (notify) {
+            this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));
+          }
         }
 
-        const sections = (item.sections && isNotEmpty(item.sections)) ? item.sections : {};
-
+        const sections: WorkspaceitemSectionsObject = (item.sections && isNotEmpty(item.sections)) ? item.sections : {};
         const sectionsKeys: string[] = union(Object.keys(sections), Object.keys(errorsList));
 
         sectionsKeys
           .forEach((sectionId) => {
             const sectionErrors = errorsList[sectionId] || [];
             const sectionData = sections[sectionId] || {};
-            if (!currentState.sections[sectionId].enabled) {
-              this.submissionService.notifyNewSection(sectionId);
+            if (notify && !currentState.sections[sectionId].enabled) {
+              this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
             }
             mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
           });

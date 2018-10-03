@@ -134,7 +134,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
 
   public setFocus(event) {
     if (!this.active) {
-      this.store.dispatch(new SetActiveSectionAction(this.submissionId, this.sectionId));
+      this.submissionService.setActiveSection(this.submissionId, this.sectionId);
     }
   }
 

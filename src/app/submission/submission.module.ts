@@ -29,9 +29,9 @@ import { UploadSectionFileEditComponent } from './sections/upload/file/edit/file
 import { UploadSectionFileViewComponent } from './sections/upload/file/view/file-view.component';
 import { AccessConditionsComponent } from './sections/upload/accessConditions/accessConditions.component';
 import { RecycleSectionComponent } from './sections/recycle/section-recycle.component';
-import { DeduplicationSectionComponent } from './sections/deduplication/section-deduplication.component';
-import { DeduplicationMatchComponent } from './sections/deduplication/match/deduplication-match.component';
-import { DeduplicationService } from './sections/deduplication/deduplication.service';
+import { DetectDuplicateSectionComponent } from './sections/detect-duplicate/section-detect-duplicate.component';
+import { DuplicateMatchComponent } from './sections/detect-duplicate/duplicate-match/duplicate-match.component';
+import { DetectDuplicateService } from './sections/detect-duplicate/detect-duplicate.service';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 
 @NgModule({
@@ -62,8 +62,8 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
     UploadSectionFileEditComponent,
     UploadSectionFileViewComponent,
     RecycleSectionComponent,
-    DeduplicationSectionComponent,
-    DeduplicationMatchComponent,
+    DetectDuplicateSectionComponent,
+    DuplicateMatchComponent,
   ],
   entryComponents: [
     DefaultSectionComponent,
@@ -72,7 +72,7 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
     LicenseSectionComponent,
     SectionContainerComponent,
     RecycleSectionComponent,
-    DeduplicationSectionComponent],
+    DetectDuplicateSectionComponent],
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent,
@@ -83,7 +83,7 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
     SectionsService,
     SubmissionRestService,
     SubmissionUploadsConfigService,
-    DeduplicationService
+    DetectDuplicateService
   ]
 })
 export class SubmissionModule {

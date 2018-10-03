@@ -9,7 +9,7 @@ import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empt
 import {
   DisableSectionAction,
   EnableSectionAction,
-  InertSectionErrorsAction, RemoveSectionErrorsAction,
+  InertSectionErrorsAction, RemoveSectionErrorsAction, SectionStatusChangeAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
 import {
@@ -24,12 +24,14 @@ import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionE
 import { FormAddError, FormClearErrorsAction, FormRemoveErrorAction } from '../../shared/form/form.actions';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SubmissionService } from '../submission.service';
 
 @Injectable()
 export class SectionsService {
 
   constructor(private notificationsService: NotificationsService,
               private scrollToService: ScrollToService,
+              private submissionService: SubmissionService,
               private store: Store<SubmissionState>,
               private translate: TranslateService) {
   }
@@ -83,6 +85,12 @@ export class SectionsService {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
       .filter((sectionObj) => hasValue(sectionObj))
       .map((sectionObj: SubmissionSectionObject) => sectionObj.isValid)
+      .distinctUntilChanged();
+  }
+
+  public isSectionActive(submissionId, sectionId): Observable<boolean> {
+    return this.submissionService.getActiveSectionId(submissionId)
+      .map((activeSectionId: string) => sectionId === activeSectionId)
       .distinctUntilChanged();
   }
 
@@ -149,5 +157,9 @@ export class SectionsService {
 
   public setSectionError(submissionId: string, sectionId: string, error: SubmissionSectionError) {
     this.store.dispatch(new InertSectionErrorsAction(submissionId, sectionId, error));
+  }
+
+  public setSectionStatus(submissionId: string, sectionId: string, status: boolean) {
+    this.store.dispatch(new SectionStatusChangeAction(submissionId, sectionId, status));
   }
 }

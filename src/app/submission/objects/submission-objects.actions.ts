@@ -52,12 +52,9 @@ export const SubmissionObjectActionTypes = {
   DISCARD_SUBMISSION: type('dspace/submission/DISCARD_SUBMISSION'),
   DISCARD_SUBMISSION_SUCCESS: type('dspace/submission/DISCARD_SUBMISSION_SUCCESS'),
   DISCARD_SUBMISSION_ERROR: type('dspace/submission/DISCARD_SUBMISSION_ERROR'),
-  SET_WORKSPACE_DUPLICATION: type('/sections/deduplication/SET_WORKSPACE_DUPLICATION'),
-  SET_WORKSPACE_DUPLICATION_SUCCESS: type('/sections/deduplication/SET_WORKSPACE_DUPLICATION_SUCCESS'),
-  SET_WORKSPACE_DUPLICATION_ERROR: type('/sections/deduplication/SET_WORKSPACE_DUPLICATION_ERROR'),
-  SET_WORKFLOW_DUPLICATION: type('/sections/deduplication/SET_WORKFLOW_DUPLICATION'),
-  SET_WORKFLOW_DUPLICATION_SUCCESS: type('/sections/deduplication/SET_WORKFLOW_DUPLICATION_SUCCESS'),
-  SET_WORKFLOW_DUPLICATION_ERROR: type('/sections/deduplication/SET_WORKFLOW_DUPLICATION_ERROR'),
+  SET_DUPLICATE_DECISION: type('dspace/submission/SET_DUPLICATE_DECISION'),
+  SET_DUPLICATE_DECISION_SUCCESS: type('dspace/submission/SET_DUPLICATE_DECISION_SUCCESS'),
+  SET_DUPLICATE_DECISION_ERROR: type('dspace/submission/SET_DUPLICATE_DECISION_ERROR'),
 
   // Upload file types
   NEW_FILE: type('dspace/submission/NEW_FILE'),
@@ -763,129 +760,63 @@ export class DeleteUploadedFileAction implements Action {
   }
 }
 
-export class SetWorkspaceDuplicatedAction implements Action {
-  type = SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION;
+export class SetDuplicateDecisionAction implements Action {
+  type = SubmissionObjectActionTypes.SET_DUPLICATE_DECISION;
   payload: {
-    index: number;
-    decision: string;
-    note?: string
+    submissionId: string;
+    sectionId: string;
   };
 
   /**
-   * Create a new SetWorkspaceDuplicatedAction
+   * Create a new SetDuplicateDecisionAction
    *
-   * @param index
-   *    the index in matches array
-   * @param decision
-   *    the submitter's decision ('verify'|'reject'|null)
-   * @param note
-   *    the submitter's note, for 'verify' decision only
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID
    */
-  constructor(payload: any) {
-    this.payload = payload;
+  constructor(submissionId: string, sectionId: string) {
+    this.payload = { submissionId, sectionId };
   }
 }
 
-export class SetWorkspaceDuplicatedSuccessAction implements Action {
-  type = SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION_SUCCESS;
+export class SetDuplicateDecisionSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS;
   payload: {
-    index: number;
-    decision: string;
-    note?: string
+    submissionId: string;
+    sectionId: string;
+    submissionObject: SubmissionObject[];
   };
 
   /**
-   * Create a new SetWorkspaceDuplicatedSuccessAction
+   * Create a new SetDuplicateDecisionSuccessAction
    *
-   * @param index
-   *    the index in matches array
-   * @param decision
-   *    the submitter's decision ('verify'|'reject'|null)
-   * @param note
-   *    the submitter's note, for 'verify' decision only
+   * @param submissionId
+   *    the submission's ID
+   * @param sectionId
+   *    the section's ID
+   * @param submissionObjects
+   *    the submission's Object
    */
-  constructor(payload: any) {
-    this.payload = payload;
+  constructor(submissionId: string, sectionId: string,  submissionObject: SubmissionObject[]) {
+    this.payload = { submissionId, sectionId, submissionObject };
   }
 }
 
-export class SetWorkspaceDuplicatedErrorAction implements Action {
-  type = SubmissionObjectActionTypes.SET_WORKSPACE_DUPLICATION_ERROR;
+export class SetDuplicateDecisionErrorAction implements Action {
+  type = SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_ERROR;
   payload: {
-    index: number;
+    submissionId: string;
   };
 
   /**
-   * Create a new SetWorkspaceDuplicatedErrorAction
+   * Create a new SetDuplicateDecisionErrorAction
    *
-   * @param index
-   *    the index in matches array
+   * @param submissionId
+   *    the submission's ID
    */
-  constructor(index: number) {
-    this.payload = { index };
-  }
-}
-
-export class SetWorkflowDuplicatedAction implements Action {
-  type = SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION;
-  payload: {
-    index: number;
-    decision: string;
-    note?: string
-  };
-
-  /**
-   * Create a new SetWorkflowDuplicatedAction
-   *
-   * @param index
-   *    the index in matches array
-   * @param decision
-   *    the controller's decision ('verify'|'reject'|null)
-   * @param note
-   *    the controller's note, for 'verify' decision only
-   */
-  constructor(payload: any) {
-    this.payload = payload;
-  }
-}
-
-export class SetWorkflowDuplicatedSuccessAction implements Action {
-  type = SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION_SUCCESS;
-  payload: {
-    index: number;
-    decision: string;
-    note?: string
-  };
-
-  /**
-   * Create a new SetWorkflowDuplicatedSuccessAction
-   *
-   * @param index
-   *    the index in matches array
-   * @param decision
-   *    the controller's decision ('verify'|'reject'|null)
-   * @param note
-   *    the controller's note, for 'verify' decision only
-   */
-  constructor(payload: any) {
-    this.payload = payload;
-  }
-}
-
-export class SetWorkflowDuplicatedErrorAction implements Action {
-  type = SubmissionObjectActionTypes.SET_WORKFLOW_DUPLICATION_ERROR;
-  payload: {
-    index: number;
-  };
-
-  /**
-   * Create a new SetWorkflowDuplicatedErrorAction
-   *
-   * @param index
-   *    the index in matches array
-   */
-  constructor(index: number) {
-    this.payload = { index };
+  constructor(submissionId: string) {
+    this.payload = { submissionId };
   }
 }
 
@@ -928,9 +859,6 @@ export type SubmissionObjectAction = DisableSectionAction
   | SaveSubmissionSectionFormSuccessAction
   | SaveSubmissionSectionFormErrorAction
   | SetActiveSectionAction
-  | SetWorkspaceDuplicatedAction
-  | SetWorkspaceDuplicatedSuccessAction
-  | SetWorkspaceDuplicatedErrorAction
-  | SetWorkflowDuplicatedAction
-  | SetWorkflowDuplicatedSuccessAction
-  | SetWorkflowDuplicatedErrorAction;
+  | SetDuplicateDecisionAction
+  | SetDuplicateDecisionSuccessAction
+  | SetDuplicateDecisionErrorAction;

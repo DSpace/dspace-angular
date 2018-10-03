@@ -4,7 +4,7 @@ import { WorkspaceitemSectionUploadObject } from './workspaceitem-section-upload
 import { isNotEmpty, isNotNull } from '../../../shared/empty.util';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 import { WorkspaceitemSectionRecycleObject } from './workspaceitem-section-recycle.model';
-import { WorkspaceitemSectionDeduplicationObject } from './workspaceitem-section-deduplication.model';
+import { WorkspaceitemSectionDetectDuplicateObject } from './workspaceitem-section-deduplication.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 
 export class WorkspaceitemSectionsObject {
@@ -61,5 +61,5 @@ export type WorkspaceitemSectionDataType
   | WorkspaceitemSectionFormObject
   | WorkspaceitemSectionLicenseObject
   | WorkspaceitemSectionRecycleObject
-  | WorkspaceitemSectionDeduplicationObject
+  | WorkspaceitemSectionDetectDuplicateObject
   | string;
