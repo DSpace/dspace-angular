@@ -13,6 +13,9 @@ import { NotificationOptions } from '../models/notification-options.model';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { GlobalConfig } from '../../../../config/global-config.interface';
 import { Notification } from '../models/notification.model';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
+import { GLOBAL_CONFIG } from '../../../../config';
 
 describe('NotificationComponent', () => {
 
@@ -39,18 +42,28 @@ describe('NotificationComponent', () => {
         animate: 'scale'
       }as INotificationBoardOptions,
     } as any;
-    const service = new NotificationsService(envConfig, store);
 
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        StoreModule.forRoot({notificationsReducer})],
+        StoreModule.forRoot({notificationsReducer}),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        })],
       declarations: [NotificationComponent], // declare the test component
       providers: [
-        { provide: NotificationsService, useValue: service },
-        ChangeDetectorRef]
+        { provide: GLOBAL_CONFIG, useValue: envConfig },
+        { provide: Store, useValue: store },
+        ChangeDetectorRef,
+        NotificationsService,
+        TranslateService,
+        ]
     }).compileComponents();  // compile template and css
+
   }));
 
   beforeEach(()  => {
