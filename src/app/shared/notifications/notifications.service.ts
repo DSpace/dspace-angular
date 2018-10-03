@@ -7,12 +7,14 @@ import { Store } from '@ngrx/store';
 import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
 import { Observable } from 'rxjs/Observable';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class NotificationsService {
 
   constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
-              private store: Store<Notification>) {
+              private store: Store<Notification>,
+              private translate: TranslateService) {
   }
 
   private add(notification: Notification) {
@@ -55,6 +57,41 @@ export class NotificationsService {
     const notification = new Notification(uniqueId(), NotificationType.Warning, title, content, options, html);
     this.add(notification);
     return notification;
+  }
+
+  notificationWithAnchor(notificationType: NotificationType,
+                         options: NotificationOptions,
+                         href: string,
+                         hrefTranslateLabel: string,
+                         messageTranslateLabel: string,
+                         interpolateParam: string) {
+    this.translate.get(hrefTranslateLabel)
+      .take(1)
+      .subscribe((hrefMsg) => {
+        const anchor = `<a class="btn btn-link p-0 m-0" href="${href}" >
+                        <strong>${hrefMsg}</strong>
+                      </a>`;
+        const interpolateParams = Object.create({});
+        interpolateParams[interpolateParam] = anchor;
+        this.translate.get(messageTranslateLabel, interpolateParams)
+          .take(1)
+          .subscribe((m) => {
+            switch (notificationType) {
+              case NotificationType.Success:
+                this.success(null, m, options, true);
+                break;
+              case NotificationType.Error:
+                this.error(null, m, options, true);
+                break;
+              case NotificationType.Info:
+                this.info(null, m, options, true);
+                break;
+              case NotificationType.Warning:
+                this.warning(null, m, options, true);
+                break;
+            }
+          });
+      });
   }
 
   remove(notification: INotification) {
