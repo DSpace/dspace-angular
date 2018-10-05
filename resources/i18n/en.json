@@ -205,7 +205,7 @@
   },
   "loading": {
     "default": "Loading...",
-    "top-level-communities": "Loading top level communities...",
+    "top-level-communities": "Loading top-level communities...",
     "community": "Loading community...",
     "collection": "Loading collection...",
     "sub-collections": "Loading sub-collections...",
@@ -217,7 +217,7 @@
   },
   "error": {
     "default": "Error",
-    "top-level-communities": "Error fetching top level communities",
+    "top-level-communities": "Error fetching top-level communities",
     "community": "Error fetching community",
     "collection": "Error fetching collection",
     "sub-collections": "Error fetching sub-collections",
@@ -246,7 +246,7 @@
     "group-collapse": "Collapse",
     "group-expand": "Expand",
     "group-collapse-help": "Click here to collapse",
-    "group-expand-help": "Click here to expand and add more element"
+    "group-expand-help": "Click here to expand and add more elements"
   },
   "login": {
     "title": "Login",
@@ -271,7 +271,7 @@
       "expired": "Your session has expired. Please log in again."
     },
     "errors": {
-      "invalid-user": "Invalid email or password."
+      "invalid-user": "Invalid email address or password."
     }
   }
 }
