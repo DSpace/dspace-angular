@@ -273,5 +273,12 @@
     "errors": {
       "invalid-user": "Ongeldig email adres of wachtwoord."
     }
+  },
+  "lang": {
+    "lang": "Taal",
+    "en": "Engels",
+    "de": "Duits",
+    "cs": "Tsjechisch",
+    "nl": "Nederlands"
   }
 }
