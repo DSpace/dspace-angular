@@ -43,10 +43,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router
   ) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
+    //Load all the languages that are defined as active from the config file
+    translate.addLangs(config.lang.active);
+
+    //Load the default language from the config file
+    translate.setDefaultLang(config.lang.default);
+
+    //Attempt to get the browser language from the user
+    if (translate.getLangs().includes(translate.getBrowserLang())) {
+      translate.use(translate.getBrowserLang());
+    } else {
+      translate.use(config.lang.default);
+    }
 
     metadata.listenForRouteChange();
 

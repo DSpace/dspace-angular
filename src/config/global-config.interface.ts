@@ -4,6 +4,7 @@ import { CacheConfig } from './cache-config.interface';
 import { UniversalConfig } from './universal-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { FormConfig } from './form-config.interfaces';
+import {LangConfig} from "./lang-config.interface";
 
 export interface GlobalConfig extends Config {
   ui: ServerConfig;
@@ -16,4 +17,5 @@ export interface GlobalConfig extends Config {
   gaTrackingId: string;
   logDirectory: string;
   debug: boolean;
+  lang: LangConfig;
 }

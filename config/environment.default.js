@@ -52,5 +52,10 @@ module.exports = {
   // Log directory
   logDirectory: '.',
   // NOTE: will log all redux actions and transfers in console
-  debug: false
+  debug: false,
+  // Language Settings
+  lang: {
+    default: 'en',
+    active: ['en','cs','de','nl']
+  }
 };
