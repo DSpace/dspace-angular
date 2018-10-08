@@ -16,19 +16,27 @@ import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import { BrowseEndpointRequest, BrowseEntriesRequest, RestRequest } from '../data/request.models';
+import {
+  BrowseEndpointRequest,
+  BrowseEntriesRequest,
+  BrowseItemsRequest,
+  GetRequest,
+  RestRequest
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   configureRequest,
-  filterSuccessfulResponses,
+  filterSuccessfulResponses, getBrowseDefinitionLinks,
   getRemoteDataPayload,
   getRequestFromSelflink,
   getResponseFromSelflink
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { Item } from '../shared/item.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 @Injectable()
 export class BrowseService {
@@ -71,6 +79,8 @@ export class BrowseService {
       map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<BrowseDefinition[]>) => response.payload),
       ensureArrayHasValue(),
+      map((definitions: BrowseDefinition[]) => definitions
+        .map((definition: BrowseDefinition) => Object.assign(new BrowseDefinition(), definition))),
       distinctUntilChanged()
     );
 
@@ -82,17 +92,7 @@ export class BrowseService {
     sort?: SortOptions;
   } = {}): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
     const request$ = this.getBrowseDefinitions().pipe(
-      getRemoteDataPayload(),
-      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-        .find((def: BrowseDefinition) => def.id === definitionID && def.metadataBrowse === true)
-      ),
-      map((def: BrowseDefinition) => {
-        if (isNotEmpty(def)) {
-          return def._links;
-        } else {
-          throw new Error(`No metadata browse definition could be found for id '${definitionID}'`);
-        }
-      }),
+      getBrowseDefinitionLinks(definitionID),
       hasValueOperator(),
       map((_links: any) => _links.entries),
       hasValueOperator(),
@@ -124,6 +124,66 @@ export class BrowseService {
       filterSuccessfulResponses(),
       map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<BrowseEntry[]>) => new PaginatedList(response.pageInfo, response.payload)),
+      map((list: PaginatedList<BrowseEntry>) => Object.assign(list, {
+        page: list.page ? list.page.map((entry: BrowseEntry) => Object.assign(new BrowseEntry(), entry)) : list.page
+      })),
+      distinctUntilChanged()
+    );
+
+    return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+  }
+
+  /**
+   * Get all items linked to a certain metadata value
+   * @param {string} definitionID     definition ID to define the metadata-field (e.g. author)
+   * @param {string} filterValue      metadata value to filter by (e.g. author's name)
+   * @param options                   Options to narrow down your search:
+   *                                  { pagination: PaginationComponentOptions,
+   *                                    sort: SortOptions }
+   * @returns {Observable<RemoteData<PaginatedList<Item>>>}
+   */
+  getBrowseItemsFor(definitionID: string, filterValue: string, options: {
+    pagination?: PaginationComponentOptions;
+    sort?: SortOptions;
+  } = {}): Observable<RemoteData<PaginatedList<Item>>> {
+    const request$ = this.getBrowseDefinitions().pipe(
+      getBrowseDefinitionLinks(definitionID),
+      hasValueOperator(),
+      map((_links: any) => _links.items),
+      hasValueOperator(),
+      map((href: string) => {
+        const args = [];
+        if (isNotEmpty(options.sort)) {
+          args.push(`sort=${options.sort.field},${options.sort.direction}`);
+        }
+        if (isNotEmpty(options.pagination)) {
+          args.push(`page=${options.pagination.currentPage - 1}`);
+          args.push(`size=${options.pagination.pageSize}`);
+        }
+        if (isNotEmpty(filterValue)) {
+          args.push(`filterValue=${filterValue}`);
+        }
+        if (isNotEmpty(args)) {
+          href = new URLCombiner(href, `?${args.join('&')}`).toString();
+        }
+        return href;
+      }),
+      map((endpointURL: string) => new BrowseItemsRequest(this.requestService.generateRequestId(), endpointURL)),
+      configureRequest(this.requestService)
+    );
+
+    const href$ = request$.pipe(map((request: RestRequest) => request.href));
+
+    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
+
+    const payload$ = responseCache$.pipe(
+      filterSuccessfulResponses(),
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: GenericSuccessResponse<Item[]>) => new PaginatedList(response.pageInfo, response.payload)),
+      map((list: PaginatedList<Item>) => Object.assign(list, {
+        page: list.page ? list.page.map((item: DSpaceObject) => Object.assign(new Item(), item)) : list.page
+      })),
       distinctUntilChanged()
     );
 

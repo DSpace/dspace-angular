@@ -12,7 +12,7 @@ import {
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
-import { Eperson } from '../eperson/models/eperson.model';
+import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 
 /**
@@ -46,7 +46,7 @@ export interface AuthState {
   refreshing?: boolean;
 
   // the authenticated user
-  user?: Eperson;
+  user?: EPerson;
 }
 
 /**

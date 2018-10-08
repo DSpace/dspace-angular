@@ -5,6 +5,7 @@ import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { Observable } from 'rxjs';
+import { autoserialize } from 'cerialize';
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -16,11 +17,13 @@ export class  DSpaceObject implements CacheableObject, ListableObject {
   /**
    * The human-readable identifier of this DSpaceObject
    */
+  @autoserialize
   id: string;
 
   /**
    * The universally unique identifier of this DSpaceObject
    */
+  @autoserialize
   uuid: string;
 
   /**
@@ -31,11 +34,13 @@ export class  DSpaceObject implements CacheableObject, ListableObject {
   /**
    * The name for this DSpaceObject
    */
+  @autoserialize
   name: string;
 
   /**
    * An array containing all metadata of this DSpaceObject
    */
+  @autoserialize
   metadata: Metadatum[];
 
   /**
