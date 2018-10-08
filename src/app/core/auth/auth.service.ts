@@ -1,4 +1,4 @@
-import { of as observableOf, Observable } from 'rxjs';
+import { of as observableOf, Observable ,  Observable } from 'rxjs';
 import {
   take,
   filter,
@@ -7,7 +7,7 @@ import {
   distinctUntilChanged,
   map,
   withLatestFrom
-} from 'rxjs/operators';
+,  map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
@@ -16,8 +16,6 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
-import { Observable } from 'rxjs/Observable';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';

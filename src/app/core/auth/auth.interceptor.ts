@@ -1,4 +1,4 @@
-import { of as observableOf, throwError as observableThrowError } from 'rxjs';
+import { of as observableOf, throwError as observableThrowError ,  Observable } from 'rxjs';
 
 import { catchError, filter, map } from 'rxjs/operators';
 import { Injectable, Injector } from '@angular/core';
@@ -11,8 +11,6 @@ import {
   HttpResponse,
   HttpResponseBase
 } from '@angular/common/http';
-
-import { Observable } from 'rxjs';
 
 
 import { find } from 'lodash';
