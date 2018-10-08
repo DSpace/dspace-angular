@@ -119,7 +119,7 @@ describe('DsDynamicTagComponent test suite', () => {
     }));
   });
 
-  describe('when authorityOptions are setted', () => {
+  describe('when authorityOptions are set', () => {
     describe('and init model value is empty', () => {
       beforeEach(() => {
 
@@ -229,7 +229,7 @@ describe('DsDynamicTagComponent test suite', () => {
 
   });
 
-  describe('when authorityOptions are not setted', () => {
+  describe('when authorityOptions are not set', () => {
     describe('and init model value is empty', () => {
       beforeEach(() => {
 

@@ -191,7 +191,7 @@ describe('Dynamic Lookup component', () => {
         const btnEl = de[0].nativeElement;
         const selectedValue = Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1});
         spyOn(lookupComp.change, 'emit');
-
+        console.log("debugger");
         lookupComp.firstInputValue = 'test';
         lookupFixture.detectChanges();
         btnEl.click();
