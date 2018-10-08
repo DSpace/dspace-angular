@@ -43,6 +43,67 @@
         "simple": "Simple item page",
         "full": "Full item page"
       }
+    },
+    "select": {
+      "table": {
+        "collection": "Collection",
+        "author": "Author",
+        "title": "Title"
+      },
+      "confirm": "Confirm selected"
+    },
+    "edit": {
+      "head": "Edit Item",
+      "tabs": {
+        "status": {
+          "head": "Item Status",
+          "description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
+          "labels": {
+            "id": "Item Internal ID",
+            "handle": "Handle",
+            "lastModified": "Last Modified",
+            "itemPage": "Item Page"
+          },
+          "buttons": {
+            "authorizations": {
+              "label": "Edit item's authorization policies",
+              "button": "Authorizations..."
+            },
+            "withdraw": {
+              "label": "Withdraw item from the repository",
+              "button": "Withdraw..."
+            },
+            "move": {
+              "label": "Move item to another collection",
+              "button": "Move..."
+            },
+            "private": {
+              "label": "Make item private",
+              "button": "Make it private..."
+            },
+            "delete": {
+              "label": "Completely expunge item",
+              "button": "Permanently delete"
+            },
+            "mapped-collections": {
+              "label": "Manage mapped collections",
+              "button": "Mapped collections"
+            }
+          }
+        },
+        "bitstreams": {
+          "head": "Item Bitstreams"
+        },
+        "metadata": {
+          "head": "Item Metadata"
+        },
+        "view": {
+          "head": "View Item"
+        },
+        "curate": {
+          "head": "Curate"
+        }
+      }
     }
   },
   "nav": {
