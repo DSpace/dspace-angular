@@ -124,6 +124,27 @@
         "curate": {
           "head": "Curate"
         }
+      },
+      "item-mapper": {
+        "head": "Item Mapper - Map Item to Collections",
+        "item": "Item: \"<b>{{name}}</b>\"",
+        "description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
+        "confirm": "Map item to selected collections",
+        "tabs": {
+          "browse": "Browse",
+          "map": "Map"
+        },
+        "notifications": {
+          "success": {
+            "head": "Mapping completed",
+            "content": "Successfully mapped item to {{amount}} collections."
+          },
+          "error": {
+            "head": "Mapping errors",
+            "content": "Errors occurred for mapping of item to {{amount}} collections."
+          }
+        },
+        "return": "Return"
       }
     }
   },

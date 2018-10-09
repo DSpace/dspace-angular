@@ -15,7 +15,7 @@ import { ItemCollectionMapperComponent } from './item-collection-mapper/item-col
         }
       },
       {
-        path: 'map',
+        path: 'mapper',
         component: ItemCollectionMapperComponent,
         resolve: {
           item: ItemPageResolver

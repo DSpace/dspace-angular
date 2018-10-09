@@ -1,7 +1,38 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <p>It works!</p>
+      <h2>{{'item.edit.item-mapper.head' | translate}}</h2>
+      <p [innerHTML]="'item.edit.item-mapper.item' | translate:{ name: (itemRD$ | async)?.payload?.name }" id="item-name"></p>
+      <p>{{'item.edit.item-mapper.description' | translate}}</p>
+
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <ds-search-form id="search-form"
+                          [query]="(searchOptions$ | async)?.query"
+                          [scope]="(searchOptions$ | async)?.scope"
+                          [currentUrl]="getCurrentUrl()">
+          </ds-search-form>
+        </div>
+      </div>
+
+      <ngb-tabset (tabChange)="tabChange($event)">
+        <ngb-tab title="{{'item.edit.item-mapper.tabs.browse' | translate}}">
+          <ng-template ngbTabContent>
+            <div class="mt-2">
+              <div *ngFor="let col of (itemCollectionsRD$ | async)?.payload">{{col.name}}</div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="{{'item.edit.item-mapper.tabs.map' | translate}}">
+          <ng-template ngbTabContent>
+            <div class="mt-2">
+
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+
+      <button [routerLink]="['/items/', (itemRD$ | async)?.payload?.id]" class="btn btn-outline-secondary">{{'item.edit.item-mapper.return' | translate}}</button>
     </div>
   </div>
 </div>

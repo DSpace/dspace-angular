@@ -54,7 +54,7 @@ export class ItemStatusComponent implements OnInit {
     this.statusDataKeys = Object.keys(this.statusData);
 
     this.actions = Object.assign({
-      mappedCollections: this.getCurrentUrl() + '/map'
+      mappedCollections: this.getCurrentUrl() + '/mapper'
     });
     this.actionsKeys = Object.keys(this.actions);
   }

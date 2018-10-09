@@ -13,6 +13,7 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
+import { MappingCollectionsReponseParsingService } from './mapping-collections-reponse-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -188,6 +189,12 @@ export class BrowseEntriesRequest extends GetRequest {
 export class BrowseItemsRequest extends GetRequest {
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return BrowseItemsResponseParsingService;
+  }
+}
+
+export class MappingCollectionsRequest extends GetRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MappingCollectionsReponseParsingService;
   }
 }
 
