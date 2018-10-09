@@ -53,8 +53,14 @@ export class ItemStatusComponent implements OnInit {
     });
     this.statusDataKeys = Object.keys(this.statusData);
 
+    /*
+      The key is used to build messages
+        i18n example: 'item.edit.tabs.status.buttons.<key>.label'
+      The value is supposed to be a href for the button
+    */
     this.actions = Object.assign({
-      mappedCollections: this.getCurrentUrl() + '/map'
+      // TODO: Create mapping component on item level
+      mappedCollections: this.getCurrentUrl() + '/'
     });
     this.actionsKeys = Object.keys(this.actions);
   }

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { EditItemPageRoutingModule } from './edit-item-page.routing.module';
 import { EditItemPageComponent } from './edit-item-page.component';
-import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemStatusComponent } from './item-status/item-status.component';
 
 @NgModule({
@@ -14,8 +13,7 @@ import { ItemStatusComponent } from './item-status/item-status.component';
   ],
   declarations: [
     EditItemPageComponent,
-    ItemStatusComponent,
-    ItemCollectionMapperComponent
+    ItemStatusComponent
   ]
 })
 export class EditItemPageModule {
