@@ -85,7 +85,7 @@
               "label": "Completely expunge item",
               "button": "Permanently delete"
             },
-            "mapped-collections": {
+            "mappedCollections": {
               "label": "Manage mapped collections",
               "button": "Mapped collections"
             }
