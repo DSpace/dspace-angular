@@ -89,8 +89,17 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       configureRequest(this.requestService)
     );
 
-    // TODO: Create a remotedata object
-    return undefined;
+    const href$ = request$.pipe(map((request: RestRequest) => request.href));
+    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
+    const payload$ = responseCache$.pipe(
+      filterSuccessfulResponses(),
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: GenericSuccessResponse<Collection[]>) => response.payload),
+      ensureArrayHasValue()
+    );
+
+    return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
 }

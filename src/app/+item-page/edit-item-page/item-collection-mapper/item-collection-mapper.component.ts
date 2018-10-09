@@ -82,7 +82,9 @@ export class ItemCollectionMapperComponent implements OnInit {
       map((itemRD: RemoteData<Item>) => itemRD.payload),
       switchMap((item: Item) => this.itemDataService.getMappedCollections(item.id))
     );
-    this.mappingCollectionsRD$ = this.collectionDataService.findAll();
+    this.mappingCollectionsRD$ = this.searchOptions$.pipe(
+      switchMap((searchOptions: PaginatedSearchOptions) => this.collectionDataService.findAll(searchOptions))
+    );
   }
 
   /**

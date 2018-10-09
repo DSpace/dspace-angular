@@ -58,7 +58,6 @@ export class ItemStatusComponent implements OnInit {
       The value is supposed to be a href for the button
     */
     this.actions = Object.assign({
-      // TODO: Create mapping component on item level
       mappedCollections: this.getCurrentUrl() + '/mapper'
     });
     this.actionsKeys = Object.keys(this.actions);
