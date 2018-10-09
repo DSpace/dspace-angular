@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-item-status',
-  styleUrls: ['./item-status.component.scss'],
   templateUrl: './item-status.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [

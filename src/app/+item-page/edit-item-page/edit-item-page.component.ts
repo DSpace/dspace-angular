@@ -7,7 +7,6 @@ import { Item } from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-edit-item-page',
-  styleUrls: ['./edit-item-page.component.scss'],
   templateUrl: './edit-item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
