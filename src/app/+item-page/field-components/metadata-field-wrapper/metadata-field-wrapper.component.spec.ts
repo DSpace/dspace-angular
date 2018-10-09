@@ -13,7 +13,7 @@ import { MetadataFieldWrapperComponent } from './metadata-field-wrapper.componen
 })
 class ContentComponent {}
 
-fdescribe('MetadataFieldWrapperComponent', () => {
+describe('MetadataFieldWrapperComponent', () => {
   let component: MetadataFieldWrapperComponent;
   let fixture: ComponentFixture<MetadataFieldWrapperComponent>;
 
