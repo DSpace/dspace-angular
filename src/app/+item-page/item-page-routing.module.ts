@@ -5,7 +5,6 @@ import { ItemPageComponent } from './simple/item-page.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { ItemPageResolver } from './item-page.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { EditItemPageComponent } from './edit-item-page/edit-item-page.component';
 
 @NgModule({
   imports: [
@@ -27,10 +26,7 @@ import { EditItemPageComponent } from './edit-item-page/edit-item-page.component
       },
       {
         path: ':id/edit',
-        component: EditItemPageComponent,
-        resolve: {
-          item: ItemPageResolver
-        },
+        loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
         canActivate: [AuthenticatedGuard]
       }
     ])
