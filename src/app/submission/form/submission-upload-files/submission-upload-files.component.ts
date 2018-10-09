@@ -85,6 +85,10 @@ export class SubmissionUploadFilesComponent implements OnChanges {
     );
   }
 
+  public onUploadError() {
+    this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
+  }
+
   /**
    * Method provided by Angular. Invoked when the instance is destroyed.
    */

@@ -58,6 +58,11 @@ export class UploaderComponent {
    */
   @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * The function to call on error occurred
+   */
+  @Output() onUploadError: EventEmitter<any> = new EventEmitter<any>();
+
   public uploader: FileUploader;
   public uploaderId: string;
   public isOverBaseDropZone = Observable.of(false);
@@ -124,6 +129,10 @@ export class UploaderComponent {
         const responsePath = JSON.parse(response);
         this.onCompleteItem.emit(responsePath);
       }
+    };
+    this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
+      this.onUploadError.emit(null);
+      this.uploader.cancelAll();
     };
     this.uploader.onProgressAll = () => this.onProgress();
     this.uploader.onProgressItem = () => this.onProgress();
