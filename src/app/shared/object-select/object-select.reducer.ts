@@ -1,21 +1,21 @@
 import { isEmpty } from '../empty.util';
-import { ItemSelectionAction, ItemSelectionActionTypes } from './item-select.actions';
+import { ObjectSelectionAction, ObjectSelectionActionTypes } from './object-select.actions';
 
 /**
  * Interface that represents the state for a single filters
  */
-export interface ItemSelectionState {
+export interface ObjectSelectionState {
   checked: boolean;
 }
 
 /**
  * Interface that represents the state for all available filters
  */
-export interface ItemSelectionsState {
-  [id: string]: ItemSelectionState
+export interface ObjectSelectionsState {
+  [id: string]: ObjectSelectionState
 }
 
-const initialState: ItemSelectionsState = Object.create(null);
+const initialState: ObjectSelectionsState = Object.create(null);
 
 /**
  * Performs a search filter action on the current state
@@ -23,11 +23,11 @@ const initialState: ItemSelectionsState = Object.create(null);
  * @param {SearchFilterAction} action The action that should be performed
  * @returns {SearchFiltersState} The state after the action is performed
  */
-export function itemSelectionReducer(state = initialState, action: ItemSelectionAction): ItemSelectionsState {
+export function objectSelectionReducer(state = initialState, action: ObjectSelectionAction): ObjectSelectionsState {
 
   switch (action.type) {
 
-    case ItemSelectionActionTypes.INITIAL_SELECT: {
+    case ObjectSelectionActionTypes.INITIAL_SELECT: {
       if (isEmpty(state) || isEmpty(state[action.id])) {
         return Object.assign({}, state, {
           [action.id]: {
@@ -38,7 +38,7 @@ export function itemSelectionReducer(state = initialState, action: ItemSelection
       return state;
     }
 
-    case ItemSelectionActionTypes.INITIAL_DESELECT: {
+    case ObjectSelectionActionTypes.INITIAL_DESELECT: {
       if (isEmpty(state) || isEmpty(state[action.id])) {
         return Object.assign({}, state, {
           [action.id]: {
@@ -49,7 +49,7 @@ export function itemSelectionReducer(state = initialState, action: ItemSelection
       return state;
     }
 
-    case ItemSelectionActionTypes.SELECT: {
+    case ObjectSelectionActionTypes.SELECT: {
       return Object.assign({}, state, {
         [action.id]: {
           checked: true
@@ -57,7 +57,7 @@ export function itemSelectionReducer(state = initialState, action: ItemSelection
       });
     }
 
-    case ItemSelectionActionTypes.DESELECT: {
+    case ObjectSelectionActionTypes.DESELECT: {
       return Object.assign({}, state, {
         [action.id]: {
           checked: false
@@ -65,7 +65,7 @@ export function itemSelectionReducer(state = initialState, action: ItemSelection
       });
     }
 
-    case ItemSelectionActionTypes.SWITCH: {
+    case ObjectSelectionActionTypes.SWITCH: {
       return Object.assign({}, state, {
         [action.id]: {
           checked: (isEmpty(state) || isEmpty(state[action.id])) ? true : !state[action.id].checked
@@ -73,7 +73,7 @@ export function itemSelectionReducer(state = initialState, action: ItemSelection
       });
     }
 
-    case ItemSelectionActionTypes.RESET: {
+    case ObjectSelectionActionTypes.RESET: {
       return {};
     }
 

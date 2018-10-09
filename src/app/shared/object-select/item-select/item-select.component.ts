@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { RemoteData } from '../../core/data/remote-data';
-import { Observable } from 'rxjs/Observable';
-import { Item } from '../../core/shared/item.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { ItemSelectService } from './item-select.service';
 import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { Item } from '../../../core/shared/item.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { ObjectSelectService } from '../object-select.service';
 
 @Component({
   selector: 'ds-item-select',
@@ -50,11 +49,11 @@ export class ItemSelectComponent implements OnInit {
    */
   selectedIds$: Observable<string[]>;
 
-  constructor(private itemSelectService: ItemSelectService) {
+  constructor(private objectelectService: ObjectSelectService) {
   }
 
   ngOnInit(): void {
-    this.selectedIds$ = this.itemSelectService.getAllSelected();
+    this.selectedIds$ = this.objectelectService.getAllSelected();
   }
 
   /**
@@ -62,7 +61,7 @@ export class ItemSelectComponent implements OnInit {
    * @param {string} id
    */
   switch(id: string) {
-    this.itemSelectService.switch(id);
+    this.objectelectService.switch(id);
   }
 
   /**
@@ -71,7 +70,7 @@ export class ItemSelectComponent implements OnInit {
    * @returns {Observable<boolean>}
    */
   getSelected(id: string): Observable<boolean> {
-    return this.itemSelectService.getSelected(id);
+    return this.objectelectService.getSelected(id);
   }
 
   /**
@@ -83,7 +82,7 @@ export class ItemSelectComponent implements OnInit {
       take(1)
     ).subscribe((ids: string[]) => {
       this.confirm.emit(ids);
-      this.itemSelectService.reset();
+      this.objectelectService.reset();
     });
   }
 

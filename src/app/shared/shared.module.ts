@@ -83,7 +83,7 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { MomentModule } from 'angular2-moment';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
-import { ItemSelectComponent } from './item-select/item-select.component';
+import { ItemSelectComponent } from './object-select/item-select/item-select.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
