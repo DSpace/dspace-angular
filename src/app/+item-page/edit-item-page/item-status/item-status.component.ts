@@ -59,7 +59,7 @@ export class ItemStatusComponent implements OnInit {
     */
     this.actions = Object.assign({
       // TODO: Create mapping component on item level
-      mappedCollections: this.getCurrentUrl() + '/'
+      mappedCollections: this.getCurrentUrl() + '/mapper'
     });
     this.actionsKeys = Object.keys(this.actions);
   }

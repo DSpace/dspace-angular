@@ -13,6 +13,27 @@
           "head": "Recent Submissions"
         }
       }
+    },
+    "item-mapper": {
+      "head": "Item Mapper - Map Items from Other Collections",
+      "collection": "Collection: \"<b>{{name}}</b>\"",
+      "description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
+      "confirm": "Map selected items",
+      "tabs": {
+        "browse": "Browse",
+        "map": "Map"
+      },
+      "notifications": {
+        "success": {
+          "head": "Mapping completed",
+          "content": "Successfully mapped {{amount}} items."
+        },
+        "error": {
+          "head": "Mapping errors",
+          "content": "Errors occurred for mapping of {{amount}} items."
+        }
+      },
+      "return": "Return"
     }
   },
   "community": {
@@ -103,6 +124,27 @@
         "curate": {
           "head": "Curate"
         }
+      },
+      "item-mapper": {
+        "head": "Item Mapper - Map Item to Collections",
+        "item": "Item: \"<b>{{name}}</b>\"",
+        "description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
+        "confirm": "Map item to selected collections",
+        "tabs": {
+          "browse": "Browse",
+          "map": "Map"
+        },
+        "notifications": {
+          "success": {
+            "head": "Mapping completed",
+            "content": "Successfully mapped item to {{amount}} collections."
+          },
+          "error": {
+            "head": "Mapping errors",
+            "content": "Errors occurred for mapping of item to {{amount}} collections."
+          }
+        },
+        "return": "Return"
       }
     }
   },

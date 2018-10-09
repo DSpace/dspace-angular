@@ -64,6 +64,8 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
+import { ItemSelectService } from '../shared/item-select/item-select.service';
+import { MappingCollectionsReponseParsingService } from './data/mapping-collections-reponse-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -110,6 +112,7 @@ const PROVIDERS = [
   RegistryMetadataschemasResponseParsingService,
   RegistryMetadatafieldsResponseParsingService,
   RegistryBitstreamformatsResponseParsingService,
+  MappingCollectionsReponseParsingService,
   MetadataschemaParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
@@ -128,6 +131,7 @@ const PROVIDERS = [
   UploaderService,
   UUIDService,
   DSpaceObjectDataService,
+  ItemSelectService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
