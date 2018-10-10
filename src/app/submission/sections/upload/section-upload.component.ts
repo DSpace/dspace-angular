@@ -163,8 +163,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
               fileList.forEach((file) => {
                 this.fileList.push(file);
                 this.fileIndexes.push(file.uuid);
-                const fileName = file.metadata['dc.title'][0].display || file.uuid;
-                this.fileNames.push(fileName);
+                this.fileNames.push(this.getFileName(file));
               });
               sectionStatus = true;
             }
@@ -175,6 +174,18 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
           }
         )
     );
+  }
+
+  private getFileName(fileData: any): string {
+    const metadataName: string = this.configMetadataForm.rows[0].fields[0].selectableMetadata[0].metadata;
+    let title: string;
+    if (isNotEmpty(fileData.metadata) && isNotEmpty(fileData.metadata[metadataName])) {
+      title = fileData.metadata[metadataName][0].display;
+    } else {
+      title = fileData.uuid;
+    }
+
+    return title;
   }
 
   /**
