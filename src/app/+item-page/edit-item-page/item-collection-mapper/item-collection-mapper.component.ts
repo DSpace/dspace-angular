@@ -92,10 +92,22 @@ export class ItemCollectionMapperComponent implements OnInit {
    * @param {string[]} ids  The list of collection UUID's to map the item to
    */
   mapCollections(ids: string[]) {
-    const responses$ = this.itemRD$.pipe(
-      getSucceededRemoteData(),
-      map((itemRD: RemoteData<Item>) => itemRD.payload.id),
-      switchMap((itemId: string) => Observable.combineLatest(ids.map((id: string) => this.itemDataService.mapToCollection(itemId, id))))
+    const itemIdAndExcludingIds$ = Observable.combineLatest(
+      this.itemRD$.pipe(
+        getSucceededRemoteData(),
+        map((rd: RemoteData<Item>) => rd.payload),
+        map((item: Item) => item.id)
+      ),
+      this.itemCollectionsRD$.pipe(
+        getSucceededRemoteData(),
+        map((rd: RemoteData<PaginatedList<Collection>>) => rd.payload.page),
+        map((collections: Collection[]) => collections.map((collection: Collection) => collection.id))
+      )
+    );
+
+    // Map the item to the collections found in ids, excluding the collections the item is already mapped to
+    const responses$ = itemIdAndExcludingIds$.pipe(
+      switchMap(([itemId, excludingIds]) => Observable.combineLatest(this.filterIds(ids, excludingIds).map((id: string) => this.itemDataService.mapToCollection(itemId, id))))
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.add');
@@ -106,6 +118,7 @@ export class ItemCollectionMapperComponent implements OnInit {
    * @param {string[]} ids  The list of collection UUID's to remove the mapping of the item for
    */
   removeMappings(ids: string[]) {
+    // TODO: When the API supports fetching collections excluding the item's scope, make sure to exclude ids from mappingCollectionsRD$ here
     const responses$ = this.itemRD$.pipe(
       getSucceededRemoteData(),
       map((itemRD: RemoteData<Item>) => itemRD.payload.id),
@@ -113,6 +126,16 @@ export class ItemCollectionMapperComponent implements OnInit {
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.remove');
+  }
+
+  /**
+   * Filters ids from a given list of ids, which exist in a second given list of ids
+   * @param {string[]} ids          The list of ids to filter out of
+   * @param {string[]} excluding    The ids that should be excluded from the first list
+   * @returns {string[]}
+   */
+  private filterIds(ids: string[], excluding: string[]): string[] {
+    return ids.filter((id: string) => excluding.indexOf(id) < 0);
   }
 
   /**
