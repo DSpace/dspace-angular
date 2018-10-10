@@ -15,7 +15,14 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions, GetRequest, MappingCollectionsRequest, PostRequest, RestRequest } from './request.models';
+import {
+  DeleteRequest,
+  FindAllOptions,
+  GetRequest,
+  MappingCollectionsRequest,
+  PostRequest,
+  RestRequest
+} from './request.models';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import {
   configureRequest,
@@ -69,6 +76,18 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     );
   }
 
+  public removeMappingFromCollection(itemId: string, collectionId: string): Observable<RestResponse> {
+    return this.getMappingCollectionsEndpoint(itemId, collectionId).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
+      configureRequest(this.requestService),
+      map((request: RestRequest) => request.href),
+      getResponseFromSelflink(this.responseCache),
+      map((responseCacheEntry: ResponseCacheEntry) => responseCacheEntry.response)
+    );
+  }
+
   public mapToCollection(itemId: string, collectionId: string): Observable<RestResponse> {
     return this.getMappingCollectionsEndpoint(itemId, collectionId).pipe(
       isNotEmptyOperator(),
@@ -81,7 +100,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     );
   }
 
-  public getMappedCollections(itemId: string): Observable<RemoteData<Collection[]>> {
+  public getMappedCollections(itemId: string): Observable<RemoteData<PaginatedList<Collection>>> {
     const request$ = this.getMappingCollectionsEndpoint(itemId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
@@ -95,8 +114,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     const payload$ = responseCache$.pipe(
       filterSuccessfulResponses(),
       map((entry: ResponseCacheEntry) => entry.response),
-      map((response: GenericSuccessResponse<Collection[]>) => response.payload),
-      ensureArrayHasValue()
+      map((response: GenericSuccessResponse<PaginatedList<Collection>>) => response.payload)
     );
 
     return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);

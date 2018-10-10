@@ -135,19 +135,34 @@
         "head": "Item Mapper - Map Item to Collections",
         "item": "Item: \"<b>{{name}}</b>\"",
         "description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-        "confirm": "Map item to selected collections",
         "tabs": {
           "browse": "Browse",
           "map": "Map"
         },
+        "buttons": {
+          "add": "Map item to selected collections",
+          "remove": "Remove item's mapping for selected collections"
+        },
         "notifications": {
-          "success": {
-            "head": "Mapping completed",
-            "content": "Successfully mapped item to {{amount}} collections."
+          "add": {
+            "success": {
+              "head": "Mapping completed",
+              "content": "Successfully mapped item to {{amount}} collections."
+            },
+            "error": {
+              "head": "Mapping errors",
+              "content": "Errors occurred for mapping of item to {{amount}} collections."
+            }
           },
-          "error": {
-            "head": "Mapping errors",
-            "content": "Errors occurred for mapping of item to {{amount}} collections."
+          "remove": {
+            "success": {
+              "head": "Removal of mapping completed",
+              "content": "Successfully removed mapping of item to {{amount}} collections."
+            },
+            "error": {
+              "head": "Removal of mapping errors",
+              "content": "Errors occurred for the removal of the mapping to {{amount}} collections."
+            }
           }
         },
         "return": "Return"

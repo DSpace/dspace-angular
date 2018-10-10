@@ -18,6 +18,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { RestResponse } from '../../../core/cache/response-cache.models';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { C } from '@angular/core/src/render3';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -47,7 +48,7 @@ export class ItemCollectionMapperComponent implements OnInit {
    * List of collections to show under the "Browse" tab
    * Collections that are mapped to the item
    */
-  itemCollectionsRD$: Observable<RemoteData<Collection[]>>;
+  itemCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
 
   /**
    * List of collections to show under the "Map" tab
@@ -97,13 +98,36 @@ export class ItemCollectionMapperComponent implements OnInit {
       switchMap((itemId: string) => Observable.combineLatest(ids.map((id: string) => this.itemDataService.mapToCollection(itemId, id))))
     );
 
+    this.showNotifications(responses$, 'item.edit.item-mapper.notifications.add');
+  }
+
+  /**
+   * Remove the mapping of the item to the selected collections and display notifications
+   * @param {string[]} ids  The list of collection UUID's to remove the mapping of the item for
+   */
+  removeMappings(ids: string[]) {
+    const responses$ = this.itemRD$.pipe(
+      getSucceededRemoteData(),
+      map((itemRD: RemoteData<Item>) => itemRD.payload.id),
+      switchMap((itemId: string) => Observable.combineLatest(ids.map((id: string) => this.itemDataService.removeMappingFromCollection(itemId, id))))
+    );
+
+    this.showNotifications(responses$, 'item.edit.item-mapper.notifications.remove');
+  }
+
+  /**
+   * Display notifications
+   * @param {Observable<RestResponse[]>} responses$   The responses after adding/removing a mapping
+   * @param {string} messagePrefix                    The prefix to build the notification messages with
+   */
+  private showNotifications(responses$: Observable<RestResponse[]>, messagePrefix: string) {
     responses$.subscribe((responses: RestResponse[]) => {
       const successful = responses.filter((response: RestResponse) => response.isSuccessful);
       const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
       if (successful.length > 0) {
         const successMessages = Observable.combineLatest(
-          this.translateService.get('item.edit.item-mapper.notifications.success.head'),
-          this.translateService.get('item.edit.item-mapper.notifications.success.content', { amount: successful.length })
+          this.translateService.get(`${messagePrefix}.success.head`),
+          this.translateService.get(`${messagePrefix}.success.content`, { amount: successful.length })
         );
 
         successMessages.subscribe(([head, content]) => {
@@ -112,8 +136,8 @@ export class ItemCollectionMapperComponent implements OnInit {
       }
       if (unsuccessful.length > 0) {
         const unsuccessMessages = Observable.combineLatest(
-          this.translateService.get('item.edit.item-mapper.notifications.error.head'),
-          this.translateService.get('item.edit.item-mapper.notifications.error.content', { amount: unsuccessful.length })
+          this.translateService.get(`${messagePrefix}.error.head`),
+          this.translateService.get(`${messagePrefix}.error.content`, { amount: unsuccessful.length })
         );
 
         unsuccessMessages.subscribe(([head, content]) => {

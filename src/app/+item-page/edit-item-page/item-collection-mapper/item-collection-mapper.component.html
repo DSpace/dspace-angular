@@ -19,7 +19,11 @@
         <ngb-tab title="{{'item.edit.item-mapper.tabs.browse' | translate}}">
           <ng-template ngbTabContent>
             <div class="mt-2">
-              <div *ngFor="let col of (itemCollectionsRD$ | async)?.payload">{{col.name}}</div>
+              <ds-collection-select class="mt-2"
+                [dsoRD$]="itemCollectionsRD$"
+                [paginationOptions]="(searchOptions$ | async)?.pagination"
+                [confirmButton]="'item.edit.item-mapper.buttons.remove'"
+                (confirm)="removeMappings($event)"></ds-collection-select>
             </div>
           </ng-template>
         </ngb-tab>
@@ -29,7 +33,7 @@
               <ds-collection-select class="mt-2"
                 [dsoRD$]="mappingCollectionsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
-                [confirmButton]="'item.edit.item-mapper.confirm'"
+                [confirmButton]="'item.edit.item-mapper.buttons.add'"
                 (confirm)="mapCollections($event)"></ds-collection-select>
             </div>
           </ng-template>
