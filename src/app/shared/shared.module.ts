@@ -84,6 +84,7 @@ import { CapitalizePipe } from './utils/capitalize.pipe';
 import { MomentModule } from 'angular2-moment';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { ItemSelectComponent } from './object-select/item-select/item-select.component';
+import { CollectionSelectComponent } from './object-select/collection-select/collection-select.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -158,7 +159,8 @@ const COMPONENTS = [
   TruncatablePartComponent,
   BrowseByComponent,
   InputSuggestionsComponent,
-  ItemSelectComponent
+  ItemSelectComponent,
+  CollectionSelectComponent
 ];
 
 const ENTRY_COMPONENTS = [

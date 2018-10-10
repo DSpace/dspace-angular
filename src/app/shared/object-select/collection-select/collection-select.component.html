@@ -1,0 +1,27 @@
+<ng-container *ngVar="(dsoRD$ | async) as collectionsRD">
+  <ds-pagination
+    *ngIf="collectionsRD?.payload?.totalElements > 0"
+    [paginationOptions]="paginationOptions"
+    [pageInfoState]="collectionsRD?.payload"
+    [collectionSize]="collectionsRD?.payload?.totalElements"
+    [hidePagerWhenSinglePage]="true"
+    [hideGear]="true">
+    <div class="table-responsive">
+      <table id="collection-select" class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th scope="col">{{'collection.select.table.title' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let collection of collectionsRD?.payload?.page">
+            <td><input class="collection-checkbox" [ngModel]="getSelected(collection.id) | async" (change)="switch(collection.id)" type="checkbox" name="{{collection.id}}"></td>
+            <td><a [routerLink]="['/collection', collection.id]">{{collection.name}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ds-pagination>
+  <button class="btn btn-outline-secondary collection-confirm" (click)="confirmSelected()">{{confirmButton | translate}}</button>
+</ng-container>

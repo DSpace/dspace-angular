@@ -88,6 +88,16 @@ export class ItemCollectionMapperComponent implements OnInit {
   }
 
   /**
+   * Map the item to the selected collections and display notifications
+   * @param {string[]} ids  The list of collection UUID's to map the item to
+   */
+  mapCollections(ids: string[]) {
+    // TODO: Map item to selected collections and display notifications
+    console.log('mapped to collections:');
+    console.log(ids);
+  }
+
+  /**
    * Clear url parameters on tab change (temporary fix until pagination is improved)
    * @param event
    */

@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <ngb-tabset (tabChange)="tabChange($event)">
+      <ngb-tabset (tabChange)="tabChange($event)" [destroyOnHide]="false">
         <ngb-tab title="{{'item.edit.item-mapper.tabs.browse' | translate}}">
           <ng-template ngbTabContent>
             <div class="mt-2">
@@ -26,7 +26,11 @@
         <ngb-tab title="{{'item.edit.item-mapper.tabs.map' | translate}}">
           <ng-template ngbTabContent>
             <div class="mt-2">
-
+              <ds-collection-select class="mt-2"
+                [dsoRD$]="mappingCollectionsRD$"
+                [paginationOptions]="(searchOptions$ | async)?.pagination"
+                [confirmButton]="'item.edit.item-mapper.confirm'"
+                (confirm)="mapCollections($event)"></ds-collection-select>
             </div>
           </ng-template>
         </ngb-tab>

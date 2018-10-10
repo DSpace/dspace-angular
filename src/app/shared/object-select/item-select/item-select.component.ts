@@ -6,6 +6,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { ObjectSelectService } from '../object-select.service';
+import { ObjectSelectComponent } from '../object-select/object-select.component';
+import { isNotEmpty } from '../../empty.util';
 
 @Component({
   selector: 'ds-item-select',
@@ -16,74 +18,17 @@ import { ObjectSelectService } from '../object-select.service';
 /**
  * A component used to select items from a specific list and returning the UUIDs of the selected items
  */
-export class ItemSelectComponent implements OnInit {
+export class ItemSelectComponent extends ObjectSelectComponent<Item> {
 
-  /**
-   * The list of items to display
-   */
-  @Input()
-  itemsRD$: Observable<RemoteData<PaginatedList<Item>>>;
-
-  /**
-   * The pagination options used to display the items
-   */
-  @Input()
-  paginationOptions: PaginationComponentOptions;
-
-  /**
-   * The message key used for the confirm button
-   * @type {string}
-   */
-  @Input()
-  confirmButton = 'item.select.confirm';
-
-  /**
-   * EventEmitter to return the selected UUIDs when the confirm button is pressed
-   * @type {EventEmitter<string[]>}
-   */
-  @Output()
-  confirm: EventEmitter<string[]> = new EventEmitter<string[]>();
-
-  /**
-   * The list of selected UUIDs
-   */
-  selectedIds$: Observable<string[]>;
-
-  constructor(private objectelectService: ObjectSelectService) {
+  constructor(protected objectSelectService: ObjectSelectService) {
+    super(objectSelectService);
   }
 
   ngOnInit(): void {
-    this.selectedIds$ = this.objectelectService.getAllSelected();
-  }
-
-  /**
-   * Switch the state of a checkbox
-   * @param {string} id
-   */
-  switch(id: string) {
-    this.objectelectService.switch(id);
-  }
-
-  /**
-   * Get the current state of a checkbox
-   * @param {string} id   The item's UUID
-   * @returns {Observable<boolean>}
-   */
-  getSelected(id: string): Observable<boolean> {
-    return this.objectelectService.getSelected(id);
-  }
-
-  /**
-   * Called when the confirm button is pressed
-   * Sends the selected UUIDs to the parent component
-   */
-  confirmSelected() {
-    this.selectedIds$.pipe(
-      take(1)
-    ).subscribe((ids: string[]) => {
-      this.confirm.emit(ids);
-      this.objectelectService.reset();
-    });
+    super.ngOnInit();
+    if (!isNotEmpty(this.confirmButton)) {
+      this.confirmButton = 'item.select.confirm';
+    }
   }
 
 }

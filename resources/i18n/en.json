@@ -34,6 +34,12 @@
         }
       },
       "return": "Return"
+    },
+    "select": {
+      "table": {
+        "title": "Title"
+      },
+      "confirm": "Confirm selected"
     }
   },
   "community": {
