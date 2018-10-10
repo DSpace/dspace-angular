@@ -11,6 +11,7 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { SearchParam } from '../cache/models/search-param.model';
+import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -297,7 +298,7 @@ export class EpersonRequest extends GetRequest {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return DSOResponseParsingService;
+    return EpersonResponseParsingService;
   }
 }
 
