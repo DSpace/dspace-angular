@@ -15,6 +15,9 @@ import { SearchConfigurationService } from '../../../+search-page/search-service
 import { map, switchMap } from 'rxjs/operators';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { RestResponse } from '../../../core/cache/response-cache.models';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -52,18 +55,14 @@ export class ItemCollectionMapperComponent implements OnInit {
    */
   mappingCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
 
-  /**
-   * Sort on title ASC by default
-   * @type {SortOptions}
-   */
-  defaultSortOptions: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private searchConfigService: SearchConfigurationService,
               private searchService: SearchService,
               private collectionDataService: CollectionDataService,
-              private itemDataService: ItemDataService) {
+              private notificationsService: NotificationsService,
+              private itemDataService: ItemDataService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -92,9 +91,36 @@ export class ItemCollectionMapperComponent implements OnInit {
    * @param {string[]} ids  The list of collection UUID's to map the item to
    */
   mapCollections(ids: string[]) {
-    // TODO: Map item to selected collections and display notifications
-    console.log('mapped to collections:');
-    console.log(ids);
+    const responses$ = this.itemRD$.pipe(
+      getSucceededRemoteData(),
+      map((itemRD: RemoteData<Item>) => itemRD.payload.id),
+      switchMap((itemId: string) => Observable.combineLatest(ids.map((id: string) => this.itemDataService.mapToCollection(itemId, id))))
+    );
+
+    responses$.subscribe((responses: RestResponse[]) => {
+      const successful = responses.filter((response: RestResponse) => response.isSuccessful);
+      const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
+      if (successful.length > 0) {
+        const successMessages = Observable.combineLatest(
+          this.translateService.get('item.edit.item-mapper.notifications.success.head'),
+          this.translateService.get('item.edit.item-mapper.notifications.success.content', { amount: successful.length })
+        );
+
+        successMessages.subscribe(([head, content]) => {
+          this.notificationsService.success(head, content);
+        });
+      }
+      if (unsuccessful.length > 0) {
+        const unsuccessMessages = Observable.combineLatest(
+          this.translateService.get('item.edit.item-mapper.notifications.error.head'),
+          this.translateService.get('item.edit.item-mapper.notifications.error.content', { amount: unsuccessful.length })
+        );
+
+        unsuccessMessages.subscribe(([head, content]) => {
+          this.notificationsService.error(head, content);
+        });
+      }
+    });
   }
 
   /**
