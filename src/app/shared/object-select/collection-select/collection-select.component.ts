@@ -6,7 +6,6 @@ import { ObjectSelectService } from '../object-select.service';
 
 @Component({
   selector: 'ds-collection-select',
-  styleUrls: ['./collection-select.component.scss'],
   templateUrl: './collection-select.component.html'
 })
 

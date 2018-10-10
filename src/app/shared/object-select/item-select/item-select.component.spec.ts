@@ -19,7 +19,7 @@ import { By } from '@angular/platform-browser';
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
   let fixture: ComponentFixture<ItemSelectComponent>;
-  let itemSelectService: ObjectSelectService;
+  let objectSelectService: ObjectSelectService;
 
   const mockItemList = [
     Object.assign(new Item(), {
@@ -75,10 +75,10 @@ describe('ItemSelectComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemSelectComponent);
     comp = fixture.componentInstance;
-    comp.itemsRD$ = mockItems;
+    comp.dsoRD$ = mockItems;
     comp.paginationOptions = mockPaginationOptions;
     fixture.detectChanges();
-    itemSelectService = (comp as any).itemSelectService;
+    objectSelectService = (comp as any).objectSelectService;
   });
 
   it(`should show a list of ${mockItemList.length} items`, () => {
@@ -103,10 +103,10 @@ describe('ItemSelectComponent', () => {
       expect(checkbox.checked).toBeTruthy();
     });
 
-    it('should switch the value through item-select-service', () => {
-      spyOn((comp as any).itemSelectService, 'switch').and.callThrough();
+    it('should switch the value through object-select-service', () => {
+      spyOn((comp as any).objectSelectService, 'switch').and.callThrough();
       checkbox.click();
-      expect((comp as any).itemSelectService.switch).toHaveBeenCalled();
+      expect((comp as any).objectSelectService.switch).toHaveBeenCalled();
     });
   });
 

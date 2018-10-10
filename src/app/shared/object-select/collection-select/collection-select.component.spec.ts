@@ -1,7 +1,5 @@
-import { CollectionSelectComponent } from './item-select.component';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Item } from '../../../core/shared/item.model';
 import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -15,45 +13,25 @@ import { HostWindowService } from '../../host-window.service';
 import { HostWindowServiceStub } from '../../testing/host-window-service-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { CollectionSelectComponent } from './collection-select.component';
+import { Collection } from '../../../core/shared/collection.model';
 
 describe('ItemSelectComponent', () => {
   let comp: CollectionSelectComponent;
   let fixture: ComponentFixture<CollectionSelectComponent>;
-  let itemSelectService: ObjectSelectService;
+  let objectSelectService: ObjectSelectService;
 
-  const mockItemList = [
-    Object.assign(new Item(), {
+  const mockCollectionList = [
+    Object.assign(new Collection(), {
       id: 'id1',
-      bitstreams: Observable.of({}),
-      metadata: [
-        {
-          key: 'dc.title',
-          language: 'en_US',
-          value: 'This is just a title'
-        },
-        {
-          key: 'dc.type',
-          language: null,
-          value: 'Article'
-        }]
+      name: 'name1'
     }),
-    Object.assign(new Item(), {
+    Object.assign(new Collection(), {
       id: 'id2',
-      bitstreams: Observable.of({}),
-      metadata: [
-        {
-          key: 'dc.title',
-          language: 'en_US',
-          value: 'This is just another title'
-        },
-        {
-          key: 'dc.type',
-          language: null,
-          value: 'Article'
-        }]
+      name: 'name2'
     })
   ];
-  const mockItems = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockItemList)));
+  const mockCollections = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockCollectionList)));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
@@ -75,22 +53,22 @@ describe('ItemSelectComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CollectionSelectComponent);
     comp = fixture.componentInstance;
-    comp.itemsRD$ = mockItems;
+    comp.dsoRD$ = mockCollections;
     comp.paginationOptions = mockPaginationOptions;
     fixture.detectChanges();
-    itemSelectService = (comp as any).itemSelectService;
+    objectSelectService = (comp as any).objectSelectService;
   });
 
-  it(`should show a list of ${mockItemList.length} items`, () => {
-    const tbody: HTMLElement = fixture.debugElement.query(By.css('table#item-select tbody')).nativeElement;
-    expect(tbody.children.length).toBe(mockItemList.length);
+  it(`should show a list of ${mockCollectionList.length} collections`, () => {
+    const tbody: HTMLElement = fixture.debugElement.query(By.css('table#collection-select tbody')).nativeElement;
+    expect(tbody.children.length).toBe(mockCollectionList.length);
   });
 
   describe('checkboxes', () => {
     let checkbox: HTMLInputElement;
 
     beforeEach(() => {
-      checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
+      checkbox = fixture.debugElement.query(By.css('input.collection-checkbox')).nativeElement;
     });
 
     it('should initially be unchecked',() => {
@@ -103,10 +81,10 @@ describe('ItemSelectComponent', () => {
       expect(checkbox.checked).toBeTruthy();
     });
 
-    it('should switch the value through item-select-service', () => {
-      spyOn((comp as any).itemSelectService, 'switch').and.callThrough();
+    it('should switch the value through object-select-service', () => {
+      spyOn((comp as any).objectSelectService, 'switch').and.callThrough();
       checkbox.click();
-      expect((comp as any).itemSelectService.switch).toHaveBeenCalled();
+      expect((comp as any).objectSelectService.switch).toHaveBeenCalled();
     });
   });
 
@@ -114,11 +92,11 @@ describe('ItemSelectComponent', () => {
     let confirmButton: HTMLButtonElement;
 
     beforeEach(() => {
-      confirmButton = fixture.debugElement.query(By.css('button.item-confirm')).nativeElement;
+      confirmButton = fixture.debugElement.query(By.css('button.collection-confirm')).nativeElement;
       spyOn(comp.confirm, 'emit').and.callThrough();
     });
 
-    it('should emit the selected items',() => {
+    it('should emit the selected collections',() => {
       confirmButton.click();
       expect(comp.confirm.emit).toHaveBeenCalled();
     });

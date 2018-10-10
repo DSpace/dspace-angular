@@ -11,7 +11,6 @@ import { isNotEmpty } from '../../empty.util';
 
 @Component({
   selector: 'ds-item-select',
-  styleUrls: ['./item-select.component.scss'],
   templateUrl: './item-select.component.html'
 })
 
