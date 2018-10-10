@@ -8,7 +8,7 @@ import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { FindByIDRequest } from './request.models';
+import { FindAllOptions, FindByIDRequest } from './request.models';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 
@@ -27,16 +27,16 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
    * @return { Observable<string> }
    *    an Observable<string> containing the scoped URL
    */
-  public getScopedEndpoint(scopeID: string): Observable<string> {
-    if (isEmpty(scopeID)) {
+  public getBrowseEndpoint(options: FindAllOptions = {}): Observable<string> {
+    if (isEmpty(options.scopeID)) {
       return this.halService.getEndpoint(this.linkPath);
     } else {
       const scopeCommunityHrefObs = this.cds.getEndpoint()
-        .flatMap((endpoint: string) => this.cds.getFindByIDHref(endpoint, scopeID))
+        .flatMap((endpoint: string) => this.cds.getFindByIDHref(endpoint, options.scopeID))
         .filter((href: string) => isNotEmpty(href))
         .take(1)
         .do((href: string) => {
-          const request = new FindByIDRequest(this.requestService.generateRequestId(), href, scopeID);
+          const request = new FindByIDRequest(this.requestService.generateRequestId(), href, options.scopeID);
           this.requestService.configure(request);
         });
 
@@ -48,9 +48,9 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
 
       return Observable.merge(
         errorResponse.flatMap((response: ErrorResponse) =>
-          Observable.throw(new Error(`The Community with scope ${scopeID} couldn't be retrieved`))),
+          Observable.throw(new Error(`The Community with scope ${options.scopeID} couldn't be retrieved`))),
         successResponse
-          .flatMap((response: DSOSuccessResponse) => this.objectCache.getByUUID(scopeID))
+          .flatMap((response: DSOSuccessResponse) => this.objectCache.getByUUID(options.scopeID))
           .map((nc: NormalizedCommunity) => nc._links[this.linkPath])
           .filter((href) => isNotEmpty(href))
       ).distinctUntilChanged();

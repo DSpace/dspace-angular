@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private isSuccess(response: HttpResponseBase): boolean {
-    return response.status === 200;
+    return (response.status === 200 || response.status === 204);
   }
 
   private isAuthRequest(http: HttpRequest<any> | HttpResponseBase): boolean {

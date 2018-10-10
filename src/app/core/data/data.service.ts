@@ -1,3 +1,4 @@
+import { filter, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -20,17 +21,13 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
 
-  public abstract getScopedEndpoint(scope: string): Observable<string>
+  public abstract getBrowseEndpoint(options: FindAllOptions): Observable<string>
 
-  protected getFindAllHref(endpoint, options: FindAllOptions = {}): Observable<string> {
+  protected getFindAllHref(options: FindAllOptions = {}): Observable<string> {
     let result: Observable<string>;
     const args = [];
 
-    if (hasValue(options.scopeID)) {
-      result = this.getScopedEndpoint(options.scopeID).distinctUntilChanged();
-    } else {
-      result = Observable.of(endpoint);
-    }
+    result = this.getBrowseEndpoint(options).distinctUntilChanged();
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
@@ -57,12 +54,11 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   }
 
   findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
-    const hrefObs = this.halService.getEndpoint(this.linkPath).filter((href: string) => isNotEmpty(href))
-      .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
+    const hrefObs = this.getFindAllHref(options);
 
-    hrefObs
-      .filter((href: string) => hasValue(href))
-      .take(1)
+    hrefObs.pipe(
+      filter((href: string) => hasValue(href)),
+      take(1))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);

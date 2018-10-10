@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { filter, find, first, flatMap, map, tap } from 'rxjs/operators';
-import { hasValueOperator } from '../../shared/empty.util';
+import { hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { DSOSuccessResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -8,6 +8,7 @@ import { RemoteData } from '../data/remote-data';
 import { RestRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
+import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { PaginatedList } from '../data/paginated-list';
 import { SearchResult } from '../../+search-page/search-result.model';
@@ -60,5 +61,26 @@ export const toDSpaceObjectListRD = () =>
         const dsoPage: T[] = rd.payload.page.map((searchResult: SearchResult<T>) => searchResult.dspaceObject);
         const payload = Object.assign(rd.payload, { page: dsoPage }) as PaginatedList<T>;
         return Object.assign(rd, {payload: payload});
+      })
+    );
+
+/**
+ * Get the browse links from a definition by ID given an array of all definitions
+ * @param {string} definitionID
+ * @returns {(source: Observable<RemoteData<BrowseDefinition[]>>) => Observable<any>}
+ */
+export const getBrowseDefinitionLinks = (definitionID: string) =>
+  (source: Observable<RemoteData<BrowseDefinition[]>>): Observable<any> =>
+    source.pipe(
+      getRemoteDataPayload(),
+      map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
+        .find((def: BrowseDefinition) => def.id === definitionID && def.metadataBrowse === true)
+      ),
+      map((def: BrowseDefinition) => {
+        if (isNotEmpty(def)) {
+          return def._links;
+        } else {
+          throw new Error(`No metadata browse definition could be found for id '${definitionID}'`);
+        }
       })
     );

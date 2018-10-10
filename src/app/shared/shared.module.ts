@@ -81,6 +81,9 @@ import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
+import { BrowseByModule } from '../+browse-by/browse-by.module';
+import { BrowseByComponent } from './browse-by/browse-by.component';
+import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { DebounceDirective } from './utils/debounce.directive';
 import { ClickOutsideDirective } from './utils/click-outside.directive';
 import { EmphasizePipe } from './utils/emphasize.pipe';
@@ -163,7 +166,8 @@ const COMPONENTS = [
   TruncatablePartComponent,
   InputSuggestionsComponent,
   EntitySearchResultComponent,
-  EntityTypeSwitcherComponent
+  EntityTypeSwitcherComponent,
+  BrowseByComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -182,7 +186,8 @@ const ENTRY_COMPONENTS = [
   ProjectListElementComponent,
   JournalListElementComponent,
   JournalVolumeListElementComponent,
-  JournalIssueListElementComponent
+  JournalIssueListElementComponent,
+  BrowseEntryListElementComponent
 ];
 
 const PROVIDERS = [

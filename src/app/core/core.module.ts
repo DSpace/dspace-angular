@@ -62,6 +62,7 @@ import { RegistryMetadatafieldsResponseParsingService } from './data/registry-me
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
+import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
 
@@ -116,6 +117,7 @@ const PROVIDERS = [
   ServerResponseService,
   BrowseResponseParsingService,
   BrowseEntriesResponseParsingService,
+  BrowseItemsResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
   RouteService,
