@@ -1,19 +1,18 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+
+import { DynamicCheckboxModel, DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { Subscription } from 'rxjs/Subscription';
+
 import { SectionModelComponent } from '../models/section.model';
-import { Store } from '@ngrx/store';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { Subscription } from 'rxjs/Subscription';
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../shared/empty.util';
 import { License } from '../../../core/shared/license.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
-import { DynamicCheckboxModel, DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { SECTION_LICENSE_FORM_MODEL } from './section-license.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { RemoveSectionErrorsAction, SectionStatusChangeAction } from '../../objects/submission-objects.actions';
 import { FormService } from '../../../shared/form/form.service';
-import { SubmissionState } from '../../submission.reducers';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { SectionsType } from '../sections-type';
 import { renderSectionFor } from '../sections-decorator';
@@ -22,7 +21,6 @@ import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/mode
 import { SubmissionService } from '../../submission.service';
 import { SectionsService } from '../sections.service';
 import { FormOperationsService } from '../form/form-operations.service';
-import { submissionSectionErrorsFromIdSelector } from '../../selectors';
 
 @Component({
   selector: 'ds-submission-section-license',
@@ -46,7 +44,6 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
               protected formOperationsService: FormOperationsService,
               protected formService: FormService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
-              protected store: Store<SubmissionState>,
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
@@ -72,7 +69,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
           // Retrieve license accepted status
           if ((this.sectionData.data as WorkspaceitemSectionLicenseObject).granted) {
             (model as DynamicCheckboxModel).checked = true;
-            this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, true));
+            this.sectionService.setSectionStatus(this.submissionId, this.sectionData.id, true);
           }
 
           // Disable checkbox whether it's in workflow or item scope
@@ -84,7 +81,8 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
             });
           this.changeDetectorRef.detectChanges();
         }),
-      this.store.select(submissionSectionErrorsFromIdSelector(this.submissionId, this.sectionData.id))
+
+      this.sectionService.getSectionErrors(this.submissionId, this.sectionData.id)
         .filter((errors) => isNotEmpty(errors))
         .distinctUntilChanged()
         .subscribe((errors) => {
@@ -110,7 +108,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
             this.sectionData.errors = errors;
           } else {
             // Remove any section's errors
-            this.store.dispatch(new RemoveSectionErrorsAction(this.submissionId, this.sectionData.id));
+            this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
           }
           this.changeDetectorRef.detectChanges();
         })
@@ -120,11 +118,11 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
   onChange(event: DynamicFormControlEvent) {
     const path = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
-    this.store.dispatch(new SectionStatusChangeAction(this.submissionId, this.sectionData.id, value.value));
+    this.sectionService.setSectionStatus(this.submissionId, this.sectionData.id, value.value);
     if (value) {
       this.operationsBuilder.add(this.pathCombiner.getPath(path), value.value.toString(), false, true);
       // Remove any section's errors
-      this.store.dispatch(new RemoveSectionErrorsAction(this.submissionId, this.sectionData.id));
+      this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
     } else {
       this.operationsBuilder.remove(this.pathCombiner.getPath(path));
     }

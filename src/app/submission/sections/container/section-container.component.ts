@@ -1,10 +1,7 @@
 import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-
 import { SectionsDirective } from '../sections.directive';
 import { SectionDataObject } from '../models/section-data.model';
-import { SubmissionState } from '../../submission.reducers';
 import { rendersSectionType } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { AlertType } from '../../../shared/alerts/aletrs-type';
@@ -26,7 +23,7 @@ export class SectionContainerComponent implements OnInit {
 
   @ViewChild('sectionRef') sectionRef: SectionsDirective;
 
-  constructor(private injector: Injector, private store: Store<SubmissionState>) {
+  constructor(private injector: Injector) {
   }
 
   ngOnInit() {

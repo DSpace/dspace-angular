@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { SubmissionState } from '../submission.reducers';
+import { TranslateService } from '@ngx-translate/core';
+import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { isEqual } from 'lodash';
 
+import { SubmissionState } from '../submission.reducers';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import {
   DisableSectionAction,
   EnableSectionAction,
-  InertSectionErrorsAction, RemoveSectionErrorsAction, SectionStatusChangeAction,
+  InertSectionErrorsAction,
+  RemoveSectionErrorsAction,
+  SectionStatusChangeAction,
   UpdateSectionDataAction
 } from '../objects/submission-objects.actions';
 import {
@@ -17,14 +21,18 @@ import {
   SubmissionSectionError,
   SubmissionSectionObject
 } from '../objects/submission-objects.reducer';
-import { submissionObjectFromIdSelector, submissionSectionFromIdSelector } from '../selectors';
-import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import {
+  submissionObjectFromIdSelector,
+  submissionSectionDataFromIdSelector,
+  submissionSectionErrorsFromIdSelector,
+  submissionSectionFromIdSelector
+} from '../selectors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { FormAddError, FormClearErrorsAction, FormRemoveErrorAction } from '../../shared/form/form.actions';
-import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionService } from '../submission.service';
+import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 
 @Injectable()
 export class SectionsService {
@@ -36,7 +44,12 @@ export class SectionsService {
               private translate: TranslateService) {
   }
 
-  public checkSectionErrors(submissionId, sectionId, formId, currentErrors, prevErrors = []) {
+  public checkSectionErrors(
+    submissionId: string,
+    sectionId: string,
+    formId: string,
+    currentErrors: SubmissionSectionError[],
+    prevErrors: SubmissionSectionError[] = []) {
     if (isEmpty(currentErrors)) {
       this.store.dispatch(new RemoveSectionErrorsAction(submissionId, sectionId));
       this.store.dispatch(new FormClearErrorsAction(formId));
@@ -74,27 +87,41 @@ export class SectionsService {
     }
   }
 
-  public getSectionState(submissionId, sectionId): Observable<SubmissionSectionObject> {
+  public dispatchRemoveSectionErrors(submissionId, sectionId) {
+    this.store.dispatch(new RemoveSectionErrorsAction(submissionId, sectionId));
+  }
+
+  public getSectionData(submissionId: string, sectionId: string): Observable<WorkspaceitemSectionDataType> {
+    return this.store.select(submissionSectionDataFromIdSelector(submissionId, sectionId))
+      .distinctUntilChanged();
+  }
+
+  public getSectionErrors(submissionId: string, sectionId: string): Observable<SubmissionSectionError[]> {
+    return this.store.select(submissionSectionErrorsFromIdSelector(submissionId, sectionId))
+      .distinctUntilChanged();
+  }
+
+  public getSectionState(submissionId: string, sectionId: string): Observable<SubmissionSectionObject> {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
-      .filter((sectionObj) => hasValue(sectionObj))
+      .filter((sectionObj: SubmissionSectionObject) => hasValue(sectionObj))
       .map((sectionObj: SubmissionSectionObject) => sectionObj)
       .distinctUntilChanged();
   }
 
-  public isSectionValid(submissionId, sectionId): Observable<boolean> {
+  public isSectionValid(submissionId: string, sectionId: string): Observable<boolean> {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
       .filter((sectionObj) => hasValue(sectionObj))
       .map((sectionObj: SubmissionSectionObject) => sectionObj.isValid)
       .distinctUntilChanged();
   }
 
-  public isSectionActive(submissionId, sectionId): Observable<boolean> {
+  public isSectionActive(submissionId: string, sectionId: string): Observable<boolean> {
     return this.submissionService.getActiveSectionId(submissionId)
       .map((activeSectionId: string) => sectionId === activeSectionId)
       .distinctUntilChanged();
   }
 
-  public isSectionEnabled(submissionId, sectionId): Observable<boolean> {
+  public isSectionEnabled(submissionId: string, sectionId: string): Observable<boolean> {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
       .filter((sectionObj) => hasValue(sectionObj))
       .map((sectionObj: SubmissionSectionObject) => sectionObj.enabled)
@@ -110,7 +137,7 @@ export class SectionsService {
       .distinctUntilChanged();
   }
 
-  public isSectionAvailable(submissionId, sectionId): Observable<boolean> {
+  public isSectionAvailable(submissionId: string, sectionId: string): Observable<boolean> {
     return this.store.select(submissionObjectFromIdSelector(submissionId))
       .filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState))
       .map((submissionState: SubmissionObjectEntry) => {
@@ -130,11 +157,11 @@ export class SectionsService {
     this.scrollToService.scrollTo(config);
   }
 
-  public removeSection(submissionId, sectionId) {
+  public removeSection(submissionId: string, sectionId: string) {
     this.store.dispatch(new DisableSectionAction(submissionId, sectionId))
   }
 
-  public updateSectionData(submissionId, sectionId, data, errors = []) {
+  public updateSectionData(submissionId: string, sectionId: string, data, errors = []) {
     if (isNotEmpty(data)) {
       const isAvailable$ = this.isSectionAvailable(submissionId, sectionId);
       const isEnabled$ = this.isSectionEnabled(submissionId, sectionId);

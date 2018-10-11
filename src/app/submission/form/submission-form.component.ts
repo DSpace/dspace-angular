@@ -1,16 +1,8 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { Store } from '@ngrx/store';
-import {
-  CancelSubmissionFormAction,
-  InitSubmissionFormAction,
-  ResetSubmissionFormAction
-} from '../objects/submission-objects.actions';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
-import { submissionObjectFromIdSelector } from '../selectors';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
-import { SubmissionState } from '../submission.reducers';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionService } from '../submission.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -50,7 +42,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     private authService: AuthService,
     private changeDetectorRef: ChangeDetectorRef,
     private halService: HALEndpointService,
-    private store: Store<SubmissionState>,
     private submissionService: SubmissionService) {
     this.isActive = true;
   }
@@ -58,8 +49,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     if (this.collectionId && this.submissionId) {
       this.isActive = true;
-      this.submissionSections = this.store.select(submissionObjectFromIdSelector(this.submissionId))
-        .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission) && this.isActive)
+      this.submissionSections = this.submissionService.getSubmissionObject(this.submissionId)
+        .filter(() => this.isActive)
         .map((submission: SubmissionObjectEntry) => submission.isLoading)
         .map((isLoading: boolean) => isLoading)
         .distinctUntilChanged()
@@ -71,8 +62,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           }
         });
 
-      this.loading = this.store.select(submissionObjectFromIdSelector(this.submissionId))
-        .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission) && this.isActive)
+      this.loading = this.submissionService.getSubmissionObject(this.submissionId)
+        .filter(() => this.isActive)
         .map((submission: SubmissionObjectEntry) => submission.isLoading)
         .map((isLoading: boolean) => isLoading)
         .distinctUntilChanged();
@@ -85,18 +76,15 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
             this.definitionId = this.submissionDefinition.name;
-            this.store.dispatch(new InitSubmissionFormAction(this.collectionId, this.submissionId, this.selfUrl, this.submissionDefinition, this.sections, null));
+            this.submissionService.dispatchInit(
+              this.collectionId,
+              this.submissionId,
+              this.selfUrl,
+              this.submissionDefinition,
+              this.sections,
+              null);
             this.changeDetectorRef.detectChanges();
-          }),
-
-        // this.store.select(submissionObjectFromIdSelector(this.submissionId))
-        //   .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission) && this.isActive)
-        //   .subscribe((submission: SubmissionObjectEntry) => {
-        //     if (this.loading !== submission.isLoading) {
-        //       this.loading = submission.isLoading;
-        //       this.changeDetectorRef.detectChanges();
-        //     }
-        //   })
+          })
       );
       this.submissionService.startAutoSave(this.submissionId);
     }
@@ -105,7 +93,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   ngOnDestroy() {
     this.isActive = false;
     this.submissionService.stopAutoSave();
-    this.store.dispatch(new CancelSubmissionFormAction());
+    this.submissionService.resetAllSubmissionObjects();
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
@@ -117,8 +105,12 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       this.sections = workspaceItemObject.sections;
       this.submissionDefinition = workspaceItemObject.submissionDefinition[0];
       this.definitionId = this.submissionDefinition.name;
-      this.store.dispatch(new ResetSubmissionFormAction(this.collectionId, this.submissionId, workspaceItemObject.self, this.sections, this.submissionDefinition));
-      // this.submissionSections = this.getSectionsList();
+      this.submissionService.resetSubmissionObject(
+        this.collectionId,
+        this.submissionId,
+        workspaceItemObject.self,
+        this.submissionDefinition,
+        this.sections);
     } else {
       this.changeDetectorRef.detectChanges();
     }

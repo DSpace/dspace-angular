@@ -1,24 +1,24 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
+import { Observable } from 'rxjs/Observable';
+
 import { SectionModelComponent } from '../models/section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
 import { SectionUploadService } from './section-upload.service';
-import { SectionStatusChangeAction } from '../../objects/submission-objects.actions';
-import { SubmissionState } from '../../submission.reducers';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { GroupEpersonService } from '../../../core/eperson/group-eperson.service';
 import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
 import { SubmissionUploadsModel } from '../../../core/shared/config/config-submission-uploads.model';
-import { Observable } from 'rxjs/Observable';
 import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 import { SectionsType } from '../sections-type';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionDataObject } from '../models/section-data.model';
-import { submissionObjectFromIdSelector } from '../../selectors';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
 import { AlertType } from '../../../shared/alerts/aletrs-type';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Group } from '../../../core/eperson/models/group.model';
+import { SectionsService } from '../sections.service';
+import { SubmissionService } from '../../submission.service';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -66,7 +66,8 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
               private changeDetectorRef: ChangeDetectorRef,
               private collectionDataService: CollectionDataService,
               private groupService: GroupEpersonService,
-              private store: Store<SubmissionState>,
+              protected sectionService: SectionsService,
+              private submissionService: SubmissionService,
               private uploadsConfigService: SubmissionUploadsConfigService,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
@@ -82,7 +83,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
       .map((config: SubmissionUploadsModel) => config.metadata[0]);
 
     this.subs.push(
-      this.store.select(submissionObjectFromIdSelector(this.submissionId))
+      this.submissionService.getSubmissionObject(this.submissionId)
         .filter((submissionObject: SubmissionObjectEntry) => isNotUndefined(submissionObject) && !submissionObject.isLoading)
         .filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection)
         .subscribe((submissionObject: SubmissionObjectEntry) => {
@@ -174,9 +175,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
               });
               sectionStatus = true;
             }
-            this.store.dispatch(new SectionStatusChangeAction(this.submissionId,
-              this.sectionData.id,
-              sectionStatus));
+            this.sectionService.setSectionStatus(this.submissionId, this.sectionData.id, sectionStatus);
             this.changeDetectorRef.detectChanges();
           }
         )

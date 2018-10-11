@@ -1,21 +1,13 @@
 import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { uniq } from 'lodash';
 
 import { SectionsService } from './sections.service';
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
-import { submissionSectionFromIdSelector } from '../selectors';
-import { SubmissionState } from '../submission.reducers';
+import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
 import { SubmissionSectionError, SubmissionSectionObject } from '../objects/submission-objects.reducer';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import {
-  RemoveSectionErrorsAction,
-  SaveSubmissionSectionFormAction,
-  SetActiveSectionAction
-} from '../objects/submission-objects.actions';
 import { SubmissionService } from '../submission.service';
 
 @Directive({
@@ -35,7 +27,6 @@ export class SectionsDirective implements OnDestroy, OnInit {
   private valid: Observable<boolean>;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              private store: Store<SubmissionState>,
               private submissionService: SubmissionService,
               private sectionService: SectionsService) {
   }
@@ -50,10 +41,8 @@ export class SectionsDirective implements OnDestroy, OnInit {
       });
 
     this.subs.push(
-      this.store.select(submissionSectionFromIdSelector(this.submissionId, this.sectionId))
-        .filter((state: SubmissionSectionObject) => isNotUndefined(state))
+      this.sectionService.getSectionState(this.submissionId, this.sectionId)
         .map((state: SubmissionSectionObject) => state.errors)
-        // .filter((errors: SubmissionSectionError[]) => isNotEmpty(errors))
         .subscribe((errors: SubmissionSectionError[]) => {
           if (isNotEmpty(errors)) {
             errors.forEach((errorItem: SubmissionSectionError) => {
@@ -77,7 +66,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
             this.changeDetectorRef.detectChanges();
             // If section is no longer active dispatch save action
             if (!this.active && isNotNull(activeSectionId)) {
-              this.store.dispatch(new SaveSubmissionSectionFormAction(this.submissionId, this.sectionId));
+              this.submissionService.dispatchSaveSection(this.submissionId, this.sectionId);
             }
           }
         })
@@ -144,7 +133,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
 
   public resetErrors() {
     if (isNotEmpty(this.sectionErrors)) {
-      this.store.dispatch(new RemoveSectionErrorsAction(this.submissionId, this.sectionId));
+      this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionId);
     }
     this.sectionErrors = [];
 

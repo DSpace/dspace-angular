@@ -7,10 +7,18 @@ import { Store } from '@ngrx/store';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
 import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
-import { SaveSubmissionFormAction, SetActiveSectionAction } from './objects/submission-objects.actions';
+import {
+  CancelSubmissionFormAction,
+  ChangeSubmissionCollectionAction,
+  DiscardSubmissionAction, InitSubmissionFormAction, ResetSubmissionFormAction,
+  SaveAndDepositSubmissionAction,
+  SaveForLaterSubmissionFormAction,
+  SaveSubmissionFormAction,
+  SetActiveSectionAction
+} from './objects/submission-objects.actions';
 import {
   SubmissionObjectEntry,
-  SubmissionSectionEntry,
+  SubmissionSectionEntry, SubmissionSectionError,
   SubmissionSectionObject
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
@@ -26,8 +34,9 @@ import { RouteService } from '../shared/services/route.service';
 import { SectionsType } from './sections/sections-type';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { SubmissionDefinitionsModel } from '../core/shared/config/config-submission-definitions.model';
+import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
 
 @Injectable()
 export class SubmissionService {
@@ -43,6 +52,10 @@ export class SubmissionService {
               protected scrollToService: ScrollToService,
               protected store: Store<SubmissionState>,
               protected translate: TranslateService) {
+  }
+
+  changeSubmissionCollection(submissionId, collectionId) {
+    this.store.dispatch(new ChangeSubmissionCollectionAction(submissionId, collectionId));
   }
 
   createSubmission(): Observable<SubmissionObject> {
@@ -61,6 +74,36 @@ export class SubmissionService {
 
   discardSubmission(submissionId: string): Observable<any> {
     return this.restService.deleteById(submissionId);
+  }
+
+  dispatchInit(
+    collectionId: string,
+    submissionId: string,
+    selfUrl: string,
+    submissionDefinition: SubmissionDefinitionsModel,
+    sections: WorkspaceitemSectionsObject,
+    errors: SubmissionSectionError[]) {
+    this.store.dispatch(new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, sections, errors));
+  }
+
+  dispatchDeposit(submissionId) {
+    this.store.dispatch(new SaveAndDepositSubmissionAction(submissionId));
+  }
+
+  dispatchDiscard(submissionId) {
+    this.store.dispatch(new DiscardSubmissionAction(submissionId));
+  }
+
+  dispatchSave(submissionId) {
+    this.store.dispatch(new SaveSubmissionFormAction(submissionId));
+  }
+
+  dispatchSaveForLater(submissionId) {
+    this.store.dispatch(new SaveForLaterSubmissionFormAction(submissionId));
+  }
+
+  dispatchSaveSection(submissionId, sectionId) {
+    this.store.dispatch(new SaveSubmissionFormAction(submissionId));
   }
 
   getActiveSectionId(submissionId: string): Observable<string> {
@@ -119,19 +162,6 @@ export class SubmissionService {
       })
       .startWith([])
       .distinctUntilChanged();
-  }
-
-  isSectionHidden(sectionData: SubmissionSectionObject) {
-    return (isNotUndefined(sectionData.visibility)
-      && sectionData.visibility.main === 'HIDDEN'
-      && sectionData.visibility.other === 'HIDDEN');
-
-  }
-
-  isSubmissionLoading(submissionId: string): Observable<boolean> {
-    return this.getSubmissionObject(submissionId)
-      .map((submission: SubmissionObjectEntry) => submission.isLoading)
-      .distinctUntilChanged()
   }
 
   getSubmissionObjectLinkName(): string {
@@ -207,6 +237,27 @@ export class SubmissionService {
       .startWith(false);
   }
 
+  isSectionHidden(sectionData: SubmissionSectionObject) {
+    return (isNotUndefined(sectionData.visibility)
+      && sectionData.visibility.main === 'HIDDEN'
+      && sectionData.visibility.other === 'HIDDEN');
+
+  }
+
+  isSubmissionLoading(submissionId: string): Observable<boolean> {
+    return this.getSubmissionObject(submissionId)
+      .map((submission: SubmissionObjectEntry) => submission.isLoading)
+      .distinctUntilChanged()
+  }
+
+  notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
+    this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId})
+      .take(1)
+      .subscribe((m) => {
+        this.notificationsService.info(null, m, null, true);
+      });
+  }
+
   redirectToMyDSpace() {
     const previousUrl = this.routeService.getPreviousUrl();
     if (isEmpty(previousUrl)) {
@@ -216,13 +267,20 @@ export class SubmissionService {
     }
   }
 
-  notifyNewSection(sectionId: string, sectionType?: SectionsType) {
-    this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId})
-      .take(1)
-      .subscribe((m) => {
-        this.notificationsService.info(null, m, null, true);
-      });
+  resetAllSubmissionObjects() {
+    this.store.dispatch(new CancelSubmissionFormAction());
   }
+
+  resetSubmissionObject(
+    collectionId: string,
+    submissionId: string,
+    selfUrl: string,
+    submissionDefinition: SubmissionDefinitionsModel,
+    sections: WorkspaceitemSectionsObject
+  ) {
+    this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition));
+  }
+
   retrieveSubmission(submissionId): Observable<SubmissionObject> {
     return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId)
       .filter((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects))

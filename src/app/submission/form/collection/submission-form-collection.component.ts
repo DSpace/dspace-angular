@@ -10,8 +10,6 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
-import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
 import { isNullOrUndefined } from 'util';
@@ -27,8 +25,6 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-operations.service';
 import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../../submission.service';
-import { SubmissionState } from '../../submission.reducers';
-import { ChangeSubmissionCollectionAction } from '../../objects/submission-objects.actions';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 
 @Component({
@@ -66,7 +62,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
               private communityDataService: CommunityDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
-              private store: Store<SubmissionState>,
               private submissionService: SubmissionService) {
   }
 
@@ -156,7 +151,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         this.selectedCollectionId = event.collection.id;
         this.selectedCollectionName = event.collection.name;
         this.collectionChange.emit(submissionObject[0]);
-        this.store.dispatch(new ChangeSubmissionCollectionAction(this.submissionId, event.collection.id));
+        this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
         this.disabled = false;
         this.cdr.detectChanges();
       })

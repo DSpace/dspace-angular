@@ -1,15 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { SubmissionRestService } from '../../submission-rest.service';
 import { SubmissionService } from '../../submission.service';
-import { SubmissionState } from '../../submission.reducers';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DepositSubmissionAction, DiscardSubmissionAction,
-  SaveAndDepositSubmissionAction,
-  SaveForLaterSubmissionFormAction,
-  SaveSubmissionFormAction
-} from '../../objects/submission-objects.actions';
 import { Observable } from 'rxjs/Observable';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
@@ -29,8 +21,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
 
   constructor(private modalService: NgbModal,
               private restService: SubmissionRestService,
-              private submissionService: SubmissionService,
-              private store: Store<SubmissionState>) {
+              private submissionService: SubmissionService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -47,22 +38,22 @@ export class SubmissionFormFooterComponent implements OnChanges {
   }
 
   save(event) {
-    this.store.dispatch(new SaveSubmissionFormAction(this.submissionId));
+    this.submissionService.dispatchSave(this.submissionId);
   }
 
   saveLater(event) {
-    this.store.dispatch(new SaveForLaterSubmissionFormAction(this.submissionId));
+    this.submissionService.dispatchSaveForLater(this.submissionId);
   }
 
   public deposit(event) {
-    this.store.dispatch(new SaveAndDepositSubmissionAction(this.submissionId));
+    this.submissionService.dispatchDeposit(this.submissionId);
   }
 
   public confirmDiscard(content) {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
-          this.store.dispatch(new DiscardSubmissionAction(this.submissionId));
+          this.submissionService.dispatchDiscard(this.submissionId)
         }
       }
     );

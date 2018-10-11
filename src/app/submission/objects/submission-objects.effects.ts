@@ -124,9 +124,7 @@ export class SubmissionObjectEffects {
     .map(([action, currentState]: [SaveSubmissionFormSuccessAction | SaveSubmissionSectionFormSuccessAction, any]) => {
       return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], action.payload.submissionObject, action.payload.submissionId);
     })
-    .mergeMap((actions) => {
-      return Observable.from(actions);
-    });
+    .mergeMap((actions) => Observable.from(actions));
 
   @Effect() saveSection$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM)

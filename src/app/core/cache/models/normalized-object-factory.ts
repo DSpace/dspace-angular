@@ -46,6 +46,9 @@ export class NormalizedObjectFactory {
       case ResourceType.Group: {
         return NormalizedGroupModel
       }
+      case ResourceType.Workflowitem: {
+        return NormalizedWorkflowItem
+      }
       default: {
         return undefined;
       }
