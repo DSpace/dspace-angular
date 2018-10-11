@@ -1,5 +1,8 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
 
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
@@ -8,8 +11,6 @@ import { AuthorityService } from '../../../../../../core/integration/authority.s
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -49,22 +50,9 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
         if (this.model.value) {
           this.setCurrentValue(this.model.value);
         }
-        console.log(this.optionsList);
         this.pageInfo = object.pageInfo;
         this.cdr.detectChanges();
       })
-  }
-
-  formatItemForInput(item: any): string {
-    let result: any;
-    if (isUndefined(item) || isNull(item)) { return '' }
-    if (typeof item === 'string') { result = item }
-    if (this.optionsList) {
-      this.optionsList.forEach((key) => {
-        console.log(this.optionsList[key]);
-      });
-    }
-    return (typeof item === 'string') ? item : this.inputFormatter(item);
   }
 
   inputFormatter = (x: AuthorityValueModel): string => x.display || x.value;
