@@ -33,16 +33,16 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service-stub';
 
-fdescribe('ItemCollectionMapperComponent', () => {
+describe('ItemCollectionMapperComponent', () => {
   let comp: ItemCollectionMapperComponent;
   let fixture: ComponentFixture<ItemCollectionMapperComponent>;
 
   let route: ActivatedRoute;
   let router: Router;
   let searchConfigService: SearchConfigurationService;
+  let searchService: SearchService;
   let notificationsService: NotificationsService;
   let itemDataService: ItemDataService;
-  let collectionDataService: CollectionDataService;
 
   const mockItem: Item = Object.assign(new Item(), {
     id: '932c7d50-d85a-44cb-b9dc-b427b12877bd',
@@ -69,9 +69,9 @@ fdescribe('ItemCollectionMapperComponent', () => {
     removeMappingFromCollection: () => Observable.of(new RestResponse(true, '200')),
     getMappedCollections: () => Observable.of(mockCollectionsRD)
   };
-  const collectionDataServiceStub = {
-    findAll: () => Observable.of(mockCollectionsRD)
-  };
+  const searchServiceStub = Object.assign(new SearchServiceStub(), {
+    search: () => Observable.of(mockCollectionsRD)
+  });
   const activatedRouteStub = new ActivatedRouteStub({}, { item: mockItemRD });
   const translateServiceStub = {
     get: () => Observable.of('test-message of item ' + mockItem.name),
@@ -90,7 +90,7 @@ fdescribe('ItemCollectionMapperComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ItemDataService, useValue: itemDataServiceStub },
-        { provide: CollectionDataService, useValue: collectionDataServiceStub },
+        { provide: SearchService, useValue: searchServiceStub },
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
@@ -107,7 +107,7 @@ fdescribe('ItemCollectionMapperComponent', () => {
     searchConfigService = (comp as any).searchConfigService;
     notificationsService = (comp as any).notificationsService;
     itemDataService = (comp as any).itemDataService;
-    collectionDataService = (comp as any).collectionDataService;
+    searchService = (comp as any).searchService;
   });
 
   it('should display the correct collection name', () => {

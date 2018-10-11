@@ -8,7 +8,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../../core/shared/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../+search-page/search-service/search.service';
 import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
@@ -19,6 +19,7 @@ import { RestResponse } from '../../../core/cache/response-cache.models';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { C } from '@angular/core/src/render3';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -59,7 +60,7 @@ export class ItemCollectionMapperComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private searchConfigService: SearchConfigurationService,
-              private collectionDataService: CollectionDataService,
+              private searchService: SearchService,
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
               private translateService: TranslateService) {
@@ -82,8 +83,13 @@ export class ItemCollectionMapperComponent implements OnInit {
       switchMap((item: Item) => this.itemDataService.getMappedCollections(item.id))
     );
     this.mappingCollectionsRD$ = this.searchOptions$.pipe(
-      switchMap((searchOptions: PaginatedSearchOptions) => this.collectionDataService.findAll(searchOptions))
-    );
+      switchMap((searchOptions: PaginatedSearchOptions) => {
+        return this.searchService.search(Object.assign(searchOptions, {
+          dsoType: DSpaceObjectType.COLLECTION
+        }));
+      }),
+      toDSpaceObjectListRD()
+    ) as Observable<RemoteData<PaginatedList<Collection>>>;
   }
 
   /**

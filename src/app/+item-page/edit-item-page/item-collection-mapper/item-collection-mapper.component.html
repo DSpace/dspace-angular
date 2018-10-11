@@ -9,7 +9,6 @@
         <div class="col-12 col-lg-6">
           <ds-search-form id="search-form"
                           [query]="(searchOptions$ | async)?.query"
-                          [scope]="(searchOptions$ | async)?.scope"
                           [currentUrl]="getCurrentUrl()">
           </ds-search-form>
         </div>
