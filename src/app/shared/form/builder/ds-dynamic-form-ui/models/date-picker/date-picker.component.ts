@@ -20,7 +20,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicDsDatePickerModel;
-  // @Input() showErrorMessages = false;
   // @Input()
   // minDate;
   // @Input()

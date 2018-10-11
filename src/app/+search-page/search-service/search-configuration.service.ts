@@ -159,7 +159,7 @@ export class SearchConfigurationService implements OnDestroy {
         Object.keys(filterParams).forEach((key) => {
           if (key.endsWith('.min') || key.endsWith('.max')) {
             const realKey = key.slice(0, -4);
-            if (hasNoValue(filters.find((filter) => filter.key === realKey))) {
+            if (hasNoValue(filters.find((f) => f.key === realKey))) {
               const min = filterParams[realKey + '.min'] ? filterParams[realKey + '.min'][0] : '*';
               const max = filterParams[realKey + '.max'] ? filterParams[realKey + '.max'][0] : '*';
               filters.push(new SearchFilter(realKey, ['[' + min + ' TO ' + max + ']']));

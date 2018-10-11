@@ -9,9 +9,9 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable } from 'rxjs';
 import { FindAllOptions } from './request.models';
 import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { of as observableOf } from 'rxjs';
 
-const LINK_NAME = 'test'
+const endpoint = 'https://rest.api/core';
 
 // tslint:disable:max-classes-per-file
 class NormalizedTestObject extends NormalizedObject {
@@ -30,10 +30,9 @@ class TestService extends DataService<NormalizedTestObject, any> {
     super();
   }
 
-  public getScopedEndpoint(scope: string): Observable<string> {
-    throw new Error('getScopedEndpoint is abstract in DataService');
+  public getBrowseEndpoint(options: FindAllOptions): Observable<string> {
+    return observableOf(endpoint);
   }
-
 }
 
 describe('DataService', () => {
@@ -45,7 +44,6 @@ describe('DataService', () => {
   const rdbService = {} as RemoteDataBuildService;
   const objectCache = {} as ObjectCacheService;
   const store = {} as Store<CoreState>;
-  const endpoint = 'https://rest.api/core';
 
   function initTestService(): TestService {
     return new TestService(
@@ -53,9 +51,8 @@ describe('DataService', () => {
       requestService,
       rdbService,
       store,
-      LINK_NAME,
-      halService,
-      objectCache
+      endpoint,
+      halService
     );
   }
 
@@ -66,27 +63,17 @@ describe('DataService', () => {
     it('should return an observable with the endpoint', () => {
       options = {};
 
-      (service as any).getFindAllHref(endpoint).subscribe((value) => {
+      (service as any).getFindAllHref(options).subscribe((value) => {
           expect(value).toBe(endpoint);
         }
       );
-    });
-
-    // getScopedEndpoint is not implemented in abstract DataService
-    it('should throw error if scopeID provided in options', () => {
-      options = { scopeID: 'somevalue' };
-
-      expect(() => {
-        (service as any).getFindAllHref(endpoint, options)
-      })
-        .toThrowError('getScopedEndpoint is abstract in DataService');
     });
 
     it('should include page in href if currentPage provided in options', () => {
       options = { currentPage: 2 };
       const expected = `${endpoint}?page=${options.currentPage - 1}`;
 
-      (service as any).getFindAllHref(endpoint, options).subscribe((value) => {
+      (service as any).getFindAllHref(options).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -95,7 +82,7 @@ describe('DataService', () => {
       options = { elementsPerPage: 5 };
       const expected = `${endpoint}?size=${options.elementsPerPage}`;
 
-      (service as any).getFindAllHref(endpoint, options).subscribe((value) => {
+      (service as any).getFindAllHref(options).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -105,7 +92,7 @@ describe('DataService', () => {
       options = { sort: sortOptions };
       const expected = `${endpoint}?sort=${sortOptions.field},${sortOptions.direction}`;
 
-      (service as any).getFindAllHref(endpoint, options).subscribe((value) => {
+      (service as any).getFindAllHref(options).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -114,7 +101,7 @@ describe('DataService', () => {
       options = { startsWith: 'ab' };
       const expected = `${endpoint}?startsWith=${options.startsWith}`;
 
-      (service as any).getFindAllHref(endpoint, options).subscribe((value) => {
+      (service as any).getFindAllHref(options).subscribe((value) => {
         expect(value).toBe(expected);
       });
     });
@@ -130,7 +117,7 @@ describe('DataService', () => {
       const expected = `${endpoint}?page=${options.currentPage - 1}&size=${options.elementsPerPage}` +
         `&sort=${sortOptions.field},${sortOptions.direction}&startsWith=${options.startsWith}`;
 
-      (service as any).getFindAllHref(endpoint, options).subscribe((value) => {
+      (service as any).getFindAllHref(options).subscribe((value) => {
         expect(value).toBe(expected);
       });
     })

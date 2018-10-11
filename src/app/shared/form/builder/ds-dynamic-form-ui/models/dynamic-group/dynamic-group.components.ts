@@ -45,7 +45,6 @@ export class DsDynamicGroupComponent extends DynamicFormControlComponent impleme
   @Input() formId: string;
   @Input() group: FormGroup;
   @Input() model: DynamicGroupModel;
-  // @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();

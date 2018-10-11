@@ -1,11 +1,9 @@
-import { filter, takeWhile, map } from 'rxjs/operators';
+import { filter, map, takeWhile } from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction
@@ -135,7 +133,7 @@ export class LogInComponent implements OnDestroy, OnInit {
     this.store.pipe(
       select(isAuthenticated),
       takeWhile(() => this.alive),
-      filter((authenticated) => authenticated),)
+      filter((authenticated) => authenticated))
       .subscribe(() => {
           this.authService.redirectToPreviousUrl();
         }

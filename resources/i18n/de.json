@@ -1,0 +1,277 @@
+{
+  "footer": {
+    "copyright": "Copyright © 2002-{{ year }}",
+    "link.dspace": "DSpace Software",
+    "link.duraspace": "DuraSpace"
+  },
+  "collection": {
+    "page": {
+      "news": "Neuigkeiten",
+      "license": "Lizenz",
+      "browse": {
+        "recent": {
+          "head": "Aktuellste Veröffentlichungen"
+        }
+      }
+    }
+  },
+  "community": {
+    "page": {
+      "news": "Neuigkeiten",
+      "license": "Lizenz"
+    },
+    "sub-collection-list": {
+      "head": "Sammlungen in diesem Bereich"
+    }
+  },
+  "item": {
+    "page": {
+      "author": "Autor",
+      "abstract": "Kurzfassung",
+      "date": "Datum",
+      "uri": "URI",
+      "files": "Dateien",
+      "collections": "Sammlungen",
+      "filesection": {
+        "download": "Herunterladen",
+        "name": "Name:",
+        "format": "Format:",
+        "size": "Größe:",
+        "description": "Beschreibung:"
+      },
+      "link": {
+        "simple": "Kurzanzeige",
+        "full": "Vollanzeige"
+      }
+    }
+  },
+  "nav": {
+    "home": "Zur Startseite",
+    "login": "Anmelden",
+    "logout": "Abmelden"
+  },
+  "pagination": {
+    "results-per-page": "Ergebnisse pro Seite",
+    "sort-direction": "Sortiermöglichkeiten",
+    "showing": {
+      "label": "Anzeige der Treffer ",
+      "detail": "{{ range }} bis {{ total }}"
+    }
+  },
+  "sorting": {
+    "score": {
+      "DESC": "Relevanz"
+    },
+    "dc.title": {
+      "ASC": "Titel aufsteigend",
+      "DESC": "Titel absteigend"
+    }
+  },
+  "title": "DSpace",
+  "404": {
+    "help": "Die Seite, die Sie aufrufen wollten, konnte nicht gefunden werden. Sie könnte verschoben oder gelöscht worden sein. Mit dem Link unten kommen Sie zurück zur Startseite. ",
+    "page-not-found": "Seite nicht gefunden",
+    "link": {
+      "home-page": "Zurück zur Startseite"
+    }
+  },
+  "home": {
+    "title": "DSpace Angular :: Startseite",
+    "description": "",
+    "top-level-communities": {
+      "head": "Bereiche in DSpace",
+      "help": "Wählen Sie einen Bereich, um seine Sammlungen einzusehen."
+    }
+  },
+  "search": {
+    "title": "DSpace Angular :: Suche",
+    "description": "",
+    "form": {
+      "search": "Suche",
+      "search_dspace": "DSpace durchsuchen"
+    },
+    "results": {
+      "head": "Suchergebnisse",
+      "no-results": "Zu dieser Suche gibt es keine Treffer."
+    },
+    "sidebar": {
+      "close": "Zurück zu den Ergebnissen",
+      "open": "Suchwerkzeuge",
+      "results": "Ergebnisse",
+      "filters": {
+        "title": "Filter"
+      },
+      "settings": {
+        "title": "Einstellungen",
+        "sort-by": "Sortiere nach",
+        "rpp": "Treffer pro Seite"
+      }
+    },
+    "view-switch": {
+      "show-list": "Zeige als Liste",
+      "show-grid": "Zeige als Raster"
+    },
+    "filters": {
+      "head": "Filter",
+      "reset": "Filter zurücksetzen",
+      "applied": {
+        "f.author": "Autor",
+        "f.dateIssued.min": "Anfangsdatum",
+        "f.dateIssued.max": "Enddatum",
+        "f.subject": "Thema",
+        "f.has_content_in_original_bundle": "Besitzt Dateien"
+      },
+      "filter": {
+        "show-more": "Zeige mehr",
+        "show-less": "Zeige weniger",
+        "author": {
+          "placeholder": "Autor",
+          "head": "Autor"
+        },
+        "scope": {
+          "placeholder": "Bereichsfilter",
+          "head": "Bereich"
+        },
+        "subject": {
+          "placeholder": "Schlagwort",
+          "head": "Schlagwort"
+        },
+        "dateIssued": {
+          "max": {
+            "placeholder": "Frühestes Datum"
+          },
+          "min": {
+            "placeholder": "Ältestes Datum"
+          },
+          "head": "Datum"
+        },
+        "has_content_in_original_bundle": {
+          "head": "Besitzt Dateien"
+        }
+      }
+    }
+  },
+  "browse": {
+    "title": "Anzeige {{ collection }} nach {{ field }} {{ value }}"
+  },
+  "admin": {
+    "registries": {
+      "metadata": {
+        "title": "DSpace Angular :: Metadatenreferenzliste",
+        "head": "Metadatenreferenzliste",
+        "description": "Die Metadatenreferenzliste beinhaltet alle Metadatenfelder, die zur Verfügung stehen. Die Felder können in unterschiedlichen Schemata enthalten sein. Nichtsdestotrotz benötigt DSpace mindestens qualifiziertes Dublin Core.",
+        "schemas": {
+          "table": {
+            "id": "ID",
+            "namespace": "Namensraum",
+            "name": "Name"
+          },
+          "no-items": "Es gbit keine Metadatenschemata."
+        }
+      },
+      "schema": {
+        "title": "DSpace Angular :: Referenzliste der Metadatenschemata",
+        "head": "Metadatenschemata",
+        "description": "Dies ist das Metadatenschema für  \"{{namespace}}\".",
+        "fields": {
+          "head": "Felder in diesem Schema",
+          "table": {
+            "field": "Feld",
+            "scopenote": "Gültigkeitsbereich"
+          },
+          "no-items": "Es gibt keine Felder in diesem Schema."
+        }
+      },
+      "bitstream-formats": {
+        "title": "DSpace Angular :: Referenzliste der Dateiformate",
+        "head": "Referenzliste der Dateiformate",
+        "description": "Diese Liste enhtält die in diesem Repositorium zulässigen Dateiformate und den jeweiligen Unterstützungsgrad.",
+        "formats": {
+          "table": {
+            "name": "Name",
+            "mimetype": "MIME Type",
+            "supportLevel": {
+              "head": "Unterstützungsgrad",
+              "0": "Unbekannt",
+              "1": "Bekannt",
+              "2": "Unterstützt"
+            },
+            "internal": "intern"
+          },
+          "no-items": "Es gibt keine Formate in dieser Referenzliste."
+        }
+      }
+    }
+  },
+  "loading": {
+    "default": "Am Laden ...",
+    "top-level-communities": "Die Hauptbereiche werden geladen ...",
+    "community": "Der Bereich wird geladen ...",
+    "collection": "Die Sammlung wird geladen ...",
+    "sub-collections": "Die untergeordneten Sammlungen werden geladen ...",
+    "recent-submissions": "Die aktuellsten Veröffentlichungen werden geladen ...",
+    "item": "Die Ressource wird geladen ...",
+    "objects": "Am Laden ...",
+    "search-results": "Die Suchergebnisse werden geladen ...",
+    "browse-by": "Die Ressourcen werden geladen ..."
+  },
+  "error": {
+    "default": "Fehler",
+    "top-level-communities": "Fehler beim Laden der Hauptbereiche.",
+    "community": "Fehler beim Laden des Bereiches.",
+    "collection": "Fehler beim Laden der Sammlung.",
+    "sub-collections": "Fehler beim Laden der untergeordneten Sammlungen.",
+    "recent-submissions": "Fehler beim Laden der aktuellsten Veröffentlichungen.",
+    "item": "Fehler beim Laden der Ressource.",
+    "objects": "Fehler beim Laden der Objekte.",
+    "search-results": "Fehler beim Laden der Suchergebnisse.",
+    "browse-by": "Fehler beim Laden der Ressourcen",
+    "validation": {
+      "pattern": "Die Eingabe kann nur folgendes Muster haben: {{ pattern }}.",
+      "license": {
+        "notgranted": "Sie müssen der Lizenz zustimmen, um die Ressource einzureichen. Wenn dies zur Zeit nicht geht, können Sie die Einreichung speichern und später wiederaufnehmen oder löschen."
+      }
+    }
+  },
+  "form": {
+    "submit": "Los",
+    "cancel": "Abbrechen",
+    "search": "Suchen",
+    "remove": "Löschen",
+    "first-name": "Vorname",
+    "last-name": "Nachname",
+    "loading": "Am Laden ...",
+    "no-results": "Keine Ergebnisse gefunden",
+    "no-value": "Kein Wert eingegeben",
+    "group-collapse": "Weniger",
+    "group-expand": "Mehr",
+    "group-collapse-help": "Hier klicken, um die Anzeige zu reduzieren",
+    "group-expand-help": "Hier klicken, um mehr Elemente anzuzeigen"
+  },
+  "login": {
+    "title": "Einloggen",
+    "form": {
+      "header": "Bitte Loggen Sie sich ein.",
+      "email": "E-Mail-Adresse",
+      "forgot-password": "Haben Sie Ihr Passwort vergessen?",
+      "new-user": "Sind Sie neu hier? Klicken Sie hier, um sich zu registrieren.",
+      "password": "Passwort",
+      "submit": "Einloggen"
+    }
+  },
+  "logout": {
+    "title": "Ausloggen",
+    "form": {
+      "header": "Ausloggen aus DSpace",
+      "submit": "Ausloggen"
+    }
+  },
+  "auth": {
+    "messages": {
+      "expired": "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an."
+    },
+    "errors": {
+      "invalid-user": "Ungültige E-Mail-Adresse oder Passwort."
+    }
+  }
+}

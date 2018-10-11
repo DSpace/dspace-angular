@@ -1,6 +1,5 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
-
+import { distinctUntilChanged, filter, take, first, map } from 'rxjs/operators';
+import { of as observableOf, Observable } from 'rxjs';
 import {mergeMap, first, take, distinctUntilChanged, map, filter} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -27,17 +26,13 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   protected abstract halService: HALEndpointService;
   protected abstract objectCache: ObjectCacheService;
 
-  public abstract getScopedEndpoint(scope: string): Observable<string>
+  public abstract getBrowseEndpoint(options: FindAllOptions): Observable<string>
 
-  protected getFindAllHref(endpoint, options: FindAllOptions = {}): Observable<string> {
+  protected getFindAllHref(options: FindAllOptions = {}): Observable<string> {
     let result: Observable<string>;
     const args = [];
 
-    if (hasValue(options.scopeID)) {
-      result = this.getScopedEndpoint(options.scopeID).pipe(distinctUntilChanged());
-    } else {
-      result = observableOf(endpoint);
-    }
+    result = this.getBrowseEndpoint(options).pipe(distinctUntilChanged());
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
@@ -64,8 +59,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   }
 
   findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
-    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(filter((href: string) => isNotEmpty(href)),
-      mergeMap((endpoint: string) => this.getFindAllHref(endpoint, options)),);
+    const hrefObs = this.getFindAllHref(options);
 
     hrefObs.pipe(
       filter((href: string) => hasValue(href)),

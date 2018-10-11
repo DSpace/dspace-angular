@@ -10,6 +10,7 @@ import { AuthResponseParsingService } from '../auth/auth-response-parsing.servic
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { RestRequestMethod } from './rest-request-method';
+import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -161,6 +162,12 @@ export class BrowseEndpointRequest extends GetRequest {
 export class BrowseEntriesRequest extends GetRequest {
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return BrowseEntriesResponseParsingService;
+  }
+}
+
+export class BrowseItemsRequest extends GetRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return BrowseItemsResponseParsingService;
   }
 }
 

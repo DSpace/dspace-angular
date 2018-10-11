@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-
-
 import { AppComponent } from '../../app/app.component';
 
 import { AppModule } from '../../app/app.module';

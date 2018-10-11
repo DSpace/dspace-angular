@@ -41,7 +41,7 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
 
   findTop(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
     const hrefObs = this.halService.getEndpoint(this.topLinkPath).pipe(filter((href: string) => isNotEmpty(href)),
-      mergeMap((endpoint: string) => this.getFindAllHref(endpoint, options)),);
+      mergeMap((endpoint: string) => this.getFindAllHref(options)),);
 
     hrefObs.pipe(
       filter((href: string) => hasValue(href)),

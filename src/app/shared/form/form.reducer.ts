@@ -67,7 +67,6 @@ export function formReducer(state = initialState, action: FormAction): FormState
 }
 
 function addFormErrors(state: FormState, action: FormAddError) {
-  console.log(state);
   const formId = action.payload.formId;
   if (hasValue(state[formId])) {
     const error: FormError = {

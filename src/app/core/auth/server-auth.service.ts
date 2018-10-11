@@ -1,3 +1,4 @@
+import { first, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -36,6 +37,7 @@ export class ServerAuthService extends AuthService {
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
       switchMap((status: AuthStatus) => {
+
         if (status.authenticated) {
 
           // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...

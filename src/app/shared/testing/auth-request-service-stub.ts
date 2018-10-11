@@ -1,4 +1,4 @@
-import {of as observableOf,  Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { HttpOptions } from '../../core/dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';

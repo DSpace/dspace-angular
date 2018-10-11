@@ -1,5 +1,4 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { HALEndpointService } from '../shared/hal-endpoint.service';

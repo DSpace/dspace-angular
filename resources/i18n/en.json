@@ -151,6 +151,9 @@
       }
     }
   },
+  "browse": {
+    "title": "Browsing {{ collection }} by {{ field }} {{ value }}"
+  },
   "admin": {
     "registries": {
       "metadata": {
@@ -202,18 +205,19 @@
   },
   "loading": {
     "default": "Loading...",
-    "top-level-communities": "Loading top level communities...",
+    "top-level-communities": "Loading top-level communities...",
     "community": "Loading community...",
     "collection": "Loading collection...",
     "sub-collections": "Loading sub-collections...",
     "recent-submissions": "Loading recent submissions...",
     "item": "Loading item...",
     "objects": "Loading...",
-    "search-results": "Loading search results..."
+    "search-results": "Loading search results...",
+    "browse-by": "Loading items..."
   },
   "error": {
     "default": "Error",
-    "top-level-communities": "Error fetching top level communities",
+    "top-level-communities": "Error fetching top-level communities",
     "community": "Error fetching community",
     "collection": "Error fetching collection",
     "sub-collections": "Error fetching sub-collections",
@@ -221,6 +225,7 @@
     "item": "Error fetching item",
     "objects": "Error fetching objects",
     "search-results": "Error fetching search results",
+    "browse-by": "Error fetching items",
     "validation": {
       "pattern": "This input is restricted by the current pattern: {{ pattern }}.",
       "license": {
@@ -241,7 +246,7 @@
     "group-collapse": "Collapse",
     "group-expand": "Expand",
     "group-collapse-help": "Click here to collapse",
-    "group-expand-help": "Click here to expand and add more element"
+    "group-expand-help": "Click here to expand and add more elements"
   },
   "login": {
     "title": "Login",
@@ -266,7 +271,7 @@
       "expired": "Your session has expired. Please log in again."
     },
     "errors": {
-      "invalid-user": "Invalid email or password."
+      "invalid-user": "Invalid email address or password."
     }
   }
 }

@@ -1,4 +1,3 @@
-
 import {of as observableOf,  Observable } from 'rxjs';
 
 import {catchError, debounceTime, distinctUntilChanged, tap, switchMap, map, merge} from 'rxjs/operators';
@@ -29,7 +28,6 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTagModel;
-  // @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -80,12 +78,13 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
-              ) {
+  ) {
     super(layoutService, validationService);
   }
 
   ngOnInit() {
     this.hasAuthority = this.model.authorityOptions && hasValue(this.model.authorityOptions.name);
+
     if (this.hasAuthority) {
       this.searchOptions = new IntegrationSearchOptions(
         this.model.authorityOptions.scope,

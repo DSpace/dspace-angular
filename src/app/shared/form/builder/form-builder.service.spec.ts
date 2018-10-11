@@ -13,13 +13,10 @@ import {
   DynamicColorPickerModel,
   DynamicDatePickerModel,
   DynamicEditorModel,
-  DynamicFileUploadModel, DynamicFormArrayGroupModel,
+  DynamicFileUploadModel,
   DynamicFormArrayModel,
   DynamicFormControlModel,
-  // DynamicFormControlValue,
-  DynamicFormGroupModel,
-  DynamicFormService,
-  DynamicFormValidationService,
+  DynamicFormGroupModel, DynamicFormValidationService,
   DynamicFormValueControlModel,
   DynamicInputModel,
   DynamicRadioGroupModel,
@@ -41,7 +38,10 @@ import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dyn
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { AuthorityOptions } from '../../../core/integration/models/authority-options.model';
 import { FormFieldModel } from './models/form-field.model';
-import { FormRowModel, SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import {
+  FormRowModel,
+  SubmissionFormsModel
+} from '../../../core/shared/config/config-submission-forms.model';
 import { FormBuilderService } from './form-builder.service';
 import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -49,7 +49,6 @@ import { FormFieldMetadataValueObject } from './models/form-field-metadata-value
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { getMockFormBuilderService } from '../../mocks/mock-form-builder-service';
 
 describe('FormBuilderService test suite', () => {
 
@@ -70,7 +69,8 @@ describe('FormBuilderService test suite', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
-        {provide: FormBuilderService, useValue: getMockFormBuilderService()},
+        {provide: FormBuilderService, useClass: FormBuilderService},
+        {provide: DynamicFormValidationService, useValue: {}},
         {provide: NG_VALIDATORS, useValue: testValidator, multi: true},
         {provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true}
       ]
@@ -254,7 +254,7 @@ describe('FormBuilderService test suite', () => {
         {
           id: 'testFormRowArray',
           initialCount: 5,
-          notRepeteable: false,
+          notRepeatable: false,
           groupFactory: () => {
             return [
               new DynamicInputModel({id: 'testFormRowArrayGroupInput'})

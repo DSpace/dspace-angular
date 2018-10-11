@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="browse-by-author w-100 row">
+    <ds-browse-by class="col-xs-12 w-100"
+      title="{{'browse.title' | translate:{collection: '', field: 'Author', value: (value)? '&quot;' + value + '&quot;': ''} }}"
+      [objects$]="(items$ !== undefined)? items$ : authors$"
+      [currentUrl]="currentUrl"
+      [paginationConfig]="paginationConfig"
+      [sortConfig]="sortConfig">
+    </ds-browse-by>
+  </div>
+</div>

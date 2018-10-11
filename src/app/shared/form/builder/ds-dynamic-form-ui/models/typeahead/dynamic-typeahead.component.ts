@@ -26,7 +26,6 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTypeaheadModel;
-  @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();

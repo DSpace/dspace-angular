@@ -1,29 +1,18 @@
-
-import {distinctUntilKeyChanged, map, filter, first, take} from 'rxjs/operators';
-
-
-
+import { distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
-import {
-  ActivatedRoute,
-  Event,
-  NavigationEnd,
-  Params,
-  Router
-} from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { BehaviorSubject ,  Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from '../shared/bitstream.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { Metadatum } from '../shared/metadatum.model';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { BitstreamFormat } from '../shared/bitstream-format.model';

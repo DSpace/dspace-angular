@@ -62,7 +62,8 @@ export class AuthService {
               protected router: Router,
               protected storage: CookieService,
               protected store: Store<AppState>,
-              protected rdbService: RemoteDataBuildService) {
+              protected rdbService: RemoteDataBuildService
+  ) {
     this.store.pipe(
       select(isAuthenticated),
       startWith(false)
@@ -145,6 +146,7 @@ export class AuthService {
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
       switchMap((status: AuthStatus) => {
+
         if (status.authenticated) {
           // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
           // Review when https://jira.duraspace.org/browse/DS-4006 is fixed
@@ -154,7 +156,7 @@ export class AuthService {
         } else {
           throw(new Error('Not authenticated'));
         }
-      }));
+      }))
   }
 
   /**
