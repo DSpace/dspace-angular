@@ -1,5 +1,4 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPersonMock } from './eperson-mock';
@@ -21,7 +20,7 @@ export class AuthServiceStub {
       authStatus.okay = true;
       authStatus.authenticated = true;
       authStatus.token = this.token;
-      authStatus.eperson = Observable.of(new RemoteData<EPerson>(false, false, true, undefined, EPersonMock));
+      authStatus.eperson = observableOf(new RemoteData<EPerson>(false, false, true, undefined, EPersonMock));
       return observableOf(authStatus);
     } else {
       console.log('error');
@@ -31,7 +30,7 @@ export class AuthServiceStub {
 
   public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
     if (token.accessToken === 'token_test') {
-      return Observable.of(EPersonMock);
+      return observableOf(EPersonMock);
     } else {
       throw(new Error('Message Error test'));
     }

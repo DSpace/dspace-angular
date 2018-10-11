@@ -1,8 +1,9 @@
+
+import {combineLatest as observableCombineLatest,  Observable, Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { Observable, Subscription } from 'rxjs';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute } from '@angular/router';
@@ -45,7 +46,7 @@ export class BrowseByAuthorPageComponent implements OnInit {
       sort: this.sortConfig
     });
     this.subs.push(
-      Observable.combineLatest(
+      observableCombineLatest(
         this.route.params,
         this.route.queryParams,
         (params, queryParams, ) => {

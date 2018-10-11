@@ -30,7 +30,6 @@ export interface FormState {
 const initialState: FormState = Object.create(null);
 
 export function formReducer(state = initialState, action: FormAction): FormState {
-  console.log('TEST');
   switch (action.type) {
 
     case FormActionTypes.FORM_INIT: {
@@ -68,7 +67,6 @@ export function formReducer(state = initialState, action: FormAction): FormState
 }
 
 function addFormErrors(state: FormState, action: FormAddError) {
-  console.log(state);
   const formId = action.payload.formId;
   if (hasValue(state[formId])) {
     const error: FormError = {

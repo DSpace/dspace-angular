@@ -1,5 +1,5 @@
-import { filter, take, first } from 'rxjs/operators';
-import {of as observableOf,  Observable } from 'rxjs';
+import { distinctUntilChanged, filter, take, first, map } from 'rxjs/operators';
+import { of as observableOf, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -12,8 +12,6 @@ import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { promise } from 'selenium-webdriver';
-import map = promise.map;
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -29,7 +27,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     let result: Observable<string>;
     const args = [];
 
-    result = this.getBrowseEndpoint(options).distinctUntilChanged();
+    result = this.getBrowseEndpoint(options).pipe(distinctUntilChanged());
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */

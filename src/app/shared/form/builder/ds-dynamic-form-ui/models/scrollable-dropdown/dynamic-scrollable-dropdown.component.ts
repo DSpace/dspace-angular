@@ -26,7 +26,6 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicScrollableDropdownModel;
-  // @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();

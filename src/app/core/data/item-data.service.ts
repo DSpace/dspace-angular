@@ -1,3 +1,5 @@
+
+import {distinctUntilChanged, map, filter} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -40,10 +42,10 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     if (options.sort && options.sort.field) {
       field = options.sort.field;
     }
-    return this.bs.getBrowseURLFor(field, this.linkPath)
-      .filter((href: string) => isNotEmpty(href))
-      .map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString())
-      .distinctUntilChanged();
+    return this.bs.getBrowseURLFor(field, this.linkPath).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString()),
+      distinctUntilChanged(),);
   }
 
 }

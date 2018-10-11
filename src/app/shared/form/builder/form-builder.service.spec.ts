@@ -254,7 +254,7 @@ describe('FormBuilderService test suite', () => {
         {
           id: 'testFormRowArray',
           initialCount: 5,
-          notRepeteable: false,
+          notRepeatable: false,
           groupFactory: () => {
             return [
               new DynamicInputModel({id: 'testFormRowArrayGroupInput'})

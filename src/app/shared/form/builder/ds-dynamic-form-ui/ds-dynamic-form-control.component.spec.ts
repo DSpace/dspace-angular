@@ -172,7 +172,6 @@ describe('DsDynamicFormControlComponent test suite', () => {
     });
 
     fixture.detectChanges();
-    console.log(fixture.componentInstance.componentViewContainerRef);
     testElement = debugElement.query(By.css(`input[id='${testModel.id}']`));
   }));
 

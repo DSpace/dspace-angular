@@ -1,5 +1,5 @@
-import { Observable, throwError as observableThrowError, merge as observableMerge } from 'rxjs';
-import { distinctUntilChanged, filter, first, map, mergeMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, take, tap } from 'rxjs/operators';
+import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -10,7 +10,6 @@ import { DataService } from './data.service';
 import { FindAllOptions, FindByIDRequest } from './request.models';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DSOSuccessResponse } from '../cache/response-cache.models';
 
 export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain> extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
@@ -31,14 +30,14 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
     if (isEmpty(options.scopeID)) {
       return this.halService.getEndpoint(this.linkPath);
     } else {
-      const scopeCommunityHrefObs = this.cds.getEndpoint()
-        .flatMap((endpoint: string) => this.cds.getFindByIDHref(endpoint, options.scopeID))
-        .filter((href: string) => isNotEmpty(href))
-        .take(1)
-        .do((href: string) => {
+      const scopeCommunityHrefObs = this.cds.getEndpoint().pipe(
+        mergeMap((endpoint: string) => this.cds.getFindByIDHref(endpoint, options.scopeID)),
+        filter((href: string) => isNotEmpty(href)),
+        take(1),
+        tap((href: string) => {
           const request = new FindByIDRequest(this.requestService.generateRequestId(), href, options.scopeID);
           this.requestService.configure(request);
-        });
+        }),);
 
       // return scopeCommunityHrefObs.pipe(
       //   mergeMap((href: string) => this.responseCache.get(href)),

@@ -14,7 +14,6 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
 import { HostWindowService } from '../../../shared/host-window.service';
 
-
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
   let fixture: ComponentFixture<MetadataRegistryComponent>;
@@ -68,5 +67,4 @@ describe('MetadataRegistryComponent', () => {
     const mockName: HTMLElement = fixture.debugElement.query(By.css('#metadata-schemas tr:nth-child(2) td:nth-child(3)')).nativeElement;
     expect(mockName.textContent).toBe('mock');
   });
-
 });

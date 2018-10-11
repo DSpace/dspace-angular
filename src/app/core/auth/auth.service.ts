@@ -1,13 +1,14 @@
-import { of as observableOf, Observable ,  Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import {
-  take,
-  filter,
-  startWith,
-  first,
   distinctUntilChanged,
+  filter,
+  first,
   map,
+  startWith,
+  switchMap,
+  take,
   withLatestFrom
-,  map, switchMap, withLatestFrom } from 'rxjs/operators';
+} from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';

@@ -1,8 +1,5 @@
 import { of as observableOf } from 'rxjs';
-
 import { map } from 'rxjs/operators';
-
-
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';

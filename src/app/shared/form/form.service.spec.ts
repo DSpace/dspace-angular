@@ -1,14 +1,8 @@
 import { Store, StoreModule } from '@ngrx/store';
 import { async, inject, TestBed } from '@angular/core/testing';
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {
-  DynamicFormControlModel,
-  DynamicFormGroupModel,
-  DynamicFormService,
-  DynamicFormValidationService,
-  DynamicInputModel
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 
 import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
@@ -21,7 +15,7 @@ describe('FormService test suite', () => {
     form: {
       validatorMap: {
         required: 'required',
-          regex: 'pattern'
+        regex: 'pattern'
       }
     }
   } as any;
@@ -31,7 +25,7 @@ describe('FormService test suite', () => {
   let formGroup: FormGroup;
 
   const formModel: DynamicFormControlModel[] = [
-    new DynamicInputModel({id: 'author', value: 'test'}),
+    new DynamicInputModel({ id: 'author', value: 'test' }),
     new DynamicInputModel({
       id: 'title',
       validators: {
@@ -41,33 +35,35 @@ describe('FormService test suite', () => {
         required: 'Title is required'
       }
     }),
-    new DynamicInputModel({id: 'date'}),
-    new DynamicInputModel({id: 'description'}),
-    new DynamicFormGroupModel({
-
-      id: 'addressLocation',
-      group: [
-        new DynamicInputModel({
-
-          id: 'zipCode',
-          label: 'Zip Code',
-          placeholder: 'ZIP'
-        }),
-        new DynamicInputModel({
-
-          id: 'state',
-          label: 'State',
-          placeholder: 'State'
-        }),
-        new DynamicInputModel({
-
-          id: 'city',
-          label: 'City',
-          placeholder: 'City'
-        })
-      ]
-    }),
+    new DynamicInputModel({ id: 'date' }),
+    new DynamicInputModel({ id: 'description' }),
+    // new DynamicFormGroupModel({
+    //
+    //   id: 'addressLocation',
+    //   group: [
+    //     new DynamicInputModel({
+    //
+    //       id: 'zipCode',
+    //       label: 'Zip Code',
+    //       placeholder: 'ZIP'
+    //     }),
+    //     new DynamicInputModel({
+    //
+    //       id: 'state',
+    //       label: 'State',
+    //       placeholder: 'State'
+    //     }),
+    //     new DynamicInputModel({
+    //
+    //       id: 'city',
+    //       label: 'City',
+    //       placeholder: 'City'
+    //     })
+    //   ]
+    // }),
   ];
+
+  let controls;
 
   const formData = {
     author: ['test'],
@@ -91,23 +87,27 @@ describe('FormService test suite', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({formReducer})
-      ],
-      providers: [
-        {provide: FormBuilderService, useValue: getMockFormBuilderService()},
+        StoreModule.forRoot({ formReducer })
       ]
     }).compileComponents();
   }));
 
-  beforeEach(inject([Store, FormBuilderService], (store: Store<AppState>, formBuilderService: FormBuilderService) => {
-    store
-      .subscribe((state) => {
-        state.forms = formState;
-      });
-    builderService = formBuilderService;
-    formGroup = builderService.createFormGroup(formModel);
-    service = new FormService(config, formBuilderService, store);
-  }));
+  beforeEach(inject([Store], (store: Store<AppState>) => {
+      builderService = getMockFormBuilderService();
+      store
+        .subscribe((state) => {
+          state.forms = formState;
+        });
+      const author: AbstractControl = new FormControl('test');
+      const title: AbstractControl = new FormControl(undefined, Validators.required);
+      const date: AbstractControl = new FormControl(undefined);
+      const description: AbstractControl = new FormControl(undefined);
+      formGroup = new FormGroup({ author, title, date, description });
+      controls = { author, title, date, description };
+      service = new FormService(config, builderService, store);
+    })
+  )
+  ;
 
   it('should check whether form state is init', () => {
     service.isFormInitialized(formId).subscribe((init) => {
@@ -136,7 +136,6 @@ describe('FormService test suite', () => {
 
   it('should validate all form fields', () => {
     service.validateAllFormFields(formGroup);
-
     expect(formGroup.controls.author.touched).toBe(true);
     expect(formGroup.controls.author.status).toBe('VALID');
 
@@ -149,8 +148,8 @@ describe('FormService test suite', () => {
   });
 
   it('should add error to field', () => {
-    let control = builderService.getFormControlById('description', formGroup, formModel);
-    let model = builderService.findById('description', formModel);
+    let control = controls.description;
+    let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'description');
     let errorKeys: string[];
 
     service.addErrorToField(control, model, 'Test error message');
@@ -162,8 +161,8 @@ describe('FormService test suite', () => {
 
     expect(formGroup.controls.description.touched).toBe(true);
 
-    control = builderService.getFormControlById('title', formGroup, formModel);
-    model = builderService.findById('title', formModel);
+    control = controls.title;
+    model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'title');
     service.addErrorToField(control, model, 'error.required');
     errorKeys = Object.keys(control.errors);
 
@@ -175,8 +174,8 @@ describe('FormService test suite', () => {
   });
 
   it('should remove error from field', () => {
-    let control = builderService.getFormControlById('description', formGroup, formModel);
-    let model = builderService.findById('description', formModel);
+    let control = controls.description;
+    let model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'description');
     let errorKeys: string[];
 
     service.addErrorToField(control, model, 'Test error message');
@@ -190,8 +189,8 @@ describe('FormService test suite', () => {
 
     expect(formGroup.controls.description.touched).toBe(false);
 
-    control = builderService.getFormControlById('title', formGroup, formModel);
-    model = builderService.findById('title', formModel);
+    control = controls.title;
+    model = formModel.find((mdl: DynamicFormControlModel) => mdl.id === 'title');
 
     service.addErrorToField(control, model, 'error.required');
 
@@ -205,10 +204,11 @@ describe('FormService test suite', () => {
   });
 
   it('should reset form group', () => {
-    const control = builderService.getFormControlById('author', formGroup, formModel);
+    const control = controls.author;
 
     service.resetForm(formGroup, formModel, formId);
 
     expect(control.value).toBeNull();
   });
-});
+})
+;

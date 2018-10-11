@@ -22,29 +22,34 @@ import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { createTestComponent } from '../../../../../testing/utils';
 
-export const TYPEAHEAD_TEST_GROUP = new FormGroup({
-  typeahead: new FormControl(),
-});
+export let TYPEAHEAD_TEST_GROUP;
 
-export const TYPEAHEAD_TEST_MODEL_CONFIG = {
-  authorityOptions: {
-    closed: false,
-    metadata: 'typeahead',
-    name: 'EVENTAuthority',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
-  } as AuthorityOptions,
-  disabled: false,
-  id: 'typeahead',
-  label: 'Conference',
-  minChars: 3,
-  name: 'typeahead',
-  placeholder: 'Conference',
-  readOnly: false,
-  required: false,
-  repeatable: false,
-  value: undefined
-};
+export let TYPEAHEAD_TEST_MODEL_CONFIG;
 
+function init() {
+  TYPEAHEAD_TEST_GROUP = new FormGroup({
+    typeahead: new FormControl(),
+  });
+
+  TYPEAHEAD_TEST_MODEL_CONFIG = {
+    authorityOptions: {
+      closed: false,
+      metadata: 'typeahead',
+      name: 'EVENTAuthority',
+      scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    } as AuthorityOptions,
+    disabled: false,
+    id: 'typeahead',
+    label: 'Conference',
+    minChars: 3,
+    name: 'typeahead',
+    placeholder: 'Conference',
+    readOnly: false,
+    required: false,
+    repeatable: false,
+    value: undefined
+  };
+}
 describe('DsDynamicTypeaheadComponent test suite', () => {
 
   let testComp: TestComponent;
@@ -56,7 +61,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
   // async beforeEach
   beforeEach(async(() => {
     const authorityServiceStub = new AuthorityServiceStub();
-
+    init()
     TestBed.configureTestingModule({
       imports: [
         DynamicFormsCoreModule,
@@ -72,9 +77,9 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         DsDynamicTypeaheadComponent,
-        {provide: AuthorityService, useValue: authorityServiceStub},
-        {provide: DynamicFormLayoutService, useValue: {}},
-        {provide: DynamicFormValidationService, useValue: {}}
+        { provide: AuthorityService, useValue: authorityServiceStub },
+        { provide: DynamicFormLayoutService, useValue: {} },
+        { provide: DynamicFormValidationService, useValue: {} }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -96,6 +101,9 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       testComp = testFixture.componentInstance;
     });
 
+    afterEach(() => {
+      testFixture.destroy();
+    });
     it('should create DsDynamicTypeaheadComponent', inject([DsDynamicTypeaheadComponent], (app: DsDynamicTypeaheadComponent) => {
 
       expect(app).toBeDefined();
@@ -220,7 +228,5 @@ class TestComponent {
   group: FormGroup = TYPEAHEAD_TEST_GROUP;
 
   model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
-
-  showErrorMessages = false;
 
 }

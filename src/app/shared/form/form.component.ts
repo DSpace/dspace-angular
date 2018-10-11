@@ -156,7 +156,6 @@ export class FormComponent implements OnDestroy, OnInit {
       // .delay(100) // this terrible delay is here to prevent the detection change error
         .subscribe((errors: FormError[]) => {
           const { formGroup, formModel } = this;
-
           errors
             .filter((error: FormError) => findIndex(this.formErrors, {
               fieldId: error.fieldId,
@@ -171,25 +170,15 @@ export class FormComponent implements OnDestroy, OnInit {
               } else {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel, fieldIndex);
               }
-              console.log('1', error);
 
               if (field) {
-                console.log('2',error);
-
                 const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
-                console.log('4',error);
-
                 this.formService.addErrorToField(field, model, error.message);
                 // this.formService.validateAllFormFields(formGroup);
-                console.log('5',error);
-
                 this.changeDetectorRef.detectChanges();
 
               }
-              console.log('4',error);
-
             });
-          console.log(errors);
 
           this.formErrors
             .filter((error: FormError) => findIndex(errors, {
@@ -211,7 +200,6 @@ export class FormComponent implements OnDestroy, OnInit {
                 this.formService.removeErrorFromField(field, model, error.message);
               }
             });
-          console.log(this.formErrors);
           this.formErrors = errors;
           this.changeDetectorRef.detectChanges();
         })
@@ -256,7 +244,6 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   onChange(event: DynamicFormControlEvent): void {
-
     this.formService.changeForm(this.formId, this.formModel);
     this.formGroup.markAsPristine();
 
