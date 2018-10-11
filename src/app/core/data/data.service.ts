@@ -138,7 +138,6 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       .filter((href: string) => hasValue(href))
       .take(1)
       .subscribe((href: string) => {
-        console.log(href);
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request, true);
       });

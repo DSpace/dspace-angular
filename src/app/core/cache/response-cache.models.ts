@@ -18,7 +18,7 @@ export class RestResponse {
 
   constructor(
     public isSuccessful: boolean,
-    public statusCode: string,
+    public statusCode: number,
   ) {
   }
 }
@@ -26,7 +26,7 @@ export class RestResponse {
 export class DSOSuccessResponse extends RestResponse {
   constructor(
     public resourceSelfLinks: string[],
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -36,7 +36,7 @@ export class DSOSuccessResponse extends RestResponse {
 export class RegistryMetadataschemasSuccessResponse extends RestResponse {
   constructor(
     public metadataschemasResponse: RegistryMetadataschemasResponse,
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -46,7 +46,7 @@ export class RegistryMetadataschemasSuccessResponse extends RestResponse {
 export class RegistryMetadatafieldsSuccessResponse extends RestResponse {
   constructor(
     public metadatafieldsResponse: RegistryMetadatafieldsResponse,
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -56,7 +56,7 @@ export class RegistryMetadatafieldsSuccessResponse extends RestResponse {
 export class RegistryBitstreamformatsSuccessResponse extends RestResponse {
   constructor(
     public bitstreamformatsResponse: RegistryBitstreamformatsResponse,
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -66,7 +66,7 @@ export class RegistryBitstreamformatsSuccessResponse extends RestResponse {
 export class MetadataschemaSuccessResponse extends RestResponse {
   constructor(
     public metadataschema: MetadataSchema,
-    public statusCode: string
+    public statusCode: number
   ) {
     super(true, statusCode);
   }
@@ -75,7 +75,7 @@ export class MetadataschemaSuccessResponse extends RestResponse {
 export class SearchSuccessResponse extends RestResponse {
   constructor(
     public results: SearchQueryResponse,
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -85,7 +85,7 @@ export class SearchSuccessResponse extends RestResponse {
 export class FacetConfigSuccessResponse extends RestResponse {
   constructor(
     public results: SearchFilterConfig[],
-    public statusCode: string
+    public statusCode: number
   ) {
     super(true, statusCode);
   }
@@ -98,7 +98,7 @@ export class FacetValueMap {
 export class FacetValueSuccessResponse extends RestResponse {
   constructor(
     public results: FacetValue[],
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo) {
     super(true, statusCode);
   }
@@ -107,7 +107,7 @@ export class FacetValueSuccessResponse extends RestResponse {
 export class FacetValueMapSuccessResponse extends RestResponse {
   constructor(
     public results: FacetValueMap,
-    public statusCode: string,
+    public statusCode: number,
   ) {
     super(true, statusCode);
   }
@@ -120,7 +120,7 @@ export class EndpointMap {
 export class EndpointMapSuccessResponse extends RestResponse {
   constructor(
     public endpointMap: EndpointMap,
-    public statusCode: string,
+    public statusCode: number,
   ) {
     super(true, statusCode);
   }
@@ -129,7 +129,7 @@ export class EndpointMapSuccessResponse extends RestResponse {
 export class GenericSuccessResponse<T> extends RestResponse {
   constructor(
     public payload: T,
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -149,7 +149,7 @@ export class ErrorResponse extends RestResponse {
 export class ConfigSuccessResponse extends RestResponse {
   constructor(
     public configDefinition: ConfigObject[],
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -161,7 +161,7 @@ export class AuthStatusResponse extends RestResponse {
 
   constructor(
     public response: AuthStatus,
-    public statusCode: string
+    public statusCode: number
   ) {
     super(true, statusCode);
   }
@@ -170,7 +170,7 @@ export class AuthStatusResponse extends RestResponse {
 export class IntegrationSuccessResponse extends RestResponse {
   constructor(
     public dataDefinition: IntegrationModel[],
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -180,7 +180,7 @@ export class IntegrationSuccessResponse extends RestResponse {
 export class PostPatchSuccessResponse extends RestResponse {
   constructor(
     public dataDefinition: any[],
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -190,7 +190,7 @@ export class PostPatchSuccessResponse extends RestResponse {
 export class SubmissionSuccessResponse extends RestResponse {
   constructor(
     public dataDefinition: Array<NormalizedObject | ConfigObject | string>,
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);
@@ -200,7 +200,7 @@ export class SubmissionSuccessResponse extends RestResponse {
 export class EpersonSuccessResponse extends RestResponse {
   constructor(
     public epersonDefinition: NormalizedObject[],
-    public statusCode: string,
+    public statusCode: number,
     public pageInfo?: PageInfo
   ) {
     super(true, statusCode);

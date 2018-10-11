@@ -303,6 +303,6 @@ export class EpersonRequest extends GetRequest {
 }
 
 export class RequestError extends Error {
-  statusText: string;
+  statusText: number;
 }
 /* tslint:enable:max-classes-per-file */

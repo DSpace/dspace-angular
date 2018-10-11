@@ -67,7 +67,7 @@ export class DSpaceRESTv2Service {
       requestOptions.responseType = options.responseType;
     }
     return this.http.request(method, url, requestOptions)
-      .map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.statusText }))
+      .map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.status }))
       .catch((err) => {
         console.log('Error: ', err);
         return Observable.throw(err);

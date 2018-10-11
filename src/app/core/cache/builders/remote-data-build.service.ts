@@ -93,7 +93,7 @@ export class RemoteDataBuildService {
           isSuccessful = resEntry.response.isSuccessful;
           const errorMessage = isSuccessful === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
-            error = new RemoteDataError(resEntry.response.statusCode, errorMessage);
+            error = new RemoteDataError(resEntry.response.statusCode.toString(), errorMessage);
           }
         }
 
