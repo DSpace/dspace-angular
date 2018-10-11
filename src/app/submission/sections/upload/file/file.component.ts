@@ -155,7 +155,11 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
                 }
               }
             });
-          this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
+
+          if (isNotEmpty(accessConditionsToSave)) {
+            this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
+          }
+
           this.operationsService.jsonPatchByResourceID(
             this.submissionService.getSubmissionObjectLinkName(),
             this.submissionId,

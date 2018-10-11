@@ -48,7 +48,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
    */
   public collectionPolicyType;
 
-  public configMetadataForm: SubmissionFormsModel;
+  public configMetadataForm$: Observable<SubmissionFormsModel>;
 
   /*
    * List of available access conditions that could be setted to files
@@ -74,6 +74,13 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
   }
 
   ngOnInit() {
+    const config$ = this.uploadsConfigService.getConfigByHref(this.sectionData.config)
+      .flatMap((config) => config.payload);
+
+    this.configMetadataForm$ = config$
+      .take(1)
+      .map((config: SubmissionUploadsModel) => config.metadata[0]);
+
     this.subs.push(
       this.store.select(submissionObjectFromIdSelector(this.submissionId))
         .filter((submissionObject: SubmissionObjectEntry) => isNotUndefined(submissionObject) && !submissionObject.isLoading)
@@ -86,19 +93,8 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
             .subscribe((collectionData) => {
               this.collectionName = collectionData.payload.name;
 
-              console.log(collectionData.payload.defaultAccessConditions);
-              const defaultAccessConditions$ = collectionData.payload.defaultAccessConditions
-                || Observable.of(
-                  new RemoteData(
-                    false,
-                    false,
-                    true,
-                    undefined,
-                    undefined
-                  ));
-
               // Default Access Conditions
-              this.subs.push(defaultAccessConditions$
+              this.subs.push(collectionData.payload.defaultAccessConditions
                 .filter((accessConditions) => isNotUndefined((accessConditions.payload)))
                 .take(1)
                 .subscribe((defaultAccessConditions) => {
@@ -109,13 +105,11 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
                   }
 
                   // Edit Form Configuration, access policy list
-                  this.subs.push(this.uploadsConfigService.getConfigByHref(this.sectionData.config)
-                    .flatMap((config) => config.payload)
+                  this.subs.push(config$
                     .take(1)
                     .subscribe((config: SubmissionUploadsModel) => {
                       this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
 
-                      this.configMetadataForm = config.metadata[0];
                       this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
                         ? POLICY_DEFAULT_WITH_LIST
                         : POLICY_DEFAULT_NO_LIST;
@@ -160,11 +154,13 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
             })
         })
       ,
-      this.bitstreamService
-        .getUploadedFileList(this.submissionId, this.sectionData.id)
-        .filter((bitstreamList) => isNotUndefined(bitstreamList))
+      Observable.combineLatest(this.configMetadataForm$,
+        this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id))
+        .filter(([configMetadataForm, fileList]:[SubmissionFormsModel, any[]]) => {
+          return isNotEmpty(configMetadataForm) && isNotUndefined(fileList)
+        })
         .distinctUntilChanged()
-        .subscribe((fileList: any[]) => {
+        .subscribe(([configMetadataForm, fileList]:[SubmissionFormsModel, any[]]) => {
             let sectionStatus = false;
             this.fileList = [];
             this.fileIndexes = [];
@@ -174,7 +170,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
               fileList.forEach((file) => {
                 this.fileList.push(file);
                 this.fileIndexes.push(file.uuid);
-                this.fileNames.push(this.getFileName(file));
+                this.fileNames.push(this.getFileName(configMetadataForm, file));
               });
               sectionStatus = true;
             }
@@ -187,8 +183,8 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
     );
   }
 
-  private getFileName(fileData: any): string {
-    const metadataName: string = this.configMetadataForm.rows[0].fields[0].selectableMetadata[0].metadata;
+  private getFileName(configMetadataForm: SubmissionFormsModel, fileData: any): string {
+    const metadataName: string = configMetadataForm.rows[0].fields[0].selectableMetadata[0].metadata;
     let title: string;
     if (isNotEmpty(fileData.metadata) && isNotEmpty(fileData.metadata[metadataName])) {
       title = fileData.metadata[metadataName][0].display;

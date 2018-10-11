@@ -35,7 +35,7 @@
                                        [availableAccessConditionOptions]="availableAccessConditionOptions"
                                        [collectionId]="collectionId"
                                        [collectionPolicyType]="collectionPolicyType"
-                                       [configMetadataForm]="configMetadataForm"
+                                       [configMetadataForm]="(configMetadataForm$ | async)"
                                        [fileId]="fileIndexes[fileList.indexOf(fileEntry)]"
                                        [fileIndex]="fileList.indexOf(fileEntry)"
                                        [fileName]="fileNames[fileList.indexOf(fileEntry)]"
