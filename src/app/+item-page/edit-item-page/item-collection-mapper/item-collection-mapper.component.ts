@@ -59,7 +59,6 @@ export class ItemCollectionMapperComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private searchConfigService: SearchConfigurationService,
-              private searchService: SearchService,
               private collectionDataService: CollectionDataService,
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
