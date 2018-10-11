@@ -27,9 +27,9 @@ export class AuthResponseParsingService extends BaseResponseParsingService imple
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && (data.statusCode === 200)) {
       const response = this.process<AuthStatus, AuthType>(data.payload, request.href);
-      return new AuthStatusResponse(response[Object.keys(response)[0]][0], data.statusCode);
+      return new AuthStatusResponse(response[Object.keys(response)[0]][0], data.statusCode, data.statusText);
     } else {
-      return new AuthStatusResponse(data.payload as AuthStatus, data.statusCode);
+      return new AuthStatusResponse(data.payload as AuthStatus, data.statusCode, data.statusText);
     }
   }
 

@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 
 import { ResponseCacheService } from './response-cache.service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { CoreState } from '../core.reducers';
 import { RestResponse } from './response-cache.models';
 import { ResponseCacheEntry } from './response-cache.reducer';
@@ -15,7 +16,7 @@ describe('ResponseCacheService', () => {
   const validCacheEntry = (key) => {
     return {
       key: key,
-      response: new RestResponse(true, '200'),
+      response: new RestResponse(true, 200,'OK'),
       timeAdded: timestamp,
       msToLive: 24 * 60 * 60 * 1000 // a day
     }
@@ -23,7 +24,7 @@ describe('ResponseCacheService', () => {
   const invalidCacheEntry = (key) => {
     return {
       key: key,
-      response: new RestResponse(true, '200'),
+      response: new RestResponse(true, 200,'OK'),
       timeAdded: 0,
       msToLive: 0
     }

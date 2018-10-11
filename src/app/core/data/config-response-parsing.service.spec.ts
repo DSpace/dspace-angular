@@ -121,12 +121,14 @@ describe('ConfigResponseParsingService', () => {
           }
         }
       },
-      statusCode:'200'
+      statusCode: 200,
+      statusText: 'OK'
     };
 
     const invalidResponse1 = {
       payload: {},
-      statusCode:'200'
+      statusCode: 200,
+      statusText: 'OK'
     };
 
     const invalidResponse2 = {
@@ -150,14 +152,15 @@ describe('ConfigResponseParsingService', () => {
           }
         }
       },
-      statusCode:'200'
+      statusCode: 200,
+      statusText: 'OK'
     };
 
     const invalidResponse3 = {
       payload: {
         _links: { self: { href: 'https://rest.api/config/submissiondefinitions/traditional' } },
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
-      }, statusCode: '500'
+      }, statusCode: 500, statusText: 'Internal Server Error'
     };
 
     const definitions = [

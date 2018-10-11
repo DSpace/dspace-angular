@@ -35,15 +35,15 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
       && isNotEmpty(data.payload._links)
       && (data.statusCode === 201 || data.statusCode === 200)) {
       const dataDefinition = this.processResponse<NormalizedObject | ConfigObject, SubmissionResourceType>(data.payload, request.href);
-      return new SubmissionSuccessResponse(dataDefinition[Object.keys(dataDefinition)[0]], data.statusCode, this.processPageInfo(data.payload));
+      return new SubmissionSuccessResponse(dataDefinition[Object.keys(dataDefinition)[0]], data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else if (isEmpty(data.payload) && data.statusCode === 204) {
       // Response from a DELETE request
-      return new SubmissionSuccessResponse(null, data.statusCode);
+      return new SubmissionSuccessResponse(null, data.statusCode, data.statusText);
     } else {
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from server'),
-          {statusText: data.statusCode}
+          {statusCode: data.statusCode, statusText: data.statusText}
         )
       );
     }

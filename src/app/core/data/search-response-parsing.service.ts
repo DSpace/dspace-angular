@@ -39,7 +39,8 @@ export class SearchResponseParsingService implements ResponseParsingService {
       .map((dso) => Object.assign({}, dso, { _embedded: undefined }))
       .map((dso) => this.dsoParser.parse(request, {
         payload: dso,
-        statusCode: data.statusCode
+        statusCode: data.statusCode,
+        statusText: data.statusText
       }))
       .map((obj) => obj.resourceSelfLinks)
       .reduce((combined, thisElement) => [...combined, ...thisElement], []);
@@ -56,6 +57,6 @@ export class SearchResponseParsingService implements ResponseParsingService {
       }));
     payload.objects = objects;
     const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
-    return new SearchSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload));
+    return new SearchSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(data.payload));
   }
 }

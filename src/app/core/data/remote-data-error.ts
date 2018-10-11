@@ -1,6 +1,6 @@
 export class RemoteDataError {
   constructor(
-    public statusCode: string,
+    public statusText: string,
     public message: string
   ) {
   }

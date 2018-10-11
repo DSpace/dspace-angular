@@ -40,12 +40,14 @@ describe('ConfigResponseParsingService', () => {
           expires: 1526318322000
         },
       } as AuthStatus,
-      statusCode: '200'
+      statusCode: 200,
+      statusText: '200'
     };
 
     const validResponse1 = {
       payload: {},
-      statusCode: '404'
+      statusCode: 404,
+      statusText: '404'
     };
 
     const validResponse2 = {
@@ -95,7 +97,9 @@ describe('ConfigResponseParsingService', () => {
           self: 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/authn/status'
         }
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: '200'
+
     };
 
     it('should return a AuthStatusResponse if data contains a valid AuthStatus object as payload', () => {

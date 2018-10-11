@@ -93,7 +93,7 @@ export class RemoteDataBuildService {
           isSuccessful = resEntry.response.isSuccessful;
           const errorMessage = isSuccessful === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
-            error = new RemoteDataError(resEntry.response.statusCode.toString(), errorMessage);
+            error = new RemoteDataError((resEntry.response as ErrorResponse).statusText, errorMessage);
           }
         }
 
@@ -226,16 +226,16 @@ export class RemoteDataBuildService {
           }).filter((e: string) => hasValue(e))
           .join(', ');
 
-        const statusCode: string = arr
+        const statusText: string = arr
           .map((d: RemoteData<T>) => d.error)
           .map((e: RemoteDataError, idx: number) => {
             if (hasValue(e)) {
-              return `[${idx}]: ${e.statusCode}`;
+              return `[${idx}]: ${e.statusText}`;
             }
           }).filter((c: string) => hasValue(c))
           .join(', ');
 
-        const error = new RemoteDataError(statusCode, errorMessage);
+        const error = new RemoteDataError(statusText, errorMessage);
 
         const payload: T[] = arr.map((d: RemoteData<T>) => d.payload);
 

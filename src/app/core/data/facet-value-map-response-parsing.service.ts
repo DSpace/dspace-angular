@@ -37,10 +37,10 @@ export class FacetValueMapResponseParsingService extends BaseResponseParsingServ
     payload._embedded.facets.map((facet) => {
       const values = facet._embedded.values.map((value) => {value.search = value._links.search.href; return value;});
       const facetValues = serializer.deserializeArray(values);
-      const valuesResponse = new FacetValueSuccessResponse(facetValues, data.statusCode, this.processPageInfo(data.payload));
+      const valuesResponse = new FacetValueSuccessResponse(facetValues, data.statusCode, data.statusText, this.processPageInfo(data.payload));
       facetMap[facet.name] = valuesResponse;
     });
 
-    return new FacetValueMapSuccessResponse(facetMap, data.statusCode);
+    return new FacetValueMapSuccessResponse(facetMap, data.statusCode, data.statusText);
   }
 }

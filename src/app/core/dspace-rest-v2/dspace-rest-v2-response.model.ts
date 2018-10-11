@@ -8,5 +8,6 @@ export interface DSpaceRESTV2Response {
     page?: any;
   },
   headers?: HttpHeaders,
-  statusCode: number
+  statusCode: number,
+  statusText: string
 }

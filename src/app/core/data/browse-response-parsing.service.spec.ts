@@ -48,7 +48,7 @@ describe('BrowseResponseParsingService', () => {
         },
         _links: { self: { href: 'https://rest.api/discover/browses' } },
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
-      }, statusCode: '200'
+      }, statusCode: 200, statusText: 'OK'
     } as DSpaceRESTV2Response;
 
     const invalidResponse1 = {
@@ -71,21 +71,21 @@ describe('BrowseResponseParsingService', () => {
         },
         _links: { self: { href: 'https://rest.api/discover/browses' } },
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
-      }, statusCode: '200'
+      }, statusCode: 200, statusText: 'OK'
     } as DSpaceRESTV2Response;
 
     const invalidResponse2 = {
       payload: {
         _links: { self: { href: 'https://rest.api/discover/browses' } },
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
-      }, statusCode: '200'
+      }, statusCode: 200, statusText: 'OK'
     } as DSpaceRESTV2Response ;
 
     const invalidResponse3 = {
       payload: {
         _links: { self: { href: 'https://rest.api/discover/browses' } },
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
-      }, statusCode: '500'
+      }, statusCode: 500, statusText: 'Internal Server Error'
     } as DSpaceRESTV2Response;
 
     const definitions = [

@@ -28,13 +28,13 @@ describe('responseCacheReducer', () => {
   const testState: ResponseCacheState = {
     [keys[0]]: {
       key: keys[0],
-      response: new RestResponse(true, '200'),
+      response: new RestResponse(true, 200, 'OK'),
       timeAdded: new Date().getTime(),
       msToLive: msToLive
     },
     [keys[1]]: {
       key: keys[1],
-      response: new RestResponse(true, '200'),
+      response: new RestResponse(true, 200, 'OK'),
       timeAdded: new Date().getTime(),
       msToLive: msToLive
     }
@@ -65,7 +65,7 @@ describe('responseCacheReducer', () => {
   describe('ADD', () => {
     const addTimeAdded = new Date().getTime();
     const addMsToLive = 5;
-    const addResponse = new RestResponse(true, '200');
+    const addResponse = new RestResponse(true, 200, 'OK');
     const action = new ResponseCacheAddAction(keys[0], addResponse, addTimeAdded, addMsToLive);
 
     it('should perform the action without affecting the previous state', () => {

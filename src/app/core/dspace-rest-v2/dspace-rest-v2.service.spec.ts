@@ -30,17 +30,19 @@ describe('DSpaceRESTv2Service', () => {
       const mockPayload = {
         page: 1
       };
-      const mockStatusCode = 'GREAT';
+      const mockStatusCode = 200;
+      const mockStatusText = 'GREAT';
 
       dSpaceRESTv2Service.get(url).subscribe((response) => {
         expect(response).toBeTruthy();
         expect(response.statusCode).toEqual(mockStatusCode);
+        expect(response.statusText).toEqual(mockStatusText);
         expect(response.payload.page).toEqual(mockPayload.page);
       });
 
       const req = httpMock.expectOne(url);
       expect(req.request.method).toBe('GET');
-      req.flush(mockPayload, { statusText: mockStatusCode});
+      req.flush(mockPayload, { status: mockStatusCode, statusText: mockStatusText});
     });
   });
 

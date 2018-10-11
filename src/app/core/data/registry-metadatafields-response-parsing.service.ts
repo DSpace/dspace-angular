@@ -28,7 +28,7 @@ export class RegistryMetadatafieldsResponseParsingService implements ResponsePar
     payload.metadatafields = metadatafields;
 
     const deserialized = new DSpaceRESTv2Serializer(RegistryMetadatafieldsResponse).deserialize(payload);
-    return new RegistryMetadatafieldsSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload.page));
+    return new RegistryMetadatafieldsSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(data.payload.page));
   }
 
 }

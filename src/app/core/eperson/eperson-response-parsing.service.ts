@@ -29,12 +29,12 @@ export class EpersonResponseParsingService extends BaseResponseParsingService im
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links)) {
       const epersonDefinition = this.process<NormalizedObject,ResourceType>(data.payload, request.href);
-      return new EpersonSuccessResponse(epersonDefinition[Object.keys(epersonDefinition)[0]], data.statusCode, this.processPageInfo(data.payload));
+      return new EpersonSuccessResponse(epersonDefinition[Object.keys(epersonDefinition)[0]], data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from EPerson endpoint'),
-          {statusText: data.statusCode}
+          {statusCode: data.statusCode, statusText: data.statusText}
         )
       );
     }

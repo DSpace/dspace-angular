@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Request } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable';
 import { RestRequestMethod } from '../data/request.models';
@@ -37,7 +36,7 @@ export class DSpaceRESTv2Service {
    */
   get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
     return this.http.get(absoluteURL, { observe: 'response' })
-      .map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.statusText }))
+      .map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.status, statusText: res.statusText }))
       .catch((err) => {
         console.log('Error: ', err);
         return Observable.throw(err);
@@ -67,7 +66,7 @@ export class DSpaceRESTv2Service {
       requestOptions.responseType = options.responseType;
     }
     return this.http.request(method, url, requestOptions)
-      .map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.status }))
+      .map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.status, statusText: res.statusText }))
       .catch((err) => {
         console.log('Error: ', err);
         return Observable.throw(err);

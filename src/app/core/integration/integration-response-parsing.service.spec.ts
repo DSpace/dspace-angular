@@ -22,14 +22,20 @@ describe('IntegrationResponseParsingService', () => {
   const integrationEndpoint = 'https://rest.api/integration/authorities';
   const entriesEndpoint = `${integrationEndpoint}/${name}/entries?query=${query}&metadata=${metadata}&uuid=${uuid}`;
 
+  let validRequest;
+
+  let validResponse;
+
+  let invalidResponse1;
+
+  let invalidResponse2;
+
+  let definitions;
+
   beforeEach(() => {
     service = new IntegrationResponseParsingService(EnvConfig, objectCacheService);
-  });
-
-  describe('parse', () => {
-    const validRequest = new IntegrationRequest('69f375b5-19f4-4453-8c7a-7dc5c55aafbb', entriesEndpoint);
-
-    const validResponse = {
+    validRequest = new IntegrationRequest('69f375b5-19f4-4453-8c7a-7dc5c55aafbb', entriesEndpoint);
+    validResponse = {
       payload: {
         page: {
           number: 0,
@@ -81,15 +87,15 @@ describe('IntegrationResponseParsingService', () => {
           self: 'https://rest.api/integration/authorities/type/entries'
         }
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: 'OK'
     };
-
-    const invalidResponse1 = {
+    invalidResponse1 = {
       payload: {},
-      statusCode: '200'
+      statusCode: 400,
+      statusText: 'Bad Request'
     };
-
-    const invalidResponse2 = {
+    invalidResponse2 = {
       payload: {
         page: {
           number: 0,
@@ -139,10 +145,10 @@ describe('IntegrationResponseParsingService', () => {
         },
         _links: {}
       },
-      statusCode: '200'
+      statusCode: 500,
+      statusText: 'Internal Server Error'
     };
-
-    const definitions = [
+    definitions = [
       Object.assign(new AuthorityValueModel(), {
         display: 'One',
         id: 'One',
@@ -174,6 +180,9 @@ describe('IntegrationResponseParsingService', () => {
         value: 'Five'
       })
     ];
+  });
+
+  describe('parse', () => {
 
     it('should return a IntegrationSuccessResponse if data contains a valid endpoint response', () => {
       const response = service.parse(validRequest, validResponse);
