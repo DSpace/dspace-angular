@@ -277,13 +277,17 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   getId(model: DynamicPathable): string {
+    let tempModel: DynamicFormControlModel;
+
     if (this.isArrayGroup(model as DynamicFormControlModel)) {
       return model.index.toString();
+    } else if (this.isModelInCustomGroup(model as DynamicFormControlModel)) {
+      tempModel = (model as any).parent;
     } else {
-      return ((model as DynamicFormControlModel).id !== (model as DynamicFormControlModel).name) ?
-        (model as DynamicFormControlModel).name :
-        (model as DynamicFormControlModel).id;
+      tempModel = (model as any);
     }
+
+    return (tempModel.id !== tempModel.name) ? tempModel.name : tempModel.id;
   }
 
 }
