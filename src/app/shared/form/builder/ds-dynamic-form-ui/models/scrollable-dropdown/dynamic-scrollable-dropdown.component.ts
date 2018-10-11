@@ -9,6 +9,7 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -25,6 +26,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
+  public currentValue: Observable<string>;
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: any;
@@ -44,17 +46,28 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
     this.authorityService.getEntriesByName(this.searchOptions)
       .subscribe((object: IntegrationData) => {
         this.optionsList = object.payload;
+        if (this.model.value) {
+          this.setCurrentValue(this.model.value);
+        }
+        console.log(this.optionsList);
         this.pageInfo = object.pageInfo;
         this.cdr.detectChanges();
       })
   }
 
-  public formatItemForInput(item: any): string {
+  formatItemForInput(item: any): string {
+    let result: any;
     if (isUndefined(item) || isNull(item)) { return '' }
+    if (typeof item === 'string') { result = item }
+    if (this.optionsList) {
+      this.optionsList.forEach((key) => {
+        console.log(this.optionsList[key]);
+      });
+    }
     return (typeof item === 'string') ? item : this.inputFormatter(item);
   }
 
-  inputFormatter = (x: AuthorityValueModel) => x.display || x.value;
+  inputFormatter = (x: AuthorityValueModel): string => x.display || x.value;
 
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
@@ -88,5 +101,23 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
     this.group.markAsDirty();
     this.model.valueUpdates.next(event);
     this.change.emit(event);
+    this.setCurrentValue(event);
+  }
+
+  setCurrentValue(value): void {
+    let result: string;
+    if (isUndefined(value) || isNull(value)) {
+      result = '';
+    } else if (typeof value === 'string') {
+      result = value;
+    } else {
+      for (const item of this.optionsList) {
+        if (value.value === (item as any).value) {
+          result = this.inputFormatter(item);
+          break;
+        }
+      }
+    }
+    this.currentValue = Observable.of(result);
   }
 }

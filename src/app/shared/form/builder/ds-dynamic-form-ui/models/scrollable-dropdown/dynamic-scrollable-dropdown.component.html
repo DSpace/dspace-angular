@@ -6,7 +6,7 @@
          [name]="model.name"
          [readonly]="model.readOnly"
          [type]="model.inputType"
-         [value]="formatItemForInput(model.value)"
+         [value]="(currentValue | async)"
          (blur)="onBlur($event)"
          (click)="$event.stopPropagation(); openDropdown(sdRef);"
          (focus)="onFocus($event)"
