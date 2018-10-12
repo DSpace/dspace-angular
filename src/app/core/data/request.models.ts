@@ -21,7 +21,8 @@ export abstract class RestRequest {
     public href: string,
     public method: RestRequestMethod = RestRequestMethod.GET,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
+    public responseMsToLive?: number
   ) {
   }
 
@@ -35,9 +36,10 @@ export class GetRequest extends RestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
+    public responseMsToLive?: number
   )  {
-    super(uuid, href, RestRequestMethod.GET, body)
+    super(uuid, href, RestRequestMethod.GET, body, options, responseMsToLive)
   }
 }
 
