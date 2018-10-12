@@ -6,7 +6,6 @@ import { SharedModule } from '../shared/shared.module';
 import { FormSectionComponent } from './sections/form/section-form.component';
 import { SectionsDirective } from './sections/sections.directive';
 import { SectionsService } from './sections/sections.service';
-import { DefaultSectionComponent } from './sections/default/section-default.component';
 import { SubmissionFormCollectionComponent } from './form/collection/submission-form-collection.component';
 import { SubmissionFormFooterComponent } from './form/footer/submission-form-footer.component';
 import { SubmissionFormComponent } from './form/submission-form.component';
@@ -45,7 +44,6 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
   ],
   declarations: [
     AccessConditionsComponent,
-    DefaultSectionComponent,
     UploadSectionComponent,
     FormSectionComponent,
     LicenseSectionComponent,
@@ -66,7 +64,6 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
     DuplicateMatchComponent,
   ],
   entryComponents: [
-    DefaultSectionComponent,
     UploadSectionComponent,
     FormSectionComponent,
     LicenseSectionComponent,
