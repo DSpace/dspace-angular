@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -29,7 +29,7 @@ export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
   templateUrl: './section-upload.component.html',
 })
 @renderSectionFor(SectionsType.Upload)
-export class UploadSectionComponent extends SectionModelComponent implements OnInit {
+export class UploadSectionComponent extends SectionModelComponent implements OnDestroy {
 
   public AlertTypeEnum = AlertType;
   public fileIndexes = [];
@@ -74,7 +74,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
     super(undefined, injectedSectionData, injectedSubmissionId);
   }
 
-  ngOnInit() {
+  onSectionInit() {
     const config$ = this.uploadsConfigService.getConfigByHref(this.sectionData.config)
       .flatMap((config) => config.payload);
 
@@ -162,7 +162,6 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
         })
         .distinctUntilChanged()
         .subscribe(([configMetadataForm, fileList]:[SubmissionFormsModel, any[]]) => {
-            let sectionStatus = false;
             this.fileList = [];
             this.fileIndexes = [];
             this.fileNames = [];
@@ -173,9 +172,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
                 this.fileIndexes.push(file.uuid);
                 this.fileNames.push(this.getFileName(configMetadataForm, file));
               });
-              sectionStatus = true;
             }
-            this.sectionService.setSectionStatus(this.submissionId, this.sectionData.id, sectionStatus);
             this.changeDetectorRef.detectChanges();
           }
         )
@@ -192,6 +189,11 @@ export class UploadSectionComponent extends SectionModelComponent implements OnI
     }
 
     return title;
+  }
+
+  protected getSectionStatus(): Observable<boolean> {
+    return this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id)
+      .map((fileList: any[]) => (isNotUndefined(fileList) && fileList.length > 0));
   }
 
   /**

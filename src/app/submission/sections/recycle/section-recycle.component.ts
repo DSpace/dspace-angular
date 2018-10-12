@@ -5,10 +5,10 @@ import { renderSectionFor } from '../sections-decorator';
 import { SectionDataObject } from '../models/section-data.model';
 import { SubmissionState } from '../../submission.reducers';
 import { Store } from '@ngrx/store';
-import { WorkspaceitemSectionRecycleObject } from '../../../core/submission/models/workspaceitem-section-recycle.model';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { Observable } from 'rxjs/Observable';
+import { SectionsService } from '../sections.service';
 
 @Component({
   selector: 'ds-recycle-section',
@@ -26,13 +26,14 @@ export class RecycleSectionComponent extends SectionModelComponent {
   public files: any[]; // WorkspaceitemSectionUploadFileObject[];
 
   constructor(protected store: Store<SubmissionState>,
+              protected sectionService: SectionsService,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
               @Inject('submissionIdProvider') public injectedSubmissionId: string) {
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
-  ngOnInit() {
+  onSectionInit() {
 
     this.sectionDataObs = this.store.select(submissionSectionDataFromIdSelector(this.submissionId, this.sectionData.id))
       .filter((sd) => isNotEmpty(sd))
@@ -50,6 +51,10 @@ export class RecycleSectionComponent extends SectionModelComponent {
     this.files = this.sectionData.files;
 
     this.isLoading = false;
+  }
+
+  protected getSectionStatus(): Observable<boolean> {
+    return Observable.of(true);
   }
 
 }
