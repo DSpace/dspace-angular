@@ -1,12 +1,16 @@
 import {
-  Component, ComponentFactoryResolver,
+  Component,
+  ComponentFactoryResolver,
   ContentChildren,
   EventEmitter,
   Input,
   OnChanges,
   Output,
   QueryList,
-  SimpleChanges, Type, ViewChild, ViewContainerRef
+  SimpleChanges,
+  Type,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
@@ -20,11 +24,11 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel, DynamicFormControl, DynamicFormControlComponent,
+  DynamicDatePickerModel,
+  DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormLayout,
+  DynamicFormControlModel, DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
@@ -77,7 +81,7 @@ export class DsDynamicFormControlComponent extends DynamicFormControlContainerCo
   @Input() context: any | null = null;
   @Input() group: FormGroup;
   @Input() hasErrorMessaging = false;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
 
   /* tslint:disable:no-output-rename */

@@ -59,7 +59,7 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() formModel: DynamicFormControlModel[];
   @Input() parentFormModel: DynamicFormGroupModel | DynamicFormGroupModel[];
   @Input() formGroup: FormGroup;
-  @Input() formLayout: DynamicFormLayout = null;
+  @Input() formLayout = null as DynamicFormLayout;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();

@@ -5,11 +5,14 @@ const {
 /**
  * Webpack Plugins
  */
+
+
+
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 /**
  * Webpack Constants
  */
@@ -81,14 +84,15 @@ module.exports = function (options) {
         /**
          * Typescript loader support for .ts and Angular 2 async routes via .async.ts
          *
-         * See: https://github.com/s-panferov/awesome-typescript-loader
+         * See: https://github.com/TypeStrong/ts-loader
          */
         {
-          test: /\.ts$/,
-          loaders: [{
-              loader: 'awesome-typescript-loader',
+            test: /\.tsx?$/,
+            loaders: [{
+              loader: 'ts-loader',
               options: {
-                configFileName: './src/tsconfig.test.json'
+                configFile: root('src/tsconfig.test.json'),
+                transpileOnly: true
               }
             },
             'angular2-template-loader'
@@ -249,7 +253,7 @@ module.exports = function (options) {
 
         }
       }),
-
+      new ForkTsCheckerWebpackPlugin()
     ],
 
     /**

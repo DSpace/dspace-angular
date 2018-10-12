@@ -1,4 +1,3 @@
-
 import {of as observableOf,  Observable } from 'rxjs';
 import {
   ChangeDetectionStrategy,
@@ -14,7 +13,6 @@ import {
 import { trigger } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NotificationsService } from '../notifications.service';
-import { INotification } from '../models/notification.model';
 import { scaleEnter, scaleInState, scaleLeave, scaleOutState } from '../../animations/scale';
 import { rotateEnter, rotateInState, rotateLeave, rotateOutState } from '../../animations/rotate';
 import { fromBottomEnter, fromBottomInState, fromBottomLeave, fromBottomOutState } from '../../animations/fromBottom';
@@ -24,6 +22,7 @@ import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../
 import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../animations/fade';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
 import { isNotEmpty } from '../../empty.util';
+import { INotification } from '../models/notification.model';
 
 @Component({
   selector: 'ds-notification',
@@ -46,7 +45,7 @@ import { isNotEmpty } from '../../empty.util';
 
 export class NotificationComponent implements OnInit, OnDestroy {
 
-  @Input() public notification: INotification;
+  @Input() public notification = null as INotification;
 
   // Progress bar variables
   public title: Observable<string>;

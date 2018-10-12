@@ -29,7 +29,7 @@ export class DsDynamicFormComponent extends DynamicFormComponent {
   @Input() formId: string;
   @Input() formGroup: FormGroup;
   @Input() formModel: DynamicFormControlModel[];
-  @Input() formLayout: DynamicFormLayout = null;
+  @Input() formLayout = null as DynamicFormLayout;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
