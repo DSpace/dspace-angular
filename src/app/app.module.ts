@@ -46,7 +46,6 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
 
 const DEV_MODULES: any[] = [];
 
-
 @NgModule({
   imports: [
     CommonModule,

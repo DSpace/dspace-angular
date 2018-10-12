@@ -64,6 +64,7 @@ export class EmptySSBAction implements Action {
    *
    * @param method
    *    an optional method for which the ServerSyncBuffer should remove its entries
+   *    if this parameter is omitted, the buffer will be emptied as a whole
    */
   constructor(method?: RestRequestMethod) {
     this.payload = method;

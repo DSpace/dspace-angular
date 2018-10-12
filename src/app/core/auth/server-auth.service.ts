@@ -11,7 +11,6 @@ import { AuthTokenInfo } from './models/auth-token-info.model';
 import { CheckAuthenticationTokenAction } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
-import { first, switchMap, map } from 'rxjs/operators';
 
 /**
  * The auth service.

@@ -1,6 +1,5 @@
-import { distinctUntilChanged, filter, take, first, map } from 'rxjs/operators';
-import { of as observableOf, Observable } from 'rxjs';
-import {mergeMap, first, take, distinctUntilChanged, map, filter} from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -95,14 +94,26 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
+  /**
+   * Add a new patch to the object cache to a specified object
+   * @param {string} href The selflink of the object that will be patched
+   * @param {Operation[]} operations The patch operations to be performed
+   */
   patch(href: string, operations: Operation[]) {
     this.objectCache.addPatch(href, operations);
   }
 
+  /**
+   * Add a new patch to the object cache
+   * The patch is derived from the differences between the given object and its version in the object cache
+   * @param {DSpaceObject} object The given object
+   */
   update(object: DSpaceObject) {
     const oldVersion = this.objectCache.getBySelfLink(object.self);
     const operations = compare(oldVersion, object);
-    this.objectCache.addPatch(object.self, operations);
+    if (isNotEmpty(operations)) {
+      this.objectCache.addPatch(object.self, operations);
+    }
   }
   // TODO implement, after the structure of the REST server's POST response is finalized
   // create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {

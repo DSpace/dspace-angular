@@ -10,6 +10,9 @@ import { Observable } from 'rxjs';
 import { FindAllOptions } from './request.models';
 import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
 import { of as observableOf } from 'rxjs';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { Operation } from '../../../../node_modules/fast-json-patch';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 const endpoint = 'https://rest.api/core';
 
@@ -42,7 +45,14 @@ describe('DataService', () => {
   const requestService = {} as RequestService;
   const halService = {} as HALEndpointService;
   const rdbService = {} as RemoteDataBuildService;
-  const objectCache = {} as ObjectCacheService;
+  const objectCache = {
+    addPatch: () => {
+      /* empty */
+    },
+    getBySelfLink: () => {
+      /* empty */
+    }
+  } as any;
   const store = {} as Store<CoreState>;
 
   function initTestService(): TestService {
@@ -52,7 +62,8 @@ describe('DataService', () => {
       rdbService,
       store,
       endpoint,
-      halService
+      halService,
+      objectCache
     );
   }
 
@@ -122,5 +133,53 @@ describe('DataService', () => {
       });
     })
   });
+  describe('patch', () => {
+    let operations;
+    let selfLink;
 
+    beforeEach(() => {
+      operations = [{ op: 'replace', path: '/name', value: 'random string' } as Operation];
+      selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
+      spyOn(objectCache, 'addPatch');
+    });
+
+    it('should call addPatch on the object cache with the right parameters', () => {
+      service.patch(selfLink, operations);
+      expect(objectCache.addPatch).toHaveBeenCalledWith(selfLink, operations);
+    });
+  });
+
+  describe('update', () => {
+    let operations;
+    let selfLink;
+    let dso;
+    let dso2;
+    const name1 = 'random string';
+    const name2 = 'another random string';
+    beforeEach(() => {
+      operations = [{ op: 'replace', path: '/name', value: name2 } as Operation];
+      selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
+
+      dso = new DSpaceObject();
+      dso.self = selfLink;
+      dso.name = name1;
+
+      dso2 = new DSpaceObject();
+      dso2.self = selfLink;
+      dso2.name = name2;
+
+      spyOn(objectCache, 'getBySelfLink').and.returnValue(dso);
+      spyOn(objectCache, 'addPatch');
+    });
+
+    it('should call addPatch on the object cache with the right parameters when there are differences', () => {
+      service.update(dso2);
+      expect(objectCache.addPatch).toHaveBeenCalledWith(selfLink, operations);
+    });
+
+    it('should not call addPatch on the object cache with the right parameters when there are no differences', () => {
+      service.update(dso);
+      expect(objectCache.addPatch).not.toHaveBeenCalled();
+    });
+  });
 });

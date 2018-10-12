@@ -10,7 +10,7 @@ import { autoserialize } from 'cerialize';
 /**
  * An abstract model class for a DSpaceObject.
  */
-export class  DSpaceObject implements CacheableObject, ListableObject {
+export class DSpaceObject implements CacheableObject, ListableObject {
 
   self: string;
 

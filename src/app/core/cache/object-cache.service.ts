@@ -18,10 +18,9 @@ import { coreSelector, CoreState } from '../core.reducers';
 import { pathSelector } from '../shared/selectors';
 import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
-import { applyPatch, applyReducer, Operation } from 'fast-json-patch';
+import { applyPatch, Operation } from 'fast-json-patch';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { ReplaceOperation } from 'fast-json-patch/lib/core';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
   return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);
@@ -92,9 +91,13 @@ export class ObjectCacheService {
   getBySelfLink<T extends NormalizedObject>(selfLink: string): Observable<T> {
     return this.getEntry(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
-          const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
-          const patchedData = applyPatch(entry.data, flatPatch, undefined, false).newDocument;
-          return Object.assign({}, entry, { data: patchedData });
+          if (isNotEmpty(entry.patches)) {
+            const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
+            const patchedData = applyPatch(entry.data, flatPatch, undefined, false).newDocument;
+            return Object.assign({}, entry, { data: patchedData });
+          } else {
+            return entry;
+          }
         }
       ),
       map((entry: ObjectCacheEntry) => {
@@ -211,7 +214,6 @@ export class ObjectCacheService {
     }
   }
 
-
   /**
    * Add operations to the existing list of operations for an ObjectCacheEntry
    * Makes sure the ServerSyncBuffer for this ObjectCacheEntry is updated
@@ -220,9 +222,9 @@ export class ObjectCacheService {
    * @param {Operation[]} patch
    *     list of operations to perform
    */
-  public addPatch(uuid: string, patch: Operation[]) {
-    this.store.dispatch(new AddPatchObjectCacheAction(uuid, patch));
-    this.store.dispatch(new AddToSSBAction(uuid, RestRequestMethod.PATCH));
+  public addPatch(selfLink: string, patch: Operation[]) {
+    this.store.dispatch(new AddPatchObjectCacheAction(selfLink, patch));
+    this.store.dispatch(new AddToSSBAction(selfLink, RestRequestMethod.PATCH));
   }
 
   /**
@@ -243,8 +245,8 @@ export class ObjectCacheService {
    * @param {string} uuid
    *     the uuid of the ObjectCacheEntry
    */
-  private applyPatchesToCachedObject(uuid: string) {
-    this.store.dispatch(new ApplyPatchObjectCacheAction(uuid));
+  private applyPatchesToCachedObject(selfLink: string) {
+    this.store.dispatch(new ApplyPatchObjectCacheAction(selfLink));
   }
 
 }

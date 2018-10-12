@@ -25,6 +25,13 @@ import { RestRequestMethod } from '../data/rest-request-method';
 
 @Injectable()
 export class ServerSyncBufferEffects {
+
+  /**
+   * When an ADDToSSBAction is dispatched
+   * Set a time out (configurable per method type)
+   * Then dispatch a CommitSSBAction
+   * When the delay is running, no new AddToSSBActions are processed in this effect
+   */
   @Effect() setTimeoutForServerSync = this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.ADD),
@@ -35,6 +42,12 @@ export class ServerSyncBufferEffects {
       })
     );
 
+  /**
+   * When a CommitSSBAction is dispatched
+   * Create a list of actions for each entry in the current buffer state to be dispatched
+   * When the list of actions is not empty, also dispatch an EmptySSBAction
+   * When the list is empty dispatch a NO_ACTION placeholder action
+   */
   @Effect() commitServerSyncBuffer = this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.COMMIT),
@@ -55,7 +68,7 @@ export class ServerSyncBufferEffects {
                 if (entry.method === RestRequestMethod.PATCH) {
                   return this.applyPatch(entry.href);
                 } else {
-                  /* TODO other request stuff */
+                  /* TODO implement for other request method types */
                 }
               });
 
@@ -72,6 +85,12 @@ export class ServerSyncBufferEffects {
       })
     );
 
+  /**
+   * private method to create an ApplyPatchObjectCacheAction based on a cache entry
+   * and to do the actual patch request to the server
+   * @param {string} href The self link of the cache entry
+   * @returns {Observable<Action>} ApplyPatchObjectCacheAction to be dispatched
+   */
   private applyPatch(href: string): Observable<Action> {
     const patchObject = this.objectCache.getBySelfLink(href).pipe(first());
 
