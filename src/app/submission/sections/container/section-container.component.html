@@ -13,7 +13,9 @@
       <ng-template ngbPanelTitle>
         <span>{{ 'submission.sections.'+sectionData.header | translate }}</span>
         <div class="d-inline-block float-right">
-          <i *ngIf="!(sectionRef.isValid() | async)" class="fa fa-exclamation-circle text-warning mr-3"
+          <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fa fa-exclamation-circle text-warning mr-3"
+             aria-hidden="true"></i>
+          <i *ngIf="(sectionRef.hasErrors())" class="fa fa-exclamation-circle text-danger mr-3"
              aria-hidden="true"></i>
           <i *ngIf="(sectionRef.isValid() | async)" class="fa fa-check-circle text-success mr-3"
              aria-hidden="true"></i>
@@ -30,7 +32,7 @@
         </div>
       </ng-template>
       <ng-template ngbPanelContent>
-        <div *ngIf="sectionRef.hasErrors()">
+        <div *ngIf="sectionRef.hasGenericErrors()">
           <ds-alert *ngFor="let error of sectionRef.getErrors(); let i = index"
                     [content]="error"
                     [dismissible]="true"

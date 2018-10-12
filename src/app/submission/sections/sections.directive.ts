@@ -18,7 +18,8 @@ export class SectionsDirective implements OnDestroy, OnInit {
   @Input() mandatory = true;
   @Input() sectionId;
   @Input() submissionId;
-  public sectionErrors: string[] = [];
+  public genericSectionErrors: string[] = [];
+  public allSectionErrors: string[] = [];
   private active = true;
   private animation = !this.mandatory;
   private enabled: Observable<boolean>;
@@ -50,7 +51,9 @@ export class SectionsDirective implements OnDestroy, OnInit {
 
               parsedErrors.forEach((error: SectionErrorPath) => {
                 if (!error.fieldId) {
-                  this.sectionErrors = uniq(this.sectionErrors.concat(errorItem.message));
+                  this.genericSectionErrors = uniq(this.genericSectionErrors.concat(errorItem.message));
+                } else {
+                  this.allSectionErrors.push(errorItem.message);
                 }
               });
             });
@@ -113,12 +116,17 @@ export class SectionsDirective implements OnDestroy, OnInit {
     this.sectionService.removeSection(submissionId, sectionId)
   }
 
+  public hasGenericErrors() {
+    return this.genericSectionErrors && this.genericSectionErrors.length > 0
+  }
+
   public hasErrors() {
-    return this.sectionErrors && this.sectionErrors.length > 0
+    return (this.genericSectionErrors && this.genericSectionErrors.length > 0) ||
+      (this.allSectionErrors && this.allSectionErrors.length > 0)
   }
 
   public getErrors() {
-    return this.sectionErrors;
+    return this.genericSectionErrors;
   }
 
   public setFocus(event) {
@@ -128,14 +136,15 @@ export class SectionsDirective implements OnDestroy, OnInit {
   }
 
   public removeError(index) {
-    this.sectionErrors.splice(index);
+    this.genericSectionErrors.splice(index);
   }
 
   public resetErrors() {
-    if (isNotEmpty(this.sectionErrors)) {
+    if (isNotEmpty(this.genericSectionErrors)) {
       this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionId);
     }
-    this.sectionErrors = [];
+    this.genericSectionErrors = [];
+    this.allSectionErrors = [];
 
   }
 }

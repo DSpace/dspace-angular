@@ -32,7 +32,6 @@ export class IntegrationResponseParsingService extends BaseResponseParsingServic
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links)) {
-      console.log(request);
       const dataDefinition = this.process<IntegrationModel,IntegrationType>(data.payload, request.href);
       return new IntegrationSuccessResponse(dataDefinition[Object.keys(dataDefinition)[0]], data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else {
