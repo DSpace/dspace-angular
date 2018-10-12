@@ -83,6 +83,7 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { MomentModule } from 'angular2-moment';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
+import {LangSwitchComponent} from "./lang-switch/lang-switch.component";
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -136,6 +137,7 @@ const COMPONENTS = [
   DsDatePickerComponent,
   ErrorComponent,
   FormComponent,
+  LangSwitchComponent,
   LoadingComponent,
   LogInComponent,
   LogOutComponent,

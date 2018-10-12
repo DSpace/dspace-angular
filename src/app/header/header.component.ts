@@ -7,6 +7,7 @@ import { HeaderState } from './header.reducer';
 import { HeaderToggleAction } from './header.actions';
 import { AppState } from '../app.reducer';
 import { HostWindowService } from '../shared/host-window.service';
+import {TranslateService} from "@ngx-translate/core";
 
 const headerStateSelector = (state: AppState) => state.header;
 const navCollapsedSelector = createSelector(headerStateSelector, (header: HeaderState) => header.navCollapsed);
@@ -27,7 +28,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
+    public translate: TranslateService
   ) {
   }
 

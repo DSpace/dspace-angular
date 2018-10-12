@@ -1,0 +1,10 @@
+<div ngbDropdown class="navbar nav navbar-dark d-inline-block">
+  <button class="btn" id="dropdownLang" ngbDropdownToggle>{{ 'lang.lang' | translate }}</button>
+  <div ngbDropdownMenu aria-labelledby="dropdownLang">
+    <button class="dropdown-item" #langSelect *ngFor="let lang of translate.getLangs()"
+            (click)="translate.use(langSelect.value)" [value]="lang"
+            [class.active]="lang === translate.currentLang">
+                {{ 'lang.'+lang | translate }}
+    </button>
+  </div>
+</div>
