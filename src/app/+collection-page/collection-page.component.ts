@@ -39,8 +39,6 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   sortConfig: SortOptions;
   private subs: Subscription[] = [];
   private collectionId: string;
-  href: string;
-  newname: string;
 
   constructor(
     private collectionDataService: CollectionDataService,
@@ -77,12 +75,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
           pagination: pagination,
           sort: this.sortConfig
         });
-      })
-    );
-    this.collectionRD$.pipe(first()).subscribe((crd) => {
-      this.href = crd.payload.self;
-      this.newname = crd.payload.name;
-    });
+      }));
+
   }
 
   updatePage(searchOptions) {
@@ -114,10 +108,5 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
         direction: event.sortDirection
       }
     })
-  }
-
-  patchIt(): void {
-    console.log('patching it!', this.href, this.newname);
-    this.collectionDataService.patch(this.href, [{ op: 'replace', path: '/name', value: this.newname }]);
   }
 }
