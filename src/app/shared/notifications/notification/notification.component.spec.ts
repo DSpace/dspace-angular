@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { ChangeDetectorRef, DebugElement } from '@angular/core';
 
@@ -9,11 +9,6 @@ import { notificationsReducer } from '../notifications.reducers';
 import { Store, StoreModule } from '@ngrx/store';
 import { NotificationOptions } from '../models/notification-options.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
-import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
-import { AppState } from '../../../app.reducer';
-import { Observable } from 'rxjs';
-import { SearchPageComponent } from '../../../+search-page/search-page.component';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { GlobalConfig } from '../../../../config/global-config.interface';
 import { Notification } from '../models/notification.model';

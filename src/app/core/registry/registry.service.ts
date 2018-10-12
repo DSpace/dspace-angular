@@ -17,14 +17,11 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import {
-  MetadataschemaSuccessResponse,
   RegistryBitstreamformatsSuccessResponse,
   RegistryMetadatafieldsSuccessResponse,
   RegistryMetadataschemasSuccessResponse
 } from '../cache/response-cache.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { MetadataschemaParsingService } from '../data/metadataschema-parsing.service';
-import { Res } from 'awesome-typescript-loader/dist/checker/protocol';
 import { RegistryMetadatafieldsResponseParsingService } from '../data/registry-metadatafields-response-parsing.service';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
 import { isNotEmpty } from '../../shared/empty.util';

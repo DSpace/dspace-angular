@@ -1,12 +1,15 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
 import { INotification, Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
 import { NotificationOptions } from './models/notification-options.model';
 import { uniqueId } from 'lodash';
 import { Store } from '@ngrx/store';
-import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
+import {
+  NewNotificationAction,
+  RemoveAllNotificationsAction,
+  RemoveNotificationAction
+} from './notifications.actions';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 
 @Injectable()
