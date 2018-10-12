@@ -4,9 +4,7 @@ import { DetectDuplicateMatch } from '../../../../core/submission/models/workspa
 import { SubmissionService } from '../../../submission.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { SubmissionState } from '../../../submission.reducers';
-import { DeduplicationService } from '../deduplication.service';
+import { DetectDuplicateService } from '../detect-duplicate.service';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,9 +13,8 @@ import { SubmissionScopeType } from '../../../../core/submission/submission-scop
 import { DuplicateDecisionValue } from '../models/duplicate-decision-value';
 import { DuplicateDecision } from '../models/duplicate-decision.model';
 import { DuplicateDecisionType } from '../models/duplicate-decision-type';
-import { SaveSubmissionSectionFormAction } from '../../../objects/submission-objects.actions';
-import { match } from 'minimatch';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { SectionsService } from '../../sections.service';
 
 @Component({
   selector: 'ds-duplicate-match',
@@ -36,7 +33,8 @@ export class DuplicateMatchComponent implements OnInit {
   isWorkFlow = false;
   showSubmitterDecision = false;
   decisionType: DuplicateDecisionType;
-  submitterDecisionTxt: string;
+  submitterDecision$: Observable<string>;
+  submitterNote: string;
 
   hasDecision: boolean;
 
@@ -44,16 +42,18 @@ export class DuplicateMatchComponent implements OnInit {
   rejectForm: FormGroup;
   modalRef: NgbModalRef;
   pathCombiner: JsonPatchOperationPathCombiner;
+  public processingVerify: Observable<boolean> = Observable.of(false);
+  public processingReject: Observable<boolean> = Observable.of(false);
+  decisionLabelClass: string;
+  duplicateBtnLabel$: Observable<string>;
+  notDuplicateBtnLabel$: Observable<string>;
 
-  duplicatedBtnLabel: Observable<string>;
-  submitterDecisionLabel: Observable<string>;
-
-  constructor(private deduplicationService: DeduplicationService,
-              private submissionService: SubmissionService,
-              private modalService: NgbModal,
+  constructor(private detectDuplicateService: DetectDuplicateService,
               private formBuilder: FormBuilder,
-              private store: Store<SubmissionState>,
-              protected operationsBuilder: JsonPatchOperationsBuilder,
+              private modalService: NgbModal,
+              private operationsBuilder: JsonPatchOperationsBuilder,
+              private sectionService: SectionsService,
+              private submissionService: SubmissionService,
               private translate: TranslateService) {
   }
 
@@ -72,51 +72,55 @@ export class DuplicateMatchComponent implements OnInit {
       : this.match.submitterDecision !== null;
 
     if (this.match.submitterDecision) {
-      if (this.match.submitterDecision === 'verify') {
-        this.submitterDecisionTxt = 'It\'s a duplicate';
-      } else {
-        this.submitterDecisionTxt = 'It\'s not a duplicate';
-      }
+      this.submitterDecision$ = (this.match.submitterDecision === DuplicateDecisionValue.Reject) ?
+        this.translate.get('submission.sections.detect-duplicate.not-duplicate') :
+        this.translate.get('submission.sections.detect-duplicate.duplicate');
+      this.decisionLabelClass = (this.match.submitterDecision === DuplicateDecisionValue.Reject) ? 'badge-success' : 'badge-warning';
+      this.submitterNote = this.match.submitterNote;
     } else {
-      this.submitterDecisionTxt = 'Not decided';
+      this.submitterDecision$ = this.translate.get('submission.sections.detect-duplicate.no-decision');
+      this.decisionLabelClass = 'badge-light';
     }
 
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
 
-    this.duplicatedBtnLabel = this.isWorkFlow ?
-      this.translate.get('submission.sections.deduplication.duplicated_ctrl')
-      : this.translate.get('submission.sections.deduplication.duplicated');
+    this.duplicateBtnLabel$ = this.isWorkFlow ?
+      ((this.match.submitterDecision === DuplicateDecisionValue.Verify) ?
+        this.translate.get('submission.sections.detect-duplicate.confirm-duplicate') :
+        this.translate.get('submission.sections.detect-duplicate.duplicate-ctrl'))
+      : this.translate.get('submission.sections.detect-duplicate.duplicate');
 
-    this.submitterDecisionLabel = this.isWorkFlow ?
-      this.translate.get('submission.sections.deduplication.submitter_decision')
-      : this.translate.get('submission.sections.deduplication.your_decision');
+    this.notDuplicateBtnLabel$ = (this.isWorkFlow && this.match.submitterDecision === DuplicateDecisionValue.Reject) ?
+      this.translate.get('submission.sections.detect-duplicate.confirm-not-duplicate') :
+      this.translate.get('submission.sections.detect-duplicate.not-duplicate');
 
   }
 
   setAsDuplicate() {
+    this.processingVerify = Observable.of(true);
     const decision = new DuplicateDecision(
       DuplicateDecisionValue.Verify,
       this.decisionType,
       this.rejectForm.get('reason').value);
-    console.log('Setting item #' + this.item.uuid + ' as duplicated...');
+
     this.dispatchAction(decision);
     this.modalRef.dismiss();
   }
 
   setAsNotDuplicate() {
+    this.processingReject = Observable.of(true);
     const decision = new DuplicateDecision(
       DuplicateDecisionValue.Reject,
       this.decisionType);
-    console.log('Setting item #' + this.item.uuid + ' as not duplicated...');
+
     this.dispatchAction(decision);
   }
 
   clearDecision() {
-    console.log('Clearing item #' + this.item.uuid + ' from previous decision...');
     const decision = new DuplicateDecision(
       DuplicateDecisionValue.Undo,
       this.decisionType);
-    console.log('Setting item #' + this.item.uuid + ' as not duplicated...');
+
     this.dispatchAction(decision);
 
   }
@@ -128,50 +132,15 @@ export class DuplicateMatchComponent implements OnInit {
       note: isNotEmpty(decision.note) ? decision.note : null
     };
 
-    this.operationsBuilder.add(this.pathCombiner.getPath(pathDecision), payload, false, true);
-    this.store.dispatch(new SaveSubmissionSectionFormAction(this.submissionId, this.sectionId));
-    // Call workflow action
-    // const decision = clear ? null : duplicate ? 'verify' : 'reject';
-    // const pathDecision = this.isWorkFlow ? 'workflowDecision' : 'submitterDecision';
-    // this.operationsBuilder.add(this.pathCombiner.getPath(pathDecision), decision, false, true);
-    //
-    // if (!clear && duplicate) {
-    //   const note = this.rejectForm.get('reason').value;
-    //   const pathNote = this.isWorkFlow ? 'workflowNote' : 'submitterNote';
-    //   this.operationsBuilder.add(this.pathCombiner.getPath(pathNote), note, false, true);
-    // }
+    // dispatch patch operation only when section is active
+    this.sectionService.isSectionActive(this.submissionId, this.sectionId)
+      .filter((isActive: boolean) => isActive)
+      .take(1)
+      .subscribe(() => {
+        this.operationsBuilder.add(this.pathCombiner.getPath(pathDecision), payload, false, true);
+        this.detectDuplicateService.saveDuplicateDecision(this.submissionId, this.sectionId)
+      });
 
-    // const now = new Date();
-    // const time = now.getUTCFullYear() + '/' + now.getUTCMonth() + 1 + '/' + now.getDay();
-
-    // if (this.isWorkFlow) {
-    //   // Call workflow action
-    //   payload.data.workflowDecision = clear ? null : duplicated ? 'verify' : 'reject';
-    //   // payload.data.workflowTime = time;
-    //   if (!clear && duplicated) {
-    //     const note = this.rejectForm.get('reason').value;
-    //     payload.data.workflowNote = note;
-    //   }
-    //   // Dispatch WorkFLOW action
-    //   // this.store.dispatch(new SetWorkflowDuplicatedAction(payload));
-    //   const path = 'workflowDecision'
-    //   this.operationsBuilder.add(this.pathCombiner.getPath(path), payload.data.workflowDecision, false, true);
-    //
-    // } else {
-    //   // Call workspace action
-    //   payload.data.submitterDecision = clear ? null : duplicated ? 'verify' : 'reject';
-    //   // payload.data.submitterTime = time;
-    //   if (!clear && duplicated) {
-    //     const note = this.rejectForm.get('reason').value;
-    //     payload.data.submitterNote = note;
-    //   }
-    //   // Dispatch workSPACE action
-    //   this.store.dispatch(new SetWorkspaceDuplicatedAction(payload));
-    // }
-  }
-
-  toggleSubmitterDecision() {
-    this.showSubmitterDecision = !this.showSubmitterDecision;
   }
 
   openModal(modal) {

@@ -1,6 +1,6 @@
 import { Item } from '../../shared/item.model';
 
-export interface WorkspaceitemSectionDeduplicationObject {
+export interface WorkspaceitemSectionDetectDuplicateObject {
   matches: {
     [itemId: string]: DetectDuplicateMatch;
   };
