@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, async, tick, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ResourceType } from '../../core/shared/resource-type';
 import { Community } from '../../core/shared/community.model';
@@ -9,11 +10,10 @@ import { SearchResultsComponent } from './search-results.component';
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
   let fixture: ComponentFixture<SearchResultsComponent>;
-  let heading: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
       declarations: [SearchResultsComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -21,20 +21,39 @@ describe('SearchResultsComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchResultsComponent);
-    comp = fixture.componentInstance; // SearchFormComponent test instance
-    heading = fixture.debugElement.query(By.css('heading'));
+    comp = fixture.componentInstance; // SearchResultsComponent test instance
   });
 
-  it('should display heading when results are not empty', fakeAsync(() => {
-    (comp as any).searchResults = 'test';
-    (comp as any).searchConfig = {pagination: ''};
+  it('should display results when results are not empty', () => {
+    (comp as any).searchResults = { hasSucceeded: true, isLoading: false, payload: { page: { length: 2 } } };
+    (comp as any).searchConfig = {};
     fixture.detectChanges();
-    tick();
-    expect(heading).toBeDefined();
-  }));
+    expect(fixture.debugElement.query(By.css('ds-viewable-collection'))).not.toBeNull();
+  });
 
-  it('should not display heading when results is empty', () => {
-    expect(heading).toBeNull();
+  it('should not display link when results are not empty', () => {
+    (comp as any).searchResults = { hasSucceeded: true, isLoading: false, payload: { page: { length: 2 } } };
+    (comp as any).searchConfig = {};
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('a'))).toBeNull();
+  });
+
+  it('should display error message if error is != 400', () => {
+    (comp as any).searchResults = { hasFailed: true, error: { statusCode: 500 } };
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('ds-error'))).not.toBeNull();
+  });
+
+  it('should display link with new search where query is quoted if search return a error 400', () => {
+    (comp as any).searchResults = { hasFailed: true, error: { statusCode: 400 } };
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('a'))).not.toBeNull();
+  });
+
+  it('should display link with new search where query is quoted if search result is empty', () => {
+    (comp as any).searchResults = { payload: { page: { length: 0 } } };
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('a'))).not.toBeNull();
   });
 });
 

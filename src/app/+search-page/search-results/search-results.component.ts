@@ -6,6 +6,7 @@ import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-search-results',
@@ -35,4 +36,16 @@ export class SearchResultsComponent {
    */
   @Input() viewMode: ViewMode;
 
+  /**
+   * Method to change the given string by surrounding it by quotes if not already present.
+   */
+  surroundStringWithQuotes(input: string): string {
+    let result = input;
+
+    if (isNotEmpty(result) && !(result.startsWith('\"') && result.endsWith('\"'))) {
+      result = `"${result}"`;
+    }
+
+    return result;
+  }
 }

@@ -92,7 +92,8 @@
     },
     "results": {
       "head": "Search Results",
-      "no-results": "There were no results for this search"
+      "no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
+      "no-results-link": "quotes around it"
     },
     "sidebar": {
       "close": "Back to results",
