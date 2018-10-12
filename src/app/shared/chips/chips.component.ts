@@ -7,7 +7,6 @@ import { isObject } from 'lodash';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
 import { UploaderService } from '../uploader/uploader.service';
-import { isNotNull } from '../empty.util';
 
 @Component({
   selector: 'ds-chips',
@@ -81,15 +80,17 @@ export class ChipsComponent implements OnChanges {
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
     const item = this.chips.getChipByIndex(index);
+    let textToDisplay: string;
     if (!item.editMode && this.dragged === -1) {
       if (field) {
-        this.tipText = (isObject(item.item[field])) ? item.item[field].display : item.item[field];
+        textToDisplay = (isObject(item.item[field])) ? item.item[field].display : item.item[field];
       } else {
-        this.tipText = item.display;
+        textToDisplay = item.display;
       }
 
       this.cdr.detectChanges();
       if (!item.hasIcons() || field) {
+        this.tipText = textToDisplay;
         tooltip.open();
       }
 
