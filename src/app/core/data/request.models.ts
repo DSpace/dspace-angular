@@ -12,6 +12,7 @@ import { SubmissionResponseParsingService } from '../submission/submission-respo
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { SearchParam } from '../cache/models/search-param.model';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
+import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -142,6 +143,7 @@ export class FindAllOptions {
   currentPage?: number;
   sort?: SortOptions;
   searchParams?: SearchParam[];
+  startsWith?: string;
 }
 
 export class FindAllRequest extends GetRequest {
@@ -181,6 +183,12 @@ export class BrowseEndpointRequest extends GetRequest {
 export class BrowseEntriesRequest extends GetRequest {
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return BrowseEntriesResponseParsingService;
+  }
+}
+
+export class BrowseItemsRequest extends GetRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return BrowseItemsResponseParsingService;
   }
 }
 

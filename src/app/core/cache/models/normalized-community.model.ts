@@ -1,10 +1,13 @@
-import { autoserialize, inheritSerialization, autoserializeAs } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
 
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Community } from '../../shared/community.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 
+/**
+ * Normalized model class for a DSpace Community
+ */
 @mapsTo(Community)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedCommunity extends NormalizedDSpaceObject {
@@ -36,8 +39,15 @@ export class NormalizedCommunity extends NormalizedDSpaceObject {
   @relationship(ResourceType.Community, false)
   owner: string;
 
+  /**
+   * List of Collections that are owned by this Community
+   */
   @autoserialize
   @relationship(ResourceType.Collection, true)
   collections: string[];
+
+  @autoserialize
+  @relationship(ResourceType.Community, true)
+  subcommunities: string[];
 
 }

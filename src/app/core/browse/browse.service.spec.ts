@@ -6,7 +6,7 @@ import { getMockResponseCacheService } from '../../shared/mocks/mock-response-ca
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { BrowseEndpointRequest, BrowseEntriesRequest } from '../data/request.models';
+import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseService } from './browse.service';
@@ -143,7 +143,9 @@ describe('BrowseService', () => {
 
   });
 
-  describe('getBrowseEntriesFor', () => {
+  describe('getBrowseEntriesFor and getBrowseItemsFor', () => {
+    const mockAuthorName = 'Donald Smith';
+
     beforeEach(() => {
       responseCache = initMockResponseCacheService(true);
       requestService = getMockRequestService();
@@ -156,7 +158,7 @@ describe('BrowseService', () => {
       spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
     });
 
-    describe('when called with a valid browse definition id', () => {
+    describe('when getBrowseEntriesFor is called with a valid browse definition id', () => {
       it('should configure a new BrowseEntriesRequest', () => {
         const expected = new BrowseEntriesRequest(requestService.generateRequestId(), browseDefinitions[1]._links.entries);
 
@@ -175,13 +177,42 @@ describe('BrowseService', () => {
 
     });
 
-    describe('when called with an invalid browse definition id', () => {
+    describe('when getBrowseItemsFor is called with a valid browse definition id', () => {
+      it('should configure a new BrowseItemsRequest', () => {
+        const expected = new BrowseItemsRequest(requestService.generateRequestId(), browseDefinitions[1]._links.items + '?filterValue=' + mockAuthorName);
+
+        scheduler.schedule(() => service.getBrowseItemsFor(browseDefinitions[1].id, mockAuthorName).subscribe());
+        scheduler.flush();
+
+        expect(requestService.configure).toHaveBeenCalledWith(expected);
+      });
+
+      it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
+        service.getBrowseItemsFor(browseDefinitions[1].id, mockAuthorName);
+
+        expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+
+      });
+
+    });
+
+    describe('when getBrowseEntriesFor is called with an invalid browse definition id', () => {
       it('should throw an Error', () => {
 
         const definitionID = 'invalidID';
         const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`));
 
         expect(service.getBrowseEntriesFor(definitionID)).toBeObservable(expected);
+      });
+    });
+
+    describe('when getBrowseItemsFor is called with an invalid browse definition id', () => {
+      it('should throw an Error', () => {
+
+        const definitionID = 'invalidID';
+        const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`))
+
+        expect(service.getBrowseItemsFor(definitionID, mockAuthorName)).toBeObservable(expected);
       });
     });
   });

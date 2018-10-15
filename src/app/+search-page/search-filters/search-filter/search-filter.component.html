@@ -1,7 +1,7 @@
 <div>
     <div (click)="toggle()" class="filter-name"><h5 class="d-inline-block mb-0">{{'search.filters.filter.' + filter.name + '.head'| translate}}</h5> <span class="filter-toggle fa float-right"
                                                                       [ngClass]="(isCollapsed() | async) ? 'fa-plus' : 'fa-minus'"></span></div>
-    <div [@slide]="(isCollapsed() | async) ? 'collapsed' : 'expanded'" class="search-filter-wrapper">
-        <ds-search-facet-filter [filterConfig]="filter" [selectedValues]="getSelectedValues() | async"></ds-search-facet-filter>
+    <div [@slide]="(isCollapsed() | async) ? 'collapsed' : 'expanded'"  (@slide.start)="startSlide($event)" (@slide.done)="finishSlide($event)" class="search-filter-wrapper" [ngClass]="{'closed' : collapsed}">
+        <ds-search-facet-filter-wrapper [filterConfig]="filter"></ds-search-facet-filter-wrapper>
     </div>
 </div>

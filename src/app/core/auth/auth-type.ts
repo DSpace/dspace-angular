@@ -1,4 +1,4 @@
 export enum AuthType {
-  Eperson = 'eperson',
+  EPerson = 'eperson',
   Status = 'status'
 }

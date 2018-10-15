@@ -9,9 +9,10 @@ import { NormalizedObject } from './normalized-object.model';
 import { NormalizedLicense } from './normalized-license.model';
 import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
 import { NormalizedWorkspaceItem } from '../../submission/models/normalized-workspaceitem.model';
-import { NormalizedEpersonModel } from '../../eperson/models/NormalizedEperson.model';
-import { NormalizedGroupModel } from '../../eperson/models/NormalizedGroup.model';
+import { NormalizedEPerson } from '../../eperson/models/normalized-eperson.model';
+import { NormalizedGroup } from '../../eperson/models/normalized-group.model';
 import { NormalizedWorkflowItem } from '../../submission/models/normalized-workflowitem.model';
+import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
@@ -40,14 +41,17 @@ export class NormalizedObjectFactory {
       case ResourceType.Workspaceitem: {
         return NormalizedWorkspaceItem
       }
-      case ResourceType.Eperson: {
-        return NormalizedEpersonModel
+      case ResourceType.EPerson: {
+        return NormalizedEPerson
       }
       case ResourceType.Group: {
-        return NormalizedGroupModel
+        return NormalizedGroup
       }
       case ResourceType.Workflowitem: {
         return NormalizedWorkflowItem
+      }
+      case ResourceType.BitstreamFormat: {
+        return NormalizedBitstreamFormat
       }
       default: {
         return undefined;

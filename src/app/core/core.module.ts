@@ -1,4 +1,9 @@
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import {
+  ModuleWithProviders,
+  NgModule,
+  Optional,
+  SkipSelf
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StoreModule } from '@ngrx/store';
@@ -67,6 +72,8 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { FileService } from './shared/file.service';
 import { SubmissionRestService } from '../submission/submission-rest.service';
+import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
+import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 
 const IMPORTS = [
   CommonModule,
@@ -122,6 +129,7 @@ const PROVIDERS = [
   ServerResponseService,
   BrowseResponseParsingService,
   BrowseEntriesResponseParsingService,
+  BrowseItemsResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
   RouteService,
@@ -141,6 +149,7 @@ const PROVIDERS = [
   WorkflowitemDataService,
   UploaderService,
   FileService,
+  DSpaceObjectDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

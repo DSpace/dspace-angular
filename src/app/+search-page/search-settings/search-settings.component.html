@@ -1,22 +1,24 @@
-<h3>{{ 'search.sidebar.settings.title' | translate}}</h3>
-<div *ngIf="[searchOptions].sort" class="setting-option result-order-settings mb-3 p-3">
+<ng-container *ngVar="(searchOptions$ | async) as config">
+    <h3>{{ 'search.sidebar.settings.title' | translate}}</h3>
+    <div *ngIf="config?.sort" class="setting-option result-order-settings mb-3 p-3">
     <h5>{{ 'search.sidebar.settings.sort-by' | translate}}</h5>
     <select class="form-control" (change)="reloadOrder($event)">
-        <option *ngFor="let sortDirection of (sortDirections | dsKeys)"
-                [value]="sortDirection.value"
-                [selected]="sortDirection.value === direction? 'selected': null">
-            {{'sorting.' + sortDirection.key | translate}}
+        <option *ngFor="let sortOption of searchOptionPossibilities"
+                [value]="sortOption.field + ',' + sortOption.direction.toString()"
+                [selected]="sortOption.field === config?.sort.field && sortOption.direction === (config?.sort.direction)? 'selected': null">
+            {{'sorting.' + sortOption.field + '.' + sortOption.direction | translate}}
         </option>
     </select>
-</div>
+    </div>
 
-<div class="setting-option page-size-settings mb-3 p-3">
-    <h5>{{ 'search.sidebar.settings.rpp' | translate}}</h5>
-
-    <select class="form-control" (change)="reloadRPP($event)">
-        <option *ngFor="let pageSizeOption of pageSizeOptions" [value]="pageSizeOption"
-                [selected]="pageSizeOption === pageSize ? 'selected': null">
-            {{pageSizeOption}}
-        </option>
-    </select>
-</div>
+    <div class="setting-option page-size-settings mb-3 p-3">
+        <h5>{{ 'search.sidebar.settings.rpp' | translate}}</h5>
+        <select class="form-control" (change)="reloadRPP($event)">
+            <option *ngFor="let pageSizeOption of config?.pagination.pageSizeOptions"
+                    [value]="pageSizeOption"
+                    [selected]="pageSizeOption === +config?.pagination.pageSize ? 'selected': null">
+                {{pageSizeOption}}
+            </option>
+        </select>
+    </div>
+</ng-container>

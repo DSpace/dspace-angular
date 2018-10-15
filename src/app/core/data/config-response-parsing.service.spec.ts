@@ -1,5 +1,4 @@
 import { ConfigSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -8,7 +7,8 @@ import { ConfigRequest } from './request.models';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { SubmissionDefinitionsModel } from '../shared/config/config-submission-definitions.model';
-import { SubmissionSectionModel } from '../shared/config/config-submission-section.model';
+import { PaginatedList } from './paginated-list';
+import { PageInfo } from '../shared/page-info.model';
 
 describe('ConfigResponseParsingService', () => {
   let service: ConfigResponseParsingService;
@@ -16,107 +16,105 @@ describe('ConfigResponseParsingService', () => {
   const EnvConfig = {} as GlobalConfig;
   const store = {} as Store<CoreState>;
   const objectCacheService = new ObjectCacheService(store);
-
+  let validResponse;
   beforeEach(() => {
     service = new ConfigResponseParsingService(EnvConfig, objectCacheService);
-  });
-
-  describe('parse', () => {
-    const validRequest = new ConfigRequest('69f375b5-19f4-4453-8c7a-7dc5c55aafbb', 'https://rest.api/config/submissiondefinitions/traditional');
-
-    const validResponse = {
+    validResponse = {
       payload: {
-        id:'traditional',
-        name:'traditional',
-        type:'submissiondefinition',
-        isDefault:true,
-        _links:{
-          sections:{
-            href:'https://rest.api/config/submissiondefinitions/traditional/sections'
-          },self:{
-            href:'https://rest.api/config/submissiondefinitions/traditional'
+        id: 'traditional',
+        name: 'traditional',
+        type: 'submissiondefinition',
+        isDefault: true,
+        _links: {
+          sections: {
+            href: 'https://rest.api/config/submissiondefinitions/traditional/sections'
+          },
+          self: {
+            href: 'https://rest.api/config/submissiondefinitions/traditional'
           }
         },
-        _embedded:{
-          sections:{
-            page:{
-              number:0,
-              size:4,
-              totalPages:1,totalElements:4
+        _embedded: {
+          sections: {
+            page: {
+              number: 0,
+              size: 4,
+              totalPages: 1, totalElements: 4
             },
-            _embedded:[
+            _embedded: [
               {
-                id:'traditionalpageone',header:'submit.progressbar.describe.stepone',
-                mandatory:true,
-                sectionType:'submission-form',
-                visibility:{
-                  main:null,
-                  other:'READONLY'
+                id: 'traditionalpageone', header: 'submit.progressbar.describe.stepone',
+                mandatory: true,
+                sectionType: 'submission-form',
+                visibility: {
+                  main: null,
+                  other: 'READONLY'
                 },
-                type:'submissionsection',
-                _links:{
-                  self:{
-                    href:'https://rest.api/config/submissionsections/traditionalpageone'
-                  },
-                  config:{
-                    href:'https://rest.api/config/submissionforms/traditionalpageone'
-                  }
-                }
-              }, {
-                id:'traditionalpagetwo',
-                header:'submit.progressbar.describe.steptwo',
-                mandatory:true,
-                sectionType:'submission-form',
-                visibility:{
-                  main:null,
-                  other:'READONLY'
-                },
-                type:'submissionsection',
-                _links:{
-                  self:{
-                    href:'https://rest.api/config/submissionsections/traditionalpagetwo'
-                  },
-                  config:{
-                    href:'https://rest.api/config/submissionforms/traditionalpagetwo'
-                  }
-                }
-              }, {
-                id:'upload',
-                header:'submit.progressbar.upload',
-                mandatory:false,
-                sectionType:'upload',
-                visibility:{
-                  main:null,
-                  other:'READONLY'
-                },
-                type:'submissionsection',
-                _links:{
-                  self:{
-                    href:'https://rest.api/config/submissionsections/upload'
+                type: 'submissionsection',
+                _links: {
+                  self: {
+                    href: 'https://rest.api/config/submissionsections/traditionalpageone'
                   },
                   config: {
-                    href:'https://rest.api/config/submissionuploads/upload'
+                    href: 'https://rest.api/config/submissionforms/traditionalpageone'
                   }
                 }
               }, {
-                id:'license',
-                header:'submit.progressbar.license',
-                mandatory:true,
-                sectionType:'license',
-                visibility:{
-                  main:null,
-                  other:'READONLY'
+                id: 'traditionalpagetwo',
+                header: 'submit.progressbar.describe.steptwo',
+                mandatory: true,
+                sectionType: 'submission-form',
+                visibility: {
+                  main: null,
+                  other: 'READONLY'
                 },
-                type:'submissionsection',
-                _links:{
-                  self:{
-                    href:'https://rest.api/config/submissionsections/license'
+                type: 'submissionsection',
+                _links: {
+                  self: {
+                    href: 'https://rest.api/config/submissionsections/traditionalpagetwo'
+                  },
+                  config: {
+                    href: 'https://rest.api/config/submissionforms/traditionalpagetwo'
+                  }
+                }
+              }, {
+                id: 'upload',
+                header: 'submit.progressbar.upload',
+                mandatory: false,
+                sectionType: 'upload',
+                visibility: {
+                  main: null,
+                  other: 'READONLY'
+                },
+                type: 'submissionsection',
+                _links: {
+                  self: {
+                    href: 'https://rest.api/config/submissionsections/upload'
+                  },
+                  config: {
+                    href: 'https://rest.api/config/submissionuploads/upload'
+                  }
+                }
+              }, {
+                id: 'license',
+                header: 'submit.progressbar.license',
+                mandatory: true,
+                sectionType: 'license',
+                visibility: {
+                  main: null,
+                  other: 'READONLY'
+                },
+                type: 'submissionsection',
+                _links: {
+                  self: {
+                    href: 'https://rest.api/config/submissionsections/license'
                   }
                 }
               }
             ],
-            _links:{
-              self:'https://rest.api/config/submissiondefinitions/traditional/sections'
+            _links: {
+              self: {
+                href: 'https://rest.api/config/submissiondefinitions/traditional/sections'
+              }
             }
           }
         }
@@ -124,6 +122,10 @@ describe('ConfigResponseParsingService', () => {
       statusCode: 200,
       statusText: 'OK'
     };
+  });
+
+  describe('parse', () => {
+    const validRequest = new ConfigRequest('69f375b5-19f4-4453-8c7a-7dc5c55aafbb', 'https://rest.api/config/submissiondefinitions/traditional');
 
     const invalidResponse1 = {
       payload: {},
@@ -133,21 +135,21 @@ describe('ConfigResponseParsingService', () => {
 
     const invalidResponse2 = {
       payload: {
-        id:'traditional',
-        name:'traditional',
-        type:'submissiondefinition',
-        isDefault:true,
-        _links:{},
-        _embedded:{
-          sections:{
-            page:{
-              number:0,
-              size:4,
-              totalPages:1,totalElements:4
+        id: 'traditional',
+        name: 'traditional',
+        type: 'submissiondefinition',
+        isDefault: true,
+        _links: {},
+        _embedded: {
+          sections: {
+            page: {
+              number: 0,
+              size: 4,
+              totalPages: 1, totalElements: 4
             },
-            _embedded:[{},{}],
-            _links:{
-              self:'https://rest.api/config/submissiondefinitions/traditional/sections'
+            _embedded: [{}, {}],
+            _links: {
+              self: 'https://rest.api/config/submissiondefinitions/traditional/sections'
             }
           }
         }
@@ -162,61 +164,24 @@ describe('ConfigResponseParsingService', () => {
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
       }, statusCode: 500, statusText: 'Internal Server Error'
     };
-
-    const definitions = [
+    const pageinfo = Object.assign(new PageInfo(), { elementsPerPage: 4, totalElements: 4, totalPages: 1, currentPage: 1 });
+    const definitions =
       Object.assign(new SubmissionDefinitionsModel(), {
         isDefault: true,
         name: 'traditional',
         type: 'submissiondefinition',
-        _links: {},
-        sections: [
-          Object.assign(new SubmissionSectionModel(), {
-            header: 'submit.progressbar.describe.stepone',
-            mandatory: true,
-            sectionType: 'submission-form',
-            visibility:{
-              main:null,
-              other:'READONLY'
-            },
-            type: 'submissionsection',
-            _links: {}
-          }),
-          Object.assign(new SubmissionSectionModel(), {
-            header: 'submit.progressbar.describe.steptwo',
-            mandatory: true,
-            sectionType: 'submission-form',
-            visibility:{
-              main:null,
-              other:'READONLY'
-            },
-            type: 'submissionsection',
-            _links: {}
-          }),
-          Object.assign(new SubmissionSectionModel(), {
-            header: 'submit.progressbar.upload',
-            mandatory: false,
-            sectionType: 'upload',
-            visibility:{
-              main:null,
-              other:'READONLY'
-            },
-            type: 'submissionsection',
-            _links: {}
-          }),
-          Object.assign(new SubmissionSectionModel(), {
-            header: 'submit.progressbar.license',
-            mandatory: true,
-            sectionType: 'license',
-            visibility:{
-              main:null,
-              other:'READONLY'
-            },
-            type: 'submissionsection',
-            _links: {}
-          })
-        ]
-      })
-    ];
+        _links: {
+          sections: 'https://rest.api/config/submissiondefinitions/traditional/sections',
+          self: 'https://rest.api/config/submissiondefinitions/traditional'
+        },
+        self: 'https://rest.api/config/submissiondefinitions/traditional',
+        sections: new PaginatedList(pageinfo, [
+          'https://rest.api/config/submissionsections/traditionalpageone',
+          'https://rest.api/config/submissionsections/traditionalpagetwo',
+          'https://rest.api/config/submissionsections/upload',
+          'https://rest.api/config/submissionsections/license'
+        ])
+      });
 
     it('should return a ConfigSuccessResponse if data contains a valid config endpoint response', () => {
       const response = service.parse(validRequest, validResponse);

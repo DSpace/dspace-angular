@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { SearchService } from './search.service';
-import { ViewMode } from '../../+search-page/search-options.model';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
@@ -22,9 +21,15 @@ import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { RequestEntry } from '../../core/data/request.reducer';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
-import { FacetConfigSuccessResponse, SearchSuccessResponse } from '../../core/cache/response-cache.models';
+import {
+  FacetConfigSuccessResponse,
+  SearchSuccessResponse
+} from '../../core/cache/response-cache.models';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchFilterConfig } from './search-filter-config.model';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -53,6 +58,8 @@ describe('SearchService', () => {
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: HALEndpointService, useValue: {} },
+          { provide: CommunityDataService, useValue: {}},
+          { provide: DSpaceObjectDataService, useValue: {}},
           SearchService
         ],
       });
@@ -108,6 +115,8 @@ describe('SearchService', () => {
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
           { provide: HALEndpointService, useValue: halService },
+          { provide: CommunityDataService, useValue: {}},
+          { provide: DSpaceObjectDataService, useValue: {}},
           SearchService
         ],
       });
@@ -148,9 +157,9 @@ describe('SearchService', () => {
 
     describe('when search is called', () => {
       const endPoint = 'http://endpoint.com/test/test';
-      const searchOptions = new PaginatedSearchOptions();
+      const searchOptions = new PaginatedSearchOptions({});
       const queryResponse = Object.assign(new SearchQueryResponse(), { objects: [] });
-      const response = new SearchSuccessResponse(queryResponse, 200,'OK');
+      const response = new SearchSuccessResponse(queryResponse, 200, 'OK');
       const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(Observable.of(endPoint));

@@ -34,7 +34,8 @@ describe('LoadingComponent (inline template)', () => {
     fixture = TestBed.createComponent(LoadingComponent);
 
     comp = fixture.componentInstance; // LoadingComponent test instance
-
+    comp.message = 'test message';
+    fixture.detectChanges();
     // query for the message <label> by CSS element selector
     de = fixture.debugElement.query(By.css('label'));
     el = de.nativeElement;

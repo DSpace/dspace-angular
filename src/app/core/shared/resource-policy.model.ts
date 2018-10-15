@@ -1,34 +1,40 @@
-import { DSpaceObject } from './dspace-object.model';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { ResourceType } from './resource-type';
+import { Group } from '../eperson/models/group.model';
+import { ActionType } from '../cache/models/action-type.model';
 
-export class ResourcePolicy extends DSpaceObject {
+/**
+ * Model class for a Resource Policy
+ */
+export class ResourcePolicy implements CacheableObject {
+  /**
+   * The action that is allowed by this Resource Policy
+   */
+  action: ActionType;
 
   /**
-   * The action of the resource policy
+   * The name for this Resource Policy
    */
-  action: string;
+  name: string;
 
   /**
-   * The identifier of the resource policy
+   * The Group this Resource Policy applies to
    */
-  id: string;
+  group: Group;
 
   /**
-   * The group uuid bound to the resource policy
+   * The link to the rest endpoint where this Resource Policy can be found
    */
-  groupUUID: string;
+  self: string;
 
   /**
-   * The end date of the resource policy
+   * A ResourceType representing the kind of Object of this ResourcePolicy
    */
-  endDate: string;
+  type: ResourceType;
 
   /**
-   * The start date of the resource policy
+   * The universally unique identifier for this Resource Policy
    */
-  startDate: string;
+  uuid: string;
 
-  /**
-   * The type of the resource policy
-   */
-  rpType: string
 }

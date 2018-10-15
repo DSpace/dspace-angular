@@ -1,4 +1,4 @@
-<ds-metadata-field-wrapper [label]="label | translate">
+<ds-metadata-field-wrapper *ngIf="hasSucceeded() | async" [label]="label | translate">
     <div class="collections">
         <a *ngFor="let collection of (collections | async); let last=last;" [routerLink]="['/collections', collection.id]">
             <span>{{collection?.name}}</span><span *ngIf="!last" [innerHTML]="separator"></span>

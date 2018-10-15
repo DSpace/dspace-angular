@@ -19,6 +19,7 @@ import { HostWindowServiceStub } from '../shared/testing/host-window-service-stu
 import { RouterStub } from '../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;
@@ -35,11 +36,12 @@ describe('HeaderComponent', () => {
         NgbCollapseModule.forRoot(),
         NoopAnimationsModule,
         ReactiveFormsModule],
-      declarations: [HeaderComponent, AuthNavMenuComponent, LoadingComponent, LogInComponent, LogOutComponent],
+      declarations: [HeaderComponent],
       providers: [
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: Router, useClass: RouterStub },
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();  // compile template and css
   }));

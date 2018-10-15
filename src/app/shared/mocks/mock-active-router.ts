@@ -29,6 +29,6 @@ export class MockActivatedRoute {
 
   // ActivatedRoute.snapshot.params
   get snapshot() {
-    return { params: this.testParams };
+    return { params: this.testParams, queryParams: this.testParams };
   }
 }

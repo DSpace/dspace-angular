@@ -10,7 +10,7 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
-import { FindByIDRequest } from './request.models';
+import { FindAllOptions, FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -54,6 +54,10 @@ describe('ComColDataService', () => {
   const EnvConfig = {} as GlobalConfig;
 
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
+  const options = Object.assign(new FindAllOptions(), {
+    scopeID: scopeID
+  });
+
   const communitiesEndpoint = 'https://rest.api/core/communities';
   const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
@@ -100,7 +104,7 @@ describe('ComColDataService', () => {
     );
   }
 
-  describe('getScopedEndpoint', () => {
+  describe('getBrowseEndpoint', () => {
     beforeEach(() => {
       scheduler = getTestScheduler();
     });
@@ -114,7 +118,7 @@ describe('ComColDataService', () => {
 
       const expected = new FindByIDRequest(requestService.generateRequestId(), communityEndpoint, scopeID);
 
-      scheduler.schedule(() => service.getScopedEndpoint(scopeID).subscribe());
+      scheduler.schedule(() => service.getBrowseEndpoint(options).subscribe());
       scheduler.flush();
 
       expect(requestService.configure).toHaveBeenCalledWith(expected);
@@ -130,13 +134,13 @@ describe('ComColDataService', () => {
       });
 
       it('should fetch the scope Community from the cache', () => {
-        scheduler.schedule(() => service.getScopedEndpoint(scopeID).subscribe());
+        scheduler.schedule(() => service.getBrowseEndpoint(options).subscribe());
         scheduler.flush();
         expect(objectCache.getByUUID).toHaveBeenCalledWith(scopeID);
       });
 
       it('should return the endpoint to fetch resources within the given scope', () => {
-        const result = service.getScopedEndpoint(scopeID);
+        const result = service.getBrowseEndpoint(options);
         const expected = cold('--e-', { e: scopedEndpoint });
 
         expect(result).toBeObservable(expected);
@@ -153,7 +157,7 @@ describe('ComColDataService', () => {
       });
 
       it('should throw an error', () => {
-        const result = service.getScopedEndpoint(scopeID);
+        const result = service.getBrowseEndpoint(options);
         const expected = cold('--#-', undefined, new Error(`The Community with scope ${scopeID} couldn't be retrieved`));
 
         expect(result).toBeObservable(expected);
