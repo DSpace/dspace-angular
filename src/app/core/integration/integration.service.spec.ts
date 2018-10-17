@@ -1,7 +1,6 @@
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 
 import { RequestService } from '../data/request.service';
 import { IntegrationRequest } from '../data/request.models';
@@ -18,7 +17,6 @@ class TestService extends IntegrationService {
   protected browseEndpoint = BROWSE;
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected halService: HALEndpointService) {
     super();
@@ -28,7 +26,6 @@ class TestService extends IntegrationService {
 describe('IntegrationService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let halService: any;
   let findOptions: IntegrationSearchOptions;
@@ -43,24 +40,14 @@ describe('IntegrationService', () => {
 
   findOptions = new IntegrationSearchOptions(uuid, name, metadata);
 
-  function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
-    return jasmine.createSpyObj('responseCache', {
-      get: cold('c-', {
-        c: {response: {isSuccessful}}
-      })
-    });
-  }
-
-  function initTestService(): TestService {
+   function initTestService(): TestService {
     return new TestService(
-      responseCache,
       requestService,
       halService
     );
   }
 
   beforeEach(() => {
-    responseCache = initMockResponseCacheService(true);
     requestService = getMockRequestService();
     scheduler = getTestScheduler();
     halService = new HALEndpointServiceStub(integrationEndpoint);

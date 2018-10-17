@@ -1,17 +1,15 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { GetRequest, RestRequest } from '../data/request.models';
+import { GetRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import {
   configureRequest,
-  filterSuccessfulResponses, getRemoteDataPayload,
-  getRequestFromSelflink, getResourceLinksFromResponse,
-  getResponseFromSelflink
+  filterSuccessfulResponses,
+  getRemoteDataPayload,
+  getRequestFromSelflink,
+  getResourceLinksFromResponse,
 } from './operators';
 
 describe('Core Module - RxJS Operators', () => {
@@ -58,44 +56,6 @@ describe('Core Module - RxJS Operators', () => {
 
       const source = hot('a', { a: testSelfLink });
       const result = source.pipe(getRequestFromSelflink(requestService));
-      const expected = cold('-');
-
-      expect(result).toBeObservable(expected)
-    });
-  });
-
-  describe('getResponseFromSelflink', () => {
-    let responseCacheService: ResponseCacheService;
-
-    beforeEach(() => {
-      scheduler = getTestScheduler();
-    });
-
-    it('should return the ResponseCacheEntry corresponding to the self link in the source', () => {
-      responseCacheService = getMockResponseCacheService();
-
-      const source = hot('a', { a: testSelfLink });
-      const result = source.pipe(getResponseFromSelflink(responseCacheService));
-      const expected = cold('a', { a: new ResponseCacheEntry()});
-
-      expect(result).toBeObservable(expected)
-    });
-
-    it('should use the responseCacheService to fetch the response by the request\'s link', () => {
-      responseCacheService = getMockResponseCacheService();
-
-      const source = hot('a', { a: testSelfLink });
-      scheduler.schedule(() => source.pipe(getResponseFromSelflink(responseCacheService)).subscribe());
-      scheduler.flush();
-
-      expect(responseCacheService.get).toHaveBeenCalledWith(testSelfLink)
-    });
-
-    it('shouldn\'t return anything if there is no response matching the request\'s link', () => {
-      responseCacheService = getMockResponseCacheService(undefined, cold('a', { a: undefined }));
-
-      const source = hot('a', { a: testSelfLink });
-      const result = source.pipe(getResponseFromSelflink(responseCacheService));
       const expected = cold('-');
 
       expect(result).toBeObservable(expected)

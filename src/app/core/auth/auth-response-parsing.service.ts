@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 
 import { AuthObjectFactory } from './auth-object-factory';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
-import { AuthStatusResponse, RestResponse } from '../cache/response-cache.models';
+import { AuthStatusResponse, RestResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';

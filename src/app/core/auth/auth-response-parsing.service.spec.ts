@@ -1,4 +1,4 @@
-import { AuthStatusResponse } from '../cache/response-cache.models';
+import { AuthStatusResponse } from '../cache/response.models';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';

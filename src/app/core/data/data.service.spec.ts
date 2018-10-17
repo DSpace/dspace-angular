@@ -1,6 +1,5 @@
 import { DataService } from './data.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
@@ -22,7 +21,6 @@ class NormalizedTestObject extends NormalizedObject {
 
 class TestService extends DataService<NormalizedTestObject, any> {
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
@@ -33,7 +31,7 @@ class TestService extends DataService<NormalizedTestObject, any> {
     super();
   }
 
-  public getBrowseEndpoint(options: FindAllOptions): Observable<string> {
+  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return observableOf(endpoint);
   }
 }
@@ -41,7 +39,6 @@ class TestService extends DataService<NormalizedTestObject, any> {
 describe('DataService', () => {
   let service: TestService;
   let options: FindAllOptions;
-  const responseCache = {} as ResponseCacheService;
   const requestService = {} as RequestService;
   const halService = {} as HALEndpointService;
   const rdbService = {} as RemoteDataBuildService;
@@ -57,7 +54,6 @@ describe('DataService', () => {
 
   function initTestService(): TestService {
     return new TestService(
-      responseCache,
       requestService,
       rdbService,
       store,

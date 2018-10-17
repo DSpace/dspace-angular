@@ -1,21 +1,27 @@
-import {of as observableOf,  Observable } from 'rxjs';
-import {filter,  distinctUntilChanged, map, flatMap, startWith, tap } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  flatMap,
+  map,
+  startWith,
+  switchMap,
+  tap
+} from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response-cache.models';
 import { EndpointMapRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { Inject, Injectable } from '@angular/core';
 import { GLOBAL_CONFIG } from '../../../config';
+import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response.models';
+import { getResponseFromEntry } from './operators';
 
 @Injectable()
 export class HALEndpointService {
 
-  constructor(private responseCache: ResponseCacheService,
-              private requestService: RequestService,
+  constructor(private requestService: RequestService,
               @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
   }
 
@@ -29,12 +35,22 @@ export class HALEndpointService {
 
   private getEndpointMapAt(href): Observable<EndpointMap> {
     const request = new EndpointMapRequest(this.requestService.generateRequestId(), href);
-    this.requestService.configure(request);
-    return this.responseCache.get(request.href).pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
-      filter((response: EndpointMapSuccessResponse) => isNotEmpty(response)),
+
+    this.requestService.getByUUID(request.uuid).pipe(
+      getResponseFromEntry(),
       map((response: EndpointMapSuccessResponse) => response.endpointMap),
-      distinctUntilChanged(),);
+      distinctUntilChanged()).subscribe((t) => console.log('uuid', t));
+    this.requestService.getByHref(request.href).pipe(
+      getResponseFromEntry(),
+      map((response: EndpointMapSuccessResponse) => response.endpointMap),
+      distinctUntilChanged()).subscribe((t) => console.log('href', t));
+
+    this.requestService.configure(request);
+    return this.requestService.getByHref(request.href).pipe( /*<-- changing this to UUID breaks it */
+      getResponseFromEntry(),
+      map((response: EndpointMapSuccessResponse) => response.endpointMap),
+      distinctUntilChanged());
+
   }
 
   public getEndpoint(linkPath: string): Observable<string> {
@@ -48,7 +64,7 @@ export class HALEndpointService {
     let currentPath;
     const pipeArguments = path
       .map((subPath: string, index: number) => [
-        flatMap((href: string) => this.getEndpointMapAt(href)),
+        switchMap((href: string) => this.getEndpointMapAt(href)),
         map((endpointMap: EndpointMap) => {
           if (hasValue(endpointMap) && hasValue(endpointMap[subPath])) {
             currentPath = endpointMap[subPath];

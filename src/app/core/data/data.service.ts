@@ -1,9 +1,8 @@
-import { distinctUntilChanged, filter, first, map, take } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, first, map, take, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -15,9 +14,9 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { compare, Operation } from 'fast-json-patch';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { of } from 'rxjs/internal/observable/of';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
-  protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract store: Store<CoreState>;
@@ -25,34 +24,31 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   protected abstract halService: HALEndpointService;
   protected abstract objectCache: ObjectCacheService;
 
-  public abstract getBrowseEndpoint(options: FindAllOptions): Observable<string>
+  public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
-  protected getFindAllHref(options: FindAllOptions = {}): Observable<string> {
+  protected getFindAllHref(options: FindAllOptions = {}, linkPath?: string): Observable<string> {
     let result: Observable<string>;
     const args = [];
 
-    result = this.getBrowseEndpoint(options).pipe(distinctUntilChanged());
-
+    result = this.getBrowseEndpoint(options, linkPath);
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
       args.push(`page=${options.currentPage - 1}`);
     }
-
     if (hasValue(options.elementsPerPage)) {
       args.push(`size=${options.elementsPerPage}`);
     }
-
     if (hasValue(options.sort)) {
       args.push(`sort=${options.sort.field},${options.sort.direction}`);
     }
-
     if (hasValue(options.startsWith)) {
       args.push(`startsWith=${options.startsWith}`);
     }
-
     if (isNotEmpty(args)) {
       return result.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
     } else {
+      result.subscribe((t) => console.log(t));
+
       return result;
     }
   }
@@ -115,6 +111,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       this.objectCache.addPatch(object.self, operations);
     }
   }
+
   // TODO implement, after the structure of the REST server's POST response is finalized
   // create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
   //   const postHrefObs = this.getEndpoint();

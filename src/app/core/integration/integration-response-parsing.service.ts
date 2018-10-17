@@ -6,7 +6,7 @@ import {
   ErrorResponse,
   IntegrationSuccessResponse,
   RestResponse
-} from '../cache/response-cache.models';
+} from '../cache/response.models';
 import { isNotEmpty } from '../../shared/empty.util';
 import { IntegrationObjectFactory } from './integration-object-factory';
 

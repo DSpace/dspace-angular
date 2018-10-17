@@ -32,7 +32,6 @@ import { ObjectCacheService } from './cache/object-cache.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { RequestService } from './data/request.service';
-import { ResponseCacheService } from './cache/response-cache.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
 import { ServerResponseService } from '../shared/services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/services/window.service';
@@ -102,7 +101,6 @@ const PROVIDERS = [
   RegistryService,
   RemoteDataBuildService,
   RequestService,
-  ResponseCacheService,
   EndpointMapResponseParsingService,
   FacetValueResponseParsingService,
   FacetValueMapResponseParsingService,

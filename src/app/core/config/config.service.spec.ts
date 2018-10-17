@@ -1,7 +1,6 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { ConfigService } from './config.service';
 import { RequestService } from '../data/request.service';
 import { ConfigRequest, FindAllOptions } from '../data/request.models';
@@ -16,7 +15,6 @@ class TestService extends ConfigService {
   protected browseEndpoint = BROWSE;
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected halService: HALEndpointService) {
     super();
@@ -26,7 +24,6 @@ class TestService extends ConfigService {
 describe('ConfigService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let halService: any;
 
@@ -39,17 +36,9 @@ describe('ConfigService', () => {
   const scopedEndpoint = `${serviceEndpoint}/${scopeName}`;
   const searchEndpoint = `${serviceEndpoint}/${BROWSE}?uuid=${scopeID}`;
 
-  function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
-    return jasmine.createSpyObj('responseCache', {
-      get: cold('c-', {
-        c: { response: { isSuccessful } }
-      })
-    });
-  }
 
   function initTestService(): TestService {
     return new TestService(
-      responseCache,
       requestService,
       halService
     );
@@ -57,7 +46,6 @@ describe('ConfigService', () => {
 
   beforeEach(() => {
     scheduler = getTestScheduler();
-    responseCache = initMockResponseCacheService(true);
     requestService = getMockRequestService();
     halService = new HALEndpointServiceStub(configEndpoint);
     service = initTestService();

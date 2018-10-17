@@ -5,7 +5,6 @@ import { GlobalConfig } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
@@ -23,7 +22,6 @@ class NormalizedTestObject extends NormalizedObject {
 class TestService extends ComColDataService<NormalizedTestObject, any> {
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
@@ -41,7 +39,6 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
 describe('ComColDataService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let cds: CommunityDataService;
   let objectCache: ObjectCacheService;
@@ -68,14 +65,6 @@ describe('ComColDataService', () => {
     });
   }
 
-  function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
-    return jasmine.createSpyObj('responseCache', {
-      get: cold('c-', {
-        c: { response: { isSuccessful } }
-      })
-    });
-  }
-
   function initMockObjectCacheService(): ObjectCacheService {
     return jasmine.createSpyObj('objectCache', {
       getByUUID: cold('d-', {
@@ -90,7 +79,6 @@ describe('ComColDataService', () => {
 
   function initTestService(): TestService {
     return new TestService(
-      responseCache,
       requestService,
       rdbService,
       store,
@@ -111,7 +99,6 @@ describe('ComColDataService', () => {
       cds = initMockCommunityDataService();
       requestService = getMockRequestService();
       objectCache = initMockObjectCacheService();
-      responseCache = initMockResponseCacheService(true);
       service = initTestService();
 
       const expected = new FindByIDRequest(requestService.generateRequestId(), communityEndpoint, scopeID);
@@ -127,7 +114,6 @@ describe('ComColDataService', () => {
         cds = initMockCommunityDataService();
         requestService = getMockRequestService();
         objectCache = initMockObjectCacheService();
-        responseCache = initMockResponseCacheService(true);
         service = initTestService();
       });
 
@@ -150,7 +136,6 @@ describe('ComColDataService', () => {
         cds = initMockCommunityDataService();
         requestService = getMockRequestService();
         objectCache = initMockObjectCacheService();
-        responseCache = initMockResponseCacheService(false);
         service = initTestService();
       });
 

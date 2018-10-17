@@ -14,32 +14,36 @@ import { BrowseItemsResponseParsingService } from './browse-items-response-parsi
 
 /* tslint:disable:max-classes-per-file */
 
-
 export abstract class RestRequest {
+  public responseMsToLive = 0;
   constructor(
     public uuid: string,
     public href: string,
     public method: RestRequestMethod = RestRequestMethod.GET,
     public body?: any,
     public options?: HttpOptions,
-    public responseMsToLive?: number
   ) {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return DSOResponseParsingService;
   }
+
+  get toCache(): boolean {
+    return this.responseMsToLive > 0;
+  }
 }
 
 export class GetRequest extends RestRequest {
+  public responseMsToLive = 60 * 15 * 1000;
+
   constructor(
     public uuid: string,
     public href: string,
     public body?: any,
     public options?: HttpOptions,
-    public responseMsToLive?: number
   )  {
-    super(uuid, href, RestRequestMethod.GET, body, options, responseMsToLive)
+    super(uuid, href, RestRequestMethod.GET, body, options)
   }
 }
 
@@ -212,6 +216,7 @@ export class IntegrationRequest extends GetRequest {
     return IntegrationResponseParsingService;
   }
 }
+
 export class RequestError extends Error {
   statusText: string;
 }

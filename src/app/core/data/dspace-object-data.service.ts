@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedDSpaceObject } from '../cache/models/normalized-dspace-object.model';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -18,7 +17,6 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
   protected linkPath = 'dso';
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
@@ -27,8 +25,8 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     super();
   }
 
-  getBrowseEndpoint(options: FindAllOptions): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath);
+  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+    return this.halService.getEndpoint(linkPath);
   }
 
   getFindByIDHref(endpoint, resourceID): string {
@@ -46,7 +44,7 @@ export class DSpaceObjectDataService {
     protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService) {
-    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService, objectCache);
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, halService, objectCache);
   }
 
   findById(uuid: string): Observable<RemoteData<DSpaceObject>> {

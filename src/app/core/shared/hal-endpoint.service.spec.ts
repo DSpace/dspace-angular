@@ -1,14 +1,12 @@
 import { cold, hot } from 'jasmine-marbles';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from './hal-endpoint.service';
 import { EndpointMapRequest } from '../data/request.models';
 
 describe('HALEndpointService', () => {
   let service: HALEndpointService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let envConfig: GlobalConfig;
 
@@ -19,14 +17,6 @@ describe('HALEndpointService', () => {
 
   describe('getRootEndpointMap', () => {
     beforeEach(() => {
-      responseCache = jasmine.createSpyObj('responseCache', {
-        get: hot('a-', {
-          a: {
-            response: { endpointMap: endpointMap }
-          }
-        })
-      });
-
       requestService = getMockRequestService();
 
       envConfig = {
@@ -34,7 +24,6 @@ describe('HALEndpointService', () => {
       } as any;
 
       service = new HALEndpointService(
-        responseCache,
         requestService,
         envConfig
       );
@@ -60,12 +49,6 @@ describe('HALEndpointService', () => {
       envConfig = {
         rest: { baseUrl: 'https://rest.api/' }
       } as any;
-
-      service = new HALEndpointService(
-        responseCache,
-        requestService,
-        envConfig
-      );
     });
 
     it('should return the endpoint URL for the service\'s linkPath', () => {
@@ -89,7 +72,6 @@ describe('HALEndpointService', () => {
   describe('isEnabledOnRestApi', () => {
     beforeEach(() => {
       service = new HALEndpointService(
-        responseCache,
         requestService,
         envConfig
       );

@@ -53,6 +53,7 @@ export function startServer(bootstrap: Type<{}> | NgModuleFactory<{}>) {
   function ngApp(req, res) {
 
     function onHandleError(parentZoneDelegate, currentZone, targetZone, error) {
+      console.error('Error:', error);
       console.warn('Error in SSR, serving for direct CSR');
       res.sendFile('index.csr.html', { root: './src' });
     }

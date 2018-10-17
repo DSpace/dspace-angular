@@ -7,7 +7,6 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedItem } from '../cache/models/normalized-item.model';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { Item } from '../shared/item.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -23,7 +22,6 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
   protected linkPath = 'items';
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
@@ -39,12 +37,12 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
    * @param {FindAllOptions} options
    * @returns {Observable<string>}
    */
-  public getBrowseEndpoint(options: FindAllOptions = {}): Observable<string> {
+  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     let field = 'dc.date.issued';
     if (options.sort && options.sort.field) {
       field = options.sort.field;
     }
-    return this.bs.getBrowseURLFor(field, this.linkPath).pipe(
+    return this.bs.getBrowseURLFor(field, linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString()),
       distinctUntilChanged(),);

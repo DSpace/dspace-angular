@@ -1,9 +1,7 @@
 import { Observable } from 'rxjs';
 import { filter, first, flatMap, map, tap } from 'rxjs/operators';
-import { hasValueOperator, isNotEmpty } from '../../shared/empty.util';
-import { DSOSuccessResponse } from '../cache/response-cache.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ResponseCacheService } from '../cache/response-cache.service';
+import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
 import { RestRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
@@ -24,22 +22,25 @@ export const getRequestFromSelflink = (requestService: RequestService) =>
       hasValueOperator()
     );
 
-export const getResponseFromSelflink = (responseCache: ResponseCacheService) =>
-  (source: Observable<string>): Observable<ResponseCacheEntry> =>
+export const filterSuccessfulResponses = () =>
+  (source: Observable<RequestEntry>): Observable<RestResponse> =>
     source.pipe(
-      flatMap((href: string) => responseCache.get(href)),
-      hasValueOperator()
+      getResponseFromEntry(),
+      filter((response: RestResponse) => response.isSuccessful === true),
     );
 
-export const filterSuccessfulResponses = () =>
-  (source: Observable<ResponseCacheEntry>): Observable<ResponseCacheEntry> =>
-    source.pipe(filter((entry: ResponseCacheEntry) => entry.response.isSuccessful === true));
+export const getResponseFromEntry = () =>
+  (source: Observable<RequestEntry>): Observable<RestResponse> =>
+    source.pipe(
+      filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
+      map((entry: RequestEntry) => entry.response)
+    );
 
 export const getResourceLinksFromResponse = () =>
-  (source: Observable<ResponseCacheEntry>): Observable<string[]> =>
+  (source: Observable<RequestEntry>): Observable<string[]> =>
     source.pipe(
       filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks),
+      map((response: DSOSuccessResponse) => response.resourceSelfLinks),
     );
 
 export const configureRequest = (requestService: RequestService) =>
@@ -60,7 +61,7 @@ export const toDSpaceObjectListRD = () =>
       map((rd: RemoteData<PaginatedList<SearchResult<T>>>) => {
         const dsoPage: T[] = rd.payload.page.map((searchResult: SearchResult<T>) => searchResult.dspaceObject);
         const payload = Object.assign(rd.payload, { page: dsoPage }) as PaginatedList<T>;
-        return Object.assign(rd, {payload: payload});
+        return Object.assign(rd, { payload: payload });
       })
     );
 

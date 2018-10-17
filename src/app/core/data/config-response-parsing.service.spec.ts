@@ -1,4 +1,4 @@
-import { ConfigSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
+import { ConfigSuccessResponse, ErrorResponse } from '../cache/response.models';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';

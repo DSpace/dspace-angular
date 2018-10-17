@@ -23,7 +23,6 @@ import { ItemDataService } from '../data/item-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
@@ -62,7 +61,6 @@ describe('MetadataService', () => {
   let store: Store<CoreState>;
 
   let objectCacheService: ObjectCacheService;
-  let responseCacheService: ResponseCacheService;
   let requestService: RequestService;
   let uuidService: UUIDService;
   let remoteDataBuildService: RemoteDataBuildService;
@@ -82,10 +80,9 @@ describe('MetadataService', () => {
     spyOn(store, 'dispatch');
 
     objectCacheService = new ObjectCacheService(store);
-    responseCacheService = new ResponseCacheService(store);
     uuidService = new UUIDService();
-    requestService = new RequestService(objectCacheService, responseCacheService, uuidService, store);
-    remoteDataBuildService = new RemoteDataBuildService(objectCacheService, responseCacheService, requestService);
+    requestService = new RequestService(objectCacheService, uuidService, store);
+    remoteDataBuildService = new RemoteDataBuildService(objectCacheService, requestService);
 
     TestBed.configureTestingModule({
       imports: [
@@ -108,7 +105,6 @@ describe('MetadataService', () => {
       ],
       providers: [
         { provide: ObjectCacheService, useValue: objectCacheService },
-        { provide: ResponseCacheService, useValue: responseCacheService },
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },

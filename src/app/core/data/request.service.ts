@@ -1,14 +1,23 @@
-import { Observable, merge as observableMerge } from 'rxjs';
-import { filter, first, map, mergeMap, partition, take } from 'rxjs/operators';
+import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
+import {
+  filter,
+  find,
+  first,
+  map,
+  mergeMap,
+  reduce,
+  startWith,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { hasValue } from '../../shared/empty.util';
+import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ResponseCacheService } from '../cache/response-cache.service';
+import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { coreSelector, CoreState } from '../core.reducers';
 import { IndexName } from '../index/index.reducer';
 import { pathSelector } from '../shared/selectors';
@@ -19,13 +28,13 @@ import { GetRequest, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
+import { getResponseFromEntry } from '../shared/operators';
 
 @Injectable()
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];
 
   constructor(private objectCache: ObjectCacheService,
-              private responseCache: ResponseCacheService,
               private uuidService: UUIDService,
               private store: Store<CoreState>) {
   }
@@ -83,23 +92,27 @@ export class RequestService {
 
   private isCachedOrPending(request: GetRequest) {
     let isCached = this.objectCache.hasBySelfLink(request.href);
-    if (!isCached && this.responseCache.has(request.href)) {
-      const responses = this.responseCache.get(request.href).pipe(
-        take(1),
-        map((entry: ResponseCacheEntry) => entry.response)
-      );
+    const responses: Observable<RestResponse> = this.isReusable(request.uuid).pipe(
+      filter((reusable: boolean) => !isCached && reusable),
+      switchMap(() => {
+          return this.getByHref(request.href).pipe(
+            getResponseFromEntry(),
+            take(1)
+          );
+        }
+      ));
 
-      const errorResponses = responses.pipe(filter((response) => !response.isSuccessful), map(() => true)); // TODO add a configurable number of retries in case of an error.
-      const dsoSuccessResponses = responses.pipe(
-        filter((response) => response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)),
-        map((response: DSOSuccessResponse) => response.resourceSelfLinks),
-        map((resourceSelfLinks: string[]) => resourceSelfLinks
-          .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
-        ));
-      const otherSuccessResponses = responses.pipe(filter((response) => response.isSuccessful && !hasValue((response as DSOSuccessResponse).resourceSelfLinks)), map(() => true));
+    const errorResponses = responses.pipe(filter((response) => !response.isSuccessful), map(() => true)); // TODO add a configurable number of retries in case of an error.
+    const dsoSuccessResponses = responses.pipe(
+      filter((response) => response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)),
+      map((response: DSOSuccessResponse) => response.resourceSelfLinks),
+      map((resourceSelfLinks: string[]) => resourceSelfLinks
+        .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
+      ));
+    const otherSuccessResponses = responses.pipe(filter((response) => response.isSuccessful && !hasValue((response as DSOSuccessResponse).resourceSelfLinks)), map(() => true));
 
-      observableMerge(errorResponses, otherSuccessResponses, dsoSuccessResponses).subscribe((c) => isCached = c);
-    }
+    observableMerge(errorResponses, otherSuccessResponses, dsoSuccessResponses).subscribe((c) => isCached = c);
+
     const isPending = this.isPending(request);
     return isCached || isPending;
   }
@@ -128,5 +141,35 @@ export class RequestService {
 
   commit(method?: RestRequestMethod) {
     this.store.dispatch(new CommitSSBAction(method))
+  }
+
+  /**
+   * Check whether a ResponseCacheEntry should still be cached
+   *
+   * @param entry
+   *    the entry to check
+   * @return boolean
+   *    false if the entry is null, undefined, or its time to
+   *    live has been exceeded, true otherwise
+   */
+  private isReusable(uuid: string): Observable<boolean> {
+    if (hasNoValue(uuid)) {
+      return observableOf(false);
+    } else {
+      const requestEntry$ = this.getByUUID(uuid);
+      return requestEntry$.pipe(
+        filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
+        map((entry: RequestEntry) => {
+          if (hasValue(entry) && entry.response.isSuccessful) {
+            const timeOutdated = entry.response.timeAdded + entry.request.responseMsToLive;
+            const isOutDated = new Date().getTime() > timeOutdated;
+            return !isOutDated;
+          } else {
+            return false;
+          }
+        })
+      );
+      return observableOf(false);
+    }
   }
 }

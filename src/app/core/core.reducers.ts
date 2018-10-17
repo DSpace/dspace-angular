@@ -1,6 +1,5 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
-import { responseCacheReducer, ResponseCacheState } from './cache/response-cache.reducer';
 import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
 import { indexReducer, IndexState } from './index/index.reducer';
 import { requestReducer, RequestState } from './data/request.reducer';
@@ -9,7 +8,6 @@ import { serverSyncBufferReducer, ServerSyncBufferState } from './cache/server-s
 
 export interface CoreState {
   'cache/object': ObjectCacheState,
-  'cache/response': ResponseCacheState,
   'cache/syncbuffer': ServerSyncBufferState,
   'data/request': RequestState,
   'index': IndexState,
@@ -18,7 +16,6 @@ export interface CoreState {
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'cache/object': objectCacheReducer,
-  'cache/response': responseCacheReducer,
   'cache/syncbuffer': serverSyncBufferReducer,
   'data/request': requestReducer,
   'index': indexReducer,

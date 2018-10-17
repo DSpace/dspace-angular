@@ -2,10 +2,8 @@ import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
@@ -14,7 +12,6 @@ import { BrowseService } from './browse.service';
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
   let service: BrowseService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
 
@@ -79,22 +76,10 @@ describe('BrowseService', () => {
     })
   ];
 
-  function initMockResponseCacheService(isSuccessful: boolean) {
-    const rcs = getMockResponseCacheService();
-    (rcs.get as any).and.returnValue(cold('b-', {
-      b: {
-        response: {
-          isSuccessful,
-          payload: browseDefinitions,
-        }
-      }
-    }));
-    return rcs;
-  }
+
 
   function initTestService() {
     return new BrowseService(
-      responseCache,
       requestService,
       halService,
       rdbService
@@ -108,7 +93,6 @@ describe('BrowseService', () => {
   describe('getBrowseDefinitions', () => {
 
     beforeEach(() => {
-      responseCache = initMockResponseCacheService(true);
       requestService = getMockRequestService();
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
@@ -147,7 +131,6 @@ describe('BrowseService', () => {
     const mockAuthorName = 'Donald Smith';
 
     beforeEach(() => {
-      responseCache = initMockResponseCacheService(true);
       requestService = getMockRequestService();
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
@@ -221,7 +204,6 @@ describe('BrowseService', () => {
 
     describe('if getBrowseDefinitions fires', () => {
       beforeEach(() => {
-        responseCache = initMockResponseCacheService(true);
         requestService = getMockRequestService();
         rdbService = getMockRemoteDataBuildService();
         service = initTestService();
@@ -277,7 +259,6 @@ describe('BrowseService', () => {
 
     describe('if getBrowseDefinitions doesn\'t fire', () => {
       it('should return undefined', () => {
-        responseCache = initMockResponseCacheService(true);
         requestService = getMockRequestService();
         rdbService = getMockRemoteDataBuildService();
         service = initTestService();

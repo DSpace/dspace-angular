@@ -1,10 +1,8 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
@@ -29,7 +27,6 @@ describe('RequestService', () => {
   let service: RequestService;
   let serviceAsAny: any;
   let objectCache: ObjectCacheService;
-  let responseCache: ResponseCacheService;
   let uuidService: UUIDService;
   let store: Store<CoreState>;
 
@@ -49,7 +46,6 @@ describe('RequestService', () => {
     objectCache = getMockObjectCacheService();
     (objectCache.hasBySelfLink as any).and.returnValue(false);
 
-    responseCache = getMockResponseCacheService();
     (responseCache.has as any).and.returnValue(false);
     (responseCache.get as any).and.returnValue(observableOf(undefined));
 
@@ -65,7 +61,6 @@ describe('RequestService', () => {
 
     service = new RequestService(
       objectCache,
-      responseCache,
       uuidService,
       store
     );

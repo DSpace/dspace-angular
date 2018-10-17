@@ -4,7 +4,7 @@ import {
   FacetValueMapSuccessResponse,
   FacetValueSuccessResponse,
   RestResponse
-} from '../cache/response-cache.models';
+} from '../cache/response.models';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';

@@ -1,12 +1,10 @@
-
-import {mergeMap, filter, take} from 'rxjs/operators';
+import { filter, mergeMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
 import { ComColDataService } from './comcol-data.service';
@@ -25,7 +23,6 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
   protected cds = this;
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
@@ -40,12 +37,10 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
   }
 
   findTop(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
-    const hrefObs = this.halService.getEndpoint(this.topLinkPath).pipe(filter((href: string) => isNotEmpty(href)),
-      mergeMap((endpoint: string) => this.getFindAllHref(options)),);
-
+    const hrefObs = this.getFindAllHref(options, this.topLinkPath);
     hrefObs.pipe(
       filter((href: string) => hasValue(href)),
-      take(1),)
+      take(1))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);

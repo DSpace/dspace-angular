@@ -1,15 +1,16 @@
-import { distinctUntilChanged, filter, map, mergeMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, share, take, tap } from 'rxjs/operators';
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
 import { FindAllOptions, FindByIDRequest } from './request.models';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RequestEntry } from './request.reducer';
+import { getResponseFromEntry } from '../shared/operators';
 
 export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain> extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
@@ -26,9 +27,9 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
    * @return { Observable<string> }
    *    an Observable<string> containing the scoped URL
    */
-  public getBrowseEndpoint(options: FindAllOptions = {}): Observable<string> {
+  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     if (isEmpty(options.scopeID)) {
-      return this.halService.getEndpoint(this.linkPath);
+      return this.halService.getEndpoint(linkPath);
     } else {
       const scopeCommunityHrefObs = this.cds.getEndpoint().pipe(
         mergeMap((endpoint: string) => this.cds.getFindByIDHref(endpoint, options.scopeID)),
@@ -37,7 +38,7 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
         tap((href: string) => {
           const request = new FindByIDRequest(this.requestService.generateRequestId(), href, options.scopeID);
           this.requestService.configure(request);
-        }),);
+        }));
 
       // return scopeCommunityHrefObs.pipe(
       //   mergeMap((href: string) => this.responseCache.get(href)),
@@ -46,7 +47,7 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
       //     if (response.isSuccessful) {
       //       const community$: Observable<NormalizedCommunity> = this.objectCache.getByUUID(scopeID);
       //       return community$.pipe(
-      //         map((community) => community._links[this.linkPath]),
+      //         map((community) => community._links[linkPath]),
       //         filter((href) => isNotEmpty(href)),
       //         distinctUntilChanged()
       //       );
@@ -57,8 +58,8 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
       //   distinctUntilChanged()
       // );
       const responses = scopeCommunityHrefObs.pipe(
-        mergeMap((href: string) => this.responseCache.get(href)),
-        map((entry: ResponseCacheEntry) => entry.response));
+        mergeMap((href: string) => this.requestService.getByHref(href)),
+        getResponseFromEntry());
       const errorResponses = responses.pipe(
         filter((response) => !response.isSuccessful),
         mergeMap(() => observableThrowError(new Error(`The Community with scope ${options.scopeID} couldn't be retrieved`)))
@@ -66,11 +67,11 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
       const successResponses = responses.pipe(
         filter((response) => response.isSuccessful),
         mergeMap(() => this.objectCache.getByUUID(options.scopeID)),
-        map((nc: NormalizedCommunity) => nc._links[this.linkPath]),
+        map((nc: NormalizedCommunity) => nc._links[linkPath]),
         filter((href) => isNotEmpty(href))
       );
 
-      return observableMerge(errorResponses, successResponses).pipe(distinctUntilChanged());
+      return observableMerge(errorResponses, successResponses).pipe(distinctUntilChanged(), share());
     }
   }
 }

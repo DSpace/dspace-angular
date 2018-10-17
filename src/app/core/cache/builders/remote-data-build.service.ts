@@ -1,11 +1,11 @@
 import {
   combineLatest as observableCombineLatest,
-  of as observableOf,
   Observable,
+  of as observableOf,
   race as observableRace
 } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, flatMap, map, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
@@ -16,22 +16,18 @@ import { RequestService } from '../../data/request.service';
 
 import { NormalizedObject } from '../models/normalized-object.model';
 import { ObjectCacheService } from '../object-cache.service';
-import { DSOSuccessResponse, ErrorResponse } from '../response-cache.models';
-import { ResponseCacheEntry } from '../response-cache.reducer';
-import { ResponseCacheService } from '../response-cache.service';
+import { DSOSuccessResponse, ErrorResponse } from '../response.models';
 import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
 import { PageInfo } from '../../shared/page-info.model';
 import {
+  filterSuccessfulResponses,
   getRequestFromSelflink,
-  getResourceLinksFromResponse,
-  getResponseFromSelflink,
-  filterSuccessfulResponses
+  getResourceLinksFromResponse
 } from '../../shared/operators';
 
 @Injectable()
 export class RemoteDataBuildService {
   constructor(protected objectCache: ObjectCacheService,
-              protected responseCache: ResponseCacheService,
               protected requestService: RequestService) {
   }
 
@@ -39,17 +35,14 @@ export class RemoteDataBuildService {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
-    const requestHref$ = href$.pipe(flatMap((href: string) =>
-      this.objectCache.getRequestHrefBySelfLink(href)));
+    const requestHref$ = href$.pipe(
+      switchMap((href: string) =>
+        this.objectCache.getRequestHrefBySelfLink(href)),
+    );
 
     const requestEntry$ = observableRace(
       href$.pipe(getRequestFromSelflink(this.requestService)),
       requestHref$.pipe(getRequestFromSelflink(this.requestService))
-    );
-
-    const responseCache$ = observableRace(
-      href$.pipe(getResponseFromSelflink(this.responseCache)),
-      requestHref$.pipe(getResponseFromSelflink(this.responseCache))
     );
 
     // always use self link if that is cached, only if it isn't, get it via the response.
@@ -59,7 +52,7 @@ export class RemoteDataBuildService {
           flatMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href)),
           startWith(undefined)
         ),
-        responseCache$.pipe(
+        requestEntry$.pipe(
           getResourceLinksFromResponse(),
           flatMap((resourceSelfLinks: string[]) => {
             if (isNotEmpty(resourceSelfLinks)) {
@@ -86,21 +79,21 @@ export class RemoteDataBuildService {
         startWith(undefined),
         distinctUntilChanged()
       );
-    return this.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  toRemoteDataObservable<T>(requestEntry$: Observable<RequestEntry>, responseCache$: Observable<ResponseCacheEntry>, payload$: Observable<T>) {
-    return observableCombineLatest(requestEntry$, responseCache$.pipe(startWith(undefined)), payload$).pipe(
-      map(([reqEntry, resEntry, payload]) => {
+  toRemoteDataObservable<T>(requestEntry$: Observable<RequestEntry>, payload$: Observable<T>) {
+    return observableCombineLatest(requestEntry$, requestEntry$.pipe(startWith(undefined)), payload$).pipe(
+      map(([reqEntry, payload]) => {
         const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
         const responsePending = hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
         let isSuccessful: boolean;
         let error: RemoteDataError;
-        if (hasValue(resEntry) && hasValue(resEntry.response)) {
-          isSuccessful = resEntry.response.isSuccessful;
-          const errorMessage = isSuccessful === false ? (resEntry.response as ErrorResponse).errorMessage : undefined;
+        if (hasValue(reqEntry) && hasValue(reqEntry.response)) {
+          isSuccessful = reqEntry.response.isSuccessful;
+          const errorMessage = isSuccessful === false ? (reqEntry.response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
-            error = new RemoteDataError(resEntry.response.statusCode, errorMessage);
+            error = new RemoteDataError(reqEntry.response.statusCode, errorMessage);
           }
         }
         return new RemoteData(
@@ -120,9 +113,7 @@ export class RemoteDataBuildService {
     }
 
     const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
-    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
-
-    const tDomainList$ = responseCache$.pipe(
+    const tDomainList$ = requestEntry$.pipe(
       getResourceLinksFromResponse(),
       flatMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs).pipe(
@@ -135,12 +126,12 @@ export class RemoteDataBuildService {
       startWith([]),
       distinctUntilChanged()
     );
-
-    const pageInfo$ = responseCache$.pipe(
+    // tDomainList$.subscribe((t) => {console.log('domainlist', t)});
+    const pageInfo$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => {
-        if (hasValue((entry.response as DSOSuccessResponse).pageInfo)) {
-          const resPageInfo = (entry.response as DSOSuccessResponse).pageInfo;
+      map((response: DSOSuccessResponse) => {
+        if (hasValue((response as DSOSuccessResponse).pageInfo)) {
+          const resPageInfo = (response as DSOSuccessResponse).pageInfo;
           if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
             return Object.assign({}, resPageInfo, { currentPage: resPageInfo.currentPage + 1 });
           } else {
@@ -156,7 +147,7 @@ export class RemoteDataBuildService {
       })
     );
 
-    return this.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.toRemoteDataObservable(requestEntry$, payload$);
   }
 
   build<TNormalized, TDomain>(normalized: TNormalized): TDomain {
@@ -204,8 +195,9 @@ export class RemoteDataBuildService {
         }
       }
     });
-
     const domainModel = getMapsTo(normalized.constructor);
+    // console.log('domain model', normalized);
+
     return Object.assign(new domainModel(), normalized, links);
   }
 
