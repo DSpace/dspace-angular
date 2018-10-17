@@ -15,6 +15,9 @@ import { SubmissionResourceType } from './submission-resource-type';
 import { NormalizedResourcePolicy } from '../cache/models/normalized-resource-policy.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { NormalizedEditItem } from './models/normalized-edititem.model';
+import { ResourceType } from '../shared/resource-type';
+import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
+import { NormalizedGroup } from '../eperson/models/normalized-group.model';
 
 export class NormalizedSubmissionObjectFactory {
   public static getConstructor(type: SubmissionResourceType): GenericConstructor<NormalizedObject | ConfigObject> {
@@ -39,6 +42,12 @@ export class NormalizedSubmissionObjectFactory {
       }
       case SubmissionResourceType.License: {
         return NormalizedLicense
+      }
+      case SubmissionResourceType.EPerson: {
+        return NormalizedEPerson
+      }
+      case SubmissionResourceType.Group: {
+        return NormalizedGroup
       }
       case SubmissionResourceType.WorkspaceItem: {
         return NormalizedWorkspaceItem

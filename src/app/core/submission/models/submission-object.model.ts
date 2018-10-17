@@ -1,12 +1,13 @@
+import { Observable } from 'rxjs/Observable';
+
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { DSpaceObject } from '../../shared/dspace-object.model';
-import { Eperson } from '../../eperson/models/eperson.model';
+import { EPerson } from '../../eperson/models/eperson.model';
 import { RemoteData } from '../../data/remote-data';
 import { Collection } from '../../shared/collection.model';
 import { Item } from '../../shared/item.model';
 import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
-import { Observable } from 'rxjs/Observable';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
 export interface SubmissionObjectError {
@@ -15,29 +16,47 @@ export interface SubmissionObjectError {
 }
 
 /**
- * An abstract model class for a DSpaceObject.
+ * An abstract model class for a SubmissionObject.
  */
 export abstract class SubmissionObject extends DSpaceObject implements CacheableObject, ListableObject {
 
   /**
-   * The workspaceitem identifier
+   * The workspaceitem/workflowitem identifier
    */
   id: string;
 
   /**
-   * The workspaceitem last modified date
+   * The workspaceitem/workflowitem last modified date
    */
   lastModified: Date;
 
-  collection: Observable<RemoteData<Collection[]>> | Collection[];
+  /**
+   * The collection this submission applies to
+   */
+  collection: Observable<RemoteData<Collection>> | Collection;
 
-  item: Observable<RemoteData<Item[]>> | Item[];
+  /**
+   * The submission item
+   */
+  item: Observable<RemoteData<Item>> | Item;
 
+  /**
+   * The workspaceitem/workflowitem last sections data
+   */
   sections: WorkspaceitemSectionsObject;
 
+  /**
+   * The submission config definition
+   */
   submissionDefinition: SubmissionDefinitionsModel;
 
-  submitter: Observable<RemoteData<Eperson[]>> | Eperson[];
+  /**
+   * The workspaceitem submitter
+   */
+  submitter: Observable<RemoteData<EPerson>> | EPerson;
 
+  /**
+   * The workspaceitem/workflowitem last sections errors
+   */
   errors: SubmissionObjectError[];
 }

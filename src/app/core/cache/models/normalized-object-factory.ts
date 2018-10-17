@@ -13,6 +13,10 @@ import { NormalizedEPerson } from '../../eperson/models/normalized-eperson.model
 import { NormalizedGroup } from '../../eperson/models/normalized-group.model';
 import { NormalizedWorkflowItem } from '../../submission/models/normalized-workflowitem.model';
 import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
+import { SubmissionResourceType } from '../../submission/submission-resource-type';
+import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
+import { SubmissionFormsModel } from '../../shared/config/config-submission-forms.model';
+import { SubmissionSectionModel } from '../../shared/config/config-submission-section.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
@@ -52,6 +56,18 @@ export class NormalizedObjectFactory {
       }
       case ResourceType.BitstreamFormat: {
         return NormalizedBitstreamFormat
+      }
+      case ResourceType.SubmissionDefinition:
+      case ResourceType.SubmissionDefinitions: {
+        return SubmissionDefinitionsModel
+      }
+      case ResourceType.SubmissionForm:
+      case ResourceType.SubmissionForms: {
+        return SubmissionFormsModel
+      }
+      case ResourceType.SubmissionSection:
+      case ResourceType.SubmissionSections: {
+        return SubmissionSectionModel
       }
       default: {
         return undefined;

@@ -9,6 +9,7 @@ import { CoreState } from '../core.reducers';
 import { SubmissionDefinitionsModel } from '../shared/config/config-submission-definitions.model';
 import { PaginatedList } from './paginated-list';
 import { PageInfo } from '../shared/page-info.model';
+import { SubmissionSectionModel } from '../shared/config/config-submission-section.model';
 
 describe('ConfigResponseParsingService', () => {
   let service: ConfigResponseParsingService;
@@ -176,10 +177,65 @@ describe('ConfigResponseParsingService', () => {
         },
         self: 'https://rest.api/config/submissiondefinitions/traditional',
         sections: new PaginatedList(pageinfo, [
-          'https://rest.api/config/submissionsections/traditionalpageone',
-          'https://rest.api/config/submissionsections/traditionalpagetwo',
-          'https://rest.api/config/submissionsections/upload',
-          'https://rest.api/config/submissionsections/license'
+          Object.assign(new SubmissionSectionModel(), {
+            header: 'submit.progressbar.describe.stepone',
+            mandatory: true,
+            sectionType: 'submission-form',
+            visibility:{
+              main:null,
+              other:'READONLY'
+            },
+            type: 'submissionsection',
+            _links: {
+              self: 'https://rest.api/config/submissionsections/traditionalpageone',
+              config: 'https://rest.api/config/submissionforms/traditionalpageone'
+            },
+            self: 'https://rest.api/config/submissionsections/traditionalpageone',
+          }),
+          Object.assign(new SubmissionSectionModel(), {
+            header: 'submit.progressbar.describe.steptwo',
+            mandatory: true,
+            sectionType: 'submission-form',
+            visibility:{
+              main:null,
+              other:'READONLY'
+            },
+            type: 'submissionsection',
+            _links: {
+              self: 'https://rest.api/config/submissionsections/traditionalpagetwo',
+              config: 'https://rest.api/config/submissionforms/traditionalpagetwo'
+            },
+            self: 'https://rest.api/config/submissionsections/traditionalpagetwo',
+          }),
+          Object.assign(new SubmissionSectionModel(), {
+            header: 'submit.progressbar.upload',
+            mandatory: false,
+            sectionType: 'upload',
+            visibility:{
+              main:null,
+              other:'READONLY'
+            },
+            type: 'submissionsection',
+            _links: {
+              self: 'https://rest.api/config/submissionsections/upload',
+              config: 'https://rest.api/config/submissionuploads/upload'
+            },
+            self: 'https://rest.api/config/submissionsections/upload',
+          }),
+          Object.assign(new SubmissionSectionModel(), {
+            header: 'submit.progressbar.license',
+            mandatory: true,
+            sectionType: 'license',
+            visibility:{
+              main:null,
+              other:'READONLY'
+            },
+            type: 'submissionsection',
+            _links: {
+              self: 'https://rest.api/config/submissionsections/license'
+            },
+            self: 'https://rest.api/config/submissionsections/license',
+          })
         ])
       });
 

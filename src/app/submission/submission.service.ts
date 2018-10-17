@@ -60,7 +60,7 @@ export class SubmissionService {
 
   createSubmission(): Observable<SubmissionObject> {
     return this.restService.postToEndpoint('workspaceitems', {})
-      .map((workspaceitems) => workspaceitems[0])
+      .map((workspaceitem: SubmissionObject) => workspaceitem[0])
       .catch(() => Observable.of({}))
   }
 

@@ -11,6 +11,8 @@ import { Observable } from 'rxjs/Observable';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Collection } from '../../core/shared/collection.model';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 
 @Component({
   selector: 'ds-submission-submit-form',
@@ -99,16 +101,16 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       .forEach((subscription) => subscription.unsubscribe());
   }
 
-  onCollectionChange(workspaceItemObject: Workspaceitem) {
-    this.collectionId = workspaceItemObject.collection[0].id;
-    if (this.definitionId !== workspaceItemObject.submissionDefinition[0].name) {
-      this.sections = workspaceItemObject.sections;
-      this.submissionDefinition = workspaceItemObject.submissionDefinition[0];
+  onCollectionChange(submissionObject: SubmissionObject) {
+    this.collectionId = (submissionObject.collection as Collection).id;
+    if (this.definitionId !== submissionObject.submissionDefinition.name) {
+      this.sections = submissionObject.sections;
+      this.submissionDefinition = submissionObject.submissionDefinition;
       this.definitionId = this.submissionDefinition.name;
       this.submissionService.resetSubmissionObject(
         this.collectionId,
         this.submissionId,
-        workspaceItemObject.self,
+        submissionObject.self,
         this.submissionDefinition,
         this.sections);
     } else {
@@ -117,7 +119,6 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   }
 
   isLoading(): Observable<boolean> {
-    // return isUndefined(this.loading) || this.loading === true;
     return this.loading;
   }
 

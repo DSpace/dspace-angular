@@ -93,9 +93,9 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         .subscribe((communityData: Community) => {
 
           this.subs.push(communityData.collections
-            .filter((collections: RemoteData<Collection[]>) => !collections.isResponsePending && collections.hasSucceeded)
+            .filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded)
             .first()
-            .switchMap((collections: RemoteData<Collection[]>) => collections.payload)
+            .switchMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page)
             .filter((collectionData: Collection) => isNotEmpty(collectionData))
             .subscribe((collectionData: Collection) => {
               if (collectionData.id === this.selectedCollectionId) {

@@ -28,9 +28,8 @@ export class NormalizedResourcePolicy extends NormalizedObject {
   /**
    * The uuid of the Group this Resource Policy applies to
    */
-  @relationship(ResourceType.Group, false)
-  @autoserializeAs(String, 'groupUUID')
-  group: string;
+  @autoserialize
+  groupUUID: string;
 
   /**
    * Identifier for this Resource Policy
@@ -46,4 +45,5 @@ export class NormalizedResourcePolicy extends NormalizedObject {
    */
   @autoserializeAs(new IDToUUIDSerializer('resource-policy'), 'id')
   uuid: string;
+
 }

@@ -1,51 +1,29 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
 
 import { Workspaceitem } from './workspaceitem.model';
-import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
-
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
-import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
-import { NormalizedCollection } from '../../cache/models/normalized-collection.model';
+import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { ResourceType } from '../../shared/resource-type';
-import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
-import { Eperson } from '../../eperson/models/eperson.model';
-import { SubmissionObjectError } from './submission-object.model';
 
 @mapsTo(Workspaceitem)
 @inheritSerialization(NormalizedDSpaceObject)
+@inheritSerialization(NormalizedSubmissionObject)
 export class NormalizedWorkspaceItem extends NormalizedSubmissionObject {
 
-  /**
-   * The workspaceitem identifier
-   */
   @autoserialize
-  id: string;
-
-  /**
-   * The workspaceitem last modified date
-   */
-  @autoserialize
-  lastModified: Date;
+  @relationship(ResourceType.Collection, false)
+  collection: string;
 
   @autoserialize
-  @relationship(ResourceType.Collection, true)
-  collection: string[];
+  @relationship(ResourceType.Item, false)
+  item: string;
 
   @autoserialize
-  @relationship(ResourceType.Item, true)
-  item: string[];
+  @relationship(ResourceType.SubmissionDefinition, false)
+  submissionDefinition: string;
 
   @autoserialize
-  sections: WorkspaceitemSectionsObject;
-
-  @autoserializeAs(SubmissionDefinitionsModel)
-  submissionDefinition: SubmissionDefinitionsModel;
-
-  @autoserialize
-  @relationship(ResourceType.Eperson, true)
-  submitter: string[];
-
-  @autoserialize
-  errors: SubmissionObjectError[]
+  @relationship(ResourceType.EPerson, false)
+  submitter: string;
 }

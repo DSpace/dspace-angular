@@ -11,6 +11,7 @@ import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafie
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
 import { AuthStatus } from '../auth/models/auth-status.model';
 import { NormalizedObject } from './models/normalized-object.model';
+import { PaginatedList } from '../data/paginated-list';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -160,7 +161,7 @@ export class ErrorResponse extends RestResponse {
 
 export class ConfigSuccessResponse extends RestResponse {
   constructor(
-    public configDefinition: ConfigObject[],
+    public configDefinition: ConfigObject,
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo
@@ -183,7 +184,7 @@ export class AuthStatusResponse extends RestResponse {
 
 export class IntegrationSuccessResponse extends RestResponse {
   constructor(
-    public dataDefinition: IntegrationModel[],
+    public dataDefinition: PaginatedList<IntegrationModel>,
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo
@@ -194,7 +195,7 @@ export class IntegrationSuccessResponse extends RestResponse {
 
 export class PostPatchSuccessResponse extends RestResponse {
   constructor(
-    public dataDefinition: any[],
+    public dataDefinition: any,
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo

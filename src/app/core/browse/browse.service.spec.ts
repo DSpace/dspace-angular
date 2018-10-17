@@ -184,7 +184,7 @@ describe('BrowseService', () => {
         scheduler.schedule(() => service.getBrowseItemsFor(browseDefinitions[1].id, mockAuthorName).subscribe());
         scheduler.flush();
 
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {

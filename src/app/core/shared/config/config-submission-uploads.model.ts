@@ -10,7 +10,7 @@ export class SubmissionUploadsModel extends ConfigObject {
   accessConditionOptions: AccessConditionOption[];
 
   @autoserializeAs(SubmissionFormsModel)
-  metadata: SubmissionFormsModel[];
+  metadata: SubmissionFormsModel;
 
   @autoserialize
   required: boolean;

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { EpersonRequest } from '../data/request.models';
+import { EpersonRequest, FindAllOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { DataService } from '../data/data.service';
@@ -14,7 +14,7 @@ export abstract class EpersonService<TNormalized extends NormalizedObject, TDoma
   protected abstract browseEndpoint: string;
   protected abstract halService: HALEndpointService;
 
-  public getScopedEndpoint(scopeID: string): Observable<string> {
+  public getBrowseEndpoint(options: FindAllOptions): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 }

@@ -7,7 +7,7 @@ import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache
 import { isEmpty, isNotEmpty, isNotNull } from '../../shared/empty.util';
 
 import { ConfigObject } from '../shared/config/config.model';
-import { BaseResponseParsingService, ProcessRequestDTO } from '../data/base-response-parsing.service';
+import { BaseResponseParsingService } from '../data/base-response-parsing.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -18,6 +18,9 @@ import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model
 import { normalizeSectionData } from './models/workspaceitem-sections.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { NormalizedEditItem } from './models/normalized-edititem.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { NormalizedSubmissionObject } from './models/normalized-submission-object.model';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 
 @Injectable()
 export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
@@ -26,7 +29,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
   protected toCache = false;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected objectCache: ObjectCacheService,) {
+              protected objectCache: ObjectCacheService) {
     super();
   }
 
@@ -35,7 +38,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
       && isNotEmpty(data.payload._links)
       && (data.statusCode === 201 || data.statusCode === 200)) {
       const dataDefinition = this.processResponse<NormalizedObject | ConfigObject, SubmissionResourceType>(data.payload, request.href);
-      return new SubmissionSuccessResponse(dataDefinition[Object.keys(dataDefinition)[0]], data.statusCode, data.statusText, this.processPageInfo(data.payload));
+      return new SubmissionSuccessResponse(dataDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else if (isEmpty(data.payload) && data.statusCode === 204) {
       // Response from a DELETE request
       return new SubmissionSuccessResponse(null, data.statusCode, data.statusText);
@@ -49,11 +52,13 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
     }
   }
 
-  protected processResponse<ObjectDomain, ObjectType>(data: any, requestHref: string): ProcessRequestDTO<ObjectDomain> {
+  protected processResponse<ObjectDomain, ObjectType>(data: any, requestHref: string): any[] {
     const dataDefinition = this.process<NormalizedObject | ConfigObject, SubmissionResourceType>(data, requestHref);
-    const normalizedDefinition = Object.create({});
-    normalizedDefinition[Object.keys(dataDefinition)[0]] = [];
-    dataDefinition[Object.keys(dataDefinition)[0]].forEach((item, index) => {
+    const normalizedDefinition = Array.of();
+    const processedList = Array.isArray(dataDefinition) ? dataDefinition : Array.of(dataDefinition);
+
+    processedList.forEach((item, index) => {
+
       let normalizedItem = Object.assign({}, item);
       // In case data is an Instance of NormalizedWorkspaceItem normalize field value of all the section of type form
       if (item instanceof NormalizedWorkspaceItem
@@ -90,10 +95,10 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
           normalizedItem = Object.assign({}, item, {sections: precessedSection});
         }
       }
-      normalizedDefinition[Object.keys(dataDefinition)[0]][index] = normalizedItem;
+      normalizedDefinition.push( normalizedItem);
     });
 
-    return normalizedDefinition as ProcessRequestDTO<ObjectDomain>;
+    return normalizedDefinition;
   }
 
 }

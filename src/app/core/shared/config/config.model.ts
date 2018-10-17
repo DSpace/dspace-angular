@@ -1,12 +1,13 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
+import { NormalizedObject } from '../../cache/models/normalized-object.model';
 
-export abstract class ConfigObject {
+export abstract class ConfigObject extends  NormalizedObject{
 
   @autoserialize
   public name: string;
 
   @autoserialize
-  public type: string;
+  public type: any;
 
   @autoserialize
   public _links: {

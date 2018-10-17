@@ -12,6 +12,7 @@ import { RequestService } from '../data/request.service';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { Workflowitem } from './models/workflowitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { FindAllOptions } from '../data/request.models';
 
 @Injectable()
 export class WorkflowitemDataService extends DataService<NormalizedWorkflowItem, Workflowitem> {
@@ -28,7 +29,7 @@ export class WorkflowitemDataService extends DataService<NormalizedWorkflowItem,
     super();
   }
 
-  public getScopedEndpoint(scopeID: string): Observable<string> {
+  public getBrowseEndpoint(options: FindAllOptions) {
     return this.halService.getEndpoint(this.linkPath);
   }
 

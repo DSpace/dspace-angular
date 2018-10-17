@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { filter, map, take } from 'rxjs/operators';
 
@@ -8,10 +9,9 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { FindAllOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NormalizedGroupModel } from './models/NormalizedGroup.model';
+import { NormalizedGroup } from './models/normalized-group.model';
 import { Group } from './models/group.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { SearchParam } from '../cache/models/search-param.model';
@@ -19,7 +19,7 @@ import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 
 @Injectable()
-export class GroupEpersonService extends EpersonService<NormalizedGroupModel, Group> {
+export class GroupEpersonService extends EpersonService<NormalizedGroup, Group> {
   protected linkPath = 'groups';
   protected browseEndpoint = '';
   protected forceBypassCache = false;

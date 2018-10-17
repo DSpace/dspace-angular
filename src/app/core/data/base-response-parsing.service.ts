@@ -6,7 +6,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { ResourceType } from '../shared/resource-type';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 
@@ -15,7 +14,7 @@ function isObjectLevel(halObj: any) {
 }
 
 function isPaginatedResponse(halObj: any) {
-  return isNotEmpty(halObj.page) && hasValue(halObj._embedded);
+  return hasValue(halObj.page) && hasValue(halObj._embedded);
 }
 
 /* tslint:disable:max-classes-per-file */
@@ -47,11 +46,11 @@ export abstract class BaseResponseParsingService {
               if (isNotEmpty(parsedObj)) {
                 if (isPaginatedResponse(data._embedded[property])) {
                   object[property] = parsedObj;
-                  object[property].page = parsedObj.page.map((obj) => obj.self);
+                  object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));
                 } else if (isObjectLevel(data._embedded[property])) {
-                  object[property] = parsedObj.self;
+                  object[property] = this.retrieveObjectOrUrl(parsedObj);
                 } else if (Array.isArray(parsedObj)) {
-                  object[property] = parsedObj.map((obj) => obj.self)
+                  object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj))
                 }
               }
             });
@@ -65,8 +64,7 @@ export abstract class BaseResponseParsingService {
         .filter((property) => data.hasOwnProperty(property))
         .filter((property) => hasValue(data[property]))
         .forEach((property) => {
-          const obj = this.process(data[property], requestHref);
-          result[property] = obj;
+          result[property] = this.process(data[property], requestHref);
         });
       return result;
 
@@ -101,8 +99,7 @@ export abstract class BaseResponseParsingService {
 
       if (hasValue(normObjConstructor)) {
         const serializer = new DSpaceRESTv2Serializer(normObjConstructor);
-        const res = serializer.deserialize(obj);
-        return res;
+        return serializer.deserialize(obj);
       } else {
         // TODO: move check to Validator?
         // throw new Error(`The server returned an object with an unknown a known type: ${type}`);
@@ -148,6 +145,11 @@ export abstract class BaseResponseParsingService {
       throw new Error(`Expected an object with a single key, got: ${JSON.stringify(obj)}`);
     }
     return obj[keys[0]];
+  }
+
+  protected retrieveObjectOrUrl(obj: any): any {
+    return this.toCache ? obj.self : obj;
+    // return obj.self;
   }
 
   // TODO Remove when https://jira.duraspace.org/browse/DS-4006 is fixed

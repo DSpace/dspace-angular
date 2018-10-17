@@ -15,6 +15,7 @@ import { FindAllOptions } from './request.models';
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> {
   protected linkPath = 'dso';
+  protected forceBypassCache = false;
 
   constructor(
     protected responseCache: ResponseCacheService,

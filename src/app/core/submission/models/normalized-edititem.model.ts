@@ -1,47 +1,10 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { mapsTo, relationship } from '../../cache/builders/build-decorators';
-import { NormalizedWorkspaceItem } from './normalized-workspaceitem.model';
+import { inheritSerialization } from 'cerialize';
+import { mapsTo } from '../../cache/builders/build-decorators';
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
-import { ResourceType } from '../../shared/resource-type';
-import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
-import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
-import { SubmissionObjectError } from './submission-object.model';
 import { EditItem } from './edititem.model';
 
 @mapsTo(EditItem)
-@inheritSerialization(NormalizedWorkspaceItem)
+@inheritSerialization(NormalizedSubmissionObject)
 export class NormalizedEditItem extends NormalizedSubmissionObject {
 
-  /**
-   * The item identifier
-   */
-  @autoserialize
-  id: string;
-
-  /**
-   * The item last modified date
-   */
-  @autoserialize
-  lastModified: Date;
-
-  @autoserialize
-  @relationship(ResourceType.Collection, true)
-  collection: string[];
-
-  @autoserialize
-  @relationship(ResourceType.Item, true)
-  item: string[];
-
-  @autoserialize
-  sections: WorkspaceitemSectionsObject;
-
-  @autoserializeAs(SubmissionDefinitionsModel)
-  submissionDefinition: SubmissionDefinitionsModel;
-
-  @autoserialize
-  @relationship(ResourceType.Eperson, true)
-  submitter: string[];
-
-  @autoserialize
-  errors: SubmissionObjectError[]
 }

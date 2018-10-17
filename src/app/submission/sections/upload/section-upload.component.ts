@@ -19,6 +19,10 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Group } from '../../../core/eperson/models/group.model';
 import { SectionsService } from '../sections.service';
 import { SubmissionService } from '../../submission.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { ResourcePolicy } from '../../../core/shared/resource-policy.model';
+import { AccessConditionOption } from '../../../core/shared/config/config-access-condition-option.model';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -53,7 +57,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnD
   /*
    * List of available access conditions that could be setted to files
    */
-  public availableAccessConditionOptions: any[];  // List of accessConditions that an user can select
+  public availableAccessConditionOptions: AccessConditionOption[];  // List of accessConditions that an user can select
 
   /*
    * List of Groups available for every access condition
@@ -76,11 +80,11 @@ export class UploadSectionComponent extends SectionModelComponent implements OnD
 
   onSectionInit() {
     const config$ = this.uploadsConfigService.getConfigByHref(this.sectionData.config)
-      .flatMap((config) => config.payload);
+      .map((config) => config.payload);
 
     this.configMetadataForm$ = config$
       .take(1)
-      .map((config: SubmissionUploadsModel) => config.metadata[0]);
+      .map((config: SubmissionUploadsModel) => config.metadata);
 
     this.subs.push(
       this.submissionService.getSubmissionObject(this.submissionId)
@@ -89,26 +93,28 @@ export class UploadSectionComponent extends SectionModelComponent implements OnD
         .subscribe((submissionObject: SubmissionObjectEntry) => {
           this.collectionId = submissionObject.collection;
           this.collectionDataService.findById(this.collectionId)
-            .filter((collectionData) => isNotUndefined((collectionData.payload)))
+            .filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload)))
             .take(1)
-            .subscribe((collectionData) => {
-              this.collectionName = collectionData.payload.name;
+            .subscribe((collectionRemoteData: RemoteData<Collection>) => {
+              this.collectionName = collectionRemoteData.payload.name;
 
               // Default Access Conditions
-              this.subs.push(collectionData.payload.defaultAccessConditions
-                .filter((accessConditions) => isNotUndefined((accessConditions.payload)))
+              this.subs.push(collectionRemoteData.payload.defaultAccessConditions
+                .filter((defaultAccessConditionsRemoteData: RemoteData<PaginatedList<ResourcePolicy>>) =>
+                  defaultAccessConditionsRemoteData.hasSucceeded)
                 .take(1)
-                .subscribe((defaultAccessConditions) => {
+                .subscribe((defaultAccessConditionsRemoteData: RemoteData<PaginatedList<ResourcePolicy>>) => {
 
-                  if (isNotEmpty(defaultAccessConditions.payload)) {
-                    this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditions.payload)
-                      ? defaultAccessConditions.payload : [defaultAccessConditions.payload];
+                  if (isNotEmpty(defaultAccessConditionsRemoteData.payload)) {
+                    this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditionsRemoteData.payload.page)
+                      ? defaultAccessConditionsRemoteData.payload.page : [defaultAccessConditionsRemoteData.payload.page];
                   }
 
                   // Edit Form Configuration, access policy list
                   this.subs.push(config$
                     .take(1)
                     .subscribe((config: SubmissionUploadsModel) => {
+
                       this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
 
                       this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
@@ -118,7 +124,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnD
                       this.availableGroups = new Map();
                       const groupsObs = [];
                       // Retrieve Groups for accessConditionPolicies
-                      this.availableAccessConditionOptions.forEach((accessCondition) => {
+                      this.availableAccessConditionOptions.forEach((accessCondition: AccessConditionOption) => {
                         if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
                           groupsObs.push(
                             this.groupService.findById(accessCondition.groupUUID)

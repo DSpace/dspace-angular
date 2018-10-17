@@ -7,6 +7,7 @@ import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import { FindAllOptions } from './request.models';
 import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
 
@@ -17,6 +18,7 @@ class NormalizedTestObject extends NormalizedObject {
 }
 
 class TestService extends DataService<NormalizedTestObject, any> {
+    protected forceBypassCache = false;
     constructor(
         protected responseCache: ResponseCacheService,
         protected requestService: RequestService,

@@ -1,8 +1,35 @@
+import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
+import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
+import { SubmissionObjectError } from './submission-object.model';
 
 /**
- * An abstract model class for a DSpaceObject.
+ * An abstract model class for a NormalizedSubmissionObject.
  */
-export abstract class NormalizedSubmissionObject extends NormalizedDSpaceObject {
+@inheritSerialization(NormalizedDSpaceObject)
+export class NormalizedSubmissionObject extends NormalizedDSpaceObject {
 
+  /**
+   * The workspaceitem/workflowitem identifier
+   */
+  @autoserialize
+  id: string;
+
+  /**
+   * The workspaceitem/workflowitem last modified date
+   */
+  @autoserialize
+  lastModified: Date;
+
+  /**
+   * The workspaceitem/workflowitem last sections data
+   */
+  @autoserialize
+  sections: WorkspaceitemSectionsObject;
+
+  /**
+   * The workspaceitem/workflowitem last sections errors
+   */
+  @autoserialize
+  errors: SubmissionObjectError[];
 }

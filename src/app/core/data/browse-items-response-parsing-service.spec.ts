@@ -106,7 +106,8 @@ describe('BrowseItemsResponseParsingService', () => {
           number: 0
         }
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: 'OK'
     } as DSpaceRESTV2Response;
 
     const invalidResponseNotAList = {
@@ -142,11 +143,12 @@ describe('BrowseItemsResponseParsingService', () => {
           }
         }
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: 'OK'
     } as DSpaceRESTV2Response;
 
     const invalidResponseStatusCode = {
-      payload: {}, statusCode: '500'
+      payload: {}, statusCode: 500, statusText: 'Internal Server Error'
     } as DSpaceRESTV2Response;
 
     it('should return a GenericSuccessResponse if data contains a valid browse items response', () => {

@@ -10,6 +10,7 @@ import { SubmissionService } from '../submission.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { Collection } from '../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-submission-edit',
@@ -51,10 +52,10 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
                   this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
                   this.router.navigate(['/mydspace']);
                 } else {
-                  this.collectionId = submissionObject.collection[0].id;
+                  this.collectionId = (submissionObject.collection as Collection).id;
                   this.selfUrl = submissionObject.self;
                   this.sections = submissionObject.sections;
-                  this.submissionDefinition = submissionObject.submissionDefinition[0];
+                  this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
                   this.changeDetectorRef.detectChanges();
                 }
               }

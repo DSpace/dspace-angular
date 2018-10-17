@@ -54,7 +54,7 @@ export class SubmissionObjectEffects {
     .map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
-      definition.sections.forEach((sectionDefinition: SubmissionSectionModel, index: number) => {
+      definition.sections.page.forEach((sectionDefinition: SubmissionSectionModel, index: number) => {
         const sectionId = sectionDefinition._links.self.substr(sectionDefinition._links.self.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config || '';
         const enabled = (sectionDefinition.mandatory && sectionDefinition.sectionType !== SectionsType.DetectDuplicate) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));

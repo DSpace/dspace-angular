@@ -3,10 +3,9 @@ import { CacheableObject } from '../../cache/object-cache.reducer';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { EPerson } from './eperson.model';
-import { mapsTo, relationship } from '../../cache/builders/build-decorators';
-import { ResourceType } from '../../shared/resource-type';
+import { mapsTo } from '../../cache/builders/build-decorators';
 import { Group } from './group.model';
-import { NormalizedGroupModel } from './NormalizedGroup.model';
+import { NormalizedGroup } from './normalized-group.model';
 
 @mapsTo(EPerson)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -15,7 +14,7 @@ export class NormalizedEPerson extends NormalizedDSpaceObject implements Cacheab
   @autoserialize
   public handle: string;
 
-  @autoserializeAs(NormalizedGroupModel)
+  @autoserializeAs(NormalizedGroup)
   groups: Group[];
 
   @autoserialize

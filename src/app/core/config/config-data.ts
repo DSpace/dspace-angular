@@ -7,7 +7,7 @@ import { ConfigObject } from '../shared/config/config.model';
 export class ConfigData {
   constructor(
     public pageInfo: PageInfo,
-    public payload: ConfigObject[]
+    public payload: ConfigObject
   ) {
   }
 }

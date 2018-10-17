@@ -71,7 +71,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
     this.formId = this.formService.getUniqueId(this.sectionData.id);
 
     this.formConfigService.getConfigByHref(this.sectionData.config)
-      .flatMap((config: ConfigData) => config.payload)
+      .map((config: ConfigData) => config.payload)
       .subscribe((config: SubmissionFormsModel) => {
         this.formConfig = config;
         this.sectionService.getSectionData(this.submissionId, this.sectionData.id)

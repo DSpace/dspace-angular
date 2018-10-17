@@ -1,47 +1,28 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
+
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { Workflowitem } from './workflowitem.model';
-import { NormalizedWorkspaceItem } from './normalized-workspaceitem.model';
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
 import { ResourceType } from '../../shared/resource-type';
-import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
-import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
-import { SubmissionObjectError } from './submission-object.model';
 
 @mapsTo(Workflowitem)
-@inheritSerialization(NormalizedWorkspaceItem)
+@inheritSerialization(NormalizedSubmissionObject)
 export class NormalizedWorkflowItem extends NormalizedSubmissionObject {
 
-  /**
-   * The workspaceitem identifier
-   */
   @autoserialize
-  id: string;
-
-  /**
-   * The workspaceitem last modified date
-   */
-  @autoserialize
-  lastModified: Date;
+  @relationship(ResourceType.Collection, false)
+  collection: string;
 
   @autoserialize
-  @relationship(ResourceType.Collection, true)
-  collection: string[];
+  @relationship(ResourceType.Item, false)
+  item: string;
 
   @autoserialize
-  @relationship(ResourceType.Item, true)
-  item: string[];
+  @relationship(ResourceType.SubmissionDefinition, false)
+  submissionDefinition: string;
 
   @autoserialize
-  sections: WorkspaceitemSectionsObject;
+  @relationship(ResourceType.EPerson, false)
+  submitter: string;
 
-  @autoserializeAs(SubmissionDefinitionsModel)
-  submissionDefinition: SubmissionDefinitionsModel;
-
-  @autoserialize
-  @relationship(ResourceType.Eperson, true)
-  submitter: string[];
-
-  @autoserialize
-  errors: SubmissionObjectError[]
 }

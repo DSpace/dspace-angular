@@ -5,12 +5,7 @@ import { Store } from '@ngrx/store';
 import { ResponseCacheService } from '../core/cache/response-cache.service';
 import { RequestService } from '../core/data/request.service';
 import { ResponseCacheEntry } from '../core/cache/response-cache.reducer';
-import {
-  ErrorResponse,
-  PostPatchSuccessResponse,
-  RestResponse,
-  SubmissionSuccessResponse
-} from '../core/cache/response-cache.models';
+import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
 import {
   ConfigRequest,
@@ -26,12 +21,14 @@ import { SubmitDataResponseDefinitionObject } from '../core/shared/submit-data-r
 import { CoreState } from '../core/core.reducers';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
 
 @Injectable()
 export class SubmissionRestService {
   protected linkPath = 'workspaceitems';
 
   constructor(
+    protected rdbService: RemoteDataBuildService,
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected store: Store<CoreState>,
@@ -46,8 +43,8 @@ export class SubmissionRestService {
       errorResponse.flatMap((response: ErrorResponse) =>
         Observable.throw(new Error(`Couldn't send data to server`))),
       successResponse
-        .filter((response: PostPatchSuccessResponse) => isNotEmpty(response))
-        .map((response: PostPatchSuccessResponse) => response.dataDefinition)
+        .filter((response: SubmissionSuccessResponse) => isNotEmpty(response))
+        .map((response: SubmissionSuccessResponse) => response.dataDefinition)
         .distinctUntilChanged());
   }
 
