@@ -3,13 +3,10 @@ import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 import { SectionVisibility, SubmissionSectionError } from './submission-objects.reducer';
 import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
-import { WorkspaceitemSectionFormObject } from '../../core/submission/models/workspaceitem-section-form.model';
-import { WorkspaceitemSectionLicenseObject } from '../../core/submission/models/workspaceitem-section-license.model';
 import {
   WorkspaceitemSectionDataType,
   WorkspaceitemSectionsObject
 } from '../../core/submission/models/workspaceitem-sections.model';
-import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
 import { SectionsType } from '../sections/sections-type';
@@ -52,9 +49,6 @@ export const SubmissionObjectActionTypes = {
   DISCARD_SUBMISSION: type('dspace/submission/DISCARD_SUBMISSION'),
   DISCARD_SUBMISSION_SUCCESS: type('dspace/submission/DISCARD_SUBMISSION_SUCCESS'),
   DISCARD_SUBMISSION_ERROR: type('dspace/submission/DISCARD_SUBMISSION_ERROR'),
-  SET_DUPLICATE_DECISION: type('dspace/submission/SET_DUPLICATE_DECISION'),
-  SET_DUPLICATE_DECISION_SUCCESS: type('dspace/submission/SET_DUPLICATE_DECISION_SUCCESS'),
-  SET_DUPLICATE_DECISION_ERROR: type('dspace/submission/SET_DUPLICATE_DECISION_ERROR'),
 
   // Upload file types
   NEW_FILE: type('dspace/submission/NEW_FILE'),
@@ -133,6 +127,8 @@ export class InitSectionAction implements Action {
    *    the section's ID to add
    * @param header
    *    the section's header
+   * @param config
+   *    the section's config
    * @param mandatory
    *    the section's mandatory
    * @param sectionType
@@ -335,7 +331,7 @@ export class SaveForLaterSubmissionFormSuccessAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
-   * @param submissionObjects
+   * @param submissionObject
    *    the submission's Object
    */
   constructor(submissionId: string, submissionObject: SubmissionObject[]) {
@@ -389,7 +385,7 @@ export class SaveSubmissionFormSuccessAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
-   * @param submissionObjects
+   * @param submissionObject
    *    the submission's Object
    */
   constructor(submissionId: string, submissionObject: SubmissionObject[]) {
@@ -446,7 +442,7 @@ export class SaveSubmissionSectionFormSuccessAction implements Action {
    *
    * @param submissionId
    *    the submission's ID
-   * @param submissionObjects
+   * @param submissionObject
    *    the submission's Object
    */
   constructor(submissionId: string, submissionObject: SubmissionObject[]) {
@@ -514,6 +510,8 @@ export class ChangeSubmissionCollectionAction implements Action {
   /**
    * Create a new ChangeSubmissionCollectionAction
    *
+   * @param submissionId
+   *    the submission's ID
    * @param collectionId
    *    the new collection's ID
    */
@@ -760,66 +758,6 @@ export class DeleteUploadedFileAction implements Action {
   }
 }
 
-export class SetDuplicateDecisionAction implements Action {
-  type = SubmissionObjectActionTypes.SET_DUPLICATE_DECISION;
-  payload: {
-    submissionId: string;
-    sectionId: string;
-  };
-
-  /**
-   * Create a new SetDuplicateDecisionAction
-   *
-   * @param submissionId
-   *    the submission's ID
-   * @param sectionId
-   *    the section's ID
-   */
-  constructor(submissionId: string, sectionId: string) {
-    this.payload = { submissionId, sectionId };
-  }
-}
-
-export class SetDuplicateDecisionSuccessAction implements Action {
-  type = SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS;
-  payload: {
-    submissionId: string;
-    sectionId: string;
-    submissionObject: SubmissionObject[];
-  };
-
-  /**
-   * Create a new SetDuplicateDecisionSuccessAction
-   *
-   * @param submissionId
-   *    the submission's ID
-   * @param sectionId
-   *    the section's ID
-   * @param submissionObjects
-   *    the submission's Object
-   */
-  constructor(submissionId: string, sectionId: string,  submissionObject: SubmissionObject[]) {
-    this.payload = { submissionId, sectionId, submissionObject };
-  }
-}
-
-export class SetDuplicateDecisionErrorAction implements Action {
-  type = SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_ERROR;
-  payload: {
-    submissionId: string;
-  };
-
-  /**
-   * Create a new SetDuplicateDecisionErrorAction
-   *
-   * @param submissionId
-   *    the submission's ID
-   */
-  constructor(submissionId: string) {
-    this.payload = { submissionId };
-  }
-}
-
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -858,7 +796,4 @@ export type SubmissionObjectAction = DisableSectionAction
   | SaveSubmissionSectionFormAction
   | SaveSubmissionSectionFormSuccessAction
   | SaveSubmissionSectionFormErrorAction
-  | SetActiveSectionAction
-  | SetDuplicateDecisionAction
-  | SetDuplicateDecisionSuccessAction
-  | SetDuplicateDecisionErrorAction;
+  | SetActiveSectionAction;

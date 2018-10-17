@@ -206,7 +206,6 @@ describe('IntegrationResponseParsingService', () => {
 
     it('should return a IntegrationSuccessResponse with data definition', () => {
       const response = service.parse(validRequest, validResponse);
-      console.log((response as any).dataDefinition);
       expect((response as any).dataDefinition).toEqual(definitions);
     });
 

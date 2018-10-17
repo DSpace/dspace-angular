@@ -22,7 +22,6 @@ import {
   SaveSubmissionSectionFormAction,
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
-  SetDuplicateDecisionAction, SetDuplicateDecisionErrorAction, SetDuplicateDecisionSuccessAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction
 } from './submission-objects.actions';
@@ -33,17 +32,15 @@ import { Observable } from 'rxjs/Observable';
 import { JsonPatchOperationsService } from '../../core/json-patch/json-patch-operations.service';
 import { SubmitDataResponseDefinitionObject } from '../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../submission.service';
-import { Action, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { TranslateService } from '@ngx-translate/core';
-import { DetectDuplicateService } from '../sections/detect-duplicate/detect-duplicate.service';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
 import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
 import parseSectionErrors from '../utils/parseSectionErrors';
-import { SectionsType } from '../sections/sections-type';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 
 @Injectable()
@@ -54,10 +51,10 @@ export class SubmissionObjectEffects {
     .map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
-      definition.sections.page.forEach((sectionDefinition: SubmissionSectionModel, index: number) => {
+      definition.sections.page.forEach((sectionDefinition: SubmissionSectionModel) => {
         const sectionId = sectionDefinition._links.self.substr(sectionDefinition._links.self.lastIndexOf('/') + 1);
         const config = sectionDefinition._links.config || '';
-        const enabled = (sectionDefinition.mandatory && sectionDefinition.sectionType !== SectionsType.DetectDuplicate) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
+        const enabled = (sectionDefinition.mandatory) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
         const sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
         const sectionErrors = null;
         mappedActions.push(
@@ -138,31 +135,6 @@ export class SubmissionObjectEffects {
         .catch(() => Observable.of(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId)));
     });
 
-  @Effect() saveDuplicateDecision$ = this.actions$
-    .ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION)
-    .switchMap((action: SetDuplicateDecisionAction) => {
-      return this.operationsService.jsonPatchByResourceID(
-        this.submissionService.getSubmissionObjectLinkName(),
-        action.payload.submissionId,
-        'sections',
-        action.payload.sectionId)
-        .map((response: SubmissionObject[]) => new SetDuplicateDecisionSuccessAction(action.payload.submissionId, action.payload.sectionId, response))
-        .catch(() => Observable.of(new SetDuplicateDecisionErrorAction(action.payload.submissionId)));
-    });
-
-  @Effect({dispatch: false}) setDuplicateDecisionSuccess$ = this.actions$
-    .ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS)
-    .do(() => this.notificationsService.success(null, this.translate.get('submission.sections.detect-duplicate.decision-success-notice')));
-
-/*  @Effect() setDuplicateDecisionSuccess$ = this.actions$
-    .ofType(SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS)
-    .withLatestFrom(this.store$)
-    .map(([action, currentState]: [SetDuplicateDecisionSuccessAction, any]) => {
-      this.notificationsService.success(null, this.translate.get('submission.sections.detect-duplicate.decision-success-notice'));
-      return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], action.payload.submissionObject, action.payload.submissionId, false);
-    })
-    .mergeMap((actions) => Observable.from(actions));*/
-
   @Effect() saveAndDepositSection$ = this.actions$
     .ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION)
     .withLatestFrom(this.store$)
@@ -188,7 +160,7 @@ export class SubmissionObjectEffects {
     .switchMap(([action, state]: [DepositSubmissionAction, any]) => {
       return this.submissionService.depositSubmission(state.submission.objects[action.payload.submissionId].selfUrl)
         .map(() => new DepositSubmissionSuccessAction(action.payload.submissionId))
-        .catch((e) => Observable.of(new DepositSubmissionErrorAction(action.payload.submissionId)));
+        .catch(() => Observable.of(new DepositSubmissionErrorAction(action.payload.submissionId)));
     });
 
   @Effect({dispatch: false}) SaveForLaterSubmissionSuccess$ = this.actions$
@@ -210,7 +182,7 @@ export class SubmissionObjectEffects {
     .switchMap((action: DepositSubmissionAction) => {
       return this.submissionService.discardSubmission(action.payload.submissionId)
         .map(() => new DiscardSubmissionSuccessAction(action.payload.submissionId))
-        .catch((e) => Observable.of(new DiscardSubmissionErrorAction(action.payload.submissionId)));
+        .catch(() => Observable.of(new DiscardSubmissionErrorAction(action.payload.submissionId)));
     });
 
   @Effect({dispatch: false}) discardSubmissionSuccess$ = this.actions$
@@ -228,7 +200,6 @@ export class SubmissionObjectEffects {
               private sectionService: SectionsService,
               private store$: Store<any>,
               private submissionService: SubmissionService,
-              private deduplicationService: DetectDuplicateService,
               private translate: TranslateService) {
   }
 

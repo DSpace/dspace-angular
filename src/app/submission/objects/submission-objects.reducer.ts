@@ -32,13 +32,11 @@ import {
   SaveForLaterSubmissionFormAction,
   SaveAndDepositSubmissionAction,
   SaveForLaterSubmissionFormSuccessAction,
-  SaveForLaterSubmissionFormErrorAction,
-  SetDuplicateDecisionAction, SetDuplicateDecisionSuccessAction, SetDuplicateDecisionErrorAction
+  SaveForLaterSubmissionFormErrorAction
 } from './submission-objects.actions';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { SectionsType } from '../sections/sections-type';
-import { WorkspaceitemSectionDetectDuplicateObject } from '../../core/submission/models/workspaceitem-section-deduplication.model';
 
 export interface SectionVisibility {
   main: any;
@@ -76,7 +74,6 @@ export interface SubmissionObjectEntry {
   sections?: SubmissionSectionEntry;
   isLoading?: boolean;
   savePending?: boolean;
-  saveDecisionPending?: boolean;
   depositPending?: boolean;
 }
 
@@ -208,19 +205,6 @@ export function submissionObjectReducer(state = initialState, action: Submission
       return removeSectionErrors(state, action as RemoveSectionErrorsAction);
     }
 
-    // detect duplicate
-    case SubmissionObjectActionTypes.SET_DUPLICATE_DECISION: {
-      return startSaveDecision(state, action as SetDuplicateDecisionAction);
-    }
-
-    case SubmissionObjectActionTypes.SET_DUPLICATE_DECISION_SUCCESS: {
-      return setDuplicateMatches(state, action as SetDuplicateDecisionSuccessAction);
-    }
-
-    case SubmissionObjectActionTypes.SET_DUPLICATE_DECISION: {
-      return endSaveDecision(state, action as SetDuplicateDecisionErrorAction);
-    }
-
     default: {
       return state;
     }
@@ -326,7 +310,6 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     sections: Object.create(null),
     isLoading: true,
     savePending: false,
-    saveDecisionPending: false,
     depositPending: false,
   };
   return newState;
@@ -760,76 +743,4 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
     }
   }
   return state;
-}
-
-// ------ Detect duplicate functions ------ //
-
-/**
- * Set decision flag to true
- *
- * @param state
- *    the current state
- * @param action
- *    an SetDuplicateDecisionAction
- * @return SubmissionObjectState
- *    the new state, with the decision flag changed.
- */
-function startSaveDecision(state: SubmissionObjectState, action: SetDuplicateDecisionAction): SubmissionObjectState {
-  if (hasValue(state[ action.payload.submissionId ])) {
-    return Object.assign({}, state, {
-      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
-        saveDecisionPending: true,
-      })
-    });
-  } else {
-    return state;
-  }
-}
-
-function setDuplicateMatches(state: SubmissionObjectState, action: SetDuplicateDecisionSuccessAction) {
-  const index: any = findKey(
-    action.payload.submissionObject,
-    {id: parseInt(action.payload.submissionId, 10)});
-  const sectionData = action.payload.submissionObject[index].sections[ action.payload.sectionId ] as WorkspaceitemSectionDetectDuplicateObject;
-  const newData = (sectionData && sectionData.matches) ? sectionData : Object.create({});
-
-  if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
-    return Object.assign({}, state, {
-      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
-        sections: Object.assign({}, state[ action.payload.submissionId ].sections,
-          Object.assign({}, {
-            [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
-              enabled: true,
-              data: newData
-            })
-          })
-        ),
-        saveDecisionPending: false
-      })
-    });
-  } else {
-    return state;
-  }
-}
-
-/**
- * Set decision flag to false
- *
- * @param state
- *    the current state
- * @param action
- *    an SetDuplicateDecisionSuccessAction or SetDuplicateDecisionErrorAction
- * @return SubmissionObjectState
- *    the new state, with the decision flag changed.
- */
-function endSaveDecision(state: SubmissionObjectState, action: SetDuplicateDecisionSuccessAction | SetDuplicateDecisionErrorAction): SubmissionObjectState {
-  if (hasValue(state[ action.payload.submissionId ])) {
-    return Object.assign({}, state, {
-      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
-        saveDecisionPending: false,
-      })
-    });
-  } else {
-    return state;
-  }
 }

@@ -151,7 +151,6 @@ export class SubmissionService {
         Object.keys(sections)
           .filter((sectionId) => !this.isSectionHidden(sections[sectionId] as SubmissionSectionObject))
           .filter((sectionId) => !sections[sectionId].enabled)
-          .filter((sectionId) => sections[sectionId].sectionType !== SectionsType.DetectDuplicate)
           .forEach((sectionId) => {
             const sectionObject: SectionDataObject = Object.create({});
             sectionObject.header = sections[sectionId].header;
@@ -226,13 +225,6 @@ export class SubmissionService {
   getSubmissionDepositProcessingStatus(submissionId: string): Observable<boolean> {
     return this.getSubmissionObject(submissionId)
       .map((state: SubmissionObjectEntry) => state.depositPending)
-      .distinctUntilChanged()
-      .startWith(false);
-  }
-
-  getSubmissionDuplicateDecisionProcessingStatus(submissionId: string): Observable<boolean> {
-    return this.getSubmissionObject(submissionId)
-      .map((state: SubmissionObjectEntry) => state.saveDecisionPending)
       .distinctUntilChanged()
       .startWith(false);
   }
