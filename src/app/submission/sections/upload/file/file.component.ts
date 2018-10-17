@@ -9,7 +9,7 @@ import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionFormsModel } from '../../../../core/shared/config/config-submission-forms.model';
+import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
 import { deleteProperty } from '../../../../shared/object.util';
 import { dateToGMTString } from '../../../../shared/date.util';
 import { JsonPatchOperationsService } from '../../../../core/json-patch/json-patch-operations.service';

@@ -6,7 +6,7 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache/response-cache.models';
 import { isEmpty, isNotEmpty, isNotNull } from '../../shared/empty.util';
 
-import { ConfigObject } from '../shared/config/config.model';
+import { ConfigObject } from '../config/models/config.model';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';

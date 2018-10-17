@@ -2,14 +2,14 @@ import { ConfigSuccessResponse, ErrorResponse } from '../cache/response-cache.mo
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { ConfigRequest } from './request.models';
+import { ConfigRequest } from '../data/request.models';
 
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
-import { SubmissionDefinitionsModel } from '../shared/config/config-submission-definitions.model';
-import { PaginatedList } from './paginated-list';
+import { SubmissionDefinitionsModel } from './models/config-submission-definitions.model';
+import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
-import { SubmissionSectionModel } from '../shared/config/config-submission-section.model';
+import { SubmissionSectionModel } from './models/config-submission-section.model';
 
 describe('ConfigResponseParsingService', () => {
   let service: ConfigResponseParsingService;

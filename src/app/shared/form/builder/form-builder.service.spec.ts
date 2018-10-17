@@ -41,7 +41,7 @@ import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dyn
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { AuthorityOptions } from '../../../core/integration/models/authority-options.model';
 import { FormFieldModel } from './models/form-field.model';
-import { FormRowModel, SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import { FormRowModel, SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { FormBuilderService } from './form-builder.service';
 import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -373,7 +373,7 @@ describe('FormBuilderService test suite', () => {
       _links: {
         self: 'testFormConfiguration.url'
       }
-    }
+    } as any;
   });
 
   beforeEach(inject([FormBuilderService], (formService: FormBuilderService) => service = formService));

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChange
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
+import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionService } from '../submission.service';
 import { Subscription } from 'rxjs/Subscription';

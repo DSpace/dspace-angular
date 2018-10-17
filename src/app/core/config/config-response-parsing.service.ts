@@ -1,15 +1,15 @@
 import { Inject, Injectable } from '@angular/core';
 
-import { ResponseParsingService } from './parsing.service';
-import { RestRequest } from './request.models';
+import { ResponseParsingService } from '../data/parsing.service';
+import { RestRequest } from '../data/request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { ConfigSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
 import { isNotEmpty } from '../../shared/empty.util';
-import { ConfigObjectFactory } from '../shared/config/config-object-factory';
+import { ConfigObjectFactory } from './models/config-object-factory';
 
-import { ConfigObject } from '../shared/config/config.model';
-import { ConfigType } from '../shared/config/config-type';
-import { BaseResponseParsingService } from './base-response-parsing.service';
+import { ConfigObject } from './models/config.model';
+import { ConfigType } from './models/config-type';
+import { BaseResponseParsingService } from '../data/base-response-parsing.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';

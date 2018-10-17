@@ -14,7 +14,7 @@ import { SubmissionFormsConfigService } from '../../../core/config/submission-fo
 import { hasValue, isNotEmpty, isUndefined } from '../../../shared/empty.util';
 import { ConfigData } from '../../../core/config/config-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { SubmissionSectionError, SubmissionSectionObject } from '../../objects/submission-objects.reducer';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { WorkspaceitemSectionDataType } from '../../../core/submission/models/workspaceitem-sections.model';

@@ -1,4 +1,4 @@
-import { GenericConstructor } from '../generic-constructor';
+import { GenericConstructor } from '../../shared/generic-constructor';
 
 import { SubmissionSectionModel } from './config-submission-section.model';
 import { SubmissionFormsModel } from './config-submission-forms.model';

@@ -29,9 +29,9 @@ import {
 } from './files-edit.model';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { isNotEmpty, isNotUndefined } from '../../../../../shared/empty.util';
-import { SubmissionFormsModel } from '../../../../../core/shared/config/config-submission-forms.model';
+import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
-import { AccessConditionOption } from '../../../../../core/shared/config/config-access-condition-option.model';
+import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
 import { SubmissionService } from '../../../../submission.service';
 
 @Component({

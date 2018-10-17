@@ -14,9 +14,9 @@ import { NormalizedGroup } from '../../eperson/models/normalized-group.model';
 import { NormalizedWorkflowItem } from '../../submission/models/normalized-workflowitem.model';
 import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { SubmissionResourceType } from '../../submission/submission-resource-type';
-import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
-import { SubmissionFormsModel } from '../../shared/config/config-submission-forms.model';
-import { SubmissionSectionModel } from '../../shared/config/config-submission-section.model';
+import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
+import { SubmissionFormsModel } from '../../config/models/config-submission-forms.model';
+import { SubmissionSectionModel } from '../../config/models/config-submission-section.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {

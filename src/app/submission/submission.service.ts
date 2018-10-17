@@ -35,7 +35,7 @@ import { SectionsType } from './sections/sections-type';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { SubmissionDefinitionsModel } from '../core/shared/config/config-submission-definitions.model';
+import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
 import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
 
 @Injectable()

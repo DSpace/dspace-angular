@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { hasValue, isEmpty, isNotNull } from '../../shared/empty.util';
-import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
+import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { SubmissionService } from '../submission.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';

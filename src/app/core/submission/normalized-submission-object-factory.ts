@@ -1,6 +1,6 @@
-import { SubmissionDefinitionsModel } from '../shared/config/config-submission-definitions.model';
-import { SubmissionFormsModel } from '../shared/config/config-submission-forms.model';
-import { SubmissionSectionModel } from '../shared/config/config-submission-section.model';
+import { SubmissionDefinitionsModel } from '../config/models/config-submission-definitions.model';
+import { SubmissionFormsModel } from '../config/models/config-submission-forms.model';
+import { SubmissionSectionModel } from '../config/models/config-submission-section.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { NormalizedBitstream } from '../cache/models/normalized-bitstream.model';
 import { NormalizedBundle } from '../cache/models/normalized-bundle.model';
@@ -10,7 +10,7 @@ import { NormalizedItem } from '../cache/models/normalized-item.model';
 import { NormalizedLicense } from '../cache/models/normalized-license.model';
 import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { ConfigObject } from '../shared/config/config.model';
+import { ConfigObject } from '../config/models/config.model';
 import { SubmissionResourceType } from './submission-resource-type';
 import { NormalizedResourcePolicy } from '../cache/models/normalized-resource-policy.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';

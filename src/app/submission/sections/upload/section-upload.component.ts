@@ -8,8 +8,8 @@ import { SectionUploadService } from './section-upload.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { GroupEpersonService } from '../../../core/eperson/group-eperson.service';
 import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
-import { SubmissionUploadsModel } from '../../../core/shared/config/config-submission-uploads.model';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { SectionsType } from '../sections-type';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionDataObject } from '../models/section-data.model';
@@ -22,7 +22,7 @@ import { SubmissionService } from '../../submission.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { ResourcePolicy } from '../../../core/shared/resource-policy.model';
-import { AccessConditionOption } from '../../../core/shared/config/config-access-condition-option.model';
+import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2

@@ -5,7 +5,7 @@ import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
-import { ConfigResponseParsingService } from './config-response-parsing.service';
+import { ConfigResponseParsingService } from '../config/config-response-parsing.service';
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';

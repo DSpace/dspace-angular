@@ -16,7 +16,7 @@ import { isEqual } from 'lodash';
 
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
-import { SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
+import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
 import { Chips } from '../../../../../chips/models/chips.model';

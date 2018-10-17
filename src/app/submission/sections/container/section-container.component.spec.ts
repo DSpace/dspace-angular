@@ -30,9 +30,7 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 describe('SectionContainerComponent test suite', () => {
 
   let testComp: TestComponent;
-  let sectionContainerComponent: SectionContainerComponent;
   let testFixture: ComponentFixture<TestComponent>;
-  let sectionContainerComponentComponentFixture: ComponentFixture<SectionContainerComponent>;
   let html;
 
   const config = {

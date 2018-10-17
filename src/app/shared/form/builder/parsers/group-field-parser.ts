@@ -7,7 +7,7 @@ import {
   PLACEHOLDER_PARENT_METADATA
 } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { isNotEmpty } from '../../../empty.util';
-import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
+import { FormRowModel } from '../../../../core/config/models/config-submission-forms.model';
 
 export class GroupFieldParser extends FieldParser {
 

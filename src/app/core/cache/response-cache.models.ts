@@ -1,7 +1,7 @@
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
-import { ConfigObject } from '../shared/config/config.model';
+import { ConfigObject } from '../config/models/config.model';
 import { FacetValue } from '../../+search-page/search-service/facet-value.model';
 import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
 import { IntegrationModel } from '../integration/models/integration.model';

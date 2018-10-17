@@ -40,7 +40,7 @@ import { ServerResponseService } from '../shared/services/server-response.servic
 import { NativeWindowFactory, NativeWindowService } from '../shared/services/window.service';
 import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
-import { ConfigResponseParsingService } from './data/config-response-parsing.service';
+import { ConfigResponseParsingService } from './config/config-response-parsing.service';
 import { RouteService } from '../shared/services/route.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';

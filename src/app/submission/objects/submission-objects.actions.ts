@@ -8,7 +8,7 @@ import {
   WorkspaceitemSectionsObject
 } from '../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { SubmissionDefinitionsModel } from '../../core/shared/config/config-submission-definitions.model';
+import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { SectionsType } from '../sections/sections-type';
 
 /**

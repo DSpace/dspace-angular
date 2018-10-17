@@ -39,7 +39,7 @@ import { SubmissionObject } from '../../core/submission/models/submission-object
 import { TranslateService } from '@ngx-translate/core';
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionObjectEntry } from './submission-objects.reducer';
-import { SubmissionSectionModel } from '../../core/shared/config/config-submission-section.model';
+import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 

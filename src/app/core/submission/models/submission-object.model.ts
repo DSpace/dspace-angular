@@ -7,7 +7,7 @@ import { EPerson } from '../../eperson/models/eperson.model';
 import { RemoteData } from '../../data/remote-data';
 import { Collection } from '../../shared/collection.model';
 import { Item } from '../../shared/item.model';
-import { SubmissionDefinitionsModel } from '../../shared/config/config-submission-definitions.model';
+import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
 export interface SubmissionObjectError {

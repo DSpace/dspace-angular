@@ -12,7 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DsDynamicGroupComponent } from './dynamic-group.components';
 import { DynamicGroupModel, DynamicGroupModelConfig } from './dynamic-group.model';
-import { FormRowModel, SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
+import { FormRowModel, SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormFieldModel } from '../../../models/form-field.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormService } from '../../../../form.service';

@@ -1,5 +1,5 @@
 import { DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
-import { FormRowModel } from '../../../../../../core/shared/config/config-submission-forms.model';
+import { FormRowModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { isEmpty, isNull } from '../../../../../empty.util';
