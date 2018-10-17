@@ -10,7 +10,7 @@ import { isNull, isUndefined } from '../../../../../empty.util';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -55,7 +55,7 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
       })
   }
 
-  inputFormatter = (x: AuthorityValueModel): string => x.display || x.value;
+  inputFormatter = (x: AuthorityValue): string => x.display || x.value;
 
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {

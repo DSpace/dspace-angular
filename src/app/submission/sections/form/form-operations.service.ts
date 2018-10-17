@@ -15,7 +15,7 @@ import { FormFieldPreviousValueObject } from '../../../shared/form/builder/model
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { AuthorityValueModel } from '../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../core/integration/models/authority.value';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
@@ -141,18 +141,18 @@ export class FormOperationsService {
       if ((event.model as DsDynamicInputModel).hasAuthority) {
         if (Array.isArray(value)) {
           value.forEach((authority, index) => {
-            authority = Object.assign(new AuthorityValueModel(), authority, {language});
+            authority = Object.assign(new AuthorityValue(), authority, {language});
             value[index] = authority;
           });
           fieldValue = value;
         } else {
-          fieldValue = Object.assign(new AuthorityValueModel(), value, {language});
+          fieldValue = Object.assign(new AuthorityValue(), value, {language});
         }
       } else {
         // Language without Authority (input, textArea)
         fieldValue = new FormFieldMetadataValueObject(value, language);
       }
-    } else if (value instanceof FormFieldLanguageValueObject || value instanceof AuthorityValueModel || isObject(value)) {
+    } else if (value instanceof FormFieldLanguageValueObject || value instanceof AuthorityValue || isObject(value)) {
       fieldValue = value;
     } else {
       fieldValue = new FormFieldMetadataValueObject(value);

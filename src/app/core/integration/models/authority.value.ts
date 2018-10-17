@@ -2,7 +2,7 @@ import { IntegrationModel } from './integration.model';
 import { autoserialize } from 'cerialize';
 import { isNotEmpty } from '../../../shared/empty.util';
 
-export class AuthorityValueModel extends IntegrationModel {
+export class AuthorityValue extends IntegrationModel {
 
   @autoserialize
   id: string;
@@ -19,6 +19,7 @@ export class AuthorityValueModel extends IntegrationModel {
   @autoserialize
   language: string;
 
+  @autoserialize
   hasValue(): boolean {
     return isNotEmpty(this.value);
   }

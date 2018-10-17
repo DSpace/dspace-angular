@@ -15,7 +15,7 @@ import { AuthorityService } from '../../../../../../core/integration/authority.s
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { By } from '@angular/platform-browser';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { createTestComponent } from '../../../../../testing/utils';
 
 export const LAYOUT_TEST = {
@@ -155,7 +155,7 @@ describe('DsDynamicListComponent test suite', () => {
         const de = listFixture.debugElement.queryAll(By.css('div.custom-checkbox'));
         const items = de[0].queryAll(By.css('input.custom-control-input'));
         const item = items[0];
-        modelValue = [Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1})];
+        modelValue = [Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1})];
 
         item.nativeElement.click();
 
@@ -182,7 +182,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = LIST_TEST_GROUP;
         listComp.model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
-        modelValue = [Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1})];
+        modelValue = [Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1})];
         listComp.model.value = modelValue;
         listFixture.detectChanges();
       });
@@ -245,7 +245,7 @@ describe('DsDynamicListComponent test suite', () => {
         const de = listFixture.debugElement.queryAll(By.css('div.custom-radio'));
         const items = de[0].queryAll(By.css('input.custom-control-input'));
         const item = items[0];
-        modelValue = Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1});
+        modelValue = Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1});
 
         item.nativeElement.click();
 
@@ -260,7 +260,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = LIST_TEST_GROUP;
         listComp.model = new DynamicListRadioGroupModel(LIST_RADIO_TEST_MODEL_CONFIG, LAYOUT_TEST);
-        modelValue = Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1});
+        modelValue = Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1});
         listComp.model.value = modelValue;
         listFixture.detectChanges();
       });

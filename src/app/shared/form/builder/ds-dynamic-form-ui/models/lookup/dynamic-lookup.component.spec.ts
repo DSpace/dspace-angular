@@ -19,7 +19,7 @@ import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { By } from '@angular/platform-browser';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { createTestComponent } from '../../../../../testing/utils';
 
@@ -188,7 +188,7 @@ describe('Dynamic Lookup component', () => {
       it('should select a results entry properly', fakeAsync(() => {
         let de = lookupFixture.debugElement.queryAll(By.css('button'));
         const btnEl = de[0].nativeElement;
-        const selectedValue = Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1});
+        const selectedValue = Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1});
         spyOn(lookupComp.change, 'emit');
 
         lookupComp.firstInputValue = 'test';
@@ -278,12 +278,12 @@ describe('Dynamic Lookup component', () => {
 
       it('should select a results entry properly', fakeAsync(() => {
         const payload = [
-          Object.assign(new AuthorityValueModel(), {id: 1, display: 'Name, Lastname', value: 1}),
-          Object.assign(new AuthorityValueModel(), {id: 2, display: 'NameTwo, LastnameTwo', value: 2}),
+          Object.assign(new AuthorityValue(), {id: 1, display: 'Name, Lastname', value: 1}),
+          Object.assign(new AuthorityValue(), {id: 2, display: 'NameTwo, LastnameTwo', value: 2}),
         ];
         let de = lookupFixture.debugElement.queryAll(By.css('button'));
         const btnEl = de[0].nativeElement;
-        const selectedValue = Object.assign(new AuthorityValueModel(), {id: 1, display: 'Name, Lastname', value: 1});
+        const selectedValue = Object.assign(new AuthorityValue(), {id: 1, display: 'Name, Lastname', value: 1});
 
         spyOn(lookupComp.change, 'emit');
         authorityServiceStub.setNewPayload(payload);

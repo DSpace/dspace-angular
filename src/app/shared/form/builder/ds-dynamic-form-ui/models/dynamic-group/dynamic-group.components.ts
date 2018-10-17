@@ -29,7 +29,7 @@ import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 
 @Component({
   selector: 'ds-dynamic-group',

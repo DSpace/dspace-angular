@@ -9,7 +9,7 @@ import { IntegrationData } from '../../../../../../core/integration/integration-
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { Subscription } from 'rxjs/Subscription';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 
 @Component({
@@ -68,9 +68,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
     return (typeof item === 'string') ? item : this.inputFormatter(item, field);
   }
 
-  // inputFormatter = (x: { display: string }) => x.display;
   inputFormatter = (x: { display: string }, y: number) => {
-    // this.splitValues();
     return y === 1 ? this.firstInputValue : this.secondInputValue;
   };
 
@@ -95,7 +93,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   protected setInputsValue(value) {
     if (hasValue(value)) {
       let displayValue = value;
-      if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel) {
+      if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValue) {
         displayValue = value.display;
       }
 

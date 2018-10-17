@@ -18,7 +18,7 @@ import { GlobalConfig } from '../../../../../../../config/global-config.interfac
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { createTestComponent } from '../../../../../testing/utils';
 
 function createKeyUpEvent(key: number) {
@@ -147,10 +147,10 @@ describe('DsDynamicTagComponent test suite', () => {
 
       it('should select a results entry properly', fakeAsync(() => {
         modelValue = [
-          Object.assign(new AuthorityValueModel(), {id: 1, display: 'Name, Lastname', value: 1})
+          Object.assign(new AuthorityValue(), {id: 1, display: 'Name, Lastname', value: 1})
         ];
         const event: NgbTypeaheadSelectItemEvent = {
-          item: Object.assign(new AuthorityValueModel(), {id: 1, display: 'Name, Lastname', value: 1}),
+          item: Object.assign(new AuthorityValue(), {id: 1, display: 'Name, Lastname', value: 1}),
           preventDefault: () => {
             return;
           }

@@ -8,11 +8,13 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IntegrationData } from './integration-data';
 import { IntegrationSearchOptions } from './models/integration-options.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 export abstract class IntegrationService {
   protected request: IntegrationRequest;
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
+  protected abstract rdbService: RemoteDataBuildService;
   protected abstract linkPath: string;
   protected abstract browseEndpoint: string;
   protected abstract halService: HALEndpointService;
@@ -26,7 +28,12 @@ export abstract class IntegrationService {
         Observable.throw(new Error(`Couldn't retrieve the integration data`))),
       successResponse
         .filter((response: IntegrationSuccessResponse) => isNotEmpty(response))
-        .map((response: IntegrationSuccessResponse) => new IntegrationData(response.pageInfo, response.dataDefinition))
+        .map((response: IntegrationSuccessResponse) =>
+          new IntegrationData(
+            response.pageInfo,
+            (response.dataDefinition) ? response.dataDefinition.page : []
+          )
+        )
         .distinctUntilChanged());
   }
 

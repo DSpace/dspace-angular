@@ -1,7 +1,7 @@
 import { DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 import { FormRowModel } from '../../../../../../core/shared/config/config-submission-forms.model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { isEmpty, isNull } from '../../../../../empty.util';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP = 'RELATION';

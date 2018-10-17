@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { IntegrationResponseParsingService } from './integration-response-parsing.service';
 import { IntegrationRequest } from '../data/request.models';
-import { AuthorityValueModel } from './models/authority-value.model';
+import { AuthorityValue } from './models/authority.value';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from '../data/paginated-list';
 
@@ -151,36 +151,36 @@ describe('IntegrationResponseParsingService', () => {
       statusText: 'Internal Server Error'
     };
     const pageinfo = Object.assign(new PageInfo(), { elementsPerPage: 5, totalElements: 5, totalPages: 1, currentPage: 1 });
-    const definitions = new PaginatedList(pageinfo,[
-      Object.assign({}, new AuthorityValueModel(), {
+    definitions = new PaginatedList(pageinfo,[
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'One',
         id: 'One',
         otherInformation: undefined,
         value: 'One'
       }),
-      Object.assign({}, new AuthorityValueModel(), {
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'Two',
         id: 'Two',
         otherInformation: undefined,
         value: 'Two'
       }),
-      Object.assign({}, new AuthorityValueModel(), {
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'Three',
         id: 'Three',
         otherInformation: undefined,
         value: 'Three'
       }),
-      Object.assign({}, new AuthorityValueModel(), {
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'Four',
         id: 'Four',
         otherInformation: undefined,
         value: 'Four'
       }),
-      Object.assign({}, new AuthorityValueModel(), {
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'Five',
         id: 'Five',
@@ -206,6 +206,7 @@ describe('IntegrationResponseParsingService', () => {
 
     it('should return a IntegrationSuccessResponse with data definition', () => {
       const response = service.parse(validRequest, validResponse);
+      console.log((response as any).dataDefinition);
       expect((response as any).dataDefinition).toEqual(definitions);
     });
 
