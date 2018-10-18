@@ -61,6 +61,6 @@ export class Community extends DSpaceObject {
 
   collections: Observable<RemoteData<PaginatedList<Collection>>>;
 
-  subcommunities: Observable<RemoteData<PaginatedList<Collection>>>;
+  subcommunities: Observable<RemoteData<PaginatedList<Community>>>;
 
 }

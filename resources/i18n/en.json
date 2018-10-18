@@ -22,6 +22,9 @@
     },
     "sub-collection-list": {
       "head": "Collections of this Community"
+    },
+    "sub-community-list": {
+      "head": "Communities of this Community"
     }
   },
   "item": {
@@ -209,6 +212,7 @@
     "community": "Loading community...",
     "collection": "Loading collection...",
     "sub-collections": "Loading sub-collections...",
+    "sub-communities": "Loading sub-communities...",
     "recent-submissions": "Loading recent submissions...",
     "item": "Loading item...",
     "objects": "Loading...",
@@ -221,6 +225,7 @@
     "community": "Error fetching community",
     "collection": "Error fetching collection",
     "sub-collections": "Error fetching sub-collections",
+    "sub-communities": "Error fetching sub-communities",
     "recent-submissions": "Error fetching recent submissions",
     "item": "Error fetching item",
     "objects": "Error fetching objects",
