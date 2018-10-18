@@ -12,6 +12,8 @@ import { FindAllOptions, FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RequestEntry } from './request.reducer';
+import { of as observableOf } from 'rxjs';
 
 const LINK_NAME = 'test';
 
@@ -34,6 +36,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     super();
   }
 }
+
 /* tslint:enable:max-classes-per-file */
 
 describe('ComColDataService', () => {
@@ -52,6 +55,11 @@ describe('ComColDataService', () => {
   const options = Object.assign(new FindAllOptions(), {
     scopeID: scopeID
   });
+  const getRequestEntry$ = (successful: boolean) => {
+    return observableOf({
+      response: { isSuccessful: successful } as any
+    } as RequestEntry)
+  };
 
   const communitiesEndpoint = 'https://rest.api/core/communities';
   const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
@@ -97,7 +105,7 @@ describe('ComColDataService', () => {
 
     it('should configure a new FindByIDRequest for the scope Community', () => {
       cds = initMockCommunityDataService();
-      requestService = getMockRequestService();
+      requestService = getMockRequestService(getRequestEntry$(true));
       objectCache = initMockObjectCacheService();
       service = initTestService();
 
@@ -112,7 +120,7 @@ describe('ComColDataService', () => {
     describe('if the scope Community can be found', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = getMockRequestService();
+        requestService = getMockRequestService(getRequestEntry$(true));
         objectCache = initMockObjectCacheService();
         service = initTestService();
       });
@@ -125,16 +133,16 @@ describe('ComColDataService', () => {
 
       it('should return the endpoint to fetch resources within the given scope', () => {
         const result = service.getBrowseEndpoint(options);
-        const expected = cold('--e-', { e: scopedEndpoint });
+        const expected = '--e-';
 
-        expect(result).toBeObservable(expected);
+        scheduler.expectObservable(result).toBe(expected, { e: scopedEndpoint });
       });
     });
 
     describe('if the scope Community can\'t be found', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = getMockRequestService();
+        requestService = getMockRequestService(getRequestEntry$(false));
         objectCache = initMockObjectCacheService();
         service = initTestService();
       });

@@ -8,6 +8,8 @@ import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest } from 
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseService } from './browse.service';
+import { RequestEntry } from '../data/request.reducer';
+import { of as observableOf } from 'rxjs';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
@@ -76,7 +78,11 @@ describe('BrowseService', () => {
     })
   ];
 
-
+  const getRequestEntry$ = (successful: boolean) => {
+    return observableOf({
+      response: { isSuccessful: successful, payload: browseDefinitions } as any
+    } as RequestEntry)
+  };
 
   function initTestService() {
     return new BrowseService(
@@ -93,7 +99,7 @@ describe('BrowseService', () => {
   describe('getBrowseDefinitions', () => {
 
     beforeEach(() => {
-      requestService = getMockRequestService();
+      requestService = getMockRequestService(getRequestEntry$(true));
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
       spyOn(halService, 'getEndpoint').and
@@ -131,7 +137,7 @@ describe('BrowseService', () => {
     const mockAuthorName = 'Donald Smith';
 
     beforeEach(() => {
-      requestService = getMockRequestService();
+      requestService = getMockRequestService(getRequestEntry$(true));
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
       spyOn(service, 'getBrowseDefinitions').and
@@ -204,7 +210,7 @@ describe('BrowseService', () => {
 
     describe('if getBrowseDefinitions fires', () => {
       beforeEach(() => {
-        requestService = getMockRequestService();
+        requestService = getMockRequestService(getRequestEntry$(true));
         rdbService = getMockRemoteDataBuildService();
         service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
@@ -259,7 +265,7 @@ describe('BrowseService', () => {
 
     describe('if getBrowseDefinitions doesn\'t fire', () => {
       it('should return undefined', () => {
-        requestService = getMockRequestService();
+        requestService = getMockRequestService(getRequestEntry$(true));
         rdbService = getMockRemoteDataBuildService();
         service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and

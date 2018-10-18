@@ -46,13 +46,10 @@ describe('RequestService', () => {
     objectCache = getMockObjectCacheService();
     (objectCache.hasBySelfLink as any).and.returnValue(false);
 
-    (responseCache.has as any).and.returnValue(false);
-    (responseCache.get as any).and.returnValue(observableOf(undefined));
-
     uuidService = getMockUUIDService();
 
     store = new Store<CoreState>(new BehaviorSubject({}), new ActionsSubject(), null);
-    selectSpy = spyOnProperty(ngrx, 'select')
+    selectSpy = spyOnProperty(ngrx, 'select');
     selectSpy.and.callFake(() => {
       return () => {
         return () => cold('a', { a: undefined });
@@ -322,7 +319,7 @@ describe('RequestService', () => {
     describe('when the request is cached', () => {
       describe('in the ObjectCache', () => {
         beforeEach(() => {
-          (objectCache.hasBySelfLink as any).and.returnValues(true);
+          (objectCache.hasBySelfLink as any).and.returnValue(true);
         });
 
         it('should return true', () => {
@@ -334,12 +331,13 @@ describe('RequestService', () => {
       });
       describe('in the responseCache', () => {
         beforeEach(() => {
-          (responseCache.has as any).and.returnValues(true);
+          spyOn(serviceAsAny, 'isReusable').and.returnValue(observableOf(true));
+          spyOn(serviceAsAny, 'getByHref').and.returnValue(observableOf(undefined));
         });
 
         describe('and it\'s a DSOSuccessResponse', () => {
           beforeEach(() => {
-            (responseCache.get as any).and.returnValues(observableOf({
+            (serviceAsAny.getByHref as any).and.returnValue(observableOf({
                 response: {
                   isSuccessful: true,
                   resourceSelfLinks: [
@@ -361,6 +359,7 @@ describe('RequestService', () => {
           });
           it('should return false if not all top level links in the response are cached in the object cache', () => {
             (objectCache.hasBySelfLink as any).and.returnValues(false, true, false);
+            spyOn(service, 'isPending').and.returnValue(false);
 
             const result = serviceAsAny.isCachedOrPending(testGetRequest);
             const expected = false;
@@ -368,11 +367,12 @@ describe('RequestService', () => {
             expect(result).toEqual(expected);
           });
         });
+
         describe('and it isn\'t a DSOSuccessResponse', () => {
           beforeEach(() => {
-            (objectCache.hasBySelfLink as any).and.returnValues(false);
-            (responseCache.has as any).and.returnValues(true);
-            (responseCache.get as any).and.returnValues(observableOf({
+            (objectCache.hasBySelfLink as any).and.returnValue(false);
+            (service as any).isReusable.and.returnValue(observableOf(true));
+            (serviceAsAny.getByHref as any).and.returnValue(observableOf({
                 response: {
                   isSuccessful: true
                 }

@@ -25,6 +25,14 @@ describe('Core Module - RxJS Operators', () => {
     e: { response: { isSuccessful: 1, resourceSelfLinks: [] } }
   };
 
+  const testResponses = {
+    a: testRCEs.a.response,
+    b: testRCEs.b.response,
+    c: testRCEs.c.response,
+    d: testRCEs.d.response,
+    e: testRCEs.e.response
+  };
+
   beforeEach(() => {
     scheduler = getTestScheduler();
   });
@@ -66,7 +74,7 @@ describe('Core Module - RxJS Operators', () => {
     it('should only return responses for which isSuccessful === true', () => {
       const source = hot('abcde', testRCEs);
       const result = source.pipe(filterSuccessfulResponses());
-      const expected = cold('a--d-', testRCEs);
+      const expected = cold('a--d-', testResponses);
 
       expect(result).toBeObservable(expected)
     });

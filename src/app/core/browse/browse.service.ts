@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import {
-  ensureArrayHasValue, hasValue,
+  ensureArrayHasValue,
   hasValueOperator,
   isEmpty,
   isNotEmpty,
@@ -34,7 +34,6 @@ import {
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { Item } from '../shared/item.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { RequestEntry } from '../data/request.reducer';
 
 @Injectable()
 export class BrowseService {

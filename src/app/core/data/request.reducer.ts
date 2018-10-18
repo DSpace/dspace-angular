@@ -56,12 +56,13 @@ function configureRequest(state: RequestState, action: RequestConfigureAction): 
 }
 
 function executeRequest(state: RequestState, action: RequestExecuteAction): RequestState {
-  return Object.assign({}, state, {
+  const obs = Object.assign({}, state, {
     [action.payload]: Object.assign({}, state[action.payload], {
       requestPending: false,
       responsePending: true
     })
   });
+  return obs;
 }
 
 /**
@@ -76,16 +77,13 @@ function executeRequest(state: RequestState, action: RequestExecuteAction): Requ
  */
 function completeRequest(state: RequestState, action: RequestCompleteAction): RequestState {
   const time = new Date().getTime();
-
-  const ob = Object.assign({}, state, {
+  return Object.assign({}, state, {
     [action.payload.uuid]: Object.assign({}, state[action.payload.uuid], {
       responsePending: false,
       completed: true,
       response: Object.assign({}, action.payload.response, { timeAdded: time })
     })
   });
-  console.log(ob);
-  return ob;
 }
 
 function resetResponseTimestamps(state: RequestState, action: ResetResponseTimestampsAction) {

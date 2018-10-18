@@ -7,7 +7,7 @@ import {
   Router,
   UrlSegmentGroup
 } from '@angular/router';
-import { filter, flatMap, map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
@@ -47,7 +47,6 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RequestEntry } from '../../core/data/request.reducer';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -100,7 +99,7 @@ export class SearchService implements OnDestroy {
       configureRequest(this.requestService)
     );
     const requestEntryObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
     // get search results from response cache
@@ -113,10 +112,11 @@ export class SearchService implements OnDestroy {
     // Turn list of observable remote data DSO's into observable remote data object with list of DSO
     const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
       map((sqr: SearchQueryResponse) => {
-        return sqr.objects.map((nsr: NormalizedSearchResult) =>
-          this.rdb.buildSingle(nsr.dspaceObject));
+        return sqr.objects.map((nsr: NormalizedSearchResult) => {
+          return this.rdb.buildSingle(nsr.dspaceObject);
+        })
       }),
-      flatMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input))
+      switchMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input)),
     );
 
     // Create search results again with the correct dso objects linked to each result
@@ -180,7 +180,7 @@ export class SearchService implements OnDestroy {
     );
 
     const requestEntryObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
     // get search results from response cache
@@ -223,7 +223,7 @@ export class SearchService implements OnDestroy {
     );
 
     const requestEntryObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
     // get search results from response cache

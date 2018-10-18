@@ -84,8 +84,8 @@ describe('SearchService', () => {
     const remoteDataBuildService = {
       toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, payloadObs: Observable<any>) => {
         return observableCombineLatest(requestEntryObs, payloadObs).pipe(
-          map(([req, res, pay]) => {
-            return { req, res, pay };
+          map(([req, pay]) => {
+            return { req, pay };
           })
         );
       },
@@ -175,9 +175,6 @@ describe('SearchService', () => {
       it('should call getByHref on the request service with the correct request url', () => {
         expect((searchService as any).requestService.getByHref).toHaveBeenCalledWith(endPoint);
       });
-      it('should call get on the request service with the correct request url', () => {
-        expect((searchService as any).responseCache.get).toHaveBeenCalledWith(endPoint);
-      });
     });
 
     describe('when getConfig is called without a scope', () => {
@@ -202,9 +199,6 @@ describe('SearchService', () => {
 
       it('should call getByHref on the request service with the correct request url', () => {
         expect((searchService as any).requestService.getByHref).toHaveBeenCalledWith(endPoint);
-      });
-      it('should call get on the request service with the correct request url', () => {
-        expect((searchService as any).responseCache.get).toHaveBeenCalledWith(endPoint);
       });
     });
 
@@ -232,9 +226,6 @@ describe('SearchService', () => {
 
       it('should call getByHref on the request service with the correct request url', () => {
         expect((searchService as any).requestService.getByHref).toHaveBeenCalledWith(requestUrl);
-      });
-      it('should call get on the request service with the correct request url', () => {
-        expect((searchService as any).responseCache.get).toHaveBeenCalledWith(requestUrl);
       });
     });
   });

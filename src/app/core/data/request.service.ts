@@ -1,5 +1,6 @@
 import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
 import {
+  distinctUntilChanged,
   filter,
   find,
   first,
@@ -109,10 +110,10 @@ export class RequestService {
       map((resourceSelfLinks: string[]) => resourceSelfLinks
         .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
       ));
+
     const otherSuccessResponses = responses.pipe(filter((response) => response.isSuccessful && !hasValue((response as DSOSuccessResponse).resourceSelfLinks)), map(() => true));
 
     observableMerge(errorResponses, otherSuccessResponses, dsoSuccessResponses).subscribe((c) => isCached = c);
-
     const isPending = this.isPending(request);
     return isCached || isPending;
   }
@@ -144,7 +145,7 @@ export class RequestService {
   }
 
   /**
-   * Check whether a ResponseCacheEntry should still be cached
+   * Check whether a Response should still be cached
    *
    * @param entry
    *    the entry to check
