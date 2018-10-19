@@ -23,13 +23,10 @@ export class AuthRequestService {
   }
 
   protected fetchRequest(request: RestRequest): Observable<any> {
-    return this.requestService.getByHref(request.href).pipe(
-      tap((t) => console.log(t)),
-
+    return this.requestService.getByUUID(request.uuid).pipe(
       getResponseFromEntry(),
       // TODO to review when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
       // tap(() => this.responseCache.remove(request.href)),
-      tap((t) => console.log(t)),
       mergeMap((response) => {
         if (response.isSuccessful && isNotEmpty(response)) {
           return observableOf((response as AuthStatusResponse).response);
