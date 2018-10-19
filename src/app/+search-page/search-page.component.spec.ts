@@ -21,6 +21,7 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { RemoteData } from '../core/data/remote-data';
+import { RouteService } from '../shared/services/route.service';
 
 describe('SearchPageComponent', () => {
   let comp: SearchPageComponent;
@@ -62,6 +63,11 @@ describe('SearchPageComponent', () => {
     collapse: () => this.isCollapsed = Observable.of(true),
     expand: () => this.isCollapsed = Observable.of(false)
   };
+  const routeServiceStub = {
+    getRouteParameterValue: () => {
+      return Observable.of('');
+    }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -92,7 +98,8 @@ describe('SearchPageComponent', () => {
         {
           provide: SearchFilterService,
           useValue: {}
-        }, {
+        },
+        {
           provide: SearchConfigurationService,
           useValue: {
             paginatedSearchOptions: hot('a', {
@@ -101,6 +108,10 @@ describe('SearchPageComponent', () => {
             getCurrentScope: (a) => Observable.of('test-id')
           }
         },
+        {
+          provide: RouteService,
+          useValue: routeServiceStub
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchPageComponent, {

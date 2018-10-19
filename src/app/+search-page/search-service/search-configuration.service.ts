@@ -14,7 +14,7 @@ import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SearchFixedFilterService } from '../search-filters/search-filter/search-fixed-filter.service';
-import { map } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -173,8 +173,9 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current fixed filter as a string
    */
   getCurrentFixedFilter(): Observable<string> {
-    const fixedFilter: Observable<string> = this.routeService.getRouteParameterValue('filter');
-    return fixedFilter.flatMap((f) => this.fixedFilterService.getQueryByFilterName(f));
+    return this.routeService.getRouteParameterValue('filter').pipe(
+      flatMap((f) => this.fixedFilterService.getQueryByFilterName(f))
+    );
   }
 
   /**

@@ -9,7 +9,8 @@
                     <span *ngFor="let value of getValues(['journalvolume.identifier.volume']); let last=last;">
                         <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
                     </span>
-                <span *ngIf="item.filterMetadata(['journalissue.identifier.number']).length > 0">
+                <span *ngIf="item.filterMetadata(['journalissue.identifier.number']).length > 0"
+                      class="item-list-journal-issue-numbers">
                     <span *ngFor="let value of getValues(['journalissue.identifier.number']); let last=last;">
                         <span> - </span><span [innerHTML]="value"><span [innerHTML]="value"></span></span>
                     </span>

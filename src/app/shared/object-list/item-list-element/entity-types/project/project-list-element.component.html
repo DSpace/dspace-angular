@@ -5,7 +5,7 @@
   <span class="text-muted">
     <ds-truncatable-part [id]="item.id" [minLines]="1">
             <span *ngIf="item.filterMetadata(['project.identifier.status']).length > 0"
-                  class="item-list-authors">
+                  class="item-list-status">
                     <span *ngFor="let value of getValues(['project.identifier.status']); let last=last;">
                         <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
                     </span>

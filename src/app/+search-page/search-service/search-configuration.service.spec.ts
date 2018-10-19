@@ -25,7 +25,8 @@ describe('SearchConfigurationService', () => {
 
   const routeService = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: Observable.of(value1),
-    getQueryParamsWithPrefix: Observable.of(prefixFilter)
+    getQueryParamsWithPrefix: Observable.of(prefixFilter),
+    getRouteParameterValue: Observable.of('')
   });
 
   const fixedFilterService = jasmine.createSpyObj('SearchFixedFilterService', {
