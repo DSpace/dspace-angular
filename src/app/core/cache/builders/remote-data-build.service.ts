@@ -5,7 +5,15 @@ import {
   race as observableRace
 } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, first, flatMap, map, startWith, switchMap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  first,
+  flatMap,
+  map,
+  startWith,
+  switchMap,
+  takeUntil, tap
+} from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
@@ -32,8 +40,6 @@ export class RemoteDataBuildService {
   }
 
   buildSingle<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<TDomain>> {
-    console.log('call buildSingle', href$);
-
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -45,7 +51,9 @@ export class RemoteDataBuildService {
     const requestEntry$ = observableRace(
       href$.pipe(getRequestFromSelflink(this.requestService)),
       requestHref$.pipe(getRequestFromSelflink(this.requestService)),
-    ).pipe(first());
+    ).pipe(
+     first()
+    );
 
     // always use self link if that is cached, only if it isn't, get it via the response.
     const payload$ =

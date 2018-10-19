@@ -1,6 +1,6 @@
 import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
 import {
-  distinctUntilChanged,
+  distinctUntilChanged, first,
   map,
   mergeMap,
   startWith,
@@ -40,7 +40,7 @@ export class HALEndpointService {
     return this.requestService.getByHref(request.href).pipe(
       getResponseFromEntry(),
       map((response: EndpointMapSuccessResponse) => response.endpointMap),
-      distinctUntilChanged());
+      );
   }
 
   public getEndpoint(linkPath: string): Observable<string> {

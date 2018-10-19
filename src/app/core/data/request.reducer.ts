@@ -53,6 +53,14 @@ function configureRequest(state: RequestState, action: RequestConfigureAction): 
       completed: false,
     }
   });
+  console.log(Object.assign({}, state, {
+    [action.payload.uuid]: {
+      request: action.payload,
+      requestPending: true,
+      responsePending: false,
+      completed: false,
+    }
+  }););
 }
 
 function executeRequest(state: RequestState, action: RequestExecuteAction): RequestState {

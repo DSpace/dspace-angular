@@ -47,8 +47,6 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     if (isNotEmpty(args)) {
       return result.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
     } else {
-      result.subscribe((t) => console.log(t));
-
       return result;
     }
   }

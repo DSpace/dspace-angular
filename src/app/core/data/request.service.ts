@@ -12,10 +12,11 @@ import {
   take,
   tap
 } from 'rxjs/operators';
+import { race as observableRace } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isNotUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
@@ -30,6 +31,7 @@ import { RequestEntry } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { getResponseFromEntry } from '../shared/operators';
+import { AddToIndexAction } from '../index/index.actions';
 
 @Injectable()
 export class RequestService {
@@ -46,6 +48,10 @@ export class RequestService {
 
   private uuidFromHrefSelector(href: string): MemoizedSelector<CoreState, string> {
     return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.REQUEST, href);
+  }
+
+  private originalUUIDFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, string> {
+    return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.UUID_MAPPING, uuid);
   }
 
   generateRequestId(): string {
@@ -70,7 +76,15 @@ export class RequestService {
   }
 
   getByUUID(uuid: string): Observable<RequestEntry> {
-    return this.store.pipe(select(this.entryFromUUIDSelector(uuid)));
+     return observableRace(
+      this.store.pipe(select(this.entryFromUUIDSelector(uuid))),
+      this.store.pipe(
+        select(this.originalUUIDFromUUIDSelector(uuid)),
+        switchMap((originalUUID) => {
+            return this.store.pipe(select(this.entryFromUUIDSelector(originalUUID)))
+          },
+        ))
+    );
   }
 
   getByHref(href: string): Observable<RequestEntry> {
@@ -88,32 +102,42 @@ export class RequestService {
       if (isGetRequest && !forceBypassCache) {
         this.trackRequestsOnTheirWayToTheStore(request);
       }
+    } else {
+      this.getByHref(request.href).pipe(
+        filter((entry) => hasValue(entry)),
+        take(1)
+      ).subscribe((entry) => {
+          return this.store.dispatch(new AddToIndexAction(IndexName.UUID_MAPPING, request.uuid, entry.request.uuid))
+        }
+      )
     }
   }
 
   private isCachedOrPending(request: GetRequest) {
     let isCached = this.objectCache.hasBySelfLink(request.href);
-    const responses: Observable<RestResponse> = this.isReusable(request.uuid).pipe(
-      filter((reusable: boolean) => !isCached && reusable),
-      switchMap(() => {
-          return this.getByHref(request.href).pipe(
-            getResponseFromEntry(),
-            take(1)
-          );
-        }
-      ));
+    if (isCached) {
+      const responses: Observable<RestResponse> = this.isReusable(request.uuid).pipe(
+        filter((reusable: boolean) => reusable),
+        switchMap(() => {
+            return this.getByHref(request.href).pipe(
+              getResponseFromEntry(),
+              take(1)
+            );
+          }
+        ));
 
-    const errorResponses = responses.pipe(filter((response) => !response.isSuccessful), map(() => true)); // TODO add a configurable number of retries in case of an error.
-    const dsoSuccessResponses = responses.pipe(
-      filter((response) => response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)),
-      map((response: DSOSuccessResponse) => response.resourceSelfLinks),
-      map((resourceSelfLinks: string[]) => resourceSelfLinks
-        .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
-      ));
+      const errorResponses = responses.pipe(filter((response) => !response.isSuccessful), map(() => true)); // TODO add a configurable number of retries in case of an error.
+      const dsoSuccessResponses = responses.pipe(
+        filter((response) => response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)),
+        map((response: DSOSuccessResponse) => response.resourceSelfLinks),
+        map((resourceSelfLinks: string[]) => resourceSelfLinks
+          .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
+        ));
 
-    const otherSuccessResponses = responses.pipe(filter((response) => response.isSuccessful && !hasValue((response as DSOSuccessResponse).resourceSelfLinks)), map(() => true));
+      const otherSuccessResponses = responses.pipe(filter((response) => response.isSuccessful && !hasValue((response as DSOSuccessResponse).resourceSelfLinks)), map(() => true));
 
-    observableMerge(errorResponses, otherSuccessResponses, dsoSuccessResponses).subscribe((c) => isCached = c);
+      observableMerge(errorResponses, otherSuccessResponses, dsoSuccessResponses).subscribe((c) => isCached = c);
+    }
     const isPending = this.isPending(request);
     return isCached || isPending;
   }

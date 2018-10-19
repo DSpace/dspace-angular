@@ -170,11 +170,11 @@ describe('RequestService', () => {
 
       it('should return an Observable of undefined', () => {
         const result = service.getByUUID(testUUID);
-        const expected = cold('b', {
-          b: undefined
-        });
+        // const expected = cold('b', {
+        //   b: undefined
+        // });
 
-        expect(result).toBeObservable(expected);
+        scheduler.expectObservable(result).toBe('b', {b: undefined});
       });
     });
 

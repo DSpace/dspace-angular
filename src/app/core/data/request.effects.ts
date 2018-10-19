@@ -3,7 +3,7 @@ import { Inject, Injectable, Injector } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -18,7 +18,7 @@ import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
-import { catchError, flatMap, map, take, tap } from 'rxjs/operators';
+import { catchError, filter, flatMap, map, take, tap } from 'rxjs/operators';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { StoreActionTypes } from '../../store.actions';
 
@@ -40,7 +40,9 @@ export class RequestEffects {
         take(1)
       );
     }),
+    filter((entry: RequestEntry) => hasValue(entry)),
     map((entry: RequestEntry) => entry.request),
+    tap((entry: RequestEntry) => console.log(entry)),
     flatMap((request: RestRequest) => {
       let body;
       if (isNotEmpty(request.body)) {

@@ -1,4 +1,13 @@
-import { distinctUntilChanged, filter, map, mergeMap, share, take, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  first,
+  map,
+  mergeMap,
+  share,
+  take,
+  tap
+} from 'rxjs/operators';
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
@@ -59,7 +68,8 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
       // );
       const responses = scopeCommunityHrefObs.pipe(
         mergeMap((href: string) => this.requestService.getByHref(href)),
-        getResponseFromEntry());
+        getResponseFromEntry()
+      );
       const errorResponses = responses.pipe(
         filter((response) => !response.isSuccessful),
         mergeMap(() => observableThrowError(new Error(`The Community with scope ${options.scopeID} couldn't be retrieved`)))
