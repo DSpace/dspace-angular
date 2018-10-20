@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import {TranslateService} from "@ngx-translate/core";
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-lang-switch',
@@ -31,8 +31,8 @@ export class LangSwitchComponent implements OnInit {
   /**
    * Returns the label for the current language
    */
-  currentLangLabel(): string{
-    let returnIndex: number = this.translate.getLangs().indexOf(this.translate.currentLang);
+  currentLangLabel(): string {
+    const returnIndex: number = this.translate.getLangs().indexOf(this.translate.currentLang);
     return this.activeLangLabels[returnIndex];
   }
 
@@ -40,8 +40,8 @@ export class LangSwitchComponent implements OnInit {
    * Returns the label a specific languages, assuming the index of the language
    * is the same in the list of active languages, as the index of the label in the list of labels.
    */
-  langLabel(lang: string): string{
-    let returnIndex: number = this.translate.getLangs().indexOf(lang);
+  langLabel(lang: string): string {
+    const returnIndex: number = this.translate.getLangs().indexOf(lang);
     return this.activeLangLabels[returnIndex];
   }
 

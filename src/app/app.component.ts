@@ -43,13 +43,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router
   ) {
-    //Load all the languages that are defined as active from the config file
+    // Load all the languages that are defined as active from the config file
     translate.addLangs(config.lang.active);
 
-    //Load the default language from the config file
+    // Load the default language from the config file
     translate.setDefaultLang(config.lang.default);
 
-    //Attempt to get the browser language from the user
+    // Attempt to get the browser language from the user
     if (translate.getLangs().includes(translate.getBrowserLang())) {
       translate.use(translate.getBrowserLang());
     } else {
