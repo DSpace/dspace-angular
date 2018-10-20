@@ -55,7 +55,15 @@ module.exports = {
   debug: false,
   // Language Settings
   lang: {
+    //Default language in case there are no active translations for the user's browser language
     default: 'en',
-    active: ['en','cs','de','nl']
+    //Languages that users can choose from in the language switch
+    active: ['en','cs','de'],
+    //Labels for the languages that users can choose from in the language switch
+    activeLabels: ['English','Čeština','Deutsch'],
+    //Languages for which DSpace has translations files, but that are deactivated
+    inactive: ['nl'],
+    //Labels for deactivated languages
+    inactiveLabels: ['Nederlands']
   }
 };

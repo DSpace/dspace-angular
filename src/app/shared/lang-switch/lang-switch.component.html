@@ -1,10 +1,13 @@
 <div ngbDropdown class="navbar-nav" *ngIf="moreThanOneLanguage">
-  <a href="#" id="dropdownLang" role="button" class="nav-link" (click)="$event.preventDefault()" data-toggle="dropdown" ngbDropdownToggle>{{ 'lang.lang' | translate }}</a>
+  <a href="#" id="dropdownLang" role="button" class="nav-link" (click)="$event.preventDefault()" data-toggle="dropdown" ngbDropdownToggle>
+    <i class="fa fa-language fa-fw" aria-hidden="true"></i>
+    {{ currentLangLabel() }}
+  </a>
   <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownLang">
     <li class="dropdown-item" #langSelect *ngFor="let lang of translate.getLangs()"
             (click)="translate.use(lang)"
             [class.active]="lang === translate.currentLang">
-                {{ 'lang.'+lang | translate }}
+                {{ langLabel(lang) }}
     </li>
   </ul>
 </div>

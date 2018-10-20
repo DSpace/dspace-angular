@@ -273,12 +273,5 @@
     "errors": {
       "invalid-user": "Invalid email address or password."
     }
-  },
-  "lang": {
-    "lang": "Language",
-    "en": "English",
-    "de": "German",
-    "cs": "Czech",
-    "nl": "Dutch"
   }
 }

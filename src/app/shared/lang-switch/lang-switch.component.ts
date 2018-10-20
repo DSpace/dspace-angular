@@ -16,6 +16,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class LangSwitchComponent implements OnInit {
 
   moreThanOneLanguage: boolean = (this.config.lang.active.length > 1);
+  activeLangLabels: string[] = this.config.lang.activeLabels;
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -25,6 +26,23 @@ export class LangSwitchComponent implements OnInit {
 
   ngOnInit(): void {
     // set loading
+  }
+
+  /**
+   * Returns the label for the current language
+   */
+  currentLangLabel(): string{
+    let returnIndex: number = this.translate.getLangs().indexOf(this.translate.currentLang);
+    return this.activeLangLabels[returnIndex];
+  }
+
+  /**
+   * Returns the label a specific languages, assuming the index of the language
+   * is the same in the list of active languages, as the index of the label in the list of labels.
+   */
+  langLabel(lang: string): string{
+    let returnIndex: number = this.translate.getLangs().indexOf(lang);
+    return this.activeLangLabels[returnIndex];
   }
 
 }
