@@ -3,30 +3,25 @@
      (openChange)="openChange($event);">
 
   <!--Simple lookup, only 1 field -->
-  <div class="form-row" *ngIf="!isLookupName()">
-    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
-      <div class="row">
-        <div class="col">
-          <input class="form-control"
-                 [attr.autoComplete]="model.autoComplete"
-                 [class.is-invalid]="showErrorMessages"
-                 [dynamicId]="bindId && model.id"
-                 [name]="model.name"
-                 [type]="model.inputType"
-                 [(ngModel)]="firstInputValue"
-                 [disabled]="isInputDisabled()"
-                 [placeholder]="model.placeholder"
-                 [readonly]="model.readOnly"
-                 (change)="$event.preventDefault()"
-                 (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-                 (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
-                 (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
-                 (input)="onInput($event)">
-        </div>
-
-      </div>
+  <div class="form-row align-items-center" *ngIf="!isLookupName()">
+    <div class="col">
+      <input class="form-control"
+             [attr.autoComplete]="model.autoComplete"
+             [class.is-invalid]="showErrorMessages"
+             [dynamicId]="bindId && model.id"
+             [name]="model.name"
+             [type]="model.inputType"
+             [(ngModel)]="firstInputValue"
+             [disabled]="isInputDisabled()"
+             [placeholder]="model.placeholder"
+             [readonly]="model.readOnly"
+             (change)="$event.preventDefault()"
+             (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
+             (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+             (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
+             (input)="onInput($event)">
     </div>
-    <div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 text-center">
+    <div class="col-auto text-center">
       <button ngbDropdownAnchor
               *ngIf="!isInputDisabled()" class="btn btn-secondary"
               type="button"
@@ -43,47 +38,44 @@
 
   <!--Lookup-name, 2 fields-->
   <div class="form-row" *ngIf="isLookupName()">
-    <div class="col-xs-12 col-md-8 col-lg-9">
-      <div class="row">
-        <div class="col-xs-12 col-md-6">
-          <input class="form-control"
-                 [attr.autoComplete]="model.autoComplete"
-                 [class.is-invalid]="showErrorMessages"
-                 [dynamicId]="bindId && model.id"
-                 [name]="model.name"
-                 [type]="model.inputType"
-                 [(ngModel)]="firstInputValue"
-                 [disabled]="isInputDisabled()"
-                 [placeholder]="model.placeholder | translate"
-                 [readonly]="model.readOnly"
-                 (change)="$event.preventDefault()"
-                 (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-                 (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
-                 (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
-                 (input)="onInput($event)">
-        </div>
-
-        <div *ngIf="isLookupName()" class="col-xs-12 col-md-6 pl-md-0" >
-          <input  class="form-control"
-                  [ngClass]="{}"
-                  [attr.autoComplete]="model.autoComplete"
-                  [class.is-invalid]="showErrorMessages"
-                  [dynamicId]="bindId && model.id"
-                  [name]="model.name + '_2'"
-                  [type]="model.inputType"
-                  [(ngModel)]="secondInputValue"
-                  [disabled]="firstInputValue.length === 0 || isInputDisabled()"
-                  [placeholder]="model.secondPlaceholder | translate"
-                  [readonly]="model.readOnly"
-                  (change)="$event.preventDefault()"
-                  (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-                  (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
-                  (click)="$event.stopPropagation(); sdRef.close();"
-                  (input)="onInput($event)">
-        </div>
-      </div>
+    <div class="col">
+      <input class="form-control"
+             [attr.autoComplete]="model.autoComplete"
+             [class.is-invalid]="showErrorMessages"
+             [dynamicId]="bindId && model.id"
+             [name]="model.name"
+             [type]="model.inputType"
+             [(ngModel)]="firstInputValue"
+             [disabled]="isInputDisabled()"
+             [placeholder]="model.placeholder | translate"
+             [readonly]="model.readOnly"
+             (change)="$event.preventDefault()"
+             (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
+             (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+             (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
+             (input)="onInput($event)">
     </div>
-    <div class="col-xs-12 col-md-3 col-lg-2 text-center">
+
+    <div class="col" >
+      <input  class="form-control"
+              [ngClass]="{}"
+              [attr.autoComplete]="model.autoComplete"
+              [class.is-invalid]="showErrorMessages"
+              [dynamicId]="bindId && model.id"
+              [name]="model.name + '_2'"
+              [type]="model.inputType"
+              [(ngModel)]="secondInputValue"
+              [disabled]="firstInputValue.length === 0 || isInputDisabled()"
+              [placeholder]="model.secondPlaceholder | translate"
+              [readonly]="model.readOnly"
+              (change)="$event.preventDefault()"
+              (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
+              (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+              (click)="$event.stopPropagation(); sdRef.close();"
+              (input)="onInput($event)">
+    </div>
+
+    <div class="col-auto text-center">
       <button ngbDropdownAnchor
               *ngIf="!isInputDisabled()" class="btn btn-secondary"
               type="button"
