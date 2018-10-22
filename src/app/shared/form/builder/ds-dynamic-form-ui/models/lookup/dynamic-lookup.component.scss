@@ -37,6 +37,7 @@
 }
 
 :host /deep/ .dropdown-menu {
+  left: 0 !important;
   width: 100% !important;
   max-height: $dropdown-menu-max-height;
   overflow-y: auto !important;
@@ -50,16 +51,7 @@
   color: $dropdown-link-hover-color !important;
   background-color: $dropdown-link-hover-bg !important;
 }
-//
-//.dropdown-menu {
-//  margin-top: -($spacer * 0.625);
-//}
 
 div {
   overflow: visible;
-  //padding-right: 0 !important;
 }
-//
-//button {
-//  margin-right: $spacer * 0.625;
-//}

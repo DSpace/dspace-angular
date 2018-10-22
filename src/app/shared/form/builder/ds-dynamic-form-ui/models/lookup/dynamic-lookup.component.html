@@ -2,42 +2,8 @@
      (click)="$event.stopPropagation();"
      (openChange)="openChange($event);">
 
-  <!--Simple lookup, only 1 field -->
-  <div class="form-row align-items-center" *ngIf="!isLookupName()">
-    <div class="col">
-      <input class="form-control"
-             [attr.autoComplete]="model.autoComplete"
-             [class.is-invalid]="showErrorMessages"
-             [dynamicId]="bindId && model.id"
-             [name]="model.name"
-             [type]="model.inputType"
-             [(ngModel)]="firstInputValue"
-             [disabled]="isInputDisabled()"
-             [placeholder]="model.placeholder"
-             [readonly]="model.readOnly"
-             (change)="$event.preventDefault()"
-             (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-             (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
-             (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
-             (input)="onInput($event)">
-    </div>
-    <div class="col-auto text-center">
-      <button ngbDropdownAnchor
-              *ngIf="!isInputDisabled()" class="btn btn-secondary"
-              type="button"
-              [disabled]="model.readOnly || isSearchDisabled()"
-              (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
-      </button>
-      <button *ngIf="isInputDisabled()" class="btn btn-secondary"
-              type="button"
-              [disabled]="model.readOnly"
-              (click)="remove($event)">{{'form.remove' | translate}}
-      </button>
-    </div>
-  </div>
-
-  <!--Lookup-name, 2 fields-->
-  <div class="form-row" *ngIf="isLookupName()">
+  <div class="form-row align-items-center">
+    <!--Simple lookup, first field -->
     <div class="col">
       <input class="form-control"
              [attr.autoComplete]="model.autoComplete"
@@ -56,7 +22,8 @@
              (input)="onInput($event)">
     </div>
 
-    <div class="col" >
+    <!--Lookup-name, second field-->
+    <div *ngIf="isLookupName()" class="col" >
       <input  class="form-control"
               [ngClass]="{}"
               [attr.autoComplete]="model.autoComplete"
@@ -74,23 +41,25 @@
               (click)="$event.stopPropagation(); sdRef.close();"
               (input)="onInput($event)">
     </div>
-
-    <div class="col-auto text-center">
+    <div *ngIf="!isInputDisabled()" class="col-auto text-center">
       <button ngbDropdownAnchor
-              *ngIf="!isInputDisabled()" class="btn btn-secondary"
+               class="btn btn-secondary"
               type="button"
-              [disabled]="isSearchDisabled()"
+              [disabled]="model.readOnly || isSearchDisabled()"
               (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
       </button>
-      <button *ngIf="isInputDisabled()" class="btn btn-secondary"
+    </div>
+    <div *ngIf="isInputDisabled()" class="col-auto text-center">
+      <button  class="btn btn-secondary"
               type="button"
+              [disabled]="model.readOnly"
               (click)="remove($event)">{{'form.remove' | translate}}
       </button>
     </div>
   </div>
 
   <div ngbDropdownMenu
-       class="mt-0 dropdown-menu scrollable-dropdown-menu w-100"
+       class="dropdown-menu scrollable-dropdown-menu w-100"
        aria-haspopup="true"
        aria-expanded="false"
        aria-labelledby="scrollableDropdownMenuButton">
