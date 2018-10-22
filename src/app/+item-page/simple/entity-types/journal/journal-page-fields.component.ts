@@ -9,6 +9,7 @@ import {
   EntityPageFieldsComponent, filterRelationsByTypeLabel,
   relationsToItems
 } from '../shared/entity-page-fields.component';
+import { isNotEmpty } from '../../../../shared/empty.util';
 
 @rendersEntityType('Journal', ElementViewMode.Full)
 @Component({
@@ -28,9 +29,11 @@ export class JournalPageFieldsComponent extends EntityPageFieldsComponent {
   ngOnInit(): void {
     super.ngOnInit();
 
-    this.volumes$ = this.resolvedRelsAndTypes$.pipe(
-      filterRelationsByTypeLabel('isVolumeOfJournal'),
-      relationsToItems(this.item.id, this.ids)
-    );
+    if (isNotEmpty(this.resolvedRelsAndTypes$)) {
+      this.volumes$ = this.resolvedRelsAndTypes$.pipe(
+        filterRelationsByTypeLabel('isVolumeOfJournal'),
+        relationsToItems(this.item.id, this.ids)
+      );
+    }
   }
 }
