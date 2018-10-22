@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { META_REDUCERS, MetaReducer, StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -46,7 +47,6 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
 
 const DEV_MODULES: any[] = [];
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -58,6 +58,10 @@ const DEV_MODULES: any[] = [];
     TranslateModule.forRoot(),
     EffectsModule.forRoot(appEffects),
     StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: getConfig().production, // Restrict extension to log-only mode
+    }),
     StoreRouterConnectingModule,
     ...DEV_MODULES
   ],
