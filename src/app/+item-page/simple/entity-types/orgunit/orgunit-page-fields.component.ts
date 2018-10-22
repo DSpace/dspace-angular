@@ -9,6 +9,7 @@ import {
   EntityPageFieldsComponent, filterRelationsByTypeLabel,
   relationsToItems
 } from '../shared/entity-page-fields.component';
+import { isNotEmpty } from '../../../../shared/empty.util';
 
 @rendersEntityType('OrgUnit', ElementViewMode.Full)
 @Component({
@@ -32,18 +33,20 @@ export class OrgUnitPageFieldsComponent extends EntityPageFieldsComponent implem
   ngOnInit(): void {
     super.ngOnInit();
 
-    this.people$ = this.resolvedRelsAndTypes$.pipe(
-      filterRelationsByTypeLabel('isPersonOfOrgUnit'),
-      relationsToItems(this.item.id, this.ids)
-    );
+    if (isNotEmpty(this.resolvedRelsAndTypes$)) {
+      this.people$ = this.resolvedRelsAndTypes$.pipe(
+        filterRelationsByTypeLabel('isPersonOfOrgUnit'),
+        relationsToItems(this.item.id, this.ids)
+      );
 
-    this.projects$ = this.resolvedRelsAndTypes$.pipe(
-      filterRelationsByTypeLabel('isProjectOfOrgUnit'),
-      relationsToItems(this.item.id, this.ids)
-    );
+      this.projects$ = this.resolvedRelsAndTypes$.pipe(
+        filterRelationsByTypeLabel('isProjectOfOrgUnit'),
+        relationsToItems(this.item.id, this.ids)
+      );
 
-    this.publications$ = this.resolvedRelsAndTypes$.pipe(
-      filterRelationsByTypeLabel('isPublicationOfOrgUnit'),
-      relationsToItems(this.item.id, this.ids)
-    );
+      this.publications$ = this.resolvedRelsAndTypes$.pipe(
+        filterRelationsByTypeLabel('isPublicationOfOrgUnit'),
+        relationsToItems(this.item.id, this.ids)
+      );
+    }
   }}

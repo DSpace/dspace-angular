@@ -6,15 +6,15 @@
     <ds-metadata-field-wrapper>
       <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/project-placeholder.png'"></ds-thumbnail>
     </ds-metadata-field-wrapper>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['project.identifier.status']"
       [label]="'project.page.status'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['project.identifier.id']"
       [label]="'project.page.id'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['project.identifier.expectedcompletion']"
       [label]="'project.page.expectedcompletion'">
     </ds-generic-item-page-field>
@@ -32,11 +32,11 @@
       [entities]="orgUnits$ | async"
       [label]="'relationships.isOrgUnitOf' | translate">
     </ds-related-entities>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['project.identifier.description']"
       [label]="'project.page.description'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['project.identifier.keyword']"
       [label]="'project.page.keyword'">
     </ds-generic-item-page-field>

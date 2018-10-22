@@ -6,11 +6,11 @@
     <ds-metadata-field-wrapper>
       <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
     </ds-metadata-field-wrapper>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journalvolume.identifier.volume']"
       [label]="'journalvolume.page.volume'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journalvolume.issuedate']"
       [label]="'journalvolume.page.issuedate'">
     </ds-generic-item-page-field>
@@ -24,7 +24,7 @@
       [entities]="issues$ | async"
       [label]="'relationships.isIssueOf' | translate">
     </ds-related-entities>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journalvolume.identifier.description']"
       [label]="'journalvolume.page.description'">
     </ds-generic-item-page-field>

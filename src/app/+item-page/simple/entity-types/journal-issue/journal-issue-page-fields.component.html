@@ -6,11 +6,11 @@
     <ds-metadata-field-wrapper>
       <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
     </ds-metadata-field-wrapper>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journalissue.identifier.number']"
       [label]="'journalissue.page.number'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journalissue.issuedate']"
       [label]="'journalissue.page.issuedate'">
     </ds-generic-item-page-field>
@@ -24,11 +24,11 @@
       [entities]="publications$ | async"
       [label]="'relationships.isPublicationOfJournalIssue' | translate">
     </ds-related-entities>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journalissue.identifier.description']"
       [label]="'journalissue.page.description'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journalissue.identifier.keyword']"
       [label]="'journalissue.page.keyword'">
     </ds-generic-item-page-field>
