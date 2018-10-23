@@ -17,6 +17,9 @@ import { isNotEmpty } from '../../../../shared/empty.util';
   styleUrls: ['./orgunit-page-fields.component.scss'],
   templateUrl: './orgunit-page-fields.component.html'
 })
+/**
+ * The component for displaying metadata and relations of an item with entity type Organisation Unit
+ */
 export class OrgUnitPageFieldsComponent extends EntityPageFieldsComponent implements OnInit {
 
   people$: Observable<Item[]>;

@@ -10,6 +10,8 @@ import { EntitySearchResultComponent } from '../entity-search-result-component';
   styleUrls: ['./publication-list-element.component.scss'],
   templateUrl: './publication-list-element.component.html'
 })
-
+/**
+ * The component for displaying a list element for an item with entity type Publication
+ */
 export class PublicationListElementComponent extends EntitySearchResultComponent {
 }

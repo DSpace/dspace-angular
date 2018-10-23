@@ -9,6 +9,8 @@ import { EntitySearchResultComponent } from '../entity-search-result-component';
   styleUrls: ['./orgunit-list-element.component.scss'],
   templateUrl: './orgunit-list-element.component.html'
 })
-
+/**
+ * The component for displaying a list element for an item with entity type Organisation Unit
+ */
 export class OrgUnitListElementComponent extends EntitySearchResultComponent {
 }

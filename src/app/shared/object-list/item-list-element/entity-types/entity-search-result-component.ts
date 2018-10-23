@@ -8,6 +8,9 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 // TODO lot of overlap with SearchResultListElementComponent => refactor!
+/**
+ * A generic component for displaying entity list elements
+ */
 @Component({
   selector: 'ds-entity-search-result',
   template: ''
@@ -33,6 +36,11 @@ export class EntitySearchResultComponent {
     }
   }
 
+  /**
+   * Get the values of metadata by keys
+   * @param {string[]} keys   List of metadata keys to get values for
+   * @returns {string[]}      List of metadata values
+   */
   getValues(keys: string[]): string[] {
     const results: string[] = new Array<string>();
     this.searchResult.hitHighlights.forEach(
@@ -52,6 +60,11 @@ export class EntitySearchResultComponent {
     return results;
   }
 
+  /**
+   * Get the first value of a metadatum by key
+   * @param {string} key    Metadatum key
+   * @returns {string}      Metadatum value
+   */
   getFirstValue(key: string): string {
     let result: string;
     this.searchResult.hitHighlights.some(
@@ -68,6 +81,10 @@ export class EntitySearchResultComponent {
     return result;
   }
 
+  /**
+   * Whether or not the item's values are collapsed
+   * @returns {Observable<boolean>}
+   */
   isCollapsed(): Observable<boolean> {
     return this.truncatableService.isCollapsed(this.item.id);
   }

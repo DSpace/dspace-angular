@@ -9,6 +9,8 @@ import { EntitySearchResultComponent } from '../entity-search-result-component';
   styleUrls: ['./journal-list-element.component.scss'],
   templateUrl: './journal-list-element.component.html'
 })
-
+/**
+ * The component for displaying a list element for an item with entity type Journal
+ */
 export class JournalListElementComponent extends EntitySearchResultComponent {
 }

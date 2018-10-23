@@ -17,6 +17,9 @@ import { isNotEmpty } from '../../../../shared/empty.util';
   styleUrls: ['./project-page-fields.component.scss'],
   templateUrl: './project-page-fields.component.html'
 })
+/**
+ * The component for displaying metadata and relations of an item with entity type Project
+ */
 export class ProjectPageFieldsComponent extends EntityPageFieldsComponent implements OnInit {
   people$: Observable<Item[]>;
   publications$: Observable<Item[]>;

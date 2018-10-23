@@ -17,8 +17,18 @@ import { isNotEmpty } from '../../../../shared/empty.util';
   styleUrls: ['./journal-issue-page-fields.component.scss'],
   templateUrl: './journal-issue-page-fields.component.html'
 })
+/**
+ * The component for displaying metadata and relations of an item with entity type Journal Issue
+ */
 export class JournalIssuePageFieldsComponent extends EntityPageFieldsComponent {
+  /**
+   * The volumes related to this journal issue
+   */
   volumes$: Observable<Item[]>;
+
+  /**
+   * The publications related to this journal issue
+   */
   publications$: Observable<Item[]>;
 
   constructor(

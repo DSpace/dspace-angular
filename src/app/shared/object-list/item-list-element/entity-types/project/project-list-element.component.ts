@@ -9,6 +9,8 @@ import { EntitySearchResultComponent } from '../entity-search-result-component';
   styleUrls: ['./project-list-element.component.scss'],
   templateUrl: './project-list-element.component.html'
 })
-
+/**
+ * The component for displaying a list element for an item with entity type Project
+ */
 export class ProjectListElementComponent extends EntitySearchResultComponent {
 }

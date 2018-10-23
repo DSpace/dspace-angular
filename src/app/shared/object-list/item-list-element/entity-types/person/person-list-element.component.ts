@@ -9,6 +9,8 @@ import { EntitySearchResultComponent } from '../entity-search-result-component';
   styleUrls: ['./person-list-element.component.scss'],
   templateUrl: './person-list-element.component.html'
 })
-
+/**
+ * The component for displaying a list element for an item with entity type Person
+ */
 export class PersonListElementComponent extends EntitySearchResultComponent {
 }

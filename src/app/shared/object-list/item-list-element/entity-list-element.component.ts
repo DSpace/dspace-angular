@@ -12,6 +12,10 @@ import { SetViewMode } from '../../view-mode';
   templateUrl: './entity-list-element.component.html'
 })
 
+/**
+ * The component used to list entities depending on type
+ * Uses entity-type-switcher to determine which components to use for displaying the list
+ */
 @renderElementsFor(Item, SetViewMode.List)
 export class EntityListElementComponent extends AbstractListableElementComponent<Item> {
   ElementViewMode = viewMode.ElementViewMode;

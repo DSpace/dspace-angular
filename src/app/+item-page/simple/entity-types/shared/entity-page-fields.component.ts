@@ -28,6 +28,11 @@ const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
 const compareArraysUsingIds = <T extends { id: string }>() =>
   compareArraysUsing((t: T) => hasValue(t) ? t.id : undefined);
 
+/**
+ * Fetch the relationships which match the type label given
+ * @param {string} label      Type label
+ * @returns {(source: Observable<[Relationship[] , RelationshipType[]]>) => Observable<Relationship[]>}
+ */
 export const filterRelationsByTypeLabel = (label: string) =>
   (source: Observable<[Relationship[], RelationshipType[]]>): Observable<Relationship[]> =>
     source.pipe(
@@ -40,6 +45,12 @@ export const filterRelationsByTypeLabel = (label: string) =>
       distinctUntilChanged(compareArraysUsingIds())
     );
 
+/**
+ * Operator for turning a list of relationships into a list of the relevant items
+ * @param {string} thisId           The item's id of which the relations belong to
+ * @param {ItemDataService} ids     The ItemDataService to fetch items from the REST API
+ * @returns {(source: Observable<Relationship[]>) => Observable<Item[]>}
+ */
 export const relationsToItems = (thisId: string, ids: ItemDataService) =>
   (source: Observable<Relationship[]>): Observable<Item[]> =>
     source.pipe(
@@ -65,7 +76,13 @@ export const relationsToItems = (thisId: string, ids: ItemDataService) =>
   selector: 'ds-entity-page-fields',
   template: ''
 })
+/**
+ * A generic component for displaying metadata and relations of an item
+ */
 export class EntityPageFieldsComponent implements OnInit {
+  /**
+   * Resolved relationships and types together in one observable
+   */
   resolvedRelsAndTypes$: Observable<[Relationship[], RelationshipType[]]>
 
   constructor(
