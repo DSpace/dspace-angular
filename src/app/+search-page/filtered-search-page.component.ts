@@ -1,18 +1,14 @@
-import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchPageComponent } from './search-page.component';
-import { ChangeDetectionStrategy, Component, Injectable, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { RouteService } from '../shared/services/route.service';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
-import { switchMap, tap } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../core/shared/operators';
 import { Observable } from 'rxjs/Observable';
 import { PaginatedSearchOptions } from './paginated-search-options.model';
-import { isNotEmpty } from '../shared/empty.util';
 
 /**
  * This component renders a simple item page.

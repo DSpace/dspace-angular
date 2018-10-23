@@ -23,100 +23,110 @@ import { SearchConfigurationService } from './search-service/search-configuratio
 import { RemoteData } from '../core/data/remote-data';
 import { RouteService } from '../shared/services/route.service';
 
-describe('SearchPageComponent', () => {
-  let comp: SearchPageComponent;
-  let fixture: ComponentFixture<SearchPageComponent>;
-  let searchServiceObject: SearchService;
-  const store: Store<SearchPageComponent> = jasmine.createSpyObj('store', {
-    /* tslint:disable:no-empty */
-    dispatch: {},
-    /* tslint:enable:no-empty */
-    select: Observable.of(true)
-  });
-  const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-  pagination.id = 'search-results-pagination';
-  pagination.currentPage = 1;
-  pagination.pageSize = 10;
-  const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-  const mockResults = Observable.of(new RemoteData(false, false, true, null, ['test', 'data']));
-  const searchServiceStub = jasmine.createSpyObj('SearchService', {
-    search: mockResults,
-    getSearchLink: '/search',
-    getScopes: Observable.of(['test-scope'])
-  });
-  const queryParam = 'test query';
-  const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-  const paginatedSearchOptions = {
+let comp: SearchPageComponent;
+let fixture: ComponentFixture<SearchPageComponent>;
+let searchServiceObject: SearchService;
+const store: Store<SearchPageComponent> = jasmine.createSpyObj('store', {
+  /* tslint:disable:no-empty */
+  dispatch: {},
+  /* tslint:enable:no-empty */
+  select: Observable.of(true)
+});
+const pagination: PaginationComponentOptions = new PaginationComponentOptions();
+pagination.id = 'search-results-pagination';
+pagination.currentPage = 1;
+pagination.pageSize = 10;
+const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
+const mockResults = Observable.of(new RemoteData(false, false, true, null, ['test', 'data']));
+const searchServiceStub = jasmine.createSpyObj('SearchService', {
+  search: mockResults,
+  getSearchLink: '/search',
+  getScopes: Observable.of(['test-scope'])
+});
+const queryParam = 'test query';
+const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
+const fixedFilter = 'fixed filter';
+const paginatedSearchOptions = {
+  query: queryParam,
+  scope: scopeParam,
+  fixedFilter: fixedFilter,
+  pagination,
+  sort
+};
+const activatedRouteStub = {
+  queryParams: Observable.of({
     query: queryParam,
-    scope: scopeParam,
-    pagination,
-    sort
-  };
-  const activatedRouteStub = {
-    queryParams: Observable.of({
-      query: queryParam,
-      scope: scopeParam
-    })
-  };
-  const sidebarService = {
-    isCollapsed: Observable.of(true),
-    collapse: () => this.isCollapsed = Observable.of(true),
-    expand: () => this.isCollapsed = Observable.of(false)
-  };
-  const routeServiceStub = {
-    getRouteParameterValue: () => {
-      return Observable.of('');
-    }
-  };
+    scope: scopeParam
+  })
+};
+const sidebarService = {
+  isCollapsed: Observable.of(true),
+  collapse: () => this.isCollapsed = Observable.of(true),
+  expand: () => this.isCollapsed = Observable.of(false)
+};
+const routeServiceStub = {
+  getRouteParameterValue: () => {
+    return Observable.of('');
+  }
+};
+
+export function configureSearchComponentTestingModule(compType) {
+  TestBed.configureTestingModule({
+    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule.forRoot()],
+    declarations: [compType],
+    providers: [
+      { provide: SearchService, useValue: searchServiceStub },
+      {
+        provide: CommunityDataService,
+        useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])
+      },
+      { provide: ActivatedRoute, useValue: activatedRouteStub },
+      {
+        provide: Store, useValue: store
+      },
+      {
+        provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
+          {
+            isXs: Observable.of(true),
+            isSm: Observable.of(false),
+            isXsOrSm: Observable.of(true)
+          })
+      },
+      {
+        provide: SearchSidebarService,
+        useValue: sidebarService
+      },
+      {
+        provide: SearchFilterService,
+        useValue: {}
+      },
+      {
+        provide: SearchConfigurationService,
+        useValue: {
+          paginatedSearchOptions: hot('a', {
+            a: paginatedSearchOptions
+          }),
+          getCurrentScope: (a) => Observable.of('test-id'),
+          /* tslint:disable:no-empty */
+          updateFixedFilter: (newFilter) => {}
+          /* tslint:enable:no-empty */
+        }
+      },
+      {
+        provide: RouteService,
+        useValue: routeServiceStub
+      }
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+  }).overrideComponent(compType, {
+    set: { changeDetection: ChangeDetectionStrategy.Default }
+  }).compileComponents();
+}
+
+describe('SearchPageComponent', () => {
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule.forRoot()],
-      declarations: [SearchPageComponent],
-      providers: [
-        { provide: SearchService, useValue: searchServiceStub },
-        {
-          provide: CommunityDataService,
-          useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])
-        },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        {
-          provide: Store, useValue: store
-        },
-        {
-          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-            {
-              isXs: Observable.of(true),
-              isSm: Observable.of(false),
-              isXsOrSm: Observable.of(true)
-            })
-        },
-        {
-          provide: SearchSidebarService,
-          useValue: sidebarService
-        },
-        {
-          provide: SearchFilterService,
-          useValue: {}
-        },
-        {
-          provide: SearchConfigurationService,
-          useValue: {
-            paginatedSearchOptions: hot('a', {
-              a: paginatedSearchOptions
-            }),
-            getCurrentScope: (a) => Observable.of('test-id')
-          }
-        },
-        {
-          provide: RouteService,
-          useValue: routeServiceStub
-        }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(SearchPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
+    configureSearchComponentTestingModule(SearchPageComponent);
   }));
 
   beforeEach(() => {
