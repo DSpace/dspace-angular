@@ -10,6 +10,7 @@ describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
   let fixture: ComponentFixture<SearchResultsComponent>;
   let heading: DebugElement;
+  let title: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,18 +24,42 @@ describe('SearchResultsComponent', () => {
     fixture = TestBed.createComponent(SearchResultsComponent);
     comp = fixture.componentInstance; // SearchFormComponent test instance
     heading = fixture.debugElement.query(By.css('heading'));
+    title = fixture.debugElement.query(By.css('.search-results-title'));
   });
 
-  it('should display heading when results are not empty', fakeAsync(() => {
-    (comp as any).searchResults = 'test';
-    (comp as any).searchConfig = {pagination: ''};
-    fixture.detectChanges();
-    tick();
-    expect(heading).toBeDefined();
-  }));
+  describe('when results are not empty', () => {
+    beforeEach(() => {
+      (comp as any).searchResults = 'test';
+      (comp as any).searchConfig = {pagination: ''};
+      fixture.detectChanges();
+    });
 
-  it('should not display heading when results is empty', () => {
-    expect(heading).toBeNull();
+    it('should display heading',() => {
+      expect(heading).toBeDefined();
+    });
+
+    describe('when disableHeader is not set', () => {
+      it('should not display a title',() => {
+        expect(title).toBeNull();
+      });
+    });
+
+    describe('when disableHeader is set', () => {
+      beforeEach(() => {
+        comp.disableHeader = true;
+        fixture.detectChanges();
+      });
+
+      it('should display a title',() => {
+        expect(title).toBeDefined();
+      });
+    });
+  });
+
+  describe('when results are empty', () => {
+    it('should not display heading', () => {
+      expect(heading).toBeNull();
+    });
   });
 });
 
