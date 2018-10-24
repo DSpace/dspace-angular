@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed, async, tick, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ResourceType } from '../../core/shared/resource-type';
 import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchResultsComponent } from './search-results.component';
+import { QueryParamsDirectiveStub } from '../../shared/testing/query-params-directive-stub';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
@@ -14,7 +15,9 @@ describe('SearchResultsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [SearchResultsComponent],
+      declarations: [
+        SearchResultsComponent,
+        QueryParamsDirectiveStub],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
@@ -46,14 +49,44 @@ describe('SearchResultsComponent', () => {
 
   it('should display link with new search where query is quoted if search return a error 400', () => {
     (comp as any).searchResults = { hasFailed: true, error: { statusCode: 400 } };
+    (comp as any).searchConfig = { query: 'foobar' };
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('a'))).not.toBeNull();
+
+    const linkDes = fixture.debugElement.queryAll(By.directive(QueryParamsDirectiveStub));
+
+    // get attached link directive instances
+    // using each DebugElement's injector
+    const routerLinkQuery = linkDes.map((de) => de.injector.get(QueryParamsDirectiveStub));
+
+    expect(routerLinkQuery.length).toBe(1, 'should have 1 router link with query params');
+    expect(routerLinkQuery[0].queryParams.query).toBe('"foobar"', 'query params should be "foobar"');
   });
 
   it('should display link with new search where query is quoted if search result is empty', () => {
     (comp as any).searchResults = { payload: { page: { length: 0 } } };
+    (comp as any).searchConfig = { query: 'foobar' };
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('a'))).not.toBeNull();
+
+    const linkDes = fixture.debugElement.queryAll(By.directive(QueryParamsDirectiveStub));
+
+    // get attached link directive instances
+    // using each DebugElement's injector
+    const routerLinkQuery = linkDes.map((de) => de.injector.get(QueryParamsDirectiveStub));
+
+    expect(routerLinkQuery.length).toBe(1, 'should have 1 router link with query params');
+    expect(routerLinkQuery[0].queryParams.query).toBe('"foobar"', 'query params should be "foobar"');
+  });
+
+  it('should add quotes around the given string', () => {
+    expect(comp.surroundStringWithQuotes('teststring')).toEqual('"teststring"');
+  });
+
+  it('should not add quotes around the given string if they are already there', () => {
+    expect(comp.surroundStringWithQuotes('"teststring"')).toEqual('"teststring"');
+  });
+
+  it('should not add quotes around a given empty string', () => {
+    expect(comp.surroundStringWithQuotes('')).toEqual('');
   });
 });
 
