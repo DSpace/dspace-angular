@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import { filter, map, startWith, tap } from 'rxjs/operators';
 
 import { DSpaceObject } from './dspace-object.model';
 import { Collection } from './collection.model';
@@ -89,6 +90,7 @@ export class Item extends DSpaceObject {
    * Retrieves bitstreams by bundle name
    * @param bundleName The name of the Bundle that should be returned
    * @returns {Observable<Bitstream[]>} the bitstreams with the given bundleName
+   * TODO now that bitstreams can be paginated this should move to the server
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
     return this.bitstreams

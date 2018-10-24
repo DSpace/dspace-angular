@@ -6,7 +6,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { ResourceType } from '../shared/resource-type';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 
@@ -15,7 +14,7 @@ function isObjectLevel(halObj: any) {
 }
 
 function isPaginatedResponse(halObj: any) {
-  return isNotEmpty(halObj.page) /* && hasValue(halObj._embedded)*/;
+  return hasValue(halObj.page) && hasValue(halObj._embedded);
 }
 
 /* tslint:disable:max-classes-per-file */
@@ -130,7 +129,7 @@ export abstract class BaseResponseParsingService {
   }
 
   processPageInfo(payload: any): PageInfo {
-    if (isNotEmpty(payload.page)) {
+    if (hasValue(payload.page)) {
       const pageObj = Object.assign({}, payload.page, { _links: payload._links });
       const pageInfoObject = new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
       if (pageInfoObject.currentPage >= 0) {
