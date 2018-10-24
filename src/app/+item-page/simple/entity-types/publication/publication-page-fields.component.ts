@@ -22,9 +22,24 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PublicationPageFieldsComponent extends EntityPageFieldsComponent implements OnInit {
+  /**
+   * The authors related to this publication
+   */
   authors$: Observable<Item[]>;
+
+  /**
+   * The projects related to this publication
+   */
   projects$: Observable<Item[]>;
+
+  /**
+   * The organisation units related to this publication
+   */
   orgUnits$: Observable<Item[]>;
+
+  /**
+   * The journal issues related to this publication
+   */
   journalIssues$: Observable<Item[]>;
 
   constructor(

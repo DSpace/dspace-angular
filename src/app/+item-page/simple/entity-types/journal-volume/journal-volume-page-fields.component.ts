@@ -21,7 +21,14 @@ import { isNotEmpty } from '../../../../shared/empty.util';
  * The component for displaying metadata and relations of an item with entity type Journal Volume
  */
 export class JournalVolumePageFieldsComponent extends EntityPageFieldsComponent {
+  /**
+   * The journals related to this journal volume
+   */
   journals$: Observable<Item[]>;
+
+  /**
+   * The journal issues related to this journal volume
+   */
   issues$: Observable<Item[]>;
 
   constructor(

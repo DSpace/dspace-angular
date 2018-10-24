@@ -21,9 +21,19 @@ import { isNotEmpty } from '../../../../shared/empty.util';
  * The component for displaying metadata and relations of an item with entity type Organisation Unit
  */
 export class OrgUnitPageFieldsComponent extends EntityPageFieldsComponent implements OnInit {
-
+  /**
+   * The people related to this organisation unit
+   */
   people$: Observable<Item[]>;
+
+  /**
+   * The projects related to this organisation unit
+   */
   projects$: Observable<Item[]>;
+
+  /**
+   * The publications related to this organisation unit
+   */
   publications$: Observable<Item[]>;
 
   constructor(

@@ -22,10 +22,29 @@ import { isNotEmpty } from '../../../../shared/empty.util';
  * The component for displaying metadata and relations of an item with entity type Person
  */
 export class PersonPageFieldsComponent extends EntityPageFieldsComponent {
+  /**
+   * The publications related to this person
+   */
   publications$: Observable<Item[]>;
+
+  /**
+   * The projects related to this person
+   */
   projects$: Observable<Item[]>;
+
+  /**
+   * The organisation units related to this person
+   */
   orgUnits$: Observable<Item[]>;
+
+  /**
+   * The applied fixed filter
+   */
   fixedFilter$: Observable<string>;
+
+  /**
+   * The query used for applying the fixed filter
+   */
   fixedFilterQuery: string;
 
   constructor(
