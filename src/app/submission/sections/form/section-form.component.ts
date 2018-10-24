@@ -35,7 +35,7 @@ import { difference } from '../../../shared/object.util';
   templateUrl: './section-form.component.html',
 })
 @renderSectionFor(SectionsType.SubmissionForm)
-export class FormSectionComponent extends SectionModelComponent implements OnDestroy {
+export class FormSectionComponent extends SectionModelComponent {
 
   public formId;
   public formModel: DynamicFormControlModel[];
@@ -90,7 +90,7 @@ export class FormSectionComponent extends SectionModelComponent implements OnDes
       });
   }
 
-  ngOnDestroy() {
+  onSectionDestroy() {
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());

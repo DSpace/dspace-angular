@@ -33,7 +33,7 @@ export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
   templateUrl: './section-upload.component.html',
 })
 @renderSectionFor(SectionsType.Upload)
-export class UploadSectionComponent extends SectionModelComponent implements OnDestroy {
+export class UploadSectionComponent extends SectionModelComponent {
 
   public AlertTypeEnum = AlertType;
   public fileIndexes = [];
@@ -205,7 +205,7 @@ export class UploadSectionComponent extends SectionModelComponent implements OnD
   /**
    * Method provided by Angular. Invoked when the instance is destroyed.
    */
-  ngOnDestroy() {
+  onSectionDestroy() {
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());

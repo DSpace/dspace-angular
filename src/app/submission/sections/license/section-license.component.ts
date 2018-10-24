@@ -30,7 +30,7 @@ import { FormComponent } from '../../../shared/form/form.component';
   templateUrl: './section-license.component.html',
 })
 @renderSectionFor(SectionsType.License)
-export class LicenseSectionComponent extends SectionModelComponent implements OnDestroy {
+export class LicenseSectionComponent extends SectionModelComponent {
 
   public formId;
   public formModel: DynamicFormControlModel[];
@@ -140,7 +140,7 @@ export class LicenseSectionComponent extends SectionModelComponent implements On
     }
   }
 
-  ngOnDestroy() {
+  onSectionDestroy() {
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
