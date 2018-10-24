@@ -111,6 +111,10 @@ export class SearchPageComponent implements OnInit {
     }
   }
 
+  /**
+   * Get the current paginated search options
+   * @returns {Observable<PaginatedSearchOptions>}
+   */
   protected getSearchOptions(): Observable<PaginatedSearchOptions> {
     return this.searchConfigService.paginatedSearchOptions;
   }

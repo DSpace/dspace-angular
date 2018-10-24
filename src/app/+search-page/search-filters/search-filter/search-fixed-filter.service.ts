@@ -14,6 +14,9 @@ import { hasValue } from '../../../shared/empty.util';
 import { configureRequest } from '../../../core/shared/operators';
 import { RouteService } from '../../../shared/services/route.service';
 
+/**
+ * Service for performing actions on the filtered-discovery-pages REST endpoint
+ */
 @Injectable()
 export class SearchFixedFilterService {
   private queryByFilterPath = 'filtered-discovery-pages';
@@ -25,6 +28,11 @@ export class SearchFixedFilterService {
 
   }
 
+  /**
+   * Get the filter query for a certain filter by name
+   * @param {string} filterName     Name of the filter
+   * @returns {Observable<string>}  Filter query
+   */
   getQueryByFilterName(filterName: string): Observable<string> {
     if (hasValue(filterName)) {
       const requestObs = this.halService.getEndpoint(this.queryByFilterPath).pipe(
@@ -56,6 +64,12 @@ export class SearchFixedFilterService {
     return Observable.of(undefined);
   }
 
+  /**
+   * Get the query for looking up items by relation type
+   * @param {string} relationType   Relation type
+   * @param {string} itemUUID       Item UUID
+   * @returns {string}              Query
+   */
   getQueryByRelations(relationType: string, itemUUID: string): string {
     return `query=relation.${relationType}:${itemUUID}`;
   }

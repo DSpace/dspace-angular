@@ -316,6 +316,10 @@ export class SearchConfigurationService implements OnDestroy {
     );
   }
 
+  /**
+   * Update the fixed filter in paginated and non-paginated search options with a given value
+   * @param {string} fixedFilter
+   */
   public updateFixedFilter(fixedFilter: string) {
     const currentPaginatedValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
     const updatedPaginatedValue: PaginatedSearchOptions = Object.assign(currentPaginatedValue, { fixedFilter: fixedFilter });

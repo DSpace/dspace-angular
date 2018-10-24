@@ -39,6 +39,12 @@ export class FilteredSearchPageComponent extends SearchPageComponent {
     super(service, sidebarService, windowService, filterService, searchConfigService, routeService);
   }
 
+  /**
+   * Get the current paginated search options after updating the fixed filter using the fixedFilterQuery input
+   * This is to make sure the fixed filter is included in the paginated search options, as it is not part of any
+   * query or route parameters
+   * @returns {Observable<PaginatedSearchOptions>}
+   */
   protected getSearchOptions(): Observable<PaginatedSearchOptions> {
     this.searchConfigService.updateFixedFilter(this.fixedFilterQuery);
     return this.searchConfigService.paginatedSearchOptions;

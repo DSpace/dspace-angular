@@ -30,14 +30,25 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ItemPageComponent implements OnInit {
 
+  /**
+   * The item's id
+   */
   id: number;
 
-  private sub: any;
-
+  /**
+   * The item wrapped in a remote-data object
+   */
   itemRD$: Observable<RemoteData<Item>>;
 
+  /**
+   * The item's thumbnail
+   */
   thumbnail$: Observable<Bitstream>;
 
+  /**
+   * The view-mode we're currently on
+   * @type {ElementViewMode}
+   */
   ElementViewMode = viewMode.ElementViewMode;
 
   constructor(

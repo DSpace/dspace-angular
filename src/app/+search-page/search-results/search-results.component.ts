@@ -41,6 +41,11 @@ export class SearchResultsComponent {
   @Input() fixedFilter: string;
   @Input() disableHeader = false;
 
+  /**
+   * Get the i18n key for the title depending on the fixed filter
+   * Defaults to 'search.results.head' if there's no fixed filter found
+   * @returns {string}
+   */
   getTitleKey() {
     if (isNotEmpty(this.fixedFilter)) {
       return 'search.' + this.fixedFilter + '.results.head'
