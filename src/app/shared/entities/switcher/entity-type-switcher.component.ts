@@ -13,9 +13,23 @@ export const ITEM: InjectionToken<string> = new InjectionToken<string>('item');
   styleUrls: ['./entity-type-switcher.component.scss'],
   templateUrl: './entity-type-switcher.component.html'
 })
+/**
+ * Component for determining what component to use depending on the item's relationship type (relationship.type)
+ */
 export class EntityTypeSwitcherComponent implements OnInit {
+  /**
+   * The item to determine the component for
+   */
   @Input() object: Item | SearchResult<Item>;
+
+  /**
+   * The preferred view-mode to display
+   */
   @Input() viewMode: ElementViewMode;
+
+  /**
+   * The object injector used to inject the item into the child component
+   */
   objectInjector: Injector;
 
   constructor(private injector: Injector) {
@@ -29,6 +43,10 @@ export class EntityTypeSwitcherComponent implements OnInit {
 
   }
 
+  /**
+   * Fetch the component depending on the item's relationship type
+   * @returns {string}
+   */
   getComponent(): string {
     let item: Item;
     if (hasValue((this.object as any).dspaceObject)) {
