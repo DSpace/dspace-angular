@@ -15,7 +15,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    const payload = data.payload/*._embedded.searchResult*/;
+    const payload = data.payload._embedded.searchResult;
     const hitHighlights = payload._embedded.objects
       .map((object) => object.hitHighlights)
       .map((hhObject) => {
@@ -55,6 +55,6 @@ export class SearchResponseParsingService implements ResponseParsingService {
       }));
     payload.objects = objects;
     const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
-    return new SearchSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload));
+    return new SearchSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(payload));
   }
 }
