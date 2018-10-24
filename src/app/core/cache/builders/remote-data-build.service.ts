@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, flatMap, map, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, filter, flatMap, map, startWith, switchMap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
@@ -8,6 +8,8 @@ import { RemoteDataError } from '../../data/remote-data-error';
 import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
+import { Bitstream } from '../../shared/bitstream.model';
+import { Item } from '../../shared/item.model';
 
 import { NormalizedObject } from '../models/normalized-object.model';
 import { ObjectCacheService } from '../object-cache.service';
@@ -190,7 +192,7 @@ export class RemoteDataBuildService {
         }
 
         if (hasValue(normalized[relationship].page)) {
-          links[relationship] = this.aggregatePaginatedList(result, normalized[relationship].pageInfo);
+          links[relationship] = this.toPaginatedList(result, normalized[relationship].pageInfo);
         } else {
           links[relationship] = result;
         }
@@ -254,8 +256,14 @@ export class RemoteDataBuildService {
       })
   }
 
-  aggregatePaginatedList<T>(input: Observable<RemoteData<T[]>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
-    return input.map((rd) => Object.assign(rd, {payload: new PaginatedList(pageInfo, rd.payload)}));
+  private toPaginatedList<T>(input: Observable<RemoteData<T[] | PaginatedList<T>>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
+    return input.map((rd: RemoteData<T[] | PaginatedList<T>>) => {
+      if (Array.isArray(rd.payload)) {
+        return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })
+      } else {
+        return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload.page) });
+      }
+    });
   }
 
 }
