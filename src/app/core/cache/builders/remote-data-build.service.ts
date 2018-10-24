@@ -8,8 +8,6 @@ import { RemoteDataError } from '../../data/remote-data-error';
 import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
-import { Bitstream } from '../../shared/bitstream.model';
-import { Item } from '../../shared/item.model';
 
 import { NormalizedObject } from '../models/normalized-object.model';
 import { ObjectCacheService } from '../object-cache.service';
