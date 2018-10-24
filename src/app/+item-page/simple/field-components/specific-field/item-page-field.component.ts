@@ -13,6 +13,9 @@ import { Item } from '../../../../core/shared/item.model';
 })
 export class ItemPageFieldComponent {
 
+    /**
+     * The item to display metadata for
+     */
     @Input() item: Item;
 
     /**

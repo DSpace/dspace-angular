@@ -11,6 +11,9 @@ import { Component, Input } from '@angular/core';
 })
 export class MetadataFieldWrapperComponent {
 
+  /**
+   * The label (title) for the content
+   */
   @Input() label: string;
 
 }
