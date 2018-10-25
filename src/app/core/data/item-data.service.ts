@@ -1,21 +1,24 @@
-import { Inject, Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { BrowseService } from '../browse/browse.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedItem } from '../cache/models/normalized-item.model';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { CoreState } from '../core.reducers';
-import { Item } from '../shared/item.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import {isNotEmpty, isNotEmptyOperator} from '../../shared/empty.util';
+import {BrowseService} from '../browse/browse.service';
+import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
+import {NormalizedItem} from '../cache/models/normalized-item.model';
+import {ResponseCacheService} from '../cache/response-cache.service';
+import {CoreState} from '../core.reducers';
+import {Item} from '../shared/item.model';
+import {URLCombiner} from '../url-combiner/url-combiner';
 
-import { DataService } from './data.service';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions } from './request.models';
+import {DataService} from './data.service';
+import {RequestService} from './request.service';
+import {HALEndpointService} from '../shared/hal-endpoint.service';
+import {FindAllOptions, PostRequest, RestRequest} from './request.models';
+import {distinctUntilChanged, map} from 'rxjs/operators';
+import {RestResponse} from '../cache/response-cache.models';
+import {configureRequest, getResponseFromSelflink} from '../shared/operators';
+import {ResponseCacheEntry} from '../cache/response-cache.reducer';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -48,4 +51,22 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       .distinctUntilChanged();
   }
 
+  public getMoveItemEndpoint(itemId: string, collectionId?: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId)),
+      map((endpoint: string) => `${endpoint}/owningCollection/move/${collectionId ? `/${collectionId}` : ''}`)
+    );
+  }
+
+  public moveToCollection(itemId: string, collectionId: string): Observable<RestResponse> {
+    return this.getMoveItemEndpoint(itemId, collectionId).pipe(
+      // isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL)),
+      configureRequest(this.requestService),
+      map((request: RestRequest) => request.href),
+      getResponseFromSelflink(this.responseCache),
+      map((responseCacheEntry: ResponseCacheEntry) => responseCacheEntry.response)
+    );
+  }
 }

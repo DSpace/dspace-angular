@@ -1,51 +1,41 @@
-import {Component, OnInit} from '@angular/core';
-import {Collection} from '../../../core/shared/collection.model';
-import {RemoteData} from '../../../core/data/remote-data';
-import {Item} from '../../../core/shared/item.model';
-import {getSucceededRemoteData} from '../../../core/shared/operators';
-import {Observable} from 'rxjs';
-import {PaginatedList} from '../../../core/data/paginated-list';
-import {TranslateService} from '@ngx-translate/core';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {SearchService} from '../../../+search-page/search-service/search.service';
-import {SearchConfigurationService} from '../../../+search-page/search-service/search-configuration.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CollectionDataService} from '../../../core/data/collection-data.service';
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>{{'item.edit.move.head' | translate: { id: (itemRD$ | async)?.payload?.id} }}</h2>
+            <p>{{'item.edit.move.description' | translate}}</p>
+            <div class="row">
+                <div class="col-12">
+                    <ds-input-suggestions #f id="search-form"
+                                          [suggestions]="(filterSearchResults | async)"
+                                          [placeholder]="'item.move.search.placeholder'| translate"
+                                          [action]="getCurrentUrl()"
+                                          [name]="'item-move'"
+                                          [(ngModel)]="selectedCollection"
+                                          (clickSuggestion)="onClick($event)"
+                                          (findSuggestions)="findSuggestions($event)"
+                                          (click)="f.open()"
+                                          ngDefaultControl>
+                    </ds-input-suggestions>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p>
+                        <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox">
+                        <label for="inheritPoliciesCheckbox">{{'item.edit.move.inheritpolicies.checkbox' |
+                            translate}}</label>
+                    </p>
+                    <p>
+                        {{'item.edit.move.inheritpolicies.description' | translate}}
+                    </p>
+                </div>
+            </div>
 
-@Component({
-  selector: 'ds-item-move',
-  templateUrl: './item-move.component.html'
-})
-export class ItemMoveComponent implements OnInit {
-  inheritPolicies: boolean;
-
-  itemRD$: Observable<RemoteData<Item>>;
-
-  /**
-   * List of collections to show under the "Browse" tab
-   * Collections that are mapped to the item
-   */
-  itemCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
-
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private searchConfigService: SearchConfigurationService,
-              private searchService: SearchService,
-              private notificationsService: NotificationsService,
-              private collectionDataService: CollectionDataService,
-              private translateService: TranslateService) {
-  }
-
-  ngOnInit(): void {
-    this.itemRD$ = this.route.data.map((data) => data.item).pipe(getSucceededRemoteData()) as Observable<RemoteData<Item>>;
-    this.loadCollectionLists();
-  }
-
-  /**
-   * Load all available collections to move the item to.
-   *  TODO: When the API support it, only fetch collections where user has ADD rights to.
-   */
-  loadCollectionLists() {
-    this.itemCollectionsRD$ = this.collectionDataService.findAll();
-  }
-}
+            <button (click)="moveCollection()" class="btn btn-outline-secondary">{{'item.edit.move.move' | translate}}
+            </button>
+            <button [routerLink]="['/items/', (itemRD$ | async)?.payload?.id]" class="btn btn-outline-secondary">
+                {{'item.edit.move.cancel' | translate}}
+            </button>
+        </div>
+    </div>
+</div>

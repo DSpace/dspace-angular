@@ -160,6 +160,15 @@ export class InputSuggestionsComponent {
   }
 
   /**
+   * Changes the show variable so the suggestion dropdown opens
+   */
+  open() {
+    if (!this.blockReopen) {
+      this.show.next(true);
+    }
+  }
+
+  /**
    * For usage of the isNotEmpty function in the template
    */
   isNotEmpty(data) {

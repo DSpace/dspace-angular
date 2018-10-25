@@ -103,6 +103,16 @@
         "curate": {
           "head": "Curate"
         }
+      },
+      "move": {
+        "head":"Move item: {{id}}",
+        "description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
+        "inheritpolicies": {
+          "description": "Inherit the default policies of the destination collection",
+          "checkbox": "Inherit policies"
+        },
+        "move": "Move",
+        "cancel": "Cancel"
       }
     }
   },
