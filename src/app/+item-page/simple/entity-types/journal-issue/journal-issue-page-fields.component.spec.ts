@@ -4,7 +4,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { getEntityPageFieldsTest } from '../shared/entity-page-fields.component.spec';
+import { createRelationshipsObservable, getEntityPageFieldsTest } from '../shared/entity-page-fields.component.spec';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
@@ -28,7 +28,8 @@ const mockItem: Item = Object.assign(new Item(), {
       key: 'journalissue.identifier.keyword',
       language: 'en_US',
       value: 'keyword'
-    }]
+    }],
+  relationships: createRelationshipsObservable()
 });
 
 describe('JournalIssuePageFieldsComponent', getEntityPageFieldsTest(mockItem, JournalIssuePageFieldsComponent));

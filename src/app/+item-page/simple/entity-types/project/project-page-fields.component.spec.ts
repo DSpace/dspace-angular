@@ -4,7 +4,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { ProjectPageFieldsComponent } from './project-page-fields.component';
-import { getEntityPageFieldsTest } from '../shared/entity-page-fields.component.spec';
+import { createRelationshipsObservable, getEntityPageFieldsTest } from '../shared/entity-page-fields.component.spec';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
@@ -33,7 +33,8 @@ const mockItem: Item = Object.assign(new Item(), {
       key: 'project.identifier.keyword',
       language: 'en_US',
       value: 'keyword'
-    }]
+    }],
+  relationships: createRelationshipsObservable()
 });
 
 describe('ProjectPageFieldsComponent', getEntityPageFieldsTest(mockItem, ProjectPageFieldsComponent));

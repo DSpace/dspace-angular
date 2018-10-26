@@ -11,6 +11,12 @@ import { ITEM } from '../../../../shared/entities/switcher/entity-type-switcher.
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { RelationshipType } from '../../../../core/shared/entities/relationship-type.model';
+import { PaginatedList } from '../../../../core/data/paginated-list';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Relationship } from '../../../../core/shared/entities/relationship.model';
+import { Observable } from 'rxjs/Observable';
+import { PageInfo } from '../../../../core/shared/page-info.model';
 
 /**
  * Create a generic test for an entity-page-fields component using a mockItem and the type of component
@@ -24,6 +30,12 @@ export function getEntityPageFieldsTest(mockItem: Item, component) {
     let comp: any;
     let fixture: ComponentFixture<any>;
 
+    const searchFixedFilterServiceStub = {
+      /* tslint:disable:no-empty */
+      getQueryByRelations: () => {}
+      /* tslint:enable:no-empty */
+    };
+
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot({
@@ -36,7 +48,7 @@ export function getEntityPageFieldsTest(mockItem: Item, component) {
         providers: [
           {provide: ITEM, useValue: mockItem},
           {provide: ItemDataService, useValue: {}},
-          {provide: SearchFixedFilterService, useValue: {}},
+          {provide: SearchFixedFilterService, useValue: searchFixedFilterServiceStub},
           {provide: TruncatableService, useValue: {}}
         ],
 
@@ -78,4 +90,12 @@ export function containsFieldInput(fields: DebugElement[], metadataKey: string):
     }
   }
   return false;
+}
+
+export function createRelationshipsObservable() {
+  return Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [
+    Object.assign(new Relationship(), {
+      relationshipType: Observable.of(new RemoteData(false, false, true, null, new RelationshipType()))
+    })
+  ])));
 }
