@@ -269,8 +269,11 @@ export class MetadataService {
   private setCitationPdfUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
-      item.getFiles().filter((files) => isNotEmpty(files)).first().subscribe((bitstreams: Bitstream[]) => {
-        for (const bitstream of bitstreams) {
+      item.getFiles()
+        .first((files) => isNotEmpty(files))
+        .catch((error) => { console.debug(error); return [] })
+        .subscribe((bitstreams: Bitstream[]) => {
+          for (const bitstream of bitstreams) {
           bitstream.format.first()
             .map((rd: RemoteData<BitstreamFormat>) => rd.payload)
             .filter((format: BitstreamFormat) => hasValue(format))
