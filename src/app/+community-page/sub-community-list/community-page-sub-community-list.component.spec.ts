@@ -39,6 +39,17 @@ describe('SubCommunityList Component', () => {
     })
   ];
 
+  const emptySubCommunitiesCommunity = Object.assign(new Community(), {
+    metadata: [
+      {
+        key: 'dc.title',
+        language: 'en_US',
+        value: 'Test title'
+      }],
+    subcommunities: Observable.of(new RemoteData(true, true, true,
+      undefined, new PaginatedList(new PageInfo(), [])))
+  });
+
   const mockCommunity = Object.assign(new Community(), {
       metadata: [
         {
@@ -74,5 +85,13 @@ describe('SubCommunityList Component', () => {
     expect(subComList.length).toEqual(2);
     expect(subComList[0].nativeElement.textContent).toContain('SubCommunity 1');
     expect(subComList[1].nativeElement.textContent).toContain('SubCommunity 2');
+  });
+
+  it('should not display the header when subCommunities are empty', () => {
+    comp.community = emptySubCommunitiesCommunity;
+    fixture.detectChanges();
+
+    const subComHead = fixture.debugElement.queryAll(By.css('h2'));
+    expect(subComHead.length).toEqual(0);
   });
 });
