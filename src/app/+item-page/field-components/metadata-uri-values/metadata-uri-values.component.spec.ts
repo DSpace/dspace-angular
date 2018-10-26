@@ -57,14 +57,14 @@ describe('MetadataUriValuesComponent', () => {
   });
 
   it('should contain the correct hrefs', () => {
-    const links = fixture.debugElement.queryAll(By.css('.metadata-value-links'));
+    const links = fixture.debugElement.queryAll(By.css('a'));
     for (const metadatum of mockMetadata) {
       expect(containsHref(links, metadatum.value)).toBeTruthy();
     }
   });
 
   it('should contain separators equal to the amount of metadata values minus one', () => {
-    const separators = fixture.debugElement.queryAll(By.css('.metadata-value-separator'));
+    const separators = fixture.debugElement.queryAll(By.css('a span'));
     expect(separators.length).toBe(mockMetadata.length - 1);
   });
 
@@ -76,7 +76,7 @@ describe('MetadataUriValuesComponent', () => {
     });
 
     it('should replace the metadata value with the linktext', () => {
-      const link = fixture.debugElement.query(By.css('.metadata-value-links'));
+      const link = fixture.debugElement.query(By.css('a'));
       expect(link.nativeElement.textContent).toContain(mockLinkText);
     });
 

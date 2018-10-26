@@ -24,7 +24,7 @@ describe('SearchResultsComponent', () => {
     fixture = TestBed.createComponent(SearchResultsComponent);
     comp = fixture.componentInstance; // SearchFormComponent test instance
     heading = fixture.debugElement.query(By.css('heading'));
-    title = fixture.debugElement.query(By.css('.search-results-title'));
+    title = fixture.debugElement.query(By.css('h2'));
   });
 
   describe('when results are not empty', () => {
