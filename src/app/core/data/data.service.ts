@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, first, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, switchMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
@@ -13,7 +13,7 @@ import {
   FindAllOptions,
   FindAllRequest,
   FindByIDRequest,
-  GetRequest
+  GetRequest, RestRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
@@ -143,6 +143,8 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     );
 
     const selfLink$ = request$.pipe(
+      map((restRequest: RestRequest) => restRequest.href),
+      switchMap((href: string) => this.requestService.getByHref(href)),
       getResponseFromEntry(),
       map((response: RestResponse) => {
         if (!response.isSuccessful && response instanceof ErrorResponse) {
