@@ -25,7 +25,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import {
   configureRequest,
-  filterSuccessfulResponses,
+  filterSuccessfulResponses, getResourceLinksFromResponse,
   getResponseFromEntry
 } from '../shared/operators';
 import { DSOSuccessResponse, ErrorResponse, RestResponse } from '../cache/response.models';
@@ -138,13 +138,15 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
 
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint: string) => new CreateRequest(requestId, endpoint, dso)),
-      configureRequest(this.requestService)
+      map((endpoint: string) => new CreateRequest(requestId, endpoint, dso))
     );
 
-    const selfLink$ = request$.pipe(
-      map((restRequest: RestRequest) => restRequest.href),
-      switchMap((href: string) => this.requestService.getByHref(href)),
+    // Execute the post request
+    request$.pipe(
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    const selfLink$ = this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry(),
       map((response: RestResponse) => {
         if (!response.isSuccessful && response instanceof ErrorResponse) {
@@ -153,13 +155,17 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
           return response;
         }
       }),
-      filterSuccessfulResponses(),
-      map((response: DSOSuccessResponse) => {
-        return response.resourceSelfLinks[0];
+      map((response: any) => {
+        if (isNotEmpty(response.resourceSelfLinks)) {
+          return response.resourceSelfLinks[0];
+        }
       }),
       distinctUntilChanged()
     ) as Observable<string>;
-    return this.rdbService.buildSingle(selfLink$) as Observable<RemoteData<TDomain>>;
+
+    return selfLink$.pipe(
+      switchMap((selfLink: string) => this.findByHref(selfLink)),
+    )
   }
 
 }
