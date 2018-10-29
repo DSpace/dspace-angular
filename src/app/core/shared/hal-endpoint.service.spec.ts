@@ -1,44 +1,44 @@
-import { cold, hot } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from './hal-endpoint.service';
 import { EndpointMapRequest } from '../data/request.models';
+import { RequestEntry } from '../data/request.reducer';
+import { of as observableOf } from 'rxjs';
 
 describe('HALEndpointService', () => {
   let service: HALEndpointService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let envConfig: GlobalConfig;
+  let requestEntry;
 
   const endpointMap = {
     test: 'https://rest.api/test',
   };
   const linkPath = 'test';
 
+  beforeEach(() => {
+    requestEntry = {
+      request: { responseMsToLive: 1000 } as any,
+      requestPending: false,
+      responsePending: false,
+      completed: true,
+      response: { endpointMap: endpointMap } as any
+    } as RequestEntry;
+    requestService = getMockRequestService(observableOf(requestEntry));
+
+    envConfig = {
+      rest: { baseUrl: 'https://rest.api/' }
+    } as any;
+
+    service = new HALEndpointService(
+      requestService,
+      envConfig
+    );
+  });
+
   describe('getRootEndpointMap', () => {
-    beforeEach(() => {
-      responseCache = jasmine.createSpyObj('responseCache', {
-        get: hot('a-', {
-          a: {
-            response: { endpointMap: endpointMap }
-          }
-        })
-      });
-
-      requestService = getMockRequestService();
-
-      envConfig = {
-        rest: { baseUrl: 'https://rest.api/' }
-      } as any;
-
-      service = new HALEndpointService(
-        responseCache,
-        requestService,
-        envConfig
-      );
-    });
 
     it('should configure a new EndpointMapRequest', () => {
       (service as any).getRootEndpointMap();
@@ -48,8 +48,8 @@ describe('HALEndpointService', () => {
 
     it('should return an Observable of the endpoint map', () => {
       const result = (service as any).getRootEndpointMap();
-      const expected = cold('b-', { b: endpointMap });
-      expect(result).toBeObservable(expected);
+      const expected = '(b|)';
+      getTestScheduler().expectObservable(result).toBe(expected, { b: endpointMap });
     });
 
   });
@@ -60,12 +60,6 @@ describe('HALEndpointService', () => {
       envConfig = {
         rest: { baseUrl: 'https://rest.api/' }
       } as any;
-
-      service = new HALEndpointService(
-        responseCache,
-        requestService,
-        envConfig
-      );
     });
 
     it('should return the endpoint URL for the service\'s linkPath', () => {
@@ -89,7 +83,6 @@ describe('HALEndpointService', () => {
   describe('isEnabledOnRestApi', () => {
     beforeEach(() => {
       service = new HALEndpointService(
-        responseCache,
         requestService,
         envConfig
       );

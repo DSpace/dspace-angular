@@ -1,24 +1,22 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 
 import { HeaderComponent } from './header.component';
 import { HeaderState } from './header.reducer';
 import { HeaderToggleAction } from './header.actions';
-import { AuthNavMenuComponent } from '../shared/auth-nav-menu/auth-nav-menu.component';
-import { LogInComponent } from '../shared/log-in/log-in.component';
-import { LogOutComponent } from '../shared/log-out/log-out.component';
-import { LoadingComponent } from '../shared/loading/loading.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HostWindowService } from '../shared/host-window.service';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service-stub';
 import { RouterStub } from '../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import * as ngrx from '@ngrx/store';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;
@@ -35,11 +33,12 @@ describe('HeaderComponent', () => {
         NgbCollapseModule.forRoot(),
         NoopAnimationsModule,
         ReactiveFormsModule],
-      declarations: [HeaderComponent, AuthNavMenuComponent, LoadingComponent, LogInComponent, LogOutComponent],
+      declarations: [HeaderComponent],
       providers: [
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: Router, useClass: RouterStub },
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();  // compile template and css
   }));
@@ -50,7 +49,7 @@ describe('HeaderComponent', () => {
 
     comp = fixture.componentInstance;
 
-    store = fixture.debugElement.injector.get(Store);
+    store = fixture.debugElement.injector.get(Store) as Store<HeaderState>;
     spyOn(store, 'dispatch');
   });
 
@@ -72,7 +71,11 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#collapsingNav')).nativeElement;
-      spyOn(store, 'select').and.returnValue(Observable.of({ navCollapsed: true }));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf({ navCollapsed: true })
+        };
+      });
       fixture.detectChanges();
     });
 
@@ -87,7 +90,11 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#collapsingNav')).nativeElement;
-      spyOn(store, 'select').and.returnValue(Observable.of(false));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(false)
+        };
+      });
       fixture.detectChanges();
     });
 

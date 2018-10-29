@@ -1,10 +1,10 @@
+import { filter, mergeMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
 import { ComColDataService } from './comcol-data.service';
@@ -14,7 +14,7 @@ import { AuthService } from '../auth/auth.service';
 import { FindAllOptions, FindAllRequest } from './request.models';
 import { RemoteData } from './remote-data';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
@@ -26,7 +26,6 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
   protected cds = this;
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
@@ -44,12 +43,10 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
   }
 
   findTop(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
-    const hrefObs = this.halService.getEndpoint(this.topLinkPath).filter((href: string) => isNotEmpty(href))
-      .flatMap((endpoint: string) => this.getFindAllHref(endpoint, options));
-
-    hrefObs
-      .filter((href: string) => hasValue(href))
-      .take(1)
+    const hrefObs = this.getFindAllHref(options, this.topLinkPath);
+    hrefObs.pipe(
+      filter((href: string) => hasValue(href)),
+      take(1))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);

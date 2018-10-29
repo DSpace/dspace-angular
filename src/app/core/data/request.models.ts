@@ -9,51 +9,41 @@ import { ConfigResponseParsingService } from './config-response-parsing.service'
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
+import { RestRequestMethod } from './rest-request-method';
+import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
 
 /* tslint:disable:max-classes-per-file */
 
-/**
- * Represents a Request Method.
- *
- * I didn't reuse the RequestMethod enum in @angular/http because
- * it uses numbers. The string values here are more clear when
- * debugging.
- *
- * The ones commented out are still unsupported in the rest of the codebase
- */
-export enum RestRequestMethod {
-  Get = 'GET',
-  Post = 'POST',
-  Put = 'PUT',
-  Delete = 'DELETE',
-  Options = 'OPTIONS',
-  Head = 'HEAD',
-  Patch = 'PATCH'
-}
-
 export abstract class RestRequest {
+  public responseMsToLive = 0;
   constructor(
     public uuid: string,
     public href: string,
-    public method: RestRequestMethod = RestRequestMethod.Get,
+    public method: RestRequestMethod = RestRequestMethod.GET,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   ) {
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return DSOResponseParsingService;
   }
+
+  get toCache(): boolean {
+    return this.responseMsToLive > 0;
+  }
 }
 
 export class GetRequest extends RestRequest {
+  public responseMsToLive = 60 * 15 * 1000;
+
   constructor(
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions
+    public options?: HttpOptions,
   )  {
-    super(uuid, href, RestRequestMethod.Get, body)
+    super(uuid, href, RestRequestMethod.GET, body, options)
   }
 }
 
@@ -64,7 +54,7 @@ export class PostRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.Post, body)
+    super(uuid, href, RestRequestMethod.POST, body)
   }
 }
 
@@ -75,7 +65,7 @@ export class PutRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.Put, body)
+    super(uuid, href, RestRequestMethod.PUT, body)
   }
 }
 
@@ -86,7 +76,7 @@ export class DeleteRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.Delete, body)
+    super(uuid, href, RestRequestMethod.DELETE, body)
   }
 }
 
@@ -97,7 +87,7 @@ export class OptionsRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.Options, body)
+    super(uuid, href, RestRequestMethod.OPTIONS, body)
   }
 }
 
@@ -108,7 +98,7 @@ export class HeadRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.Head, body)
+    super(uuid, href, RestRequestMethod.HEAD, body)
   }
 }
 
@@ -119,7 +109,7 @@ export class PatchRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.Patch, body)
+    super(uuid, href, RestRequestMethod.PATCH, body)
   }
 }
 
@@ -178,6 +168,12 @@ export class BrowseEndpointRequest extends GetRequest {
 export class BrowseEntriesRequest extends GetRequest {
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return BrowseEntriesResponseParsingService;
+  }
+}
+
+export class BrowseItemsRequest extends GetRequest {
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return BrowseItemsResponseParsingService;
   }
 }
 

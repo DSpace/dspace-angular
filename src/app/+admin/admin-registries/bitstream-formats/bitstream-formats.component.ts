@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { BitstreamFormat } from '../../../core/registry/mock-bitstream-format.model';

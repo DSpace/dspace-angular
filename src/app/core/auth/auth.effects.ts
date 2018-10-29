@@ -1,11 +1,11 @@
+import { of as observableOf, Observable } from 'rxjs';
+
+import { filter, debounceTime, switchMap, take, tap, catchError, map, first } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 // import @ngrx
-import { Actions, Effect } from '@ngrx/effects';
-import { Action, Store } from '@ngrx/store';
-
-// import rxjs
-import { Observable } from 'rxjs/Observable';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Action, select, Store } from '@ngrx/store';
 
 // import services
 import { AuthService } from './auth.service';
@@ -28,7 +28,7 @@ import {
   RegistrationErrorAction,
   RegistrationSuccessAction
 } from './auth.actions';
-import { Eperson } from '../eperson/models/eperson.model';
+import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AppState } from '../../app.reducer';
@@ -43,112 +43,131 @@ export class AuthEffects {
    * @method authenticate
    */
   @Effect()
-  public authenticate$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.AUTHENTICATE)
-    .switchMap((action: AuthenticateAction) => {
-      return this.authService.authenticate(action.payload.email, action.payload.password)
-        .first()
-        .map((response: AuthStatus) => new AuthenticationSuccessAction(response.token))
-        .catch((error) => Observable.of(new AuthenticationErrorAction(error)));
-    });
+  public authenticate$: Observable<Action> = this.actions$.pipe(
+      ofType(AuthActionTypes.AUTHENTICATE),
+      switchMap((action: AuthenticateAction) => {
+        return this.authService.authenticate(action.payload.email, action.payload.password).pipe(
+          first(),
+          map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
+          catchError((error) => observableOf(new AuthenticationErrorAction(error)))
+        );
+      })
+    );
 
   @Effect()
-  public authenticateSuccess$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.AUTHENTICATE_SUCCESS)
-    .do((action: AuthenticationSuccessAction) => this.authService.storeToken(action.payload))
-    .map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload));
+  public authenticateSuccess$: Observable<Action> = this.actions$.pipe(
+      ofType(AuthActionTypes.AUTHENTICATE_SUCCESS),
+      tap((action: AuthenticationSuccessAction) => this.authService.storeToken(action.payload)),
+      map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload))
+    );
 
   @Effect()
-  public authenticated$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.AUTHENTICATED)
-    .switchMap((action: AuthenticatedAction) => {
-      return this.authService.authenticatedUser(action.payload)
-        .map((user: Eperson) => new AuthenticatedSuccessAction((user !== null), action.payload, user))
-        .catch((error) => Observable.of(new AuthenticatedErrorAction(error)));
-    });
+  public authenticated$: Observable<Action> = this.actions$.pipe(
+      ofType(AuthActionTypes.AUTHENTICATED),
+      switchMap((action: AuthenticatedAction) => {
+        return this.authService.authenticatedUser(action.payload).pipe(
+          map((user: EPerson) => new AuthenticatedSuccessAction((user !== null), action.payload, user)),
+          catchError((error) => observableOf(new AuthenticatedErrorAction(error))),);
+      })
+    );
 
   // It means "reacts to this action but don't send another"
-  @Effect({dispatch: false})
-  public authenticatedError$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.AUTHENTICATED_ERROR)
-    .do((action: LogOutSuccessAction) => this.authService.removeToken());
+  @Effect({ dispatch: false })
+  public authenticatedError$: Observable<Action> = this.actions$.pipe(
+      ofType(AuthActionTypes.AUTHENTICATED_ERROR),
+      tap((action: LogOutSuccessAction) => this.authService.removeToken())
+    );
 
   @Effect()
-  public checkToken$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN)
-    .switchMap(() => {
-      return this.authService.hasValidAuthenticationToken()
-        .map((token: AuthTokenInfo) => new AuthenticatedAction(token))
-        .catch((error) => Observable.of(new CheckAuthenticationTokenErrorAction()));
-    });
+  public checkToken$: Observable<Action> = this.actions$.pipe(ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN),
+      switchMap(() => {
+        return this.authService.hasValidAuthenticationToken().pipe(
+          map((token: AuthTokenInfo) => new AuthenticatedAction(token)),
+          catchError((error) => observableOf(new CheckAuthenticationTokenErrorAction()))
+        );
+      })
+    );
 
   @Effect()
-  public createUser$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.REGISTRATION)
-    .debounceTime(500) // to remove when functionality is implemented
-    .switchMap((action: RegistrationAction) => {
-      return this.authService.create(action.payload)
-        .map((user: Eperson) => new RegistrationSuccessAction(user))
-        .catch((error) => Observable.of(new RegistrationErrorAction(error)));
-    });
+  public createUser$: Observable<Action> = this.actions$.pipe(
+      ofType(AuthActionTypes.REGISTRATION),
+      debounceTime(500), // to remove when functionality is implemented
+      switchMap((action: RegistrationAction) => {
+        return this.authService.create(action.payload).pipe(
+          map((user: EPerson) => new RegistrationSuccessAction(user)),
+          catchError((error) => observableOf(new RegistrationErrorAction(error)))
+        );
+      })
+    );
 
   @Effect()
-  public refreshToken$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.REFRESH_TOKEN)
-    .switchMap((action: RefreshTokenAction) => {
-      return this.authService.refreshAuthenticationToken(action.payload)
-        .map((token: AuthTokenInfo) => new RefreshTokenSuccessAction(token))
-        .catch((error) => Observable.of(new RefreshTokenErrorAction()));
-    });
+  public refreshToken$: Observable<Action> = this.actions$.pipe(ofType(AuthActionTypes.REFRESH_TOKEN),
+      switchMap((action: RefreshTokenAction) => {
+        return this.authService.refreshAuthenticationToken(action.payload).pipe(
+          map((token: AuthTokenInfo) => new RefreshTokenSuccessAction(token)),
+          catchError((error) => observableOf(new RefreshTokenErrorAction()))
+        );
+      })
+    );
 
   // It means "reacts to this action but don't send another"
-  @Effect({dispatch: false})
-  public refreshTokenSuccess$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.REFRESH_TOKEN_SUCCESS)
-    .do((action: RefreshTokenSuccessAction) => this.authService.replaceToken(action.payload));
+  @Effect({ dispatch: false })
+  public refreshTokenSuccess$: Observable<Action> = this.actions$.pipe(
+      ofType(AuthActionTypes.REFRESH_TOKEN_SUCCESS),
+      tap((action: RefreshTokenSuccessAction) => this.authService.replaceToken(action.payload))
+    );
 
   /**
    * When the store is rehydrated in the browser,
    * clear a possible invalid token or authentication errors
    */
-  @Effect({dispatch: false})
-  public clearInvalidTokenOnRehydrate$: Observable<any> = this.actions$
-    .ofType(StoreActionTypes.REHYDRATE)
-    .switchMap(() => {
-      return this.store.select(isAuthenticated)
-        .take(1)
-        .filter((authenticated) => !authenticated)
-        .do(() => this.authService.removeToken())
-        .do(() => this.authService.resetAuthenticationError());
-    });
+  @Effect({ dispatch: false })
+  public clearInvalidTokenOnRehydrate$: Observable<any> = this.actions$.pipe(
+    ofType(StoreActionTypes.REHYDRATE),
+    switchMap(() => {
+      return this.store.pipe(
+        select(isAuthenticated),
+        first(),
+        filter((authenticated) => !authenticated),
+        tap(() => this.authService.removeToken()),
+        tap(() => this.authService.resetAuthenticationError())
+      );
+    }));
 
   @Effect()
   public logOut$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.LOG_OUT)
-    .switchMap(() => {
-      return this.authService.logout()
-        .map((value) => new LogOutSuccessAction())
-        .catch((error) => Observable.of(new LogOutErrorAction(error)));
-    });
+    .pipe(
+      ofType(AuthActionTypes.LOG_OUT),
+      switchMap(() => {
+        return this.authService.logout().pipe(
+          map((value) => new LogOutSuccessAction()),
+          catchError((error) => observableOf(new LogOutErrorAction(error)))
+        );
+      })
+    );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public logOutSuccess$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.LOG_OUT_SUCCESS)
-    .do(() => this.authService.removeToken())
-    .do(() => this.authService.clearRedirectUrl())
-    .do(() => this.authService.refreshAfterLogout());
+    .pipe(ofType(AuthActionTypes.LOG_OUT_SUCCESS),
+      tap(() => this.authService.removeToken()),
+      tap(() => this.authService.clearRedirectUrl()),
+      tap(() => this.authService.refreshAfterLogout())
+    );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public redirectToLogin$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED)
-    .do(() => this.authService.removeToken())
-    .do(() => this.authService.redirectToLogin());
+    .pipe(ofType(AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED),
+      tap(() => this.authService.removeToken()),
+      tap(() => this.authService.redirectToLogin())
+    );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public redirectToLoginTokenExpired$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED)
-    .do(() => this.authService.removeToken())
-    .do(() => this.authService.redirectToLoginWhenTokenExpired());
+    .pipe(
+      ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED),
+      tap(() => this.authService.removeToken()),
+      tap(() => this.authService.redirectToLoginWhenTokenExpired())
+    );
 
   /**
    * @constructor

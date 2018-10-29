@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { ErrorResponse } from '../../core/cache/response-cache.models';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';

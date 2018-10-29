@@ -1,25 +1,34 @@
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/Rx';
+import { TestScheduler } from 'rxjs/testing';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { FindAllOptions } from './request.models';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
   let service: ItemDataService;
   let bs: BrowseService;
   const requestService = {} as RequestService;
-  const responseCache = {} as ResponseCacheService;
   const rdbService = {} as RemoteDataBuildService;
+  const objectCache = {} as ObjectCacheService;
   const store = {} as Store<CoreState>;
   const halEndpointService = {} as HALEndpointService;
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
+  const options = Object.assign(new FindAllOptions(), {
+    scopeID: scopeID,
+    sort: {
+      field: '',
+      direction: undefined
+    }
+  });
+
   const browsesEndpoint = 'https://rest.api/discover/browses';
   const itemBrowseEndpoint = `${browsesEndpoint}/author/items`;
   const scopedEndpoint = `${itemBrowseEndpoint}?scope=${scopeID}`;
@@ -37,25 +46,25 @@ describe('ItemDataService', () => {
 
   function initTestService() {
     return new ItemDataService(
-      responseCache,
       requestService,
       rdbService,
       store,
       bs,
-      halEndpointService
+      halEndpointService,
+      objectCache
     );
   }
 
-  describe('getScopedEndpoint', () => {
+  describe('getBrowseEndpoint', () => {
     beforeEach(() => {
       scheduler = getTestScheduler();
     });
 
-    it('should return the endpoint to fetch Items within the given scope', () => {
+    it('should return the endpoint to fetch Items within the given scope and starting with the given string', () => {
       bs = initMockBrowseService(true);
       service = initTestService();
 
-      const result = service.getScopedEndpoint(scopeID);
+      const result = service.getBrowseEndpoint(options);
       const expected = cold('--b-', { b: scopedEndpoint });
 
       expect(result).toBeObservable(expected);
@@ -67,7 +76,7 @@ describe('ItemDataService', () => {
         service = initTestService();
       });
       it('should throw an error', () => {
-        const result = service.getScopedEndpoint(scopeID);
+        const result = service.getBrowseEndpoint(options);
         const expected = cold('--#-', undefined, browseError);
 
         expect(result).toBeObservable(expected);

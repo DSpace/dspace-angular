@@ -1,8 +1,10 @@
+
+import {take} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
 
 // reducers
 import { CoreState } from '../core.reducers';
@@ -52,12 +54,12 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
 
   private handleAuth(url: string): Observable<boolean> {
     // get observable
-    const observable = this.store.select(isAuthenticated);
+    const observable = this.store.pipe(select(isAuthenticated));
 
     // redirect to sign in page if user is not authenticated
-    observable
+    observable.pipe(
       // .filter(() => isEmpty(this.router.routerState.snapshot.url) || this.router.routerState.snapshot.url === url)
-      .take(1)
+      take(1))
       .subscribe((authenticated) => {
         if (!authenticated) {
           this.authService.setRedirectUrl(url);

@@ -1,23 +1,14 @@
 import { Component } from '@angular/core';
 import { Community } from '../../core/shared/community.model';
-import { ComColDataService } from '../../core/data/comcol-data.service';
-import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
-import { DSOSuccessResponse, ErrorResponse } from '../../core/cache/response-cache.models';
-import { Observable } from 'rxjs/Observable';
-import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
-import { first, flatMap, map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
-import { hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { HttpEvent } from '@angular/common/http';
-import { getSucceededRemoteData } from '../../core/shared/operators';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-create-collection',

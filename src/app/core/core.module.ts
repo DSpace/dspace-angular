@@ -32,7 +32,6 @@ import { ObjectCacheService } from './cache/object-cache.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { RequestService } from './data/request.service';
-import { ResponseCacheService } from './cache/response-cache.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
 import { ServerResponseService } from '../shared/services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/services/window.service';
@@ -62,6 +61,7 @@ import { RegistryMetadatafieldsResponseParsingService } from './data/registry-me
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
+import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 
 const IMPORTS = [
@@ -101,7 +101,6 @@ const PROVIDERS = [
   RegistryService,
   RemoteDataBuildService,
   RequestService,
-  ResponseCacheService,
   EndpointMapResponseParsingService,
   FacetValueResponseParsingService,
   FacetValueMapResponseParsingService,
@@ -115,6 +114,7 @@ const PROVIDERS = [
   ServerResponseService,
   BrowseResponseParsingService,
   BrowseEntriesResponseParsingService,
+  BrowseItemsResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
   RouteService,

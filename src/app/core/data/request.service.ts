@@ -1,30 +1,43 @@
+import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  first,
+  map,
+  mergeMap,
+  reduce,
+  startWith,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
+import { race as observableRace } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
-
-import { Observable } from 'rxjs/Observable';
-import { hasValue } from '../../shared/empty.util';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
+import { hasNoValue, hasValue, isNotUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ResponseCacheService } from '../cache/response-cache.service';
+import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { coreSelector, CoreState } from '../core.reducers';
 import { IndexName } from '../index/index.reducer';
 import { pathSelector } from '../shared/selectors';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
-import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
+import { GetRequest, RestRequest } from './request.models';
 
-import { RequestEntry, RequestState } from './request.reducer';
-import { ResponseCacheRemoveAction } from '../cache/response-cache.actions';
+import { RequestEntry } from './request.reducer';
+import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
+import { RestRequestMethod } from './rest-request-method';
+import { getResponseFromEntry } from '../shared/operators';
+import { AddToIndexAction } from '../index/index.actions';
 
 @Injectable()
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];
 
   constructor(private objectCache: ObjectCacheService,
-              private responseCache: ResponseCacheService,
               private uuidService: UUIDService,
               private store: Store<CoreState>) {
   }
@@ -35,6 +48,10 @@ export class RequestService {
 
   private uuidFromHrefSelector(href: string): MemoizedSelector<CoreState, string> {
     return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.REQUEST, href);
+  }
+
+  private originalUUIDFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, string> {
+    return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.UUID_MAPPING, uuid);
   }
 
   generateRequestId(): string {
@@ -49,8 +66,8 @@ export class RequestService {
 
     // then check the store
     let isPending = false;
-    this.getByHref(request.href)
-      .take(1)
+    this.getByHref(request.href).pipe(
+      take(1))
       .subscribe((re: RequestEntry) => {
         isPending = (hasValue(re) && !re.completed)
       });
@@ -59,51 +76,69 @@ export class RequestService {
   }
 
   getByUUID(uuid: string): Observable<RequestEntry> {
-    return this.store.select(this.entryFromUUIDSelector(uuid));
+     return observableRace(
+      this.store.pipe(select(this.entryFromUUIDSelector(uuid))),
+      this.store.pipe(
+        select(this.originalUUIDFromUUIDSelector(uuid)),
+        switchMap((originalUUID) => {
+            return this.store.pipe(select(this.entryFromUUIDSelector(originalUUID)))
+          },
+        ))
+    );
   }
 
   getByHref(href: string): Observable<RequestEntry> {
-    return this.store.select(this.uuidFromHrefSelector(href))
-      .flatMap((uuid: string) => this.getByUUID(uuid));
+    return this.store.pipe(
+      select(this.uuidFromHrefSelector(href)),
+      mergeMap((uuid: string) => this.getByUUID(uuid))
+    );
   }
 
   // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
-    const isGetRequest = request.method === RestRequestMethod.Get;
+    const isGetRequest = request.method === RestRequestMethod.GET;
     if (!isGetRequest || !this.isCachedOrPending(request) || forceBypassCache) {
       this.dispatchRequest(request);
       if (isGetRequest && !forceBypassCache) {
         this.trackRequestsOnTheirWayToTheStore(request);
       }
+    } else {
+      this.getByHref(request.href).pipe(
+        filter((entry) => hasValue(entry)),
+        take(1)
+      ).subscribe((entry) => {
+          return this.store.dispatch(new AddToIndexAction(IndexName.UUID_MAPPING, request.uuid, entry.request.uuid))
+        }
+      )
     }
   }
 
   private isCachedOrPending(request: GetRequest) {
     let isCached = this.objectCache.hasBySelfLink(request.href);
-    if (!isCached && this.responseCache.has(request.href)) {
-      const [successResponse, errorResponse] = this.responseCache.get(request.href)
-        .take(1)
-        .map((entry: ResponseCacheEntry) => entry.response)
-        .share()
-        .partition((response: RestResponse) => response.isSuccessful);
+    if (isCached) {
+      const responses: Observable<RestResponse> = this.isReusable(request.uuid).pipe(
+        filter((reusable: boolean) => reusable),
+        switchMap(() => {
+            return this.getByHref(request.href).pipe(
+              getResponseFromEntry(),
+              take(1)
+            );
+          }
+        ));
 
-      const [dsoSuccessResponse, otherSuccessResponse] = successResponse
-        .share()
-        .partition((response: DSOSuccessResponse) => hasValue(response.resourceSelfLinks));
+      const errorResponses = responses.pipe(filter((response) => !response.isSuccessful), map(() => true)); // TODO add a configurable number of retries in case of an error.
+      const dsoSuccessResponses = responses.pipe(
+        filter((response) => response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)),
+        map((response: DSOSuccessResponse) => response.resourceSelfLinks),
+        map((resourceSelfLinks: string[]) => resourceSelfLinks
+          .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
+        ));
 
-      Observable.merge(
-        errorResponse.map(() => true), // TODO add a configurable number of retries in case of an error.
-        otherSuccessResponse.map(() => true),
-        dsoSuccessResponse // a DSOSuccessResponse should only be considered cached if all its resources are cached
-          .map((response: DSOSuccessResponse) => response.resourceSelfLinks)
-          .map((resourceSelfLinks: string[]) => resourceSelfLinks
-            .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
-          )
-      ).subscribe((c) => isCached = c);
+      const otherSuccessResponses = responses.pipe(filter((response) => response.isSuccessful && !hasValue((response as DSOSuccessResponse).resourceSelfLinks)), map(() => true));
+
+      observableMerge(errorResponses, otherSuccessResponses, dsoSuccessResponses).subscribe((c) => isCached = c);
     }
-
     const isPending = this.isPending(request);
-
     return isCached || isPending;
   }
 
@@ -121,11 +156,45 @@ export class RequestService {
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.store.select(this.entryFromUUIDSelector(request.href))
-      .filter((re: RequestEntry) => hasValue(re))
-      .take(1)
-      .subscribe((re: RequestEntry) => {
-        this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
-      });
+    this.store.pipe(select(this.entryFromUUIDSelector(request.href)),
+      filter((re: RequestEntry) => hasValue(re)),
+      take(1)
+    ).subscribe((re: RequestEntry) => {
+      this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
+    });
+  }
+
+  commit(method?: RestRequestMethod) {
+    this.store.dispatch(new CommitSSBAction(method))
+  }
+
+  /**
+   * Check whether a Response should still be cached
+   *
+   * @param entry
+   *    the entry to check
+   * @return boolean
+   *    false if the entry is null, undefined, or its time to
+   *    live has been exceeded, true otherwise
+   */
+  private isReusable(uuid: string): Observable<boolean> {
+    if (hasNoValue(uuid)) {
+      return observableOf(false);
+    } else {
+      const requestEntry$ = this.getByUUID(uuid);
+      return requestEntry$.pipe(
+        filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
+        map((entry: RequestEntry) => {
+          if (hasValue(entry) && entry.response.isSuccessful) {
+            const timeOutdated = entry.response.timeAdded + entry.request.responseMsToLive;
+            const isOutDated = new Date().getTime() > timeOutdated;
+            return !isOutDated;
+          } else {
+            return false;
+          }
+        })
+      );
+      return observableOf(false);
+    }
   }
 }

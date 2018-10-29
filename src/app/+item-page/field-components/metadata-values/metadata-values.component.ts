@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Metadatum } from '../../../core/shared/metadatum.model';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -11,7 +12,7 @@ import { Component, Input } from '@angular/core';
 })
 export class MetadataValuesComponent {
 
-  @Input() values: any;
+  @Input() values: Metadatum[];
 
   @Input() separator: string;
 

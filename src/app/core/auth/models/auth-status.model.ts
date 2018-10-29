@@ -1,7 +1,8 @@
 import { AuthError } from './auth-error.model';
 import { AuthTokenInfo } from './auth-token-info.model';
-import { DSpaceObject } from '../../shared/dspace-object.model';
-import { Eperson } from '../../eperson/models/eperson.model';
+import { EPerson } from '../../eperson/models/eperson.model';
+import { RemoteData } from '../../data/remote-data';
+import { Observable } from 'rxjs';
 
 export class AuthStatus {
 
@@ -13,7 +14,7 @@ export class AuthStatus {
 
   error?: AuthError;
 
-  eperson: Eperson;
+  eperson: Observable<RemoteData<EPerson>>;
 
   token?: AuthTokenInfo;
 

@@ -1,17 +1,15 @@
-import { ComponentFixture, TestBed, async, fakeAsync, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { Location, CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { By, Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { Store, StoreModule } from '@ngrx/store';
-
-import { Observable } from 'rxjs/Observable';
-import { RemoteDataError } from '../data/remote-data-error';
+import { Observable, of as observableOf } from 'rxjs';
 import { UUIDService } from '../shared/uuid.service';
 
 import { MetadataService } from './metadata.service';
@@ -25,7 +23,6 @@ import { ItemDataService } from '../data/item-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
@@ -68,7 +65,6 @@ describe('MetadataService', () => {
   let store: Store<CoreState>;
 
   let objectCacheService: ObjectCacheService;
-  let responseCacheService: ResponseCacheService;
   let requestService: RequestService;
   let uuidService: UUIDService;
   let remoteDataBuildService: RemoteDataBuildService;
@@ -89,10 +85,9 @@ describe('MetadataService', () => {
     spyOn(store, 'dispatch');
 
     objectCacheService = new ObjectCacheService(store);
-    responseCacheService = new ResponseCacheService(store);
     uuidService = new UUIDService();
-    requestService = new RequestService(objectCacheService, responseCacheService, uuidService, store);
-    remoteDataBuildService = new RemoteDataBuildService(objectCacheService, responseCacheService, requestService);
+    requestService = new RequestService(objectCacheService, uuidService, store);
+    remoteDataBuildService = new RemoteDataBuildService(objectCacheService, requestService);
 
     TestBed.configureTestingModule({
       imports: [
@@ -115,7 +110,6 @@ describe('MetadataService', () => {
       ],
       providers: [
         { provide: ObjectCacheService, useValue: objectCacheService },
-        { provide: ResponseCacheService, useValue: responseCacheService },
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
@@ -191,7 +185,7 @@ describe('MetadataService', () => {
   }));
 
   const mockRemoteData = (mockItem: Item): Observable<RemoteData<Item>> => {
-    return Observable.of(new RemoteData<Item>(
+    return observableOf(new RemoteData<Item>(
       false,
       false,
       true,

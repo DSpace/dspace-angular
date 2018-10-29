@@ -2,8 +2,11 @@ import * as deepFreeze from 'deep-freeze';
 
 import { objectCacheReducer } from './object-cache.reducer';
 import {
+  AddPatchObjectCacheAction,
   AddToObjectCacheAction,
-  RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction
+  ApplyPatchObjectCacheAction,
+  RemoveFromObjectCacheAction,
+  ResetObjectCacheTimestampsAction
 } from './object-cache.actions';
 
 class NullAction extends RemoveFromObjectCacheAction {
@@ -26,7 +29,9 @@ describe('objectCacheReducer', () => {
       },
       timeAdded: new Date().getTime(),
       msToLive: 900000,
-      requestHref: selfLink1
+      requestHref: selfLink1,
+      patches: [],
+      isDirty: false
     },
     [selfLink2]: {
       data: {
@@ -35,7 +40,9 @@ describe('objectCacheReducer', () => {
       },
       timeAdded: new Date().getTime(),
       msToLive: 900000,
-      requestHref: selfLink2
+      requestHref: selfLink2,
+      patches: [],
+      isDirty: false
     }
   };
   deepFreeze(testState);
@@ -128,6 +135,18 @@ describe('objectCacheReducer', () => {
 
   it('should perform the RESET_TIMESTAMPS action without affecting the previous state', () => {
     const action = new ResetObjectCacheTimestampsAction(new Date().getTime());
+    // testState has already been frozen above
+    objectCacheReducer(testState, action);
+  });
+
+  it('should perform the ADD_PATCH action without affecting the previous state', () => {
+    const action = new AddPatchObjectCacheAction(selfLink1, [{ op: 'replace', path: '/name', value: 'random string' }]);
+    // testState has already been frozen above
+    objectCacheReducer(testState, action);
+  });
+
+  it('should perform the APPLY_PATCH action without affecting the previous state', () => {
+    const action = new ApplyPatchObjectCacheAction(selfLink1);
     // testState has already been frozen above
     objectCacheReducer(testState, action);
   });

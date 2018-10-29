@@ -1,20 +1,18 @@
-import { AuthStatusResponse } from '../cache/response-cache.models';
+import { AuthStatusResponse } from '../cache/response.models';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-
-import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthResponseParsingService } from './auth-response-parsing.service';
 import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
+import { MockStore } from '../../shared/testing/mock-store';
+import { ObjectCacheState } from '../cache/object-cache.reducer';
 
-describe('ConfigResponseParsingService', () => {
+describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;
 
-  const EnvConfig = {} as GlobalConfig;
-  const store = {} as Store<CoreState>;
-  const objectCacheService = new ObjectCacheService(store);
+  const EnvConfig = { cache: { msToLive: 1000 } } as any;
+  const store = new MockStore<ObjectCacheState>({});
+  const objectCacheService = new ObjectCacheService(store as any);
 
   beforeEach(() => {
     service = new AuthResponseParsingService(EnvConfig, objectCacheService);
@@ -86,13 +84,19 @@ describe('ConfigResponseParsingService', () => {
             type: 'eperson',
             uuid: '4dc70ab5-cd73-492f-b007-3179d2d9296b',
             _links: {
-              self: 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/eperson/epersons/4dc70ab5-cd73-492f-b007-3179d2d9296b'
+              self: {
+                href: 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/eperson/epersons/4dc70ab5-cd73-492f-b007-3179d2d9296b'
+              }
             }
           }
         },
         _links: {
-          eperson: 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/eperson/epersons/4dc70ab5-cd73-492f-b007-3179d2d9296b',
-          self: 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/authn/status'
+          eperson: {
+            href: 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/eperson/epersons/4dc70ab5-cd73-492f-b007-3179d2d9296b'
+          },
+          self: {
+            href: 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/api/authn/status'
+          }
         }
       },
       statusCode: '200'

@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedDSpaceObject } from '../cache/models/normalized-dspace-object.model';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
+import { FindAllOptions } from './request.models';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
@@ -19,10 +20,10 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
   protected linkPath = 'dso';
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected authService: AuthService,
     protected notificationsService: NotificationsService,
@@ -30,8 +31,8 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     super();
   }
 
-  getScopedEndpoint(scope: string): Observable<string> {
-    return undefined;
+  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+    return this.halService.getEndpoint(linkPath);
   }
 
   getFindByIDHref(endpoint, resourceID): string {
@@ -47,11 +48,12 @@ export class DSpaceObjectDataService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected authService: AuthService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient) {
-    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService, authService, notificationsService, http);
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, authService, notificationsService, http);
   }
 
   findById(uuid: string): Observable<RemoteData<DSpaceObject>> {

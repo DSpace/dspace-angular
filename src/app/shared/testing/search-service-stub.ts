@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {of as observableOf,  Observable ,  BehaviorSubject } from 'rxjs';
 import { ViewMode } from '../../core/shared/view-mode.model';
 
 export class SearchServiceStub {
@@ -39,6 +38,6 @@ export class SearchServiceStub {
   }
 
   getFilterLabels() {
-    return Observable.of([]);
+    return observableOf([]);
   }
 }

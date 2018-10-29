@@ -11,11 +11,7 @@ import {
 
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Subscription } from 'rxjs/Subscription';
-import { isNumeric } from 'rxjs/util/isNumeric';
-
-import { Observable } from 'rxjs/Observable';
-
+import { Subscription, Observable } from 'rxjs';
 import { HostWindowService } from '../host-window.service';
 import { HostWindowState } from '../host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
@@ -422,7 +418,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   private validatePage(page: any): number {
     let result = this.currentPage;
-    if (isNumeric(page)) {
+    if (!isNaN(page)) {
       result = +page;
     }
     return result;

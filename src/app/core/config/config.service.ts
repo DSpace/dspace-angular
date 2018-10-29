@@ -1,33 +1,35 @@
-import { Observable } from 'rxjs/Observable';
-
+import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { ConfigSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { ConfigSuccessResponse } from '../cache/response.models';
 import { ConfigRequest, FindAllOptions, RestRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ConfigData } from './config-data';
+import { RequestEntry } from '../data/request.reducer';
+import { getResponseFromEntry } from '../shared/operators';
 
 export abstract class ConfigService {
   protected request: ConfigRequest;
-  protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract linkPath: string;
   protected abstract browseEndpoint: string;
   protected abstract halService: HALEndpointService;
 
   protected getConfig(request: RestRequest): Observable<ConfigData> {
-    const [successResponse, errorResponse] =  this.responseCache.get(request.href)
-      .map((entry: ResponseCacheEntry) => entry.response)
-      .partition((response: RestResponse) => response.isSuccessful);
-    return Observable.merge(
-      errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't retrieve the config`))),
-      successResponse
-        .filter((response: ConfigSuccessResponse) => isNotEmpty(response) && isNotEmpty(response.configDefinition))
-        .map((response: ConfigSuccessResponse) => new ConfigData(response.pageInfo, response.configDefinition))
-        .distinctUntilChanged());
+    const responses = this.requestService.getByHref(request.href).pipe(
+      getResponseFromEntry()
+    );
+    const errorResponses = responses.pipe(
+      filter((response) => !response.isSuccessful),
+      mergeMap(() => observableThrowError(new Error(`Couldn't retrieve the config`)))
+    );
+    const successResponses = responses.pipe(
+      filter((response) => response.isSuccessful && isNotEmpty(response) && isNotEmpty((response as ConfigSuccessResponse).configDefinition)),
+      map((response: ConfigSuccessResponse) => new ConfigData(response.pageInfo, response.configDefinition))
+    );
+    return observableMerge(errorResponses, successResponses);
+
   }
 
   protected getConfigByNameHref(endpoint, resourceName): string {
@@ -65,13 +67,13 @@ export abstract class ConfigService {
   }
 
   public getConfigAll(): Observable<ConfigData> {
-    return this.halService.getEndpoint(this.linkPath)
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL))
-      .do((request: RestRequest) => this.requestService.configure(request))
-      .flatMap((request: RestRequest) => this.getConfig(request))
-      .distinctUntilChanged();
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
+      tap((request: RestRequest) => this.requestService.configure(request)),
+      mergeMap((request: RestRequest) => this.getConfig(request)),
+      distinctUntilChanged());
   }
 
   public getConfigByHref(href: string): Observable<ConfigData> {
@@ -82,25 +84,25 @@ export abstract class ConfigService {
   }
 
   public getConfigByName(name: string): Observable<ConfigData> {
-    return this.halService.getEndpoint(this.linkPath)
-      .map((endpoint: string) => this.getConfigByNameHref(endpoint, name))
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL))
-      .do((request: RestRequest) => this.requestService.configure(request))
-      .flatMap((request: RestRequest) => this.getConfig(request))
-      .distinctUntilChanged();
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getConfigByNameHref(endpoint, name)),
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
+      tap((request: RestRequest) => this.requestService.configure(request)),
+      mergeMap((request: RestRequest) => this.getConfig(request)),
+      distinctUntilChanged());
   }
 
   public getConfigBySearch(options: FindAllOptions = {}): Observable<ConfigData> {
-    return this.halService.getEndpoint(this.linkPath)
-      .map((endpoint: string) => this.getConfigSearchHref(endpoint, options))
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL))
-      .do((request: RestRequest) => this.requestService.configure(request))
-      .flatMap((request: RestRequest) => this.getConfig(request))
-      .distinctUntilChanged();
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getConfigSearchHref(endpoint, options)),
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new ConfigRequest(this.requestService.generateRequestId(), endpointURL)),
+      tap((request: RestRequest) => this.requestService.configure(request)),
+      mergeMap((request: RestRequest) => this.getConfig(request)),
+      distinctUntilChanged());
   }
 
 }

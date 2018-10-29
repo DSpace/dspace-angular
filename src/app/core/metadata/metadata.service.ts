@@ -1,28 +1,18 @@
-import 'rxjs/add/operator/first'
-import 'rxjs/add/operator/take'
-
+import { distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
-import {
-  ActivatedRoute,
-  Event,
-  NavigationEnd,
-  Params,
-  Router
-} from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from '../shared/bitstream.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { Metadatum } from '../shared/metadatum.model';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -55,21 +45,21 @@ export class MetadataService {
   }
 
   public listenForRouteChange(): void {
-    this.router.events
-      .filter((event) => event instanceof NavigationEnd)
-      .map(() => this.router.routerState.root)
-      .map((route: ActivatedRoute) => {
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => this.router.routerState.root),
+      map((route: ActivatedRoute) => {
         route = this.getCurrentRoute(route);
         return { params: route.params, data: route.data };
-      }).subscribe((routeInfo: any) => {
+      }),).subscribe((routeInfo: any) => {
         this.processRouteChange(routeInfo);
       });
   }
 
   public processRemoteData(remoteData: Observable<RemoteData<CacheableObject>>): void {
-    remoteData.map((rd: RemoteData<CacheableObject>) => rd.payload)
-      .filter((co: CacheableObject) => hasValue(co))
-      .take(1)
+    remoteData.pipe(map((rd: RemoteData<CacheableObject>) => rd.payload),
+      filter((co: CacheableObject) => hasValue(co)),
+      take(1),)
       .subscribe((dspaceObject: DSpaceObject) => {
         if (!this.initialized) {
           this.initialize(dspaceObject);
@@ -83,13 +73,13 @@ export class MetadataService {
       this.clearMetaTags();
     }
     if (routeInfo.data.value.title) {
-      this.translate.get(routeInfo.data.value.title).take(1).subscribe((translatedTitle: string) => {
+      this.translate.get(routeInfo.data.value.title).pipe(take(1)).subscribe((translatedTitle: string) => {
         this.addMetaTag('title', translatedTitle);
         this.title.setTitle(translatedTitle);
       });
     }
     if (routeInfo.data.value.description) {
-      this.translate.get(routeInfo.data.value.description).take(1).subscribe((translatedDescription: string) => {
+      this.translate.get(routeInfo.data.value.description).pipe(take(1)).subscribe((translatedDescription: string) => {
         this.addMetaTag('description', translatedDescription);
       });
     }
@@ -97,7 +87,7 @@ export class MetadataService {
 
   private initialize(dspaceObject: DSpaceObject): void {
     this.currentObject = new BehaviorSubject<DSpaceObject>(dspaceObject);
-    this.currentObject.asObservable().distinctUntilKeyChanged('uuid').subscribe(() => {
+    this.currentObject.asObservable().pipe(distinctUntilKeyChanged('uuid')).subscribe(() => {
       this.setMetaTags();
     });
     this.initialized = true;
@@ -269,11 +259,11 @@ export class MetadataService {
   private setCitationPdfUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
-      item.getFiles().filter((files) => isNotEmpty(files)).first().subscribe((bitstreams: Bitstream[]) => {
+      item.getFiles().pipe(filter((files) => isNotEmpty(files)),first(),).subscribe((bitstreams: Bitstream[]) => {
         for (const bitstream of bitstreams) {
-          bitstream.format.first()
-            .map((rd: RemoteData<BitstreamFormat>) => rd.payload)
-            .filter((format: BitstreamFormat) => hasValue(format))
+          bitstream.format.pipe(first(),
+            map((rd: RemoteData<BitstreamFormat>) => rd.payload),
+            filter((format: BitstreamFormat) => hasValue(format)),)
             .subscribe((format: BitstreamFormat) => {
               if (format.mimetype === 'application/pdf') {
                 this.addMetaTag('citation_pdf_url', bitstream.content);

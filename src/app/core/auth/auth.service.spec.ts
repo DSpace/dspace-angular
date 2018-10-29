@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store, StoreModule } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import 'rxjs/add/observable/of';
+import { of as observableOf } from 'rxjs';
 
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
@@ -18,49 +17,64 @@ import { AuthRequestServiceStub } from '../../shared/testing/auth-request-servic
 import { AuthRequestService } from './auth-request.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { Eperson } from '../eperson/models/eperson.model';
-import { EpersonMock } from '../../shared/testing/eperson-mock';
+import { EPerson } from '../eperson/models/eperson.model';
+import { EPersonMock } from '../../shared/testing/eperson-mock';
 import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../../shared/services/client-cookie.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 
 describe('AuthService test', () => {
 
   const mockStore: Store<AuthState> = jasmine.createSpyObj('store', {
     dispatch: {},
-    select: Observable.of(true)
+    pipe: observableOf(true)
   });
   let authService: AuthService;
-  const authRequest = new AuthRequestServiceStub();
+  let authRequest;
   const window = new NativeWindowRef();
   const routerStub = new RouterStub();
-  const routeStub = new ActivatedRouteStub();
+  let routeStub;
   let storage: CookieService;
-  const token: AuthTokenInfo = new AuthTokenInfo('test_token');
-  token.expires = Date.now() + (1000 * 60 * 60);
-  let authenticatedState = {
-    authenticated: true,
-    loaded: true,
-    loading: false,
-    authToken: token,
-    user: EpersonMock
-  };
+  let token: AuthTokenInfo;
+  let authenticatedState;
+  const rdbService = getMockRemoteDataBuildService();
+
+  function init() {
+    token = new AuthTokenInfo('test_token');
+    token.expires = Date.now() + (1000 * 60 * 60);
+    authenticatedState = {
+      authenticated: true,
+      loaded: true,
+      loading: false,
+      authToken: token,
+      user: EPersonMock
+    };
+    authRequest = new AuthRequestServiceStub();
+    routeStub = new ActivatedRouteStub();
+  }
+
+  beforeEach(() => {
+    init();
+  });
 
   describe('', () => {
-
     beforeEach(() => {
+
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
-          StoreModule.forRoot({authReducer}),
+          StoreModule.forRoot({ authReducer }),
         ],
         declarations: [],
         providers: [
-          {provide: AuthRequestService, useValue: authRequest},
-          {provide: NativeWindowService, useValue: window},
-          {provide: REQUEST, useValue: {}},
-          {provide: Router, useValue: routerStub},
-          {provide: ActivatedRoute, useValue: routeStub},
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: NativeWindowService, useValue: window },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
+          { provide: ActivatedRoute, useValue: routeStub },
           {provide: Store, useValue: mockStore},
+          { provide: RemoteDataBuildService, useValue: rdbService },
           CookieService,
           AuthService
         ],
@@ -79,7 +93,7 @@ describe('AuthService test', () => {
     });
 
     it('should return the authenticated user object when user token is valid', () => {
-      authService.authenticatedUser(new AuthTokenInfo('test_token')).subscribe((user: Eperson) => {
+      authService.authenticatedUser(new AuthTokenInfo('test_token')).subscribe((user: EPerson) => {
         expect(user).toBeDefined();
       });
     });
@@ -113,14 +127,16 @@ describe('AuthService test', () => {
   describe('', () => {
 
     beforeEach(async(() => {
+      init();
       TestBed.configureTestingModule({
         imports: [
-          StoreModule.forRoot({authReducer})
+          StoreModule.forRoot({ authReducer })
         ],
         providers: [
-          {provide: AuthRequestService, useValue: authRequest},
-          {provide: REQUEST, useValue: {}},
-          {provide: Router, useValue: routerStub},
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
+          { provide: RemoteDataBuildService, useValue: rdbService },
           CookieService
         ]
       }).compileComponents();
@@ -132,7 +148,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, authReqService, router, cookieService, store);
+      authService = new AuthService({}, window, authReqService, router, cookieService, store, rdbService);
     }));
 
     it('should return true when user is logged in', () => {
@@ -164,12 +180,12 @@ describe('AuthService test', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [
-          StoreModule.forRoot({authReducer})
+          StoreModule.forRoot({ authReducer })
         ],
         providers: [
-          {provide: AuthRequestService, useValue: authRequest},
-          {provide: REQUEST, useValue: {}},
-          {provide: Router, useValue: routerStub},
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
           ClientCookieService,
           CookieService
         ]
@@ -184,14 +200,14 @@ describe('AuthService test', () => {
         loaded: true,
         loading: false,
         authToken: expiredToken,
-        user: EpersonMock
+        user: EPersonMock
       };
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, authReqService, router, cookieService, store);
+      authService = new AuthService({}, window, authReqService, router, cookieService, store, rdbService);
       storage = (authService as any).storage;
       spyOn(storage, 'get');
       spyOn(storage, 'remove');

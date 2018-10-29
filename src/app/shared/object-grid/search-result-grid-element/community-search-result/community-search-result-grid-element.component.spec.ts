@@ -1,6 +1,6 @@
 import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
@@ -12,7 +12,7 @@ let communitySearchResultGridElementComponent: CommunitySearchResultGridElementC
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
 
 const truncatableServiceStub: any = {
-  isCollapsed: (id: number) => Observable.of(true),
+  isCollapsed: (id: number) => observableOf(true),
 };
 
 const mockCommunityWithAbstract: CommunitySearchResult = new CommunitySearchResult();

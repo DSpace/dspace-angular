@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HeaderEffects } from './header.effects';
 import { HeaderCollapseAction } from './header.actions';
 import { HostWindowResizeAction } from '../shared/host-window.actions';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import * as fromRouter from '@ngrx/router-store';

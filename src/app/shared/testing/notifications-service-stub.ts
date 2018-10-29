@@ -1,32 +1,32 @@
-import { Observable } from 'rxjs/Observable';
+import {of as observableOf,  Observable } from 'rxjs';
 import { INotification } from '../notifications/models/notification.model';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 
 export class NotificationsServiceStub {
 
-  success(title: any = Observable.of(''),
-          content: any = Observable.of(''),
+  success(title: any = observableOf(''),
+          content: any = observableOf(''),
           options: NotificationOptions = this.getDefaultOptions(),
           html?: any): INotification {
     return
   }
 
-  error(title: any = Observable.of(''),
-        content: any = Observable.of(''),
+  error(title: any = observableOf(''),
+        content: any = observableOf(''),
         options: NotificationOptions = this.getDefaultOptions(),
         html?: any): INotification {
     return
   }
 
-  info(title: any = Observable.of(''),
-       content: any = Observable.of(''),
+  info(title: any = observableOf(''),
+       content: any = observableOf(''),
        options: NotificationOptions = this.getDefaultOptions(),
        html?: any): INotification {
     return
   }
 
-  warning(title: any = Observable.of(''),
-          content: any = Observable.of(''),
+  warning(title: any = observableOf(''),
+          content: any = observableOf(''),
           options: NotificationOptions = this.getDefaultOptions(),
           html?: any): INotification {
     return
