@@ -196,7 +196,7 @@ export class RemoteDataBuildService {
         }
 
         if (hasValue(normalized[relationship].page)) {
-          links[relationship] = this.aggregatePaginatedList(result, normalized[relationship].pageInfo);
+          links[relationship] = this.toPaginatedList(result, normalized[relationship].pageInfo);
         } else {
           links[relationship] = result;
         }
@@ -258,8 +258,16 @@ export class RemoteDataBuildService {
       }))
   }
 
-  aggregatePaginatedList<T>(input: Observable<RemoteData<T[]>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
-    return input.pipe(map((rd) => Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })));
+  private toPaginatedList<T>(input: Observable<RemoteData<T[] | PaginatedList<T>>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
+    return input.pipe(
+      map((rd: RemoteData<T[] | PaginatedList<T>>) => {
+        if (Array.isArray(rd.payload)) {
+          return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })
+        } else {
+          return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload.page) });
+        }
+      })
+    );
   }
 
 }
