@@ -9,42 +9,56 @@ import {AppComponent} from "../../app.component";
 import {HttpClient} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 
+//const TRANSLATIONS_EN = require('../../resources/i18n/en.json');
+//const TRANSLATIONS_DE = require('../../resources/i18n/de.json');
+
 describe('LangSwitchComponent', () => {
   let component: LangSwitchComponent;
   let fixture: ComponentFixture<LangSwitchComponent>;
   let de: DebugElement;
   let el: HTMLElement;
 
-  const TRANSLATIONS_EN = require('../../../../resources/i18n/en.json');
-  const TRANSLATIONS_DE = require('../../../../resources/i18n/de.json');
-
   let translate: TranslateService;
   let http: HttpTestingController;
 
   //In the ngx-translate example, this was imported from the main app module.
   //Not sure if we really need it in the same way here.
-  function HttpLoaderFactory(httpClient: HttpClient) {
-    return new TranslateHttpLoader(httpClient);
+  function createTranslateLoader(http: HttpClient) {
+    return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
   }
 
   beforeEach(async(() => {
+
+    const mockConfig = {
+      lang: [{
+          code: 'en',
+          label: 'English',
+          active: true,
+          default: true
+        }, {
+          code: 'de',
+          label: 'Deutsch',
+          active: true
+        }]
+    };
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
+          useFactory: (createTranslateLoader),
           deps: [HttpClient]
         }
       })],
       declarations: [LangSwitchComponent],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [TranslateService]
+      providers: [TranslateService, {provide: GLOBAL_CONFIG, usevalue: mockConfig}]
     }).compileComponents();
+    translate = TestBed.get(TranslateService);
+    http = TestBed.get(HttpTestingController);
   }));
 
   beforeEach(() => {
-    translate = TestBed.get(TranslateService);
-    http = TestBed.get(HttpTestingController);
     fixture = TestBed.createComponent(LangSwitchComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
@@ -61,8 +75,8 @@ describe('LangSwitchComponent', () => {
     // the DOM should be empty for now since the translations haven't been rendered yet
     expect(el.querySelector('h2').textContent).toEqual('');
 
-    http.expectOne('/resources/i18n/en.json').flush(TRANSLATIONS_EN);
-    http.expectNone('/resources/i18n/de.json');
+//    http.expectOne('assets/i18n/en.json').flush(TRANSLATIONS_EN);
+    http.expectNone('assets/i18n/de.json');
 
     // Finally, assert that there are no outstanding requests.
     http.verify();
@@ -72,7 +86,7 @@ describe('LangSwitchComponent', () => {
     expect(el.querySelector('a').textContent).toEqual('English');
 
     translate.use('de');
-    http.expectOne('/resources/i18n/de.json').flush(TRANSLATIONS_DE);
+//  http.expectOne('/resources/i18n/de.json').flush(TRANSLATIONS_DE);
 
     // Finally, assert that there are no outstanding requests.
     http.verify();

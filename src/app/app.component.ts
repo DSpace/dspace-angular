@@ -44,16 +44,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: Router
   ) {
     // Load all the languages that are defined as active from the config file
-    translate.addLangs(config.lang.active);
+    translate.addLangs(config.lang.filter(LangConfig => LangConfig.active === true).map(a => a.code));
 
     // Load the default language from the config file
-    translate.setDefaultLang(config.lang.default);
+    translate.setDefaultLang(config.lang.find(LangConfig => LangConfig.default === true).code);
 
     // Attempt to get the browser language from the user
     if (translate.getLangs().includes(translate.getBrowserLang())) {
       translate.use(translate.getBrowserLang());
     } else {
-      translate.use(config.lang.default);
+      translate.use(config.lang.find(LangConfig => LangConfig.default === true).code);
     }
 
     metadata.listenForRouteChange();

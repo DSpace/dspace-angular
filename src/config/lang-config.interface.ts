@@ -1,9 +1,6 @@
-import { Config } from './config.interface';
-
-export interface LangConfig extends Config {
-  default: string;
-  active: string[];
-  activeLabels: string[];
-  inactive: string[];
-  inactiveLabels: string[];
+export class LangConfig {
+      code: string;
+      label: string;
+      active: boolean;
+      default? = false;
 }

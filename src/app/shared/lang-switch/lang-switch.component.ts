@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import {TranslateService} from '@ngx-translate/core';
+import {LangConfig} from "../../../config/lang-config.interface";
 
 @Component({
   selector: 'ds-lang-switch',
@@ -15,8 +16,8 @@ import {TranslateService} from '@ngx-translate/core';
  */
 export class LangSwitchComponent implements OnInit {
 
-  moreThanOneLanguage: boolean = (this.config.lang.active.length > 1);
-  activeLangLabels: string[] = this.config.lang.activeLabels;
+  activeLangs: Array<LangConfig> = this.config.lang.filter(LangConfig => LangConfig.active === true);
+  moreThanOneLanguage: boolean = (this.activeLangs.length > 1);
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -32,17 +33,14 @@ export class LangSwitchComponent implements OnInit {
    * Returns the label for the current language
    */
   currentLangLabel(): string {
-    const returnIndex: number = this.translate.getLangs().indexOf(this.translate.currentLang);
-    return this.activeLangLabels[returnIndex];
+    return this.activeLangs.find(LangConfig => LangConfig.code === this.translate.currentLang).label;
   }
 
   /**
-   * Returns the label a specific languages, assuming the index of the language
-   * is the same in the list of active languages, as the index of the label in the list of labels.
+   * Returns the label for a specific language code
    */
-  langLabel(lang: string): string {
-    const returnIndex: number = this.translate.getLangs().indexOf(lang);
-    return this.activeLangLabels[returnIndex];
+  langLabel(langcode: string): string {
+    return this.activeLangs.find(LangConfig => LangConfig.code === langcode).label;
   }
 
 }

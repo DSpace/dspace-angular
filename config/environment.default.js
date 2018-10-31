@@ -54,16 +54,22 @@ module.exports = {
   // NOTE: will log all redux actions and transfers in console
   debug: false,
   // Language Settings
-  lang: {
-    //Default language in case there are no active translations for the user's browser language
-    default: 'en',
-    //Languages that users can choose from in the language switch
-    active: ['en','cs','de'],
-    //Labels for the languages that users can choose from in the language switch
-    activeLabels: ['English','Čeština','Deutsch'],
-    //Languages for which DSpace has translations files, but that are deactivated
-    inactive: ['nl'],
-    //Labels for deactivated languages
-    inactiveLabels: ['Nederlands']
-  }
+  lang: [{
+    code: 'en',
+    label: 'English',
+    active: true,
+    default: true
+  }, {
+    code: 'de',
+    label: 'Deutsch',
+    active: true
+  }, {
+    code: 'cs',
+    label: 'Čeština',
+    active: true
+  }, {
+    code: 'nl',
+    label: 'Nederlands',
+    active: false
+  }]
 };
