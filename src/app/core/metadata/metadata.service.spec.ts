@@ -32,9 +32,7 @@ import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { PaginatedList } from '../data/paginated-list';
-import { PageInfo } from '../shared/page-info.model';
-import { EmptyError } from 'rxjs/util/EmptyError';
+import { EmptyError } from 'rxjs/internal-compatibility';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -185,7 +183,7 @@ describe('MetadataService', () => {
   describe('when the item has no bitstreams', () => {
 
     beforeEach(() => {
-      spyOn(MockItem, 'getFiles').and.returnValue(Observable.of([]));
+      spyOn(MockItem, 'getFiles').and.returnValue(observableOf([]));
     });
 
     it('processRemoteData should not produce an EmptyError', fakeAsync(() => {

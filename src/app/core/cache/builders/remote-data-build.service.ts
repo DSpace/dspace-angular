@@ -262,13 +262,15 @@ export class RemoteDataBuildService {
   }
 
   private toPaginatedList<T>(input: Observable<RemoteData<T[] | PaginatedList<T>>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
-    return input.map((rd: RemoteData<T[] | PaginatedList<T>>) => {
-      if (Array.isArray(rd.payload)) {
-        return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })
-      } else {
-        return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload.page) });
-      }
-    });
+    return input.pipe(
+      map((rd: RemoteData<T[] | PaginatedList<T>>) => {
+        if (Array.isArray(rd.payload)) {
+          return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })
+        } else {
+          return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload.page) });
+        }
+      })
+    );
   }
 
 }

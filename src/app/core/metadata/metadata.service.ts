@@ -1,4 +1,4 @@
-import { distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
+import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
@@ -52,8 +52,8 @@ export class MetadataService {
         route = this.getCurrentRoute(route);
         return { params: route.params, data: route.data };
       }),).subscribe((routeInfo: any) => {
-        this.processRouteChange(routeInfo);
-      });
+      this.processRouteChange(routeInfo);
+    });
   }
 
   public processRemoteData(remoteData: Observable<RemoteData<CacheableObject>>): void {
@@ -260,20 +260,25 @@ export class MetadataService {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
       item.getFiles()
-        .first((files) => isNotEmpty(files))
-        .catch((error) => { console.debug(error); return [] })
+        .pipe(
+          first((files) => isNotEmpty(files)),
+          catchError((error) => {
+            console.debug(error);
+            return []
+          }))
         .subscribe((bitstreams: Bitstream[]) => {
           for (const bitstream of bitstreams) {
-          bitstream.format.first()
-            .map((rd: RemoteData<BitstreamFormat>) => rd.payload)
-            .filter((format: BitstreamFormat) => hasValue(format))
-            .subscribe((format: BitstreamFormat) => {
-              if (format.mimetype === 'application/pdf') {
-                this.addMetaTag('citation_pdf_url', bitstream.content);
-              }
-            });
-        }
-      });
+            bitstream.format.pipe(
+              first(),
+              map((rd: RemoteData<BitstreamFormat>) => rd.payload),
+              filter((format: BitstreamFormat) => hasValue(format)))
+              .subscribe((format: BitstreamFormat) => {
+                if (format.mimetype === 'application/pdf') {
+                  this.addMetaTag('citation_pdf_url', bitstream.content);
+                }
+              });
+          }
+        });
     }
   }
 
