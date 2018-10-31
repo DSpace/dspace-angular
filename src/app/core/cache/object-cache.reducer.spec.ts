@@ -8,6 +8,7 @@ import {
   RemoveFromObjectCacheAction,
   ResetObjectCacheTimestampsAction
 } from './object-cache.actions';
+import { Operation } from 'fast-json-patch';
 
 class NullAction extends RemoveFromObjectCacheAction {
   type = null;
@@ -21,6 +22,7 @@ class NullAction extends RemoveFromObjectCacheAction {
 describe('objectCacheReducer', () => {
   const selfLink1 = 'https://localhost:8080/api/core/items/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
   const selfLink2 = 'https://localhost:8080/api/core/items/28b04544-1766-4e82-9728-c4e93544ecd3';
+  const newName = 'new different name';
   const testState = {
     [selfLink1]: {
       data: {
@@ -140,15 +142,31 @@ describe('objectCacheReducer', () => {
   });
 
   it('should perform the ADD_PATCH action without affecting the previous state', () => {
-    const action = new AddPatchObjectCacheAction(selfLink1, [{ op: 'replace', path: '/name', value: 'random string' }]);
+    const action = new AddPatchObjectCacheAction(selfLink1, [{
+      op: 'replace',
+      path: '/name',
+      value: 'random string'
+    }]);
     // testState has already been frozen above
     objectCacheReducer(testState, action);
   });
 
-  it('should perform the APPLY_PATCH action without affecting the previous state', () => {
+  it('should when the ADD_PATCH action dispatched', () => {
+    const patch = [{ op: 'add', path: '/name', value: newName } as Operation];
+    const action = new AddPatchObjectCacheAction(selfLink1, patch);
+    const newState = objectCacheReducer(testState, action);
+    expect(newState[selfLink1].patches.map((p) => p.operations)).toContain(patch);
+  });
+
+  it('should when the APPLY_PATCH action dispatched', () => {
+    const patch = [{ op: 'add', path: '/name', value: newName } as Operation];
+    const addPatchAction = new AddPatchObjectCacheAction(selfLink1, patch);
+    const stateWithPatch = objectCacheReducer(testState, addPatchAction);
+
     const action = new ApplyPatchObjectCacheAction(selfLink1);
-    // testState has already been frozen above
-    objectCacheReducer(testState, action);
+    const newState = objectCacheReducer(stateWithPatch, action);
+    expect(newState[selfLink1].patches).toEqual([]);
+    expect((newState[selfLink1].data as any).name).toEqual(newName);
   });
 
 });
