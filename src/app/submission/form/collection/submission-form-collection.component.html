@@ -1,12 +1,13 @@
 <div>
-  <div ngbDropdown #collectionControls="ngbDropdown" class="btn-group input-group">
+  <div ngbDropdown #collectionControls="ngbDropdown" class="btn-group input-group" (openChange)="toggled($event)">
     <div class="input-group-prepend">
       <span id="collectionControlsMenuLabel" class="input-group-text">Collection</span>
     </div>
     <button aria-describedby="collectionControlsMenuLabel"
             id="collectionControlsMenuButton"
             class="btn btn-outline-primary"
-            (click)="onClose($event)"
+            (blur)="onClose()"
+            (click)="onClose()"
             [disabled]="disabled"
             ngbDropdownToggle>
       <span *ngIf="disabled"><i class='fa fa-circle-o-notch fa-spin'></i></span>
@@ -24,8 +25,8 @@
       </div>
       <div class="dropdown-divider"></div>
       <div class="scrollable-menu" aria-labelledby="dropdownMenuButton" (scroll)="onScroll($event)">
-        <button class="dropdown-item disabled" *ngIf="searchListCollection.length == 0">No results found</button>
-        <button class="dropdown-item collection-item" *ngFor="let listItem of searchListCollection" (click)="onSelect(listItem)" title="{{ listItem.collection.name }}">
+        <button class="dropdown-item disabled" *ngIf="(searchListCollection$ | async).length == 0">No results found</button>
+        <button class="dropdown-item collection-item" *ngFor="let listItem of (searchListCollection$ | async)" (click)="onSelect(listItem)" title="{{ listItem.collection.name }}">
           <ul class="list-unstyled mb-0">
             <li class="list-item text-truncate text-secondary" *ngFor="let item of listItem.communities" >{{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i></li>
             <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</li>

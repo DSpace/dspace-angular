@@ -26,6 +26,29 @@ import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-
 import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { Observable } from 'rxjs/Observable';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  first,
+  flatMap,
+  map,
+  mergeMap,
+  reduce,
+  startWith,
+  tap
+} from 'rxjs/operators';
+
+interface CollectionListEntryItem {
+  id: string;
+  name: string;
+}
+
+interface CollectionListEntry {
+  communities: CollectionListEntryItem[],
+  collection: CollectionListEntryItem
+}
 
 @Component({
   selector: 'ds-submission-form-collection',
@@ -44,10 +67,9 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   @Output() collectionChange: EventEmitter<Workspaceitem> = new EventEmitter<Workspaceitem>();
 
   public disabled = true;
-  public listCollection = [];
   public model: any;
-  public searchField: FormControl;
-  public searchListCollection = [];
+  public searchField: FormControl = new FormControl();
+  public searchListCollection$: Observable<CollectionListEntry[]>;
   public selectedCollectionId: string;
   public selectedCollectionName: string;
 
@@ -81,68 +103,71 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.currentCollectionId)
-      && hasValue(changes.currentCollectionId.currentValue)
-      && !isNotEmpty(this.listCollection)) {
+      && hasValue(changes.currentCollectionId.currentValue)) {
+
       this.selectedCollectionId = this.currentCollectionId;
       // @TODO replace with search/top browse endpoint
       // @TODO implement community/subcommunity hierarchy
-      this.subs.push(this.communityDataService.findAll()
-        .filter((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload))
-        .first()
-        .switchMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page)
-        .subscribe((communityData: Community) => {
-
-          this.subs.push(communityData.collections
-            .filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded)
-            .first()
-            .switchMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page)
-            .filter((collectionData: Collection) => isNotEmpty(collectionData))
-            .subscribe((collectionData: Collection) => {
+      const listCollection$ = this.communityDataService.findAll().pipe(
+        filter((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
+        first(),
+        mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page),
+        flatMap((communityData: Community) => {
+          return communityData.collections.pipe(
+            filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
+            first(),
+            mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
+            filter((collectionData: Collection) => isNotEmpty(collectionData)),
+            tap((collectionData: Collection) => {
               if (collectionData.id === this.selectedCollectionId) {
                 this.selectedCollectionName = collectionData.name;
               }
-              const collectionEntry = {
-                communities: [{id: communityData.id, name: communityData.name}],
-                collection: {id: collectionData.id, name: collectionData.name}
-              };
-              this.listCollection.push(collectionEntry);
-              this.searchListCollection.push(collectionEntry);
-              this.disabled = false;
-              this.cdr.detectChanges();
+            }),
+            map((collectionData: Collection) => ({
+              communities: [{id: communityData.id, name: communityData.name}],
+              collection: {id: collectionData.id, name: collectionData.name}
             }))
-        }));
+          );
+        }),
+        reduce((acc: any, value: any) => [...acc, ...value], []),
+        tap((list: CollectionListEntry[]) => {
+          if (isNotEmpty(list)) {
+            this.disabled = false;
+          }
+        }),
+        startWith([])
+      );
+
+      const searchTerm$ = this.searchField.valueChanges.pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        startWith('')
+      );
+
+      this.searchListCollection$ = Observable.combineLatest(searchTerm$, listCollection$)
+        .map(([searchTerm, listCollection]) => {
+          if (searchTerm === '' || isNullOrUndefined(searchTerm)) {
+            return listCollection;
+          } else {
+            return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5)
+          }
+        });
     }
   }
 
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
-    this.searchField = new FormControl();
-    this.searchField.valueChanges
-      .debounceTime(200)
-      .distinctUntilChanged()
-      .subscribe((term) => {
-        this.search(term);
-      });
   }
 
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
-  search(text: string) {
-    if (text === '' || isNullOrUndefined(text)) {
-      this.searchListCollection = this.listCollection;
-    } else {
-      this.searchListCollection = this.listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(text.toLowerCase()) > -1).slice(0, 5);
-    }
-  }
-
   onSelect(event) {
     this.searchField.reset();
-    this.searchListCollection = this.listCollection;
     this.disabled = true;
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
-    this.operationsService.jsonPatchByResourceID(
+    this.subs.push(this.operationsService.jsonPatchByResourceID(
       this.submissionService.getSubmissionObjectLinkName(),
       this.submissionId,
       'sections',
@@ -155,9 +180,16 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         this.disabled = false;
         this.cdr.detectChanges();
       })
+    );
   }
 
-  onClose(event) {
+  onClose() {
     this.searchField.reset();
+  }
+
+  toggled(isOpen: boolean) {
+    if (!isOpen) {
+      this.searchField.reset();
+    }
   }
 }
