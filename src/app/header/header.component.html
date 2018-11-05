@@ -1,18 +1,10 @@
 <header>
-  <nav class="navbar navbar-dark bg-primary navbar-expand-md">
-    <div [ngClass]="{'clearfix': !(isNavBarCollapsed | async)}">
-      <a class="navbar-brand" routerLink="/home">{{ 'title' | translate }}</a>
+    <div class="container">
+        <a class="navbar-brand my-2" routerLink="/home">
+            <img src="assets/images/dspace-logo.svg"/>
+        </a>
+        <nav class="navbar navbar-expand-md float-right p-0">
+            <ds-auth-nav-menu></ds-auth-nav-menu>
+        </nav>
     </div>
-    <button class="navbar-toggler" type="button" (click)="toggle()" aria-controls="collapsingNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon fa fa-bars fa-fw" aria-hidden="true"></span>
-    </button>
-    <div [ngbCollapse]="(isNavBarCollapsed | async)" class="collapse navbar-collapse" id="collapsingNav">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fa fa-home fa-fw" aria-hidden="true"></i> {{ 'nav.home' | translate }}<span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
-      <ds-auth-nav-menu></ds-auth-nav-menu>
-    </div>
-  </nav>
 </header>

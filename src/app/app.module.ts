@@ -31,6 +31,7 @@ import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-s
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { SharedModule } from './shared/shared.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -87,6 +88,7 @@ if (!ENV_CONFIG.production) {
   declarations: [
     AppComponent,
     HeaderComponent,
+    NavbarComponent,
     FooterComponent,
     PageNotFoundComponent,
     NotificationComponent,

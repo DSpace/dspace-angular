@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -6,13 +6,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Observable } from 'rxjs/Observable';
 
-import { HeaderComponent } from './header.component';
-import { HeaderState } from './header.reducer';
-import { HeaderToggleAction } from './header.actions';
-import { AuthNavMenuComponent } from '../shared/auth-nav-menu/auth-nav-menu.component';
-import { LogInComponent } from '../shared/log-in/log-in.component';
-import { LogOutComponent } from '../shared/log-out/log-out.component';
-import { LoadingComponent } from '../shared/loading/loading.component';
+import { NavbarComponent } from './navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HostWindowService } from '../shared/host-window.service';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service-stub';
@@ -20,12 +14,14 @@ import { RouterStub } from '../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NavbarState } from './navbar.reducer';
+import { NavbarToggleAction } from './navbar.actions';
 
-let comp: HeaderComponent;
-let fixture: ComponentFixture<HeaderComponent>;
-let store: Store<HeaderState>;
+let comp: NavbarComponent;
+let fixture: ComponentFixture<NavbarComponent>;
+let store: Store<NavbarState>;
 
-describe('HeaderComponent', () => {
+describe('NavbarComponent', () => {
 
   // async beforeEach
   beforeEach(async(() => {
@@ -36,7 +32,7 @@ describe('HeaderComponent', () => {
         NgbCollapseModule.forRoot(),
         NoopAnimationsModule,
         ReactiveFormsModule],
-      declarations: [HeaderComponent],
+      declarations: [NavbarComponent],
       providers: [
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: Router, useClass: RouterStub },
@@ -48,7 +44,7 @@ describe('HeaderComponent', () => {
 
   // synchronous beforeEach
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(NavbarComponent);
 
     comp = fixture.componentInstance;
 
@@ -63,8 +59,8 @@ describe('HeaderComponent', () => {
       navbarToggler.triggerEventHandler('click', null);
     });
 
-    it('should dispatch a HeaderToggleAction', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new HeaderToggleAction());
+    it('should dispatch a NavbarToggleAction', () => {
+      expect(store.dispatch).toHaveBeenCalledWith(new NavbarToggleAction());
     });
 
   });

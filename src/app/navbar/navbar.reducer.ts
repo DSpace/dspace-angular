@@ -1,30 +1,30 @@
-import { HeaderAction, HeaderActionTypes } from './header.actions';
+import { NavbarAction, NavbarActionTypes } from './navbar.actions';
 
-export interface HeaderState {
+export interface NavbarState {
   navCollapsed: boolean;
 }
 
-const initialState: HeaderState = {
+const initialState: NavbarState = {
   navCollapsed: true
 };
 
-export function headerReducer(state = initialState, action: HeaderAction): HeaderState {
+export function navbarReducer(state = initialState, action: NavbarAction): NavbarState {
   switch (action.type) {
 
-    case HeaderActionTypes.COLLAPSE: {
+    case NavbarActionTypes.COLLAPSE: {
       return Object.assign({}, state, {
         navCollapsed: true
       });
     }
 
-    case HeaderActionTypes.EXPAND: {
+    case NavbarActionTypes.EXPAND: {
       return Object.assign({}, state, {
         navCollapsed: false
       });
 
     }
 
-    case HeaderActionTypes.TOGGLE: {
+    case NavbarActionTypes.TOGGLE: {
       return Object.assign({}, state, {
         navCollapsed: !state.navCollapsed
       });

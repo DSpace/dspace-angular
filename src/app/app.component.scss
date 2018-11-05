@@ -28,7 +28,12 @@ body {
 }
 
 .main-content {
+  z-index: $main-z-index;
   flex: 1 0 auto;
   margin-top: $content-spacing;
   margin-bottom: $content-spacing;
+}
+
+ds-navbar {
+  z-index: $nav-z-index;
 }

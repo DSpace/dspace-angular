@@ -1,0 +1,18 @@
+@import '../../styles/variables.scss';
+
+nav.navbar {
+  border-bottom: 1px $gray-400 solid;
+}
+
+nav.navbar .navbar-toggler .navbar-toggler-icon {
+  background-image: none !important;
+  line-height: 1.5;
+}
+
+.dropdown-menu {
+  min-width: 100%;
+}
+.reset-padding {
+  margin-left: -$spacer/2;
+  margin-right: -$spacer/2;
+}

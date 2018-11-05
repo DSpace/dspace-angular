@@ -1,14 +1,5 @@
 @import '../../styles/variables.scss';
 
-header nav.navbar {
-  border-radius: 0;
-}
-
-header nav.navbar .navbar-toggler:hover {
-  cursor: pointer;
-}
-
-header nav.navbar .navbar-toggler .navbar-toggler-icon {
-  background-image: none !important;
-  line-height: 1.5;
+.navbar-brand img {
+    height: $header-logo-height;
 }

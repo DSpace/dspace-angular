@@ -10,23 +10,23 @@ import { type } from '../shared/ngrx/type';
  * literal types and runs a simple check to guarantee all
  * action types in the application are unique.
  */
-export const HeaderActionTypes = {
-  COLLAPSE: type('dspace/header/COLLAPSE'),
-  EXPAND: type('dspace/header/EXPAND'),
-  TOGGLE: type('dspace/header/TOGGLE')
+export const NavbarActionTypes = {
+  COLLAPSE: type('dspace/navbar/COLLAPSE'),
+  EXPAND: type('dspace/navbar/EXPAND'),
+  TOGGLE: type('dspace/navbar/TOGGLE')
 };
 
 /* tslint:disable:max-classes-per-file */
-export class HeaderCollapseAction implements Action {
-  type = HeaderActionTypes.COLLAPSE;
+export class NavbarCollapseAction implements Action {
+  type = NavbarActionTypes.COLLAPSE;
 }
 
-export class HeaderExpandAction implements Action {
-  type = HeaderActionTypes.EXPAND;
+export class NavbarExpandAction implements Action {
+  type = NavbarActionTypes.EXPAND;
 }
 
-export class HeaderToggleAction implements Action {
-  type = HeaderActionTypes.TOGGLE;
+export class NavbarToggleAction implements Action {
+  type = NavbarActionTypes.TOGGLE;
 }
 /* tslint:enable:max-classes-per-file */
 
@@ -34,7 +34,7 @@ export class HeaderToggleAction implements Action {
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type HeaderAction
-  = HeaderCollapseAction
-  | HeaderExpandAction
-  | HeaderToggleAction
+export type NavbarAction
+  = NavbarCollapseAction
+  | NavbarExpandAction
+  | NavbarToggleAction
