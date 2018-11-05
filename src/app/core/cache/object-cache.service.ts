@@ -45,13 +45,11 @@ export class ObjectCacheService {
    *    The object to add
    * @param msToLive
    *    The number of milliseconds it should be cached for
-   * @param requestHref
-   *    The selfLink of the request that resulted in this object
-   *    This isn't necessarily the same as the object's self
-   *    link, it could have been part of a list for example
+   * @param requestUUID
+   *    The UUID of the request that resulted in this object
    */
-  add(objectToCache: CacheableObject, msToLive: number, requestHref: string): void {
-    this.store.dispatch(new AddToObjectCacheAction(objectToCache, new Date().getTime(), msToLive, requestHref));
+  add(objectToCache: CacheableObject, msToLive: number, requestUUID: string): void {
+    this.store.dispatch(new AddToObjectCacheAction(objectToCache, new Date().getTime(), msToLive, requestUUID));
   }
 
   /**
@@ -115,16 +113,16 @@ export class ObjectCacheService {
     );
   }
 
-  getRequestHrefBySelfLink(selfLink: string): Observable<string> {
+  getRequestUUIDBySelfLink(selfLink: string): Observable<string> {
     return this.getEntry(selfLink).pipe(
-      map((entry: ObjectCacheEntry) => entry.requestHref),
+      map((entry: ObjectCacheEntry) => entry.requestUUID),
       distinctUntilChanged());
   }
 
-  getRequestHrefByUUID(uuid: string): Observable<string> {
+  getRequestUUIDByObjectUUID(uuid: string): Observable<string> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
-      mergeMap((selfLink: string) => this.getRequestHrefBySelfLink(selfLink))
+      mergeMap((selfLink: string) => this.getRequestUUIDBySelfLink(selfLink))
     );
   }
 

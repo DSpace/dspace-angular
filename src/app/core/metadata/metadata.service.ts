@@ -263,13 +263,17 @@ export class MetadataService {
         .pipe(
           first((files) => isNotEmpty(files)),
           catchError((error) => {
-            console.debug(error);
+            console.debug(error.message);
             return []
           }))
         .subscribe((bitstreams: Bitstream[]) => {
           for (const bitstream of bitstreams) {
             bitstream.format.pipe(
               first(),
+              catchError((error: Error) => {
+                console.debug(error.message);
+                return []
+              }),
               map((rd: RemoteData<BitstreamFormat>) => rd.payload),
               filter((format: BitstreamFormat) => hasValue(format)))
               .subscribe((format: BitstreamFormat) => {

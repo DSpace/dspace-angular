@@ -45,7 +45,7 @@ export class ObjectCacheEntry implements CacheEntry {
   data: CacheableObject;
   timeAdded: number;
   msToLive: number;
-  requestHref: string;
+  requestUUID: string;
   patches: Patch[] = [];
   isDirty: boolean;
 }
@@ -119,7 +119,7 @@ function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheActio
       data: action.payload.objectToCache,
       timeAdded: action.payload.timeAdded,
       msToLive: action.payload.msToLive,
-      requestHref: action.payload.requestHref,
+      requestUUID: action.payload.requestUUID,
       isDirty: (hasValue(existing) ? isNotEmpty(existing.patches) : false),
       patches: (hasValue(existing) ? existing.patches : [])
     }

@@ -42,7 +42,6 @@ export class RequestEffects {
     }),
     filter((entry: RequestEntry) => hasValue(entry)),
     map((entry: RequestEntry) => entry.request),
-    tap((entry: RequestEntry) => console.log(entry)),
     flatMap((request: RestRequest) => {
       let body;
       if (isNotEmpty(request.body)) {

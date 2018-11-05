@@ -116,7 +116,6 @@ export class AuthService {
     options.headers = headers;
     return this.authRequestService.postToEndpoint('login', body, options).pipe(
       map((status: AuthStatus) => {
-        console.log('yey response');
         if (status.authenticated) {
           return status;
         } else {
