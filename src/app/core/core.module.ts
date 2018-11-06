@@ -65,6 +65,7 @@ import { UploaderService } from '../shared/uploader/uploader.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { ItemSelectService } from '../shared/item-select/item-select.service';
+import { MappingItemsResponseParsingService } from './data/mapping-items-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -130,6 +131,7 @@ const PROVIDERS = [
   UUIDService,
   DSpaceObjectDataService,
   ItemSelectService,
+  MappingItemsResponseParsingService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

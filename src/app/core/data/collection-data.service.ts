@@ -11,6 +11,26 @@ import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Observable } from 'rxjs/Observable';
+import { RemoteData } from './remote-data';
+import { PaginatedList } from './paginated-list';
+import { Item } from '../shared/item.model';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { ensureArrayHasValue, hasValue, isNotEmptyOperator } from '../../shared/empty.util';
+import { GetRequest, RestRequest } from './request.models';
+import {
+  configureRequest,
+  filterSuccessfulResponses,
+  getRequestFromSelflink,
+  getResponseFromSelflink
+} from '../shared/operators';
+import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { ResponseParsingService } from './parsing.service';
+import { MappingItemsResponseParsingService } from './mapping-items-response-parsing.service';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { GenericSuccessResponse } from '../cache/response-cache.models';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
@@ -27,4 +47,43 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
   ) {
     super();
   }
+
+  getMappingItemsEndpoint(collectionId): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getFindByIDHref(endpoint, collectionId)),
+      map((endpoint: string) => `${endpoint}/mappingItems`)
+    );
+  }
+
+  getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
+    const href$ = this.getMappingItemsEndpoint(collectionId).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpoint: string) => hasValue(searchOptions) ? searchOptions.toRestUrl(endpoint) : endpoint)
+    );
+
+    href$.pipe(
+      map((endpoint: string) => {
+        const request = new GetRequest(this.requestService.generateRequestId(), endpoint);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return MappingItemsResponseParsingService;
+          }
+        });
+      }),
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
+
+    const payload$ = responseCache$.pipe(
+      filterSuccessfulResponses(),
+      map((entry: ResponseCacheEntry) => entry.response),
+      map((response: GenericSuccessResponse<DSpaceObject[]>) => new PaginatedList(response.pageInfo, response.payload))
+    );
+
+    return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+  }
+
 }

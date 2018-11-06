@@ -17,6 +17,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RestResponse } from '../../core/cache/response-cache.models';
 import { TranslateService } from '@ngx-translate/core';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { Item } from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -67,6 +69,7 @@ export class CollectionItemMapperComponent implements OnInit {
               private searchService: SearchService,
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
+              private collectionDataService: CollectionDataService,
               private translateService: TranslateService) {
   }
 
@@ -88,13 +91,10 @@ export class CollectionItemMapperComponent implements OnInit {
     );
     this.collectionItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options]) => {
-        return this.searchService.search(Object.assign(options, {
-          scope: collectionRD.payload.id,
-          dsoType: DSpaceObjectType.ITEM,
+        return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
           sort: this.defaultSortOptions
-        }));
-      }),
-      toDSpaceObjectListRD()
+        }))
+      })
     );
     this.mappingItemsRD$ = this.searchOptions$.pipe(
       flatMap((options: PaginatedSearchOptions) => {
@@ -143,6 +143,14 @@ export class CollectionItemMapperComponent implements OnInit {
         });
       }
     });
+  }
+
+  /**
+   * Remove the mapping for the selected items to the collection and display notifications
+   * @param {string[]} ids  The list of item UUID's to remove the mapping to the collection
+   */
+  unmapItems(ids: string[]) {
+    // TODO: Functionality for unmapping items
   }
 
   /**

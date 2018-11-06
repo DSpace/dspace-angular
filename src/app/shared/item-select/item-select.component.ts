@@ -38,6 +38,9 @@ export class ItemSelectComponent implements OnInit {
   @Input()
   confirmButton = 'item.select.confirm';
 
+  @Input()
+  hideCollection = false;
+
   /**
    * EventEmitter to return the selected UUIDs when the confirm button is pressed
    * @type {EventEmitter<string[]>}
