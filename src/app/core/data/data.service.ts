@@ -30,6 +30,8 @@ import {
 } from '../shared/operators';
 import { DSOSuccessResponse, ErrorResponse, RestResponse } from '../cache/response.models';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract requestService: RequestService;
@@ -128,7 +130,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     }
   }
 
-  create(dso: TDomain, parentUUID: string): Observable<RemoteData<TDomain>> {
+  create(dso: TNormalized, parentUUID: string): Observable<RemoteData<TDomain>> {
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
@@ -136,9 +138,11 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
     );
 
+    const serializedDso = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(dso.type)).serialize(dso);
+
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint: string) => new CreateRequest(requestId, endpoint, dso))
+      map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
     );
 
     // Execute the post request

@@ -8,6 +8,8 @@ import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { take } from 'rxjs/operators';
+import { ResourceType } from '../../core/shared/resource-type';
+import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
 
 @Component({
   selector: 'ds-create-community',
@@ -34,14 +36,15 @@ export class CreateCommunityPageComponent {
 
   onSubmit(data: any) {
     this.parentUUID$.pipe(take(1)).subscribe((uuid: string) => {
-      const community = Object.assign(new Community(), {
+      const community = Object.assign(new NormalizedCommunity(), {
         name: data.name,
         metadata: [
           { key: 'dc.description', value: data.introductory },
           { key: 'dc.description.abstract', value: data.description },
           { key: 'dc.rights', value: data.copyright }
           // TODO: metadata for news
-        ]
+        ],
+        type: ResourceType.Community
       });
       this.communityDataService.create(community, uuid).pipe(take(1)).subscribe((rd: RemoteData<DSpaceObject>) => {
         if (rd.hasSucceeded) {
