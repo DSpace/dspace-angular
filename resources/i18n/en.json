@@ -25,13 +25,25 @@
         "map": "Map"
       },
       "notifications": {
-        "success": {
-          "head": "Mapping completed",
-          "content": "Successfully mapped {{amount}} items."
+        "map": {
+          "success": {
+            "head": "Mapping completed",
+            "content": "Successfully mapped {{amount}} items."
+          },
+          "error": {
+            "head": "Mapping errors",
+            "content": "Errors occurred for mapping of {{amount}} items."
+          }
         },
-        "error": {
-          "head": "Mapping errors",
-          "content": "Errors occurred for mapping of {{amount}} items."
+        "unmap": {
+          "success": {
+            "head": "Remove mapping completed",
+            "content": "Successfully removed the mappings of {{amount}} items."
+          },
+          "error": {
+            "head": "Remove mapping errors",
+            "content": "Errors occurred for removing the mappings of {{amount}} items."
+          }
         }
       },
       "return": "Return"

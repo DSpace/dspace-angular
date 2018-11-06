@@ -24,7 +24,7 @@
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
                 [confirmButton]="'collection.item-mapper.remove'"
                 [hideCollection]="true"
-                (confirm)="unmapItems($event)"></ds-item-select>
+                (confirm)="mapItems($event, true)"></ds-item-select>
             </div>
           </ng-template>
         </ngb-tab>

@@ -15,7 +15,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions, PostRequest, RestRequest } from './request.models';
+import { DeleteRequest, FindAllOptions, PostRequest, RestRequest } from './request.models';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { configureRequest, getResponseFromSelflink } from '../shared/operators';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
@@ -64,6 +64,18 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL)),
+      configureRequest(this.requestService),
+      map((request: RestRequest) => request.href),
+      getResponseFromSelflink(this.responseCache),
+      map((responseCacheEntry: ResponseCacheEntry) => responseCacheEntry.response)
+    );
+  }
+
+  public removeMappingFromCollection(itemId: string, collectionId: string): Observable<RestResponse> {
+    return this.getMappingCollectionsEndpoint(itemId, collectionId).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
       map((request: RestRequest) => request.href),
       getResponseFromSelflink(this.responseCache),
