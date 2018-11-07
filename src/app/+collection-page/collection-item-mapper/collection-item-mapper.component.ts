@@ -96,9 +96,11 @@ export class CollectionItemMapperComponent implements OnInit {
         }))
       })
     );
-    this.mappingItemsRD$ = this.searchOptions$.pipe(
-      flatMap((options: PaginatedSearchOptions) => {
+    this.mappingItemsRD$ = collectionAndOptions$.pipe(
+      switchMap(([collectionRD, options]) => {
         return this.searchService.search(Object.assign(options, {
+          // TODO: Exclude items already mapped to collection without overwriting search query
+          // query: `-location.coll:\"${collectionRD.payload.id}\"`,
           scope: undefined,
           dsoType: DSpaceObjectType.ITEM,
           sort: this.defaultSortOptions
