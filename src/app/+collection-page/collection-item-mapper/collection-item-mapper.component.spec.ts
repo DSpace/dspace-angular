@@ -7,7 +7,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SearchFormComponent } from '../../shared/search-form/search-form.component';
 import { SearchPageModule } from '../../+search-page/search-page.module';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { ItemSelectComponent } from '../../shared/item-select/item-select.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { RouterStub } from '../../shared/testing/router-stub';
