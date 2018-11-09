@@ -1,18 +1,56 @@
 @import '../../styles/variables.scss';
 
 nav.navbar {
-  border-bottom: 1px $gray-400 solid;
-}
-
-nav.navbar .navbar-toggler .navbar-toggler-icon {
-  background-image: none !important;
-  line-height: 1.5;
+    border-bottom: 1px $gray-400 solid;
+    align-items: baseline;
 }
 
 .dropdown-menu {
-  min-width: 100%;
+    min-width: 100%;
 }
-.reset-padding {
-  margin-left: -$spacer/2;
-  margin-right: -$spacer/2;
+
+/** Mobile menu styling **/
+@media screen and (max-width: map-get($grid-breakpoints, md)) {
+    .navbar {
+        width: 100%;
+        left: 0;
+        background-color: $white;
+        position: absolute;
+        overflow: hidden;
+        height: 0;
+        &.open {
+            height: 100vh; //doesn't matter because wrapper is sticky
+        }
+        .dropdown-toggle {
+            &:after {
+                float: right;
+                margin-top: $spacer/2;
+            }
+        }
+        .dropdown-menu {
+            border: 0;
+        }
+    }
 }
+
+@media screen and (min-width: map-get($grid-breakpoints, md)) {
+    .reset-padding-md {
+        margin-left: -$spacer/2;
+        margin-right: -$spacer/2;
+    }
+}
+
+/* TODO remove when https://github.com/twbs/bootstrap/issues/24726 is fixed */
+.navbar-expand-md.navbar-container {
+    @media screen and (max-width: map-get($grid-breakpoints, md)) {
+        > .container {
+            padding-left: $spacer;
+            padding-right: $spacer;
+        }
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+}
+
+

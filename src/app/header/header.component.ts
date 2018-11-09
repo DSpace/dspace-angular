@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { NavbarToggleAction } from '../navbar/navbar.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
 
 @Component({
   selector: 'ds-header',
@@ -13,4 +16,13 @@ export class HeaderComponent {
    */
   public isAuthenticated: Observable<boolean>;
   public showAuth = false;
+  
+  constructor(
+    private store: Store<AppState>,
+  ) {
+  }
+
+  public toggle(): void {
+    this.store.dispatch(new NavbarToggleAction());
+  }
 }

@@ -46,7 +46,15 @@
     }
   },
   "nav": {
-    "home": "Home",
+    "browse": {
+      "header": "All of DSpace"
+    },
+    "community-browse": {
+      "header": "By Community"
+    },
+    "statistics": {
+      "header": "Statistics"
+    },
     "login": "Log In",
     "logout": "Log Out"
   },

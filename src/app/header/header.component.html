@@ -3,8 +3,16 @@
         <a class="navbar-brand my-2" routerLink="/home">
             <img src="assets/images/dspace-logo.svg"/>
         </a>
-        <nav class="navbar navbar-expand-md float-right p-0">
+
+        <nav class="navbar navbar-light navbar-expand-md float-right px-0">
             <ds-auth-nav-menu></ds-auth-nav-menu>
+            <div class="pl-2">
+                <button class="navbar-toggler" type="button" (click)="toggle()"
+                        aria-controls="collapsingNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa fa-bars fa-fw" aria-hidden="true"></span>
+                </button>
+            </div>
         </nav>
     </div>
 </header>

@@ -32,6 +32,7 @@ import { NotificationsBoardComponent } from './shared/notifications/notification
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { SharedModule } from './shared/shared.module';
 import { NavbarComponent } from './navbar/navbar.component';
+import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -89,6 +90,7 @@ if (!ENV_CONFIG.production) {
     AppComponent,
     HeaderComponent,
     NavbarComponent,
+    HeaderNavbarWrapperComponent,
     FooterComponent,
     PageNotFoundComponent,
     NotificationComponent,

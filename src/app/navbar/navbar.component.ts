@@ -1,34 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { createSelector, Store } from '@ngrx/store';
+import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-
-import { NavbarState } from './navbar.reducer';
-import { NavbarToggleAction } from './navbar.actions';
 import { AppState } from '../app.reducer';
-
-const navbarStateSelector = (state: AppState) => state.navbar;
-const navCollapsedSelector = createSelector(navbarStateSelector, (navbar: NavbarState) => navbar.navCollapsed);
+import { slideMobileNav } from '../shared/animations/slide';
+import { HostWindowService } from '../shared/host-window.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-navbar',
   styleUrls: ['navbar.component.scss'],
   templateUrl: 'navbar.component.html',
+  animations: [slideMobileNav]
 })
-export class NavbarComponent implements OnInit {
-  public isNavBarCollapsed: Observable<boolean>;
+export class NavbarComponent {
+  @Input() isNavBarCollapsed: Observable<boolean>;
 
   constructor(
     private store: Store<AppState>,
+    protected windowService: HostWindowService
   ) {
   }
 
-  ngOnInit(): void {
-    // set loading
-    this.isNavBarCollapsed = this.store.select(navCollapsedSelector);
+
+
+  openDropdownOnHover(dropdown: any): void {
+    this.windowService.isXsOrSm().pipe(
+      first()
+    ).subscribe((isMobile) => {
+      if (!isMobile) {
+        dropdown.open();
+      }
+    });
   }
 
-  public toggle(): void {
-    this.store.dispatch(new NavbarToggleAction());
+  closeDropdownOnHover(dropdown: any): void {
+    this.windowService.isXsOrSm().pipe(
+      first()
+    ).subscribe((isMobile) => {
+      if (!isMobile) {
+        dropdown.close();
+      }
+    });
   }
-
 }

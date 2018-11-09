@@ -3,3 +3,7 @@
 .navbar-brand img {
     height: $header-logo-height;
 }
+.navbar-toggler .navbar-toggler-icon {
+    background-image: none !important;
+    line-height: 1.5;
+}

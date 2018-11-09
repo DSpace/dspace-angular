@@ -1,43 +1,43 @@
-<nav class="navbar navbar-expand-md p-0">
+<nav [ngClass]="{'open': !(isNavBarCollapsed | async)}"
+     [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((isNavBarCollapsed | async) ? 'collapsed' : 'expanded')"
+     class="navbar navbar-light navbar-expand-md p-md-0 navbar-container">    <!-- TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed -->
     <div class="container">
-        <div class="reset-padding">
-            <button class="navbar-toggler" type="button" (click)="toggle()"
-                    aria-controls="collapsingNav"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon fa fa-bars fa-fw" aria-hidden="true"></span>
-            </button>
-            <div [ngbCollapse]="(isNavBarCollapsed | async)" class="collapse navbar-collapse"
-                 id="collapsingNav">
-                <ul class="navbar-nav mr-auto">
-                    <li ngbDropdown class="nav-item">
+        <div class="reset-padding-md w-100">
+            <div id="collapsingNav">
+                <ul class="navbar-nav mr-auto shadow-none">
+                    <li ngbDropdown class="nav-item" #dropdown1="ngbDropdown"
+                        (mouseenter)="openDropdownOnHover(dropdown1)"
+                        (mouseleave)="closeDropdownOnHover(dropdown1)">
                         <a href="#" ngbDropdownToggle class="nav-link" routerLinkActive="active"
                            id="browseDropdown" (click)="$event.preventDefault();"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{
                             'nav.browse.header' | translate }}</a>
                         <div ngbDropdownMenu aria-labelledby="browseDropdown"
-                             class="rounded-0 m-0 border-0">
+                             class="rounded-bottom m-0 shadow-none border-top-0">
                             <a class="dropdown-item" href="/communitylist">Communities &
                                 Collections</a>
                             <a class="dropdown-item" href="/browse?type=dateissued">By Issue
                                 Date</a>
-                            <a class="dropdown-item" href="/browse?type=author">Authors</a>
+                            <a class="dropdown-item" href="/browse?type=author">By Author</a>
                         </div>
                     </li>
-                    <li ngbDropdown class="nav-item">
+                    <li ngbDropdown class="nav-item" #dropdown2="ngbDropdown"
+                        (mouseenter)="openDropdownOnHover(dropdown2)"
+                        (mouseleave)="closeDropdownOnHover(dropdown2)">
                         <a href="#" ngbDropdownToggle class="nav-link" routerLinkActive="active"
                            id="scopeBrowseDropdown" (click)="$event.preventDefault();"
                            data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">{{ 'nav.communityBrowse.header' | translate }}</a>
+                           aria-expanded="false">{{ 'nav.community-browse.header' | translate }}</a>
                         <div ngbDropdownMenu aria-labelledby="scopeBrowseDropdown"
-                             class="rounded-0 m-0 border-0">
+                             class="rounded-bottom m-0 shadow-none border-top-0">
                             <a class="dropdown-item" href="/browse?type=dateissued">By Issue
                                 Date</a>
-                            <a class="dropdown-item" href="/browse?type=author">Authors</a>
+                            <a class="dropdown-item" href="/browse?type=author">By Author</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="/home" routerLinkActive="active">{{
-                            'nav.statistics' | translate }}</a>
+                        <a class="nav-link" routerLink="/statistics" routerLinkActive="active">{{
+                            'nav.statistics.header' | translate }}</a>
                     </li>
                 </ul>
             </div>
