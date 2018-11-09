@@ -37,3 +37,7 @@ body {
 ds-header-navbar-wrapper {
   z-index: $nav-z-index;
 }
+
+ds-admin-sidebar {
+  z-index: $sidebar-z-index;
+}

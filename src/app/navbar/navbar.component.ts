@@ -21,8 +21,6 @@ export class NavbarComponent {
   ) {
   }
 
-
-
   openDropdownOnHover(dropdown: any): void {
     this.windowService.isXsOrSm().pipe(
       first()

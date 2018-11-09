@@ -9,12 +9,14 @@ $gray-800: lighten($gray-base, 26.6%) !default; // #444
 $gray-700: lighten($gray-base, 46.6%) !default; // #777
 $gray-600: lighten($gray-base, 73.3%) !default; // #bbb
 $gray-100: lighten($gray-base, 93.5%) !default; // #eee
+
 /* Reassign color vars to semantic color scheme */
 $blue:    #2B4E72 !default;
 $green:   #94BA65 !default;
 $cyan:    #2790B0 !default;
 $yellow:  #EBBB54 !default;
 $red:     #CF4444 !default;
+$dark: #132333 !default;
 
 $theme-colors: (
         primary: $blue,
@@ -24,7 +26,7 @@ $theme-colors: (
         warning: $yellow,
         danger: $red,
         light: $gray-100,
-        dark: $blue
+        dark: $dark
 ) !default;
 /* Fonts */
 $link-color: map-get($theme-colors, info) !default;

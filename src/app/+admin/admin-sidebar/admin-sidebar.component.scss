@@ -1,0 +1,8 @@
+@import '../../../styles/variables.scss';
+:host {
+    position: absolute;
+    .sidebar-sub-level-items {
+        list-style: disc;
+        color: $navbar-dark-color;
+    }
+}
