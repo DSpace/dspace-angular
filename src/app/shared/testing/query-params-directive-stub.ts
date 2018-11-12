@@ -6,5 +6,5 @@ import { Directive, Input } from '@angular/core';
   selector: '[queryParams]',
 })
 export class QueryParamsDirectiveStub {
-  @Input('queryParams') queryParams: any;
+  @Input() queryParams: any;
 }

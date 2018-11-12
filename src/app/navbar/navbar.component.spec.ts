@@ -4,7 +4,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 
 import { NavbarComponent } from './navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { HostWindowServiceStub } from '../shared/testing/host-window-service-stu
 import { RouterStub } from '../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import * as ngrx from '@ngrx/store';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NavbarState } from './navbar.reducer';
 import { NavbarToggleAction } from './navbar.actions';
@@ -48,7 +49,7 @@ describe('NavbarComponent', () => {
 
     comp = fixture.componentInstance;
 
-    store = fixture.debugElement.injector.get(Store);
+    store = fixture.debugElement.injector.get(Store) as Store<HeaderState>;
     spyOn(store, 'dispatch');
   });
 
@@ -70,7 +71,11 @@ describe('NavbarComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#collapsingNav')).nativeElement;
-      spyOn(store, 'select').and.returnValue(Observable.of({ navCollapsed: true }));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf({ navCollapsed: true })
+        };
+      });
       fixture.detectChanges();
     });
 
@@ -85,7 +90,11 @@ describe('NavbarComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#collapsingNav')).nativeElement;
-      spyOn(store, 'select').and.returnValue(Observable.of(false));
+      spyOnProperty(ngrx, 'select').and.callFake(() => {
+        return () => {
+          return () => observableOf(false)
+        };
+      });
       fixture.detectChanges();
     });
 

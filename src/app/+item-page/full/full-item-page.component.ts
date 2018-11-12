@@ -1,7 +1,9 @@
+
+import {filter, map} from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { ItemPageComponent } from '../simple/item-page.component';
 import { Metadatum } from '../../core/shared/metadatum.model';
@@ -41,9 +43,9 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit {
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
   ngOnInit(): void {
     super.ngOnInit();
-    this.metadata$ = this.itemRD$
-      .map((rd: RemoteData<Item>) => rd.payload)
-      .filter((item: Item) => hasValue(item))
-      .map((item: Item) => item.metadata);
+    this.metadata$ = this.itemRD$.pipe(
+      map((rd: RemoteData<Item>) => rd.payload),
+      filter((item: Item) => hasValue(item)),
+      map((item: Item) => item.metadata),);
   }
 }

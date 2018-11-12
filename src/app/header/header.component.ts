@@ -16,7 +16,7 @@ export class HeaderComponent {
    */
   public isAuthenticated: Observable<boolean>;
   public showAuth = false;
-  
+
   constructor(
     private store: Store<AppState>,
   ) {

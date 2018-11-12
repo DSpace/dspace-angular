@@ -1,8 +1,13 @@
+import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { TruncatablesState, TruncatableState } from './truncatable.reducer';
-import { TruncatableExpandAction, TruncatableToggleAction, TruncatableCollapseAction } from './truncatable.actions';
+import {
+  TruncatableExpandAction,
+  TruncatableToggleAction,
+  TruncatableCollapseAction
+} from './truncatable.actions';
 import { hasValue } from '../empty.util';
 
 const truncatableStateSelector = (state: TruncatablesState) => state.truncatable;
@@ -22,14 +27,16 @@ export class TruncatableService {
    * @returns {Observable<boolean>} Emits true if the state in the store is currently collapsed for the given truncatable component
    */
   isCollapsed(id: string): Observable<boolean> {
-    return this.store.select(truncatableByIdSelector(id))
-      .map((object: TruncatableState) => {
+    return this.store.pipe(
+      select(truncatableByIdSelector(id)),
+      map((object: TruncatableState) => {
         if (object) {
           return object.collapsed;
         } else {
           return false;
         }
-      });
+      })
+    );
   }
 
   /**

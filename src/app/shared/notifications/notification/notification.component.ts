@@ -1,3 +1,4 @@
+import {of as observableOf,  Observable } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -12,7 +13,6 @@ import {
 import { trigger } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NotificationsService } from '../notifications.service';
-import { INotification } from '../models/notification.model';
 import { scaleEnter, scaleInState, scaleLeave, scaleOutState } from '../../animations/scale';
 import { rotateEnter, rotateInState, rotateLeave, rotateOutState } from '../../animations/rotate';
 import { fromBottomEnter, fromBottomInState, fromBottomLeave, fromBottomOutState } from '../../animations/fromBottom';
@@ -21,8 +21,8 @@ import { fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState } from 
 import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../../animations/fromTop';
 import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../animations/fade';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
-import { Observable } from 'rxjs/Observable';
 import { isNotEmpty } from '../../empty.util';
+import { INotification } from '../models/notification.model';
 
 @Component({
   selector: 'ds-notification',
@@ -45,7 +45,7 @@ import { isNotEmpty } from '../../empty.util';
 
 export class NotificationComponent implements OnInit, OnDestroy {
 
-  @Input() public notification: INotification;
+  @Input() public notification = null as INotification;
 
   // Progress bar variables
   public title: Observable<string>;
@@ -130,14 +130,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
       let value = null;
       if (isNotEmpty(item)) {
         if (typeof item === 'string') {
-          value = Observable.of(item);
+          value = observableOf(item);
         } else if (item instanceof Observable) {
           value = item;
         } else if (typeof item === 'object' && isNotEmpty(item.value)) {
           // when notifications state is transferred from SSR to CSR,
           // Observables Object loses the instance type and become simply object,
           // so converts it again to Observable
-          value = Observable.of(item.value);
+          value = observableOf(item.value);
         }
       }
       this[key] = value

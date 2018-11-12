@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable';
+
+import {of as observableOf,  Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
@@ -19,7 +20,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
         } as RemoteData<any>)))
       }
     },
-    buildSingle: (href$: string | Observable<string>) => Observable.of(new RemoteData(false, false, true, undefined, {}))
+    buildSingle: (href$: string | Observable<string>) => observableOf(new RemoteData(false, false, true, undefined, {}))
   } as RemoteDataBuildService;
 
 }

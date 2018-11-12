@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store, StoreModule } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import 'rxjs/add/observable/of';
+import { of as observableOf } from 'rxjs';
 
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
@@ -29,41 +28,53 @@ describe('AuthService test', () => {
 
   const mockStore: Store<AuthState> = jasmine.createSpyObj('store', {
     dispatch: {},
-    select: Observable.of(true)
+    pipe: observableOf(true)
   });
   let authService: AuthService;
-  const authRequest = new AuthRequestServiceStub();
+  let authRequest;
   const window = new NativeWindowRef();
   const routerStub = new RouterStub();
-  const routeStub = new ActivatedRouteStub();
+  let routeStub;
   let storage: CookieService;
-  const token: AuthTokenInfo = new AuthTokenInfo('test_token');
-  token.expires = Date.now() + (1000 * 60 * 60);
-  let authenticatedState = {
-    authenticated: true,
-    loaded: true,
-    loading: false,
-    authToken: token,
-    user: EPersonMock
-  };
+  let token: AuthTokenInfo;
+  let authenticatedState;
   const rdbService = getMockRemoteDataBuildService();
-  describe('', () => {
 
+  function init() {
+    token = new AuthTokenInfo('test_token');
+    token.expires = Date.now() + (1000 * 60 * 60);
+    authenticatedState = {
+      authenticated: true,
+      loaded: true,
+      loading: false,
+      authToken: token,
+      user: EPersonMock
+    };
+    authRequest = new AuthRequestServiceStub();
+    routeStub = new ActivatedRouteStub();
+  }
+
+  beforeEach(() => {
+    init();
+  });
+
+  describe('', () => {
     beforeEach(() => {
+
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
-          StoreModule.forRoot({authReducer}),
+          StoreModule.forRoot({ authReducer }),
         ],
         declarations: [],
         providers: [
-          {provide: AuthRequestService, useValue: authRequest},
-          {provide: NativeWindowService, useValue: window},
-          {provide: REQUEST, useValue: {}},
-          {provide: Router, useValue: routerStub},
-          {provide: ActivatedRoute, useValue: routeStub},
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: NativeWindowService, useValue: window },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
+          { provide: ActivatedRoute, useValue: routeStub },
           {provide: Store, useValue: mockStore},
-          {provide: RemoteDataBuildService, useValue: rdbService},
+          { provide: RemoteDataBuildService, useValue: rdbService },
           CookieService,
           AuthService
         ],
@@ -116,15 +127,16 @@ describe('AuthService test', () => {
   describe('', () => {
 
     beforeEach(async(() => {
+      init();
       TestBed.configureTestingModule({
         imports: [
-          StoreModule.forRoot({authReducer})
+          StoreModule.forRoot({ authReducer })
         ],
         providers: [
-          {provide: AuthRequestService, useValue: authRequest},
-          {provide: REQUEST, useValue: {}},
-          {provide: Router, useValue: routerStub},
-          {provide: RemoteDataBuildService, useValue: rdbService},
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
+          { provide: RemoteDataBuildService, useValue: rdbService },
           CookieService
         ]
       }).compileComponents();
@@ -168,12 +180,12 @@ describe('AuthService test', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [
-          StoreModule.forRoot({authReducer})
+          StoreModule.forRoot({ authReducer })
         ],
         providers: [
-          {provide: AuthRequestService, useValue: authRequest},
-          {provide: REQUEST, useValue: {}},
-          {provide: Router, useValue: routerStub},
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
           ClientCookieService,
           CookieService
         ]

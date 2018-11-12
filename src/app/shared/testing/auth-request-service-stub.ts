@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 import { HttpOptions } from '../../core/dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
@@ -27,12 +27,12 @@ export class AuthRequestServiceStub {
       if (this.validateToken(token)) {
         authStatusStub.authenticated = true;
         authStatusStub.token = this.mockTokenInfo;
-        authStatusStub.eperson = Observable.of(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
+        authStatusStub.eperson = observableOf(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
       } else {
         authStatusStub.authenticated = false;
       }
     }
-    return Observable.of(authStatusStub);
+    return observableOf(authStatusStub);
   }
 
   public getRequest(method: string, options?: HttpOptions): Observable<any> {
@@ -46,13 +46,13 @@ export class AuthRequestServiceStub {
         if (this.validateToken(token)) {
           authStatusStub.authenticated = true;
           authStatusStub.token = this.mockTokenInfo;
-          authStatusStub.eperson = Observable.of(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
+          authStatusStub.eperson = observableOf(new RemoteData<EPerson>(false, false, true, undefined, this.mockUser));
         } else {
           authStatusStub.authenticated = false;
         }
         break;
     }
-    return Observable.of(authStatusStub);
+    return observableOf(authStatusStub);
   }
 
   private validateToken(token): boolean {
