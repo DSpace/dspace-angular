@@ -7,7 +7,7 @@ import { MetadataFieldWrapperComponent } from './metadata-field-wrapper.componen
 @Component({
     selector: 'ds-component-with-content',
     template: '<ds-metadata-field-wrapper [label]="\'test label\'">\n' +
-      '    <div class="my content">\n' +
+      '    <div class="my-content">\n' +
       '    </div>\n' +
       '</ds-metadata-field-wrapper>'
 })
@@ -30,25 +30,37 @@ describe('MetadataFieldWrapperComponent', () => {
 
   const wrapperSelector = '.simple-view-element';
   const labelSelector = '.simple-view-element-header';
+  const contentSelector = '.my-content';
 
   it('should create', () => {
     expect(component).toBeDefined();
   });
 
-  it('should not show a label when there is no content', () => {
+  it('should not show the component when there is no content', () => {
     component.label = 'test label';
     fixture.detectChanges();
-    const debugLabel = fixture.debugElement.query(By.css(labelSelector));
-    expect(debugLabel).toBeNull();
+    const parentNative = fixture.nativeElement;
+    const nativeWrapper = parentNative.querySelector(wrapperSelector);
+    expect(nativeWrapper.classList.contains('d-none')).toBe(true);
   });
 
-  it('should show a label when there is content', () => {
+  it('should not show the component when there is DOM content but no text', () => {
     const parentFixture = TestBed.createComponent(ContentComponent);
     parentFixture.detectChanges();
-    const parentComponent = parentFixture.componentInstance;
     const parentNative = parentFixture.nativeElement;
-    const nativeLabel = parentNative.querySelector(labelSelector);
-    expect(nativeLabel.textContent).toContain('test label');
+    const nativeWrapper = parentNative.querySelector(wrapperSelector);
+    expect(nativeWrapper.classList.contains('d-none')).toBe(true);
+  });
+
+  it('should show the component when there is text content', () => {
+    const parentFixture = TestBed.createComponent(ContentComponent);
+    parentFixture.detectChanges();
+    const parentNative = parentFixture.nativeElement;
+    const nativeContent = parentNative.querySelector(contentSelector);
+    nativeContent.textContent = 'lorem ipsum';
+    const nativeWrapper = parentNative.querySelector(wrapperSelector);
+    parentFixture.detectChanges();
+    expect(nativeWrapper.classList.contains('d-none')).toBe(false);
   });
 
 });
