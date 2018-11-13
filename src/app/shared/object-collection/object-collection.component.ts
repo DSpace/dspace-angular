@@ -75,6 +75,7 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
           this.currentMode = params.view;
         }
       });
+    console.log(this.objects);
   }
 
   /**

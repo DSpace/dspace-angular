@@ -30,6 +30,9 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
   @Input()
   confirmButton: string;
 
+  @Input()
+  hideCollection = false;
+
   /**
    * EventEmitter to return the selected UUIDs when the confirm button is pressed
    * @type {EventEmitter<string[]>}

@@ -19,12 +19,12 @@
         <ngb-tab title="{{'collection.item-mapper.tabs.browse' | translate}}">
           <ng-template ngbTabContent>
             <div class="mt-2">
-              <ds-viewable-collection
-                [config]="(searchOptions$ | async)?.pagination"
-                [sortConfig]="(searchOptions$ | async)?.sort"
-                [objects]="collectionItemsRD$ | async"
-                [hideGear]="true">
-              </ds-viewable-collection>
+              <ds-item-select class="mt-2"
+                [dsoRD$]="collectionItemsRD$"
+                [paginationOptions]="(searchOptions$ | async)?.pagination"
+                [confirmButton]="'collection.item-mapper.remove'"
+                [hideCollection]="true"
+                (confirm)="mapItems($event, true)"></ds-item-select>
             </div>
           </ng-template>
         </ngb-tab>

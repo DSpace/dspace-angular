@@ -17,6 +17,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RestResponse } from '../../core/cache/response-cache.models';
 import { TranslateService } from '@ngx-translate/core';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { Item } from '../../core/shared/item.model';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -67,6 +69,7 @@ export class CollectionItemMapperComponent implements OnInit {
               private searchService: SearchService,
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
+              private collectionDataService: CollectionDataService,
               private translateService: TranslateService) {
   }
 
@@ -88,17 +91,16 @@ export class CollectionItemMapperComponent implements OnInit {
     );
     this.collectionItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options]) => {
-        return this.searchService.search(Object.assign(options, {
-          scope: collectionRD.payload.id,
-          dsoType: DSpaceObjectType.ITEM,
+        return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
           sort: this.defaultSortOptions
-        }));
-      }),
-      toDSpaceObjectListRD()
+        }))
+      })
     );
-    this.mappingItemsRD$ = this.searchOptions$.pipe(
-      flatMap((options: PaginatedSearchOptions) => {
+    this.mappingItemsRD$ = collectionAndOptions$.pipe(
+      switchMap(([collectionRD, options]) => {
         return this.searchService.search(Object.assign(options, {
+          // TODO: Exclude items already mapped to collection without overwriting search query
+          // query: `-location.coll:\"${collectionRD.payload.id}\"`,
           scope: undefined,
           dsoType: DSpaceObjectType.ITEM,
           sort: this.defaultSortOptions
@@ -109,23 +111,30 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   /**
-   * Map the selected items to the collection and display notifications
-   * @param {string[]} ids  The list of item UUID's to map to the collection
+   * Map/Unmap the selected items to the collection and display notifications
+   * @param ids         The list of item UUID's to map/unmap to the collection
+   * @param remove      Whether or not it's supposed to remove mappings
    */
-  mapItems(ids: string[]) {
+  mapItems(ids: string[], remove?: boolean) {
     const responses$ = this.collectionRD$.pipe(
       getSucceededRemoteData(),
       map((collectionRD: RemoteData<Collection>) => collectionRD.payload.id),
-      switchMap((collectionId: string) => Observable.combineLatest(ids.map((id: string) => this.itemDataService.mapToCollection(id, collectionId))))
+      switchMap((collectionId: string) =>
+        Observable.combineLatest(ids.map((id: string) =>
+          remove ? this.itemDataService.removeMappingFromCollection(id, collectionId) : this.itemDataService.mapToCollection(id, collectionId)
+        ))
+      )
     );
+
+    const messageInsertion = remove ? 'unmap' : 'map';
 
     responses$.subscribe((responses: RestResponse[]) => {
       const successful = responses.filter((response: RestResponse) => response.isSuccessful);
       const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
       if (successful.length > 0) {
         const successMessages = Observable.combineLatest(
-          this.translateService.get('collection.item-mapper.notifications.success.head'),
-          this.translateService.get('collection.item-mapper.notifications.success.content', { amount: successful.length })
+          this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.success.head`),
+          this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.success.content`, { amount: successful.length })
         );
 
         successMessages.subscribe(([head, content]) => {
@@ -134,8 +143,8 @@ export class CollectionItemMapperComponent implements OnInit {
       }
       if (unsuccessful.length > 0) {
         const unsuccessMessages = Observable.combineLatest(
-          this.translateService.get('collection.item-mapper.notifications.error.head'),
-          this.translateService.get('collection.item-mapper.notifications.error.content', { amount: unsuccessful.length })
+          this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.error.head`),
+          this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.error.content`, { amount: unsuccessful.length })
         );
 
         unsuccessMessages.subscribe(([head, content]) => {
