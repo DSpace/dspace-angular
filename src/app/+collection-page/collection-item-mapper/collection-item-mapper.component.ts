@@ -19,6 +19,7 @@ import { RestResponse } from '../../core/cache/response-cache.models';
 import { TranslateService } from '@ngx-translate/core';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Item } from '../../core/shared/item.model';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -98,9 +99,8 @@ export class CollectionItemMapperComponent implements OnInit {
     );
     this.mappingItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options]) => {
-        return this.searchService.search(Object.assign(options, {
-          // TODO: Exclude items already mapped to collection without overwriting search query
-          // query: `-location.coll:\"${collectionRD.payload.id}\"`,
+        return this.searchService.search(Object.assign(new PaginatedSearchOptions(options), {
+          query: this.buildQuery(collectionRD.payload.id, options.query),
           scope: undefined,
           dsoType: DSpaceObjectType.ITEM,
           sort: this.defaultSortOptions
@@ -173,6 +173,15 @@ export class CollectionItemMapperComponent implements OnInit {
       return this.router.url.substring(0, this.router.url.indexOf('?'));
     }
     return this.router.url;
+  }
+
+  buildQuery(collectionId: string, query: string): string {
+    const excludeColQuery = `-location.coll:\"${collectionId}\"`;
+    if (isNotEmpty(query)) {
+      return `${excludeColQuery} AND ${query}`;
+    } else {
+      return excludeColQuery;
+    }
   }
 
 }
