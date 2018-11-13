@@ -1,6 +1,5 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCollection } from '../cache/models/normalized-collection.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -14,23 +13,17 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable } from 'rxjs/Observable';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
-import { Item } from '../shared/item.model';
 import { distinctUntilChanged, map } from 'rxjs/operators';
-import { ensureArrayHasValue, hasValue, isNotEmptyOperator } from '../../shared/empty.util';
-import { GetRequest, RestRequest } from './request.models';
+import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
+import { GetRequest } from './request.models';
 import {
-  configureRequest,
-  filterSuccessfulResponses,
-  getRequestFromSelflink,
-  getResponseFromSelflink
+  configureRequest
 } from '../shared/operators';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
-import { MappingItemsResponseParsingService } from './mapping-items-response-parsing.service';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { GenericSuccessResponse } from '../cache/response-cache.models';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { DSOResponseParsingService } from './dso-response-parsing.service';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
@@ -67,23 +60,14 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
         const request = new GetRequest(this.requestService.generateRequestId(), endpoint);
         return Object.assign(request, {
           getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return MappingItemsResponseParsingService;
+            return DSOResponseParsingService;
           }
         });
       }),
       configureRequest(this.requestService)
     ).subscribe();
 
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
-    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
-
-    const payload$ = responseCache$.pipe(
-      filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => entry.response),
-      map((response: GenericSuccessResponse<DSpaceObject[]>) => new PaginatedList(response.pageInfo, response.payload))
-    );
-
-    return this.rdbService.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.rdbService.buildList(href$);
   }
 
 }
