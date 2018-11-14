@@ -24,7 +24,7 @@ import { Observable } from 'rxjs/Observable';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, NgModule } from '@angular/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service-stub';
 import { By } from '@angular/platform-browser';
@@ -32,10 +32,12 @@ import { RestResponse } from '../../core/cache/response-cache.models';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { ItemSelectService } from '../../shared/item-select/item-select.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
-import { ItemSelectServiceStub } from '../../shared/testing/item-select-service-stub';
+import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
+import { ObjectSelectService } from '../../shared/object-select/object-select.service';
+import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service-stub';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -89,7 +91,7 @@ describe('CollectionItemMapperComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe],
+      declarations: [CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
@@ -100,7 +102,7 @@ describe('CollectionItemMapperComponent', () => {
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: ItemSelectService, useValue: new ItemSelectServiceStub() }
+        { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() }
       ]
     }).compileComponents();
   }));
