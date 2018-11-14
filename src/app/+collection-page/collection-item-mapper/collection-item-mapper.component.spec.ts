@@ -32,6 +32,11 @@ import { By } from '@angular/platform-browser';
 import { RestResponse } from '../../core/cache/response-cache.models';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { ItemSelectService } from '../../shared/item-select/item-select.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
+import { ItemSelectServiceStub } from '../../shared/testing/item-select-service-stub';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -74,14 +79,18 @@ describe('CollectionItemMapperComponent', () => {
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
   };
+  const emptyList = new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []));
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [])))
+    search: () => Observable.of(emptyList)
   });
+  const collectionDataServiceStub = {
+    getMappedItems: () => Observable.of(emptyList)
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, SharedModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [CollectionItemMapperComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      declarations: [CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
@@ -89,8 +98,10 @@ describe('CollectionItemMapperComponent', () => {
         { provide: SearchService, useValue: searchServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ItemDataService, useValue: itemDataServiceStub },
+        { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: TranslateService, useValue: translateServiceStub },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: ItemSelectService, useValue: new ItemSelectServiceStub() }
       ]
     }).compileComponents();
   }));
