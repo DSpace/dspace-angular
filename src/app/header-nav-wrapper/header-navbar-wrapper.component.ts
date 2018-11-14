@@ -1,10 +1,10 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { createSelector, Store } from '@ngrx/store';
+import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
-import { Observable } from 'rxjs/Observable';
 import { NavbarState } from '../navbar/navbar.reducer';
-import { Subscription } from 'rxjs/Subscription';
 import { hasValue } from '../shared/empty.util';
+import { Observable } from 'rxjs/internal/Observable';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 const navbarStateSelector = (state: AppState) => state.navbar;
 const navCollapsedSelector = createSelector(navbarStateSelector, (navbar: NavbarState) => navbar.navCollapsed);
@@ -24,7 +24,7 @@ export class HeaderNavbarWrapperComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.isNavBarCollapsed = this.store.select(navCollapsedSelector);
+    this.isNavBarCollapsed = this.store.pipe(select(navCollapsedSelector));
     this.sub = this.isNavBarCollapsed.subscribe((isCollapsed) => this.isOpen = !isCollapsed)
   }
 

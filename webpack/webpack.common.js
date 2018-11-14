@@ -90,7 +90,7 @@ module.exports = {
     },
     plugins: [
         new CopyWebpackPlugin([{
-            from: join(__dirname, '..', 'node_modules', 'font-awesome', 'fonts'),
+            from: join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
             to: join('assets', 'fonts')
         }, {
             from: join(__dirname, '..', 'resources', 'images'),

@@ -16,6 +16,10 @@ import {
 } from './shared/notifications/notifications.reducers';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { navbarReducer, NavbarState } from './navbar/navbar.reducer';
+import {
+  AdminSidebarSectionsState,
+  sidebarSectionReducer
+} from './+admin/admin-sidebar/admin-sidebar.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -26,6 +30,7 @@ export interface AppState {
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
+  adminSidebarSection: AdminSidebarSectionsState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -36,7 +41,8 @@ export const appReducers: ActionReducerMap<AppState> = {
   notifications: notificationsReducer,
   searchSidebar: sidebarReducer,
   searchFilter: filterReducer,
-  truncatable: truncatableReducer
+  truncatable: truncatableReducer,
+  adminSidebarSection: sidebarSectionReducer
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

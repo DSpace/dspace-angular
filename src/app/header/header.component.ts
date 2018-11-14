@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { NavbarToggleAction } from '../navbar/navbar.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'ds-header',

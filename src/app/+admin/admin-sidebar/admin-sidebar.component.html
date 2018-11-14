@@ -1,112 +1,135 @@
-<nav class="navbar navbar-dark bg-dark">
-    <ul class="navbar-nav sidebar-top-level-items">
-        <li class="admin-menu-header">
-            <a class="shortcuts-tree" href="#">
-                <div class="nav-icon-container"><img class="admin-logo" src="assets/images/dspace-logo-mini.svg"></div>
-                <h4 class="nav-item-name">Admin</h4>
-            </a>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-plus-circle fa-fw"></i>
-                New
-                <i class="fa fa-chevron-right"></i>
-            </a>
-            <ul class="sidebar-sub-level-items">
-                <li><a class="nav-item nav-link" href="#">Community</a></li>
-                <li><a class="nav-item nav-link" href="#">Collection</a></li>
-                <li><a class="nav-item nav-link" href="#">Item</a></li>
-                <li><a class="nav-item nav-link" href="#">Item Version</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-pencil fa-fw"></i>
-                Edit
-                <i class="fa fa-chevron-right"></i>
-            </a>
-            <ul class="sidebar-sub-level-items">
-                <li><a class="nav-item nav-link" href="#">Community</a></li>
-                <li><a class="nav-item nav-link" href="#">Collection</a></li>
-                <li><a class="nav-item nav-link" href="#">Item</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-arrow-circle-up fa-fw"></i>
-                Import
-                <i class="fa fa-chevron-right"></i>
-            </a>
-            <ul class="sidebar-sub-level-items">
-                <li><a class="nav-item nav-link" href="#">Metadata</a></li>
-                <li><a class="nav-item nav-link" href="#">Batch Import (ZIP)</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-arrow-circle-down fa-fw"></i>
-                Export
-                <i class="fa fa-chevron-right"></i>
-            </a>
-            <ul class="sidebar-sub-level-items">
-                <li><a class="nav-item nav-link" href="#">Community</a></li>
-                <li><a class="nav-item nav-link" href="#">Collection</a></li>
-                <li><a class="nav-item nav-link" href="#">Item</a></li>
-                <li><a class="nav-item nav-link" href="#">Metadata</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-key fa-fw"></i>
-                Access Control
-                <i class="fa fa-chevron-right"></i>
-            </a>
-            <ul class="sidebar-sub-level-items">
-                <li><a class="nav-item nav-link" href="#">People</a></li>
-                <li><a class="nav-item nav-link" href="#">Groups</a></li>
-                <li><a class="nav-item nav-link" href="#">Authorizations</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-search fa-fw"></i>
-                Find
-                <i class="fa fa-chevron-right"></i>
-            </a>
-            <ul class="sidebar-sub-level-items">
-                <li><a class="nav-item nav-link" href="#">Items</a></li>
-                <li><a class="nav-item nav-link" href="#">Withdrawn Items</a></li>
-                <li><a class="nav-item nav-link" href="#">Private Items</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-list fa-fw"></i>
-                Registries
-                <i class="fa fa-chevron-right"></i>
-            </a>
-            <ul class="sidebar-sub-level-items">
-                <li><a class="nav-item nav-link" href="#">Metadata</a></li>
-                <li><a class="nav-item nav-link" href="#">Format</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-filter fa-fw"></i>
-                Curation Tasks
-            </a>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-bar-chart fa-fw"></i>
-                Statistics
-            </a>
-        </li>
-        <li>
-            <a class="nav-item nav-link shortcuts-tree" href="#">
-                <i class="fa fa-cogs fa-fw"></i>
-                Control Panel
-            </a>
-        </li>
-    </ul>
+<nav class="navbar navbar-dark bg-dark p-0">
+    <div class="sidebar-top-level-items">
+        <ul class="navbar-nav">
+            <li class="admin-menu-header">
+                <a class="shortcuts-tree navbar-brand" href="#">
+                    <img class="admin-logo mr-2" src="assets/images/dspace-logo-mini.svg">
+                    <h4 class="nav-item-name">Admin</h4>
+                </a>
+            </li>
+            <li [ngClass]="{'active': (active('new') | async)}">
+                <a class="nav-item nav-link shortcuts-tree" href="#"
+                   (click)="toggle($event, 'new')">
+                    <i class="fas fa-plus-circle fa-fw"></i>
+                    New
+                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
+                       [ngClass]="{'fa-rotate-90': (active('new') | async)}"></i>
+                </a>
+                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('new') | async)">
+                    <li><a class="nav-item nav-link" href="#">Community</a></li>
+                    <li><a class="nav-item nav-link" href="#">Collection</a></li>
+                    <li><a class="nav-item nav-link" href="#">Item</a></li>
+                    <li><a class="nav-item nav-link" href="#">Item Version</a></li>
+                </ul>
+            </li>
+            <li [ngClass]="{'active': (active('edit') | async)}">
+                <a class="nav-item nav-link shortcuts-tree" href="#"
+                   (click)="toggle($event, 'edit')">
+                    <i class="fas fa-pencil-alt fa-fw"></i>
+                    Edit
+                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
+                       [ngClass]="{'fa-rotate-90': (active('edit') | async)}"></i>
+                </a>
+                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('edit') | async)">
+                    <li><a class="nav-item nav-link" href="#">Community</a></li>
+                    <li><a class="nav-item nav-link" href="#">Collection</a></li>
+                    <li><a class="nav-item nav-link" href="#">Item</a></li>
+                </ul>
+            </li>
+            <li [ngClass]="{'active': (active('import') | async)}">
+                <a class="nav-item nav-link shortcuts-tree" href="#"
+                   (click)="toggle($event, 'import')">
+                    <i class="fas fa-arrow-circle-up fa-fw"></i>
+                    Import
+                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
+                       [ngClass]="{'fa-rotate-90': (active('import') | async)}"></i>
+                </a>
+                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('import') | async)">
+                    <li><a class="nav-item nav-link" href="#">Metadata</a></li>
+                    <li><a class="nav-item nav-link" href="#">Batch Import (ZIP)</a></li>
+                </ul>
+            </li>
+            <li [ngClass]="{'active': (active('export') | async)}">
+                <a class="nav-item nav-link shortcuts-tree" href="#"
+                   (click)="toggle($event, 'export')">
+                    <i class="fas fa-arrow-circle-down fa-fw"></i>
+                    Export
+                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
+                       [ngClass]="{'fa-rotate-90': (active('export') | async)}"></i>
+                </a>
+                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('export') | async)">
+                    <li><a class="nav-item nav-link" href="#">Community</a></li>
+                    <li><a class="nav-item nav-link" href="#">Collection</a></li>
+                    <li><a class="nav-item nav-link" href="#">Item</a></li>
+                    <li><a class="nav-item nav-link" href="#">Metadata</a></li>
+                </ul>
+            </li>
+            <li [ngClass]="{'active': (active('access_control') | async)}">
+                <a class="nav-item nav-link shortcuts-tree" href="#"
+                   (click)="toggle($event, 'access_control')">
+                    <i class="fas fa-key fa-fw"></i>
+                    Access Control
+                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
+                       [ngClass]="{'fa-rotate-90': (active('access_control') | async)}"></i>
+                </a>
+                <ul class="sidebar-sub-level-items"
+                    [ngbCollapse]="!(active('access_control') | async)">
+                    <li><a class="nav-item nav-link" href="#">People</a></li>
+                    <li><a class="nav-item nav-link" href="#">Groups</a></li>
+                    <li><a class="nav-item nav-link" href="#">Authorizations</a></li>
+                </ul>
+            </li>
+            <li [ngClass]="{'active': (active('find') | async)}">
+                <a class="nav-item nav-link shortcuts-tree" href="#"
+                   (click)="toggle($event, 'find')">
+                    <i class="fas fa-search fa-fw"></i>
+                    Find
+                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
+                       [ngClass]="{'fa-rotate-90': (active('find') | async)}"></i>
+                </a>
+                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('find') | async)">
+                    <li><a class="nav-item nav-link" href="#">Items</a></li>
+                    <li><a class="nav-item nav-link" href="#">Withdrawn Items</a></li>
+                    <li><a class="nav-item nav-link" href="#">Private Items</a></li>
+                </ul>
+            </li>
+            <li [ngClass]="{'active': (active('registries') | async)}">
+                <a class="nav-item nav-link shortcuts-tree" href="#"
+                   (click)="toggle($event, 'registries')">
+                    <i class="fas fa-list fa-fw"></i>
+                    Registries
+                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
+                       [ngClass]="{'fa-rotate-90': (active('registries') | async)}"></i>
+                </a>
+                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('registries') | async)">
+                    <li><a class="nav-item nav-link" href="#">Metadata</a></li>
+                    <li><a class="nav-item nav-link" href="#">Format</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="nav-item nav-link shortcuts-tree" href="#">
+                    <i class="fas fa-filter fa-fw"></i>
+                    Curation Tasks
+                </a>
+            </li>
+            <li>
+                <a class="nav-item nav-link shortcuts-tree" href="#">
+                    <i class="fas fa-chart-bar fa-fw"></i>
+                    Statistics
+                </a>
+            </li>
+            <li>
+                <a class="nav-item nav-link shortcuts-tree" href="#">
+                    <i class="fas fa-cogs fa-fw"></i>
+                    Control Panel
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-nav">
+        <a class="nav-item nav-link shortcuts-tree" href="#">
+            <i class="fas fa-fw fa-angle-double-right"></i>
+            Collapse
+        </a>
+    </div>
 </nav>

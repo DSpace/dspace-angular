@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { AppState } from '../app.reducer';
 import { slideMobileNav } from '../shared/animations/slide';
 import { HostWindowService } from '../shared/host-window.service';
 import { first } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'ds-navbar',

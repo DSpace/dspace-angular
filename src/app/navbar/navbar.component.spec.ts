@@ -49,7 +49,7 @@ describe('NavbarComponent', () => {
 
     comp = fixture.componentInstance;
 
-    store = fixture.debugElement.injector.get(Store) as Store<HeaderState>;
+    store = fixture.debugElement.injector.get(Store) as Store<NavbarState>;
     spyOn(store, 'dispatch');
   });
 

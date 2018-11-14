@@ -1,8 +1,41 @@
 @import '../../../styles/variables.scss';
+
 :host {
-    position: absolute;
-    .sidebar-sub-level-items {
-        list-style: disc;
-        color: $navbar-dark-color;
+    position: fixed;
+    nav {
+        height: 100vh;
+        flex-direction: column;
+        >div.sidebar-top-level-items {
+            flex: 1;
+            overflow: auto;
+        }
+        .navbar-nav {
+            min-width: $admin-sidebar-width;
+            > * {
+                padding: $spacer/2 $spacer;
+                &.active {
+                    background-color: $admin-sidebar-dark;
+                }
+            }
+            .sidebar-sub-level-items {
+                list-style: disc;
+                color: $navbar-dark-color;
+            }
+            .fa-xxs {
+                font-size: 0.5rem;
+                line-height: 3;
+            }
+            .admin-menu-header {
+                background-color: $admin-sidebar-dark;
+                img {
+
+                    height: 1em;
+                    vertical-align: baseline;
+                }
+                h4 {
+                    display: inline;
+                }
+            }
+        }
     }
 }
