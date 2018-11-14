@@ -175,6 +175,11 @@ export class CollectionItemMapperComponent implements OnInit {
     return this.router.url;
   }
 
+  /**
+   * Build a query where items that are already mapped to a collection are excluded from
+   * @param collectionId    The collection's UUID
+   * @param query           The query to add to it
+   */
   buildQuery(collectionId: string, query: string): string {
     const excludeColQuery = `-location.coll:\"${collectionId}\"`;
     if (isNotEmpty(query)) {
