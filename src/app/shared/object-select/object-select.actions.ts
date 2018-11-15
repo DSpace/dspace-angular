@@ -12,6 +12,11 @@ export const ObjectSelectionActionTypes = {
 
 export class ObjectSelectionAction implements Action {
   /**
+   * Key of the list (of selections) for which the action should be performed
+   */
+  key: string;
+
+  /**
    * UUID of the object a select action can be performed on
    */
   id: string;
@@ -23,9 +28,11 @@ export class ObjectSelectionAction implements Action {
 
   /**
    * Initialize with the object's UUID
+   * @param {string} key of the list
    * @param {string} id of the object
    */
-  constructor(id: string) {
+  constructor(key: string, id: string) {
+    this.key = key;
     this.id = id;
   }
 }
