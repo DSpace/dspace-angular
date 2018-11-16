@@ -5,16 +5,6 @@
       <p [innerHTML]="'collection.item-mapper.collection' | translate:{ name: (collectionRD$ | async)?.payload?.name }" id="collection-name"></p>
       <p>{{'collection.item-mapper.description' | translate}}</p>
 
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <ds-search-form id="search-form"
-                          [query]="(searchOptions$ | async)?.query"
-                          [scope]="(searchOptions$ | async)?.scope"
-                          [currentUrl]="getCurrentUrl()">
-          </ds-search-form>
-        </div>
-      </div>
-
       <ngb-tabset (tabChange)="tabChange($event)">
         <ngb-tab title="{{'collection.item-mapper.tabs.browse' | translate}}">
           <ng-template ngbTabContent>
@@ -30,7 +20,17 @@
         </ngb-tab>
         <ngb-tab title="{{'collection.item-mapper.tabs.map' | translate}}">
           <ng-template ngbTabContent>
-            <div class="mt-2">
+            <div class="row mt-2">
+              <div class="col-12 col-lg-6">
+                <ds-search-form id="search-form"
+                                [query]="(searchOptions$ | async)?.query"
+                                [scope]="(searchOptions$ | async)?.scope"
+                                [currentUrl]="getCurrentUrl()">
+                </ds-search-form>
+              </div>
+            </div>
+
+            <div>
               <ds-item-select class="mt-2"
                 [itemsRD$]="mappingItemsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
