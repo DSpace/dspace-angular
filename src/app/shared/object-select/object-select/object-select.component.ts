@@ -11,6 +11,9 @@ import { ObjectSelectService } from '../object-select.service';
  */
 export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestroy {
 
+  @Input()
+  key: string;
+
   /**
    * The list of DSpaceObjects to display
    */
@@ -49,11 +52,11 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
   }
 
   ngOnInit(): void {
-    this.selectedIds$ = this.objectSelectService.getAllSelected();
+    this.selectedIds$ = this.objectSelectService.getAllSelected(this.key);
   }
 
   ngOnDestroy(): void {
-    this.objectSelectService.reset();
+    this.objectSelectService.reset(this.key);
   }
 
   /**
@@ -61,7 +64,7 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
    * @param {string} id
    */
   switch(id: string) {
-    this.objectSelectService.switch(id);
+    this.objectSelectService.switch(this.key, id);
   }
 
   /**
@@ -70,7 +73,7 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
    * @returns {Observable<boolean>}
    */
   getSelected(id: string): Observable<boolean> {
-    return this.objectSelectService.getSelected(id);
+    return this.objectSelectService.getSelected(this.key, id);
   }
 
   /**
@@ -82,7 +85,7 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
       take(1)
     ).subscribe((ids: string[]) => {
       this.confirm.emit(ids);
-      this.objectSelectService.reset();
+      this.objectSelectService.reset(this.key);
     });
   }
 

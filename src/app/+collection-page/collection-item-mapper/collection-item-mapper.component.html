@@ -15,11 +15,12 @@
         </div>
       </div>
 
-      <ngb-tabset (tabChange)="tabChange($event)">
+      <ngb-tabset (tabChange)="tabChange($event)" [destroyOnHide]="false">
         <ngb-tab title="{{'collection.item-mapper.tabs.browse' | translate}}">
           <ng-template ngbTabContent>
             <div class="mt-2">
               <ds-item-select class="mt-2"
+                [key]="'browse'"
                 [dsoRD$]="collectionItemsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
                 [confirmButton]="'collection.item-mapper.remove'"
@@ -32,6 +33,7 @@
           <ng-template ngbTabContent>
             <div class="mt-2">
               <ds-item-select class="mt-2"
+                [key]="'map'"
                 [dsoRD$]="mappingItemsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
                 [confirmButton]="'collection.item-mapper.confirm'"

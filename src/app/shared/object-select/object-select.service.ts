@@ -12,7 +12,6 @@ import { hasValue } from '../empty.util';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../app.reducer';
 
-const selectionStateSelector = (state: ObjectSelectionsState) => state.objectSelection;
 const objectSelectionsStateSelector = (state: ObjectSelectionListState) => state.objectSelection;
 const objectSelectionListStateSelector = (state: AppState) => state.objectSelection;
 
@@ -23,7 +22,7 @@ const objectSelectionListStateSelector = (state: AppState) => state.objectSelect
 export class ObjectSelectService {
 
   constructor(
-    private store: Store<ObjectSelectionsState>,
+    private store: Store<ObjectSelectionListState>,
     private appStore: Store<AppState>
   ) {
   }
@@ -35,7 +34,7 @@ export class ObjectSelectService {
    * @returns {Observable<boolean>} Emits the current selection state of the given object, if it's unavailable, return false
    */
   getSelected(key: string, id: string): Observable<boolean> {
-    return this.store.select(selectionByIdSelector(id)).pipe(
+    return this.store.select(selectionByKeyAndIdSelector(key, id)).pipe(
       map((object: ObjectSelectionState) => {
         if (object) {
           return object.checked;
@@ -47,12 +46,12 @@ export class ObjectSelectService {
   }
 
   /**
-   * Request the current selection of all objects
+   * Request the current selection of all objects within a specific list
    * @returns {Observable<boolean>} Emits the current selection state of all objects
    */
-  getAllSelected(): Observable<string[]> {
-    return this.appStore.select(objectSelectionsStateSelector).pipe(
-      map((state: ObjectSelectionsState) => Object.keys(state).filter((key) => state[key].checked))
+  getAllSelected(key: string): Observable<string[]> {
+    return this.appStore.select(objectSelectionListStateSelector).pipe(
+      map((state: ObjectSelectionListState) => Object.keys(state[key]).filter((id) => state[key][id].checked))
     );
   }
 
@@ -111,14 +110,14 @@ export class ObjectSelectService {
 
 }
 
-function selectionByIdSelector(id: string): MemoizedSelector<ObjectSelectionsState, ObjectSelectionState> {
-  return keySelector<ObjectSelectionState>(id);
+function selectionByKeyAndIdSelector(key: string, id: string): MemoizedSelector<ObjectSelectionListState, ObjectSelectionState> {
+  return keyAndIdSelector<ObjectSelectionState>(key, id);
 }
 
-export function keySelector<T>(key: string): MemoizedSelector<ObjectSelectionsState, T> {
-  return createSelector(selectionStateSelector, (state: ObjectSelectionState) => {
-    if (hasValue(state)) {
-      return state[key];
+export function keyAndIdSelector<T>(key: string, id: string): MemoizedSelector<ObjectSelectionListState, T> {
+  return createSelector(objectSelectionsStateSelector, (state: ObjectSelectionsState) => {
+    if (hasValue(state) && hasValue(state[key])) {
+      return state[key][id];
     } else {
       return undefined;
     }

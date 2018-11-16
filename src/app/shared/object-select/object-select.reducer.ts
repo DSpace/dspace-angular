@@ -37,11 +37,11 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
     case ObjectSelectionActionTypes.INITIAL_SELECT: {
       if (isEmpty(state) || isEmpty(state[action.key]) || isEmpty(state[action.key][action.id])) {
         return Object.assign({}, state, {
-          [action.key]: {
+          [action.key]: Object.assign({}, state[action.key], {
             [action.id]: {
               checked: true
             }
-          }
+          })
         });
       }
       return state;
@@ -50,11 +50,11 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
     case ObjectSelectionActionTypes.INITIAL_DESELECT: {
       if (isEmpty(state) || isEmpty(state[action.key]) || isEmpty(state[action.key][action.id])) {
         return Object.assign({}, state, {
-          [action.key]: {
+          [action.key]: Object.assign({}, state[action.key], {
             [action.id]: {
               checked: false
             }
-          }
+          })
         });
       }
       return state;
@@ -62,31 +62,31 @@ export function objectSelectionReducer(state = initialState, action: ObjectSelec
 
     case ObjectSelectionActionTypes.SELECT: {
       return Object.assign({}, state, {
-        [action.key]: {
+        [action.key]: Object.assign({}, state[action.key], {
           [action.id]: {
             checked: true
           }
-        }
+        })
       });
     }
 
     case ObjectSelectionActionTypes.DESELECT: {
       return Object.assign({}, state, {
-        [action.key]: {
+        [action.key]: Object.assign({}, state[action.key], {
           [action.id]: {
             checked: false
           }
-        }
+        })
       });
     }
 
     case ObjectSelectionActionTypes.SWITCH: {
       return Object.assign({}, state, {
-        [action.key]: {
+        [action.key]: Object.assign({}, state[action.key], {
           [action.id]: {
             checked: (isEmpty(state) || isEmpty(state[action.key]) || isEmpty(state[action.key][action.id])) ? true : !state[action.key][action.id].checked
           }
-        }
+        })
       });
     }
 

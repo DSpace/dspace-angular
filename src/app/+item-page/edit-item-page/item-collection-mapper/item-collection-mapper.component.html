@@ -19,6 +19,7 @@
           <ng-template ngbTabContent>
             <div class="mt-2">
               <ds-collection-select class="mt-2"
+                [key]="'browse'"
                 [dsoRD$]="itemCollectionsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
                 [confirmButton]="'item.edit.item-mapper.buttons.remove'"
@@ -30,6 +31,7 @@
           <ng-template ngbTabContent>
             <div class="mt-2">
               <ds-collection-select class="mt-2"
+                [key]="'map'"
                 [dsoRD$]="mappingCollectionsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
                 [confirmButton]="'item.edit.item-mapper.buttons.add'"
