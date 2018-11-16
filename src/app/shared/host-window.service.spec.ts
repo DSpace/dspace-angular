@@ -3,7 +3,13 @@ import { cold, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { AppState } from '../app.reducer';
 
-import { GridBreakpoint, HostWindowService, WidthCategory } from './host-window.service';
+import { HostWindowService, WidthCategory } from './host-window.service';
+enum GridBreakpoint {
+  SM_MIN = 576,
+  MD_MIN = 768,
+  LG_MIN = 992,
+  XL_MIN = 1200
+}
 
 describe('HostWindowService', () => {
   let service: HostWindowService;

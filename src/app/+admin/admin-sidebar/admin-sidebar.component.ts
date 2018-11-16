@@ -1,34 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { AdminSidebarSectionsState, AdminSidebarSectionState } from './admin-sidebar.reducer';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
+import { AdminSidebarSectionState, AdminSidebarState, } from './admin-sidebar.reducer';
 import { hasValue } from '../../shared/empty.util';
 import { map } from 'rxjs/operators';
-import { AdminSidebarSectionToggleAction } from './admin-sidebar.actions';
+import { AdminSidebarSectionToggleAction, AdminSidebarToggleAction } from './admin-sidebar.actions';
+import { AppState, keySelector } from '../../app.reducer';
+import { slideSidebar } from '../../shared/animations/slide';
+import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 
-const sidebarSectionStateSelector = (state: AdminSidebarSectionsState) => state.adminSidebarSection;
+const sidebarSectionStateSelector = (state: AppState) => state.adminSidebar.sections;
+const sidebarStateSelector = (state) => state.adminSidebar;
 
-const sectionByNameSelector = (name: string): MemoizedSelector<AdminSidebarSectionsState, AdminSidebarSectionState> => {
-  return keySelector<AdminSidebarSectionState>(name);
+const sectionByNameSelector = (name: string): MemoizedSelector<AppState, AdminSidebarSectionState> => {
+  return keySelector<AdminSidebarSectionState>(name, sidebarSectionStateSelector);
 };
 
-export function keySelector<T>(key: string): MemoizedSelector<AdminSidebarSectionsState, T> {
-  return createSelector(sidebarSectionStateSelector, (state: AdminSidebarSectionState) => {
-    if (hasValue(state)) {
-      return state[key];
-    } else {
-      return undefined;
-    }
-  });
-}
 @Component({
   selector: 'ds-admin-sidebar',
   templateUrl: './admin-sidebar.component.html',
   styleUrls: ['./admin-sidebar.component.scss'],
+  animations: [slideSidebar]
 })
-export class AdminSidebarComponent {
-  constructor(private store: Store<AdminSidebarSectionsState>) {
+export class AdminSidebarComponent implements OnInit {
+  sidebarCollapsed: Observable<boolean>;
+  sidebarWidth: Observable<string>;
 
+  constructor(private store: Store<AdminSidebarState>,
+              private variableService: CSSVariableService) {
+  }
+
+  ngOnInit(): void {
+    this.sidebarWidth = this.variableService.getVariable('adminSidebarWidth')
+    this.sidebarCollapsed = this.store.pipe(
+      select(sidebarStateSelector),
+      map((state: AdminSidebarState) => state.collapsed)
+    );
   }
 
   public active(name: string): Observable<boolean> {
@@ -38,8 +45,13 @@ export class AdminSidebarComponent {
     );
   }
 
-  toggle(event: Event, name: string) {
+  toggleSection(event: Event, name: string) {
     event.preventDefault();
     this.store.dispatch(new AdminSidebarSectionToggleAction(name));
+  }
+
+  toggle(event: Event) {
+    event.preventDefault();
+    this.store.dispatch(new AdminSidebarToggleAction());
   }
 }

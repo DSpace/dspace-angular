@@ -6,7 +6,7 @@ export const slide = trigger('slide', [
 
   state('collapsed', style({ height: 0 })),
 
-  transition('expanded <=> collapsed', animate(250))
+  transition('expanded <=> collapsed', animate('250ms'))
 ]);
 
 export const slideMobileNav = trigger('slideMobileNav', [
@@ -15,5 +15,17 @@ export const slideMobileNav = trigger('slideMobileNav', [
 
   state('collapsed', style({ height: 0 })),
 
-  transition('expanded <=> collapsed', animate(300))
+  transition('expanded <=> collapsed', animate('300ms'))
+]);
+
+export const slideSidebar = trigger('slideSidebar', [
+
+  state('expanded',
+    style({ width: '{{ sidebarWidth }}' }),
+    { params: { sidebarWidth: '*' } }
+  ),
+
+  state('collapsed', style({ width: '*' })),
+
+  transition('expanded <=> collapsed', animate('300ms ease-in-out')),
 ]);

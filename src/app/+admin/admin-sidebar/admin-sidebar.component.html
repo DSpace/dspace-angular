@@ -1,17 +1,21 @@
-<nav class="navbar navbar-dark bg-dark p-0">
+<nav class="navbar navbar-dark bg-dark p-0" [ngClass]="{'active': (sidebarCollapsed | async)}"
+     [@slideSidebar]="{
+     value: ((sidebarCollapsed | async) ? 'collapsed' : 'expanded'),
+     params: {sidebarWidth: (sidebarWidth | async)}
+    }">
     <div class="sidebar-top-level-items">
         <ul class="navbar-nav">
             <li class="admin-menu-header">
                 <a class="shortcuts-tree navbar-brand" href="#">
                     <img class="admin-logo mr-2" src="assets/images/dspace-logo-mini.svg">
-                    <h4 class="nav-item-name">Admin</h4>
+                    <h4 class="section-header-text">Admin</h4>
                 </a>
             </li>
             <li [ngClass]="{'active': (active('new') | async)}">
                 <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggle($event, 'new')">
+                   (click)="toggleSection($event, 'new')">
                     <i class="fas fa-plus-circle fa-fw"></i>
-                    New
+                    <span class="section-header-text">New</span>
                     <i class="fas fa-chevron-right fa-pull-right fa-xxs"
                        [ngClass]="{'fa-rotate-90': (active('new') | async)}"></i>
                 </a>
@@ -24,9 +28,9 @@
             </li>
             <li [ngClass]="{'active': (active('edit') | async)}">
                 <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggle($event, 'edit')">
+                   (click)="toggleSection($event, 'edit')">
                     <i class="fas fa-pencil-alt fa-fw"></i>
-                    Edit
+                    <span class="section-header-text">Edit</span>
                     <i class="fas fa-chevron-right fa-pull-right fa-xxs"
                        [ngClass]="{'fa-rotate-90': (active('edit') | async)}"></i>
                 </a>
@@ -38,9 +42,9 @@
             </li>
             <li [ngClass]="{'active': (active('import') | async)}">
                 <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggle($event, 'import')">
+                   (click)="toggleSection($event, 'import')">
                     <i class="fas fa-arrow-circle-up fa-fw"></i>
-                    Import
+                    <span class="section-header-text">Import</span>
                     <i class="fas fa-chevron-right fa-pull-right fa-xxs"
                        [ngClass]="{'fa-rotate-90': (active('import') | async)}"></i>
                 </a>
@@ -51,9 +55,9 @@
             </li>
             <li [ngClass]="{'active': (active('export') | async)}">
                 <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggle($event, 'export')">
+                   (click)="toggleSection($event, 'export')">
                     <i class="fas fa-arrow-circle-down fa-fw"></i>
-                    Export
+                    <span class="section-header-text">Export</span>
                     <i class="fas fa-chevron-right fa-pull-right fa-xxs"
                        [ngClass]="{'fa-rotate-90': (active('export') | async)}"></i>
                 </a>
@@ -66,9 +70,9 @@
             </li>
             <li [ngClass]="{'active': (active('access_control') | async)}">
                 <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggle($event, 'access_control')">
+                   (click)="toggleSection($event, 'access_control')">
                     <i class="fas fa-key fa-fw"></i>
-                    Access Control
+                    <span class="section-header-text">Access Control</span>
                     <i class="fas fa-chevron-right fa-pull-right fa-xxs"
                        [ngClass]="{'fa-rotate-90': (active('access_control') | async)}"></i>
                 </a>
@@ -81,9 +85,9 @@
             </li>
             <li [ngClass]="{'active': (active('find') | async)}">
                 <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggle($event, 'find')">
+                   (click)="toggleSection($event, 'find')">
                     <i class="fas fa-search fa-fw"></i>
-                    Find
+                    <span class="section-header-text">Find</span>
                     <i class="fas fa-chevron-right fa-pull-right fa-xxs"
                        [ngClass]="{'fa-rotate-90': (active('find') | async)}"></i>
                 </a>
@@ -95,9 +99,9 @@
             </li>
             <li [ngClass]="{'active': (active('registries') | async)}">
                 <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggle($event, 'registries')">
+                   (click)="toggleSection($event, 'registries')">
                     <i class="fas fa-list fa-fw"></i>
-                    Registries
+                    <span class="section-header-text">Registries</span>
                     <i class="fas fa-chevron-right fa-pull-right fa-xxs"
                        [ngClass]="{'fa-rotate-90': (active('registries') | async)}"></i>
                 </a>
@@ -109,27 +113,28 @@
             <li>
                 <a class="nav-item nav-link shortcuts-tree" href="#">
                     <i class="fas fa-filter fa-fw"></i>
-                    Curation Tasks
+                    <span class="section-header-text">Curation Tasks</span>
                 </a>
             </li>
             <li>
                 <a class="nav-item nav-link shortcuts-tree" href="#">
                     <i class="fas fa-chart-bar fa-fw"></i>
-                    Statistics
+                    <span class="section-header-text">Statistics</span>
                 </a>
             </li>
             <li>
                 <a class="nav-item nav-link shortcuts-tree" href="#">
                     <i class="fas fa-cogs fa-fw"></i>
-                    Control Panel
+                    <span class="section-header-text">Control Panel</span>
                 </a>
             </li>
         </ul>
     </div>
     <div class="navbar-nav">
-        <a class="nav-item nav-link shortcuts-tree" href="#">
+        <a class="nav-item nav-link shortcuts-tree" href="#"
+           (click)="toggle($event)">
             <i class="fas fa-fw fa-angle-double-right"></i>
-            Collapse
+            <span class="section-header-text">Collapse</span>
         </a>
     </div>
 </nav>

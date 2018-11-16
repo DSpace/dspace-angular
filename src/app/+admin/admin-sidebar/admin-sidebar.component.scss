@@ -1,20 +1,35 @@
 @import '../../../styles/variables.scss';
 
 :host {
-    position: fixed;
+    position: sticky;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    flex: 1 1 auto;
     nav {
-        height: 100vh;
+        height: 100%;
         flex-direction: column;
-        >div.sidebar-top-level-items {
-            flex: 1;
-            overflow: auto;
+        > div {
+            width: 100%;
+            &.sidebar-top-level-items {
+                flex: 1;
+                overflow: auto;
+            }
         }
+
+        .section-header-text {
+            display: inline;
+        }
+
         .navbar-nav {
-            min-width: $admin-sidebar-width;
-            > * {
+            > li, > a {
                 padding: $spacer/2 $spacer;
                 &.active {
                     background-color: $admin-sidebar-dark;
+                }
+                .fa-fw {
+                    text-align: left;
+                    width: 1.75em;
                 }
             }
             .sidebar-sub-level-items {
@@ -28,13 +43,15 @@
             .admin-menu-header {
                 background-color: $admin-sidebar-dark;
                 img {
-
                     height: 1em;
                     vertical-align: baseline;
                 }
-                h4 {
-                    display: inline;
-                }
+            }
+        }
+
+        &.active {
+            .section-header-text, .fa-chevron-right {
+                display: none;
             }
         }
     }

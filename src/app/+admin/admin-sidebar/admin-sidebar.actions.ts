@@ -10,52 +10,81 @@ import { type } from '../../shared/ngrx/type';
  * literal types and runs a simple check to guarantee all
  * action types in the application are unique.
  */
-export const AdminSidebarSectionActionTypes = {
-  COLLAPSE: type('dspace/admin-sidebar-section/COLLAPSE'),
-  EXPAND: type('dspace/admin-sidebar-sectio/EXPAND'),
-  TOGGLE: type('dspace/admin-sidebar-sectio/TOGGLE'),
+export const AdminSidebarActionTypes = {
+  SECTION_COLLAPSE: type('dspace/admin-sidebar/SECTION_COLLAPSE'),
+  SECTION_EXPAND: type('dspace/admin-sidebar/SECTION_EXPAND'),
+  SECTION_TOGGLE: type('dspace/admin-sidebar/SECTION_TOGGLE'),
+  COLLAPSE: type('dspace/admin-sidebar/COLLAPSE'),
+  EXPAND: type('dspace/admin-sidebar/EXPAND'),
+  TOGGLE: type('dspace/admin-sidebar/TOGGLE'),
 };
 
-export class AdminSidebarSectionAction implements Action {
+/* tslint:disable:max-classes-per-file */
+export class AdminSidebarAction implements Action {
+
+  /**
+   * Type of action that will be performed
+   */
+  type;
+}
+
+export class AdminSidebarSectionAction extends AdminSidebarAction {
   /**
    * Name of the section the action is performed on, used to identify the section
    */
   sectionName: string;
 
   /**
-   * Type of action that will be performed
-   */
-  type;
-
-  /**
    * Initialize with the section's name
    * @param {string} name of the section
    */
   constructor(name: string) {
+    super();
     this.sectionName = name;
   }
 }
 
 /* tslint:disable:max-classes-per-file */
 /**
+ * Used to collapse the sidebar
+ */
+export class AdminSidebarCollapseAction extends AdminSidebarAction {
+  type = AdminSidebarActionTypes.COLLAPSE;
+}
+
+/**
+ * Used to expand the sidebar
+ */
+export class AdminSidebarExpandAction extends AdminSidebarAction {
+  type = AdminSidebarActionTypes.EXPAND;
+}
+
+/**
+ * Used to collapse the sidebar when it's expanded and expand it when it's collapsed
+ */
+export class AdminSidebarToggleAction extends AdminSidebarAction {
+  type = AdminSidebarActionTypes.TOGGLE;
+}
+
+/**
  * Used to collapse a section
  */
 export class AdminSidebarSectionCollapseAction extends AdminSidebarSectionAction {
-  type = AdminSidebarSectionActionTypes.COLLAPSE;
+  type = AdminSidebarActionTypes.SECTION_COLLAPSE;
 }
 
 /**
  * Used to expand a section
  */
 export class AdminSidebarSectionExpandAction extends AdminSidebarSectionAction {
-  type = AdminSidebarSectionActionTypes.EXPAND;
+  type = AdminSidebarActionTypes.SECTION_EXPAND;
 }
 
 /**
  * Used to collapse a section when it's expanded and expand it when it's collapsed
  */
 export class AdminSidebarSectionToggleAction extends AdminSidebarSectionAction {
-  type = AdminSidebarSectionActionTypes.TOGGLE;
+  type = AdminSidebarActionTypes.SECTION_TOGGLE;
 }
 
 /* tslint:enable:max-classes-per-file */

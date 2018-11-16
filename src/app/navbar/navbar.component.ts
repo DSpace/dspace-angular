@@ -17,7 +17,7 @@ export class NavbarComponent {
 
   constructor(
     private store: Store<AppState>,
-    protected windowService: HostWindowService
+    public windowService: HostWindowService
   ) {
   }
 

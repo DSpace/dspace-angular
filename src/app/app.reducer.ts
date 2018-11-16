@@ -1,4 +1,4 @@
-import { ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
 import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
@@ -17,9 +17,11 @@ import {
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { navbarReducer, NavbarState } from './navbar/navbar.reducer';
 import {
-  AdminSidebarSectionsState,
-  sidebarSectionReducer
+  adminSidebarReducer,
+  AdminSidebarState
 } from './+admin/admin-sidebar/admin-sidebar.reducer';
+import { hasValue } from './shared/empty.util';
+import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -30,7 +32,8 @@ export interface AppState {
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
-  adminSidebarSection: AdminSidebarSectionsState;
+  adminSidebar: AdminSidebarState;
+  cssVariables: CSSVariablesState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -42,7 +45,18 @@ export const appReducers: ActionReducerMap<AppState> = {
   searchSidebar: sidebarReducer,
   searchFilter: filterReducer,
   truncatable: truncatableReducer,
-  adminSidebarSection: sidebarSectionReducer
+  adminSidebar: adminSidebarReducer,
+  cssVariables: cssVariablesReducer,
 };
 
 export const routerStateSelector = (state: AppState) => state.router;
+
+export function keySelector<T>(key: string, selector): MemoizedSelector<AppState, T> {
+  return createSelector(selector, (state) => {
+    if (hasValue(state)) {
+      return state[key];
+    } else {
+      return undefined;
+    }
+  });
+}

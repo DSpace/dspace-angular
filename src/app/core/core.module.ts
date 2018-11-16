@@ -64,6 +64,7 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
+import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 
 const IMPORTS = [
   CommonModule,
@@ -128,6 +129,7 @@ const PROVIDERS = [
   UploaderService,
   UUIDService,
   DSpaceObjectDataService,
+  CSSVariableService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

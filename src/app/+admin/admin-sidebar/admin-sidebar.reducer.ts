@@ -1,56 +1,100 @@
-import { AdminSidebarSectionAction, AdminSidebarSectionActionTypes } from './admin-sidebar.actions';
+import {
+  AdminSidebarAction,
+  AdminSidebarSectionAction,
+  AdminSidebarActionTypes
+} from './admin-sidebar.actions';
 import { hasValue } from '../../shared/empty.util';
 
 /**
- * Interface that represents the state for a single section
+ * Interface that represents the state for a single sidebar section
  */
 export interface AdminSidebarSectionState {
-  sectionCollapsed: boolean,
+  sectionCollapsed: boolean;
 }
 
-/**
- * Interface that represents the state for all available sections
- */
 export interface AdminSidebarSectionsState {
-  [name: string]: AdminSidebarSectionState
+  [name: string]: AdminSidebarSectionState;
 }
 
-const initialState: AdminSidebarSectionsState = Object.create(null);
-const initiallyCollapsed = true;
 /**
- * Performs a search section action on the current state
- * @param {AdminSidebarSectionsState} state The state before the action is performed
- * @param {AdminSidebarSectionAction} action The action that should be performed
- * @returns {AdminSidebarSectionsState} The state after the action is performed
+ * Interface that represents the state of the admin sidebar and its sections
  */
-export function sidebarSectionReducer(state = initialState, action: AdminSidebarSectionAction): AdminSidebarSectionsState {
+export interface AdminSidebarState {
+  sections: AdminSidebarSectionsState,
+  collapsed: boolean;
+}
 
+const initialState: AdminSidebarState = Object.create(null);
+const initiallySectionCollapsed = true;
+const initiallyCollapsed = false;
+
+/**
+ * Performs a sidebar action on the current state
+ * @param {AdminSidebarState} state The state before the action is performed
+ * @param {AdminSidebarAction} action The action that should be performed
+ * @returns {AdminSidebarState} The state after the action is performed
+ */
+export function adminSidebarReducer(state = initialState, action: AdminSidebarAction): AdminSidebarState {
+
+  if (action instanceof AdminSidebarSectionAction) {
+    return reduceSectionAction(state, action);
+  } else {
+    switch (action.type) {
+      case AdminSidebarActionTypes.COLLAPSE: {
+        return Object.assign({}, state, {
+          collapsed: true
+        });
+      }
+
+      case AdminSidebarActionTypes.EXPAND: {
+        return Object.assign({}, state, {
+          collapsed: false
+        });
+
+      }
+      case AdminSidebarActionTypes.TOGGLE: {
+        const currentState = state.collapsed;
+        const collapsed = hasValue(currentState) ? currentState : initiallyCollapsed;
+        return Object.assign({}, state, {
+          collapsed: !collapsed
+        });
+      }
+      default: {
+        return state;
+      }
+    }
+  }
+}
+
+function reduceSectionAction(state: AdminSidebarState, action: AdminSidebarSectionAction): AdminSidebarState {
   switch (action.type) {
-    case AdminSidebarSectionActionTypes.COLLAPSE: {
-      return Object.assign({}, state, {
+    case AdminSidebarActionTypes.SECTION_COLLAPSE: {
+      const sections = Object.assign({}, state.sections, {
         [action.sectionName]: {
           sectionCollapsed: true,
         }
       });
+      return Object.assign({}, state, { sections });
     }
 
-    case AdminSidebarSectionActionTypes.EXPAND: {
-      return Object.assign({}, state, {
+    case AdminSidebarActionTypes.SECTION_EXPAND: {
+      const sections = Object.assign({}, state.sections, {
         [action.sectionName]: {
           sectionCollapsed: false,
         }
       });
+      return Object.assign({}, state, { sections });
 
     }
-    case AdminSidebarSectionActionTypes.TOGGLE: {
-      const currentState = state[action.sectionName];
-      const collapsed = hasValue(currentState) ? currentState.sectionCollapsed : initiallyCollapsed;
-      return Object.assign({}, state, {
+    case AdminSidebarActionTypes.SECTION_TOGGLE: {
+      const currentState = state.sections;
+      const collapsed = (hasValue(currentState) && currentState[action.sectionName]) ? currentState[action.sectionName].sectionCollapsed : initiallySectionCollapsed;
+      const sections = Object.assign({}, state.sections, {
         [action.sectionName]: {
           sectionCollapsed: !collapsed,
         }
       });
-
+      return Object.assign({}, state, { sections });
     }
 
     default: {
