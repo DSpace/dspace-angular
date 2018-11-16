@@ -20,6 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { C } from '@angular/core/src/render3';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { isNotEmpty } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -82,9 +83,15 @@ export class ItemCollectionMapperComponent implements OnInit {
       map((itemRD: RemoteData<Item>) => itemRD.payload),
       switchMap((item: Item) => this.itemDataService.getMappedCollections(item.id))
     );
-    this.mappingCollectionsRD$ = this.searchOptions$.pipe(
-      switchMap((searchOptions: PaginatedSearchOptions) => {
-        return this.searchService.search(Object.assign(searchOptions, {
+
+    const itemCollectionsAndOptions$ = Observable.combineLatest(
+      this.itemCollectionsRD$,
+      this.searchOptions$
+    );
+    this.mappingCollectionsRD$ = itemCollectionsAndOptions$.pipe(
+      switchMap(([itemCollectionsRD, searchOptions]) => {
+        return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
+          query: this.buildQuery(itemCollectionsRD.payload.page, searchOptions.query),
           dsoType: DSpaceObjectType.COLLECTION
         }));
       }),
@@ -194,6 +201,33 @@ export class ItemCollectionMapperComponent implements OnInit {
       return this.router.url.substring(0, this.router.url.indexOf('?'));
     }
     return this.router.url;
+  }
+
+  /**
+   * Build a query to exclude collections from
+   * @param collections     The collections their UUIDs
+   * @param query           The query to add to it
+   */
+  buildQuery(collections: Collection[], query: string): string {
+    let result = query;
+    for (const collection of collections) {
+      result = this.addExcludeCollection(collection.id, result);
+    }
+    return result;
+  }
+
+  /**
+   * Add an exclusion of a collection to a query
+   * @param collectionId    The collection's UUID
+   * @param query           The query to add the exclusion to
+   */
+  addExcludeCollection(collectionId: string, query: string): string {
+    const excludeQuery = `-search.resourceid:${collectionId}`;
+    if (isNotEmpty(query)) {
+      return `${query} AND ${excludeQuery}`;
+    } else {
+      return excludeQuery;
+    }
   }
 
 }
