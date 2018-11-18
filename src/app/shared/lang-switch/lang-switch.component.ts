@@ -11,13 +11,15 @@ import {LangConfig} from "../../../config/lang-config.interface";
 
 /**
  * Component representing a switch for changing the interface language throughout the application
- * The switch itself is internationalized itself, showing the activated languages in a dropdown, in the active language.
  * If only one language is active, the component will disappear as there are no languages to switch to.
  */
 export class LangSwitchComponent implements OnInit {
 
-  activeLangs: Array<LangConfig> = this.config.lang.filter(LangConfig => LangConfig.active === true);
-  moreThanOneLanguage: boolean = (this.activeLangs.length > 1);
+  //All of the languages that are active, meaning that a user can switch between them.
+  activeLangs: Array<LangConfig>;
+
+  //A language switch only makes sense if there is more than one active language to switch between.
+  moreThanOneLanguage: boolean;
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -26,21 +28,22 @@ export class LangSwitchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // set loading
+    this.activeLangs = this.config.languages.filter((LangConfig) => LangConfig.active === true);
+    this.moreThanOneLanguage = (this.activeLangs.length > 1);
   }
 
   /**
    * Returns the label for the current language
    */
   currentLangLabel(): string {
-    return this.activeLangs.find(LangConfig => LangConfig.code === this.translate.currentLang).label;
+    return this.activeLangs.find((LangConfig) => LangConfig.code === this.translate.currentLang).label;
   }
 
   /**
    * Returns the label for a specific language code
    */
   langLabel(langcode: string): string {
-    return this.activeLangs.find(LangConfig => LangConfig.code === langcode).label;
+    return this.activeLangs.find((LangConfig) => LangConfig.code === langcode).label;
   }
 
 }

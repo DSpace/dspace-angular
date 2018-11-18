@@ -53,23 +53,24 @@ module.exports = {
   logDirectory: '.',
   // NOTE: will log all redux actions and transfers in console
   debug: false,
-  // Language Settings
-  lang: [{
+  // Default Language in which the UI will be rendered if the user's browser language is not an active language
+  defaultLanguage: 'en',
+  // Languages. DSpace Angular holds a message catalog for each of the following languages. When set to active, users will be able to switch to the use of this language in the user interface.
+  languages: [{
     code: 'en',
     label: 'English',
     active: true,
-    default: true
   }, {
     code: 'de',
     label: 'Deutsch',
-    active: true
+    active: true,
   }, {
     code: 'cs',
     label: 'Čeština',
-    active: true
+    active: true,
   }, {
     code: 'nl',
     label: 'Nederlands',
-    active: false
+    active: false,
   }]
 };
