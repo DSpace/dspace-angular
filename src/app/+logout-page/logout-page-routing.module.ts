@@ -11,7 +11,7 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
         canActivate: [AuthenticatedGuard],
         path: '',
         component: LogoutPageComponent,
-        data: { title: 'logout.title' }
+        data: { title: 'Logout' }
       }
     ])
   ]

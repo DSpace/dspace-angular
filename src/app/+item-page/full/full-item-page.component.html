@@ -4,7 +4,7 @@
       <ds-item-page-title-field [item]="item"></ds-item-page-title-field>
       <div class="simple-view-link my-3">
         <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id]">
-          {{"item.page.link.simple" | translate}}
+          {{"Simple item page" | translate}}
         </a>
       </div>
       <table class="table table-responsive table-striped">
@@ -22,6 +22,6 @@
       <ds-item-page-collections [item]="item"></ds-item-page-collections>
     </div>
   </div>
-  <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>
-  <ds-loading *ngIf="itemRD?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
+  <ds-error *ngIf="itemRD?.hasFailed" message="{{'Error fetching item' | translate}}"></ds-error>
+  <ds-loading *ngIf="itemRD?.isLoading" message="{{'Loading item...' | translate}}"></ds-loading>
 </div>

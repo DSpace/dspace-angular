@@ -1,10 +1,10 @@
 <div>
     <div id="sidebar-options" class="d-block d-md-none search-controls clearfix">
-        <small class="results">{{resultCount}} {{"search.sidebar.results" | translate}}</small>
+        <small class="results">{{resultCount}} {{"results" | translate}}</small>
         <button (click)="toggleSidebar.emit()"
                 aria-controls="#search-body"
                 class="btn btn-outline-primary float-right close-sidebar"><i
-                class="fas fa-arrow-right" [title]="'search.sidebar.close' | translate"></i> {{"search.sidebar.close" | translate}}
+                class="fas fa-arrow-right" [title]="'Close' | translate"></i> {{"Close" | translate}}
         </button>
     </div>
     <div id="search-sidebar-content">

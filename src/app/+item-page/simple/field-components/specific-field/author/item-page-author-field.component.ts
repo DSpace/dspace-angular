@@ -36,6 +36,6 @@ export class ItemPageAuthorFieldComponent extends ItemPageFieldComponent {
   /**
    * Label i18n key for the rendered metadata
    */
-  label = 'item.page.author';
+  label = 'Author';
 
 }

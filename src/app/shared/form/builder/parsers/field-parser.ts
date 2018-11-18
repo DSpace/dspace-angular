@@ -224,7 +224,7 @@ export abstract class FieldParser {
     controlModel.errorMessages = Object.assign(
       {},
       controlModel.errorMessages,
-      {pattern: 'error.validation.pattern'});
+      {pattern: 'This input is restricted by the current pattern: {{ pattern }}.'});
 
   }
 

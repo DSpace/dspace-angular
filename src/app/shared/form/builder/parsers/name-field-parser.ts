@@ -5,6 +5,6 @@ import { ParserOptions } from './parser-options';
 export class NameFieldParser extends ConcatFieldParser {
 
   constructor(protected configData: FormFieldModel, protected initFormValues, protected parserOptions: ParserOptions) {
-    super(configData, initFormValues, parserOptions, ',', 'form.last-name', 'form.first-name');
+    super(configData, initFormValues, parserOptions, ',', 'Last name', 'First name');
   }
 }

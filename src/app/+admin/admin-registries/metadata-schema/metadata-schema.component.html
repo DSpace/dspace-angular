@@ -2,15 +2,15 @@
   <div class="metadata-schema row">
     <div class="col-12">
 
-      <h2 id="header" class="border-bottom pb-2">{{'admin.registries.schema.head' | translate}}: "{{(metadataSchema | async)?.payload?.prefix}}"</h2>
+      <h2 id="header" class="border-bottom pb-2">{{'Metadata Schema' | translate}}: "{{(metadataSchema | async)?.payload?.prefix}}"</h2>
 
-      <p id="description" class="pb-2">{{'admin.registries.schema.description' | translate:namespace }}</p>
+      <p id="description" class="pb-2">{{'This is the metadata schema for \"{'+'{namespace}'+'}\".' | translate:namespace }}</p>
 
       <ds-metadata-field-form
         [metadataSchema]="(metadataSchema | async)?.payload"
         (submitForm)="forceUpdateFields()"></ds-metadata-field-form>
 
-      <h3>{{'admin.registries.schema.fields.head' | translate}}</h3>
+      <h3>{{'Schema metadata fields' | translate}}</h3>
 
       <ds-pagination
         *ngIf="(metadataFields | async)?.payload?.totalElements > 0"
@@ -25,8 +25,8 @@
             <thead>
               <tr>
                 <th></th>
-                <th scope="col">{{'admin.registries.schema.fields.table.field' | translate}}</th>
-                <th scope="col">{{'admin.registries.schema.fields.table.scopenote' | translate}}</th>
+                <th scope="col">{{'Field' | translate}}</th>
+                <th scope="col">{{'Scope Note' | translate}}</th>
               </tr>
             </thead>
             <tbody>
@@ -46,9 +46,8 @@
           </table>
         </div>
       </ds-pagination>
-
       <div *ngIf="(metadataFields | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
-        {{'admin.registries.schema.fields.no-items' | translate}}
+        {{'No metadata fields to show.' | translate}}
       </div>
 
       <div>

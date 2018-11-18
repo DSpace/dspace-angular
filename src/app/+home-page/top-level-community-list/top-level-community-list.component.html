@@ -1,7 +1,7 @@
 <ng-container *ngVar="(communitiesRD$ | async) as communitiesRD">
   <div *ngIf="communitiesRD?.hasSucceeded ">
-  <h2>{{'home.top-level-communities.head' | translate}}</h2>
-  <p class="lead">{{'home.top-level-communities.help' | translate}}</p>
+  <h2>{{'Communities in DSpace' | translate}}</h2>
+  <p class="lead">{{'Select a community to browse its collections.' | translate}}</p>
   <ds-viewable-collection
     [config]="config"
     [sortConfig]="sortConfig"
@@ -10,5 +10,5 @@
     (paginationChange)="onPaginationChange($event)">
   </ds-viewable-collection>
 </div>
-<ds-error *ngIf="communitiesRD?.hasFailed " message="{{'error.top-level-communites' | translate}}"></ds-error>
-<ds-loading *ngIf="communitiesRD?.isLoading " message="{{'loading.top-level-communities' | translate}}"></ds-loading></ng-container>
+<ds-error *ngIf="communitiesRD?.hasFailed " message="{{'Error fetching top-level communities' | translate}}"></ds-error>
+<ds-loading *ngIf="communitiesRD?.isLoading " message="{{'Loading top-level communities...' | translate}}"></ds-loading></ng-container>

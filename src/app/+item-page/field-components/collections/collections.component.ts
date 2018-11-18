@@ -21,7 +21,7 @@ export class CollectionsComponent implements OnInit {
 
   @Input() item: Item;
 
-  label = 'item.page.collections';
+  label = 'Collections';
 
   separator = '<br/>';
 

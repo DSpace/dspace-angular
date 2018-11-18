@@ -128,7 +128,8 @@
     "uuid": "^3.2.1",
     "webfontloader": "1.6.28",
     "webpack-cli": "^3.1.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "@biesbjerg/ngx-translate-po-http-loader": "latest"
   },
   "devDependencies": {
     "@angular/compiler": "^6.1.4",

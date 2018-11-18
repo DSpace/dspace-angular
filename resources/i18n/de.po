@@ -1,0 +1,499 @@
+# DSpace i18n German message catalog
+# Copyright (C) 2018 DuraSpace
+# This file is distributed under the same license as DSpace
+# Claudia Jürgen <>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DSpace 7\n"
+"Report-Msgid-Bugs-To: https://jira.duraspace.org/browse/DS\n"
+"PO-Revision-Date: 2018-12-01 16:49+0100\n"
+"Last-Translator: Claudia Jürgen <>\n"
+"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid ".head"
+msgstr ""
+
+msgid ".max.placeholder"
+msgstr ""
+
+msgid ".min.placeholder"
+msgstr ""
+
+msgid ".placeholder"
+msgstr ""
+
+msgid "We can\'t find the page you\'re looking for. The page may have been moved or deleted. You can use the \"Back\" button below to get back to the home page."
+msgstr "Die Seite, die Sie aufrufen wollten, konnte nicht gefunden werden. "
+"Sie könnte verschoben oder gelöscht worden sein. Mit dem Link unten kommen "
+"Sie zurück zur Startseite. "
+
+msgid "Take me to the home page"
+msgstr "Zurück zur Startseite"
+
+msgid "page not found"
+msgstr "Seite nicht gefunden"
+
+msgid "This list of bitstream formats provides information about known formats and their support level."
+msgstr "Diese Liste enhtält die in "
+"diesem Repositorium zulässigen Dateiformate und den jeweiligen "
+"Unterstützungsgrad."
+
+msgid "No bitstream formats to show."
+msgstr "Es gibt keine Formate in dieser Referenzliste."
+
+msgid "internal"
+msgstr "intern"
+
+msgid "MIME Type"
+msgstr "MIME Type"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Unknown"
+msgstr "Unbekannt"
+
+msgid "Known"
+msgstr "Bekannt"
+
+msgid "Support"
+msgstr "Unterstützt"
+
+msgid "Support Level"
+msgstr "Unterstützungsgrad"
+
+msgid "Bitstream Format Registry"
+msgstr "Referenzliste der Dateiformate"
+
+msgid "DSpace Angular :: Bitstream Format Registry"
+msgstr "DSpace Angular :: Referenzliste der Dateiformate"
+
+msgid "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema."
+msgstr "Die Metadatenreferenzliste beinhaltet "
+"alle Metadatenfelder, die zur Verfügung stehen. Die Felder können in "
+"unterschiedlichen Schemata enthalten sein. Nichtsdestotrotz benötigt DSpace "
+"mindestens qualifiziertes Dublin Core."
+
+msgid "Metadata Registry"
+msgstr "Metadatenreferenzliste"
+
+msgid "No metadata schemas to show."
+msgstr "Es gbit keine Metadatenschemata."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Namespace"
+msgstr "Namensraum"
+
+msgid "DSpace Angular :: Metadata Registry"
+msgstr "DSpace Angular :: Metadatenreferenzliste"
+
+msgid "This is the metadata schema for \"{{namespace}}\"."
+msgstr "Dies ist das Metadatenschema für  \"{{namespace}}\"."
+
+msgid "Schema metadata fields"
+msgstr "Felder in diesem Schema"
+
+msgid "No metadata fields to show."
+msgstr "Es gibt keine Felder in diesem Schema."
+
+msgid "Field"
+msgstr "Feld"
+
+msgid "Scope Note"
+msgstr "Gültigkeitsbereich"
+
+msgid "Metadata Schema"
+msgstr "Metadatenschemata"
+
+msgid "DSpace Angular :: Metadata Schema Registry"
+msgstr "DSpace Angular :: Referenzliste der Metadatenschemata"
+
+msgid "Invalid email address or password."
+msgstr "Ungültige E-Mail-Adresse oder Passwort."
+
+msgid "Your session has expired. Please log in again."
+msgstr "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut an."
+
+msgid "Browsing {{ collection }} by {{ field }} {{ value }}"
+msgstr "Anzeige {{ collection }} nach {{ field }} {{ value }}"
+
+msgid "Recent Submissions"
+msgstr "Aktuellste Veröffentlichungen"
+
+msgid "License"
+msgstr "Lizenz"
+
+msgid "News"
+msgstr "Neuigkeiten"
+
+msgid "License"
+msgstr "Lizenz"
+
+msgid "News"
+msgstr "Neuigkeiten"
+
+msgid "Collections of this Community"
+msgstr "Sammlungen in diesem Bereich"
+
+msgid "Error fetching items"
+msgstr "Fehler beim Laden der Ressourcen"
+
+msgid "Error fetching collection"
+msgstr "Fehler beim Laden der Sammlung."
+
+msgid "Error fetching community"
+msgstr "Fehler beim Laden des Bereiches."
+
+msgid "Error"
+msgstr "Fehler"
+
+msgid "Error fetching item"
+msgstr "Fehler beim Laden der Ressource."
+
+msgid "Error fetching objects"
+msgstr "Fehler beim Laden der Objekte."
+
+msgid "Error fetching recent submissions"
+msgstr "Fehler beim Laden der aktuellsten Veröffentlichungen."
+
+msgid "Error fetching search results"
+msgstr "Fehler beim Laden der Suchergebnisse."
+
+msgid "Error fetching sub-collections"
+msgstr "Fehler beim Laden der untergeordneten Sammlungen."
+
+msgid "Error fetching top-level communities"
+msgstr "Fehler beim Laden der Hauptbereiche."
+
+msgid "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission."
+msgstr "Sie müssen der Lizenz zustimmen, um die "
+"Ressource einzureichen. Wenn dies zur Zeit nicht geht, können Sie die "
+"Einreichung speichern und später wiederaufnehmen oder löschen."
+
+msgid "This input is restricted by the current pattern: {{ pattern }}."
+msgstr "Die Eingabe kann nur folgendes Muster haben: {{ pattern }}."
+
+#: footer.component.html:5
+msgid "copyright © 2002-{{ year }}"
+msgstr "Copyright © 2002-{{ year }}"
+
+#: footer.component.html:4
+msgid "DSpace software"
+msgstr "DSpace Software"
+
+#: footer.component.html:6
+msgid "DuraSpace"
+msgstr "DuraSpace"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "First name"
+msgstr "Vorname"
+
+msgid "Collapse"
+msgstr "Weniger"
+
+msgid "Collapse-help"
+msgstr "Hier klicken, um die Anzeige zu reduzieren"
+
+msgid "Expand"
+msgstr "Mehr"
+
+msgid "Expand-help"
+msgstr "Hier klicken, um mehr Elemente anzuzeigen"
+
+msgid "Last name"
+msgstr "Nachname"
+
+msgid "Loading..."
+msgstr "Am Laden ..."
+
+msgid "No results found"
+msgstr "Keine Ergebnisse gefunden"
+
+msgid "No value entered"
+msgstr "Kein Wert eingegeben"
+
+msgid "Remove"
+msgstr "Löschen"
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid "Submit"
+msgstr "Los"
+
+msgid ""
+msgstr ""
+
+msgid "DSpace Angular :: Home"
+msgstr "DSpace Angular :: Startseite"
+
+msgid "Communities in DSpace"
+msgstr "Bereiche in DSpace"
+
+msgid "Select a community to browse its collections."
+msgstr "Wählen Sie einen Bereich, um seine Sammlungen einzusehen."
+
+msgid "Abstract"
+msgstr "Kurzfassung"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Collections"
+msgstr "Sammlungen"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Files"
+msgstr "Dateien"
+
+msgid "Description:"
+msgstr "Beschreibung:"
+
+msgid "Download"
+msgstr "Herunterladen"
+
+msgid "Format:"
+msgstr "Format:"
+
+msgid "Name:"
+msgstr "Name:"
+
+msgid "Size:"
+msgstr "Größe:"
+
+msgid "Full item page"
+msgstr "Vollanzeige"
+
+msgid "Simple item page"
+msgstr "Kurzanzeige"
+
+msgid "URI"
+msgstr "URI"
+
+msgid "Loading items..."
+msgstr "Die Ressourcen werden geladen ..."
+
+msgid "Loading collection..."
+msgstr "Die Sammlung wird geladen ..."
+
+msgid "Loading community..."
+msgstr "Der Bereich wird geladen ..."
+
+msgid "Loading..."
+msgstr "Am Laden ..."
+
+msgid "Loading item..."
+msgstr "Die Ressource wird geladen ..."
+
+msgid "Loading..."
+msgstr "Am Laden ..."
+
+msgid "Loading recent submissions..."
+msgstr "Die aktuellsten Veröffentlichungen werden geladen ..."
+
+msgid "Loading search results..."
+msgstr "Die Suchergebnisse werden geladen ..."
+
+msgid "Loading sub-collections..."
+msgstr "Die untergeordneten Sammlungen werden geladen ..."
+
+msgid "Loading top-level communities..."
+msgstr "Die Hauptbereiche werden geladen ..."
+
+msgid "Email address"
+msgstr "E-Mail-Adresse"
+
+msgid "Have you forgotten your password?"
+msgstr "Haben Sie Ihr Passwort vergessen?"
+
+msgid "Please log in to DSpace"
+msgstr "Bitte Loggen Sie sich ein."
+
+msgid "New user? Click here to register."
+msgstr "Sind Sie neu hier? Klicken Sie hier, um sich zu registrieren."
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "login.Submit"
+msgstr "Einloggen"
+
+msgid "Login"
+msgstr "Einloggen"
+
+msgid "Log out from DSpace"
+msgstr "Ausloggen aus DSpace"
+
+msgid "logout.Submit"
+msgstr "Ausloggen"
+
+msgid "Logout"
+msgstr "Ausloggen"
+
+#: header.component.html: 12
+msgid "Home"
+msgstr "Zur Startseite"
+
+#: auth-nav-menu.component.html: 4
+#: auth-nav-menu.component.html: 11
+msgid "Log In"
+msgstr "Anmelden"
+
+#: auth-nav-menu.component.html: 22
+msgid "Log Out"
+msgstr "Abmelden"
+
+msgid "Results Per Page"
+msgstr "Ergebnisse pro Seite"
+
+msgid "{{ range }} of {{ total }}"
+msgstr "{{ range }} bis {{ total }}"
+
+msgid "Now showing items "
+msgstr "Anzeige der Treffer "
+
+msgid "Sort Options"
+msgstr "Sortiermöglichkeiten"
+
+msgid ""
+msgstr ""
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "End date"
+msgstr "Enddatum"
+
+msgid "Start date"
+msgstr "Anfangsdatum"
+
+msgid "Has files"
+msgstr "Besitzt Dateien"
+
+msgid "Subject"
+msgstr "Thema"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Author name"
+msgstr "Autor"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Minimum Date"
+msgstr "Frühestes Datum"
+
+msgid "Maximum Date"
+msgstr "Ältestes Datum"
+
+msgid "Has files"
+msgstr "Besitzt Dateien"
+
+msgid "Scope"
+msgstr "Bereich"
+
+msgid "Scope filter"
+msgstr "Bereichsfilter"
+
+msgid "Collapse"
+msgstr "Zeige weniger"
+
+msgid "Show more"
+msgstr "Zeige mehr"
+
+msgid "Subject"
+msgstr "Schlagwort"
+
+msgid "Subject"
+msgstr "Schlagwort"
+
+msgid "Filters"
+msgstr "Filter"
+
+msgid "Reset filters"
+msgstr "Filter zurücksetzen"
+
+msgid "search.Search"
+msgstr "Suche"
+
+msgid "search.Search_dspace"
+msgstr "DSpace durchsuchen"
+
+msgid "Search Results"
+msgstr "Suchergebnisse"
+
+msgid "Your search returned no results. Having trouble finding what you\'re looking for? Try putting"
+msgstr "Zu dieser Suche gibt es keine Treffer."
+
+msgid "Back to results"
+msgstr "Zurück zu den Ergebnissen"
+
+msgid "Filters"
+msgstr "Filter"
+
+msgid "Search Tools"
+msgstr "Suchwerkzeuge"
+
+msgid "results"
+msgstr "Ergebnisse"
+
+msgid "Results per page"
+msgstr "Treffer pro Seite"
+
+msgid "Sort By"
+msgstr "Sortiere nach"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "DSpace Angular :: Search"
+msgstr "DSpace Angular :: Suche"
+
+msgid "Show as grid"
+msgstr "Zeige als Raster"
+
+msgid "Show as list"
+msgstr "Zeige als Liste"
+
+msgid "Title Ascending"
+msgstr "Titel aufsteigend"
+
+msgid "Title Descending"
+msgstr "Titel absteigend"
+
+msgid "Relevance"
+msgstr "Relevanz"
+
+msgid "title"
+msgstr "DSpace"
+
+msgid "uploader.browse"
+msgstr ""
+
+msgid "uploader.or"
+msgstr ""
+
+msgid "uploader.processing"
+msgstr ""
+
+msgid "uploader.queue-lenght"
+msgstr ""
+

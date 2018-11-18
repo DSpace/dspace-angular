@@ -21,7 +21,7 @@ export class ErrorComponent {
 
   ngOnInit() {
     if (this.message === undefined) {
-      this.subscription = this.translate.get('error.default').subscribe((message: string) => {
+      this.subscription = this.translate.get('Error').subscribe((message: string) => {
         this.message = message;
       });
     }

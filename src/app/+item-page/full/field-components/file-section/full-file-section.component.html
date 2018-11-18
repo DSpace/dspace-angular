@@ -5,24 +5,24 @@
         </div>
         <div class="col-7">
             <dl class="row">
-                <dt class="col-md-4">{{"item.page.filesection.name" | translate}}</dt>
+                <dt class="col-md-4">{{"Name:" | translate}}</dt>
                 <dd class="col-md-8">{{file.name}}</dd>
 
-                <dt class="col-md-4">{{"item.page.filesection.size" | translate}}</dt>
+                <dt class="col-md-4">{{"Size:" | translate}}</dt>
                 <dd class="col-md-8">{{(file.sizeBytes) | dsFileSize }}</dd>
 
 
-                <dt class="col-md-4">{{"item.page.filesection.format" | translate}}</dt>
+                <dt class="col-md-4">{{"Format:" | translate}}</dt>
                 <dd class="col-md-8">{{(file.format | async)?.payload?.description}}</dd>
 
 
-                <dt class="col-md-4">{{"item.page.filesection.description" | translate}}</dt>
+                <dt class="col-md-4">{{"Description:" | translate}}</dt>
                 <dd class="col-md-8">{{file.firstMetadataValue("dc.description")}}</dd>
             </dl>
         </div>
         <div class="col-2">
             <a [href]="file.content" [download]="file.name">
-                {{"item.page.filesection.download" | translate}}
+                {{"Download" | translate}}
             </a>
         </div>
     </div>

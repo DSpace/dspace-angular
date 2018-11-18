@@ -27,7 +27,6 @@ class CustomLoader implements TranslateLoader {
 }
 /* tslint:enable:quotemark */
 /* tslint:enable:object-literal-key-quotes */
-
 describe('LangSwitchComponent', () => {
 
   describe('with English and Deutsch activated, English as default', () => {
@@ -93,6 +92,7 @@ describe('LangSwitchComponent', () => {
     it('should define the main A HREF in the UI', (() => {
       expect(langSwitchElement.querySelector('a')).toBeDefined();
     }));
+
   });
 
   describe('with English as the only active and also default language', () => {

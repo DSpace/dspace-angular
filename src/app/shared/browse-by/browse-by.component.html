@@ -34,9 +34,9 @@
       </div>
     </div>
   </div>
-  <ds-loading *ngIf="!objects || objects?.isLoading" message="{{'loading.browse-by' | translate}}"></ds-loading>
-  <ds-error *ngIf="objects?.hasFailed" message="{{'error.browse-by' | translate}}"></ds-error>
+  <ds-loading *ngIf="!objects || objects?.isLoading" message="{{'Loading items...' | translate}}"></ds-loading>
+  <ds-error *ngIf="objects?.hasFailed" message="{{'Error fetching items' | translate}}"></ds-error>
   <div *ngIf="!objects?.isLoading && objects?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
-    {{'browse.empty' | translate}}
+    {{'No items to show.' | translate}}
   </div>
 </ng-container>

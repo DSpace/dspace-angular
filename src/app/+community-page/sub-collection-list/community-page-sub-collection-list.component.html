@@ -1,6 +1,6 @@
 <ng-container *ngVar="(subCollectionsRDObs | async) as subCollectionsRD">
   <div *ngIf="subCollectionsRD?.hasSucceeded && subCollectionsRD?.payload.totalElements > 0" @fadeIn>
-    <h2>{{'community.sub-collection-list.head' | translate}}</h2>
+    <h2>{{'Collections of this Community' | translate}}</h2>
     <ul>
       <li *ngFor="let collection of subCollectionsRD?.payload.page">
         <p>
@@ -10,6 +10,6 @@
       </li>
     </ul>
   </div>
-  <ds-error *ngIf="subCollectionsRD?.hasFailed" message="{{'error.sub-collections' | translate}}"></ds-error>
-  <ds-loading *ngIf="subCollectionsRD?.isLoading" message="{{'loading.sub-collections' | translate}}"></ds-loading>
+  <ds-error *ngIf="subCollectionsRD?.hasFailed" message="{{'Error fetching sub-collections' | translate}}"></ds-error>
+  <ds-loading *ngIf="subCollectionsRD?.isLoading" message="{{'Loading sub-collections...' | translate}}"></ds-loading>
 </ng-container>

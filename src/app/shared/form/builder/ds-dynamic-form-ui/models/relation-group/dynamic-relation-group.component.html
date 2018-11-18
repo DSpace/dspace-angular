@@ -1,6 +1,6 @@
 <a *ngIf="!(formCollapsed | async)"
    class="close position-relative"
-   ngbTooltip="{{'form.group-collapse-help' | translate}}"
+   ngbTooltip="{{'Click here to collapse' | translate}}"
    placement="left">
   <span class="fas fa-angle-up fa-fw fa-2x"
         aria-hidden="true"
@@ -8,7 +8,7 @@
 </a>
 <a *ngIf="(formCollapsed | async)"
    class="close position-relative"
-   ngbTooltip="{{'form.group-expand-help' | translate}}"
+   ngbTooltip="{{'Click here to expand and add more elements' | translate}}"
    placement="left">
   <span class="fas fa-angle-down fa-fw fa-2x"
         aria-hidden="true"
@@ -62,7 +62,7 @@
              class="border-0 form-control-plaintext tag-input mt-1 mb-1 pl-2 text-muted"
              readonly
              tabindex="-1"
-             value="{{'form.no-value' | translate}}">
+             value="{{'No value entered' | translate}}">
     </div>
     <ds-chips
       *ngIf="chips && chips.hasItems()"

@@ -6,7 +6,7 @@ import { LoginPageComponent } from './login-page.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: '', pathMatch: 'full',  component: LoginPageComponent, data: { title: 'login.title' } }
+      { path: '', pathMatch: 'full',  component: LoginPageComponent, data: { title: 'Login' } }
     ])
   ]
 })

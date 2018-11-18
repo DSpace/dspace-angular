@@ -2,9 +2,9 @@
     <div class="metadata-registry row">
         <div class="col-12">
 
-            <h2 id="header" class="border-bottom pb-2">{{'admin.registries.metadata.head' | translate}}</h2>
+            <h2 id="header" class="border-bottom pb-2">{{'Metadata Registry' | translate}}</h2>
 
-            <p id="description" class="pb-2">{{'admin.registries.metadata.description' | translate}}</p>
+            <p id="description" class="pb-2">{{'The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.' | translate}}</p>
 
             <ds-metadata-schema-form (submitForm)="forceUpdateSchemas()"></ds-metadata-schema-form>
 
@@ -22,9 +22,9 @@
                         <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">{{'admin.registries.metadata.schemas.table.id' | translate}}</th>
-                            <th scope="col">{{'admin.registries.metadata.schemas.table.namespace' | translate}}</th>
-                            <th scope="col">{{'admin.registries.metadata.schemas.table.name' | translate}}</th>
+                            <th scope="col">{{'ID' | translate}}</th>
+                            <th scope="col">{{'Namespace' | translate}}</th>
+                            <th scope="col">{{'Name' | translate}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,11 +49,11 @@
             </ds-pagination>
 
             <div *ngIf="(metadataSchemas | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
-              {{'admin.registries.metadata.schemas.no-items' | translate}}
+              {{'No metadata schemas to show.' | translate}}
             </div>
 
             <div>
-              <button *ngIf="(metadataSchemas | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteSchemas()">{{'admin.registries.metadata.schemas.table.delete' | translate}}</button>
+              <button *ngIf="(metadataSchemas | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteSchemas()">{{'Delete selected' | translate}}</button>
             </div>
 
         </div>

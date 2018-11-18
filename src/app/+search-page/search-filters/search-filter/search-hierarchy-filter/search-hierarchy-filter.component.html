@@ -8,10 +8,10 @@
         </ng-container>
         <div class="clearfix toggle-more-filters">
             <a class="float-left" *ngIf="!(isLastPage$ | async)"
-               (click)="showMore()">{{"search.filters.filter.show-more"
+               (click)="showMore()">{{"Show more"
                 | translate}}</a>
             <a class="float-right" *ngIf="(currentPage | async) > 1"
-               (click)="showFirstPageOnly()">{{"search.filters.filter.show-less"
+               (click)="showFirstPageOnly()">{{"Collapse"
                 | translate}}</a>
         </div>
     </div>

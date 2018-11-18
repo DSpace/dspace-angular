@@ -34,6 +34,6 @@ export class ItemPageUriFieldComponent extends ItemPageFieldComponent {
   /**
    * Label i18n key for the rendered metadata
    */
-  label = 'item.page.uri';
+  label = 'URI';
 
 }

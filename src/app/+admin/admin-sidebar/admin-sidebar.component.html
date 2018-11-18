@@ -12,12 +12,12 @@
                 <a class="shortcut-icon navbar-brand mr-0" href="#">
                 <span class="logo-wrapper">
                     <img class="admin-logo" src="assets/images/dspace-logo-mini.svg"
-                         [alt]="('menu.header.image.logo') | translate">
+                         [alt]="('Repository logo') | translate">
                 </span>
                 </a>
                 <div class="sidebar-collapsible">
                     <a class="navbar-brand mr-0" href="#">
-                        <h4 class="section-header-text mb-0">{{'menu.header.admin' |
+                        <h4 class="section-header-text mb-0">{{'Admin' |
                             translate}}</h4>
                     </a>
                 </div>
@@ -35,16 +35,16 @@
                href="#"
                (click)="toggle($event)">
                 <i *ngIf="(menuCollapsed | async)" class="fas fa-fw fa-angle-double-right"
-                   [title]="'menu.section.icon.pin' | translate"></i>
+                   [title]="'Pin sidebar' | translate"></i>
                 <i *ngIf="!(menuCollapsed | async)" class="fas fa-fw fa-angle-double-left"
-                   [title]="'menu.section.icon.unpin' | translate"></i>
+                   [title]="'Unpin sidebar' | translate"></i>
             </a>
             <div class="sidebar-collapsible">
                 <a class="nav-item nav-link sidebar-section"
                    href="#"
                    (click)="toggle($event)">
-                    <span *ngIf="menuCollapsed | async" class="section-header-text">{{'menu.section.pin' | translate }}</span>
-                    <span *ngIf="!(menuCollapsed | async)" class="section-header-text">{{'menu.section.unpin' | translate }}</span>
+                    <span *ngIf="menuCollapsed | async" class="section-header-text">{{'Pin sidebar' | translate }}</span>
+                    <span *ngIf="!(menuCollapsed | async)" class="section-header-text">{{'Unpin sidebar' | translate }}</span>
                 </a>
             </div>
         </div>

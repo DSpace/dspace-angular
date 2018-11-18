@@ -2,9 +2,9 @@
   <div class="bitstream-formats row">
     <div class="col-12">
 
-      <h2 id="header" class="border-bottom pb-2">{{'admin.registries.bitstream-formats.head' | translate}}</h2>
+      <h2 id="header" class="border-bottom pb-2">{{'Bitstream Format Registry' | translate}}</h2>
 
-      <p id="description" class="pb-2">{{'admin.registries.bitstream-formats.description' | translate}}</p>
+      <p id="description" class="pb-2">{{'This list of bitstream formats provides information about known formats and their support level.' | translate}}</p>
 
       <ds-pagination
         *ngIf="(bitstreamFormats | async)?.payload?.totalElements > 0"
@@ -18,15 +18,15 @@
           <table id="formats" class="table table-striped table-hover">
             <thead>
               <tr>
-                <th scope="col">{{'admin.registries.bitstream-formats.formats.table.name' | translate}}</th>
-                <th scope="col">{{'admin.registries.bitstream-formats.formats.table.mimetype' | translate}}</th>
-                <th scope="col">{{'admin.registries.bitstream-formats.formats.table.supportLevel.head' | translate}}</th>
+                <th scope="col">{{'Name' | translate}}</th>
+                <th scope="col">{{'MIME Type' | translate}}</th>
+                <th scope="col">{{'Support Level' | translate}}</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let bitstreamFormat of (bitstreamFormats | async)?.payload?.page">
                 <td>{{bitstreamFormat.shortDescription}}</td>
-                <td>{{bitstreamFormat.mimetype}} <span *ngIf="bitstreamFormat.internal">({{'admin.registries.bitstream-formats.formats.table.internal' | translate}})</span></td>
+                <td>{{bitstreamFormat.mimetype}} <span *ngIf="bitstreamFormat.internal">({{'internal' | translate}})</span></td>
                 <td>{{'admin.registries.bitstream-formats.formats.table.supportLevel.'+bitstreamFormat.supportLevel | translate}}</td>
               </tr>
             </tbody>
@@ -34,7 +34,7 @@
         </div>
       </ds-pagination>
       <div *ngIf="(bitstreamFormats | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
-        {{'admin.registries.bitstream-formats.formats.no-items' | translate}}
+        {{'No bitstream formats to show.' | translate}}
       </div>
 
     </div>

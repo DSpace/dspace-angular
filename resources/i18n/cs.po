@@ -1,0 +1,489 @@
+# DSpace i18n German message catalog
+# Copyright (C) 2018 DuraSpace
+# This file is distributed under the same license as DSpace
+# Ivan Masar <>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DSpace 7\n"
+"Report-Msgid-Bugs-To: https://jira.duraspace.org/browse/DS\n"
+"PO-Revision-Date: 2018-12-01 16:49+0100\n"
+"Last-Translator: Ivan Masar <>\n"
+"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid ".head"
+msgstr ""
+
+msgid ".max.placeholder"
+msgstr ""
+
+msgid ".min.placeholder"
+msgstr ""
+
+msgid ".placeholder"
+msgstr ""
+
+msgid "We can\'t find the page you\'re looking for. The page may have been moved or deleted. You can use the \"Back\" button below to get back to the home page."
+msgstr "Nepodařilo se najít stránku, kterou hledáte. Je možné, že stránka "
+"byla přesunuta nebo smazána. Pomocí tlačítka níže můžete přejít na domovskou "
+"stránku. "
+
+msgid "Take me to the home page"
+msgstr "Přejít na domovskou stránku"
+
+msgid "page not found"
+msgstr "stránka nenalezena"
+
+msgid "This list of bitstream formats provides information about known formats and their support level."
+msgstr "Tento seznam formátů souborů "
+"poskytuje informace o známých formátech a o úrovni jejich podpory."
+
+msgid "No bitstream formats to show."
+msgstr "Žádné formáty souborů."
+
+msgid "internal"
+msgstr "interní"
+
+msgid "MIME Type"
+msgstr "Typ MIME"
+
+msgid "Name"
+msgstr "Název"
+
+msgid "Unknown"
+msgstr "Neznámá"
+
+msgid "Known"
+msgstr "Známá"
+
+msgid "Support"
+msgstr "Podpora"
+
+msgid "Support Level"
+msgstr "Úroveň podpory"
+
+msgid "Bitstream Format Registry"
+msgstr "Registr formátů souborů"
+
+msgid "DSpace Angular :: Bitstream Format Registry"
+msgstr "DSpace Angular :: Registr formátů souborů"
+
+msgid "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema."
+msgstr "Registr metadat je seznam všech "
+"metadatových polí dostupných v repozitáři. Tyto pole mohou být rozdělena do "
+"více schémat. DSpace však vyžaduje použití schématu kvalifikový Dublin Core."
+
+msgid "Metadata Registry"
+msgstr "Registr metadat"
+
+msgid "No metadata schemas to show."
+msgstr "Žádná schémata metadat."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Name"
+msgstr "Název"
+
+msgid "Namespace"
+msgstr "Jmenný prostor"
+
+msgid "DSpace Angular :: Metadata Registry"
+msgstr "DSpace Angular :: Registr metadat"
+
+msgid "This is the metadata schema for \"{{namespace}}\"."
+msgstr "Toto je schéma metadat pro „{{namespace}}“."
+
+msgid "Schema metadata fields"
+msgstr "Pole schématu metadat"
+
+msgid "No metadata fields to show."
+msgstr "Žádná metadatová pole."
+
+msgid "Field"
+msgstr "Pole"
+
+msgid "Scope Note"
+msgstr "Poznámka o rozsahu"
+
+msgid "Metadata Schema"
+msgstr "Metadata Schema"
+
+msgid "DSpace Angular :: Metadata Schema Registry"
+msgstr "DSpace Angular :: Registr schémat metadat"
+
+msgid "Invalid email address or password."
+msgstr "Neplatná e-mailová adresa nebo heslo."
+
+msgid "Your session has expired. Please log in again."
+msgstr "Vaše relace vypršela. Prosím, znova se přihlaste."
+
+msgid "Browsing {{ collection }} by {{ field }} {{ value }}"
+msgstr "Prohlížíte {{ collection }} dle {{ field }} {{ value }}"
+
+msgid "Recent Submissions"
+msgstr "Poslední příspěvky"
+
+msgid "License"
+msgstr "Licence"
+
+msgid "News"
+msgstr "Novinky"
+
+msgid "License"
+msgstr "Licence"
+
+msgid "News"
+msgstr "Novinky"
+
+msgid "Collections of this Community"
+msgstr "Kolekce v této komunitě"
+
+msgid "Error fetching items"
+msgstr "Chyba během stahování záznamů"
+
+msgid "Error fetching collection"
+msgstr "Chyba během stahování kolekce"
+
+msgid "Error fetching community"
+msgstr "Chyba během stahování komunity"
+
+msgid "Error"
+msgstr "Chyba"
+
+msgid "Error fetching item"
+msgstr "Chyba během stahování záznamu"
+
+msgid "Error fetching objects"
+msgstr "Chyba během stahování objektů"
+
+msgid "Error fetching recent submissions"
+msgstr "Chyba během stahování posledních příspěvků"
+
+msgid "Error fetching search results"
+msgstr "Chyba během stahování výsledků hledání"
+
+msgid "Error fetching sub-collections"
+msgstr "Chyba během stahování subkolekcí"
+
+msgid "Error fetching top-level communities"
+msgstr "Chyba během stahování komunit nejvyšší úrovně"
+
+msgid "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission."
+msgstr "Pro dokončení zaslání Musíte udělit "
+"licenci. Pokud v tuto chvíli tuto licenci nemůžete udělit, můžete svou práci "
+"uložit a později se k svému příspěveku vrátit nebo jej smazat."
+
+msgid "This input is restricted by the current pattern: {{ pattern }}."
+msgstr "Tento vstup je omezen dle vzoru: {{ pattern }}."
+
+msgid "copyright © 2002-{{ year }}"
+msgstr "copyright © 2002-{{ year }}"
+
+msgid "DSpace software"
+msgstr "software DSpace"
+
+msgid "DuraSpace"
+msgstr "DuraSpace"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "First name"
+msgstr "Křestní jméno"
+
+msgid "Collapse"
+msgstr "Sbalit"
+
+msgid "Collapse-help"
+msgstr "Kliknutím sem sbalíte"
+
+msgid "Expand"
+msgstr "Rozbalit"
+
+msgid "Expand-help"
+msgstr "Kliknutím sem rozbalíte a přidáte další prvky"
+
+msgid "Last name"
+msgstr "Příjmení"
+
+msgid "Loading..."
+msgstr "Načítá se..."
+
+msgid "No results found"
+msgstr "Nebyli nalezeny žádné výsledky"
+
+msgid "No value entered"
+msgstr "Nebyla zadána hodnota"
+
+msgid "Remove"
+msgstr "Smazat"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Submit"
+msgstr "Odeslat"
+
+msgid ""
+msgstr ""
+
+msgid "DSpace Angular :: Home"
+msgstr "DSpace Angular :: Domů"
+
+msgid "Communities in DSpace"
+msgstr "Komunity v DSpace"
+
+msgid "Select a community to browse its collections."
+msgstr "Vybráním komunity můžete prohlížet její kolekce."
+
+msgid "Abstract"
+msgstr "Abstract"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Collections"
+msgstr "Kolekce"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Files"
+msgstr "Soubory"
+
+msgid "Description:"
+msgstr "Popis:"
+
+msgid "Download"
+msgstr "Stáhnout"
+
+msgid "Format:"
+msgstr "Formát:"
+
+msgid "Name:"
+msgstr "Název:"
+
+msgid "Size:"
+msgstr "Velikost:"
+
+msgid "Full item page"
+msgstr "Úplný záznam"
+
+msgid "Simple item page"
+msgstr "Minimální záznam"
+
+msgid "URI"
+msgstr "URI"
+
+msgid "Loading items..."
+msgstr "Načítají se záznamy..."
+
+msgid "Loading collection..."
+msgstr "Načítá se kolekce..."
+
+msgid "Loading community..."
+msgstr "Načítá se komunita..."
+
+msgid "Loading..."
+msgstr "Načítá se..."
+
+msgid "Loading item..."
+msgstr "Načítá se záznam..."
+
+msgid "Loading..."
+msgstr "Načítá se..."
+
+msgid "Loading recent submissions..."
+msgstr "Načítají se poslední příspěvky..."
+
+msgid "Loading search results..."
+msgstr "Načítají se výsledky hledání..."
+
+msgid "Loading sub-collections..."
+msgstr "Načítají se subkolekce..."
+
+msgid "Loading top-level communities..."
+msgstr "Načítají se komunity nejvyšší úrovně..."
+
+msgid "Email address"
+msgstr "E-mailová adresa"
+
+msgid "Have you forgotten your password?"
+msgstr "Zapomněli jste své heslo?"
+
+msgid "Please log in to DSpace"
+msgstr "Prosím, přihlaste se do DSpace"
+
+msgid "New user? Click here to register."
+msgstr "Nový uživatel? Zaregistrujte se kliknutím sem."
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "login.Submit"
+msgstr "Přihlásit se"
+
+msgid "Login"
+msgstr "Přihlásit se"
+
+msgid "Log out from DSpace"
+msgstr "Odhlásit se z DSpace"
+
+msgid "logout.Submit"
+msgstr "Odhlásit se"
+
+msgid "Logout"
+msgstr "Odhlásit se"
+
+msgid "Home"
+msgstr "Domů"
+
+msgid "Log In"
+msgstr "Přihlásit se"
+
+msgid "Log Out"
+msgstr "Odhlásit se"
+
+msgid "Results Per Page"
+msgstr "Výsledků na stránku"
+
+msgid "{{ range }} of {{ total }}"
+msgstr "{{ range }} z {{ total }}"
+
+msgid "Now showing items "
+msgstr "Zobrazují se záznamy "
+
+msgid "Sort Options"
+msgstr "Seřazení"
+
+msgid ""
+msgstr ""
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "End date"
+msgstr "Do data"
+
+msgid "Start date"
+msgstr "Od data"
+
+msgid "Has files"
+msgstr "Má soubory"
+
+msgid "Subject"
+msgstr "Předmět"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Author name"
+msgstr "Jméno autora"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Minimum Date"
+msgstr "Datum od"
+
+msgid "Maximum Date"
+msgstr "Datum do"
+
+msgid "Has files"
+msgstr "Má soubory"
+
+msgid "Scope"
+msgstr "Rozsah"
+
+msgid "Scope filter"
+msgstr "Filtr rozsahu"
+
+msgid "Collapse"
+msgstr "Sbalit"
+
+msgid "Show more"
+msgstr "Zobrazit více"
+
+msgid "Subject"
+msgstr "Předmět"
+
+msgid "Subject"
+msgstr "Předmět"
+
+msgid "Filters"
+msgstr "Filtry"
+
+msgid "Reset filters"
+msgstr "Obnovit filtry"
+
+msgid "search.Search"
+msgstr "Hledat"
+
+msgid "search.Search_dspace"
+msgstr "Hledat v DSpace"
+
+msgid "Search Results"
+msgstr "Výsledky hledání"
+
+msgid "Your search returned no results. Having trouble finding what you\'re looking for? Try putting"
+msgstr "Nebyli nalezeny žádné výsledky"
+
+msgid "Back to results"
+msgstr "Zpět na výsledky"
+
+msgid "Filters"
+msgstr "Filtry"
+
+msgid "Search Tools"
+msgstr "Vyhledávací nástroje"
+
+msgid "results"
+msgstr "výsledky"
+
+msgid "Results per page"
+msgstr "Výsledků na stránku"
+
+msgid "Sort By"
+msgstr "Řadit dle"
+
+msgid "Settings"
+msgstr "Nastavení"
+
+msgid "DSpace Angular :: Search"
+msgstr "DSpace Angular :: Hledat"
+
+msgid "Show as grid"
+msgstr "Zobrazit mřížku"
+
+msgid "Show as list"
+msgstr "Zobrazit seznam"
+
+msgid "Title Ascending"
+msgstr "Název vzestupně"
+
+msgid "Title Descending"
+msgstr "Název sestupně"
+
+msgid "Relevance"
+msgstr "Relevance"
+
+msgid "title"
+msgstr "DSpace"
+
+msgid "uploader.browse"
+msgstr ""
+
+msgid "uploader.or"
+msgstr ""
+
+msgid "uploader.processing"
+msgstr ""
+
+msgid "uploader.queue-lenght"
+msgstr ""

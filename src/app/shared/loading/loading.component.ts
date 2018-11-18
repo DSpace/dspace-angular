@@ -23,7 +23,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     if (this.message === undefined) {
-      this.subscription = this.translate.get('loading.default').subscribe((message: string) => {
+      this.subscription = this.translate.get('Loading...').subscribe((message: string) => {
         this.message = message;
       });
     }

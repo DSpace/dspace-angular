@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslatePoHttpLoader } from '@biesbjerg/ngx-translate-po-http-loader';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { IdlePreload, IdlePreloadModule } from 'angular-idle-preload';
@@ -26,7 +27,7 @@ import { SubmissionService } from '../../app/submission/submission.service';
 export const REQ_KEY = makeStateKey<string>('req');
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+  return new TranslatePoHttpLoader(http, 'assets/i18n/', '.po');
 }
 
 export function getRequest(transferState: TransferState): any {

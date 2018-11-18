@@ -1,0 +1,364 @@
+# DSpace i18n Dutch message catalog
+# Copyright (C) 2018 DuraSpace
+# This file is distributed under the same license as DSpace
+# Bram Luyten <bram@atmire.com>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DSpace 7\n"
+"Report-Msgid-Bugs-To: https://jira.duraspace.org/browse/DS\n"
+"PO-Revision-Date: 2018-11-27 06:31+0100\n"
+"Last-Translator: Bram Luyten <bram@atmire.com>\n"
+"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid ".head"
+msgstr ""
+
+msgid ".max.placeholder"
+msgstr ""
+
+msgid ".min.placeholder"
+msgstr ""
+
+msgid ".placeholder"
+msgstr ""
+
+msgid "We can\'t find the page you\'re looking for. The page may have been moved or deleted. You can use the \"Back\" button below to get back to the home page."
+msgstr "De pagina die u zoekt kan niet gevonden worden. De pagina werd mogelijk verplaatst of verwijderd. U kan onderstaande knop gebruiken om terug naar de homepagina te gaan. "
+
+msgid "Take me to the home page"
+msgstr "Terug naar de homepagina"
+
+msgid "page not found"
+msgstr "Pagina niet gevonden"
+
+msgid "This list of bitstream formats provides information about known formats and their support level."
+msgstr "Deze lijst van Bitstream formaten biedt informatie over de formaten die in deze repository zijn toegelaten en op welke manier ze ondersteund worden. De term Bitstream wordt in DSpace gebruikt om een bestand aan te duiden dat samen met metadata onderdeel uitmaakt van een item. De naam bitstream duidt op het feit dat het bestand achterliggend wordt opgeslaan zonder bestandsextensie."
+
+msgid "No bitstream formats to show."
+msgstr "Er kunnen geen metadata velden getoond worden."
+
+msgid "internal"
+msgstr "intern"
+
+msgid "MIME Type"
+msgstr "MIME Type"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Support Level"
+msgstr "Ondersteuning"
+
+msgid "Bitstream Format Registry"
+msgstr "DSpace Angular :: Bitstream Formaat Register"
+
+msgid "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema."
+msgstr "Het metadata register omvat de lijst van alle metadata velden die beschikbaar zijn in het systeem. Deze velden kunnen verspreid zijn over verschillende metadata schema's. Het qualified Dublin Core schema (dc) is een verplicht schema en kan niet worden verwijderd."
+
+msgid "Metadata Registry"
+msgstr "Metadata Register"
+
+msgid "No metadata schemas to show."
+msgstr "Er kunnen geen metadata schema's getoond worden."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Name"
+msgstr "Naamruimte"
+
+msgid "Namespace"
+msgstr "Naam"
+
+msgid "This is the metadata schema for \"{{namespace}}\"."
+msgstr "Dit is het metadata schema voor \"{{namespace}}\"."
+
+msgid "Schema metadata fields"
+msgstr "Schema metadata velden"
+
+msgid "No metadata fields to show."
+msgstr "Er kunnen geen metadata velden getoond worden."
+
+msgid "Field"
+msgstr "Veld"
+
+msgid "Scope Note"
+msgstr "Opmerking over bereik"
+
+msgid "Metadata Schema"
+msgstr "Metadata Schema"
+
+msgid "Browsing {{ collection }} by {{ field }} {{ value }}"
+msgstr "Verken {{ collection }} volgens {{ field }} {{ value }}"
+
+msgid "Recent Submissions"
+msgstr "Recent toegevoegd"
+
+msgid "Collections of this Community"
+msgstr "Collecties in deze Community"
+
+msgid "Error fetching items"
+msgstr "Fout bij het ophalen van items"
+
+msgid "Error fetching collection"
+msgstr "Fout bij het ophalen van een collectie"
+
+msgid "Error fetching community"
+msgstr "Fout bij het ophalen van een community"
+
+msgid "Error"
+msgstr "Fout"
+
+msgid "Error fetching item"
+msgstr "Fout bij het ophalen van items"
+
+msgid "Error fetching objects"
+msgstr "Fout bij het ophalen van objecten"
+
+msgid "Error fetching recent submissions"
+msgstr "Fout bij het ophalen van recent toegevoegde items"
+
+msgid "Error fetching search results"
+msgstr "Fout bij het ophalen van zoekresultaten"
+
+msgid "Error fetching sub-collections"
+msgstr "Fout bij het ophalen van sub-collecties"
+
+msgid "error.top-level-communites"
+msgstr "Fout bij het inladen van communities op het hoogste niveau"
+
+#: footer.component.html:5
+msgid "copyright © 2002-{{ year }}"
+msgstr "copyright © 2002-{{ year }}"
+
+#: footer.component.html:4
+msgid "DSpace software"
+msgstr "DSpace software"
+
+#: footer.component.html:6
+msgid "DuraSpace"
+msgstr "DuraSpace"
+
+msgid "Cancel"
+msgstr "Annuleer"
+
+msgid "Collapse-help"
+msgstr "Klik hier op in te klappen"
+
+msgid "Expand-help"
+msgstr "Klik hier om uit te klappen en om meer onderdelen toe te voegen"
+
+msgid "Loading..."
+msgstr "Inladen..."
+
+msgid "No results found"
+msgstr "Geen resultaten gevonden"
+
+msgid "No value entered"
+msgstr "Geen waarde ingevoerd"
+
+msgid "Remove"
+msgstr "Verwijder"
+
+msgid "Search"
+msgstr "Zoek"
+
+msgid "Submit"
+msgstr "Verstuur"
+
+msgid "Welcome to \"DSpace\""
+msgstr "Welkom in \"DSpace\""
+
+msgid "DSpace is an open source software platform that enables organisations to:"
+msgstr "DSpace is een open bron platform dat organisaties toelaat om:"
+
+msgid "capture and describe digital material using a submission workflow module, "
+"or a variety of programmatic ingest options"
+msgstr "digitale materialen te vangen en beschrijven, gebruik makend van een invoer werkstroom module, "
+"of een variatie aan progammatische invoer mogelijkheden"
+
+msgid "distribute an organisation\'s digital assets over the web through a search and retrieval system"
+msgstr "de digitale materialen van \'n organisatie over het web te distribueren "
+"dankzij een zoek en terughaal systeem"
+
+msgid "preserve digital assets over the long term"
+msgstr "digitale materialen te bewaren op lange termijn"
+
+msgid "Communities in DSpace"
+msgstr "Communities in DSpace"
+
+msgid "Select a community to browse its collections."
+msgstr "Selecteer een community om diens collecties te verkennen."
+
+msgid "Description:"
+msgstr "Beschrijving:"
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Format:"
+msgstr "Formaat:"
+
+msgid "Name:"
+msgstr "Naam:"
+
+msgid "Size:"
+msgstr "Grootte:"
+
+msgid "Full item page"
+msgstr "Volledige item weergave"
+
+msgid "Simple item page"
+msgstr "Eenvoudige item weergave"
+
+msgid "Loading items..."
+msgstr "Items worden ingeladen..."
+
+msgid "Loading collection..."
+msgstr "Collectie wordt ingeladen..."
+
+msgid "Loading community..."
+msgstr "Community wordt ingeladen..."
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "Loading item..."
+msgstr "Item wordt ingeladen..."
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "Loading recent submissions..."
+msgstr "Recent toegevoegde items worden ingeladen..."
+
+msgid "Loading search results..."
+msgstr "Zoekresultaten worden ingeladen..."
+
+msgid "Loading sub-collections..."
+msgstr "De sub-collecties worden ingeladen..."
+
+msgid "Loading top-level communities..."
+msgstr "Inladen van de Communities op het hoogste niveau..."
+
+msgid "Email address"
+msgstr "Email adres"
+
+msgid "Have you forgotten your password?"
+msgstr "Wachtwoord"
+
+msgid "Please log in to DSpace"
+msgstr "Gelieve in te loggen in DSpace"
+
+msgid "New user? Click here to register."
+msgstr "Nieuwe gebruiker? Gelieve u hier te registreren"
+
+msgid "Password"
+msgstr "Wachtwoord"
+
+msgid "login.Submit"
+msgstr "Aanmelden"
+
+msgid "Log out from DSpace"
+msgstr "Gelieve in te loggen in DSpace"
+
+msgid "logout.Submit"
+msgstr "Aanmelden"
+
+#: header.component.html: 12
+msgid "Home"
+msgstr "Home"
+
+#: auth-nav-menu.component.html: 4
+#: auth-nav-menu.component.html: 11
+msgid "Log In"
+msgstr "Log In"
+
+#: auth-nav-menu.component.html: 22
+msgid "Log Out"
+msgstr "Log Uit"
+
+msgid "Results Per Page"
+msgstr "Resultaten per pagina"
+
+msgid "{{ range }} of {{ total }}"
+msgstr "{{ range }} tot {{ total }}"
+
+msgid "Now showing items "
+msgstr "Getoonde items "
+
+msgid "Sort Options"
+msgstr "Sorteer mogelijkheden"
+
+msgid "Collapse"
+msgstr "Inklappen"
+
+msgid "Show more"
+msgstr "Toon meer"
+
+msgid "Filters"
+msgstr "Filters"
+
+msgid "Reset filters"
+msgstr "Filters verwijderen"
+
+msgid "search.Search"
+msgstr "Zoek"
+
+msgid "search.Search_dspace"
+msgstr "Zoek in DSpace"
+
+msgid "Search Results"
+msgstr "Zoekresultaten"
+
+msgid "Your search returned no results. Having trouble finding what you\'re looking for? Try putting"
+msgstr "Er waren geen resultaten voor deze zoekopdracht"
+
+#:search-results.component.html:16
+msgid "quotes around it"
+msgstr ""
+
+msgid "Back to results"
+msgstr "Terug naar de resultaten"
+
+msgid "Search Tools"
+msgstr "Zoek Tools"
+
+msgid "results"
+msgstr "resultaten"
+
+msgid "Results per page"
+msgstr "Resultaten per pagina"
+
+msgid "Sort By"
+msgstr "Sorteer volgens"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Show as grid"
+msgstr "Toon in raster"
+
+msgid "Show as list"
+msgstr "Toon als lijst"
+
+msgid "title"
+msgstr "DSpace"
+
+msgid "uploader.browse"
+msgstr ""
+
+msgid "uploader.or"
+msgstr ""
+
+msgid "uploader.processing"
+msgstr ""
+
+msgid "uploader.queue-lenght"
+msgstr ""

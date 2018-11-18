@@ -7,9 +7,9 @@ import { BitstreamFormatsComponent } from './bitstream-formats/bitstream-formats
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'metadata', component: MetadataRegistryComponent, data: { title: 'admin.registries.metadata.title' } },
-      { path: 'metadata/:schemaName', component: MetadataSchemaComponent, data: { title: 'admin.registries.schema.title' } },
-      { path: 'bitstream-formats', component: BitstreamFormatsComponent, data: { title: 'admin.registries.bitstream-formats.title' } },
+      { path: 'metadata', component: MetadataRegistryComponent, data: { title: 'DSpace Angular :: Metadata Registry' } },
+      { path: 'metadata/:schemaName', component: MetadataSchemaComponent, data: { title: 'DSpace Angular :: Metadata Schema Registry' } },
+      { path: 'bitstream-formats', component: BitstreamFormatsComponent, data: { title: 'DSpace Angular :: Bitstream Format Registry' } },
     ])
   ]
 })

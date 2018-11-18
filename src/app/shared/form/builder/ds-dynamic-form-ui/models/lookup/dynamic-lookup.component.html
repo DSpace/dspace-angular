@@ -54,30 +54,30 @@
               placement="top"
               [disabled]="model.readOnly || isSearchDisabled()"
               [hidden]="isInputDisabled()"
-              (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
+              (click)="sdRef.open(); search(); $event.stopPropagation();">{{'Search' | translate}}
       </button>
       <button *ngIf="isInputDisabled()" class="btn btn-secondary"
               type="button"
               ngbTooltip="{{'form.clear-help' | translate}}"
               placement="top"
               [disabled]="model.readOnly"
-              (click)="remove($event)">{{'form.clear' | translate}}
+              (click)="remove($event)">{{'Remove' | translate}}
       </button>
     </div>
     <div class="col-auto text-center">
       <button *ngIf="!editMode" class="btn btn-secondary"
               type="button"
-              ngbTooltip="{{'form.edit-help' | translate}}"
+              ngbTooltip="{{'Click here to edit the selected value' | translate}}"
               placement="top"
               [disabled]="isEditDisabled()"
-              (click)="switchEditMode()">{{'form.edit' | translate}}
+              (click)="switchEditMode()">{{'Edit' | translate}}
       </button>
       <button *ngIf="editMode" class="btn btn-secondary"
               type="button"
-              ngbTooltip="{{'form.save-help' | translate}}"
+              ngbTooltip="{{'Save changes' | translate}}"
               placement="top"
               [disabled]="!hasEmptyValue()"
-              (click)="saveChanges()">{{'form.save' | translate}}
+              (click)="saveChanges()">{{'Save' | translate}}
       </button>
     </div>
   </div>
@@ -97,7 +97,7 @@
 
       <button class="dropdown-item disabled"
               *ngIf="optionsList && optionsList.length == 0"
-              (click)="$event.stopPropagation(); clearFields(); sdRef.close();">{{'form.no-results' | translate}}
+              (click)="$event.stopPropagation(); clearFields(); sdRef.close();">{{'No results found' | translate}}
       </button>
       <button class="dropdown-item lookup-item"
               *ngFor="let listEntry of optionsList"
@@ -108,7 +108,7 @@
           [ngTemplateOutletContext]="{entry: listEntry}">
         </ng-container>
       </button>
-      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>
+      <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'Loading...' | translate}}</p></div>
     </div>
   </div>
 </div>

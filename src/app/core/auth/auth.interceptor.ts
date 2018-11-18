@@ -81,7 +81,7 @@ export class AuthInterceptor implements HttpInterceptor {
       authService.setRedirectUrl(this.router.url);
       // The access token is expired
       // Redirect to the login route
-      this.store.dispatch(new RedirectWhenTokenExpiredAction('auth.messages.expired'));
+      this.store.dispatch(new RedirectWhenTokenExpiredAction('Your session has expired. Please log in again.'));
       return observableOf(null);
     } else if (!this.isAuthRequest(req) && isNotEmpty(token)) {
       // Intercept a request that is not to the authentication endpoint
@@ -145,7 +145,7 @@ export class AuthInterceptor implements HttpInterceptor {
           } else if (this.isUnauthorized(error) && isNotNull(token) && authService.isTokenExpired()) {
             // The access token provided is expired, revoked, malformed, or invalid for other reasons
             // Redirect to the login route
-            this.store.dispatch(new RedirectWhenTokenExpiredAction('auth.messages.expired'));
+            this.store.dispatch(new RedirectWhenTokenExpiredAction('Your session has expired. Please log in again.'));
           }
         }
         // Return error response as is.

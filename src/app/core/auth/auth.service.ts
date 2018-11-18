@@ -219,7 +219,7 @@ export class AuthService {
         if (!status.authenticated) {
           return true;
         } else {
-          throw(new Error('auth.errors.invalid-user'));
+          throw(new Error('Invalid email address or password.'));
         }
       }))
   }

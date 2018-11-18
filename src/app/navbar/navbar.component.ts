@@ -47,7 +47,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: 'menu.section.browse_global'
+          text: 'All of DSpace'
         } as TextMenuItemModel,
         index: 0
       },
@@ -69,7 +69,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'menu.section.browse_global_by_title',
+          text: 'By Title',
           link: '/browse/title'
         } as LinkMenuItemModel,
       },
@@ -80,7 +80,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'menu.section.browse_global_by_issue_date',
+          text: 'By Issue Date',
           link: '/browse/dateissued'
         } as LinkMenuItemModel,
       },
@@ -91,7 +91,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'menu.section.browse_global_by_author',
+          text: 'By Author',
           link: '/browse/author'
         } as LinkMenuItemModel,
       },
@@ -102,7 +102,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'menu.section.browse_global_by_subject',
+          text: 'By Subject',
           link: '/browse/subject'
         } as LinkMenuItemModel,
       },
@@ -114,7 +114,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'menu.section.statistics',
+          text: 'Statistics',
           link: ''
         } as LinkMenuItemModel,
         index: 2

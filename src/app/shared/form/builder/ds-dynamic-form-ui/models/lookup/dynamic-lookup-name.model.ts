@@ -20,7 +20,7 @@ export class DynamicLookupNameModel extends DynamicLookupModel {
     super(config, layout);
 
     this.separator = config.separator || ',';
-    this.placeholder = config.firstPlaceholder || 'form.last-name';
-    this.secondPlaceholder = config.secondPlaceholder || 'form.first-name';
+    this.placeholder = config.firstPlaceholder || 'Last name';
+    this.secondPlaceholder = config.secondPlaceholder || 'First name';
   }
 }

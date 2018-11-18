@@ -1,0 +1,2135 @@
+# DSpace i18n message templates
+# Copyright (C) 2018 DuraSpace
+# This file is distributed under the same license as DSpace
+# Bram Luyten <bram@atmire.com>, 2019.
+#
+#. extracted from en.json
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: DSpace 7\n"
+"Report-Msgid-Bugs-To: https://jira.duraspace.org/browse/DS\n"
+"POT-Creation-Date: 2019-04-07 19:50+0100\n"
+"Last-Translator: Bram Luyten <bram@atmire.com>\n"
+"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
+"MIME-Version: 1.1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid "Welcome to DSpace"
+msgstr ""
+
+msgid "DSpace is an open source software platform that enables organisations to:"
+msgstr ""
+
+msgid "distribute an organisation's digital assets over the web through a search "
+"and retrieval system"
+msgstr ""
+
+msgid "preserve digital assets over the long term"
+msgstr ""
+
+msgid "capture and describe digital material using a submission workflow module, or "
+"a variety of programmatic ingest options"
+msgstr ""
+
+msgid "Expand-help"
+msgstr ""
+
+msgid "Collapse-help"
+msgstr ""
+
+msgid "Now showing items "
+msgstr ""
+
+msgid "title"
+msgstr ""
+
+#: .404.help
+msgid ""
+"We can't find the page you're looking for. The page may have been moved or "
+"deleted. You can use the button below to get back to the home page. "
+msgstr ""
+
+#: .404.link.home-page
+msgid "Take me to the home page"
+msgstr ""
+
+#: .404.page-not-found
+msgid "page not found"
+msgstr ""
+
+#: .admin.registries.bitstream-formats.description
+msgid ""
+"This list of bitstream formats provides information about known formats and "
+"their support level."
+msgstr ""
+
+#: .admin.registries.bitstream-formats.formats.no-items
+msgid "No bitstream formats to show."
+msgstr ""
+
+#: .admin.registries.bitstream-formats.formats.table.internal
+msgid "internal"
+msgstr ""
+
+#: .admin.registries.bitstream-formats.formats.table.mimetype
+msgid "MIME Type"
+msgstr ""
+
+#: .admin.registries.bitstream-formats.formats.table.name
+msgctxt ".admin.registries.bitstream-formats.formats.table.name"
+msgid "Name"
+msgstr ""
+
+#: .admin.registries.bitstream-formats.formats.table.supportLevel.0
+msgid "Unknown"
+msgstr ""
+
+#: .admin.registries.bitstream-formats.formats.table.supportLevel.1
+msgid "Known"
+msgstr ""
+
+#: .admin.registries.bitstream-formats.formats.table.supportLevel.2
+msgid "Support"
+msgstr ""
+
+#: .admin.registries.bitstream-formats.formats.table.supportLevel.head
+msgid "Support Level"
+msgstr ""
+
+#: .admin.registries.bitstream-formats.head
+msgid "Bitstream Format Registry"
+msgstr ""
+
+#: .admin.registries.bitstream-formats.title
+msgid "DSpace Angular :: Bitstream Format Registry"
+msgstr ""
+
+#: .admin.registries.metadata.description
+msgid ""
+"The metadata registry maintains a list of all metadata fields available in "
+"the repository. These fields may be divided amongst multiple schemas. "
+"However, DSpace requires the qualified Dublin Core schema."
+msgstr ""
+
+#: .admin.registries.metadata.form.create
+msgid "Create metadata schema"
+msgstr ""
+
+#: .admin.registries.metadata.form.edit
+msgid "Edit metadata schema"
+msgstr ""
+
+#: .admin.registries.metadata.form.name
+msgctxt ".admin.registries.metadata.form.name"
+msgid "Name"
+msgstr ""
+
+#: .admin.registries.metadata.form.namespace
+msgctxt ".admin.registries.metadata.form.namespace"
+msgid "Namespace"
+msgstr ""
+
+#: .admin.registries.metadata.head
+msgid "Metadata Registry"
+msgstr ""
+
+#: .admin.registries.metadata.schemas.no-items
+msgid "No metadata schemas to show."
+msgstr ""
+
+#: .admin.registries.metadata.schemas.table.delete
+msgctxt ".admin.registries.metadata.schemas.table.delete"
+msgid "Delete selected"
+msgstr ""
+
+#: .admin.registries.metadata.schemas.table.id
+msgid "ID"
+msgstr ""
+
+#: .admin.registries.metadata.schemas.table.name
+msgctxt ".admin.registries.metadata.schemas.table.name"
+msgid "Name"
+msgstr ""
+
+#: .admin.registries.metadata.schemas.table.namespace
+msgctxt ".admin.registries.metadata.schemas.table.namespace"
+msgid "Namespace"
+msgstr ""
+
+#: .admin.registries.metadata.title
+msgid "DSpace Angular :: Metadata Registry"
+msgstr ""
+
+#: .admin.registries.schema.description
+msgid "This is the metadata schema for \"{{namespace}}\"."
+msgstr ""
+
+#: .admin.registries.schema.fields.head
+msgid "Schema metadata fields"
+msgstr ""
+
+#: .admin.registries.schema.fields.no-items
+msgid "No metadata fields to show."
+msgstr ""
+
+#: .admin.registries.schema.fields.table.delete
+msgctxt ".admin.registries.schema.fields.table.delete"
+msgid "Delete selected"
+msgstr ""
+
+#: .admin.registries.schema.fields.table.field
+msgctxt ".admin.registries.schema.fields.table.field"
+msgid "Field"
+msgstr ""
+
+#: .admin.registries.schema.fields.table.scopenote
+msgctxt ".admin.registries.schema.fields.table.scopenote"
+msgid "Scope Note"
+msgstr ""
+
+#: .admin.registries.schema.form.create
+msgid "Create metadata field"
+msgstr ""
+
+#: .admin.registries.schema.form.edit
+msgid "Edit metadata field"
+msgstr ""
+
+#: .admin.registries.schema.form.element
+msgid "Element"
+msgstr ""
+
+#: .admin.registries.schema.form.qualifier
+msgid "Qualifier"
+msgstr ""
+
+#: .admin.registries.schema.form.scopenote
+msgctxt ".admin.registries.schema.form.scopenote"
+msgid "Scope Note"
+msgstr ""
+
+#: .admin.registries.schema.head
+msgid "Metadata Schema"
+msgstr ""
+
+#: .admin.registries.schema.notification.created
+msgid "Successfully created metadata schema \"{{prefix}}\""
+msgstr ""
+
+#: .admin.registries.schema.notification.deleted.failure
+msgid "Failed to delete {{amount}} metadata schemas"
+msgstr ""
+
+#: .admin.registries.schema.notification.deleted.success
+msgid "Successfully deleted {{amount}} metadata schemas"
+msgstr ""
+
+#: .admin.registries.schema.notification.edited
+msgid "Successfully edited metadata schema \"{{prefix}}\""
+msgstr ""
+
+#: .admin.registries.schema.notification.failure
+msgctxt ".admin.registries.schema.notification.failure"
+msgid "Error"
+msgstr ""
+
+#: .admin.registries.schema.notification.field.created
+msgid "Successfully created metadata field \"{{field}}\""
+msgstr ""
+
+#: .admin.registries.schema.notification.field.deleted.failure
+msgid "Failed to delete {{amount}} metadata fields"
+msgstr ""
+
+#: .admin.registries.schema.notification.field.deleted.success
+msgid "Successfully deleted {{amount}} metadata fields"
+msgstr ""
+
+#: .admin.registries.schema.notification.field.edited
+msgid "Successfully edited metadata field \"{{field}}\""
+msgstr ""
+
+#: .admin.registries.schema.notification.success
+msgid "Success"
+msgstr ""
+
+#: .admin.registries.schema.return
+msgid "Return"
+msgstr ""
+
+#: .admin.registries.schema.title
+msgid "DSpace Angular :: Metadata Schema Registry"
+msgstr ""
+
+#: .auth.errors.invalid-user
+msgid "Invalid email address or password."
+msgstr ""
+
+#: .auth.messages.expired
+msgid "Your session has expired. Please log in again."
+msgstr ""
+
+#: .browse.comcol.by.author
+msgctxt ".browse.comcol.by.author"
+msgid "By Author"
+msgstr ""
+
+#: .browse.comcol.by.dateissued
+msgctxt ".browse.comcol.by.dateissued"
+msgid "By Issue Date"
+msgstr ""
+
+#: .browse.comcol.by.subject
+msgctxt ".browse.comcol.by.subject"
+msgid "By Subject"
+msgstr ""
+
+#: .browse.comcol.by.title
+msgctxt ".browse.comcol.by.title"
+msgid "By Title"
+msgstr ""
+
+#: .browse.comcol.head
+msgid "Browse"
+msgstr ""
+
+#: .browse.empty
+msgid "No items to show."
+msgstr ""
+
+#: .browse.metadata.author
+msgctxt ".browse.metadata.author"
+msgid "Author"
+msgstr ""
+
+#: .browse.metadata.dateissued
+msgid "Issue Date"
+msgstr ""
+
+#: .browse.metadata.subject
+msgctxt ".browse.metadata.subject"
+msgid "Subject"
+msgstr ""
+
+#: .browse.metadata.title
+msgctxt ".browse.metadata.title"
+msgid "Title"
+msgstr ""
+
+#: .browse.startsWith.choose_start
+msgid "(Choose start)"
+msgstr ""
+
+#: .browse.startsWith.choose_year
+msgid "(Choose year)"
+msgstr ""
+
+#: .browse.startsWith.jump
+msgid "Jump to a point in the index:"
+msgstr ""
+
+#: .browse.startsWith.months.april
+msgid "April"
+msgstr ""
+
+#: .browse.startsWith.months.august
+msgid "August"
+msgstr ""
+
+#: .browse.startsWith.months.december
+msgid "December"
+msgstr ""
+
+#: .browse.startsWith.months.february
+msgid "February"
+msgstr ""
+
+#: .browse.startsWith.months.january
+msgid "January"
+msgstr ""
+
+#: .browse.startsWith.months.july
+msgid "July"
+msgstr ""
+
+#: .browse.startsWith.months.june
+msgid "June"
+msgstr ""
+
+#: .browse.startsWith.months.march
+msgid "March"
+msgstr ""
+
+#: .browse.startsWith.months.may
+msgid "May"
+msgstr ""
+
+#: .browse.startsWith.months.none
+msgid "(Choose month)"
+msgstr ""
+
+#: .browse.startsWith.months.november
+msgid "November"
+msgstr ""
+
+#: .browse.startsWith.months.october
+msgid "October"
+msgstr ""
+
+#: .browse.startsWith.months.september
+msgid "September"
+msgstr ""
+
+#: .browse.startsWith.submit
+msgid "Go"
+msgstr ""
+
+#: .browse.startsWith.type_date
+msgid "Or type in a date (year-month):"
+msgstr ""
+
+#: .browse.startsWith.type_text
+msgid "Or enter first few letters:"
+msgstr ""
+
+# #-#-#-#-#  dspace.pot (DSpace 7)  #-#-#-#-#
+# Collection and Community viewing
+#: .browse.title
+msgid "Browsing {{ collection }} by {{ field }} {{ value }}"
+msgstr ""
+
+#: .chips.remove
+msgid "Remove chip"
+msgstr ""
+
+#: .collection.create.head
+msgid "Create a Collection"
+msgstr ""
+
+#: .collection.create.sub-head
+msgid "Create a Collection for Community {{ parent }}"
+msgstr ""
+
+#: .collection.delete.cancel
+msgctxt ".collection.delete.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .collection.delete.confirm
+msgctxt ".collection.delete.confirm"
+msgid "Confirm"
+msgstr ""
+
+#: .collection.delete.head
+msgid "Delete Collection"
+msgstr ""
+
+#: .collection.delete.notification.fail
+msgid "Collection could not be deleted"
+msgstr ""
+
+#: .collection.delete.notification.success
+msgid "Successfully deleted collection"
+msgstr ""
+
+#: .collection.delete.text
+msgid "Are you sure you want to delete collection \"{{ dso }}\""
+msgstr ""
+
+#: .collection.edit.delete
+msgid "Delete this collection"
+msgstr ""
+
+#: .collection.edit.head
+msgid "Edit Collection"
+msgstr ""
+
+#: .collection.form.abstract
+msgctxt ".collection.form.abstract"
+msgid "Short Description"
+msgstr ""
+
+#: .collection.form.description
+msgctxt ".collection.form.description"
+msgid "Introductory text (HTML)"
+msgstr ""
+
+#: .collection.form.errors.title.required
+msgid "Please enter a collection name"
+msgstr ""
+
+#: .collection.form.license
+msgctxt ".collection.form.license"
+msgid "License"
+msgstr ""
+
+#: .collection.form.provenance
+msgid "Provenance"
+msgstr ""
+
+#: .collection.form.rights
+msgctxt ".collection.form.rights"
+msgid "Copyright text (HTML)"
+msgstr ""
+
+#: .collection.form.tableofcontents
+msgctxt ".collection.form.tableofcontents"
+msgid "News (HTML)"
+msgstr ""
+
+#: .collection.form.title
+msgctxt ".collection.form.title"
+msgid "Name"
+msgstr ""
+
+#: .collection.page.browse.recent.head
+msgid "Recent Submissions"
+msgstr ""
+
+#: .collection.page.license
+msgctxt ".collection.page.license"
+msgid "License"
+msgstr ""
+
+#: .collection.page.news
+msgctxt ".collection.page.news"
+msgid "News"
+msgstr ""
+
+#: .community.create.head
+msgid "Create a Community"
+msgstr ""
+
+#: .community.create.sub-head
+msgid "Create a Sub-Community for Community {{ parent }}"
+msgstr ""
+
+#: .community.delete.cancel
+msgctxt ".community.delete.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .community.delete.confirm
+msgctxt ".community.delete.confirm"
+msgid "Confirm"
+msgstr ""
+
+#: .community.delete.head
+msgid "Delete Community"
+msgstr ""
+
+#: .community.delete.notification.fail
+msgid "Community could not be deleted"
+msgstr ""
+
+#: .community.delete.notification.success
+msgid "Successfully deleted community"
+msgstr ""
+
+#: .community.delete.text
+msgid "Are you sure you want to delete community \"{{ dso }}\""
+msgstr ""
+
+#: .community.edit.delete
+msgid "Delete this community"
+msgstr ""
+
+#: .community.edit.head
+msgid "Edit Community"
+msgstr ""
+
+#: .community.form.abstract
+msgctxt ".community.form.abstract"
+msgid "Short Description"
+msgstr ""
+
+#: .community.form.description
+msgctxt ".community.form.description"
+msgid "Introductory text (HTML)"
+msgstr ""
+
+#: .community.form.errors.title.required
+msgid "Please enter a community name"
+msgstr ""
+
+#: .community.form.rights
+msgctxt ".community.form.rights"
+msgid "Copyright text (HTML)"
+msgstr ""
+
+#: .community.form.tableofcontents
+msgctxt ".community.form.tableofcontents"
+msgid "News (HTML)"
+msgstr ""
+
+#: .community.form.title
+msgctxt ".community.form.title"
+msgid "Name"
+msgstr ""
+
+#: .community.page.license
+msgctxt ".community.page.license"
+msgid "License"
+msgstr ""
+
+#: .community.page.news
+msgctxt ".community.page.news"
+msgid "News"
+msgstr ""
+
+#: .community.sub-collection-list.head
+msgid "Collections of this Community"
+msgstr ""
+
+#: .community.sub-community-list.head
+msgid "Communities of this Community"
+msgstr ""
+
+#: .dso-selector.create.collection.head
+msgid "New collection"
+msgstr ""
+
+#: .dso-selector.create.community.head
+msgid "New community"
+msgstr ""
+
+#: .dso-selector.create.community.sub-level
+msgid "Create a new community in"
+msgstr ""
+
+#: .dso-selector.create.community.top-level
+msgid "Create a new top-level community"
+msgstr ""
+
+#: .dso-selector.create.item.head
+msgid "New item"
+msgstr ""
+
+#: .dso-selector.edit.collection.head
+msgid "Edit collection"
+msgstr ""
+
+#: .dso-selector.edit.community.head
+msgid "Edit community"
+msgstr ""
+
+#: .dso-selector.edit.item.head
+msgid "Edit item"
+msgstr ""
+
+#: .dso-selector.no-results
+msgid "No {{ type }} found"
+msgstr ""
+
+#: .dso-selector.placeholder
+msgid "Search for a {{ type }}"
+msgstr ""
+
+# #-#-#-#-#  dspace.pot (DSpace 7)  #-#-#-#-#
+# Errors
+#: .error.browse-by
+msgid "Error fetching items"
+msgstr ""
+
+#: .error.collection
+msgid "Error fetching collection"
+msgstr ""
+
+#: .error.community
+msgid "Error fetching community"
+msgstr ""
+
+#: .error.default
+msgctxt ".error.default"
+msgid "Error"
+msgstr ""
+
+#: .error.item
+msgid "Error fetching item"
+msgstr ""
+
+#: .error.objects
+msgid "Error fetching objects"
+msgstr ""
+
+#: .error.recent-submissions
+msgid "Error fetching recent submissions"
+msgstr ""
+
+#: .error.search-results
+msgid "Error fetching search results"
+msgstr ""
+
+#: .error.sub-collections
+msgid "Error fetching sub-collections"
+msgstr ""
+
+#: .error.sub-communities
+msgid "Error fetching sub-communities"
+msgstr ""
+
+#: .error.submission.sections.init-form-error
+msgid ""
+"An error occurred during section initialize, please check your input-form "
+"configuration. Details are below : <br> <br>"
+msgstr ""
+
+#: .error.top-level-communities
+msgid "Error fetching top-level communities"
+msgstr ""
+
+#: .error.validation.license.notgranted
+msgid ""
+"You must grant this license to complete your submission. If you are unable "
+"to grant this license at this time you may save your work and return later "
+"or remove the submission."
+msgstr ""
+
+#: .error.validation.pattern
+msgid "This input is restricted by the current pattern: {{ pattern }}."
+msgstr ""
+
+#: .footer.copyright footer.component.html:5
+msgid "copyright © 2002-{{ year }}"
+msgstr ""
+
+#: .footer.link.dspace footer.component.html:4
+msgid "DSpace software"
+msgstr ""
+
+#: .footer.link.duraspace footer.component.html:6
+msgid "DuraSpace"
+msgstr ""
+
+#: .form.cancel
+msgctxt ".form.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .form.clear
+msgid "Clear"
+msgstr ""
+
+#: .form.clear-help
+msgid "Click here to remove the selected value"
+msgstr ""
+
+#: .form.edit
+msgctxt ".form.edit"
+msgid "Edit"
+msgstr ""
+
+#: .form.edit-help
+msgid "Click here to edit the selected value"
+msgstr ""
+
+#: .form.first-name
+msgid "First name"
+msgstr ""
+
+#: .form.group-collapse
+msgctxt ".form.group-collapse"
+msgid "Collapse"
+msgstr ""
+
+#: .form.group-collapse-help
+msgid "Click here to collapse"
+msgstr ""
+
+#: .form.group-expand
+msgid "Expand"
+msgstr ""
+
+#: .form.group-expand-help
+msgid "Click here to expand and add more elements"
+msgstr ""
+
+#: .form.last-name
+msgid "Last name"
+msgstr ""
+
+#: .form.loading
+msgctxt ".form.loading"
+msgid "Loading..."
+msgstr ""
+
+#: .form.no-results
+msgid "No results found"
+msgstr ""
+
+#: .form.no-value
+msgid "No value entered"
+msgstr ""
+
+#: .form.remove
+msgctxt ".form.remove"
+msgid "Remove"
+msgstr ""
+
+#: .form.save
+msgctxt ".form.save"
+msgid "Save"
+msgstr ""
+
+#: .form.save-help
+msgid "Save changes"
+msgstr ""
+
+#: .form.search
+msgctxt ".form.search"
+msgid "Search"
+msgstr ""
+
+#: .form.search-help
+msgid "Click here to looking for an existing correspondence"
+msgstr ""
+
+#: .form.submit
+msgid "Submit"
+msgstr ""
+
+#: .home.description
+msgctxt ".home.description"
+msgid ""
+msgstr ""
+
+#: .home.title
+msgid "DSpace Angular :: Home"
+msgstr ""
+
+#: .home.top-level-communities.head
+msgid "Communities in DSpace"
+msgstr ""
+
+#: .home.top-level-communities.help
+msgid "Select a community to browse its collections."
+msgstr ""
+
+#: .item.edit.delete.cancel
+msgctxt ".item.edit.delete.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .item.edit.delete.confirm
+msgctxt ".item.edit.delete.confirm"
+msgid "Delete"
+msgstr ""
+
+#: .item.edit.delete.description
+msgid ""
+"Are you sure this item should be completely deleted? Caution: At present, no "
+"tombstone would be left."
+msgstr ""
+
+#: .item.edit.delete.error
+msgid "An error occurred while deleting the item"
+msgstr ""
+
+#: .item.edit.delete.header
+msgid "Delete item: {{ id }}"
+msgstr ""
+
+#: .item.edit.delete.success
+msgid "The item has been deleted"
+msgstr ""
+
+# #-#-#-#-#  dspace.pot (DSpace 7)  #-#-#-#-#
+# Edit item
+#: .item.edit.head
+msgid "Edit Item"
+msgstr ""
+
+#: .item.edit.metadata.add-button
+msgid "Add"
+msgstr ""
+
+#: .item.edit.metadata.discard-button
+msgctxt ".item.edit.metadata.discard-button"
+msgid "Discard"
+msgstr ""
+
+#: .item.edit.metadata.edit.buttons.edit
+msgctxt ".item.edit.metadata.edit.buttons.edit"
+msgid "Edit"
+msgstr ""
+
+#: .item.edit.metadata.edit.buttons.remove
+msgctxt ".item.edit.metadata.edit.buttons.remove"
+msgid "Remove"
+msgstr ""
+
+#: .item.edit.metadata.edit.buttons.undo
+msgid "Undo changes"
+msgstr ""
+
+#: .item.edit.metadata.edit.buttons.unedit
+msgid "Stop editing"
+msgstr ""
+
+#: .item.edit.metadata.headers.edit
+msgctxt ".item.edit.metadata.headers.edit"
+msgid "Edit"
+msgstr ""
+
+#: .item.edit.metadata.headers.field
+msgctxt ".item.edit.metadata.headers.field"
+msgid "Field"
+msgstr ""
+
+#: .item.edit.metadata.headers.language
+msgid "Lang"
+msgstr ""
+
+#: .item.edit.metadata.headers.value
+msgctxt ".item.edit.metadata.headers.value"
+msgid "Value"
+msgstr ""
+
+#: .item.edit.metadata.metadatafield.invalid
+msgid "Please choose a valid metadata field"
+msgstr ""
+
+#: .item.edit.metadata.notifications.discarded.content
+msgid ""
+"Your changes were discarded. To reinstate your changes click the 'Undo' "
+"button"
+msgstr ""
+
+#: .item.edit.metadata.notifications.discarded.title
+msgid "Changed discarded"
+msgstr ""
+
+#: .item.edit.metadata.notifications.invalid.content
+msgid ""
+"Your changes were not saved. Please make sure all fields are valid before "
+"you save."
+msgstr ""
+
+#: .item.edit.metadata.notifications.invalid.title
+msgid "Metadata invalid"
+msgstr ""
+
+#: .item.edit.metadata.notifications.outdated.content
+msgid ""
+"The item you're currently working on has been changed by another user. Your "
+"current changes are discarded to prevent conflicts"
+msgstr ""
+
+#: .item.edit.metadata.notifications.outdated.title
+msgid "Changed outdated"
+msgstr ""
+
+#: .item.edit.metadata.notifications.saved.content
+msgid "Your changes to this item's metadata were saved."
+msgstr ""
+
+#: .item.edit.metadata.notifications.saved.title
+msgid "Metadata saved"
+msgstr ""
+
+#: .item.edit.metadata.reinstate-button
+msgid "Undo"
+msgstr ""
+
+#: .item.edit.metadata.save-button
+msgctxt ".item.edit.metadata.save-button"
+msgid "Save"
+msgstr ""
+
+#: .item.edit.modify.overview.field
+msgctxt ".item.edit.modify.overview.field"
+msgid "Field"
+msgstr ""
+
+#: .item.edit.modify.overview.language
+msgid "Language"
+msgstr ""
+
+#: .item.edit.modify.overview.value
+msgctxt ".item.edit.modify.overview.value"
+msgid "Value"
+msgstr ""
+
+#: .item.edit.private.cancel
+msgctxt ".item.edit.private.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .item.edit.private.confirm
+msgid "Make it Private"
+msgstr ""
+
+#: .item.edit.private.description
+msgid "Are you sure this item should be made private in the archive?"
+msgstr ""
+
+#: .item.edit.private.error
+msgid "An error occurred while making the item private"
+msgstr ""
+
+#: .item.edit.private.header
+msgid "Make item private: {{ id }}"
+msgstr ""
+
+#: .item.edit.private.success
+msgid "The item is now private"
+msgstr ""
+
+#: .item.edit.public.cancel
+msgctxt ".item.edit.public.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .item.edit.public.confirm
+msgid "Make it Public"
+msgstr ""
+
+#: .item.edit.public.description
+msgid "Are you sure this item should be made public in the archive?"
+msgstr ""
+
+#: .item.edit.public.error
+msgid "An error occurred while making the item public"
+msgstr ""
+
+#: .item.edit.public.header
+msgid "Make item public: {{ id }}"
+msgstr ""
+
+#: .item.edit.public.success
+msgid "The item is now public"
+msgstr ""
+
+#: .item.edit.reinstate.cancel
+msgctxt ".item.edit.reinstate.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .item.edit.reinstate.confirm
+msgid "Reinstate"
+msgstr ""
+
+#: .item.edit.reinstate.description
+msgid "Are you sure this item should be reinstated to the archive?"
+msgstr ""
+
+#: .item.edit.reinstate.error
+msgid "An error occurred while reinstating the item"
+msgstr ""
+
+#: .item.edit.reinstate.header
+msgid "Reinstate item: {{ id }}"
+msgstr ""
+
+#: .item.edit.reinstate.success
+msgid "The item was reinstated successfully"
+msgstr ""
+
+#: .item.edit.tabs.bitstreams.head
+msgid "Item Bitstreams"
+msgstr ""
+
+#: .item.edit.tabs.bitstreams.title
+msgid "Item Edit - Bitstreams"
+msgstr ""
+
+#: .item.edit.tabs.curate.head
+msgid "Curate"
+msgstr ""
+
+#: .item.edit.tabs.curate.title
+msgid "Item Edit - Curate"
+msgstr ""
+
+#: .item.edit.tabs.metadata.head
+msgid "Item Metadata"
+msgstr ""
+
+#: .item.edit.tabs.metadata.title
+msgid "Item Edit -  Metadata"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.authorizations.button
+msgid "Authorizations..."
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.authorizations.label
+msgid "Edit item's authorization policies"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.delete.button
+msgid "Permanently delete"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.delete.label
+msgid "Completely expunge item"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.mappedCollections.button
+msgid "Mapped collections"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.mappedCollections.label
+msgid "Manage mapped collections"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.move.button
+msgid "Move..."
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.move.label
+msgid "Move item to another collection"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.private.button
+msgid "Make it private..."
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.private.label
+msgid "Make item private"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.public.button
+msgid "Make it public..."
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.public.label
+msgid "Make item public"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.reinstate.button
+msgid "Reinstate..."
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.reinstate.label
+msgid "Reinstate item into the repository"
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.withdraw.button
+msgid "Withdraw..."
+msgstr ""
+
+#: .item.edit.tabs.status.buttons.withdraw.label
+msgid "Withdraw item from the repository"
+msgstr ""
+
+#: .item.edit.tabs.status.description
+msgid ""
+"Welcome to the item management page. From here you can withdraw, reinstate, "
+"move or delete the item. You may also update or add new metadata / "
+"bitstreams on the other tabs."
+msgstr ""
+
+#: .item.edit.tabs.status.head
+msgid "Item Status"
+msgstr ""
+
+#: .item.edit.tabs.status.labels.handle
+msgid "Handle"
+msgstr ""
+
+#: .item.edit.tabs.status.labels.id
+msgid "Item Internal ID"
+msgstr ""
+
+#: .item.edit.tabs.status.labels.itemPage
+msgid "Item Page"
+msgstr ""
+
+#: .item.edit.tabs.status.labels.lastModified
+msgid "Last Modified"
+msgstr ""
+
+#: .item.edit.tabs.status.title
+msgid "Item Edit -  Status"
+msgstr ""
+
+#: .item.edit.tabs.view.head
+msgid "View Item"
+msgstr ""
+
+#: .item.edit.tabs.view.title
+msgid "Item Edit -  View"
+msgstr ""
+
+#: .item.edit.withdraw.cancel
+msgctxt ".item.edit.withdraw.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .item.edit.withdraw.confirm
+msgid "Withdraw"
+msgstr ""
+
+#: .item.edit.withdraw.description
+msgid "Are you sure this item should be withdrawn from the archive?"
+msgstr ""
+
+#: .item.edit.withdraw.error
+msgid "An error occurred while withdrawing the item"
+msgstr ""
+
+#: .item.edit.withdraw.header
+msgid "Withdraw item: {{ id }}"
+msgstr ""
+
+#: .item.edit.withdraw.success
+msgid "The item was withdrawn successfully"
+msgstr ""
+
+# #-#-#-#-#  dspace.pot (DSpace 7)  #-#-#-#-#
+# Item page
+#: .item.page.abstract
+msgid "Abstract"
+msgstr ""
+
+#: .item.page.author
+msgctxt ".item.page.author"
+msgid "Author"
+msgstr ""
+
+#: .item.page.collections
+msgid "Collections"
+msgstr ""
+
+#: .item.page.date
+msgctxt ".item.page.date"
+msgid "Date"
+msgstr ""
+
+#: .item.page.files
+msgid "Files"
+msgstr ""
+
+#: .item.page.filesection.description
+msgid "Description:"
+msgstr ""
+
+#: .item.page.filesection.download
+msgid "Download"
+msgstr ""
+
+#: .item.page.filesection.format
+msgid "Format:"
+msgstr ""
+
+#: .item.page.filesection.name
+msgid "Name:"
+msgstr ""
+
+#: .item.page.filesection.size
+msgid "Size:"
+msgstr ""
+
+#: .item.page.link.full
+msgid "Full item page"
+msgstr ""
+
+#: .item.page.link.simple
+msgid "Simple item page"
+msgstr ""
+
+#: .item.page.uri
+msgid "URI"
+msgstr ""
+
+#: .item.select.confirm
+msgid "Confirm selected"
+msgstr ""
+
+#: .item.select.table.author
+msgctxt ".item.select.table.author"
+msgid "Author"
+msgstr ""
+
+#: .item.select.table.collection
+msgctxt ".item.select.table.collection"
+msgid "Collection"
+msgstr ""
+
+#: .item.select.table.title
+msgctxt ".item.select.table.title"
+msgid "Title"
+msgstr ""
+
+#: .loading.browse-by
+msgid "Loading items..."
+msgstr ""
+
+#: .loading.browse-by-page
+msgid "Loading page..."
+msgstr ""
+
+#: .loading.collection
+msgid "Loading collection..."
+msgstr ""
+
+#: .loading.community
+msgid "Loading community..."
+msgstr ""
+
+#: .loading.default
+msgctxt ".loading.default"
+msgid "Loading..."
+msgstr ""
+
+#: .loading.item
+msgid "Loading item..."
+msgstr ""
+
+#: .loading.objects
+msgctxt ".loading.objects"
+msgid "Loading..."
+msgstr ""
+
+#: .loading.recent-submissions
+msgid "Loading recent submissions..."
+msgstr ""
+
+#: .loading.search-results
+msgid "Loading search results..."
+msgstr ""
+
+#: .loading.sub-collections
+msgid "Loading sub-collections..."
+msgstr ""
+
+#: .loading.sub-communities
+msgid "Loading sub-communities..."
+msgstr ""
+
+#: .loading.top-level-communities
+msgid "Loading top-level communities..."
+msgstr ""
+
+#: .login.form.email
+msgid "Email address"
+msgstr ""
+
+#: .login.form.forgot-password
+msgid "Have you forgotten your password?"
+msgstr ""
+
+#: .login.form.header
+msgid "Please log in to DSpace"
+msgstr ""
+
+#: .login.form.new-user
+msgid "New user? Click here to register."
+msgstr ""
+
+#: .login.form.password
+msgid "Password"
+msgstr ""
+
+#: .login.form.submit
+msgid "Log in"
+msgstr ""
+
+#: .login.title
+msgid "Login"
+msgstr ""
+
+#: .logout.form.header
+msgid "Log out from DSpace"
+msgstr ""
+
+#: .logout.form.submit
+msgid "Log out"
+msgstr ""
+
+#: .logout.title
+msgid "Logout"
+msgstr ""
+
+#: .menu.header.admin
+msgid "Admin"
+msgstr ""
+
+#: .menu.header.image.logo
+msgid "Repository logo"
+msgstr ""
+
+#: .menu.section.access_control
+msgid "Access Control"
+msgstr ""
+
+#: .menu.section.access_control_authorizations
+msgid "Authorizations"
+msgstr ""
+
+#: .menu.section.access_control_groups
+msgid "Groups"
+msgstr ""
+
+#: .menu.section.access_control_people
+msgid "People"
+msgstr ""
+
+#: .menu.section.browse_community
+msgid "This Community"
+msgstr ""
+
+#: .menu.section.browse_community_by_author
+msgctxt ".menu.section.browse_community_by_author"
+msgid "By Author"
+msgstr ""
+
+#: .menu.section.browse_community_by_issue_date
+msgctxt ".menu.section.browse_community_by_issue_date"
+msgid "By Issue Date"
+msgstr ""
+
+#: .menu.section.browse_community_by_title
+msgctxt ".menu.section.browse_community_by_title"
+msgid "By Title"
+msgstr ""
+
+#: .menu.section.browse_global
+msgctxt ".menu.section.browse_global"
+msgid "All of DSpace"
+msgstr ""
+
+#: .menu.section.browse_global_by_author
+msgctxt ".menu.section.browse_global_by_author"
+msgid "By Author"
+msgstr ""
+
+#: .menu.section.browse_global_by_issue_date
+msgctxt ".menu.section.browse_global_by_issue_date"
+msgid "By Issue Date"
+msgstr ""
+
+#: .menu.section.browse_global_by_subject
+msgctxt ".menu.section.browse_global_by_subject"
+msgid "By Subject"
+msgstr ""
+
+#: .menu.section.browse_global_by_title
+msgctxt ".menu.section.browse_global_by_title"
+msgid "By Title"
+msgstr ""
+
+#: .menu.section.browse_global_communities_and_collections
+msgid "Communities & Collections"
+msgstr ""
+
+#: .menu.section.control_panel
+msgid "Control Panel"
+msgstr ""
+
+#: .menu.section.curation_task
+msgid "Curation Task"
+msgstr ""
+
+#: .menu.section.edit
+msgctxt ".menu.section.edit"
+msgid "Edit"
+msgstr ""
+
+#: .menu.section.edit_collection
+msgctxt ".menu.section.edit_collection"
+msgid "Collection"
+msgstr ""
+
+#: .menu.section.edit_community
+msgctxt ".menu.section.edit_community"
+msgid "Community"
+msgstr ""
+
+#: .menu.section.edit_item
+msgctxt ".menu.section.edit_item"
+msgid "Item"
+msgstr ""
+
+#: .menu.section.export
+msgid "Export"
+msgstr ""
+
+#: .menu.section.export_collection
+msgctxt ".menu.section.export_collection"
+msgid "Collection"
+msgstr ""
+
+#: .menu.section.export_community
+msgctxt ".menu.section.export_community"
+msgid "Community"
+msgstr ""
+
+#: .menu.section.export_item
+msgctxt ".menu.section.export_item"
+msgid "Item"
+msgstr ""
+
+#: .menu.section.export_metadata
+msgctxt ".menu.section.export_metadata"
+msgid "Metadata"
+msgstr ""
+
+#: .menu.section.find
+msgid "Find"
+msgstr ""
+
+#: .menu.section.find_items
+msgid "Items"
+msgstr ""
+
+#: .menu.section.find_private_items
+msgid "Private Items"
+msgstr ""
+
+#: .menu.section.find_withdrawn_items
+msgid "Withdrawn Items"
+msgstr ""
+
+#: .menu.section.icon.access_control
+msgid "Access Control menu section"
+msgstr ""
+
+#: .menu.section.icon.control_panel
+msgid "Control Panel menu section"
+msgstr ""
+
+#: .menu.section.icon.curation_task
+msgid "Curation Task menu section"
+msgstr ""
+
+#: .menu.section.icon.edit
+msgid "Edit menu section"
+msgstr ""
+
+#: .menu.section.icon.export
+msgid "Export menu section"
+msgstr ""
+
+#: .menu.section.icon.find
+msgid "Find menu section"
+msgstr ""
+
+#: .menu.section.icon.import
+msgid "Import menu section"
+msgstr ""
+
+#: .menu.section.icon.new
+msgid "New menu section"
+msgstr ""
+
+#: .menu.section.icon.pin
+msgctxt ".menu.section.icon.pin"
+msgid "Pin sidebar"
+msgstr ""
+
+#: .menu.section.icon.registries
+msgid "Registries menu section"
+msgstr ""
+
+#: .menu.section.icon.statistics_task
+msgid "Statistics Task menu section"
+msgstr ""
+
+#: .menu.section.icon.unpin
+msgctxt ".menu.section.icon.unpin"
+msgid "Unpin sidebar"
+msgstr ""
+
+#: .menu.section.import
+msgid "Import"
+msgstr ""
+
+#: .menu.section.import_batch
+msgid "Batch Import (ZIP)"
+msgstr ""
+
+#: .menu.section.import_metadata
+msgctxt ".menu.section.import_metadata"
+msgid "Metadata"
+msgstr ""
+
+#: .menu.section.new
+msgid "New"
+msgstr ""
+
+#: .menu.section.new_collection
+msgctxt ".menu.section.new_collection"
+msgid "Collection"
+msgstr ""
+
+#: .menu.section.new_community
+msgctxt ".menu.section.new_community"
+msgid "Community"
+msgstr ""
+
+#: .menu.section.new_item
+msgctxt ".menu.section.new_item"
+msgid "Item"
+msgstr ""
+
+#: .menu.section.new_item_version
+msgid "Item Version"
+msgstr ""
+
+#: .menu.section.pin
+msgctxt ".menu.section.pin"
+msgid "Pin sidebar"
+msgstr ""
+
+#: .menu.section.registries
+msgid "Registries"
+msgstr ""
+
+#: .menu.section.registries_format
+msgid "Format"
+msgstr ""
+
+#: .menu.section.registries_metadata
+msgctxt ".menu.section.registries_metadata"
+msgid "Metadata"
+msgstr ""
+
+#: .menu.section.statistics
+msgctxt ".menu.section.statistics"
+msgid "Statistics"
+msgstr ""
+
+#: .menu.section.statistics_task
+msgid "Statistics Task"
+msgstr ""
+
+#: .menu.section.toggle.access_control
+msgid "Toggle Access Control section"
+msgstr ""
+
+#: .menu.section.toggle.control_panel
+msgid "Toggle Control Panel section"
+msgstr ""
+
+#: .menu.section.toggle.curation_task
+msgid "Toggle Curation Task section"
+msgstr ""
+
+#: .menu.section.toggle.edit
+msgid "Toggle Edit section"
+msgstr ""
+
+#: .menu.section.toggle.export
+msgid "Toggle Export section"
+msgstr ""
+
+#: .menu.section.toggle.find
+msgid "Toggle Find section"
+msgstr ""
+
+#: .menu.section.toggle.import
+msgid "Toggle Import section"
+msgstr ""
+
+#: .menu.section.toggle.new
+msgid "Toggle New section"
+msgstr ""
+
+#: .menu.section.toggle.registries
+msgid "Toggle Registries section"
+msgstr ""
+
+#: .menu.section.toggle.statistics_task
+msgid "Toggle Statistics Task section"
+msgstr ""
+
+#: .menu.section.unpin
+msgctxt ".menu.section.unpin"
+msgid "Unpin sidebar"
+msgstr ""
+
+#: .nav.browse.header
+msgctxt ".nav.browse.header"
+msgid "All of DSpace"
+msgstr ""
+
+#: .nav.community-browse.header
+msgid "By Community"
+msgstr ""
+
+#: .nav.language
+msgid "Language switch"
+msgstr ""
+
+#: .nav.login auth-nav-menu.component.html:4 auth-nav-menu.component.html:11
+msgid "Log In"
+msgstr ""
+
+#: .nav.logout auth-nav-menu.component.html:22
+msgid "Log Out"
+msgstr ""
+
+#: .nav.search
+msgctxt ".nav.search"
+msgid "Search"
+msgstr ""
+
+#: .nav.statistics.header
+msgctxt ".nav.statistics.header"
+msgid "Statistics"
+msgstr ""
+
+#: .pagination.results-per-page
+msgid "Results Per Page"
+msgstr ""
+
+#: .pagination.showing.detail
+msgid "{{ range }} of {{ total }}"
+msgstr ""
+
+#: .pagination.showing.label
+msgid "Now showing "
+msgstr ""
+
+#: .pagination.sort-direction
+msgid "Sort Options"
+msgstr ""
+
+#: .search.description
+msgctxt ".search.description"
+msgid ""
+msgstr ""
+
+#: .search.filters.applied.f.author
+msgctxt ".search.filters.applied.f.author"
+msgid "Author"
+msgstr ""
+
+#: .search.filters.applied.f.dateIssued.max
+msgid "End date"
+msgstr ""
+
+#: .search.filters.applied.f.dateIssued.min
+msgid "Start date"
+msgstr ""
+
+#: .search.filters.applied.f.has_content_in_original_bundle
+msgctxt ".search.filters.applied.f.has_content_in_original_bundle"
+msgid "Has files"
+msgstr ""
+
+#: .search.filters.applied.f.subject
+msgctxt ".search.filters.applied.f.subject"
+msgid "Subject"
+msgstr ""
+
+#: .search.filters.filter.author.head
+msgctxt ".search.filters.filter.author.head"
+msgid "Author"
+msgstr ""
+
+#: .search.filters.filter.author.placeholder
+msgid "Author name"
+msgstr ""
+
+#: .search.filters.filter.dateIssued.head
+msgctxt ".search.filters.filter.dateIssued.head"
+msgid "Date"
+msgstr ""
+
+#: .search.filters.filter.dateIssued.max.placeholder
+msgid "Minimum Date"
+msgstr ""
+
+#: .search.filters.filter.dateIssued.min.placeholder
+msgid "Maximum Date"
+msgstr ""
+
+#: .search.filters.filter.has_content_in_original_bundle.head
+msgctxt ".search.filters.filter.has_content_in_original_bundle.head"
+msgid "Has files"
+msgstr ""
+
+#: .search.filters.filter.scope.head
+msgid "Scope"
+msgstr ""
+
+#: .search.filters.filter.scope.placeholder
+msgid "Scope filter"
+msgstr ""
+
+#: .search.filters.filter.show-less
+msgctxt ".search.filters.filter.show-less"
+msgid "Collapse"
+msgstr ""
+
+#: .search.filters.filter.show-more
+msgid "Show more"
+msgstr ""
+
+#: .search.filters.filter.subject.head
+msgctxt ".search.filters.filter.subject.head"
+msgid "Subject"
+msgstr ""
+
+#: .search.filters.filter.subject.placeholder
+msgctxt ".search.filters.filter.subject.placeholder"
+msgid "Subject"
+msgstr ""
+
+#: .search.filters.head
+msgctxt ".search.filters.head"
+msgid "Filters"
+msgstr ""
+
+#: .search.filters.reset
+msgid "Reset filters"
+msgstr ""
+
+#: .search.form.search
+msgctxt ".search.form.search"
+msgid "Search"
+msgstr ""
+
+#: .search.form.search_dspace
+msgid "Search DSpace"
+msgstr ""
+
+#: .search.results.head
+msgid "Search Results"
+msgstr ""
+
+#: .search.results.no-results
+msgid ""
+"Your search returned no results. Having trouble finding what you are looking "
+"for? Try putting"
+msgstr ""
+
+#: .search.results.no-results-link
+msgid "quotes around it"
+msgstr ""
+
+#: .search.sidebar.close
+msgid "Back to results"
+msgstr ""
+
+#: .search.sidebar.filters.title
+msgctxt ".search.sidebar.filters.title"
+msgid "Filters"
+msgstr ""
+
+#: .search.sidebar.open
+msgid "Search Tools"
+msgstr ""
+
+#: .search.sidebar.results
+msgid "results"
+msgstr ""
+
+#: .search.sidebar.settings.rpp
+msgid "Results per page"
+msgstr ""
+
+#: .search.sidebar.settings.sort-by
+msgid "Sort By"
+msgstr ""
+
+#: .search.sidebar.settings.title
+msgid "Settings"
+msgstr ""
+
+#: .search.title
+msgid "DSpace Angular :: Search"
+msgstr ""
+
+#: .search.view-switch.show-grid
+msgid "Show as grid"
+msgstr ""
+
+#: .search.view-switch.show-list
+msgid "Show as list"
+msgstr ""
+
+#: .sorting.dc.title.ASC
+msgid "Title Ascending"
+msgstr ""
+
+#: .sorting.dc.title.DESC
+msgid "Title Descending"
+msgstr ""
+
+#: .sorting.score.DESC
+msgid "Relevance"
+msgstr ""
+
+#: .submission.edit.title
+msgid "Edit Submission"
+msgstr ""
+
+#: .submission.general.cannot_submit
+msgid "You have not the privilege to make a new submission."
+msgstr ""
+
+#: .submission.general.deposit
+msgid "Deposit"
+msgstr ""
+
+#: .submission.general.discard.confirm.cancel
+msgctxt ".submission.general.discard.confirm.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .submission.general.discard.confirm.info
+msgctxt ".submission.general.discard.confirm.info"
+msgid "This operation can't be undone. Are you sure?"
+msgstr ""
+
+#: .submission.general.discard.confirm.submit
+msgctxt ".submission.general.discard.confirm.submit"
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: .submission.general.discard.confirm.title
+msgid "Discard submission"
+msgstr ""
+
+#: .submission.general.discard.submit
+msgctxt ".submission.general.discard.submit"
+msgid "Discard"
+msgstr ""
+
+#: .submission.general.save
+msgctxt ".submission.general.save"
+msgid "Save"
+msgstr ""
+
+#: .submission.general.save-later
+msgid "Save for later"
+msgstr ""
+
+#: .submission.sections.general.add-more
+msgid "Add more"
+msgstr ""
+
+#: .submission.sections.general.collection
+msgctxt ".submission.sections.general.collection"
+msgid "Collection"
+msgstr ""
+
+#: .submission.sections.general.deposit_error_notice
+msgid "There was an issue when submitting the item, please try again later."
+msgstr ""
+
+#: .submission.sections.general.deposit_success_notice
+msgid "Submission deposited successfully."
+msgstr ""
+
+#: .submission.sections.general.discard_error_notice
+msgid "There was an issue when discarding the item, please try again later."
+msgstr ""
+
+#: .submission.sections.general.discard_success_notice
+msgid "Submission discarded successfully."
+msgstr ""
+
+#: .submission.sections.general.metadata-extracted
+msgid ""
+"New metadata have been extracted and added to the <strong>{{sectionId}}</"
+"strong> section."
+msgstr ""
+
+#: .submission.sections.general.metadata-extracted-new-section
+msgid ""
+"New <strong>{{sectionId}}</strong> section has been added to submission."
+msgstr ""
+
+#: .submission.sections.general.no-collection
+msgid "No collection found"
+msgstr ""
+
+#: .submission.sections.general.no-sections
+msgid "No options available"
+msgstr ""
+
+#: .submission.sections.general.save_error_notice
+msgid "There was an issue when saving the item, please try again later."
+msgstr ""
+
+#: .submission.sections.general.save_success_notice
+msgid "Submission saved successfully."
+msgstr ""
+
+#: .submission.sections.general.search-collection
+msgid "Search for a collection"
+msgstr ""
+
+#: .submission.sections.general.sections_not_valid
+msgid "There are incomplete sections."
+msgstr ""
+
+#: .submission.sections.submit.progressbar.cclicense
+msgid "Creative commons license"
+msgstr ""
+
+#: .submission.sections.submit.progressbar.describe.recycle
+msgid "Recycle"
+msgstr ""
+
+#: .submission.sections.submit.progressbar.describe.stepcustom
+msgctxt ".submission.sections.submit.progressbar.describe.stepcustom"
+msgid "Describe"
+msgstr ""
+
+#: .submission.sections.submit.progressbar.describe.stepone
+msgctxt ".submission.sections.submit.progressbar.describe.stepone"
+msgid "Describe"
+msgstr ""
+
+#: .submission.sections.submit.progressbar.describe.steptwo
+msgctxt ".submission.sections.submit.progressbar.describe.steptwo"
+msgid "Describe"
+msgstr ""
+
+#: .submission.sections.submit.progressbar.detect-duplicate
+msgid "Potential duplicates"
+msgstr ""
+
+#: .submission.sections.submit.progressbar.license
+msgid "Deposit license"
+msgstr ""
+
+#: .submission.sections.submit.progressbar.upload
+msgid "Upload files"
+msgstr ""
+
+#: .submission.sections.upload.delete.confirm.cancel
+msgctxt ".submission.sections.upload.delete.confirm.cancel"
+msgid "Cancel"
+msgstr ""
+
+#: .submission.sections.upload.delete.confirm.info
+msgctxt ".submission.sections.upload.delete.confirm.info"
+msgid "This operation can't be undone. Are you sure?"
+msgstr ""
+
+#: .submission.sections.upload.delete.confirm.submit
+msgctxt ".submission.sections.upload.delete.confirm.submit"
+msgid "Yes, I'm sure"
+msgstr ""
+
+#: .submission.sections.upload.delete.confirm.title
+msgid "Delete bitstream"
+msgstr ""
+
+#: .submission.sections.upload.delete.submit
+msgctxt ".submission.sections.upload.delete.submit"
+msgid "Delete"
+msgstr ""
+
+#: .submission.sections.upload.drop-message
+msgid "Drop files to attach them to the item"
+msgstr ""
+
+#: .submission.sections.upload.form.access-condition-label
+msgid "Access condition type"
+msgstr ""
+
+#: .submission.sections.upload.form.date-required
+msgid "Date is required."
+msgstr ""
+
+#: .submission.sections.upload.form.from-label
+msgid "Access grant from"
+msgstr ""
+
+#: .submission.sections.upload.form.from-placeholder
+msgid "From"
+msgstr ""
+
+#: .submission.sections.upload.form.group-label
+msgid "Group"
+msgstr ""
+
+#: .submission.sections.upload.form.group-required
+msgid "Group is required."
+msgstr ""
+
+#: .submission.sections.upload.form.until-label
+msgid "Access grant until"
+msgstr ""
+
+#: .submission.sections.upload.form.until-placeholder
+msgid "Until"
+msgstr ""
+
+#: .submission.sections.upload.header.policy.default.nolist
+msgid ""
+"Uploaded files in the {{collectionName}} collection will be accessible "
+"according to the following group(s):"
+msgstr ""
+
+#: .submission.sections.upload.header.policy.default.withlist
+msgid ""
+"Please note that uploaded files in the {{collectionName}} collection will be "
+"accessible, in addition to what is explicitly decided for the single file, "
+"with the following group(s):"
+msgstr ""
+
+#: .submission.sections.upload.info
+msgid ""
+"Here you will find all the files currently in the item. You can update the "
+"fle metadata and access conditions or <strong>upload additional files just "
+"dragging & dropping them everywhere in the page</strong>"
+msgstr ""
+
+#: .submission.sections.upload.no-entry
+msgid "No"
+msgstr ""
+
+#: .submission.sections.upload.no-file-uploaded
+msgid "No file uploaded yet."
+msgstr ""
+
+#: .submission.sections.upload.save-metadata
+msgid "Save metadata"
+msgstr ""
+
+#: .submission.sections.upload.undo
+msgctxt ".submission.sections.upload.undo"
+msgid "Cancel"
+msgstr ""
+
+#: .submission.sections.upload.upload-failed
+msgid "Upload failed"
+msgstr ""
+
+#: .submission.sections.upload.upload-successful
+msgid "Upload successful"
+msgstr ""
+
+#: .submission.submit.title
+msgid "Submission"
+msgstr ""
+
+#: .title
+msgid "DSpace"
+msgstr ""
+
+#: .uploader.browse
+msgid "browse"
+msgstr ""
+
+#: .uploader.drag-message
+msgid "Drag & Drop your files here"
+msgstr ""
+
+#: .uploader.or
+msgid ", or"
+msgstr ""
+
+#: .uploader.processing
+msgid "Processing"
+msgstr ""
+
+#: .uploader.queue-lenght
+msgid "Queue length"
+msgstr ""
+
+#: header.component.html:12
+msgid "Home"
+msgstr ""

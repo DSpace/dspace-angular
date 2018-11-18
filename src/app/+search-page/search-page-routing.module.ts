@@ -8,7 +8,7 @@ import { FilteredSearchPageGuard } from './filtered-search-page.guard';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: '', component: SearchPageComponent, data: { title: 'search.title' } },
+      { path: '', component: SearchPageComponent, data: { title: 'DSpace Angular :: Search' } },
       { path: ':filter', component: FilteredSearchPageComponent, canActivate: [FilteredSearchPageGuard], data: { title: 'search.' }}
     ])
   ]
