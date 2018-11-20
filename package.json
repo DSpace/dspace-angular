@@ -25,7 +25,7 @@
     "prebuild:prod": "yarn run prebuild",
     "build": "webpack --progress --mode development",
     "build:aot": "webpack --env.aot --env.server --mode development && webpack --env.aot --env.client --mode development",
-    "build:prod": "webpack --env.aot --env.server --env.production && webpack --env.aot --env.client --env.production",
+    "build:prod": "webpack --env.aot --env.server --mode production && webpack --env.aot --env.client --mode production",
     "postbuild:prod": "yarn run rollup",
     "rollup": "rollup -c rollup.config.js",
     "prestart": "yarn run build:prod",
