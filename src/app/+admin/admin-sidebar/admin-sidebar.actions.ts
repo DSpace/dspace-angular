@@ -12,6 +12,7 @@ import { type } from '../../shared/ngrx/type';
  */
 export const AdminSidebarActionTypes = {
   SECTION_COLLAPSE: type('dspace/admin-sidebar/SECTION_COLLAPSE'),
+  SECTION_COLLAPSE_ALL: type('dspace/admin-sidebar/SECTION_COLLAPSE_ALL'),
   SECTION_EXPAND: type('dspace/admin-sidebar/SECTION_EXPAND'),
   SECTION_TOGGLE: type('dspace/admin-sidebar/SECTION_TOGGLE'),
   COLLAPSE: type('dspace/admin-sidebar/COLLAPSE'),
@@ -71,6 +72,13 @@ export class AdminSidebarToggleAction extends AdminSidebarAction {
  */
 export class AdminSidebarSectionCollapseAction extends AdminSidebarSectionAction {
   type = AdminSidebarActionTypes.SECTION_COLLAPSE;
+}
+
+/**
+ * Used to collapse a section
+ */
+export class AdminSidebarSectionCollapseAllAction extends AdminSidebarAction {
+  type = AdminSidebarActionTypes.SECTION_COLLAPSE_ALL;
 }
 
 /**

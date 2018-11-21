@@ -12,6 +12,10 @@ export const rotateLeave = transition('rotateIn => rotateOut', [
   animate('400ms ease-in-out')
 ]);
 
+
+export const rotate = state('rotate', style({opacity: 0, transform: 'rotate(90deg)'}));
+
+
 export const rotateIn = trigger('rotateIn', [
   rotateEnter
 ]);

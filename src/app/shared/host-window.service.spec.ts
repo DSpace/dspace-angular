@@ -19,7 +19,7 @@ describe('HostWindowService', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 1600, height: 770 } };
       store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      service = new HostWindowService(store, null);
     });
 
     it('isXs() should return false with width = 1600', () => {
@@ -55,7 +55,7 @@ describe('HostWindowService', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 1100, height: 770 } };
       store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      service = new HostWindowService(store, null);
     });
 
     it('isXs() should return false with width = 1100', () => {
@@ -91,7 +91,7 @@ describe('HostWindowService', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 800, height: 770 } };
       store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      service = new HostWindowService(store, null);
     });
 
     it('isXs() should return false with width = 800', () => {
@@ -127,7 +127,7 @@ describe('HostWindowService', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 600, height: 770 } };
       store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      service = new HostWindowService(store, null);
     });
 
     it('isXs() should return false with width = 600', () => {
@@ -163,7 +163,7 @@ describe('HostWindowService', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 400, height: 770 } };
       store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      service = new HostWindowService(store, null);
     });
 
     it('isXs() should return true with width = 400', () => {
@@ -197,7 +197,7 @@ describe('HostWindowService', () => {
 
   describe('widthCategory', () => {
     beforeEach(() => {
-      service = new HostWindowService({} as Store<AppState>);
+      service = new HostWindowService({} as Store<AppState>, null);
     });
 
     it('should call getWithObs to get the current width', () => {

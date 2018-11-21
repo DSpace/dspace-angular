@@ -59,6 +59,16 @@ export function adminSidebarReducer(state = initialState, action: AdminSidebarAc
           collapsed: !collapsed
         });
       }
+      case AdminSidebarActionTypes.SECTION_COLLAPSE_ALL: {
+        const newSectionState: AdminSidebarSectionState = Object.create(null);
+        if (hasValue(state.sections)) {
+          Object.keys(state.sections).forEach((section) =>
+            newSectionState[section] = {
+              sectionCollapsed: true
+            });
+        }
+        return Object.assign({}, state, { sections: newSectionState });
+      }
       default: {
         return state;
       }

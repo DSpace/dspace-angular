@@ -16,9 +16,9 @@
                 overflow: auto;
             }
         }
-
-        .section-header-text {
-            display: inline;
+        .section-header-text, .fa-chevron-right {
+            display: none;
+            padding-left: $spacer/2;
         }
 
         .navbar-nav {
@@ -27,11 +27,9 @@
                 &.active {
                     background-color: $admin-sidebar-dark;
                 }
-                .fa-fw {
-                    text-align: left;
-                    width: 1.75em;
-                }
+
             }
+
             .sidebar-sub-level-items {
                 list-style: disc;
                 color: $navbar-dark-color;
@@ -42,16 +40,25 @@
             }
             .admin-menu-header {
                 background-color: $admin-sidebar-dark;
-                img {
-                    height: 1em;
-                    vertical-align: baseline;
+                .logo-wrapper {
+                    text-align: center;
+                    display: inline-block;
+                    width: 1.25em;
+                    img {
+                        height: 1em;
+                        vertical-align: text-bottom;
+                    }
                 }
+                .section-header-text {
+                    vertical-align: bottom;
+                }
+
             }
         }
 
         &.active {
             .section-header-text, .fa-chevron-right {
-                display: none;
+                display: inline;
             }
         }
     }
