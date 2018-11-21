@@ -47,9 +47,9 @@ export abstract class SectionModelComponent implements OnDestroy, OnInit, Sectio
   }
 
   ngOnDestroy(): void {
-    this.onSectionDestroy();
     if (hasValue(this.sectionStatusSub)) {
       this.sectionStatusSub.unsubscribe();
     }
+    this.onSectionDestroy();
   }
 }

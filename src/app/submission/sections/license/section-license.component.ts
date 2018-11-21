@@ -74,7 +74,6 @@ export class LicenseSectionComponent extends SectionModelComponent {
           // Retrieve license accepted status
           if ((this.sectionData.data as WorkspaceitemSectionLicenseObject).granted) {
             (model as DynamicCheckboxModel).valueUpdates.next(true);
-            // this.sectionService.setSectionStatus(this.submissionId, this.sectionData.id, true);
           } else {
             (model as DynamicCheckboxModel).valueUpdates.next(false);
           }
@@ -130,7 +129,6 @@ export class LicenseSectionComponent extends SectionModelComponent {
   onChange(event: DynamicFormControlEvent) {
     const path = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
-    // this.sectionService.setSectionStatus(this.submissionId, this.sectionData.id, value.value);
     if (value) {
       this.operationsBuilder.add(this.pathCombiner.getPath(path), value.value.toString(), false, true);
       // Remove any section's errors

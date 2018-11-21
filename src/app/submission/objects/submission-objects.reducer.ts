@@ -615,7 +615,7 @@ function changeSectionState(state: SubmissionObjectState, action: EnableSectionA
  *    the new state, with the section new validity status.
  */
 function setIsValid(state: SubmissionObjectState, action: SectionStatusChangeAction): SubmissionObjectState {
-  if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
+  if (isNotEmpty(state[ action.payload.submissionId ]) && hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         sections: Object.assign({}, state[ action.payload.submissionId ].sections,
