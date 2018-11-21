@@ -8,12 +8,13 @@ import { MetadataFieldWrapperComponent } from './metadata-field-wrapper.componen
     selector: 'ds-component-with-content',
     template: '<ds-metadata-field-wrapper [label]="\'test label\'">\n' +
       '    <div class="my-content">\n' +
+      '    <span></span>\n' +
       '    </div>\n' +
       '</ds-metadata-field-wrapper>'
 })
 class ContentComponent {}
 
-describe('MetadataFieldWrapperComponent', () => {
+fdescribe('MetadataFieldWrapperComponent', () => {
   let component: MetadataFieldWrapperComponent;
   let fixture: ComponentFixture<MetadataFieldWrapperComponent>;
 
