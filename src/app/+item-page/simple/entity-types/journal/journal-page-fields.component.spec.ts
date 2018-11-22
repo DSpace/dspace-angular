@@ -30,7 +30,7 @@ const mockItem: Item = Object.assign(new Item(), {
     {
       key: 'journal.publisher',
       language: 'en_US',
-      value: 'Atmire'
+      value: 'a publisher'
     },
     {
       key: 'journal.identifier.description',

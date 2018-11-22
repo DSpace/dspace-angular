@@ -17,7 +17,7 @@ const mockMetadata = [
   {
     key: 'journal.publisher',
     language: 'en_US',
-    value: 'Atmire'
+    value: 'a publisher'
   },
   {
     key: 'journal.identifier.description',

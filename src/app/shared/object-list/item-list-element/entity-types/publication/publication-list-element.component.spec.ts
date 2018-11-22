@@ -27,7 +27,7 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
     {
       key: 'dc.publisher',
       language: 'en_US',
-      value: 'Atmire'
+      value: 'a publisher'
     },
     {
       key: 'dc.date.issued',
