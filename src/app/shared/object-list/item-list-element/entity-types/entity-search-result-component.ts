@@ -1,13 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Item } from '../../../../core/shared/item.model';
-import { Metadatum } from '../../../../core/shared/metadatum.model';
-import { hasNoValue, hasValue, isEmpty } from '../../../empty.util';
+import { hasValue } from '../../../empty.util';
 import { ITEM } from '../../../entities/switcher/entity-type-switcher.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
-// TODO lot of overlap with SearchResultListElementComponent => refactor!
 /**
  * A generic component for displaying entity list elements
  */
@@ -15,77 +13,24 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
   selector: 'ds-entity-search-result',
   template: ''
 })
-export class EntitySearchResultComponent {
+export class EntitySearchResultComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
   item: Item;
-  searchResult: ItemSearchResult;
 
   constructor(
-    private truncatableService: TruncatableService,
-    @Inject(ITEM) public object: Item | ItemSearchResult,
+    protected truncatableService: TruncatableService,
+    @Inject(ITEM) public obj: Item | ItemSearchResult,
   ) {
-
-    if (hasValue((this.object as any).dspaceObject)) {
-      this.searchResult = this.object as ItemSearchResult;
-      this.item = this.searchResult.dspaceObject;
+    super(undefined, truncatableService);
+    if (hasValue((obj as any).dspaceObject)) {
+      this.object = obj as ItemSearchResult;
+      this.dso = this.object.dspaceObject;
     } else {
-      this.searchResult = {
-        dspaceObject: this.object as Item,
+      this.object = {
+        dspaceObject: obj as Item,
         hitHighlights: []
       };
-      this.item = this.object as Item;
+      this.dso = obj as Item;
     }
-  }
-
-  /**
-   * Get the values of metadata by keys
-   * @param {string[]} keys   List of metadata keys to get values for
-   * @returns {string[]}      List of metadata values
-   */
-  getValues(keys: string[]): string[] {
-    const results: string[] = new Array<string>();
-    this.searchResult.hitHighlights.forEach(
-      (md: Metadatum) => {
-        if (keys.indexOf(md.key) > -1) {
-          results.push(md.value);
-        }
-      }
-    );
-    if (isEmpty(results)) {
-      this.item.filterMetadata(keys).forEach(
-        (md: Metadatum) => {
-          results.push(md.value);
-        }
-      );
-    }
-    return results;
-  }
-
-  /**
-   * Get the first value of a metadatum by key
-   * @param {string} key    Metadatum key
-   * @returns {string}      Metadatum value
-   */
-  getFirstValue(key: string): string {
-    let result: string;
-    this.searchResult.hitHighlights.some(
-      (md: Metadatum) => {
-        if (key === md.key) {
-          result = md.value;
-          return true;
-        }
-      }
-    );
-    if (hasNoValue(result)) {
-      result = this.item.findMetadata(key);
-    }
-    return result;
-  }
-
-  /**
-   * Whether or not the item's values are collapsed
-   * @returns {Observable<boolean>}
-   */
-  isCollapsed(): Observable<boolean> {
-    return this.truncatableService.isCollapsed(this.item.id);
+    this.item = this.dso;
   }
 }
