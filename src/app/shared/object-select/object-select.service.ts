@@ -7,7 +7,7 @@ import {
   ObjectSelectionInitialSelectAction, ObjectSelectionResetAction,
   ObjectSelectionSelectAction, ObjectSelectionSwitchAction
 } from './object-select.actions';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { hasValue } from '../empty.util';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../app.reducer';

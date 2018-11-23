@@ -1,10 +1,5 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { take } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { Component} from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { ObjectSelectService } from '../object-select.service';
 import { ObjectSelectComponent } from '../object-select/object-select.component';
 import { isNotEmpty } from '../../empty.util';

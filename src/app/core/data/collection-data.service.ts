@@ -9,7 +9,7 @@ import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { distinctUntilChanged, map } from 'rxjs/operators';

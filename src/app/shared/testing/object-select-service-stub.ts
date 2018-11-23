@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs/internal/observable/of';
 
 export class ObjectSelectServiceStub {
 
@@ -12,14 +13,14 @@ export class ObjectSelectServiceStub {
 
   getSelected(id: string): Observable<boolean> {
     if (this.ids.indexOf(id) > -1) {
-      return Observable.of(true);
+      return of(true);
     } else {
-      return Observable.of(false);
+      return of(false);
     }
   }
 
   getAllSelected(): Observable<string[]> {
-    return Observable.of(this.ids);
+    return of(this.ids);
   }
 
   switch(id: string) {

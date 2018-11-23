@@ -1,13 +1,14 @@
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { ActivatedRoute, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
-import { Observable } from 'rxjs/Observable';
 import { Collection } from '../../core/shared/collection.model';
 import { SearchConfigurationService } from '../../+search-page/search-service/search-configuration.service';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { flatMap, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -15,11 +16,10 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { RestResponse } from '../../core/cache/response-cache.models';
 import { TranslateService } from '@ngx-translate/core';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { Item } from '../../core/shared/item.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../shared/empty.util';
+import { RestResponse } from '../../core/cache/response.models';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -75,7 +75,7 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.data.map((data) => data.collection).pipe(getSucceededRemoteData()) as Observable<RemoteData<Collection>>;
+    this.collectionRD$ = this.route.data.pipe(map((data) => data.collection)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Collection>>;
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadItemLists();
   }
@@ -86,7 +86,7 @@ export class CollectionItemMapperComponent implements OnInit {
    *  TODO: When the API support it, fetch items excluding the collection's scope (currently fetches all items)
    */
   loadItemLists() {
-    const collectionAndOptions$ = Observable.combineLatest(
+    const collectionAndOptions$ = observableCombineLatest(
       this.collectionRD$,
       this.searchOptions$
     );
@@ -120,7 +120,7 @@ export class CollectionItemMapperComponent implements OnInit {
       getSucceededRemoteData(),
       map((collectionRD: RemoteData<Collection>) => collectionRD.payload.id),
       switchMap((collectionId: string) =>
-        Observable.combineLatest(ids.map((id: string) =>
+        observableCombineLatest(ids.map((id: string) =>
           remove ? this.itemDataService.removeMappingFromCollection(id, collectionId) : this.itemDataService.mapToCollection(id, collectionId)
         ))
       )
@@ -132,7 +132,7 @@ export class CollectionItemMapperComponent implements OnInit {
       const successful = responses.filter((response: RestResponse) => response.isSuccessful);
       const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
       if (successful.length > 0) {
-        const successMessages = Observable.combineLatest(
+        const successMessages = observableCombineLatest(
           this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.success.head`),
           this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.success.content`, { amount: successful.length })
         );
@@ -142,7 +142,7 @@ export class CollectionItemMapperComponent implements OnInit {
         });
       }
       if (unsuccessful.length > 0) {
-        const unsuccessMessages = Observable.combineLatest(
+        const unsuccessMessages = observableCombineLatest(
           this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.error.head`),
           this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.error.content`, { amount: unsuccessful.length })
         );

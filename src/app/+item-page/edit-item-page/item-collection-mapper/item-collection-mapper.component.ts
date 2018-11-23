@@ -1,9 +1,8 @@
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
-import { Observable } from 'rxjs/Observable';
 import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Collection } from '../../../core/shared/collection.model';
@@ -13,14 +12,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../+search-page/search-service/search.service';
 import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
 import { map, switchMap } from 'rxjs/operators';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { RestResponse } from '../../../core/cache/response-cache.models';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { C } from '@angular/core/src/render3';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { RestResponse } from '../../../core/cache/response.models';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -68,7 +65,7 @@ export class ItemCollectionMapperComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.map((data) => data.item).pipe(getSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemRD$ = this.route.data.pipe(map((data) => data.item)).pipe(getSucceededRemoteData()) as Observable<RemoteData<Item>>;
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadCollectionLists();
   }
@@ -84,7 +81,7 @@ export class ItemCollectionMapperComponent implements OnInit {
       switchMap((item: Item) => this.itemDataService.getMappedCollections(item.id))
     );
 
-    const itemCollectionsAndOptions$ = Observable.combineLatest(
+    const itemCollectionsAndOptions$ = observableCombineLatest(
       this.itemCollectionsRD$,
       this.searchOptions$
     );
@@ -104,7 +101,7 @@ export class ItemCollectionMapperComponent implements OnInit {
    * @param {string[]} ids  The list of collection UUID's to map the item to
    */
   mapCollections(ids: string[]) {
-    const itemIdAndExcludingIds$ = Observable.combineLatest(
+    const itemIdAndExcludingIds$ = observableCombineLatest(
       this.itemRD$.pipe(
         getSucceededRemoteData(),
         map((rd: RemoteData<Item>) => rd.payload),
@@ -119,7 +116,7 @@ export class ItemCollectionMapperComponent implements OnInit {
 
     // Map the item to the collections found in ids, excluding the collections the item is already mapped to
     const responses$ = itemIdAndExcludingIds$.pipe(
-      switchMap(([itemId, excludingIds]) => Observable.combineLatest(this.filterIds(ids, excludingIds).map((id: string) => this.itemDataService.mapToCollection(itemId, id))))
+      switchMap(([itemId, excludingIds]) => observableCombineLatest(this.filterIds(ids, excludingIds).map((id: string) => this.itemDataService.mapToCollection(itemId, id))))
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.add');
@@ -134,7 +131,7 @@ export class ItemCollectionMapperComponent implements OnInit {
     const responses$ = this.itemRD$.pipe(
       getSucceededRemoteData(),
       map((itemRD: RemoteData<Item>) => itemRD.payload.id),
-      switchMap((itemId: string) => Observable.combineLatest(ids.map((id: string) => this.itemDataService.removeMappingFromCollection(itemId, id))))
+      switchMap((itemId: string) => observableCombineLatest(ids.map((id: string) => this.itemDataService.removeMappingFromCollection(itemId, id))))
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.remove');
@@ -160,7 +157,7 @@ export class ItemCollectionMapperComponent implements OnInit {
       const successful = responses.filter((response: RestResponse) => response.isSuccessful);
       const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
       if (successful.length > 0) {
-        const successMessages = Observable.combineLatest(
+        const successMessages = observableCombineLatest(
           this.translateService.get(`${messagePrefix}.success.head`),
           this.translateService.get(`${messagePrefix}.success.content`, { amount: successful.length })
         );
@@ -170,7 +167,7 @@ export class ItemCollectionMapperComponent implements OnInit {
         });
       }
       if (unsuccessful.length > 0) {
-        const unsuccessMessages = Observable.combineLatest(
+        const unsuccessMessages = observableCombineLatest(
           this.translateService.get(`${messagePrefix}.error.head`),
           this.translateService.get(`${messagePrefix}.error.content`, { amount: unsuccessful.length })
         );

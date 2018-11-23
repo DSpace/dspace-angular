@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { ErrorResponse, GenericSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { PaginatedList } from './paginated-list';
 import { PageInfo } from '../shared/page-info.model';
+import { ErrorResponse, GenericSuccessResponse, RestResponse } from '../cache/response.models';
 
 @Injectable()
 export class MappingCollectionsReponseParsingService implements ResponseParsingService {
