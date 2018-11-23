@@ -34,6 +34,8 @@ import { SharedModule } from './shared/shared.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
+import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
+import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -94,6 +96,8 @@ const DECLARATIONS = [
   NavbarComponent,
   HeaderNavbarWrapperComponent,
   AdminSidebarComponent,
+  AdminSidebarSectionComponent,
+  ExpandableAdminSidebarSectionComponent,
   FooterComponent,
   PageNotFoundComponent,
   NotificationComponent,
@@ -112,7 +116,7 @@ const EXPORTS = [
     ...PROVIDERS
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ],
   exports: [
     ...EXPORTS

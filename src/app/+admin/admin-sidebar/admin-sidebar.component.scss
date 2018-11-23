@@ -16,50 +16,46 @@
                 overflow: auto;
             }
         }
-        .section-header-text, .fa-chevron-right {
-            display: none;
-            padding-left: $spacer/2;
+
+        .admin-menu-header {
+            background-color: $admin-sidebar-header-bg;
+            .logo-wrapper {
+                text-align: center;
+                display: inline-block;
+                width: 1.25em;
+                img {
+                    height: 1em;
+                    vertical-align: text-bottom;
+                }
+            }
+            .section-header-text {
+                vertical-align: bottom;
+            }
+
         }
 
-        .navbar-nav {
-            > li, > a {
-                padding: $spacer/2 $spacer;
-                &.active {
-                    background-color: $admin-sidebar-dark;
-                }
+        ::ng-deep {
 
-            }
-
-            .sidebar-sub-level-items {
-                list-style: disc;
-                color: $navbar-dark-color;
-            }
-            .fa-xxs {
-                font-size: 0.5rem;
-                line-height: 3;
-            }
-            .admin-menu-header {
-                background-color: $admin-sidebar-dark;
-                .logo-wrapper {
-                    text-align: center;
-                    display: inline-block;
-                    width: 1.25em;
-                    img {
-                        height: 1em;
-                        vertical-align: text-bottom;
-                    }
+            .navbar-nav {
+                .sidebar-section {
+                    padding: $spacer;
                 }
                 .section-header-text {
-                    vertical-align: bottom;
+                    display: none;
+                    padding-left: $spacer/2;
                 }
-
+                #sidebar-collapse-toggle {
+                    border-top: 2px solid rgba(255, 255, 255, 0.1);
+                }
             }
         }
-
         &.active {
-            .section-header-text, .fa-chevron-right {
-                display: inline;
+            ::ng-deep {
+                .section-header-text, .fa-chevron-right {
+                    display: inline;
+                }
             }
         }
+
     }
 }

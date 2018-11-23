@@ -6,4 +6,5 @@
     mdMin: map-get($grid-breakpoints, md);
     lgMin: map-get($grid-breakpoints, lg);
     smMin: map-get($grid-breakpoints, sm);
+    adminSidebarActiveBg: $admin-sidebar-active-bg;
 }

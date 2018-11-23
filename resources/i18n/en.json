@@ -210,6 +210,75 @@
           "no-items": "No bitstream formats to show."
         }
       }
+    },
+    "sidebar": {
+      "section": {
+        "new": {
+          "header": "New",
+          "subsections": {
+            "community": "Community",
+            "collection": "Collection",
+            "item": "Item",
+            "item_version": "Item Version"
+          }
+        },
+        "edit": {
+          "header": "Edit",
+          "subsections": {
+            "community": "Community",
+            "collection": "Collection",
+            "item": "Item"
+          }
+        },
+        "import": {
+          "header": "Import",
+          "subsections": {
+            "metadata": "Metadata",
+            "batch_import": "Batch Import (ZIP)"
+          }
+        },
+        "export": {
+          "header": "Export",
+          "subsections": {
+            "community": "Community",
+            "collection": "Collection",
+            "item": "Item",
+            "metadata": "Metadata"
+          }
+        },
+        "access_control": {
+          "header": "Access Control",
+          "subsections": {
+            "people": "People",
+            "groups": "Groups",
+            "authorizations": "Authorizations"
+          }
+        },
+        "find": {
+          "header": "Find",
+          "subsections": {
+            "items": "Items",
+            "withdrawn_items": "Withdrawn Items",
+            "private_items": "Private Items"
+          }
+        },
+        "registries": {
+          "header": "Registries",
+          "subsections": {
+            "metadata": "Metadata",
+            "format": "Format"
+          }
+        },
+        "curation_task": {
+          "header": "Curation Task"
+        },
+        "statistics": {
+          "header": "Statistics Task"
+        },
+        "control_panel": {
+          "header": "Control Panel"
+        }
+      }
     }
   },
   "loading": {

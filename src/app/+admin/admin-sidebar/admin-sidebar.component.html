@@ -6,137 +6,58 @@
 
     <div class="sidebar-top-level-items">
         <ul class="navbar-nav">
-            <li class="admin-menu-header">
-                <a class="shortcuts-tree navbar-brand mr-0" href="#">
+            <li class="admin-menu-header sidebar-section">
+                <a class="shortcuts-tree navbar-brand mr-0 p-0" href="#">
                     <span class="logo-wrapper">
                         <img class="admin-logo" src="assets/images/dspace-logo-mini.svg">
                     </span>
                     <h4 class="section-header-text">Admin</h4>
                 </a>
             </li>
-            <li [ngClass]="{'active': (active('new') | async)}">
-                <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggleSection($event, 'new')">
-                    <i class="fas fa-plus-circle fa-fw"></i>
-                    <span class="section-header-text">New</span>
-                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
-                       [@rotateInOut]="(active('new') | async) ? 'rotateOut': 'rotateIn'"></i>
-                </a>
-                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('new') | async)">
-                    <li><a class="nav-item nav-link" href="#">Community</a></li>
-                    <li><a class="nav-item nav-link" href="#">Collection</a></li>
-                    <li><a class="nav-item nav-link" href="#">Item</a></li>
-                    <li><a class="nav-item nav-link" href="#">Item Version</a></li>
-                </ul>
-            </li>
-            <li [ngClass]="{'active': (active('edit') | async)}">
-                <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggleSection($event, 'edit')">
-                    <i class="fas fa-pencil-alt fa-fw"></i>
-                    <span class="section-header-text">Edit</span>
-                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
-                       [ngClass]="{'fa-rotate-90': (active('edit') | async)}"></i>
-                </a>
-                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('edit') | async)">
-                    <li><a class="nav-item nav-link" href="#">Community</a></li>
-                    <li><a class="nav-item nav-link" href="#">Collection</a></li>
-                    <li><a class="nav-item nav-link" href="#">Item</a></li>
-                </ul>
-            </li>
-            <li [ngClass]="{'active': (active('import') | async)}">
-                <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggleSection($event, 'import')">
-                    <i class="fas fa-arrow-circle-up fa-fw"></i>
-                    <span class="section-header-text">Import</span>
-                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
-                       [ngClass]="{'fa-rotate-90': (active('import') | async)}"></i>
-                </a>
-                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('import') | async)">
-                    <li><a class="nav-item nav-link" href="#">Metadata</a></li>
-                    <li><a class="nav-item nav-link" href="#">Batch Import (ZIP)</a></li>
-                </ul>
-            </li>
-            <li [ngClass]="{'active': (active('export') | async)}">
-                <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggleSection($event, 'export')">
-                    <i class="fas fa-arrow-circle-down fa-fw"></i>
-                    <span class="section-header-text">Export</span>
-                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
-                       [ngClass]="{'fa-rotate-90': (active('export') | async)}"></i>
-                </a>
-                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('export') | async)">
-                    <li><a class="nav-item nav-link" href="#">Community</a></li>
-                    <li><a class="nav-item nav-link" href="#">Collection</a></li>
-                    <li><a class="nav-item nav-link" href="#">Item</a></li>
-                    <li><a class="nav-item nav-link" href="#">Metadata</a></li>
-                </ul>
-            </li>
-            <li [ngClass]="{'active': (active('access_control') | async)}">
-                <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggleSection($event, 'access_control')">
-                    <i class="fas fa-key fa-fw"></i>
-                    <span class="section-header-text">Access Control</span>
-                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
-                       [ngClass]="{'fa-rotate-90': (active('access_control') | async)}"></i>
-                </a>
-                <ul class="sidebar-sub-level-items"
-                    [ngbCollapse]="!(active('access_control') | async)">
-                    <li><a class="nav-item nav-link" href="#">People</a></li>
-                    <li><a class="nav-item nav-link" href="#">Groups</a></li>
-                    <li><a class="nav-item nav-link" href="#">Authorizations</a></li>
-                </ul>
-            </li>
-            <li [ngClass]="{'active': (active('find') | async)}">
-                <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggleSection($event, 'find')">
-                    <i class="fas fa-search fa-fw"></i>
-                    <span class="section-header-text">Find</span>
-                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
-                       [ngClass]="{'fa-rotate-90': (active('find') | async)}"></i>
-                </a>
-                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('find') | async)">
-                    <li><a class="nav-item nav-link" href="#">Items</a></li>
-                    <li><a class="nav-item nav-link" href="#">Withdrawn Items</a></li>
-                    <li><a class="nav-item nav-link" href="#">Private Items</a></li>
-                </ul>
-            </li>
-            <li [ngClass]="{'active': (active('registries') | async)}">
-                <a class="nav-item nav-link shortcuts-tree" href="#"
-                   (click)="toggleSection($event, 'registries')">
-                    <i class="fas fa-list fa-fw"></i>
-                    <span class="section-header-text">Registries</span>
-                    <i class="fas fa-chevron-right fa-pull-right fa-xxs"
-                       [ngClass]="{'fa-rotate-90': (active('registries') | async)}"></i>
-                </a>
-                <ul class="sidebar-sub-level-items" [ngbCollapse]="!(active('registries') | async)">
-                    <li><a class="nav-item nav-link" href="#">Metadata</a></li>
-                    <li><a class="nav-item nav-link" href="#">Format</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="nav-item nav-link shortcuts-tree" href="#">
-                    <i class="fas fa-filter fa-fw"></i>
-                    <span class="section-header-text">Curation Tasks</span>
-                </a>
-            </li>
-            <li>
-                <a class="nav-item nav-link shortcuts-tree" href="#">
-                    <i class="fas fa-chart-bar fa-fw"></i>
-                    <span class="section-header-text">Statistics</span>
-                </a>
-            </li>
-            <li>
-                <a class="nav-item nav-link shortcuts-tree" href="#">
-                    <i class="fas fa-cogs fa-fw"></i>
-                    <span class="section-header-text">Control Panel</span>
-                </a>
-            </li>
+            <ds-expandable-admin-sidebar-section name="new" icon="plus-circle" [subSections]="[
+            {name: 'Community', link: '#'},
+            {name: 'Collection', link: '#'},
+            {name: 'Item', link: '#'},
+            {name: 'Item Version', link: '#'}
+            ]"></ds-expandable-admin-sidebar-section>
+            <ds-expandable-admin-sidebar-section name="edit" icon="pencil-alt" [subSections]="[
+            {name: 'Community', link: '#'},
+            {name: 'Collection', link: '#'},
+            {name: 'Item', link: '#'}
+            ]"></ds-expandable-admin-sidebar-section>
+            <ds-expandable-admin-sidebar-section name="import" icon="sign-in-alt" [subSections]="[
+            {name: 'Metadata', link: '#'},
+            {name: 'Batch Import (ZIP)', link: '#'}
+            ]"></ds-expandable-admin-sidebar-section>
+            <ds-expandable-admin-sidebar-section name="export" icon="sign-out-alt" [subSections]="[
+            {name: 'Community', link: '#'},
+            {name: 'Collection', link: '#'},
+            {name: 'Item', link: '#'},
+            {name: 'Metadata', link: '#'}
+            ]"></ds-expandable-admin-sidebar-section>
+            <ds-expandable-admin-sidebar-section name="access_control" icon="key" [subSections]="[
+            {name: 'People', link: '#'},
+            {name: 'Groups', link: '#'},
+            {name: 'Authorizations', link: '#'}
+            ]"></ds-expandable-admin-sidebar-section>
+            <ds-expandable-admin-sidebar-section name="find" icon="search" [subSections]="[
+            {name: 'Items', link: '#'},
+            {name: 'Withdrawn Items', link: '#'},
+            {name: 'Private Items', link: '#'}
+            ]"></ds-expandable-admin-sidebar-section>
+            <ds-expandable-admin-sidebar-section name="registries" icon="list" [subSections]="[
+            {name: 'Metadata', link: '#'},
+            {name: 'Format', link: '#'}
+            ]"></ds-expandable-admin-sidebar-section>
+            <ds-admin-sidebar-section name="curation_task" icon="filter" link="#"></ds-admin-sidebar-section>
+            <ds-admin-sidebar-section name="statistics" icon="chart-bar" link="#"></ds-admin-sidebar-section>
+            <ds-admin-sidebar-section name="control_panel" icon="cogs" link="#"></ds-admin-sidebar-section>
         </ul>
     </div>
     <div class="navbar-nav">
-        <a class="nav-item nav-link shortcuts-tree" href="#"
+        <a class="nav-item nav-link shortcuts-tree sidebar-section" id="sidebar-collapse-toggle" href="#"
            (click)="toggle($event)">
-            <i class="fas fa-fw fa-angle-double-right"></i>
+            <i class="fas fa-fw fa-angle-double-right" [ngClass]="{'fa-angle-double-right': (sidebarCollapsed | async), 'fa-angle-double-left': !(sidebarCollapsed | async)}"></i>
             <span class="section-header-text">Collapse</span>
         </a>
     </div>
