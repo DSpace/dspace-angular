@@ -11,6 +11,10 @@ import { getRemoteDataPayload } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import { ITEM } from '../../../../shared/entities/switcher/entity-type-switcher.component';
 
+/**
+ * Operator for comparing arrays using a mapping function
+ * @param mapFn   Function for mapping the arrays
+ */
 const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
   (a: T[], b: T[]): boolean => {
     if (!Array.isArray(a) || ! Array.isArray(b)) {
@@ -25,6 +29,9 @@ const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
       bIds.every((e) => aIds.includes(e));
   };
 
+/**
+ * Operator for comparing arrays using the object's ids
+ */
 const compareArraysUsingIds = <T extends { id: string }>() =>
   compareArraysUsing((t: T) => hasValue(t) ? t.id : undefined);
 

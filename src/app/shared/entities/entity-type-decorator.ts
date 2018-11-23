@@ -4,6 +4,12 @@ import { ElementViewMode } from '../view-mode';
 export const DEFAULT_ENTITY_TYPE = 'Default';
 
 const map = new Map();
+
+/**
+ * Decorator used for rendering simple item pages for an Entity by type and viewMode
+ * @param type
+ * @param viewMode
+ */
 export function rendersEntityType(type: string, viewMode: ElementViewMode) {
   return function decorator(component: any) {
     if (hasNoValue(map.get(viewMode))) {
@@ -16,6 +22,11 @@ export function rendersEntityType(type: string, viewMode: ElementViewMode) {
   };
 }
 
+/**
+ * Get the component used for rendering an entity by type and viewMode
+ * @param type
+ * @param viewMode
+ */
 export function getComponentByEntityType(type: string, viewMode: ElementViewMode) {
   let component = map.get(viewMode).get(type);
   if (hasNoValue(component)) {

@@ -18,12 +18,6 @@ import { SearchConfigurationService } from './search-service/search-configuratio
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { RouteService } from '../shared/services/route.service';
 
-/**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
- */
-
 @Component({
   selector: 'ds-search-page',
   styleUrls: ['./search-page.component.scss'],
@@ -34,6 +28,7 @@ import { RouteService } from '../shared/services/route.service';
 
 /**
  * This component represents the whole search page
+ * It renders search results depending on the current search options
  */
 export class SearchPageComponent implements OnInit {
 

@@ -5,29 +5,56 @@ import { ResourceType } from '../resource-type';
 import { EntityType } from './entity-type.model';
 
 export class RelationshipType implements CacheableObject {
+  /**
+   * The link to the rest endpoint where this object can be found
+   */
   self: string;
 
+  /**
+   * The type of Resource this is
+   */
   type: ResourceType;
 
+  /**
+   * The label that describes this RelationshipType
+   */
   label: string;
 
+  /**
+   * The identifier of this RelationshipType
+   */
   id: string;
 
+  /**
+   * The universally unique identifier of this RelationshipType
+   */
   uuid: string;
 
+  /**
+   * The label that describes the Relation to the left of this RelationshipType
+   */
   leftLabel: string;
 
   leftMaxCardinality: number;
 
   leftMinCardinality: number;
 
+  /**
+   * The label that describes the Relation to the right of this RelationshipType
+   */
   rightLabel: string;
 
   rightMaxCardinality: number;
 
   rightMinCardinality: number;
 
+  /**
+   * The type of Entity found to the left of this RelationshipType
+   */
   leftType: Observable<RemoteData<EntityType>>;
 
+  /**
+   * The type of Entity found to the right of this RelationshipType
+   */
   rightType: Observable<RemoteData<EntityType>>;
 }

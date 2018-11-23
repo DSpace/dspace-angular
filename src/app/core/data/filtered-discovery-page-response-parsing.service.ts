@@ -8,6 +8,10 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
 
+/**
+ * A ResponseParsingService used to parse DSpaceRESTV2Response coming from the REST API to a discovery query (string)
+ * wrapped in a FilteredDiscoveryQueryResponse
+ */
 @Injectable()
 export class FilteredDiscoveryPageResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
   objectFactory = {};
@@ -17,6 +21,13 @@ export class FilteredDiscoveryPageResponseParsingService extends BaseResponsePar
     protected objectCache: ObjectCacheService,
   ) { super();
   }
+
+  /**
+   * Parses data from the REST API to a discovery query wrapped in a FilteredDiscoveryQueryResponse
+   * @param {RestRequest} request
+   * @param {DSpaceRESTV2Response} data
+   * @returns {RestResponse}
+   */
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const query = data.payload['discovery-query'];
     return new FilteredDiscoveryQueryResponse(query, data.statusCode);
