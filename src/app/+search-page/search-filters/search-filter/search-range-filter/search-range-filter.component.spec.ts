@@ -7,7 +7,7 @@ import { SearchFilterConfig } from '../../../search-service/search-filter-config
 import { FilterType } from '../../../search-service/filter-type.model';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { FormsModule } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs'
 import { SearchService } from '../../../search-service/search.service';
 import { SearchServiceStub } from '../../../../shared/testing/search-service-stub';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -56,13 +56,13 @@ describe('SearchRangeFilterComponent', () => {
   ];
 
   const searchLink = '/search';
-  const selectedValues = Observable.of([value1]);
+  const selectedValues = observableOf([value1]);
   let filterService;
   let searchService;
   let router;
-  const page = Observable.of(0);
+  const page = observableOf(0);
 
-  const mockValues = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), values)));
+  const mockValues = observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), values)));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
@@ -71,10 +71,10 @@ describe('SearchRangeFilterComponent', () => {
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: mockFilterConfig },
-        { provide: RemoteDataBuildService, useValue: {aggregate: () => Observable.of({})} },
-        { provide: RouteService, useValue: {getQueryParameterValue: () => Observable.of({})} },
+        { provide: RemoteDataBuildService, useValue: {aggregate: () => observableOf({})} },
+        { provide: RouteService, useValue: {getQueryParameterValue: () => observableOf({})} },
         { provide: SearchConfigurationService, useValue: {
-            searchOptions: Observable.of({}) }
+            searchOptions: observableOf({}) }
         },
         {
           provide: SearchFilterService, useValue: {

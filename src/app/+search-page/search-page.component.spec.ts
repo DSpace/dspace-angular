@@ -5,8 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
@@ -30,18 +29,18 @@ describe('SearchPageComponent', () => {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */
-    select: Observable.of(true)
+    select: observableOf(true)
   });
   const pagination: PaginationComponentOptions = new PaginationComponentOptions();
   pagination.id = 'search-results-pagination';
   pagination.currentPage = 1;
   pagination.pageSize = 10;
   const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-  const mockResults = Observable.of(new RemoteData(false, false, true, null, ['test', 'data']));
+  const mockResults = observableOf(new RemoteData(false, false, true, null, ['test', 'data']));
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     search: mockResults,
     getSearchLink: '/search',
-    getScopes: Observable.of(['test-scope'])
+    getScopes: observableOf(['test-scope'])
   });
   const queryParam = 'test query';
   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
@@ -52,15 +51,15 @@ describe('SearchPageComponent', () => {
     sort
   };
   const activatedRouteStub = {
-    queryParams: Observable.of({
+    queryParams: observableOf({
       query: queryParam,
       scope: scopeParam
     })
   };
   const sidebarService = {
-    isCollapsed: Observable.of(true),
-    collapse: () => this.isCollapsed = Observable.of(true),
-    expand: () => this.isCollapsed = Observable.of(false)
+    isCollapsed: observableOf(true),
+    collapse: () => this.isCollapsed = observableOf(true),
+    expand: () => this.isCollapsed = observableOf(false)
   };
 
   beforeEach(async(() => {
@@ -80,9 +79,9 @@ describe('SearchPageComponent', () => {
         {
           provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
             {
-              isXs: Observable.of(true),
-              isSm: Observable.of(false),
-              isXsOrSm: Observable.of(true)
+              isXs: observableOf(true),
+              isSm: observableOf(false),
+              isXsOrSm: observableOf(true)
             })
         },
         {
@@ -98,7 +97,7 @@ describe('SearchPageComponent', () => {
             paginatedSearchOptions: hot('a', {
               a: paginatedSearchOptions
             }),
-            getCurrentScope: (a) => Observable.of('test-id')
+            getCurrentScope: (a) => observableOf('test-id')
           }
         },
       ],
@@ -154,7 +153,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => Observable.of(true);
+      comp.isSidebarCollapsed = () => observableOf(true);
       fixture.detectChanges();
     });
 
@@ -169,7 +168,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => Observable.of(false);
+      comp.isSidebarCollapsed = () => observableOf(false);
       fixture.detectChanges();
     });
 

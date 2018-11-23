@@ -13,7 +13,7 @@ import { AuthStatus } from '../auth/models/auth-status.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
-  public toCache = true;
+  public timeAdded: number;
 
   constructor(
     public isSuccessful: boolean,
@@ -140,7 +140,7 @@ export class ErrorResponse extends RestResponse {
 
   constructor(error: RequestError) {
     super(false, error.statusText);
-    console.error(error);
+    // console.error(error);
     this.errorMessage = error.message;
   }
 }

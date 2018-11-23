@@ -1,33 +1,35 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { ErrorResponse, IntegrationSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { IntegrationSuccessResponse } from '../cache/response.models';
 import { GetRequest, IntegrationRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IntegrationData } from './integration-data';
 import { IntegrationSearchOptions } from './models/integration-options.model';
+import { RequestEntry } from '../data/request.reducer';
+import { getResponseFromEntry } from '../shared/operators';
 
 export abstract class IntegrationService {
   protected request: IntegrationRequest;
-  protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract linkPath: string;
   protected abstract browseEndpoint: string;
   protected abstract halService: HALEndpointService;
 
   protected getData(request: GetRequest): Observable<IntegrationData> {
-    const [successResponse, errorResponse] = this.responseCache.get(request.href)
-      .map((entry: ResponseCacheEntry) => entry.response)
-      .partition((response: RestResponse) => response.isSuccessful);
-    return Observable.merge(
-      errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't retrieve the integration data`))),
-      successResponse
-        .filter((response: IntegrationSuccessResponse) => isNotEmpty(response))
-        .map((response: IntegrationSuccessResponse) => new IntegrationData(response.pageInfo, response.dataDefinition))
-        .distinctUntilChanged());
+     return this.requestService.getByHref(request.href).pipe(
+       getResponseFromEntry(),
+       mergeMap((response) => {
+          if (response.isSuccessful && isNotEmpty(response)) {
+            const dataResponse = response as IntegrationSuccessResponse;
+            return observableOf(new IntegrationData(dataResponse.pageInfo, dataResponse.dataDefinition));
+          } else if (!response.isSuccessful) {
+            return observableThrowError(new Error(`Couldn't retrieve the integration data`));
+          }
+        }),
+       distinctUntilChanged()
+      );
   }
 
   protected getIntegrationHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions()): string {
@@ -72,14 +74,14 @@ export abstract class IntegrationService {
   }
 
   public getEntriesByName(options: IntegrationSearchOptions): Observable<IntegrationData> {
-    return this.halService.getEndpoint(this.linkPath)
-      .map((endpoint: string) => this.getIntegrationHref(endpoint, options))
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new IntegrationRequest(this.requestService.generateRequestId(), endpointURL))
-      .do((request: GetRequest) => this.requestService.configure(request))
-      .flatMap((request: GetRequest) => this.getData(request))
-      .distinctUntilChanged();
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIntegrationHref(endpoint, options)),
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new IntegrationRequest(this.requestService.generateRequestId(), endpointURL)),
+      tap((request: GetRequest) => this.requestService.configure(request)),
+      mergeMap((request: GetRequest) => this.getData(request)),
+      distinctUntilChanged());
   }
 
 }

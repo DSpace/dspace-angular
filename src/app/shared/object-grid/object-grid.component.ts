@@ -1,3 +1,6 @@
+import { combineLatest as observableCombineLatest, BehaviorSubject, Observable } from 'rxjs';
+
+import { startWith, distinctUntilChanged, map } from 'rxjs/operators';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,9 +9,6 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -25,7 +25,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   selector: 'ds-object-grid',
-  styleUrls: [ './object-grid.component.scss' ],
+  styleUrls: ['./object-grid.component.scss'],
   templateUrl: './object-grid.component.html',
   animations: [fadeIn]
 })
@@ -37,9 +37,11 @@ export class ObjectGridComponent implements OnInit {
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
   private _objects$: BehaviorSubject<RemoteData<PaginatedList<ListableObject>>>;
+
   @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
     this._objects$.next(objects);
   }
+
   get objects() {
     return this._objects$.getValue();
   }
@@ -106,30 +108,29 @@ export class ObjectGridComponent implements OnInit {
         }
       }),
       distinctUntilChanged()
-    ).startWith(3);
+    ).pipe(startWith(3));
 
-    this.columns$ = Observable.combineLatest(
+    this.columns$ = observableCombineLatest(
       nbColumns$,
-      this._objects$,
-      (nbColumns, objects) => {
-        if (hasValue(objects) && hasValue(objects.payload) && hasValue(objects.payload.page)) {
-          const page = objects.payload.page;
+      this._objects$).pipe(map(([nbColumns, objects]) => {
+      if (hasValue(objects) && hasValue(objects.payload) && hasValue(objects.payload.page)) {
+        const page = objects.payload.page;
 
-          const result = [];
+        const result = [];
 
-          page.forEach((obj: ListableObject, i: number) => {
-            const colNb = i % nbColumns;
-            let col = result[colNb];
-            if (hasNoValue(col)) {
-              col = [];
-            }
-            result[colNb] = [...col, obj];
-          });
-          return result;
-        } else {
-          return [];
-        }
-    });
+        page.forEach((obj: ListableObject, i: number) => {
+          const colNb = i % nbColumns;
+          let col = result[colNb];
+          if (hasNoValue(col)) {
+            col = [];
+          }
+          result[colNb] = [...col, obj];
+        });
+        return result;
+      } else {
+        return [];
+      }
+    }));
   }
 
   onPageChange(event) {

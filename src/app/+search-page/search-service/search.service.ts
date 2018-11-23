@@ -1,3 +1,4 @@
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import {
   ActivatedRoute,
@@ -6,16 +7,13 @@ import {
   Router,
   UrlSegmentGroup
 } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { flatMap, map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
   FacetValueSuccessResponse,
   SearchSuccessResponse
-} from '../../core/cache/response-cache.models';
-import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
-import { ResponseCacheService } from '../../core/cache/response-cache.service';
+} from '../../core/cache/response.models';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ResponseParsingService } from '../../core/data/parsing.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -24,7 +22,11 @@ import { RequestService } from '../../core/data/request.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { configureRequest, getSucceededRemoteData } from '../../core/shared/operators';
+import {
+  configureRequest,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
@@ -68,7 +70,6 @@ export class SearchService implements OnDestroy {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              protected responseCache: ResponseCacheService,
               protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
               private halService: HALEndpointService,
@@ -98,16 +99,12 @@ export class SearchService implements OnDestroy {
       configureRequest(this.requestService)
     );
     const requestEntryObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
-    );
-
-    const responseCacheObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.responseCache.get(request.href))
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
     // get search results from response cache
-    const sqrObs: Observable<SearchQueryResponse> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const sqrObs: Observable<SearchQueryResponse> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: SearchSuccessResponse) => response.results)
     );
 
@@ -115,39 +112,43 @@ export class SearchService implements OnDestroy {
     // Turn list of observable remote data DSO's into observable remote data object with list of DSO
     const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
       map((sqr: SearchQueryResponse) => {
-        return sqr.objects.map((nsr: NormalizedSearchResult) =>
-          this.rdb.buildSingle(nsr.dspaceObject));
+        return sqr.objects.map((nsr: NormalizedSearchResult) => {
+          return this.rdb.buildSingle(nsr.dspaceObject);
+        })
       }),
-      flatMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input))
+      switchMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input)),
     );
 
     // Create search results again with the correct dso objects linked to each result
-    const tDomainListObs = Observable.combineLatest(sqrObs, dsoObs, (sqr: SearchQueryResponse, dsos: RemoteData<DSpaceObject[]>) => {
+    const tDomainListObs = observableCombineLatest(sqrObs, dsoObs).pipe(
+      map(([sqr, dsos]) => {
+        return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
+          let co = DSpaceObject;
+          if (dsos.payload[index]) {
+            const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
+            co = getSearchResultFor(constructor);
+            return Object.assign(new co(), object, {
+              dspaceObject: dsos.payload[index]
+            });
+          } else {
+            return undefined;
+          }
+        });
+      })
+    );
 
-      return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
-        let co = DSpaceObject;
-        if (dsos.payload[index]) {
-          const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
-          co = getSearchResultFor(constructor);
-          return Object.assign(new co(), object, {
-            dspaceObject: dsos.payload[index]
-          });
-        } else {
-          return undefined;
-        }
-      });
-    });
-
-    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const pageInfoObs: Observable<PageInfo> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: FacetValueSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(tDomainListObs, pageInfoObs, (tDomainList, pageInfo) => {
-      return new PaginatedList(pageInfo, tDomainList);
-    });
+    const payloadObs = observableCombineLatest(tDomainListObs, pageInfoObs).pipe(
+      map(([tDomainList, pageInfo]) => {
+        return new PaginatedList(pageInfo, tDomainList);
+      })
+    );
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+    return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
   }
 
   /**
@@ -179,21 +180,17 @@ export class SearchService implements OnDestroy {
     );
 
     const requestEntryObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
-    );
-
-    const responseCacheObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.responseCache.get(request.href))
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
     // get search results from response cache
-    const facetConfigObs: Observable<SearchFilterConfig[]> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const facetConfigObs: Observable<SearchFilterConfig[]> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: FacetConfigSuccessResponse) =>
         response.results.map((result: any) => Object.assign(new SearchFilterConfig(), result)))
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, facetConfigObs);
+    return this.rdb.toRemoteDataObservable(requestEntryObs, facetConfigObs);
   }
 
   /**
@@ -226,29 +223,27 @@ export class SearchService implements OnDestroy {
     );
 
     const requestEntryObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
-    );
-
-    const responseCacheObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.responseCache.get(request.href))
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
     // get search results from response cache
-    const facetValueObs: Observable<FacetValue[]> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const facetValueObs: Observable<FacetValue[]> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: FacetValueSuccessResponse) => response.results)
     );
 
-    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const pageInfoObs: Observable<PageInfo> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: FacetValueSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(facetValueObs, pageInfoObs, (facetValue, pageInfo) => {
-      return new PaginatedList(pageInfo, facetValue);
-    });
+    const payloadObs = observableCombineLatest(facetValueObs, pageInfoObs).pipe(
+      map(([facetValue, pageInfo]) => {
+        return new PaginatedList(pageInfo, facetValue);
+      })
+    );
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+    return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
   }
 
   /**
@@ -272,12 +267,14 @@ export class SearchService implements OnDestroy {
       switchMap((dsoRD: RemoteData<DSpaceObject>) => {
           if (dsoRD.payload.type === ResourceType.Community) {
             const community: Community = dsoRD.payload as Community;
-            return Observable.combineLatest(community.subcommunities, community.collections, (subCommunities, collections) => {
-              /*if this is a community, we also need to show the direct children*/
-              return [community, ...subCommunities.payload.page, ...collections.payload.page]
-            })
+            return observableCombineLatest(community.subcommunities, community.collections).pipe(
+              map(([subCommunities, collections]) => {
+                /*if this is a community, we also need to show the direct children*/
+                return [community, ...subCommunities.payload.page, ...collections.payload.page]
+              })
+            );
           } else {
-            return Observable.of([dsoRD.payload]);
+            return observableOf([dsoRD.payload]);
           }
         }
       ));
@@ -291,13 +288,13 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<ViewMode>} The current view mode
    */
   getViewMode(): Observable<ViewMode> {
-    return this.route.queryParams.map((params) => {
+    return this.route.queryParams.pipe(map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
         return params.view;
       } else {
         return ViewMode.List;
       }
-    });
+    }));
   }
 
   /**

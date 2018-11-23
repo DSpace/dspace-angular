@@ -99,7 +99,7 @@ export class NumberPickerComponent implements OnInit, ControlValueAccessor {
 
   update(event) {
     try {
-      const i = Number.parseInt(event.target.value);
+      const i = Number.parseInt(event.target.value, 10);
 
       if (i >= this.min && i <= this.max) {
         this.value = i;

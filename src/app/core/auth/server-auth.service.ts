@@ -1,7 +1,7 @@
 import { first, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
@@ -41,12 +41,13 @@ export class ServerAuthService extends AuthService {
 
           // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
           const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
-          // person$.subscribe(() => console.log('test'));
-          return person$.pipe(map((eperson) => eperson.payload));
+          return person$.pipe(
+            map((eperson) => eperson.payload)
+          );
         } else {
           throw(new Error('Not authenticated'));
         }
-      }))
+      }));
   }
 
   /**

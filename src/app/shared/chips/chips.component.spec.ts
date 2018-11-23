@@ -1,7 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
-import 'rxjs/add/observable/of';
 
 import { Chips } from './models/chips.model';
 import { UploaderService } from '../uploader/uploader.service';

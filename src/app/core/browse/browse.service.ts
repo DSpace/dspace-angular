@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import {
   ensureArrayHasValue,
@@ -11,16 +11,13 @@ import {
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SortOptions } from '../cache/models/sort-options.model';
-import { GenericSuccessResponse } from '../cache/response-cache.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ResponseCacheService } from '../cache/response-cache.service';
+import { GenericSuccessResponse } from '../cache/response.models';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import {
   BrowseEndpointRequest,
   BrowseEntriesRequest,
   BrowseItemsRequest,
-  GetRequest,
   RestRequest
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
@@ -29,10 +26,9 @@ import { BrowseEntry } from '../shared/browse-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   configureRequest,
-  filterSuccessfulResponses, getBrowseDefinitionLinks,
-  getRemoteDataPayload,
-  getRequestFromSelflink,
-  getResponseFromSelflink
+  filterSuccessfulResponses,
+  getBrowseDefinitionLinks,
+  getRemoteDataPayload, getRequestFromRequestHref
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { Item } from '../shared/item.model';
@@ -56,7 +52,6 @@ export class BrowseService {
   }
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected halService: HALEndpointService,
     private rdb: RemoteDataBuildService,
@@ -72,11 +67,9 @@ export class BrowseService {
     );
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
-    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
-    const payload$ = responseCache$.pipe(
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
+    const payload$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<BrowseDefinition[]>) => response.payload),
       ensureArrayHasValue(),
       map((definitions: BrowseDefinition[]) => definitions
@@ -84,7 +77,7 @@ export class BrowseService {
       distinctUntilChanged()
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.rdb.toRemoteDataObservable(requestEntry$, payload$);
   }
 
   getBrowseEntriesFor(definitionID: string, options: {
@@ -117,12 +110,10 @@ export class BrowseService {
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
 
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
-    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
 
-    const payload$ = responseCache$.pipe(
+    const payload$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<BrowseEntry[]>) => new PaginatedList(response.pageInfo, response.payload)),
       map((list: PaginatedList<BrowseEntry>) => Object.assign(list, {
         page: list.page ? list.page.map((entry: BrowseEntry) => Object.assign(new BrowseEntry(), entry)) : list.page
@@ -130,7 +121,7 @@ export class BrowseService {
       distinctUntilChanged()
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.rdb.toRemoteDataObservable(requestEntry$, payload$);
   }
 
   /**
@@ -174,12 +165,10 @@ export class BrowseService {
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
 
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
-    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
 
-    const payload$ = responseCache$.pipe(
+    const payload$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<Item[]>) => new PaginatedList(response.pageInfo, response.payload)),
       map((list: PaginatedList<Item>) => Object.assign(list, {
         page: list.page ? list.page.map((item: DSpaceObject) => Object.assign(new Item(), item)) : list.page
@@ -187,7 +176,7 @@ export class BrowseService {
       distinctUntilChanged()
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.rdb.toRemoteDataObservable(requestEntry$, payload$);
   }
 
   getBrowseURLFor(metadatumKey: string, linkPath: string): Observable<string> {

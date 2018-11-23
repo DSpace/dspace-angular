@@ -1,3 +1,5 @@
+
+import {tap} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -9,17 +11,21 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
   styleUrls: ['./dynamic-scrollable-dropdown.component.scss'],
   templateUrl: './dynamic-scrollable-dropdown.component.html'
 })
-export class DsDynamicScrollableDropdownComponent implements OnInit {
+export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicScrollableDropdownModel;
-  @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -31,7 +37,13 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
 
   protected searchOptions: IntegrationSearchOptions;
 
-  constructor(private authorityService: AuthorityService, private cdr: ChangeDetectorRef) {}
+  constructor(private authorityService: AuthorityService,
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
+  }
 
   ngOnInit() {
     this.searchOptions = new IntegrationSearchOptions(
@@ -66,8 +78,8 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
       this.loading = true;
       this.searchOptions.currentPage++;
-      this.authorityService.getEntriesByName(this.searchOptions)
-        .do(() => this.loading = false)
+      this.authorityService.getEntriesByName(this.searchOptions).pipe(
+        tap(() => this.loading = false))
         .subscribe((object: IntegrationData) => {
           this.optionsList = this.optionsList.concat(object.payload);
           this.pageInfo = object.pageInfo;

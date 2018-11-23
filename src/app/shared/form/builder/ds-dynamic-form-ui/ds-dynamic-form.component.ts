@@ -9,13 +9,13 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-  DynamicFormComponent,
+  DynamicFormComponent, DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-    DynamicFormLayout,
-    DynamicFormLayoutService,
-    DynamicFormService,
-    DynamicTemplateDirective,
+  DynamicFormLayout,
+  DynamicFormLayoutService,
+  DynamicFormService,
+  DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 import { DsDynamicFormControlComponent } from './ds-dynamic-form-control.component';
 import { FormBuilderService } from '../form-builder.service';
@@ -29,7 +29,7 @@ export class DsDynamicFormComponent extends DynamicFormComponent {
   @Input() formId: string;
   @Input() formGroup: FormGroup;
   @Input() formModel: DynamicFormControlModel[];
-  @Input() formLayout: DynamicFormLayout = null;
+  @Input() formLayout = null as DynamicFormLayout;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -39,9 +39,10 @@ export class DsDynamicFormComponent extends DynamicFormComponent {
 
   @ContentChildren(DynamicTemplateDirective) templates: QueryList<DynamicTemplateDirective>;
 
-  @ViewChildren(DsDynamicFormControlComponent) components: QueryList<DsDynamicFormControlComponent>;
+  @ViewChildren(DsDynamicFormControlComponent) components: QueryList<DynamicFormControlContainerComponent>;
 
-    constructor(protected formService: FormBuilderService, protected layoutService: DynamicFormLayoutService) {
-        super(formService, layoutService);
-    }
+  constructor(protected formService: FormBuilderService, protected layoutService: DynamicFormLayoutService) {
+    super(formService, layoutService);
+  }
+
 }

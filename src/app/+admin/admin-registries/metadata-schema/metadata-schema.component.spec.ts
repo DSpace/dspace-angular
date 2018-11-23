@@ -1,16 +1,14 @@
 import { MetadataSchemaComponent } from './metadata-schema.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { MockTranslateLoader } from '../../../shared/testing/mock-translate-loader';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { SharedModule } from '../../../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
@@ -68,15 +66,15 @@ describe('MetadataSchemaComponent', () => {
       schema: mockSchemasList[1]
     }
   ];
-  const mockSchemas = Observable.of(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
+  const mockSchemas = observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
-    getMetadataFieldsBySchema: (schema: MetadataSchema) => Observable.of(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFieldsList.filter((value) => value.schema === schema)))),
-    getMetadataSchemaByName: (schemaName: string) => Observable.of(new RemoteData(false, false, true, undefined, mockSchemasList.filter((value) => value.prefix === schemaName)[0]))
+    getMetadataFieldsBySchema: (schema: MetadataSchema) => observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFieldsList.filter((value) => value.schema === schema)))),
+    getMetadataSchemaByName: (schemaName: string) => observableOf(new RemoteData(false, false, true, undefined, mockSchemasList.filter((value) => value.prefix === schemaName)[0]))
   };
   const schemaNameParam = 'mock';
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: Observable.of({
+    params: observableOf({
       schemaName: schemaNameParam
     })
   });

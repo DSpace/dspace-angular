@@ -1,12 +1,10 @@
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/Rx';
+import { TestScheduler } from 'rxjs/testing';
 import { GlobalConfig } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
@@ -14,6 +12,8 @@ import { FindAllOptions, FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RequestEntry } from './request.reducer';
+import { of as observableOf } from 'rxjs';
 
 const LINK_NAME = 'test';
 
@@ -24,25 +24,24 @@ class NormalizedTestObject extends NormalizedObject {
 class TestService extends ComColDataService<NormalizedTestObject, any> {
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
     protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
-    protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
+    protected objectCache: ObjectCacheService,
     protected linkPath: string
   ) {
     super();
   }
 }
+
 /* tslint:enable:max-classes-per-file */
 
 describe('ComColDataService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let cds: CommunityDataService;
   let objectCache: ObjectCacheService;
@@ -56,6 +55,11 @@ describe('ComColDataService', () => {
   const options = Object.assign(new FindAllOptions(), {
     scopeID: scopeID
   });
+  const getRequestEntry$ = (successful: boolean) => {
+    return observableOf({
+      response: { isSuccessful: successful } as any
+    } as RequestEntry)
+  };
 
   const communitiesEndpoint = 'https://rest.api/core/communities';
   const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
@@ -66,14 +70,6 @@ describe('ComColDataService', () => {
     return jasmine.createSpyObj('responseCache', {
       getEndpoint: hot('--a-', { a: communitiesEndpoint }),
       getFindByIDHref: cold('b-', { b: communityEndpoint })
-    });
-  }
-
-  function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
-    return jasmine.createSpyObj('responseCache', {
-      get: cold('c-', {
-        c: { response: { isSuccessful } }
-      })
     });
   }
 
@@ -91,14 +87,13 @@ describe('ComColDataService', () => {
 
   function initTestService(): TestService {
     return new TestService(
-      responseCache,
       requestService,
       rdbService,
       store,
       EnvConfig,
       cds,
-      objectCache,
       halService,
+      objectCache,
       LINK_NAME
     );
   }
@@ -110,9 +105,8 @@ describe('ComColDataService', () => {
 
     it('should configure a new FindByIDRequest for the scope Community', () => {
       cds = initMockCommunityDataService();
-      requestService = getMockRequestService();
+      requestService = getMockRequestService(getRequestEntry$(true));
       objectCache = initMockObjectCacheService();
-      responseCache = initMockResponseCacheService(true);
       service = initTestService();
 
       const expected = new FindByIDRequest(requestService.generateRequestId(), communityEndpoint, scopeID);
@@ -126,9 +120,8 @@ describe('ComColDataService', () => {
     describe('if the scope Community can be found', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = getMockRequestService();
+        requestService = getMockRequestService(getRequestEntry$(true));
         objectCache = initMockObjectCacheService();
-        responseCache = initMockResponseCacheService(true);
         service = initTestService();
       });
 
@@ -140,18 +133,17 @@ describe('ComColDataService', () => {
 
       it('should return the endpoint to fetch resources within the given scope', () => {
         const result = service.getBrowseEndpoint(options);
-        const expected = cold('--e-', { e: scopedEndpoint });
+        const expected = '--e-';
 
-        expect(result).toBeObservable(expected);
+        scheduler.expectObservable(result).toBe(expected, { e: scopedEndpoint });
       });
     });
 
     describe('if the scope Community can\'t be found', () => {
       beforeEach(() => {
         cds = initMockCommunityDataService();
-        requestService = getMockRequestService();
+        requestService = getMockRequestService(getRequestEntry$(false));
         objectCache = initMockObjectCacheService();
-        responseCache = initMockResponseCacheService(false);
         service = initTestService();
       });
 

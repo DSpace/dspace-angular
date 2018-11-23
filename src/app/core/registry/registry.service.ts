@@ -1,35 +1,34 @@
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
 import { BitstreamFormat } from './mock-bitstream-format.model';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { filter, flatMap, map, tap } from 'rxjs/operators';
 import { GetRequest, RestRequest } from '../data/request.models';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RegistryMetadataschemasResponseParsingService } from '../data/registry-metadataschemas-response-parsing.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import {
-  MetadataschemaSuccessResponse, RegistryBitstreamformatsSuccessResponse, RegistryMetadatafieldsSuccessResponse,
+  RegistryBitstreamformatsSuccessResponse,
+  RegistryMetadatafieldsSuccessResponse,
   RegistryMetadataschemasSuccessResponse
-} from '../cache/response-cache.models';
+} from '../cache/response.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { MetadataschemaParsingService } from '../data/metadataschema-parsing.service';
-import { Res } from 'awesome-typescript-loader/dist/checker/protocol';
 import { RegistryMetadatafieldsResponseParsingService } from '../data/registry-metadatafields-response-parsing.service';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RegistryBitstreamformatsResponseParsingService } from '../data/registry-bitstreamformats-response-parsing.service';
 import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
+import { RequestEntry } from '../data/request.reducer';
+import { getResponseFromEntry } from '../shared/operators';
 
 @Injectable()
 export class RegistryService {
@@ -38,8 +37,7 @@ export class RegistryService {
   private metadataFieldsPath = 'metadatafields';
   private bitstreamFormatsPath = 'bitstreamformats';
 
-  constructor(protected responseCache: ResponseCacheService,
-              protected requestService: RequestService,
+  constructor(protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
               private halService: HALEndpointService) {
 
@@ -52,12 +50,8 @@ export class RegistryService {
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
-    const responseCacheObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.responseCache.get(request.href))
-    );
-
-    const rmrObs: Observable<RegistryMetadataschemasResponse> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const rmrObs: Observable<RegistryMetadataschemasResponse> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: RegistryMetadataschemasSuccessResponse) => response.metadataschemasResponse)
     );
 
@@ -65,16 +59,18 @@ export class RegistryService {
       map((rmr: RegistryMetadataschemasResponse) => rmr.metadataschemas)
     );
 
-    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const pageInfoObs: Observable<PageInfo> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: RegistryMetadataschemasSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(metadataschemasObs, pageInfoObs, (metadataschemas, pageInfo) => {
-      return new PaginatedList(pageInfo, metadataschemas);
-    });
+    const payloadObs = observableCombineLatest(metadataschemasObs, pageInfoObs).pipe(
+      map(([metadataschemas, pageInfo]) => {
+        return new PaginatedList(pageInfo, metadataschemas);
+      })
+    );
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+    return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
   }
 
   public getMetadataSchemaByName(schemaName: string): Observable<RemoteData<MetadataSchema>> {
@@ -89,12 +85,8 @@ export class RegistryService {
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
-    const responseCacheObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.responseCache.get(request.href))
-    );
-
-    const rmrObs: Observable<RegistryMetadataschemasResponse> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const rmrObs: Observable<RegistryMetadataschemasResponse> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: RegistryMetadataschemasSuccessResponse) => response.metadataschemasResponse)
     );
 
@@ -103,7 +95,7 @@ export class RegistryService {
       map((metadataSchemas: MetadataSchema[]) => metadataSchemas.filter((value) => value.prefix === schemaName)[0])
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, metadataschemaObs);
+    return this.rdb.toRemoteDataObservable(requestEntryObs, metadataschemaObs);
   }
 
   public getMetadataFieldsBySchema(schema: MetadataSchema, pagination: PaginationComponentOptions): Observable<RemoteData<PaginatedList<MetadataField>>> {
@@ -113,12 +105,8 @@ export class RegistryService {
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
-    const responseCacheObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.responseCache.get(request.href))
-    );
-
-    const rmrObs: Observable<RegistryMetadatafieldsResponse> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const rmrObs: Observable<RegistryMetadatafieldsResponse> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: RegistryMetadatafieldsSuccessResponse) => response.metadatafieldsResponse)
     );
 
@@ -127,16 +115,19 @@ export class RegistryService {
       map((metadataFields: MetadataField[]) => metadataFields.filter((field) => field.schema.id === schema.id))
     );
 
-    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const pageInfoObs: Observable<PageInfo> = requestEntryObs.pipe(
+      getResponseFromEntry(),
+
       map((response: RegistryMetadatafieldsSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(metadatafieldsObs, pageInfoObs, (metadatafields, pageInfo) => {
-      return new PaginatedList(pageInfo, metadatafields);
-    });
+    const payloadObs = observableCombineLatest(metadatafieldsObs, pageInfoObs).pipe(
+      map(([metadatafields, pageInfo]) => {
+        return new PaginatedList(pageInfo, metadatafields);
+      })
+    );
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+    return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
   }
 
   public getBitstreamFormats(pagination: PaginationComponentOptions): Observable<RemoteData<PaginatedList<BitstreamFormat>>> {
@@ -146,12 +137,8 @@ export class RegistryService {
       flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
     );
 
-    const responseCacheObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.responseCache.get(request.href))
-    );
-
-    const rbrObs: Observable<RegistryBitstreamformatsResponse> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const rbrObs: Observable<RegistryBitstreamformatsResponse> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: RegistryBitstreamformatsSuccessResponse) => response.bitstreamformatsResponse)
     );
 
@@ -159,16 +146,18 @@ export class RegistryService {
       map((rbr: RegistryBitstreamformatsResponse) => rbr.bitstreamformats)
     );
 
-    const pageInfoObs: Observable<PageInfo> = responseCacheObs.pipe(
-      map((entry: ResponseCacheEntry) => entry.response),
+    const pageInfoObs: Observable<PageInfo> = requestEntryObs.pipe(
+      getResponseFromEntry(),
       map((response: RegistryBitstreamformatsSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(bitstreamformatsObs, pageInfoObs, (bitstreamformats, pageInfo) => {
-      return new PaginatedList(pageInfo, bitstreamformats);
-    });
+    const payloadObs = observableCombineLatest(bitstreamformatsObs, pageInfoObs).pipe(
+      map(([bitstreamformats, pageInfo]) => {
+        return new PaginatedList(pageInfo, bitstreamformats);
+      })
+    );
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
+    return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
   }
 
   private getMetadataSchemasRequestObs(pagination: PaginationComponentOptions): Observable<RestRequest> {

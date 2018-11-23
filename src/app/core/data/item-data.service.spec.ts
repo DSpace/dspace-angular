@@ -1,13 +1,13 @@
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/Rx';
+import { TestScheduler } from 'rxjs/testing';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { FindAllOptions } from './request.models';
 
 describe('ItemDataService', () => {
@@ -15,8 +15,8 @@ describe('ItemDataService', () => {
   let service: ItemDataService;
   let bs: BrowseService;
   const requestService = {} as RequestService;
-  const responseCache = {} as ResponseCacheService;
   const rdbService = {} as RemoteDataBuildService;
+  const objectCache = {} as ObjectCacheService;
   const store = {} as Store<CoreState>;
   const halEndpointService = {} as HALEndpointService;
 
@@ -46,12 +46,12 @@ describe('ItemDataService', () => {
 
   function initTestService() {
     return new ItemDataService(
-      responseCache,
       requestService,
       rdbService,
       store,
       bs,
-      halEndpointService
+      halEndpointService,
+      objectCache
     );
   }
 

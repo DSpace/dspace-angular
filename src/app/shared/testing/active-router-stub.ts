@@ -1,6 +1,8 @@
+
+import {map} from 'rxjs/operators';
 import { convertToParamMap, ParamMap, Params } from '@angular/router';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 export class ActivatedRouteStub {
 
@@ -12,7 +14,7 @@ export class ActivatedRouteStub {
 
   params = this.subject.asObservable();
   queryParams = this.subject.asObservable();
-  queryParamMap = this.subject.asObservable().map((params: Params) => convertToParamMap(params));
+  queryParamMap = this.subject.asObservable().pipe(map((params: Params) => convertToParamMap(params)));
   data = this.dataSubject.asObservable();
 
   constructor(params?: Params, data?: any) {

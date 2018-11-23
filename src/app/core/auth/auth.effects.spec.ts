@@ -4,8 +4,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of'
+import { Observable, of as observableOf, throwError as observableThrow } from 'rxjs';
 
 import { AuthEffects } from './auth.effects';
 import {
@@ -30,16 +29,21 @@ import { EPersonMock } from '../../shared/testing/eperson-mock';
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;
   let actions: Observable<any>;
-  const authServiceStub = new AuthServiceStub();
+  let authServiceStub;
   const store: Store<TruncatablesState> = jasmine.createSpyObj('store', {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */
-    select: Observable.of(true)
+    select: observableOf(true)
   });
-  const token = authServiceStub.getToken();
+  let token;
 
+  function init() {
+    authServiceStub = new AuthServiceStub();
+    token = authServiceStub.getToken();
+  }
   beforeEach(() => {
+    init();
     TestBed.configureTestingModule({
       providers: [
         AuthEffects,
@@ -71,7 +75,7 @@ describe('AuthEffects', () => {
 
     describe('when credentials are wrong', () => {
       it('should return a AUTHENTICATE_ERROR action in response to a AUTHENTICATE action', () => {
-        spyOn((authEffects as any).authService, 'authenticate').and.returnValue(Observable.throw(new Error('Message Error test')));
+        spyOn((authEffects as any).authService, 'authenticate').and.returnValue(observableThrow(new Error('Message Error test')));
 
         actions = hot('--a-', {
           a: {
@@ -112,7 +116,7 @@ describe('AuthEffects', () => {
 
     describe('when token is not valid', () => {
       it('should return a AUTHENTICATED_ERROR action in response to a AUTHENTICATED action', () => {
-        spyOn((authEffects as any).authService, 'authenticatedUser').and.returnValue(Observable.throw(new Error('Message Error test')));
+        spyOn((authEffects as any).authService, 'authenticatedUser').and.returnValue(observableThrow(new Error('Message Error test')));
 
         actions = hot('--a-', {a: {type: AuthActionTypes.AUTHENTICATED, payload: token}});
 
@@ -138,7 +142,7 @@ describe('AuthEffects', () => {
 
     describe('when check token failed', () => {
       it('should return a CHECK_AUTHENTICATION_TOKEN_ERROR action in response to a CHECK_AUTHENTICATION_TOKEN action', () => {
-        spyOn((authEffects as any).authService, 'hasValidAuthenticationToken').and.returnValue(Observable.throw(''));
+        spyOn((authEffects as any).authService, 'hasValidAuthenticationToken').and.returnValue(observableThrow(''));
 
         actions = hot('--a-', {a: {type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN, payload: token}});
 
@@ -164,7 +168,7 @@ describe('AuthEffects', () => {
 
     describe('when refresh token failed', () => {
       it('should return a REFRESH_TOKEN_ERROR action in response to a REFRESH_TOKEN action', () => {
-        spyOn((authEffects as any).authService, 'refreshAuthenticationToken').and.returnValue(Observable.throw(''));
+        spyOn((authEffects as any).authService, 'refreshAuthenticationToken').and.returnValue(observableThrow(''));
 
         actions = hot('--a-', {a: {type: AuthActionTypes.REFRESH_TOKEN, payload: token}});
 
@@ -190,7 +194,7 @@ describe('AuthEffects', () => {
 
     describe('when refresh token failed', () => {
       it('should return a REFRESH_TOKEN_ERROR action in response to a LOG_OUT action', () => {
-        spyOn((authEffects as any).authService, 'logout').and.returnValue(Observable.throw(new Error('Message Error test')));
+        spyOn((authEffects as any).authService, 'logout').and.returnValue(observableThrow(new Error('Message Error test')));
 
         actions = hot('--a-', {a: {type: AuthActionTypes.LOG_OUT, payload: token}});
 
