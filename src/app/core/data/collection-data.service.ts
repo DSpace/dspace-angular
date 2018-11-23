@@ -12,17 +12,17 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, take } from 'rxjs/operators';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { GetRequest } from './request.models';
-import {
-  configureRequest
-} from '../shared/operators';
+import { configureRequest } from '../shared/operators';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
+import { IndexName, IndexState } from '../index/index.reducer';
+import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
@@ -34,7 +34,8 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected store: Store<CoreState>,
     protected cds: CommunityDataService,
     protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService
+    protected objectCache: ObjectCacheService,
+    protected indexStore: Store<IndexState>
   ) {
     super();
   }
@@ -66,6 +67,12 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     ).subscribe();
 
     return this.rdbService.buildList(href$);
+  }
+
+  clearMappingItemsRequests(collectionId: string) {
+    this.getMappingItemsEndpoint(collectionId).pipe(take(1)).subscribe((href: string) => {
+      this.indexStore.dispatch(new RemoveFromIndexBySubstringAction(IndexName.REQUEST, href));
+    });
   }
 
 }

@@ -8,7 +8,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { SearchConfigurationService } from '../../+search-page/search-service/search-configuration.service';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -151,6 +151,10 @@ export class CollectionItemMapperComponent implements OnInit {
           this.notificationsService.error(head, content);
         });
       }
+    });
+
+    this.collectionRD$.pipe(take(1)).subscribe((collectionRD: RemoteData<Collection>) => {
+      this.collectionDataService.clearMappingItemsRequests(collectionRD.payload.id);
     });
   }
 
