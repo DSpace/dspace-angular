@@ -7,12 +7,16 @@
     <div class="sidebar-top-level-items">
         <ul class="navbar-nav">
             <li class="admin-menu-header sidebar-section">
-                <a class="shortcuts-tree navbar-brand mr-0 p-0" href="#">
-                    <span class="logo-wrapper">
-                        <img class="admin-logo" src="assets/images/dspace-logo-mini.svg">
-                    </span>
-                    <h4 class="section-header-text">Admin</h4>
+                <a class="shortcut-icon navbar-brand mr-0" href="#">
+                <span class="logo-wrapper">
+                    <img class="admin-logo" src="assets/images/dspace-logo-mini.svg">
+                </span>
                 </a>
+                <div class="sidebar-collapsible">
+                    <a class="shortcuts-tree navbar-brand" href="#">
+                        <h4 class="section-header-text mb-0">Admin</h4>
+                    </a>
+                </div>
             </li>
             <ds-expandable-admin-sidebar-section name="new" icon="plus-circle" [subSections]="[
             {name: 'Community', link: '#'},
@@ -49,16 +53,31 @@
             {name: 'Metadata', link: '#'},
             {name: 'Format', link: '#'}
             ]"></ds-expandable-admin-sidebar-section>
-            <ds-admin-sidebar-section name="curation_task" icon="filter" link="#"></ds-admin-sidebar-section>
-            <ds-admin-sidebar-section name="statistics" icon="chart-bar" link="#"></ds-admin-sidebar-section>
-            <ds-admin-sidebar-section name="control_panel" icon="cogs" link="#"></ds-admin-sidebar-section>
+            <ds-admin-sidebar-section name="curation_task" icon="filter"
+                                      link="#"></ds-admin-sidebar-section>
+            <ds-admin-sidebar-section name="statistics" icon="chart-bar"
+                                      link="#"></ds-admin-sidebar-section>
+            <ds-admin-sidebar-section name="control_panel" icon="cogs"
+                                      link="#"></ds-admin-sidebar-section>
         </ul>
     </div>
     <div class="navbar-nav">
-        <a class="nav-item nav-link shortcuts-tree sidebar-section" id="sidebar-collapse-toggle" href="#"
-           (click)="toggle($event)">
-            <i class="fas fa-fw fa-angle-double-right" [ngClass]="{'fa-angle-double-right': (sidebarCollapsed | async), 'fa-angle-double-left': !(sidebarCollapsed | async)}"></i>
-            <span class="section-header-text">Collapse</span>
-        </a>
+        <div class="sidebar-section" id="sidebar-collapse-toggle">
+            <a class="nav-item nav-link"
+               href="#"
+               (click)="toggle($event)">
+            <span class="shortcut-icon">
+                <i class="fas fa-fw fa-angle-double-right"
+                   [ngClass]="{'fa-angle-double-right': (sidebarCollapsed | async), 'fa-angle-double-left': !(sidebarCollapsed | async)}"></i>
+            </span>
+            </a>
+            <div class="sidebar-collapsible">
+                <a class="nav-item nav-link sidebar-section"
+                   href="#"
+                   (click)="toggle($event)">
+                    <span class="section-header-text">Collapse</span>
+                </a>
+            </div>
+        </div>
     </div>
 </nav>

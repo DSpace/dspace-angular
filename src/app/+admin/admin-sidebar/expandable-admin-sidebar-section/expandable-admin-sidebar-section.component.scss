@@ -1,19 +1,20 @@
 @import '../../../../styles/variables.scss';
 
 .fa-chevron-right {
-    display: none;
     padding-left: $spacer/2;
     font-size: 0.5rem;
     line-height: 3;
 }
 
-.sub-section-wrapper {
-    overflow: hidden;
-}
-
 .sidebar-sub-level-items {
     list-style: disc;
     color: $navbar-dark-color;
-    /** To make sure animation is smooth */
-    width: 0;
+    overflow: hidden;
+
+}
+
+.sidebar-collapsible {
+    display: flex;
+    flex-direction: column;
+
 }

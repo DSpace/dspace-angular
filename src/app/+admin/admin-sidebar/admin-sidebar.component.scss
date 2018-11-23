@@ -20,16 +20,12 @@
         .admin-menu-header {
             background-color: $admin-sidebar-header-bg;
             .logo-wrapper {
-                text-align: center;
-                display: inline-block;
-                width: 1.25em;
                 img {
-                    height: 1em;
-                    vertical-align: text-bottom;
+                    height: 20px;
                 }
             }
             .section-header-text {
-                vertical-align: bottom;
+                line-height: 1.5;
             }
 
         }
@@ -38,24 +34,37 @@
 
             .navbar-nav {
                 .sidebar-section {
-                    padding: $spacer;
+                    display: flex;
+                    align-content: stretch;
+                    &:hover {
+                        color: $navbar-dark-hover-color;
+                        a {
+                            color: inherit;
+                        }
+                    }
+
+                    .nav-item {
+                        padding-top: $spacer;
+                        padding-bottom: $spacer;
+                    }
+                    .shortcut-icon {
+                        padding-left: $spacer;
+                        padding-right: $spacer;
+                    }
+                    .sidebar-collapsible {
+                        flex: 1;
+                        a {
+                            padding-right: $spacer;
+                        }
+                    }
                 }
-                .section-header-text {
-                    display: none;
-                    padding-left: $spacer/2;
-                }
+
                 #sidebar-collapse-toggle {
                     border-top: 2px solid rgba(255, 255, 255, 0.1);
                 }
             }
         }
-        &.active {
-            ::ng-deep {
-                .section-header-text, .fa-chevron-right {
-                    display: inline;
-                }
-            }
-        }
 
     }
+
 }

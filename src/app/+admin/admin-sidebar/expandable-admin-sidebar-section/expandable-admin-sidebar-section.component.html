@@ -2,17 +2,21 @@
     [@bgColor]="{
      value: ((collapsed | async) ? 'startBackground' : 'endBackground'),
      params: {endColor: (sidebarActiveBg | async)}}">
-    <a class="nav-item nav-link shortcuts-tree p-0" href="#"
+    <a class="nav-item nav-link shortcut-icon" href="#"
        (click)="toggleSection($event)">
         <i class="fas fa-{{icon}} fa-fw"></i>
-        <span class="section-header-text">{{('admin.sidebar.section.' + name + '.header') | translate}}</span>
-        <i class="fas fa-chevron-right fa-pull-right"
-           [@rotate]="(collapsed | async) ? 'collapsed' : 'expanded'"></i>
     </a>
-    <div class="sub-section-wrapper" @slide *ngIf="!(collapsed | async)">
-    <ul class="sidebar-sub-level-items">
-        <li *ngFor="let section of subSections"><a class="nav-item nav-link" [href]="section.link">{{section.name}}</a>
-        </li>
-    </ul>
+    <div class="sidebar-collapsible">
+        <a class="nav-item nav-link shortcuts-tree" href="#"
+           (click)="toggleSection($event)">
+            <span class="section-header-text">{{('admin.sidebar.section.' + name + '.header') | translate}}</span>
+            <i class="fas fa-chevron-right fa-pull-right"
+               [@rotate]="(collapsed | async) ? 'collapsed' : 'expanded'"></i>
+        </a>
+        <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="!(collapsed | async)">
+            <li *ngFor="let section of subSections">
+                <a class="nav-item nav-link" [href]="section.link">{{section.name}}</a>
+            </li>
+        </ul>
     </div>
 </li>
