@@ -30,7 +30,7 @@
                 | translate}}</a>
         </div>
     </div>
-    <ds-input-suggestions [suggestions]="(filterSearchResults | async)"
+    <ds-input-suggestions [suggestions]="(CollectionSearchResults | async)"
                           [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"
                           [action]="getCurrentUrl()"
                           [name]="filterConfig.paramName"

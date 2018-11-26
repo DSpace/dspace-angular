@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <ds-input-suggestions #f id="search-form"
-                                          [suggestions]="(filterSearchResults | async)"
+                                          [suggestions]="(CollectionSearchResults | async)"
                                           [placeholder]="'item.move.search.placeholder'| translate"
                                           [action]="getCurrentUrl()"
                                           [name]="'item-move'"

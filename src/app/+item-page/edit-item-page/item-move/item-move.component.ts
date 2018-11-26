@@ -8,12 +8,9 @@ import {RemoteData} from '../../../core/data/remote-data';
 import {DSpaceObject} from '../../../core/shared/dspace-object.model';
 import {PaginatedList} from '../../../core/data/paginated-list';
 import {SearchResult} from '../../../+search-page/search-result.model';
-import {PaginatedSearchOptions} from '../../../+search-page/paginated-search-options.model';
 import {Item} from '../../../core/shared/item.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {CollectionDataService} from '../../../core/data/collection-data.service';
-import {SearchConfigurationService} from '../../../+search-page/search-service/search-configuration.service';
 import {TranslateService} from '@ngx-translate/core';
 import {getSucceededRemoteData} from '../../../core/shared/operators';
 import {ItemDataService} from '../../../core/data/item-data.service';
@@ -24,15 +21,14 @@ import {getItemEditPath} from '../../item-page-routing.module';
   selector: 'ds-item-move',
   templateUrl: './item-move.component.html'
 })
+/**
+ * Component that handles the moving of an item to a different collection
+ */
 export class ItemMoveComponent implements OnInit {
 
   inheritPolicies = false;
   itemRD$: Observable<RemoteData<Item>>;
-  /**
-   * Search options
-   */
-  searchOptions$: Observable<PaginatedSearchOptions>;
-  filterSearchResults: Observable<any[]> = Observable.of([]);
+  CollectionSearchResults: Observable<any[]> = Observable.of([]);
   selectedCollection: string;
 
   selectedCollectionId: string;
@@ -41,9 +37,7 @@ export class ItemMoveComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private notificationsService: NotificationsService,
-              private collectionDataService: CollectionDataService,
               private itemDataService: ItemDataService,
-              private searchConfigService: SearchConfigurationService,
               private searchService: SearchService,
               private translateService: TranslateService) {
   }
@@ -54,10 +48,13 @@ export class ItemMoveComponent implements OnInit {
         this.itemId = rd.payload.id;
       }
     );
-    this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadSuggestions('');
   }
 
+  /**
+   * Find suggestions based on entered query
+   * @param query - Search query
+   */
   findSuggestions(query): void {
     this.loadSuggestions(query);
   }
@@ -67,7 +64,7 @@ export class ItemMoveComponent implements OnInit {
    *  TODO: When the API support it, only fetch collections where user has ADD rights to.
    */
   loadSuggestions(query): void {
-    this.filterSearchResults = this.searchService.search(new SearchOptions({
+    this.CollectionSearchResults = this.searchService.search(new SearchOptions({
       dsoType: DSpaceObjectType.COLLECTION,
       query: query
     })).first().pipe(
@@ -83,6 +80,10 @@ export class ItemMoveComponent implements OnInit {
 
   }
 
+  /**
+   * Set the collection name and id based on the selected value
+   * @param data - obtained from the ds-input-suggestions component
+   */
   onClick(data: any): void {
     this.selectedCollection = data.name;
     this.selectedCollectionId = data.id;
@@ -95,6 +96,9 @@ export class ItemMoveComponent implements OnInit {
     return this.router.url;
   }
 
+  /**
+   * Moves the item to a new collection based on the selected collection
+   */
   moveCollection() {
     this.itemDataService.moveToCollection(this.itemId, this.selectedCollectionId).first().subscribe(
       (response: RestResponse) => {
