@@ -15,23 +15,23 @@ import {
 import { race as observableRace } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { hasNoValue, hasValue, isNotUndefined } from '../../shared/empty.util';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { coreSelector, CoreState } from '../core.reducers';
-import { IndexName } from '../index/index.reducer';
+import { IndexName, IndexState } from '../index/index.reducer';
 import { pathSelector } from '../shared/selectors';
 import { UUIDService } from '../shared/uuid.service';
-import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
+import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
 import { GetRequest, RestRequest } from './request.models';
 
 import { RequestEntry } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { getResponseFromEntry } from '../shared/operators';
-import { AddToIndexAction } from '../index/index.actions';
+import { AddToIndexAction, RemoveFromIndexBySubstringAction } from '../index/index.actions';
 
 @Injectable()
 export class RequestService {
@@ -39,7 +39,8 @@ export class RequestService {
 
   constructor(private objectCache: ObjectCacheService,
               private uuidService: UUIDService,
-              private store: Store<CoreState>) {
+              private store: Store<CoreState>,
+              private indexStore: Store<IndexState>) {
   }
 
   private entryFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, RequestEntry> {
@@ -52,6 +53,25 @@ export class RequestService {
 
   private originalUUIDFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, string> {
     return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.UUID_MAPPING, uuid);
+  }
+
+  private uuidsFromHrefSubstringSelector(selector: MemoizedSelector<any, IndexState>, name: string, href: string): MemoizedSelector<any, string[]> {
+    return createSelector(selector, (state: IndexState) => this.getUuidsFromHrefSubstring(state, name, href));
+  }
+
+  private getUuidsFromHrefSubstring(state: IndexState, name: string, href: string): string[] {
+    let result = [];
+    if (isNotEmpty(state)) {
+      const subState = state[name];
+      if (isNotEmpty(subState)) {
+        for (const value in subState) {
+          if (value.indexOf(href) > -1) {
+            result = [...result, subState[value]];
+          }
+        }
+      }
+    }
+    return result;
   }
 
   generateRequestId(): string {
@@ -117,6 +137,32 @@ export class RequestService {
         }
       )
     }
+  }
+
+  /**
+   * Remove all request cache providing (part of) the href
+   * This also includes href-to-uuid index cache
+   * @param href    A substring of the request(s) href
+   */
+  removeByHrefSubstring(href: string) {
+    this.store.pipe(
+      select(this.uuidsFromHrefSubstringSelector(pathSelector<CoreState, IndexState>(coreSelector, 'index'), IndexName.REQUEST, href)),
+      take(1)
+    ).subscribe((uuids: string[]) => {
+      for (const uuid of uuids) {
+        this.removeByUuid(uuid);
+      }
+    });
+    this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((reqHref: string) => reqHref.indexOf(href) < 0);
+    this.indexStore.dispatch(new RemoveFromIndexBySubstringAction(IndexName.REQUEST, href));
+  }
+
+  /**
+   * Remove request cache using the request's UUID
+   * @param uuid
+   */
+  removeByUuid(uuid: string) {
+    this.store.dispatch(new RequestRemoveAction(uuid));
   }
 
   /**
