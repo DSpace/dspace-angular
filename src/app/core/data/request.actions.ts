@@ -10,7 +10,8 @@ export const RequestActionTypes = {
   CONFIGURE: type('dspace/core/data/request/CONFIGURE'),
   EXECUTE: type('dspace/core/data/request/EXECUTE'),
   COMPLETE: type('dspace/core/data/request/COMPLETE'),
-  RESET_TIMESTAMPS: type('dspace/core/data/request/RESET_TIMESTAMPS')
+  RESET_TIMESTAMPS: type('dspace/core/data/request/RESET_TIMESTAMPS'),
+  REMOVE: type('dspace/core/data/request/REMOVE')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -82,6 +83,24 @@ export class ResetResponseTimestampsAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to remove a cached request
+ */
+export class RequestRemoveAction implements Action {
+  type = RequestActionTypes.REMOVE;
+  uuid: string;
+
+  /**
+   * Create a new RequestRemoveAction
+   *
+   * @param uuid
+   *    the request's uuid
+   */
+  constructor(uuid: string) {
+    this.uuid = uuid
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -91,4 +110,5 @@ export type RequestAction
   = RequestConfigureAction
   | RequestExecuteAction
   | RequestCompleteAction
-  | ResetResponseTimestampsAction;
+  | ResetResponseTimestampsAction
+  | RequestRemoveAction;

@@ -15,16 +15,16 @@ import {
 import { race as observableRace } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { hasNoValue, hasValue, isNotUndefined } from '../../shared/empty.util';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { coreSelector, CoreState } from '../core.reducers';
-import { IndexName } from '../index/index.reducer';
+import { IndexName, IndexState } from '../index/index.reducer';
 import { pathSelector } from '../shared/selectors';
 import { UUIDService } from '../shared/uuid.service';
-import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
+import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
 import { GetRequest, RestRequest } from './request.models';
 
 import { RequestEntry } from './request.reducer';
@@ -52,6 +52,25 @@ export class RequestService {
 
   private originalUUIDFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, string> {
     return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.UUID_MAPPING, uuid);
+  }
+
+  private uuidsFromHrefSubstringSelector(selector: MemoizedSelector<any, IndexState>, name: string, href: string): MemoizedSelector<any, string[]> {
+    return createSelector(selector, (state: IndexState) => this.getUuidsFromHrefSubstring(state, name, href));
+  }
+
+  private getUuidsFromHrefSubstring(state: IndexState, name: string, href: string): string[] {
+    let result = [];
+    if (isNotEmpty(state)) {
+      const subState = state[name];
+      if (isNotEmpty(subState)) {
+        for (const value in subState) {
+          if (value.indexOf(href) > -1) {
+            result = [...result, subState[value]];
+          }
+        }
+      }
+    }
+    return result;
   }
 
   generateRequestId(): string {
@@ -117,6 +136,28 @@ export class RequestService {
         }
       )
     }
+  }
+
+  removeByHref(href: string) {
+    this.store.pipe(
+      select(this.uuidFromHrefSelector(href))
+    ).subscribe((uuid: string) => {
+      this.removeByUuid(uuid);
+    });
+  }
+
+  removeByHrefSubstring(href: string) {
+    this.store.pipe(
+      select(this.uuidsFromHrefSubstringSelector(pathSelector<CoreState, IndexState>(coreSelector, 'index'), IndexName.REQUEST, href))
+    ).subscribe((uuids: string[]) => {
+      for (const uuid of uuids) {
+        this.removeByUuid(uuid);
+      }
+    });
+  }
+
+  removeByUuid(uuid: string) {
+    this.store.dispatch(new RequestRemoveAction(uuid));
   }
 
   /**
