@@ -19,16 +19,13 @@ export class NormalizedRelationship extends NormalizedObject {
   id: string;
 
   /**
-   * The identifier of the Relationship to the left side of this Relationship
+   * The identifier of the Entity to the left side of this Relationship
    */
   @autoserialize
   leftId: string;
 
-  @autoserialize
-  place: number;
-
   /**
-   * The identifier of the Relationship to the right side of this Relationship
+   * The identifier of the Entity to the right side of this Relationship
    */
   @autoserialize
   rightId: string;

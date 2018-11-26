@@ -26,14 +26,12 @@ export class Relationship implements CacheableObject {
   id: string;
 
   /**
-   * The identifier of the Relationship to the left side of this Relationship
+   * The identifier of the Entity to the left side of this Relationship
    */
   leftId: string;
 
-  place: string;
-
   /**
-   * The identifier of the Relationship to the right side of this Relationship
+   * The identifier of the Entity to the right side of this Relationship
    */
   rightId: string;
 

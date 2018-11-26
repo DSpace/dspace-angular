@@ -25,9 +25,15 @@ export class NormalizedRelationshipType extends NormalizedObject {
   @autoserialize
   leftLabel: string;
 
+  /**
+   * The maximum amount of Relationships allowed to the left of this RelationshipType
+   */
   @autoserialize
   leftMaxCardinality: number;
 
+  /**
+   * The minimum amount of Relationships allowed to the left of this RelationshipType
+   */
   @autoserialize
   leftMinCardinality: number;
 
@@ -37,9 +43,15 @@ export class NormalizedRelationshipType extends NormalizedObject {
   @autoserialize
   rightLabel: string;
 
+  /**
+   * The maximum amount of Relationships allowed to the right of this RelationshipType
+   */
   @autoserialize
   rightMaxCardinality: number;
 
+  /**
+   * The minimum amount of Relationships allowed to the right of this RelationshipType
+   */
   @autoserialize
   rightMinCardinality: number;
 

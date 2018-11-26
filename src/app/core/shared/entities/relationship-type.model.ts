@@ -35,8 +35,14 @@ export class RelationshipType implements CacheableObject {
    */
   leftLabel: string;
 
+  /**
+   * The maximum amount of Relationships allowed to the left of this RelationshipType
+   */
   leftMaxCardinality: number;
 
+  /**
+   * The minimum amount of Relationships allowed to the left of this RelationshipType
+   */
   leftMinCardinality: number;
 
   /**
@@ -44,8 +50,14 @@ export class RelationshipType implements CacheableObject {
    */
   rightLabel: string;
 
+  /**
+   * The maximum amount of Relationships allowed to the right of this RelationshipType
+   */
   rightMaxCardinality: number;
 
+  /**
+   * The minimum amount of Relationships allowed to the right of this RelationshipType
+   */
   rightMinCardinality: number;
 
   /**
