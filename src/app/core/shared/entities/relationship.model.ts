@@ -36,6 +36,16 @@ export class Relationship implements CacheableObject {
   rightId: string;
 
   /**
+   * The place of the Entity to the left side of this Relationship
+   */
+  leftPlace: number;
+
+  /**
+   * The place of the Entity to the right side of this Relationship
+   */
+  rightPlace: number;
+
+  /**
    * The type of Relationship
    */
   relationshipType: Observable<RemoteData<RelationshipType>>;

@@ -31,6 +31,18 @@ export class NormalizedRelationship extends NormalizedObject {
   rightId: string;
 
   /**
+   * The place of the Entity to the left side of this Relationship
+   */
+  @autoserialize
+  leftPlace: number;
+
+  /**
+   * The place of the Entity to the right side of this Relationship
+   */
+  @autoserialize
+  rightPlace: number;
+
+  /**
    * The type of Relationship
    */
   @autoserialize
