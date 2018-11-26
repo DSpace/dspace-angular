@@ -13,9 +13,12 @@ import { ITEM } from '../../../../shared/entities/switcher/entity-type-switcher.
 
 /**
  * Operator for comparing arrays using a mapping function
+ * The mapping function should turn the source array into an array of basic types, so that the array can
+ * be compared using these basic types.
+ * For example: "(o) => o.id" will compare the two arrays by comparing their content by id.
  * @param mapFn   Function for mapping the arrays
  */
-const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
+export const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
   (a: T[], b: T[]): boolean => {
     if (!Array.isArray(a) || ! Array.isArray(b)) {
       return false
@@ -32,7 +35,7 @@ const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
 /**
  * Operator for comparing arrays using the object's ids
  */
-const compareArraysUsingIds = <T extends { id: string }>() =>
+export const compareArraysUsingIds = <T extends { id: string }>() =>
   compareArraysUsing((t: T) => hasValue(t) ? t.id : undefined);
 
 /**

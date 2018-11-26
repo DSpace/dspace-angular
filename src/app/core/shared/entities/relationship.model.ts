@@ -4,6 +4,9 @@ import { RemoteData } from '../../data/remote-data';
 import { ResourceType } from '../resource-type';
 import { RelationshipType } from './relationship-type.model';
 
+/**
+ * Describes a Relationship between two Entities
+ */
 export class Relationship implements CacheableObject {
   /**
    * The link to the rest endpoint where this object can be found

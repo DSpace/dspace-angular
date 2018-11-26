@@ -17,6 +17,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/entities/relationship.model';
 import { Observable } from 'rxjs/Observable';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { compareArraysUsing, compareArraysUsingIds } from './entity-page-fields.component';
 
 /**
  * Create a generic test for an entity-page-fields component using a mockItem and the type of component
@@ -99,3 +100,210 @@ export function createRelationshipsObservable() {
     })
   ])));
 }
+describe('EntityPageFieldsComponent', () => {
+  const arr1 = [
+    {
+      id: 1,
+      name: 'test'
+    },
+    {
+      id: 2,
+      name: 'another test'
+    },
+    {
+      id: 3,
+      name: 'one last test'
+    }
+  ];
+  const arrWithWrongId = [
+    {
+      id: 1,
+      name: 'test'
+    },
+    {
+      id: 5,  // Wrong id on purpose
+      name: 'another test'
+    },
+    {
+      id: 3,
+      name: 'one last test'
+    }
+  ];
+  const arrWithWrongName = [
+    {
+      id: 1,
+      name: 'test'
+    },
+    {
+      id: 2,
+      name: 'wrong test'  // Wrong name on purpose
+    },
+    {
+      id: 3,
+      name: 'one last test'
+    }
+  ];
+  const arrWithDifferentOrder = [arr1[0], arr1[2], arr1[1]];
+  const arrWithOneMore = [...arr1, {
+    id: 4,
+    name: 'fourth test'
+  }];
+  const arrWithAddedProperties = [
+    {
+      id: 1,
+      name: 'test',
+      extra: 'extra property'
+    },
+    {
+      id: 2,
+      name: 'another test',
+      extra: 'extra property'
+    },
+    {
+      id: 3,
+      name: 'one last test',
+      extra: 'extra property'
+    }
+  ];
+  const arrOfPrimitiveTypes = [1, 2, 3, 4];
+  const arrOfPrimitiveTypesWithOneWrong = [1, 5, 3, 4];
+  const arrOfPrimitiveTypesWithDifferentOrder = [1, 3, 2, 4];
+  const arrOfPrimitiveTypesWithOneMore = [1, 2, 3, 4, 5];
+
+  describe('when calling compareArraysUsing', () => {
+
+    describe('and comparing by id', () => {
+      const compare = compareArraysUsing<any>((o) => o.id);
+
+      it('should return true when comparing the same array', () => {
+        expect(compare(arr1, arr1)).toBeTruthy();
+      });
+
+      it('should return true regardless of the order', () => {
+        expect(compare(arr1, arrWithDifferentOrder)).toBeTruthy();
+      });
+
+      it('should return true regardless of other properties being different', () => {
+        expect(compare(arr1, arrWithWrongName)).toBeTruthy();
+      });
+
+      it('should return true regardless of extra properties', () => {
+        expect(compare(arr1, arrWithAddedProperties)).toBeTruthy();
+      });
+
+      it('should return false when the ids don\'t match', () => {
+        expect(compare(arr1, arrWithWrongId)).toBeFalsy();
+      });
+
+      it('should return false when the sizes don\'t match', () => {
+        expect(compare(arr1, arrWithOneMore)).toBeFalsy();
+      });
+    });
+
+    describe('and comparing by name', () => {
+      const compare = compareArraysUsing<any>((o) => o.name);
+
+      it('should return true when comparing the same array', () => {
+        expect(compare(arr1, arr1)).toBeTruthy();
+      });
+
+      it('should return true regardless of the order', () => {
+        expect(compare(arr1, arrWithDifferentOrder)).toBeTruthy();
+      });
+
+      it('should return true regardless of other properties being different', () => {
+        expect(compare(arr1, arrWithWrongId)).toBeTruthy();
+      });
+
+      it('should return true regardless of extra properties', () => {
+        expect(compare(arr1, arrWithAddedProperties)).toBeTruthy();
+      });
+
+      it('should return false when the names don\'t match', () => {
+        expect(compare(arr1, arrWithWrongName)).toBeFalsy();
+      });
+
+      it('should return false when the sizes don\'t match', () => {
+        expect(compare(arr1, arrWithOneMore)).toBeFalsy();
+      });
+    });
+
+    describe('and comparing by full objects', () => {
+      const compare = compareArraysUsing<any>((o) => o);
+
+      it('should return true when comparing the same array', () => {
+        expect(compare(arr1, arr1)).toBeTruthy();
+      });
+
+      it('should return true regardless of the order', () => {
+        expect(compare(arr1, arrWithDifferentOrder)).toBeTruthy();
+      });
+
+      it('should return false when extra properties are added', () => {
+        expect(compare(arr1, arrWithAddedProperties)).toBeFalsy();
+      });
+
+      it('should return false when the ids don\'t match', () => {
+        expect(compare(arr1, arrWithWrongId)).toBeFalsy();
+      });
+
+      it('should return false when the names don\'t match', () => {
+        expect(compare(arr1, arrWithWrongName)).toBeFalsy();
+      });
+
+      it('should return false when the sizes don\'t match', () => {
+        expect(compare(arr1, arrWithOneMore)).toBeFalsy();
+      });
+    });
+
+    describe('and comparing with primitive objects as source', () => {
+      const compare = compareArraysUsing<any>((o) => o);
+
+      it('should return true when comparing the same array', () => {
+        expect(compare(arrOfPrimitiveTypes, arrOfPrimitiveTypes)).toBeTruthy();
+      });
+
+      it('should return true regardless of the order', () => {
+        expect(compare(arrOfPrimitiveTypes, arrOfPrimitiveTypesWithDifferentOrder)).toBeTruthy();
+      });
+
+      it('should return false when at least one is wrong', () => {
+        expect(compare(arrOfPrimitiveTypes, arrOfPrimitiveTypesWithOneWrong)).toBeFalsy();
+      });
+
+      it('should return false when the sizes don\'t match', () => {
+        expect(compare(arrOfPrimitiveTypes, arrOfPrimitiveTypesWithOneMore)).toBeFalsy();
+      });
+    });
+
+  });
+
+  describe('when calling compareArraysUsingIds', () => {
+    const compare = compareArraysUsingIds();
+
+    it('should return true when comparing the same array', () => {
+      expect(compare(arr1 as any, arr1 as any)).toBeTruthy();
+    });
+
+    it('should return true regardless of the order', () => {
+      expect(compare(arr1 as any, arrWithDifferentOrder as any)).toBeTruthy();
+    });
+
+    it('should return true regardless of other properties being different', () => {
+      expect(compare(arr1 as any, arrWithWrongName as any)).toBeTruthy();
+    });
+
+    it('should return true regardless of extra properties', () => {
+      expect(compare(arr1 as any, arrWithAddedProperties as any)).toBeTruthy();
+    });
+
+    it('should return false when the ids don\'t match', () => {
+      expect(compare(arr1 as any, arrWithWrongId as any)).toBeFalsy();
+    });
+
+    it('should return false when the sizes don\'t match', () => {
+      expect(compare(arr1 as any, arrWithOneMore as any)).toBeFalsy();
+    });
+  });
+
+});
