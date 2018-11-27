@@ -13,6 +13,7 @@ import { PaginatedList } from '../../core/data/paginated-list';
   templateUrl: './community-page-sub-community-list.component.html',
   animations:[fadeIn]
 })
+
 export class CommunityPageSubCommunityListComponent implements OnInit {
   @Input() community: Community;
   subCommunitiesRDObs: Observable<RemoteData<PaginatedList<Community>>>;
