@@ -110,7 +110,7 @@ describe('ItemMoveComponent', () => {
       }
     ];
 
-    comp.CollectionSearchResults.subscribe((value) => {
+    comp.collectionSearchResults.subscribe((value) => {
         expect(value).toEqual(expected);
       }
     );

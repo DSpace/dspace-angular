@@ -28,7 +28,7 @@ export class ItemMoveComponent implements OnInit {
 
   inheritPolicies = false;
   itemRD$: Observable<RemoteData<Item>>;
-  CollectionSearchResults: Observable<any[]> = Observable.of([]);
+  collectionSearchResults: Observable<any[]> = Observable.of([]);
   selectedCollection: string;
 
   selectedCollectionId: string;
@@ -64,7 +64,7 @@ export class ItemMoveComponent implements OnInit {
    *  TODO: When the API support it, only fetch collections where user has ADD rights to.
    */
   loadSuggestions(query): void {
-    this.CollectionSearchResults = this.searchService.search(new SearchOptions({
+    this.collectionSearchResults = this.searchService.search(new SearchOptions({
       dsoType: DSpaceObjectType.COLLECTION,
       query: query
     })).first().pipe(
