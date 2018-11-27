@@ -322,6 +322,9 @@ export class SearchService implements OnDestroy {
     return '/' + g.toString();
   }
 
+  /**
+   * Clear all request cache related to discovery objects
+   */
   clearDiscoveryRequests() {
     this.halService.getEndpoint(this.searchLinkPath).pipe(take(1)).subscribe((href: string) => {
       this.requestService.removeByHrefSubstring(href);

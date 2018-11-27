@@ -11,13 +11,14 @@ import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../../core/shar
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../+search-page/search-service/search.service';
 import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { RestResponse } from '../../../core/cache/response.models';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -55,6 +56,12 @@ export class ItemCollectionMapperComponent implements OnInit {
    */
   mappingCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
 
+  /**
+   * Firing this observable (shouldUpdate$.next(true)) forces the two lists to reload themselves
+   * Usually fired after the lists their cache is cleared (to force a new request to the REST API)
+   */
+  shouldUpdate$: BehaviorSubject<boolean>;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private searchConfigService: SearchConfigurationService,
@@ -76,8 +83,13 @@ export class ItemCollectionMapperComponent implements OnInit {
    *  TODO: When the API support it, fetch collections excluding the item's scope (currently fetches all collections)
    */
   loadCollectionLists() {
-    this.itemCollectionsRD$ = this.itemRD$.pipe(
-      map((itemRD: RemoteData<Item>) => itemRD.payload),
+    this.shouldUpdate$ = new BehaviorSubject<boolean>(true);
+    this.itemCollectionsRD$ = observableCombineLatest(this.itemRD$, this.shouldUpdate$).pipe(
+      map(([itemRD, shouldUpdate]) => {
+        if (shouldUpdate) {
+          return itemRD.payload
+        }
+      }),
       switchMap((item: Item) => this.itemDataService.getMappedCollections(item.id))
     );
 
@@ -120,6 +132,7 @@ export class ItemCollectionMapperComponent implements OnInit {
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.add');
+    this.clearRequestCache();
   }
 
   /**
@@ -135,6 +148,7 @@ export class ItemCollectionMapperComponent implements OnInit {
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.remove');
+    this.clearRequestCache();
   }
 
   /**
@@ -176,6 +190,18 @@ export class ItemCollectionMapperComponent implements OnInit {
           this.notificationsService.error(head, content);
         });
       }
+      // Force an update on all lists
+      this.shouldUpdate$.next(true);
+    });
+  }
+
+  /**
+   * Clear all previous requests from cache in preparation of refreshing all lists
+   */
+  private clearRequestCache() {
+    this.itemRD$.pipe(take(1)).subscribe((itemRD: RemoteData<Item>) => {
+      this.itemDataService.clearMappedCollectionsRequests(itemRD.payload.id);
+      this.searchService.clearDiscoveryRequests();
     });
   }
 

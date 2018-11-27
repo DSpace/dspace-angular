@@ -139,6 +139,11 @@ export class RequestService {
     }
   }
 
+  /**
+   * Remove all request cache providing (part of) the href
+   * This also includes href-to-uuid index cache
+   * @param href    A substring of the request(s) href
+   */
   removeByHrefSubstring(href: string) {
     this.store.pipe(
       select(this.uuidsFromHrefSubstringSelector(pathSelector<CoreState, IndexState>(coreSelector, 'index'), IndexName.REQUEST, href)),
@@ -152,6 +157,10 @@ export class RequestService {
     this.indexStore.dispatch(new RemoveFromIndexBySubstringAction(IndexName.REQUEST, href));
   }
 
+  /**
+   * Remove request cache using the request's UUID
+   * @param uuid
+   */
   removeByUuid(uuid: string) {
     this.store.dispatch(new RequestRemoveAction(uuid));
   }

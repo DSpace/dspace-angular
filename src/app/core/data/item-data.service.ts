@@ -1,5 +1,5 @@
 
-import { distinctUntilChanged, map, filter, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, filter, switchMap, tap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -100,6 +100,12 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     );
 
     return this.rdbService.toRemoteDataObservable(requestEntry$, payload$);
+  }
+
+  public clearMappedCollectionsRequests(itemId: string) {
+    this.getMappingCollectionsEndpoint(itemId).pipe(take(1)).subscribe((href: string) => {
+      this.requestService.removeByHrefSubstring(href);
+    });
   }
 
 }

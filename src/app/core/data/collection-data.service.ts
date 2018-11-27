@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCollection } from '../cache/models/normalized-collection.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -21,9 +21,6 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
-import { IndexName, IndexState } from '../index/index.reducer';
-import { IndexActionTypes, RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { Actions, ofType } from '@ngrx/effects';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
@@ -35,8 +32,7 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected store: Store<CoreState>,
     protected cds: CommunityDataService,
     protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService,
-    protected indexStore: Store<IndexState>
+    protected objectCache: ObjectCacheService
   ) {
     super();
   }

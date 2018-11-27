@@ -68,6 +68,10 @@ export class CollectionItemMapperComponent implements OnInit {
    */
   defaultSortOptions: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
+  /**
+   * Firing this observable (shouldUpdate$.next(true)) forces the two lists to reload themselves
+   * Usually fired after the lists their cache is cleared (to force a new request to the REST API)
+   */
   shouldUpdate$: BehaviorSubject<boolean>;
 
   constructor(private route: ActivatedRoute,
@@ -138,6 +142,16 @@ export class CollectionItemMapperComponent implements OnInit {
       )
     );
 
+    this.showNotifications(responses$, remove);
+    this.clearRequestCache();
+  }
+
+  /**
+   * Display notifications
+   * @param {Observable<RestResponse[]>} responses$   The responses after adding/removing a mapping
+   * @param {boolean} remove                          Whether or not the goal was to remove mappings
+   */
+  private showNotifications(responses$: Observable<RestResponse[]>, remove?: boolean) {
     const messageInsertion = remove ? 'unmap' : 'map';
 
     responses$.subscribe((responses: RestResponse[]) => {
@@ -163,9 +177,15 @@ export class CollectionItemMapperComponent implements OnInit {
           this.notificationsService.error(head, content);
         });
       }
+      // Force an update on all lists
       this.shouldUpdate$.next(true);
     });
+  }
 
+  /**
+   * Clear all previous requests from cache in preparation of refreshing all lists
+   */
+  private clearRequestCache() {
     this.collectionRD$.pipe(take(1)).subscribe((collectionRD: RemoteData<Collection>) => {
       this.collectionDataService.clearMappingItemsRequests(collectionRD.payload.id);
       this.searchService.clearDiscoveryRequests();
