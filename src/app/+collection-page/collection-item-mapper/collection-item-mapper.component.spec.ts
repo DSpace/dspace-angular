@@ -20,7 +20,6 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { Observable } from 'rxjs/Observable';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
@@ -28,7 +27,6 @@ import { EventEmitter, NgModule } from '@angular/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service-stub';
 import { By } from '@angular/platform-browser';
-import { RestResponse } from '../../core/cache/response-cache.models';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
@@ -38,6 +36,9 @@ import { ItemSelectComponent } from '../../shared/object-select/item-select/item
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service-stub';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs/internal/observable/of';
+import { RestResponse } from '../../core/cache/response.models';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -55,7 +56,7 @@ describe('CollectionItemMapperComponent', () => {
     name: 'test-collection'
   });
   const mockCollectionRD: RemoteData<Collection> = new RemoteData<Collection>(false, false, true, null, mockCollection);
-  const mockSearchOptions = Observable.of(new PaginatedSearchOptions({
+  const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
@@ -71,21 +72,27 @@ describe('CollectionItemMapperComponent', () => {
     paginatedSearchOptions: mockSearchOptions
   };
   const itemDataServiceStub = {
-    mapToCollection: () => Observable.of(new RestResponse(true, '200'))
+    mapToCollection: () => of(new RestResponse(true, '200'))
   };
   const activatedRouteStub = new ActivatedRouteStub({}, { collection: mockCollectionRD });
   const translateServiceStub = {
-    get: () => Observable.of('test-message of collection ' + mockCollection.name),
+    get: () => of('test-message of collection ' + mockCollection.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
   };
   const emptyList = new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []));
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => Observable.of(emptyList)
+    search: () => of(emptyList),
+    /* tslint:disable:no-empty */
+    clearDiscoveryRequests: () => {}
+    /* tslint:enable:no-empty */
   });
   const collectionDataServiceStub = {
-    getMappedItems: () => Observable.of(emptyList)
+    getMappedItems: () => of(emptyList),
+    /* tslint:disable:no-empty */
+    clearMappingItemsRequests: () => {}
+    /* tslint:enable:no-empty */
   };
 
   beforeEach(async(() => {
@@ -139,7 +146,7 @@ describe('CollectionItemMapperComponent', () => {
     });
 
     it('should display an error message if at least one mapping was unsuccessful', () => {
-      spyOn(itemDataService, 'mapToCollection').and.returnValue(Observable.of(new RestResponse(false, '404')));
+      spyOn(itemDataService, 'mapToCollection').and.returnValue(of(new RestResponse(false, '404')));
       comp.mapItems(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();

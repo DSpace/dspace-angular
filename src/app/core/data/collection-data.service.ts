@@ -37,6 +37,10 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     super();
   }
 
+  /**
+   * Fetches the endpoint used for mapping items to a collection
+   * @param collectionId   The id of the collection to map items to
+   */
   getMappingItemsEndpoint(collectionId): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getFindByIDHref(endpoint, collectionId)),
@@ -44,6 +48,11 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     );
   }
 
+  /**
+   * Fetches a list of items that are mapped to a collection
+   * @param collectionId    The id of the collection
+   * @param searchOptions   Search options to sort or filter out items
+   */
   getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
     const requestUuid = this.requestService.generateRequestId();
 
@@ -68,6 +77,10 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     return this.rdbService.buildList(href$);
   }
 
+  /**
+   * Clears all requests (from cache) connected to the mappingItems endpoint
+   * @param collectionId
+   */
   clearMappingItemsRequests(collectionId: string) {
     this.getMappingItemsEndpoint(collectionId).pipe(take(1)).subscribe((href: string) => {
       this.requestService.removeByHrefSubstring(href);

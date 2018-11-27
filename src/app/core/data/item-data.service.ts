@@ -54,6 +54,12 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       distinctUntilChanged(),);
   }
 
+  /**
+   * Fetches the endpoint used for mapping an item to a collection,
+   * or for fetching all collections the item is mapped to if no collection is provided
+   * @param itemId        The item's id
+   * @param collectionId  The collection's id (optional)
+   */
   public getMappingCollectionsEndpoint(itemId: string, collectionId?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getFindByIDHref(endpoint, itemId)),
@@ -61,6 +67,11 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     );
   }
 
+  /**
+   * Removes the mapping of an item from a collection
+   * @param itemId        The item's id
+   * @param collectionId  The collection's id
+   */
   public removeMappingFromCollection(itemId: string, collectionId: string): Observable<RestResponse> {
     return this.getMappingCollectionsEndpoint(itemId, collectionId).pipe(
       isNotEmptyOperator(),
@@ -72,6 +83,11 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     );
   }
 
+  /**
+   * Maps an item to a collection
+   * @param itemId        The item's id
+   * @param collectionId  The collection's id
+   */
   public mapToCollection(itemId: string, collectionId: string): Observable<RestResponse> {
     return this.getMappingCollectionsEndpoint(itemId, collectionId).pipe(
       isNotEmptyOperator(),
@@ -83,6 +99,10 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     );
   }
 
+  /**
+   * Fetches all collections the item is mapped to
+   * @param itemId    The item's id
+   */
   public getMappedCollections(itemId: string): Observable<RemoteData<PaginatedList<Collection>>> {
     const request$ = this.getMappingCollectionsEndpoint(itemId).pipe(
       isNotEmptyOperator(),
@@ -102,6 +122,10 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     return this.rdbService.toRemoteDataObservable(requestEntry$, payload$);
   }
 
+  /**
+   * Clears all requests (from cache) connected to the mappingCollections endpoint
+   * @param itemId
+   */
   public clearMappedCollectionsRequests(itemId: string) {
     this.getMappingCollectionsEndpoint(itemId).pipe(take(1)).subscribe((href: string) => {
       this.requestService.removeByHrefSubstring(href);

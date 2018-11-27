@@ -8,14 +8,11 @@ import { SearchConfigurationService } from '../../../+search-page/search-service
 import { SearchService } from '../../../+search-page/search-service/search.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { Collection } from '../../../core/shared/collection.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { Observable } from 'rxjs/Observable';
 import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RouterStub } from '../../../shared/testing/router-stub';
-import { RestResponse } from '../../../core/cache/response-cache.models';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
 import { EventEmitter } from '@angular/core';
 import { SearchServiceStub } from '../../../shared/testing/search-service-stub';
@@ -29,9 +26,11 @@ import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../core/shared/item.model';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service-stub';
+import { Observable } from 'rxjs/internal/Observable';
+import { of } from 'rxjs/internal/observable/of';
+import { RestResponse } from '../../../core/cache/response.models';
 
 describe('ItemCollectionMapperComponent', () => {
   let comp: ItemCollectionMapperComponent;
@@ -49,7 +48,7 @@ describe('ItemCollectionMapperComponent', () => {
     name: 'test-item'
   });
   const mockItemRD: RemoteData<Item> = new RemoteData<Item>(false, false, true, null, mockItem);
-  const mockSearchOptions = Observable.of(new PaginatedSearchOptions({
+  const mockSearchOptions = of(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
@@ -65,16 +64,22 @@ describe('ItemCollectionMapperComponent', () => {
   };
   const mockCollectionsRD = new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []));
   const itemDataServiceStub = {
-    mapToCollection: () => Observable.of(new RestResponse(true, '200')),
-    removeMappingFromCollection: () => Observable.of(new RestResponse(true, '200')),
-    getMappedCollections: () => Observable.of(mockCollectionsRD)
+    mapToCollection: () => of(new RestResponse(true, '200')),
+    removeMappingFromCollection: () => of(new RestResponse(true, '200')),
+    getMappedCollections: () => of(mockCollectionsRD),
+    /* tslint:disable:no-empty */
+    clearMappedCollectionsRequests: () => {}
+    /* tslint:enable:no-empty */
   };
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
-    search: () => Observable.of(mockCollectionsRD)
+    search: () => of(mockCollectionsRD),
+    /* tslint:disable:no-empty */
+    clearDiscoveryRequests: () => {}
+    /* tslint:enable:no-empty */
   });
   const activatedRouteStub = new ActivatedRouteStub({}, { item: mockItemRD });
   const translateServiceStub = {
-    get: () => Observable.of('test-message of item ' + mockItem.name),
+    get: () => of('test-message of item ' + mockItem.name),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter()
@@ -130,7 +135,7 @@ describe('ItemCollectionMapperComponent', () => {
     });
 
     it('should display an error message if at least one mapping was unsuccessful', () => {
-      spyOn(itemDataService, 'mapToCollection').and.returnValue(Observable.of(new RestResponse(false, '404')));
+      spyOn(itemDataService, 'mapToCollection').and.returnValue(of(new RestResponse(false, '404')));
       comp.mapCollections(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
@@ -152,7 +157,7 @@ describe('ItemCollectionMapperComponent', () => {
     });
 
     it('should display an error message if the removal of at least one mapping was unsuccessful', () => {
-      spyOn(itemDataService, 'removeMappingFromCollection').and.returnValue(Observable.of(new RestResponse(false, '404')));
+      spyOn(itemDataService, 'removeMappingFromCollection').and.returnValue(of(new RestResponse(false, '404')));
       comp.removeMappings(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
