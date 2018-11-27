@@ -6,7 +6,7 @@ import {
 } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { distinctUntilChanged, first, flatMap, map, startWith, switchMap } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
@@ -86,8 +86,8 @@ export class RemoteDataBuildService {
   toRemoteDataObservable<T>(requestEntry$: Observable<RequestEntry>, payload$: Observable<T>) {
     return observableCombineLatest(requestEntry$, payload$).pipe(
       map(([reqEntry, payload]) => {
-        const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
-        const responsePending = hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
+        const requestPending = hasValue(reqEntry) && hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
+        const responsePending = hasValue(reqEntry) && hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
         let isSuccessful: boolean;
         let error: RemoteDataError;
         if (hasValue(reqEntry) && hasValue(reqEntry.response)) {

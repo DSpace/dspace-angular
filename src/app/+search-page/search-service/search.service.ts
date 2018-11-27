@@ -7,7 +7,7 @@ import {
   Router,
   UrlSegmentGroup
 } from '@angular/router';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
@@ -47,6 +47,9 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { Store } from '@ngrx/store';
+import { IndexName, IndexState } from '../../core/index/index.reducer';
+import { RemoveFromIndexBySubstringAction } from '../../core/index/index.actions';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -317,6 +320,12 @@ export class SearchService implements OnDestroy {
     const urlTree = this.router.parseUrl(this.router.url);
     const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
     return '/' + g.toString();
+  }
+
+  clearDiscoveryRequests() {
+    this.halService.getEndpoint(this.searchLinkPath).pipe(take(1)).subscribe((href: string) => {
+      this.requestService.removeByHrefSubstring(href);
+    });
   }
 
   /**

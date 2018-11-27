@@ -8,7 +8,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { SearchConfigurationService } from '../../+search-page/search-service/search-configuration.service';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -20,6 +20,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { RestResponse } from '../../core/cache/response.models';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Actions, ofType } from '@ngrx/effects';
+import { IndexActionTypes } from '../../core/index/index.actions';
+import { RequestActionTypes } from '../../core/data/request.actions';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -64,6 +68,8 @@ export class CollectionItemMapperComponent implements OnInit {
    */
   defaultSortOptions: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
 
+  shouldUpdate$: BehaviorSubject<boolean>;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private searchConfigService: SearchConfigurationService,
@@ -86,25 +92,31 @@ export class CollectionItemMapperComponent implements OnInit {
    *  TODO: When the API support it, fetch items excluding the collection's scope (currently fetches all items)
    */
   loadItemLists() {
+    this.shouldUpdate$ = new BehaviorSubject<boolean>(true);
     const collectionAndOptions$ = observableCombineLatest(
       this.collectionRD$,
-      this.searchOptions$
+      this.searchOptions$,
+      this.shouldUpdate$
     );
     this.collectionItemsRD$ = collectionAndOptions$.pipe(
-      switchMap(([collectionRD, options]) => {
-        return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
-          sort: this.defaultSortOptions
-        }))
+      switchMap(([collectionRD, options, shouldUpdate]) => {
+        if (shouldUpdate) {
+          return this.collectionDataService.getMappedItems(collectionRD.payload.id, Object.assign(options, {
+            sort: this.defaultSortOptions
+          }))
+        }
       })
     );
     this.mappingItemsRD$ = collectionAndOptions$.pipe(
-      switchMap(([collectionRD, options]) => {
-        return this.searchService.search(Object.assign(new PaginatedSearchOptions(options), {
-          query: this.buildQuery(collectionRD.payload.id, options.query),
-          scope: undefined,
-          dsoType: DSpaceObjectType.ITEM,
-          sort: this.defaultSortOptions
-        }));
+      switchMap(([collectionRD, options, shouldUpdate]) => {
+          if (shouldUpdate) {
+            return this.searchService.search(Object.assign(new PaginatedSearchOptions(options), {
+              query: this.buildQuery(collectionRD.payload.id, options.query),
+              scope: undefined,
+              dsoType: DSpaceObjectType.ITEM,
+              sort: this.defaultSortOptions
+            }));
+          }
       }),
       toDSpaceObjectListRD()
     );
@@ -151,10 +163,12 @@ export class CollectionItemMapperComponent implements OnInit {
           this.notificationsService.error(head, content);
         });
       }
+      this.shouldUpdate$.next(true);
     });
 
     this.collectionRD$.pipe(take(1)).subscribe((collectionRD: RemoteData<Collection>) => {
       this.collectionDataService.clearMappingItemsRequests(collectionRD.payload.id);
+      this.searchService.clearDiscoveryRequests();
     });
   }
 

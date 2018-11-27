@@ -31,7 +31,7 @@ import { RequestEntry } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { getResponseFromEntry } from '../shared/operators';
-import { AddToIndexAction } from '../index/index.actions';
+import { AddToIndexAction, RemoveFromIndexBySubstringAction } from '../index/index.actions';
 
 @Injectable()
 export class RequestService {
@@ -39,7 +39,8 @@ export class RequestService {
 
   constructor(private objectCache: ObjectCacheService,
               private uuidService: UUIDService,
-              private store: Store<CoreState>) {
+              private store: Store<CoreState>,
+              private indexStore: Store<IndexState>) {
   }
 
   private entryFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, RequestEntry> {
@@ -138,22 +139,17 @@ export class RequestService {
     }
   }
 
-  removeByHref(href: string) {
-    this.store.pipe(
-      select(this.uuidFromHrefSelector(href))
-    ).subscribe((uuid: string) => {
-      this.removeByUuid(uuid);
-    });
-  }
-
   removeByHrefSubstring(href: string) {
     this.store.pipe(
-      select(this.uuidsFromHrefSubstringSelector(pathSelector<CoreState, IndexState>(coreSelector, 'index'), IndexName.REQUEST, href))
+      select(this.uuidsFromHrefSubstringSelector(pathSelector<CoreState, IndexState>(coreSelector, 'index'), IndexName.REQUEST, href)),
+      take(1)
     ).subscribe((uuids: string[]) => {
       for (const uuid of uuids) {
         this.removeByUuid(uuid);
       }
     });
+    this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((reqHref: string) => reqHref.indexOf(href) < 0);
+    this.indexStore.dispatch(new RemoveFromIndexBySubstringAction(IndexName.REQUEST, href));
   }
 
   removeByUuid(uuid: string) {

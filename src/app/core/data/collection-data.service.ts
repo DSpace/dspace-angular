@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MemoizedSelector, select, Store } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCollection } from '../cache/models/normalized-collection.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { coreSelector, CoreState } from '../core.reducers';
+import { CoreState } from '../core.reducers';
 import { Collection } from '../shared/collection.model';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
@@ -12,7 +12,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
-import { distinctUntilChanged, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { GetRequest } from './request.models';
 import { configureRequest } from '../shared/operators';
@@ -22,9 +22,8 @@ import { ResponseParsingService } from './parsing.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { IndexName, IndexState } from '../index/index.reducer';
-import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { pathSelector } from '../shared/selectors';
-import { RequestState } from './request.reducer';
+import { IndexActionTypes, RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
@@ -50,6 +49,8 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
   }
 
   getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
+    const requestUuid = this.requestService.generateRequestId();
+
     const href$ = this.getMappingItemsEndpoint(collectionId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
@@ -58,7 +59,7 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
 
     href$.pipe(
       map((endpoint: string) => {
-        const request = new GetRequest(this.requestService.generateRequestId(), endpoint);
+        const request = new GetRequest(requestUuid, endpoint);
         return Object.assign(request, {
           getResponseParser(): GenericConstructor<ResponseParsingService> {
             return DSOResponseParsingService;
@@ -74,7 +75,6 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
   clearMappingItemsRequests(collectionId: string) {
     this.getMappingItemsEndpoint(collectionId).pipe(take(1)).subscribe((href: string) => {
       this.requestService.removeByHrefSubstring(href);
-      this.indexStore.dispatch(new RemoveFromIndexBySubstringAction(IndexName.REQUEST, href));
     });
   }
 

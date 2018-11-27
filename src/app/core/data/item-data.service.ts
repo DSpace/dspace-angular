@@ -1,5 +1,5 @@
 
-import { distinctUntilChanged, map, filter, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, filter, switchMap, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -21,6 +21,7 @@ import { configureRequest, filterSuccessfulResponses, getResponseFromEntry } fro
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { Collection } from '../shared/collection.model';
+import { RequestEntry } from './request.reducer';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -66,7 +67,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       distinctUntilChanged(),
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
-      switchMap((request: RestRequest) => this.requestService.getByHref(request.href)),
+      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
       getResponseFromEntry()
     );
   }
@@ -77,7 +78,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       distinctUntilChanged(),
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
-      switchMap((request: RestRequest) => this.requestService.getByHref(request.href)),
+      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
       getResponseFromEntry()
     );
   }
