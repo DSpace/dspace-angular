@@ -1,9 +1,9 @@
-<nav class="navbar navbar-dark bg-dark p-0" [ngClass]="{'active': sidebarActive}"
+<nav class="navbar navbar-dark bg-dark p-0"
+     [ngClass]="{'active': sidebarOpen, 'inactive': sidebarClosed}"
      [@slideSidebar]="{
      value: ((sidebarCollapsed | async) ? 'collapsed' : 'expanded'),
      params: {sidebarWidth: (sidebarWidth | async)}
-    }" (@slideSidebar.done)="finishSlide($event)">
-
+    }" (@slideSidebar.done)="finishSlide($event)" (@slideSidebar.start)="startSlide($event)">
     <div class="sidebar-top-level-items">
         <ul class="navbar-nav">
             <li class="admin-menu-header sidebar-section">
@@ -13,7 +13,7 @@
                 </span>
                 </a>
                 <div class="sidebar-collapsible">
-                    <a class="shortcuts-tree navbar-brand" href="#">
+                    <a class="navbar-brand mr-0" href="#">
                         <h4 class="section-header-text mb-0">Admin</h4>
                     </a>
                 </div>
@@ -63,13 +63,11 @@
     </div>
     <div class="navbar-nav">
         <div class="sidebar-section" id="sidebar-collapse-toggle">
-            <a class="nav-item nav-link"
+            <a class="nav-item nav-link shortcut-icon"
                href="#"
                (click)="toggle($event)">
-            <span class="shortcut-icon">
                 <i class="fas fa-fw fa-angle-double-right"
                    [ngClass]="{'fa-angle-double-right': (sidebarCollapsed | async), 'fa-angle-double-left': !(sidebarCollapsed | async)}"></i>
-            </span>
             </a>
             <div class="sidebar-collapsible">
                 <a class="nav-item nav-link sidebar-section"

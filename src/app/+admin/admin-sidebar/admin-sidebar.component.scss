@@ -1,4 +1,5 @@
 @import '../../../styles/variables.scss';
+$icon-z-index: 10;
 
 :host {
     position: sticky;
@@ -17,32 +18,32 @@
             }
         }
 
-        .admin-menu-header {
-            background-color: $admin-sidebar-header-bg;
-            .logo-wrapper {
-                img {
-                    height: 20px;
-                }
-            }
-            .section-header-text {
-                line-height: 1.5;
-            }
-
+        &.inactive ::ng-deep .sidebar-collapsible {
+            margin-left: -#{$admin-sidebar-width};
         }
 
-        ::ng-deep {
+        .navbar-nav {
+            .admin-menu-header {
+                background-color: $admin-sidebar-header-bg;
+                .logo-wrapper {
+                    img {
+                        height: 20px;
+                    }
+                }
+                .section-header-text {
+                    line-height: 1.5;
+                }
 
+            }
+        }
+
+
+        ::ng-deep {
             .navbar-nav {
                 .sidebar-section {
                     display: flex;
                     align-content: stretch;
-                    &:hover {
-                        color: $navbar-dark-hover-color;
-                        a {
-                            color: inherit;
-                        }
-                    }
-
+                    background-color: $dark;
                     .nav-item {
                         padding-top: $spacer;
                         padding-bottom: $spacer;
@@ -50,12 +51,19 @@
                     .shortcut-icon {
                         padding-left: $spacer;
                         padding-right: $spacer;
+                        background-color: inherit;
+                        z-index: $icon-z-index;
                     }
                     .sidebar-collapsible {
-                        flex: 1;
+                        width: $admin-sidebar-width;
+                        position: relative;
                         a {
                             padding-right: $spacer;
+                            width: 100%;
                         }
+                    }
+                    &.active > .sidebar-collapsible > .nav-link {
+                        color: $navbar-dark-active-color;
                     }
                 }
 

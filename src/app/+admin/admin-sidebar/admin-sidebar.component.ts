@@ -13,7 +13,8 @@ import { AdminSidebarService } from './admin-sidebar.service';
 export class AdminSidebarComponent implements OnInit {
   sidebarCollapsed: Observable<boolean>;
   sidebarWidth: Observable<string>;
-  sidebarActive = true;
+  sidebarOpen = true;
+  sidebarClosed = !this.sidebarOpen;
 
   constructor(private sidebarService: AdminSidebarService,
               private variableService: CSSVariableService) {
@@ -27,8 +28,7 @@ export class AdminSidebarComponent implements OnInit {
   toggle(event: Event) {
     event.preventDefault();
     // Is sidebar closing?
-    if (this.sidebarActive) {
-      this.sidebarActive = false;
+    if (this.sidebarOpen) {
       this.sidebarService.collapseAllSections();
     }
     this.sidebarService.toggleSidebar();
@@ -38,9 +38,23 @@ export class AdminSidebarComponent implements OnInit {
    * Method to change this.collapsed to false when the slide animation ends and is sliding open
    * @param event The animation event
    */
+  startSlide(event: any): void {
+    if (event.toState === 'expanded') {
+      this.sidebarClosed = false;
+    } else if (event.toState === 'collapsed') {
+      this.sidebarOpen = false;
+    }
+  }
+
+  /**
+   * Method to change this.collapsed to false when the slide animation ends and is sliding open
+   * @param event The animation event
+   */
   finishSlide(event: any): void {
-    if (event.fromState === 'collapsed') {
-      this.sidebarActive = true;
+    if (event.fromState === 'expanded') {
+      this.sidebarClosed = true;
+    } else if (event.fromState === 'collapsed') {
+      this.sidebarOpen = true;
     }
   }
 }

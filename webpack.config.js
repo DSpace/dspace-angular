@@ -27,7 +27,7 @@ module.exports = function(env, options) {
       getAotPlugin('client', !!env.aot)
     ]
   });
-  console.log(options.mode);
+  
   if (options.mode === 'production') {
     serverConfig = webpackMerge({}, serverConfig, prodPartial);
     clientConfig = webpackMerge({}, clientConfig, prodPartial);

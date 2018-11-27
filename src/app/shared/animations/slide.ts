@@ -24,23 +24,29 @@ export const slideMobileNav = trigger('slideMobileNav', [
   transition('expanded <=> collapsed', animate('300ms'))
 ]);
 
+const collapsedStyle = style({ marginLeft: '-{{ sidebarWidth }}' });
+const expandedStyle = style({ marginLeft: '0' });
+const options = { params: { sidebarWidth: '*' } };
+
 export const slideSidebar = trigger('slideSidebar', [
 
-  state('expanded',
-    style({ width: '{{ sidebarWidth }}' }),
-    { params: { sidebarWidth: '*' } }
-  ),
-
-  state('collapsed', style({ width: '*' })),
-
-  transition('expanded <=> collapsed',
-
+  transition('expanded => collapsed',
     group
     (
       [
         query('@*', animateChild()),
-        animate('300ms ease-in-out'),
+        query('.sidebar-collapsible', expandedStyle, options),
+        query('.sidebar-collapsible', animate('300ms ease-in-out', collapsedStyle))
+      ],
+    )),
 
+  transition('collapsed => expanded',
+    group
+    (
+      [
+        query('@*', animateChild()),
+        query('.sidebar-collapsible', collapsedStyle),
+        query('.sidebar-collapsible', animate('300ms ease-in-out', expandedStyle), options)
       ]
     ))
 ]);
