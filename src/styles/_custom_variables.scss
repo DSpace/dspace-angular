@@ -19,3 +19,6 @@ $admin-sidebar-bg: $dark;
 $admin-sidebar-active-bg: darken($dark, 3%);
 $admin-sidebar-header-bg: darken($dark, 7%);
 $admin-sidebar-width: 250px;
+
+$dark-scrollbar-background: $admin-sidebar-active-bg;
+$dark-scrollbar-foreground: #47495d;

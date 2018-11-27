@@ -2,10 +2,11 @@
     [@bgColor]="{
      value: ((collapsed | async) ? 'startBackground' : 'endBackground'),
      params: {endColor: (sidebarActiveBg | async)}}">
-    <a class="nav-item nav-link shortcut-icon" href="#"
-       (click)="toggleSection($event)">
-        <i class="fas fa-{{icon}} fa-fw"></i>
-    </a>
+    <div class="icon-wrapper">
+        <a class="nav-item nav-link shortcut-icon" (click)="toggleSection($event)" href="#">
+            <i class="fas fa-{{icon}} fa-fw"></i>
+        </a>
+    </div>
     <div class="sidebar-collapsible">
         <a class="nav-item nav-link" href="#"
            (click)="toggleSection($event)">
