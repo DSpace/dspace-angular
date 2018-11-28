@@ -242,7 +242,14 @@
     "submit": "Submit",
     "cancel": "Cancel",
     "search": "Search",
+    "search-help": "Click here to looking for an existing correspondence",
     "remove": "Remove",
+    "clear": "Clear",
+    "clear-help": "Click here to remove the selected value",
+    "edit": "Edit",
+    "edit-help": "Click here to edit the selected value",
+    "save": "Save",
+    "save-help": "Save changes",
     "first-name": "First name",
     "last-name": "Last name",
     "loading": "Loading...",
@@ -251,7 +258,9 @@
     "group-collapse": "Collapse",
     "group-expand": "Expand",
     "group-collapse-help": "Click here to collapse",
-    "group-expand-help": "Click here to expand and add more elements"
+    "group-expand-help": "Click here to expand and add more element",
+    "other-information": {
+    }
   },
   "login": {
     "title": "Login",

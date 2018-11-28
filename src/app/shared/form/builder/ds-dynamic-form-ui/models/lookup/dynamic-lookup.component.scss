@@ -20,11 +20,11 @@
 
 /* align fa-spin */
 .left-addon .fa-spin {
-  left: 0px;
+  left: 0;
 }
 
 .right-addon .fa-spin {
-  right: 0px;
+  right: 0;
 }
 
 /* add padding  */
@@ -54,4 +54,8 @@
 
 div {
   overflow: visible;
+}
+
+.lookup-item {
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;
 }

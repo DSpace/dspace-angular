@@ -16,6 +16,10 @@
   overflow-x: hidden;
 }
 
+:host /deep/ .dropdown-item {
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;
+}
+
 :host /deep/ .dropdown-item.active,
 :host /deep/ .dropdown-item:active,
 :host /deep/ .dropdown-item:focus,

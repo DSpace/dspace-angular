@@ -9,8 +9,11 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
+import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { filter, flatMap, map, mergeMap, scan } from 'rxjs/operators';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { isEqual } from 'lodash';
 
@@ -25,11 +28,10 @@ import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
-import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { IntegrationData } from '../../../../../../core/integration/integration-data';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -59,6 +61,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   @ViewChild('formRef') private formRef: FormComponent;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+              private authorityService: AuthorityService,
               private formBuilderService: FormBuilderService,
               private formService: FormService,
               private cdr: ChangeDetectorRef) {
@@ -75,7 +78,6 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       } else {
         this.expandForm();
       }
-      // this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0]))) ? Observable.of(true) : Observable.of(false);
     });
 
     this.formId = this.formService.getUniqueId(this.model.id);
@@ -85,30 +87,10 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       {},
       this.model.submissionScope,
       this.model.readOnly);
-    const initChipsValue = this.model.isEmpty() ? [] : this.model.value;
-    this.chips = new Chips(
-      initChipsValue,
-      'value',
-      this.model.mandatoryField,
-      this.EnvConfig.submission.metadata.icons);
-    this.subs.push(
-      this.chips.chipsItems
-        .subscribe((subItems: any[]) => {
-          const items = this.chips.getChipsItems();
-          // Does not emit change if model value is equal to the current value
-          if (!isEqual(items, this.model.value)) {
-            // if ((isNotEmpty(items) && !this.model.isEmpty()) || (isEmpty(items) && !this.model.isEmpty())) {
-            if (!(isEmpty(items) && this.model.isEmpty())) {
-              this.model.valueUpdates.next(items);
-              this.change.emit();
-            }
-          }
-        }),
-    )
+    this.initChipsFromModelValue();
   }
 
   isMandatoryFieldEmpty() {
-    // formModel[0].group[0].value == null
     let res = true;
     this.formModel.forEach((row) => {
       const modelRow = row as DynamicFormGroupModel;
@@ -136,11 +118,6 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
           || this.selectedChipItem.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
           ? null
           : this.selectedChipItem.item[model.name];
-        // if (value instanceof FormFieldMetadataValueObject || value instanceof AuthorityValueModel) {
-        //   model.valueUpdates.next(value.display);
-        // } else {
-        //   model.valueUpdates.next(value);
-        // }
         model.valueUpdates.next(value);
       });
     });
@@ -224,6 +201,91 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       });
     });
     return item;
+  }
+
+  private initChipsFromModelValue() {
+
+    let initChipsValue$: Observable<any[]>;
+    if (this.model.isEmpty()) {
+      this.initChips([]);
+    } else {
+      initChipsValue$ = Observable.of(this.model.value);
+
+      // If authority
+      this.subs.push(initChipsValue$.pipe(
+        flatMap((valueModel) => {
+          const returnList: Array<Observable<any>> = [];
+          valueModel.forEach((valueObj) => {
+            let returnObj = Object.create({});
+            returnObj = Object.keys(valueObj).map((fieldName) => {
+              let return$: Observable<any>;
+              if (valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
+                const fieldId = fieldName.replace(/\./g, '_');
+                const model = this.formBuilderService.findById(fieldId, this.formModel);
+                const searchOptions: IntegrationSearchOptions = new IntegrationSearchOptions(
+                  (model as any).authorityOptions.scope,
+                  (model as any).authorityOptions.name,
+                  (model as any).authorityOptions.metadata,
+                  valueObj[fieldName].authority,
+                  (model as any).maxOptions,
+                  1);
+
+                return$ = this.authorityService.getEntryByValue(searchOptions)
+                  .map((result: IntegrationData) => result.payload[0]);
+              } else {
+                return$ = Observable.of(valueObj[fieldName]);
+              }
+              return return$.map((entry) => ({[fieldName]: entry}));
+            });
+
+            returnList.push(Observable.combineLatest(returnObj));
+          });
+          return returnList;
+        }),
+        mergeMap((valueListObj: Observable<any>, index: number) => {
+          return valueListObj.pipe(
+            map((valueObj: any) => ({
+                index: index, value: valueObj.reduce(
+                (acc: any, value: any) => Object.assign({}, acc, value)
+                )
+              })
+            )
+          )
+        }),
+        scan((acc: any[], valueObj: any) => {
+          if (acc.length === 0) {
+            acc.push(valueObj.value);
+          } else {
+            acc.splice(valueObj.index, 0, valueObj.value);
+          }
+          return acc;
+        }, []),
+        filter((modelValues: any[]) => this.model.value.length === modelValues.length)
+      ).subscribe((modelValue) => {
+        this.initChips(modelValue);
+      }));
+    }
+  }
+
+  private initChips(initChipsValue) {
+    this.chips = new Chips(
+      initChipsValue,
+      'value',
+      this.model.mandatoryField,
+      this.EnvConfig.submission.metadata.icons);
+    this.subs.push(
+      this.chips.chipsItems
+        .subscribe((subItems: any[]) => {
+          const items = this.chips.getChipsItems();
+          // Does not emit change if model value is equal to the current value
+          if (!isEqual(items, this.model.value)) {
+            if (!(isEmpty(items) && this.model.isEmpty())) {
+              this.model.valueUpdates.next(items);
+              this.change.emit();
+            }
+          }
+        }),
+    )
   }
 
   private resetForm() {

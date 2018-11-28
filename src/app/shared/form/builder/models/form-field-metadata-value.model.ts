@@ -10,6 +10,7 @@ export class FormFieldMetadataValueObject {
   place: number;
   closed: boolean;
   label: string;
+  otherInformation: any;
 
   constructor(value: any = null,
               language: any = null,
@@ -17,6 +18,7 @@ export class FormFieldMetadataValueObject {
               display: string = null,
               place: number = 0,
               confidence: number = -1,
+              otherInformation: any = null,
               metadata: string = null) {
     this.value = isNotNull(value) ? ((typeof value === 'string') ? value.trim() : value) : null;
     this.language = language;
@@ -34,6 +36,8 @@ export class FormFieldMetadataValueObject {
     if (isNotEmpty(metadata)) {
       this.metadata = metadata;
     }
+
+    this.otherInformation = otherInformation;
   }
 
   hasAuthority(): boolean {
@@ -42,5 +46,9 @@ export class FormFieldMetadataValueObject {
 
   hasValue(): boolean {
     return isNotEmpty(this.value);
+  }
+
+  hasOtherInformation(): boolean {
+    return isNotEmpty(this.otherInformation);
   }
 }
