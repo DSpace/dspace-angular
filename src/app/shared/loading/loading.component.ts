@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class LoadingComponent implements OnDestroy, OnInit {
 
   @Input() message: string;
+  @Input() showMessage = true;
 
   private subscription: Subscription;
 
