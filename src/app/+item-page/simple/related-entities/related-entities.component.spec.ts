@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { createRelationshipsObservable } from '../entity-types/shared/entity-page-fields.component.spec';
 import { By } from '@angular/platform-browser';
+import { createRelationshipsObservable } from '../entity-types/shared/entity.component.spec';
 
 const mockItem1: Item = Object.assign(new Item(), {
   bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),

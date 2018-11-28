@@ -3,38 +3,48 @@ import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { ProjectPageFieldsComponent } from './project-page-fields.component';
-import { createRelationshipsObservable, getEntityPageFieldsTest } from '../shared/entity-page-fields.component.spec';
+import { createRelationshipsObservable, getEntityPageFieldsTest } from '../shared/entity.component.spec';
+import { PersonComponent } from './person.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: [
     {
-      key: 'project.identifier.status',
+      key: 'person.identifier.email',
       language: 'en_US',
-      value: 'published'
+      value: 'fake@email.com'
     },
     {
-      key: 'project.identifier.id',
+      key: 'person.identifier.orcid',
+      language: 'en_US',
+      value: 'ORCID-1'
+    },
+    {
+      key: 'person.identifier.birthdate',
+      language: 'en_US',
+      value: '1993'
+    },
+    {
+      key: 'person.identifier.staffid',
       language: 'en_US',
       value: '1'
     },
     {
-      key: 'project.identifier.expectedcompletion',
+      key: 'person.identifier.jobtitle',
       language: 'en_US',
-      value: 'exp comp'
+      value: 'Developer'
     },
     {
-      key: 'project.identifier.description',
+      key: 'person.identifier.lastname',
       language: 'en_US',
-      value: 'keyword'
+      value: 'Doe'
     },
     {
-      key: 'project.identifier.keyword',
+      key: 'person.identifier.firstname',
       language: 'en_US',
-      value: 'keyword'
+      value: 'John'
     }],
   relationships: createRelationshipsObservable()
 });
 
-describe('ProjectPageFieldsComponent', getEntityPageFieldsTest(mockItem, ProjectPageFieldsComponent));
+describe('PersonComponent', getEntityPageFieldsTest(mockItem, PersonComponent));

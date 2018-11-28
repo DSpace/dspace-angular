@@ -14,10 +14,10 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
-import { JournalPageFieldsComponent } from './journal-page-fields.component';
+import { JournalComponent } from './journal.component';
 
-let comp: JournalPageFieldsComponent;
-let fixture: ComponentFixture<JournalPageFieldsComponent>;
+let comp: JournalComponent;
+let fixture: ComponentFixture<JournalComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
@@ -39,7 +39,7 @@ const mockItem: Item = Object.assign(new Item(), {
     }]
 });
 
-describe('JournalPageFieldsComponent', () => {
+describe('JournalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
@@ -48,7 +48,7 @@ describe('JournalPageFieldsComponent', () => {
           useClass: MockTranslateLoader
         }
       })],
-      declarations: [JournalPageFieldsComponent, GenericItemPageFieldComponent, TruncatePipe],
+      declarations: [JournalComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
         {provide: ITEM, useValue: mockItem},
         {provide: ItemDataService, useValue: {}},
@@ -56,13 +56,13 @@ describe('JournalPageFieldsComponent', () => {
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(JournalPageFieldsComponent, {
+    }).overrideComponent(JournalComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(JournalPageFieldsComponent);
+    fixture = TestBed.createComponent(JournalComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
   }));

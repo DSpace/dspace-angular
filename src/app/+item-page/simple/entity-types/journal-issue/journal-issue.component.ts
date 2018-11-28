@@ -5,22 +5,19 @@ import { Item } from '../../../../core/shared/item.model';
 import { rendersEntityType } from '../../../../shared/entities/entity-type-decorator';
 import { ITEM } from '../../../../shared/entities/switcher/entity-type-switcher.component';
 import { ElementViewMode } from '../../../../shared/view-mode';
-import {
-  EntityPageFieldsComponent, filterRelationsByTypeLabel,
-  relationsToItems
-} from '../shared/entity-page-fields.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { EntityComponent, filterRelationsByTypeLabel, relationsToItems } from '../shared/entity.component';
 
 @rendersEntityType('JournalIssue', ElementViewMode.Full)
 @Component({
-  selector: 'ds-journal-issue-page-fields',
-  styleUrls: ['./journal-issue-page-fields.component.scss'],
-  templateUrl: './journal-issue-page-fields.component.html'
+  selector: 'ds-journal-issue',
+  styleUrls: ['./journal-issue.component.scss'],
+  templateUrl: './journal-issue.component.html'
 })
 /**
  * The component for displaying metadata and relations of an item with entity type Journal Issue
  */
-export class JournalIssuePageFieldsComponent extends EntityPageFieldsComponent {
+export class JournalIssueComponent extends EntityComponent {
   /**
    * The volumes related to this journal issue
    */

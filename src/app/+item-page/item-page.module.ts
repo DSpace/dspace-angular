@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from './../shared/shared.module';
-import { EntityPageFieldsComponent } from './simple/entity-types/shared/entity-page-fields.component';
 import { GenericItemPageFieldComponent } from './simple/field-components/specific-field/generic/generic-item-page-field.component';
 
 import { ItemPageComponent } from './simple/item-page.component';
@@ -20,15 +19,16 @@ import { FileSectionComponent } from './simple/field-components/file-section/fil
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
-import { PublicationPageFieldsComponent } from './simple/entity-types/publication/publication-page-fields.component';
-import { OrgUnitPageFieldsComponent } from './simple/entity-types/orgunit/orgunit-page-fields.component';
-import { PersonPageFieldsComponent } from './simple/entity-types/person/person-page-fields.component';
-import { ProjectPageFieldsComponent } from './simple/entity-types/project/project-page-fields.component';
 import { RelatedEntitiesComponent } from './simple/related-entities/related-entities-component';
-import { JournalPageFieldsComponent } from './simple/entity-types/journal/journal-page-fields.component';
-import { JournalIssuePageFieldsComponent } from './simple/entity-types/journal-issue/journal-issue-page-fields.component';
-import { JournalVolumePageFieldsComponent } from './simple/entity-types/journal-volume/journal-volume-page-fields.component';
 import { SearchPageModule } from '../+search-page/search-page.module';
+import { PublicationComponent } from './simple/entity-types/publication/publication.component';
+import { PersonComponent } from './simple/entity-types/person/person.component';
+import { OrgunitComponent } from './simple/entity-types/orgunit/orgunit.component';
+import { ProjectComponent } from './simple/entity-types/project/project.component';
+import { JournalComponent } from './simple/entity-types/journal/journal.component';
+import { JournalVolumeComponent } from './simple/entity-types/journal-volume/journal-volume.component';
+import { JournalIssueComponent } from './simple/entity-types/journal-issue/journal-issue.component';
+import { EntityComponent } from './simple/entity-types/shared/entity.component';
 
 @NgModule({
   imports: [
@@ -52,25 +52,25 @@ import { SearchPageModule } from '../+search-page/search-page.module';
     FileSectionComponent,
     CollectionsComponent,
     FullFileSectionComponent,
-    PublicationPageFieldsComponent,
-    ProjectPageFieldsComponent,
-    OrgUnitPageFieldsComponent,
-    PersonPageFieldsComponent,
+    PublicationComponent,
+    ProjectComponent,
+    OrgunitComponent,
+    PersonComponent,
     RelatedEntitiesComponent,
-    EntityPageFieldsComponent,
+    EntityComponent,
     GenericItemPageFieldComponent,
-    JournalPageFieldsComponent,
-    JournalIssuePageFieldsComponent,
-    JournalVolumePageFieldsComponent
+    JournalComponent,
+    JournalIssueComponent,
+    JournalVolumeComponent
   ],
   entryComponents: [
-    PublicationPageFieldsComponent,
-    ProjectPageFieldsComponent,
-    OrgUnitPageFieldsComponent,
-    PersonPageFieldsComponent,
-    JournalPageFieldsComponent,
-    JournalIssuePageFieldsComponent,
-    JournalVolumePageFieldsComponent
+    PublicationComponent,
+    ProjectComponent,
+    OrgunitComponent,
+    PersonComponent,
+    JournalComponent,
+    JournalIssueComponent,
+    JournalVolumeComponent
   ]
 })
 export class ItemPageModule {

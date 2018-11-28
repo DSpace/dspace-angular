@@ -8,9 +8,9 @@ import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { createRelationshipsObservable } from '../../../../+item-page/simple/entity-types/shared/entity-page-fields.component.spec';
 import { ITEM } from '../../../entities/switcher/entity-type-switcher.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { createRelationshipsObservable } from '../../../../+item-page/simple/entity-types/shared/entity.component.spec';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),

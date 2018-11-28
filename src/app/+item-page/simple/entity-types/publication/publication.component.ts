@@ -8,20 +8,17 @@ import {
 } from '../../../../shared/entities/entity-type-decorator';
 import { ITEM } from '../../../../shared/entities/switcher/entity-type-switcher.component';
 import { ElementViewMode } from '../../../../shared/view-mode';
-import {
-  EntityPageFieldsComponent,
-  filterRelationsByTypeLabel, relationsToItems
-} from '../shared/entity-page-fields.component';
+import { EntityComponent, filterRelationsByTypeLabel, relationsToItems } from '../shared/entity.component';
 
 @rendersEntityType('Publication', ElementViewMode.Full)
 @rendersEntityType(DEFAULT_ENTITY_TYPE, ElementViewMode.Full)
 @Component({
-  selector: 'ds-publication-page-fields',
-  styleUrls: ['./publication-page-fields.component.scss'],
-  templateUrl: './publication-page-fields.component.html',
+  selector: 'ds-publication',
+  styleUrls: ['./publication.component.scss'],
+  templateUrl: './publication.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublicationPageFieldsComponent extends EntityPageFieldsComponent implements OnInit {
+export class PublicationComponent extends EntityComponent implements OnInit {
   /**
    * The authors related to this publication
    */

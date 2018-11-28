@@ -17,7 +17,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/entities/relationship.model';
 import { Observable } from 'rxjs/Observable';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { compareArraysUsing, compareArraysUsingIds } from './entity-page-fields.component';
+import { compareArraysUsing, compareArraysUsingIds } from './entity.component';
 
 /**
  * Create a generic test for an entity-page-fields component using a mockItem and the type of component
@@ -100,7 +100,7 @@ export function createRelationshipsObservable() {
     })
   ])));
 }
-describe('EntityPageFieldsComponent', () => {
+describe('EntityComponent', () => {
   const arr1 = [
     {
       id: 1,

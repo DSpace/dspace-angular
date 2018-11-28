@@ -8,14 +8,14 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { PublicationPageFieldsComponent } from './publication-page-fields.component';
 import { Item } from '../../../../core/shared/item.model';
 import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { createRelationshipsObservable } from '../shared/entity-page-fields.component.spec';
 import { By } from '@angular/platform-browser';
+import { createRelationshipsObservable } from '../shared/entity.component.spec';
+import { PublicationComponent } from './publication.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
@@ -23,9 +23,9 @@ const mockItem: Item = Object.assign(new Item(), {
   relationships: createRelationshipsObservable()
 });
 
-describe('PublicationPageFieldsComponent', () => {
-  let comp: PublicationPageFieldsComponent;
-  let fixture: ComponentFixture<PublicationPageFieldsComponent>;
+describe('PublicationComponent', () => {
+  let comp: PublicationComponent;
+  let fixture: ComponentFixture<PublicationComponent>;
 
   const searchFixedFilterServiceStub = {
     /* tslint:disable:no-empty */
@@ -41,7 +41,7 @@ describe('PublicationPageFieldsComponent', () => {
           useClass: MockTranslateLoader
         }
       })],
-      declarations: [PublicationPageFieldsComponent, GenericItemPageFieldComponent, TruncatePipe],
+      declarations: [PublicationComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
         {provide: ITEM, useValue: mockItem},
         {provide: ItemDataService, useValue: {}},
@@ -50,13 +50,13 @@ describe('PublicationPageFieldsComponent', () => {
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PublicationPageFieldsComponent, {
+    }).overrideComponent(PublicationComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(PublicationPageFieldsComponent);
+    fixture = TestBed.createComponent(PublicationComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
   }));

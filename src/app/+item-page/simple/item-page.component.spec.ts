@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
-import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ItemPageComponent } from './item-page.component';
@@ -14,9 +13,9 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { createRelationshipsObservable } from './entity-types/shared/entity-page-fields.component.spec';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import { createRelationshipsObservable } from './entity-types/shared/entity.component.spec';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),

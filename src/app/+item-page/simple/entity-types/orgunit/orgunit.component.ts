@@ -5,36 +5,33 @@ import { Item } from '../../../../core/shared/item.model';
 import { rendersEntityType } from '../../../../shared/entities/entity-type-decorator';
 import { ElementViewMode } from '../../../../shared/view-mode';
 import { ITEM } from '../../../../shared/entities/switcher/entity-type-switcher.component';
-import {
-  EntityPageFieldsComponent, filterRelationsByTypeLabel,
-  relationsToItems
-} from '../shared/entity-page-fields.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { EntityComponent, filterRelationsByTypeLabel, relationsToItems } from '../shared/entity.component';
 
-@rendersEntityType('Project', ElementViewMode.Full)
+@rendersEntityType('OrgUnit', ElementViewMode.Full)
 @Component({
-  selector: 'ds-project-page-fields',
-  styleUrls: ['./project-page-fields.component.scss'],
-  templateUrl: './project-page-fields.component.html'
+  selector: 'ds-orgunit',
+  styleUrls: ['./orgunit.component.scss'],
+  templateUrl: './orgunit.component.html'
 })
 /**
- * The component for displaying metadata and relations of an item with entity type Project
+ * The component for displaying metadata and relations of an item with entity type Organisation Unit
  */
-export class ProjectPageFieldsComponent extends EntityPageFieldsComponent implements OnInit {
+export class OrgunitComponent extends EntityComponent implements OnInit {
   /**
-   * The people related to this project
+   * The people related to this organisation unit
    */
   people$: Observable<Item[]>;
 
   /**
-   * The publications related to this project
+   * The projects related to this organisation unit
    */
-  publications$: Observable<Item[]>;
+  projects$: Observable<Item[]>;
 
   /**
-   * The organisation units related to this project
+   * The publications related to this organisation unit
    */
-  orgUnits$: Observable<Item[]>;
+  publications$: Observable<Item[]>;
 
   constructor(
     @Inject(ITEM) public item: Item,
@@ -48,19 +45,18 @@ export class ProjectPageFieldsComponent extends EntityPageFieldsComponent implem
 
     if (isNotEmpty(this.resolvedRelsAndTypes$)) {
       this.people$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isPersonOfProject'),
+        filterRelationsByTypeLabel('isPersonOfOrgUnit'),
+        relationsToItems(this.item.id, this.ids)
+      );
+
+      this.projects$ = this.resolvedRelsAndTypes$.pipe(
+        filterRelationsByTypeLabel('isProjectOfOrgUnit'),
         relationsToItems(this.item.id, this.ids)
       );
 
       this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isPublicationOfProject'),
-        relationsToItems(this.item.id, this.ids)
-      );
-
-      this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isOrgUnitOfProject'),
+        filterRelationsByTypeLabel('isPublicationOfOrgUnit'),
         relationsToItems(this.item.id, this.ids)
       );
     }
-  }
-}
+  }}

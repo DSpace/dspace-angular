@@ -83,13 +83,13 @@ export const relationsToItems = (thisId: string, ids: ItemDataService) =>
     );
 
 @Component({
-  selector: 'ds-entity-page-fields',
+  selector: 'ds-entity',
   template: ''
 })
 /**
  * A generic component for displaying metadata and relations of an item
  */
-export class EntityPageFieldsComponent implements OnInit {
+export class EntityComponent implements OnInit {
   /**
    * Resolved relationships and types together in one observable
    */
