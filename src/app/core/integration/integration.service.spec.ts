@@ -13,11 +13,13 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 
 const LINK_NAME = 'authorities';
-const BROWSE = 'entries';
+const ENTRIES = 'entries';
+const ENTRY_VALUE = 'entryValue';
 
 class TestService extends IntegrationService {
   protected linkPath = LINK_NAME;
-  protected browseEndpoint = BROWSE;
+  protected entriesEndpoint = ENTRIES;
+  protected entryValueEndpoint = ENTRY_VALUE;
 
   constructor(
     protected responseCache: ResponseCacheService,

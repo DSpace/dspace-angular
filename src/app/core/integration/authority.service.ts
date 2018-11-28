@@ -9,7 +9,8 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 @Injectable()
 export class AuthorityService extends IntegrationService {
   protected linkPath = 'authorities';
-  protected browseEndpoint = 'entries';
+  protected entriesEndpoint = 'entries';
+  protected entryValueEndpoint = 'entryValues';
 
   constructor(
     protected responseCache: ResponseCacheService,
