@@ -53,7 +53,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     this.paginationConfig.id = 'collection-page-pagination';
     this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
-    this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.ASC);
+    this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
 
   ngOnInit(): void {
