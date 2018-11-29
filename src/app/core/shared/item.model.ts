@@ -91,6 +91,7 @@ export class Item extends DSpaceObject {
    * @param bundleName The name of the Bundle that should be returned
    * @returns {Observable<Bitstream[]>} the bitstreams with the given bundleName
    * TODO now that bitstreams can be paginated this should move to the server
+   * see https://github.com/DSpace/dspace-angular/issues/332
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
     return this.bitstreams
