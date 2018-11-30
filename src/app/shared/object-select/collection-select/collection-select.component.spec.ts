@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -15,6 +14,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { CollectionSelectComponent } from './collection-select.component';
 import { Collection } from '../../../core/shared/collection.model';
+import { of } from 'rxjs/internal/observable/of';
 
 describe('ItemSelectComponent', () => {
   let comp: CollectionSelectComponent;
@@ -31,7 +31,7 @@ describe('ItemSelectComponent', () => {
       name: 'name2'
     })
   ];
-  const mockCollections = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockCollectionList)));
+  const mockCollections = of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockCollectionList)));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,

@@ -32,6 +32,7 @@ import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { EmptyError } from 'rxjs/internal-compatibility';
+import { IndexState } from '../index/index.reducer';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -60,6 +61,7 @@ describe('MetadataService', () => {
   let title: Title;
 
   let store: Store<CoreState>;
+  let indexStore: Store<IndexState>;
 
   let objectCacheService: ObjectCacheService;
   let requestService: RequestService;
@@ -78,11 +80,12 @@ describe('MetadataService', () => {
   beforeEach(() => {
 
     store = new Store<CoreState>(undefined, undefined, undefined);
+    indexStore = new Store<IndexState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
 
     objectCacheService = new ObjectCacheService(store);
     uuidService = new UUIDService();
-    requestService = new RequestService(objectCacheService, uuidService, store);
+    requestService = new RequestService(objectCacheService, uuidService, store, indexStore);
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, requestService);
 
     TestBed.configureTestingModule({

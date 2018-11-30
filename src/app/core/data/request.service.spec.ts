@@ -21,6 +21,7 @@ import { RequestService } from './request.service';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { TestScheduler } from 'rxjs/testing';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { IndexState } from '../index/index.reducer';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -29,6 +30,7 @@ describe('RequestService', () => {
   let objectCache: ObjectCacheService;
   let uuidService: UUIDService;
   let store: Store<CoreState>;
+  let indexStore: Store<IndexState>;
 
   const testUUID = '5f2a0d2a-effa-4d54-bd54-5663b960f9eb';
   const testHref = 'https://rest.api/endpoint/selfLink';
@@ -48,7 +50,8 @@ describe('RequestService', () => {
 
     uuidService = getMockUUIDService();
 
-    store = new Store<CoreState>(new BehaviorSubject({}), new ActionsSubject(), null);
+    store = new Store<CoreState>(undefined, new ActionsSubject(), null);
+    indexStore = new Store<IndexState>(undefined, new ActionsSubject(), null);
     selectSpy = spyOnProperty(ngrx, 'select');
     selectSpy.and.callFake(() => {
       return () => {
@@ -59,7 +62,8 @@ describe('RequestService', () => {
     service = new RequestService(
       objectCache,
       uuidService,
-      store
+      store,
+      indexStore
     );
     serviceAsAny = service as any;
   });

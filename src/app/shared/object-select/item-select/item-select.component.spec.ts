@@ -2,7 +2,6 @@ import { ItemSelectComponent } from './item-select.component';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Item } from '../../../core/shared/item.model';
-import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -15,6 +14,7 @@ import { HostWindowService } from '../../host-window.service';
 import { HostWindowServiceStub } from '../../testing/host-window-service-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { of } from 'rxjs/internal/observable/of';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
@@ -24,7 +24,7 @@ describe('ItemSelectComponent', () => {
   const mockItemList = [
     Object.assign(new Item(), {
       id: 'id1',
-      bitstreams: Observable.of({}),
+      bitstreams: of({}),
       metadata: [
         {
           key: 'dc.title',
@@ -39,7 +39,7 @@ describe('ItemSelectComponent', () => {
     }),
     Object.assign(new Item(), {
       id: 'id2',
-      bitstreams: Observable.of({}),
+      bitstreams: of({}),
       metadata: [
         {
           key: 'dc.title',
@@ -53,7 +53,7 @@ describe('ItemSelectComponent', () => {
         }]
     })
   ];
-  const mockItems = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockItemList)));
+  const mockItems = of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockItemList)));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
