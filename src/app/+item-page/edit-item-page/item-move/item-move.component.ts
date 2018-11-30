@@ -104,9 +104,9 @@ export class ItemMoveComponent implements OnInit {
       (response: RestResponse) => {
         this.router.navigate([getItemEditPath(this.itemId)]);
         if (response.isSuccessful) {
-          this.notificationsService.success(this.translateService.get('item.move.success'));
+          this.notificationsService.success(this.translateService.get('item.edit.move.success'));
         } else {
-          this.notificationsService.error(this.translateService.get('item.move.error'));
+          this.notificationsService.error(this.translateService.get('item.edit.move.error'));
         }
       }
     );

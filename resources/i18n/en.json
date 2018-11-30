@@ -113,7 +113,9 @@
           "checkbox": "Inherit policies"
         },
         "move": "Move",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "success": "The item has been moved succesfully",
+        "error": "An error occured when attempting to move the item"
       }
     }
   },

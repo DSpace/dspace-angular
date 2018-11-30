@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h2>{{'item.edit.move.head' | translate: { id: (itemRD$ | async)?.payload?.id} }}</h2>
+            <h2>{{'item.edit.move.head' | translate: { id: (itemRD$ | async)?.payload?.handle} }}</h2>
             <p>{{'item.edit.move.description' | translate}}</p>
             <div class="row">
                 <div class="col-12">
@@ -33,7 +33,7 @@
 
             <button (click)="moveCollection()" class="btn btn-outline-secondary">{{'item.edit.move.move' | translate}}
             </button>
-            <button [routerLink]="['/items/', (itemRD$ | async)?.payload?.id]" class="btn btn-outline-secondary">
+            <button [routerLink]="['/items/', (itemRD$ | async)?.payload?.id, 'edit']" class="btn btn-outline-secondary">
                 {{'item.edit.move.cancel' | translate}}
             </button>
         </div>
