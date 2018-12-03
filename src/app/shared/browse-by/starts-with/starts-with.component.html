@@ -1,0 +1,43 @@
+<div>
+    <div class="d-none d-sm-block">
+        <ul class="pagination pagination-sm\">
+            <li class="page-item">
+                <a class="page-link" 
+                    [routerLink]="currentUrl"
+                    [queryParams]="{startsWith: 0}"
+                    [title]="('browse.starts-with.link.title' | translate) + ' 0-9'">
+                    0-9
+                </a>
+            </li>
+            <li class="page-item" *ngFor="let alphabet of alphabets">
+                <a class="page-link" 
+                    [routerLink]="currentUrl"
+                    [queryParams]="{startsWith: alphabet}"
+                    [title]="('browse.starts-with.link.title' | translate) + ' ' + alphabet">
+                    {{alphabet}}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <form #form="ngForm"
+        method="GET" 
+        (ngSubmit)="onSubmit(form.value)" 
+        [action]="currentUrl">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group input-group">
+                    <input class="form-control"
+                        id="starts-with-input"
+                        type="text"
+                        name="startsWith"
+                        [placeholder]="'browse.starts-with.input.placeholder' | translate"
+                        [title]="'browse.starts-with.input.title' | translate"
+                        [(ngModel)]='pageInfo.startsWith' />
+                    <span class="input-group-append">
+                        <button class="btn btn-secondary" type="submit">Go</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
