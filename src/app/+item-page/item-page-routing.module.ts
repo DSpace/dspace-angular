@@ -5,6 +5,17 @@ import { ItemPageComponent } from './simple/item-page.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { ItemPageResolver } from './item-page.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import {URLCombiner} from '../core/url-combiner/url-combiner';
+import {getItemModulePath} from '../app-routing.module';
+
+export function getItemPageRoute(itemId: string) {
+  return new URLCombiner(getItemModulePath(), itemId).toString();
+}
+export function getItemEditPath(id: string) {
+  return new URLCombiner(getItemModulePath(),ITEM_EDIT_PATH.replace(/:id/, id)).toString()
+}
+
+const ITEM_EDIT_PATH = ':id/edit';
 
 @NgModule({
   imports: [
@@ -25,7 +36,7 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
         }
       },
       {
-        path: ':id/edit',
+        path: ITEM_EDIT_PATH,
         loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
         canActivate: [AuthenticatedGuard]
       }

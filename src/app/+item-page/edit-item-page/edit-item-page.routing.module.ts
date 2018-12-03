@@ -1,7 +1,7 @@
-import { ItemPageResolver } from '../item-page.resolver';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { EditItemPageComponent } from './edit-item-page.component';
+import {ItemPageResolver} from '../item-page.resolver';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {EditItemPageComponent} from './edit-item-page.component';
 
 @NgModule({
   imports: [
@@ -12,8 +12,7 @@ import { EditItemPageComponent } from './edit-item-page.component';
         resolve: {
           item: ItemPageResolver
         }
-      }
-    ])
+      }])
   ],
   providers: [
     ItemPageResolver,

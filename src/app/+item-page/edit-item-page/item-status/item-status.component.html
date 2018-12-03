@@ -15,16 +15,7 @@
     <a href="{{getItemPage()}}">{{getItemPage()}}</a>
   </div>
 
-  <div *ngFor="let actionKey of actionsKeys" class="w-100 pt-3">
-    <div class="col-3 float-left d-flex h-100 action-label">
-      <span class="justify-content-center align-self-center">
-        {{'item.edit.tabs.status.buttons.' + actionKey + '.label' | translate}}
-      </span>
-    </div>
-    <div class="col-9 float-left action-button">
-      <a class="btn btn-outline-secondary" href="{{actions[actionKey]}}">
-        {{'item.edit.tabs.status.buttons.' + actionKey + '.button' | translate}}
-      </a>
-    </div>
+  <div *ngFor="let operation of operations" class="w-100 pt-3">
+    <ds-item-operation [operation]="operation"></ds-item-operation>
   </div>
 </div>

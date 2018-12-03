@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router-stub';
 import { Item } from '../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('ItemStatusComponent', () => {
   let comp: ItemStatusComponent;
@@ -33,7 +34,7 @@ describe('ItemStatusComponent', () => {
       providers: [
         { provide: Router, useValue: routerStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
-      ]
+      ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
