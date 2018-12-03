@@ -2,7 +2,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { RemoteData } from '../data/remote-data';
 import { Item } from './item.model';
 import { BitstreamFormat } from './bitstream-format.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export class Bitstream extends DSpaceObject {
 

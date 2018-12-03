@@ -1,24 +1,19 @@
 import {
-  ChangeDetectorRef,
   Component,
+  ComponentFactoryResolver,
   ContentChildren,
   EventEmitter,
   Input,
   OnChanges,
   Output,
   QueryList,
-  SimpleChanges
+  SimpleChanges,
+  Type,
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-  DynamicDatePickerModel,
-  DynamicFormControlComponent,
-  DynamicFormControlEvent,
-  DynamicFormControlModel,
-  DynamicFormLayout,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
-  DynamicTemplateDirective,
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
@@ -29,6 +24,14 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
+  DynamicDatePickerModel,
+  DynamicFormControl,
+  DynamicFormControlContainerComponent,
+  DynamicFormControlEvent,
+  DynamicFormControlModel, DynamicFormLayout,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+  DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
@@ -40,40 +43,37 @@ import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkb
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
 import { isNotEmpty } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
-
-export const enum NGBootstrapFormControlType {
-
-  Array = 1, // 'ARRAY',
-  Calendar = 2, // 'CALENDAR',
-  Checkbox = 3, // 'CHECKBOX',
-  CheckboxGroup = 4, // 'CHECKBOX_GROUP',
-  DatePicker = 5, // 'DATEPICKER',
-  Group = 6, // 'GROUP',
-  Input = 7, // 'INPUT',
-  RadioGroup = 8, // 'RADIO_GROUP',
-  Select = 9, // 'SELECT',
-  TextArea = 10, // 'TEXTAREA',
-  TimePicker = 11, // 'TIMEPICKER'
-  TypeAhead = 12, // 'TYPEAHEAD'
-  ScrollableDropdown = 13, // 'SCROLLABLE_DROPDOWN'
-  Tag = 14, // 'TAG'
-  List = 15, // 'TYPELIST'
-  Relation = 16, // 'RELATION'
-  Date = 17, // 'DATE'
-  Lookup = 18, // LOOKUP
-  LookupName = 19, // LOOKUP_NAME
-}
+import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
+import {
+  DynamicNGBootstrapCalendarComponent,
+  DynamicNGBootstrapCheckboxComponent,
+  DynamicNGBootstrapCheckboxGroupComponent,
+  DynamicNGBootstrapDatePickerComponent,
+  DynamicNGBootstrapFormArrayComponent,
+  DynamicNGBootstrapFormGroupComponent,
+  DynamicNGBootstrapInputComponent,
+  DynamicNGBootstrapRadioGroupComponent,
+  DynamicNGBootstrapSelectComponent,
+  DynamicNGBootstrapTextAreaComponent,
+  DynamicNGBootstrapTimePickerComponent
+} from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
+import { DsDynamicListComponent } from './models/list/dynamic-list.component';
+import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahead.component';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DsDynamicGroupComponent } from './models/dynamic-group/dynamic-group.components';
+import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
 
 @Component({
   selector: 'ds-dynamic-form-control',
   styleUrls: ['../../form.component.scss', './ds-dynamic-form.component.scss'],
   templateUrl: './ds-dynamic-form-control.component.html'
 })
-export class DsDynamicFormControlComponent extends DynamicFormControlComponent implements OnChanges {
+export class DsDynamicFormControlComponent extends DynamicFormControlContainerComponent implements OnChanges {
 
-    @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
-    // tslint:disable-next-line:no-input-rename
-    @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
+  @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
+  // tslint:disable-next-line:no-input-rename
+  @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
 
   @Input() formId: string;
   @Input() asBootstrapFormGroup = true;
@@ -81,7 +81,7 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
   @Input() context: any | null = null;
   @Input() group: FormGroup;
   @Input() hasErrorMessaging = false;
-  @Input() layout: DynamicFormLayout;
+  @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
 
   /* tslint:disable:no-output-rename */
@@ -89,90 +89,89 @@ export class DsDynamicFormControlComponent extends DynamicFormControlComponent i
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
+  @ViewChild('componentViewContainer', {read: ViewContainerRef}) componentViewContainerRef: ViewContainerRef;
 
-  type: NGBootstrapFormControlType | null;
+  get componentType(): Type<DynamicFormControl> | null {
+    return this.layoutService.getCustomComponentType(this.model) || DsDynamicFormControlComponent.getFormControlType(this.model);
+  }
 
-  static getFormControlType(model: DynamicFormControlModel): NGBootstrapFormControlType | null {
+  static getFormControlType(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
 
     switch (model.type) {
 
       case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
-        return NGBootstrapFormControlType.Array;
+        return DynamicNGBootstrapFormArrayComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX:
-        return NGBootstrapFormControlType.Checkbox;
+        return DynamicNGBootstrapCheckboxComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP:
-        return (model instanceof DynamicListCheckboxGroupModel) ? NGBootstrapFormControlType.List : NGBootstrapFormControlType.CheckboxGroup;
+        return (model instanceof DynamicListCheckboxGroupModel) ? DsDynamicListComponent : DynamicNGBootstrapCheckboxGroupComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER:
         const datepickerModel = model as DynamicDatePickerModel;
 
-        return datepickerModel.inline ? NGBootstrapFormControlType.Calendar : NGBootstrapFormControlType.DatePicker;
+        return datepickerModel.inline ? DynamicNGBootstrapCalendarComponent : DynamicNGBootstrapDatePickerComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_GROUP:
-        return NGBootstrapFormControlType.Group;
+        return DynamicNGBootstrapFormGroupComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_INPUT:
-        return NGBootstrapFormControlType.Input;
+        return DynamicNGBootstrapInputComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP:
-        return (model instanceof DynamicListRadioGroupModel) ? NGBootstrapFormControlType.List : NGBootstrapFormControlType.RadioGroup;
+        return (model instanceof DynamicListRadioGroupModel) ? DsDynamicListComponent : DynamicNGBootstrapRadioGroupComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_SELECT:
-        return NGBootstrapFormControlType.Select;
+        return DynamicNGBootstrapSelectComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA:
-        return NGBootstrapFormControlType.TextArea;
+        return DynamicNGBootstrapTextAreaComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER:
-        return NGBootstrapFormControlType.TimePicker;
+        return DynamicNGBootstrapTimePickerComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD:
-        return NGBootstrapFormControlType.TypeAhead;
+        return DsDynamicTypeaheadComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN:
-        return NGBootstrapFormControlType.ScrollableDropdown;
+        return DsDynamicScrollableDropdownComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_TAG:
-        return NGBootstrapFormControlType.Tag;
+        return DsDynamicTagComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP:
-        return NGBootstrapFormControlType.Relation;
+        return DsDynamicGroupComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER:
-        return NGBootstrapFormControlType.Date;
+        return DsDatePickerComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP:
-        return NGBootstrapFormControlType.Lookup;
+        return DsDynamicLookupComponent;
 
       case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME:
-        return NGBootstrapFormControlType.LookupName;
+        return DsDynamicLookupComponent;
 
       default:
         return null;
     }
   }
 
-  constructor(protected changeDetectorRef: ChangeDetectorRef, protected layoutService: DynamicFormLayoutService,
+  constructor(protected componentFactoryResolver: ComponentFactoryResolver, protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService) {
 
-    super(changeDetectorRef, layoutService, validationService);
+    super(componentFactoryResolver, layoutService, validationService);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes) {
       super.ngOnChanges(changes);
     }
-
-    if (changes.model) {
-      this.type = DsDynamicFormControlComponent.getFormControlType(this.model);
-    }
   }
 
   onChangeLanguage(event) {
     if (isNotEmpty((this.model as any).value)) {
-      this.onValueChange(event);
+      this.onChange(event);
     }
   }
 }

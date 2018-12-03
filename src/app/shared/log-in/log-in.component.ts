@@ -1,12 +1,13 @@
+import { filter, map, takeWhile } from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/takeWhile';
-
-import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../core/auth/auth.actions';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import {
+  AuthenticateAction,
+  ResetAuthenticationMessagesAction
+} from '../../core/auth/auth.actions';
 
 import {
   getAuthenticationError,
@@ -99,7 +100,7 @@ export class LogInComponent implements OnDestroy, OnInit {
    */
   public ngOnInit() {
     // set isAuthenticated
-    this.isAuthenticated = this.store.select(isAuthenticated);
+    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
     // set formGroup
     this.form = this.formBuilder.group({
@@ -108,29 +109,35 @@ export class LogInComponent implements OnDestroy, OnInit {
     });
 
     // set error
-    this.error = this.store.select(getAuthenticationError)
-      .map((error) => {
+    this.error = this.store.pipe(select(
+      getAuthenticationError),
+      map((error) => {
         this.hasError = (isNotEmpty(error));
         return error;
-      });
+      })
+    );
 
     // set error
-    this.message = this.store.select(getAuthenticationInfo)
-      .map((message) => {
+    this.message = this.store.pipe(
+      select(getAuthenticationInfo),
+      map((message) => {
         this.hasMessage = (isNotEmpty(message));
         return message;
-      });
+      })
+    );
 
     // set loading
-    this.loading = this.store.select(isAuthenticationLoading);
+    this.loading = this.store.pipe(select(isAuthenticationLoading));
 
     // subscribe to success
-    this.store.select(isAuthenticated)
-      .takeWhile(() => this.alive)
-      .filter((authenticated) => authenticated)
+    this.store.pipe(
+      select(isAuthenticated),
+      takeWhile(() => this.alive),
+      filter((authenticated) => authenticated))
       .subscribe(() => {
-        this.authService.redirectToPreviousUrl();
-      });
+          this.authService.redirectToPreviousUrl();
+        }
+      );
   }
 
   /**

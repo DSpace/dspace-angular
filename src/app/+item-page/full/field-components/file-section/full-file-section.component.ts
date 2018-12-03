@@ -1,10 +1,10 @@
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
 import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
-import { hasValue } from '../../../../shared/empty.util';
+import { map } from 'rxjs/operators';
 
 /**
  * This component renders the file section of the item
@@ -33,7 +33,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   initialize(): void {
     const originals = this.item.getFiles();
     const licenses = this.item.getBitstreamsByBundleName('LICENSE');
-    this.bitstreamsObs = Observable.combineLatest(originals, licenses, (o, l) => [...o, ...l]);
+    this.bitstreamsObs = observableCombineLatest(originals, licenses).pipe(map(([o, l]) => [...o, ...l]));
     this.bitstreamsObs.subscribe(
       (files) =>
         files.forEach(
