@@ -1,6 +1,6 @@
 import nodeResolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs';
-import uglify from 'rollup-plugin-uglify'
+import terser from 'rollup-plugin-terser'
 
 export default {
   input: 'dist/client.js',
@@ -8,7 +8,6 @@ export default {
    file: 'dist/client.js',
    format: 'iife',
   },
-  sourcemap: false,
   plugins: [
     nodeResolve({
       jsnext: true,
@@ -17,6 +16,6 @@ export default {
     commonjs({
       include: 'node_modules/rxjs/**'
     }),
-    uglify()
+    terser.terser()
   ]
 }

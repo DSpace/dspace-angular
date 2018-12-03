@@ -1,3 +1,5 @@
+
+import {distinctUntilChanged} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -7,21 +9,25 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../../empty.util';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-lookup',
   styleUrls: ['./dynamic-lookup.component.scss'],
   templateUrl: './dynamic-lookup.component.html'
 })
-export class DsDynamicLookupComponent implements OnDestroy, OnInit {
+export class DsDynamicLookupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicLookupModel | DynamicLookupNameModel;
-  @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
@@ -37,7 +43,11 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   protected sub: Subscription;
 
   constructor(private authorityService: AuthorityService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
   }
 
   ngOnInit() {
@@ -137,8 +147,8 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
     this.searchOptions.query = this.getCurrentValue();
 
     this.loading = true;
-    this.authorityService.getEntriesByName(this.searchOptions)
-      .distinctUntilChanged()
+    this.authorityService.getEntriesByName(this.searchOptions).pipe(
+      distinctUntilChanged())
       .subscribe((object: IntegrationData) => {
         this.optionsList = object.payload;
         this.pageInfo = object.pageInfo;

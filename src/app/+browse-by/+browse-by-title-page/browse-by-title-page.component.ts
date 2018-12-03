@@ -1,13 +1,13 @@
+
+import {combineLatest as observableCombineLatest,  Observable ,  Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ItemDataService } from '../../core/data/item-data.service';
-import { Observable } from 'rxjs/Observable';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { Item } from '../../core/shared/item.model';
-import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, PRIMARY_OUTLET, UrlSegmentGroup } from '@angular/router';
 import { hasValue } from '../../shared/empty.util';
 import { Collection } from '../../core/shared/collection.model';
@@ -45,7 +45,7 @@ export class BrowseByTitlePageComponent implements OnInit {
       sort: this.sortConfig
     });
     this.subs.push(
-      Observable.combineLatest(
+      observableCombineLatest(
         this.route.params,
         this.route.queryParams,
         (params, queryParams, ) => {

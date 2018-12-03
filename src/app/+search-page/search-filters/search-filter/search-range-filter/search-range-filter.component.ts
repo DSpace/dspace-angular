@@ -1,3 +1,10 @@
+import {
+  of as observableOf,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription
+} from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
@@ -12,10 +19,8 @@ import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchService } from '../../../search-service/search.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { Observable } from 'rxjs/Observable';
 import { RouteService } from '../../../../shared/services/route.service';
 import { hasValue } from '../../../../shared/empty.util';
-import { Subscription } from 'rxjs/Subscription';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 
 /**
@@ -80,13 +85,15 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     super.ngOnInit();
     this.min = moment(this.filterConfig.minValue, dateFormats).year() || this.min;
     this.max = moment(this.filterConfig.maxValue, dateFormats).year() || this.max;
-    const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + minSuffix).startWith(undefined);
-    const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + maxSuffix).startWith(undefined);
-    this.sub = Observable.combineLatest(iniMin, iniMax, (min, max) => {
-      const minimum = hasValue(min) ? min : this.min;
-      const maximum = hasValue(max) ? max : this.max;
-      return [minimum, maximum]
-    }).subscribe((minmax) => this.range = minmax);
+    const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + minSuffix).pipe(startWith(undefined));
+    const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + maxSuffix).pipe(startWith(undefined));
+    this.sub = observableCombineLatest(iniMin, iniMax).pipe(
+      map(([min, max]) => {
+        const minimum = hasValue(min) ? min : this.min;
+        const maximum = hasValue(max) ? max : this.max;
+        return [minimum, maximum]
+      })
+    ).subscribe((minmax) => this.range = minmax);
   }
 
   /**
@@ -98,7 +105,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     const parts = value.split(rangeDelimiter);
     const min = parts.length > 1 ? parts[0].trim() : value;
     const max = parts.length > 1 ? parts[1].trim() : value;
-    return Observable.of(
+    return observableOf(
       {
         [this.filterConfig.paramName + minSuffix]: [min],
         [this.filterConfig.paramName + maxSuffix]: [max],

@@ -1,14 +1,13 @@
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '../../../shared/shared.module';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
@@ -53,7 +52,7 @@ describe('BitstreamFormatsComponent', () => {
       extensions: null
     }
   ];
-  const mockFormats = Observable.of(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFormatsList)));
+  const mockFormats = observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFormatsList)));
   const registryServiceStub = {
     getBitstreamFormats: () => mockFormats
   };

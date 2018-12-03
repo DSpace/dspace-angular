@@ -1,15 +1,21 @@
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  merge as observableMerge,
+  Observable,
+  of as observableOf,
+  Subscription
+} from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Injectable, OnDestroy } from '@angular/core';
 import { RouteService } from '../../shared/services/route.service';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
 import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
@@ -87,27 +93,27 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current scope's identifier
    */
   getCurrentScope(defaultScope: string) {
-    return this.routeService.getQueryParameterValue('scope').map((scope) => {
+    return this.routeService.getQueryParameterValue('scope').pipe(map((scope) => {
       return scope || defaultScope;
-    });
+    }));
   }
 
   /**
    * @returns {Observable<string>} Emits the current query string
    */
   getCurrentQuery(defaultQuery: string) {
-    return this.routeService.getQueryParameterValue('query').map((query) => {
+    return this.routeService.getQueryParameterValue('query').pipe(map((query) => {
       return query || defaultQuery;
-    });
+    }));
   }
 
   /**
    * @returns {Observable<number>} Emits the current DSpaceObject type as a number
    */
   getCurrentDSOType(): Observable<DSpaceObjectType> {
-    return this.routeService.getQueryParameterValue('dsoType')
-      .filter((type) => hasValue(type) && hasValue(DSpaceObjectType[type.toUpperCase()]))
-      .map((type) => DSpaceObjectType[type.toUpperCase()]);
+    return this.routeService.getQueryParameterValue('dsoType').pipe(
+      filter((type) => hasValue(type) && hasValue(DSpaceObjectType[type.toUpperCase()])),
+      map((type) => DSpaceObjectType[type.toUpperCase()]),);
   }
 
   /**
@@ -116,12 +122,13 @@ export class SearchConfigurationService implements OnDestroy {
   getCurrentPagination(defaultPagination: PaginationComponentOptions): Observable<PaginationComponentOptions> {
     const page$ = this.routeService.getQueryParameterValue('page');
     const size$ = this.routeService.getQueryParameterValue('pageSize');
-    return Observable.combineLatest(page$, size$, (page, size) => {
-      return Object.assign(new PaginationComponentOptions(), defaultPagination, {
-        currentPage: page || defaultPagination.currentPage,
-        pageSize: size || defaultPagination.pageSize
-      });
-    });
+    return observableCombineLatest(page$, size$).pipe(map(([page, size]) => {
+        return Object.assign(new PaginationComponentOptions(), defaultPagination, {
+          currentPage: page || defaultPagination.currentPage,
+          pageSize: size || defaultPagination.pageSize
+        });
+      })
+    );
   }
 
   /**
@@ -130,7 +137,7 @@ export class SearchConfigurationService implements OnDestroy {
   getCurrentSort(defaultSort: SortOptions): Observable<SortOptions> {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
-    return Observable.combineLatest(sortDirection$, sortField$, (sortDirection, sortField) => {
+    return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
         // Dirty fix because sometimes the observable value is null somehow
         sortField = this.route.snapshot.queryParamMap.get('sortField');
 
@@ -138,20 +145,21 @@ export class SearchConfigurationService implements OnDestroy {
         const direction = SortDirection[sortDirection] || defaultSort.direction;
         return new SortOptions(field, direction)
       }
-    )
+      )
+    );
   }
 
   /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are sent to the backend
    */
   getCurrentFilters(): Observable<SearchFilter[]> {
-    return this.routeService.getQueryParamsWithPrefix('f.').map((filterParams) => {
+    return this.routeService.getQueryParamsWithPrefix('f.').pipe(map((filterParams) => {
       if (isNotEmpty(filterParams)) {
         const filters = [];
         Object.keys(filterParams).forEach((key) => {
           if (key.endsWith('.min') || key.endsWith('.max')) {
             const realKey = key.slice(0, -4);
-            if (hasNoValue(filters.find((filter) => filter.key === realKey))) {
+            if (hasNoValue(filters.find((f) => f.key === realKey))) {
               const min = filterParams[realKey + '.min'] ? filterParams[realKey + '.min'][0] : '*';
               const max = filterParams[realKey + '.max'] ? filterParams[realKey + '.max'][0] : '*';
               filters.push(new SearchFilter(realKey, ['[' + min + ' TO ' + max + ']']));
@@ -163,7 +171,7 @@ export class SearchConfigurationService implements OnDestroy {
         return filters;
       }
       return [];
-    });
+    }));
   }
 
   /**
@@ -179,7 +187,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Subscription} The subscription to unsubscribe from
    */
   subscribeToSearchOptions(defaults: SearchOptions): Subscription {
-    return Observable.merge(
+    return observableMerge(
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
@@ -197,7 +205,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Subscription} The subscription to unsubscribe from
    */
   subscribeToPaginatedSearchOptions(defaults: PaginatedSearchOptions): Subscription {
-    return Observable.merge(
+    return observableMerge(
       this.getPaginationPart(defaults.pagination),
       this.getSortPart(defaults.sort),
       this.getScopePart(defaults.scope),
@@ -222,7 +230,7 @@ export class SearchConfigurationService implements OnDestroy {
         scope: this.defaultScope,
         query: this.defaultQuery
       });
-      this._defaults = Observable.of(new RemoteData(false, false, true, null, options));
+      this._defaults = observableOf(new RemoteData(false, false, true, null, options));
     }
     return this._defaults;
   }
@@ -240,53 +248,53 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current scope's identifier
    */
   private getScopePart(defaultScope: string): Observable<any> {
-    return this.getCurrentScope(defaultScope).map((scope) => {
+    return this.getCurrentScope(defaultScope).pipe(map((scope) => {
       return { scope }
-    });
+    }));
   }
 
   /**
    * @returns {Observable<string>} Emits the current query string as a partial SearchOptions object
    */
   private getQueryPart(defaultQuery: string): Observable<any> {
-    return this.getCurrentQuery(defaultQuery).map((query) => {
+    return this.getCurrentQuery(defaultQuery).pipe(map((query) => {
       return { query }
-    });
+    }));
   }
 
   /**
    * @returns {Observable<string>} Emits the current query string as a partial SearchOptions object
    */
   private getDSOTypePart(): Observable<any> {
-    return this.getCurrentDSOType().map((dsoType) => {
+    return this.getCurrentDSOType().pipe(map((dsoType) => {
       return { dsoType }
-    });
+    }));
   }
 
   /**
    * @returns {Observable<string>} Emits the current pagination settings as a partial SearchOptions object
    */
   private getPaginationPart(defaultPagination: PaginationComponentOptions): Observable<any> {
-    return this.getCurrentPagination(defaultPagination).map((pagination) => {
+    return this.getCurrentPagination(defaultPagination).pipe(map((pagination) => {
       return { pagination }
-    });
+    }));
   }
 
   /**
    * @returns {Observable<string>} Emits the current sorting settings as a partial SearchOptions object
    */
   private getSortPart(defaultSort: SortOptions): Observable<any> {
-    return this.getCurrentSort(defaultSort).map((sort) => {
+    return this.getCurrentSort(defaultSort).pipe(map((sort) => {
       return { sort }
-    });
+    }));
   }
 
   /**
    * @returns {Observable<Params>} Emits the current active filters as a partial SearchOptions object
    */
   private getFiltersPart(): Observable<any> {
-    return this.getCurrentFilters().map((filters) => {
+    return this.getCurrentFilters().pipe(map((filters) => {
       return { filters }
-    });
+    }));
   }
 }

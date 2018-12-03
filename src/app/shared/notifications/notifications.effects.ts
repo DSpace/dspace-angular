@@ -12,14 +12,14 @@ export class NotificationsEffects {
    */
  /* @Effect()
   public timer: Observable<Action> = this.actions$
-    .ofType(NotificationsActionTypes.NEW_NOTIFICATION_WITH_TIMER)
+    .pipe(ofType(NotificationsActionTypes.NEW_NOTIFICATION_WITH_TIMER),
     // .debounceTime((action: any) => action.payload.options.timeOut)
-    .debounceTime(3000)
-    .map(() => new RemoveNotificationAction());
+    debounceTime(3000),
+    map(() => new RemoveNotificationAction());
      .switchMap((action: NewNotificationWithTimerAction) => Observable
       .timer(30000)
       .mapTo(() => new RemoveNotificationAction())
-    );*/
+    ));*/
 
   /**
    * @constructor

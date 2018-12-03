@@ -1,17 +1,15 @@
-import { ComponentFixture, TestBed, async, fakeAsync, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { Location, CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { By, Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { Store, StoreModule } from '@ngrx/store';
-
-import { Observable } from 'rxjs/Observable';
-import { RemoteDataError } from '../data/remote-data-error';
+import { Observable, of as observableOf } from 'rxjs';
 import { UUIDService } from '../shared/uuid.service';
 
 import { MetadataService } from './metadata.service';
@@ -34,9 +32,7 @@ import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { PaginatedList } from '../data/paginated-list';
-import { PageInfo } from '../shared/page-info.model';
-import { EmptyError } from 'rxjs/util/EmptyError';
+import { EmptyError } from 'rxjs/internal-compatibility';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -187,7 +183,7 @@ describe('MetadataService', () => {
   describe('when the item has no bitstreams', () => {
 
     beforeEach(() => {
-      spyOn(MockItem, 'getFiles').and.returnValue(Observable.of([]));
+      spyOn(MockItem, 'getFiles').and.returnValue(observableOf([]));
     });
 
     it('processRemoteData should not produce an EmptyError', fakeAsync(() => {
@@ -201,7 +197,7 @@ describe('MetadataService', () => {
   });
 
   const mockRemoteData = (mockItem: Item): Observable<RemoteData<Item>> => {
-    return Observable.of(new RemoteData<Item>(
+    return observableOf(new RemoteData<Item>(
       false,
       false,
       true,

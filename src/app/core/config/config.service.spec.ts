@@ -1,5 +1,5 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/Rx';
+import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { ConfigService } from './config.service';
@@ -56,11 +56,11 @@ describe('ConfigService', () => {
   }
 
   beforeEach(() => {
+    scheduler = getTestScheduler();
     responseCache = initMockResponseCacheService(true);
     requestService = getMockRequestService();
-    service = initTestService();
-    scheduler = getTestScheduler();
     halService = new HALEndpointServiceStub(configEndpoint);
+    service = initTestService();
   });
 
   describe('getConfigByHref', () => {

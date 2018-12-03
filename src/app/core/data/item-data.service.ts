@@ -1,9 +1,9 @@
-import { Inject, Injectable } from '@angular/core';
 
+import {distinctUntilChanged, map, filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { Observable } from 'rxjs';
+import { isNotEmpty } from '../../shared/empty.util';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedItem } from '../cache/models/normalized-item.model';
@@ -42,10 +42,10 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     if (options.sort && options.sort.field) {
       field = options.sort.field;
     }
-    return this.bs.getBrowseURLFor(field, this.linkPath)
-      .filter((href: string) => isNotEmpty(href))
-      .map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString())
-      .distinctUntilChanged();
+    return this.bs.getBrowseURLFor(field, this.linkPath).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString()),
+      distinctUntilChanged(),);
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { createSelector, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { createSelector, select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { RouterReducerState } from '@ngrx/router-store';
 
 import { HeaderState } from './header.reducer';
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     // set loading
-    this.isNavBarCollapsed = this.store.select(navCollapsedSelector);
+    this.isNavBarCollapsed = this.store.pipe(select(navCollapsedSelector));
   }
 
   public toggle(): void {
