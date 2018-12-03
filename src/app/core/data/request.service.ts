@@ -14,9 +14,11 @@ import { IndexName } from '../index/index.reducer';
 import { pathSelector } from '../shared/selectors';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
-import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
+import { GetRequest, RestRequest } from './request.models';
 
 import { RequestEntry } from './request.reducer';
+import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
+import { RestRequestMethod } from './rest-request-method';
 
 @Injectable()
 export class RequestService {
@@ -70,7 +72,7 @@ export class RequestService {
 
   // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
-    const isGetRequest = request.method === RestRequestMethod.Get;
+    const isGetRequest = request.method === RestRequestMethod.GET;
     if (!isGetRequest || !this.isCachedOrPending(request) || forceBypassCache) {
       this.dispatchRequest(request);
       if (isGetRequest && !forceBypassCache) {
@@ -122,5 +124,9 @@ export class RequestService {
     ).subscribe((re: RequestEntry) => {
       this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
     });
+  }
+
+  commit(method?: RestRequestMethod) {
+    this.store.dispatch(new CommitSSBAction(method))
   }
 }

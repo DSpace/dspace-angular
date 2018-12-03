@@ -1,25 +1,33 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { distinctUntilChanged, filter, first, map, mergeMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, mergeMap, } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { IndexName } from '../index/index.reducer';
 
 import { CacheableObject, ObjectCacheEntry } from './object-cache.reducer';
-import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
-import { hasNoValue } from '../../shared/empty.util';
+import {
+  AddPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
+  RemoveFromObjectCacheAction
+} from './object-cache.actions';
+import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { coreSelector, CoreState } from '../core.reducers';
 import { pathSelector } from '../shared/selectors';
 import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
+import { applyPatch, Operation } from 'fast-json-patch';
+import { AddToSSBAction } from './server-sync-buffer.actions';
+import { RestRequestMethod } from '../data/rest-request-method';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
   return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);
 }
 
 function entryFromSelfLinkSelector(selfLink: string): MemoizedSelector<CoreState, ObjectCacheEntry> {
-  return pathSelector<CoreState, ObjectCacheEntry>(coreSelector, 'data/object', selfLink);
+  return pathSelector<CoreState, ObjectCacheEntry>(coreSelector, 'cache/object', selfLink);
 }
 
 /**
@@ -47,10 +55,10 @@ export class ObjectCacheService {
   }
 
   /**
-   * Remove the object with the supplied UUID from the cache
+   * Remove the object with the supplied href from the cache
    *
-   * @param uuid
-   *    The UUID of the object to be removed
+   * @param href
+   *    The unique href of the object to be removed
    */
   remove(uuid: string): void {
     this.store.dispatch(new RemoveFromObjectCacheAction(uuid));
@@ -83,9 +91,20 @@ export class ObjectCacheService {
   getBySelfLink<T extends NormalizedObject>(selfLink: string): Observable<T> {
     return this.getEntry(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
+          if (isNotEmpty(entry.patches)) {
+            const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
+            const patchedData = applyPatch(entry.data, flatPatch, undefined, false).newDocument;
+            return Object.assign({}, entry, { data: patchedData });
+          } else {
+            return entry;
+          }
+        }
+      ),
+      map((entry: ObjectCacheEntry) => {
         const type: GenericConstructor<NormalizedObject> = NormalizedObjectFactory.getConstructor(entry.data.type);
         return Object.assign(new type(), entry.data) as T
-      }));
+      })
+    );
   }
 
   private getEntry(selfLink: string): Observable<ObjectCacheEntry> {
@@ -99,7 +118,7 @@ export class ObjectCacheService {
   getRequestHrefBySelfLink(selfLink: string): Observable<string> {
     return this.getEntry(selfLink).pipe(
       map((entry: ObjectCacheEntry) => entry.requestHref),
-      distinctUntilChanged(),);
+      distinctUntilChanged());
   }
 
   getRequestHrefByUUID(uuid: string): Observable<string> {
@@ -193,6 +212,41 @@ export class ObjectCacheService {
       }
       return !isOutDated;
     }
+  }
+
+  /**
+   * Add operations to the existing list of operations for an ObjectCacheEntry
+   * Makes sure the ServerSyncBuffer for this ObjectCacheEntry is updated
+   * @param {string} uuid
+   *     the uuid of the ObjectCacheEntry
+   * @param {Operation[]} patch
+   *     list of operations to perform
+   */
+  public addPatch(selfLink: string, patch: Operation[]) {
+    this.store.dispatch(new AddPatchObjectCacheAction(selfLink, patch));
+    this.store.dispatch(new AddToSSBAction(selfLink, RestRequestMethod.PATCH));
+  }
+
+  /**
+   * Check whether there are any unperformed operations for an ObjectCacheEntry
+   *
+   * @param entry
+   *    the entry to check
+   * @return boolean
+   *    false if the entry is there are no operations left in the ObjectCacheEntry, true otherwise
+   */
+  private isDirty(entry: ObjectCacheEntry): boolean {
+    return isNotEmpty(entry.patches);
+  }
+
+  /**
+   * Apply the existing operations on an ObjectCacheEntry in the store
+   * NB: this does not make any server side changes
+   * @param {string} uuid
+   *     the uuid of the ObjectCacheEntry
+   */
+  private applyPatchesToCachedObject(selfLink: string) {
+    this.store.dispatch(new ApplyPatchObjectCacheAction(selfLink));
   }
 
 }

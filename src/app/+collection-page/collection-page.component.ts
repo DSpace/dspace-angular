@@ -15,7 +15,7 @@ import { Item } from '../core/shared/item.model';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { filter, flatMap, map } from 'rxjs/operators';
+import { filter, first, flatMap, map } from 'rxjs/operators';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { toDSpaceObjectListRD } from '../core/shared/operators';
@@ -75,8 +75,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
           pagination: pagination,
           sort: this.sortConfig
         });
-      })
-    );
+      }));
+
   }
 
   updatePage(searchOptions) {

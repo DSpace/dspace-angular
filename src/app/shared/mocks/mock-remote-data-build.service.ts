@@ -1,4 +1,3 @@
-
 import {of as observableOf,  Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
@@ -6,7 +5,6 @@ import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestEntry } from '../../core/data/request.reducer';
 import { hasValue } from '../empty.util';
-import { NormalizedObject } from '../../core/cache/models/normalized-object.model';
 
 export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observable<RemoteData<any>>): RemoteDataBuildService {
   return {

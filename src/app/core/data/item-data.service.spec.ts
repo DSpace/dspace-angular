@@ -8,6 +8,7 @@ import { CoreState } from '../core.reducers';
 import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { FindAllOptions } from './request.models';
 
 describe('ItemDataService', () => {
@@ -17,6 +18,7 @@ describe('ItemDataService', () => {
   const requestService = {} as RequestService;
   const responseCache = {} as ResponseCacheService;
   const rdbService = {} as RemoteDataBuildService;
+  const objectCache = {} as ObjectCacheService;
   const store = {} as Store<CoreState>;
   const halEndpointService = {} as HALEndpointService;
 
@@ -51,7 +53,8 @@ describe('ItemDataService', () => {
       rdbService,
       store,
       bs,
-      halEndpointService
+      halEndpointService,
+      objectCache
     );
   }
 

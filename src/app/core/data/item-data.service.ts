@@ -16,6 +16,7 @@ import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions } from './request.models';
+import { ObjectCacheService } from '../cache/object-cache.service';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -27,7 +28,8 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
     private bs: BrowseService,
-    protected halService: HALEndpointService) {
+    protected halService: HALEndpointService,
+    protected objectCache: ObjectCacheService) {
     super();
   }
 

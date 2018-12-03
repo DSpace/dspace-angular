@@ -6,6 +6,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 import { DSpaceObjectDataService } from './dspace-object-data.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 
 describe('DSpaceObjectDataService', () => {
   let scheduler: TestScheduler;
@@ -13,6 +14,7 @@ describe('DSpaceObjectDataService', () => {
   let halService: HALEndpointService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
+  let objectCache: ObjectCacheService;
   const testObject = {
     uuid: '9b4f22f4-164a-49db-8817-3316b6ee5746'
   } as DSpaceObject;
@@ -37,11 +39,13 @@ describe('DSpaceObjectDataService', () => {
         }
       })
     });
+    objectCache = {} as ObjectCacheService;
 
     service = new DSpaceObjectDataService(
       requestService,
       rdbService,
-      halService
+      halService,
+      objectCache
     )
   });
 
