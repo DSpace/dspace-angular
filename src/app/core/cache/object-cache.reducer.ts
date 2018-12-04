@@ -1,15 +1,10 @@
 import {
-  ObjectCacheAction,
-  ObjectCacheActionTypes,
-  AddToObjectCacheAction,
-  RemoveFromObjectCacheAction,
-  ResetObjectCacheTimestampsAction,
-  AddPatchObjectCacheAction, ApplyPatchObjectCacheAction
+  ObjectCacheAction, ObjectCacheActionTypes, AddToObjectCacheAction,
+  RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction
 } from './object-cache.actions';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
 import { ResourceType } from '../shared/resource-type';
-import { applyPatch, Operation } from 'fast-json-patch';
 
 export enum DirtyType {
   Created = 'Created',
@@ -17,12 +12,7 @@ export enum DirtyType {
   Deleted = 'Deleted'
 }
 
-export interface Patch {
-  uuid?: string;
-  operations: Operation[];
-}
-
-/**conca
+/**
  * An interface to represent objects that can be cached
  *
  * A cacheable object should have a self link
@@ -46,8 +36,6 @@ export class ObjectCacheEntry implements CacheEntry {
   timeAdded: number;
   msToLive: number;
   requestHref: string;
-  patches: Patch[] = [];
-  isDirty: boolean;
 }
 
 /**
@@ -88,14 +76,6 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
       return resetObjectCacheTimestamps(state, action as ResetObjectCacheTimestampsAction)
     }
 
-    case ObjectCacheActionTypes.ADD_PATCH: {
-      return addPatchObjectCache(state, action as AddPatchObjectCacheAction);
-    }
-
-    case ObjectCacheActionTypes.APPLY_PATCH: {
-      return applyPatchObjectCache(state, action as ApplyPatchObjectCacheAction);
-    }
-
     default: {
       return state;
     }
@@ -113,15 +93,12 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
  *    the new state, with the object added, or overwritten.
  */
 function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheAction): ObjectCacheState {
-  const existing = state[action.payload.objectToCache.self];
   return Object.assign({}, state, {
     [action.payload.objectToCache.self]: {
       data: action.payload.objectToCache,
       timeAdded: action.payload.timeAdded,
       msToLive: action.payload.msToLive,
-      requestHref: action.payload.requestHref,
-      isDirty: (hasValue(existing) ? isNotEmpty(existing.patches) : false),
-      patches: (hasValue(existing) ? existing.patches : [])
+      requestHref: action.payload.requestHref
     }
   });
 }
@@ -164,51 +141,5 @@ function resetObjectCacheTimestamps(state: ObjectCacheState, action: ResetObject
       timeAdded: action.payload
     });
   });
-  return newState;
-}
-
-/**
- * Add the list of patch operations to a cached object
- *
- * @param state
- *    the current state
- * @param action
- *    an AddPatchObjectCacheAction
- * @return ObjectCacheState
- *    the new state, with the new operations added to the state of the specified ObjectCacheEntry
- */
-function addPatchObjectCache(state: ObjectCacheState, action: AddPatchObjectCacheAction): ObjectCacheState {
-  const uuid = action.payload.href;
-  const operations = action.payload.operations;
-  const newState = Object.assign({}, state);
-  if (hasValue(newState[uuid])) {
-    const patches = newState[uuid].patches;
-    newState[uuid] = Object.assign({}, newState[uuid], {
-      patches: [...patches, { operations } as Patch],
-      isDirty: true
-    });
-  }
-  return newState;
-}
-
-/**
- * Apply the list of patch operations to a cached object
- *
- * @param state
- *    the current state
- * @param action
- *    an ApplyPatchObjectCacheAction
- * @return ObjectCacheState
- *    the new state, with the new operations applied to the state of the specified ObjectCacheEntry
- */
-function applyPatchObjectCache(state: ObjectCacheState, action: ApplyPatchObjectCacheAction): ObjectCacheState {
-  const uuid = action.payload;
-  const newState = Object.assign({}, state);
-  if (hasValue(newState[uuid])) {
-    // flatten two dimensional array
-    const flatPatch: Operation[] = [].concat(...newState[uuid].patches.map((patch) => patch.operations));
-    const newData = applyPatch(newState[uuid].data, flatPatch, undefined, false);
-    newState[uuid] = Object.assign({}, newState[uuid], { data: newData.newDocument, patches: [] });
-  }
   return newState;
 }

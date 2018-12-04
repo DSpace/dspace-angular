@@ -11,7 +11,6 @@ import { DataService } from './data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { FindAllOptions } from './request.models';
-import { ObjectCacheService } from '../cache/object-cache.service';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> {
@@ -22,8 +21,7 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService) {
+    protected halService: HALEndpointService) {
     super();
   }
 
@@ -44,9 +42,8 @@ export class DSpaceObjectDataService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService) {
-    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService, objectCache);
+    protected halService: HALEndpointService) {
+    this.dataService = new DataServiceImpl(null, requestService, rdbService, null, halService);
   }
 
   findById(uuid: string): Observable<RemoteData<DSpaceObject>> {

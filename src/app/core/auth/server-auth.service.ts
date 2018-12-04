@@ -42,13 +42,11 @@ export class ServerAuthService extends AuthService {
           // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
           const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
           // person$.subscribe(() => console.log('test'));
-          return person$.pipe(
-            map((eperson) => eperson.payload)
-          );
+          return person$.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));
         }
-      }));
+      }))
   }
 
   /**

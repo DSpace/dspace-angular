@@ -1,5 +1,7 @@
 import { SortOptions } from '../cache/models/sort-options.model';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { BrowseEntriesResponseParsingService } from './browse-entries-response-parsing.service';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
@@ -8,21 +10,38 @@ import { BrowseResponseParsingService } from './browse-response-parsing.service'
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpHeaders } from '@angular/common/http';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
-import { RestRequestMethod } from './rest-request-method';
 import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
 
 /* tslint:disable:max-classes-per-file */
 
+/**
+ * Represents a Request Method.
+ *
+ * I didn't reuse the RequestMethod enum in @angular/http because
+ * it uses numbers. The string values here are more clear when
+ * debugging.
+ *
+ * The ones commented out are still unsupported in the rest of the codebase
+ */
+export enum RestRequestMethod {
+  Get = 'GET',
+  Post = 'POST',
+  Put = 'PUT',
+  Delete = 'DELETE',
+  Options = 'OPTIONS',
+  Head = 'HEAD',
+  Patch = 'PATCH'
+}
 
 export abstract class RestRequest {
   constructor(
     public uuid: string,
     public href: string,
-    public method: RestRequestMethod = RestRequestMethod.GET,
+    public method: RestRequestMethod = RestRequestMethod.Get,
     public body?: any,
-    public options?: HttpOptions,
-    public responseMsToLive?: number
+    public options?: HttpOptions
   ) {
   }
 
@@ -36,10 +55,9 @@ export class GetRequest extends RestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions,
-    public responseMsToLive?: number
+    public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.GET, body, options, responseMsToLive)
+    super(uuid, href, RestRequestMethod.Get, body)
   }
 }
 
@@ -50,7 +68,7 @@ export class PostRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.POST, body)
+    super(uuid, href, RestRequestMethod.Post, body)
   }
 }
 
@@ -61,7 +79,7 @@ export class PutRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.PUT, body)
+    super(uuid, href, RestRequestMethod.Put, body)
   }
 }
 
@@ -72,7 +90,7 @@ export class DeleteRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.DELETE, body)
+    super(uuid, href, RestRequestMethod.Delete, body)
   }
 }
 
@@ -83,7 +101,7 @@ export class OptionsRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.OPTIONS, body)
+    super(uuid, href, RestRequestMethod.Options, body)
   }
 }
 
@@ -94,7 +112,7 @@ export class HeadRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.HEAD, body)
+    super(uuid, href, RestRequestMethod.Head, body)
   }
 }
 
@@ -105,7 +123,7 @@ export class PatchRequest extends RestRequest {
     public body?: any,
     public options?: HttpOptions
   )  {
-    super(uuid, href, RestRequestMethod.PATCH, body)
+    super(uuid, href, RestRequestMethod.Patch, body)
   }
 }
 

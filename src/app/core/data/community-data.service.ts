@@ -29,8 +29,8 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService
   ) {
     super();
   }

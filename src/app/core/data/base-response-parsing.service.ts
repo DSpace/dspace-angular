@@ -26,6 +26,7 @@ export abstract class BaseResponseParsingService {
   protected abstract toCache: boolean;
 
   protected process<ObjectDomain, ObjectType>(data: any, requestHref: string): any {
+
     if (isNotEmpty(data)) {
       if (hasNoValue(data) || (typeof data !== 'object')) {
         return data;
@@ -124,7 +125,7 @@ export abstract class BaseResponseParsingService {
     if (hasNoValue(co) || hasNoValue(co.self)) {
       throw new Error('The server returned an invalid object');
     }
-    this.objectCache.add(co, this.EnvConfig.cache.msToLive.default, requestHref);
+    this.objectCache.add(co, this.EnvConfig.cache.msToLive, requestHref);
   }
 
   processPageInfo(payload: any): PageInfo {

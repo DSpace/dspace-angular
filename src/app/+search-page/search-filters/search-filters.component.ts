@@ -58,6 +58,7 @@ export class SearchFiltersComponent {
    * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
    */
   isActive(filterConfig: SearchFilterConfig): Observable<boolean> {
+    // console.log(filter.name);
     return this.filterService.getSelectedValuesForFilter(filterConfig).pipe(
       mergeMap((isActive) => {
         if (isNotEmpty(isActive)) {

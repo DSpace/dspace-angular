@@ -30,15 +30,3 @@ export const createTestComponent = <T>(html: string, type: { new(...args: any[])
   fixture.detectChanges();
   return fixture as ComponentFixture<T>;
 };
-
-export function spyOnOperator(obj: any, prop: string): any {
-  const oldProp = obj[prop];
-  Object.defineProperty(obj, prop, {
-    configurable: true,
-    enumerable: true,
-    value: oldProp,
-    writable: true
-  });
-
-  return spyOn(obj, prop);
-}

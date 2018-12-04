@@ -12,7 +12,7 @@ import { coreSelector, CoreState } from '../core.reducers';
 import { pathSelector } from '../shared/selectors';
 
 function entryFromKeySelector(key: string): MemoizedSelector<CoreState, ResponseCacheEntry> {
-  return pathSelector<CoreState, ResponseCacheEntry>(coreSelector, 'cache/response', key);
+  return pathSelector<CoreState, ResponseCacheEntry>(coreSelector, 'data/response', key);
 }
 
 /**

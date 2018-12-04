@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
 import { CacheableObject } from './object-cache.reducer';
-import { Operation } from 'fast-json-patch';
 
 /**
  * The list of ObjectCacheAction type definitions
@@ -10,9 +9,7 @@ import { Operation } from 'fast-json-patch';
 export const ObjectCacheActionTypes = {
   ADD: type('dspace/core/cache/object/ADD'),
   REMOVE: type('dspace/core/cache/object/REMOVE'),
-  RESET_TIMESTAMPS: type('dspace/core/cache/object/RESET_TIMESTAMPS'),
-  ADD_PATCH: type('dspace/core/cache/object/ADD_PATCH'),
-  APPLY_PATCH: type('dspace/core/cache/object/APPLY_PATCH')
+  RESET_TIMESTAMPS: type('dspace/core/cache/object/RESET_TIMESTAMPS')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -57,11 +54,11 @@ export class RemoveFromObjectCacheAction implements Action {
   /**
    * Create a new RemoveFromObjectCacheAction
    *
-   * @param href
-   *    the unique href of the object to remove
+   * @param uuid
+   *    the UUID of the object to remove
    */
-  constructor(href: string) {
-    this.payload = href;
+  constructor(uuid: string) {
+    this.payload = uuid;
   }
 }
 
@@ -82,48 +79,6 @@ export class ResetObjectCacheTimestampsAction implements Action {
     this.payload = newTimestamp;
   }
 }
-
-/**
- * An ngrx action to add new operations to a specified cached object
- */
-export class AddPatchObjectCacheAction implements Action {
-  type = ObjectCacheActionTypes.ADD_PATCH;
-  payload: {
-    href: string,
-    operations: Operation[]
-  };
-
-  /**
-   * Create a new AddPatchObjectCacheAction
-   *
-   * @param href
-   *    the unique href of the object that should be updated
-   * @param operations
-   *    the list of operations to add
-   */
-  constructor(href: string, operations: Operation[]) {
-    this.payload = { href, operations };
-  }
-}
-
-/**
- * An ngrx action to apply all existing operations to a specified cached object
- */
-export class ApplyPatchObjectCacheAction implements Action {
-  type = ObjectCacheActionTypes.APPLY_PATCH;
-  payload: string;
-
-  /**
-   * Create a new ApplyPatchObjectCacheAction
-   *
-   * @param href
-   *    the unique href of the object that should be updated
-   */
-  constructor(href: string) {
-    this.payload = href;
-  }
-}
-
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -132,6 +87,4 @@ export class ApplyPatchObjectCacheAction implements Action {
 export type ObjectCacheAction
   = AddToObjectCacheAction
   | RemoveFromObjectCacheAction
-  | ResetObjectCacheTimestampsAction
-  | AddPatchObjectCacheAction
-  | ApplyPatchObjectCacheAction;
+  | ResetObjectCacheTimestampsAction;

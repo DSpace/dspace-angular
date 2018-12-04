@@ -1,5 +1,5 @@
-import { distinctUntilChanged, filter, first, map, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, take, first, map } from 'rxjs/operators';
+import { of as observableOf, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -12,9 +12,6 @@ import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { compare, Operation } from 'fast-json-patch';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;
@@ -23,7 +20,6 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
-  protected abstract objectCache: ObjectCacheService;
 
   public abstract getBrowseEndpoint(options: FindAllOptions): Observable<string>
 
@@ -94,27 +90,6 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
-  /**
-   * Add a new patch to the object cache to a specified object
-   * @param {string} href The selflink of the object that will be patched
-   * @param {Operation[]} operations The patch operations to be performed
-   */
-  patch(href: string, operations: Operation[]) {
-    this.objectCache.addPatch(href, operations);
-  }
-
-  /**
-   * Add a new patch to the object cache
-   * The patch is derived from the differences between the given object and its version in the object cache
-   * @param {DSpaceObject} object The given object
-   */
-  update(object: DSpaceObject) {
-    const oldVersion = this.objectCache.getBySelfLink(object.self);
-    const operations = compare(oldVersion, object);
-    if (isNotEmpty(operations)) {
-      this.objectCache.addPatch(object.self, operations);
-    }
-  }
   // TODO implement, after the structure of the REST server's POST response is finalized
   // create(dso: DSpaceObject): Observable<RemoteData<TDomain>> {
   //   const postHrefObs = this.getEndpoint();
@@ -126,7 +101,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   //     .filter((href: string) => hasValue(href))
   //     .take(1)
   //     .subscribe((href: string) => {
-  //       const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.POST, dso);
+  //       const request = new RestRequest(this.requestService.generateRequestId(), href, RestRequestMethod.Post, dso);
   //       this.requestService.configure(request);
   //     });
   //

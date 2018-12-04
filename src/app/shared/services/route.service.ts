@@ -52,6 +52,6 @@ export class RouteService {
           });
         return params;
       }),
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)));
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),);
   }
 }

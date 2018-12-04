@@ -11,7 +11,7 @@ import { ObjectCacheState } from '../cache/object-cache.reducer';
 describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;
 
-  const EnvConfig = { cache: { msToLive: 1000 } } as any;
+  const EnvConfig = { cache: { msToLive: 1000 } } as GlobalConfig;
   const store = new MockStore<ObjectCacheState>({});
   const objectCacheService = new ObjectCacheService(store as any);
 

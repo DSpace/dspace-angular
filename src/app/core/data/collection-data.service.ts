@@ -22,8 +22,8 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
     protected cds: CommunityDataService,
-    protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService
   ) {
     super();
   }

@@ -29,8 +29,8 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected store: Store<CoreState>,
     protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
-    protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
     protected linkPath: string
   ) {
     super();
@@ -96,8 +96,8 @@ describe('ComColDataService', () => {
       store,
       EnvConfig,
       cds,
-      halService,
       objectCache,
+      halService,
       LINK_NAME
     );
   }
