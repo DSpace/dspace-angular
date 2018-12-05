@@ -7,13 +7,11 @@ import {
 
 export enum IndexName {
   OBJECT = 'object/uuid-to-self-link',
-  REQUEST = 'get-request/href-to-uuid'
+  REQUEST = 'get-request/href-to-uuid',
 }
 
-export interface IndexState {
-  // TODO this should be `[name in IndexName]: {` but that's currently broken,
-  // see https://github.com/Microsoft/TypeScript/issues/13042
-  [name: string]: {
+export type IndexState = {
+  [name in IndexName]: {
     [key: string]: string
   }
 }

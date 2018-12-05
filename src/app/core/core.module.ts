@@ -65,7 +65,7 @@ import { UploaderService } from '../shared/uploader/uploader.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
-import { AdminSidebarService } from '../+admin/admin-sidebar/admin-sidebar.service';
+import { MenuService } from '../shared/menu/menu.service';
 
 const IMPORTS = [
   CommonModule,
@@ -131,7 +131,7 @@ const PROVIDERS = [
   UUIDService,
   DSpaceObjectDataService,
   CSSVariableService,
-  AdminSidebarService,
+  MenuService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

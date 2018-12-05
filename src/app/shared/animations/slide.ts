@@ -11,8 +11,8 @@ import {
 export const slide = trigger('slide', [
   state('void', style({ height: 0 })),
   state('*', style({ height: '*' })),
-  transition(':enter', [animate('200ms')]),
-  transition(':leave', [animate('200ms')])
+  transition(':enter', [animate('2000ms')]),
+  transition(':leave', [animate('2000ms')])
 ]);
 
 export const slideMobileNav = trigger('slideMobileNav', [

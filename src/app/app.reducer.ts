@@ -16,12 +16,9 @@ import {
 } from './shared/notifications/notifications.reducers';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import { navbarReducer, NavbarState } from './navbar/navbar.reducer';
-import {
-  adminSidebarReducer,
-  AdminSidebarState
-} from './+admin/admin-sidebar/admin-sidebar.reducer';
 import { hasValue } from './shared/empty.util';
 import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
+import { menusReducer, MenusState } from './shared/menu/menu.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -32,8 +29,8 @@ export interface AppState {
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
-  adminSidebar: AdminSidebarState;
   cssVariables: CSSVariablesState;
+  menus: MenusState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -45,8 +42,8 @@ export const appReducers: ActionReducerMap<AppState> = {
   searchSidebar: sidebarReducer,
   searchFilter: filterReducer,
   truncatable: truncatableReducer,
-  adminSidebar: adminSidebarReducer,
   cssVariables: cssVariablesReducer,
+  menus: menusReducer,
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

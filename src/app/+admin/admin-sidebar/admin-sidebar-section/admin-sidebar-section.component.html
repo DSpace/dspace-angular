@@ -1,10 +1,11 @@
 <li class="sidebar-section">
-    <a class="nav-item nav-link shortcut-icon" [href]="link">
-        <i class="fas fa-{{icon}} fa-fw"></i>
+    <a class="nav-item nav-link shortcut-icon">
+        <i class="fas fa-{{section.icon}} fa-fw"></i>
     </a>
     <div class="sidebar-collapsible">
-        <a class="nav-item nav-link" [href]="link">
-            <span class="section-header-text"> {{('admin.sidebar.section.' + name + '.header') | translate}}</span>
-        </a>
+            <span class="section-header-text">
+                <ng-container
+                        *ngComponentOutlet="getMenuItemComponent(); injector: getItemModelInjector();"></ng-container>
+            </span>
     </div>
 </li>

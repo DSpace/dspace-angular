@@ -85,6 +85,10 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
+import { MenuSectionComponent } from './menu/menu-section/menu-section.component';
+import { MenuComponent } from './menu/menu.component';
+import { LinkTypeMenuItemComponent } from './menu/type-components/link-type.component';
+import { TextTypeMenuItemComponent } from './menu/type-components/text-type.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -158,7 +162,11 @@ const COMPONENTS = [
   TruncatableComponent,
   TruncatablePartComponent,
   BrowseByComponent,
-  InputSuggestionsComponent
+  InputSuggestionsComponent,
+  MenuSectionComponent,
+  MenuComponent,
+  LinkTypeMenuItemComponent,
+  TextTypeMenuItemComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -171,7 +179,9 @@ const ENTRY_COMPONENTS = [
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
-  BrowseEntryListElementComponent
+  BrowseEntryListElementComponent,
+  LinkTypeMenuItemComponent,
+  TextTypeMenuItemComponent
 ];
 
 const PROVIDERS = [
@@ -195,7 +205,6 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...DIRECTIVES
   ],
   providers: [
     ...PROVIDERS

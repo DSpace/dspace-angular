@@ -1,22 +1,24 @@
-<li class="sidebar-section" [ngClass]="{'active': !(collapsed | async)}"
+<li class="sidebar-section" [ngClass]="{'active': (active | async)}"
     [@bgColor]="{
-     value: ((collapsed | async) ? 'startBackground' : 'endBackground'),
+     value: ((active | async) ? 'endBackground' : 'startBackground'),
      params: {endColor: (sidebarActiveBg | async)}}">
     <div class="icon-wrapper">
         <a class="nav-item nav-link shortcut-icon" (click)="toggleSection($event)" href="#">
-            <i class="fas fa-{{icon}} fa-fw"></i>
+            <i class="fas fa-{{section.icon}} fa-fw"></i>
         </a>
     </div>
     <div class="sidebar-collapsible">
         <a class="nav-item nav-link" href="#"
            (click)="toggleSection($event)">
-            <span class="section-header-text">{{('admin.sidebar.section.' + name + '.header') | translate}}</span>
+            <span class="section-header-text">{{count | async}}<ng-container
+                    *ngComponentOutlet="getMenuItemComponent(); injector: getItemModelInjector();"></ng-container></span>
             <i class="fas fa-chevron-right fa-pull-right"
-               [@rotate]="(collapsed | async) ? 'collapsed' : 'expanded'"></i>
+               [@rotate]="(active | async) ? 'expanded' : 'collapsed'"></i>
         </a>
-        <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="!(collapsed | async)">
-            <li *ngFor="let section of subSections">
-                <a class="nav-item nav-link" [href]="section.link">{{section.name}}</a>
+        <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="(active | async)">
+            <li class="nav-item nav-link" *ngFor="let subSection of (subSections | async)">
+                <ng-container
+                        *ngComponentOutlet="getMenuItemComponent(subSection.model); injector: getItemModelInjector(subSection.model);"></ng-container>
             </li>
         </ul>
     </div>

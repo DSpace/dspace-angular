@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark bg-dark p-0"
      [ngClass]="{'active': sidebarOpen, 'inactive': sidebarClosed}"
      [@slideSidebar]="{
-     value: ((sidebarCollapsed | async) ? 'collapsed' : 'expanded'),
+     value: ((menuCollapsed | async) ? 'collapsed' : 'expanded'),
      params: {sidebarWidth: (sidebarWidth | async)}
     }" (@slideSidebar.done)="finishSlide($event)" (@slideSidebar.start)="startSlide($event)">
     <div class="sidebar-top-level-items">
@@ -18,47 +18,10 @@
                     </a>
                 </div>
             </li>
-            <ds-expandable-admin-sidebar-section name="new" icon="plus-circle" [subSections]="[
-            {name: 'Community', link: '#'},
-            {name: 'Collection', link: '#'},
-            {name: 'Item', link: '#'},
-            {name: 'Item Version', link: '#'}
-            ]"></ds-expandable-admin-sidebar-section>
-            <ds-expandable-admin-sidebar-section name="edit" icon="pencil-alt" [subSections]="[
-            {name: 'Community', link: '#'},
-            {name: 'Collection', link: '#'},
-            {name: 'Item', link: '#'}
-            ]"></ds-expandable-admin-sidebar-section>
-            <ds-expandable-admin-sidebar-section name="import" icon="sign-in-alt" [subSections]="[
-            {name: 'Metadata', link: '#'},
-            {name: 'Batch Import (ZIP)', link: '#'}
-            ]"></ds-expandable-admin-sidebar-section>
-            <ds-expandable-admin-sidebar-section name="export" icon="sign-out-alt" [subSections]="[
-            {name: 'Community', link: '#'},
-            {name: 'Collection', link: '#'},
-            {name: 'Item', link: '#'},
-            {name: 'Metadata', link: '#'}
-            ]"></ds-expandable-admin-sidebar-section>
-            <ds-expandable-admin-sidebar-section name="access_control" icon="key" [subSections]="[
-            {name: 'People', link: '#'},
-            {name: 'Groups', link: '#'},
-            {name: 'Authorizations', link: '#'}
-            ]"></ds-expandable-admin-sidebar-section>
-            <ds-expandable-admin-sidebar-section name="find" icon="search" [subSections]="[
-            {name: 'Items', link: '#'},
-            {name: 'Withdrawn Items', link: '#'},
-            {name: 'Private Items', link: '#'}
-            ]"></ds-expandable-admin-sidebar-section>
-            <ds-expandable-admin-sidebar-section name="registries" icon="list" [subSections]="[
-            {name: 'Metadata', link: '#'},
-            {name: 'Format', link: '#'}
-            ]"></ds-expandable-admin-sidebar-section>
-            <ds-admin-sidebar-section name="curation_task" icon="filter"
-                                      link="#"></ds-admin-sidebar-section>
-            <ds-admin-sidebar-section name="statistics" icon="chart-bar"
-                                      link="#"></ds-admin-sidebar-section>
-            <ds-admin-sidebar-section name="control_panel" icon="cogs"
-                                      link="#"></ds-admin-sidebar-section>
+            <li *ngFor="let section of (sections | async)">
+                <ng-container
+                        *ngComponentOutlet="(getSectionComponent(section) | async); injector: getSectionDataInjector(section);"></ng-container>
+            </li>
         </ul>
     </div>
     <div class="navbar-nav">
@@ -67,7 +30,7 @@
                href="#"
                (click)="toggle($event)">
                 <i class="fas fa-fw fa-angle-double-right"
-                   [ngClass]="{'fa-angle-double-right': (sidebarCollapsed | async), 'fa-angle-double-left': !(sidebarCollapsed | async)}"></i>
+                   [ngClass]="{'fa-angle-double-right': (menuCollapsed | async), 'fa-angle-double-left': !(menuCollapsed | async)}"></i>
             </a>
             <div class="sidebar-collapsible">
                 <a class="nav-item nav-link sidebar-section"

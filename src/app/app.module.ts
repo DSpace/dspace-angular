@@ -120,6 +120,11 @@ const EXPORTS = [
   ],
   exports: [
     ...EXPORTS
+  ],
+  entryComponents: [
+    AdminSidebarComponent,
+    AdminSidebarSectionComponent,
+    ExpandableAdminSidebarSectionComponent
   ]
 })
 export class AppModule {
