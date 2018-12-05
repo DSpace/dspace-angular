@@ -1,7 +1,7 @@
 import { first, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';

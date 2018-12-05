@@ -6,7 +6,11 @@ import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@ang
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormLayoutService,
+  DynamicFormsCoreModule,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
@@ -77,6 +81,8 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         ChangeDetectorRef,
         DsDynamicScrollableDropdownComponent,
         {provide: AuthorityService, useValue: authorityServiceStub},
+        {provide: DynamicFormLayoutService, useValue: {}},
+        {provide: DynamicFormValidationService, useValue: {}}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -90,7 +96,6 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
       <ds-dynamic-scrollable-dropdown [bindId]="bindId"
                                       [group]="group"
                                       [model]="model"
-                                      [showErrorMessages]="showErrorMessages"
                                       (blur)="onBlur($event)"
                                       (change)="onValueChange($event)"
                                       (focus)="onFocus($event)"></ds-dynamic-scrollable-dropdown>`;

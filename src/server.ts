@@ -1,6 +1,6 @@
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
-import 'rxjs/Rx';
+import 'rxjs';
 
 import * as fs from 'fs';
 import * as pem from 'pem';
@@ -17,6 +17,7 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 
 import { ROUTES } from './routes';
 import { ENV_CONFIG } from './config';
+import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 export function startServer(bootstrap: Type<{}> | NgModuleFactory<{}>) {
   const app = express();
@@ -31,9 +32,21 @@ export function startServer(bootstrap: Type<{}> | NgModuleFactory<{}>) {
   app.use(cookieParser());
   app.use(bodyParser.json());
 
-  app.engine('html', ngExpressEngine({
-    bootstrap: bootstrap
-  }));
+  app.engine('html', (_, options, callback) =>
+    ngExpressEngine({
+      bootstrap: bootstrap,
+      providers: [
+        {
+          provide: REQUEST,
+          useValue: options.req,
+        },
+        {
+          provide: RESPONSE,
+          useValue: options.req.res,
+        },
+      ],
+    })(_, options, callback)
+  );
 
   app.set('view engine', 'html');
   app.set('views', 'src');
@@ -53,8 +66,10 @@ export function startServer(bootstrap: Type<{}> | NgModuleFactory<{}>) {
   function ngApp(req, res) {
 
     function onHandleError(parentZoneDelegate, currentZone, targetZone, error) {
-      console.warn('Error in SSR, serving for direct CSR');
-      res.sendFile('index.csr.html', { root: './src' });
+      if (!res._headerSent)  {
+        console.warn('Error in SSR, serving for direct CSR');
+        res.sendFile('index.csr.html', { root: './src' });
+      }
     }
 
     if (ENV_CONFIG.universal.preboot) {

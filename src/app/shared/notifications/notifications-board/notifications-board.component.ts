@@ -8,8 +8,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import { select, Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { difference } from 'lodash';
 
 import { NotificationsService } from '../notifications.service';
@@ -50,7 +50,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sub = this.store.select(notificationsStateSelector)
+    this.sub = this.store.pipe(select(notificationsStateSelector))
       .subscribe((state: NotificationsState) => {
         if (state.length === 0) {
           this.notifications = [];

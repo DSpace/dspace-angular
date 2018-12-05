@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { filter, first, flatMap, map, tap } from 'rxjs/operators';
 import { hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { DSOSuccessResponse } from '../cache/response-cache.models';

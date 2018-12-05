@@ -1,4 +1,3 @@
-import 'rxjs/add/observable/of';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from './paginated-search-options.model';

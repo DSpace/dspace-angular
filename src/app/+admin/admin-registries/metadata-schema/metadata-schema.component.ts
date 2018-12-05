@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataField } from '../../../core/metadata/metadatafield.model';

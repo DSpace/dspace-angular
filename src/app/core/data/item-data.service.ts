@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {distinctUntilChanged, map, filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 import {isNotEmpty, isNotEmptyOperator} from '../../shared/empty.util';
 import {BrowseService} from '../browse/browse.service';
 import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
@@ -15,7 +16,6 @@ import {DataService} from './data.service';
 import {RequestService} from './request.service';
 import {HALEndpointService} from '../shared/hal-endpoint.service';
 import {FindAllOptions, PostRequest, RestRequest} from './request.models';
-import {distinctUntilChanged, map} from 'rxjs/operators';
 import {RestResponse} from '../cache/response-cache.models';
 import {configureRequest, getResponseFromSelflink} from '../shared/operators';
 import {ResponseCacheEntry} from '../cache/response-cache.reducer';
@@ -45,10 +45,10 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     if (options.sort && options.sort.field) {
       field = options.sort.field;
     }
-    return this.bs.getBrowseURLFor(field, this.linkPath)
-      .filter((href: string) => isNotEmpty(href))
-      .map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString())
-      .distinctUntilChanged();
+    return this.bs.getBrowseURLFor(field, this.linkPath).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString()),
+      distinctUntilChanged(),);
   }
 
   public getMoveItemEndpoint(itemId: string, collectionId?: string): Observable<string> {

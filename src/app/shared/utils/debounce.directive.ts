@@ -1,9 +1,8 @@
+import {distinctUntilChanged, debounceTime, takeUntil} from 'rxjs/operators';
 import { Directive, Input, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/takeUntil';
-import { Subject } from 'rxjs/Subject';
+
+import { Subject } from 'rxjs';
 
 @Directive({
   selector: '[ngModel][dsDebounce]',
@@ -44,10 +43,10 @@ export class DebounceDirective implements OnInit, OnDestroy {
    * Emit it when the debounceTime is over without new changes
    */
   ngOnInit() {
-    this.model.valueChanges
-      .takeUntil(this.subject)
-      .debounceTime(this.dsDebounce)
-      .distinctUntilChanged()
+    this.model.valueChanges.pipe(
+      takeUntil(this.subject),
+      debounceTime(this.dsDebounce),
+      distinctUntilChanged(),)
       .subscribe((modelValue) => {
         if (this.isFirstChange) {
           this.isFirstChange = false;
