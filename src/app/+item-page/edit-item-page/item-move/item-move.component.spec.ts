@@ -10,14 +10,13 @@ import {ItemMoveComponent} from './item-move.component';
 import {NotificationsServiceStub} from '../../../shared/testing/notifications-service-stub';
 import {NotificationsService} from '../../../shared/notifications/notifications.service';
 import {SearchService} from '../../../+search-page/search-service/search.service';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {of as observableOf} from 'rxjs';
 import {FormsModule} from '@angular/forms';
 import {ItemDataService} from '../../../core/data/item-data.service';
 import {RestResponse} from '../../../core/cache/response-cache.models';
 import {RemoteData} from '../../../core/data/remote-data';
 import {PaginatedList} from '../../../core/data/paginated-list';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 let comp: ItemMoveComponent;
 let fixture: ComponentFixture<ItemMoveComponent>;
@@ -34,15 +33,15 @@ const routerStub = Object.assign(new RouterStub(), {
 });
 
 const mockItemDataService = jasmine.createSpyObj({
-  moveToCollection: Observable.of(new RestResponse(true, '200'))
+  moveToCollection: observableOf(new RestResponse(true, '200'))
 });
 
 const mockItemDataServiceFail = jasmine.createSpyObj({
-  moveToCollection: Observable.of(new RestResponse(false, '500'))
+  moveToCollection: observableOf(new RestResponse(false, '500'))
 });
 
 const routeStub = {
-  data: Observable.of({
+  data: observableOf({
     item: new RemoteData(false, false, true, null, {
       id: 'item1'
     })
@@ -51,7 +50,7 @@ const routeStub = {
 
 const mockSearchService = {
   search: () => {
-    return Observable.of(new RemoteData(false, false, true, null,
+    return observableOf(new RemoteData(false, false, true, null,
       new PaginatedList(null, [
         {
           dspaceObject: {

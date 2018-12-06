@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-
 import {distinctUntilChanged, map, filter} from 'rxjs/operators';
-import { Injectable } from '@angular/core';import {Store} from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {isNotEmpty, isNotEmptyOperator} from '../../shared/empty.util';
 import {BrowseService} from '../browse/browse.service';
@@ -15,7 +14,7 @@ import {URLCombiner} from '../url-combiner/url-combiner';
 import {DataService} from './data.service';
 import {RequestService} from './request.service';
 import {HALEndpointService} from '../shared/hal-endpoint.service';
-import {FindAllOptions, PostRequest, RestRequest} from './request.models';
+import {FindAllOptions, PostRequest, PutRequest, RestRequest} from './request.models';
 import {RestResponse} from '../cache/response-cache.models';
 import {configureRequest, getResponseFromSelflink} from '../shared/operators';
 import {ResponseCacheEntry} from '../cache/response-cache.reducer';
@@ -62,7 +61,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     return this.getMoveItemEndpoint(itemId, collectionId).pipe(
       // isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL)),
+      map((endpointURL: string) => new PutRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
       map((request: RestRequest) => request.href),
       getResponseFromSelflink(this.responseCache),

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchService} from '../../../+search-page/search-service/search.service';
-import {Observable} from 'rxjs/Observable';
-import {map} from 'rxjs/operators';
+import {first, map} from 'rxjs/operators';
 import {DSpaceObjectType} from '../../../core/shared/dspace-object-type.model';
 import {SearchOptions} from '../../../+search-page/search-options.model';
 import {RemoteData} from '../../../core/data/remote-data';
@@ -16,6 +15,8 @@ import {getSucceededRemoteData} from '../../../core/shared/operators';
 import {ItemDataService} from '../../../core/data/item-data.service';
 import {RestResponse} from '../../../core/cache/response-cache.models';
 import {getItemEditPath} from '../../item-page-routing.module';
+import {Observable} from 'rxjs';
+import {of as observableOf} from 'rxjs';
 
 @Component({
   selector: 'ds-item-move',
@@ -25,10 +26,13 @@ import {getItemEditPath} from '../../item-page-routing.module';
  * Component that handles the moving of an item to a different collection
  */
 export class ItemMoveComponent implements OnInit {
-
+  /**
+   * TODO: There is currently no backend support to change the owningCollection and inherit policies,
+   * TODO: when this is added, the inherit policies option should be used.
+   */
   inheritPolicies = false;
   itemRD$: Observable<RemoteData<Item>>;
-  collectionSearchResults: Observable<any[]> = Observable.of([]);
+  collectionSearchResults: Observable<any[]> = observableOf([]);
   selectedCollection: string;
 
   selectedCollectionId: string;
@@ -43,8 +47,8 @@ export class ItemMoveComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.map((data) => data.item).pipe(getSucceededRemoteData()) as Observable<RemoteData<Item>>;
-    this.itemRD$.first().subscribe((rd) => {
+    this.itemRD$ = this.route.data.pipe(map((data) => data.item),getSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemRD$.subscribe((rd) => {
         this.itemId = rd.payload.id;
       }
     );
@@ -67,7 +71,8 @@ export class ItemMoveComponent implements OnInit {
     this.collectionSearchResults = this.searchService.search(new SearchOptions({
       dsoType: DSpaceObjectType.COLLECTION,
       query: query
-    })).first().pipe(
+    })).pipe(
+      first(),
       map((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
         return rd.payload.page.map((searchResult) => {
           return {
@@ -100,7 +105,7 @@ export class ItemMoveComponent implements OnInit {
    * Moves the item to a new collection based on the selected collection
    */
   moveCollection() {
-    this.itemDataService.moveToCollection(this.itemId, this.selectedCollectionId).first().subscribe(
+    this.itemDataService.moveToCollection(this.itemId, this.selectedCollectionId).pipe(first()).subscribe(
       (response: RestResponse) => {
         this.router.navigate([getItemEditPath(this.itemId)]);
         if (response.isSuccessful) {
