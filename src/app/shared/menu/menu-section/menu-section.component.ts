@@ -6,6 +6,8 @@ import { MenuID, SectionType } from '../initial-menus-state';
 import { hasNoValue, hasValue } from '../../empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { SectionTypeModel } from '../models/section-types/section-type.model';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
 
 @Component({
   selector: 'ds-menu-section',
@@ -14,17 +16,43 @@ import { SectionTypeModel } from '../models/section-types/section-type.model';
 export class MenuSectionComponent {
   active: Observable<boolean>;
   menuID: MenuID;
+  itemInjectors: Map<string, Injector> = new Map<string, Injector>();
+  itemComponents: Map<string, GenericConstructor<MenuSectionComponent>> = new Map<string, GenericConstructor<MenuSectionComponent>>();
+  subSections: Observable<MenuSection[]>;
 
-  constructor(protected section: MenuSection, protected menuService: MenuService, protected injector: Injector) {
+  constructor(public section: MenuSection, protected menuService: MenuService, protected injector: Injector) {
   }
 
   ngOnInit(): void {
-    this.active = this.menuService.isSectionActive(this.menuID, this.section.id);
+    this.active = this.menuService.isSectionActive(this.menuID, this.section.id).pipe(distinctUntilChanged());
+    this.initializeInjectorData();
   }
 
   toggleSection(event: Event) {
     event.preventDefault();
     this.menuService.toggleActiveSection(this.menuID, this.section.id);
+  }
+
+  activateSection(event: Event) {
+    event.preventDefault();
+    this.menuService.activateSection(this.menuID, this.section.id);
+  }
+
+  deactivateSection(event: Event) {
+    event.preventDefault();
+    this.menuService.deactivateSection(this.menuID, this.section.id);
+  }
+
+  initializeInjectorData() {
+    this.itemInjectors.set(this.section.id, this.getItemModelInjector(this.section.model));
+    this.itemComponents.set(this.section.id, this.getMenuItemComponent(this.section.model));
+    this.subSections = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);
+    this.subSections.subscribe((sections: MenuSection[]) => {
+      sections.forEach((section: MenuSection) => {
+        this.itemInjectors.set(section.id, this.getItemModelInjector(section.model));
+        this.itemComponents.set(section.id, this.getMenuItemComponent(section.model));
+      })
+    })
   }
 
   getMenuItemComponent(itemModel?: SectionTypeModel) {

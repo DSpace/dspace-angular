@@ -20,6 +20,8 @@ describe('requestReducer', () => {
   const testState: IndexState = {
     [IndexName.OBJECT]: {
       [key1]: val1
+    },
+    [IndexName.REQUEST]: {
     }
   };
   deepFreeze(testState);

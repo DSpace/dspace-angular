@@ -4,10 +4,11 @@ import { MenuSection, MenuSectionIndex, MenuSections, MenusState, MenuState } fr
 import { AppState, keySelector } from '../../app.reducer';
 import { MenuID } from './initial-menus-state';
 import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import {
-  AddMenuSectionAction,
-  RemoveMenuSectionAction,
+  ActivateMenuSectionAction,
+  AddMenuSectionAction, DeactivateMenuSectionAction, HideMenuAction,
+  RemoveMenuSectionAction, ShowMenuAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
@@ -42,23 +43,28 @@ export class MenuService {
     return this.store.pipe(select(menuByIDSelector(id)));
   }
 
-  getMenuTopSections(menuID: MenuID): Observable<MenuSection[]> {
+  getMenuTopSections(menuID: MenuID, mustBeVisible = true): Observable<MenuSection[]> {
     return this.store.pipe(
       select(menuByIDSelector(menuID)),
       select(menuSectionStateSelector),
       map((sections: MenuSections) => {
-          return Object.values(sections).filter((section: MenuSection) => hasNoValue(section.parentID))
+          return Object.values(sections)
+            .filter((section: MenuSection) => hasNoValue(section.parentID))
+            .filter((section: MenuSection) => !mustBeVisible || section.visible)
         }
       )
     );
   }
 
-  getSubSectionsByParentID(menuID: MenuID, parentID: string): Observable<MenuSection[]> {
+  getSubSectionsByParentID(menuID: MenuID, parentID: string, mustBeVisible = true): Observable<MenuSection[]> {
     return this.store.pipe(
       select(menuByIDSelector(menuID)),
       select(getSubSectionsFromSectionSelector(parentID)),
       map((ids: string[]) => isNotEmpty(ids) ? ids : []),
-      switchMap((ids: string[]) => observableCombineLatest(ids.map((id: string) => this.getMenuSection(menuID, id)))),
+      switchMap((ids: string[]) =>
+        observableCombineLatest(ids.map((id: string) => this.getMenuSection(menuID, id)))
+      ),
+      map((sections: MenuSection[]) => sections.filter((section: MenuSection) => !mustBeVisible || section.visible))
     );
   }
 
@@ -91,20 +97,38 @@ export class MenuService {
     );
   }
 
+  isMenuVisible(menuID: MenuID): Observable<boolean> {
+    return this.getMenu(menuID).pipe(
+      map((state: MenuState) => state.visible)
+    );
+  }
+
   toggleMenu(menuID: MenuID): void {
     this.store.dispatch(new ToggleMenuAction(menuID));
+  }
+
+  showMenu(menuID: MenuID): void {
+    this.store.dispatch(new ShowMenuAction(menuID));
+  }
+
+  hideMenu(menuID: MenuID): void {
+    this.store.dispatch(new HideMenuAction(menuID));
   }
 
   toggleActiveSection(menuID: MenuID, id: string): void {
     this.store.dispatch(new ToggleActiveMenuSectionAction(menuID, id));
   }
 
+  activateSection(menuID: MenuID, id: string): void {
+    this.store.dispatch(new ActivateMenuSectionAction(menuID, id));
+  }
+
+  deactivateSection(menuID: MenuID, id: string): void {
+    this.store.dispatch(new DeactivateMenuSectionAction(menuID, id));
+  }
+
   isSectionActive(menuID: MenuID, id: string): Observable<boolean> {
-    return this.getMenuSection(menuID, id).pipe(tap((section) => console.log(section.id)), map((section) => section.active),
-      distinctUntilChanged((a, b) => {
-        console.log('DISTINCT', a, b);
-        return a === b
-      }));
+    return this.getMenuSection(menuID, id).pipe(map((section) => section.active));
   }
 
   isSectionVisible(menuID: MenuID, id: string): Observable<boolean> {

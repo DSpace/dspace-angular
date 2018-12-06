@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavbarToggleAction } from '../navbar/navbar.actions';
-import { Store } from '@ngrx/store';
-import { AppState } from '../app.reducer';
 import { Observable } from 'rxjs/internal/Observable';
+import { MenuService } from '../shared/menu/menu.service';
+import { MenuID } from '../shared/menu/initial-menus-state';
 
 @Component({
   selector: 'ds-header',
@@ -16,13 +15,14 @@ export class HeaderComponent {
    */
   public isAuthenticated: Observable<boolean>;
   public showAuth = false;
+  menuID = MenuID.PUBLIC;
 
   constructor(
-    private store: Store<AppState>,
+    private menuService: MenuService
   ) {
   }
 
-  public toggle(): void {
-    this.store.dispatch(new NavbarToggleAction());
+  public toggleNavbar(): void {
+    this.menuService.toggleMenu(this.menuID);
   }
 }

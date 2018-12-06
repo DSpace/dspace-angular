@@ -10,15 +10,17 @@
     <div class="sidebar-collapsible">
         <a class="nav-item nav-link" href="#"
            (click)="toggleSection($event)">
-            <span class="section-header-text">{{count | async}}<ng-container
-                    *ngComponentOutlet="getMenuItemComponent(); injector: getItemModelInjector();"></ng-container></span>
+            <span class="section-header-text">
+                <ng-container
+                        *ngComponentOutlet="itemComponents.get(section.id); injector: itemInjectors.get(section.id);"></ng-container>
+            </span>
             <i class="fas fa-chevron-right fa-pull-right"
                [@rotate]="(active | async) ? 'expanded' : 'collapsed'"></i>
         </a>
         <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="(active | async)">
-            <li class="nav-item nav-link" *ngFor="let subSection of (subSections | async)">
+            <li *ngFor="let subSection of (subSections | async)">
                 <ng-container
-                        *ngComponentOutlet="getMenuItemComponent(subSection.model); injector: getItemModelInjector(subSection.model);"></ng-container>
+                        *ngComponentOutlet="itemComponents.get(subSection.id); injector: itemInjectors.get(subSection.id);"></ng-container>
             </li>
         </ul>
     </div>

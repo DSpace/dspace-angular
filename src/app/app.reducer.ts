@@ -15,7 +15,6 @@ import {
   NotificationsState
 } from './shared/notifications/notifications.reducers';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
-import { navbarReducer, NavbarState } from './navbar/navbar.reducer';
 import { hasValue } from './shared/empty.util';
 import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
 import { menusReducer, MenusState } from './shared/menu/menu.reducer';
@@ -23,7 +22,6 @@ import { menusReducer, MenusState } from './shared/menu/menu.reducer';
 export interface AppState {
   router: fromRouter.RouterReducerState;
   hostWindow: HostWindowState;
-  navbar: NavbarState;
   forms: FormState;
   notifications: NotificationsState;
   searchSidebar: SearchSidebarState;
@@ -36,7 +34,6 @@ export interface AppState {
 export const appReducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
   hostWindow: hostWindowReducer,
-  navbar: navbarReducer,
   forms: formReducer,
   notifications: notificationsReducer,
   searchSidebar: sidebarReducer,

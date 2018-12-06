@@ -15,12 +15,13 @@ import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import * as ngrx from '@ngrx/store';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NavbarState } from './navbar.reducer';
-import { NavbarToggleAction } from './navbar.actions';
+import { ToggleMenuAction } from '../shared/menu/menu.actions';
+import { MenuID } from '../shared/menu/initial-menus-state';
+import { MenusState } from '../shared/menu/menu.reducer';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;
-let store: Store<NavbarState>;
+let store: Store<MenusState>;
 
 describe('NavbarComponent', () => {
 
@@ -49,7 +50,7 @@ describe('NavbarComponent', () => {
 
     comp = fixture.componentInstance;
 
-    store = fixture.debugElement.injector.get(Store) as Store<NavbarState>;
+    store = fixture.debugElement.injector.get(Store) as Store<MenusState>;
     spyOn(store, 'dispatch');
   });
 
@@ -61,7 +62,7 @@ describe('NavbarComponent', () => {
     });
 
     it('should dispatch a NavbarToggleAction', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new NavbarToggleAction());
+      expect(store.dispatch).toHaveBeenCalledWith(new ToggleMenuAction(MenuID.PUBLIC));
     });
 
   });

@@ -4,8 +4,8 @@
     </a>
     <div class="sidebar-collapsible">
             <span class="section-header-text">
-                <ng-container
-                        *ngComponentOutlet="getMenuItemComponent(); injector: getItemModelInjector();"></ng-container>
+        <ng-container
+                *ngComponentOutlet="itemComponents.get(section.id); injector: itemInjectors.get(section.id);"></ng-container>
             </span>
     </div>
 </li>

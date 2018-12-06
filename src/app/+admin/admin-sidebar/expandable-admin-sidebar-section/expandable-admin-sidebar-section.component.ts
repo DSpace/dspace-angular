@@ -9,7 +9,6 @@ import { rendersSectionForMenu } from '../../../shared/menu/menu.decorator';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuSection } from '../../../shared/menu/menu.reducer';
 import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-expandable-admin-sidebar-section',
@@ -22,22 +21,18 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
   subSections: Observable<MenuSection[]>;
   menuID = MenuID.ADMIN;
-  link = '#';
   sidebarActiveBg;
   sidebarCollapsed: Observable<boolean>;
-  c = 0;
-  count = new BehaviorSubject<number>(0);
 
   constructor(@Inject('sectionDataProvider') menuSection, protected menuService: MenuService,
-              private variableService: CSSVariableService, protected injector: Injector,) {
+              private variableService: CSSVariableService, protected injector: Injector) {
     super(menuSection, menuService, injector);
+
   }
 
   ngOnInit(): void {
     super.ngOnInit();
     this.subSections = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);
-    // this.active.subscribe((t) => console.log('section: ', this.section.id, this.c, t));
-    // this.active.subscribe((t) => this.count.next(++this.c));
     this.sidebarActiveBg = this.variableService.getVariable('adminSidebarActiveBg');
     this.sidebarCollapsed = this.menuService.isMenuCollapsed(this.menuID);
   }

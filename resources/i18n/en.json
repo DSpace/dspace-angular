@@ -242,8 +242,15 @@
         "registries_metadata": "Metadata",
         "registries_format": "Format",
         "curation_task": "Curation Task",
-        "statistics": "Statistics Task",
-        "control_panel": "Control Panel"
+        "statistics_task": "Statistics Task",
+        "control_panel": "Control Panel",
+
+
+        "browse_global": "All of DSpace",
+        "browse_global_communities_and_collections": "Communities & Collections",
+        "browse_global_by_issue_date": "By Issue Date",
+        "browse_global_by_author": "By Author",
+        "statistics": "Statistics"
       }
     }
   },

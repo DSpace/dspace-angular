@@ -5,12 +5,6 @@ nav.navbar {
     align-items: baseline;
 }
 
-.dropdown-menu {
-    min-width: 100%;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
 /** Mobile menu styling **/
 @media screen and (max-width: map-get($grid-breakpoints, md)) {
     .navbar {
@@ -22,15 +16,6 @@ nav.navbar {
         height: 0;
         &.open {
             height: 100vh; //doesn't matter because wrapper is sticky
-        }
-        .dropdown-toggle {
-            &:after {
-                float: right;
-                margin-top: $spacer/2;
-            }
-        }
-        .dropdown-menu {
-            border: 0;
         }
     }
 }

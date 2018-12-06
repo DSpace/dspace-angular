@@ -94,22 +94,31 @@ export function menusReducer(state: MenusState = initialMenusState, action: Menu
 }
 
 function addSection(state: MenusState, action: AddMenuSectionAction) {
-  const newState = addToIndex(state, action.section, action.menuID);
-  return putSectionState(newState, action, action.section);
+  // let newState = addToIndex(state, action.section, action.menuID);
+  const newState = putSectionState(state, action, action.section);
+  return reorderSections(newState, action)
 }
 
-function addToIndex(state: MenusState, section: MenuSection, menuID: MenuID) {
-  const sectionID = section.id;
-  const parentID = section.parentID;
-  if (hasValue(parentID)) {
-    const menuState: MenuState = state[menuID];
-    const index = menuState.sectionToSubsectionIndex;
-    const parentIndex = hasValue(index[parentID]) ? index[parentID] : [];
-    const newIndex = Object.assign({}, index, { [parentID]: [...parentIndex, sectionID] });
-    const newMenuState = Object.assign({}, menuState, { sectionToSubsectionIndex: newIndex });
-    return Object.assign({}, state, { [menuID]: newMenuState });
-  }
-  return state;
+function reorderSections(state: MenusState, action: MenuSectionAction) {
+  const menuState: MenuState = state[action.menuID];
+  const newSectionState: MenuSections = {};
+  const newSectionIndexState: MenuSectionIndex = {};
+  Object.values(menuState.sections).sort((sectionA: MenuSection, sectionB: MenuSection) => {
+    const indexA = sectionA.index || 0;
+    const indexB = sectionB.index || 0;
+    return indexA - indexB;
+  }).forEach((section: MenuSection) => {
+    newSectionState[section.id] = section;
+    if (hasValue(section.parentID)) {
+      const parentIndex = hasValue(newSectionIndexState[section.parentID]) ? newSectionIndexState[section.parentID] : [];
+      newSectionIndexState[section.parentID] = [...parentIndex, section.id];
+    }
+  });
+  const newMenuState = Object.assign({}, menuState, {
+    sections: newSectionState,
+    sectionToSubsectionIndex: newSectionIndexState
+  });
+  return Object.assign({}, state, { [action.menuID]: newMenuState });
 }
 
 function removeSection(state: MenusState, action: RemoveMenuSectionAction) {
@@ -167,11 +176,11 @@ function toggleActiveSection(state: MenusState, action: ToggleActiveMenuSectionA
 
 function putSectionState(state: MenusState, action: MenuAction, section: MenuSection): MenusState {
   const menuState: MenuState = state[action.menuID];
-  const newTopSections = Object.assign({}, menuState.sections, {
+  const newSections = Object.assign({}, menuState.sections, {
     [section.id]: section
   });
   const newMenuState = Object.assign({}, menuState, {
-    sections: newTopSections
+    sections: newSections
   });
   return Object.assign({}, state, { [action.menuID]: newMenuState });
 }

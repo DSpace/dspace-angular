@@ -1,13 +1,12 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { createSelector, select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
-import { NavbarState } from '../navbar/navbar.reducer';
 import { hasValue } from '../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { MenuService } from '../shared/menu/menu.service';
+import { MenuID } from '../shared/menu/initial-menus-state';
 
-const navbarStateSelector = (state: AppState) => state.navbar;
-const navCollapsedSelector = createSelector(navbarStateSelector, (navbar: NavbarState) => navbar.navCollapsed);
 @Component({
   selector: 'ds-header-navbar-wrapper',
   styleUrls: ['header-navbar-wrapper.component.scss'],
@@ -17,14 +16,16 @@ export class HeaderNavbarWrapperComponent implements OnInit, OnDestroy {
   @HostBinding('class.open') isOpen = false;
   private sub: Subscription;
   public isNavBarCollapsed: Observable<boolean>;
+  menuID = MenuID.PUBLIC;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private menuService: MenuService
   ) {
   }
 
   ngOnInit(): void {
-    this.isNavBarCollapsed = this.store.pipe(select(navCollapsedSelector));
+    this.isNavBarCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.sub = this.isNavBarCollapsed.subscribe((isCollapsed) => this.isOpen = !isCollapsed)
   }
 

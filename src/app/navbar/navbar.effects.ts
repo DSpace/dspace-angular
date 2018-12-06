@@ -1,24 +1,25 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects'
+import { Actions, Effect, ofType } from '@ngrx/effects'
 import * as fromRouter from '@ngrx/router-store';
 
 import { HostWindowActionTypes } from '../shared/host-window.actions';
-import { NavbarCollapseAction } from './navbar.actions';
+import { CollapseMenuAction } from '../shared/menu/menu.actions';
+import { MenuID } from '../shared/menu/initial-menus-state';
 
 @Injectable()
 export class NavbarEffects {
-
+  menuID = MenuID.PUBLIC;
   @Effect() resize$ = this.actions$
     .pipe(
       ofType(HostWindowActionTypes.RESIZE),
-      map(() => new NavbarCollapseAction())
+      map(() => new CollapseMenuAction(this.menuID))
     );
 
   @Effect() routeChange$ = this.actions$
     .pipe(
       ofType(fromRouter.ROUTER_NAVIGATION),
-      map(() => new NavbarCollapseAction())
+      map(() => new CollapseMenuAction(this.menuID))
     );
 
   constructor(private actions$: Actions) {
