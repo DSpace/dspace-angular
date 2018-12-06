@@ -39,5 +39,8 @@ export class FormFieldModel {
   scope: string;
 
   @autoserialize
+  style: string;
+
+  @autoserialize
   value: any;
 }
