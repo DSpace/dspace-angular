@@ -1,7 +1,7 @@
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { ResourceType } from './resource-type';
-import { Group } from '../eperson/models/group.model';
 import { ActionType } from '../cache/models/action-type.model';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { Group } from '../eperson/models/group.model';
 
 /**
  * Model class for a Resource Policy

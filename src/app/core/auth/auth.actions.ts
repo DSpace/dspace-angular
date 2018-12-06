@@ -1,12 +1,8 @@
-// import @ngrx
 import { Action } from '@ngrx/store';
 
-// import type function
-import { type } from '../../shared/ngrx/type';
-
-// import models
-import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
+import { type } from '../../shared/ngrx/type';
+import { EPerson } from '../eperson/models/eperson.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),

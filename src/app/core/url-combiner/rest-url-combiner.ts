@@ -1,5 +1,4 @@
 import { URLCombiner } from './url-combiner';
-
 import { GlobalConfig } from '../../../config';
 
 /**

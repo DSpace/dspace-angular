@@ -1,13 +1,17 @@
 import {
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   Input,
   Output,
-  QueryList, SimpleChanges,
+  QueryList,
+  SimpleChanges,
   ViewChild,
   ViewChildren
 } from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs';
+
 import { hasValue, isNotEmpty } from '../empty.util';
 
 @Component({

@@ -1,11 +1,7 @@
 import * as deepFreeze from 'deep-freeze';
 
+import { HeaderCollapseAction, HeaderExpandAction, HeaderToggleAction } from './header.actions';
 import { headerReducer } from './header.reducer';
-import {
-  HeaderCollapseAction,
-  HeaderExpandAction,
-  HeaderToggleAction
-} from './header.actions';
 
 class NullAction extends HeaderCollapseAction {
   type = null;

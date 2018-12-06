@@ -1,15 +1,15 @@
-// Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
-import { Chips } from './models/chips.model';
-import { UploaderService } from '../uploader/uploader.service';
-import { ChipsComponent } from './chips.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SortablejsModule } from 'angular-sortablejs';
-import { By } from '@angular/platform-browser';
+
+import { ChipsComponent } from './chips.component';
+import { Chips } from './models/chips.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { createTestComponent, hasClass } from '../testing/utils';
+import { UploaderService } from '../uploader/uploader.service';
 
 describe('ChipsComponent test suite', () => {
 

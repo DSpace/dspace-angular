@@ -1,9 +1,11 @@
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { of as observableOf } from 'rxjs';
+
 import { TruncatableComponent } from './truncatable.component';
 import { TruncatableService } from './truncatable.service';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TruncatableComponent', () => {
   let comp: TruncatableComponent;

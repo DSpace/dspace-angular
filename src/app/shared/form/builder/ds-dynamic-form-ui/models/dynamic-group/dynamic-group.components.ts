@@ -1,4 +1,3 @@
-import { of as observableOf, Subscription } from 'rxjs';
 import {
   ChangeDetectorRef,
   Component,
@@ -10,6 +9,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import {
   DynamicFormControlComponent,
   DynamicFormControlModel,
@@ -19,20 +19,19 @@ import {
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { isEqual } from 'lodash';
-
+import { of as observableOf, Subscription } from 'rxjs';
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
-import { FormBuilderService } from '../../../form-builder.service';
+import { GLOBAL_CONFIG } from '../../../../../../../config';
+import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { SubmissionFormsModel } from '../../../../../../core/shared/config/config-submission-forms.model';
-import { FormService } from '../../../../form.service';
-import { FormComponent } from '../../../../form.component';
-import { Chips } from '../../../../../chips/models/chips.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
-import { GlobalConfig } from '../../../../../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../../../../../config';
-import { FormGroup } from '@angular/forms';
+import { Chips } from '../../../../../chips/models/chips.model';
+import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
+import { FormComponent } from '../../../../form.component';
+import { FormService } from '../../../../form.service';
+import { FormBuilderService } from '../../../form-builder.service';
 
 @Component({
   selector: 'ds-dynamic-group',

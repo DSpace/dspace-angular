@@ -1,4 +1,5 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
+
 import { ConfigObject } from './config.model';
 
 @inheritSerialization(ConfigObject)

@@ -1,15 +1,14 @@
-// Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 
+import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { FileUploadModule } from 'ng2-file-upload';
 
-import { UploaderService } from './uploader.service';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderComponent } from './uploader.component';
-import { FileUploadModule } from 'ng2-file-upload';
-import { TranslateModule } from '@ngx-translate/core';
+import { UploaderService } from './uploader.service';
 import { createTestComponent } from '../testing/utils';
+import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 
 describe('Chips component', () => {
 

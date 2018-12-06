@@ -1,18 +1,21 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
+import {
+  configureRequest,
+  filterSuccessfulResponses,
+  getRemoteDataPayload,
+  getRequestFromSelflink,
+  getResourceLinksFromResponse,
+  getResponseFromSelflink
+} from './operators';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { GetRequest, RestRequest } from '../data/request.models';
+import { GetRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
-import {
-  configureRequest,
-  filterSuccessfulResponses, getRemoteDataPayload,
-  getRequestFromSelflink, getResourceLinksFromResponse,
-  getResponseFromSelflink
-} from './operators';
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;

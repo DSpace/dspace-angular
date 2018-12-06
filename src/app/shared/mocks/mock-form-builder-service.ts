@@ -1,5 +1,6 @@
-import { FormBuilderService } from '../form/builder/form-builder.service';
 import { FormControl, FormGroup } from '@angular/forms';
+
+import { FormBuilderService } from '../form/builder/form-builder.service';
 
 export function getMockFormBuilderService(): FormBuilderService {
   return jasmine.createSpyObj('FormBuilderService', {

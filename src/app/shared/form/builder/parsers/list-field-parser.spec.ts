@@ -1,9 +1,9 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ListFieldParser } from './list-field-parser';
+import { ParserOptions } from './parser-options';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { ParserOptions } from './parser-options';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormFieldModel } from '../models/form-field.model';
 
 describe('ListFieldParser test suite', () => {
   let field: FormFieldModel;

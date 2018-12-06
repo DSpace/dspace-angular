@@ -1,13 +1,14 @@
 import { Component, Inject } from '@angular/core';
 
-import { SearchResult } from '../../../+search-page/search-result.model';
+import { Observable } from 'rxjs';
+
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadatum } from '../../../core/shared/metadatum.model';
-import { isEmpty, hasNoValue, hasValue } from '../../empty.util';
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { hasNoValue, isEmpty } from '../../empty.util';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
-import { Observable } from 'rxjs';
+import { SearchResult } from '../../../+search-page/search-result.model';
 
 @Component({
   selector: 'ds-search-result-grid-element',

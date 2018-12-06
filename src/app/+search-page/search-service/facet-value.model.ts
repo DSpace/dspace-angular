@@ -1,4 +1,3 @@
-
 import { autoserialize, autoserializeAs } from 'cerialize';
 
 /**

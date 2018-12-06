@@ -1,16 +1,17 @@
-
-import {combineLatest as observableCombineLatest,  Observable, Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute } from '@angular/router';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+
 import { BrowseService } from '../../core/browse/browse.service';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { RemoteData } from '../../core/data/remote-data';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Item } from '../../core/shared/item.model';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-browse-by-author-page',

@@ -1,4 +1,5 @@
 import { autoserialize } from 'cerialize';
+
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 
 export class MetadataSchema implements ListableObject {

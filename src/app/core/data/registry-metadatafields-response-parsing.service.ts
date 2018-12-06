@@ -1,13 +1,11 @@
-import {
-  RegistryMetadatafieldsSuccessResponse,
-  RestResponse
-} from '../cache/response-cache.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { RestRequest } from './request.models';
-import { ResponseParsingService } from './parsing.service';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { Injectable } from '@angular/core';
+
+import { DSOResponseParsingService } from './dso-response-parsing.service';
+import { ResponseParsingService } from './parsing.service';
+import { RestRequest } from './request.models';
+import { RegistryMetadatafieldsSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
 
 @Injectable()

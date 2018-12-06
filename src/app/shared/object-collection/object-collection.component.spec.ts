@@ -1,11 +1,13 @@
-import { ObjectCollectionComponent } from './object-collection.component';
-import { By } from '@angular/platform-browser';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { of as observableOf } from 'rxjs';
-import { RouterStub } from '../testing/router-stub';
+
+import { ObjectCollectionComponent } from './object-collection.component';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { RouterStub } from '../testing/router-stub';
 
 describe('ObjectCollectionComponent', () => {
   let fixture: ComponentFixture<ObjectCollectionComponent>;

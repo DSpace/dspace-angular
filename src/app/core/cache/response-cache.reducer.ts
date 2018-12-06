@@ -1,11 +1,13 @@
-import {
-  ResponseCacheAction, ResponseCacheActionTypes,
-  ResponseCacheRemoveAction, ResetResponseCacheTimestampsAction,
-  ResponseCacheAddAction
-} from './response-cache.actions';
 import { CacheEntry } from './cache-entry';
-import { hasValue } from '../../shared/empty.util';
+import {
+  ResetResponseCacheTimestampsAction,
+  ResponseCacheAction,
+  ResponseCacheActionTypes,
+  ResponseCacheAddAction,
+  ResponseCacheRemoveAction
+} from './response-cache.actions';
 import { RestResponse } from './response-cache.models';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * An entry in the ResponseCache

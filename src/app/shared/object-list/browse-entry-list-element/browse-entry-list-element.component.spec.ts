@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TruncatePipe } from '../../utils/truncate.pipe';
-import { Metadatum } from '../../../core/shared/metadatum.model';
+
 import { BrowseEntryListElementComponent } from './browse-entry-list-element.component';
 import { BrowseEntry } from '../../../core/shared/browse-entry.model';
+import { TruncatePipe } from '../../utils/truncate.pipe';
 
 let browseEntryListElementComponent: BrowseEntryListElementComponent;
 let fixture: ComponentFixture<BrowseEntryListElementComponent>;

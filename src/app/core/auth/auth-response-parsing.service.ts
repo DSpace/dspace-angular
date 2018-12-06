@@ -1,18 +1,18 @@
 import { Inject, Injectable } from '@angular/core';
 
 import { AuthObjectFactory } from './auth-object-factory';
-import { BaseResponseParsingService } from '../data/base-response-parsing.service';
-import { AuthStatusResponse, RestResponse } from '../cache/response-cache.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { AuthType } from './auth-type';
+import { AuthStatus } from './models/auth-status.model';
+import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { AuthStatusResponse, RestResponse } from '../cache/response-cache.models';
+import { BaseResponseParsingService } from '../data/base-response-parsing.service';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/request.models';
-import { AuthType } from './auth-type';
-import { AuthStatus } from './models/auth-status.model';
-import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 @Injectable()
 export class AuthResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {

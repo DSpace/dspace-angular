@@ -1,7 +1,8 @@
+import { Observable } from 'rxjs';
+
 import { INotificationOptions, NotificationOptions } from './notification-options.model';
 import { NotificationType } from './notification-type';
 import { isEmpty } from '../../empty.util';
-import { Observable } from 'rxjs';
 
 export interface INotification {
   id: string;

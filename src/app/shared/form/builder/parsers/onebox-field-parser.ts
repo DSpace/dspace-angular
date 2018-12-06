@@ -1,6 +1,8 @@
 import { DynamicSelectModel, DynamicSelectModelConfig } from '@ng-dynamic-forms/core';
 
 import { FieldParser } from './field-parser';
+import { isNotEmpty } from '../../../empty.util';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import {
   DsDynamicQualdropModelConfig,
   DynamicQualdropModel,
@@ -8,13 +10,8 @@ import {
   QUALDROP_METADATA_SUFFIX,
   QUALDROP_VALUE_SUFFIX
 } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { DsDynamicTypeaheadModelConfig, DynamicTypeaheadModel } from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { isNotEmpty } from '../../../empty.util';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import {
-  DsDynamicTypeaheadModelConfig,
-  DynamicTypeaheadModel
-} from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
 
 export class OneboxFieldParser extends FieldParser {
 

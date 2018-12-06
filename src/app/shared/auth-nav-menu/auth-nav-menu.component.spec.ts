@@ -1,19 +1,19 @@
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-
 import { By } from '@angular/platform-browser';
-import { Store, StoreModule } from '@ngrx/store';
-
-import { authReducer, AuthState } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson-mock';
-import { TranslateModule } from '@ngx-translate/core';
-import { AppState } from '../../app.reducer';
-import { AuthNavMenuComponent } from './auth-nav-menu.component';
-import { HostWindowServiceStub } from '../testing/host-window-service-stub';
-import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
+
+import { Store, StoreModule } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { AuthNavMenuComponent } from './auth-nav-menu.component';
+import { AppState } from '../../app.reducer';
+import { authReducer, AuthState } from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
+import { HostWindowService } from '../host-window.service';
+import { EPersonMock } from '../testing/eperson-mock';
+import { HostWindowServiceStub } from '../testing/host-window-service-stub';
 
 describe('AuthNavMenuComponent', () => {
 

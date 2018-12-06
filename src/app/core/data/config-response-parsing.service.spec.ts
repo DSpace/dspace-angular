@@ -1,13 +1,13 @@
-import { ConfigSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
-import { ConfigResponseParsingService } from './config-response-parsing.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { ConfigRequest } from './request.models';
-
 import { Store } from '@ngrx/store';
+
+import { ConfigResponseParsingService } from './config-response-parsing.service';
+import { PaginatedList } from './paginated-list';
+import { ConfigRequest } from './request.models';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ConfigSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
 import { CoreState } from '../core.reducers';
 import { SubmissionDefinitionsModel } from '../shared/config/config-submission-definitions.model';
-import { PaginatedList } from './paginated-list';
 import { PageInfo } from '../shared/page-info.model';
 
 describe('ConfigResponseParsingService', () => {

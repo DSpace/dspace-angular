@@ -1,12 +1,10 @@
-
-import { GenericConstructor } from '../../shared/generic-constructor';
-
-import { SubmissionSectionModel } from './config-submission-section.model';
-import { SubmissionFormsModel } from './config-submission-forms.model';
+import { ConfigAuthorityModel } from './config-authority.model';
 import { SubmissionDefinitionsModel } from './config-submission-definitions.model';
+import { SubmissionFormsModel } from './config-submission-forms.model';
+import { SubmissionSectionModel } from './config-submission-section.model';
 import { ConfigType } from './config-type';
 import { ConfigObject } from './config.model';
-import { ConfigAuthorityModel } from './config-authority.model';
+import { GenericConstructor } from '../../shared/generic-constructor';
 
 export class ConfigObjectFactory {
   public static getConstructor(type): GenericConstructor<ConfigObject> {

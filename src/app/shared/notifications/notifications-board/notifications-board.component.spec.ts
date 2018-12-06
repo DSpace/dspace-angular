@@ -1,19 +1,20 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
-import { ChangeDetectorRef } from '@angular/core';
-
-import { NotificationsService } from '../notifications.service';
-import { notificationsReducer } from '../notifications.reducers';
-import { Store, StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NotificationsBoardComponent } from './notifications-board.component';
-import { AppState } from '../../../app.reducer';
-import { NotificationComponent } from '../notification/notification.component';
-import { Notification } from '../models/notification.model';
-import { NotificationType } from '../models/notification-type';
+
+import { Store, StoreModule } from '@ngrx/store';
 import { uniqueId } from 'lodash';
+
+import { NotificationsBoardComponent } from './notifications-board.component';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { AppState } from '../../../app.reducer';
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { NotificationType } from '../models/notification-type';
+import { Notification } from '../models/notification.model';
+import { NotificationComponent } from '../notification/notification.component';
+import { notificationsReducer } from '../notifications.reducers';
+import { NotificationsService } from '../notifications.service';
 
 describe('NotificationsBoardComponent', () => {
   let comp: NotificationsBoardComponent;

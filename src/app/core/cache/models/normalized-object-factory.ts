@@ -1,15 +1,15 @@
+import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { NormalizedBitstream } from './normalized-bitstream.model';
 import { NormalizedBundle } from './normalized-bundle.model';
-import { NormalizedItem } from './normalized-item.model';
 import { NormalizedCollection } from './normalized-collection.model';
-import { GenericConstructor } from '../../shared/generic-constructor';
 import { NormalizedCommunity } from './normalized-community.model';
-import { ResourceType } from '../../shared/resource-type';
+import { NormalizedItem } from './normalized-item.model';
 import { NormalizedObject } from './normalized-object.model';
-import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
 import { NormalizedEPerson } from '../../eperson/models/normalized-eperson.model';
 import { NormalizedGroup } from '../../eperson/models/normalized-group.model';
+import { GenericConstructor } from '../../shared/generic-constructor';
+import { ResourceType } from '../../shared/resource-type';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {

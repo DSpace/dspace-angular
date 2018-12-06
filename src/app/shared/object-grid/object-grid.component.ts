@@ -1,24 +1,23 @@
-import { combineLatest as observableCombineLatest, BehaviorSubject, Observable } from 'rxjs';
-
-import { startWith, distinctUntilChanged, map } from 'rxjs/operators';
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input, OnInit,
+  Input,
+  OnInit,
   Output,
   ViewEncapsulation
 } from '@angular/core';
 
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
+
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-
 import { RemoteData } from '../../core/data/remote-data';
 import { fadeIn } from '../animations/fade';
 import { hasNoValue, hasValue } from '../empty.util';
 import { HostWindowService, WidthCategory } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 @Component({

@@ -1,8 +1,9 @@
-import { DSpaceObject } from './dspace-object.model';
+import { Observable } from 'rxjs';
+
 import { Bitstream } from './bitstream.model';
+import { DSpaceObject } from './dspace-object.model';
 import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
-import { Observable } from 'rxjs';
 
 export class Collection extends DSpaceObject {
 

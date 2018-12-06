@@ -1,14 +1,9 @@
-import {
-  DynamicFormControlLayout,
-  DynamicInputModel,
-  DynamicInputModelConfig,
-  serializable
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { LanguageCode } from '../../models/form-field-language-value.model';
 import { AuthorityOptions } from '../../../../../core/integration/models/authority-options.model';
 import { hasValue } from '../../../../empty.util';
+import { LanguageCode } from '../../models/form-field-language-value.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {

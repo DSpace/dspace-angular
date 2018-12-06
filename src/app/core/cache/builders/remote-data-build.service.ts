@@ -1,11 +1,9 @@
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-  race as observableRace
-} from 'rxjs';
 import { Injectable } from '@angular/core';
+
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
 import { distinctUntilChanged, flatMap, map, startWith } from 'rxjs/operators';
+
+import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
@@ -13,20 +11,13 @@ import { RemoteDataError } from '../../data/remote-data-error';
 import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
-
+import { filterSuccessfulResponses, getRequestFromSelflink, getResourceLinksFromResponse, getResponseFromSelflink } from '../../shared/operators';
+import { PageInfo } from '../../shared/page-info.model';
 import { NormalizedObject } from '../models/normalized-object.model';
 import { ObjectCacheService } from '../object-cache.service';
 import { DSOSuccessResponse, ErrorResponse } from '../response-cache.models';
 import { ResponseCacheEntry } from '../response-cache.reducer';
 import { ResponseCacheService } from '../response-cache.service';
-import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
-import { PageInfo } from '../../shared/page-info.model';
-import {
-  filterSuccessfulResponses,
-  getRequestFromSelflink,
-  getResourceLinksFromResponse,
-  getResponseFromSelflink
-} from '../../shared/operators';
 
 @Injectable()
 export class RemoteDataBuildService {

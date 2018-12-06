@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { RouterReducerState } from '@ngrx/router-store';
 
-import { HeaderState } from './header.reducer';
 import { HeaderToggleAction } from './header.actions';
+import { HeaderState } from './header.reducer';
 import { AppState } from '../app.reducer';
 import { HostWindowService } from '../shared/host-window.service';
 

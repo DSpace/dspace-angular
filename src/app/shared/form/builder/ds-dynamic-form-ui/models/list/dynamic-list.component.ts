@@ -1,20 +1,22 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { findKey } from 'lodash';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
-import { FormBuilderService } from '../../../form-builder.service';
 import {
   DynamicCheckboxModel,
-  DynamicFormControlComponent, DynamicFormLayoutService,
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { findKey } from 'lodash';
+
+import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { hasValue, isNotEmpty } from '../../../../../empty.util';
+import { FormBuilderService } from '../../../form-builder.service';
 
 export interface ListItem {
   id: string,

@@ -9,15 +9,15 @@ import {
 } from '@angular/core';
 
 import { select, Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
 import { difference } from 'lodash';
+import { Subscription } from 'rxjs';
 
-import { NotificationsService } from '../notifications.service';
+import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { AppState } from '../../../app.reducer';
-import { notificationsStateSelector } from '../selectors';
 import { INotification } from '../models/notification.model';
 import { NotificationsState } from '../notifications.reducers';
-import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { NotificationsService } from '../notifications.service';
+import { notificationsStateSelector } from '../selectors';
 
 @Component({
   selector: 'ds-notifications-board',

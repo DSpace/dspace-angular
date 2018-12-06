@@ -1,17 +1,14 @@
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
-import { FormFieldModel } from '../models/form-field.model';
-
-import { uniqueId } from 'lodash';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import {
-  DynamicRowArrayModel,
-  DynamicRowArrayModelConfig
-} from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { uniqueId } from 'lodash';
+
+import { ParserOptions } from './parser-options';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
-import { ParserOptions } from './parser-options';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
+import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormFieldModel } from '../models/form-field.model';
 
 export abstract class FieldParser {
 

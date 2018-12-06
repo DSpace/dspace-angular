@@ -1,7 +1,9 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import { Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SearchService } from './../../+search-page/search-service/search.service';
+
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { SearchService } from './../../+search-page/search-service/search.service';
 
 /**
  * Component to switch between list and grid views.

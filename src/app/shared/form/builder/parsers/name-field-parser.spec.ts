@@ -1,8 +1,8 @@
-import { FormFieldModel } from '../models/form-field.model';
 import { NameFieldParser } from './name-field-parser';
+import { ParserOptions } from './parser-options';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { ParserOptions } from './parser-options';
+import { FormFieldModel } from '../models/form-field.model';
 
 describe('NameFieldParser test suite', () => {
   let field1: FormFieldModel;

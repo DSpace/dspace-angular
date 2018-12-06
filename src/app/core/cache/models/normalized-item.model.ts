@@ -1,9 +1,9 @@
-import { inheritSerialization, autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Item } from '../../shared/item.model';
-import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
+import { mapsTo, relationship } from '../builders/build-decorators';
 
 /**
  * Normalized model class for a DSpace Item

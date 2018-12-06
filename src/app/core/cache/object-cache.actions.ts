@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
 import { CacheableObject } from './object-cache.reducer';
+import { type } from '../../shared/ngrx/type';
 
 /**
  * The list of ObjectCacheAction type definitions

@@ -1,23 +1,19 @@
-import {of as observableOf,  Observable } from 'rxjs';
-
-import {catchError, debounceTime, distinctUntilChanged, tap, switchMap, map, merge} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { isEqual } from 'lodash';
+import { Observable, of as observableOf } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
+
 import { DynamicTagModel } from './dynamic-tag.model';
+import { GLOBAL_CONFIG } from '../../../../../../../config';
+import { GlobalConfig } from '../../../../../../../config/global-config.interface';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { isEqual } from 'lodash';
-import { GlobalConfig } from '../../../../../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../../../../../config';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-tag',

@@ -1,10 +1,11 @@
-import { MetadataSchema } from '../metadata/metadataschema.model';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { RestRequest } from './request.models';
-import { ResponseParsingService } from './parsing.service';
 import { Injectable } from '@angular/core';
+
+import { ResponseParsingService } from './parsing.service';
+import { RestRequest } from './request.models';
 import { MetadataschemaSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { MetadataSchema } from '../metadata/metadataschema.model';
 
 @Injectable()
 export class MetadataschemaParsingService implements ResponseParsingService {

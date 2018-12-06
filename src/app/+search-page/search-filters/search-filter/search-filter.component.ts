@@ -1,11 +1,12 @@
-
-import {first} from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
-import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
-import { SearchFilterService } from './search-filter.service';
+
 import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+
+import { SearchFilterService } from './search-filter.service';
 import { slide } from '../../../shared/animations/slide';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 
 @Component({
   selector: 'ds-search-filter',

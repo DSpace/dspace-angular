@@ -1,5 +1,5 @@
-import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 import { DSpaceRESTv2Service } from './dspace-rest-v2.service';
 

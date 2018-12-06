@@ -1,15 +1,17 @@
-import {of as observableOf,  Observable } from 'rxjs';
-import {filter,  distinctUntilChanged, map, flatMap, startWith, tap } from 'rxjs/operators';
-import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response-cache.models';
-import { EndpointMapRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { Inject, Injectable } from '@angular/core';
+
+import { Observable, of as observableOf } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map, startWith, tap } from 'rxjs/operators';
+
 import { GLOBAL_CONFIG } from '../../../config';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { EndpointMap, EndpointMapSuccessResponse } from '../cache/response-cache.models';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { EndpointMapRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 
 @Injectable()
 export class HALEndpointService {

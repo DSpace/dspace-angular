@@ -1,6 +1,6 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
+
 import { ConfigObject } from './config.model';
-import { SubmissionSectionModel } from './config-submission-section.model';
 
 @inheritSerialization(ConfigObject)
 export class ConfigAuthorityModel extends ConfigObject {

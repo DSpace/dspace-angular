@@ -1,5 +1,6 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
 import { BrowseByTitlePageComponent } from './+browse-by-title-page/browse-by-title-page.component';
 import { BrowseByAuthorPageComponent } from './+browse-by-author-page/browse-by-author-page.component';
 

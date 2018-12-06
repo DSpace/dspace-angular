@@ -1,11 +1,12 @@
 import { Observable, of as observableOf } from 'rxjs';
-import { HttpOptions } from '../../core/dspace-rest-v2/dspace-rest-v2.service';
+
+import { EPersonMock } from './eperson-mock';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { HttpOptions } from '../../core/dspace-rest-v2/dspace-rest-v2.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { isNotEmpty } from '../empty.util';
-import { EPersonMock } from './eperson-mock';
-import { RemoteData } from '../../core/data/remote-data';
 
 export class AuthRequestServiceStub {
   protected mockUser: EPerson = EPersonMock;

@@ -1,5 +1,7 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
+import { BrowseService } from './browse.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
@@ -9,7 +11,6 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
-import { BrowseService } from './browse.service';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;

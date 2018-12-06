@@ -1,13 +1,13 @@
-// Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
-
-import { UploaderService } from '../uploader/uploader.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { By } from '@angular/platform-browser';
-import { NumberPickerComponent } from './number-picker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { NumberPickerComponent } from './number-picker.component';
 import { createTestComponent } from '../testing/utils';
+import { UploaderService } from '../uploader/uploader.service';
+import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 
 describe('NumberPickerComponent test suite', () => {
 

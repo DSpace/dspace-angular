@@ -1,7 +1,7 @@
 import * as deepFreeze from 'deep-freeze';
 
-import { IndexName, indexReducer, IndexState } from './index.reducer';
 import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
+import { IndexName, indexReducer, IndexState } from './index.reducer';
 
 class NullAction extends AddToIndexAction {
   type = null;

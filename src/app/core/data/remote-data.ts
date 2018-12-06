@@ -1,5 +1,5 @@
-import { hasValue } from '../../shared/empty.util';
 import { RemoteDataError } from './remote-data-error';
+import { hasValue } from '../../shared/empty.util';
 
 export enum RemoteDataState {
   RequestPending = 'RequestPending',

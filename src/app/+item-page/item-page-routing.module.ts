@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { ItemPageComponent } from './simple/item-page.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { ItemPageResolver } from './item-page.resolver';
+import { ItemPageComponent } from './simple/item-page.component';
 
 @NgModule({
   imports: [

@@ -1,23 +1,19 @@
-import { map, distinctUntilChanged, filter } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
 
-import { AppState } from '../../app.reducer';
-import { formObjectFromIdSelector } from './selectors';
-import { FormBuilderService } from './builder/form-builder.service';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
-import { isEmpty, isNotUndefined } from '../empty.util';
+import { select, Store } from '@ngrx/store';
 import { uniqueId } from 'lodash';
-import {
-  FormChangeAction,
-  FormInitAction,
-  FormRemoveAction, FormRemoveErrorAction,
-  FormStatusChangeAction
-} from './form.actions';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+
+import { FormBuilderService } from './builder/form-builder.service';
+import { FormChangeAction, FormInitAction, FormRemoveAction, FormRemoveErrorAction, FormStatusChangeAction } from './form.actions';
 import { FormEntry } from './form.reducer';
+import { formObjectFromIdSelector } from './selectors';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { AppState } from '../../app.reducer';
+import { isEmpty, isNotUndefined } from '../empty.util';
 
 @Injectable()
 export class FormService {

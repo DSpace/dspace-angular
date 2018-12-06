@@ -1,16 +1,14 @@
-import { filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
 
-import {
-  ObjectCacheActionTypes, AddToObjectCacheAction,
-  RemoveFromObjectCacheAction
-} from '../cache/object-cache.actions';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { filter, map } from 'rxjs/operators';
+
+import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
+import { IndexName } from './index.reducer';
+import { hasValue } from '../../shared/empty.util';
+import { AddToObjectCacheAction, ObjectCacheActionTypes, RemoveFromObjectCacheAction } from '../cache/object-cache.actions';
 import { RequestActionTypes, RequestConfigureAction } from '../data/request.actions';
 import { RestRequestMethod } from '../data/request.models';
-import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
-import { hasValue } from '../../shared/empty.util';
-import { IndexName } from './index.reducer';
 
 @Injectable()
 export class UUIDIndexEffects {

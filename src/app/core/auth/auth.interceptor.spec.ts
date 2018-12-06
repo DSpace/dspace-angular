@@ -1,6 +1,5 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController, } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
@@ -8,11 +7,12 @@ import { of as observableOf } from 'rxjs';
 
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
-import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { RestRequestMethod } from '../data/request.models';
+import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
 import { RouterStub } from '../../shared/testing/router-stub';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
-import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
+import { RestRequestMethod } from '../data/request.models';
+import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpClientTestingModule, HttpTestingController, } from '@angular/common/http/testing';
 
 describe(`AuthInterceptor`, () => {
   let service: DSpaceRESTv2Service;

@@ -1,10 +1,12 @@
-import { ItemGridElementComponent } from './item-grid-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TruncatePipe } from '../../utils/truncate.pipe';
-import { Item } from '../../../core/shared/item.model';
+
 import { of as observableOf } from 'rxjs';
+
+import { ItemGridElementComponent } from './item-grid-element.component';
+import { Item } from '../../../core/shared/item.model';
+import { TruncatePipe } from '../../utils/truncate.pipe';
 
 let itemGridElementComponent: ItemGridElementComponent;
 let fixture: ComponentFixture<ItemGridElementComponent>;

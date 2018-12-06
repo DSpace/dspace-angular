@@ -1,16 +1,14 @@
-import 'zone.js/dist/zone';
-import 'reflect-metadata';
-
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
 import { bootloader } from '@angularclass/bootloader';
-
+import 'reflect-metadata';
 import { load as loadWebFont } from 'webfontloader';
+import 'zone.js/dist/zone';
+
 import { hasValue, isNotEmpty } from './app/shared/empty.util';
-
-import { BrowserAppModule } from './modules/app/browser-app.module';
-
 import { ENV_CONFIG } from './config';
+import { BrowserAppModule } from './modules/app/browser-app.module';
 
 if (ENV_CONFIG.production) {
   enableProdMode();

@@ -1,12 +1,14 @@
-import { CommunitySearchResultListElementComponent } from './community-search-result-list-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TruncatePipe } from '../../../utils/truncate.pipe';
+
+import { of as observableOf } from 'rxjs';
+
+import { CommunitySearchResultListElementComponent } from './community-search-result-list-element.component';
 import { Community } from '../../../../core/shared/community.model';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { TruncatePipe } from '../../../utils/truncate.pipe';
 
 let communitySearchResultListElementComponent: CommunitySearchResultListElementComponent;
 let fixture: ComponentFixture<CommunitySearchResultListElementComponent>;

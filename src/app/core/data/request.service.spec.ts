@@ -1,14 +1,11 @@
+import { ActionsSubject, Store } from '@ngrx/store';
+import * as ngrx from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
-import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { CoreState } from '../core.reducers';
-import { UUIDService } from '../shared/uuid.service';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { TestScheduler } from 'rxjs/testing';
+
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
-import * as ngrx from '@ngrx/store';
 import {
   DeleteRequest,
   GetRequest,
@@ -20,9 +17,13 @@ import {
   RestRequest
 } from './request.models';
 import { RequestService } from './request.service';
-import { ActionsSubject, Store } from '@ngrx/store';
-import { TestScheduler } from 'rxjs/testing';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
+import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
+import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { CoreState } from '../core.reducers';
+import { UUIDService } from '../shared/uuid.service';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

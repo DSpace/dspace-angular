@@ -1,23 +1,25 @@
-
-import {map} from 'rxjs/operators';
-import { Component, EventEmitter,
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
   Input,
+  OnChanges,
   OnInit,
-  Output, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-
-import { RemoteData } from '../../core/data/remote-data';
-import { PageInfo } from '../../core/shared/page-info.model';
-
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { map } from 'rxjs/operators';
 
 import { ListableObject } from './shared/listable-object.model';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PageInfo } from '../../core/shared/page-info.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { hasValue, isNotEmpty } from '../empty.util';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-viewable-collection',

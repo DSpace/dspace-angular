@@ -1,10 +1,10 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { BitstreamFormat } from '../../shared/bitstream-format.model';
 
-import { mapsTo } from '../builders/build-decorators';
-import { IDToUUIDSerializer } from '../id-to-uuid-serializer';
 import { NormalizedObject } from './normalized-object.model';
 import { SupportLevel } from './support-level.model';
+import { BitstreamFormat } from '../../shared/bitstream-format.model';
+import { mapsTo } from '../builders/build-decorators';
+import { IDToUUIDSerializer } from '../id-to-uuid-serializer';
 
 /**
  * Normalized model class for a Bitstream Format

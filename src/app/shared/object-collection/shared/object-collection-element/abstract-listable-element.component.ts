@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { ListableObject } from '../listable-object.model';
+
 import { hasValue } from '../../../empty.util';
+import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-abstract-object-element',

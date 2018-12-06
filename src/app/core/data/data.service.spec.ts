@@ -1,15 +1,16 @@
+import { Store } from '@ngrx/store';
+import { of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs';
+
 import { DataService } from './data.service';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { ResponseCacheService } from '../cache/response-cache.service';
+import { FindAllOptions } from './request.models';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
+import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
-import { Store } from '@ngrx/store';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable } from 'rxjs';
-import { FindAllOptions } from './request.models';
-import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
-import { of as observableOf } from 'rxjs';
 
 const endpoint = 'https://rest.api/core';
 

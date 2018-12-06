@@ -1,6 +1,7 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { ConfigObject } from './config.model';
+
 import { SubmissionSectionModel } from './config-submission-section.model';
+import { ConfigObject } from './config.model';
 import { PaginatedList } from '../../data/paginated-list';
 
 @inheritSerialization(ConfigObject)

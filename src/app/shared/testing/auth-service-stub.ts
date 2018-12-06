@@ -1,9 +1,10 @@
 import { Observable, of as observableOf } from 'rxjs';
+
+import { EPersonMock } from './eperson-mock';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { EPersonMock } from './eperson-mock';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 
 export class AuthServiceStub {
 

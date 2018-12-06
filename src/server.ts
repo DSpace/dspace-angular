@@ -1,23 +1,21 @@
-import 'zone.js/dist/zone-node';
-import 'reflect-metadata';
-import 'rxjs';
-
-import * as fs from 'fs';
-import * as pem from 'pem';
-import * as https from 'https';
-import * as morgan from 'morgan';
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import * as compression from 'compression';
-import * as cookieParser from 'cookie-parser';
-
 import { enableProdMode, NgModuleFactory, Type } from '@angular/core';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
-
-import { ROUTES } from './routes';
-import { ENV_CONFIG } from './config';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
+import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
+import * as cookieParser from 'cookie-parser';
+import * as express from 'express';
+import * as fs from 'fs';
+import * as https from 'https';
+import * as morgan from 'morgan';
+import * as pem from 'pem';
+import 'reflect-metadata';
+import 'rxjs';
+import 'zone.js/dist/zone-node';
+
+import { ENV_CONFIG } from './config';
+import { ROUTES } from './routes';
 
 export function startServer(bootstrap: Type<{}> | NgModuleFactory<{}>) {
   const app = express();

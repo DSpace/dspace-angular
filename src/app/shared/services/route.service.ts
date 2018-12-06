@@ -1,11 +1,8 @@
-import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
 import { Observable } from 'rxjs';
-import {
-  ActivatedRoute, convertToParamMap, NavigationExtras, Params,
-  Router,
-} from '@angular/router';
-import { isNotEmpty } from '../empty.util';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 @Injectable()
 export class RouteService {

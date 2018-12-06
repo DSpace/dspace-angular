@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { fadeIn, fadeInOut } from '../animations/fade';
+
 import { Observable } from 'rxjs';
-import { Item } from '../../core/shared/item.model';
+
+import { SortOptions } from '../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { RemoteData } from '../../core/data/remote-data';
+import { fadeIn, fadeInOut } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-browse-by',

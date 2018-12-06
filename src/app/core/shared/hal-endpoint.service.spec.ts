@@ -1,10 +1,11 @@
 import { cold, hot } from 'jasmine-marbles';
+
+import { HALEndpointService } from './hal-endpoint.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from './hal-endpoint.service';
 import { EndpointMapRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
 
 describe('HALEndpointService', () => {
   let service: HALEndpointService;

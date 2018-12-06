@@ -1,11 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { isObject } from 'lodash';
 
-import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
+import { Chips } from './models/chips.model';
 import { UploaderService } from '../uploader/uploader.service';
 
 @Component({

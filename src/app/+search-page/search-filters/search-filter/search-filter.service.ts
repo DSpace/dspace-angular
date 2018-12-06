@@ -1,8 +1,10 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, InjectionToken } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
+import { Params } from '@angular/router';
+
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -13,10 +15,10 @@ import {
   SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
-import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
-import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
+import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { RouteService } from '../../../shared/services/route.service';
-import { Params } from '@angular/router';
+import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
+import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 

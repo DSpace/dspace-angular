@@ -1,7 +1,8 @@
 import { cold, hot } from 'jasmine-marbles';
 import { map } from 'rxjs/operators';
-import { WidthCategory } from '../host-window.service';
+
 import { ObjectGridComponent } from './object-grid.component';
+import { WidthCategory } from '../host-window.service';
 
 describe('ObjectGridComponent', () => {
   const testObjects = [

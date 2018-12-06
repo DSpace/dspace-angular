@@ -1,18 +1,18 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-
-import { distinctUntilChanged, filter, first, map, mergeMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { IndexName } from '../index/index.reducer';
 
-import { CacheableObject, ObjectCacheEntry } from './object-cache.reducer';
-import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
-import { hasNoValue } from '../../shared/empty.util';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { coreSelector, CoreState } from '../core.reducers';
-import { pathSelector } from '../shared/selectors';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, first, map, mergeMap } from 'rxjs/operators';
+
 import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
+import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
+import { CacheableObject, ObjectCacheEntry } from './object-cache.reducer';
+import { hasNoValue } from '../../shared/empty.util';
+import { coreSelector, CoreState } from '../core.reducers';
+import { IndexName } from '../index/index.reducer';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { pathSelector } from '../shared/selectors';
 
 function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
   return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);

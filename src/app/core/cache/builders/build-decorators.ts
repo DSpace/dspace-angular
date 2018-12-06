@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 
 import { GenericConstructor } from '../../shared/generic-constructor';
-import { CacheableObject } from '../object-cache.reducer';
 import { ResourceType } from '../../shared/resource-type';
+import { CacheableObject } from '../object-cache.reducer';
 
 const mapsToMetadataKey = Symbol('mapsTo');
 const relationshipKey = Symbol('relationship');

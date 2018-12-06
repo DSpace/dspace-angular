@@ -1,4 +1,3 @@
-
 import { FilterType } from '../../search-service/filter-type.model';
 
 /**

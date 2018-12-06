@@ -1,12 +1,12 @@
-import {map, startWith, filter} from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { filter, map, startWith } from 'rxjs/operators';
 
-import { DSpaceObject } from './dspace-object.model';
-import { Collection } from './collection.model';
-import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
+import { Collection } from './collection.model';
+import { DSpaceObject } from './dspace-object.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { PaginatedList } from '../data/paginated-list';
+import { RemoteData } from '../data/remote-data';
 
 export class Item extends DSpaceObject {
 

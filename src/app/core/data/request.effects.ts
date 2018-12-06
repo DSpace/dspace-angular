@@ -1,24 +1,21 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
 import { Inject, Injectable, Injector } from '@angular/core';
-import { Request } from '@angular/http';
-import { RequestArgs } from '@angular/http/src/interfaces';
+
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Observable, of as observableOf } from 'rxjs';
+import { catchError, flatMap, map, take, tap } from 'rxjs/operators';
 
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { isNotEmpty } from '../../shared/empty.util';
-import { ErrorResponse, RestResponse } from '../cache/response-cache.models';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-
-import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { RequestActionTypes, RequestCompleteAction, RequestExecuteAction } from './request.actions';
 import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { isNotEmpty } from '../../shared/empty.util';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
-import { catchError, flatMap, map, take, tap } from 'rxjs/operators';
+import { ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { DSpaceRESTv2Service } from '../dspace-rest-v2/dspace-rest-v2.service';
 
 export const addToResponseCacheAndCompleteAction = (request: RestRequest, responseCache: ResponseCacheService, envConfig: GlobalConfig) =>
   (source: Observable<ErrorResponse>): Observable<RequestCompleteAction> =>

@@ -1,10 +1,11 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
+
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
 import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
-import { map } from 'rxjs/operators';
 
 /**
  * This component renders the file section of the item

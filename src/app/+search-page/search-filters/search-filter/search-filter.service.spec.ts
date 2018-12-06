@@ -1,5 +1,6 @@
-import { SearchFilterService } from './search-filter.service';
 import { Store } from '@ngrx/store';
+import { of as observableOf } from 'rxjs';
+
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -11,10 +12,10 @@ import {
   SearchFilterToggleAction
 } from './search-filter.actions';
 import { SearchFiltersState } from './search-filter.reducer';
-import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
-import { FilterType } from '../../search-service/filter-type.model';
+import { SearchFilterService } from './search-filter.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
-import { of as observableOf } from 'rxjs';
+import { FilterType } from '../../search-service/filter-type.model';
+import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;

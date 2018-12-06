@@ -3,23 +3,21 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 
+import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
 import { IdlePreload, IdlePreloadModule } from 'angular-idle-preload';
-
-import { AppComponent } from '../../app/app.component';
-
-import { AppModule } from '../../app/app.module';
-import { DSpaceBrowserTransferStateModule } from '../transfer-state/dspace-browser-transfer-state.module';
-import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
-import { ClientCookieService } from '../../app/shared/services/client-cookie.service';
-import { CookieService } from '../../app/shared/services/cookie.service';
-import { AuthService } from '../../app/core/auth/auth.service';
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+
+import { AppComponent } from '../../app/app.component';
+import { AppModule } from '../../app/app.module';
+import { AuthService } from '../../app/core/auth/auth.service';
+import { ClientCookieService } from '../../app/shared/services/client-cookie.service';
+import { CookieService } from '../../app/shared/services/cookie.service';
+import { DSpaceBrowserTransferStateModule } from '../transfer-state/dspace-browser-transfer-state.module';
+import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 

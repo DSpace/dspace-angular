@@ -1,22 +1,19 @@
-import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
+import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
-import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
-
 import { TranslateService } from '@ngx-translate/core';
-
 import { BehaviorSubject, Observable } from 'rxjs';
-
-import { RemoteData } from '../data/remote-data';
-import { Bitstream } from '../shared/bitstream.model';
-import { CacheableObject } from '../cache/object-cache.reducer';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Item } from '../shared/item.model';
+import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
 
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { RemoteData } from '../data/remote-data';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { Bitstream } from '../shared/bitstream.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
 
 @Injectable()
 export class MetadataService {

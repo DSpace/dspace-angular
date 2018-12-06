@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
@@ -11,19 +12,19 @@ import {
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { FormComponent } from './form.component';
-import { FormService } from './form.service';
-import { FormBuilderService } from './builder/form-builder.service';
-import { FormState } from './form.reducer';
-import { FormChangeAction, FormStatusChangeAction } from './form.actions';
-import { MockStore } from '../testing/mock-store';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import { GLOBAL_CONFIG } from '../../../config';
-import { createTestComponent } from '../testing/utils';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { FormBuilderService } from './builder/form-builder.service';
+import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import { FormChangeAction, FormStatusChangeAction } from './form.actions';
+import { FormComponent } from './form.component';
+import { FormState } from './form.reducer';
+import { FormService } from './form.service';
+import { GLOBAL_CONFIG } from '../../../config';
+import { MockStore } from '../testing/mock-store';
+import { createTestComponent } from '../testing/utils';
+import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 
 let TEST_FORM_MODEL;
 

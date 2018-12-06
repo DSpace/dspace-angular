@@ -1,9 +1,10 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TextMaskModule } from 'angular2-text-mask';
 import {
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
@@ -24,22 +25,7 @@ import {
   DynamicSwitchModel,
   DynamicTextAreaModel,
   DynamicTimePickerModel
-} from '@ng-dynamic-forms/core';
-import { DsDynamicFormControlComponent } from './ds-dynamic-form-control.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../../shared.module';
-import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
-import { DynamicGroupModel } from './models/dynamic-group/dynamic-group.model';
-import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
-import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
-import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { DynamicLookupModel } from './models/lookup/dynamic-lookup.model';
-import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DynamicTagModel } from './models/tag/dynamic-tag.model';
-import { DynamicTypeaheadModel } from './models/typeahead/dynamic-typeahead.model';
-import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
-import { DynamicLookupNameModel } from './models/lookup/dynamic-lookup-name.model';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+  } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
   DynamicNGBootstrapCheckboxComponent,
@@ -52,14 +38,30 @@ import {
   DynamicNGBootstrapSelectComponent,
   DynamicNGBootstrapTextAreaComponent,
   DynamicNGBootstrapTimePickerComponent
-} from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahead.component';
-import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
-import { DsDynamicListComponent } from './models/list/dynamic-list.component';
-import { DsDynamicGroupComponent } from './models/dynamic-group/dynamic-group.components';
+  } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { TextMaskModule } from 'angular2-text-mask';
+
+import { DsDynamicFormControlComponent } from './ds-dynamic-form-control.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
+import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
+import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
+import { DsDynamicGroupComponent } from './models/dynamic-group/dynamic-group.components';
+import { DynamicGroupModel } from './models/dynamic-group/dynamic-group.model';
+import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
+import { DsDynamicListComponent } from './models/list/dynamic-list.component';
+import { DynamicLookupNameModel } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
+import { DynamicLookupModel } from './models/lookup/dynamic-lookup.model';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
+import { DynamicTagModel } from './models/tag/dynamic-tag.model';
+import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahead.component';
+import { DynamicTypeaheadModel } from './models/typeahead/dynamic-typeahead.model';
+import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
+import { SharedModule } from '../../../shared.module';
 
 describe('DsDynamicFormControlComponent test suite', () => {
 

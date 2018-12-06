@@ -1,6 +1,6 @@
-import {of as observableOf,  Observable } from 'rxjs';
-import { INotification } from '../notifications/models/notification.model';
+import { of as observableOf } from 'rxjs';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
+import { INotification } from '../notifications/models/notification.model';
 
 export class NotificationsServiceStub {
 

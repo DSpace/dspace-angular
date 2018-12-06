@@ -1,13 +1,12 @@
 import { Store } from '@ngrx/store';
-
-import { ResponseCacheService } from './response-cache.service';
+import * as ngrx from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
-import { CoreState } from '../core.reducers';
+import { first } from 'rxjs/operators';
+
 import { RestResponse } from './response-cache.models';
 import { ResponseCacheEntry } from './response-cache.reducer';
-import { first } from 'rxjs/operators';
-import * as ngrx from '@ngrx/store'
-import { cold } from 'jasmine-marbles';
+import { ResponseCacheService } from './response-cache.service';
+import { CoreState } from '../core.reducers';
 
 describe('ResponseCacheService', () => {
   let service: ResponseCacheService;

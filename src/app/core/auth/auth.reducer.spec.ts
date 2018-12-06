@@ -1,4 +1,3 @@
-import { authReducer, AuthState } from './auth.reducer';
 import {
   AddAuthenticationMessageAction,
   AuthenticateAction,
@@ -19,7 +18,8 @@ import {
   RefreshTokenSuccessAction,
   ResetAuthenticationMessagesAction,
   SetRedirectUrlAction
-} from './auth.actions';
+  } from './auth.actions';
+import { authReducer, AuthState } from './auth.reducer';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { EPersonMock } from '../../shared/testing/eperson-mock';
 

@@ -1,10 +1,8 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { LookupFieldParser } from './lookup-field-parser';
-import { DynamicLookupModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
-import { DynamicLookupNameModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { ParserOptions } from './parser-options';
+import { DynamicLookupNameModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormFieldModel } from '../models/form-field.model';
 
 describe('LookupNameFieldParser test suite', () => {
   let field: FormFieldModel;

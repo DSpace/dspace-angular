@@ -1,5 +1,5 @@
-import { IntegrationModel } from './integration.model';
 import { autoserialize } from 'cerialize';
+import { IntegrationModel } from './integration.model';
 
 export class AuthorityValueModel extends IntegrationModel {
 

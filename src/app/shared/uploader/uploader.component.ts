@@ -1,5 +1,3 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -11,13 +9,14 @@ import {
   ViewEncapsulation,
 } from '@angular/core'
 
-import { FileUploader } from 'ng2-file-upload';
-import { uniqueId } from 'lodash';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { uniqueId } from 'lodash';
+import { FileUploader } from 'ng2-file-upload';
+import { of as observableOf } from 'rxjs';
 
 import { UploaderOptions } from './uploader-options.model';
-import { isNotEmpty, isUndefined } from '../empty.util';
 import { UploaderService } from './uploader.service';
+import { isNotEmpty, isUndefined } from '../empty.util';
 
 @Component({
   selector: 'ds-uploader',

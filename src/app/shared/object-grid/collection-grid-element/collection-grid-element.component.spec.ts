@@ -1,7 +1,8 @@
-import { CollectionGridElementComponent } from './collection-grid-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { CollectionGridElementComponent } from './collection-grid-element.component';
 import { Collection } from '../../../core/shared/collection.model';
 
 let collectionGridElementComponent: CollectionGridElementComponent;

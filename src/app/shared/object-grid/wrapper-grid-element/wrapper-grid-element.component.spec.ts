@@ -1,10 +1,12 @@
-import { WrapperGridElementComponent } from './wrapper-grid-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../testing/router-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { of as observableOf } from 'rxjs';
+
+import { WrapperGridElementComponent } from './wrapper-grid-element.component';
+import { RouterStub } from '../../testing/router-stub';
 
 let wrapperGridElementComponent: WrapperGridElementComponent;
 let fixture: ComponentFixture<WrapperGridElementComponent>;

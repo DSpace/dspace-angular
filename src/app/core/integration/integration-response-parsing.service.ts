@@ -1,21 +1,17 @@
 import { Inject, Injectable } from '@angular/core';
-import { RestRequest } from '../data/request.models';
-import { ResponseParsingService } from '../data/parsing.service';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import {
-  ErrorResponse,
-  IntegrationSuccessResponse,
-  RestResponse
-} from '../cache/response-cache.models';
-import { isNotEmpty } from '../../shared/empty.util';
-import { IntegrationObjectFactory } from './integration-object-factory';
 
-import { BaseResponseParsingService } from '../data/base-response-parsing.service';
+import { IntegrationObjectFactory } from './integration-object-factory';
+import { IntegrationType } from './intergration-type';
+import { IntegrationModel } from './models/integration.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
+import { isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { IntegrationModel } from './models/integration.model';
-import { IntegrationType } from './intergration-type';
+import { ErrorResponse, IntegrationSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { BaseResponseParsingService } from '../data/base-response-parsing.service';
+import { ResponseParsingService } from '../data/parsing.service';
+import { RestRequest } from '../data/request.models';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 @Injectable()
 export class IntegrationResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {

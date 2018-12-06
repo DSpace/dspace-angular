@@ -1,5 +1,6 @@
-import { MetadataSchema } from './metadataschema.model';
 import { autoserialize } from 'cerialize';
+
+import { MetadataSchema } from './metadataschema.model';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 
 export class MetadataField implements ListableObject {

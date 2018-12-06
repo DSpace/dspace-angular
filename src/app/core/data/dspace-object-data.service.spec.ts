@@ -1,11 +1,12 @@
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
+import { DSpaceObjectDataService } from './dspace-object-data.service';
+import { FindByIDRequest } from './request.models';
+import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindByIDRequest } from './request.models';
-import { RequestService } from './request.service';
-import { DSpaceObjectDataService } from './dspace-object-data.service';
 
 describe('DSpaceObjectDataService', () => {
   let scheduler: TestScheduler;

@@ -1,11 +1,7 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, HostBinding, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 import { FilterType } from '../../../search-service/filter-type.model';
-import {
-  facetLoad,
-  SearchFacetFilterComponent
-} from '../search-facet-filter/search-facet-filter.component';
+import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { renderFacetFor } from '../search-filter-type-decorator';
 
 /**

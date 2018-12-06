@@ -1,24 +1,25 @@
+import { Injectable, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   merge as observableMerge,
-  Observable,
-  of as observableOf,
+  Observable, of as observableOf,
   Subscription
 } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../search-options.model';
-import { ActivatedRoute, Params } from '@angular/router';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { Injectable, OnDestroy } from '@angular/core';
-import { RouteService } from '../../shared/services/route.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
-import { getSucceededRemoteData } from '../../core/shared/operators';
-import { SearchFilter } from '../search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { getSucceededRemoteData } from '../../core/shared/operators';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { RouteService } from '../../shared/services/route.service';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { SearchFilter } from '../search-filter.model';
+import { SearchOptions } from '../search-options.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration

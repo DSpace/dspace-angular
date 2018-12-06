@@ -1,4 +1,4 @@
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../core/shared/item.model';
 

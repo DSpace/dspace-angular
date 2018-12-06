@@ -1,9 +1,12 @@
+import { CacheEntry } from './cache-entry';
 import {
-  ObjectCacheAction, ObjectCacheActionTypes, AddToObjectCacheAction,
-  RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction
+  AddToObjectCacheAction,
+  ObjectCacheAction,
+  ObjectCacheActionTypes,
+  RemoveFromObjectCacheAction,
+  ResetObjectCacheTimestampsAction
 } from './object-cache.actions';
 import { hasValue } from '../../shared/empty.util';
-import { CacheEntry } from './cache-entry';
 import { ResourceType } from '../shared/resource-type';
 
 export enum DirtyType {

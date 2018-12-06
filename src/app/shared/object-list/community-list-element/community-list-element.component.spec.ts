@@ -1,7 +1,8 @@
-import { CommunityListElementComponent } from './community-list-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { CommunityListElementComponent } from './community-list-element.component';
 import { Community } from '../../../core/shared/community.model';
 
 let communityListElementComponent: CommunityListElementComponent;

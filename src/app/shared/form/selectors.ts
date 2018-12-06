@@ -1,7 +1,7 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
 
-import { AppState } from '../../app.reducer';
 import { FormEntry, FormState } from './form.reducer';
+import { AppState } from '../../app.reducer';
 
 export const formStateSelector = (state: AppState) => state.forms;
 

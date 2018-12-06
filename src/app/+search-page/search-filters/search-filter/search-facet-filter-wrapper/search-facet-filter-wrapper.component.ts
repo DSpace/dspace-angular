@@ -1,7 +1,8 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
-import { renderFilterType } from '../search-filter-type-decorator';
+
 import { FilterType } from '../../../search-service/filter-type.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
+import { renderFilterType } from '../search-filter-type-decorator';
 import { FILTER_CONFIG } from '../search-filter.service';
 
 @Component({

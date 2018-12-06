@@ -4,6 +4,7 @@ import {
   DynamicRadioGroupModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
+
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 import { hasValue } from '../../../../../empty.util';
 

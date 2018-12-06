@@ -1,12 +1,13 @@
-import { Subject } from 'rxjs';
-
 import {
-  DynamicCheckboxGroupModel, DynamicFormControlLayout,
+  DynamicCheckboxGroupModel,
+  DynamicFormControlLayout,
   DynamicFormGroupModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { Subject } from 'rxjs';
+
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 import { hasValue } from '../../../../../empty.util';
 
 export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupModelConfig {

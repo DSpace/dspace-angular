@@ -1,4 +1,5 @@
-import {of as observableOf,  Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
+
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { ResponseCacheService } from '../../core/cache/response-cache.service';
 

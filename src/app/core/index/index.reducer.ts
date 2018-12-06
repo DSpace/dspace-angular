@@ -1,9 +1,4 @@
-import {
-  IndexAction,
-  IndexActionTypes,
-  AddToIndexAction,
-  RemoveFromIndexByValueAction
-} from './index.actions';
+import { AddToIndexAction, IndexAction, IndexActionTypes, RemoveFromIndexByValueAction } from './index.actions';
 
 export enum IndexName {
   OBJECT = 'object/uuid-to-self-link',

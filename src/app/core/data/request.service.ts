@@ -1,22 +1,22 @@
-import { Observable, merge as observableMerge } from 'rxjs';
-import { filter, first, map, mergeMap, partition, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { MemoizedSelector, select, Store } from '@ngrx/store';
+import { merge as observableMerge, Observable } from 'rxjs';
+import { filter, map, mergeMap, take } from 'rxjs/operators';
+
+import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
+import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
+import { RequestEntry } from './request.reducer';
 import { hasValue } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { DSOSuccessResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { coreSelector, CoreState } from '../core.reducers';
 import { IndexName } from '../index/index.reducer';
 import { pathSelector } from '../shared/selectors';
 import { UUIDService } from '../shared/uuid.service';
-import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
-import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
-
-import { RequestEntry } from './request.reducer';
 
 @Injectable()
 export class RequestService {

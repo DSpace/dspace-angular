@@ -1,8 +1,9 @@
-import {of as observableOf,  Observable } from 'rxjs';
-import { IntegrationSearchOptions } from '../../core/integration/models/integration-options.model';
+import { Observable, of as observableOf } from 'rxjs';
+
 import { IntegrationData } from '../../core/integration/integration-data';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { AuthorityValueModel } from '../../core/integration/models/authority-value.model';
+import { IntegrationSearchOptions } from '../../core/integration/models/integration-options.model';
+import { PageInfo } from '../../core/shared/page-info.model';
 
 export class AuthorityServiceStub {
 

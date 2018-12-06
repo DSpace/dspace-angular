@@ -1,19 +1,21 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { switchMap, } from 'rxjs/operators';
-import { PaginatedList } from '../core/data/paginated-list';
-import { RemoteData } from '../core/data/remote-data';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { pushInOut } from '../shared/animations/push';
-import { HostWindowService } from '../shared/host-window.service';
+
 import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 import { SearchResult } from './search-result.model';
+import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { hasValue } from '../shared/empty.util';
-import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { PaginatedList } from '../core/data/paginated-list';
+import { RemoteData } from '../core/data/remote-data';
+import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { getSucceededRemoteData } from '../core/shared/operators';
+import { pushInOut } from '../shared/animations/push';
+import { hasValue } from '../shared/empty.util';
+import { HostWindowService } from '../shared/host-window.service';
 
 /**
  * This component renders a simple item page.
