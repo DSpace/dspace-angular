@@ -1,21 +1,17 @@
-import { of as observableOf, Observable ,  Subscription } from 'rxjs';
-
-import { map, filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
+
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
+import { of as observableOf, Observable ,  Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
-import { fadeInOut, fadeOut } from '../animations/fade';
-import { HostWindowService } from '../host-window.service';
 import { AppState, routerStateSelector } from '../../app.reducer';
-import { isNotUndefined } from '../empty.util';
-import {
-  getAuthenticatedUser,
-  isAuthenticated,
-  isAuthenticationLoading
-} from '../../core/auth/selectors';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { AuthService, LOGIN_ROUTE, LOGOUT_ROUTE } from '../../core/auth/auth.service';
+import { getAuthenticatedUser, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { fadeInOut, fadeOut } from '../animations/fade';
+import { isNotUndefined } from '../empty.util';
+import { HostWindowService } from '../host-window.service';
 
 @Component({
   selector: 'ds-auth-nav-menu',

@@ -1,14 +1,15 @@
-import { first, map, switchMap } from 'rxjs/operators';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { AuthStatus } from './models/auth-status.model';
-import { isNotEmpty } from '../../shared/empty.util';
-import { AuthService } from './auth.service';
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { first, map, switchMap } from 'rxjs/operators';
+
 import { CheckAuthenticationTokenAction } from './auth.actions';
+import { AuthService } from './auth.service';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import { isNotEmpty } from '../../shared/empty.util';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { EPerson } from '../eperson/models/eperson.model';
 import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
 

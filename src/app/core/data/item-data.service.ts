@@ -1,21 +1,21 @@
-
-import {distinctUntilChanged, map, filter} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+
+import { DataService } from './data.service';
+import { FindAllOptions } from './request.models';
+import { RequestService } from './request.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedItem } from '../cache/models/normalized-item.model';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
-
-import { DataService } from './data.service';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions } from './request.models';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {

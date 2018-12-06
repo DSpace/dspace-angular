@@ -11,8 +11,40 @@ import {
   Type,
   ViewChild,
   ViewContainerRef
-} from '@angular/core';
+  } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+import {
+  DynamicNGBootstrapCalendarComponent,
+  DynamicNGBootstrapCheckboxComponent,
+  DynamicNGBootstrapCheckboxGroupComponent,
+  DynamicNGBootstrapDatePickerComponent,
+  DynamicNGBootstrapFormArrayComponent,
+  DynamicNGBootstrapFormGroupComponent,
+  DynamicNGBootstrapInputComponent,
+  DynamicNGBootstrapRadioGroupComponent,
+  DynamicNGBootstrapSelectComponent,
+  DynamicNGBootstrapTextAreaComponent,
+  DynamicNGBootstrapTimePickerComponent
+  } from '@ng-dynamic-forms/ui-ng-bootstrap';
+
+import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
+import { DsDynamicGroupComponent } from './models/dynamic-group/dynamic-group.components';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/dynamic-group/dynamic-group.model';
+import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
+import { DsDynamicListComponent } from './models/list/dynamic-list.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
+import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
+import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahead.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
+import { isNotEmpty } from '../../../empty.util';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
@@ -33,36 +65,6 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/dynamic-group/dynamic-group.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
-import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
-import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { isNotEmpty } from '../../../empty.util';
-import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
-import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
-import {
-  DynamicNGBootstrapCalendarComponent,
-  DynamicNGBootstrapCheckboxComponent,
-  DynamicNGBootstrapCheckboxGroupComponent,
-  DynamicNGBootstrapDatePickerComponent,
-  DynamicNGBootstrapFormArrayComponent,
-  DynamicNGBootstrapFormGroupComponent,
-  DynamicNGBootstrapInputComponent,
-  DynamicNGBootstrapRadioGroupComponent,
-  DynamicNGBootstrapSelectComponent,
-  DynamicNGBootstrapTextAreaComponent,
-  DynamicNGBootstrapTimePickerComponent
-} from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
-import { DsDynamicListComponent } from './models/list/dynamic-list.component';
-import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahead.component';
-import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DsDynamicGroupComponent } from './models/dynamic-group/dynamic-group.components';
-import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
 
 @Component({
   selector: 'ds-dynamic-form-control',

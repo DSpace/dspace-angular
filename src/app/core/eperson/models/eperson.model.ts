@@ -1,5 +1,5 @@
-import { DSpaceObject } from '../../shared/dspace-object.model';
 import { Group } from './group.model';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 
 export class EPerson extends DSpaceObject {
 

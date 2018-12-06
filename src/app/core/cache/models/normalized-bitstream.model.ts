@@ -1,9 +1,9 @@
-import { inheritSerialization, autoserialize } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
 
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Bitstream } from '../../shared/bitstream.model';
-import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
+import { mapsTo, relationship } from '../builders/build-decorators';
 
 /**
  * Normalized model class for a DSpace Bitstream

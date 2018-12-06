@@ -1,13 +1,4 @@
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
@@ -18,11 +9,13 @@ import {
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
 import { findIndex } from 'lodash';
-import { FormBuilderService } from './builder/form-builder.service';
 import { Observable, Subscription } from 'rxjs';
-import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
-import { FormService } from './form.service';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+
+import { FormBuilderService } from './builder/form-builder.service';
 import { FormEntry, FormError } from './form.reducer';
+import { FormService } from './form.service';
+import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 
 /**
  * The default form component.

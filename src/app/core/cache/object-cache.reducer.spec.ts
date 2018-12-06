@@ -1,10 +1,7 @@
 import * as deepFreeze from 'deep-freeze';
 
+import { AddToObjectCacheAction, RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction } from './object-cache.actions';
 import { objectCacheReducer } from './object-cache.reducer';
-import {
-  AddToObjectCacheAction,
-  RemoveFromObjectCacheAction, ResetObjectCacheTimestampsAction
-} from './object-cache.actions';
 
 class NullAction extends RemoveFromObjectCacheAction {
   type = null;

@@ -1,15 +1,14 @@
-import { ErrorResponse, IntegrationSuccessResponse } from '../cache/response-cache.models';
-
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-
 import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
+
 import { IntegrationResponseParsingService } from './integration-response-parsing.service';
-import { IntegrationRequest } from '../data/request.models';
 import { AuthorityValueModel } from './models/authority-value.model';
-import { PageInfo } from '../shared/page-info.model';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ErrorResponse, IntegrationSuccessResponse } from '../cache/response-cache.models';
+import { CoreState } from '../core.reducers';
 import { PaginatedList } from '../data/paginated-list';
+import { IntegrationRequest } from '../data/request.models';
+import { PageInfo } from '../shared/page-info.model';
 
 describe('IntegrationResponseParsingService', () => {
   let service: IntegrationResponseParsingService;

@@ -1,5 +1,5 @@
-import { PageInfo } from '../shared/page-info.model';
 import { hasValue } from '../../shared/empty.util';
+import { PageInfo } from '../shared/page-info.model';
 
 export class PaginatedList<T> {
 

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../search-service/search.service';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
+
 import { Observable } from 'rxjs';
+
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { SearchService } from '../search-service/search.service';
 
 @Component({
   selector: 'ds-search-settings',

@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
+
+import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
+import { isNotEmpty } from '../../shared/empty.util';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
-import { PaginatedList } from '../../core/data/paginated-list';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-search-results',

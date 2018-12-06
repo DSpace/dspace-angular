@@ -1,12 +1,11 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-
-import { MockTranslateLoader } from '../mocks/mock-translate-loader';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { LoadingComponent } from './loading.component';
+import { MockTranslateLoader } from '../mocks/mock-translate-loader';
 
 describe('LoadingComponent (inline template)', () => {
 

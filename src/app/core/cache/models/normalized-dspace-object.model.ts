@@ -1,10 +1,10 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
-import { DSpaceObject } from '../../shared/dspace-object.model';
 
+import { NormalizedObject } from './normalized-object.model';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 import { Metadatum } from '../../shared/metadatum.model';
 import { ResourceType } from '../../shared/resource-type';
 import { mapsTo } from '../builders/build-decorators';
-import { NormalizedObject } from './normalized-object.model';
 
 /**
  * An model class for a DSpaceObject.

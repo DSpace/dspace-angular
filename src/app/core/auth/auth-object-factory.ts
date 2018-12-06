@@ -1,9 +1,8 @@
 import { AuthType } from './auth-type';
-import { GenericConstructor } from '../shared/generic-constructor';
 import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
-import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { EPerson } from '../eperson/models/eperson.model';
+import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 
 export class AuthObjectFactory {
   public static getConstructor(type): GenericConstructor<NormalizedObject> {

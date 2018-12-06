@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { TranslateModule } from '@ngx-translate/core';
-import { InputSuggestionsComponent } from './input-suggestions.component';
-import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+
+import { TranslateModule } from '@ngx-translate/core';
+
+import { InputSuggestionsComponent } from './input-suggestions.component';
 
 describe('InputSuggestionsComponent', () => {
 

@@ -1,7 +1,7 @@
-import { FormFieldModel } from '../models/form-field.model';
 import { DropdownFieldParser } from './dropdown-field-parser';
-import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { ParserOptions } from './parser-options';
+import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { FormFieldModel } from '../models/form-field.model';
 
 describe('DropdownFieldParser test suite', () => {
   let field: FormFieldModel;

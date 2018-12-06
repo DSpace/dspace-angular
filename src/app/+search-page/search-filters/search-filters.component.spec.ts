@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { SearchFilterService } from './search-filter/search-filter.service';
 import { SearchFiltersComponent } from './search-filters.component';
-import { SearchService } from '../search-service/search.service';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
-import { of as observableOf } from 'rxjs';
+import { SearchService } from '../search-service/search.service';
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;

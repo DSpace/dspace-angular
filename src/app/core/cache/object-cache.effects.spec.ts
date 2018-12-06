@@ -1,9 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
-import { ObjectCacheEffects } from './object-cache.effects';
+import { Observable } from 'rxjs';
+
 import { ResetObjectCacheTimestampsAction } from './object-cache.actions';
+import { ObjectCacheEffects } from './object-cache.effects';
 import { StoreActionTypes } from '../../store.actions';
 
 describe('ObjectCacheEffects', () => {

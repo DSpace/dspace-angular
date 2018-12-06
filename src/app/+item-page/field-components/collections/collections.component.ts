@@ -1,12 +1,12 @@
-
-import {map} from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { Collection } from '../../../core/shared/collection.model';
+import { Item } from '../../../core/shared/item.model';
 
 /**
  * This component renders the parent collections section of the item

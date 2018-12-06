@@ -6,6 +6,7 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
+
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';

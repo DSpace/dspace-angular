@@ -1,26 +1,22 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Store, StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { Store, StoreModule } from '@ngrx/store';
+import * as ngrx from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { HeaderToggleAction } from './header.actions';
 import { HeaderComponent } from './header.component';
 import { HeaderState } from './header.reducer';
-import { HeaderToggleAction } from './header.actions';
-import { AuthNavMenuComponent } from '../shared/auth-nav-menu/auth-nav-menu.component';
-import { LogInComponent } from '../shared/log-in/log-in.component';
-import { LogOutComponent } from '../shared/log-out/log-out.component';
-import { LoadingComponent } from '../shared/loading/loading.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HostWindowService } from '../shared/host-window.service';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service-stub';
 import { RouterStub } from '../shared/testing/router-stub';
-import { Router } from '@angular/router';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import * as ngrx from '@ngrx/store';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;

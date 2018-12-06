@@ -1,4 +1,3 @@
-// import actions
 import {
   AddAuthenticationMessageAction,
   AuthActions,
@@ -11,9 +10,8 @@ import {
   RefreshTokenSuccessAction,
   SetRedirectUrlAction
 } from './auth.actions';
-// import models
-import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
+import { EPerson } from '../eperson/models/eperson.model';
 
 /**
  * The auth state.

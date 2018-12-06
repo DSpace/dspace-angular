@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+
 import { Observable } from 'rxjs';
-import { RemoteData } from '../core/data/remote-data';
-import { getSucceededRemoteData } from '../core/shared/operators';
-import { Community } from '../core/shared/community.model';
+
 import { CommunityDataService } from '../core/data/community-data.service';
+import { RemoteData } from '../core/data/remote-data';
+import { Community } from '../core/shared/community.model';
+import { getSucceededRemoteData } from '../core/shared/operators';
 
 /**
  * This class represents a resolver that requests a specific community before the route is activated

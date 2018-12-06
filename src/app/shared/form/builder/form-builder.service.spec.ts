@@ -1,12 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
-import {
-  FormArray,
-  FormControl,
-  FormGroup,
-  NG_ASYNC_VALIDATORS,
-  NG_VALIDATORS,
-  ReactiveFormsModule
-} from '@angular/forms';
+import { FormArray, FormControl, FormGroup, NG_ASYNC_VALIDATORS, NG_VALIDATORS, ReactiveFormsModule } from '@angular/forms';
+
 import {
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
@@ -16,7 +10,8 @@ import {
   DynamicFileUploadModel,
   DynamicFormArrayModel,
   DynamicFormControlModel,
-  DynamicFormGroupModel, DynamicFormValidationService,
+  DynamicFormGroupModel,
+  DynamicFormValidationService,
   DynamicFormValueControlModel,
   DynamicInputModel,
   DynamicRadioGroupModel,
@@ -26,29 +21,27 @@ import {
   DynamicSwitchModel,
   DynamicTextAreaModel,
   DynamicTimePickerModel
-} from '@ng-dynamic-forms/core';
-import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
-import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DynamicGroupModel } from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
-import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
+  } from '@ng-dynamic-forms/core';
+
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
-import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
-import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { AuthorityOptions } from '../../../core/integration/models/authority-options.model';
-import { FormFieldModel } from './models/form-field.model';
-import {
-  FormRowModel,
-  SubmissionFormsModel
-} from '../../../core/shared/config/config-submission-forms.model';
-import { FormBuilderService } from './form-builder.service';
-import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
+import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
+import { DynamicGroupModel } from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
+import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
+import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
+import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
+import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
+import { FormBuilderService } from './form-builder.service';
+import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
+import { FormFieldModel } from './models/form-field.model';
+import { AuthorityOptions } from '../../../core/integration/models/authority-options.model';
+import { FormRowModel, SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
 
 describe('FormBuilderService test suite', () => {
 

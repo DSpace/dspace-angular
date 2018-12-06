@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
 import { IndexName } from './index.reducer';
+import { type } from '../../shared/ngrx/type';
 
 /**
  * The list of HrefIndexAction type definitions

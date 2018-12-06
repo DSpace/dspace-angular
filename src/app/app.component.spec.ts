@@ -1,40 +1,24 @@
-import {
-  async,
-  ComponentFixture,
-  inject,
-  TestBed
-} from '@angular/core/testing';
-
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  DebugElement
-} from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Store, StoreModule } from '@ngrx/store';
-
-// Load the implementations that should be tested
-import { AppComponent } from './app.component';
-
-import { HostWindowState } from './shared/host-window.reducer';
-import { HostWindowResizeAction } from './shared/host-window.actions';
-
-import { MetadataService } from './core/metadata/metadata.service';
-
-import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
-import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
-
-import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
-import { MockMetadataService } from './shared/mocks/mock-metadata-service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+
+import { AppComponent } from './app.component';
+import { AuthService } from './core/auth/auth.service';
+import { MetadataService } from './core/metadata/metadata.service';
+import { HostWindowResizeAction } from './shared/host-window.actions';
+import { HostWindowState } from './shared/host-window.reducer';
 import { AngularticsMock } from './shared/mocks/mock-angulartics.service';
 import { AuthServiceMock } from './shared/mocks/mock-auth.service';
-import { AuthService } from './core/auth/auth.service';
-import { Router } from '@angular/router';
+import { MockMetadataService } from './shared/mocks/mock-metadata-service';
+import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
+import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
+import { ENV_CONFIG, GLOBAL_CONFIG } from '../config';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;

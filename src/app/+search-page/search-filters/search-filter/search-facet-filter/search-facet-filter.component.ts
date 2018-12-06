@@ -1,26 +1,21 @@
-import {
-  combineLatest as observableCombineLatest,
-  of as observableOf,
-  BehaviorSubject,
-  Observable,
-  Subject,
-  Subscription
-} from 'rxjs';
-import { switchMap, distinctUntilChanged, first, map } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf, Subject, Subscription } from 'rxjs';
+import { distinctUntilChanged, first, map, switchMap } from 'rxjs/operators';
+
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { EmphasizePipe } from '../../../../shared/utils/emphasize.pipe';
 import { FacetValue } from '../../../search-service/facet-value.model';
+import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { SearchService } from '../../../search-service/search.service';
 import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
-import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
-import { getSucceededRemoteData } from '../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-facet-filter',

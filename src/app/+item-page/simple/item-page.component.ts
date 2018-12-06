@@ -1,17 +1,14 @@
-
-import {mergeMap, filter, map} from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { filter, map, mergeMap } from 'rxjs/operators';
+
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
-
-import { Item } from '../../core/shared/item.model';
-
 import { MetadataService } from '../../core/metadata/metadata.service';
-
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { Item } from '../../core/shared/item.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
 

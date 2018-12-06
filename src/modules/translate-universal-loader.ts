@@ -1,6 +1,6 @@
 import { TranslateLoader } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
 import * as fs from 'fs';
+import { Observable } from 'rxjs';
 
 export class TranslateUniversalLoader implements TranslateLoader {
 

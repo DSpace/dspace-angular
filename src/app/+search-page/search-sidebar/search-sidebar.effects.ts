@@ -1,7 +1,8 @@
-import { map, tap, filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects'
+
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as fromRouter from '@ngrx/router-store';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { SearchSidebarCollapseAction } from './search-sidebar.actions';
 import { URLBaser } from '../../core/url-baser/url-baser';

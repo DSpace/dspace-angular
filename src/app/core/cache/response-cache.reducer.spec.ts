@@ -1,12 +1,8 @@
 import * as deepFreeze from 'deep-freeze';
 
-import { responseCacheReducer, ResponseCacheState } from './response-cache.reducer';
-
-import {
-  ResponseCacheRemoveAction,
-  ResetResponseCacheTimestampsAction, ResponseCacheAddAction
-} from './response-cache.actions';
+import { ResetResponseCacheTimestampsAction, ResponseCacheAddAction, ResponseCacheRemoveAction } from './response-cache.actions';
 import { RestResponse } from './response-cache.models';
+import { responseCacheReducer, ResponseCacheState } from './response-cache.reducer';
 
 class NullAction extends ResponseCacheRemoveAction {
   type = null;

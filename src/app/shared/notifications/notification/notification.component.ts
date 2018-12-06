@@ -1,4 +1,4 @@
-import {of as observableOf,  Observable } from 'rxjs';
+import { trigger } from '@angular/animations';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,19 +10,21 @@ import {
   TemplateRef,
   ViewEncapsulation
 } from '@angular/core';
-import { trigger } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NotificationsService } from '../notifications.service';
-import { scaleEnter, scaleInState, scaleLeave, scaleOutState } from '../../animations/scale';
-import { rotateEnter, rotateInState, rotateLeave, rotateOutState } from '../../animations/rotate';
-import { fromBottomEnter, fromBottomInState, fromBottomLeave, fromBottomOutState } from '../../animations/fromBottom';
-import { fromRightEnter, fromRightInState, fromRightLeave, fromRightOutState } from '../../animations/fromRight';
-import { fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState } from '../../animations/fromLeft';
-import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../../animations/fromTop';
+
+import { Observable, of as observableOf } from 'rxjs';
+
 import { fadeInEnter, fadeInState, fadeOutLeave, fadeOutState } from '../../animations/fade';
-import { NotificationAnimationsStatus } from '../models/notification-animations-type';
+import { fromBottomEnter, fromBottomInState, fromBottomLeave, fromBottomOutState } from '../../animations/fromBottom';
+import { fromLeftEnter, fromLeftInState, fromLeftLeave, fromLeftOutState } from '../../animations/fromLeft';
+import { fromRightEnter, fromRightInState, fromRightLeave, fromRightOutState } from '../../animations/fromRight';
+import { fromTopEnter, fromTopInState, fromTopLeave, fromTopOutState } from '../../animations/fromTop';
+import { rotateEnter, rotateInState, rotateLeave, rotateOutState } from '../../animations/rotate';
+import { scaleEnter, scaleInState, scaleLeave, scaleOutState } from '../../animations/scale';
 import { isNotEmpty } from '../../empty.util';
+import { NotificationAnimationsStatus } from '../models/notification-animations-type';
 import { INotification } from '../models/notification.model';
+import { NotificationsService } from '../notifications.service';
 
 @Component({
   selector: 'ds-notification',

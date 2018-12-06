@@ -1,13 +1,14 @@
-import { Observable, of as observableOf, throwError as observableThrowError, merge as observableMerge } from 'rxjs';
+import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
-import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { ConfigSuccessResponse } from '../cache/response-cache.models';
-import { ConfigRequest, FindAllOptions, RestRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+
 import { ConfigData } from './config-data';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { ConfigSuccessResponse } from '../cache/response-cache.models';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { ConfigRequest, FindAllOptions, RestRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 export abstract class ConfigService {
   protected request: ConfigRequest;

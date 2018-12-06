@@ -1,9 +1,12 @@
-import { ActionReducerMap } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
+import { ActionReducerMap } from '@ngrx/store';
 
 import { headerReducer, HeaderState } from './header/header.reducer';
-import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
+import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
+import { notificationsReducer, NotificationsState } from './shared/notifications/notifications.reducers';
+import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
+
 import {
   SearchSidebarState,
   sidebarReducer
@@ -12,8 +15,6 @@ import {
   filterReducer,
   SearchFiltersState
 } from './+search-page/search-filters/search-filter/search-filter.reducer';
-import { notificationsReducer, NotificationsState } from './shared/notifications/notifications.reducers';
-import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;

@@ -1,14 +1,14 @@
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 
-import { RequestService } from '../data/request.service';
-import { IntegrationRequest } from '../data/request.models';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { IntegrationService } from './integration.service';
 import { IntegrationSearchOptions } from './models/integration-options.model';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { IntegrationRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 const LINK_NAME = 'authorities';
 const BROWSE = 'entries';

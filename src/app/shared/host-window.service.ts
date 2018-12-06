@@ -1,11 +1,11 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-
-import { filter, distinctUntilChanged, map } from 'rxjs/operators';
-import { HostWindowState } from './host-window.reducer';
 import { Injectable } from '@angular/core';
+
 import { createSelector, select, Store } from '@ngrx/store';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { hasValue } from './empty.util';
+import { HostWindowState } from './host-window.reducer';
 import { AppState } from '../app.reducer';
 
 // TODO: ideally we should get these from sass somehow

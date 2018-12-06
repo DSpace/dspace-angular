@@ -1,14 +1,15 @@
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
+import { ItemDataService } from './item-data.service';
+import { FindAllOptions } from './request.models';
+import { RequestService } from './request.service';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
-import { ItemDataService } from './item-data.service';
-import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions } from './request.models';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;

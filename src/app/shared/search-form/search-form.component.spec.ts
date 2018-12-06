@@ -1,13 +1,15 @@
-import { ComponentFixture, TestBed, async, tick, fakeAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { SearchFormComponent } from './search-form.component';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ResourceType } from '../../core/shared/resource-type';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Community } from '../../core/shared/community.model';
+
 import { TranslateModule } from '@ngx-translate/core';
+
+import { SearchFormComponent } from './search-form.component';
+import { Community } from '../../core/shared/community.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { ResourceType } from '../../core/shared/resource-type';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;

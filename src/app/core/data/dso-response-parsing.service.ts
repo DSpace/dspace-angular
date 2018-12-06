@@ -1,18 +1,17 @@
 import { Inject, Injectable } from '@angular/core';
 
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../config';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { ResourceType } from '../shared/resource-type';
-import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { RestResponse, DSOSuccessResponse } from '../cache/response-cache.models';
-import { RestRequest } from './request.models';
-
-import { ResponseParsingService } from './parsing.service';
 import { BaseResponseParsingService } from './base-response-parsing.service';
+import { ResponseParsingService } from './parsing.service';
+import { RestRequest } from './request.models';
+import { GLOBAL_CONFIG } from '../../../config';
+import { GlobalConfig } from '../../../config/global-config.interface';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
+import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { DSOSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { ResourceType } from '../shared/resource-type';
 
 @Injectable()
 export class DSOResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {

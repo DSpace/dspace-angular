@@ -1,22 +1,22 @@
-
-import {mergeMap, filter, take} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { filter, mergeMap, take } from 'rxjs/operators';
+
+import { ComColDataService } from './comcol-data.service';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
+import { FindAllOptions, FindAllRequest } from './request.models';
+import { RequestService } from './request.service';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
-import { ComColDataService } from './comcol-data.service';
-import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions, FindAllRequest } from './request.models';
-import { RemoteData } from './remote-data';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { Observable } from 'rxjs';
-import { PaginatedList } from './paginated-list';
 
 @Injectable()
 export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {

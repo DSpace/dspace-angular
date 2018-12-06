@@ -1,6 +1,9 @@
 import {
-  RequestActionTypes, RequestAction, RequestConfigureAction,
-  RequestExecuteAction, RequestCompleteAction
+  RequestAction,
+  RequestActionTypes,
+  RequestCompleteAction,
+  RequestConfigureAction,
+  RequestExecuteAction
 } from './request.actions';
 import { RestRequest } from './request.models';
 

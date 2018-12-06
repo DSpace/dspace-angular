@@ -1,18 +1,17 @@
 import { Inject, Injectable } from '@angular/core';
 
+import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { ConfigSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
-import { isNotEmpty } from '../../shared/empty.util';
-import { ConfigObjectFactory } from '../shared/config/config-object-factory';
-
-import { ConfigObject } from '../shared/config/config.model';
-import { ConfigType } from '../shared/config/config-type';
-import { BaseResponseParsingService } from './base-response-parsing.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
+import { isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { ConfigSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { ConfigObjectFactory } from '../shared/config/config-object-factory';
+import { ConfigType } from '../shared/config/config-type';
+import { ConfigObject } from '../shared/config/config.model';
 
 @Injectable()
 export class ConfigResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {

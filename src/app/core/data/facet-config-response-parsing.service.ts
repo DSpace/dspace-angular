@@ -1,17 +1,15 @@
 import { Inject, Injectable } from '@angular/core';
-import {
-  FacetConfigSuccessResponse,
-  RestResponse
-} from '../cache/response-cache.models';
+
+import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
+import { GLOBAL_CONFIG } from '../../../config';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { FacetConfigSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
-import { BaseResponseParsingService } from './base-response-parsing.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../config';
 
 @Injectable()
 export class FacetConfigResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {

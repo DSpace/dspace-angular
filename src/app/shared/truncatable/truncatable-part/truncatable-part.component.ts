@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { TruncatableService } from '../truncatable.service';
+
 import { hasValue } from '../../empty.util';
+import { TruncatableService } from '../truncatable.service';
 
 @Component({
   selector: 'ds-truncatable-part',

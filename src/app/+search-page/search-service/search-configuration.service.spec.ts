@@ -1,10 +1,11 @@
+import { of as observableOf } from 'rxjs';
+
 import { SearchConfigurationService } from './search-configuration.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { SearchFilter } from '../search-filter.model';
-import { of as observableOf } from 'rxjs';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;

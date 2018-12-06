@@ -1,12 +1,13 @@
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpObserve } from '@angular/common/http/src/client';
 import { Injectable } from '@angular/core';
 import { Request } from '@angular/http';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http'
-import { RestRequestMethod } from '../data/request.models';
+
+import { Observable, throwError as observableThrowError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
-import { HttpObserve } from '@angular/common/http/src/client';
+import { RestRequestMethod } from '../data/request.models';
 
 export interface HttpOptions {
   body?: any;

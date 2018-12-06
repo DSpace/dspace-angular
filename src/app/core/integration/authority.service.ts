@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
+import { IntegrationService } from './integration.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
-import { IntegrationService } from './integration.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()

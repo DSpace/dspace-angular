@@ -1,17 +1,18 @@
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { GlobalConfig } from '../../../config';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { CoreState } from '../core.reducers';
+
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { FindAllOptions, FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
+import { GlobalConfig } from '../../../config';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 const LINK_NAME = 'test';

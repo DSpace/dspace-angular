@@ -1,15 +1,10 @@
-import { of as observableOf, Observable } from 'rxjs';
-
-import { filter, debounceTime, switchMap, take, tap, catchError, map, first } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
-// import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
+import { Observable, of as observableOf } from 'rxjs';
+import { catchError, debounceTime, filter, first, map, switchMap, tap } from 'rxjs/operators';
 
-// import services
-import { AuthService } from './auth.service';
-// import actions
 import {
   AuthActionTypes,
   AuthenticateAction,
@@ -27,13 +22,14 @@ import {
   RegistrationAction,
   RegistrationErrorAction,
   RegistrationSuccessAction
-} from './auth.actions';
-import { EPerson } from '../eperson/models/eperson.model';
+  } from './auth.actions';
+import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { AppState } from '../../app.reducer';
 import { isAuthenticated } from './selectors';
+import { AppState } from '../../app.reducer';
 import { StoreActionTypes } from '../../store.actions';
+import { EPerson } from '../eperson/models/eperson.model';
 
 @Injectable()
 export class AuthEffects {

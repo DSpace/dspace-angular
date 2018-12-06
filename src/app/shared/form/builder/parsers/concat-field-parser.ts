@@ -1,7 +1,8 @@
-import { FieldParser } from './field-parser';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig } from '@ng-dynamic-forms/core';
+
+import { FieldParser } from './field-parser';
+import { ParserOptions } from './parser-options';
+import { isNotEmpty } from '../../../empty.util';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
@@ -9,8 +10,8 @@ import {
   DynamicConcatModel,
   DynamicConcatModelConfig
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { isNotEmpty } from '../../../empty.util';
-import { ParserOptions } from './parser-options';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormFieldModel } from '../models/form-field.model';
 
 export class ConcatFieldParser extends FieldParser {
 

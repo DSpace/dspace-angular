@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 
 import { Collection } from '../../../core/shared/collection.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-collection-list-element',

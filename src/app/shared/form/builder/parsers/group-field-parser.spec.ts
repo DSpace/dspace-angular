@@ -1,8 +1,8 @@
-import { FormFieldModel } from '../models/form-field.model';
 import { GroupFieldParser } from './group-field-parser';
+import { ParserOptions } from './parser-options';
 import { DynamicGroupModel } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { ParserOptions } from './parser-options';
+import { FormFieldModel } from '../models/form-field.model';
 
 describe('GroupFieldParser test suite', () => {
   let field: FormFieldModel;

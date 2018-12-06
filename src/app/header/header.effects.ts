@@ -1,10 +1,11 @@
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects'
-import * as fromRouter from '@ngrx/router-store';
 
-import { HostWindowActionTypes } from '../shared/host-window.actions';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import * as fromRouter from '@ngrx/router-store';
+import { map } from 'rxjs/operators';
+
 import { HeaderCollapseAction } from './header.actions';
+import { HostWindowActionTypes } from '../shared/host-window.actions';
 
 @Injectable()
 export class HeaderEffects {

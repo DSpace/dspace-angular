@@ -1,17 +1,17 @@
-import { ParserType } from './parser-type';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { FieldParser } from './field-parser';
 import { DateFieldParser } from './date-field-parser';
 import { DropdownFieldParser } from './dropdown-field-parser';
+import { FieldParser } from './field-parser';
 import { GroupFieldParser } from './group-field-parser';
 import { ListFieldParser } from './list-field-parser';
 import { LookupFieldParser } from './lookup-field-parser';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
-import { OneboxFieldParser } from './onebox-field-parser';
 import { NameFieldParser } from './name-field-parser';
+import { OneboxFieldParser } from './onebox-field-parser';
+import { ParserType } from './parser-type';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 
 export class ParserFactory {
   public static getConstructor(type: ParserType): GenericConstructor<FieldParser> {

@@ -1,11 +1,8 @@
 import { FieldParser } from './field-parser';
-import { DynamicFormControlLayout, } from '@ng-dynamic-forms/core';
-import {
-  DynamicScrollableDropdownModel,
-  DynamicScrollableDropdownModelConfig
-} from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { isNotEmpty } from '../../../empty.util';
+import { DynamicScrollableDropdownModel, DynamicScrollableDropdownModelConfig } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { DynamicFormControlLayout, } from '@ng-dynamic-forms/core';
 
 export class DropdownFieldParser extends FieldParser {
 

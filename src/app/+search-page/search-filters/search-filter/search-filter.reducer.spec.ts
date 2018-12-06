@@ -1,10 +1,14 @@
 import * as deepFreeze from 'deep-freeze';
+
 import {
-  SearchFilterCollapseAction, SearchFilterExpandAction, SearchFilterIncrementPageAction,
+  SearchFilterCollapseAction,
+  SearchFilterDecrementPageAction,
+  SearchFilterExpandAction,
+  SearchFilterIncrementPageAction,
   SearchFilterInitialCollapseAction,
   SearchFilterInitialExpandAction,
-  SearchFilterToggleAction,
-  SearchFilterDecrementPageAction, SearchFilterResetPageAction
+  SearchFilterResetPageAction,
+  SearchFilterToggleAction
 } from './search-filter.actions';
 import { filterReducer } from './search-filter.reducer';
 

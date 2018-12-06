@@ -1,10 +1,10 @@
 import { Observable, of as observableOf } from 'rxjs';
-
-import { Item } from './item.model';
-import { RemoteData } from '../data/remote-data';
-import { Bitstream } from './bitstream.model';
-import { isEmpty } from '../../shared/empty.util';
 import { first, map } from 'rxjs/operators';
+
+import { Bitstream } from './bitstream.model';
+import { Item } from './item.model';
+import { isEmpty } from '../../shared/empty.util';
+import { RemoteData } from '../data/remote-data';
 
 describe('Item', () => {
 

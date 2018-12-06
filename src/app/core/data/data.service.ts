@@ -1,17 +1,18 @@
-import { distinctUntilChanged, filter, take, first, map } from 'rxjs/operators';
-import { of as observableOf, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { CoreState } from '../core.reducers';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, first, map, take } from 'rxjs/operators';
+
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import { FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { CoreState } from '../core.reducers';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract responseCache: ResponseCacheService;

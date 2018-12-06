@@ -1,38 +1,31 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import { CommonModule, Location } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { UUIDService } from '../shared/uuid.service';
+import { EmptyError } from 'rxjs/internal-compatibility';
 
 import { MetadataService } from './metadata.service';
-
-import { CoreState } from '../core.reducers';
-
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { ENV_CONFIG, GLOBAL_CONFIG } from '../../../config';
-
-import { ItemDataService } from '../data/item-data.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-
+import { GlobalConfig } from '../../../config/global-config.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
-
 import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { CoreState } from '../core.reducers';
+import { ItemDataService } from '../data/item-data.service';
+import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { EmptyError } from 'rxjs/internal-compatibility';
+import { UUIDService } from '../shared/uuid.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({

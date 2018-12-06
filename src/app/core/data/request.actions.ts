@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { type } from '../../shared/ngrx/type';
 import { RestRequest } from './request.models';
+import { type } from '../../shared/ngrx/type';
 
 /**
  * The list of RequestAction type definitions

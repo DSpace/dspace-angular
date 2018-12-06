@@ -1,12 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
-
 import { Observable, of as observableOf, throwError as observableThrow } from 'rxjs';
-
-import { AuthEffects } from './auth.effects';
 import {
   AuthActionTypes,
   AuthenticatedAction,
@@ -19,12 +15,12 @@ import {
   LogOutSuccessAction,
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction
-} from './auth.actions';
-import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
+  } from './auth.actions';
+import { AuthEffects } from './auth.effects';
 import { AuthService } from './auth.service';
-import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
-
+import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
 import { EPersonMock } from '../../shared/testing/eperson-mock';
+import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
 
 describe('AuthEffects', () => {
   let authEffects: AuthEffects;

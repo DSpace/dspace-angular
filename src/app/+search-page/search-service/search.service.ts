@@ -1,50 +1,42 @@
-import { of as observableOf, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationExtras,
-  PRIMARY_OUTLET,
-  Router,
-  UrlSegmentGroup
-} from '@angular/router';
+import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
+
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { flatMap, map, switchMap } from 'rxjs/operators';
+
+import { FacetValue } from './facet-value.model';
+import { SearchFilterConfig } from './search-filter-config.model';
+import { SearchQueryResponse } from './search-query-response.model';
+import { getSearchResultFor } from './search-result-element-decorator';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import {
-  FacetConfigSuccessResponse,
-  FacetValueSuccessResponse,
-  SearchSuccessResponse
-} from '../../core/cache/response-cache.models';
+import { FacetConfigSuccessResponse, FacetValueSuccessResponse, SearchSuccessResponse } from '../../core/cache/response-cache.models';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { ResponseCacheService } from '../../core/cache/response-cache.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { FacetConfigResponseParsingService } from '../../core/data/facet-config-response-parsing.service';
+import { FacetValueResponseParsingService } from '../../core/data/facet-value-response-parsing.service';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ResponseParsingService } from '../../core/data/parsing.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { GetRequest, RestRequest } from '../../core/data/request.models';
 import { RequestService } from '../../core/data/request.service';
+import { SearchResponseParsingService } from '../../core/data/search-response-parsing.service';
+import { Community } from '../../core/shared/community.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { configureRequest, getSucceededRemoteData } from '../../core/shared/operators';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { ResourceType } from '../../core/shared/resource-type';
+import { ViewMode } from '../../core/shared/view-mode.model';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
-import { FacetValue } from './facet-value.model';
-import { SearchFilterConfig } from './search-filter-config.model';
-import { SearchResponseParsingService } from '../../core/data/search-response-parsing.service';
-import { SearchQueryResponse } from './search-query-response.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { getSearchResultFor } from './search-result-element-decorator';
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { FacetValueResponseParsingService } from '../../core/data/facet-value-response-parsing.service';
-import { FacetConfigResponseParsingService } from '../../core/data/facet-config-response-parsing.service';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { Community } from '../../core/shared/community.model';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { ResourceType } from '../../core/shared/resource-type';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 
 /**
  * Service that performs all general actions that have to do with the search page

@@ -1,9 +1,10 @@
-import { RemoteDataBuildService } from './remote-data-build.service';
-import { Item } from '../../shared/item.model';
-import { PaginatedList } from '../../data/paginated-list';
-import { PageInfo } from '../../shared/page-info.model';
-import { RemoteData } from '../../data/remote-data';
 import { of as observableOf } from 'rxjs';
+
+import { RemoteDataBuildService } from './remote-data-build.service';
+import { PaginatedList } from '../../data/paginated-list';
+import { RemoteData } from '../../data/remote-data';
+import { Item } from '../../shared/item.model';
+import { PageInfo } from '../../shared/page-info.model';
 
 const pageInfo = new PageInfo();
 const array = [

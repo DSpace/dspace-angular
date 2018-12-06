@@ -1,12 +1,14 @@
-import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TruncatePipe } from '../../../utils/truncate.pipe';
+
+import { of as observableOf } from 'rxjs';
+
+import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
 import { Collection } from '../../../../core/shared/collection.model';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { TruncatePipe } from '../../../utils/truncate.pipe';
 
 let collectionSearchResultGridElementComponent: CollectionSearchResultGridElementComponent;
 let fixture: ComponentFixture<CollectionSearchResultGridElementComponent>;

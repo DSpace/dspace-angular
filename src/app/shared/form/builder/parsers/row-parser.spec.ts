@@ -1,8 +1,8 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
 import { RowParser } from './row-parser';
-import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
+import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
+import { FormFieldModel } from '../models/form-field.model';
 
 describe('RowParser test suite', () => {
 

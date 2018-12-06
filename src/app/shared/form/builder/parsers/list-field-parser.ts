@@ -1,9 +1,9 @@
 import { FieldParser } from './field-parser';
-import { isNotEmpty } from '../../../empty.util';
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { isNotEmpty } from '../../../empty.util';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 
 export class ListFieldParser extends FieldParser {
   searchOptions: IntegrationSearchOptions;

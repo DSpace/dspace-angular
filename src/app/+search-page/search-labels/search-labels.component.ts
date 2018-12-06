@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { SearchService } from '../search-service/search.service';
-import { Observable } from 'rxjs';
 import { Params } from '@angular/router';
+
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { SearchService } from '../search-service/search.service';
 
 @Component({
   selector: 'ds-search-labels',

@@ -1,10 +1,8 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { SeriesFieldParser } from './series-field-parser';
 import { DateFieldParser } from './date-field-parser';
+import { ParserOptions } from './parser-options';
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { ParserOptions } from './parser-options';
+import { FormFieldModel } from '../models/form-field.model';
 
 describe('DateFieldParser test suite', () => {
   let field: FormFieldModel;

@@ -1,29 +1,26 @@
-import { TestBed } from '@angular/core/testing';
-import { RegistryService } from './registry.service';
 import { CommonModule } from '@angular/common';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { RequestEntry } from '../data/request.reducer';
-import { RemoteData } from '../data/remote-data';
-import { PageInfo } from '../shared/page-info.model';
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
+import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
+import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
+import { RegistryService } from './registry.service';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
-
-import {
-  RegistryBitstreamformatsSuccessResponse,
-  RegistryMetadatafieldsSuccessResponse,
-  RegistryMetadataschemasSuccessResponse
-} from '../cache/response-cache.models';
-import { Component } from '@angular/core';
-import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
-import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
-import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
-import { map } from 'rxjs/operators';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RegistryBitstreamformatsSuccessResponse, RegistryMetadatafieldsSuccessResponse, RegistryMetadataschemasSuccessResponse } from '../cache/response-cache.models';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { RemoteData } from '../data/remote-data';
+import { RequestEntry } from '../data/request.reducer';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PageInfo } from '../shared/page-info.model';
 
 @Component({ template: '' })
 class DummyComponent {

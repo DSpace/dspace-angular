@@ -1,14 +1,15 @@
-import { Observable, of as observableOf } from 'rxjs';
-
-import { filter, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
 import { Component } from '@angular/core';
-import { SearchService } from '../search-service/search.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { SearchFilterConfig } from '../search-service/search-filter-config.model';
-import { SearchConfigurationService } from '../search-service/search-configuration.service';
-import { isNotEmpty } from '../../shared/empty.util';
+
+import { Observable, of as observableOf } from 'rxjs';
+import { filter, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
+
 import { SearchFilterService } from './search-filter/search-filter.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { getSucceededRemoteData } from '../../core/shared/operators';
+import { isNotEmpty } from '../../shared/empty.util';
+import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { SearchFilterConfig } from '../search-service/search-filter-config.model';
+import { SearchService } from '../search-service/search.service';
 
 @Component({
   selector: 'ds-search-filters',

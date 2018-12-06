@@ -1,6 +1,8 @@
-import { CacheableObject } from '../object-cache.reducer';
 import { autoserialize } from 'cerialize';
+
 import { ResourceType } from '../../shared/resource-type';
+import { CacheableObject } from '../object-cache.reducer';
+
 /**
  * An abstract model class for a NormalizedObject.
  */

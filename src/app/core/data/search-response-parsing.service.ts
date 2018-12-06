@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { RestResponse, SearchSuccessResponse } from '../cache/response-cache.models';
+
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
+import { hasValue } from '../../shared/empty.util';
+import { RestResponse, SearchSuccessResponse } from '../cache/response-cache.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { hasValue } from '../../shared/empty.util';
-import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 import { Metadatum } from '../shared/metadatum.model';
+import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
 
 @Injectable()
 export class SearchResponseParsingService implements ResponseParsingService {

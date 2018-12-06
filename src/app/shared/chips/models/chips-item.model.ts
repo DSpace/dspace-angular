@@ -1,4 +1,5 @@
-import { uniqueId, isObject } from 'lodash';
+import { isObject, uniqueId } from 'lodash';
+
 import { isNotEmpty } from '../../empty.util';
 
 export interface ChipsItemIcon {

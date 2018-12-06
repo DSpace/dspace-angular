@@ -1,9 +1,9 @@
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { AppState } from '../app.reducer';
 
 import { GridBreakpoint, HostWindowService, WidthCategory } from './host-window.service';
+import { AppState } from '../app.reducer';
 
 describe('HostWindowService', () => {
   let service: HostWindowService;

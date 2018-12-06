@@ -1,14 +1,12 @@
-import { filter, map, takeWhile } from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  AuthenticateAction,
-  ResetAuthenticationMessagesAction
-} from '../../core/auth/auth.actions';
+import { filter, map, takeWhile } from 'rxjs/operators';
 
+import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../core/auth/auth.actions';
+import { AuthService } from '../../core/auth/auth.service';
 import {
   getAuthenticationError,
   getAuthenticationInfo,
@@ -16,10 +14,8 @@ import {
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
-
-import { isNotEmpty } from '../empty.util';
 import { fadeOut } from '../animations/fade';
-import { AuthService } from '../../core/auth/auth.service';
+import { isNotEmpty } from '../empty.util';
 
 /**
  * /users/sign-in

@@ -1,11 +1,12 @@
-import { Metadatum } from './metadatum.model'
+import { autoserialize } from 'cerialize';
+import { Observable } from 'rxjs';
+
+import { Metadatum } from './metadatum.model';
+import { ResourceType } from './resource-type';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
-import { ResourceType } from './resource-type';
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { Observable } from 'rxjs';
-import { autoserialize } from 'cerialize';
 
 /**
  * An abstract model class for a DSpaceObject.

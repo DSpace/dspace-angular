@@ -1,23 +1,23 @@
-
-import {distinctUntilChanged} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { DynamicLookupModel } from './dynamic-lookup.model';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../../empty.util';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { Subscription } from 'rxjs';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
-import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
+import { Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
+
+import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
+import { DynamicLookupModel } from './dynamic-lookup.model';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { hasValue, isEmpty, isNotEmpty, isNull, isUndefined } from '../../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 
 @Component({
   selector: 'ds-dynamic-lookup',

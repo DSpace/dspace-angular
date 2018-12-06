@@ -1,5 +1,6 @@
 import { findIndex, isEqual, isObject } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
+
 import { ChipsItem, ChipsItemIcon } from './chips-item.model';
 import { hasValue, isNotEmpty } from '../../empty.util';
 

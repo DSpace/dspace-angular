@@ -1,6 +1,6 @@
-import { FormFieldModel } from '../models/form-field.model';
 import { ConcatFieldParser } from './concat-field-parser';
 import { ParserOptions } from './parser-options';
+import { FormFieldModel } from '../models/form-field.model';
 
 export class NameFieldParser extends ConcatFieldParser {
 

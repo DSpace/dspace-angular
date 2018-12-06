@@ -1,10 +1,10 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
-import { responseCacheReducer, ResponseCacheState } from './cache/response-cache.reducer';
-import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
-import { indexReducer, IndexState } from './index/index.reducer';
-import { requestReducer, RequestState } from './data/request.reducer';
 import { authReducer, AuthState } from './auth/auth.reducer';
+import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
+import { responseCacheReducer, ResponseCacheState } from './cache/response-cache.reducer';
+import { requestReducer, RequestState } from './data/request.reducer';
+import { indexReducer, IndexState } from './index/index.reducer';
 
 export interface CoreState {
   'data/object': ObjectCacheState,

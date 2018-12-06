@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { SharedModule } from '../shared/shared.module';
-
-import { CollectionPageComponent } from './collection-page.component';
 import { CollectionPageRoutingModule } from './collection-page-routing.module';
+import { CollectionPageComponent } from './collection-page.component';
+import { SharedModule } from '../shared/shared.module';
 import { SearchPageModule } from '../+search-page/search-page.module';
 
 @NgModule({

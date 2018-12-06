@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
+
 import { Store } from '@ngrx/store';
+
 import { AppState } from '../../app/app.reducer';
 
 @Injectable()

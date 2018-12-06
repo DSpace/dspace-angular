@@ -1,13 +1,13 @@
-import { filter, take, distinctUntilChanged, first } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+
 import { MemoizedSelector, select, Store } from '@ngrx/store';
-
 import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, first } from 'rxjs/operators';
 
+import { ResponseCacheAddAction, ResponseCacheRemoveAction } from './response-cache.actions';
+import { RestResponse } from './response-cache.models';
 import { ResponseCacheEntry } from './response-cache.reducer';
 import { hasNoValue } from '../../shared/empty.util';
-import { ResponseCacheRemoveAction, ResponseCacheAddAction } from './response-cache.actions';
-import { RestResponse } from './response-cache.models';
 import { coreSelector, CoreState } from '../core.reducers';
 import { pathSelector } from '../shared/selectors';
 

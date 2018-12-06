@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { ErrorResponse, RestResponse, EndpointMapSuccessResponse } from '../cache/response-cache.models';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
+import { GLOBAL_CONFIG } from '../../../config';
+import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
+import { EndpointMapSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 @Injectable()
 export class EndpointMapResponseParsingService implements ResponseParsingService {

@@ -1,15 +1,15 @@
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MockTranslateLoader } from '../mocks/mock-translate-loader';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { SearchService } from '../../+search-page/search-service/search.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
-import { SearchServiceStub } from '../testing/search-service-stub';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { MockTranslateLoader } from '../mocks/mock-translate-loader';
+import { SearchServiceStub } from '../testing/search-service-stub';
+import { SearchService } from '../../+search-page/search-service/search.service';
 
 @Component({ template: '' })
 class DummyComponent { }

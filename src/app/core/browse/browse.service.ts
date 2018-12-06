@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import {
-  ensureArrayHasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-  isNotEmptyOperator
-} from '../../shared/empty.util';
+
+import { ensureArrayHasValue, hasValueOperator, isEmpty, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SortOptions } from '../cache/models/sort-options.model';
@@ -16,27 +12,22 @@ import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
-import {
-  BrowseEndpointRequest,
-  BrowseEntriesRequest,
-  BrowseItemsRequest,
-  GetRequest,
-  RestRequest
-} from '../data/request.models';
+import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest, RestRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
 import {
   configureRequest,
-  filterSuccessfulResponses, getBrowseDefinitionLinks,
+  filterSuccessfulResponses,
+  getBrowseDefinitionLinks,
   getRemoteDataPayload,
   getRequestFromSelflink,
   getResponseFromSelflink
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { Item } from '../shared/item.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 
 @Injectable()
 export class BrowseService {

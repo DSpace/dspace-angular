@@ -1,6 +1,7 @@
-import {of as observableOf,  Observable } from 'rxjs';
-import { RequestService } from '../../core/data/request.service';
+import { Observable, of as observableOf } from 'rxjs';
+
 import { RequestEntry } from '../../core/data/request.reducer';
+import { RequestService } from '../../core/data/request.service';
 
 export function getMockRequestService(getByHref$: Observable<RequestEntry> = observableOf(new RequestEntry())): RequestService {
   return jasmine.createSpyObj('requestService', {

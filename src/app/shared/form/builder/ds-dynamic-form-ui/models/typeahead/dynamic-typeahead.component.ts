@@ -1,21 +1,16 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
-
-import {distinctUntilChanged, switchMap, tap, filter, catchError, debounceTime, merge, map} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { Observable, of as observableOf } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, merge, switchMap, tap } from 'rxjs/operators';
+
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-typeahead',

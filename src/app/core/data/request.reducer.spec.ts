@@ -1,10 +1,8 @@
 import * as deepFreeze from 'deep-freeze';
 
+import { RequestCompleteAction, RequestConfigureAction, RequestExecuteAction } from './request.actions';
+import { GetRequest } from './request.models';
 import { requestReducer, RequestState } from './request.reducer';
-import {
-  RequestCompleteAction, RequestConfigureAction, RequestExecuteAction
-} from './request.actions';
-import { GetRequest, RestRequest } from './request.models';
 
 class NullAction extends RequestCompleteAction {
   type = null;

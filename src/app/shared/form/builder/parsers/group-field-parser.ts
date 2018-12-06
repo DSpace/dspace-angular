@@ -1,13 +1,9 @@
 import { FieldParser } from './field-parser';
+import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
+import { isNotEmpty } from '../../../empty.util';
+import { DynamicGroupModel, DynamicGroupModelConfig, PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FormFieldModel } from '../models/form-field.model';
-import {
-  DynamicGroupModel,
-  DynamicGroupModelConfig,
-  PLACEHOLDER_PARENT_METADATA
-} from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
-import { isNotEmpty } from '../../../empty.util';
-import { FormRowModel } from '../../../../core/shared/config/config-submission-forms.model';
 
 export class GroupFieldParser extends FieldParser {
 

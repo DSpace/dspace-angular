@@ -1,7 +1,3 @@
-import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-
-import { catchError, filter, map } from 'rxjs/operators';
-import { Injectable, Injector } from '@angular/core';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -11,16 +7,18 @@ import {
   HttpResponse,
   HttpResponseBase
 } from '@angular/common/http';
+import { Injectable, Injector } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { find } from 'lodash';
-
-import { AppState } from '../../app.reducer';
+import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
+import { catchError, filter, map } from 'rxjs/operators';
+import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AppState } from '../../app.reducer';
 import { isNotEmpty, isUndefined } from '../../shared/empty.util';
-import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
-import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

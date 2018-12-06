@@ -1,4 +1,3 @@
-import { filter, first, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -7,22 +6,21 @@ import {
   Inject,
   OnInit,
   ViewEncapsulation
-} from '@angular/core';
+  } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 import { select, Store } from '@ngrx/store';
-
 import { TranslateService } from '@ngx-translate/core';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { filter, first } from 'rxjs/operators';
 
-import { GLOBAL_CONFIG, GlobalConfig } from '../config';
-
+import { AuthService } from './core/auth/auth.service';
+import { isAuthenticated } from './core/auth/selectors';
 import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowState } from './shared/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
-import { isAuthenticated } from './core/auth/selectors';
-import { AuthService } from './core/auth/auth.service';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 
 @Component({
   selector: 'ds-app',

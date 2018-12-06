@@ -1,6 +1,7 @@
-
-import {take} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+
+import { take } from 'rxjs/operators';
+
 import { DSpaceTransferState } from './dspace-transfer-state.service';
 
 @Injectable()

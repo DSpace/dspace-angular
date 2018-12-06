@@ -1,8 +1,8 @@
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { BrowseEndpointRequest } from './request.models';
-import { GenericSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
-import { BrowseDefinition } from '../shared/browse-definition.model';
+import { ErrorResponse, GenericSuccessResponse } from '../cache/response-cache.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { BrowseDefinition } from '../shared/browse-definition.model';
 
 describe('BrowseResponseParsingService', () => {
   let service: BrowseResponseParsingService;

@@ -1,7 +1,12 @@
-import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
-import { isNotEmpty } from '../../../../empty.util';
+import {
+  DynamicFormControlLayout,
+  DynamicFormGroupModel,
+  DynamicFormGroupModelConfig,
+  serializable
+} from '@ng-dynamic-forms/core';
+
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
-import { AuthorityValueModel } from '../../../../../core/integration/models/authority-value.model';
+import { isNotEmpty } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';

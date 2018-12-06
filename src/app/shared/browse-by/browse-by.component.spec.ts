@@ -1,9 +1,11 @@
-import { BrowseByComponent } from './browse-by.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { BrowseByComponent } from './browse-by.component';
 import { SharedModule } from '../shared.module';
 
 describe('BrowseByComponent', () => {

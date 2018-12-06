@@ -1,4 +1,5 @@
 import { autoserialize } from 'cerialize';
+
 import { Metadatum } from '../core/shared/metadatum.model';
 import { ListableObject } from '../shared/object-collection/shared/listable-object.model';
 

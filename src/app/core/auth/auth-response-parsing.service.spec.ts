@@ -1,12 +1,11 @@
-import { AuthStatusResponse } from '../cache/response-cache.models';
-
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { AuthStatus } from './models/auth-status.model';
 import { AuthResponseParsingService } from './auth-response-parsing.service';
-import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
+import { AuthStatus } from './models/auth-status.model';
+import { GlobalConfig } from '../../../config/global-config.interface';
 import { MockStore } from '../../shared/testing/mock-store';
 import { ObjectCacheState } from '../cache/object-cache.reducer';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { AuthStatusResponse } from '../cache/response-cache.models';
+import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
 
 describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;

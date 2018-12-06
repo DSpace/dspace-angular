@@ -1,13 +1,13 @@
 import { Store } from '@ngrx/store';
+import * as ngrx from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
+import { first } from 'rxjs/operators';
 
-import { ObjectCacheService } from './object-cache.service';
+import { NormalizedItem } from './models/normalized-item.model';
 import { AddToObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
+import { ObjectCacheService } from './object-cache.service';
 import { CoreState } from '../core.reducers';
 import { ResourceType } from '../shared/resource-type';
-import { NormalizedItem } from './models/normalized-item.model';
-import { first } from 'rxjs/operators';
-import * as ngrx from '@ngrx/store';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;

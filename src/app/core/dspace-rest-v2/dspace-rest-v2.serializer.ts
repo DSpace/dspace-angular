@@ -1,10 +1,7 @@
-import { Serialize, Deserialize } from 'cerialize';
+import { Deserialize, Serialize } from 'cerialize';
 
 import { Serializer } from '../serializer';
-import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
-import { DSpaceRESTv2Validator } from './dspace-rest-v2.validator';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
 
 /**
  * This Serializer turns responses from v2 of DSpace's REST API

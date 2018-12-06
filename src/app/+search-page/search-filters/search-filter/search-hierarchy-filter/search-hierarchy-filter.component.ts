@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { FilterType } from '../../../search-service/filter-type.model';
+import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { renderFacetFor } from '../search-filter-type-decorator';
-import {
-  facetLoad,
-  SearchFacetFilterComponent
-} from '../search-facet-filter/search-facet-filter.component';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',

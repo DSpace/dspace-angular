@@ -1,4 +1,5 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
+
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 

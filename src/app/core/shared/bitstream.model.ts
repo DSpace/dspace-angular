@@ -1,8 +1,9 @@
-import { DSpaceObject } from './dspace-object.model';
-import { RemoteData } from '../data/remote-data';
-import { Item } from './item.model';
-import { BitstreamFormat } from './bitstream-format.model';
 import { Observable } from 'rxjs';
+
+import { BitstreamFormat } from './bitstream-format.model';
+import { DSpaceObject } from './dspace-object.model';
+import { Item } from './item.model';
+import { RemoteData } from '../data/remote-data';
 
 export class Bitstream extends DSpaceObject {
 

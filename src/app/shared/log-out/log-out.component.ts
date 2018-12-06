@@ -1,21 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-// @ngrx
 import { select, Store } from '@ngrx/store';
-
-// actions
-import { LogOutAction } from '../../core/auth/auth.actions';
-
-// reducers
-import {
-  getLogOutError,
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '../../core/auth/selectors';
+import { Observable } from 'rxjs';
 
 import { AppState } from '../../app.reducer';
-import { Observable } from 'rxjs';
+import { LogOutAction } from '../../core/auth/auth.actions';
+import { getLogOutError, isAuthenticationLoading } from '../../core/auth/selectors';
 import { fadeOut } from '../animations/fade';
 
 @Component({

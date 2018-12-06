@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core'
-import { CookieAttributes } from 'js-cookie'
+import { Injectable } from '@angular/core';
+
+import { CookieAttributes } from 'js-cookie';
+
 import { CookieService, ICookieService } from './cookie.service';
 
 @Injectable()

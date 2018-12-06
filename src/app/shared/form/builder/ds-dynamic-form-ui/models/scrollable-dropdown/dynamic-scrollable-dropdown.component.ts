@@ -1,21 +1,17 @@
-
-import {tap} from 'rxjs/operators';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { tap } from 'rxjs/operators';
+
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { isNull, isUndefined } from '../../../../../empty.util';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { isNull, isUndefined } from '../../../../../empty.util';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',

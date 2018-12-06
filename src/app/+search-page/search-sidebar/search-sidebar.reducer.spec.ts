@@ -1,10 +1,7 @@
 import * as deepFreeze from 'deep-freeze';
 
+import { SearchSidebarCollapseAction, SearchSidebarExpandAction, SearchSidebarToggleAction } from './search-sidebar.actions';
 import { sidebarReducer } from './search-sidebar.reducer';
-import {
-  SearchSidebarCollapseAction, SearchSidebarExpandAction,
-  SearchSidebarToggleAction
-} from './search-sidebar.actions';
 
 class NullAction extends SearchSidebarCollapseAction {
   type = null;

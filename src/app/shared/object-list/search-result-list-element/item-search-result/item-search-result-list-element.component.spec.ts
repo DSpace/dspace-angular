@@ -1,13 +1,15 @@
-import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { Item } from '../../../../core/shared/item.model';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { of as observableOf } from 'rxjs';
+
+import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
+import { Item } from '../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { TruncatePipe } from '../../../utils/truncate.pipe';
 
 let itemSearchResultListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;

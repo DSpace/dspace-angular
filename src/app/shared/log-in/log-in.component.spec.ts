@@ -1,18 +1,18 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { By } from '@angular/platform-browser';
+
 import { Store, StoreModule } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { LogInComponent } from './log-in.component';
-import { authReducer } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson-mock';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceStub } from '../testing/auth-service-stub';
 import { AppState } from '../../app.reducer';
+import { authReducer } from '../../core/auth/auth.reducer';
+import { AuthService } from '../../core/auth/auth.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { AuthServiceStub } from '../testing/auth-service-stub';
+import { EPersonMock } from '../testing/eperson-mock';
 
 describe('LogInComponent', () => {
 

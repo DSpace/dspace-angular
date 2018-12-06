@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
 import { RestResponse } from './response-cache.models';
+import { type } from '../../shared/ngrx/type';
 
 /**
  * The list of ResponseCacheAction type definitions

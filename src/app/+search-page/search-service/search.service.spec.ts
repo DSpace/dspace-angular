@@ -1,35 +1,31 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router, UrlTree } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { SearchFilterConfig } from './search-filter-config.model';
+import { SearchQueryResponse } from './search-query-response.model';
 import { SearchService } from './search.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { ActivatedRoute, Router, UrlTree } from '@angular/router';
-import { RequestService } from '../../core/data/request.service';
-import { ResponseCacheService } from '../../core/cache/response-cache.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
-import { RouterStub } from '../../shared/testing/router-stub';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { RemoteData } from '../../core/data/remote-data';
+import { FacetConfigSuccessResponse, SearchSuccessResponse } from '../../core/cache/response-cache.models';
 import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
+import { ResponseCacheService } from '../../core/cache/response-cache.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { RequestEntry } from '../../core/data/request.reducer';
+import { RequestService } from '../../core/data/request.service';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { ViewMode } from '../../core/shared/view-mode.model';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
-import {
-  FacetConfigSuccessResponse,
-  SearchSuccessResponse
-} from '../../core/cache/response-cache.models';
-import { SearchQueryResponse } from './search-query-response.model';
-import { SearchFilterConfig } from './search-filter-config.model';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { of as observableOf } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
+import { RouterStub } from '../../shared/testing/router-stub';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
 
 @Component({ template: '' })
 class DummyComponent {

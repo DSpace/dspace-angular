@@ -1,8 +1,8 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { SeriesFieldParser } from './series-field-parser';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
+import { SeriesFieldParser } from './series-field-parser';
+import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormFieldModel } from '../models/form-field.model';
 
 describe('SeriesFieldParser test suite', () => {
   let field: FormFieldModel;

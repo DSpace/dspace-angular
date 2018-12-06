@@ -1,8 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+
 import { provideMockActions } from '@ngrx/effects/testing';
-import { cold, hot } from 'jasmine-marbles';
 import * as fromRouter from '@ngrx/router-store';
+import { cold, hot } from 'jasmine-marbles';
+import { Observable } from 'rxjs';
+
 import { SearchSidebarCollapseAction } from './search-sidebar.actions';
 import { SearchSidebarEffects } from './search-sidebar.effects';
 

@@ -1,11 +1,11 @@
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { CacheableObject } from '../cache/object-cache.reducer';
-import { PageInfo } from '../shared/page-info.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { PageInfo } from '../shared/page-info.model';
 import { ResourceType } from '../shared/resource-type';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 

@@ -1,25 +1,24 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable,  Subscription } from 'rxjs';
+
+import { Observable, Subscription } from 'rxjs';
+import { filter, flatMap, map } from 'rxjs/operators';
+
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
-
 import { MetadataService } from '../core/metadata/metadata.service';
 import { Bitstream } from '../core/shared/bitstream.model';
-
 import { Collection } from '../core/shared/collection.model';
+import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 import { Item } from '../core/shared/item.model';
-
+import { toDSpaceObjectListRD } from '../core/shared/operators';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { filter, flatMap, map } from 'rxjs/operators';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
-import { toDSpaceObjectListRD } from '../core/shared/operators';
-import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 
 @Component({
   selector: 'ds-collection-page',

@@ -1,10 +1,11 @@
-// Look in ./config folder for config
 import { InjectionToken } from '@angular/core';
 
-import { Config } from './config/config.interface';
-import { ServerConfig } from './config/server-config.interface';
-import { GlobalConfig } from './config/global-config.interface';
 import { hasValue } from './app/shared/empty.util';
+import { Config } from './config/config.interface';
+import { GlobalConfig } from './config/global-config.interface';
+import { ServerConfig } from './config/server-config.interface';
+
+// Look in ./config folder for config
 
 const GLOBAL_CONFIG: InjectionToken<GlobalConfig> = new InjectionToken<GlobalConfig>('config');
 

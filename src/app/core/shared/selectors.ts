@@ -1,4 +1,5 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
+
 import { hasNoValue, isEmpty } from '../../shared/empty.util';
 
 export function pathSelector<From, To>(selector: MemoizedSelector<any, From>, ...path: string[]): MemoizedSelector<any, To> {

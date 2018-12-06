@@ -1,10 +1,8 @@
-import { FieldParser } from './field-parser';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+
+import { FieldParser } from './field-parser';
+import { DsDynamicTextAreaModel, DsDynamicTextAreaModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import {
-  DsDynamicTextAreaModel,
-  DsDynamicTextAreaModelConfig
-} from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 
 export class TextareaFieldParser extends FieldParser {
 

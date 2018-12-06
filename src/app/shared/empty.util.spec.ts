@@ -1,4 +1,5 @@
 import { cold, hot } from 'jasmine-marbles';
+
 import {
   ensureArrayHasValue,
   hasNoValue,
@@ -11,7 +12,7 @@ import {
   isNotUndefined,
   isNull,
   isUndefined
-} from './empty.util';
+  } from './empty.util';
 
 describe('Empty Utils', () => {
   const strng = 'string';

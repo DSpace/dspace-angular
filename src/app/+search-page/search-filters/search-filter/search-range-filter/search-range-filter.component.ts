@@ -1,27 +1,21 @@
-import {
-  of as observableOf,
-  combineLatest as observableCombineLatest,
-  Observable,
-  Subscription
-} from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { FilterType } from '../../../search-service/filter-type.model';
-import { renderFacetFor } from '../search-filter-type-decorator';
-import {
-  facetLoad,
-  SearchFacetFilterComponent
-} from '../search-facet-filter/search-facet-filter.component';
-import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
-import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
-import { SearchService } from '../../../search-service/search.service';
 import { Router } from '@angular/router';
+
 import * as moment from 'moment';
-import { RouteService } from '../../../../shared/services/route.service';
+import { combineLatest as observableCombineLatest, of as observableOf, Subscription } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { hasValue } from '../../../../shared/empty.util';
+import { RouteService } from '../../../../shared/services/route.service';
+import { FilterType } from '../../../search-service/filter-type.model';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
+import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
+import { SearchService } from '../../../search-service/search.service';
+import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
+import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 
 /**
  * This component renders a simple item page.

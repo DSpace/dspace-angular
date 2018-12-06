@@ -1,12 +1,13 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
-import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
+
 import { ConfigService } from './config.service';
-import { RequestService } from '../data/request.service';
-import { ConfigRequest, FindAllOptions } from '../data/request.models';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { ConfigRequest, FindAllOptions } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 const LINK_NAME = 'test';
 const BROWSE = 'search/findByCollection';

@@ -1,25 +1,26 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+
+import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
+import { SearchPageComponent } from './search-page.component';
+import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { SearchService } from './search-service/search.service';
+import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../core/data/community-data.service';
+import { RemoteData } from '../core/data/remote-data';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SearchPageComponent } from './search-page.component';
-import { SearchService } from './search-service/search.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
-import { By } from '@angular/platform-browser';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
-import { SearchConfigurationService } from './search-service/search-configuration.service';
-import { RemoteData } from '../core/data/remote-data';
 
 describe('SearchPageComponent', () => {
   let comp: SearchPageComponent;

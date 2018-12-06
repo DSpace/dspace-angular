@@ -1,16 +1,14 @@
-import {mergeMap, filter, map} from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Subscription, Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { filter, map, mergeMap } from 'rxjs/operators';
+
 import { CommunityDataService } from '../core/data/community-data.service';
 import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
-
-import { Community } from '../core/shared/community.model';
-
 import { MetadataService } from '../core/metadata/metadata.service';
-
+import { Bitstream } from '../core/shared/bitstream.model';
+import { Community } from '../core/shared/community.model';
 import { fadeInOut } from '../shared/animations/fade';
 import { hasValue } from '../shared/empty.util';
 

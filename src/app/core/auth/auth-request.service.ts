@@ -1,16 +1,18 @@
+import { Inject, Injectable } from '@angular/core';
+
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
-import { Inject, Injectable } from '@angular/core';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { RequestService } from '../data/request.service';
+
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
-import { AuthGetRequest, AuthPostRequest, PostRequest, RestRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { AuthStatusResponse, ErrorResponse } from '../cache/response-cache.models';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { AuthGetRequest, AuthPostRequest, PostRequest, RestRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 @Injectable()
 export class AuthRequestService {

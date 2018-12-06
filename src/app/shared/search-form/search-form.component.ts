@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
-import { hasValue, isNotEmpty } from '../empty.util';
 import { QueryParamsHandling } from '@angular/router/src/config';
+
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { hasValue, isNotEmpty } from '../empty.util';
 
 /**
  * This component renders a simple item page.

@@ -1,9 +1,9 @@
-import { FormFieldModel } from '../models/form-field.model';
 import { OneboxFieldParser } from './onebox-field-parser';
+import { ParserOptions } from './parser-options';
+import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicTypeaheadModel } from '../ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
-import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { ParserOptions } from './parser-options';
+import { FormFieldModel } from '../models/form-field.model';
 
 describe('OneboxFieldParser test suite', () => {
   let field1: FormFieldModel;

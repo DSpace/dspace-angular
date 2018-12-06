@@ -15,19 +15,15 @@ import {
 } from '@ng-dynamic-forms/core';
 import { isObject, isString, mergeWith } from 'lodash';
 
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
-import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
-  DynamicGroupModel
-} from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { RowParser } from './parsers/row-parser';
-
-import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP, DynamicGroupModel } from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
+import { RowParser } from './parsers/row-parser';
+import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {

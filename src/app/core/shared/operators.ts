@@ -1,16 +1,17 @@
 import { Observable } from 'rxjs';
 import { filter, first, flatMap, map, tap } from 'rxjs/operators';
+
+import { BrowseDefinition } from './browse-definition.model';
+import { DSpaceObject } from './dspace-object.model';
 import { hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { DSOSuccessResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
+import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import { RestRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
-import { BrowseDefinition } from './browse-definition.model';
-import { DSpaceObject } from './dspace-object.model';
-import { PaginatedList } from '../data/paginated-list';
 import { SearchResult } from '../../+search-page/search-result.model';
 
 /**

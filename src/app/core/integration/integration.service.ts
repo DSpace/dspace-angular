@@ -1,14 +1,15 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
-import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { IntegrationSuccessResponse } from '../cache/response-cache.models';
-import { GetRequest, IntegrationRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+
 import { IntegrationData } from './integration-data';
 import { IntegrationSearchOptions } from './models/integration-options.model';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { IntegrationSuccessResponse } from '../cache/response-cache.models';
+import { ResponseCacheEntry } from '../cache/response-cache.reducer';
+import { ResponseCacheService } from '../cache/response-cache.service';
+import { GetRequest, IntegrationRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 export abstract class IntegrationService {
   protected request: IntegrationRequest;
